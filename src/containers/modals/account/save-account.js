@@ -38,11 +38,11 @@ class AddAccount extends React.Component {
             NotificationManager.error('Enter the contact name.', 'Error', 5000);
             return;
         }
-        
+
         if (values.recipient) {
             values.accountRS = values.recipient;
             delete values.recipient;
-        } 
+        }
 
         if (!values.recipient && !values.accountRS) {
             values.accountRS = this.props.modalData;

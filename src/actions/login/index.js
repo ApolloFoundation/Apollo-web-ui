@@ -27,7 +27,7 @@ export function getAccountDataAction(requestParams) {
             type: 'SET_LOGIN_PROBLEM',
             payload: false
         });
-        const loginStatus = (await makeLoginReq(dispatch, requestParams));
+        const loginStatus = (await dispatch(makeLoginReq(requestParams)));
 
         if (loginStatus) {
             if (loginStatus.errorCode && !loginStatus.account) {
@@ -49,7 +49,7 @@ export function getAccountDataBySecretPhrasseAction(requestParams) {
 
         localStorage.setItem('secretPhrase', JSON.stringify(requestParams.secretPhrase));
 
-        const loginStatus = await makeLoginReq(dispatch, {account: dispatch(accountRS)});
+        const loginStatus = await dispatch(makeLoginReq({account: dispatch(accountRS)}));
 
         if (loginStatus) {
             if (loginStatus.errorCode && !loginStatus.account) {
@@ -90,9 +90,7 @@ export function isLoggedIn(history) {
         let account = JSON.parse(readFromLocalStorage('APLUserRS'));
 
         if (account) {
-            makeLoginReq(dispatch, {
-                account: account
-            });
+            dispatch(makeLoginReq({account}));
         } else {
             if (document.location.pathname !== '/login')
                 history.push('/login');
@@ -148,7 +146,7 @@ export const updateAccount = (requestParams) => dispatch => {
         });
 }
 
-export function makeLoginReq(dispatch, requestParams) {
+export const makeLoginReq = (requestParams) => (dispatch) => {
     dispatch(startLoad());
     return axios.get(config.api.serverUrl, {
         params: {
@@ -161,7 +159,6 @@ export function makeLoginReq(dispatch, requestParams) {
     })
         .then((res) => {
             if (res.data.account) {
-                dispatch(endLoad());
                 writeToLocalStorage('APLUserRS', res.data.accountRS);
                 dispatch(updateNotifications())(res.data.accountRS);
                 dispatch(getConstantsAction());
@@ -175,6 +172,7 @@ export function makeLoginReq(dispatch, requestParams) {
                 });
                 dispatch(login(res.data));
                 dispatch(getForging());
+                dispatch(endLoad());
             }
             return res.data;
         })
