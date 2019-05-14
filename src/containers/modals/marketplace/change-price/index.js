@@ -98,7 +98,7 @@ class MarketplaceChangePrice extends React.Component {
                 }}
                 submitButtonName="Change price"
             >
-                <Form goods={this.state.goods}/>
+                <Form goods={this.state.goods} formatTimestamp={formatTimestamp}/>
             </ModalBody>
         );
     }

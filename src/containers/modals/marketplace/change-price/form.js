@@ -1,8 +1,5 @@
 import React from 'react';
 
-import {formatTimestamp} from '../../../../helpers/util/time'
-import {connect} from 'react-redux';
-
 import NummericInput from '../../../components/form-components/numeric-input';
 import TextualInput from '../../../components/form-components/textual-input';
 
@@ -45,8 +42,4 @@ const Form = ({setValue, goods, formatTimestamp}) => (
     </>
 );
 
-const mapDispatchToProps = dispatch => ({
-    formatTimestamp: (time) => dispatch(formatTimestamp(time)),
-});
-
-export default connect(null, mapDispatchToProps)(Form)
+export default Form;
