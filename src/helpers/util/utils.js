@@ -318,7 +318,7 @@ function isDesktopApp() {
 }
 
 function parseStringBySpace(str){
-    const parsedStr = str ? str.replace(/\W/g, ' ').toLowerCase().split(' ') : [];
+    const parsedStr = str ? str.replace(/\W\s+/g, ' ').toLowerCase().split(' ') : [];
     return parsedStr;
 }
 
