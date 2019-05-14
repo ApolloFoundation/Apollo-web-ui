@@ -22,7 +22,6 @@ import {LOAD_ACCOUNT} from "../../modules/account";
 export const getDashboardData = () => (dispatch, getState, subscribe) => {
 
     const {account: {account}} = getState();
-    console.log('getDashboardData account ---->', account)
 
     const rquestParams = {
         _transactions: {
@@ -101,7 +100,7 @@ export const getDashboardData = () => (dispatch, getState, subscribe) => {
         .then(async (resolved) => {
             const [block, transactions, currencies, accountAssets, aliaseesCount, messages, dgsGoods, news, taggetData, activeShuffling, finishedShuffling, activePolls, accountInfo] = resolved;
             const [numberOfGoods, numberOfPurchases, totalPurchases] = dgsGoods;
-            console.log('getDashboardData accountInfo ---->', accountInfo.account)
+
             if (transactions)
                 dispatch({
                     type: 'SET_DASHBOARD_TRANSACTIONS',

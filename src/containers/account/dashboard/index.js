@@ -31,42 +31,19 @@ import DashboardNews from './news';
 
 
 class Dashboard extends React.Component {
-
 	state = {
 		actualBlock: null,
 		account: null
-	}
-
-	listener = data => {
-		this.initDashboard({ account: this.props.account });
-		// this.props.reloadAccount(this.props.accountRS);
 	};
 
 	componentDidMount() {
-		// this.props.getDashboardData();
-		// BlockUpdater.on("data", this.listener);
 		if (this.props.isShareMessage) {
 			setTimeout(() => this.props.setBodyModalParamsAction("INFO_TRANSACTION", this.props.shareMessageTransaction), 500);
 		}
 	}
 
-	componentWillUnmount() {
-		// BlockUpdater.removeListener("data", this.listener);
-		clearInterval(this.dashBoardinterval);
-	}
-
-	componentWillMount(newState) {
-		// this.getBlock();
-		if (this.props.account) {
-			this.initDashboard({ account: this.props.account })
-		}
-	}
-
 	static getDerivedStateFromProps(props, state) {
-		console.log(state.account, props.account)
-		// props.actualBlock !== state.actualBlock ||
-		if ( props.account !== state.account) {
-			debugger
+		if (props.actualBlock !== state.actualBlock || props.account !== state.account) {
 			props.getDashboardData();
 			return {
 				actualBlock: props.actualBlock,
@@ -75,7 +52,7 @@ class Dashboard extends React.Component {
 		}
 	}
 
-	initDashboard = (reqParams) => {
+	initDashboard = () => {
 		this.props.getDashboardData();
 	};
 
