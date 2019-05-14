@@ -302,11 +302,16 @@
 				padding: 12px;
 				color: #98B0CD;
 				font-size: 12px;
+				@media (max-width: 1024px) and (min-width: 577px) {
+					flex-direction: column;
+					padding-bottom: 7px;
+				}
 				span {
 					color: #3D5A7E;
 				}
 				i {
 					color: #8AA5C7;
+					margin-top: 0;
 				}
 			}
 			.btn-box {
