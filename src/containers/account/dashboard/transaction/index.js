@@ -5,11 +5,12 @@
 
 
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import classNamse from 'classnames';
-import {formatTimestamp} from "../../../../helpers/util/time";
-import {formatTransactionType} from "../../../../actions/transactions";
-import {setBodyModalParamsAction} from "../../../../modules/modals";
+import { formatTimestamp } from "../../../../helpers/util/time";
+import { INIT_TRANSACTION_TYPES } from "../../../../helpers/transaction-types/transaction-types-new";
+import { formatTransactionType } from "../../../../actions/transactions";
+import { setBodyModalParamsAction } from "../../../../modules/modals";
 
 const mapStateToProps = state => ({
     constants: state.account.constants,
@@ -27,31 +28,14 @@ const Transaction = (props) => {
     const isDexOrder = !!props.constants.transactionTypes && props.constants.transactionTypes[props.type].subtypes[props.subtype].name === "DexOrder";
     const isAliasSell = !!props.constants.transactionTypes && props.constants.transactionTypes[props.type].subtypes[props.subtype].name === "AliasSell";
 
-    const typeIcon = (type) => {
-        switch (type) {
-            case 1:
-                return <i className="zmdi zmdi-comments left"/>;
-            case 2:
-                return <i className="zmdi zmdi-case left"/>;
-            case 3:
-                return <i className="zmdi zmdi-label left"/>;
-            case 5:
-                return <i className="zmdi zmdi-money left"/>;
-            case 6:
-                return <i className="zmdi zmdi-dns left"/>;
-            case 7:
-                return <i className="zmdi zmdi-circle-o left"/>;
-            case 9:
-                return <i className="zmdi zmdi-trending-up left"/>;
-            default:
-                return;
-        }
+    const typeIcon = (type, subtype) => {
+        return INIT_TRANSACTION_TYPES[type].subTypes[subtype].iconHTML;
     };
 
     return (
         <a
             className="transaction-item"
-            style={{position: 'relative'}}
+            style={{ position: 'relative' }}
             onClick={async () => props.setBodyModalParamsAction('INFO_TRANSACTION', props.transaction)}
         >
             <div className="transaction-box">
@@ -63,7 +47,7 @@ const Transaction = (props) => {
                         {props.account === props.sender && props.amountATM != 0 && '-'}
                         {
                             isDexOrder ?
-                                `${props.attachment.offerCurrency === 0 ? "-" : ""}${props.attachment.offerAmount/ 100000000}`
+                                `${props.attachment.offerCurrency === 0 ? "-" : ""}${props.attachment.offerAmount / 100000000}`
                                 :
                                 ((props.amountATM === "0" && props.attachment.priceATM && props.attachment.priceATM !== "0") ?
                                         props.attachment.priceATM
@@ -74,13 +58,13 @@ const Transaction = (props) => {
                 </div>
                 <div className="transaction-rs">
                     {isDexOrder ?
-                        props.attachment.offerCurrency === 0 ? props.senderRS : <i className="zmdi zmdi-trending-up left"/>
+                        props.attachment.offerCurrency === 0 ? props.senderRS : <i className="zmdi zmdi-trending-up left" />
                         :
                         props.senderRS
                     }
                 </div>
                 <div className={classNamse({
-                    'arrow':  true,
+                    'arrow': true,
                     'success': (props.account !== props.sender) || (isDexOrder && props.attachment.offerCurrency !== 0),
                     'danger': (props.account === props.sender) || (isDexOrder && props.attachment.offerCurrency === 0)
                 })}>
@@ -88,12 +72,13 @@ const Transaction = (props) => {
                 </div>
                 <div className="transaction-rs">
                     {isDexOrder ?
-                        props.attachment.offerCurrency !== 0 ? props.senderRS : <i className="zmdi zmdi-trending-up left"/>
+                        props.attachment.offerCurrency !== 0 ? props.senderRS : <i className="zmdi zmdi-trending-up left" />
                         :
                         props.recipientRS ?
-                            <div className="transaction-rs">{props.recipientRS}</div>
-                            :
-                            !(!!props.recipientRS) && typeIcon(props.type)
+                            <div className="transaction-rs">
+                                {props.recipientRS}
+                            </div> :
+                            typeIcon(props.type, props.subtype)
                     }
                 </div>
                 {
@@ -109,9 +94,9 @@ const Transaction = (props) => {
                     {
                         props.actualBlock < props.height ?
                             <div className={'ball-pulse'}>
-                                <div/>
-                                <div/>
-                                <div/>
+                                <div />
+                                <div />
+                                <div />
                             </div>
                             :
                             props.confirmations
