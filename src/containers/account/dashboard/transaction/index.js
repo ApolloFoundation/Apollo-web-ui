@@ -29,7 +29,7 @@ const Transaction = (props) => {
     const isAliasSell = !!props.constants.transactionTypes && props.constants.transactionTypes[props.type].subtypes[props.subtype].name === "AliasSell";
 
     const typeIcon = (type, subtype) => {
-        return INIT_TRANSACTION_TYPES[type].subTypes[subtype].iconHTML;
+        return INIT_TRANSACTION_TYPES[type] ? INIT_TRANSACTION_TYPES[type].subTypes[subtype].iconHTML : '';
     };
 
     return (
@@ -77,7 +77,8 @@ const Transaction = (props) => {
                         props.recipientRS ?
                             <div className="transaction-rs">
                                 {props.recipientRS}
-                            </div> :
+                            </div>
+                            :
                             typeIcon(props.type, props.subtype)
                     }
                 </div>
