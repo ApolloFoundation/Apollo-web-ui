@@ -153,7 +153,7 @@ class InfoTransactionTable extends Component {
 								<td>
 									{
 										!!transactionType &&
-										(transactionType.subtypes[this.props.transaction.subtype].name === "AliasSell" && this.props.transaction.amountATM === "0") ?
+										(transactionType.subtypes[this.props.transaction.subtype].name === "AliasSell" && this.props.transaction.amountATM === "0" && this.props.transaction.attachment.priceATM === "0") ?
 											formatTransactionType("AliasTransfer")
 											:
 											formatTransactionType(transactionType.subtypes[this.props.transaction.subtype].name)
