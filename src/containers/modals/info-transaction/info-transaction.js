@@ -223,7 +223,14 @@ class InfoLedgerTransaction extends React.Component {
                                                     this.state.transaction.amountATM &&
                                                     <tr>
                                                         <td>Amount ATM:</td>
-                                                        <td>{this.state.transaction.amountATM / 100000000}</td>
+                                                        <td>
+                                                            {
+                                                                (this.state.transaction.amountATM === "0" && this.state.transaction.attachment.priceATM) ?
+                                                                    this.state.transaction.attachment.priceATM  / 100000000
+                                                                    :
+                                                                    this.state.transaction.amountATM / 100000000
+                                                            }
+                                                        </td>
                                                     </tr>
                                                 }
                                                 <tr>
