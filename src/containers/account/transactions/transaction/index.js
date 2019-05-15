@@ -108,7 +108,7 @@ class Transaction extends React.Component {
                         </td>
                         <td className="align-right">
                             {
-                                (amountATM === "0" && attachment.priceATM !== "0") ?
+                                (amountATM === "0" && attachment.priceATM && attachment.priceATM !== "0") ?
                                     attachment.priceATM / 100000000
                                     :
                                     amountATM / 100000000
