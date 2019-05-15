@@ -29,7 +29,7 @@ const Transaction = (props) => {
     const isAliasSell = !!props.constants.transactionTypes && props.constants.transactionTypes[props.type].subtypes[props.subtype].name === "AliasSell";
 
     const typeIcon = (type, subtype) => {
-        return INIT_TRANSACTION_TYPES[type].subTypes[subtype].iconHTML
+        return INIT_TRANSACTION_TYPES[type].subTypes[subtype].iconHTML;
     };
 
     return (
@@ -68,14 +68,14 @@ const Transaction = (props) => {
                     <i className={'zmdi zmdi-forward'} />
                 </div>
                 <div className="transaction-rs">
-                    {typeIcon(props.type, props.subtype)}
                     {isDexOrder ?
                         props.attachment.offerCurrency !== 0 ? props.senderRS : <i className="zmdi zmdi-trending-up left" />
                         :
-                        props.recipientRS &&
-                        <div className="transaction-rs">
-                            {props.recipientRS}
-                        </div>
+                        props.recipientRS ?
+                            <div className="transaction-rs">
+                                {props.recipientRS}
+                            </div> :
+                            typeIcon(props.type, props.subtype)
                     }
                 </div>
                 {
