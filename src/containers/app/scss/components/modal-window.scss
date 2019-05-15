@@ -130,10 +130,35 @@
       .form-group-app {
         padding: 12px !important;
         position: relative;
+        border: 2px solid #25F459;
+        box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.26);
         @media (max-width: 760px) {
           border-radius: 0;
           height: auto;
         }
+      }
+    }
+    .exit {
+      box-sizing: border-box;
+      height: 30px;
+      width: 30px;
+      background-color: #ffffff;
+      border: 2px solid #25F459;
+      box-shadow: 0 10px 20px 0 rgba(0,0,0,0.26);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      right: -15px;
+      top: -15px;
+      i {
+        color: #25F459;
+        font-size: 22px;
+      }
+      @media(max-width: 425px) {
+        right: -10px;
+        top: -10px;
       }
     }
   }
