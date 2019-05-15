@@ -13,7 +13,7 @@ import TradeHistoryExchange from './trade-history';
 import OpenOrders from './open-orders';
 import {setCurrentCurrencyAction} from "../../../../modules/exchange";
 import {setBodyModalParamsAction} from "../../../../modules/modals";
-import {getCurrencyBalance, getBuyOpenOffers, getSellOpenOffers, getMyOpenOffers} from "../../../../actions/wallet";
+import {getCurrencyBalance, getBuyOpenOffers, getSellOpenOffers, getPlotBuyOpenOffers, getPlotSellOpenOffers, getMyOpenOffers} from "../../../../actions/wallet";
 
 class Exchange extends React.Component {
     state = {
@@ -29,6 +29,8 @@ class Exchange extends React.Component {
         }
         this.props.getBuyOpenOffers();
         this.props.getSellOpenOffers();
+        this.props.getPlotBuyOpenOffers();
+        this.props.getPlotSellOpenOffers();
         this.props.getMyOpenOffers();
     }
 
@@ -55,15 +57,19 @@ class Exchange extends React.Component {
     switchCurrency = (currency) => {
         this.props.getBuyOpenOffers(currency);
         this.props.getSellOpenOffers(currency);
+        this.props.getPlotBuyOpenOffers(currency);
+        this.props.getPlotSellOpenOffers(currency);
         this.props.getMyOpenOffers(currency);
         this.props.setCurrentCurrency(currency);
     };
 
     render () {
-        const {currencies, currentCurrency, buyOrders, sellOrders, myOrders} = this.props;
+        const {currencies, currentCurrency, buyOrders, sellOrders, plotBuyOrders, plotSellOrders, myOrders} = this.props;
         const wallet = this.state.wallets && this.state.wallets.filter(wallet => wallet.currency === currentCurrency.currency)[0];
         const buyOrdersCurrency = buyOrders[currentCurrency.currency];
         const sellOrdersCurrency = sellOrders[currentCurrency.currency];
+        const plotBuyOrdersCurrency = plotBuyOrders[currentCurrency.currency];
+        const plotSellOrdersCurrency = plotSellOrders[currentCurrency.currency];
         return (
             <div className="page-content">
                 <SiteHeader
@@ -92,8 +98,8 @@ class Exchange extends React.Component {
                         <div className={'col-md-8 pr-0 pb-3'}>
                             <Plot
                                 currentCurrency={currentCurrency}
-                                buyOrders={buyOrdersCurrency}
-                                sellOrders={sellOrdersCurrency}
+                                buyOrders={plotBuyOrdersCurrency}
+                                sellOrders={plotSellOrdersCurrency}
                             />
                         </div>
                         <div className={'col-md-4 pr-0 pb-3'}>
@@ -145,6 +151,8 @@ const mapStateToProps = ({exchange, account}) => ({
     currentCurrency: exchange.currentCurrency,
     buyOrders: exchange.buyOrders,
     sellOrders: exchange.sellOrders,
+    plotBuyOrders: exchange.plotBuyOrders,
+    plotSellOrders: exchange.plotSellOrders,
     myOrders: exchange.myOrders,
 });
 
@@ -154,6 +162,8 @@ const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, value) => dispatch(setBodyModalParamsAction(type, value)),
     getBuyOpenOffers: (currency) => dispatch(getBuyOpenOffers(currency)),
     getSellOpenOffers: (currency) => dispatch(getSellOpenOffers(currency)),
+    getPlotBuyOpenOffers: (currency) => dispatch(getPlotBuyOpenOffers(currency)),
+    getPlotSellOpenOffers: (currency) => dispatch(getPlotSellOpenOffers(currency)),
     getMyOpenOffers: (currency) => dispatch(getMyOpenOffers(currency)),
 });
 

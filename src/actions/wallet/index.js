@@ -11,6 +11,8 @@ import {setWallets} from "../../modules/account";
 import {
     setBuyOrdersAction,
     setSellOrdersAction,
+    setPlotBuyOrdersAction,
+    setPlotSellOrdersAction,
     setMyOrdersAction,
     setMyOrderHistoryAction
 } from "../../modules/exchange";
@@ -64,6 +66,8 @@ export function walletWidthraw(requestParams) {
 export const updateOfferInfo = (params) => async (dispatch) => {
     dispatch(getBuyOpenOffers());
     dispatch(getSellOpenOffers());
+    dispatch(getPlotBuyOpenOffers());
+    dispatch(getPlotSellOpenOffers());
     dispatch(getMyOpenOffers());
     const accountInfo = await dispatch(getAccountInfoAction({account: params.sender}));
     dispatch({
@@ -164,6 +168,32 @@ export const getSellOpenOffers = (currency, options) => async (dispatch, getStat
     };
     const sellOrders = await dispatch(getOpenOrders(params));
     dispatch(setSellOrdersAction(currency, sellOrders));
+};
+
+export const getPlotBuyOpenOffers = (currency, options) => async (dispatch, getState) => {
+    if (!currency) currency = getState().exchange.currentCurrency.currency;
+    const params = {
+        orderType: 0,
+        offerCurrency: currencyTypes[currency],
+        pairCurrency: 0,
+        isAvailableForNow: true,
+        status: 0,
+    };
+    const buyOrders = await dispatch(getOpenOrders(params));
+    dispatch(setPlotBuyOrdersAction(currency, buyOrders));
+};
+
+export const getPlotSellOpenOffers = (currency, options) => async (dispatch, getState) => {
+    if (!currency) currency = getState().exchange.currentCurrency.currency;
+    const params = {
+        orderType: 1,
+        offerCurrency: 0,
+        pairCurrency: currencyTypes[currency],
+        isAvailableForNow: true,
+        status: 0,
+    };
+    const sellOrders = await dispatch(getOpenOrders(params));
+    dispatch(setPlotSellOrdersAction(currency, sellOrders));
 };
 
 export const getMyOpenOffers = (currency) => async (dispatch, getState) => {
