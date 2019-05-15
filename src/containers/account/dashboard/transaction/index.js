@@ -23,87 +23,101 @@ const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 });
 
-const Transaction = (props) => (
-    <a
-        className="transaction-item" 
-        style={{position: 'relative'}}
-        onClick={async () => props.setBodyModalParamsAction('INFO_TRANSACTION', props.transaction)}
-    >
-        <div className="transaction-box">
-            <div className="transaction-date">
-                <div className="date">
-                    {props.formatTimestamp(props.timestamp)}
+const Transaction = (props) => {
+    const isDexOrder = !!props.constants.transactionTypes && props.constants.transactionTypes[props.type].subtypes[props.subtype].name === "DexOrder";
+    const isAliasSell = !!props.constants.transactionTypes && props.constants.transactionTypes[props.type].subtypes[props.subtype].name === "AliasSell";
+
+    const typeIcon = (type) => {
+        switch (type) {
+            case 1:
+                return <i className="zmdi zmdi-comments left"/>;
+            case 2:
+                return <i className="zmdi zmdi-case left"/>;
+            case 3:
+                return <i className="zmdi zmdi-label left"/>;
+            case 5:
+                return <i className="zmdi zmdi-money left"/>;
+            case 6:
+                return <i className="zmdi zmdi-dns left"/>;
+            case 7:
+                return <i className="zmdi zmdi-circle-o left"/>;
+            case 9:
+                return <i className="zmdi zmdi-trending-up left"/>;
+            default:
+                return;
+        }
+    };
+
+    return (
+        <a
+            className="transaction-item"
+            style={{position: 'relative'}}
+            onClick={async () => props.setBodyModalParamsAction('INFO_TRANSACTION', props.transaction)}
+        >
+            <div className="transaction-box">
+                <div className="transaction-date">
+                    <div className="date">
+                        {props.formatTimestamp(props.timestamp)}
                     </div>
-                <div className="transaction-amount">
-                    {props.account === props.sender && props.amountATM != 0 && '-'}
-                    {props.amountATM / 100000000}
+                    <div className="transaction-amount">
+                        {props.account === props.sender && props.amountATM != 0 && '-'}
+                        {
+                            isDexOrder ?
+                                `${props.attachment.offerCurrency === 0 ? "-" : ""}${props.attachment.offerAmount/ 100000000}`
+                                :
+                                props.amountATM / 100000000
+                        }
+                    </div>
                 </div>
-            </div>
-            <div className="transaction-rs">
-                {props.senderRS}
-            </div>
-            <div className={classNamse({
-                'arrow':  true,
-                'success': props.account !== props.sender,
-                'danger': props.account === props.sender
-            })}>
-                <i className={'zmdi zmdi-forward'} />
-            </div>
-            <div className="transaction-rs">
+                <div className="transaction-rs">
+                    {isDexOrder ?
+                        props.attachment.offerCurrency === 0 ? props.senderRS : <i className="zmdi zmdi-trending-up left"/>
+                        :
+                        props.senderRS
+                    }
+                </div>
+                <div className={classNamse({
+                    'arrow':  true,
+                    'success': (props.account !== props.sender) || (isDexOrder && props.attachment.offerCurrency !== 0),
+                    'danger': (props.account === props.sender) || (isDexOrder && props.attachment.offerCurrency === 0)
+                })}>
+                    <i className={'zmdi zmdi-forward'} />
+                </div>
+                <div className="transaction-rs">
+                    {isDexOrder ?
+                        props.attachment.offerCurrency !== 0 ? props.senderRS : <i className="zmdi zmdi-trending-up left"/>
+                        :
+                        props.recipientRS ?
+                            <div className="transaction-rs">{props.recipientRS}</div>
+                            :
+                            !(!!props.recipientRS) && typeIcon(props.type)
+                    }
+                </div>
                 {
-                    props.recipientRS &&
-                    <div className="transaction-rs">{props.recipientRS}</div>
+                    isAliasSell && props.amountATM === "0" && props.attachment.priceATM === "0" ?
+                        <div className="transaction-rs">{formatTransactionType("AliasTransfer")}</div>
+                        :
+                        <div className="transaction-rs">{formatTransactionType(props.constants.transactionTypes[props.type].subtypes[props.subtype].name)}</div>
                 }
-                {
-                    !(!!props.recipientRS) && props.type === 1 &&
-                    <i className="zmdi zmdi-comments left"/>
-                }
-                {
-                    !(!!props.recipientRS) && props.type === 2 &&
-                    <i className="zmdi zmdi-case left"/>
-                }
-                {
-                    !(!!props.recipientRS) && props.type === 3 &&
-                    <i className="zmdi zmdi-label left"/>
-                }
-                {
-                    !(!!props.recipientRS) && props.type === 5 &&
-                    <i className="zmdi zmdi-money left"/>
-                }
-                {
-                    !(!!props.recipientRS) && props.type === 6 &&
-                    <i className="zmdi zmdi-dns left"/>
-                }
-                {
-                    !(!!props.recipientRS) && props.type === 7 &&
-                    <i className="zmdi zmdi-circle-o left"/>
-                }
-            </div>
-            {
-                !!props.constants.transactionTypes &&
-                (props.constants.transactionTypes[props.type].subtypes[props.subtype].name === "AliasSell" && props.amountATM === "0") ?
-                    <div className="transaction-rs">{formatTransactionType("AliasTransfer")}</div>
-                    :
-                    <div className="transaction-rs">{formatTransactionType(props.constants.transactionTypes[props.type].subtypes[props.subtype].name)}</div>
-            }
-            <div className={'loader-container'}>
+                <div className={'loader-container'}>
                     <span>
                         Confirmation
                     </span>
-                {
-                    props.actualBlock < props.height ?
-                        <div className={'ball-pulse'}>
-                            <div></div>
-                            <div></div>
-                            <div></div>
-                        </div>
-                        :
-                        props.confirmations
-                }
+                    {
+                        props.actualBlock < props.height ?
+                            <div className={'ball-pulse'}>
+                                <div/>
+                                <div/>
+                                <div/>
+                            </div>
+                            :
+                            props.confirmations
+                    }
 
+                </div>
             </div>
-        </div>
-    </a>
-);
+        </a>
+    );
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Transaction)
