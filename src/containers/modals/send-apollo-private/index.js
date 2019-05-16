@@ -27,6 +27,7 @@ import {calculateFeeAction} from "../../../actions/forms";
 import submitForm from "../../../helpers/forms/forms";
 import BackForm from '../modal-form/modal-form-container';
 import {CheckboxFormInput} from "../../components/form-components/check-button-input";
+import AccountRSFormInput from "../../components/form-components/account-rs";
 
 class SendApolloPrivate extends React.Component {
     state = {
@@ -177,24 +178,13 @@ class SendApolloPrivate extends React.Component {
                                         </a>
                                     </InfoBox>
                                 }
-                                <div className="input-group-app form-group mb-15 display-block inline user">
-                                    <div className="row form-group-white">
-                                        <label htmlFor="recipient" className="col-sm-3 col-form-label">
-                                            Recipient <i className="zmdi zmdi-portable-wifi-changes"/>
-                                        </label>
-                                        <div className="col-sm-9">
-                                            <div
-                                                className={`iconned-input-field ${this.state.useMixer ? 'flex-align-left' : ''}`}>
-                                                <AccountRS
-                                                    field={'recipient'}
-                                                    defaultValue={values.recipient || ''}
-                                                    setValue={setValue}
-                                                    value={getValue('recipient') || ''}
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <AccountRSFormInput
+                                    field={'recipient'}
+                                    defaultValue={values.recipient || ''}
+                                    label={'Recipient'}
+                                    placeholder={'Recipient'}
+                                    setValue={setValue}
+                                />
                                 {
                                     this.state.useMixer &&
                                     <React.Fragment>
@@ -217,23 +207,15 @@ class SendApolloPrivate extends React.Component {
                                         time, money will be transmitted to recipient account.
                                     </InfoBox>
                                 }
-
-                                <div className="form-group row form-group-white mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Amount
-                                    </label>
-                                    <div className="col-sm-9 input-group input-group-text-transparent input-group-sm">
-                                        <InputForm
-                                            defaultValue={(this.props.modalData && this.props.modalData.amountATM) ? this.props.modalData.amountATM : ''}
-                                            field="amountATM"
-                                            placeholder="Amount"
-                                            type={"float"}
-                                            setValue={setValue}/>
-                                        <div className="input-group-append">
-                                            <span className="input-group-text">Apollo</span>
-                                        </div>
-                                    </div>
-                                </div>
+                                <NummericInputForm
+                                    defaultValue={(this.props.modalData && this.props.modalData.amountATM) ? this.props.modalData.amountATM : ''}
+                                    field={'amountATM'}
+                                    counterLabel={'Apollo'}
+                                    type={'float'}
+                                    label={'Amount'}
+                                    setValue={setValue}
+                                    placeholder={'Amount'}
+                                />
                                 {this.state.mixerData && (
                                     <CheckboxFormInput
                                         setValue={setValue}
@@ -247,26 +229,17 @@ class SendApolloPrivate extends React.Component {
                                         ]}
                                     />
                                 )}
-                                {
-                                    this.state.useMixer &&
-                                    <div className="form-group row form-group-white mb-15">
-                                        <label className="col-sm-3 col-form-label">
-                                            Mixing time
-                                        </label>
-                                        <div
-                                            className="col-sm-9 input-group input-group-text-transparent input-group-sm">
-                                            <InputForm
-                                                defaultValue={(this.props.modalData && this.props.modalData.amountATM) ? this.props.modalData.amountATM : ''}
-                                                field="duration"
-                                                placeholder="Duration"
-                                                type={"float"}
-                                                setValue={setValue}/>
-                                            <div className="input-group-append">
-                                                <span className="input-group-text">Minutes</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
+                                {this.state.useMixer && (
+                                    <NummericInputForm
+                                        defaultValue={(this.props.modalData && this.props.modalData.amountATM) ? this.props.modalData.amountATM : ''}
+                                        field={'duration'}
+                                        counterLabel={'Minutes'}
+                                        type={'float'}
+                                        label={'Mixing time'}
+                                        setValue={setValue}
+                                        placeholder={'Duration'}
+                                    />
+                                )}
                                 <NummericInputForm
                                     field={'feeATM'}
                                     counterLabel={'Apollo'}
