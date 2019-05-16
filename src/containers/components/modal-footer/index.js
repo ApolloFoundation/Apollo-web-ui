@@ -17,13 +17,13 @@ class ModalFooter extends React.Component {
         return (
             <>
                 <div 
-                    className="form-group row form-group-white mb-15"
+                    className="form-group mb-15"
                     style={{marginBottom: 15}}
                 >
-                    <label className="col-sm-3 col-form-label">
+                    <label>
                         Secret phrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
                     </label>
-                    <div className="col-sm-9">
+                    <div>
                         <InputForm
                             isPlain
                             className={'form-control'}
@@ -38,11 +38,11 @@ class ModalFooter extends React.Component {
                 {
                     this.props.is2fa &&
                     !this.props.off2FA &&
-                    <div className="form-group row form-group-white mb-15">
-                        <label className="col-sm-3 col-form-label">
+                    <div className="form-group mb-15">
+                        <label>
                             2FA code
                         </label>
-                        <div className="col-sm-9">
+                        <div>
                             <InputForm
                                 className={'form-control'}
                                 type="password"

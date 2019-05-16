@@ -101,12 +101,10 @@ class AccountRS extends React.Component {
                            id={this.props.id}
                 />
                 {!this.props.noContactList && (
-                    <a
-                        onClick={() => this.handleContacts()}
-                        className="input-icon"
-                    >
-                        <i className="zmdi zmdi-account-box"/>
-                    </a>
+                    <div className="input-group-append cursor-pointer"
+                         onClick={() => this.handleContacts()}>
+                        <span className="input-group-text"><i className="zmdi zmdi-account-box"/></span>
+                    </div>
                 )}
                 {this.state.contacts && (
                     <div

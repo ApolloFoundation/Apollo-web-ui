@@ -15,14 +15,11 @@ class BlockHeightInput extends Component {
         const {setValue, label, actualBlock, field, placeholder, deafultPlus, className, idGroup, isSubtitle} = this.props;
         
         return  (
-            <div className={`form-group row form-group-white mb-15 ${className}`}>
-                <label className="col-sm-3 col-form-label">
+            <div className={`form-group mb-15 ${className}`}>
+                <label>
                     {label}
                 </label>
-                <div className={classNames({
-                    "col-sm-9 input-group": true,
-                    "input-group-text-transparent input-group-sm": isSubtitle
-                })}>
+                <div className="input-group">
                     <InputForm
                         type={"tel"}
                         field={field}
@@ -36,7 +33,7 @@ class BlockHeightInput extends Component {
                     </div>
                 </div>
                 {isSubtitle && (
-                    <div className="offset-sm-3 col-sm-9 form-sub-title">
+                    <div className="text-note">
                         Current height: <b>{actualBlock}</b>
                     </div>
                 )}

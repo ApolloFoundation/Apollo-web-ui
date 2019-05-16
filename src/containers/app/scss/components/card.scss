@@ -450,48 +450,6 @@
 			}
 		}
 	}
-	.form-group-app {
-		padding: 0;
-		margin-bottom: 15px;
-		label {
-			color: #98B0CD;
-			font-size: 11px;
-			margin-bottom: 5px;
-			display: inline-block;
-		}
-		input {
-			border-radius: 2px 0 0 2px;
-			background-color: #FCFCFD;
-			border: 1px solid #E6EAEE;
-			color: #3D5A7E;
-			font-family: "BBRollerMonoProST", sans-serif;
-			font-size: 14px;
-			line-height: normal;
-			letter-spacing: -0.57px;
-			padding: 5px;
-			height: 40px !important;
-			opacity: 1;
-			font-weight: 400;
-		}
-		.input-group-text {
-			border-radius: 0 2px 2px 0;
-			background-color: #FCFCFD;
-			border: 1px solid #E6EAEE;
-			color: #98B0CD;
-			font-size: 14px;
-			letter-spacing: 0.35px;
-			line-height: normal;
-			text-align: right;
-			padding: 5px;
-			margin: 0;
-			height: 40px;
-		}
-		.text-note {
-			position: absolute;
-			top: 42px;
-			color: #98B0CD;
-		}
-	}
 	.input-group-app {
 		
 		//input, input[type="number"] {

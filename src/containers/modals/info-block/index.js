@@ -134,7 +134,7 @@ class InfoBlock extends React.Component {
     // TODO: migrate timesamp, migrate account to RS
 
     render() {
-        const {blockInfo} = this.stateж
+        const {blockInfo} = this.state;
 
         return (
             <div className="modal-box x-wide">

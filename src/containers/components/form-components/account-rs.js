@@ -5,14 +5,13 @@ const AccountRSFormInput = (props) => {
     const {setValue, noContactList, exportAccountList, label, field, value, defaultValue, handleRemoveItem, index, idGroup} = props;
 
     return (
-        <div className="input-group-app form-group mb-15 display-block inline user">
-            <div className="row form-group-grey">
-                <label className="col-sm-3 col-form-label">
-                    {label}
-                    <i class="zmdi zmdi-portable-wifi-changes" />
+        <div className="form-group mb-15">
+                <label>
+                    {label}&nbsp;
+                    <i className="zmdi zmdi-portable-wifi-changes" />
                 </label>
-                <div className="col-sm-9">
-                    <div className="iconned-input-field pl-sm-0">
+                <div>
+                    <div className="input-group iconned-input-field">
                         <AccountRS
                             value={value}
                             field={field}
@@ -35,7 +34,6 @@ const AccountRSFormInput = (props) => {
                         }
                     </div>
                 </div>
-            </div>
         </div>
     )
 }

@@ -38,11 +38,11 @@ class AddAccount extends React.Component {
             NotificationManager.error('Enter the contact name.', 'Error', 5000);
             return;
         }
-        
+
         if (values.recipient) {
             values.accountRS = values.recipient;
             delete values.recipient;
-        } 
+        }
 
         if (!values.recipient && !values.accountRS) {
             values.accountRS = this.props.modalData;
@@ -58,7 +58,7 @@ class AddAccount extends React.Component {
         if (localContacts) {
             localContacts = JSON.parse(localContacts);
 
-            if (localContacts.indexOf(values) === -1) {
+            if (!localContacts.filter(contact => contact.accountRS === values.accountRS).length) {
                 localContacts.push(values);
                 localStorage.setItem('APLContacts', JSON.stringify(localContacts));
                 NotificationManager.success('Added to contacts!', null, 5000);
