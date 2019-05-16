@@ -914,14 +914,15 @@ input[type="file"] {
 
 // btn
 .btn {
-	background-color: #666666;
-	color: #fff;
-	user-select: none;
-	border-radius: 3px;
-	box-sizing: border-box;
-	z-index: 1;
-	padding: 11px 11px 11px 9px;
-	margin: 0;
+	border-radius: 2px;
+	color: #8AA5C7;
+	background-color: #FFF;
+	text-align: center;
+	font-size: 13px;
+	font-family: "BBRollerMonoProST", sans-serif;
+	font-weight: 500;
+	letter-spacing: 0.46px;
+	line-height: 16px;
 
 	&.under-table {
 		transform: translate(0, 0px);
@@ -1155,6 +1156,21 @@ input[type="file"] {
 		&.bigger {
 			padding: 11px 10px 9px 10px;
 		}
+	}
+	&.btn-default {
+		color: #8AA5C7;
+		background-color: #ffffff;
+		box-shadow: 0 1px 4px 0 rgba(137,151,169,0.3);
+	}
+	&.btn-green {
+		color: #ffffff;
+		background: linear-gradient(270deg, #2AC940 0%, #31D947 100%);
+		box-shadow: 0 10px 20px 0 rgba(37,244,89,0.26);
+	}
+	&.btn-green-disabled {
+		opacity: 0.5;
+		cursor: default;
+		pointer-events: none;
 	}
 	&.blue {
 		background: #00C8FF;

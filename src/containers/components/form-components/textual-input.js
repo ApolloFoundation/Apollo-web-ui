@@ -12,7 +12,7 @@ const TextualInputComponent = ({setValue, hendler, placeholder, field, type, lab
                                 <a
                                     id={idGroup}
                                     onClick={() => hendler()}
-                                    className="no-margin btn static blue"
+                                    className="no-margin btn btn-green"
                                 >
                                     {label}
                                 </a>
