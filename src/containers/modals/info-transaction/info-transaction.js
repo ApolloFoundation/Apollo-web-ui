@@ -23,6 +23,7 @@ class InfoLedgerTransaction extends React.Component {
 
         this.state = {
             activeTab: 0,
+            transaction: null,
         };
 
         this.handleTab = this.handleTab.bind(this);
@@ -37,22 +38,39 @@ class InfoLedgerTransaction extends React.Component {
         })
     }
 
-    processTransaction = async (props) => {
-        const transaction = (props.modalData instanceof Object) ? props.modalData : await this.props.getTransaction({transaction : props.modalData});
-        
-        if (transaction && !transaction.errorCode) {
-            this.setState({transaction}, () => {
-                
-                if (this.state.transaction && this.state.transaction.phased) {
-                    this.getWhiteListOfTransaction();
-                }
-            });
+    processTransaction = async () => {
+        const transaction = await this.props.getTransaction({transaction : this.state.transaction});
+        this.setState({transaction});
+    };
+
+    static getDerivedStateFromProps(props, state) {
+        if (props.modalData && Object.keys(props.modalData).length > 0 && (!state.transaction || props.modalData !== state.modalData)) {
+            if (props.modalData && !props.modalData.errorCode) {
+                return {
+                    modalData: props.modalData,
+                    transaction: props.modalData
+                };
+            }
+        }
+        return null;
+    };
+
+    componentDidMount() {
+        if (this.state.transaction && !(this.state.transaction instanceof Object)) {
+            this.processTransaction();
         }
     }
 
-    componentDidMount() {
-        this.processTransaction(this.props);
-    }
+    componentDidUpdate(prevProps, prevState) {
+        if (this.state.transaction && prevState.transaction !== this.state.transaction) {
+            if (!(this.state.transaction instanceof Object)) {
+                this.processTransaction();
+            }
+        }
+        if (this.state.transaction && this.state.transaction.phased && this.state.transaction !== prevState.transaction) {
+            this.getWhiteListOfTransaction();
+        }
+    };
 
     getWhiteListOfTransaction = () => {
         if (this.state.transaction && this.state.transaction.attachment.phasingWhitelist) {
@@ -60,7 +78,7 @@ class InfoLedgerTransaction extends React.Component {
                 return this.props.getAccountInfoAction({
                     account: el
                 })
-            })
+            });
     
             Promise.all(whitelist)
                 .then((data) => {
@@ -69,7 +87,7 @@ class InfoLedgerTransaction extends React.Component {
                     })
                 }) 
         }
-    }
+    };
 
     render() {
         return (
@@ -205,7 +223,14 @@ class InfoLedgerTransaction extends React.Component {
                                                     this.state.transaction.amountATM &&
                                                     <tr>
                                                         <td>Amount ATM:</td>
-                                                        <td>{this.state.transaction.amountATM / 100000000}</td>
+                                                        <td>
+                                                            {
+                                                                (this.state.transaction.amountATM === "0" && this.state.transaction.attachment.priceATM) ?
+                                                                    this.state.transaction.attachment.priceATM  / 100000000
+                                                                    :
+                                                                    this.state.transaction.amountATM / 100000000
+                                                            }
+                                                        </td>
                                                     </tr>
                                                 }
                                                 <tr>

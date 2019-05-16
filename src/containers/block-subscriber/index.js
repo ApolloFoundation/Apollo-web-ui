@@ -32,7 +32,10 @@ export default class BlockSubscriber extends React.Component {
 
             store.dispatch({
                 type: 'SET_ACTUAL_BLOCK',
-                payload: currHeight
+                payload: {
+                    actualBlock: currHeight,
+                    timestamp: blockData.timestamp,
+                }
             });
 
             const {account} = store.getState();

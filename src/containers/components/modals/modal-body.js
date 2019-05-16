@@ -19,10 +19,10 @@ class ModalBody extends React.Component {
         if (this.props.loadForm) {
             this.props.loadForm(form)
         } else {
-            this.setState({form}, () => this.loadValues());        
+            this.setState({form}, () => this.loadValues());
         }
     };
-    
+
 	loadValues = (values) => {
 		if (values) {
 			this.state.form.setAllValues(values);
@@ -34,7 +34,7 @@ class ModalBody extends React.Component {
             }
         }
     };
-    
+
     handleFormSubmit = (values) => {
         if (this.props.handleFormSubmit) {
             this.props.handleFormSubmit(values)
@@ -59,10 +59,10 @@ class ModalBody extends React.Component {
                     }) => (
                         <form
                             onChange={() => saveSendModalState(values)}
-                            onSubmit={submitForm} 
+                            onSubmit={submitForm}
                             className={`${isPour ? '' : 'modal-form modal-send-apollo'} ${className}`}
                         >
-                            <div className={`form-group-app ${marketplace ? 'devided' : ''} ${marketplace? 'devided' : ''}`}>
+                            <div className={`form-group-app ${marketplace ? 'devided p-0' : ''}`}>
                                 <LeftBar>
                                     {
                                         marketplace &&
@@ -85,7 +85,7 @@ class ModalBody extends React.Component {
                                             </div>
                                         </>
                                     }
-                                    
+
                                 </LeftBar>
                                 <RightBar>
                                     {
@@ -97,9 +97,9 @@ class ModalBody extends React.Component {
                                         modalTitle &&
                                         <div className="form-title">
                                             {
-                                                !isDisabledBackArrow && 
+                                                !isDisabledBackArrow &&
                                                 modalsHistory.length > 1 &&
-                                                <div className={"backMy"} onClick={() => {openPrevModal()}}></div>
+                                                <div className={"backMy"} onClick={() => {openPrevModal()}}/>
                                             }
                                             <p>{modalTitle}</p>
                                         </div>
@@ -109,29 +109,29 @@ class ModalBody extends React.Component {
                                         marketplace &&
                                         <div className="form-title">
                                             {
-                                                !isDisabledBackArrow && 
+                                                !isDisabledBackArrow &&
                                                 modalsHistory.length > 1 &&
-                                                <div className={"backMy"} onClick={() => {openPrevModal()}}></div>
+                                                <div className={"backMy"} onClick={() => {openPrevModal()}}/>
                                             }
                                             <p>{marketplace.name}</p>
                                         </div>
                                     }
 
                                     {
-                                        marketplace && marketplace.name && 
+                                        marketplace && marketplace.name &&
                                         <div className="price">
                                             {marketplace.priceATM / 100000000} Apollo
                                         </div>
                                     }
 
-                                   
+
 
                                     {
-                                        modalSubTitle && 
-                                        <div class="form-sub-title mb-4">{modalSubTitle}</div>
+                                        modalSubTitle &&
+                                        <div className="form-sub-title mb-4">{modalSubTitle}</div>
                                     }
-        
-                                    
+
+
 
                                     {/** Passing props to each form component */}
                                     {
@@ -142,21 +142,21 @@ class ModalBody extends React.Component {
                                             }
                                         )
                                     }
-                                    
+
                                     {/** Rendering of fee calculation */}
                                     {
                                         isFee &&
                                         <div className="form-group row form-group-white mb-15">
                                             <label className="col-sm-3 col-form-label">
-                                                Fee   
+                                                Fee
                                             </label>
                                             <div className="col-sm-9 input-group input-group-text-transparent input-group-sm">
                                                 <InputForm
                                                     field="feeATM"
-                                                    placeholder="Amount"
+                                                    placeholder="Fee"
                                                     type={"float"}
                                                     setValue={setValue}
-                                                    defaultValue={''}
+                                                    defaultValue={'1'}
                                                     id={`${idGroup}feeAPL-field`}
                                                 />
                                                 <div className="input-group-append">
@@ -170,17 +170,17 @@ class ModalBody extends React.Component {
                                     {
                                         !isDisableSecretPhrase &&
                                         // handleFormSubmit &&
-                                        <ModalFooter 
+                                        <ModalFooter
                                             off2FA={isDisabe2FA}
-                                            setValue={setValue}      
+                                            setValue={setValue}
                                             getFormState={getFormState}
-                                            values={values} 
-                                            idGroup={idGroup}                     
+                                            values={values}
+                                            idGroup={idGroup}
                                         />
                                     }
-                                
+
                                     {
-                                        isAdvanced && 
+                                        isAdvanced &&
                                         <AdvancedSettings
                                             setValue={setValue}
                                             getFormState={getFormState}
@@ -192,8 +192,8 @@ class ModalBody extends React.Component {
                                     {/** Bottom forms buttons */}
                                     {
                                         !CustomFooter &&
-                                        !isDisableFormFooter && 
-                                        <FormFooter 
+                                        !isDisableFormFooter &&
+                                        <FormFooter
                                             submitButtonName={submitButtonName}
                                             isPending={isPending}
                                             setValue={setValue}
@@ -208,8 +208,8 @@ class ModalBody extends React.Component {
                                 </RightBar>
                             </div>
                         </form>
-                    )} 
-                /> 
+                    )}
+                />
         )
     }
 
@@ -220,7 +220,7 @@ class ModalBody extends React.Component {
         return (
             <>
                 {
-                    isPour ? 
+                    isPour ?
                     <>
                         { this.form() }
                     </>

@@ -8,6 +8,8 @@ import axios from "axios/index";
 import config from "../../config";
 import crypto from "../../helpers/crypto/crypto";
 import {NotificationManager} from 'react-notifications';
+import {processElGamalEncryption} from '../../actions/crypto';
+
 
 import {INIT_TRANSACTION_TYPES} from '../../helpers/transaction-types/transaction-types';
 import {login, logout, loadConstants, startLoad, endLoad, LOAD_BLOCKCHAIN_STATUS, SET_PASSPHRASE} from '../../modules/account';
@@ -25,7 +27,7 @@ export function getAccountDataAction(requestParams) {
             type: 'SET_LOGIN_PROBLEM',
             payload: false
         });
-        const loginStatus = (await makeLoginReq(dispatch, requestParams));
+        const loginStatus = (await dispatch(makeLoginReq(requestParams)));
 
         if (loginStatus) {
             if (loginStatus.errorCode && !loginStatus.account) {
@@ -47,7 +49,7 @@ export function getAccountDataBySecretPhrasseAction(requestParams) {
 
         localStorage.setItem('secretPhrase', JSON.stringify(requestParams.secretPhrase));
 
-        const loginStatus = await makeLoginReq(dispatch, {account: dispatch(accountRS)});
+        const loginStatus = await dispatch(makeLoginReq({account: dispatch(accountRS)}));
 
         if (loginStatus) {
             if (loginStatus.errorCode && !loginStatus.account) {
@@ -88,9 +90,7 @@ export function isLoggedIn(history) {
         let account = JSON.parse(readFromLocalStorage('APLUserRS'));
 
         if (account) {
-            makeLoginReq(dispatch, {
-                account: account
-            });
+            dispatch(makeLoginReq({account}));
         } else {
             if (document.location.pathname !== '/login')
                 history.push('/login');
@@ -146,7 +146,7 @@ export const updateAccount = (requestParams) => dispatch => {
         });
 }
 
-export function makeLoginReq(dispatch, requestParams) {
+export const makeLoginReq = (requestParams) => (dispatch) => {
     dispatch(startLoad());
     return axios.get(config.api.serverUrl, {
         params: {
@@ -159,22 +159,22 @@ export function makeLoginReq(dispatch, requestParams) {
     })
         .then((res) => {
             if (res.data.account) {
-                dispatch(endLoad());
                 writeToLocalStorage('APLUserRS', res.data.accountRS);
                 dispatch(updateNotifications())(res.data.accountRS);
-                dispatch(getForging());
                 dispatch(getConstantsAction());
                 dispatch({
                     type: 'SET_PASSPHRASE',
                     payload: JSON.parse(localStorage.getItem('secretPhrase'))
                 });
-
+                dispatch({
+                    type: 'SET_DASHBOARD_ACCOUNT_INFO',
+                    payload: res.data
+                });
                 dispatch(login(res.data));
-
-                return res.data;
-            } else {
-                return res.data;
+                dispatch(getForging());
+                dispatch(endLoad());
             }
+            return res.data;
         })
         .catch(function (err) {
             dispatch({
@@ -184,42 +184,25 @@ export function makeLoginReq(dispatch, requestParams) {
         });
 }
 
-export function getForging(isPassphrase) {
+export function getForging() {
     return (dispatch, getState) => {
         const account = getState().account;
-        const passpPhrase = JSON.parse(localStorage.getItem('secretPhrase')) || account.passPhrase;
-        const forgingStatus = dispatch(crypto.validatePassphrase(passpPhrase));
-        Promise.resolve(forgingStatus)
-            .then((isPassphrase) => {
+
+        const requestParams = {
+            requestType: 'getForging',
+            account: account.account,
+            publicKey: account.publicKey,
+        };
+
+        return axios.get(config.api.serverUrl, {
+            params: requestParams
+        })
+            .then((res) => {
                 dispatch({
-                    type: 'SET_PASSPHRASE',
-                    payload: passpPhrase
+                    type: 'GET_FORGING',
+                    payload: res.data
                 });
-
-                let requestParams;
-
-                if (isPassphrase) {
-                    requestParams = {
-                        requestType: 'getForging',
-                        secretPhrase: passpPhrase
-                    };
-                } else {
-                    requestParams = {
-                        requestType: 'getForging',
-                        passphrase: passpPhrase,
-                        account: account.account
-                    };
-                }
-
-                return axios.get(config.api.serverUrl, {
-                    params: requestParams
-                })
-                    .then((res) => {
-                        dispatch({
-                            type: 'GET_FORGING',
-                            payload: res.data
-                        })
-                    })
+                return res.data;
             })
     }
 }
@@ -276,51 +259,43 @@ export async function logOutAction(action, history) {
             history.push('/login');
             return;
         case('logOutStopForging'):
-            localStorage.removeItem("wallets");
-            const forging = await store.dispatch(setForging({requestType: 'stopForging'}));
-            const {account} = store.getState();
-
-            if (!account.balanceATM || (account.balanceATM / 100000000) < 1000) {
+            const handleLogout = () => {
                 localStorage.removeItem("APLUserRS");
                 localStorage.removeItem("secretPhrase");
                 localStorage.removeItem("wallets");
                 dispatch(logout());
 
                 history.push('/login');
+            };
+
+            localStorage.removeItem("wallets");
+            const {account} = store.getState();
+            const passPhrase = JSON.parse(localStorage.getItem('secretPhrase')) || account.passPhrase;
+            if (account.forgingStatus && !account.forgingStatus.errorCode && (!passPhrase || account.is2FA)) {
+                store.dispatch(setBodyModalParamsAction('CONFIRM_FORGING', {
+                    getStatus: 'stopForging',
+                    handleSuccess: () => handleLogout()
+                }));
                 return;
             }
 
-            const setForgingWith2FA = (action) => {
-                return {
-                    getStatus: action,
-                    confirmStatus: (res) => {
-                        localStorage.removeItem("APLUserRS");
-                        localStorage.removeItem("secretPhrase");
-                        localStorage.removeItem("wallets");
-                        dispatch(logout());
+            const forging = await store.dispatch(setForging({requestType: 'stopForging'}));
 
-                        history.push('/login');
-                    }
-                }
-            };
-
-            if (forging.errorCode === 22 || forging.errorCode === 4 || forging.errorCode === 8) {
-                store.dispatch(setBodyModalParamsAction('CHECK_FORGING_STATUS', {
-                    modalSubmit: () => logOutAction(action, history)
-                }));
+            if (!account.effectiveBalanceAPL || account.effectiveBalanceAPL < 1000) {
+                handleLogout();
+                return;
             }
-            if (forging.errorCode === 3) {
-                store.dispatch(setBodyModalParamsAction('CONFIRM_2FA_FORGING', setForgingWith2FA('stopForging')));
+
+            if (forging.errorCode === 22 || forging.errorCode === 4 || forging.errorCode === 8 || forging.errorCode === 3) {
+                store.dispatch(setBodyModalParamsAction('CONFIRM_FORGING', {
+                    getStatus: 'stopForging',
+                    handleSuccess: () => handleLogout()
+                }));
             }
             
             if (!forging.errorCode){
                 if (forging) {
-                    localStorage.removeItem("APLUserRS");
-                    localStorage.removeItem("secretPhrase");
-                    localStorage.removeItem("wallets");
-                    dispatch(logout());
-
-                    history.push('/login');
+                    handleLogout();
                 }
                 return;
             }

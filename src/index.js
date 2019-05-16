@@ -4,7 +4,8 @@
  ******************************************************************************/
 
 
-import 'babel-polyfill';
+import "core-js/stable";
+import "regenerator-runtime/runtime";
 import React from 'react'
 import {render} from 'react-dom'
 import {Provider} from 'react-redux'
@@ -31,7 +32,7 @@ render(
     <Provider store={store}>
         <BlockSubscriber>
             <ConnectedRouter history={history}>
-                <I18nextProvider  i18n={ i18n }>
+                <I18nextProvider i18n={i18n}>
                     <BrowserRouter>
                         <Switch>
                             <Route path="/" component={App}/>

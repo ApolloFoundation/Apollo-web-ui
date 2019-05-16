@@ -11,6 +11,8 @@ import {setWallets} from "../../modules/account";
 import {
     setBuyOrdersAction,
     setSellOrdersAction,
+    setPlotBuyOrdersAction,
+    setPlotSellOrdersAction,
     setMyOrdersAction,
     setMyOrderHistoryAction
 } from "../../modules/exchange";
@@ -61,6 +63,19 @@ export function walletWidthraw(requestParams) {
     }
 }
 
+export const updateOfferInfo = (params) => async (dispatch) => {
+    dispatch(getBuyOpenOffers());
+    dispatch(getSellOpenOffers());
+    dispatch(getPlotBuyOpenOffers());
+    dispatch(getPlotSellOpenOffers());
+    dispatch(getMyOpenOffers());
+    const accountInfo = await dispatch(getAccountInfoAction({account: params.sender}));
+    dispatch({
+        type: 'SET_DASHBOARD_ACCOUNT_INFO',
+        payload: accountInfo
+    });
+};
+
 export function createOffer(requestParams) {
     const params = {
         ...requestParams,
@@ -71,15 +86,8 @@ export function createOffer(requestParams) {
             .then(async (res) => {
                 if (!res.errorCode) {
                     NotificationManager.success('Your offer has been created!', null, 5000);
-                    setTimeout(async () => {
-                        dispatch(getBuyOpenOffers());
-                        dispatch(getSellOpenOffers());
-                        dispatch(getMyOpenOffers());
-                        const accountInfo = await dispatch(getAccountInfoAction({account: params.sender}));
-                        dispatch({
-                            type: 'SET_DASHBOARD_ACCOUNT_INFO',
-                            payload: accountInfo
-                        })
+                    setTimeout(() => {
+                        dispatch(updateOfferInfo(params));
                     }, 10000);
                     return res;
                 } else {
@@ -94,7 +102,21 @@ export function createOffer(requestParams) {
 
 export function cancelOffer(requestParams) {
     return dispatch => {
-        NotificationManager.error('No functionality on backend', 'Error', 5000);
+        return handleFetch(`${config.api.server}/rest/dex/offer/cancel`, POST, requestParams)
+            .then(async (res) => {
+                if (!res.errorCode) {
+                    NotificationManager.success('Your offer has been canceled!', null, 5000);
+                    setTimeout(() => {
+                        dispatch(updateOfferInfo(requestParams));
+                    }, 10000);
+                    return res;
+                } else {
+                    NotificationManager.error(res.errorDescription, 'Error', 5000);
+                }
+            })
+            .catch(() => {
+
+            })
     }
 }
 
@@ -114,28 +136,64 @@ export function getOpenOrders(requestParams) {
     }
 }
 
-export const getBuyOpenOffers = (currency) => async (dispatch, getState) => {
+export const getBuyOpenOffers = (currency, options) => async (dispatch, getState) => {
     if (!currency) currency = getState().exchange.currentCurrency.currency;
     const params = {
         orderType: 0,
         offerCurrency: currencyTypes[currency],
         pairCurrency: 0,
         isAvailableForNow: true,
+        status: 0,
+
+        firstIndex: 0,
+        lastIndex: 14,
+        ...options,
     };
     const buyOrders = await dispatch(getOpenOrders(params));
     dispatch(setBuyOrdersAction(currency, buyOrders));
 };
 
-export const getSellOpenOffers = (currency) => async (dispatch, getState) => {
+export const getSellOpenOffers = (currency, options) => async (dispatch, getState) => {
     if (!currency) currency = getState().exchange.currentCurrency.currency;
     const params = {
         orderType: 1,
         offerCurrency: 0,
         pairCurrency: currencyTypes[currency],
         isAvailableForNow: true,
+        status: 0,
+
+        firstIndex: 0,
+        lastIndex: 14,
+        ...options,
     };
     const sellOrders = await dispatch(getOpenOrders(params));
     dispatch(setSellOrdersAction(currency, sellOrders));
+};
+
+export const getPlotBuyOpenOffers = (currency, options) => async (dispatch, getState) => {
+    if (!currency) currency = getState().exchange.currentCurrency.currency;
+    const params = {
+        orderType: 0,
+        offerCurrency: currencyTypes[currency],
+        pairCurrency: 0,
+        isAvailableForNow: true,
+        status: 0,
+    };
+    const buyOrders = await dispatch(getOpenOrders(params));
+    dispatch(setPlotBuyOrdersAction(currency, buyOrders));
+};
+
+export const getPlotSellOpenOffers = (currency, options) => async (dispatch, getState) => {
+    if (!currency) currency = getState().exchange.currentCurrency.currency;
+    const params = {
+        orderType: 1,
+        offerCurrency: 0,
+        pairCurrency: currencyTypes[currency],
+        isAvailableForNow: true,
+        status: 0,
+    };
+    const sellOrders = await dispatch(getOpenOrders(params));
+    dispatch(setPlotSellOrdersAction(currency, sellOrders));
 };
 
 export const getMyOpenOffers = (currency) => async (dispatch, getState) => {
@@ -147,6 +205,7 @@ export const getMyOpenOffers = (currency) => async (dispatch, getState) => {
         accountId: account,
         isAvailableForNow: true,
         orderType: 1,
+        status: 0,
     };
     const paramsBuy = {
         offerCurrency: currencyTypes[currency],
@@ -154,19 +213,20 @@ export const getMyOpenOffers = (currency) => async (dispatch, getState) => {
         accountId: account,
         isAvailableForNow: true,
         orderType: 0,
+        status: 0,
     };
     const sellOrders = await dispatch(getOpenOrders(paramsSell));
     const buyOrders = await dispatch(getOpenOrders(paramsBuy));
-    const orders = sellOrders && buyOrders ? [...sellOrders, ...buyOrders].sort((a, b) => a.finishTime - b.finishTime) : [];
+    const orders = sellOrders && buyOrders ? [...sellOrders, ...buyOrders].sort((a, b) => b.finishTime - a.finishTime) : [];
     dispatch(setMyOrdersAction(currency, orders));
 };
 
-export const getMyOfferHistory = () => async (dispatch, getState) => {
+export const getMyOfferHistory = (options) => async (dispatch, getState) => {
     const {account} = getState().account;
     const params = {
         accountId: account,
+        ...options
     };
     const orders = await dispatch(getOpenOrders(params));
-    const ordersRes = orders ? orders.sort((a, b) => b.finishTime - a.finishTime) : [];
-    dispatch(setMyOrderHistoryAction(ordersRes));
+    dispatch(setMyOrderHistoryAction(orders));
 };

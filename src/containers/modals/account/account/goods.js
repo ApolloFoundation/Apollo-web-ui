@@ -11,13 +11,13 @@ const Goods = ({name, goods, quantity, priceATM, setBodyModalParamsAction}) => (
                 {name}
             </a>
         </td>
-        <td className={"text-align-right"}>{priceATM / 100000000}</td>
-        <td className="align-right text-align-right">{quantity}</td>
+        <td className={"align-right"}>{priceATM / 100000000} APL</td>
+        <td className="align-right">{quantity}</td>
     </tr>
-)
+);
 
 const mapDispatchToProps = dispatch => ({
-    setBodyModalParamsAction: (type, value) => dispatch(setBodyModalParamsAction(setBodyModalParamsAction))
-})
+    setBodyModalParamsAction: (type, value) => dispatch(setBodyModalParamsAction(type, value))
+});
 
 export default connect(null, mapDispatchToProps)(Goods);

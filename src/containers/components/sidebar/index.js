@@ -24,14 +24,20 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class Sidebar extends React.Component {
-	constructor(props) {
-		super(props);
-	}
-
+	submenuRef = React.createRef();
+	menuRef = React.createRef();
 	state = {
 		isHover: false,
 		isMenuCollapsed: false
 	};
+
+	componentDidMount() {
+		document.addEventListener('touchstart', this.handleMenuTouchOut);
+	}
+
+	componentWillUnmount() {
+		document.removeEventListener('touchstart', this.handleMenuTouchOut);
+	}
 
 	handleMenuMouseOver = () => {
 		this.setState({
@@ -39,10 +45,19 @@ class Sidebar extends React.Component {
 		});
 	};
 
-	handleMenuMouseOut = () => {
+	handleMenuMouseOut = (event) => {
 		this.setState({
 			isHover: false
 		});
+	};
+
+	handleMenuTouchOut = (event) => {
+		if (this.menuRef && !this.menuRef.contains(event.target) &&
+			this.submenuRef && !this.submenuRef.contains(event.target)) {
+			this.setState({
+				isHover: false
+			});
+		}
 	};
 
 	handleMenuCollapse = () => {
@@ -71,6 +86,7 @@ class Sidebar extends React.Component {
 				<div
 					className="menu-bar-container"
 					id={'sidebar-menu'}
+					ref={(ref) => this.menuRef = ref}
 				>
 					<Link
 						onMouseOver={this.handleMenuMouseOver}
@@ -127,6 +143,7 @@ class Sidebar extends React.Component {
 									<i className="zmdi zmdi-chevron-right right"/>
 								</NavLink>
 								<div
+									ref={(ref) => this.submenuRef = ref}
                                     style={{
                                         background: this.props.settings.sidebar !== '#F5F5F5' ? this.props.settings.sidebar : '#333'
                                     }}
@@ -436,16 +453,7 @@ class Sidebar extends React.Component {
 									className={`text ${this.getNavLinkClass(["/messenger"])}`}
 								>
 									Messages
-									{
-										this.props.notifications && this.props.notifications[1].notificationCount === 0 &&
-										<i className="zmdi zmdi-comments left"/>
-									}
-									{
-										this.props.notifications && this.props.notifications[1].notificationCount > 0 &&
-										<i className={`zmdi zmdi-comments left ${this.props.notifications[1].notificationCount > 99 && 'big-count'}`}
-										   data-notification={this.props.notifications[1].notificationCount}/>
-									}
-
+									<i className="zmdi zmdi-comments left"/>
 									<i className="zmdi zmdi-chevron-right right"/>
 								</NavLink>
 								<div

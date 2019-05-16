@@ -7,34 +7,41 @@
 import axios from 'axios/index';
 import config from '../../config';
 import store from '../../store'
+import {processElGamalEncryption} from "../crypto";
 
 export function getAccountLedgerAction(requestParams) {
-    return dispatch => {
+    return async () => {
 
-        const condition = requestParams.passphrase || requestParams.secretPhrase;
+        let data = requestParams;
+        const condition = data.passphrase || data.secretPhrase;
         const requestType = (condition) ? 'getPrivateAccountLedger' : 'getAccountLedger';
 
-            return axios.get(config.api.serverUrl, {
-                params : {
-                    requestType: requestType,
-                    ...requestParams
-                }
-            })
-                .then((res) => {
-                    return res.data
-                })
-                .catch(() => {
+        if (data.passphrase) data.passphrase = await processElGamalEncryption(data.passphrase);
+        else if (data.secretPhrase) data.secretPhrase = await processElGamalEncryption(data.secretPhrase);
 
-                })
+        return axios.get(config.api.serverUrl, {
+            params: {
+                requestType: requestType,
+                ...data
+            }
+        })
+            .then((res) => {
+                return res.data
+            })
+            .catch(() => {
+
+            })
     }
 }
 
 export function getLedgerEntryAction(requestParams) {
-    return dispatch => {
+    return async () => {
+        let data = requestParams;
+        if (data.passphrase) data.passphrase = await processElGamalEncryption(data.passphrase);
         return axios.get(config.api.serverUrl, {
             params : {
-                requestType: (requestParams.passphrase) ? 'getPrivateAccountLedgerEntry' : 'getAccountLedgerEntry',
-                ...requestParams
+                requestType: (data.passphrase) ? 'getPrivateAccountLedgerEntry' : 'getAccountLedgerEntry',
+                ...data
             }
         })
             .then((res) => {

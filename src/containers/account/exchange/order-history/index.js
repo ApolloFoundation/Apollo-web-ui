@@ -1,6 +1,5 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {NotificationManager} from 'react-notifications';
 import SiteHeader from '../../../components/site-header';
 import CustomTable from '../../../components/tables/table';
 import {setCurrentCurrencyAction} from '../../../../modules/exchange';
@@ -12,6 +11,9 @@ import InfoBox from '../../../components/info-box';
 class OrderHistory extends React.Component {
     state = {
         loading: true,
+        firstIndex: 0,
+        lastIndex: 14,
+        page: 1,
     };
 
     componentDidMount() {
@@ -19,21 +21,39 @@ class OrderHistory extends React.Component {
         if (!wallets) {
             this.props.setBodyModalParamsAction('LOGIN_EXCHANGE', {});
         } else {
-            this.props.getMyOfferHistory();
+            this.props.getMyOfferHistory({
+                firstIndex: this.state.firstIndex,
+                lastIndex: this.state.lastIndex
+            });
             this.setState({loading: false});
         }
     }
 
     componentDidUpdate() {
         if (this.props.wallets && this.state.loading) {
-            this.props.getMyOfferHistory();
+            this.props.getMyOfferHistory({
+                firstIndex: this.state.firstIndex,
+                lastIndex: this.state.lastIndex
+            });
             this.setState({loading: false});
         }
     }
 
-    handleCancel = () => {
-        NotificationManager.error('This functionality will be delivered in May 2019.', 'Error', 5000);
-        // this.props.setBodyModalParamsAction('CONFIRM_CANCEL_ORDER', {});
+    handleCancel = (data) => {
+        this.props.setBodyModalParamsAction('CONFIRM_CANCEL_ORDER', data);
+    };
+
+    onPaginate = (page) => {
+        this.setState({
+            page: page,
+            firstIndex: page * 15 - 15,
+            lastIndex:  page * 15 - 1
+        }, () => {
+            this.props.getMyOfferHistory({
+                firstIndex: this.state.firstIndex,
+                lastIndex: this.state.lastIndex
+            });
+        });
     };
 
     render() {
@@ -96,7 +116,13 @@ class OrderHistory extends React.Component {
                                                     <button
                                                         type={'button'}
                                                         className="btn btn-sm"
-                                                        onClick={() => this.handleCancel({currency: type, pairRate, offerAmount, total})}
+                                                        onClick={() => this.handleCancel({
+                                                            currency: type,
+                                                            pairRate,
+                                                            offerAmount,
+                                                            total,
+                                                            orderId: props.id,
+                                                        })}
                                                     >
                                                         Cancel
                                                     </button>
@@ -105,6 +131,10 @@ class OrderHistory extends React.Component {
                                         </tr>
                                     )
                                 }}
+                                isPaginate
+                                page={this.state.page}
+                                previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
+                                nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
                             />
                     </div>
                     ):(
@@ -130,7 +160,7 @@ const mapStateToProps = ({exchange, account}) => ({
 const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, value) => dispatch(setBodyModalParamsAction(type, value)),
     setCurrentCurrency: (currency) => dispatch(setCurrentCurrencyAction(currency)),
-    getMyOfferHistory: () => dispatch(getMyOfferHistory()),
+    getMyOfferHistory: (options) => dispatch(getMyOfferHistory(options)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrderHistory)

@@ -9,9 +9,9 @@
   visibility: hidden;
   opacity: 0;
   transition: all 0.3s ease-in-out;
-  overflow: scroll;
   display: flex;
-  margin-bottom: -15px; }
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch; }
   .modal-window::-webkit-scrollbar {
     width: 1px; }
   .modal-window.active {

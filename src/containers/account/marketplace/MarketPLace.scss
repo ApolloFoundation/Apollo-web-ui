@@ -267,12 +267,15 @@
 					width: 25%;
 					padding-right: 30px;
 					@media (max-width: 1200px) {
-						width: 40%;
 						padding-right: 20px;
+						display: flex;
+						width: auto;
+						max-width: calc(100% - 325px);
 					}
-					@media (max-width: 760px) {
+					@media (max-width: 900px) {
 						width: 100%;
 						padding-right: 0;
+						max-width: 100%;
 					}
 				}
 				&.description {

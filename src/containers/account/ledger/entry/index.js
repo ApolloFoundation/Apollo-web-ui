@@ -7,31 +7,22 @@
 import React from 'react';
 import uuid from 'uuid';
 import i18n from 'i18next';
-import crypto from "../../../../helpers/crypto/crypto";
-import converters from "../../../../helpers/converters";
-import {setBodyModalParamsAction} from "../../../../modules/modals";
+import {compose} from 'redux';
 import {connect} from 'react-redux';
-import {formatTimestamp} from "../../../../helpers/util/time";
-import {getLedgerEntryAction} from "../../../../actions/ledger";
-import {getTransactionAction} from "../../../../actions/transactions/";
-import {getBlockAction} from "../../../../actions/blocks";
+import {withTranslation} from 'react-i18next';
+import {setBodyModalParamsAction} from '../../../../modules/modals';
+import {formatTimestamp} from '../../../../helpers/util/time';
+import {getTransactionAction} from '../../../../actions/transactions/';
+import {getBlockAction} from '../../../../actions/blocks';
 
 class Entry extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            entry: this.props
+    showInfo = () => {
+        if (this.props.eventType === "BLOCK_GENERATED") {
+            this.props.setBodyModalParamsAction('INFO_BLOCK', this.props.height);
+        } else {
+            this.props.setBodyModalParamsAction('INFO_TRANSACTION', this.props.event, this.props.eventType === 'PRIVATE_PAYMENT');
         }
-    }
-
-	showInfo = () => {
-		if (this.state.entry.eventType === "BLOCK_GENERATED") {
-			this.props.setBodyModalParamsAction('INFO_BLOCK', this.state.entry.height);
-		} else {
-			this.props.setBodyModalParamsAction('INFO_TRANSACTION', this.state.entry.event, this.state.entry.eventType === 'PRIVATE_PAYMENT');
-		}
-	};
+    };
 
     render () {
         const {setBodyModalParamsAction, formatTimestamp} = this.props;
@@ -39,22 +30,24 @@ class Entry extends React.Component {
         return (
             <React.Fragment>
                 {
-                    this.state.entry &&
-                    <tr key={uuid()}>
+                    this.props.ledgerId &&
+                    <tr>
                         <td className="blue-link-text">
                             <a
                                 onClick={
-                                    () => setBodyModalParamsAction('INFO_LEDGER_TRANSACTION', this.state.entry.ledgerId, this.state.entry.eventType === 'PRIVATE_PAYMENT')
+                                    () => setBodyModalParamsAction('INFO_LEDGER_TRANSACTION', this.props.ledgerId, this.props.eventType === 'PRIVATE_PAYMENT')
                                 }
                             >
-                                {formatTimestamp(this.state.entry.timestamp)}
+                                {formatTimestamp(this.props.timestamp)}
                             </a>
                         </td>
                         <td>
-                            {this.state.entry && this.state.entry.eventType && this.state.entry.eventType.toLowerCase()}
+                            {this.props.ledgerId && this.props.eventType && (
+                                i18n.t(this.props.eventType.toLowerCase())
+                            )}
                             &nbsp;&nbsp;
                             <a
-	                            onClick={this.showInfo}
+                                onClick={this.showInfo}
                             >
                             <span
                                 className="zmdi zmdi-info"
@@ -62,29 +55,29 @@ class Entry extends React.Component {
                             </a>
                         </td>
                         <td className="align-right">
-                            {this.state.entry.holdingType === "UNCONFIRMED_APL_BALANCE" &&
-                            (this.state.entry.change / 100000000).toFixed(1)}
+                            {this.props.holdingType === "UNCONFIRMED_APL_BALANCE" &&
+                            (this.props.change / 100000000).toFixed(1)}
                         </td>
                         <td className="align-right">
-                            {this.state.entry.holdingType === "UNCONFIRMED_APL_BALANCE" && this.state.entry.balance > 0 &&
-                            (this.state.entry.balance / 100000000).toLocaleString('en')}
+                            {this.props.holdingType === "UNCONFIRMED_APL_BALANCE" && this.props.balance > 0 &&
+                            (this.props.balance / 100000000).toLocaleString('en')}
                         </td>
                         <td className="align-right">
-                            {this.state.entry.holdingInfo && this.state.entry.holdingInfo.name}
+                            {this.props.holdingInfo && this.props.holdingInfo.name}
                         </td>
                         <td className="align-right">
-                            {this.state.entry.holdingType === "UNCONFIRMED_CURRENCY_BALANCE" &&
-                            this.state.entry.holdingInfo && this.state.entry.holdingInfo.name &&
-                            (this.state.entry.change/1).toFixed(2)}
-                            {this.state.entry.holdingType === "UNCONFIRMED_ASSET_BALANCE" &&
-                            (this.state.entry.change/100000000).toFixed(2)}
+                            {this.props.holdingType === "UNCONFIRMED_CURRENCY_BALANCE" &&
+                            this.props.holdingInfo && this.props.holdingInfo.name &&
+                            (this.props.change/1).toFixed(2)}
+                            {this.props.holdingType === "UNCONFIRMED_ASSET_BALANCE" &&
+                            (this.props.change/100000000).toFixed(2)}
                         </td>
                         <td className="align-right">
-                            {this.state.entry.holdingType === "UNCONFIRMED_CURRENCY_BALANCE" &&
-                            this.state.entry.holdingInfo && this.state.entry.holdingInfo.name &&
-                            (this.state.entry.balance/1).toLocaleString('en')}
-                            {this.state.entry.holdingType === "UNCONFIRMED_ASSET_BALANCE" &&
-                            (this.state.entry.balance/100000000).toLocaleString('en')}
+                            {this.props.holdingType === "UNCONFIRMED_CURRENCY_BALANCE" &&
+                            this.props.holdingInfo && this.props.holdingInfo.name &&
+                            (this.props.balance/1).toLocaleString('en')}
+                            {this.props.holdingType === "UNCONFIRMED_ASSET_BALANCE" &&
+                            (this.props.balance/100000000).toLocaleString('en')}
                         </td>
                     </tr>
                 }
@@ -100,4 +93,7 @@ const mapDispatchToProps = dispatch => ({
     getBlockAction: (requestParams) => dispatch(getBlockAction(requestParams)),
 });
 
-export default connect(null, mapDispatchToProps)(Entry);
+export default compose(
+    withTranslation(),
+    connect(null, mapDispatchToProps),
+)(Entry);

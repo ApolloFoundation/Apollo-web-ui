@@ -28,6 +28,14 @@ class ExchangeBuy extends React.Component {
     handleFormSubmit = (values) => {
         if (this.props.wallet) {
             if (values.offerAmount > 0 && values.pairRate > 0) {
+                if (values.pairRate < 0.000000001) {
+                    NotificationManager.error(`Price must be more then 0.000000001 ${this.props.wallet.currency.toUpperCase()}`, 'Error', 5000);
+                    return;
+                }
+                if (values.offerAmount < 0.001) {
+                    NotificationManager.error('You can buy more then 0.001 APL', 'Error', 5000);
+                    return;
+                }
                 const pairRate = multiply(values.pairRate, 100000000);
                 const offerAmount = multiply(values.offerAmount, 100000000);
                 const balanceETH = this.props.wallet.wallets[0].balance / Math.pow(10, 18);

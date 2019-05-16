@@ -69,7 +69,7 @@ class CreateUser extends React.Component {
 
     generateAccount = async (getFormState) => {
         const requestParams = {};
-        if (this.state.isCustomPassphraseTextarea) {
+        if (this.state.isCustomPassphraseTextarea && this.state.activeTab === 1) {
             const {values} = getFormState();
             requestParams.passphrase = values.newAccountpassphrse;
             if (!requestParams.passphrase) {
@@ -138,7 +138,7 @@ class CreateUser extends React.Component {
 
     generatePassphrase = async (getFormState) => {
         let passphrase;
-        if (this.state.isCustomPassphraseTextarea) {
+        if (this.state.isCustomPassphraseTextarea && this.state.activeTab === 1) {
             const {values} = getFormState();
             passphrase = values.newAccountpassphrse;
             if (!passphrase) {
@@ -450,34 +450,6 @@ class CreateUser extends React.Component {
                                     </InfoBox>
                                     {!this.state.isCustomPassphraseForStandardWallet ? (
                                         <React.Fragment>
-                                            <div>
-                                                <InfoBox>
-                                                    You can create your own custom secret
-                                                    phrase or create an account with a
-                                                    randomly generated secret phrase.
-                                                </InfoBox>
-                                                <div className={'checkbox-group'}>
-                                                    <Checkbox
-                                                        className={'lighten'}
-                                                        field="isCustomPassphrase"
-                                                        onChange={(e) => this.setState({isCustomPassphraseTextarea: !!e})}
-                                                    />
-                                                    <label>
-                                                        Use custom secret phrase
-                                                    </label>
-                                                </div>
-                                                {this.state.isCustomPassphraseTextarea && (
-                                                    <div className="form-group row form-group-grey mb-15">
-                                                        <label>
-                                                            Your account secret phrase
-                                                        </label>
-                                                        <TextArea
-                                                            field={'newAccountpassphrse'}
-                                                            placeholder={'Secret Phrase'}
-                                                        />
-                                                    </div>
-                                                )}
-                                            </div>
                                             <button
                                                 type={'button'}
                                                 onClick={() => this.generatePassphrase(getFormState)}
@@ -516,11 +488,11 @@ class CreateUser extends React.Component {
                                                             </p>
                                                             <p className={'mb-3'}>
                                                                 Secret Phrase: <span
-                                                                className={'itatic'}>{this.state.generatedPassphrase}</span>
+                                                                className={'itatic notranslate'}>{this.state.generatedPassphrase}</span>
                                                             </p>
                                                             <p className={'mb-3'}>
                                                                 Account ID: <span
-                                                                className={'itatic'}>{this.state.generatedAccount}</span>
+                                                                className={'itatic notranslate'}>{this.state.generatedAccount}</span>
                                                             </p>
                                                             <CopyToClipboard
                                                                 text={

@@ -52,6 +52,7 @@ class ActivePolls extends Component {
                         </p>
                     }
                 </div>
+                <Link to="/active-polls" className="btn btn-left btn-simple absolute">Voting system</Link>
                 <button
                     className="btn btn-right gray round round-bottom-right round-top-left absolute "
                     data-modal="sendMoney"
@@ -60,7 +61,7 @@ class ActivePolls extends Component {
                     Create poll&nbsp;
                     <i className="arrow zmdi zmdi-chevron-right"/>
                 </button>
-            </div>			
+            </div>
         )
     }
 }

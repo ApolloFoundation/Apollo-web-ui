@@ -37,11 +37,11 @@ class DeleteAlias extends React.Component {
             alias: this.props.modalData
         };
 
-        this.props.processForm(values, 'deleteAlias', 'Product has been listed!', () => {
+        this.props.processForm(values, 'deleteAlias', 'Alias has been deleted!', () => {
             this.props.setBodyModalParamsAction(null, {});
-            NotificationManager.success('Product has been listed!', null, 5000);
+            NotificationManager.success('Alias has been deleted!', null, 5000);
         });
-    }
+    };
 
     render() {
         return (

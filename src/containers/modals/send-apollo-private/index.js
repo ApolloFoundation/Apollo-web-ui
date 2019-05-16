@@ -45,6 +45,7 @@ class SendApolloPrivate extends React.Component {
             amountStatus: false,
             feeStatus: false,
             isPrivateTransactionAlert: false,
+            useMixer: false,
         };
 
         this.handleTabChange = this.handleTabChange.bind(this);
@@ -53,16 +54,16 @@ class SendApolloPrivate extends React.Component {
 
     componentDidMount = async () => {
         const mixerData = await getMixerAccount();
-        
-        const mixerAccount = mixerData.rsId;
+        if (mixerData && mixerData.rsId) {
+            const mixerAccount = mixerData.rsId;
+            mixerData.rsId = mixerAccount.replace('APL-', `${this.props.accountPrefix}-`);
 
-        mixerData.rsId = mixerAccount.replace('APL-', `${this.props.accountPrefix}-`)
-
-        this.setState({
-            mixerData
-        })
-
-    }
+            this.setState({
+                mixerData,
+                useMixer: true,
+            })
+        }
+    };
 
     async handleFormSubmit(values) {
         if (!values.recipient) {
@@ -160,11 +161,10 @@ class SendApolloPrivate extends React.Component {
     };
 
     handleUseMixer = (e) => {
-        
         this.setState({
             useMixer: e
         })
-    }
+    };
 
     render() {
         return (
@@ -181,7 +181,7 @@ class SendApolloPrivate extends React.Component {
 
                                 <div className="form-title">
                                     {this.props.modalsHistory.length > 1 &&
-                                        <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
+                                        <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}/>
                                     }
                                     <p>Send Apollo Private</p>
                                 </div>
@@ -258,13 +258,14 @@ class SendApolloPrivate extends React.Component {
                                     <div className="mobile-class row mb-15 form-group-white">
                                         <div className="col-md-9 offset-md-3">
                                             <div className="form-check custom-checkbox">
-                                                <Checkbox 
+                                                <Checkbox
+                                                    defaultValue={this.state.useMixer}
                                                     onChange={(e) => this.handleUseMixer(e)}
                                                     className="form-check-input custom-control-input"
                                                     type="checkbox"
                                                     field="isMixer"
                                                 />
-                                                <label className="form-check-label custom-control-label">
+                                                <label className="form-check-label custom-control-label pl-3">
                                                     Use Mixer
                                                 </label>
                                             </div>
@@ -295,42 +296,21 @@ class SendApolloPrivate extends React.Component {
                                 <div className="form-group row form-group-white mb-15">
                                     <label className="col-sm-3 col-form-label">
                                         Fee
-                                        <span
-                                            onClick={async () => {
-                                                const requestParams = {
-                                                    requestType: 'sendMoney',
-                                                    deadline: '1440',
-                                                    amountATM: parseInt(getFormState().values.amountATM) * 100000000,
-                                                    recipient: getFormState().values.recipient,
-                                                    publicKey: this.props.publicKey,
-                                                    feeATM: 0
-                                                };
-                                                const fee = await this.props.calculateFeeAction(requestParams);
-                                                if (!fee.errorCode) {
-                                                    setValue("feeATM", fee.transactionJSON.feeATM / 100000000);
-                                                } else {
-                                                    NotificationManager.error(fee.errorDescription, 'Error', 5000);
-                                                }
-                                            }
-                                            }
-                                            style={{paddingRight: 0}}
-                                            className="calculate-fee"
-                                        >
-                                            Calculate
-                                        </span>
                                     </label>
                                     <div className="col-sm-9 input-group input-group-text-transparent input-group-sm">
                                         <InputForm
-                                            defaultValue={(this.props.modalData && this.props.modalData.feeATM) ? this.props.modalData.feeATM : ''}
+                                            defaultValue={'5'}
                                             field="feeATM"
-                                            placeholder="Amount"
+                                            placeholder="Fee"
                                             type={"float"}
-                                            setValue={setValue}/>
+                                            setValue={setValue}
+                                        />
                                         <div className="input-group-append">
                                             <span className="input-group-text">Apollo</span>
                                         </div>
                                     </div>
                                 </div>
+
                                 <ModalFooter
                                     setValue={setValue}
                                     getFormState={getFormState}

@@ -6,10 +6,10 @@
 
 import axios from 'axios';
 import config from '../../config'
-import crypto from '../../helpers/crypto/crypto';
 import converters from '../../helpers/converters';
 import submitForm from '../../helpers/forms/forms'
 import state from '../../store'
+import {processElGamalEncryption} from "../crypto";
 
 export function getMessages (reqParams) {
     return dispatch => {
@@ -48,11 +48,14 @@ export function getChats (reqParams) {
 }
 
 export function readMessageAction (reqParams) {
-    return dispatch => {
+    return async () => {
+        let data = reqParams;
+        if (data.passphrase) data.passphrase = await processElGamalEncryption(data.passphrase);
+        else if (data.secretPhrase) data.secretPhrase = await processElGamalEncryption(data.secretPhrase);
         return axios.get(config.api.serverUrl, {
             params: {
                 requestType: 'readMessage',
-                ...reqParams
+                ...data
             }
         })
             .then((res) => {
@@ -64,22 +67,28 @@ export function readMessageAction (reqParams) {
 }
 
 export function getPrunableMessageAction(reqParams) {
-    return dispatch => {
+    return async () => {
+        let data = reqParams;
+        if (data.passphrase) data.passphrase = await processElGamalEncryption(data.passphrase);
+        else if (data.secretPhrase) data.secretPhrase = await processElGamalEncryption(data.secretPhrase);
         return axios.get(config.api.serverUrl, {
             params: {
                 requestType: 'getPrunableMessage',
-                ...reqParams
+                ...data
             }
         })
     }
 }
 
 export function getPrunableMessagesAction(reqParams) {
-    return dispatch => {
+    return async () => {
+        let data = reqParams;
+        if (data.passphrase) data.passphrase = await processElGamalEncryption(data.passphrase);
+        else if (data.secretPhrase) data.secretPhrase = await processElGamalEncryption(data.secretPhrase);
         return axios.get(config.api.serverUrl, {
             params: {
                 requestType: 'getPrunableMessages',
-                ...reqParams
+                ...data
             }
         })
     }
@@ -232,7 +241,7 @@ const isTextMessage = function(transaction) {
 };
 
 const decryptMessage = (data, passPhrase) => {
-    return dispatch => {
+    return async(dispatch) => {
         return dispatch(submitForm.submitForm({
             requestType: 'readMessage',
             secretPhrase: passPhrase,
@@ -249,11 +258,11 @@ const formatMessages = transactionMessages => {
         
         const messages = transactionMessages.map(el => {
             return dispatch(decryptMessage(el, account.passPhrase))
-        })
+        });
 
         return Promise.all(messages)
             .then(resolved => {return resolved.map((el, index) => {
-                    const transactionData = transactionMessages[index]
+                    const transactionData = transactionMessages[index];
                     const publicMessage = 
                         transactionData.attachment.message && transactionData.attachment.message !== 'undefined' ? transactionData.attachment.message : 
                         null;

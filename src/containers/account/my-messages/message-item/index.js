@@ -7,10 +7,8 @@
 import React from 'react';
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {connect} from 'react-redux';
-import converters from '../../../../helpers/converters'
 import crypto from '../../../../helpers/crypto/crypto'
 import {formatTimestamp} from "../../../../helpers/util/time";
-import {readMessageAction} from '../../../../actions/messager/'
 import submitForm from "../../../../helpers/forms/forms";
 
 const mapStateToProps = state => ({
@@ -25,28 +23,20 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class MessageItem extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            message: null
-        };
-    }
-
-    componentWillReceiveProps(newState) {
-        this.tryToDecrypt(newState);
+    state = {
+        message: null
     };
 
-    componentDidMount() {
-        this.tryToDecrypt(this.props);
+    componentWillReceiveProps(newProps) {
+        if (newProps.account.passPhrase !== this.props.account.passPhrase) {
+            this.tryToDecrypt(newProps);
+        }
     }
 
     tryToDecrypt = (newState) => {
         if (newState.account.passPhrase) {
-            this.decryptMessage(this.props, newState.account.passPhrase)
+            this.decryptMessage(this.props, newState.account.passPhrase);
         }
-
-        // if (newState.account && newState.account.passPhrase && this.props.attachment && !this.props.attachment.encryptedMessageHash && !this.props.attachment.message) {
-        // }
     };
 
     decryptMessage = async (data, passPhrase) => {
@@ -56,7 +46,7 @@ class MessageItem extends React.Component {
                 secretPhrase: passPhrase,
                 transaction: this.props.transaction,
                 createNoneTransactionMethod: true
-            }, 'readMessage')
+            }, 'readMessage');
 
             if (message) {
                 this.setState({
@@ -112,7 +102,7 @@ class MessageItem extends React.Component {
                         !publicMessage &&
                         !decryptedMessage &&
                         <div>
-                            <i class="zmdi zmdi-alert-triangle"></i>&nbsp;&nbsp;&nbsp;
+                            <i className="zmdi zmdi-alert-triangle"/>&nbsp;&nbsp;&nbsp;
                             <span>Empty Message.</span>
                         </div>
                     }
@@ -121,7 +111,7 @@ class MessageItem extends React.Component {
                         !publicMessage &&
                         !decryptedMessage &&
                         <div>
-                            <i class="zmdi zmdi-scissors"/>
+                            <i className="zmdi zmdi-scissors"/>
                                 &nbsp;&nbsp;&nbsp;
                             <span>Message is pruned.</span>
                         </div>

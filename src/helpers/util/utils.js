@@ -313,6 +313,15 @@ function resolverReservePerUnit(decimals, reserveSupply, amount) {
     }
 }
 
+function isDesktopApp() {
+    return navigator.userAgent.indexOf("JavaFX") >= 0;
+}
+
+function parseStringBySpace(str){
+    const parsedStr = str ? str.replace(/\W\s+/g, ' ').toLowerCase().split(' ') : [];
+    return parsedStr;
+}
+
 export default {
     isNumericAccount,
     isRsAccount,
@@ -324,5 +333,7 @@ export default {
     escapeRespStr,
     isRequirePost,
     resolverReservePerUnit,
-    isRequireBlockchain
+    isRequireBlockchain,
+    isDesktopApp,
+    parseStringBySpace
 }

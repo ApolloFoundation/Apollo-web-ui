@@ -11,8 +11,6 @@ import {BlockUpdater} from "../../block-subscriber";
 import {getGeneratorsAction} from "../../../actions/generators";
 import {formatTimestamp} from "../../../helpers/util/time";
 import Generator from "../../../actions/generators/generator";
-import uuid from "uuid";
-import ContentLoader from '../../components/content-loader'
 
 import CustomTable from '../../components/tables/table';
 import TopPageBlocks from '../../components/tob-page-blocks';
@@ -38,7 +36,7 @@ class Generators extends React.Component {
 
     listener = data => {
         this.getGenerators();
-    }
+    };
 
     componentDidMount = () => {
         this.getGenerators();
@@ -50,13 +48,17 @@ class Generators extends React.Component {
     }
 
     getGenerators = () => this.props.getGeneratorsAction()
-        .then(generators => this.setState({
-            generators: generators.generators,
-            lastBlockTime: this.props.formatTimestamp(generators.timestamp),
-            height: generators.height,
-            activeForgers: generators.activeCount,
-            timestamp: generators.timestamp
-        }));
+        .then(generators => {
+            if (generators) {
+                this.setState({
+                    generators: generators.generators,
+                    lastBlockTime: this.props.formatTimestamp(generators.timestamp),
+                    height: generators.height,
+                    activeForgers: generators.activeCount,
+                    timestamp: generators.timestamp
+                });
+            }
+        });
 
     render() {
         return (
@@ -65,53 +67,50 @@ class Generators extends React.Component {
                     pageTitle={'Generators'}
                 />
                 <div className="page-body container-fluid">
-                    
+
                     <div className="">
-                        <TopPageBlocks 
+                        <TopPageBlocks
                             cards={[
                                 {
                                     label: 'Last Block',
                                     value: this.state.lastBlockTime
-                                },{
+                                }, {
                                     label: 'Height',
                                     value: this.state.height
-                                },{
+                                }, {
                                     label: 'Active Forgers',
                                     value: this.state.activeForgers
                                 }
                             ]}
                         />
                         <div className="info-box info">
-                            <p>Information in this table is delayed by up to 30 seconds, use the desktop wallet for more up to date information.</p>
+                            Information in this table is delayed by up to 30 seconds, use the desktop wallet for more up
+                            to date information.
                         </div>
-                        <CustomTable 
-							header={[
+                        <CustomTable
+                            header={[
                                 {
                                     name: 'Account',
                                     alignRight: false
-                                },{
+                                }, {
                                     name: 'Effective Balance',
                                     alignRight: true
-                                },{
+                                }, {
                                     name: 'Hit Time',
                                     alignRight: true
-                                },{
+                                }, {
                                     name: 'Deadline',
                                     alignRight: true
                                 }
-                                // ,{
-                                //     name: 'Remaining',
-                                //     alignRight: true
-                                // }
                             ]}
-							TableRowComponent={Generator}
-							tableData={this.state.generators}
-							isPaginate
-							page={this.state.page}
-							className={'no-min-height'}
-							emptyMessage={'No aliases found.'}
-						/>
-                       
+                            TableRowComponent={Generator}
+                            tableData={this.state.generators}
+                            isPaginate
+                            page={this.state.page}
+                            className={'no-min-height'}
+                            emptyMessage={'Active generators not yet initialized.'}
+                        />
+
                     </div>
                 </div>
             </div>

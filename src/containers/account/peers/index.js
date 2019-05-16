@@ -152,6 +152,11 @@ class Peers extends React.Component {
                             ]}
                             TableRowComponent={Peer}
                             tableData={this.state.peers}
+                            passProps={{
+                                onTransactionSelected: this.getPeer,
+                                onConnectClick: this.connectPeer,
+                                onBlacklistClick: this.blacklistPeer,
+                            }}
                             className={'no-min-height'}
                             emptyMessage={'No aliases found.'}
                         />

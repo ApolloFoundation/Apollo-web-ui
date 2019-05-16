@@ -106,7 +106,7 @@ import store from '../../store';
 //2fa
 import Confirm2FA from './2fa'
 import DeleteAccountFromWebNode from './account/delete-account-from-node';
-import Confirm2FAforging from './2fa/confirm-forging-with-2fa';
+import ConfirmForging from './account/confirm-forging';
 
 //Login
 import ImportAccount from '../modals/account/import-account'
@@ -151,6 +151,10 @@ class ModalWindow extends React.Component {
                 modalWindow.classList.remove('active');
                 setTimeout(() => {
                     this.props.setModalType(null);
+                    store.dispatch({
+                        type: SET_MODAL_DATA,
+                        payload: null
+                    });
                     this.props.closeModal();
                 }, 300);
             }
@@ -277,7 +281,7 @@ class ModalWindow extends React.Component {
                     {this.props.modalType === 'IMPORT_ACCOUNT'              && <ImportAccount             closeModal={this.closeModal} nameModal={'IMPORT_ACCOUNT'}/>}
                     {this.props.modalType === 'EXPORT_KEY_SEED'             && <ExportAccount             closeModal={this.closeModal} nameModal={'EXPORT_KEY_SEED'}/>}
                     {this.props.modalType === 'DELETE_ACCOUNT_FROM_NODE'    && <DeleteAccountFromWebNode  closeModal={this.closeModal} nameModal={'DELETE_ACCOUNT_FROM_NODE'}/>}
-                    {this.props.modalType === 'CONFIRM_2FA_FORGING'         && <Confirm2FAforging         closeModal={this.closeModal}/>}
+                    {this.props.modalType === 'CONFIRM_FORGING'             && <ConfirmForging            closeModal={this.closeModal}/>}
                     {this.props.modalType === 'INFO_NETWORK'                && <ChainProps                closeModal={this.closeModal}/>}
 
 

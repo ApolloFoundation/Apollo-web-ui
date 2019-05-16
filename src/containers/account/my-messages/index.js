@@ -35,14 +35,15 @@ class MyMessages extends React.Component {
     componentDidMount() {
         this.props.getMessagesPerpage({firstIndex: 0, lastIndex: 14});
 
-        BlockUpdater.on("data", data => {
-            const {page} = this.state;
-
-            this.props.getMessagesPerpage({ 
-                firstIndex: page * 15 - 15,
-                lastIndex: page * 15 - 1
+        if (!BlockUpdater.listeners('data').length) {
+            BlockUpdater.on("data", data => {
+                const {page} = this.state;
+                this.props.getMessagesPerpage({
+                    firstIndex: page * 15 - 15,
+                    lastIndex: page * 15 - 1
+                });
             });
-        });
+        }
     }
 
     componentWillUnmount() {

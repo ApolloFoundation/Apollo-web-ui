@@ -7,12 +7,12 @@
 	border-radius: 7px;
 	height: calc(100% - 15px);
 	//overflow: hidden;
-	
+
 	&.is-double {
 
 		padding: 0;
 
-		
+
 	}
 	.form-control:focus {
 		box-shadow: none;
@@ -33,13 +33,12 @@
 		flex-wrap: nowrap;
 		justify-content: space-between;
 		overflow: hidden;
-		padding: 0 !important;
-		
+
 		.left-bar {
 			width: 50%;
 			// margin: -35px 0 -70px -35px;
 			// border-right: 5px solid #E6E6E6;
-			
+
 			.top-bar {
 				.marketplace-image {
 					margin: 0;
@@ -91,17 +90,17 @@
 		}
 		.right-bar {
 			width: calc(100% - 160px);
-			
+
 			.description {
 				color: #333333;
 				font-size: 14px;
 				line-height: 1.6;
 				padding-top: 48px;
-				
+
 				p {
 					margin-top: 30px;
 					font-size: 14px;
-					
+
 					a {
 						color: #00C8FF;
 						font-weight: normal;
@@ -121,7 +120,7 @@
 	&.compensate-margin {
 		margin: 0 -7.5px;
 		margin-bottom: 15px;
-		
+
 	}
 	&.height-auto {
 		height: auto;
@@ -222,7 +221,9 @@
 		position: absolute;
 		top: 35px;
 		right: 35px;
-		
+		z-index: 100;
+    padding: 10px;
+
 		i {
 			font-size: 20px;
 		}
@@ -233,7 +234,7 @@
 		background-repeat: no-repeat;
 		background-size: contain;
 		background-position: center;
-		
+
 		&.no-image {
 			width: 100%;
 			background-size: 30% !important;
@@ -306,17 +307,17 @@
 		}
 	}
 	.left-bar {
-	
+
 	}
 	.right-bar {
-	
+
 	}
 	.form-sub-title {
 		color: #BBBBBB;
 		font-size: 12px;
 		line-height: normal;
 		margin-top: 5px;
-		
+
 		&.align-padding-bottom {
 			padding-bottom: 15px;
 		}
@@ -329,7 +330,7 @@
 		}
 	}
 	.form-exit {
-	
+
 	}
 	.input-group-app {
 		&:last-child:not(:first-child) {
@@ -371,7 +372,7 @@
 			line-height: 11px;
 		}
 	}
-	
+
 	// needed for modal windows
 	.form-tabulator {
 		position: relative;
@@ -382,11 +383,11 @@
 		border-radius: 0 0 8px 8px;
 		&.white {
 			background-color: white;
-			
+
 			.form-tab-nav-box {
 				.form-tab {
 					background-color: #F5F5F5;
-					
+
 					&.active {
 						background-color: #fff;
 					}
@@ -405,10 +406,10 @@
 			bottom: 100%;
 			right: 20px;
 			left: 20px;
-			
+
 			&.justify-left {
 				justify-content: flex-start;
-				
+
 				.form-tab {
 					margin-right: 15px;
 					width: auto;
@@ -416,7 +417,7 @@
 					white-space: pre;
 				}
 			}
-			
+
 			.form-tab {
 				display: flex;
 				align-items: center;
@@ -424,7 +425,7 @@
 				height: 32px;
 				border-top-left-radius: 6px;
 				border-top-right-radius: 6px;
-				
+
 				&.active {
 					background-color: #F5F5F5;
 				}
@@ -436,7 +437,7 @@
 					font-size: 14px;
 				}
 			}
-			
+
 			&.form-tab-icons {
 				.form-tab {
 					& > * {
@@ -448,7 +449,7 @@
 		}
 		.tab-body {
 			display: none;
-			
+
 			&.active {
 				display: block;
 			}
@@ -456,7 +457,7 @@
 		.form-sub-actions {
 			display: block;
 			padding-top: 7px;
-			
+
 			.form-group-app {
 				background-color: transparent;
 				padding: 0;
@@ -568,7 +569,7 @@
 		@media(max-width: 768px) {
 			flex-wrap: wrap;
 			margin-top: 7px;
-			
+
 			.col-form-label {
 				margin-bottom: 7px;
 			}
@@ -688,7 +689,7 @@
 		@media(max-width: 768px) {
 			flex-wrap: wrap;
 			margin-top: 7px;
-			
+
 			.col-form-label {
 				margin-bottom: 7px;
 			}

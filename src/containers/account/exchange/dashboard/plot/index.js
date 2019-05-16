@@ -34,6 +34,9 @@ const chartJsOption = {
                     fontColor: '#8AA5C7',
                     fontFamily: 'BBRollerMonoProST, sans-serif',
                     fontSize: '11',
+                    callback: function(value) {
+                        return formatDivision(value, 1, 3);
+                    },
                 }
             }],
             xAxes: [{

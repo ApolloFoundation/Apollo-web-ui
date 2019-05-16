@@ -146,7 +146,8 @@ export default (state = initialState, action) => {
         case 'SET_ACTUAL_BLOCK':
             return {
                 ...state,
-                actualBlock: action.payload
+                actualBlock: action.payload.actualBlock,
+                timestamp: action.payload.timestamp,
             };
 
         case SET_WALLETS:
