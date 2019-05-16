@@ -147,16 +147,18 @@ class ModalBody extends React.Component {
                                         )
                                     }
 
-                                    <NummericInputForm
-                                        field={'feeATM'}
-                                        counterLabel={'Apollo'}
-                                        type={'float'}
-                                        label={'Fee'}
-                                        setValue={setValue}
-                                        placeholder={'Fee'}
-                                        idGroup={idGroup}
-                                        defaultValue={(modalData && modalData.feeATM) || '1'}
-                                    />
+                                    {isFee && (
+                                        <NummericInputForm
+                                            field={'feeATM'}
+                                            counterLabel={'Apollo'}
+                                            type={'float'}
+                                            label={'Fee'}
+                                            setValue={setValue}
+                                            placeholder={'Fee'}
+                                            idGroup={idGroup}
+                                            defaultValue={(modalData && modalData.feeATM) || '1'}
+                                        />
+                                    )}
 
                                     {/** Rendering of secret phrase and 2fa fields */}
                                     {
