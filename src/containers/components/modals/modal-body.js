@@ -11,6 +11,7 @@ import AdvancedSettings from '../advanced-transaction-settings';
 import {setBodyModalParamsAction, saveSendModalState, openPrevModal} from "../../../modules/modals";
 
 import BackForm from '../../../containers/modals/modal-form/modal-form-container';
+import NummericInputForm from "../form-components/numeric-input";
 
 
 class ModalBody extends React.Component {
@@ -19,10 +20,10 @@ class ModalBody extends React.Component {
         if (this.props.loadForm) {
             this.props.loadForm(form)
         } else {
-            this.setState({form}, () => this.loadValues());        
+            this.setState({form}, () => this.loadValues());
         }
     };
-    
+
 	loadValues = (values) => {
 		if (values) {
 			this.state.form.setAllValues(values);
@@ -34,7 +35,7 @@ class ModalBody extends React.Component {
             }
         }
     };
-    
+
     handleFormSubmit = (values) => {
         if (this.props.handleFormSubmit) {
             this.props.handleFormSubmit(values)
@@ -42,7 +43,10 @@ class ModalBody extends React.Component {
     }
 
     form = () => {
-        const {CustomFooter, isDisableFormFooter, marketplace, onChange, isDisabledBackArrow, isAdvancedWhite, isDisableSecretPhrase, isDisabe2FA, modalSubTitle, className, idGroup, isPour, openPrevModal, modalsHistory, saveSendModalState, nameModel, children, handleFormSubmit, modalTitle, isPending, isFee, closeModal, submitButtonName} = this.props;
+        const {CustomFooter, isDisableFormFooter, marketplace, onChange, isDisabledBackArrow, isAdvancedWhite,
+            isDisableSecretPhrase, isDisabe2FA, modalSubTitle, className, idGroup, isPour, openPrevModal, modalsHistory,
+            saveSendModalState, nameModel, children, handleFormSubmit, modalTitle, isPending, isFee, closeModal,
+            submitButtonName, modalData} = this.props;
 
         const LeftBar  = marketplace ? (p) => <div className="left-bar">{p.children}</div> : React.Fragment ;
         const RightBar = marketplace ? (p) => <div className="right-bar">{p.children}</div> : React.Fragment ;
@@ -59,10 +63,10 @@ class ModalBody extends React.Component {
                     }) => (
                         <form
                             onChange={() => saveSendModalState(values)}
-                            onSubmit={submitForm} 
+                            onSubmit={submitForm}
                             className={`${isPour ? '' : 'modal-form modal-send-apollo'} ${className}`}
                         >
-                            <div className={`form-group-app ${marketplace ? 'devided' : ''} ${marketplace? 'devided' : ''}`}>
+                            <div className={`form-group-app ${marketplace ? 'devided p-0' : ''}`}>
                                 <LeftBar>
                                     {
                                         marketplace &&
@@ -85,7 +89,7 @@ class ModalBody extends React.Component {
                                             </div>
                                         </>
                                     }
-                                    
+
                                 </LeftBar>
                                 <RightBar>
                                     {
@@ -97,7 +101,7 @@ class ModalBody extends React.Component {
                                         modalTitle &&
                                         <div className="form-title">
                                             {
-                                                !isDisabledBackArrow && 
+                                                !isDisabledBackArrow &&
                                                 modalsHistory.length > 1 &&
                                                 <div className={"backMy"} onClick={() => {openPrevModal()}}/>
                                             }
@@ -109,7 +113,7 @@ class ModalBody extends React.Component {
                                         marketplace &&
                                         <div className="form-title">
                                             {
-                                                !isDisabledBackArrow && 
+                                                !isDisabledBackArrow &&
                                                 modalsHistory.length > 1 &&
                                                 <div className={"backMy"} onClick={() => {openPrevModal()}}/>
                                             }
@@ -118,20 +122,20 @@ class ModalBody extends React.Component {
                                     }
 
                                     {
-                                        marketplace && marketplace.name && 
+                                        marketplace && marketplace.name &&
                                         <div className="price">
                                             {marketplace.priceATM / 100000000} Apollo
                                         </div>
                                     }
 
-                                   
+
 
                                     {
-                                        modalSubTitle && 
+                                        modalSubTitle &&
                                         <div className="form-sub-title mb-4">{modalSubTitle}</div>
                                     }
-        
-                                    
+
+
 
                                     {/** Passing props to each form component */}
                                     {
@@ -142,45 +146,33 @@ class ModalBody extends React.Component {
                                             }
                                         )
                                     }
-                                    
-                                    {/** Rendering of fee calculation */}
-                                    {
-                                        isFee &&
-                                        <div className="form-group mb-15">
-                                            <label>
-                                                Fee   
-                                            </label>
-                                            <div className="input-group">
-                                                <InputForm
-                                                    field="feeATM"
-                                                    placeholder="Fee"
-                                                    type={"float"}
-                                                    setValue={setValue}
-                                                    defaultValue={'1'}
-                                                    id={`${idGroup}feeAPL-field`}
-                                                />
-                                                <div className="input-group-append">
-                                                    <span className="input-group-text">Apollo</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    }
+
+                                    <NummericInputForm
+                                        field={'feeATM'}
+                                        counterLabel={'Apollo'}
+                                        type={'float'}
+                                        label={'Fee'}
+                                        setValue={setValue}
+                                        placeholder={'Fee'}
+                                        idGroup={idGroup}
+                                        defaultValue={(modalData && modalData.feeATM) || '1'}
+                                    />
 
                                     {/** Rendering of secret phrase and 2fa fields */}
                                     {
                                         !isDisableSecretPhrase &&
                                         // handleFormSubmit &&
-                                        <ModalFooter 
+                                        <ModalFooter
                                             off2FA={isDisabe2FA}
-                                            setValue={setValue}      
+                                            setValue={setValue}
                                             getFormState={getFormState}
-                                            values={values} 
-                                            idGroup={idGroup}                     
+                                            values={values}
+                                            idGroup={idGroup}
                                         />
                                     }
-                                
+
                                     {
-                                        isAdvanced && 
+                                        isAdvanced &&
                                         <AdvancedSettings
                                             setValue={setValue}
                                             getFormState={getFormState}
@@ -192,8 +184,8 @@ class ModalBody extends React.Component {
                                     {/** Bottom forms buttons */}
                                     {
                                         !CustomFooter &&
-                                        !isDisableFormFooter && 
-                                        <FormFooter 
+                                        !isDisableFormFooter &&
+                                        <FormFooter
                                             submitButtonName={submitButtonName}
                                             isPending={isPending}
                                             setValue={setValue}
@@ -208,10 +200,10 @@ class ModalBody extends React.Component {
                                 </RightBar>
                             </div>
                         </form>
-                    )} 
-                /> 
+                    )}
+                />
         )
-    }
+    };
 
     render () {
 
@@ -220,7 +212,7 @@ class ModalBody extends React.Component {
         return (
             <>
                 {
-                    isPour ? 
+                    isPour ?
                     <>
                         { this.form() }
                     </>
@@ -237,11 +229,11 @@ class ModalBody extends React.Component {
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
 	modalsHistory: state.modals.modalsHistory
-})
+});
 
 const mapDispatchToProps = dispatch => ({
     saveSendModalState: (params) => dispatch(saveSendModalState(params)),
 	openPrevModal: () => dispatch(openPrevModal())
-})
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(ModalBody);

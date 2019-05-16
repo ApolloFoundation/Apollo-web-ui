@@ -1,7 +1,7 @@
 import React from 'react';
 import InputForm from '../input-form';
 
-const NumericInput = ({values, label, field, countingTtile, setValue, placeholder, type, idGroup, inputHint, defaultValue}) => (
+const NumericInput = ({values, label, field, countingTtile, counterLabel, setValue, placeholder, type, idGroup, inputHint, defaultValue}) => (
     <>
         <div className="form-group mb-15">
             <label>
@@ -16,11 +16,11 @@ const NumericInput = ({values, label, field, countingTtile, setValue, placeholde
                     defaultValue={defaultValue}
                     id={`${idGroup}${field}-field`}
                 />
-                <div className="input-group-append">
-                    <span className="input-group-text">
-                        {countingTtile}
-                    </span>
-                </div>
+                {(countingTtile || counterLabel) && (
+                    <div className="input-group-append">
+                        <span className="input-group-text">{countingTtile || counterLabel}</span>
+                    </div>
+                )}
             </div>
         </div>
         {

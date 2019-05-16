@@ -65,8 +65,8 @@ class InputForm extends React.Component {
                 if (value.includes(".")) {
                     let fract = value.substring(value.indexOf("."));
                     value = value.substring(0, value.indexOf("."));
-                    if (fract.length > 9) {
-                        fract = fract.substring(0, 9);
+                    if (fract.length > 10) {
+                        fract = fract.substring(0, 10);
                     }
                     value += fract;
                 }

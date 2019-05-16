@@ -18,7 +18,7 @@ class DigitalGoodsPriceChange extends Component {
         this.setState({
             goodsName: info.name,
             seller: info.sellerRS,
-            price: info.priceATM / 1000000000,
+            price: info.priceATM / 100000000,
         })
     }
 

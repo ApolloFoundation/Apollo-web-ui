@@ -6,53 +6,47 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
+import {Text} from 'react-form';
+import classNames from 'classnames';
+import {NotificationManager} from "react-notifications";
 import {
-	setModalData,
-	setBodyModalParamsAction,
-	setAlert,
-	openPrevModal,
-	saveSendModalState
+    openPrevModal,
+    saveSendModalState,
+    setAlert,
+    setBodyModalParamsAction,
+    setModalData
 } from '../../../modules/modals';
-import {sendPrivateTransaction, getMixerAccount} from '../../../actions/transactions';
+import {getMixerAccount} from '../../../actions/transactions';
+import NummericInputForm from "../../components/form-components/numeric-input";
 import AccountRS from '../../components/account-rs';
 import InputForm from '../../components/input-form';
-import crypto from  '../../../helpers/crypto/crypto';
-import {calculateFeeAction} from "../../../actions/forms";
-import classNames from 'classnames';
-import submitForm from "../../../helpers/forms/forms";
-
-import {Checkbox} from 'react-form';
-import {Form, Text} from 'react-form';
 import InfoBox from '../../components/info-box';
-import {NotificationManager} from "react-notifications";
 import ModalFooter from '../../components/modal-footer';
-
+import crypto from '../../../helpers/crypto/crypto';
+import {calculateFeeAction} from "../../../actions/forms";
+import submitForm from "../../../helpers/forms/forms";
 import BackForm from '../modal-form/modal-form-container';
+import {CheckboxFormInput} from "../../components/form-components/check-button-input";
 
 class SendApolloPrivate extends React.Component {
-    constructor(props) {
-        super(props);
+    state = {
+        activeTab: 0,
+        advancedState: false,
 
-        this.handleFormSubmit = this.handleFormSubmit.bind(this);
+        // submitting
+        passphraseStatus: false,
+        recipientStatus: false,
+        amountStatus: false,
+        feeStatus: false,
+        isPrivateTransactionAlert: false,
+        useMixer: false,
+    };
 
-        this.state = {
-            activeTab: 0,
-            advancedState: false,
+    componentDidMount() {
+        this.handleGetMixerAccount();
+    };
 
-            // submitting
-            passphraseStatus: false,
-            recipientStatus: false,
-            amountStatus: false,
-            feeStatus: false,
-            isPrivateTransactionAlert: false,
-            useMixer: false,
-        };
-
-        this.handleTabChange = this.handleTabChange.bind(this);
-        this.handleAdvancedState = this.handleAdvancedState.bind(this);
-    }
-
-    componentDidMount = async () => {
+    handleGetMixerAccount = async () => {
         const mixerData = await getMixerAccount();
         if (mixerData && mixerData.rsId) {
             const mixerAccount = mixerData.rsId;
@@ -65,7 +59,7 @@ class SendApolloPrivate extends React.Component {
         }
     };
 
-    async handleFormSubmit(values) {
+    handleFormSubmit = async (values) => {
         if (!values.recipient) {
             this.setState({
                 isPending: false
@@ -116,79 +110,64 @@ class SendApolloPrivate extends React.Component {
             delete values.mixerAccount;
         }
 
-        this.setState({
-            isPending: true
-        });
+        this.setState({isPending: true});
 
         this.props.dispatch(await this.props.submitForm(values, 'sendMoneyPrivate'))
             .done((privateTransaction) => {
                 if (privateTransaction && privateTransaction.errorCode) {
                     NotificationManager.error(privateTransaction.errorDescription, 'Error', 5000);
-    
+
                 } else {
                     NotificationManager.success('Private transaction has been submitted.', null, 5000);
                     this.props.setBodyModalParamsAction(null, {});
                 }
             })
+    };
 
-    }
-
-    handleTabChange(tab) {
-        this.setState({
-            ...this.props,
-            activeTab: tab
-        })
-    }
-
-    handleAdvancedState() {
+    handleAdvancedState = () => {
         if (this.state.advancedState) {
-            this.setState({
-                ...this.props,
-                advancedState: false
-            })
+            this.setState({advancedState: false});
         } else {
-            this.setState({
-                ...this.props,
-                advancedState: true
-            })
+            this.setState({advancedState: true});
         }
-    }
+    };
 
     setConfirm = () => {
-        this.setState({
-            isPrivateTransactionAlert: true
-        })
+        this.setState({isPrivateTransactionAlert: true});
     };
 
     handleUseMixer = (e) => {
-        this.setState({
-            useMixer: e
-        })
+        this.setState({useMixer: e});
     };
 
     render() {
         return (
             <div className="modal-box">
                 <BackForm
-	                nameModal={this.props.nameModal}
+                    nameModal={this.props.nameModal}
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={({
                                  submitForm, values, addValue, removeValue, setValue, getFormState, getValue
                              }) => (
-                        <form className="modal-form" onChange={() => this.props.saveSendModalState(values)} onSubmit={submitForm}>
+                        <form className="modal-form" onChange={() => this.props.saveSendModalState(values)}
+                              onSubmit={submitForm}>
                             <div className="form-group-app">
-                                <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
+                                <a onClick={() => this.props.closeModal()} className="exit"><i
+                                    className="zmdi zmdi-close"/></a>
 
                                 <div className="form-title">
                                     {this.props.modalsHistory.length > 1 &&
-                                        <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}/>
+                                    <div className={"backMy"} onClick={() => {
+                                        this.props.openPrevModal()
+                                    }}/>
                                     }
                                     <p>Send Apollo Private</p>
                                 </div>
                                 {
                                     !this.state.isPrivateTransactionAlert &&
                                     <InfoBox info>
-                                        Private transactions currently protect down the the API level. Database level protection will start with Olympus 2.0 <br/>
+                                        Private transactions currently protect down the the API level. Database level
+                                        protection will start with Olympus 2.0 <br/>
                                         <a
                                             className={'btn static primary'}
                                             style={{background: '#fff', color: '#00C8FF'}}
@@ -204,7 +183,8 @@ class SendApolloPrivate extends React.Component {
                                             Recipient <i className="zmdi zmdi-portable-wifi-changes"/>
                                         </label>
                                         <div className="col-sm-9">
-                                            <div className={`iconned-input-field ${this.state.useMixer ? 'flex-align-left' : ''}`}>
+                                            <div
+                                                className={`iconned-input-field ${this.state.useMixer ? 'flex-align-left' : ''}`}>
                                                 <AccountRS
                                                     field={'recipient'}
                                                     defaultValue={values.recipient || ''}
@@ -233,10 +213,11 @@ class SendApolloPrivate extends React.Component {
                                 {
                                     this.state.useMixer &&
                                     <InfoBox info>
-                                        Your money will be sent directly to mixer account and during estimated mixing time, money will be transmitted to recipient account.
+                                        Your money will be sent directly to mixer account and during estimated mixing
+                                        time, money will be transmitted to recipient account.
                                     </InfoBox>
                                 }
-                               
+
                                 <div className="form-group row form-group-white mb-15">
                                     <label className="col-sm-3 col-form-label">
                                         Amount
@@ -253,32 +234,27 @@ class SendApolloPrivate extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                {
-                                    this.state.mixerData && 
-                                    <div className="mobile-class row mb-15 form-group-white">
-                                        <div className="col-md-9 offset-md-3">
-                                            <div className="form-check custom-checkbox">
-                                                <Checkbox
-                                                    defaultValue={this.state.useMixer}
-                                                    onChange={(e) => this.handleUseMixer(e)}
-                                                    className="form-check-input custom-control-input"
-                                                    type="checkbox"
-                                                    field="isMixer"
-                                                />
-                                                <label className="form-check-label custom-control-label pl-3">
-                                                    Use Mixer
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
+                                {this.state.mixerData && (
+                                    <CheckboxFormInput
+                                        setValue={setValue}
+                                        checkboxes={[
+                                            {
+                                                field: 'isMixer',
+                                                label: 'Use Mixer',
+                                                defaultValue: this.state.useMixer,
+                                                handler: this.handleUseMixer,
+                                            }
+                                        ]}
+                                    />
+                                )}
                                 {
                                     this.state.useMixer &&
                                     <div className="form-group row form-group-white mb-15">
                                         <label className="col-sm-3 col-form-label">
                                             Mixing time
                                         </label>
-                                        <div className="col-sm-9 input-group input-group-text-transparent input-group-sm">
+                                        <div
+                                            className="col-sm-9 input-group input-group-text-transparent input-group-sm">
                                             <InputForm
                                                 defaultValue={(this.props.modalData && this.props.modalData.amountATM) ? this.props.modalData.amountATM : ''}
                                                 field="duration"
@@ -291,26 +267,15 @@ class SendApolloPrivate extends React.Component {
                                         </div>
                                     </div>
                                 }
-                                
-
-                                <div className="form-group row form-group-white mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Fee
-                                    </label>
-                                    <div className="col-sm-9 input-group input-group-text-transparent input-group-sm">
-                                        <InputForm
-                                            defaultValue={'5'}
-                                            field="feeATM"
-                                            placeholder="Fee"
-                                            type={"float"}
-                                            setValue={setValue}
-                                        />
-                                        <div className="input-group-append">
-                                            <span className="input-group-text">Apollo</span>
-                                        </div>
-                                    </div>
-                                </div>
-
+                                <NummericInputForm
+                                    field={'feeATM'}
+                                    counterLabel={'Apollo'}
+                                    type={'float'}
+                                    label={'Fee'}
+                                    setValue={setValue}
+                                    placeholder={'Fee'}
+                                    defaultValue={(this.props.modalData && this.props.modalData.feeATM) || '5'}
+                                />
                                 <ModalFooter
                                     setValue={setValue}
                                     getFormState={getFormState}
@@ -352,11 +317,11 @@ class SendApolloPrivate extends React.Component {
                                         type="submit"
                                         name={'closeModal'}
                                         className={classNames({
-                                            "btn" : true,
-                                            "btn-right" : true,
-                                            "blue" : true,
-                                            "round" : true,
-                                            "round-bottom-right" : true,
+                                            "btn": true,
+                                            "btn-right": true,
+                                            "blue": true,
+                                            "round": true,
+                                            "round-bottom-right": true,
                                             "blue-disabled": !this.state.isPrivateTransactionAlert
                                         })}
                                     >
@@ -368,7 +333,6 @@ class SendApolloPrivate extends React.Component {
                         </form>
                     )}
                 >
-
                 </BackForm>
             </div>
         );
@@ -381,18 +345,16 @@ const mapStateToProps = state => ({
     publicKey: state.account.publicKey,
     modalsHistory: state.modals.modalsHistory,
     accountPrefix: state.account.constants ? state.account.constants.accountPrefix : ''
-    
 });
 
 const mapDispatchToProps = dispatch => ({
     setAlert: (status, message) => dispatch(setAlert(status, message)),
     setModalData: (data) => dispatch(setModalData(data)),
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-    sendPrivateTransaction: (requestParams) => dispatch(sendPrivateTransaction(requestParams)),
     calculateFeeAction: (requestParams) => dispatch(calculateFeeAction(requestParams)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
-	openPrevModal: () => dispatch(openPrevModal()),
-	saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
+    openPrevModal: () => dispatch(openPrevModal()),
+    saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
     submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     dispatch: dispatch
 });

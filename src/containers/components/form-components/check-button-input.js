@@ -2,7 +2,7 @@ import React from 'react';
 import {Checkbox} from 'react-form';
 
 export const CheckboxFormInput = (props) => {
-    const {checkboxes, label, idGroup} = props;
+    const {checkboxes, label, idGroup, setValue} = props;
 
     return (
         <div className={'mb-15'}>
@@ -17,10 +17,9 @@ export const CheckboxFormInput = (props) => {
                         <div className={'checkbox-group'} key={index}>
                             <Checkbox
                                 className={'lighten'}
-                                onChange={() => {
-                                    if (el.handler) {
-                                        el.handler()
-                                    }
+                                onChange={(e) => {
+                                    if (setValue) setValue(el.field, e);
+                                    if (el.handler) el.handler(e);
                                 }}
                                 defaultValue={el.defaultValue}
                                 field={el.field}
