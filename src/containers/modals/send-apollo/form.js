@@ -16,16 +16,14 @@ const SendMoneyForm = ({values, setValue, modalData, setBodyModalParamsAction, i
             field={'recipient'}
             defaultValue={(modalData && modalData.recipient) ? modalData.recipient : ''}
             label={'Recipient'}
-            counterLabel={'APL'}
             placeholder={'Recipient'}
             setValue={setValue}
             idGroup={idGroup}
             id={`${idGroup}recipient-field`}
         />
-
         <NummericInputForm 
             field={'amountATM'}
-            counterLabel={'APL'}
+            counterLabel={'Apollo'}
             type={'tel'}
             label={'Amount'}
             setValue={setValue}

@@ -1,9 +1,8 @@
 import React from 'react';
 import {Checkbox} from 'react-form';
-import uuid from 'uuid';
 
 export const CheckboxFormInput = (props) => {
-    const {checkboxes, label, idGroup} = props;
+    const {checkboxes, label, idGroup, setValue} = props;
 
     return (
         <div className="row form-group-grey">
@@ -22,12 +21,11 @@ export const CheckboxFormInput = (props) => {
                             <div className="form-check custom-checkbox mb-15" key={index}>
                                 <Checkbox className="form-check-input custom-control-input"
                                     type="checkbox"
-                                    onChange={() => {
-                                        if (el.handler) {
-                                            el.handler()
-                                        }
+                                    onChange={(e) => {
+                                        if (setValue) setValue(el.field, e);
+                                        if (el.handler) el.handler(e);
                                     }}
-                                    defaultValue={el.defaultValue}
+                                    defaultValue={el.defaultValue || false}
                                     field={el.field}
                                     id={`${idGroup}-${el.field}-field`}
                                 />
