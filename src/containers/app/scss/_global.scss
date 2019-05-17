@@ -810,20 +810,28 @@ input[type="file"] {
 
 	//min-height: 32px;
 	&.pagination {
-		margin-top: 15px;
 		position: absolute;
+		justify-content: space-between;
+		display: flex;
+		margin-top: 0;
 		bottom: 0;
-		right: 0;
 		left: 0;
-
-		.pagination-nav {
-			position: absolute;
-			top: 50%;
-			transform: translateY(-50%);
-
-			span {
-				height: 20px;
+		.btn {
+			float: none;
+			font-size: 10px;
+			letter-spacing: -0.08px;
+			line-height: 12px;
+			min-width: 35px;
+			min-height: auto;
+			padding: 2px 4px;
+			&.disabled {
+				box-shadow: none;
 			}
+		}
+		.pagination-nav {
+			font-size: 12px;
+			font-weight: normal;
+			position: relative;
 		}
 	}
 	&.under-table {
@@ -1081,25 +1089,24 @@ input[type="file"] {
 	&.transparent {
 		background-color: rgba(255, 255, 255, 0) !important;
 	}
+	&.btn-sm {
+		font-size: 11px;
+	}
 	&.btn-simple {
-		color: #BBBBBB;
-		font-size: 12px;
-		line-height: 14px;
-		bottom: 10px;
-		padding: 0;
+		color: #8AA5C7;
+		padding-left: 0;
 		background: transparent;
-		margin: 0 0 12px 12px;
 		min-height: auto;
 	}
 	&.btn-right {
 		float: right;
-		right: 0;
-		bottom: 0;
+		right: 12px;
+		bottom: 12px;
 	}
 	&.btn-left {
 		float: left;
-		left: 0;
-		bottom: 0;
+		left: 12px;
+		bottom: 12px;
 	}
 	&.static {
 		position: static;

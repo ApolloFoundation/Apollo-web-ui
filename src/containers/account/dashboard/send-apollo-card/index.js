@@ -84,12 +84,12 @@ class SendApolloCard extends Component {
                                         </div>
                                         <a
                                             onClick={() => this.openPrivateTransactionModalWindow(values)}
-                                            className="btn btn-left btn-default"
+                                            className="btn btn-left btn-simple btn-sm"
                                         >
                                             Private APL
                                         </a>
                                         <button
-                                            className="btn btn-right btn-green"
+                                            className="btn btn-right btn-green btn-sm"
                                             data-modal="sendMoney"
                                         >
                                             Send&nbsp;
