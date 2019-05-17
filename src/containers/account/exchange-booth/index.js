@@ -304,7 +304,7 @@ class ExchangeBooth extends React.Component {
                             element={'code'}
                             baseUrl={'/exchange-booth/'}
                             data={this.state.currencies}
-                            emptyMessage={'No followed polls.'}
+                            emptyMessage={'No currencies found.'}
                             Component={SidebarCurrency}
                         />
                     )}

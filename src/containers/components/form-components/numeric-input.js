@@ -7,7 +7,7 @@ const NumericInput = ({values, label, field, countingTtile, counterLabel, setVal
             <label>
                 {label}
             </label>
-            <div className="input-group">
+            <div className={(countingTtile || counterLabel) ? "input-group" : ""}>
                 <InputForm
                     field={field}
                     placeholder={placeholder}

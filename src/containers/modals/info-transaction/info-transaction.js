@@ -225,10 +225,17 @@ class InfoLedgerTransaction extends React.Component {
                                                         <td>Amount ATM:</td>
                                                         <td>
                                                             {
-                                                                (this.state.transaction.amountATM === "0" && this.state.transaction.attachment.priceATM) ?
-                                                                    this.state.transaction.attachment.priceATM  / 100000000
-                                                                    :
-                                                                    this.state.transaction.amountATM / 100000000
+                                                                (this.state.transaction.amountATM === "0" ? (
+                                                                            (this.state.transaction.attachment.priceATM && this.state.transaction.attachment.priceATM !== "0") ?
+                                                                                this.state.transaction.attachment.priceATM
+                                                                                :
+                                                                                (this.state.transaction.attachment.amount && this.state.transaction.attachment.amount !== "0") ?
+                                                                                    this.state.transaction.attachment.amount
+                                                                                    :
+                                                                                    this.state.transaction.amountATM
+                                                                        )
+                                                                        : this.state.transaction.amountATM
+                                                                ) / 100000000
                                                             }
                                                         </td>
                                                     </tr>
