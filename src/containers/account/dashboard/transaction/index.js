@@ -49,8 +49,15 @@ const Transaction = (props) => {
                             isDexOrder ?
                                 `${props.attachment.offerCurrency === 0 ? "-" : ""}${props.attachment.offerAmount / 100000000}`
                                 :
-                                ((props.amountATM === "0" && props.attachment.priceATM && props.attachment.priceATM !== "0") ?
-                                        props.attachment.priceATM
+                                (props.amountATM === "0" ? (
+                                            (props.attachment.priceATM && props.attachment.priceATM !== "0") ?
+                                                props.attachment.priceATM
+                                                :
+                                                (props.attachment.amount && props.attachment.amount !== "0") ?
+                                                    props.attachment.amount
+                                                    :
+                                                    props.amountATM
+                                        )
                                         : props.amountATM
                                 ) / 100000000
                         }

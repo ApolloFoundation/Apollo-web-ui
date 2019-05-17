@@ -113,10 +113,10 @@ class Peers extends React.Component {
                                         value: `${Math.round(peersInfo.volumeDownloaded / 1000000, 2)} MB`
                                     },{
                                         label: 'Connected Peers',
-                                        value: peersInfo.upToDatePeers
+                                        value: peersInfo.upToDatePeers || 0
                                     },{
                                         label: 'Up-to-date Peers',
-                                        value: peersInfo.connectedPeers / peersInfo.peersVolume
+                                        value: peersInfo.connectedPeers / peersInfo.peersVolume || 0
                                     }
                                 ]}
                             />

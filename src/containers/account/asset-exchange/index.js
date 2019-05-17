@@ -31,13 +31,9 @@ import SidebatAsset from './sidebar-asset';
 import SidebarContent from '../../components/sidebar-list';
 
 class AssetExchange extends React.Component {
-    constructor(props) {
-        super(props);
-        this.getAsset = this.getAsset.bind(this);
-    }
-
     state = {
         asset: null,
+        assets: null,
         bidOrders: [],
         askOrders: [],
     };
@@ -59,14 +55,16 @@ class AssetExchange extends React.Component {
     }
 
     componentDidUpdate = (prevProps) => {
-        if (this.props.location.pathname !== prevProps.location.pathname) {
-            this.getAsset(this.props.match.params.asset);
+        if (this.props.location.pathname !== prevProps.location.pathname ||
+            (!this.props.match.params.asset && !this.state.asset && this.state.assets && this.state.assets.length > 0)) {
+            const assetId = this.props.match.params.asset || this.state.assets[0].asset;
+            this.getAsset(assetId);
             this.getAssets();
             this.getAccountAsset(this.props);
         }
-    }
+    };
 
-    async getAsset(assetID) {
+    getAsset = async (assetID) => {
         let asset = await this.props.getAssetAction({asset: assetID});
         
         this.setState({
@@ -87,7 +85,7 @@ class AssetExchange extends React.Component {
             })
 
         }
-    }
+    };
 
     getAccountAsset = async (newState) => {
         const assets = await this.props.getAccountAssetAction({account: newState.account});
@@ -161,58 +159,6 @@ class AssetExchange extends React.Component {
         }
     }
 
-    handleBuyFormSubmit = async (values) => {
-        if (!values.quantityATU) {
-            this.setState({
-                ...this.props,
-                priceATMStatus: true
-            })
-            return;
-        } else {
-            this.setState({
-                ...this.props,
-                priceATMStatus: false
-            })
-        }
-        if (!values.feeATM) {
-            this.setState({
-                ...this.props,
-                feeStatus: true
-            })
-            return;
-        } else {
-            this.setState({
-                ...this.props,
-                feeStatus: false
-            })
-        }
-        if (!values.priceATM) {
-            this.setState({
-                ...this.props,
-                priceATMStatus: true
-            })
-            return;
-        } else {
-            this.setState({
-                ...this.props,
-                priceATMStatus: false
-            })
-        }
-
-        values.publicKey = await crypto.getPublicKeyAPL(values.secretPhrase);
-        values.asset = this.state.asset.asset;
-        values.deadline = '1440';
-        values.asset_order_type = 'placeAskOrder';
-        values.phasingHashedSecretAlgorithm = '2';
-        values.priceATM = values.priceATM * Math.pow(10, 6);
-        values.quantityATU = values.quantityATU * Math.pow(10, this.state.asset.decimals);
-        values.feeATM = values.feeATM * Math.pow(10, 8);
-
-        delete values.secretPhrase;
-        this.props.buyAssetAction(values);
-        this.props.setAlert('success', 'The buy order has been submitted.');
-    };
-
     async getTransaction(data) {
         const reqParams = {
             transaction: data,
@@ -271,10 +217,9 @@ class AssetExchange extends React.Component {
         }, () => {
             this.props.history.push('/asset-exchange')
         });
-    }
+    };
 
     render() {
-
         return (
             <div className="page-content">
                 <SiteHeader
@@ -286,11 +231,12 @@ class AssetExchange extends React.Component {
                         <div className="row">
                             {
                                 window.innerWidth > 767 &&
-                                <div className="col-md-3 p-0 pb-3">
+                                <div className="col-md-3 p-0 pb-3 sticky-block">
                                     <SidebarContent
                                         element={'asset'}
                                         baseUrl={'/asset-exchange/'}
                                         data={this.state.accountAssets}
+                                        currentItem={this.state.asset.asset}
                                         emptyMessage={'No assets found.'}
                                         Component={SidebatAsset}
                                     />
@@ -304,7 +250,7 @@ class AssetExchange extends React.Component {
                                             window.innerWidth < 768 &&
                                             <div className="col-xl-6 col-md-12 pr-0">
                                                 <a onClick={this.goBack} className="btn primary mb-3">
-                                                    <i class="zmdi zmdi-arrow-left" /> &nbsp;
+                                                    <i className="zmdi zmdi-arrow-left" /> &nbsp;
                                                     Back to list
                                                 </a>
                                             </div>
