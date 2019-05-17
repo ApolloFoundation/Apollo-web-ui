@@ -17,6 +17,7 @@ import {getNextBlockGeneratorsAction} from '../../../actions/blocks'
 import {formatTimestamp} from "../../../helpers/util/time";
 import {getTime} from '../../../actions/login/index'
 import uuid from "uuid";
+import {ONE_APL} from '../../../constants';
 
 import CustomTable from '../../components/tables/table';
 import TopPageBlocks from '../../components/tob-page-blocks';
@@ -93,8 +94,8 @@ class Blocks extends React.Component {
 		}
 
 		if (blocks.length) {
-			avgFee = (totalFee / 100000000 / blocks.length).toFixed(2);
-			avgAmount = (totalAmount / 100000000 / blocks.length).toFixed(2);
+			avgFee = (totalFee / ONE_APL / blocks.length).toFixed(2);
+			avgAmount = (totalAmount / ONE_APL / blocks.length).toFixed(2);
 		}
 
 		this.setState({
@@ -143,8 +144,8 @@ class Blocks extends React.Component {
 				<div className="page-body container-fluid">
 
 					<div className="">
-						
-						<TopPageBlocks 
+
+						<TopPageBlocks
 							cards={[
 								{
 									label: 'AVG. Amount Per Block',
@@ -160,18 +161,18 @@ class Blocks extends React.Component {
 									value: [
 										{
 											label: 'Transaction Time',
-											value: this.props.blockTime	
+											value: this.props.blockTime
 										},
 										{
 											label: 'Average Block Creating Frequency',
-											value: `${this.state.blockGenerateTime} s`	
+											value: `${this.state.blockGenerateTime} s`
 										}
 									]
 								}
 							]}
 						/>
-						
-						<CustomTable 
+
+						<CustomTable
 							header={[
                                 {
                                     name: 'Height',

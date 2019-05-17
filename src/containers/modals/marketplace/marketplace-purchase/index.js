@@ -12,6 +12,7 @@ import {setBodyModalParamsAction} from "../../../../modules/modals";
 import classNames from 'classnames';
 import {formatTimestamp} from '../../../../helpers/util/time'
 import config from '../../../../config';
+import {ONE_APL} from '../../../../constants';
 
 import TextualInput from '../../../components/form-components/textual-input';
 import NumericInput from '../../../components/form-components/numeric-input';
@@ -89,7 +90,7 @@ class MarketplacePurchase extends React.Component {
 
         values = {
             ...values,
-            priceATM: parseInt(this.state.goods.priceATM) / 100000000,
+            priceATM: parseInt(this.state.goods.priceATM) / ONE_APL,
             goods: this.state.goods.goods,
             recipient: this.props.account,
             secretPhrase: values.secretPhrase
@@ -121,7 +122,7 @@ class MarketplacePurchase extends React.Component {
                 }}
                 submitButtonName="Purchase"
             >
-                <Form goods={this.state.goods}/>                
+                <Form goods={this.state.goods}/>
             </ModalBody>
         );
     }

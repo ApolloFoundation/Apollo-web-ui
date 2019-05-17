@@ -11,6 +11,7 @@ import {getDGSPurchaseAction} from "../../../../actions/marketplace";
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {formatTimestamp} from '../../../../helpers/util/time'
 import config from '../../../../config';
+import {ONE_APL} from '../../../../constants';
 
 import Form from './form';
 import ModalBody from '../../../components/modals/modal-body';
@@ -60,8 +61,8 @@ class MarketplaceDeliver extends React.Component {
     async handleFormSubmit(values) {
         values = {
             ...values,
-            discountATM: values.discountATM * 100000000,
-            priceATM: parseInt(this.state.goods.priceATM) / 100000000,
+            discountATM: values.discountATM * ONE_APL,
+            priceATM: parseInt(this.state.goods.priceATM) / ONE_APL,
             purchase: this.state.goods.purchase,
             recipient: this.props.account,
             secretPhrase: values.secretPhrase,

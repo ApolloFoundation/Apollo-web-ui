@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import {getAssetAction} from "../../../../actions/assets";
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {getTransactionAction} from "../../../../actions/transactions";
+import {ONE_APL} from '../../../../constants';
 
 
 class BigOrderPlacement extends Component {
@@ -57,7 +58,7 @@ class BigOrderPlacement extends Component {
 	            {this.props.transaction.attachment.hasOwnProperty("quantityQNT") &&
 	            <tr>
 		            <td>Quantity:</td>
-		            <td>{this.props.transaction.attachment.quantityQNT / 100000000}</td>
+		            <td>{this.props.transaction.attachment.quantityQNT / ONE_APL}</td>
 	            </tr>
 	            }
 	            {this.props.transaction.senderRS &&

@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import {ONE_APL} from '../../../../constants';
 
 export default class DigitalGoodsListing extends Component {
 
@@ -16,7 +17,7 @@ export default class DigitalGoodsListing extends Component {
                 </tr>
                 <tr>
                     <td>Price:</td>
-                    <td>{atch.priceATM / 100000000}</td>
+                    <td>{atch.priceATM / ONE_APL}</td>
                 </tr>
                 <tr>
                     <td>Quantity:</td>

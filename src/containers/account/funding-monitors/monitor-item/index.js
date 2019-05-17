@@ -4,6 +4,8 @@ import {Link} from 'react-router-dom';
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {startMonitor, stopMonitor} from "../../../../actions/monitors";
 import {NotificationManager} from 'react-notifications'
+import {ONE_APL} from '../../../../constants';
+
 const mapStateToProps  = state => ({
     adminPassword: state.account.adminPassword
 })
@@ -46,10 +48,10 @@ const MonitorItem = (props) => (
         <td
             className={'align-right'}
         >
-            {props.amount ? props.amount/100000000 : '?'}
+            {props.amount ? props.amount/ONE_APL : '?'}
         </td>
         <td>
-            {props.threshold ? props.threshold/100000000 : '?'}
+            {props.threshold ? props.threshold/ONE_APL : '?'}
         </td>
         <td>
             {props.interval ? props.interval : '?'}

@@ -11,6 +11,7 @@ import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {connect} from 'react-redux';
 import {formatTimestamp} from "../../../../helpers/util/time";
 import utils from "../../../../helpers/util/utils";
+import {ONE_APL} from '../../../../constants';
 
 import uuid from 'uuid';
 import config from '../../../../config';
@@ -60,7 +61,7 @@ const tagsArr = utils.parseStringBySpace(props.tags);
                     <div className="price-box">
                         <div className='price-amount'>
                             <div className="amount">
-                                {props.priceATM / 100000000}
+                                {props.priceATM / ONE_APL}
                             </div>
                             <div className="currency">
                                 APL
@@ -102,7 +103,7 @@ const tagsArr = utils.parseStringBySpace(props.tags);
                     <div className="price-box">
                         <div className='price-amount'>
                             <div className="amount">
-                                {props.priceATM / 100000000}
+                                {props.priceATM / ONE_APL}
                             </div>
                             <div className="currency">
                                 APL
@@ -196,7 +197,7 @@ const tagsArr = utils.parseStringBySpace(props.tags);
                             </div>
                             <div className="group">
                                 <div className="amount">
-                                    {props.priceATM / 100000000}
+                                    {props.priceATM / ONE_APL}
                                     <small>APL</small>
                                 </div>
                                 <div className="cargo-id">
