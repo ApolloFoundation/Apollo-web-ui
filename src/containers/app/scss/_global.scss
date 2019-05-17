@@ -1416,6 +1416,9 @@ table {
 	.card.card-tiny {
 		height: auto;
 	}
+	.card.card-full-screen {
+		overflow-y: auto;
+	}
 	.ballance .form-group-app {
 		height: auto;
 	}
@@ -1459,6 +1462,20 @@ table {
 	.col-xl-6.col-md-12 {
 		@media (max-width: 767px) {
 			padding: 0;
+		}
+	}
+	.sticky-block {
+		position: sticky;
+		overflow-y: auto;
+		height: calc(100vh - 135px);
+		max-height: 100%;
+		top: 135px;
+		@media (max-width: 767px) {
+			position: relative;
+			height: 100%;
+			max-height: 226px;
+			display: flex;
+			top: unset;
 		}
 	}
 }
