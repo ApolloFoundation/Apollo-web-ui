@@ -33,7 +33,7 @@ class SendApolloCard extends Component {
                             <div className="card-title">Send Apollo</div>
                             <div className="card-body">
                                 <div className="full-box">
-                                    <div className="form-group-app offset">
+                                    <div className="form-group-app mb-0">
                                         <div className="form-group">
                                             <label
                                                 style={{"word-break": 'normal'}}
@@ -82,21 +82,21 @@ class SendApolloCard extends Component {
                                                 </div>
                                             </div>
                                         </div>
+                                        <a
+                                            onClick={() => this.openPrivateTransactionModalWindow(values)}
+                                            className="btn btn-left btn-simple btn-sm"
+                                        >
+                                            Private APL
+                                        </a>
+                                        <button
+                                            className="btn btn-right btn-green btn-sm"
+                                            data-modal="sendMoney"
+                                        >
+                                            Send&nbsp;
+                                            <i className="arrow zmdi zmdi-chevron-right"/>
+                                        </button>
                                     </div>
                                 </div>
-                                <a
-                                    onClick={() => this.openPrivateTransactionModalWindow(values)}
-                                    className="btn absolute btn-left btn-simple"
-                                >
-                                    Private APL
-                                </a>
-                                <button
-                                    className="btn btn-right gray round round-bottom-right round-top-left absolute"
-                                    data-modal="sendMoney"
-                                >
-                                    Send&nbsp;
-                                    <i className="arrow zmdi zmdi-chevron-right"/>
-                                </button>
                             </div>
                         </form>
                     )}

@@ -279,10 +279,10 @@ class SendApolloPrivate extends React.Component {
                                     </InfoBox>
                                 }
 
-                                <div className="btn-box align-buttons-inside absolute right-conner align-right">
+                                <div className="btn-box right-conner align-right">
                                     <a
                                         onClick={() => this.props.closeModal()}
-                                        className="btn round round-top-left"
+                                        className="btn btn-default mr-3"
                                     >
                                         Cancel
                                     </a>
@@ -290,12 +290,11 @@ class SendApolloPrivate extends React.Component {
                                         type="submit"
                                         name={'closeModal'}
                                         className={classNames({
-                                            "btn": true,
-                                            "btn-right": true,
-                                            "blue": true,
-                                            "round": true,
-                                            "round-bottom-right": true,
-                                            "blue-disabled": !this.state.isPrivateTransactionAlert
+                                            "btn" : true,
+                                            "btn-right" : true,
+                                            "btn-green" : true,
+                                            "submit-button" : true,
+                                            "btn-green-disabled": !this.state.isPrivateTransactionAlert
                                         })}
                                     >
                                         Send

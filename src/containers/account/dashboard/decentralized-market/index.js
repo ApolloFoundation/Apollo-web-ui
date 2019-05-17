@@ -42,7 +42,7 @@ class DecentralizedMarketplace extends Component {
                             <ContentLoader noPaddingOnTheSides/>
                         }
                     </div>
-                    <Link to="/marketplace" className="btn btn-left btn-simple absolute">Marketplace</Link>
+                    <Link to="/marketplace" className="btn btn-left btn-simple absolute btn-sm">Marketplace</Link>
                 </div>
             </div>
 

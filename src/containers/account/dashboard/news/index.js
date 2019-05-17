@@ -44,47 +44,45 @@ class DashboardNews extends Component {
                         {this.state.news && this.getNewsItem(this.state.news.tweets[this.state.newsItem])}
                     </div>
 
-                    <button
-                        className={classNames({
-                            'btn': true,
-                            'btn-left': true,
-                            'gray': true,
-                            'round': true,
-                            'round-top-right': true,
-                            'round-bottom-left': true,
-                            'absolute': true,
-                            'disabled': this.state.newsItem === 0
-                        })}
-                        data-modal="sendMoney"
-                        onClick={() => {
-                            this.setState({newsItem: this.state.newsItem - 1})
-                        }}
-                    >
-                        <i className="arrow zmdi zmdi-chevron-left"/>&nbsp;
-                        Previous
-                    </button>
-                    {
-                        this.state.newsCount &&
-                        <button
-                            className={classNames({
-                                'btn': true,
-                                'btn-right': true,
-                                'gray': true,
-                                'round': true,
-                                'round-bottom-right': true,
-                                'round-top-left': true,
-                                'absolute': true,
-                                'disabled': this.state.newsItem === this.state.newsCount - 1
-                            })}
-                            data-modal="sendMoney"
-                            onClick={() => {
-                                this.setState({newsItem: this.state.newsItem + 1})
-                            }}
-                        >
-                            Next&nbsp;
-                            <i className="arrow zmdi zmdi-chevron-right"/>
-                        </button>
-                    }
+                    {this.state.news && (
+                        <div className="btn-box pagination">
+                            <button
+                                className={classNames({
+                                    'btn': true,
+                                    'btn-left': true,
+                                    'btn-default': true,
+                                    'absolute': true,
+                                    'disabled': this.state.newsItem === 0
+                                })}
+                                data-modal="sendMoney"
+                                onClick={() => {
+                                    this.setState({newsItem: this.state.newsItem - 1})
+                                }}
+                            >
+                                <i className="arrow zmdi zmdi-chevron-left"/>&nbsp;
+                                Previous
+                            </button>
+                            {
+                                this.state.newsCount &&
+                                <button
+                                    className={classNames({
+                                        'btn': true,
+                                        'btn-right': true,
+                                        'btn-default': true,
+                                        'absolute': true,
+                                        'disabled': this.state.newsItem === this.state.newsCount - 1
+                                    })}
+                                    data-modal="sendMoney"
+                                    onClick={() => {
+                                        this.setState({newsItem: this.state.newsItem + 1})
+                                    }}
+                                >
+                                    Next&nbsp;
+                                    <i className="arrow zmdi zmdi-chevron-right"/>
+                                </button>
+                            }
+                        </div>
+                    )}
                 </div>
             </div>
         )

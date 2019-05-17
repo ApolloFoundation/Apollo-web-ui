@@ -53,9 +53,9 @@ class ActivePolls extends Component {
                             </p>
                         }
                     </div>
-                    <Link to="/active-polls" className="btn btn-left btn-simple absolute">Voting system</Link>
+                    <Link to="/active-polls" className="btn btn-left btn-simple absolute btn-sm">Voting system</Link>
                     <button
-                        className="btn btn-right gray round round-bottom-right round-top-left absolute "
+                        className="btn btn-right btn-green absolute btn-sm"
                         data-modal="sendMoney"
                         onClick={() => setBodyModalParamsAction('ISSUE_POLL')}
                     >
