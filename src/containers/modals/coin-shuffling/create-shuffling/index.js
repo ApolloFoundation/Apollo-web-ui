@@ -7,7 +7,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {
-    setBodyModalParamsAction, 
+    setBodyModalParamsAction,
 } from '../../../../modules/modals';
 import {handleFormSubmit} from './handleFormSubmit';
 
@@ -15,6 +15,7 @@ import {handleFormSubmit} from './handleFormSubmit';
 
 import ModalBody from '../../../components/modals/modal-body';
 import CreateShufflngForm from './form';
+import {NotificationManager} from "react-notifications";
 
 const holdingTypeData = [
     { value: 0, label: 'Apollo' },
@@ -39,7 +40,29 @@ class CreateShuffling extends React.Component {
 
     }
 
-    handleFormSubmit = (values) => handleFormSubmit.call(this.props, values);
+    handleFormSubmit = (values) => {
+        values = {
+            ...values,
+            amount: values.amount * 100000000,
+            registrationPeriod: 1439
+        };
+
+        this.props.processForm(values, 'shufflingCreate', 'Shuffling Created!', (res) => {
+            NotificationManager.success('Shuffling Created!', null, 5000);
+
+            const reqParams = {
+                transactionBytes: res.transactionBytes || res.unsignedTransactionBytes,
+                prunableAttachmentJSON: JSON.stringify({...(res.transactionJSON.attachment), "version.ShufflingCreation": 1}),
+                createNoneTransactionMethod: true
+            };
+
+            this.props.processForm(reqParams, 'broadcastTransaction', 'Shuffling Created!', (broadcast) => {
+                setBodyModalParamsAction('START_SHUFFLING', {broadcast});
+            });
+
+            this.props.closeModal();
+        })
+    };
 
     render() {
         return (

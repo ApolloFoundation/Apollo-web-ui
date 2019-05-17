@@ -398,7 +398,7 @@ class Transactions extends React.Component {
                             ]}
                             keyField={'ledgerId'}
                             className={'no-min-height mb-3'}
-                            emptyMessage={'No active polls.'}
+                            emptyMessage={'No transactions found.'}
                             TableRowComponent={Transaction}
                             passProps={{
                                 secretPhrase: this.state.secretPhrase || this.state.passphrase,

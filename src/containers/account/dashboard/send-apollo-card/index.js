@@ -7,17 +7,17 @@ import {setBodyModalParamsAction, clearDashboardForm} from '../../../../modules/
 
 class SendApolloCard extends Component {
     
-    submitForm = ({recipient, amountATM, feeAPL}) => {
-        this.props.setBodyModalParamsAction('SEND_APOLLO', {recipient, amountATM , feeAPL})
+    submitForm = ({recipient, amountATM, feeATM}) => {
+        this.props.setBodyModalParamsAction('SEND_APOLLO', {recipient, amountATM , feeATM});
     };
 
-    opnePrivateTransactionModalWindow = ({recipient, amountATM, feeAPL}) => {
-        this.props.setBodyModalParamsAction('SEND_APOLLO_PRIVATE', {recipient, amountATM ,feeAPL}) 
+    openPrivateTransactionModalWindow = ({recipient, amountATM, feeATM}) => {
+        this.props.setBodyModalParamsAction('SEND_APOLLO_PRIVATE', {recipient, amountATM ,feeATM});
     };
 
     getApi = (form) => {
-        this.setState({form})
-        clearDashboardForm(form)
+        this.setState({form});
+        clearDashboardForm(form);
     };
 
     render () {
@@ -73,8 +73,8 @@ class SendApolloCard extends Component {
                                             <div>
                                             <div  style={{position: 'relative'}}>
                                                 <InputForm
-                                                    field={'feeAPL'}
-                                                    placeholder={'Amount'}
+                                                    field={'feeATM'}
+                                                    placeholder={'Fee'}
                                                     type={'float'}
                                                     setValue={setValue}
                                                 />
@@ -84,7 +84,7 @@ class SendApolloCard extends Component {
                                     </div>                                   
                                 </div>
                                 <a
-                                    onClick={() => this.opnePrivateTransactionModalWindow(values)}
+                                    onClick={() => this.openPrivateTransactionModalWindow(values)}
                                     className="btn absolute btn-left btn-simple"
                                     style={{margin: '0 0 -7px 35px'}}
                                 >
