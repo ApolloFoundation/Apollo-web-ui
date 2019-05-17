@@ -6,9 +6,9 @@ import {Link} from 'react-router-dom';
 import ContentLoader from '../../components/content-loader';
 import {withRouter} from 'react-router-dom';
 
-const SidebarContent = ({emptyMessage, baseUrl, data, bottomBarPreText, element, location, Component}) => (
+const SidebarContent = ({emptyMessage, baseUrl, data, bottomBarPreText, element, location, Component, currentItem}) => (
     <>
-        <div className="card card-full-screen no-padding scroll d-block">
+        <div className="card card-full-screen no-padding d-block">
             {
                 !!data &&
                 data.length > 0 &&
@@ -20,7 +20,7 @@ const SidebarContent = ({emptyMessage, baseUrl, data, bottomBarPreText, element,
                             to={baseUrl + el[element]}
                             className={classNames({
                                 "chat-item": true,
-                                "active": location && location.pathname === baseUrl + el[element]
+                                "active": (location && location.pathname === baseUrl + el[element]) || currentItem === el[element]
                             })}
                         >
                             <Component  {...el}/>
