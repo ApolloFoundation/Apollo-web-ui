@@ -158,7 +158,7 @@ class Peers extends React.Component {
                                 onBlacklistClick: this.blacklistPeer,
                             }}
                             className={'no-min-height'}
-                            emptyMessage={'No aliases found.'}
+                            emptyMessage={'No peers found.'}
                         />
                     </div>
                 </div>

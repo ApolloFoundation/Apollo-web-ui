@@ -154,7 +154,7 @@ class ActiveShufflings extends React.Component {
                                 }
                             ]}
                             className={'no-min-height'}
-                            emptyMessage={'No active polls.'}
+                            emptyMessage={'No active shuffling.'}
                             TableRowComponent={ShufflingItem}
                             tableData={this.state.activeShuffling}
                         />
@@ -184,7 +184,7 @@ class ActiveShufflings extends React.Component {
                                     },
                                 ]}
                                 className={'no-min-height pb-0'}
-                                emptyMessage={'No finished polls.'}
+                                emptyMessage={'No finished shuffling.'}
                                 TableRowComponent={ShufflingItem}
                                 tableData={this.state.finishedShufflings}
                                 hintClassName={''}

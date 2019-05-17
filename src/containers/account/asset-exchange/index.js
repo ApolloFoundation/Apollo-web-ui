@@ -291,7 +291,7 @@ class AssetExchange extends React.Component {
                                         element={'asset'}
                                         baseUrl={'/asset-exchange/'}
                                         data={this.state.accountAssets}
-                                        emptyMessage={'No followed polls.'}
+                                        emptyMessage={'No assets found.'}
                                         Component={SidebatAsset}
                                     />
                                 </div>

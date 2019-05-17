@@ -74,7 +74,7 @@ class TradeHistoryExchange extends React.Component {
                     ]}
                     className={'pt-0 no-min-height pb-4'}
                     tableData={buyOrders}
-                    emptyMessage={'No account propertes found .'}
+                    emptyMessage={'No trade history found.'}
                     TableRowComponent={(props) => (
                         <tr className={''}>
                             <td>{props.price}</td>
