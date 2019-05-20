@@ -16,12 +16,9 @@ class ModalFooter extends React.Component {
 
         return (
             <>
-                <div 
-                    className="form-group mb-15"
-                    style={{marginBottom: 15}}
-                >
+                <div className="form-group mb-15">
                     <label>
-                        Secret phrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
+                        Secret phrase
                     </label>
                     <div>
                         <InputForm

@@ -137,6 +137,14 @@
           height: auto;
         }
       }
+
+      .form-tabulator {
+        .form-group-app {
+          border: none;
+          border-radius: 3px;
+          box-shadow: none;
+        }
+      }
     }
     .exit {
       box-sizing: border-box;

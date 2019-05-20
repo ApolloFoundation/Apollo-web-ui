@@ -363,11 +363,8 @@
 	// needed for modal windows
 	.form-tabulator {
 		position: relative;
-		margin: 55px -35px -92px -35px;
-		background-color: #F5F5F5;
 		padding: 18px 35px 70px 35px;
 		display: none;
-		border-radius: 0 0 8px 8px;
 		&.white {
 			background-color: white;
 
@@ -388,7 +385,7 @@
 			display: flex;
 			flex-direction: row;
 			justify-content: space-between;
-			position: absolute;
+			//position: absolute;
 			overflow-x: auto;
 			bottom: 100%;
 			right: 20px;
@@ -410,11 +407,14 @@
 				align-items: center;
 				width: 54px;
 				height: 32px;
-				border-top-left-radius: 6px;
-				border-top-right-radius: 6px;
-
+				border-top-left-radius: 3px;
+				border-top-right-radius: 3px;
+				transition: 0.3s;
+				&:hover {
+					background-color: rgba(230, 234, 238, 0.5);
+				}
 				&.active {
-					background-color: #F5F5F5;
+					background-color: #E6EAEE;
 				}
 				p {
 					font-size: 14px !important;
@@ -436,9 +436,16 @@
 		}
 		.tab-body {
 			display: none;
-
+			background-color: #FCFCFD;
+			border-radius: 0 3px 3px 3px;
+			border: 1px solid #E6EAEE;
 			&.active {
 				display: block;
+			}
+			.form-group-app {
+				border: none;
+				border-radius: 3px;
+				box-shadow: none;
 			}
 		}
 		.form-sub-actions {
@@ -477,6 +484,7 @@
 		height: 40px !important;
 		opacity: 1;
 		font-weight: 400;
+		width: 100%;
 		&:focus {
 			border-color: #E6EAEE;
 		}
