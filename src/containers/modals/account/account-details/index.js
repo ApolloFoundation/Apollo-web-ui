@@ -19,6 +19,7 @@ import QR from 'qrcode';
 import QRCode from 'qrcode.react';
 import jsPDF from "jspdf";
 
+import {ONE_APL} from '../../../../constants';
 import ContentLoader from '../../../components/content-loader'
 import ModalBody from '../../../components/modals/modal-body';
 import TabulationBody from '../../../components/tabulator/tabuator-body';
@@ -132,15 +133,15 @@ class AccountDetails extends React.Component {
                                             </tr>
                                             <tr>
                                                 <td className="no-brake">Balance::</td>
-                                                <td>{this.state.account.balanceATM ? (this.state.account.balanceATM / 100000000).toFixed(2) : '0'} Apollo</td>
+                                                <td>{this.state.account.balanceATM ? (this.state.account.balanceATM / ONE_APL).toFixed(2) : '0'} Apollo</td>
                                             </tr>
                                             <tr>
                                                 <td className="no-brake">Available Balance:</td>
-                                                <td>{this.state.account.unconfirmedBalanceATM ? (this.state.account.unconfirmedBalanceATM / 100000000).toFixed(2) : '0'} Apollo</td>
+                                                <td>{this.state.account.unconfirmedBalanceATM ? (this.state.account.unconfirmedBalanceATM / ONE_APL).toFixed(2) : '0'} Apollo</td>
                                             </tr>
                                             <tr>
                                                 <td className="no-brake">Guaranteed Balance:</td>
-                                                <td>{this.state.account.guaranteedBalanceATM ? (this.state.account.guaranteedBalanceATM / 100000000).toFixed(2) : '0'} Apollo</td>
+                                                <td>{this.state.account.guaranteedBalanceATM ? (this.state.account.guaranteedBalanceATM / ONE_APL).toFixed(2) : '0'} Apollo</td>
                                             </tr>
                                             <tr>
                                                 <td className="no-brake">Effective Balance:</td>
@@ -148,7 +149,7 @@ class AccountDetails extends React.Component {
                                             </tr>
                                             <tr>
                                                 <td className="no-brake">Forged Balance:</td>
-                                                <td>{this.state.account.forgedBalanceATM ? (this.state.account.forgedBalanceATM / 100000000).toFixed(2) : '0'} Apollo</td>
+                                                <td>{this.state.account.forgedBalanceATM ? (this.state.account.forgedBalanceATM / ONE_APL).toFixed(2) : '0'} Apollo</td>
                                             </tr>
                                             <tr>
                                                 <td className="no-brake">Public Key:</td>
@@ -193,7 +194,7 @@ class AccountDetails extends React.Component {
                                 </div>
                             </div> : <ContentLoader />
                         }
-                        
+
                     </TabContaier>
                     <TabContaier sectionName={'Account Leasing'}>
                         <div className="transaction-table no-min-height transparent">

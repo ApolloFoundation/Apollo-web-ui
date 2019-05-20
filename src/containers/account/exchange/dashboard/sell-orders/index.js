@@ -2,6 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {getSellOpenOffers} from "../../../../../actions/wallet";
 import {formatDivision} from "../../../../../helpers/format";
+import {ONE_APL} from '../../../../../constants';
+
 import CustomTable from '../../../../components/tables/table';
 import ArrowDown from '../../../../../assets/arrow-down.png';
 
@@ -54,8 +56,8 @@ class SellOrders extends React.Component {
                     tableData={sellOrders}
                     emptyMessage={'No orders found.'}
                     TableRowComponent={(props) => {
-                        const pairRate = formatDivision(props.pairRate, 100000000, 9);
-                        const offerAmount = formatDivision(props.offerAmount, 100000000, 3);
+                        const pairRate = formatDivision(props.pairRate, ONE_APL, 9);
+                        const offerAmount = formatDivision(props.offerAmount, ONE_APL, 3);
                         const total = formatDivision(props.pairRate * props.offerAmount, Math.pow(10, 16), 9);
                         return (
                             <tr>

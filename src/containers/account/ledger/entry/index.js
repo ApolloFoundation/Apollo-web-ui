@@ -14,6 +14,7 @@ import {setBodyModalParamsAction} from '../../../../modules/modals';
 import {formatTimestamp} from '../../../../helpers/util/time';
 import {getTransactionAction} from '../../../../actions/transactions/';
 import {getBlockAction} from '../../../../actions/blocks';
+import {ONE_APL} from '../../../../constants';
 
 class Entry extends React.Component {
     showInfo = () => {
@@ -56,11 +57,11 @@ class Entry extends React.Component {
                         </td>
                         <td className="align-right">
                             {this.props.holdingType === "UNCONFIRMED_APL_BALANCE" &&
-                            (this.props.change / 100000000).toFixed(1)}
+                            (this.props.change / ONE_APL).toFixed(1)}
                         </td>
                         <td className="align-right">
                             {this.props.holdingType === "UNCONFIRMED_APL_BALANCE" && this.props.balance > 0 &&
-                            (this.props.balance / 100000000).toLocaleString('en')}
+                            (this.props.balance / ONE_APL).toLocaleString('en')}
                         </td>
                         <td className="align-right">
                             {this.props.holdingInfo && this.props.holdingInfo.name}
@@ -70,14 +71,14 @@ class Entry extends React.Component {
                             this.props.holdingInfo && this.props.holdingInfo.name &&
                             (this.props.change/1).toFixed(2)}
                             {this.props.holdingType === "UNCONFIRMED_ASSET_BALANCE" &&
-                            (this.props.change/100000000).toFixed(2)}
+                            (this.props.change/ONE_APL).toFixed(2)}
                         </td>
                         <td className="align-right">
                             {this.props.holdingType === "UNCONFIRMED_CURRENCY_BALANCE" &&
                             this.props.holdingInfo && this.props.holdingInfo.name &&
                             (this.props.balance/1).toLocaleString('en')}
                             {this.props.holdingType === "UNCONFIRMED_ASSET_BALANCE" &&
-                            (this.props.balance/100000000).toLocaleString('en')}
+                            (this.props.balance/ONE_APL).toLocaleString('en')}
                         </td>
                     </tr>
                 }

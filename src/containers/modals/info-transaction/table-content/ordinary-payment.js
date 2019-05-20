@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import {ONE_APL} from '../../../../constants';
 
 
 export default class OrdinaryPayment extends Component {
@@ -8,13 +9,13 @@ export default class OrdinaryPayment extends Component {
 	            {this.props.transaction.amountATM &&
 	            <tr>
 		            <td>Amount:</td>
-		            <td>{this.props.transaction.amountATM / 100000000}</td>
+		            <td>{new Number(this.props.transaction.amountATM / ONE_APL).toFixed(8)}</td>
 	            </tr>
 	            }
 	            {this.props.transaction.feeATM &&
 	            <tr>
 		            <td>Fee:</td>
-		            <td>{this.props.transaction.feeATM / 100000000}</td>
+		            <td>{this.props.transaction.feeATM / ONE_APL}</td>
 	            </tr>
 	            }
 	            {this.props.transaction.senderRS &&

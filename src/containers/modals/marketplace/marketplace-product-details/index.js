@@ -12,6 +12,7 @@ import {setBodyModalParamsAction} from "../../../../modules/modals";
 import classNames from 'classnames';
 import {formatTimestamp} from '../../../../helpers/util/time'
 import config from '../../../../config';
+import {ONE_APL} from '../../../../constants';
 
 
 const mapStateToProps = state => ({
@@ -87,7 +88,7 @@ class MarketplaceProductDetails extends React.Component {
                                     <p>{this.state.goods.name}</p>
                                 </div>
                                 <div className="price">
-                                    {this.state.goods.priceATM / 100000000} Apollo
+                                    {this.state.goods.priceATM / ONE_APL} Apollo
                                 </div>
                                 <div className="info-table">
                                     <div className="t-row">

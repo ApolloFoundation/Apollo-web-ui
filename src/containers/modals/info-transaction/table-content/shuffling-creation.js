@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {getShufflingAction} from "../../../../actions/shuffling";
 import {connect} from "react-redux";
 import {setBodyModalParamsAction} from "../../../../modules/modals";
+import {ONE_APL} from '../../../../constants';
 
 function Stage (number) {
 	if(number === "0"){
@@ -58,7 +59,7 @@ class ShufflingCreation extends Component {
 	            {this.props.transaction.attachment.hasOwnProperty("amount") &&
 	            <tr>
 		            <td>Amount:</td>
-		            <td>{this.props.transaction.attachment.amount / 100000000} Apollo</td>
+		            <td>{this.props.transaction.attachment.amount / ONE_APL} Apollo</td>
 	            </tr>
 	            }
 	            {this.props.transaction.attachment.hasOwnProperty("holding") &&

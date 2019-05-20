@@ -11,6 +11,7 @@ import { formatTimestamp } from "../../../../helpers/util/time";
 import { INIT_TRANSACTION_TYPES } from "../../../../helpers/transaction-types/transaction-types-new";
 import { formatTransactionType } from "../../../../actions/transactions";
 import { setBodyModalParamsAction } from "../../../../modules/modals";
+import {ONE_APL} from '../../../../constants';
 
 const mapStateToProps = state => ({
     constants: state.account.constants,
@@ -47,19 +48,12 @@ const Transaction = (props) => {
                         {props.account === props.sender && props.amountATM != 0 && '-'}
                         {
                             isDexOrder ?
-                                `${props.attachment.offerCurrency === 0 ? "-" : ""}${props.attachment.offerAmount / 100000000}`
+                                `${props.attachment.offerCurrency === 0 ? "-" : ""}${new Number(props.attachment.offerAmount / ONE_APL).toFixed(8)}`
                                 :
-                                (props.amountATM === "0" ? (
-                                            (props.attachment.priceATM && props.attachment.priceATM !== "0") ?
-                                                props.attachment.priceATM
-                                                :
-                                                (props.attachment.amount && props.attachment.amount !== "0") ?
-                                                    props.attachment.amount
-                                                    :
-                                                    props.amountATM
-                                        )
-                                        : props.amountATM
-                                ) / 100000000
+                                new Number(((props.amountATM === "0" && props.attachment.priceATM && props.attachment.priceATM !== "0") ?
+                                    props.attachment.priceATM
+                                    : props.amountATM
+                                ) / ONE_APL).toFixed(8)
                         }
                     </div>
                 </div>

@@ -8,6 +8,7 @@ import i18n from 'i18next';
 import util from '../../helpers/util/utils';
 import crypto from '../crypto/crypto';
 import config from '../../config';
+import {ONE_APL} from '../../constants';
 import converters from '../converters'
 import BigInteger from 'big-integer';
 import AplAddress from '../util/apladres'
@@ -138,15 +139,15 @@ function submitForm(data, requestType) {
         }
 
         if (data.feeATM && $.isNumeric(data.feeATM)) {
-            data.feeATM = data.feeATM * 100000000
+            data.feeATM = data.feeATM * ONE_APL
         }
 
         if (data.amountATM && $.isNumeric(data.amountATM)) {
-            data.amountATM = data.amountATM * 100000000
+            data.amountATM = data.amountATM * ONE_APL
         }
 
         if (data.priceATM && $.isNumeric(data.priceATM)) {
-            data.priceATM = data.priceATM * 100000000
+            data.priceATM = data.priceATM * ONE_APL
         }
 
         if (data.priceOrder) {
@@ -174,10 +175,10 @@ function submitForm(data, requestType) {
         }
 
         if ((data.feeAPL             > fee.minFeeAmount ||
-             data.feeATM / 100000000 > fee.minFeeAmount
+             data.feeATM / ONE_APL > fee.minFeeAmount
         ) && !fee.isFeeAlert) {
             NotificationManager.warning(`You are trying to send the transaction with fee that increases ${fee.minFeeAmount} Apollo`, 'Attention', 10000);
-        
+
             dispatch({
                 type: 'SET_FEE_ALERT',
                 payload: true
@@ -510,7 +511,7 @@ function sendRequest(requestType, data, callback, options) {
         });
         //convert APL to ATM...
         var field = "N/A";
-        
+
         // convert asset/currency decimal amount to base unit
         try {
             var currencyFields = [
