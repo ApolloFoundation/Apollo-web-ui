@@ -9,14 +9,14 @@ import BlockHeightInput from '../../../components/form-components/block-height-i
 
 const holdingTypeData = [
     { value: 0, label: 'Apollo' },
-    { value: 1, label: 'Asset' },
-    { value: 2, label: 'Currency' },
+    // { value: 1, label: 'Asset' },
+    // { value: 2, label: 'Currency' },
 ];
 
 const CreateShufflngForm = (props) => {
 
     const {setValue, getFormState} = props;
-    const {values : {holdingType}} = getFormState()
+    const {values : {holdingType}} = getFormState();
     return (
         <>
             <CustomFormSelect
@@ -29,9 +29,8 @@ const CreateShufflngForm = (props) => {
 
             <NumericInputComponent
                 setValue={setValue}
-        
                 label={'Amount'}
-                field={'shufflingAmountAPL'}
+                field={'amount'}
                 countingTtile={'Apollo'}
                 placeholder={'Amount'}
                 type={'tel'}
@@ -40,20 +39,19 @@ const CreateShufflngForm = (props) => {
             {
                 holdingType === 1 &&
                 <AssetInput
-                    field={'assetId'}
+                    field={'holding'}
                     setValue={setValue}
                 />
             }
             {
                 holdingType === 2 &&
                 <CurrencyInput 
-                    field={'shuffling_ms_code'}
+                    field={'holding'}
                     setValue={setValue}
                 />
             }
             {
-                holdingType === 1 &&
-                holdingType === 2 &&
+                (holdingType === 1 || holdingType === 2) &&
                 <NumericInputComponent
                     setValue={setValue}
                     label={'Quantity'}
@@ -66,19 +64,18 @@ const CreateShufflngForm = (props) => {
             <BlockHeightInput 
                 setValue={setValue}
                 label={'Register Until'}
-                field={'finishHeight'}
+                field={'registrationPeriod'}
                 placeholder={'Register Until'}
             />
             <NumericInputComponent
                 setValue={setValue}
                 label={'Participant Count'}
                 field={'participantCount'}
-                countingTtile={''}
                 placeholder={'Participant Count'}
                 type={'tel'}
             />
         </>
     )
-}
+};
 
 export default CreateShufflngForm;

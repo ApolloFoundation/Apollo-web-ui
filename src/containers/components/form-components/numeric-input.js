@@ -7,7 +7,7 @@ const NumericInput = ({values, label, field, countingTtile, counterLabel, setVal
             <label className="col-sm-3 col-form-label">
                 {label}
             </label>
-            <div className="col-sm-9 input-group input-group-text-transparent input-group-sm">
+            <div className={`col-sm-9 ${(countingTtile || counterLabel) ? 'input-group input-group-text-transparent input-group-sm' : ''}`}>
                 <InputForm
                     field={field}
                     placeholder={placeholder}

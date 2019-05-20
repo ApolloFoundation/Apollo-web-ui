@@ -185,7 +185,7 @@ class InfoBlock extends React.Component {
                                             }
                                         ]}
                                         className={'no-min-height transparent pt-4'}
-                                        emptyMessage={'No active polls.'}
+                                        emptyMessage={'No transactions found.'}
                                         TableRowComponent={Transaction}
                                         tableData={blockInfo.transactions}
                                     />

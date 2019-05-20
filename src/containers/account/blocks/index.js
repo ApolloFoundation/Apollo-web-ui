@@ -204,7 +204,7 @@ class Blocks extends React.Component {
 							previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
 							nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
 							className={'no-min-height mb-3'}
-							emptyMessage={'No aliases found.'}
+							emptyMessage={'No blocks found.'}
 						/>
 					</div>
 				</div>
