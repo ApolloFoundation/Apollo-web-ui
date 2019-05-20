@@ -79,33 +79,6 @@
 			padding: 0;
 		}
 	}
-	&.about {
-		.left-bar {
-			width: 200px;
-			margin: 0;
-		}
-		.right-bar {
-			width: calc(100% - 160px);
-
-			.description {
-				color: #3D5A7E;
-				font-size: 14px;
-				line-height: 1.6;
-				padding-top: 48px;
-
-				p {
-					margin-top: 30px;
-					font-size: 14px;
-
-					a {
-						color: #00C8FF;
-						font-weight: normal;
-						font-size: 14px;
-					}
-				}
-			}
-		}
-	}
 	&.transparent {
 		background: transparent;
 	}
