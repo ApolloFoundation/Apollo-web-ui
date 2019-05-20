@@ -511,10 +511,13 @@
 			border-left: none;
 		}
 	}
-	.text-note {
-		position: absolute;
-		top: 42px;
-		color: #98B0CD;
+	.form-group {
+		position: relative;
+		.text-note {
+			position: absolute;
+			top: 42px;
+			color: #98B0CD;
+		}
 	}
 
 	.checkbox-group {
