@@ -115,7 +115,7 @@ class ActiveShufflings extends React.Component {
             this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction);
         }
 
-    }
+    };
 
     render () {
         return (
@@ -157,6 +157,7 @@ class ActiveShufflings extends React.Component {
                             emptyMessage={'No active shuffling.'}
                             TableRowComponent={ShufflingItem}
                             tableData={this.state.activeShuffling}
+                            passProps={{getTransaction: this.getTransaction}}
                         />
 
                         <div className="form-group-app offset-bottom height-auto no-padding mb-3">
