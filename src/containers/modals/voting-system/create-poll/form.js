@@ -6,6 +6,7 @@ import TextualInputComponent from '../../../components/form-components/textual-i
 import NumericInputComponent from '../../../components/form-components/numeric-input';
 import CustomTextArea from '../../../components/form-components/text-area';
 import CustomFormSelect from '../../../components/form-components/custom-form-select';
+import CustomInputForm from '../../../components/form-components/textual-input';
 
 import AssetInput from '../../../components/form-components/asset-input';
 import CurrencyInput from '../../../components/form-components/currency-input';
@@ -13,7 +14,6 @@ import CurrencyInput from '../../../components/form-components/currency-input';
 import BlockHeightInput from '../../../components/form-components/block-height-input';
 
 import InputForm from '../../../components/input-form';
-import ModalBody from '../../../components/modals/modal-body';
 
 const votingModelData = [
     { value: 0, label: 'Vote by Account' },
@@ -111,62 +111,6 @@ class PollForm extends React.Component {
                         idGroup={idGroup}
                     />
                 }
-                {/*{getFormState().values.votingModel === votingModelData[0].value &&
-                <RadioGroup field={'minBalanceType'} defaultValue={0}>
-                    <div className="form-group row form-group-white">
-                        <label className="col-sm-3 col-form-label align-self-start">
-                            Min Balance Type
-                        </label>
-                        <div className="col-md-9">
-                            <div className="form-sub-actions">
-                                <div
-                                    className="form-group-app no-padding-bottom"
-                                    style={{paddingTop: 0, paddingLeft: 0}}
-                                >
-                                    <div
-                                        className="input-group-app align-middle display-block mb-3">
-                                        <Radio value={0}/>
-                                        <label style={{display: 'inline-block'}}>None</label>
-                                    </div>
-                                    <div
-                                        className="input-group-app align-middle display-block mb-3">
-                                        <Radio value={1}/>
-                                        <label style={{display: 'inline-block'}}>Account
-                                            Balance</label>
-                                    </div>
-                                    <div
-                                        className="input-group-app align-middle display-block mb-3">
-                                        <Radio value={2}/>
-                                        <label style={{display: 'inline-block'}}>Asset
-                                            Balance</label>
-                                    </div>
-                                    <div
-                                        className="input-group-app align-middle display-block mb-3">
-                                        <Radio value={3}/>
-                                        <label style={{display: 'inline-block'}}>Currency
-                                            Balance</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </RadioGroup>
-                }
-                <div className="form-group row form-group-white mb-15">
-                    <label className="col-sm-3 col-form-label">
-                        Min voting balance {this.selectedBalanceType(getFormState().values)}
-                    </label>
-                    <div className="col-sm-9">
-                        <InputForm
-                            disabled={getFormState().values.minBalanceType === 0 &&
-                                        getFormState().values.votingModel === 0}
-                            field="minBalance"
-                            placeholder=""
-                            type={"tel"}
-                            defaultValue={0}
-                            setValue={setValue}/>
-                    </div>
-                </div>*/}
                 <BlockHeightInput 
                     label={'Finish height'}
                     field={'finishHeight'}
@@ -175,7 +119,7 @@ class PollForm extends React.Component {
                     idGroup={idGroup}
                 />
                 
-                <div className="form-group row form-group-white mb-0">
+                <div className="form-group row mb-0">
                     <label className="col-sm-3 col-form-label align-self-start">
                         Answer
                     </label>
@@ -225,7 +169,7 @@ class PollForm extends React.Component {
                     <div className="col-sm-9 offset-sm-3">
                         <a 
                             id={`${idGroup}addAnswer-field`}
-                            className="no-margin btn static blue"
+                            className="no-margin btn btn-green"
                             onClick={() => this.addAnswer(setValue, getFormState().values.answers)}
                         >
                             Add answer
@@ -233,59 +177,45 @@ class PollForm extends React.Component {
                     </div>
                 </div>
                 
-                <div className="form-group row form-group-white mb-15">
-                    <label className="col-sm-3 col-form-label align-self-start">
-                        Minimum nr of choices
-                    </label>
-                    <div className="col-sm-3">
-                        <InputForm
-                            defaultValue={1}
-                            type="tel"
-                            field="minNumberOfOptions"
-                            placeholder=""
+                <div className="row">
+                    <div className="col-sm-6">
+                        <CustomInputForm
+                            label={'Minimum nr of choices'}
                             setValue={setValue}
-                            id={`${idGroup}minNumberOfOptions-field`}
+                            placeholder={''}
+                            field={'minNumberOfOptions'}
+                            type={'tel'}
+                            idGroup={idGroup}
+                            defaultValue={1}
+                        />
+                        <CustomInputForm
+                            label={'Maximum nr of choices'}
+                            setValue={setValue}
+                            placeholder={''}
+                            field={'maxNumberOfOptions'}
+                            type={'tel'}
+                            idGroup={idGroup}
+                            defaultValue={1}
                         />
                     </div>
-                    <label className="col-sm-3 col-form-label align-self-start">
-                        Maximum nr of choices
-                    </label>
-                    <div className="col-sm-3">
-                        <InputForm
-                            defaultValue={1}
-                            type="tel"
-                            field="maxNumberOfOptions"
-                            placeholder=""
+                    <div className="col-sm-6">
+                        <CustomInputForm
+                            label={'Minimum range value'}
                             setValue={setValue}
-                            id={`${idGroup}maxNumberOfOptions-field`}
-                        />
-                    </div>
-                </div>
-                <div className="form-group row form-group-white mb-15">
-                    <label className="col-sm-3 col-form-label align-self-start">
-                        Minimum range value
-                    </label>
-                    <div className="col-sm-3">
-                        <InputForm
+                            placeholder={''}
+                            field={'minRangeValue'}
+                            type={'tel'}
+                            idGroup={idGroup}
                             defaultValue={0}
-                            type="tel"
-                            field="minRangeValue"
-                            placeholder=""
-                            setValue={setValue}
-                            id={`${idGroup}minRangeValue-field`}
                         />
-                    </div>
-                    <label className="col-sm-3 col-form-label align-self-start">
-                        Maximum range value
-                    </label>
-                    <div className="col-sm-3">
-                        <InputForm
-                            defaultValue={1}
-                            type="tel"
-                            field="maxRangeValue"
-                            placeholder=""
+                        <CustomInputForm
+                            label={'Maximum range value'}
                             setValue={setValue}
-                            id={`${idGroup}maxRangeValue-field`}
+                            placeholder={''}
+                            field={'maxRangeValue'}
+                            type={'tel'}
+                            idGroup={idGroup}
+                            defaultValue={1}
                         />
                     </div>
                 </div>

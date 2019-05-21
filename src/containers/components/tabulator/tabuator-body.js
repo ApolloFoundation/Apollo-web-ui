@@ -11,7 +11,7 @@ class TabulationBody extends React.Component {
         this.setState({
             activeTab: index
         });
-        if (this.props.onChange) this.props.onChange();
+        if (this.props.onChange) this.props.onChange(e, index);
     };
 
     render () {

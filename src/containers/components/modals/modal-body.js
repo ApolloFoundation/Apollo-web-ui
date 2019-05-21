@@ -188,6 +188,7 @@ class ModalBody extends React.Component {
                                     {
                                         !CustomFooter &&
                                         !isDisableFormFooter &&
+                                        submitButtonName &&
                                         <FormFooter
                                             submitButtonName={submitButtonName}
                                             isPending={isPending}
