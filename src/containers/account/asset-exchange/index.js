@@ -351,7 +351,7 @@ class AssetExchange extends React.Component {
                     <div className="page-body container-fluid assets-exchange">
                         <div className="row">
                             <div className="col-md-3 p-0 one-col pb-3">
-                                <div className="card card-full-screen no-padding scroll">
+                                <div className="card card-full-screen no-padding scroll justify-content-start">
                                     {
                                         this.state.accountAssets &&
                                         !!this.state.accountAssets.length &&
