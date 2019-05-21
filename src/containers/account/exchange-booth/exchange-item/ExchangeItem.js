@@ -6,6 +6,7 @@
 
 import React from "react";
 import {connect} from "react-redux";
+import {ONE_APL} from '../../../../constants';
 
 class ExchangeItem extends React.Component {
     render() {
@@ -21,8 +22,8 @@ class ExchangeItem extends React.Component {
                     }
                 </td>
                 <td className="align-right">{(parseInt(exchange.units) / Math.pow(10, this.props.decimals)).toFixed(8)}</td>
-                <td className="align-right">{((exchange.rateATM / 100000000) * Math.pow(10, this.props.decimals)).toFixed(2)}</td>
-                <td className="align-right">{(((parseInt(exchange.units) / Math.pow(10, this.props.decimals))) * ((exchange.rateATM / 100000000))* Math.pow(10, this.props.decimals)).toFixed(2)}</td>
+                <td className="align-right">{((exchange.rateATM / ONE_APL) * Math.pow(10, this.props.decimals)).toFixed(2)}</td>
+                <td className="align-right">{(((parseInt(exchange.units) / Math.pow(10, this.props.decimals))) * ((exchange.rateATM / ONE_APL))* Math.pow(10, this.props.decimals)).toFixed(2)}</td>
             </tr>
         );
     }

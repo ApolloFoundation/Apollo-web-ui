@@ -12,6 +12,7 @@ import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {formatTimestamp} from "../../../../helpers/util/time";
 import {formatTransactionType, getPhasingTransactionVoters} from "../../../../actions/transactions";
 import {getBlockAction} from "../../../../actions/blocks";
+import {ONE_APL} from '../../../../constants';
 
 
 const mapStateToProps = state => ({
@@ -108,21 +109,14 @@ class Transaction extends React.Component {
                         </td>
                         <td className="align-right">
                             {
-                                (amountATM === "0" ? (
-                                            (attachment.priceATM && attachment.priceATM !== "0") ?
-                                                attachment.priceATM
-                                                :
-                                                (attachment.amount && attachment.amount !== "0") ?
-                                                    attachment.amount
-                                                    :
-                                                    amountATM
-                                        )
-                                        : amountATM
-                                ) / 100000000
+                                (amountATM === "0" && attachment.priceATM && attachment.priceATM !== "0") ?
+                                    attachment.priceATM / ONE_APL
+                                    :
+                                    amountATM / ONE_APL
                             }
                         </td>
                         <td className="align-right">
-                            {feeATM / 100000000}
+                            {feeATM / ONE_APL}
                         </td>
                         <td className="blue-link-text">
                             <a onClick={() => setBodyModalParamsAction('INFO_ACCOUNT', sender)}>

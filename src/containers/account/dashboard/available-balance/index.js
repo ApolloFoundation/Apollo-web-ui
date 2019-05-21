@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import ContentLoader from '../../../components/content-loader';
 import {formatTimestamp} from "../../../../helpers/util/time";
 import {setBodyModalParamsAction} from '../../../../modules/modals';
+import {ONE_APL} from '../../../../constants';
 
 class AvailableBalance extends Component {
     render() {
@@ -22,7 +23,7 @@ class AvailableBalance extends Component {
                                 <div className="amount text-lg text-green mb-3">
                                     {
                                         dashboardAccoountInfo.unconfirmedBalanceATM &&
-                                        Math.round(dashboardAccoountInfo.unconfirmedBalanceATM / 100000000).toLocaleString('en')
+                                        Math.round(dashboardAccoountInfo.unconfirmedBalanceATM / ONE_APL).toLocaleString('en')
                                         || 0
                                     }
                                     <span className="currency">&nbsp;APL</span>

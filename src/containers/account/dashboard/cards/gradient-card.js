@@ -3,7 +3,7 @@ import ContentLoader from '../../../components/content-loader';
 import {connect} from 'react-redux';
 import {formatTimestamp} from '../../../../helpers/util/time';
 import {Link} from 'react-router-dom';
-
+import {ONE_APL} from '../../../../constants';
 import classNames  from 'classnames';
 
 const AvailableBalance = ({dashboardAccoountInfo, actualBlock, blockchainStatus, positionState1, position1, formatTimestamp}) => (
@@ -25,7 +25,7 @@ const AvailableBalance = ({dashboardAccoountInfo, actualBlock, blockchainStatus,
                     >
                         {
                             dashboardAccoountInfo.unconfirmedBalanceATM &&
-                            Math.round(dashboardAccoountInfo.unconfirmedBalanceATM / 100000000).toLocaleString('en')
+                            Math.round(dashboardAccoountInfo.unconfirmedBalanceATM / ONE_APL).toLocaleString('en')
                             || 0
                         }
                         <span className="currency">
@@ -125,17 +125,17 @@ const CurrenciesVlue = ({dashboardCurrencies, position3, positionState3}) => (
 
 const GradientCard = (props) => {
     const {
-        availableBalance, 
-        dashboardAccoountInfo, 
-        actualBlock, 
-        blockchainStatus, 
+        availableBalance,
+        dashboardAccoountInfo,
+        actualBlock,
+        blockchainStatus,
         dashboardAssets,
-        positionState1, 
+        positionState1,
         position1,
-        positionState2, 
-        position2,  
-        positionState3, 
-        position3,  
+        positionState2,
+        position2,
+        positionState3,
+        position3,
         dashboardCurrencies,
         actuassetsValuealBlock,
         assetsCount,
@@ -148,7 +148,7 @@ const GradientCard = (props) => {
         <div className="page-body-item ">
             {
                 availableBalance &&
-                <AvailableBalance 
+                <AvailableBalance
                     formatTimestamp={formatTimestamp}
                     dashboardAccoountInfo={dashboardAccoountInfo}
                     actualBlock={actualBlock}
@@ -159,7 +159,7 @@ const GradientCard = (props) => {
             }
             {
                 assetsValue &&
-                <AssetsPortfolio 
+                <AssetsPortfolio
                     assetsCount={assetsCount}
                     dashboardAssets={dashboardAssets}
                     positionState2={positionState2}
@@ -168,7 +168,7 @@ const GradientCard = (props) => {
             }
             {
                 currenciesValue &&
-                <CurrenciesVlue 
+                <CurrenciesVlue
                     dashboardCurrencies={dashboardCurrencies}
                     positionState3={positionState3}
                     position3={position3}

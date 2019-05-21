@@ -6,6 +6,7 @@ import FormFooter from '../form-components/form-footer';
 import InputForm from '../input-form';
 import ModalFooter from '../modal-footer';
 import classNames from 'classnames';
+import {ONE_APL} from '../../../constants';
 
 import AdvancedSettings from '../advanced-transaction-settings';
 import {setBodyModalParamsAction, saveSendModalState, openPrevModal} from "../../../modules/modals";
@@ -124,7 +125,7 @@ class ModalBody extends React.Component {
                                     {
                                         marketplace && marketplace.name &&
                                         <div className="price">
-                                            {marketplace.priceATM / 100000000} Apollo
+                                            {marketplace.priceATM / ONE_APL} Apollo
                                         </div>
                                     }
 

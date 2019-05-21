@@ -10,6 +10,7 @@ import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {connect} from 'react-redux';
 import {getTransactionAction} from "../../../../actions/transactions";
 import {getOrderInfoAction} from "../../../../actions/open-orders";
+import {ONE_APL} from '../../../../constants';
 class OrderItem extends React.Component {
 
     state = {
@@ -52,9 +53,9 @@ class OrderItem extends React.Component {
                     {this.props.order.quantityATU / Math.pow(10, this.props.order.decimals)}
                 </td>
 
-                <td>{((this.props.order.quantityATU * this.props.order.priceATM) /  100000000) / (this.props.order.quantityATU / Math.pow(10, this.props.order.decimals))}</td>
+                <td>{((this.props.order.quantityATU * this.props.order.priceATM) /  ONE_APL) / (this.props.order.quantityATU / Math.pow(10, this.props.order.decimals))}</td>
 
-                <td className="align-right">{(this.props.order.quantityATU * this.props.order.priceATM) /  100000000}</td>
+                <td className="align-right">{(this.props.order.quantityATU * this.props.order.priceATM) /  ONE_APL}</td>
 
             </tr>
         );

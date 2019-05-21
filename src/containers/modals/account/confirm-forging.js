@@ -17,6 +17,7 @@ import ModalBody from '../../components/modals/modal-body';
 import TextualInputComponent from '../../components/form-components/textual-input';
 import {CheckboxFormInput} from '../../components/form-components/check-button-input';
 import {setAccountPassphrase} from "../../../modules/account";
+import {ONE_APL} from '../../../constants';
 
 class ConfirmForging extends React.Component {
 
@@ -25,7 +26,7 @@ class ConfirmForging extends React.Component {
     };
 
     handleFormSubmit = async (params) => {
-        if (!this.props.balanceATM || (this.props.balanceATM / 100000000) < 1000) {
+        if (!this.props.balanceATM || (this.props.balanceATM / ONE_APL) < 1000) {
             NotificationManager.error('You can start forging only if your effective balance exceed 1000 APL.', 'Error', 5000);
             return;
         }

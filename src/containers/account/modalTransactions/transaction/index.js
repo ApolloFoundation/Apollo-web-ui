@@ -13,6 +13,7 @@ import {connect} from 'react-redux'
 import {formatTimestamp} from "../../../../helpers/util/time";
 import {formatTransactionType} from "../../../../actions/transactions";
 import {getBlockAction} from "../../../../actions/blocks";
+import {ONE_APL} from '../../../../constants';
 
 const mapStateToProps = state => ({
     constants: state.account.constants
@@ -31,14 +32,14 @@ class Transaction extends React.Component {
 
     render () {
         const {
-            feeATM, 
-            amountATM, 
-            subtype, 
-            type, 
-            transaction, 
+            feeATM,
+            amountATM,
+            subtype,
+            type,
+            transaction,
             constants,
-            setTransactionInfo, 
-            formatTimestamp, 
+            setTransactionInfo,
+            formatTimestamp,
             timestamp,
             sender,
             senderRS,
@@ -70,10 +71,10 @@ class Transaction extends React.Component {
                             }
                         </td>
                         <td className="align-right">
-                            {amountATM / 100000000}
+                            {amountATM / ONE_APL}
                         </td>
                         <td className="align-right">
-                            {feeATM / 100000000}
+                            {feeATM / ONE_APL}
                         </td>
                         <td className="blue-link-text">
                             <a onClick={setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', sender)}>{senderRS}</a>

@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {setBodyModalParamsAction} from '../../../../modules/modals';
 import {setForging, getForging} from '../../../../actions/login';
 import {NotificationManager} from "react-notifications";
+import {ONE_APL} from '../../../../constants';
 
 
 class ForgingBodyModalWindow extends Component {
@@ -16,7 +17,7 @@ class ForgingBodyModalWindow extends Component {
             }
         }
     };
-    
+
     setForging = async (action) => {
         if (!this.props.effectiveBalanceAPL || this.props.effectiveBalanceAPL < 1000) {
             NotificationManager.error('You can start forging only if your effective balance exceed 1000 APL.', 'Error', 5000);
@@ -59,12 +60,12 @@ class ForgingBodyModalWindow extends Component {
                 <div className="form-group-app">
                     <div className="form-body">
                         <div className="input-section p-0">
-        
+
                             <div className="image-button success">
                                 <i className="zmdi zmdi-check-circle"/>
                                 <label>Connected</label>
                             </div>
-        
+
                             {
                                 forgingStatus &&
                                 forgingStatus.errorCode === 5 &&
@@ -101,7 +102,7 @@ class ForgingBodyModalWindow extends Component {
                                     <label>Unknown forging status</label>
                                 </a>
                             )}
-        
+
                             <p className="mb-2">
                                 {
                                     actualBlock &&
@@ -111,7 +112,7 @@ class ForgingBodyModalWindow extends Component {
                             <p>
                                 {
                                     forgedBalanceATM &&
-                                    <label>Forged balance: {(forgedBalanceATM / 100000000).toLocaleString('en')}&nbsp;APL</label>
+                                    <label>Forged balance: {(forgedBalanceATM / ONE_APL).toLocaleString('en')}&nbsp;APL</label>
                                 }
                             </p>
                             <div className="btn-block text-center d-sm-block d-md-none">
@@ -123,7 +124,7 @@ class ForgingBodyModalWindow extends Component {
                     </div>
                 </div>
             </div>
-            
+
         )
     }
 }

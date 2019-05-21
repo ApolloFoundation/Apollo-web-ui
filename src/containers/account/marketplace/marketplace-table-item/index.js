@@ -7,6 +7,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {setBodyModalParamsAction} from "../../../../modules/modals";
+import {ONE_APL} from '../../../../constants';
 
 const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
@@ -16,7 +17,7 @@ const MarketplaceTableItem = (props) => (
     <tr>
         <td className="blue-link-text"><a onClick={() => props.setBodyModalParamsAction("INFO_TRANSACTION", props.goods)}>{props.name}</a></td>
         <td className="align-right"><a>{props.quantity}</a></td>
-        <td className="align-right">{Math.floor(props.priceATM / 100000000).toLocaleString('it')} APL</td>
+        <td className="align-right">{Math.floor(props.priceATM / ONE_APL).toLocaleString('it')} APL</td>
         <td className="align-right">
             <div className="btn-box inline">
                 <a
