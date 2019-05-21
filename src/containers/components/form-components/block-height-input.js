@@ -19,7 +19,7 @@ class BlockHeightInput extends Component {
                 <label>
                     {label}
                 </label>
-                <div className="input-group">
+                <div className={!isSubtitle && actualBlock && "input-group"}>
                     <InputForm
                         type={"tel"}
                         field={field}
@@ -28,9 +28,11 @@ class BlockHeightInput extends Component {
                         setValue={setValue}
                         id={`${idGroup}${field}-field`}
                     />
-                    <div className="input-group-append">
-                        <span className="input-group-text" id="finishHeightText">{!isSubtitle && actualBlock}</span>
-                    </div>
+                    {!isSubtitle && actualBlock && (
+                        <div className="input-group-append">
+                            <span className="input-group-text" id="finishHeightText">{!isSubtitle && actualBlock}</span>
+                        </div>
+                    )}
                 </div>
                 {isSubtitle && (
                     <div className="text-note">
@@ -44,6 +46,6 @@ class BlockHeightInput extends Component {
 
 const mapStateToProps = state => ({
     actualBlock: state.account.actualBlock,
-})
+});
 
 export default connect(mapStateToProps)(BlockHeightInput);

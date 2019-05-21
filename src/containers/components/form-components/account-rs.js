@@ -7,8 +7,7 @@ const AccountRSFormInput = (props) => {
     return (
         <div className="form-group mb-15">
                 <label>
-                    {label}&nbsp;
-                    <i className="zmdi zmdi-portable-wifi-changes" />
+                    {label}
                 </label>
                 <div>
                     <div className="input-group iconned-input-field">

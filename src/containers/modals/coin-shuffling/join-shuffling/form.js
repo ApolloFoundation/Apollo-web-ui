@@ -17,7 +17,7 @@ class JoinShufflingForm extends React.Component {
 
     componentDidMount = () => {
         this.getShuffling()
-    }
+    };
 
     getShuffling = async () => {
         const shuffling = await this.props.getShufflingAction({
@@ -41,7 +41,7 @@ class JoinShufflingForm extends React.Component {
                 shuffling
             });
         }
-    }
+    };
 
     setAccount = async (getFormState, setValue) => {
         const {recipientSecretPhrase} = getFormState(); 
@@ -91,17 +91,17 @@ class JoinShufflingForm extends React.Component {
                     />
                 }
                 {
-                    isVaultWallet && 
-                    <div className="form-group row form-group-white mb-15">
-                        <label className="col-sm-3 col-form-label">
+                    isVaultWallet &&
+                    <div className="form-group mb-15">
+                        <label>
                             Recipient secret phrase
                         </label>
-                        <div className="col-sm-9">
+                        <div>
                             <Text 
                                 setValue={setValue}
                                 className="form-control"
                                 field="recipientSecretPhrase"
-                                placeholder="Account ID"
+                                placeholder="Secret Phrase"
                                 onKeyUp={this.setRecipientSecretPhrase}
                                 type={'password'}
                             />
@@ -123,15 +123,15 @@ class JoinShufflingForm extends React.Component {
                             getFormState().values.isVaultWallet &&
                             this.state.vaultWallet &&
                             <InfoBox attentionLeft>
-                                Secret Phrase:  <span className={'itatic'}>{this.state.vaultWallet.passphrase}</span>
-                                <br/>
-                                <br/>
-                                Account ID: <span className={'itatic'}>{this.state.vaultWallet.accountRS}</span>
-                                <br/>
-                                <br/>
-                                Public Key: <span className={'itatic word-brake-for-info'}>{this.state.vaultWallet.publicKey}</span>
-                                <br/>
-                                <br/>
+                                <p>
+                                    Secret Phrase:  <span className={'itatic'}>{this.state.vaultWallet.passphrase}</span>
+                                </p>
+                                <p>
+                                    Account ID: <span className={'itatic'}>{this.state.vaultWallet.accountRS}</span>
+                                </p>
+                                <p>
+                                    Public Key: <span className={'itatic word-brake-for-info'}>{this.state.vaultWallet.publicKey}</span>
+                                </p>
                                 <CopyToClipboard
                                     text={
                                         `Secret Phrase: ${this.state.vaultWallet.passphrase}\n` +
@@ -142,11 +142,12 @@ class JoinShufflingForm extends React.Component {
                                         NotificationManager.success('The account data has been copied to clipboard.')
                                     }}
                                 >
-                                    <a
-                                        className="btn blue static"
+                                    <button
+                                        type={'button'}
+                                        className="btn btn-green"
                                     >
                                         Copy account data to clipboard.
-                                    </a>
+                                    </button>
                                 </CopyToClipboard>
                             </InfoBox>
                         }
@@ -159,11 +160,11 @@ class JoinShufflingForm extends React.Component {
 
 const mapStateToProps = state => ({
     modalBody: state.modals.modalData
-})
+});
 
 const mapDispatchToPrps = dispatch => ({
     getShufflingAction: (vlaues) => dispatch(getShufflingAction(vlaues)),
     getAccountIdAsyncApl: (passPhrase) => dispatch(crypto.getAccountIdAsyncApl(passPhrase)),
-})
+});
 
 export default connect(mapStateToProps, mapDispatchToPrps)(JoinShufflingForm)
