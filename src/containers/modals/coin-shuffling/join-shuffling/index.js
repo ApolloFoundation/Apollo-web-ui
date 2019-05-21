@@ -23,6 +23,7 @@ import BackForm from '../../modal-form/modal-form-container';
 import InfoBox from "../../../components/info-box";
 import {CopyToClipboard} from "react-copy-to-clipboard";
 import {generateAccountAction} from "../../../../actions/account";
+import NummericInputForm from "../../../components/form-components/numeric-input";
 
 class JoinShuffling extends React.Component {
     constructor(props) {
@@ -42,15 +43,14 @@ class JoinShuffling extends React.Component {
     }
 
     handleFormSubmit = async(values) => {
-        console.log('-------values----', values)
         let data = {
             shufflingFullHash: this.props.modalData.broadcast ? this.props.modalData.broadcast.fullHash : this.state.shuffling.shufflingFullHash,
-            // recipientSecretPhrase: values.recipientSecretPhrase,
+            recipientSecretPhrase: values.recipientSecretPhrase,
             secretPhrase: values.secretPhrase,
             recipientPublicKey: await crypto.getPublicKeyAPL(values.recipientSecretPhrase, false),
             createNoneTransactionMethod: true,
             code2FA: values.code2FA,
-            feeATM: 1
+            feeATM: values.feeATM,
         };
 
         if (values.isVaultWallet) {
@@ -62,13 +62,13 @@ class JoinShuffling extends React.Component {
 
         this.setState({
             isPending: true
-        })
+        });
 
         const res = await this.props.submitForm( data, 'startShuffler');
         if (res.errorCode) {
             this.setState({
                 isPending: false
-            })
+            });
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
             this.props.setBodyModalParamsAction(null, {});
@@ -159,7 +159,7 @@ class JoinShuffling extends React.Component {
 
                                 <div className="form-title">
                                     {this.props.modalsHistory.length > 1 &&
-                                    <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
+                                    <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}/>
                                     }
                                     <p>Start shuffling</p>
                                 </div>
@@ -185,7 +185,7 @@ class JoinShuffling extends React.Component {
                                         <div className="col-sm-9">
                                             <Text className="form-control"
                                                   field="recipientSecretPhrase"
-                                                  placeholder="Account ID"
+                                                  placeholder="Recipient Secret Phrase"
                                                   onKeyUp={(e) => {
                                                       if (getFormState().values.recipientSecretPhrase !== '') {
                                                           this.setAccount(getFormState, setValue)
@@ -265,17 +265,18 @@ class JoinShuffling extends React.Component {
                                         </div>
                                     </div>
                                 }
-
+                                <NummericInputForm
+                                    field={'feeATM'}
+                                    counterLabel={'Apollo'}
+                                    type={'float'}
+                                    label={'Fee'}
+                                    setValue={setValue}
+                                    placeholder={'Fee'}
+                                />
                                 <ModalFooter
                                     setValue={setValue}
                                     getFormState={getFormState}
                                     values={values}
-                                />
-                                <AdvancedSettings
-                                    setValue={setValue}
-                                    getFormState={getFormState}
-                                    values={values}
-                                    advancedState={this.state.advancedState}
                                 />
                                 <div className="btn-box align-buttons-inside absolute right-conner align-right">
                                     <a
