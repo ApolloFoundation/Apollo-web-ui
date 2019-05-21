@@ -48,12 +48,12 @@ const Transaction = (props) => {
                         {props.account === props.sender && props.amountATM != 0 && '-'}
                         {
                             isDexOrder ?
-                                `${props.attachment.offerCurrency === 0 ? "-" : ""}${new Number(props.attachment.offerAmount / ONE_APL).toFixed(8)}`
+                                `${props.attachment.offerCurrency === 0 ? "-" : ""}${props.attachment.offerAmount / ONE_APL}`
                                 :
-                                new Number(((props.amountATM === "0" && props.attachment.priceATM && props.attachment.priceATM !== "0") ?
+                                ((props.amountATM === "0" && props.attachment.priceATM && props.attachment.priceATM !== "0") ?
                                     props.attachment.priceATM
                                     : props.amountATM
-                                ) / ONE_APL).toFixed(8)
+                                ) / ONE_APL
                         }
                     </div>
                 </div>
