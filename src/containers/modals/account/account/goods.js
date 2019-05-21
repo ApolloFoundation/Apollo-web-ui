@@ -1,6 +1,7 @@
 import React from 'react';
 import {setBodyModalParamsAction} from '../../../../modules/modals';
 import {connect} from 'react-redux';
+import {ONE_APL} from '../../../../constants';
 
 const Goods = ({name, goods, quantity, priceATM, setBodyModalParamsAction}) => (
     <tr className={"marketplace-tab-item"}>
@@ -11,7 +12,7 @@ const Goods = ({name, goods, quantity, priceATM, setBodyModalParamsAction}) => (
                 {name}
             </a>
         </td>
-        <td className={"align-right"}>{priceATM / 100000000} APL</td>
+        <td className={"align-right"}>{priceATM / ONE_APL} APL</td>
         <td className="align-right">{quantity}</td>
     </tr>
 );

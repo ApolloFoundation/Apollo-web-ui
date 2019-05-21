@@ -11,6 +11,7 @@ import { formatTimestamp } from "../../../../helpers/util/time";
 import { INIT_TRANSACTION_TYPES } from "../../../../helpers/transaction-types/transaction-types-new";
 import { formatTransactionType } from "../../../../actions/transactions";
 import { setBodyModalParamsAction } from "../../../../modules/modals";
+import {ONE_APL} from '../../../../constants';
 
 const mapStateToProps = state => ({
     constants: state.account.constants,
@@ -47,12 +48,12 @@ const Transaction = (props) => {
                         {props.account === props.sender && props.amountATM != 0 && '-'}
                         {
                             isDexOrder ?
-                                `${props.attachment.offerCurrency === 0 ? "-" : ""}${props.attachment.offerAmount / 100000000}`
+                                `${props.attachment.offerCurrency === 0 ? "-" : ""}${props.attachment.offerAmount / ONE_APL}`
                                 :
                                 ((props.amountATM === "0" && props.attachment.priceATM && props.attachment.priceATM !== "0") ?
-                                        props.attachment.priceATM
-                                        : props.amountATM
-                                ) / 100000000
+                                    props.attachment.priceATM
+                                    : props.amountATM
+                                ) / ONE_APL
                         }
                     </div>
                 </div>

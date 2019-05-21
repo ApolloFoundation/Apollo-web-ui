@@ -6,6 +6,7 @@ import InputForm from '../../../../components/input-form';
 import {currencyTypes, formatCrypto, multiply} from "../../../../../helpers/format";
 import {createOffer} from "../../../../../actions/wallet";
 import {setBodyModalParamsAction} from "../../../../../modules/modals";
+import {ONE_APL} from '../../../../../constants';
 
 class ExchangeBuy extends React.Component {
     feeATM = 200000000;
@@ -36,8 +37,8 @@ class ExchangeBuy extends React.Component {
                     NotificationManager.error('You can buy more then 0.001 APL', 'Error', 5000);
                     return;
                 }
-                const pairRate = multiply(values.pairRate, 100000000);
-                const offerAmount = multiply(values.offerAmount, 100000000);
+                const pairRate = multiply(values.pairRate, ONE_APL);
+                const offerAmount = multiply(values.offerAmount, ONE_APL);
                 const balanceETH = this.props.wallet.wallets[0].balance / Math.pow(10, 18);
                 const balanceAPL = (this.props.dashboardAccoountInfo && this.props.dashboardAccoountInfo.unconfirmedBalanceATM) ?
                     parseFloat(this.props.dashboardAccoountInfo.unconfirmedBalanceATM)
@@ -99,7 +100,7 @@ class ExchangeBuy extends React.Component {
                         <form className="modal-form modal-send-apollo modal-form" onSubmit={submitForm}>
                             <div className="form-title d-flex justify-content-between align-items-center">
                                 <p>Buy APL</p>
-                                <span>Fee: {this.feeATM/100000000} APL</span>
+                                <span>Fee: {this.feeATM/ONE_APL} APL</span>
                             </div>
                             <div className="form-group row form-group-white mb-15">
                                 <label>

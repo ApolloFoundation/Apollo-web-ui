@@ -8,6 +8,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {setModalData, openPrevModal} from '../../../modules/modals';
 import {getLedgerEntryAction} from '../../../actions/ledger/';
+import {ONE_APL} from '../../../constants';
 
 class InfoTransactions extends React.Component {
     constructor(props) {
@@ -122,11 +123,11 @@ class InfoTransactions extends React.Component {
                                                 </tr>
                                                 <tr>
                                                     <td>Change:</td>
-                                                    <td>{this.state.entry.change / 100000000}</td>
+                                                    <td>{this.state.entry.change / ONE_APL}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Balance:</td>
-                                                    <td>{Math.round(this.state.entry.balance / 100000000)}</td>
+                                                    <td>{Math.round(this.state.entry.balance / ONE_APL)}</td>
                                                 </tr>
                                             </tbody>
                                         }

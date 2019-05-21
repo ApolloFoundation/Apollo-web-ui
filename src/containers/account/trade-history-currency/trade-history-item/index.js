@@ -12,6 +12,7 @@ import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';
 import {formatTimestamp} from "../../../../helpers/util/time";
+import {ONE_APL} from '../../../../constants';
 
 class TradeHistoryItem extends React.Component {
     constructor(props) {
@@ -59,7 +60,7 @@ class TradeHistoryItem extends React.Component {
                         {parseFloat(this.state.transfer.rateATM).toLocaleString('en')}
                         </td>
                     <td className="align-right">
-                        {(this.state.transfer.units * this.state.transfer.rateATM / 100000000).toLocaleString('ru', {
+                        {(this.state.transfer.units * this.state.transfer.rateATM / ONE_APL).toLocaleString('ru', {
                             minimumFractionDigits: 2,
                             maximumFractionDigits: 2
                         })}

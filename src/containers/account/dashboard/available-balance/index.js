@@ -3,11 +3,12 @@ import {connect} from 'react-redux';
 import ContentLoader from '../../../components/content-loader';
 import {formatTimestamp} from "../../../../helpers/util/time";
 import { setBodyModalParamsAction } from '../../../../modules/modals';
+import {ONE_APL} from '../../../../constants';
 
 class AvailableBalance extends Component {
     render () {
         const {dashboardAccoountInfo, actualBlock, setBodyModalParamsAction, blockchainStatus, positionState1, position1, timestamp, formatTimestamp} = this.props;
-        
+
         return (
             <div
                 className={`card header ballance chart-sprite justify-content-start position-1 ${positionState1 ? "show-hide-content" : ""}`}>
@@ -27,7 +28,7 @@ class AvailableBalance extends Component {
                             >
                                 {
                                     dashboardAccoountInfo.unconfirmedBalanceATM &&
-                                    Math.round(dashboardAccoountInfo.unconfirmedBalanceATM / 100000000).toLocaleString('en')
+                                    Math.round(dashboardAccoountInfo.unconfirmedBalanceATM / ONE_APL).toLocaleString('en')
                                     || 0
                                 }
                                 <span className="currency">
@@ -67,7 +68,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    formatTimestamp: (time) => dispatch(formatTimestamp(time)),    
+    formatTimestamp: (time) => dispatch(formatTimestamp(time)),
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 })
 

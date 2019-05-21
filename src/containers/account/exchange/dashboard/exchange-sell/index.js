@@ -6,6 +6,7 @@ import InputForm from '../../../../components/input-form';
 import {currencyTypes, formatDivision, multiply} from "../../../../../helpers/format";
 import {createOffer} from "../../../../../actions/wallet";
 import {setBodyModalParamsAction} from "../../../../../modules/modals";
+import {ONE_APL} from '../../../../../constants';
 
 class ExchangeSell extends React.Component {
     feeATM = 200000000;
@@ -36,8 +37,8 @@ class ExchangeSell extends React.Component {
                     NotificationManager.error('You can sell more then 0.001 APL', 'Error', 5000);
                     return;
                 }
-                const pairRate = multiply(values.pairRate, 100000000);
-                const offerAmount = multiply(values.offerAmount, 100000000);
+                const pairRate = multiply(values.pairRate, ONE_APL);
+                const offerAmount = multiply(values.offerAmount, ONE_APL);
                 const balanceAPL = (this.props.dashboardAccoountInfo && this.props.dashboardAccoountInfo.unconfirmedBalanceATM) ?
                     parseFloat(this.props.dashboardAccoountInfo.unconfirmedBalanceATM)
                     :
@@ -83,7 +84,7 @@ class ExchangeSell extends React.Component {
     render() {
         const {currentCurrency: {currency}, wallet, balanceAPL, dashboardAccoountInfo} = this.props;
         const balance = (dashboardAccoountInfo && dashboardAccoountInfo.unconfirmedBalanceATM) ? dashboardAccoountInfo.unconfirmedBalanceATM : balanceAPL;
-        const balanceFormat = balance ? formatDivision(balance, 100000000, 3) : 0;
+        const balanceFormat = balance ? formatDivision(balance, ONE_APL, 3) : 0;
         const currencyName = currency.toUpperCase();
         return (
             <div className={'card-block green card card-medium pt-0 h-400'}>
@@ -96,7 +97,7 @@ class ExchangeSell extends React.Component {
                         <form className="modal-form modal-send-apollo modal-form" onSubmit={submitForm}>
                             <div className="form-title d-flex justify-content-between align-items-center">
                                 <p>Sell APL</p>
-                                <span>Fee: {this.feeATM/100000000} APL</span>
+                                <span>Fee: {this.feeATM/ONE_APL} APL</span>
                             </div>
                             <div className="form-group row form-group-white mb-15">
                                 <label>

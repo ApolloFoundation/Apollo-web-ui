@@ -13,6 +13,7 @@ import {formatTimestamp} from "../../../helpers/util/time";
 import crypto from "../../../helpers/crypto/crypto";
 import {NotificationManager} from "react-notifications";
 import {getBlockAction} from "../../../actions/blocks";
+import {ONE_APL} from '../../../constants';
 
 import CustomTable from '../../components/tables/table';
 import TabulationBody from '../../components/tabulator/tabuator-body';
@@ -184,7 +185,7 @@ class InfoBlock extends React.Component {
                                             }
                                         ]}
                                         className={'no-min-height transparent pt-4'}
-                                        emptyMessage={'No active polls.'}
+                                        emptyMessage={'No transactions found.'}
                                         TableRowComponent={Transaction}
                                         tableData={blockInfo.transactions}
                                     />
@@ -207,7 +208,7 @@ class InfoBlock extends React.Component {
                                                 </tr>
                                                 <tr>
                                                     <td>Total Fee ATM:</td>
-                                                    <td className="word-brake">{blockInfo.totalFeeATM / 100000000}</td>
+                                                    <td className="word-brake">{blockInfo.totalFeeATM / ONE_APL}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Generation Signature:</td>
@@ -247,7 +248,7 @@ class InfoBlock extends React.Component {
                                                 </tr>
                                                 <tr>
                                                     <td>Total Amount ATM:</td>
-                                                    <td className="word-brake">{blockInfo.totalFeeATM / 100000000}</td>
+                                                    <td className="word-brake">{blockInfo.totalFeeATM / ONE_APL}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Cumulative Difficulty:</td>

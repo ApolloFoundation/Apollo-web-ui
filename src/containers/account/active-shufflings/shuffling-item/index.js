@@ -8,6 +8,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {connect} from "react-redux";
+import {ONE_APL} from '../../../../constants';
 
 const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
@@ -61,7 +62,7 @@ const ShufflingItem = (props) => (
             }
 
         </td>
-        <td>{props.amount / 100000000}</td>
+        <td>{props.amount / ONE_APL}</td>
         {
             !props.finished &&
             <td>{props.blocksRemaining}</td>

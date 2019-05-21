@@ -3,6 +3,7 @@ import Chart from 'chart.js';
 
 import EthIcon from '../../../../../assets/ETH.png';
 import {formatDivision} from "../../../../../helpers/format";
+import {ONE_APL} from '../../../../../constants';
 
 const chartJsOption = {
     type: 'bar',
@@ -126,8 +127,8 @@ export default class Plot extends React.Component {
             if (props.buyOrders !== state.buyOrders && props.buyOrders.length > 0) {
                 buyOrdersData = props.buyOrders.map((el, index) => ({
                     ...buyOptions,
-                    label: `Buy ${formatDivision(el.pairRate, 100000000, 9)}`,
-                    data: [parseFloat(el.offerAmount) / 100000000]
+                    label: `Buy ${formatDivision(el.pairRate, ONE_APL, 9)}`,
+                    data: [parseFloat(el.offerAmount) / ONE_APL]
                 }));
             }
 
@@ -135,8 +136,8 @@ export default class Plot extends React.Component {
             if (props.sellOrders !== state.sellOrders && props.sellOrders.length > 0) {
                 sellOrdersData = props.sellOrders.map((el, index) => ({
                     ...sellOptions,
-                    label: `Sell ${formatDivision(el.pairRate, 100000000, 9)}`,
-                    data: [parseFloat(el.offerAmount) / 100000000]
+                    label: `Sell ${formatDivision(el.pairRate, ONE_APL, 9)}`,
+                    data: [parseFloat(el.offerAmount) / ONE_APL]
                 }));
             }
             return {
@@ -172,13 +173,13 @@ export default class Plot extends React.Component {
     onHandleChangeChart = (filter) => {
         const buyOrdersData = this.props.buyOrders.map((el, index) => ({
             ...buyOptions,
-            label: `Buy ${formatDivision(el.pairRate, 100000000, 9)}`,
-            data: [parseFloat(el[filter]) / 100000000]
+            label: `Buy ${formatDivision(el.pairRate, ONE_APL, 9)}`,
+            data: [parseFloat(el[filter]) / ONE_APL]
         }));
         const sellOrdersData = this.props.sellOrders.map((el, index) => ({
             ...sellOptions,
-            label: `Sell ${formatDivision(el.pairRate, 100000000, 9)}`,
-            data: [parseFloat(el[filter]) / 100000000]
+            label: `Sell ${formatDivision(el.pairRate, ONE_APL, 9)}`,
+            data: [parseFloat(el[filter]) / ONE_APL]
         }));
         this.setState({
             buyOrdersData,

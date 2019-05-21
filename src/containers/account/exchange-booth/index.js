@@ -10,6 +10,7 @@ import {connect} from 'react-redux';
 import {getCurrencyAction, getAllCurrenciesAction} from "../../../actions/currencies";
 import classNames from "classnames";
 import {BlockUpdater} from "../../block-subscriber";
+import {ONE_APL} from '../../../constants';
 import {setBodyModalParamsAction, saveSendModalState, openPrevModal} from "../../../modules/modals";
 import {
     getAccountExchangeAction,
@@ -101,7 +102,7 @@ class ExchangeBooth extends React.Component {
 
     getAccountCurrency = async (reqParams) => {
         let accountCurrency = await this.props.getCurrencyAction(reqParams);
-        
+
         if (accountCurrency) {
             accountCurrency = accountCurrency.accountCurrencies.find((el) => {
                 return el.code === this.props.match.params.currency
@@ -264,7 +265,7 @@ class ExchangeBooth extends React.Component {
 
     goBack = () => {
         this.setState({
-           asset: null 
+           asset: null
         }, () => {
             this.props.history.push('/currencies')
         });
@@ -304,7 +305,7 @@ class ExchangeBooth extends React.Component {
                             element={'code'}
                             baseUrl={'/exchange-booth/'}
                             data={this.state.currencies}
-                            emptyMessage={'No followed polls.'}
+                            emptyMessage={'No currencies found.'}
                             Component={SidebarCurrency}
                         />
                     )}
@@ -336,7 +337,7 @@ class ExchangeBooth extends React.Component {
                                                                 }
                                                                 <p>Buy {this.state.code}</p>
                                                                 <div className="form-sub-title">
-                                                                    balance: <strong>{Math.round(this.props.balanceATM / 100000000).toLocaleString('en')} Apollo</strong>
+                                                                    balance: <strong>{Math.round(this.props.balanceATM / ONE_APL).toLocaleString('en')} Apollo</strong>
                                                                 </div>
                                                             </div>
                                                             <div
@@ -353,9 +354,9 @@ class ExchangeBooth extends React.Component {
                                                                             placeholder='Units'
                                                                             onChange={(e) => {
                                                                                 if (!e.target) {
-                                                                                    setValue('rateATM', Math.round(((this.state.minimumSellRate / 100000000) * Math.pow(10, this.state.decimals)) * parseInt(e)))
+                                                                                    setValue('rateATM', Math.round(((this.state.minimumSellRate / ONE_APL) * Math.pow(10, this.state.decimals)) * parseInt(e)))
                                                                                 } else {
-                                                                                    setValue('rateATM', Math.round(((this.state.minimumSellRate / 100000000) * Math.pow(10, this.state.decimals)) * parseInt(getFormState().values.units)))
+                                                                                    setValue('rateATM', Math.round(((this.state.minimumSellRate / ONE_APL) * Math.pow(10, this.state.decimals)) * parseInt(getFormState().values.units)))
                                                                                 }
                                                                             }}
                                                                             setValue={setValue}
@@ -380,7 +381,7 @@ class ExchangeBooth extends React.Component {
                                                                         {
                                                                             !!this.state.minimumSellRate &&
                                                                             <input
-                                                                                value={Math.round((this.state.minimumSellRate / 100000000) * Math.pow(10, this.state.decimals))}
+                                                                                value={Math.round((this.state.minimumSellRate / ONE_APL) * Math.pow(10, this.state.decimals))}
                                                                                 ref="buy_currency_rate"
                                                                                 placeholder='Quantity'
                                                                                 className={"form-control "}
@@ -412,7 +413,7 @@ class ExchangeBooth extends React.Component {
                                                                         {
                                                                             !!this.state.minimumSellRate &&
                                                                             <input
-                                                                                value={Math.round((this.state.minimumSellRate / 100000000) * Math.pow(10, this.state.decimals))}
+                                                                                value={Math.round((this.state.minimumSellRate / ONE_APL) * Math.pow(10, this.state.decimals))}
                                                                                 ref="buy_currency_rate"
                                                                                 placeholder='Quantity'
                                                                                 className={"form-control "}
@@ -541,9 +542,9 @@ class ExchangeBooth extends React.Component {
                                                                             placeholder='Units'
                                                                             onChange={(e) => {
                                                                                 if (!e.target) {
-                                                                                    setValue('rateATM', Math.round(((this.state.minimumBuyRate / 100000000) * Math.pow(10, this.state.decimals)) * parseInt(e)))
+                                                                                    setValue('rateATM', Math.round(((this.state.minimumBuyRate / ONE_APL) * Math.pow(10, this.state.decimals)) * parseInt(e)))
                                                                                 } else {
-                                                                                    setValue('rateATM', Math.round(((this.state.minimumBuyRate / 100000000) * Math.pow(10, this.state.decimals)) * parseInt(getFormState().values.units)))
+                                                                                    setValue('rateATM', Math.round(((this.state.minimumBuyRate / ONE_APL) * Math.pow(10, this.state.decimals)) * parseInt(getFormState().values.units)))
                                                                                 }
                                                                             }}
                                                                             setValue={setValue}
@@ -567,7 +568,7 @@ class ExchangeBooth extends React.Component {
                                                                         {
                                                                             !!this.state.minimumBuyRate &&
                                                                             <input
-                                                                                value={Math.round((this.state.minimumBuyRate / 100000000) * Math.pow(10, this.state.decimals))}
+                                                                                value={Math.round((this.state.minimumBuyRate / ONE_APL) * Math.pow(10, this.state.decimals))}
                                                                                 ref="buy_currency_rate"
                                                                                 placeholder='Quantity'
                                                                                 className={"form-control "}
@@ -598,7 +599,7 @@ class ExchangeBooth extends React.Component {
                                                                         {
                                                                             !!this.state.minimumBuyRate &&
                                                                             <input
-                                                                                value={Math.round((this.state.minimumBuyRate / 100000000) * Math.pow(10, this.state.decimals))}
+                                                                                value={Math.round((this.state.minimumBuyRate / ONE_APL) * Math.pow(10, this.state.decimals))}
                                                                                 ref="buy_currency_rate"
                                                                                 placeholder='Quantity'
                                                                                 className={"form-control "}

@@ -11,6 +11,7 @@ import {connect} from 'react-redux';
 import {getTransactionAction} from "../../../../actions/transactions";
 import {getOrderInfoAction} from "../../../../actions/open-orders";
 import {Link} from 'react-router-dom'
+import {ONE_APL} from '../../../../constants';
 
 class OrderItem extends React.Component {
 
@@ -56,9 +57,9 @@ class OrderItem extends React.Component {
                 >
                     {this.props.order.quantityATU / Math.pow(10, this.props.order.decimals)}
                 </td>
-                <td>{((this.props.order.quantityATU * this.props.order.priceATM) /  100000000) / (this.props.order.quantityATU / Math.pow(10, this.props.order.decimals))}</td>
+                <td>{((this.props.order.quantityATU * this.props.order.priceATM) /  ONE_APL) / (this.props.order.quantityATU / Math.pow(10, this.props.order.decimals))}</td>
 
-                <td>{(this.props.order.quantityATU * this.props.order.priceATM) /  100000000}</td>
+                <td>{(this.props.order.quantityATU * this.props.order.priceATM) /  ONE_APL}</td>
                 <td className="align-right">
                     <div className="btn-box inline">
                         <a className={'btn primary'}
