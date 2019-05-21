@@ -143,6 +143,7 @@
           border: none;
           border-radius: 3px;
           box-shadow: none;
+          padding: 0 !important;
         }
       }
     }
@@ -188,6 +189,9 @@
           }
         }
       }
+    }
+    .transaction-table-body {
+      padding: 0;
     }
   }
 }
