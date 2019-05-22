@@ -298,10 +298,10 @@ function amountToPrecision(amount, decimals) {
 }
 
 function resolverReservePerUnit(decimals, reserveSupply, amount) {
-    const resSupply = convertToATUf(reserveSupply, decimals);
+    const resSupply = parseInt(convertToATUf(reserveSupply, decimals));
     const amountATM = convertToATM(amount);
     let unitAmountATM = new BigInteger(amountATM);
-    if (resSupply !== "0") {
+    if (resSupply) {
         unitAmountATM = unitAmountATM.divide(new BigInteger(resSupply));
     }
     const roundUnitAmountATM = convertToATM(amountToPrecision(convertToAPL(unitAmountATM), decimals));

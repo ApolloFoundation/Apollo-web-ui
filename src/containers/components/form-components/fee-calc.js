@@ -39,12 +39,6 @@ class FeeCalc extends React.Component {
             <div className="form-group row form-group-white mb-15">
                 <label className="col-sm-3 col-form-label">
                     Fee
-                    <span
-                        onClick={() => this.calculateFee()}
-                        className="calculate-fee"
-                    >
-                    Calculate
-                </span>
                 </label>
                 <div className="col-sm-9 input-group input-group-text-transparent input-group-sm">
                     <InputForm
