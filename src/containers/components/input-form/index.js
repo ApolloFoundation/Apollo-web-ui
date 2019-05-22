@@ -157,9 +157,6 @@ class InputForm extends React.Component {
                     type={this.props.type}
                     id={this.props.id}
 
-                    // onKeyUp={this.handleChange}
-                    // onMouseUp={this.handleChange}
-                    // onMouseDown={this.handleChange}
                     onChange={this.handleChange}
                     onBlur={this.props.onBlur ? this.props.onBlur : () => {
                     }}
