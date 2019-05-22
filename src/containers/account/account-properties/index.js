@@ -80,6 +80,8 @@ class AccountProperties extends React.Component {
         }
     };
 
+    setProperty  = (el) => this.props.setBodyModalParamsAction("SET_ACCOUNT_PROPERTY", el);
+
     render () {
         return (
             <div className="page-content">
