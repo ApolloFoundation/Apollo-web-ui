@@ -35,6 +35,7 @@
       border-radius: 3px;
       position: relative;
       overflow-x: auto;
+      padding: 15px;
   
       &.wrap-collumns {
         table {
@@ -102,26 +103,19 @@
           }
         }
         thead {
-          padding: 35px 0;
-
           tr {
             td {
-              color: #3D5A7E;
-              font-weight: 700;
-              font-size: 14px;
-              line-height: 16px;
-              padding: 0 0 20px 15px;
+              color: #8AA5C7;
+              font-size: 12px;
+              letter-spacing: -0.3px;
+              font-weight: normal;
+              padding: 0 6px 12px 6px;
 
-              &.align-right {
-                text-align: right;
-                padding: 0 15px 20px 0;
-
-              }
               &.align-right {
                 text-align: right;
               }
               &:first-child {
-                padding: 0 15px 20px 0;
+                padding-left: 0;
               }
               &:last-child {
                 padding-right: 0;
@@ -138,12 +132,15 @@
             }
           }
           tr {
-            height: 6.66%;
+            //height: 6.66%;
 
             td {
-              border-top: 1px solid #E5E5E5;
-              padding: 20px 0 20px 15px;
-              //height: 50px;
+              color: #3D5A7E;
+              font-size: 12px;
+              letter-spacing: -0.4px;
+              font-weight: normal;
+              padding: 6px;
+              border: none;
 
               &.blue-link-text {
                 a {
@@ -168,8 +165,11 @@
                 padding: 0 15px 0 0;
               }
               &:first-child {
+                color: #8AA5C7;
+                font-size: 12px;
+                letter-spacing: -0.3px;
+                font-weight: normal;
                 padding-left: 0;
-                font-weight: bold;
               }
               &:last-child {
                 padding-right: 0;

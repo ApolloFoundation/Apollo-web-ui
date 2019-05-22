@@ -336,7 +336,7 @@
 	// needed for modal windows
 	.form-tabulator {
 		position: relative;
-		padding: 18px 35px 70px 35px;
+		padding: 0;
 		display: none;
 		&.white {
 			background-color: white;
@@ -412,6 +412,7 @@
 			background-color: #FCFCFD;
 			border-radius: 0 3px 3px 3px;
 			border: 1px solid #E6EAEE;
+			padding: 12px;
 			&.active {
 				display: block;
 			}
@@ -419,6 +420,7 @@
 				border: none;
 				border-radius: 3px;
 				box-shadow: none;
+				padding: 0;
 			}
 		}
 		.form-sub-actions {
