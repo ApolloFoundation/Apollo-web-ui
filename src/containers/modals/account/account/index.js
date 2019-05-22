@@ -10,8 +10,7 @@ import {openPrevModal, setBodyModalParamsAction, setModalData} from '../../../..
 import classNames from 'classnames';
 
 import {getAccountAction, switchAccountAction} from "../../../../actions/account";
-import {getTransactionAction} from "../../../../actions/transactions";
-import {getLedgerEntryAction} from "../../../../actions/ledger";
+import {getTransactionAction, getTransactionsAction} from "../../../../actions/transactions";
 import {formatTimestamp} from '../../../../helpers/util/time';
 import {withRouter} from "react-router-dom";
 
@@ -43,6 +42,15 @@ class InfoAccount extends React.PureComponent {
             goods: null,
             aliases: null,
             account: null,
+            pagination: {
+                transactions: 1,
+                account_ledger: 1,
+                assets: 1,
+                trades: 1,
+                currencies: 1,
+                goods: 1,
+                aliases: 1,
+            }
         };
 
         this.handleTab = this.handleTab.bind(this);
@@ -64,7 +72,7 @@ class InfoAccount extends React.PureComponent {
             this.getAcccount({
                 account: this.props.modalData,
                 firstIndex: 0,
-                lastIndex: 99
+                lastIndex: 14
             })
         }
     }
@@ -74,7 +82,7 @@ class InfoAccount extends React.PureComponent {
             this.getAcccount({
                 account: newState.modalData,
                 firstIndex: 0,
-                lastIndex: 99
+                lastIndex: 14
             })
         }
     }
@@ -92,6 +100,15 @@ class InfoAccount extends React.PureComponent {
                 goods: await accountData['GOODS'],
                 aliases: await accountData['ALIASES'],
                 account: await accountData['ACCOUNT'],
+                pagination: {
+                    transactions: 1,
+                    account_ledger: 1,
+                    assets: 1,
+                    trades: 1,
+                    currencies: 1,
+                    goods: 1,
+                    aliases: 1,
+                }
             }, () => {
                 if (this.state.assets) {
 
@@ -125,44 +142,44 @@ class InfoAccount extends React.PureComponent {
         });
     };
 
-    getLedgerEntry = async (modaltype, ledgerId, isPrivate) => {
-
-        const requestParams = {
-            ledgerId: ledgerId
+    onPaginate = async(type, page) => {
+        const typePaginate = type.toUpperCase();
+        let reqParams = {
+            account:    this.props.modalData,
+            page:       page,
+            firstIndex: page * 15 - 15,
+            lastIndex:  page * 15 - 1,
         };
+        const accountData = await this.props.getAccountAction(reqParams);
+        if (accountData) {
+            const newData = await accountData[typePaginate];
+            if (newData && !newData.errorCode) {
+                this.setState((state) => ({
+                    [type]: newData,
+                    pagination: {
+                        ...state.pagination,
+                        [type]: page,
+                    }
+                }), () => {
+                    if (type === 'assets' && this.state.assets) {
 
-        if (isPrivate) {
-            const privateLedgerEntry = await this.props.getLedgerEntryAction({
-                ...requestParams,
-                passphrase: this.state.passphrase,
-                account: this.props.account
-            });
+                        const accountAssets = this.state.assets.accountAssets;
+                        const assetsInfo = this.state.assets.assets;
 
-            if (privateLedgerEntry) {
-                this.props.setBodyModalParamsAction('INFO_LEDGER_TRANSACTION', privateLedgerEntry)
-            }
+                        const resultAsset = accountAssets.map((el, index) => {
+                            return {...(assetsInfo[index]), ...el}
+                        });
 
-        } else {
-            const ledgerEntry = await this.props.getLedgerEntryAction({
-                ...requestParams
-            });
-
-            if (ledgerEntry) {
-                this.props.setBodyModalParamsAction('INFO_LEDGER_TRANSACTION', requestParams.ledgerId)
+                        this.setState({
+                            assets: resultAsset
+                        })
+                    }
+                });
             }
         }
     };
 
-    setLedgerEntryInfo = (modalType, data) => {
-        this.getLedgerEntry({
-            account: this.props.account,
-            transaction: data
-        });
-    };
-
     render() {
-
-
         const recipient = this.state.account ? this.state.account.accountRS : null;
 
         return (
@@ -237,6 +254,10 @@ class InfoAccount extends React.PureComponent {
                                         emptyMessage={'This account doesn\'t have any transactions'}
                                         TableRowComponent={ModalTransaction}
                                         tableData={this.state.transactions ? this.state.transactions.transactions : null}
+                                        isPaginate
+                                        page={this.state.pagination.transactions}
+                                        previousHendler={() => this.onPaginate('transactions', this.state.pagination.transactions - 1)}
+                                        nextHendler={() => this.onPaginate('transactions', this.state.pagination.transactions + 1)}
                                     />
                                 </TabContaier>
                                 <TabContaier sectionName="Ledger">
@@ -269,6 +290,10 @@ class InfoAccount extends React.PureComponent {
                                         emptyMessage={'This account doesn\'t have any ledger'}
                                         TableRowComponent={Entry}
                                         tableData={this.state.account_ledger ? this.state.account_ledger.entries : null}
+                                        isPaginate
+                                        page={this.state.pagination.account_ledger}
+                                        previousHendler={() => this.onPaginate('account_ledger', this.state.pagination.account_ledger - 1)}
+                                        nextHendler={() => this.onPaginate('account_ledger', this.state.pagination.account_ledger + 1)}
                                     />
                                 </TabContaier>
                                 <TabContaier sectionName="Assets">
@@ -293,6 +318,10 @@ class InfoAccount extends React.PureComponent {
                                         TableRowComponent={Asset}
                                         hintClassName={'simple no-padding-on-the-sides'}
                                         tableData={this.state.assets}
+                                        isPaginate
+                                        page={this.state.pagination.assets}
+                                        previousHendler={() => this.onPaginate('assets', this.state.pagination.assets - 1)}
+                                        nextHendler={() => this.onPaginate('assets', this.state.pagination.assets + 1)}
                                     />
                                 </TabContaier>
                                 <TabContaier sectionName="Trade history">
@@ -323,6 +352,10 @@ class InfoAccount extends React.PureComponent {
                                         TableRowComponent={Trade}
                                         hintClassName={'simple no-padding-on-the-sides'}
                                         tableData={this.state.trades ? this.state.trades.trades : null}
+                                        isPaginate
+                                        page={this.state.pagination.trades}
+                                        previousHendler={() => this.onPaginate('trades', this.state.pagination.trades - 1)}
+                                        nextHendler={() => this.onPaginate('trades', this.state.pagination.trades + 1)}
                                     />
                                 </TabContaier>
                                 <TabContaier sectionName="Currencies">
@@ -344,6 +377,10 @@ class InfoAccount extends React.PureComponent {
                                         TableRowComponent={Currency}
                                         hintClassName={'simple no-padding-on-the-sides'}
                                         tableData={this.state.currencies ? this.state.currencies.accountCurrencies : null}
+                                        isPaginate
+                                        page={this.state.pagination.currencies}
+                                        previousHendler={() => this.onPaginate('currencies', this.state.pagination.currencies - 1)}
+                                        nextHendler={() => this.onPaginate('currencies', this.state.pagination.currencies + 1)}
                                     />
                                 </TabContaier>
                                 <TabContaier sectionName="Marketplace">
@@ -365,6 +402,10 @@ class InfoAccount extends React.PureComponent {
                                         TableRowComponent={Goods}
                                         hintClassName={'simple no-padding-on-the-sides'}
                                         tableData={this.state.goods ? this.state.goods.goods : null}
+                                        isPaginate
+                                        page={this.state.pagination.goods}
+                                        previousHendler={() => this.onPaginate('goods', this.state.pagination.goods - 1)}
+                                        nextHendler={() => this.onPaginate('goods', this.state.pagination.goods + 1)}
                                     />
 
                                 </TabContaier>
@@ -384,6 +425,10 @@ class InfoAccount extends React.PureComponent {
                                         TableRowComponent={Alias}
                                         hintClassName={'simple no-padding-on-the-sides'}
                                         tableData={this.state.aliases ? this.state.aliases.aliases : null}
+                                        isPaginate
+                                        page={this.state.pagination.aliases}
+                                        previousHendler={() => this.onPaginate('aliases', this.state.pagination.aliases - 1)}
+                                        nextHendler={() => this.onPaginate('aliases', this.state.pagination.aliases + 1)}
                                     />
                                 </TabContaier>
                                 <TabContaier sectionName="Actions">
@@ -477,7 +522,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     setModalData: (data) => setModalData(data),
-    getLedgerEntryAction: (data) => getLedgerEntryAction(data),
     getTransactionAction: (data) => dispatch(getTransactionAction(data)),
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
     formatTimestamp: (time) => dispatch(formatTimestamp(time)),
@@ -487,8 +531,7 @@ const mapDispatchToProps = dispatch => ({
     getBlockAction: (requestParams) => dispatch(getBlockAction(requestParams)),
     getAccountAction: (requestParams) => dispatch(getAccountAction(requestParams)),
     switchAccountAction: (requestParams, history) => dispatch(switchAccountAction(requestParams, history)),
-
-
+    getTransactionsAction: (requestParams) => dispatch(getTransactionsAction(requestParams)),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(InfoAccount));
