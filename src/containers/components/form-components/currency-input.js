@@ -22,15 +22,15 @@ class CurrencyInput extends React.Component {
 
         if (result) {
             this.setState({ currency: result.currency });
-            setValue(field, result.currency);
-            setValue('decimals', result.decimals);
+            // setValue(field, result.currency);
+            // setValue('decimals', result.decimals);
 
         } else {
             this.setState({ currency: '-' });
-            setValue(field, null);
+            // setValue(field, null);
         }
     };
-    
+
     render () {
         const {setValue, field, disabled} = this.props;
 
