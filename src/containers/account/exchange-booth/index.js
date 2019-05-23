@@ -362,7 +362,6 @@ class ExchangeBooth extends React.Component {
                                                                                     }
                                                                                 }}
                                                                                 setValue={setValue}
-                                                                                maxValue={balance}
                                                                             />
                                                                             <div className="input-group-append">
                                                                             <span className="input-group-text"
@@ -553,7 +552,6 @@ class ExchangeBooth extends React.Component {
                                                                                     }
                                                                                 }}
                                                                                 setValue={setValue}
-                                                                                maxValue={balance}
                                                                             />
                                                                             <div className="input-group-append">
                                                                             <span className="input-group-text"
