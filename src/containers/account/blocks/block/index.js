@@ -36,7 +36,7 @@ class Block extends React.Component {
                     </a>
                 </td>
                 <td className="align-right">
-                    <a>{formatTimestamp(timestamp)}</a>
+                    <p>{formatTimestamp(timestamp)}</p>
                 </td>
                 <td className="align-right">{totalAmountATM / ONE_APL}</td>
                 <td className="align-right">{totalFeeATM    / ONE_APL}</td>
@@ -46,7 +46,7 @@ class Block extends React.Component {
                 <td className="blue-link-text">
                     <a onClick={() => setBodyModalParamsAction('INFO_ACCOUNT', generator)}>{generatorRS}</a>
                 </td>
-                <td className="align-right"><a>{payloadLength} B</a>
+                <td className="align-right"><p>{payloadLength} B</p>
                 </td>
                 {/*<td className="align-right"><a>{Math.round(this.props.block.baseTarget / 153722867 * 100)} %</a>*/}
                 {/*</td>*/}
