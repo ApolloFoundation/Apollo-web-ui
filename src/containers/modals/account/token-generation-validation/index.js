@@ -5,13 +5,13 @@
 
 
 import React from 'react';
-import {connect} from 'react-redux';
-import {setModalData} from '../../../../modules/modals';
+import { connect } from 'react-redux';
+import { setModalData } from '../../../../modules/modals';
 import converters from "../../../../helpers/converters";
 import crypto from "../../../../helpers/crypto/crypto";
 import InfoBox from '../../../components/info-box'
-import {validateTokenAction} from "../../../../actions/account";
-import {NotificationManager} from 'react-notifications';
+import { validateTokenAction } from "../../../../actions/account";
+import { NotificationManager } from 'react-notifications';
 
 import QRCode from 'qrcode.react';
 
@@ -65,12 +65,6 @@ class TokenGenerationValidation extends React.Component {
         }
     };
 
-    handleChangeTab = () => {
-        this.setState({
-            generatedToken: null
-        })
-    };
-
     render() {
         return (
             <ModalBody
@@ -81,7 +75,6 @@ class TokenGenerationValidation extends React.Component {
             >
                 <TabulationBody
                     className={'p-0'}
-                    onChange={this.handleChangeTab}
                 >
                     <TabContaier sectionName={'Generate token'}>
                         <ModalBody
@@ -93,14 +86,14 @@ class TokenGenerationValidation extends React.Component {
                             submitButtonName={'Generate'}
                         >
                             <CustomTextArea
-                                label={'Data'} 
-                                field={'data'} 
+                                label={'Data'}
+                                field={'data'}
                                 placeholder={'Website or text'}
                             />
                             {
                                 this.state.generatedToken &&
                                 <>
-                                    <p style={{marginBottom: 18}}>The generated token is:</p>
+                                    <p style={{ marginBottom: 18 }}>The generated token is:</p>
                                     <InfoBox info>
                                         <div className="token word-brake">{this.state.generatedToken}</div>
                                     </InfoBox>
@@ -123,7 +116,7 @@ class TokenGenerationValidation extends React.Component {
                             {
                                 this.state.generatedToken &&
                                 <>
-                                    <p style={{marginBottom: 18}}>The generated token is:</p>
+                                    <p style={{ marginBottom: 18 }}>The generated token is:</p>
                                     <InfoBox info>
                                         <div className="token word-brake">{this.state.generatedToken}</div>
                                     </InfoBox>
@@ -133,11 +126,11 @@ class TokenGenerationValidation extends React.Component {
                                 </>
                             }
                             <CustomTextArea
-                                label={'Data'} 
-                                field={'website'} 
+                                label={'Data'}
+                                field={'website'}
                                 placeholder={'Website or text'}
                             />
-                            <TextualInputComponent 
+                            <TextualInputComponent
                                 label={'Token'}
                                 field="token"
                                 placeholder="Token"
