@@ -486,13 +486,16 @@
 			letter-spacing: 0.2px;
 			font-size: 11.5px;
 			border-radius: 5px;
-			padding: 0.25rem 25px 0.2rem 0.5rem;
+			padding: 0.25rem 0.5rem;
 			&select {
 				background-color: #e5e5e5;
 			}
 			&:focus {
 				box-shadow: none
 			}
+		}
+		.input-text-number-wrap .form-control {
+			padding: 0.25rem 25px 0.2rem 0.5rem;
 		}
 		.form-group-select {
 			select {
@@ -598,7 +601,7 @@
 			letter-spacing: 0.2px;
 			font-size: 11.5px;
 			border-radius: 5px;
-			padding: 0.25rem 25px 0.2rem 0.5rem;
+			padding: 0.25rem 0.5rem;
 			min-height: 32px;
 			&select {
 				background-color: #e5e5e5;
@@ -615,6 +618,9 @@
 					}
 				}
 			}
+		}
+		.input-text-number-wrap .form-control {
+			padding: 0.25rem 25px 0.2rem 0.5rem;
 		}
 		.form-group-select {
 			select {
@@ -701,6 +707,9 @@
 	}
 	.btn {
 		font-size: 11px;
+		&:hover {
+			opacity: 0.9;
+		}
 	}
 	.mb-15 {
 		margin-bottom: 15px;
