@@ -22,7 +22,6 @@ class CurrencyInput extends React.Component {
 
         if (result) {
             this.setState({ currency: result.currency });
-            setValue(field, result.currency);
             setValue('decimals', result.decimals);
 
         } else {
