@@ -143,9 +143,9 @@ class InputForm extends React.Component {
     };
 
     render() {
+        const isNumberInput = (this.props.type === "tel" || this.props.type === "float") && !this.props.disabled;
         return (
-            <div className="input-text-wrap">
-
+            <div className={`input-text-wrap ${isNumberInput ? 'input-text-number-wrap' : ''}`}>
                 <Text
                     value={this.state.value}
                     className={`form-control ${this.props.className}`}
@@ -160,9 +160,8 @@ class InputForm extends React.Component {
                     onChange={this.handleChange}
                     onBlur={this.props.onBlur ? this.props.onBlur : () => {
                     }}
-
                 />
-                {(this.props.type === "tel" || this.props.type === "float") && !this.props.disabled && (
+                {isNumberInput && (
                     <div className="input-number-wrap">
                         <div className="input-number-up" onClick={this.handleClickUp}/>
                         <div className="input-number-down" onClick={this.handleClickDown}/>

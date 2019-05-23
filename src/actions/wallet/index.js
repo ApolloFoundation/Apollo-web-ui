@@ -230,3 +230,20 @@ export const getMyOfferHistory = (options) => async (dispatch, getState) => {
     const orders = await dispatch(getOpenOrders(params));
     dispatch(setMyOrderHistoryAction(orders));
 };
+
+export function getTransactionFee(currency) {
+    const reqType = currency === 'eth' ? 'ethInfo' : 'paxInfo';
+    return dispatch => {
+        return handleFetch(`${config.api.server}/rest/dex/${reqType}`, GET)
+            .then(async (res) => {
+                if (!res.errorCode) {
+                    return res;
+                } else {
+                    NotificationManager.error(res.errorDescription, 'Error', 5000);
+                }
+            })
+            .catch(() => {
+
+            })
+    }
+}

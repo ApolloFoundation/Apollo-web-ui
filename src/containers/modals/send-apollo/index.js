@@ -70,7 +70,7 @@ class SendApollo extends React.Component {
 
             if (dashboardForm) {
                 dashboardForm.resetAll();
-                dashboardForm.setValue('recipient', ' ')
+                dashboardForm.setValue('recipient', '');
             }
             NotificationManager.success('Transaction has been submitted!', null, 5000);
 		});

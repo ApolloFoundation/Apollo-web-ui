@@ -1,7 +1,7 @@
 import React from 'react';
 import InputForm from '../input-form'
 
-const TextualInputComponent = ({setValue, hendler, placeholder, field, type, label, code, text, className, idGroup, inputHint}) => {
+const TextualInputComponent = ({setValue, hendler, placeholder, field, type, label, code, text, className, idGroup, inputHint, defaultValue}) => {
 
     return (
         <>
@@ -30,6 +30,7 @@ const TextualInputComponent = ({setValue, hendler, placeholder, field, type, lab
                                 !text ?
                                 <>
                                     <InputForm
+                                        defaultValue={defaultValue}
                                         type={type}
                                         field={field}
                                         placeholder={placeholder}
