@@ -19,6 +19,7 @@ import crypto from '../../../helpers/crypto/crypto';
 import {calculateFeeAction} from "../../../actions/forms";
 import submitForm from "../../../helpers/forms/forms";
 import ModalBody from "../../components/modals/modal-body";
+import InfoBox from '../../components/info-box';
 import SendPrivateApolloForm from "./form";
 
 class SendApolloPrivate extends React.Component {
@@ -136,8 +137,23 @@ class SendApolloPrivate extends React.Component {
                 handleFormSubmit={(values) => this.handleFormSubmit(values)}
                 isAdvanced
                 submitButtonName={'Send'}
+                isDisabled={!this.state.isPrivateTransactionAlert}
                 idGroup={'send-private-money-modal-'}
             >
+                {!this.state.isPrivateTransactionAlert && (
+                    <InfoBox info>
+                        Private transactions currently protect down the the API level. Database level
+                        protection will start with Olympus 2.0 <br/>
+                        <button
+                            type={'button'}
+                            className={'btn static primary'}
+                            style={{background: '#fff', color: '#00C8FF'}}
+                            onClick={this.setConfirm}
+                        >
+                            I agree
+                        </button>
+                    </InfoBox>
+                )}
                 <SendPrivateApolloForm
                     useMixer={this.state.useMixer}
                     mixerData={this.state.mixerData}

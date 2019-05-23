@@ -20,7 +20,10 @@ class ModalFooter extends React.Component {
                     className="form-group row form-group-white mb-15"
                     style={{marginBottom: 15}}
                 >
-                    <label className="col-sm-3 col-form-label">
+                    <label
+                        className="col-sm-3 col-form-label"
+                        htmlFor={`${this.props.idGroup}secretPhrase-field`}
+                    >
                         Secret phrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
                     </label>
                     <div className="col-sm-9">
