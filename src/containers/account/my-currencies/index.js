@@ -136,7 +136,7 @@ class MyMadedCurrencies extends React.Component {
         return (
             <div className="page-content">
                 <SiteHeader
-                    pageTitle={'My currencies'}
+                    pageTitle={'My owned currencies'}
                 />
                 <div className="page-body container-fluid">
                     <CustomTable 
