@@ -78,7 +78,7 @@ const ShufflingItem = (props) => (
             !props.finished && props.stage !== 1 &&
             <td className="align-right">
                 <div className="btn-box inline">
-                    <a className={'btn primary blue'}
+                    <a className={'btn btn-green'}
                        onClick={() => props.setBodyModalParamsAction('START_SHUFFLING', props.shuffling)}
                     >
                         Join

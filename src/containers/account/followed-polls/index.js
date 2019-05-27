@@ -209,13 +209,14 @@ class FollowedVotes extends React.Component {
                     {/*</a>*/}
                     {
                         this.props.match.params.poll &&
-                        <a
+                        <button
+                            type={'button'}
                             className="btn primary"
                             style={{marginLeft: 15}}
                             onClick={() => this.addToFollowedPolls()}
                         >
                             Bookmark This Poll
-                        </a>
+                        </button>
                     }
                 </SiteHeader>
 

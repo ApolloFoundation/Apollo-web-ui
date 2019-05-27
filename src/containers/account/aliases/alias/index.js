@@ -45,18 +45,18 @@ const Alias = (props) => (
             <div className="btn-box inline">
                 <a
                     onClick={() => props.setBodyModalParamsAction('EDIT_ALIAS', props.alias)}
-                    className="btn primary blue"
+                    className="btn btn-green"
                 >
                     Edit
                 </a>
                 <a
-                    className="btn primary blue"
+                    className="btn btn-green"
                     onClick={() => props.setBodyModalParamsAction('TRANSFER_ALIAS', props.alias)}
                 >
                     Transfer
                 </a>
                 <a
-                    className="btn primary blue"
+                    className="btn btn-green"
                     onClick={() => props.setBodyModalParamsAction('SELL_ALIAS', props.alias)}
                 >
                     Sell
@@ -67,12 +67,13 @@ const Alias = (props) => (
                         props.priceATM !== '0' &&
                         !props.buyer
                     ) &&
-                    <a
-                        className="btn primary blue"
+                    <button
+                        type={'button'}
+                        className="btn btn-green"
                         onClick={() => props.setBodyModalParamsAction('CANCEL_SALE_ALIAS', props.alias)}
                     >
                         Cancel Sale
-                    </a>
+                    </button>
                 }
                 {
                     (
@@ -80,12 +81,13 @@ const Alias = (props) => (
                         props.priceATM !== '0' &&
                         typeof props.buyer !== "undefined"
                     ) &&
-                    <a
-                        className="btn primary blue"
+                    <button
+                        type={'button'}
+                        className="btn btn-green"
                         onClick={() => props.setBodyModalParamsAction('CANCEL_SALE_ALIAS', props.alias)}
                     >
                         Cancel Sale
-                    </a>
+                    </button>
                 }
 
                 <a

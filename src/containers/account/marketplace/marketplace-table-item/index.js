@@ -22,13 +22,13 @@ const MarketplaceTableItem = (props) => (
             <div className="btn-box inline">
                 <a
                     onClick={() => props.setBodyModalParamsAction('CHANGE_PRICE', props.goods)}
-                    className="btn primary blue"
+                    className="btn btn-green"
                 >
                     Change Price
                 </a>
                 <a
                     onClick={() => props.setBodyModalParamsAction('CHANGE_QUANTITY', props.goods)}
-                    className="btn primary blue"
+                    className="btn btn-green"
                 >
                     Change QTY
                 </a>

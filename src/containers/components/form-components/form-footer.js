@@ -13,13 +13,14 @@ const FormFooter = ({
     isMomalProcessing
 }) => (
     <div className="btn-box right-conner align-right form-footer">
-        <a
+        <button
+            type={'button'}
             id={`${idGroup}cancel-button`}
             onClick={closeModal}
             className="btn btn-default mr-3"
         >
             Cancel
-        </a>
+        </button>
         {
             submitButtonName &&
             <button

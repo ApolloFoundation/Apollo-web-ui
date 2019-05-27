@@ -267,7 +267,8 @@ class AssetExchange extends React.Component {
                                                             className="card-title small break-word">{this.state.asset.description}</div>
                                                     </div>
 	                                                <div className="asset-btns-block">
-		                                                <a
+		                                                <button
+                                                            type={'button'}
 			                                                className={"btn static blue"}
 			                                                onClick={() => {
 				                                                this.props.setBodyModalParamsAction('VIEW_ASSET_DISTRIBUTION', {
@@ -278,7 +279,7 @@ class AssetExchange extends React.Component {
 			                                                }}
 		                                                >
 			                                                View Account Distribution
-		                                                </a>
+		                                                </button>
 	                                                </div>
                                                 </div>
                                             </div>

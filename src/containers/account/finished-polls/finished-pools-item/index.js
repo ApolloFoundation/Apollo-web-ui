@@ -32,7 +32,7 @@ const FinishedpollsItem = props => (
         </td>
         <td key={uuid()} className={"align-right"}>
             <div className="btn-box inline">
-                <Link to={"/followed-polls/" + props.poll} className="btn primary blue">View</Link>
+                <Link to={"/followed-polls/" + props.poll} className="btn btn-green">View</Link>
             </div>
         </td>
     </tr>

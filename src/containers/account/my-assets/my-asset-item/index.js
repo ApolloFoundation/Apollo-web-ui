@@ -148,7 +148,8 @@ class MyAssetItem extends React.Component {
                         </td>
                         <td className="align-right">
                             <div className="btn-box inline">
-                                <a
+                                <button
+                                    type={'button'}
                                     onClick={() => this.props.setBodyModalParamsAction('TRANSFER_ASSET', {
                                         quantityATU: quantityATU / Math.pow(10, decimals),
                                         assetID:   asset,
@@ -159,21 +160,22 @@ class MyAssetItem extends React.Component {
                                             maximumFractionDigits: decimals
                                         })}
                                     )}
-                                    className="btn primary blue"
+                                    className="btn btn-green"
                                 >
                                     Transfer
-                                </a>
-                                <a
+                                </button>
+                                <button
+                                    type={'button'}
                                     onClick={() => this.props.setBodyModalParamsAction('DELETE_SHARES', {
                                         quantityATU: quantityATU / Math.pow(10, decimals),
                                         assetID:   asset,
                                         decimals,
                                         assetName: name
                                     })}
-                                    className="btn primary blue"
+                                    className="btn btn-green"
                                 >
                                     Delete Shares
-                                </a>
+                                </button>
                             </div>
                         </td>
                     </React.Fragment>

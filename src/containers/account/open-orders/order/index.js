@@ -62,11 +62,13 @@ class OrderItem extends React.Component {
                 <td>{(this.props.order.quantityATU * this.props.order.priceATM) /  ONE_APL}</td>
                 <td className="align-right">
                     <div className="btn-box inline">
-                        <a className={'btn primary'}
+                        <button
+                            type={'button'}
+                            className={'btn primary'}
                             onClick={() => this.props.setBodyModalParamsAction("CANCEL_ORDER", {...this.props.order, type: this.props.type})}
                         >
                             Cancel
-                        </a>
+                        </button>
                     </div>
 
                 </td>

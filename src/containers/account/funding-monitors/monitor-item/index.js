@@ -61,7 +61,7 @@ const MonitorItem = (props) => (
         >
             <Link
                 to={`/funding-monitors/${props.accountRS}/${props.property}`}
-                className={'btn primary blue'}
+                className={'btn btn-green'}
             >
                 Status
             </Link>

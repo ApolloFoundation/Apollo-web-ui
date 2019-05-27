@@ -236,14 +236,15 @@ class SendApollo extends React.Component {
                                 />
 
 								<div className="btn-box align-buttons-inside absolute right-conner align-right">
-									<a
+									<button
+										type={'button'}
 										onClick={() => {
 											this.props.closeModal()
 										}}
 										className="btn round round-top-left"
 									>
 										Cancel
-									</a>
+									</button>
 
 									{
 										!!this.state.isPending ?

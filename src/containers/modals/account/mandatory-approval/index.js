@@ -284,12 +284,13 @@ class MandatoryApproval extends React.Component {
                                 >
                                     Send
                                 </button>
-                                <a
+                                <button
+                                    type={'button'}
                                     onClick={() => this.props.closeModal()}
                                     className="btn round round-top-left"
                                 >
                                     Cancel
-                                </a>
+                                </button>
 
                             </div>
                             {/*<div className="btn-box align-buttons-inside absolute left-conner">*/}

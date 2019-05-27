@@ -103,7 +103,8 @@ class ResentMarketplaceListing extends React.Component {
 	                >
 		                Back
 	                </Link>
-                    <a
+                    <button
+                        type={'button'}
                         className="btn primary transparent icon-button with-out-border"
                         style={{marginLeft: 15}}
                         onClick={this.handleGrid}
@@ -116,7 +117,7 @@ class ResentMarketplaceListing extends React.Component {
                             !this.state.isGrid &&
                             <i className="zmdi zmdi-view-module" />
                         }
-                    </a>
+                    </button>
                 </SiteHeader>
                 <div className="page-body container-fluid full-screen-block no-padding-on-the-sides marketplace-container">
                     <div
@@ -164,7 +165,8 @@ class ResentMarketplaceListing extends React.Component {
                                         marginBottom: 15
                                     }}
                                 >
-                                    <a
+                                    <button
+                                        type={'button'}
                                         className={classNames({
                                             'btn' : true,
                                             'btn-left' : true,
@@ -177,7 +179,7 @@ class ResentMarketplaceListing extends React.Component {
                                         onClick={this.onPaginate.bind(this, this.state.page - 1)}
                                     >
                                         Previous
-                                    </a>
+                                    </button>
                                     {
                                         this.state.getDGSGoods.length < 8 &&
                                         <div className='pagination-nav'>
@@ -194,7 +196,8 @@ class ResentMarketplaceListing extends React.Component {
                                             <span>{this.state.lastIndex + 1}</span>
                                         </div>
                                     }
-                                    <a
+                                    <button
+                                        type={'button'}
                                         onClick={this.onPaginate.bind(this, this.state.page + 1)}
                                         className={classNames({
                                             'btn' : true,
@@ -205,7 +208,7 @@ class ResentMarketplaceListing extends React.Component {
                                         style={{
                                             right: 0
                                         }}
-                                    >Next</a>
+                                    >Next</button>
                                 </div>
                             }
 

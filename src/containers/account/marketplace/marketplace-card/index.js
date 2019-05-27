@@ -128,7 +128,7 @@ const tagsArr = utils.parseStringBySpace(props.tags);
                                     {props.sellerRS}
                                 </span>
                                 <Link to={'/marketplace/' + props.sellerRS}
-                                    className="btn primary blue"
+                                    className="btn btn-green"
                                 >
                                     Store
                                 </Link>
@@ -223,7 +223,7 @@ const tagsArr = utils.parseStringBySpace(props.tags);
                                             {props.buyerRS}
                                         </a>
                                         <Link to={'/marketplace/' + props.sellerRS}
-                                            className="btn primary blue ml-3"
+                                            className="btn btn-green ml-3"
                                         >
                                             Store
                                         </Link>
@@ -291,7 +291,7 @@ const tagsArr = utils.parseStringBySpace(props.tags);
                                                 Date: {props.formatTimestamp(props.timestamp)}</div>
                                         </div>
                                         <Link to={'/marketplace/' + props.sellerRS}
-                                            className="btn primary blue"
+                                            className="btn btn-green"
                                         >
                                             Store
                                         </Link>

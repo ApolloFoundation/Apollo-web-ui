@@ -118,7 +118,13 @@ class AccountInfo extends React.Component {
                                     /> */}
 
                                     <div className="btn-box right-conner align-right form-footer">
-                                        <a onClick={() => this.props.closeModal()} className="btn btn-default mr-3">Cancel</a>
+                                        <button
+                                            type={'button'}
+                                            onClick={() => this.props.closeModal()}
+                                            className="btn btn-default mr-3"
+                                        >
+                                            Cancel
+                                        </button>
                                         <button
                                             type="submit"
                                             name={'closeModal'}

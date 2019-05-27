@@ -168,7 +168,7 @@ class MarketplaceTags extends Component {
                     }
                     <a 
                         onClick={showMoreController} 
-                        className="btn primary blue" 
+                        className="btn btn-green"
                         dangerouslySetInnerHTML={{__html: this.props.isShowMore ? 'View less' : 'View more'}}
                     />
                     {

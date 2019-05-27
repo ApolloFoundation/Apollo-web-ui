@@ -280,19 +280,21 @@ class ExchangeBooth extends React.Component {
                     {
                         this.state.currency &&
                         <React.Fragment>
-                            <a
+                            <button
+                                type={'button'}
                                 onClick={() => this.props.setBodyModalParamsAction('OFFER_CURRENCY', this.state.currencyInfo)}
                                 className="btn primary"
                             >
                                 Offer
-                            </a>
-                            <a
+                            </button>
+                            <button
+                                type={'button'}
                                 onClick={() => this.props.setBodyModalParamsAction('TRANSFER_CURRENCY', this.state.currencyInfo)}
                                 style={{marginLeft: 15}}
                                 className="btn primary"
                             >
                                 Transfer
-                            </a>
+                            </button>
                         </React.Fragment>
 
                     }
@@ -468,10 +470,8 @@ class ExchangeBooth extends React.Component {
                                                                             <button
                                                                                 type='submit'
                                                                                 className={classNames({
-                                                                                    'blue-disabled' : !(!!parseInt(getFormState().values.rateATM)),
-                                                                                    'btn': true,
-                                                                                    'static': true,
-                                                                                    'blue': true,
+                                                                                    'disabled' : !(!!parseInt(getFormState().values.rateATM)),
+                                                                                    'btn btn-green': true,
                                                                                 })}
                                                                             >
                                                                                 Buy (APL > {this.state.code})
@@ -648,10 +648,8 @@ class ExchangeBooth extends React.Component {
                                                                         </div>
                                                                         <div className="col-md-9 pr-0">
                                                                             <button className={classNames({
-                                                                                'blue-disabled' : !(!!parseInt(getFormState().values.rateATM)),
-                                                                                'btn': true,
-                                                                                'static': true,
-                                                                                'blue': true,
+                                                                                'disabled' : !(!!parseInt(getFormState().values.rateATM)),
+                                                                                'btn btn-green': true,
                                                                             })}
                                                                             >
                                                                                 Sell ({this.state.code} > APL)

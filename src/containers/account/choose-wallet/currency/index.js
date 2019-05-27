@@ -80,7 +80,7 @@ class CurrencyDescriptionComponent extends Component {
                             }}
                         >
                             <a
-                                className="btn primary blue"
+                                className="btn btn-green"
                             >
                                 Deposit
                             </a>

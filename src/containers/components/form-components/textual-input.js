@@ -9,13 +9,14 @@ const TextualInputComponent = ({setValue, hendler, placeholder, field, type, lab
                     <>
                         <div className="form-group mb-15">
                             <div>
-                                <a
+                                <button
+                                    type={'button'}
                                     id={idGroup}
                                     onClick={() => hendler()}
                                     className="no-margin btn btn-green"
                                 >
                                     {label}
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </> :

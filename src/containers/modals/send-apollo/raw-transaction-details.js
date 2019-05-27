@@ -152,12 +152,13 @@ class RawTransactionDetails extends React.Component {
                                 </div>
                                 }
                                 <div className="btn-box align-buttons-inside absolute right-conner align-right">
-                                    <a
+                                    <button
+                                        type={'button'}
                                         onClick={() => this.props.closeModal()}
                                         className={`btn round round-top-left ${modalData.result.signatureHash ? 'round-bottom-right' : ''}`}
                                     >
                                         Close
-                                    </a>
+                                    </button>
                                     {!modalData.result.signatureHash &&
 
 

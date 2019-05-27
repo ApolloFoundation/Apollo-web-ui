@@ -229,20 +229,24 @@ class Settings extends React.Component {
                                                             {
                                                                 this.state.account &&
                                                                 !this.state.account.is2FA &&
-                                                                <a className="no-margin btn static blue"
+                                                                <button
+                                                                    type={'button'}
+                                                                    className="no-margin btn static blue"
                                                                     onClick={() => this.getQRCode(getFormState)}
                                                                 >
                                                                     Get Qr code
-                                                                </a>
+                                                                </button>
                                                             }
                                                             {
                                                                 this.state.account &&
                                                                 this.state.account.is2FA &&
-                                                                <a className="no-margin btn static blue"
+                                                                <button
+                                                                    type={'button'}
+                                                                    className="no-margin btn static blue"
                                                                     onClick={() => this.disable2fa(getFormState)}
                                                                 >
                                                                     Confirm disable
-                                                                </a>
+                                                                </button>
                                                             }
 
                                                         </div>

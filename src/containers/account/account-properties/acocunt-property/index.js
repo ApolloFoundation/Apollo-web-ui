@@ -32,7 +32,7 @@ class AccountProperty extends React.Component {
                 <div className="btn-box inline">
                     {(recipientRS === setterRS || !incoming) &&
                     <a onClick={() => this.setProperty(this.props)}
-                        className="btn primary blue">Update</a>
+                        className="btn btn-green">Update</a>
                     }
                     <a onClick={() => this.deleteProperty(this.props)}
                         className="btn primary">Delete</a>

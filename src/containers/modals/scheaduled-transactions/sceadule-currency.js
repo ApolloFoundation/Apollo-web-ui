@@ -195,12 +195,13 @@ class ScheaduleCurrency extends React.Component {
                                                 Schedule currency
                                             </button>
                                     }
-                                    <a
+                                    <button
+                                        type={'button'}
                                         onClick={() => this.props.closeModal()}
                                         className="btn round round-top-left"
                                     >
                                         Cancel
-                                    </a>
+                                    </button>
 
                                 </div>
                             </div>

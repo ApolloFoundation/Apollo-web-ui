@@ -25,17 +25,17 @@ class MyCurrencytemItem extends Component {
                 <td className="align-right">{(unconfirmedUnits / Math.pow(10, decimals)).toFixed(2)}</td>
                 <td className="align-right">
                     <div className="btn-box inline">
-                        <Link to={"/exchange-booth/" + code} className="btn primary blue">Exchange</Link>
+                        <Link to={"/exchange-booth/" + code} className="btn btn-green">Exchange</Link>
                         <a
                             onClick={() => setBodyModalParamsAction('TRANSFER_CURRENCY', {code})}
                             style={{marginLeft: 15}}
-                            className="btn primary blue"
+                            className="btn btn-green"
                         >
                             Transfer
                         </a>
                         <a
                             onClick={() => setBodyModalParamsAction('OFFER_CURRENCY', {code})}
-                            className="btn primary blue"
+                            className="btn btn-green"
                         >
                             Offer
                         </a>
@@ -43,7 +43,7 @@ class MyCurrencytemItem extends Component {
                             isClaimable && 
                             <a
                                 onClick={() => setBodyModalParamsAction('CLAIM_CURRENCY', currency)}
-                                className="btn primary blue"
+                                className="btn btn-green"
                             >
                                 Claim
                             </a>

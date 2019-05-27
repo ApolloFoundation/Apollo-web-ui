@@ -46,12 +46,13 @@ class Messenger extends React.PureComponent {
 				<SiteHeader
 					pageTitle={'Messenger'}
 				>
-                    <a
+                    <button
+                        type={'button'}
                         onClick={() => this.props.setBodyModalParamsAction('COMPOSE_MESSAGE', null)}
                         className="btn primary"
                     >
                         Compose message
-                    </a>
+                    </button>
 				</SiteHeader>
                 <SidebarContentPage
                     SidebarContent={() => (

@@ -92,10 +92,8 @@ const SellAsset = ({amountATM, asset, handleTotalValue, handleSellOrders}) => (
                             <div className="col-md-9 pr-0">
                                 <button
                                     className={classNames({
-                                        "btn": true,
-                                        "static": true,
-                                        "blue": true,
-                                        "blue-disabled": !(!!getFormState().values.total)
+                                        "btn btn-green": true,
+                                        "disabled": !(!!getFormState().values.total)
                                     })}
                                 >
                                     Sell ({ asset.name} > APL)

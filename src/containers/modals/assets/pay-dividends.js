@@ -165,8 +165,13 @@ class PayDividends extends React.Component {
                                             className="btn btn-right blue round round-bottom-right">
                                             Pay Dividends
                                         </button>
-                                        <a onClick={() => this.props.closeModal()}
-                                           className="btn btn-right round round-top-left">Cancel</a>
+                                        <button
+                                            type={'button'}
+                                            onClick={() => this.props.closeModal()}
+                                            className="btn btn-right round round-top-left"
+                                        >
+                                            Cancel
+                                        </button>
                                     </div>
                                     {/*<div className="btn-box align-buttons-inside absolute left-conner">*/}
                                     {/*<a*/}

@@ -158,7 +158,13 @@ class SetAccountProperty extends React.Component {
                                     >
                                         Set Property
                                     </button>
-                                    <a onClick={() => this.props.closeModal()} className="btn btn-right round round-top-left">Cancel</a>
+                                    <button
+                                        type={'button'}
+                                        onClick={() => this.props.closeModal()}
+                                        className="btn btn-right round round-top-left"
+                                    >
+                                        Cancel
+                                    </button>
                                 </div>
                             </div>
 

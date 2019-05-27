@@ -140,15 +140,13 @@ class ClaimCurrency extends React.Component {
                                     <div className="btn-box align-buttons-inside absolute right-conner">
 
                                         <SubmitFormButton text="Claim Currency" loading={this.state.isPending}/>
-                                        <a onClick={() => this.props.closeModal()} className="btn btn-right round round-top-left">Cancel</a>
-                                    </div>
-                                    <div className="btn-box align-buttons-inside absolute left-conner">
-                                        <a
-                                            onClick={this.handleAdvancedState}
-                                            className="btn btn-left round round-bottom-left round-top-right"
+                                        <button
+                                            type={'button'}
+                                            onClick={() => this.props.closeModal()}
+                                            className="btn btn-right round round-top-left"
                                         >
-                                            {this.state.advancedState ? "Basic" : "Advanced"}
-                                        </a>
+                                            Cancel
+                                        </button>
                                     </div>
                                 </div>
                             }

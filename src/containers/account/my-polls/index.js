@@ -87,13 +87,14 @@ class MyVotes extends React.Component {
                 <SiteHeader
                     pageTitle={'My Polls'}
                 >
-                    <a
+                    <button
+                        type={'button'}
                         className="btn primary"
                         style={{marginLeft: 15}}
                         onClick={() => this.props.setBodyModalParamsAction('ISSUE_POLL', {})}
                     >
                         Create Poll
-                    </a>
+                    </button>
                 </SiteHeader>
                 <div className="page-body container-fluid">
                     <CustomTable 
