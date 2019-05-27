@@ -21,9 +21,9 @@ class DeleteHistory extends React.Component {
     state = {
         deletes: null,
         page: 1,
-        perPage: 16,
+        perPage: 15,
         firstIndex: 0,
-        lastIndex: 15,
+        lastIndex: 14,
         loader: false
     };
 
@@ -53,56 +53,31 @@ class DeleteHistory extends React.Component {
             this.setState({
                 deletes: history ? history.deletes : null
             })
-        }
-        )
+        })
     };
 
-    onNextClick = () => {
-        this.paginationClick('next')
-    }
+    onPaginate(page) {
 
-    onPreviousClick = () => {
-        this.paginationClick('previous')
-    }
+        let reqParams = {
+            page: page,
+            firstIndex: page * 15 - 15,
+            lastIndex: page * 15 - 1
+        };
 
-    paginationClick = (clickDirection) => {
-        const { page, perPage } = this.state;
-        const { getDeleteHistory, account } = this.props;
-        const paginationParams = { ...this.state }
-        switch (clickDirection) {
-            case 'next':
-                paginationParams.page = this.state.page + 1
-                paginationParams.firstIndex = (page + 1) * perPage - perPage - 1
-                paginationParams.lastIndex = (page + 1) * perPage - 1
-                paginationParams.loader = false;
-                this.setState({ ...paginationParams })
-                break;
-            case 'previous':
-                paginationParams.page = this.state.page - 1
-                paginationParams.firstIndex = ((page - 1) * perPage - perPage - 1) >= 0 ? ((page - 1) * perPage - perPage - 1) : 0
-                paginationParams.lastIndex = (page - 1) * perPage - 1
-                paginationParams.loader = false;
-                this.setState({ ...paginationParams })
-                break;
-            default:
-                return null;
-        }
-        this.setState({ loader: true });
-        getDeleteHistory(account, paginationParams.firstIndex, paginationParams.lastIndex).then(history => {
-            paginationParams.deletes = history && history.deletes
-            this.setState({ ...paginationParams })
-        })
+        this.setState(reqParams, () => {
+            this.getDeleteHistory(this.props.account)
+        });
     }
 
     render() {
-        let { page, deletes, loader } = this.state;
+        let { page, deletes } = this.state;
         return (
             <div className="page-content">
                 <SiteHeader
                     pageTitle={'Delete History'}
                 />
                 <div className="page-body container-fluid">
-                    {!loader ? <CustomTable
+                    <CustomTable
                         header={[
                             {
                                 name: 'Transaction',
@@ -118,25 +93,15 @@ class DeleteHistory extends React.Component {
                                 alignRight: true
                             }
                         ]}
-                        previousHendler={this.onPreviousClick}
-                        nextHendler={this.onNextClick}
+                        previousHendler={() => this.onPaginate(this.state.page - 1)}
+                        nextHendler={() => this.onPaginate(this.state.page + 1)}
                         page={page}
                         className={'mb-3'}
                         TableRowComponent={(el) => <DeleteItem delete={el} />}
                         tableData={deletes}
                         isPaginate={true}
                         emptyMessage={'No asset deletion history available.'}
-                    /> :
-                        <div style={this.loaderContainer} >
-                            <div className={'align-items-center loader-box'}>
-                                <div className="ball-pulse">
-                                    <div />
-                                    <div />
-                                    <div />
-                                </div>
-                            </div>
-                        </div>
-                    }
+                    />
                 </div>
             </div>
         )
