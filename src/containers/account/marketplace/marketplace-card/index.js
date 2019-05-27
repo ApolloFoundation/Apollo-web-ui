@@ -122,8 +122,7 @@ const tagsArr = utils.parseStringBySpace(props.tags);
                         <div className="cargo-owner-box">
                             <div className="cargo-owner">
                                 <span
-                                    className={"cursor-pointer"}
-                                    data-blue-link-text
+                                    className={"cursor-pointer blue-link-text"}
                                     onClick={() => props.setBodyModalParamsAction('INFO_ACCOUNT', props.sellerRS)}
                                 >
                                     {props.sellerRS}

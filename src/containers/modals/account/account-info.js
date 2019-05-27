@@ -117,15 +117,15 @@ class AccountInfo extends React.Component {
                                         advancedState={this.state.advancedState}
                                     /> */}
 
-                                    <div className="btn-box align-buttons-inside absolute right-conner">
+                                    <div className="btn-box right-conner align-right form-footer">
+                                        <a onClick={() => this.props.closeModal()} className="btn btn-default mr-3">Cancel</a>
                                         <button
                                             type="submit"
                                             name={'closeModal'}
-                                            className="btn btn-right blue round round-bottom-right"
+                                            className="btn btn-right btn-green submit-button"
                                         >
                                             Update Account Info
                                         </button>
-                                        <a onClick={() => this.props.closeModal()} className="btn btn-right round round-top-left">Cancel</a>
                                     </div>
                                 </div>
                             }
