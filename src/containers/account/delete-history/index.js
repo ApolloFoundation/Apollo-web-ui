@@ -27,8 +27,6 @@ class DeleteHistory extends React.Component {
         loader: false
     };
 
-    loaderContainer = { width: '100%', height: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }
-
     listener = data => {
         this.getDeleteHistory(this.props.account);
     };
