@@ -158,8 +158,7 @@ class InputForm extends React.Component {
                     id={this.props.id}
 
                     onChange={this.handleChange}
-                    onBlur={this.props.onBlur ? this.props.onBlur : () => {
-                    }}
+                    onBlur={this.props.onBlur ? this.props.onBlur : () => {}}
                 />
                 {isNumberInput && (
                     <div className="input-number-wrap">
