@@ -1,9 +1,10 @@
 import React from 'react';
-import {connect} from "react-redux";
-import {NotificationManager} from "react-notifications";
+import {connect} from 'react-redux';
+import {NotificationManager} from 'react-notifications';
 import {Form} from 'react-form';
 import InputForm from '../../../components/input-form';
-import {getTransactionFee, walletWidthraw} from "../../../../actions/wallet";
+import {getTransactionFee, walletWidthraw} from '../../../../actions/wallet';
+import {formatGweiToEth} from '../../../../helpers/format';
 
 class WithdrawCurrency extends React.Component {
     state = {
@@ -105,7 +106,7 @@ class WithdrawCurrency extends React.Component {
                                         </div>
                                     </div>
                                     <div className="form-group row form-group-white mb-15">
-                                        <label className="col-sm-3 col-form-label">
+                                        <label htmlFor={"withdraw-modal-amount"} className="col-sm-3 col-form-label">
                                             Amount
                                         </label>
                                         <div
@@ -114,7 +115,10 @@ class WithdrawCurrency extends React.Component {
                                                 field="amount"
                                                 placeholder="Amount"
                                                 type={"float"}
-                                                setValue={setValue}/>
+                                                setValue={setValue}
+                                                id={"withdraw-modal-amount"}
+                                                defaultValue={0}
+                                            />
                                             <div className="input-group-append">
                                                 <span className="input-group-text">{currencyFormat}</span>
                                             </div>
@@ -122,7 +126,7 @@ class WithdrawCurrency extends React.Component {
                                     </div>
                                     <div className="form-group row form-group-white mb-15">
                                         <label className="col-sm-3 col-form-label">
-                                            Transaction Fee
+                                            Gas Fee
                                         </label>
                                         <div className="col-sm-9">
                                             <div className="btn-group" role="group" aria-label="Basic example">
@@ -133,10 +137,18 @@ class WithdrawCurrency extends React.Component {
                                                         onClick={() => this.handleSelectTransactionFee(transactionFee[key])}
                                                     >
                                                         <span className={'text-uppercase'}>{key}</span><br/>
-                                                        <small>{transactionFee[key]} {currencyFormat}</small>
+                                                        <small>{formatGweiToEth(transactionFee[key])} {currencyFormat}</small>
                                                     </button>
                                                 ))}
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div className="form-group row form-group-white mb-15">
+                                        <label className="col-sm-3 col-form-label">
+                                            Max Fee
+                                        </label>
+                                        <div className="col-sm-9">
+                                            {formatGweiToEth(this.state.fee * values.amount)} {currencyFormat}
                                         </div>
                                     </div>
                                     <div className="form-group row form-group-white mb-15">

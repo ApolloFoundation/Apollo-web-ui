@@ -1,8 +1,16 @@
-export const formatCrypto = (value) => {
-    value = parseInt(value);
+export const formatCrypto = (value, digits = 6) => {
+    value = parseInt(value) || 0;
     return value > 0 ? (value / Math.pow(10, 18)).toLocaleString('en', {
-        minimumFractionDigits: 6,
-        maximumFractionDigits: 6
+        minimumFractionDigits: digits,
+        maximumFractionDigits: digits
+    }) : value;
+};
+
+export const formatGweiToEth = (value, digits = 9) => {
+    value = parseInt(value) || 0;
+    return value > 0 ? (value * 0.000000001).toLocaleString('en', {
+        minimumFractionDigits: digits,
+        maximumFractionDigits: digits + 2
     }) : value;
 };
 
