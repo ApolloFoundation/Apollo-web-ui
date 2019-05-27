@@ -35,7 +35,7 @@ class TransferCurrency extends React.Component {
     }
 
     handleFormSubmit = values => this.props.handleFormSubmit(values);
-   
+
     render() {
         const {code} = this.props.modalData;
 
@@ -49,8 +49,8 @@ class TransferCurrency extends React.Component {
                 handleFormSubmit={(values) => this.handleFormSubmit(values)}
                 submitButtonName={'Transfer Currency'}
             >
-                <CurrencyInput 
-                    field={'currency'}
+                <CurrencyInput
+                    field={'code'}
                     defaultValue={code}
                     disabled={!this.props.modalData}
                 />

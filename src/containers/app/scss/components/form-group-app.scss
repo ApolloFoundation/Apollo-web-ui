@@ -435,6 +435,9 @@
 	}
 	.btn {
 		font-size: 11px;
+		&:hover {
+			opacity: 0.9;
+		}
 	}
 	.mb-15 {
 		margin-bottom: 15px;

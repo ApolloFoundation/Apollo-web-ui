@@ -29,10 +29,13 @@ const Currency = (props) =>  {
             <td className="align-right">
                 <div className="btn-box inline">
                     <Link to={"/exchange-booth/" + code} className="btn primary blue">Exchange</Link>
-                    {
-                        types.includes('RESERVABLE') &&
-                        <a onClick={() => setBodyModalParamsAction('RESERVE_CURRENCY', props)} className="btn primary default">Reserve</a>
-                    }
+                    <button
+                        type={'button'}
+                        onClick={() => setBodyModalParamsAction('RESERVE_CURRENCY', props)}
+                        className={`btn primary ${types.includes('RESERVABLE') ? 'blue' : 'blue-disabled'}`}
+                    >
+                        Reserve
+                    </button>
                 </div>
             </td>
         </tr>

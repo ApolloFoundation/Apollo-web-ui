@@ -96,7 +96,7 @@ const IssueCurrencyForm = (props) => {
                     />
             
                     <NumericInput
-                        setValue={setValue}ß
+                        setValue={setValue}
                         label={'Reserve Supply'}
                         field={'reserveSupply'}
                         countingTtile={'APL'}

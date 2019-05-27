@@ -53,7 +53,7 @@ class DeleteShares extends React.Component {
         return (
             <ModalBody
                 loadForm={this.loadForm}
-                modalTitle={'Delete asset'}
+                modalTitle={'Delete Shares'}
                 isAdvanced={true}
                 isFee
                 closeModal={this.props.closeModal}
@@ -64,7 +64,7 @@ class DeleteShares extends React.Component {
                 <Text defaultValue={this.props.modalData.assetName} type="hidden" field={'name'}/>
                 <Text defaultValue={this.props.modalData.assetID} type="hidden" field={'asset'}/>
 
-                <TextualInputComponent 
+                <TextualInputComponent
                     label={'Asset'}
                     text={`${this.props.modalData.assetName} - ${(this.props.modalData.quantityATU)
                         .toLocaleString('en', {

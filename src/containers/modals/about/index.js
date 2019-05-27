@@ -5,9 +5,9 @@
 
 
 import React from 'react';
-import {connect} from 'react-redux';
-import {setModalData}             from '../../../modules/modals';
-import {setBodyModalParamsAction} from '../../../modules/modals';
+import { connect } from 'react-redux';
+import { setModalData } from '../../../modules/modals';
+import { setBodyModalParamsAction } from "../../../modules/modals";
 import ModalBody from '../../components/modals/modal-body';
 
 const mapStateToProps = state => ({
@@ -26,7 +26,7 @@ class AboutApollo extends React.Component {
     };
 
     render() {
-        const {blockchainStatus} = this.props;
+        const { blockchainStatus } = this.props;
 
         return (
             <ModalBody

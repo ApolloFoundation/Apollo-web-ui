@@ -8,6 +8,15 @@ import {setBodyModalParamsAction} from '../../../../modules/modals';
 import {formatCrypto} from '../../../../helpers/format';
 
 class CurrencyDescriptionComponent extends Component {
+    handleWithdrawModal = () => {
+        const balance = formatCrypto(this.props.balance);
+        this.props.setBodyModalParamsAction('WITHDRAW_CURRENCY', {
+            balance,
+            address: this.props.address,
+            currency: this.props.currency,
+        });
+    };
+
     render() {
         const {address, balance, currency, handleCurrentCurrency} = this.props;
         const balanceFormat = formatCrypto(balance);
@@ -60,7 +69,7 @@ class CurrencyDescriptionComponent extends Component {
                     <div className="btn-box inline pr-1">
                         <a
                             className="btn primary defaullt"
-                            onClick={() => NotificationManager.error('This functionality will be delivered in May 2019.', 'Error', 5000)}
+                            onClick={this.handleWithdrawModal}
                         >
                             Withdraw
                         </a>

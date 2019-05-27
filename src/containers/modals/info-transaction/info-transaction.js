@@ -135,15 +135,10 @@ class InfoLedgerTransaction extends React.Component {
                                     </button>
                                     <button
                                         type={'button'}
-                                        className="btn btn-green disabled"
+                                        onClick={() => this.props.setBodyModalParamsAction('SAVE_ACCOUNT', recipientRS)}
+                                        className={`btn btn-green ${!this.state.transaction.recipientRS ? 'disabled' : ''}`}
                                     >
-                                        Send currency to sender
-                                    </button>
-                                    <button
-                                        type={'button'}
-                                        className="btn btn-green disabled"
-                                    >
-                                        Send a message to sender
+                                        Send Currency
                                     </button>
                                     <button
                                         type={'button'}

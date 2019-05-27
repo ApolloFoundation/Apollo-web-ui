@@ -43,9 +43,9 @@ class SendApolloCard extends Component {
                                             <AccountRS
                                                 field={'recipient'}
                                                 setValue={setValue}
-                                                plsceholder="Account ID"
+                                                placeholder="Account ID"
                                                 noContactList
-                                                value={values.recipient}
+                                                defaultValue={values.recipient}
                                             />
                                         </div>
                                         <div className="form-group">

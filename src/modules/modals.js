@@ -149,17 +149,19 @@ export default (state = initialState, action) => {
 		        ...state,
 		        backClicked: false
             };
-            
+
         case SET_DASHBOARD_FORM:
             return {
                 ...state,
                 dashboardForm : action.payload
-            }
+            };
+
         case IS_MODAL_PROCESSING: 
             return {
                 ...state,
                 isMomalProcessing: action.payload
-            }
+            };
+
         default:
             return state
     }
@@ -304,4 +306,4 @@ export const clearDashboardForm = (form) => {
         type : SET_DASHBOARD_FORM,
         payload : form
     })
-}
+};

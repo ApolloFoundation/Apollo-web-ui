@@ -17,7 +17,7 @@ class ModalFooter extends React.Component {
         return (
             <>
                 <div className="form-group mb-15">
-                    <label>
+                    <label htmlFor={`${this.props.idGroup}secretPhrase-field`}>
                         Secret phrase
                     </label>
                     <div>
