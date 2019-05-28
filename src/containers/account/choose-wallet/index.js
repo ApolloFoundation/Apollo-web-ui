@@ -44,6 +44,8 @@ class ChooseWallet extends React.Component {
         const walletsBalances = await this.props.getCurrencyBalance(params);
         if (walletsBalances) {
             this.setState({wallets: walletsBalances, loading: false});
+        } else {
+            this.setState({loading: false});
         }
     };
 
