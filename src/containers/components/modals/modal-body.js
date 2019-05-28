@@ -1,15 +1,15 @@
 import React from 'react';
-import {Form} from 'react-form';
+import { Form } from 'react-form';
 
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import FormFooter from '../form-components/form-footer';
 import InputForm from '../input-form';
 import ModalFooter from '../modal-footer';
 import classNames from 'classnames';
-import {ONE_APL} from '../../../constants';
+import { ONE_APL } from '../../../constants';
 
 import AdvancedSettings from '../advanced-transaction-settings';
-import {setBodyModalParamsAction, saveSendModalState, openPrevModal} from "../../../modules/modals";
+import { setBodyModalParamsAction, saveSendModalState, openPrevModal } from "../../../modules/modals";
 
 import BackForm from '../../../containers/modals/modal-form/modal-form-container';
 import NummericInputForm from "../form-components/numeric-input";
@@ -21,16 +21,16 @@ class ModalBody extends React.Component {
         if (this.props.loadForm) {
             this.props.loadForm(form)
         } else {
-            this.setState({form}, () => this.loadValues());
+            this.setState({ form }, () => this.loadValues());
         }
     };
 
-	loadValues = (values) => {
-		if (values) {
-			this.state.form.setAllValues(values);
-			return;
+    loadValues = (values) => {
+        if (values) {
+            this.state.form.setAllValues(values);
+            return;
         } else {
-            const {modalsHistory} = this.props;
+            const { modalsHistory } = this.props;
             if (modalsHistory[modalsHistory.length - 1] && modalsHistory[modalsHistory.length - 1].value) {
                 this.state.form.setAllValues(modalsHistory[modalsHistory.length - 1].value)
             }
@@ -44,24 +44,24 @@ class ModalBody extends React.Component {
     }
 
     form = () => {
-        const {CustomFooter, isDisableFormFooter, marketplace, onChange, isDisabledBackArrow, isAdvancedWhite,
+        const { CustomFooter, isDisableFormFooter, marketplace, onChange, isDisabledBackArrow, isAdvancedWhite,
             isDisableSecretPhrase, isDisabe2FA, modalSubTitle, className, idGroup, isPour, openPrevModal, modalsHistory,
             saveSendModalState, nameModel, children, handleFormSubmit, modalTitle, isPending, isDisabled, isFee, closeModal,
-            submitButtonName, modalData} = this.props;
+            submitButtonName, modalData } = this.props;
 
-        const LeftBar  = marketplace ? (p) => <div className="left-bar">{p.children}</div> : React.Fragment ;
-        const RightBar = marketplace ? (p) => <div className="right-bar">{p.children}</div> : React.Fragment ;
+        const LeftBar = marketplace ? (p) => <div className="left-bar">{p.children}</div> : React.Fragment;
+        const RightBar = marketplace ? (p) => <div className="right-bar">{p.children}</div> : React.Fragment;
         const isAdvanced = false;
 
         return (
-                <BackForm
-                    getApi={(value) => this.getForm(value)}
-                    onChange={onChange}
-                    onSubmit={(values) => this.handleFormSubmit(values)}
-                    nameModel={nameModel}
-                    render={({
-                            submitForm, values, addValue, removeValue, setValue, getFormState, getValue
-                    }) => (
+            <BackForm
+                getApi={(value) => this.getForm(value)}
+                onChange={onChange}
+                onSubmit={(values) => this.handleFormSubmit(values)}
+                nameModel={nameModel}
+                render={({
+                    submitForm, values, addValue, removeValue, setValue, getFormState, getValue
+                }) => (
                         <form
                             onChange={() => saveSendModalState(values)}
                             onSubmit={submitForm}
@@ -82,8 +82,8 @@ class ModalBody extends React.Component {
                                                         "no-image": !marketplace.hasImage
                                                     })}
                                                 />
-                                                </div>
-                                                <div className="bottom-bar">
+                                            </div>
+                                            <div className="bottom-bar">
                                                 <div className="description word-brake">
                                                     {marketplace.description}
                                                 </div>
@@ -104,7 +104,7 @@ class ModalBody extends React.Component {
                                             {
                                                 !isDisabledBackArrow &&
                                                 modalsHistory.length > 1 &&
-                                                <div className={"backMy"} onClick={() => {openPrevModal()}}/>
+                                                <div className={"backMy"} onClick={() => { openPrevModal() }} />
                                             }
                                             <p>{modalTitle}</p>
                                         </div>
@@ -116,7 +116,7 @@ class ModalBody extends React.Component {
                                             {
                                                 !isDisabledBackArrow &&
                                                 modalsHistory.length > 1 &&
-                                                <div className={"backMy"} onClick={() => {openPrevModal()}}/>
+                                                <div className={"backMy"} onClick={() => { openPrevModal() }} />
                                             }
                                             <p>{marketplace.name}</p>
                                         </div>
@@ -141,10 +141,10 @@ class ModalBody extends React.Component {
                                     {/** Passing props to each form component */}
                                     {
                                         React.Children.map(children, child => {
-                                                if (child) {
-                                                    return React.cloneElement(child, {...submitForm, values, getValue, addValue, removeValue, setValue, getFormState, idGroup})
-                                                }
+                                            if (child) {
+                                                return React.cloneElement(child, { ...submitForm, values, getValue, addValue, removeValue, setValue, getFormState, idGroup })
                                             }
+                                        }
                                         )
                                     }
 
@@ -199,45 +199,40 @@ class ModalBody extends React.Component {
                                     }
                                     {
                                         !!CustomFooter &&
-                                        <CustomFooter/>
+                                        <CustomFooter />
                                     }
                                 </RightBar>
                             </div>
                         </form>
                     )}
-                />
+            />
         )
     };
 
-    render () {
+    render() {
 
-        const {isPour, isXWide, isWide} = this.props;
+        const { isPour, isXWide, isWide } = this.props;
 
         return (
-            <>
-                {
-                    isPour ?
-                    <>
-                        { this.form() }
-                    </>
-                     :
-                    <div className={`modal-box ${isWide ? 'wide' : ''} ${isXWide ? 'x-wide' : ''}`}>
-                        { this.form() }
-                    </div>
-                }
-            </>
+            isPour ?
+                this.form()
+                :
+                <div className={`modal-box ${isWide ? 'wide' : ''} ${isXWide ? 'x-wide' : ''}`}>
+                    {this.form()}
+                </div>
+
         )
     }
 }
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
-	modalsHistory: state.modals.modalsHistory
+    modalsHistory: state.modals.modalsHistory
 });
 
 const mapDispatchToProps = dispatch => ({
     saveSendModalState: (params) => dispatch(saveSendModalState(params)),
-	openPrevModal: () => dispatch(openPrevModal())
+    openPrevModal: () => dispatch(openPrevModal())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ModalBody);
