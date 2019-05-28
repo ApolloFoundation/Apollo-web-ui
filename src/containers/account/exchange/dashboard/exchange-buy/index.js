@@ -87,7 +87,7 @@ class ExchangeBuy extends React.Component {
 
     render() {
         const {currentCurrency: {currency}, wallet} = this.props;
-        const balanceFormat = wallet && wallet.wallets && wallet.wallets[0].balance !== "null" && formatCrypto(wallet.wallets[0].balance);
+        const balanceFormat = (wallet && wallet[0].balances[currency]) || 0;
         const currencyName = currency.toUpperCase();
         return (
             <div className={'card-block green card card-medium pt-0 h-400'}>
@@ -149,7 +149,7 @@ class ExchangeBuy extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                            {wallet && wallet.wallets && balanceFormat !== false && (
+                            {wallet && balanceFormat !== false && (
                                 <div className={'form-group-text d-flex justify-content-between'}>
                                     of Total Balance: <span><i
                                     className="zmdi zmdi-balance-wallet"/> {balanceFormat}&nbsp;{currencyName}</span>

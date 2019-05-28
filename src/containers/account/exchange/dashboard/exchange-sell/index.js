@@ -147,7 +147,7 @@ class ExchangeSell extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                            {wallet && wallet.wallets && balanceFormat !== false && (
+                            {wallet && balanceFormat !== false && (
                                 <div className={'form-group-text d-flex justify-content-between'}>
                                     of Total Balance: <span><i
                                     className="zmdi zmdi-balance-wallet"/> {balanceFormat}&nbsp;APL</span>
