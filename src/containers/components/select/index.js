@@ -52,13 +52,9 @@ class CustomSelect extends React.Component {
                 defaultValue={this.props.defaultValue}
                 onChange={(selectedOption) => {
                     this.setState({value: selectedOption});
-                    this.props.setValue(this.props.field, selectedOption.value);
-                    if (this.props.onChange) {
-                        this.props.onChange(selectedOption.value);
-                    }
-                    if (this.props.handler) {
-                        this.props.handler(selectedOption)
-                    }
+                    if (this.props.setValue) this.props.setValue(this.props.field, selectedOption.value);
+                    if (this.props.onChange) this.props.onChange(selectedOption.value);
+                    if (this.props.handler) this.props.handler(selectedOption);
                 }
                 }
                 theme={(theme) => ({
