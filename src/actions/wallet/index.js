@@ -25,7 +25,7 @@ export function getWallets(requestParams) {
             .then(async (res) => {
                 if (!res.errorCode) {
                     dispatch(setWallets(res.currencies));
-                    writeToLocalStorage('wallets', JSON.stringify(res.currencies));
+                    writeToLocalStorage('wallets', res.currencies);
                     return res;
                 }
             })

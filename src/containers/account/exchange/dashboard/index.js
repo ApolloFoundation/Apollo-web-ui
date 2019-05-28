@@ -21,7 +21,7 @@ class Exchange extends React.Component {
     };
 
     componentDidMount() {
-        let wallets = JSON.parse(localStorage.getItem('wallets'));
+        let wallets = localStorage.getItem('wallets');
         if (!wallets) {
             this.handleLoginModal();
         } else {

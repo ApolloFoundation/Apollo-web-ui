@@ -18,7 +18,7 @@ class OrderHistory extends React.Component {
     };
 
     componentDidMount() {
-        let wallets = JSON.parse(localStorage.getItem('wallets'));
+        let wallets = localStorage.getItem('wallets');
         if (!wallets) {
             this.props.setBodyModalParamsAction('LOGIN_EXCHANGE', {});
         } else {

@@ -6,6 +6,7 @@ import InfoBox from '../../components/info-box';
 import CurrencyDescriptionComponent from './currency';
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {getCurrencyBalance} from "../../../actions/wallet";
+import {readFromLocalStorage} from "../../../actions/localStorage";
 import {setCurrentCurrencyAction} from "../../../modules/exchange";
 
 class ChooseWallet extends React.Component {
@@ -19,7 +20,7 @@ class ChooseWallet extends React.Component {
         if (!wallets) {
             this.props.setBodyModalParamsAction('LOGIN_EXCHANGE', {});
         } else {
-            this.getCurrencyBalance(JSON.parse(wallets));
+            this.getCurrencyBalance(wallets);
         }
     }
 
@@ -32,12 +33,18 @@ class ChooseWallet extends React.Component {
     getCurrencyBalance = async (wallets) => {
         this.setState({loading: true});
         let params = {};
-        wallets.map(wallet => params[wallet.currency] = wallet.wallets[0].address);
-        const balances = await this.props.getCurrencyBalance(params);
-        if (balances) {
-            wallets.map(wallet => wallet.wallets[0].balance = balances[`balance${wallet.currency.toUpperCase()}`]);
+        wallets.map(wallet => {
+            params[wallet.currency] = [];
+            wallet.wallets.map(walletItem => {
+                params[wallet.currency].push(walletItem.address);
+                return walletItem;
+            });
+            return wallet;
+        });
+        const walletsBalances = await this.props.getCurrencyBalance(params);
+        if (walletsBalances) {
+            this.setState({wallets: walletsBalances, loading: false});
         }
-        this.setState({wallets, loading: false});
     };
 
     handleCurrentCurrency = (currency) => {
@@ -57,20 +64,24 @@ class ChooseWallet extends React.Component {
                                 <div className={'form-title form-title-lg d-flex flex-column justify-content-between'}>
                                     <p className="title-lg">My Wallets</p>
                                 </div>
-                                {this.state.wallets.map(wallet => (
+                                {Object.keys(this.state.wallets).map((currency, i) => (
                                     <CustomTable
+                                        key={i}
                                         header={[
                                             {
-                                                name: `${wallet.currency.toUpperCase()} Wallet`,
+                                                name: `${currency.toUpperCase()} Wallet`,
                                                 alignRight: false
                                             }, {
-                                                name: `Amount ${wallet.currency.toUpperCase()}`,
+                                                name: `Amount ETH`,
                                                 alignRight: false
                                             }, {
-                                                name: `Buy ${wallet.currency.toUpperCase()}`,
+                                                name: `Amount PAX`,
                                                 alignRight: false
                                             }, {
-                                                name: `Sell ${wallet.currency.toUpperCase()}`,
+                                                name: `Buy ${currency.toUpperCase()}`,
+                                                alignRight: false
+                                            }, {
+                                                name: `Sell ${currency.toUpperCase()}`,
                                                 alignRight: false
                                             }, {
                                                 name: 'Transactions history',
@@ -81,8 +92,8 @@ class ChooseWallet extends React.Component {
                                             }
                                         ]}
                                         className={'pt-0 no-min-height no-padding rounded-top'}
-                                        tableData={wallet.wallets}
-                                        passProps={{currency: wallet.currency, handleCurrentCurrency: this.handleCurrentCurrency}}
+                                        tableData={this.state.wallets[currency]}
+                                        passProps={{currency, handleCurrentCurrency: this.handleCurrentCurrency}}
                                         emptyMessage={'No wallet info found.'}
                                         TableRowComponent={CurrencyDescriptionComponent}
                                     />
