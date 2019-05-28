@@ -4,16 +4,14 @@ import {connect} from "react-redux";
 import {NotificationManager} from "react-notifications";
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 
-import {setBodyModalParamsAction} from '../../../../modules/modals';
-import {formatCrypto} from '../../../../helpers/format';
+import {setBodyModalParamsAction} from '../../../../../modules/modals';
+import {formatCrypto} from '../../../../../helpers/format';
 
 class CurrencyDescriptionComponent extends Component {
     handleWithdrawModal = () => {
-        const balance = formatCrypto(this.props.balance);
         this.props.setBodyModalParamsAction('WITHDRAW_CURRENCY', {
-            balance,
+            balances: this.props.balances,
             address: this.props.address,
-            currency: this.props.currency,
         });
     };
 
