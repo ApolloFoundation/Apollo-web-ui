@@ -18,8 +18,7 @@ class CurrencyDescriptionComponent extends Component {
     };
 
     render() {
-        const {address, balance, currency, handleCurrentCurrency} = this.props;
-        const balanceFormat = formatCrypto(balance);
+        const {address, balances, currency, handleCurrentCurrency} = this.props;
         return (
             <tr>
                 <td>
@@ -32,7 +31,8 @@ class CurrencyDescriptionComponent extends Component {
                         <span className="cursor-pointer">{address}</span>
                     </CopyToClipboard>
                 </td>
-                <td>{balanceFormat}</td>
+                <td>{balances.eth}</td>
+                <td>{balances.pax}</td>
                 <td>
                     <div className="btn-box inline">
                         <Link

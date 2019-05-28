@@ -25,8 +25,10 @@ export function getWallets(requestParams) {
             .then(async (res) => {
                 if (!res.errorCode) {
                     dispatch(setWallets(res.currencies));
-                    writeToLocalStorage('wallets', JSON.stringify(res.currencies));
+                    writeToLocalStorage('wallets', res.currencies);
                     return res;
+                } else {
+                    NotificationManager.error(res.errorDescription, 'Error', 5000);
                 }
             })
             .catch(() => {
@@ -41,6 +43,8 @@ export function getCurrencyBalance(requestParams) {
             .then((res) => {
                 if (!res.errorCode) {
                     return res;
+                } else {
+                    NotificationManager.error(res.errorDescription, 'Error', 5000);
                 }
             })
             .catch(() => {
@@ -55,6 +59,8 @@ export function walletWidthraw(requestParams) {
             .then(async (res) => {
                 if (!res.errorCode) {
                     return res;
+                } else {
+                    NotificationManager.error(res.errorDescription, 'Error', 5000);
                 }
             })
             .catch(() => {
