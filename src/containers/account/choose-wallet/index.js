@@ -69,7 +69,7 @@ class ChooseWallet extends React.Component {
                                         key={i}
                                         header={[
                                             {
-                                                name: `${currency.toUpperCase()} Wallet`,
+                                                name: `Wallets`,
                                                 alignRight: false
                                             }, {
                                                 name: `Amount ETH`,
@@ -78,16 +78,16 @@ class ChooseWallet extends React.Component {
                                                 name: `Amount PAX`,
                                                 alignRight: false
                                             }, {
-                                                name: `Buy ${currency.toUpperCase()}`,
+                                                name: `Buy`,
                                                 alignRight: false
                                             }, {
-                                                name: `Sell ${currency.toUpperCase()}`,
+                                                name: `Sell`,
                                                 alignRight: false
                                             }, {
                                                 name: 'Transactions history',
                                                 alignRight: false
                                             }, {
-                                                name: 'Withdraw',
+                                                name: 'Actions',
                                                 alignRight: true
                                             }
                                         ]}
