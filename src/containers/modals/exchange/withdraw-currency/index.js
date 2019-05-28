@@ -5,11 +5,13 @@ import {Form} from 'react-form';
 import InputForm from '../../../components/input-form';
 import {getTransactionFee, walletWidthraw} from '../../../../actions/wallet';
 import {formatGweiToEth} from '../../../../helpers/format';
+import CustomFormSelect from "../../../components/form-components/custom-form-select";
 
 class WithdrawCurrency extends React.Component {
     state = {
         transactionFee: null,
         fee: null,
+        currency: 'eth',
     };
 
     componentDidMount() {
@@ -30,7 +32,7 @@ class WithdrawCurrency extends React.Component {
             secretPhrase: values.secretPhrase,
             amount: values.amount,
             address: values.address,
-            cryptocurrency: this.props.modalData.currency,
+            cryptocurrency: this.state.currency,
         };
 
         const result = await this.props.walletWidthraw(params);
@@ -40,9 +42,16 @@ class WithdrawCurrency extends React.Component {
     };
 
     getTransactionFee = async () => {
-        const transactionFee = await this.props.getTransactionFee(this.props.modalData.currency);
+        const transactionFee = await this.props.getTransactionFee();
         if (transactionFee) {
-            this.setState({transactionFee, fee: transactionFee[Object.keys(transactionFee)[1]]});
+            const level = Object.keys(transactionFee)[1];
+            this.setState({
+                transactionFee,
+                fee: {
+                    level: level,
+                    value: transactionFee[level],
+                }
+            });
         }
     };
 
@@ -50,23 +59,37 @@ class WithdrawCurrency extends React.Component {
         this.setState({fee});
     };
 
+    handleChangeAsset = (currency) => {
+        this.setState({currency});
+    };
+
+    getAssetTypes = () => {
+        const balances = this.props.modalData ? this.props.modalData.balances : {};
+        return Object.keys(balances).map((currency, i) => (
+            {
+                value: currency,
+                label: `${currency.toUpperCase()} - Balance: ${balances[currency]} ${currency.toUpperCase()}`
+            }
+        ));
+    };
+
     render() {
-        const {currency, address, balance} = this.props.modalData;
-        const {transactionFee} = this.state;
+        const {modalData: {address}, constants} = this.props;
+        const {transactionFee, currency} = this.state;
         const currencyFormat = currency.toUpperCase();
+        const gasLimit = currency === 'eth' ? constants.gasLimitEth : constants.gasLimitERC20;
+        const typeData = this.getAssetTypes();
         return (
             <div className="modal-box">
                 <Form
                     onSubmit={(values) => this.handleFormSubmit(values)}
-                    render={({
-                                 submitForm, values, addValue, removeValue, setValue, getFormState
-                             }) => (
+                    render={({submitForm, setValue}) => (
                         <form className="modal-form" onSubmit={submitForm}>
                             <div className="form-group-app">
                                 <a onClick={() => this.props.closeModal()} className="exit"><i
                                     className="zmdi zmdi-close"/></a>
                                 <div className="form-title">
-                                    <p>Withdraw {currencyFormat}</p>
+                                    <p>Withdraw</p>
                                 </div>
                                 <div className="input-group-app">
                                     <div className="form-group row form-group-white mb-15">
@@ -95,16 +118,14 @@ class WithdrawCurrency extends React.Component {
                                                 setValue={setValue}/>
                                         </div>
                                     </div>
-                                    <div className="form-group row form-group-white mb-15">
-                                        <label className="col-sm-3 col-form-label">
-                                            Balance
-                                        </label>
-                                        <div className="col-sm-9">
-                                            <p>
-                                                {balance} {currencyFormat}
-                                            </p>
-                                        </div>
-                                    </div>
+                                    <CustomFormSelect
+                                        defaultValue={typeData.find(type => type.value === currency)}
+                                        setValue={setValue}
+                                        options={typeData}
+                                        label={'Asset'}
+                                        field={'asset'}
+                                        onChange={this.handleChangeAsset}
+                                    />
                                     <div className="form-group row form-group-white mb-15">
                                         <label htmlFor={"withdraw-modal-amount"} className="col-sm-3 col-form-label">
                                             Amount
@@ -124,33 +145,37 @@ class WithdrawCurrency extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="form-group row form-group-white mb-15">
-                                        <label className="col-sm-3 col-form-label">
-                                            Gas Fee
-                                        </label>
-                                        <div className="col-sm-9">
-                                            <div className="btn-group" role="group" aria-label="Basic example">
-                                                {transactionFee && Object.keys(transactionFee).map((key, index) => (
-                                                    <button
-                                                        type="button"
-                                                        className={`btn btn-secondary submit-button ${this.state.fee === transactionFee[key] ? 'blue': ''}`}
-                                                        onClick={() => this.handleSelectTransactionFee(transactionFee[key])}
-                                                    >
-                                                        <span className={'text-uppercase'}>{key}</span><br/>
-                                                        <small>{formatGweiToEth(transactionFee[key])} {currencyFormat}</small>
-                                                    </button>
-                                                ))}
+                                    {this.state.fee && (
+                                        <React.Fragment>
+                                            <div className="form-group row form-group-white mb-15">
+                                                <label className="col-sm-3 col-form-label">
+                                                    Gas Fee
+                                                </label>
+                                                <div className="col-sm-9">
+                                                    <div className="btn-group w-100" role="group" aria-label="Basic example">
+                                                        {transactionFee && Object.keys(transactionFee).map((key, index) => (
+                                                            <button
+                                                                type="button"
+                                                                className={`w-100 btn btn-secondary submit-button ${this.state.fee.level === key ? 'blue': ''}`}
+                                                                onClick={() => this.handleSelectTransactionFee({level: key, value: transactionFee[key]})}
+                                                            >
+                                                                <span className={'text-uppercase'}>{key}</span><br/>
+                                                                <small>{formatGweiToEth(transactionFee[key], 0)} {currencyFormat}</small>
+                                                            </button>
+                                                        ))}
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div className="form-group row form-group-white mb-15">
-                                        <label className="col-sm-3 col-form-label">
-                                            Max Fee
-                                        </label>
-                                        <div className="col-sm-9">
-                                            {formatGweiToEth(this.state.fee * values.amount)} {currencyFormat}
-                                        </div>
-                                    </div>
+                                            <div className="form-group row form-group-white mb-15">
+                                                <label className="col-sm-3 col-form-label">
+                                                    Max Fee
+                                                </label>
+                                                <div className="col-sm-9">
+                                                    {formatGweiToEth(this.state.fee.value * gasLimit, 0)} {currencyFormat}
+                                                </div>
+                                            </div>
+                                        </React.Fragment>
+                                    )}
                                     <div className="form-group row form-group-white mb-15">
                                         <label className="col-sm-3 col-form-label">
                                             Secret phrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
@@ -185,11 +210,12 @@ const mapStateToProps = state => ({
     account: state.account.account,
     secretPhrase: state.account.passPhrase,
     modalData: state.modals.modalData,
+    constants: state.account.constants,
 });
 
 const mapDispatchToProps = dispatch => ({
     walletWidthraw: (params) => dispatch(walletWidthraw(params)),
-    getTransactionFee: (currency) => dispatch(getTransactionFee(currency)),
+    getTransactionFee: () => dispatch(getTransactionFee()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(WithdrawCurrency);

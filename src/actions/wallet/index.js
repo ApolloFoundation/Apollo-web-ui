@@ -237,10 +237,9 @@ export const getMyOfferHistory = (options) => async (dispatch, getState) => {
     dispatch(setMyOrderHistoryAction(orders));
 };
 
-export function getTransactionFee(currency) {
-    const reqType = currency === 'eth' ? 'ethInfo' : 'paxInfo';
+export function getTransactionFee() {
     return dispatch => {
-        return handleFetch(`${config.api.server}/rest/dex/${reqType}`, GET)
+        return handleFetch(`${config.api.server}/rest/dex/ethInfo`, GET)
             .then(async (res) => {
                 if (!res.errorCode) {
                     return res;

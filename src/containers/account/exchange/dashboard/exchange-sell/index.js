@@ -1,11 +1,12 @@
 import React from 'react';
-import {connect} from "react-redux";
-import {Form} from "react-form";
-import {NotificationManager} from "react-notifications";
+import {connect} from 'react-redux';
+import {Form} from 'react-form';
+import {NotificationManager} from 'react-notifications';
 import InputForm from '../../../../components/input-form';
-import {currencyTypes, formatDivision, multiply} from "../../../../../helpers/format";
-import {createOffer} from "../../../../../actions/wallet";
-import {setBodyModalParamsAction} from "../../../../../modules/modals";
+import CustomSelect from '../../../../components/select';
+import {currencyTypes, formatDivision, multiply} from '../../../../../helpers/format';
+import {createOffer} from '../../../../../actions/wallet';
+import {setBodyModalParamsAction} from '../../../../../modules/modals';
 import {ONE_APL} from '../../../../../constants';
 
 class ExchangeSell extends React.Component {
@@ -81,11 +82,22 @@ class ExchangeSell extends React.Component {
         this.setState({form})
     };
 
+    getWalletsList = () => {
+        const wallets = this.props.wallet || [];
+        return wallets.map((wallet) => (
+            {
+                value: wallet,
+                label: wallet.address
+            }
+        ));
+    };
+
     render() {
         const {currentCurrency: {currency}, wallet, balanceAPL, dashboardAccoountInfo} = this.props;
         const balance = (dashboardAccoountInfo && dashboardAccoountInfo.unconfirmedBalanceATM) ? dashboardAccoountInfo.unconfirmedBalanceATM : balanceAPL;
         const balanceFormat = balance ? formatDivision(balance, ONE_APL, 3) : 0;
         const currencyName = currency.toUpperCase();
+        const walletsList = this.getWalletsList();
         return (
             <div className={'card-block green card card-medium pt-0 h-400'}>
                 <Form
@@ -99,6 +111,20 @@ class ExchangeSell extends React.Component {
                                 <p>Sell APL</p>
                                 <span>Fee: {this.feeATM/ONE_APL} APL</span>
                             </div>
+                            {wallet && (
+                                <div className="form-group row form-group-white mb-15">
+                                    <label>
+                                        {currencyName} Wallet
+                                    </label>
+                                    <CustomSelect
+                                        className="form-control"
+                                        field={'wallet'}
+                                        defaultValue={walletsList[0]}
+                                        setValue={setValue}
+                                        options={walletsList}
+                                    />
+                                </div>
+                            )}
                             <div className="form-group row form-group-white mb-15">
                                 <label>
                                     Price for 1 APL
@@ -147,7 +173,7 @@ class ExchangeSell extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                            {wallet && wallet.wallets && balanceFormat !== false && (
+                            {wallet && balanceFormat !== false && (
                                 <div className={'form-group-text d-flex justify-content-between'}>
                                     of Total Balance: <span><i
                                     className="zmdi zmdi-balance-wallet"/> {balanceFormat}&nbsp;APL</span>

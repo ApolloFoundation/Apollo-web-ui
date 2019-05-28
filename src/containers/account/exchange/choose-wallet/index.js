@@ -1,13 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import SiteHeader from '../../components/site-header';
-import CustomTable from '../../components/tables/table';
-import InfoBox from '../../components/info-box';
+import SiteHeader from '../../../components/site-header';
+import CustomTable from '../../../components/tables/table';
+import InfoBox from '../../../components/info-box';
 import CurrencyDescriptionComponent from './currency';
-import {setBodyModalParamsAction} from "../../../modules/modals";
-import {getCurrencyBalance} from "../../../actions/wallet";
-import {readFromLocalStorage} from "../../../actions/localStorage";
-import {setCurrentCurrencyAction} from "../../../modules/exchange";
+import {setBodyModalParamsAction} from "../../../../modules/modals";
+import {getCurrencyBalance} from "../../../../actions/wallet";
+import {readFromLocalStorage} from "../../../../actions/localStorage";
+import {setCurrentCurrencyAction} from "../../../../modules/exchange";
 
 class ChooseWallet extends React.Component {
     state = {
