@@ -57,7 +57,9 @@ export function getAccountInfoAction(account) {
             }
         })
             .then((res) => {
-                if (res.data && !res.data.errorCode) {
+                if (res.data && (!res.data.errorCode || res.data.errorCode === 5)) {
+                    delete res.data.errorCode;
+                    delete res.data.errorDescription;
                     const {account} = getStore().account;
                     if (account === res.data.account) {
                         dispatch(login(res.data));
