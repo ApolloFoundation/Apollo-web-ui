@@ -113,18 +113,6 @@ class TokenGenerationValidation extends React.Component {
                             isPour
                             submitButtonName={'Validate'}
                         >
-                            {
-                                this.state.generatedToken &&
-                                <>
-                                    <p style={{ marginBottom: 18 }}>The generated token is:</p>
-                                    <InfoBox info>
-                                        <div className="token word-brake">{this.state.generatedToken}</div>
-                                    </InfoBox>
-                                    <div className="qr-code-image">
-                                        <QRCode value={this.state.generatedToken} size={100} />
-                                    </div>
-                                </>
-                            }
                             <CustomTextArea
                                 label={'Data'}
                                 field={'website'}
