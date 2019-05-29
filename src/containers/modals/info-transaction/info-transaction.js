@@ -149,12 +149,10 @@ class InfoLedgerTransaction extends React.Component {
                                             }
                                             <button
                                                 type={'button'}
-                                                onClick={() => this.props.setBodyModalParamsAction('SAVE_ACCOUNT', this.props.accountRS === this.state.transaction.recipientRS ? this.state.transaction.senderRS : this.state.transaction.recipientRS)}
+                                                onClick={() => this.props.setBodyModalParamsAction('TRANSFER_CURRENCY', this.props.accountRS === this.state.transaction.recipientRS ? this.state.transaction.senderRS : this.state.transaction.recipientRS)}
                                                 className={`btn btn-primary ${this.state.transaction.recipientRS ? 'blue' : 'blue-disabled'} static`}>
-                                                Send Currency
+                                                Transfer Currency
                                             </button>
-                                            <a className="btn btn-primary blue-disabled static d-none">Approve transaction</a>
-                                            <a className="btn btn-primary blue-disabled static d-none">Extend data lifetime</a>
                                         </div>
                                     }
                                 </TabContaier>
