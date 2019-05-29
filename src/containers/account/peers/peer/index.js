@@ -18,11 +18,11 @@ const Peer = (props) => (
                 {props.address}&nbsp;
             </a>
             {
-                props.state == 1 &&
+                props.state === 1 &&
                 <i className="zmdi zmdi-check-circle"/>
             }
             {
-                props.state == 2 &&
+                props.state === 2 &&
                 <i className="zmdi zmdi-close-circle"/>
             }
         </td>
@@ -31,12 +31,24 @@ const Peer = (props) => (
         <td className="align-right">{Math.round(props.uploadedVolume / 1000)} KB</td>
         <td className="align-right">{props.application} {props.version}</td>
         <td className="blue-link-text">{props.platform}</td>
-        <td className="align-right">{props.services.map((el, index) => {if (index !== 0) {return ', ' + el} else {return el}})}</td>
+        <td className="align-right">{props.services && props.services.map((el, index) => {if (index !== 0) {return ', ' + el} else {return el}})}</td>
         <td className="align-right">
             {props.isLocalhost && (
                 <>
-                    <a className="btn primary blue mt-0" onClick={() => props.onConnectClick(props.address)}>Connect</a>
-                    <a  onClick={() => props.onBlacklistClick(props.address)} className="btn primary mt-0 ml-3">Blacklist</a>
+                    <button
+                        type={'button'}
+                        className="btn primary blue mt-0"
+                        onClick={() => props.onConnectClick(props.address)}
+                    >
+                        Connect
+                    </button>
+                    <button
+                        type={'button'}
+                        onClick={() => props.onBlacklistClick(props.address)}
+                        className="btn primary mt-0 ml-3"
+                    >
+                        Blacklist
+                    </button>
                 </>
             )}
         </td>

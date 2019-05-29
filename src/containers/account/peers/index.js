@@ -10,10 +10,6 @@ import {connect} from 'react-redux';
 import {getPeerAction, getPeersAction, getPeersInfoAction} from "../../../actions/peers";
 import Peer from './peer'
 import {setBodyModalParamsAction} from "../../../modules/modals";
-import {BlockUpdater} from "../../block-subscriber";
-import uuid from "uuid";
-import ContentLoader from '../../components/content-loader'
-import ContentHendler from '../../components/content-hendler'
 
 import CustomTable from '../../components/tables/table';
 import TopPageBlocks from '../../components/tob-page-blocks';
@@ -21,7 +17,7 @@ import TopPageBlocks from '../../components/tob-page-blocks';
 
 const mapStateToProps = state => ({
     isLocalhost: state.account.isLocalhost
-})
+});
 
 const mapDispatchToProps = dispatch => ({
     getPeersAction: (requestParams) => dispatch(getPeersAction(requestParams)),
@@ -31,10 +27,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class Peers extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     state = {
         peersInfo: null,
         peers: null
@@ -82,7 +74,6 @@ class Peers extends React.Component {
     blacklistPeer = peerAddress => this.props.setBodyModalParamsAction("BLACKLIST_PEER", peerAddress);
 
     render () {
-        
         const {peersInfo} = this.state;
 
         return (
@@ -92,11 +83,13 @@ class Peers extends React.Component {
                 >
                     {
                         this.props.isLocalhost &&
-                        <a className="btn primary"
-                           onClick={() => this.connectPeer()}
+                        <button
+                            type={'button'}
+                            className="btn primary"
+                            onClick={() => this.connectPeer()}
                         >
                             Add peer
-                        </a>
+                        </button>
                     }
                 </SiteHeader>
                 <div className="page-body container-fluid">
