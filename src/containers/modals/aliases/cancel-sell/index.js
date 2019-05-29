@@ -103,7 +103,7 @@ class CancelSell extends React.Component {
                 closeModal={this.props.closeModal}
                 handleFormSubmit={(values) => this.handleFormSubmit(values)}
                 isFee
-                submitButtonName={'Cancel alias sell'}
+                submitButtonName={'Cancel alias sale'}
             >
                 <div className="form-group mb-15">
                     <label>
