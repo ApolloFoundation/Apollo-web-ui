@@ -30,8 +30,9 @@ class ExchangeBuy extends React.Component {
     handleFormSubmit = (values) => {
         if (this.props.wallet) {
             if (values.offerAmount > 0 && values.pairRate > 0) {
+                const currency = this.props.currentCurrency.currency;
                 if (values.pairRate < 0.000000001) {
-                    NotificationManager.error(`Price must be more then 0.000000001 ${this.props.wallet.currency.toUpperCase()}`, 'Error', 5000);
+                    NotificationManager.error(`Price must be more then 0.000000001 ${currency.toUpperCase()}`, 'Error', 5000);
                     return;
                 }
                 if (values.offerAmount < 0.001) {
@@ -40,14 +41,14 @@ class ExchangeBuy extends React.Component {
                 }
                 const pairRate = multiply(values.pairRate, ONE_APL);
                 const offerAmount = multiply(values.offerAmount, ONE_APL);
-                const balanceETH = this.props.wallet.wallets[0].balance / Math.pow(10, 18);
+                const balanceETH = parseFloat(values.fromAddress.balances[currency]);
                 const balanceAPL = (this.props.dashboardAccoountInfo && this.props.dashboardAccoountInfo.unconfirmedBalanceATM) ?
                     parseFloat(this.props.dashboardAccoountInfo.unconfirmedBalanceATM)
                     :
                     parseFloat(this.props.balanceAPL);
 
                 if (balanceETH === 0 || balanceETH < values.total) {
-                    NotificationManager.error(`Not enough founds on your ${this.props.wallet.currency.toUpperCase()} balance.`, 'Error', 5000);
+                    NotificationManager.error(`Not enough founds on your ${currency.toUpperCase()} balance.`, 'Error', 5000);
                     return;
                 }
                 if (!this.props.balanceAPL || balanceAPL === 0 || balanceAPL < this.feeATM) {
@@ -60,10 +61,11 @@ class ExchangeBuy extends React.Component {
                     pairCurrency: currencyTypes['apl'],
                     pairRate,
                     offerAmount,
-                    offerCurrency: currencyTypes[this.props.currentCurrency.currency],
+                    offerCurrency: currencyTypes[currency],
                     sender: this.props.account,
                     passphrase: this.props.passPhrase,
                     feeATM: this.feeATM,
+                    fromAddress: values.fromAddress.address,
                 };
                 if (this.props.passPhrase) {
                     this.props.createOffer(params);
@@ -120,7 +122,7 @@ class ExchangeBuy extends React.Component {
                                     </label>
                                     <CustomSelect
                                         className="form-control"
-                                        field={'wallet'}
+                                        field={'fromAddress'}
                                         defaultValue={walletsList[0]}
                                         setValue={setValue}
                                         options={walletsList}
@@ -174,10 +176,10 @@ class ExchangeBuy extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                            {values.wallet && (
+                            {values.fromAddress && (
                                 <div className={'form-group-text d-flex justify-content-between'}>
                                     of Total Balance: <span><i
-                                    className="zmdi zmdi-balance-wallet"/> {values.wallet.balances[currency]}&nbsp;{currencyName}</span>
+                                    className="zmdi zmdi-balance-wallet"/> {values.fromAddress.balances[currency]}&nbsp;{currencyName}</span>
                                 </div>
                             )}
                             <div className="btn-box align-buttons-inside align-center form-footer">

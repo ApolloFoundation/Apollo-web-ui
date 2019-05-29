@@ -3,9 +3,9 @@ import {connect} from 'react-redux';
 import {NotificationManager} from 'react-notifications';
 import {Form} from 'react-form';
 import InputForm from '../../../components/input-form';
-import {getTransactionFee, walletWidthraw} from '../../../../actions/wallet';
-import {formatGweiToEth} from '../../../../helpers/format';
 import CustomFormSelect from "../../../components/form-components/custom-form-select";
+import {getTransactionFee, walletWithdraw} from '../../../../actions/wallet';
+import {currencyTypes, formatGweiToEth} from '../../../../helpers/format';
 
 class WithdrawCurrency extends React.Component {
     state = {
@@ -19,25 +19,43 @@ class WithdrawCurrency extends React.Component {
     }
 
     handleFormSubmit = async (values) => {
-        NotificationManager.error('This functionality will be delivered in May 2019.', 'Error', 5000);
-        return;
-
+        if (!values.toAddress) {
+            NotificationManager.error('To wallet is required field.', 'Error', 5000);
+            return;
+        }
+        if (!values.amount) {
+            NotificationManager.error('Amount is required.', 'Error', 5000);
+            return;
+        }
         if (!values.secretPhrase || values.secretPhrase.length === 0) {
             NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
             return;
         }
 
+        const gasLimit = values.asset.currency === 'eth' ? this.props.constants.gasLimitEth : this.props.constants.gasLimitERC20;
+        const maxFee = this.state.fee.value * gasLimit * 0.000000001;
+        const balance = parseFloat(values.asset.balance);
+        const amount = parseFloat(values.amount);
+
+        if (balance === 0 || balance < (amount + maxFee)) {
+            NotificationManager.error(`Not enough founds on your ${values.asset.currency.toUpperCase()} balance.`, 'Error', 5000);
+            return;
+        }
+
         const params = {
-            account: this.props.account,
-            secretPhrase: values.secretPhrase,
+            fromAddress: values.fromAddress,
+            toAddress: values.toAddress,
             amount: values.amount,
-            address: values.address,
-            cryptocurrency: this.state.currency,
+            transferFee: parseFloat(this.state.fee.value),
+            cryptocurrency: currencyTypes[this.state.currency],
+            passphrase: values.secretPhrase,
+            sender: this.props.account,
         };
 
-        const result = await this.props.walletWidthraw(params);
+        const result = await this.props.walletWithdraw(params);
         if (result) {
             NotificationManager.success('Successfully sent.', null, 5000);
+            this.props.closeModal();
         }
     };
 
@@ -59,15 +77,18 @@ class WithdrawCurrency extends React.Component {
         this.setState({fee});
     };
 
-    handleChangeAsset = (currency) => {
-        this.setState({currency});
+    handleChangeAsset = (value) => {
+        this.setState({currency: value.currency});
     };
 
     getAssetTypes = () => {
         const balances = this.props.modalData ? this.props.modalData.balances : {};
         return Object.keys(balances).map((currency, i) => (
             {
-                value: currency,
+                value: {
+                    currency,
+                    balance: balances[currency]
+                },
                 label: `${currency.toUpperCase()} - Balance: ${balances[currency]} ${currency.toUpperCase()}`
             }
         ));
@@ -98,11 +119,12 @@ class WithdrawCurrency extends React.Component {
                                         </label>
                                         <div className="col-sm-9">
                                             <InputForm
-                                                field="from"
+                                                field="fromAddress"
                                                 placeholder={`${currencyFormat} Wallet`}
                                                 type={"text"}
                                                 setValue={setValue}
                                                 defaultValue={address}
+                                                disabled
                                             />
                                         </div>
                                     </div>
@@ -112,20 +134,22 @@ class WithdrawCurrency extends React.Component {
                                         </label>
                                         <div className="col-sm-9">
                                             <InputForm
-                                                field="to"
+                                                field="toAddress"
                                                 placeholder={`${currencyFormat} Wallet`}
                                                 type={"text"}
                                                 setValue={setValue}/>
                                         </div>
                                     </div>
-                                    <CustomFormSelect
-                                        defaultValue={typeData.find(type => type.value === currency)}
-                                        setValue={setValue}
-                                        options={typeData}
-                                        label={'Asset'}
-                                        field={'asset'}
-                                        onChange={this.handleChangeAsset}
-                                    />
+                                    {currency && (
+                                        <CustomFormSelect
+                                            defaultValue={typeData.find(type => type.value.currency === currency)}
+                                            setValue={setValue}
+                                            options={typeData}
+                                            label={'Asset'}
+                                            field={'asset'}
+                                            onChange={this.handleChangeAsset}
+                                        />
+                                    )}
                                     <div className="form-group row form-group-white mb-15">
                                         <label htmlFor={"withdraw-modal-amount"} className="col-sm-3 col-form-label">
                                             Amount
@@ -178,7 +202,7 @@ class WithdrawCurrency extends React.Component {
                                     )}
                                     <div className="form-group row form-group-white mb-15">
                                         <label className="col-sm-3 col-form-label">
-                                            Secret phrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
+                                            Secret phrase
                                         </label>
                                         <div className="col-sm-9">
                                             <InputForm
@@ -208,13 +232,12 @@ class WithdrawCurrency extends React.Component {
 
 const mapStateToProps = state => ({
     account: state.account.account,
-    secretPhrase: state.account.passPhrase,
     modalData: state.modals.modalData,
     constants: state.account.constants,
 });
 
 const mapDispatchToProps = dispatch => ({
-    walletWidthraw: (params) => dispatch(walletWidthraw(params)),
+    walletWithdraw: (params) => dispatch(walletWithdraw(params)),
     getTransactionFee: () => dispatch(getTransactionFee()),
 });
 
