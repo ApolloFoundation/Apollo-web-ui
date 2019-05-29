@@ -1,11 +1,12 @@
 import React from 'react';
-import {connect} from "react-redux";
-import {Form} from "react-form";
-import {NotificationManager} from "react-notifications";
+import {connect} from 'react-redux';
+import {Form} from 'react-form';
+import {NotificationManager} from 'react-notifications';
 import InputForm from '../../../../components/input-form';
-import {currencyTypes, formatCrypto, multiply} from "../../../../../helpers/format";
-import {createOffer} from "../../../../../actions/wallet";
-import {setBodyModalParamsAction} from "../../../../../modules/modals";
+import CustomSelect from '../../../../components/select';
+import {currencyTypes, multiply} from '../../../../../helpers/format';
+import {createOffer} from '../../../../../actions/wallet';
+import {setBodyModalParamsAction} from '../../../../../modules/modals';
 import {ONE_APL} from '../../../../../constants';
 
 class ExchangeBuy extends React.Component {
@@ -85,10 +86,20 @@ class ExchangeBuy extends React.Component {
         this.setState({form})
     };
 
+    getWalletsList = () => {
+        const wallets = this.props.wallet || [];
+        return wallets.map((wallet) => (
+            {
+                value: wallet,
+                label: wallet.address
+            }
+        ));
+    };
+
     render() {
-        const {currentCurrency: {currency}, wallet} = this.props;
-        const balanceFormat = wallet && wallet.wallets && wallet.wallets[0].balance !== "null" && formatCrypto(wallet.wallets[0].balance);
+        const {currentCurrency: {currency}} = this.props;
         const currencyName = currency.toUpperCase();
+        const walletsList = this.getWalletsList();
         return (
             <div className={'card-block green card card-medium pt-0 h-400'}>
                 <Form
@@ -102,6 +113,20 @@ class ExchangeBuy extends React.Component {
                                 <p>Buy APL</p>
                                 <span>Fee: {this.feeATM/ONE_APL} APL</span>
                             </div>
+                            {walletsList && !!walletsList.length && (
+                                <div className="form-group row form-group-white mb-15">
+                                    <label>
+                                        {currencyName} Wallet
+                                    </label>
+                                    <CustomSelect
+                                        className="form-control"
+                                        field={'wallet'}
+                                        defaultValue={walletsList[0]}
+                                        setValue={setValue}
+                                        options={walletsList}
+                                    />
+                                </div>
+                            )}
                             <div className="form-group row form-group-white mb-15">
                                 <label>
                                     Price for 1 APL
@@ -149,10 +174,10 @@ class ExchangeBuy extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                            {wallet && wallet.wallets && balanceFormat !== false && (
+                            {values.wallet && (
                                 <div className={'form-group-text d-flex justify-content-between'}>
                                     of Total Balance: <span><i
-                                    className="zmdi zmdi-balance-wallet"/> {balanceFormat}&nbsp;{currencyName}</span>
+                                    className="zmdi zmdi-balance-wallet"/> {values.wallet.balances[currency]}&nbsp;{currencyName}</span>
                                 </div>
                             )}
                             <div className="btn-box align-buttons-inside align-center form-footer">

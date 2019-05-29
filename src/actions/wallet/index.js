@@ -25,8 +25,10 @@ export function getWallets(requestParams) {
             .then(async (res) => {
                 if (!res.errorCode) {
                     dispatch(setWallets(res.currencies));
-                    writeToLocalStorage('wallets', JSON.stringify(res.currencies));
+                    writeToLocalStorage('wallets', res.currencies);
                     return res;
+                } else {
+                    NotificationManager.error(res.errorDescription, 'Error', 5000);
                 }
             })
             .catch(() => {
@@ -41,6 +43,8 @@ export function getCurrencyBalance(requestParams) {
             .then((res) => {
                 if (!res.errorCode) {
                     return res;
+                } else {
+                    NotificationManager.error(res.errorDescription, 'Error', 5000);
                 }
             })
             .catch(() => {
@@ -55,6 +59,8 @@ export function walletWidthraw(requestParams) {
             .then(async (res) => {
                 if (!res.errorCode) {
                     return res;
+                } else {
+                    NotificationManager.error(res.errorDescription, 'Error', 5000);
                 }
             })
             .catch(() => {
@@ -231,10 +237,9 @@ export const getMyOfferHistory = (options) => async (dispatch, getState) => {
     dispatch(setMyOrderHistoryAction(orders));
 };
 
-export function getTransactionFee(currency) {
-    const reqType = currency === 'eth' ? 'ethInfo' : 'paxInfo';
+export function getTransactionFee() {
     return dispatch => {
-        return handleFetch(`${config.api.server}/rest/dex/${reqType}`, GET)
+        return handleFetch(`${config.api.server}/rest/dex/ethInfo`, GET)
             .then(async (res) => {
                 if (!res.errorCode) {
                     return res;

@@ -125,7 +125,7 @@ class ActiveShufflings extends React.Component {
                 />
                 <div className="page-body container-fluid">
                     <div className="active-polls white-space">
-                        <CustomTable 
+                        <CustomTable
                             header={[
                                 {
                                     name: 'Shuffling',
@@ -161,7 +161,7 @@ class ActiveShufflings extends React.Component {
                         />
 
                         <div className="form-group-app offset-bottom height-auto no-padding mb-3">
-                            <CustomTable 
+                            <CustomTable
                                 tableName={'Finished Shufflings'}
                                 header={[
                                     {
@@ -193,6 +193,7 @@ class ActiveShufflings extends React.Component {
                                     name:'View All',
                                     handler: this.handleGoToFinishedPolls
                                 }}
+                                passProps={{getTransaction: this.getTransaction}}
                             />
                         </div>
                     </div>

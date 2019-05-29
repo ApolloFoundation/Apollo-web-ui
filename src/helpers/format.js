@@ -10,7 +10,7 @@ export const formatGweiToEth = (value, digits = 9) => {
     value = parseInt(value) || 0;
     return value > 0 ? (value * 0.000000001).toLocaleString('en', {
         minimumFractionDigits: digits,
-        maximumFractionDigits: digits + 2
+        maximumFractionDigits: digits + 10
     }) : value;
 };
 

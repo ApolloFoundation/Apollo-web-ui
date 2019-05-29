@@ -22,9 +22,8 @@ const ExchangeHeader = ({currencies, currentCurrency, switchCurrency, wallet, ha
                         if (item === 'btc') {
                             NotificationManager.error('This functionality will be delivered in 2019.', 'Error', 5000);
                         } else {
-                            if (wallet) {
-                                switchCurrency(item);
-                            } else {
+                            switchCurrency(item);
+                            if (!wallet) {
                                 handleLoginModal();
                             }
                         }

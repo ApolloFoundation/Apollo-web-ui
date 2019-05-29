@@ -7,13 +7,13 @@
 import axios from "axios";
 import config from "../../config";
 
-export const getDeleteHistory = account => dispatch => axios.get(config.api.serverUrl, {
+export const getDeleteHistory = (account, firstIndex, lastIndex) => dispatch => axios.get(config.api.serverUrl, {
     params: {
         requestType: 'getAssetDeletes',
         account,
         includeAssetInfo: true,
-        firstIndex: 0,
-        lastIndex: 15,
+        firstIndex: firstIndex || 0,
+        lastIndex: lastIndex || 15,
         random: Math.random()
     }
 }).then((res) => {
