@@ -3,9 +3,9 @@ import {connect} from 'react-redux';
 import {NotificationManager} from 'react-notifications';
 import {Form} from 'react-form';
 import InputForm from '../../../components/input-form';
+import CustomFormSelect from "../../../components/form-components/custom-form-select";
 import {getTransactionFee, walletWithdraw} from '../../../../actions/wallet';
 import {currencyTypes, formatGweiToEth} from '../../../../helpers/format';
-import CustomFormSelect from "../../../components/form-components/custom-form-select";
 
 class WithdrawCurrency extends React.Component {
     state = {
@@ -27,18 +27,25 @@ class WithdrawCurrency extends React.Component {
             NotificationManager.error('Amount is required.', 'Error', 5000);
             return;
         }
+        if (!values.secretPhrase || values.secretPhrase.length === 0) {
+            NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
+            return;
+        }
 
         const params = {
-            ...values,
-            // account: this.props.account,
-            // secretPhrase: values.secretPhrase,
+            fromAddress: values.fromAddress,
+            toAddress: values.toAddress,
+            amount: values.amount,
             transferFee: parseFloat(this.state.fee.value),
             cryptocurrency: currencyTypes[this.state.currency],
+            passphrase: values.secretPhrase,
+            sender: this.props.account,
         };
 
         const result = await this.props.walletWithdraw(params);
         if (result) {
             NotificationManager.success('Successfully sent.', null, 5000);
+            this.props.closeModal();
         }
     };
 
@@ -180,9 +187,9 @@ class WithdrawCurrency extends React.Component {
                                             </div>
                                         </React.Fragment>
                                     )}
-                                    {/*<div className="form-group row form-group-white mb-15">
+                                    <div className="form-group row form-group-white mb-15">
                                         <label className="col-sm-3 col-form-label">
-                                            Secret phrase&nbsp;<i className="zmdi zmdi-portable-wifi-changes"/>
+                                            Secret phrase
                                         </label>
                                         <div className="col-sm-9">
                                             <InputForm
@@ -194,7 +201,7 @@ class WithdrawCurrency extends React.Component {
                                                 setValue={setValue}
                                             />
                                         </div>
-                                    </div>*/}
+                                    </div>
                                 </div>
 
                                 <button type="submit"
@@ -212,7 +219,6 @@ class WithdrawCurrency extends React.Component {
 
 const mapStateToProps = state => ({
     account: state.account.account,
-    secretPhrase: state.account.passPhrase,
     modalData: state.modals.modalData,
     constants: state.account.constants,
 });
