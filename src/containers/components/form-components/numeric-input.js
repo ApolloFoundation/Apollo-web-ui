@@ -25,10 +25,8 @@ const NumericInput = ({values, label, field, countingTtile, counterLabel, setVal
         </div>
         {
             inputHint &&
-            <div className={"form-group row mb-15"}>
-                <div className={"row w-100"}>
-                    <div className="pl-4 form-sub-title no-margin d-block">{inputHint}</div>
-                </div>
+            <div className={"form-group mb-15"}>
+                <div className="form-sub-title">{inputHint}</div>
             </div>
         }
     </>

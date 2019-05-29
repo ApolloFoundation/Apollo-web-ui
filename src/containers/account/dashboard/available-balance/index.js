@@ -29,7 +29,7 @@ class AvailableBalance extends Component {
                                     <span className="currency">&nbsp;APL</span>
                                 </div>
                                 <div>
-                                    <div className="account-sub-titles text-primary mb-2">
+                                    <div className="account-sub-titles blue-link-text mb-2">
                                         {dashboardAccoountInfo.accountRS}
                                     </div>
                                     {
