@@ -1003,6 +1003,9 @@ div.info-box {
 	font-weight: 500;
 	letter-spacing: 0.46px;
 	line-height: 16px;
+	display: inline-flex !important;
+	align-items: center;
+	justify-content: center;
 
 	&.under-table {
 		transform: translate(0, 0px);
