@@ -30,8 +30,9 @@ class ExchangeSell extends React.Component {
     handleFormSubmit = (values) => {
         if (this.props.wallet) {
             if (values.offerAmount > 0 && values.pairRate > 0) {
+                const currency = this.props.currentCurrency.currency;
                 if (values.pairRate < 0.000000001) {
-                    NotificationManager.error(`Price must be more then 0.000000001 ${this.props.wallet.currency.toUpperCase()}`, 'Error', 5000);
+                    NotificationManager.error(`Price must be more then 0.000000001 ${currency.toUpperCase()}`, 'Error', 5000);
                     return;
                 }
                 if (values.offerAmount < 0.001) {
@@ -52,13 +53,14 @@ class ExchangeSell extends React.Component {
 
                 const params = {
                     offerType: 1, // SELL
-                    pairCurrency: currencyTypes[this.props.currentCurrency.currency],
+                    pairCurrency: currencyTypes[currency],
                     pairRate,
                     offerAmount,
                     offerCurrency: currencyTypes['apl'],
                     sender: this.props.account,
                     passphrase: this.props.passPhrase,
-                    feeATM: this.feeATM
+                    feeATM: this.feeATM,
+                    fromAddress: values.fromAddress.address,
                 };
 
                 if (this.props.passPhrase) {
@@ -118,7 +120,7 @@ class ExchangeSell extends React.Component {
                                     </label>
                                     <CustomSelect
                                         className="form-control"
-                                        field={'wallet'}
+                                        field={'fromAddress'}
                                         defaultValue={walletsList[0]}
                                         setValue={setValue}
                                         options={walletsList}

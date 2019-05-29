@@ -99,7 +99,8 @@ class HashCalculation extends React.Component {
                     checkboxes={[
                         {
                             field: 'isMessage',
-                            label: 'Textual data representation'
+                            label: 'Textual data representation',
+                            defaultValue: true
                         }
                     ]}
                 />

@@ -33,8 +33,6 @@ class LoginToExchange extends React.Component {
         if (wallets) {
             this.props.setAccountPassphrase(passphrase);
             this.props.closeModal();
-        } else {
-            NotificationManager.error('Secret Phrase is incorrect or you not in Vault Wallet.', 'Error', 5000);
         }
     }
 
