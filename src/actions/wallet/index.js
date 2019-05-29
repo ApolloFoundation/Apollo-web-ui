@@ -32,7 +32,7 @@ export function getWallets(requestParams) {
                 }
             })
             .catch(() => {
-
+                NotificationManager.error('Secret Phrase is incorrect or you not in Vault Wallet.', 'Error', 5000);
             })
     }
 }
@@ -53,9 +53,9 @@ export function getCurrencyBalance(requestParams) {
     }
 }
 
-export function walletWidthraw(requestParams) {
+export function walletWithdraw(requestParams) {
     return dispatch => {
-        return handleFetch(`${config.api.server}/rest/dex/widthraw`, POST, requestParams)
+        return handleFetch(`${config.api.server}/rest/dex/withdraw`, POST, requestParams)
             .then(async (res) => {
                 if (!res.errorCode) {
                     return res;
