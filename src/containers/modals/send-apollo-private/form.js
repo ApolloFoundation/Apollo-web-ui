@@ -63,13 +63,14 @@ const SendPrivateMoneyForm = ({values, setValue, modalData, idGroup, useMixer, m
         )}
         {useMixer && (
             <NummericInputForm
-                label={'Mixing time'}
-                countLabel={'Minutes'}
-                disabled={true}
-                defaultValue={(modalData && modalData.duration) ? modalData.duration : ''}
                 field="duration"
-                placeholder="Duration"
+                counterLabel={'Minutes'}
                 type={"float"}
+                label={'Mixing time'}
+                setValue={setValue}
+                placeholder="Duration"
+                idGroup={idGroup}
+                defaultValue={(modalData && modalData.duration) ? modalData.duration : ''}
             />
         )}
         <NummericInputForm
