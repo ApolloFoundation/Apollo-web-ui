@@ -5,15 +5,15 @@
 
 
 import React from 'react';
-import {connect} from 'react-redux';
-import {setModalData} from '../../../modules/modals';
+import { connect } from 'react-redux';
+import { setModalData } from '../../../modules/modals';
 import converters from '../../../helpers/converters';
 import classNames from 'classnames';
 
-import {Form, Text, TextArea, Checkbox, Select} from 'react-form';
+import { Form, Text, TextArea, Checkbox, Select } from 'react-form';
 import InfoBox from '../../components/info-box';
 import submitForm from "../../../helpers/forms/forms";
-import {NotificationManager} from "react-notifications";
+import { NotificationManager } from "react-notifications";
 import CustomSelect from '../../components/select'
 
 class HashCalculation extends React.Component {
@@ -99,75 +99,81 @@ class HashCalculation extends React.Component {
                 <Form
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={({
-                                 submitForm,setValue
-                             }) => (
-                        <form className="modal-form" onSubmit={submitForm}>
-                            <div className="form-group-app">
-                                <a onClick={() => this.props.closeModal()} className="exit"><i
-                                    className="zmdi zmdi-close"/></a>
+                        submitForm, setValue
+                    }) => (
+                            <form className="modal-form" onSubmit={submitForm}>
+                                <div className="form-group-app">
+                                    <a onClick={() => this.props.closeModal()} className="exit"><i
+                                        className="zmdi zmdi-close" /></a>
 
-                                <div className="form-title">
-                                    <p>Hash calculation</p>
-                                </div>
-                                <div className="input-group-app offset-top display-block">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Data</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <TextArea rows={5} field="data" placeholder="Data to hash"/>
+                                    <div className="form-title">
+                                        <p>Hash calculation</p>
+                                    </div>
+                                    <div className="input-group-app offset-top display-block">
+                                        <div className="row">
+                                            <div className="col-md-3">
+                                                <label>Data</label>
+                                            </div>
+                                            <div className="col-md-9">
+                                                <TextArea rows={5} field="data" placeholder="Data to hash" />
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div className="input-group-app offset-top display-block">
-                                    <div className="row">
-                                        <div className="col-md-3"/>
-                                        <div className="col-md-9">
-                                            <div className="input-wrapper">
-                                                <div
-                                                    className="input-group-app align-middle display-block">
-                                                    <Checkbox style={{display: 'inline-block', paddingTop: 0}} type="checkbox"
-                                                              field="isMessage"/>
-                                                    <label style={{display: 'inline-block'}}>Textual data representation</label>
+                                    <div className="input-group-app offset-top display-block">
+                                        <div className="row">
+                                            <div className="col-md-3" />
+                                            <div className="col-md-9">
+                                                <div className="input-wrapper">
+                                                    <div
+                                                        className="input-group-app align-middle display-block">
+                                                        <Checkbox style={{ display: 'inline-block', paddingTop: 0 }} type="checkbox"
+                                                            field="isMessage" />
+                                                        <label style={{ display: 'inline-block' }}>Textual data representation</label>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div className="input-group-app offset-top display-block position-relative">
-                                    <div className="row">
-	                                    <div className="col-md-3 pr-0">
-		                                    <label className={"nowrap"}>Hash algorithm</label>
-	                                    </div>
-                                        <div className="col-md-9">
-                                            <div className="input-group-app align-middle display-block" style={{width: "100%"}}>
-                                                <CustomSelect
-                                                    field={'alg'}
-                                                    setValue={setValue}
-                                                    options={this.hashOptions}
-                                                />
+                                    <div className="input-group-app offset-top display-block position-relative">
+                                        <div className="row">
+                                            <div className="col-md-3 pr-0">
+                                                <label className={"nowrap"}>Hash algorithm</label>
+                                            </div>
+                                            <div className="col-md-9">
+                                                <div className="input-group-app align-middle display-block" style={{ width: "100%" }}>
+                                                    <CustomSelect
+                                                        field={'alg'}
+                                                        setValue={setValue}
+                                                        options={this.hashOptions}
+                                                    />
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div className="btn-box align-buttons-inside absolute left-conner">
-                                    <button
-                                        className="btn btn-right blue round round-bottom-right"
-                                        type="submit"
-                                    >
-                                        Calculate
+                                    {
+                                        this.state.generatedHash && <div className='info-box blue-info'>
+                                            <div class="token word-brake">{this.state.generatedHash}</div>
+                                        </div>
+                                    }
+
+                                    <div className="btn-box align-buttons-inside absolute left-conner">
+                                        <button
+                                            className="btn btn-right blue round round-bottom-right"
+                                            type="submit"
+                                        >
+                                            Calculate
                                     </button>
-                                    <a
-                                        onClick={() => this.props.closeModal()}
-                                        className="btn btn-right round round-top-left"
-                                    >
-                                        Cancel
+                                        <a
+                                            onClick={() => this.props.closeModal()}
+                                            className="btn btn-right round round-top-left"
+                                        >
+                                            Cancel
                                     </a>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
-                    )}
+                            </form>
+                        )}
                 >
 
                 </Form>
