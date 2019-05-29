@@ -130,6 +130,7 @@ class TransactionOperations extends React.Component {
                 closeModal={this.props.closeModal}
                 isDisableFormFooter
                 isDisableSecretPhrase
+                isXWide
             >
                 <TabulationBody
                     className={'p-0'}
