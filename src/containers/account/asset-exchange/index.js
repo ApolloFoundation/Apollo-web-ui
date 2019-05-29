@@ -66,7 +66,7 @@ class AssetExchange extends React.Component {
 
     getAsset = async (assetID) => {
         let asset = await this.props.getAssetAction({asset: assetID});
-        
+
         this.setState({
             asset,
         });
@@ -189,12 +189,10 @@ class AssetExchange extends React.Component {
         })
     };
 
-    handleTotalValue = (setValue, getFormState) => {
-        const {values} = getFormState();
+    handleTotalValue = (setValue, v1, v2) => {
 
-
-        if (values.quantity && values.priceATM) {
-            let result = (bigInteger(values.quantity).multiply(bigInteger(values.priceATM)));
+        if (v1 && v2) {
+            let result = (bigInteger(v1).multiply(bigInteger(v2)));
 
 
             if (result && Array.isArray(result.value)) {
@@ -213,7 +211,7 @@ class AssetExchange extends React.Component {
 
     goBack = () => {
         this.setState({
-           asset: null 
+           asset: null
         }, () => {
             this.props.history.push('/asset-exchange')
         });
@@ -324,7 +322,7 @@ class AssetExchange extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div className={'row'}>
                                         <div className="col-xl-6 col-md-12 pr-0 pb-3">
                                             <BuyAsset balanceATU={this.state.asset.balanceATU} asset={this.state.asset} handleTotalValue={this.handleTotalValue} handleBuyOrders={this.handleBuyOrders}/>
