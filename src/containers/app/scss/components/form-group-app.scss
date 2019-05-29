@@ -421,6 +421,10 @@
 				border-radius: 3px;
 				box-shadow: none;
 				padding: 0;
+				background: transparent;
+				textarea, input {
+					background: #ffffff;
+				}
 			}
 			.transaction-table {
 				padding: 0;
