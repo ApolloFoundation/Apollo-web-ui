@@ -32,6 +32,16 @@ class WithdrawCurrency extends React.Component {
             return;
         }
 
+        const gasLimit = values.asset.currency === 'eth' ? this.props.constants.gasLimitEth : this.props.constants.gasLimitERC20;
+        const maxFee = this.state.fee.value * gasLimit * 0.000000001;
+        const balance = parseFloat(values.asset.balance);
+        const amount = parseFloat(values.amount);
+
+        if (balance === 0 || balance < (amount + maxFee)) {
+            NotificationManager.error(`Not enough founds on your ${values.asset.currency.toUpperCase()} balance.`, 'Error', 5000);
+            return;
+        }
+
         const params = {
             fromAddress: values.fromAddress,
             toAddress: values.toAddress,
@@ -67,15 +77,18 @@ class WithdrawCurrency extends React.Component {
         this.setState({fee});
     };
 
-    handleChangeAsset = (currency) => {
-        this.setState({currency});
+    handleChangeAsset = (value) => {
+        this.setState({currency: value.currency});
     };
 
     getAssetTypes = () => {
         const balances = this.props.modalData ? this.props.modalData.balances : {};
         return Object.keys(balances).map((currency, i) => (
             {
-                value: currency,
+                value: {
+                    currency,
+                    balance: balances[currency]
+                },
                 label: `${currency.toUpperCase()} - Balance: ${balances[currency]} ${currency.toUpperCase()}`
             }
         ));
@@ -129,7 +142,7 @@ class WithdrawCurrency extends React.Component {
                                     </div>
                                     {currency && (
                                         <CustomFormSelect
-                                            defaultValue={typeData.find(type => type.value === currency)}
+                                            defaultValue={typeData.find(type => type.value.currency === currency)}
                                             setValue={setValue}
                                             options={typeData}
                                             label={'Asset'}
