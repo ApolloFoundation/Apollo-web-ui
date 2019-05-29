@@ -13,27 +13,47 @@ import {CheckboxFormInput} from "../../components/form-components/check-button-i
 import CustomFormSelect from "../../components/form-components/custom-form-select";
 import ModalBody from "../../components/modals/modal-body";
 
-class HashCalculation extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.handleFormSubmit = this.handleFormSubmit.bind(this);
-
-        this.state = {
-            activeTab: 0,
-            advancedState: false,
-
-            // submitting
-            passphraseStatus: false,
-            recipientStatus: false,
-            amountStatus: false,
-            feeStatus: false,
-            generatedHash: false,
-        };
-        this.handleAdvancedState = this.handleAdvancedState.bind(this);
+const hashOptions = [
+    {
+        label: "SHA256",
+        value: "2"
+    },
+    {
+        label: "SHA3",
+        value: "3",
+    },
+    {
+        label: "SCRYPT",
+        value: "5",
+    },
+    {
+        label: "RIPEMD160",
+        value: "6"
+    },
+    {
+        label: "Keccak25",
+        value: "25"
+    },
+    {
+        label: "RIPEMD160_SHA256",
+        value: "62"
     }
+];
 
-    async handleFormSubmit(values) {
+class HashCalculation extends React.Component {
+    state = {
+        activeTab: 0,
+        advancedState: false,
+
+        // submitting
+        passphraseStatus: false,
+        recipientStatus: false,
+        amountStatus: false,
+        feeStatus: false,
+        generatedHash: false,
+    };
+
+    handleFormSubmit = async (values) => {
         values = {
             secret: values.data,
             secretIsText: values.isMessage,
@@ -46,9 +66,9 @@ class HashCalculation extends React.Component {
                 generatedHash: res.hash
             });
         });
-    }
+    };
 
-    handleAdvancedState() {
+    handleAdvancedState = () => {
         if (this.state.advancedState) {
             this.setState({
                 ...this.props,
@@ -60,34 +80,7 @@ class HashCalculation extends React.Component {
                 advancedState: true
             })
         }
-    }
-
-    hashOptions = [
-        {
-            label: "SHA256",
-            value: "2"
-        },
-        {
-            label: "SHA3",
-            value: "3",
-        },
-        {
-            label: "SCRYPT",
-            value: "5",
-        },
-        {
-            label: "RIPEMD160",
-            value: "6"
-        },
-        {
-            label: "Keccak25",
-            value: "25"
-        },
-        {
-            label: "RIPEMD160_SHA256",
-            value: "62"
-        }
-    ];
+    };
 
     render() {
         return (
@@ -96,7 +89,6 @@ class HashCalculation extends React.Component {
                 closeModal={this.props.closeModal}
                 handleFormSubmit={(values) => this.handleFormSubmit(values)}
                 submitButtonName={'Calculate'}
-                isDisableSecretPhrase
             >
                 <CustomTextArea
                     label={'Data'}
@@ -111,11 +103,19 @@ class HashCalculation extends React.Component {
                         }
                     ]}
                 />
-                <CustomFormSelect
-                    options={this.hashOptions}
-                    label={'Hash algorithm'}
-                    field={'alg'}
-                />
+                {hashOptions && (
+                    <CustomFormSelect
+                        options={hashOptions}
+                        defaultValue={hashOptions[0]}
+                        label={'Hash algorithm'}
+                        field={'alg'}
+                    />
+                )}
+                {this.state.generatedHash && (
+                    <div className='info-box blue-info'>
+                        <div className="token word-brake">{this.state.generatedHash}</div>
+                    </div>
+                )}
             </ModalBody>
         );
     }
