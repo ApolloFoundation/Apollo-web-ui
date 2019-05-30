@@ -6,16 +6,12 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
+import QRCode from "qrcode.react";
 import {setModalData} from '../../../modules/modals';
-import classNames from 'classnames';
-import AdvancedSettings from '../../components/advanced-transaction-settings'
-import {Checkbox, Form, Text, TextArea} from 'react-form'
 import {NotificationManager} from "react-notifications";
 import crypto from "../../../helpers/crypto/crypto";
 import submitForm from "../../../helpers/forms/forms";
 import {signBytesArrayAPL} from "../../../helpers/converters";
-import QRCode from "qrcode.react";
-import AccountRS from "../../components/account-rs";
 import TabulationBody from "../../components/tabulator/tabuator-body";
 import TabContaier from "../../components/tabulator/tab-container";
 import ModalBody from "../../components/modals/modal-body";
@@ -23,6 +19,7 @@ import TextualInputComponent from "../../components/form-components/textual-inpu
 import CustomTextArea from "../../components/form-components/text-area";
 import {CheckboxFormInput} from "../../components/form-components/check-button-input";
 import InputForm from "../../components/input-form";
+import InfoBox from '../../components/info-box';
 
 class TransactionOperations extends React.Component {
     state = {
@@ -179,21 +176,17 @@ class TransactionOperations extends React.Component {
                             </div>
                             {this.state.showSignature && (
                                 <React.Fragment>
-                                    <CustomTextArea
-                                        label={'Signature'}
-                                        field={'signedBytesSignature'}
-                                        placeholder={'Signature'}
-                                        defaultValue={this.state.signedBytesSignature}
-                                    />
+                                    <InfoBox info>
+                                        <div className="token word-brake">
+                                            {this.state.signedBytesSignature}
+                                        </div>
+                                    </InfoBox>
                                     <div className='form-group mb-15'>
                                         <label>Transaction Signature QR code</label>
                                         <div>
                                             <QRCode
                                                 value={this.state.signedBytesSignature}
-                                                size={128}
-                                                bgColor={"#000000"}
-                                                fgColor={"#fff"}
-                                                level={"L"}
+                                                size={100}
                                             />
                                         </div>
                                     </div>
