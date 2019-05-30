@@ -5,15 +5,15 @@
 
 
 import React from 'react';
-import {connect} from 'react-redux';
-import {getAliasesAction} from "../../../actions/aliases";
+import { connect } from 'react-redux';
+import { getAliasesAction } from "../../../actions/aliases";
 import SiteHeader from '../../components/site-header'
-import {getpollsAction} from '../../../actions/polls';
+import { getpollsAction } from '../../../actions/polls';
 import PoolItem from './pool-item';
-import {getTransactionAction} from "../../../actions/transactions";
-import {setBodyModalParamsAction} from "../../../modules/modals";
-import {withRouter} from 'react-router-dom';
-import {BlockUpdater} from "../../block-subscriber";
+import { getTransactionAction } from "../../../actions/transactions";
+import { setBodyModalParamsAction } from "../../../modules/modals";
+import { withRouter } from 'react-router-dom';
+import { BlockUpdater } from "../../block-subscriber";
 
 import CustomTable from '../../components/tables/table';
 
@@ -24,7 +24,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     getpollsAction: (reqParams) => dispatch(getpollsAction(reqParams)),
     getAliasesAction: (reqParams) => dispatch(getAliasesAction(reqParams)),
-    getTransactionAction:     (requestParams) => dispatch(getTransactionAction(requestParams)),
+    getTransactionAction: (requestParams) => dispatch(getTransactionAction(requestParams)),
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 });
 
@@ -47,7 +47,7 @@ class Activepolls extends React.Component {
 
         this.getFinishedpolls({
             firstIndex: 0,
-            lastIndex:  9,
+            lastIndex: 9,
         });
     };
 
@@ -56,7 +56,7 @@ class Activepolls extends React.Component {
 
         this.getFinishedpolls({
             firstIndex: 0,
-            lastIndex:  9,
+            lastIndex: 9,
         });
         BlockUpdater.on("data", this.listener);
     }
@@ -69,7 +69,7 @@ class Activepolls extends React.Component {
         this.getActivepolls();
         this.getFinishedpolls({
             firstIndex: 0,
-            lastIndex:  9,
+            lastIndex: 9,
         });
     }
 
@@ -109,7 +109,7 @@ class Activepolls extends React.Component {
         this.props.history.push('/finished-polls')
     }
 
-    render () {
+    render() {
         return (
             <div className="page-content">
                 <SiteHeader
@@ -117,58 +117,61 @@ class Activepolls extends React.Component {
                 />
                 <div className="page-body container-fluid">
                     <div className="active-polls white-space">
-                        <CustomTable 
-                            header={[
-                                {
-                                    name: 'Title',
-                                    alignRight: false
-                                },{
-                                    name: 'Description',
-                                    alignRight: false
-                                },{
-                                    name: 'Sender',
-                                    alignRight: false
-                                },{
-                                    name: 'Start date',
-                                    alignRight: false
-                                },{
-                                    name: 'Blocks left',
-                                    alignRight: false
-                                },{
-                                    name: 'Actions',
-                                    alignRight: true
-                                }
-                            ]}
-                            className={'no-min-height'}
-                            emptyMessage={'No active polls.'}
-                            TableRowComponent={PoolItem}
-                            tableData={this.state.activepolls}
-                        />
+                        <div className="form-group-app offset-bottom height-auto no-padding mb-3">
+                            <CustomTable
+                                tableName={'Active polls'}
+                                header={[
+                                    {
+                                        name: 'Title',
+                                        alignRight: false
+                                    }, {
+                                        name: 'Description',
+                                        alignRight: false
+                                    }, {
+                                        name: 'Sender',
+                                        alignRight: false
+                                    }, {
+                                        name: 'Start date',
+                                        alignRight: false
+                                    }, {
+                                        name: 'Blocks left',
+                                        alignRight: false
+                                    }, {
+                                        name: 'Actions',
+                                        alignRight: true
+                                    }
+                                ]}
+                                className={'no-min-height'}
+                                emptyMessage={'No active polls.'}
+                                TableRowComponent={PoolItem}
+                                tableData={this.state.activepolls}
+                            />
+                        </div>
 
                         <div className="transaction-table no-min-height">
-                                
+
                         </div>
 
                         <div className="form-group-app offset-bottom height-auto no-padding mb-3">
-                            <CustomTable 
+                            <CustomTable
                                 tableName={'Finished polls'}
                                 header={[
                                     {
                                         name: 'Title',
                                         alignRight: false
-                                    },{
+                                    }, {
                                         name: 'Description',
                                         alignRight: false
-                                    },{
+                                    }, {
                                         name: 'Sender',
                                         alignRight: false
-                                    },{
+                                    }, {
                                         name: 'Start date',
                                         alignRight: false
-                                    },{
+                                    }, {
                                         name: 'Blocks left',
                                         alignRight: false
-                                    },{
+                                    }, {
                                         name: 'Actions',
                                         alignRight: true
                                     }
@@ -179,7 +182,7 @@ class Activepolls extends React.Component {
                                 tableData={this.state.finishedpolls}
                                 hintClassName={'mt-4'}
                                 actionButton={{
-                                    name:'View All',
+                                    name: 'View All',
                                     handler: this.handleGoToFinishedPolls
                                 }}
                             />
