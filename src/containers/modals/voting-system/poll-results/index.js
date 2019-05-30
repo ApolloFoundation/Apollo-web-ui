@@ -49,7 +49,6 @@ class PollResults extends Component {
     render () {
         const {nameModal} = this.props;
         const {pollResults, pollVotes} = this.state;
-        console.log(pollResults)
         const options = pollResults && pollResults.options ? pollResults.options.map(el => {
             return {
                 name: el,
