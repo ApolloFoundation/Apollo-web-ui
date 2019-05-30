@@ -14,13 +14,33 @@ class ExchangeBuy extends React.Component {
     state = {
         form: null,
         currentCurrency: null,
+        wallet: null,
+        walletsList: null,
     };
 
     static getDerivedStateFromProps(props, state) {
-        if (props.currentCurrency.currency !== state.currentCurrency) {
-            if(state.form) state.form.resetAll();
+        if (props.currentCurrency.currency !== state.currentCurrency || props.wallet !== state.wallet) {
+            if (state.form && state.form.values) {
+                state.form.setAllValues({
+                    fromAddress: state.form.values.fromAddress,
+                    pairRate: '',
+                    offerAmount: '',
+                    total: '',
+                });
+            }
+
+            let walletsList = props.wallet || [];
+            walletsList = walletsList.map((wallet) => (
+                {
+                    value: wallet,
+                    label: wallet.address
+                }
+            ));
+
             return {
                 currentCurrency: props.currentCurrency.currency,
+                wallet: props.wallet,
+                walletsList,
             };
         }
 
@@ -37,6 +57,10 @@ class ExchangeBuy extends React.Component {
                 }
                 if (values.offerAmount < 0.001) {
                     NotificationManager.error('You can buy more then 0.001 APL', 'Error', 5000);
+                    return;
+                }
+                if (!values.fromAddress || !values.fromAddress.balances) {
+                    NotificationManager.error('Please select wallet address', 'Error', 5000);
                     return;
                 }
                 const pairRate = multiply(values.pairRate, ONE_APL);
@@ -69,11 +93,23 @@ class ExchangeBuy extends React.Component {
                 };
                 if (this.props.passPhrase) {
                     this.props.createOffer(params);
-                    if (this.state.form) this.state.form.resetAll();
+                    if (this.state.form) {
+                        this.state.form.setAllValues({
+                            fromAddress: values.fromAddress,
+                            pairRate: '',
+                            offerAmount: '',
+                            total: '',
+                        });
+                    }
                 } else {
                     this.props.setBodyModalParamsAction('CONFIRM_CREATE_OFFER', {
                         params,
-                        resetForm: this.state.form.resetAll
+                        resetForm: () => this.state.form.setAllValues({
+                            fromAddress: values.fromAddress,
+                            pairRate: '',
+                            offerAmount: '',
+                            total: '',
+                        })
                     });
                 }
             } else {
@@ -88,20 +124,9 @@ class ExchangeBuy extends React.Component {
         this.setState({form})
     };
 
-    getWalletsList = () => {
-        const wallets = this.props.wallet || [];
-        return wallets.map((wallet) => (
-            {
-                value: wallet,
-                label: wallet.address
-            }
-        ));
-    };
-
     render() {
         const {currentCurrency: {currency}} = this.props;
         const currencyName = currency.toUpperCase();
-        const walletsList = this.getWalletsList();
         return (
             <div className={'card-block green card card-medium pt-0 h-400'}>
                 <Form
@@ -115,7 +140,7 @@ class ExchangeBuy extends React.Component {
                                 <p>Buy APL</p>
                                 <span>Fee: {this.feeATM/ONE_APL} APL</span>
                             </div>
-                            {walletsList && !!walletsList.length && (
+                            {this.state.walletsList && !!this.state.walletsList.length && (
                                 <div className="form-group row form-group-white mb-15">
                                     <label>
                                         {currencyName} Wallet
@@ -123,9 +148,9 @@ class ExchangeBuy extends React.Component {
                                     <CustomSelect
                                         className="form-control"
                                         field={'fromAddress'}
-                                        defaultValue={walletsList[0]}
+                                        defaultValue={this.state.walletsList[0]}
                                         setValue={setValue}
-                                        options={walletsList}
+                                        options={this.state.walletsList}
                                     />
                                 </div>
                             )}
