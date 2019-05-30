@@ -201,7 +201,6 @@ class ExchangeBuy extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                            {console.log('----values.fromAddress----', values.fromAddress)}
                             {values.fromAddress && (
                                 <div className={'form-group-text d-flex justify-content-between'}>
                                     of Total Balance: <span><i
