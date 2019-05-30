@@ -14,13 +14,33 @@ class ExchangeSell extends React.Component {
     state = {
         form: null,
         currentCurrency: null,
+        wallet: null,
+        walletsList: null,
     };
 
     static getDerivedStateFromProps(props, state) {
-        if (props.currentCurrency.currency !== state.currentCurrency) {
-            if(state.form) state.form.resetAll();
+        if (props.currentCurrency.currency !== state.currentCurrency || props.wallet !== state.wallet) {
+            if (state.form && state.form.values) {
+                state.form.setAllValues({
+                    fromAddress: state.form.values.fromAddress,
+                    pairRate: '',
+                    offerAmount: '',
+                    total: '',
+                });
+            }
+
+            let walletsList = props.wallet || [];
+            walletsList = walletsList.map((wallet) => (
+                {
+                    value: wallet,
+                    label: wallet.address
+                }
+            ));
+
             return {
                 currentCurrency: props.currentCurrency.currency,
+                wallet: props.wallet,
+                walletsList,
             };
         }
 
@@ -65,11 +85,23 @@ class ExchangeSell extends React.Component {
 
                 if (this.props.passPhrase) {
                     this.props.createOffer(params);
-                    if (this.state.form) this.state.form.resetAll();
+                    if (this.state.form) {
+                        this.state.form.setAllValues({
+                            fromAddress: values.fromAddress,
+                            pairRate: '',
+                            offerAmount: '',
+                            total: '',
+                        });
+                    }
                 } else {
                     this.props.setBodyModalParamsAction('CONFIRM_CREATE_OFFER', {
                         params,
-                        resetForm: this.state.form.resetAll
+                        resetForm: () => this.state.form.setAllValues({
+                            fromAddress: values.fromAddress,
+                            pairRate: '',
+                            offerAmount: '',
+                            total: '',
+                        })
                     });
                 }
             } else {
@@ -99,7 +131,6 @@ class ExchangeSell extends React.Component {
         const balance = (dashboardAccoountInfo && dashboardAccoountInfo.unconfirmedBalanceATM) ? dashboardAccoountInfo.unconfirmedBalanceATM : balanceAPL;
         const balanceFormat = balance ? formatDivision(balance, ONE_APL, 3) : 0;
         const currencyName = currency.toUpperCase();
-        const walletsList = this.getWalletsList();
         return (
             <div className={'card-block green card card-medium pt-0 h-400'}>
                 <Form
@@ -113,7 +144,7 @@ class ExchangeSell extends React.Component {
                                 <p>Sell APL</p>
                                 <span>Fee: {this.feeATM/ONE_APL} APL</span>
                             </div>
-                            {wallet && (
+                            {this.state.walletsList && !!this.state.walletsList.length && (
                                 <div className="form-group row form-group-white mb-15">
                                     <label>
                                         {currencyName} Wallet
@@ -121,9 +152,9 @@ class ExchangeSell extends React.Component {
                                     <CustomSelect
                                         className="form-control"
                                         field={'fromAddress'}
-                                        defaultValue={walletsList[0]}
+                                        defaultValue={this.state.walletsList[0]}
                                         setValue={setValue}
-                                        options={walletsList}
+                                        options={this.state.walletsList}
                                     />
                                 </div>
                             )}

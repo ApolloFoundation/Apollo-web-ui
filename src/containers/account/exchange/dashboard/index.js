@@ -112,15 +112,15 @@ class Exchange extends React.Component {
                             <SellOrders currentCurrency={currentCurrency} sellOrders={sellOrdersCurrency} />
                         </div>
                         <div className={'col-md-8 p-0'}>
-                            <div className={'container-fluid p-0'}>
-                                <div className={'col-md-6 pl-3 pr-0 pb-3 d-inline-flex'}>
+                            <div className={'container-fluid p-0 h-100'}>
+                                <div className={'col-md-6 pl-3 pr-0 pb-3 d-inline-flex h-100'}>
                                     <ExchangeBuy
                                         currentCurrency={currentCurrency}
                                         wallet={wallet}
                                         handleLoginModal={this.handleLoginModal}
                                     />
                                 </div>
-                                <div className={'col-md-6 pl-3 pr-0 pb-3 d-inline-flex'}>
+                                <div className={'col-md-6 pl-3 pr-0 pb-3 d-inline-flex h-100'}>
                                     <ExchangeSell
                                         currentCurrency={currentCurrency}
                                         wallet={wallet}
