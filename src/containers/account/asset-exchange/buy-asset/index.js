@@ -34,7 +34,7 @@ const BuyAsset = ({asset, handleTotalValue, handleBuyOrders}) => (
                                     field="quantity"
                                     placeholder="Quantity"
                                     type={"tel"}
-                                    onChange={() => handleTotalValue(setValue, getFormState)}
+                                    onChange={(value) => handleTotalValue(setValue, value, values.priceATM)}
                                     setValue={setValue}/>
                                 <div className="input-group-append">
                                     <span className="input-group-text"
@@ -55,7 +55,7 @@ const BuyAsset = ({asset, handleTotalValue, handleBuyOrders}) => (
                                     field="priceATM"
                                     placeholder="Price"
                                     type={"tel"}
-                                    onChange={() => handleTotalValue(setValue, getFormState)}
+                                    onChange={(value) => handleTotalValue(setValue, value, values.quantity)}
                                     setValue={setValue}/>
                                 <div className="input-group-append">
                                     <span className="input-group-text"
