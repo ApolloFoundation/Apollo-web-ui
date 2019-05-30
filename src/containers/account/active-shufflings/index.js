@@ -5,16 +5,16 @@
 
 
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import uuid from "uuid";
 import classNames from "classnames";
 import SiteHeader from "../../components/site-header";
 import ShufflingItem from './shuffling-item';
-import {getActiveShfflings, getFinishedShfflings} from '../../../actions/shuffling';
-import {NotificationManager} from "react-notifications";
-import {getTransactionAction} from "../../../actions/transactions";
-import {setBodyModalParamsAction} from "../../../modules/modals";
-import {BlockUpdater} from "../../block-subscriber";
+import { getActiveShfflings, getFinishedShfflings } from '../../../actions/shuffling';
+import { NotificationManager } from "react-notifications";
+import { getTransactionAction } from "../../../actions/transactions";
+import { setBodyModalParamsAction } from "../../../modules/modals";
+import { BlockUpdater } from "../../block-subscriber";
 import ContentLoader from '../../components/content-loader'
 import ContentHendler from '../../components/content-hendler'
 
@@ -26,7 +26,7 @@ const mapStateToPropms = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    getActiveShfflings  : (reqParams) => dispatch(getActiveShfflings(reqParams)),
+    getActiveShfflings: (reqParams) => dispatch(getActiveShfflings(reqParams)),
     getFinishedShfflings: (reqParams) => dispatch(getFinishedShfflings(reqParams)),
     getTransactionAction: (reqParams) => dispatch(getTransactionAction(reqParams)),
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
@@ -69,8 +69,8 @@ class ActiveShufflings extends React.Component {
         BlockUpdater.removeListener("data", this.listener)
     }
 
-    getFinishedShfflings   = async (reqParams) => {
-        const finishedShufflings =  await this.props.getFinishedShfflings(reqParams);
+    getFinishedShfflings = async (reqParams) => {
+        const finishedShufflings = await this.props.getFinishedShfflings(reqParams);
 
         if (finishedShufflings) {
             this.setState({
@@ -80,8 +80,8 @@ class ActiveShufflings extends React.Component {
         }
     };
 
-    getActiveShfflings   = async (reqParams) => {
-        const activeShuffling =  await this.props.getActiveShfflings(reqParams);
+    getActiveShfflings = async (reqParams) => {
+        const activeShuffling = await this.props.getActiveShfflings(reqParams);
 
         if (activeShuffling) {
             this.setState({
@@ -95,7 +95,7 @@ class ActiveShufflings extends React.Component {
         this.setState({
             page: page,
             firstIndex: page * 15 - 15,
-            lastIndex:  page * 15 - 1
+            lastIndex: page * 15 - 1
         }, () => {
             this.getActiveShfflings({
                 firstIndex: this.state.firstIndex,
@@ -117,7 +117,7 @@ class ActiveShufflings extends React.Component {
 
     };
 
-    render () {
+    render() {
         return (
             <div className="page-content">
                 <SiteHeader
@@ -125,75 +125,73 @@ class ActiveShufflings extends React.Component {
                 />
                 <div className="page-body container-fluid">
                     <div className="active-polls white-space">
-                        <CustomTable
-                            header={[
-                                {
-                                    name: 'Shuffling',
-                                    alignRight: false
-                                },{
-                                    name: 'Stage',
-                                    alignRight: false
-                                },{
-                                    name: 'Holding',
-                                    alignRight: false
-                                },{
-                                    name: 'Amount',
-                                    alignRight: false
-                                },{
-                                    name: 'Blocks Remaining',
-                                    alignRight: false
-                                },{
-                                    name: 'Participants',
-                                    alignRight: true
-                                },{
-                                    name: 'Assignee',
-                                    alignRight: true
-                                },{
-                                    name: 'Status',
-                                    alignRight: true
-                                }
-                            ]}
-                            className={'no-min-height'}
-                            emptyMessage={'No active shuffling.'}
-                            TableRowComponent={ShufflingItem}
-                            tableData={this.state.activeShuffling}
-                            passProps={{getTransaction: this.getTransaction}}
-                        />
-
                         <div className="form-group-app offset-bottom height-auto no-padding mb-3">
                             <CustomTable
-                                tableName={'Finished Shufflings'}
+                                tableName='Active shufflings'
                                 header={[
                                     {
                                         name: 'Shuffling',
                                         alignRight: false
-                                    },{
+                                    }, {
                                         name: 'Stage',
                                         alignRight: false
-                                    },{
+                                    }, {
                                         name: 'Holding',
                                         alignRight: false
-                                    },{
+                                    }, {
                                         name: 'Amount',
                                         alignRight: false
-                                    },{
+                                    }, {
+                                        name: 'Blocks Remaining',
+                                        alignRight: false
+                                    }, {
                                         name: 'Participants',
                                         alignRight: true
-                                    },{
-                                        name: 'Issuer',
+                                    }, {
+                                        name: 'Assignee',
                                         alignRight: true
-                                    },
+                                    }, {
+                                        name: 'Status',
+                                        alignRight: true
+                                    }
                                 ]}
-                                className={'no-min-height pb-0'}
-                                emptyMessage={'No finished shuffling.'}
+                                className={'no-min-height'}
+                                emptyMessage={'No active shuffling.'}
+                                TableRowComponent={ShufflingItem}
+                                tableData={this.state.activeShuffling}
+                                passProps={{ getTransaction: this.getTransaction }}
+                            />
+                        </div>
+
+                        <div className="form-group-app offset-bottom height-auto no-padding mb-3">
+                            <CustomTable
+                                tableName='Finished shufflings'
+                                header={[
+                                    {
+                                        name: 'Shuffling',
+                                        alignRight: false
+                                    }, {
+                                        name: 'Stage',
+                                        alignRight: false
+                                    }, {
+                                        name: 'Holding',
+                                        alignRight: false
+                                    }, {
+                                        name: 'Amount',
+                                        alignRight: false
+                                    }, {
+                                        name: 'Participants',
+                                        alignRight: true
+                                    }, {
+                                        name: 'Assignee',
+                                        alignRight: true
+                                    }
+                                ]}
+                                className={'no-min-height'}
+                                emptyMessage={'No active shuffling.'}
                                 TableRowComponent={ShufflingItem}
                                 tableData={this.state.finishedShufflings}
-                                hintClassName={''}
-                                actionButton={{
-                                    name:'View All',
-                                    handler: this.handleGoToFinishedPolls
-                                }}
-                                passProps={{getTransaction: this.getTransaction}}
+                                passProps={{ getTransaction: this.getTransaction }}
                             />
                         </div>
                     </div>
