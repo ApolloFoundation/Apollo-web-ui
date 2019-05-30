@@ -13,6 +13,19 @@ class BuyOrders extends React.Component {
         lastIndex: 14,
     };
 
+    static getDerivedStateFromProps(props, state) {
+        if (props.currentCurrency !== state.currentCurrency) {
+            return {
+                currentCurrency: props.currentCurrency,
+                page: 1,
+                firstIndex: 0,
+                lastIndex: 14,
+            };
+        }
+
+        return null;
+    }
+
     onPaginate = (page) => {
         this.setState({
             page: page,
