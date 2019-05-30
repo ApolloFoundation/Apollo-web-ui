@@ -6,16 +6,14 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import uuid from "uuid";
-import classNames from "classnames";
 import SiteHeader from "../../components/site-header";
+import CustomTable from '../../components/tables/table';
 import ShufflingItem from './../active-shufflings/shuffling-item';
 import {getFinishedShfflings} from '../../../actions/shuffling';
 import {getTransactionAction} from "../../../actions/transactions";
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {BlockUpdater} from "../../block-subscriber";
-import ContentLoader from '../../components/content-loader'
-import ContentHendler from '../../components/content-hendler'
+
 
 const mapStateToPropms = state => ({
     account: state.account.account
@@ -28,29 +26,25 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class FinishedShufflings extends React.Component {
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            page: 1,
-            firstIndex: 0,
-            lastIndex: 14,
-            finishedShufflings: null
-        }
-    }
+    state = {
+        FinishedShufflings: null,
+        page: 1,
+        firstIndex: 0,
+        lastIndex: 14,
+    };
 
     listener = data => {
         this.getFinishedShfflings({
-            firstIndex: 0,
-            lastIndex: 14
+            firstIndex: this.state.firstIndex,
+            lastIndex: this.state.lastIndex
         })
     };
 
     componentDidMount() {
         this.getFinishedShfflings({
-            firstIndex: 0,
-            lastIndex: 14
-        })
+            firstIndex: this.state.firstIndex,
+            lastIndex: this.state.lastIndex
+        });
         BlockUpdater.on("data", this.listener);
     }
 
@@ -58,28 +52,27 @@ class FinishedShufflings extends React.Component {
         BlockUpdater.removeListener("data", this.listener);
     }
 
-    getFinishedShfflings   = async (reqParams) => {
-        const finishedShufflings =  await this.props.getFinishedShfflings(reqParams);
+    getFinishedShfflings = async (reqParams, pagination) => {
+        const FinishedShufflings = await this.props.getFinishedShfflings(reqParams);
 
-        if (finishedShufflings) {
+        if (FinishedShufflings) {
             this.setState({
-                ...this.state,
-                finishedShufflings: finishedShufflings.shufflings
+                ...pagination,
+                FinishedShufflings: FinishedShufflings.shufflings,
             })
         }
     };
 
     onPaginate = (page) => {
-        this.setState({
+        const pagination = {
             page: page,
             firstIndex: page * 15 - 15,
-            lastIndex:  page * 15 - 1
-        }, () => {
-            this.getFinishedShfflings({
-                firstIndex: this.state.firstIndex,
-                lastIndex: this.state.lastIndex
-            })
-        });
+            lastIndex: page * 15 - 1
+        };
+        this.getFinishedShfflings({
+            firstIndex: pagination.firstIndex,
+            lastIndex: pagination.lastIndex
+        }, pagination);
     };
 
     getTransaction = async (data) => {
@@ -94,75 +87,45 @@ class FinishedShufflings extends React.Component {
         }
     };
 
-    render () {
+    render() {
         return (
             <div className="page-content">
                 <SiteHeader
                     pageTitle={'Finished Shuffling'}
                 />
                 <div className="page-body container-fluid">
-                    <div className="transaction-table">
-                        <ContentHendler
-                            items={this.state.finishedShufflings}
-                            emptyMessage={'No finished shuffling.'}
-                        >
-                            <div className="transaction-table-body">
-                                <table>
-                                    <thead>
-                                    <tr>
-                                        <td>Shuffling</td>
-                                        <td>Stage</td>
-                                        <td>Holding</td>
-                                        <td className="align-right">Amount</td>
-                                        <td className="align-right">Participants</td>
-                                        <td className="align-right">Issuer</td>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    {
-                                        this.state.finishedShufflings &&
-                                        this.state.finishedShufflings.map((el, index) => {
-                                            return (
-                                                <ShufflingItem
-                                                    key={uuid()}
-                                                    {...el}
-                                                    finished
-                                                    getTransaction={this.getTransaction}
-                                                />
-                                            );
-                                        })
-                                    }
-                                    </tbody>
-                                </table>
-                                {
-                                    this.state.finishedShufflings &&
-                                    <div className="btn-box">
-                                        <a
-                                            className={classNames({
-                                                'btn' : true,
-                                                'btn-left' : true,
-                                                'disabled' : this.state.page <= 1
-                                            })}
-                                            onClick={this.onPaginate.bind(this, this.state.page - 1)}
-                                        > Previous</a>
-                                        <div className='pagination-nav'>
-                                            <span>{this.state.firstIndex + 1}</span>
-                                            <span>&hellip;</span>
-                                            <span>{this.state.lastIndex + 1}</span>
-                                        </div>
-                                        <a
-                                            onClick={this.onPaginate.bind(this, this.state.page + 1)}
-                                            className={classNames({
-                                                'btn' : true,
-                                                'btn-right' : true,
-                                                'disabled' : this.state.finishedShufflings.length < 15
-                                            })}
-                                        >Next</a>
-                                    </div>
-                                }
-                            </div>
-                        </ContentHendler>
-                    </div>
+                    <CustomTable
+                        header={[
+                            {
+                                name: 'Shuffling',
+                                alignRight: false
+                            }, {
+                                name: 'Stage',
+                                alignRight: false
+                            }, {
+                                name: 'Holding',
+                                alignRight: false
+                            }, {
+                                name: 'Amount',
+                                alignRight: false
+                            }, {
+                                name: 'Participants',
+                                alignRight: true
+                            }, {
+                                name: 'Issuer',
+                                alignRight: true
+                            }
+                        ]}
+                        className={'no-min-height mb-3'}
+                        emptyMessage={'No finished shuffling.'}
+                        TableRowComponent={ShufflingItem}
+                        tableData={this.state.FinishedShufflings}
+                        passProps={{getTransaction: this.getTransaction}}
+                        isPaginate
+                        page={this.state.page}
+                        previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
+                        nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
+                    />
                 </div>
             </div>
         );
