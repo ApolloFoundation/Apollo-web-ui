@@ -27,7 +27,7 @@ const mapDispatchToProps = dispatch => ({
 
 class FinishedShufflings extends React.Component {
     state = {
-        FinishedShufflings: null,
+        finishedShufflings: null,
         page: 1,
         firstIndex: 0,
         lastIndex: 14,
@@ -53,12 +53,12 @@ class FinishedShufflings extends React.Component {
     }
 
     getFinishedShfflings = async (reqParams, pagination) => {
-        const FinishedShufflings = await this.props.getFinishedShfflings(reqParams);
+        const finishedShufflings = await this.props.getFinishedShfflings(reqParams);
 
-        if (FinishedShufflings) {
+        if (finishedShufflings) {
             this.setState({
                 ...pagination,
-                FinishedShufflings: FinishedShufflings.shufflings,
+                finishedShufflings: finishedShufflings.shufflings,
             })
         }
     };
@@ -119,7 +119,7 @@ class FinishedShufflings extends React.Component {
                         className={'no-min-height mb-3'}
                         emptyMessage={'No finished shuffling.'}
                         TableRowComponent={ShufflingItem}
-                        tableData={this.state.FinishedShufflings}
+                        tableData={this.state.finishedShufflings}
                         passProps={{getTransaction: this.getTransaction}}
                         isPaginate
                         page={this.state.page}
