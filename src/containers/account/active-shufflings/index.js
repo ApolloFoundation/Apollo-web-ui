@@ -188,7 +188,7 @@ class ActiveShufflings extends React.Component {
                                     }
                                 ]}
                                 className={'no-min-height'}
-                                emptyMessage={'No active shuffling.'}
+                                emptyMessage={'No finished shuffling.'}
                                 TableRowComponent={ShufflingItem}
                                 tableData={this.state.finishedShufflings}
                                 passProps={{ getTransaction: this.getTransaction }}
