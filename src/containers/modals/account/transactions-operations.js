@@ -176,11 +176,16 @@ class TransactionOperations extends React.Component {
                             </div>
                             {this.state.showSignature && (
                                 <React.Fragment>
-                                    <InfoBox info>
-                                        <div className="token word-brake">
-                                            {this.state.signedBytesSignature}
-                                        </div>
-                                    </InfoBox>
+                                    <div className="form-group mb-15">
+                                        <label>
+                                            Signature
+                                        </label>
+                                        <InfoBox info>
+                                            <div className="token word-brake">
+                                                {this.state.signedBytesSignature}
+                                            </div>
+                                        </InfoBox>
+                                    </div>
                                     <div className='form-group mb-15'>
                                         <label>Transaction Signature QR code</label>
                                         <div>
