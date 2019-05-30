@@ -16,6 +16,7 @@ import submitForm from "../../../helpers/forms/forms";
 import { signBytesArrayAPL } from "../../../helpers/converters";
 import QRCode from "qrcode.react";
 import AccountRS from "../../components/account-rs";
+import InfoBox from "../../components/info-box";
 
 class TransactionOperations extends React.Component {
     constructor(props) {
@@ -227,27 +228,18 @@ class TransactionOperations extends React.Component {
                                             </div>
                                             {this.state.showSignature &&
                                                 <React.Fragment>
-                                                    <div className={'input-group-app block offset-bottom'}>
-                                                        <div className={'row form-group-white'}>
-                                                            <label className="col-sm-3 col-form-label">Sinature</label>
-                                                            <div className='col-md-9'>
-                                                                <TextArea
-                                                                    rows="5"
-                                                                    field={'signedBytesSignature'}
-                                                                />
-                                                            </div>
+                                                    <InfoBox info>
+                                                        <div className="token word-brake">
+                                                            {this.state.signedBytesSignature}
                                                         </div>
-                                                    </div>
+                                                    </InfoBox>
                                                     <div className='block'>
                                                         <div className='row form-group-white'>
                                                             <label className="col-sm-3 col-form-label">Transaction Signature QR code</label>
                                                             <div className='col-md-9'>
                                                                 <QRCode
                                                                     value={this.state.signedBytesSignature}
-                                                                    size={128}
-                                                                    bgColor={"#000000"}
-                                                                    fgColor={"#fff"}
-                                                                    level={"L"}
+                                                                    size={100}
                                                                 />
                                                             </div>
                                                         </div>
