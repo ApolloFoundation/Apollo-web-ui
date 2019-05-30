@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 
 import {
     getpollAction,
-    getPollResultAction, 
+    getPollResultAction,
     getPollVotesAction
 } from '../../../../actions/polls';
 
@@ -27,12 +27,10 @@ class PollResults extends Component {
         const poll = this.props.modalData
 
         const pollVotes   = getPollVotesAction({
-            poll,
-            req: 'getPollResult', 
+            poll
         });
         const pollResults = getPollResultAction({
-            poll,
-            req: 'getPollResult', 
+            poll
         });
 
         Promise.all([pollResults, pollVotes])
@@ -40,7 +38,7 @@ class PollResults extends Component {
                 const [pollResults, pollVotes] = data;
 
                 this.setState({
-                    pollResults, 
+                    pollResults,
                     pollVotes
                 })
             })
@@ -51,8 +49,8 @@ class PollResults extends Component {
     render () {
         const {nameModal} = this.props;
         const {pollResults, pollVotes} = this.state;
-
-        const options = pollResults ? pollResults.options.map(el => {
+        console.log(pollResults)
+        const options = pollResults && pollResults.options ? pollResults.options.map(el => {
             return {
                 name: el,
                 alignRight: true
@@ -73,7 +71,7 @@ class PollResults extends Component {
                     className={'gray-form'}
                 >
                     <TabContaier sectionName={'Poll Results'}>
-                    <CustomTable 
+                    <CustomTable
                         header={[
                             {
                                 name: 'Voter',
@@ -92,9 +90,9 @@ class PollResults extends Component {
                         emptyMessage={'No poll request.'}
                     />
                     </TabContaier>
-            
+
                     <TabContaier sectionName={'Votes Cast'}>
-                        <CustomTable 
+                        <CustomTable
                             header={[
                                 {
                                     name: 'Voter',
@@ -106,13 +104,13 @@ class PollResults extends Component {
                             TableRowComponent={VoteResultItem}
                             tableData={pollVotes ? pollVotes.votes : null}
                             emptyMessage={'No poll request.'}
-                        />   
+                        />
                     </TabContaier>
                 </TabulationBody>
             </ModalBody>
         )
     }
-} 
+}
 
 const mapStateToProps = state => ({
     account: state.account.account,
@@ -122,7 +120,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     getpollAction       : (reqParams) => dispatch(getpollAction(reqParams)),
-    getPollResultAction : (reqParams) => dispatch(getPollResultAction(reqParams)), 
+    getPollResultAction : (reqParams) => dispatch(getPollResultAction(reqParams)),
     getPollVotesAction  : (reqParams) => dispatch(getPollVotesAction(reqParams)),
 })
 
