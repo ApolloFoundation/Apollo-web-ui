@@ -5,11 +5,11 @@
 
 
 import React from 'react';
-import {connect} from 'react-redux';
-import {Link} from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import SiteHeader from '../../components/site-header/index';
 import MarketplaceItem from '../marketplace/marketplace-card'
-import {searchDGSGoodsAction} from "../../../actions/marketplace";
+import { searchDGSGoodsAction } from "../../../actions/marketplace";
 import ContentLoader from '../../components/content-loader'
 import ContentHendler from '../../components/content-hendler'
 
@@ -47,10 +47,10 @@ class MarketplaceSearch extends React.Component {
     loadAccount = (tag) => {
         const searchingBy = /^APL-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{5}/.test(tag) ?
             {
-                seller : tag,
+                seller: tag,
                 requestType: 'getDGSGoods'
             } : {
-                tag : tag
+                query: tag
             };
 
         this.getDGSGoods({
@@ -71,7 +71,7 @@ class MarketplaceSearch extends React.Component {
         if (getDGSGoods) {
             this.setState({
                 ...this.state,
-                getDGSGoods: getDGSGoods.goods
+                DGSGoods: getDGSGoods.goods
             })
         }
     };
@@ -79,10 +79,10 @@ class MarketplaceSearch extends React.Component {
     onPaginate = (page) => {
         const searchingBy = /^APL-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{5}/.test(this.props.match.params.tag) ?
             {
-                seller : this.state.tag,
+                seller: this.state.tag,
                 requestType: 'getDGSGoods'
             } : {
-                tag : this.state.tag
+                tag: this.state.tag
             }
 
         let reqParams = {
@@ -92,7 +92,7 @@ class MarketplaceSearch extends React.Component {
             tag: this.state.tag,
             ...searchingBy,
             firstIndex: page * 8 - 8,
-            lastIndex:  page * 8 - 1
+            lastIndex: page * 8 - 1
         };
 
         this.setState({
@@ -111,23 +111,24 @@ class MarketplaceSearch extends React.Component {
     };
 
 
-    handleCardMouseOver = (e) =>  {
+    handleCardMouseOver = (e) => {
         e.currentTarget.classList.add('active')
     };
-    handleCardMouseOut = (e) =>  {
+    handleCardMouseOut = (e) => {
         const selected = Object.values(document.querySelectorAll('.site-content .page-content .page-body .marketplace .row > *.active'));
 
         const event = e;
         selected.map((el, index) => {
             setTimeout(() => {
                 el.classList.remove('active')
-            },300)
+            }, 300)
         });
 
     };
 
 
-    render () {
+    render() {
+        const { DGSGoods } = this.state;
         return (
             <div className="page-content">
                 <SiteHeader
@@ -142,7 +143,7 @@ class MarketplaceSearch extends React.Component {
                     </Link>
                     <a
                         className="btn primary transparent icon-button with-out-border"
-                        style={{marginLeft: 15}}
+                        style={{ marginLeft: 15 }}
                         onClick={this.handleGrid}
                     >
                         {
@@ -169,13 +170,13 @@ class MarketplaceSearch extends React.Component {
                             }}
                         >
                             {
-                                this.state.getDGSGoods &&
-                                this.state.getDGSGoods.map((el, index) => {
+                                DGSGoods &&
+                                DGSGoods.map((el, index) => {
                                     return (
                                         <div
                                             key={uuid()}
                                             className={classNames({
-                                                'marketplace-item' : this.state.isGrid,
+                                                'marketplace-item': this.state.isGrid,
                                                 'marketplace-item--full-width': !this.state.isGrid,
                                                 'd-flex pl-3 pb-3 ': true
                                             })}
@@ -192,7 +193,7 @@ class MarketplaceSearch extends React.Component {
                                 })
                             }
                             {
-                                this.state.getDGSGoods &&
+                                DGSGoods &&
                                 <div
                                     className="btn-box relative pl-3"
                                     style={{
@@ -203,10 +204,10 @@ class MarketplaceSearch extends React.Component {
                                 >
                                     <a
                                         className={classNames({
-                                            'btn' : true,
-                                            'btn-left' : true,
-                                            'static' : true,
-                                            'disabled' : this.state.page <= 1
+                                            'btn': true,
+                                            'btn-left': true,
+                                            'static': true,
+                                            'disabled': this.state.page <= 1
                                         })}
                                         style={{
                                             left: 7.5
@@ -216,15 +217,15 @@ class MarketplaceSearch extends React.Component {
                                         Previous
                                     </a>
                                     {
-                                        this.state.getDGSGoods.length < 8 &&
+                                        DGSGoods.length < 8 &&
                                         <div className='pagination-nav'>
                                             <span>{(this.state.page * 8) - 7}</span>
                                             <span>&hellip;</span>
-                                            <span>{this.state.page * 8 + this.state.getDGSGoods.length - 8}</span>
+                                            <span>{this.state.page * 8 + DGSGoods.length - 8}</span>
                                         </div>
                                     }
                                     {
-                                        this.state.getDGSGoods.length === 8 &&
+                                        DGSGoods.length === 8 &&
                                         <div className='pagination-nav'>
                                             <span>{this.state.firstIndex + 1}</span>
                                             <span>&hellip;</span>
@@ -234,10 +235,10 @@ class MarketplaceSearch extends React.Component {
                                     <a
                                         onClick={this.onPaginate.bind(this, this.state.page + 1)}
                                         className={classNames({
-                                            'btn' : true,
-                                            'btn-right' : true,
-                                            'static' : true,
-                                            'disabled' : this.state.getDGSGoods.length < 8
+                                            'btn': true,
+                                            'btn-right': true,
+                                            'static': true,
+                                            'disabled': DGSGoods.length < 8
                                         })}
                                         style={{
                                             right: 0
