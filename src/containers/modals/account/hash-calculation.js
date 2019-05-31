@@ -89,6 +89,7 @@ class HashCalculation extends React.Component {
                 closeModal={this.props.closeModal}
                 handleFormSubmit={(values) => this.handleFormSubmit(values)}
                 submitButtonName={'Calculate'}
+                isDisableSecretPhrase
             >
                 <CustomTextArea
                     label={'Data'}
