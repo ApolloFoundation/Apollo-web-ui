@@ -135,43 +135,40 @@ class MyShufling extends React.Component {
                     pageTitle={'My shuffling'}
                 />
                 <div className="page-body container-fluid">
-                    <div className="transaction-table">
-                        <CustomTable
-                            header={[
-                                {
-                                    name: 'Shuffling',
-                                    alignRight: false
-                                }, {
-                                    name: 'Stage',
-                                    alignRight: false
-                                }, {
-                                    name: 'Holding',
-                                    alignRight: false
-                                }, {
-                                    name: 'Amount',
-                                    alignRight: false
-                                }, {
-                                    name: 'Blocks Remaining',
-                                    alignRight: false
-                                }, {
-                                    name: 'Participants',
-                                    alignRight: true
-                                }, {
-                                    name: 'Assignee',
-                                    alignRight: true
-                                }, {
-                                    name: 'Status',
-                                    alignRight: true
-                                }
-                            ]}
-                            className={'no-min-height'}
-                            emptyMessage={'No active shuffling.'}
-                            TableRowComponent={ShufflingItem}
-                            tableData={this.state.shufflings}
-                            passProps={{ getTransaction: this.getTransaction }}
-                        />
-
-                    </div>
+                    <CustomTable
+                        header={[
+                            {
+                                name: 'Shuffling',
+                                alignRight: false
+                            }, {
+                                name: 'Stage',
+                                alignRight: false
+                            }, {
+                                name: 'Holding',
+                                alignRight: false
+                            }, {
+                                name: 'Amount',
+                                alignRight: false
+                            }, {
+                                name: 'Blocks Remaining',
+                                alignRight: false
+                            }, {
+                                name: 'Participants',
+                                alignRight: true
+                            }, {
+                                name: 'Assignee',
+                                alignRight: true
+                            }, {
+                                name: 'Status',
+                                alignRight: true
+                            }
+                        ]}
+                        className={'no-min-height mb-3'}
+                        emptyMessage={'No active shuffling.'}
+                        TableRowComponent={ShufflingItem}
+                        tableData={this.state.shufflings}
+                        passProps={{ getTransaction: this.getTransaction }}
+                    />
                 </div>
             </div>
         );
