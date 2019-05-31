@@ -119,6 +119,7 @@ class MyVotes extends React.Component {
                                 alignRight: true
                             }
                         ]}
+                        className={'no-min-height mb-3'}
                         emptyMessage={'No polls found.'}
                         page={this.state.page}
                         TableRowComponent={PoolItem}
