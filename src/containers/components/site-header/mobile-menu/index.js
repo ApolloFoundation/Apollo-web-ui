@@ -144,6 +144,7 @@ const MobileMenu = ({setBodyModalParamsAction, closeMenu}) => (
                 <div className={"mobile-nav-item"}>
                     <AccordionItemTitle
                         className={`text ${getNavLinkClass(["/active-polls",
+                            "/finished-polls",
                             "/followed-polls",
                             "/my-votes",
                             "/my-polls"])}`}>
@@ -153,6 +154,7 @@ const MobileMenu = ({setBodyModalParamsAction, closeMenu}) => (
                     <AccordionItemBody>
                         <div className="item-dropdown">
                             <NavLink to="/active-polls">Active polls</NavLink>
+                            <NavLink to="/finished-polls">Finished polls</NavLink>
                             <NavLink to="/followed-polls">Followed polls</NavLink>
                             <NavLink to="/my-votes">My votes</NavLink>
                             <NavLink to="/my-polls">My polls</NavLink>

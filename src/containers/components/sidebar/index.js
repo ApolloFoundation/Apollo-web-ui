@@ -312,9 +312,10 @@ class Sidebar extends React.Component {
                                     }}
 									to="/active-polls"
 									className={`text ${this.getNavLinkClass(["/active-polls",
-									"/followed-polls",
-									"/my-votes",
-									"/my-polls"])}`}>
+										"/finished-polls",
+										"/followed-polls",
+										"/my-votes",
+										"/my-polls"])}`}>
 									Voting system
 									<i className="zmdi zmdi-star left"/>
 									<i className="zmdi zmdi-chevron-right right"/>
@@ -327,6 +328,7 @@ class Sidebar extends React.Component {
 								>
 									<ul>
 										<li><NavLink to="/active-polls">Active polls</NavLink></li>
+										<li><NavLink to="/finished-polls">Finished polls</NavLink></li>
 										<li><NavLink to='/followed-polls'>Followed polls</NavLink></li>
 										<li><NavLink to="/my-votes">My votes</NavLink></li>
 										<li><NavLink to="/my-polls">My polls</NavLink></li>
