@@ -155,7 +155,7 @@ class JoinShuffling extends React.Component {
                 closeModal={this.props.closeModal}
                 handleFormSubmit={(values) => this.handleFormSubmit(values)}
                 isFee
-                submitButtonName={'Send Apollo'}
+                submitButtonName={'Start Shuffling'}
                 idGroup={'send-money-modal-'}
             >
                 <JoinShufflingForm
