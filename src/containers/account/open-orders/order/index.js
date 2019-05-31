@@ -64,7 +64,7 @@ class OrderItem extends React.Component {
                     <div className="btn-box inline">
                         <button
                             type={'button'}
-                            className={'btn primary'}
+                            className={'btn btn-default'}
                             onClick={() => this.props.setBodyModalParamsAction("CANCEL_ORDER", {...this.props.order, type: this.props.type})}
                         >
                             Cancel

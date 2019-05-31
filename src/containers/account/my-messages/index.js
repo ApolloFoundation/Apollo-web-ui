@@ -70,12 +70,13 @@ class MyMessages extends React.Component {
                 <SiteHeader
                     pageTitle={'My messages'}
                 >
-                    <a
+                    <button
+                        type={'button'}
                         onClick={() => setBodyModalParamsAction('COMPOSE_MESSAGE', null)}
-                        className="btn primary"
+                        className="btn btn-green btn-sm"
                     >
                         Compose message
-                    </a>
+                    </button>
                 </SiteHeader>
                 <div className="page-body container-fluid">
                     <CustomTable 

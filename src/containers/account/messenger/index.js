@@ -49,7 +49,7 @@ class Messenger extends React.PureComponent {
                     <button
                         type={'button'}
                         onClick={() => this.props.setBodyModalParamsAction('COMPOSE_MESSAGE', null)}
-                        className="btn primary"
+                        className="btn btn-green btn-sm"
                     >
                         Compose message
                     </button>

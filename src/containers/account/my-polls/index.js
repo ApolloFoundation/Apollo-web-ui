@@ -89,7 +89,7 @@ class MyVotes extends React.Component {
                 >
                     <button
                         type={'button'}
-                        className="btn primary"
+                        className="btn btn-green btn-sm"
                         style={{marginLeft: 15}}
                         onClick={() => this.props.setBodyModalParamsAction('ISSUE_POLL', {})}
                     >

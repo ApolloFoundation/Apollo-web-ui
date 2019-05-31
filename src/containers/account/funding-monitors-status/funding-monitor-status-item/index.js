@@ -25,7 +25,7 @@ const FundingMonitorItem = (props) => (
         </td>
         <td className="align-right">
             <div className="btn-box inline">
-                <a className={'btn primary default'}
+                <a className={'btn btn-default'}
                    onClick={() => props.setBodyModalParamsAction('REMOVE_MONITOR', {
                        recipient: props.recipient,
                        property: props.property,

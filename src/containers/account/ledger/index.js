@@ -213,11 +213,10 @@ class Ledger extends React.Component {
                     <SiteHeader
                         pageTitle={'Account ledger'}
                     >
-
-                        <a
+                        <button
+                            type={'button'}
                             className={classNames({
-                                'btn': true,
-                                'primary': true,
+                                'btn btn-green btn-sm': true,
                                 'disabled': this.state.isPrivate
                             })}
                             onClick={() => {
@@ -226,7 +225,7 @@ class Ledger extends React.Component {
                             }}
                         >
                             Show private transactions
-                        </a>
+                        </button>
 
                     </SiteHeader>
 

@@ -39,51 +39,51 @@ class DashboardNews extends Component {
         return (
             <div className="card card-tall justify-content-start apollo-news">
                 <div className="card-title">Apollo News</div>
-                <div className="card-body">
+                <div className="card-body d-flex flex-column justify-content-between">
                     <div className="card-news-content">
                         {this.state.news && this.getNewsItem(this.state.news.tweets[this.state.newsItem])}
                     </div>
+                </div>
 
-                    {this.state.news && (
-                        <div className="btn-box pagination">
+                {this.state.news && (
+                    <div className="btn-box pagination mt-3">
+                        <button
+                            className={classNames({
+                                'btn': true,
+                                'btn-left': true,
+                                'btn-default': true,
+                                'absolute': true,
+                                'disabled': this.state.newsItem === 0
+                            })}
+                            data-modal="sendMoney"
+                            onClick={() => {
+                                this.setState({newsItem: this.state.newsItem - 1})
+                            }}
+                        >
+                            <i className="arrow zmdi zmdi-chevron-left"/>&nbsp;
+                            Previous
+                        </button>
+                        {
+                            this.state.newsCount &&
                             <button
                                 className={classNames({
                                     'btn': true,
-                                    'btn-left': true,
+                                    'btn-right': true,
                                     'btn-default': true,
                                     'absolute': true,
-                                    'disabled': this.state.newsItem === 0
+                                    'disabled': this.state.newsItem === this.state.newsCount - 1
                                 })}
                                 data-modal="sendMoney"
                                 onClick={() => {
-                                    this.setState({newsItem: this.state.newsItem - 1})
+                                    this.setState({newsItem: this.state.newsItem + 1})
                                 }}
                             >
-                                <i className="arrow zmdi zmdi-chevron-left"/>&nbsp;
-                                Previous
+                                Next&nbsp;
+                                <i className="arrow zmdi zmdi-chevron-right"/>
                             </button>
-                            {
-                                this.state.newsCount &&
-                                <button
-                                    className={classNames({
-                                        'btn': true,
-                                        'btn-right': true,
-                                        'btn-default': true,
-                                        'absolute': true,
-                                        'disabled': this.state.newsItem === this.state.newsCount - 1
-                                    })}
-                                    data-modal="sendMoney"
-                                    onClick={() => {
-                                        this.setState({newsItem: this.state.newsItem + 1})
-                                    }}
-                                >
-                                    Next&nbsp;
-                                    <i className="arrow zmdi zmdi-chevron-right"/>
-                                </button>
-                            }
-                        </div>
-                    )}
-                </div>
+                        }
+                    </div>
+                )}
             </div>
         )
     }

@@ -52,7 +52,7 @@ input {
       position: relative;
       display: flex;
       flex-wrap: wrap;
-      min-height: 100vh;
+      min-height: calc(100vh - 85px);
       z-index: 0;
       @media(max-width: 760px) {
         padding-top: 0;
@@ -290,7 +290,6 @@ input {
           }
         }
         &.apollo-news {
-          padding-bottom: 45px !important;
           .card-news-content {
             color: #777777;
             font-weight: 400;
@@ -302,7 +301,6 @@ input {
 
       // dashboard page
       & > div {
-        min-height: 750px;
         width: 100%;
         display: flex;
         flex-direction: column;

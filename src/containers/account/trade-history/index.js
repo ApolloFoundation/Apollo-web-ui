@@ -120,50 +120,48 @@ class TradeHistory extends React.Component {
                     pageTitle={'Trade History'}
                 />
                 <div className="page-body container-fluid">
-                    <div className="scheduled-transactions">
-                        <CustomTable 
-                            header={[
-                                {
-                                    name: 'Asset',
-                                    alignRight: false
-                                },{
-                                    name: 'Date',
-                                    alignRight: false
-                                },{
-                                    name: 'Type',
-                                    alignRight: false
-                                },{
-                                    name: 'Quantity',
-                                    alignRight: true
-                                },{
-                                    name: 'Price',
-                                    alignRight: true
-                                },{
-                                    name: 'Total',
-                                    alignRight: true
-                                },{
-                                    name: 'Buyer',
-                                    alignRight: false
-                                },{
-                                    name: 'Seller',
-                                    alignRight: false
-                                }
-                            ]}
-                            className={'mb-3'}
-                            emptyMessage={'No trade history available.'}
-                            TableRowComponent={(el) => 
-                                <TradeHistoryItem 
-                                    transfer={el}
-                                    setTransaction={this.getTransaction}
-                                />
+                    <CustomTable
+                        header={[
+                            {
+                                name: 'Asset',
+                                alignRight: false
+                            },{
+                                name: 'Date',
+                                alignRight: false
+                            },{
+                                name: 'Type',
+                                alignRight: false
+                            },{
+                                name: 'Quantity',
+                                alignRight: true
+                            },{
+                                name: 'Price',
+                                alignRight: true
+                            },{
+                                name: 'Total',
+                                alignRight: true
+                            },{
+                                name: 'Buyer',
+                                alignRight: false
+                            },{
+                                name: 'Seller',
+                                alignRight: false
                             }
-                            isPaginate
-                            page={this.state.page}
-                            tableData={this.state.trades}
-                            previousHendler={() => this.onPaginate(this.state.page - 1)}
-                            nextHendler={() => this.onPaginate(this.state.page + 1)}
-                        />
-                    </div>
+                        ]}
+                        className={'mb-3'}
+                        emptyMessage={'No trade history available.'}
+                        TableRowComponent={(el) =>
+                            <TradeHistoryItem
+                                transfer={el}
+                                setTransaction={this.getTransaction}
+                            />
+                        }
+                        isPaginate
+                        page={this.state.page}
+                        tableData={this.state.trades}
+                        previousHendler={() => this.onPaginate(this.state.page - 1)}
+                        nextHendler={() => this.onPaginate(this.state.page + 1)}
+                    />
                 </div>
             </div>
         );

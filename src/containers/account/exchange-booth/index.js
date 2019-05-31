@@ -283,7 +283,7 @@ class ExchangeBooth extends React.Component {
                             <button
                                 type={'button'}
                                 onClick={() => this.props.setBodyModalParamsAction('OFFER_CURRENCY', this.state.currencyInfo)}
-                                className="btn primary"
+                                className="btn btn-green btn-sm"
                             >
                                 Offer
                             </button>
@@ -291,7 +291,7 @@ class ExchangeBooth extends React.Component {
                                 type={'button'}
                                 onClick={() => this.props.setBodyModalParamsAction('TRANSFER_CURRENCY', this.state.currencyInfo)}
                                 style={{marginLeft: 15}}
-                                className="btn primary"
+                                className="btn btn-green btn-sm"
                             >
                                 Transfer
                             </button>

@@ -119,13 +119,13 @@ class Aliases extends React.Component {
                 <SiteHeader
                     pageTitle={'Aliases'}
                 >
-                    <a
-                        className="btn primary"
-                        style={{marginLeft: 15}}
+                    <button
+                        type={'button'}
+                        className="btn btn-green btn-sm"
                         onClick={() => this.props.setBodyModalParamsAction('ADD_ALIAS', {})}
                     >
                         Add alias
-                    </a>
+                    </button>
                 </SiteHeader>
                 <div className="page-body container-fluid">
                     <CustomTable 

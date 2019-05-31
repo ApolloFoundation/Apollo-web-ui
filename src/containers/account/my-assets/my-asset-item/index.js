@@ -89,13 +89,12 @@ class MyAssetItem extends React.Component {
 	    return (
             <tr key={uuid()}>
                 <td className="blue-link-text" >
-                    <button 
-                        type={'button'} 
-                        onClick={this.gotToAsset} 
-                        to={"/asset-exchange/" + asset}
+                    <span
+                        className={'cursor-pointer blue-link-text'}
+                        onClick={this.gotToAsset}
                     >
                         {name}
-                    </button>
+                    </span>
                 </td>
                 <td className="align-right">
                     {(unconfirmedQuantityATU / Math.pow(10, decimals)).toLocaleString('en', {
@@ -172,7 +171,7 @@ class MyAssetItem extends React.Component {
                                         decimals,
                                         assetName: name
                                     })}
-                                    className="btn btn-green"
+                                    className="btn btn-default"
                                 >
                                     Delete Shares
                                 </button>

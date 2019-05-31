@@ -85,7 +85,7 @@ class Peers extends React.Component {
                         this.props.isLocalhost &&
                         <button
                             type={'button'}
-                            className="btn primary"
+                            className="btn btn-green btn-sm"
                             onClick={() => this.connectPeer()}
                         >
                             Add peer

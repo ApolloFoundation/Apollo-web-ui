@@ -204,9 +204,9 @@ class InfoAccount extends React.PureComponent {
                                             this.props.account !== this.state.account.account &&
                                             <a
                                                 onClick={() => this.props.switchAccountAction(this.state.account.accountRS, this.props.history)}
-                                                className="btn primary static"
+                                                className="btn btn-green btn-sm"
                                                 style={{
-                                                    margin: '0 0 0 30px'
+                                                    margin: '0 0 10px 30px'
                                                 }}
                                             >
                                                 Switch Account

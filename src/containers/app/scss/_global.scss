@@ -727,6 +727,9 @@ div.info-box {
 	&.info {
 		background: #98b0cd;
 		color: #fff;
+		a {
+			color: #2AC940;
+		}
 	}
 	&.success {
 		background: linear-gradient(179.43deg, #2AC940 0%, #31D947 100%);
@@ -1166,6 +1169,8 @@ div.info-box {
 	}
 	&.btn-sm {
 		font-size: 11px;
+		min-width: 40px;
+		min-height: 29px;
 	}
 	&.btn-simple {
 		color: #8AA5C7;
@@ -1242,7 +1247,7 @@ div.info-box {
 	&.btn-default {
 		color: #8AA5C7;
 		background-color: #ffffff;
-		box-shadow: 0 1px 4px 0 rgba(137,151,169,0.3);
+		box-shadow: 0 1px 4px 0 rgba(137,151,169,0.3) !important;
 	}
 	&.btn-green {
 		color: #ffffff;

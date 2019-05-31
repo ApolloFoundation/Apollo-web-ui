@@ -1,5 +1,6 @@
 .transaction-table {
-  height: 100%;
+  height: auto;
+  min-height: 100%;
   width: 100%;
   background-color: #FFFFFF;
   border-radius: 6px;
@@ -8,10 +9,9 @@
   -webkit-overflow-scrolling: touch;
   overflow: hidden;
   padding: 12px;
-  @media (max-width: 1200px) {
-    height: auto;
-    min-height: auto;
-  }
+  justify-content: space-between;
+  display: flex;
+  flex-direction: column;
 
   &.transparent {
     background: transparent;
@@ -31,7 +31,6 @@
   }
 
   .transaction-table-body {
-    min-height: 560px;
     width: 100%;
     border-radius: 3px;
     position: relative;
@@ -163,6 +162,9 @@
             }
             &:last-child {
               padding-right: 0;
+            }
+            .btn {
+              box-shadow: none;
             }
           }
         }

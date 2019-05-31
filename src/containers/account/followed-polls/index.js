@@ -211,7 +211,7 @@ class FollowedVotes extends React.Component {
                         this.props.match.params.poll &&
                         <button
                             type={'button'}
-                            className="btn primary"
+                            className="btn btn-green btn-sm"
                             style={{marginLeft: 15}}
                             onClick={() => this.addToFollowedPolls()}
                         >
