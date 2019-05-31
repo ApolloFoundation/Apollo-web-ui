@@ -64,7 +64,7 @@ class BuyOrders extends React.Component {
                             alignRight: true
                         }
                     ]}
-                    className={'mb-3 pt-0 no-min-height no-padding'}
+                    className={'pt-0 no-min-height no-padding'}
                     tableData={buyOrders}
                     emptyMessage={'No orders found.'}
                     TableRowComponent={(props) => {

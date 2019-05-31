@@ -41,10 +41,10 @@ class SidebarContentPage extends PureComponent {
                                 window.innerWidth < 767 &&
                                 isGoBack &&
                                 <div 
-                                    className={`btn primary mb-3 mt-0  ${backButtonClassname}`} 
+                                    className={`btn btn-default mb-3 mt-0  ${backButtonClassname}`}
                                     onClick={this.getBack}
                                 >
-                                    <i class="zmdi zmdi-long-arrow-left"/>&nbsp;&nbsp;
+                                    <i className="zmdi zmdi-long-arrow-left"/>&nbsp;&nbsp;
                                     Back to list
                                 </div>
                             }

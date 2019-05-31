@@ -198,7 +198,7 @@ class DataStorage extends React.Component {
 					<Link
 						to={'/data-storage'}
 						onClick={() => this.handleReset()}
-						className="btn primary"
+						className="btn btn-green btn-sm"
 					>
 						Reset
 					</Link>

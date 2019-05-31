@@ -90,11 +90,12 @@ const Alias = (props) => (
                     </button>
                 }
 
-                <a
-                    className="btn primary"
+                <button
+                    type={'button'}
+                    className="btn btn-default"
                     onClick={() => props.setBodyModalParamsAction('DELETE_ALIAS', props.alias)}
                 >
-                    Delete</a>
+                    Delete</button>
             </div>
         </td>
     </tr>

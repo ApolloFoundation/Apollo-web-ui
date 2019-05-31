@@ -52,7 +52,7 @@ const PageTitleBox = ({setBodyModalType, children, dashboardPage, pageTitle}) =>
                     if (child) {
                         return React.cloneElement(child, {
                             className : classNames({
-                                'btn primary' : true,
+                                'btn btn-default' : true,
                                 'mr-3': true,
                                 'd-inline' : true
                             }),

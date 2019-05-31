@@ -65,12 +65,13 @@ const MonitorItem = (props) => (
             >
                 Status
             </Link>
-            <a
-                className={'btn primary default'}
+            <button
+                type={'button'}
+                className={'btn btn-default'}
                 onClick={() => stopMonitorAction(props)}
             >
                 Stop
-            </a>
+            </button>
         </td>
     </tr>
 )

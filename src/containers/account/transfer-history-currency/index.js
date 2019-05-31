@@ -147,6 +147,7 @@ class TransferHistoryCurrency extends React.Component {
                         ]}
                         emptyMessage={'No transfer history found.'}
                         page={this.state.page}
+                        className={'mb-3'}
                         TableRowComponent={TransferHistoryItem}
                         tableData={this.state.transfers}
                         isPaginate

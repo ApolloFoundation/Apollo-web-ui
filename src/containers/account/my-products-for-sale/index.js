@@ -93,13 +93,13 @@ class MyProductsForSale extends React.Component {
                 <SiteHeader
                     pageTitle={'My products for sale'}
                 >
-                    <a
-                        className="btn primary"
-                        style={{marginLeft: 15}}
+                    <button
+                        type={'button'}
+                        className="btn btn-green btn-sm"
                         onClick={() => this.props.setBodyModalParamsAction('LIST_PRODUCT_FOR_SALE', {})}
                     >
                         List product for sale
-                    </a>
+                    </button>
                 </SiteHeader>
                 <div className="page-body container-fluid">
                     <CustomTable 

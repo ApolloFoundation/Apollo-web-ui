@@ -137,7 +137,7 @@ class MarketplaceSearch extends React.Component {
                 >
                     <Link
                         to='/marketplace'
-                        className="btn primary"
+                        className="btn btn-default"
                     >
                         Back
                     </Link>

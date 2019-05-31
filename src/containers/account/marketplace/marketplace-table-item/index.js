@@ -20,24 +20,27 @@ const MarketplaceTableItem = (props) => (
         <td className="align-right">{Math.floor(props.priceATM / ONE_APL).toLocaleString('it')} APL</td>
         <td className="align-right">
             <div className="btn-box inline">
-                <a
+                <button
+                    type={'button'}
                     onClick={() => props.setBodyModalParamsAction('CHANGE_PRICE', props.goods)}
                     className="btn btn-green"
                 >
                     Change Price
-                </a>
-                <a
+                </button>
+                <button
+                    type={'button'}
                     onClick={() => props.setBodyModalParamsAction('CHANGE_QUANTITY', props.goods)}
                     className="btn btn-green"
                 >
                     Change QTY
-                </a>
-                <a
+                </button>
+                <button
+                    type={'button'}
                     onClick={() => props.setBodyModalParamsAction('DELETE_GOODS', props.goods)}
-                    className="btn primary"
+                    className="btn btn-default"
                 >
                     Delete
-                </a>
+                </button>
             </div>
         </td>
     </tr>

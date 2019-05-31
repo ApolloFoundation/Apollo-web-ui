@@ -96,10 +96,12 @@ class AccountProperties extends React.Component {
                        onClick={() => this.getAccountPropertiesOutgoing()}>
                         Outgoing
                     </a>
-                    <a className="btn primary"
-                       onClick={this.setProperty}>
+                    <button
+                        type={'button'}
+                        className={'btn btn-green btn-sm'}
+                        onClick={this.setProperty}>
                         Set
-                    </a>
+                    </button>
                 </SiteHeader>
                 <div className="page-body container-fluid">
                     <CustomTable

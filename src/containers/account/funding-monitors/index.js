@@ -77,7 +77,7 @@ class FundingMonitors extends React.Component {
                 <SiteHeader
                     pageTitle={'Funding monitors'}
                 >
-                    <a className="btn primary"
+                    <a className="btn btn-green btn-sm"
                        onClick={() => this.props.setBodyModalParamsAction("ADD_MONITOR", this.reloadFundingMonitors)}>
                         Add monitor
                     </a>
