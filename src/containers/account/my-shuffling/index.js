@@ -5,23 +5,17 @@
 
 
 import React from 'react';
-import SiteHeader from '../../components/site-header'
 import { connect } from 'react-redux';
-import { getBlocksAction } from "../../../actions/blocks";
-import ContentLoader from '../../components/content-loader'
-import ContentHendler from '../../components/content-hendler'
-
-import classNames from "classnames";
-import ShufflingItem from '../active-shufflings/shuffling-item/'
-import uuid from "uuid";
-import submitForm from "../../../helpers/forms/forms";
-import { NotificationManager } from "react-notifications";
-import { getAccountShufflingsAction } from "../../../actions/shuffling";
-import { BlockUpdater } from "../../block-subscriber/index";
-import { getTransactionAction } from "../../../actions/transactions";
-import { setBodyModalParamsAction } from "../../../modules/modals";
-
+import { NotificationManager } from 'react-notifications';
+import SiteHeader from '../../components/site-header';
 import CustomTable from '../../components/tables/table';
+import { getBlocksAction } from '../../../actions/blocks';
+import { getAccountShufflingsAction } from '../../../actions/shuffling';
+import { getTransactionAction } from '../../../actions/transactions';
+import ShufflingItem from './shuffling-item/'
+import submitForm from '../../../helpers/forms/forms';
+import { BlockUpdater } from '../../block-subscriber/index';
+import { setBodyModalParamsAction } from '../../../modules/modals';
 
 
 class MyShufling extends React.Component {
@@ -160,7 +154,13 @@ class MyShufling extends React.Component {
                                     name: 'Assignee',
                                     alignRight: true
                                 }, {
-                                    name: 'Status',
+                                    name: 'Shuffler',
+                                    alignRight: true
+                                }, {
+                                    name: 'Recipient',
+                                    alignRight: true
+                                }, {
+                                    name: 'State',
                                     alignRight: true
                                 }
                             ]}
@@ -170,7 +170,6 @@ class MyShufling extends React.Component {
                             tableData={this.state.shufflings}
                             passProps={{ getTransaction: this.getTransaction }}
                         />
-
                     </div>
                 </div>
             </div>
