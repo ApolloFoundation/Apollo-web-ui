@@ -70,18 +70,6 @@ class Finishedpolls extends React.Component {
         }, pagination);
     };
 
-    async getTransaction(data) {
-        const reqParams = {
-            transaction: data,
-            account: this.props.account
-        };
-
-        const transaction = await this.props.getTransactionAction(reqParams);
-        if (transaction) {
-            this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction);
-        }
-    }
-
     render () {
         return (
             <div className="page-content">
@@ -110,7 +98,7 @@ class Finishedpolls extends React.Component {
                         ]}
                         className={'no-min-height mb-3'}
                         emptyMessage={'No finished polls.'}
-                        TableRowComponent={(el) => <FinishedpollsItem {...el} activepolls getTransaction={this.getTransaction}/>}
+                        TableRowComponent={(el) => <FinishedpollsItem {...el} activepolls/>}
                         tableData={this.state.finishedpolls}
                         hintClassName={'mt-4'}
                         isPaginate
