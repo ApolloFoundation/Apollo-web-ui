@@ -25,6 +25,7 @@ import {getSavedAccountSettingsAction, saveAccountSettingsAction} from "../../mo
 // pages components
 import Dashboard from "../account/dashboard";
 import Login from "../account/login";
+import Faucet from "../account/faucet";
 
 import Transactions from '../account/transactions'
 import Ledger from '../account/ledger'
@@ -285,7 +286,7 @@ class App extends React.Component {
             }
         } = this.props;
 
-        const isLoginPage = pathname === '/login';
+        const isLoginPage = pathname === '/login' || pathname === '/faucet';
 
         return (
             <div
@@ -306,6 +307,7 @@ class App extends React.Component {
                 />
                 <header>
                     {
+                        this.props.location.pathname !== "/faucet" &&
                         this.props.location.pathname !== "/login" &&
                         this.props.account &&
                         <SideBar
@@ -330,6 +332,7 @@ class App extends React.Component {
                     }
                     
                     <Switch>
+                        <Route exact path="/faucet" component={Faucet}/>
                         <Route exact path="/login" render={() => (
                             !!this.props.account ? (
                                 <Redirect to="/dashboard"/>
