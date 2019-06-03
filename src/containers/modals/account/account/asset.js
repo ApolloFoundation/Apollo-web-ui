@@ -6,13 +6,12 @@
 
 import React from 'react';
 import uuid from 'uuid';
-import {closeModal, setBodyModalParamsAction, setModalType} from "../../../../modules/modals";
+import {setBodyModalParamsAction, setModalType} from "../../../../modules/modals";
 import {connect} from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 import {getAskOrders, getBidOrders} from "../../../../actions/marketplace";
-import store from '../../../../store';
 
-class MyAssetItem extends React.Component {
+class AssetItem extends React.Component {
 
     state = {};
 
@@ -80,7 +79,7 @@ class MyAssetItem extends React.Component {
 
         setBodyModalParamsAction();
         history.push("/asset-exchange/" + asset);
-    }
+    };
 
     render () {
 
@@ -96,21 +95,21 @@ class MyAssetItem extends React.Component {
                         {name}
                     </span>
                 </td>
-                <td className="align-right">
+                <td>
                     {(unconfirmedQuantityATU / Math.pow(10, decimals)).toLocaleString('en', {
                         minimumFractionDigits: decimals,
                         maximumFractionDigits: decimals
                     })}
                 </td>
-                <td className="align-right">
+                <td>
                     {(quantityATU  / Math.pow(10, decimals)).toLocaleString('en', {
                         minimumFractionDigits: decimals,
                         maximumFractionDigits: decimals
                     })}</td>
-                <td className="align-right">
+                <td>
                     {((parseInt(unconfirmedQuantityATU) / parseInt(quantityATU)) * 100).toFixed(2)}&nbsp;%
                 </td>
-                <td className="align-right">
+                <td>
                     {
                         !!(this.state.lowestAskOrder / Math.pow(10, 8) * Math.pow(10, decimals)) &&
                         (this.state.lowestAskOrder / Math.pow(10, 8) * Math.pow(10, decimals))
@@ -120,7 +119,7 @@ class MyAssetItem extends React.Component {
                             })
                     }
                 </td>
-                <td className="align-right">
+                <td>
                     {
                         !!(this.state.highestBidOrder / Math.pow(10, 8) * Math.pow(10, decimals)) &&
                         (this.state.highestBidOrder / Math.pow(10, 8) * Math.pow(10, decimals))
@@ -130,7 +129,7 @@ class MyAssetItem extends React.Component {
                             })
                     }
                 </td>
-                <td className="align-right">
+                <td>
                     {
                         !!(this.state.highestBidOrder / Math.pow(10, 8) * Math.pow(10, decimals)) &&
                         ((this.state.highestBidOrder / Math.pow(10, 8) * Math.pow(10, decimals)) *
@@ -139,40 +138,6 @@ class MyAssetItem extends React.Component {
                             maximumFractionDigits: decimals
                         })
                     }
-                </td>
-                <td className="align-right">
-                    {!this.props.info && (
-                        <div className="btn-box inline">
-                            <button
-                                type={'button'}
-                                onClick={() => this.props.setBodyModalParamsAction('TRANSFER_ASSET', {
-                                    quantityATU: quantityATU / Math.pow(10, decimals),
-                                    assetID:   asset,
-                                    assetName: name,
-                                    decimals,
-                                    availableAssets: (quantityATU / Math.pow(10, decimals)).toLocaleString('en', {
-                                        minimumFractionDigits: decimals,
-                                        maximumFractionDigits: decimals
-                                    })}
-                                )}
-                                className="btn btn-default"
-                            >
-                                Transfer
-                            </button>
-                            <button
-                                type={'button'}
-                                onClick={() => this.props.setBodyModalParamsAction('DELETE_SHARES', {
-                                    quantityATU: quantityATU / Math.pow(10, decimals),
-                                    assetID:   asset,
-                                    decimals,
-                                    assetName: name
-                                })}
-                                className="btn btn-default"
-                            >
-                                Delete Shares
-                            </button>
-                        </div>
-                    )}
                 </td>
             </tr>
         );
@@ -186,4 +151,4 @@ const mapDispatchToProps = dispatch => ({
     getBidOrders: asset => getBidOrders(asset),
 });
 
-export default connect(null, mapDispatchToProps)(withRouter(MyAssetItem));
+export default connect(null, mapDispatchToProps)(withRouter(AssetItem));
