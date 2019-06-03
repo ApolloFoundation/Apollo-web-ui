@@ -45,18 +45,18 @@ const Alias = (props) => (
             <div className="btn-box inline">
                 <a
                     onClick={() => props.setBodyModalParamsAction('EDIT_ALIAS', props.alias)}
-                    className="btn btn-green"
+                    className="btn btn-default"
                 >
                     Edit
                 </a>
                 <a
-                    className="btn btn-green"
+                    className="btn btn-default"
                     onClick={() => props.setBodyModalParamsAction('TRANSFER_ALIAS', props.alias)}
                 >
                     Transfer
                 </a>
                 <a
-                    className="btn btn-green"
+                    className="btn btn-default"
                     onClick={() => props.setBodyModalParamsAction('SELL_ALIAS', props.alias)}
                 >
                     Sell
@@ -69,7 +69,7 @@ const Alias = (props) => (
                     ) &&
                     <button
                         type={'button'}
-                        className="btn btn-green"
+                        className="btn btn-default"
                         onClick={() => props.setBodyModalParamsAction('CANCEL_SALE_ALIAS', props.alias)}
                     >
                         Cancel Sale
@@ -83,7 +83,7 @@ const Alias = (props) => (
                     ) &&
                     <button
                         type={'button'}
-                        className="btn btn-green"
+                        className="btn btn-default"
                         onClick={() => props.setBodyModalParamsAction('CANCEL_SALE_ALIAS', props.alias)}
                     >
                         Cancel Sale

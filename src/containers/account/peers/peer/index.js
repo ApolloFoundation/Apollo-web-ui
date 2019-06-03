@@ -37,7 +37,7 @@ const Peer = (props) => (
                 <>
                     <button
                         type={'button'}
-                        className="btn btn-green mt-0"
+                        className="btn btn-default mt-0"
                         onClick={() => props.onConnectClick(props.address)}
                     >
                         Connect

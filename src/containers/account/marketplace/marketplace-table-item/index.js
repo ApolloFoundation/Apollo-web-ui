@@ -23,14 +23,14 @@ const MarketplaceTableItem = (props) => (
                 <button
                     type={'button'}
                     onClick={() => props.setBodyModalParamsAction('CHANGE_PRICE', props.goods)}
-                    className="btn btn-green"
+                    className="btn btn-default"
                 >
                     Change Price
                 </button>
                 <button
                     type={'button'}
                     onClick={() => props.setBodyModalParamsAction('CHANGE_QUANTITY', props.goods)}
-                    className="btn btn-green"
+                    className="btn btn-default"
                 >
                     Change QTY
                 </button>

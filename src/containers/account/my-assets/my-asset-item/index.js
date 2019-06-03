@@ -159,7 +159,7 @@ class MyAssetItem extends React.Component {
                                             maximumFractionDigits: decimals
                                         })}
                                     )}
-                                    className="btn btn-green"
+                                    className="btn btn-default"
                                 >
                                     Transfer
                                 </button>

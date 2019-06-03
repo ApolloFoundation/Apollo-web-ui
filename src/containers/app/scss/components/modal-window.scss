@@ -192,6 +192,10 @@
     }
     .transaction-table-body {
       padding: 0;
+      table tr td {
+        border: none;
+        padding: 10px 5px;
+      }
     }
   }
 }

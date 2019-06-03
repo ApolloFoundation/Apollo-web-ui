@@ -140,7 +140,7 @@ class MessageItem extends React.Component {
                             <button
                                 type={'button'}
                                 onClick={() => setBodyModalParamsAction('DECRYPT_MESSAGES')}
-                                className="btn btn-green"
+                                className="btn btn-default"
                             >
                                 Decrypt
                             </button>
@@ -154,7 +154,7 @@ class MessageItem extends React.Component {
                                     attachment,
                                     message: publicMessage || decryptedMessage 
                                 })}
-                                className="btn btn-green"
+                                className="btn btn-default"
                             >
                                 Share
                             </button>

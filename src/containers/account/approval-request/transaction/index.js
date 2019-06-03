@@ -45,7 +45,7 @@ class Transaction extends React.Component {
                             onClick={() => {
                                 setBodyModalParamsAction("APPROVE_TRANSACTION", {transaction: this.props});
                             }}
-                            className="btn btn-green"
+                            className="btn btn-default"
                         >
                             Approve
                         </button>
