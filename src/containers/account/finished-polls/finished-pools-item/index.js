@@ -20,7 +20,7 @@ const mapDispatchToProps = dispatch => ({
 const FinishedpollsItem = props => (
     <tr key={uuid()}>
         <td  key={uuid()} className="blue-link-text">
-            <a onClick={() => props.getTransaction(props.poll)}>{props.name}</a>
+            <a onClick={() => props.setBodyModalParamsAction('INFO_TRANSACTION', props.poll)}>{props.name}</a>
         </td>
         <td key={uuid()} className={""}> { (props.description.length > 100) ? props.description.slice(0, 100) + '...' : props.description} </td>
         <td key={uuid()} className="blue-link-text">

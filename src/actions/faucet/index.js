@@ -5,6 +5,7 @@
 
 import config from '../../config';
 import {GET, handleFetch} from "../../helpers/fetch";
+import {NotificationManager} from "react-notifications";
 
 export function getCoins(requestParams) {
     return dispatch => {
@@ -13,7 +14,7 @@ export function getCoins(requestParams) {
                 return res;
             })
             .catch((e) => {
-
+                NotificationManager.error('Please try again later.', 'Error', 5000);
             })
     }
 }
