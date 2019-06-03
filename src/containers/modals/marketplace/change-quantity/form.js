@@ -26,9 +26,9 @@ const Form = ({setValue, goods, formatTimestamp}) => (
                 />
                 <NummericInput
                     setValue={setValue}
-                    label="Quantity"
+                    label="New quantity"
                     field="quantity"
-                    placeholder="Quantity"
+                    placeholder="New quantity"
                     defaultValue={1}
                 />
             </>
