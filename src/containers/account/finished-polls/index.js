@@ -104,9 +104,6 @@ class Finishedpolls extends React.Component {
                                 name: 'Start date',
                                 alignRight: false
                             },{
-                                name: 'Blocks left',
-                                alignRight: false
-                            },{
                                 name: 'Actions',
                                 alignRight: true
                             }

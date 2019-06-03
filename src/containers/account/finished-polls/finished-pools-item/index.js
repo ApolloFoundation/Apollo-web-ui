@@ -9,9 +9,11 @@ import {connect} from 'react-redux'
 import uuid from "uuid";
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {Link} from 'react-router-dom';
+import {formatTimestamp} from "../../../../helpers/util/time";
 
 const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
+    formatTimestamp: (time) => dispatch(formatTimestamp(time)),
 });
 
 
@@ -25,10 +27,7 @@ const FinishedpollsItem = props => (
             <a onClick={() => props.setBodyModalParamsAction('INFO_ACCOUNT', props.account)}> {props.accountRS} </a>
         </td>
         <td key={uuid()} className={""}>
-            {props.timestamp}
-        </td>
-        <td key={uuid()} className={""}>
-            {props.finishHeight}
+            {props.formatTimestamp(props.timestamp)}
         </td>
         <td key={uuid()} className={"align-right"}>
             <div className="btn-box inline">

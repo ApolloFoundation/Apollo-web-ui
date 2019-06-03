@@ -130,6 +130,7 @@ html {
 		
 		#root {
 			height: 100%;
+			overflow-y: auto;
 			
 			& > div {
 				height: 100%;
