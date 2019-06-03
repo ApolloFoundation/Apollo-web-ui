@@ -4,7 +4,7 @@ import uuid from 'uuid';
 const Alias = ({aliasName, aliasURI}) => (
     <tr key={uuid()}>
         <td>{aliasName}</td>
-        <td className={'text-align-right'}>{aliasURI}</td>
+        <td>{aliasURI}</td>
     </tr>
 )
 
