@@ -153,15 +153,6 @@ class MyShufling extends React.Component {
                                 }, {
                                     name: 'Assignee',
                                     alignRight: true
-                                }, {
-                                    name: 'Shuffler',
-                                    alignRight: true
-                                }, {
-                                    name: 'Recipient',
-                                    alignRight: true
-                                }, {
-                                    name: 'State',
-                                    alignRight: true
                                 }
                             ]}
                             className={'no-min-height'}

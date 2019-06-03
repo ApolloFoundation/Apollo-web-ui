@@ -71,9 +71,6 @@ const ShufflingItem = (props) => {
                     {props.issuerRS}
                 </a>
             </td>
-            <td className="align-right"></td>
-            <td className="align-right"></td>
-            <td className="align-right"></td>
         </tr>
     )
 };
