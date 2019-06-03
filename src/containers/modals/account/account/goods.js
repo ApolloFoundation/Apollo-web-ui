@@ -5,15 +5,13 @@ import {ONE_APL} from '../../../../constants';
 
 const Goods = ({name, goods, quantity, priceATM, setBodyModalParamsAction}) => (
     <tr className={"marketplace-tab-item"}>
-        <td
-            className={'blue-link-text'}
-        >
+        <td className={'blue-link-text'}>
             <a onClick={() => setBodyModalParamsAction('MARKETPLACE_PURCHASE', goods)}>
                 {name}
             </a>
         </td>
-        <td className={"align-right"}>{priceATM / ONE_APL} APL</td>
-        <td className="align-right">{quantity}</td>
+        <td>{priceATM / ONE_APL} APL</td>
+        <td>{quantity}</td>
     </tr>
 );
 

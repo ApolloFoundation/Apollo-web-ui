@@ -250,7 +250,7 @@ class InfoAccount extends React.PureComponent {
                                                 alignRight: false
                                             }
                                         ]}
-                                        className={'no-min-height transparent pt-4'}
+                                        className={'no-min-height transparent'}
                                         emptyMessage={'This account doesn\'t have any transactions'}
                                         TableRowComponent={ModalTransaction}
                                         tableData={this.state.transactions ? this.state.transactions.transactions : null}
@@ -286,7 +286,7 @@ class InfoAccount extends React.PureComponent {
                                                 alignRight: true
                                             }
                                         ]}
-                                        className={'no-min-height transparent pt-4'}
+                                        className={'no-min-height transparent'}
                                         emptyMessage={'This account doesn\'t have any ledger'}
                                         TableRowComponent={Entry}
                                         tableData={this.state.account_ledger ? this.state.account_ledger.entries : null}
@@ -307,13 +307,16 @@ class InfoAccount extends React.PureComponent {
                                                 alignRight: false
                                             }, {
                                                 name: 'Total Available',
-                                                alignRight: true
+                                                alignRight: false
                                             }, {
                                                 name: 'Percentage',
                                                 alignRight: false
+                                            }, {
+                                                name: 'Actions',
+                                                alignRight: true
                                             }
                                         ]}
-                                        className={'no-min-height transparent pt-4'}
+                                        className={'no-min-height transparent'}
                                         emptyMessage={'This account doesn\'t have any assets'}
                                         TableRowComponent={Asset}
                                         hintClassName={'simple no-padding-on-the-sides'}
@@ -347,7 +350,7 @@ class InfoAccount extends React.PureComponent {
                                                 alignRight: true
                                             }
                                         ]}
-                                        className={'no-min-height transparent pt-4'}
+                                        className={'no-min-height transparent'}
                                         emptyMessage={'This account doesn\'t have any trades.'}
                                         TableRowComponent={Trade}
                                         hintClassName={'simple no-padding-on-the-sides'}
@@ -369,10 +372,10 @@ class InfoAccount extends React.PureComponent {
                                                 alignRight: false
                                             }, {
                                                 name: 'Units',
-                                                alignRight: true
+                                                alignRight: false
                                             },
                                         ]}
-                                        className={'no-min-height transparent pt-4'}
+                                        className={'no-min-height transparent'}
                                         emptyMessage={'This account doesn\'t have any currencies.'}
                                         TableRowComponent={Currency}
                                         hintClassName={'simple no-padding-on-the-sides'}
@@ -391,13 +394,13 @@ class InfoAccount extends React.PureComponent {
                                                 alignRight: false
                                             }, {
                                                 name: 'Price',
-                                                alignRight: true
+                                                alignRight: false
                                             }, {
                                                 name: 'QTY',
-                                                alignRight: true
+                                                alignRight: false
                                             },
                                         ]}
-                                        className={'no-min-height transparent pt-4'}
+                                        className={'no-min-height transparent'}
                                         emptyMessage={'This account doesn\'t have any goods.'}
                                         TableRowComponent={Goods}
                                         hintClassName={'simple no-padding-on-the-sides'}
@@ -417,10 +420,10 @@ class InfoAccount extends React.PureComponent {
                                                 alignRight: false
                                             }, {
                                                 name: 'URI',
-                                                alignRight: true
+                                                alignRight: false
                                             },
                                         ]}
-                                        className={'no-min-height transparent pt-4'}
+                                        className={'no-min-height transparent'}
                                         emptyMessage={'This account doesn\'t have any aliases.'}
                                         TableRowComponent={Alias}
                                         hintClassName={'simple no-padding-on-the-sides'}
@@ -436,10 +439,7 @@ class InfoAccount extends React.PureComponent {
                                         <a
                                             onClick={() => this.props.setBodyModalParamsAction('SEND_APOLLO', {recipient}, {recipient})}
                                             className={classNames({
-                                                "btn": true,
-                                                "btn-primary": true,
-                                                "blue": true,
-                                                "static": true,
+                                                "btn btn-green": true,
                                                 "disabled": !this.state.account
                                             })}
                                         >
@@ -448,10 +448,7 @@ class InfoAccount extends React.PureComponent {
                                         <a
                                             onClick={() => this.props.setBodyModalParamsAction('TRANSFER_CURRENCY', {recipient}, {recipient})}
                                             className={classNames({
-                                                "btn": true,
-                                                "btn-primary": true,
-                                                "blue": true,
-                                                "static": true,
+                                                "btn btn-green": true,
                                                 "disabled": !this.state.account
                                             })}
                                         >
@@ -460,10 +457,7 @@ class InfoAccount extends React.PureComponent {
                                         <a
                                             onClick={() => this.props.setBodyModalParamsAction('COMPOSE_MESSAGE', {recipient}, {recipient})}
                                             className={classNames({
-                                                "btn": true,
-                                                "btn-primary": true,
-                                                "blue": true,
-                                                "static": true,
+                                                "btn btn-green": true,
                                                 "disabled": !this.state.account
                                             })}
                                         >
@@ -472,10 +466,7 @@ class InfoAccount extends React.PureComponent {
                                         <a
                                             onClick={() => this.props.setBodyModalParamsAction('SAVE_ACCOUNT', {recipient}, {recipient})}
                                             className={classNames({
-                                                "btn": true,
-                                                "btn-primary": true,
-                                                "blue": true,
-                                                "static": true,
+                                                "btn btn-green": true,
                                                 "disabled": !this.state.account
                                             })}
                                         >
