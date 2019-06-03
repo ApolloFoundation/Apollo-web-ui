@@ -15,7 +15,6 @@ import {formatTimestamp} from '../../../../helpers/util/time';
 import {withRouter} from "react-router-dom";
 
 import ModalTransaction from '../../../account/modalTransactions/transaction';
-import Asset from '../../../account/my-assets/my-asset-item';
 import {getBlockAction} from "../../../../actions/blocks";
 
 import CustomTable from '../../../components/tables/table';
@@ -27,6 +26,7 @@ import Trade from './trade';
 import Currency from './currency';
 import Alias from './alias';
 import Goods from './goods';
+import Asset from './asset';
 
 class InfoAccount extends React.PureComponent {
     constructor(props) {
@@ -238,7 +238,7 @@ class InfoAccount extends React.PureComponent {
                                                 alignRight: true
                                             }, {
                                                 name: 'Fee',
-                                                alignRight: false
+                                                alignRight: true
                                             }, {
                                                 name: 'From',
                                                 alignRight: false
@@ -247,7 +247,7 @@ class InfoAccount extends React.PureComponent {
                                                 alignRight: false
                                             }, {
                                                 name: 'Height',
-                                                alignRight: false
+                                                alignRight: true
                                             }
                                         ]}
                                         className={'no-min-height transparent'}
@@ -274,10 +274,10 @@ class InfoAccount extends React.PureComponent {
                                                 alignRight: true
                                             }, {
                                                 name: 'Balance',
-                                                alignRight: false
+                                                alignRight: true
                                             }, {
                                                 name: 'Holding',
-                                                alignRight: false
+                                                alignRight: true
                                             }, {
                                                 name: 'Change',
                                                 alignRight: true
@@ -312,8 +312,14 @@ class InfoAccount extends React.PureComponent {
                                                 name: 'Percentage',
                                                 alignRight: false
                                             }, {
-                                                name: 'Actions',
-                                                alignRight: true
+                                                name: 'Lowest Ask',
+                                                alignRight: false
+                                            }, {
+                                                name: 'Highest Bid',
+                                                alignRight: false
+                                            }, {
+                                                name: 'Value in Coin',
+                                                alignRight: false
                                             }
                                         ]}
                                         className={'no-min-height transparent'}
