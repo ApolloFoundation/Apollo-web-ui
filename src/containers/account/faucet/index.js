@@ -6,31 +6,40 @@
 
 import { connect } from 'react-redux';
 import React from 'react';
-import {NotificationManager} from "react-notifications";
-import { getAccountDataAction, getAccountDataBySecretPhrasseAction } from '../../../actions/login';
-import {setBodyModalParamsAction} from "../../../modules/modals";
+import {Form} from 'react-form';
+import {NotificationManager} from 'react-notifications';
 import AccountRS from '../../components/account-rs';
-import {Form} from "react-form";
-import {getConstantsAction} from '../../../actions/login'
-import InfoBox from "../../components/info-box";
-
+import InfoBox from '../../components/info-box';
 import LogoImg from '../../../assets/logo.png';
+import {getCoins} from '../../../actions/faucet';
 import './style.scss'
 
 class Faucet extends React.Component {
-    componentDidMount () {
-        this.props.getConstantsAction();
-    }
+    state = {
+        form: null,
+    };
 
-    enterAccount = (values) => {
+    enterAccount = async (values) => {
         if (!values.accountRS || values.accountRS.length === 0) {
             NotificationManager.error('Account ID is required.', 'Error', 5000);
             return;
         }
 
-        // this.props.getAccountAction({
-        //     account: values.accountRS
-        // });
+        const result = await this.props.getCoins({
+            address: values.accountRS
+        });
+        if (result && result.success) {
+            NotificationManager.success('Success! Sent 30000 APL to your address', null, 5000);
+            this.state.form.resetAll();
+        } else {
+            NotificationManager.error(result.message, 'Error', 5000);
+        }
+    };
+
+    getFormApi = (form) => {
+        this.setState({
+            form
+        })
     };
 
     render() {
@@ -52,9 +61,10 @@ class Faucet extends React.Component {
                                             <p className={'title'}>Testnet Faucet</p>
                                             <div className="form-tabulator">
                                                     <Form
+                                                        getApi={this.getFormApi}
                                                         onSubmit={(values) => this.enterAccount(values)}
                                                         render={({
-                                                                     submitForm, setValue
+                                                                     submitForm, setValue, values
                                                                  }) => (
                                                             <form
                                                                 onSubmit={submitForm}
@@ -70,10 +80,10 @@ class Faucet extends React.Component {
                                                                         <div>
                                                                             <div className="iconned-input-field">
                                                                                 <AccountRS
-                                                                                    value={''}
                                                                                     field={'accountRS'}
                                                                                     setValue={setValue}
                                                                                     placeholder={'Account ID'}
+                                                                                    defaultValue={values.accountRS || ''}
                                                                                 />
                                                                             </div>
                                                                         </div>
@@ -115,10 +125,7 @@ const mapStateToProps = state =>  ({
 
 const mapDipatchToProps = dispatch => {
     return {
-        getAccountAction: (requestParams) => dispatch(getAccountDataAction(requestParams)),
-        getAccountDataBySecretPhrasseAction: (requestParams) => dispatch(getAccountDataBySecretPhrasseAction(requestParams)),
-        setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-        getConstantsAction: () => dispatch(getConstantsAction()),
+        getCoins: (requestParams) => dispatch(getCoins(requestParams)),
     };
 };
 
