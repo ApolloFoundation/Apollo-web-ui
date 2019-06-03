@@ -89,20 +89,21 @@ class InfoLedgerTransaction extends React.Component {
     };
 
     render() {
-        const recipientRS = this.state.transaction && (this.props.accountRS === this.state.transaction.recipientRS ? this.state.transaction.senderRS : this.state.transaction.recipientRS);
+        const {transaction} = this.state;
+        const recipientRS = transaction && (this.props.accountRS === transaction.recipientRS ? transaction.senderRS : transaction.recipientRS);
         return (
             <ModalBody
-                modalTitle={`Transaction ${this.state.transaction.transaction} Info`}
+                modalTitle={`Transaction ${transaction && transaction.transaction} Info`}
                 closeModal={this.props.closeModal}
                 isDisableFormFooter
                 isDisableSecretPhrase
                 isWide
             >
-                {this.state.transaction && this.props.constants.transactionTypes && this.props.constants.transactionTypes[this.state.transaction.type] && (
+                {transaction && this.props.constants.transactionTypes && this.props.constants.transactionTypes[transaction.type] && (
                     <TabulationBody>
                         <TabContaier sectionName={'Info'}>
                             <div className="transaction-table no-min-height transparent">
-                                <InfoTransactionTable transaction={this.state.transaction}
+                                <InfoTransactionTable transaction={transaction}
                                                       constants={this.props.constants}/>
                             </div>
                         </TabContaier>
