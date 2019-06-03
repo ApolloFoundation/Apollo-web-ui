@@ -6,6 +6,8 @@
 export const SET_CURRENT_CURRENCY = "SET_CURRENT_CURRENCY";
 export const SET_BUY_ORDERS = "SET_BUY_ORDERS";
 export const SET_SELL_ORDERS = "SET_SELL_ORDERS";
+export const SET_PLOT_BUY_ORDERS = "SET_PLOT_BUY_ORDERS";
+export const SET_PLOT_SELL_ORDERS = "SET_PLOT_SELL_ORDERS";
 export const SET_MY_ORDERS = "SET_MY_ORDERS";
 export const SET_MY_ORDER_HISTORY = "SET_MY_ORDER_HISTORY";
 
@@ -16,6 +18,8 @@ const initState = {
     },
     buyOrders: {},
     sellOrders: {},
+    plotBuyOrders: {},
+    plotSellOrders: {},
     myOrders: {},
     myOrderHistory: {},
 };
@@ -42,6 +46,22 @@ export default (state = initState, {type, payload}) => {
                 ...state,
                 sellOrders: {
                     ...state.sellOrders,
+                    [payload.currency]: payload.orders,
+                }
+            };
+        case SET_PLOT_BUY_ORDERS:
+            return {
+                ...state,
+                plotBuyOrders: {
+                    ...state.plotBuyOrders,
+                    [payload.currency]: payload.orders,
+                }
+            };
+        case SET_PLOT_SELL_ORDERS:
+            return {
+                ...state,
+                plotSellOrders: {
+                    ...state.plotSellOrders,
                     [payload.currency]: payload.orders,
                 }
             };
@@ -83,6 +103,26 @@ export const setBuyOrdersAction = (currency, orders) => dispatch => {
 export const setSellOrdersAction = (currency, orders) => dispatch => {
     dispatch({
         type: SET_SELL_ORDERS,
+        payload: {
+            currency,
+            orders,
+        }
+    })
+};
+
+export const setPlotBuyOrdersAction = (currency, orders) => dispatch => {
+    dispatch({
+        type: SET_PLOT_BUY_ORDERS,
+        payload: {
+            currency,
+            orders,
+        }
+    })
+};
+
+export const setPlotSellOrdersAction = (currency, orders) => dispatch => {
+    dispatch({
+        type: SET_PLOT_SELL_ORDERS,
         payload: {
             currency,
             orders,

@@ -10,6 +10,7 @@ import crypto from "../../../../helpers/crypto/crypto";
 import converters from "../../../../helpers/converters";
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {connect} from 'react-redux';
+import {ONE_APL} from '../../../../constants';
 
 class Asset extends React.Component {
     constructor(props) {
@@ -53,8 +54,8 @@ class Asset extends React.Component {
                         {this.state.entry.eventType}
                         <a><span className="info"></span></a>
                     </td>
-                    <td className="align-right">-{this.state.entry.change / 100000000}</td>
-                    <td>{(this.state.entry.balance / 100000000).toFixed(2)}</td>
+                    <td className="align-right">-{this.state.entry.change / ONE_APL}</td>
+                    <td>{(this.state.entry.balance / ONE_APL).toFixed(2)}</td>
                     <td>
                         <a></a>
                     </td>

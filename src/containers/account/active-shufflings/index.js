@@ -6,19 +6,14 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import uuid from "uuid";
-import classNames from "classnames";
+import {NotificationManager} from 'react-notifications';
 import SiteHeader from "../../components/site-header";
+import CustomTable from '../../components/tables/table';
 import ShufflingItem from './shuffling-item';
-import {getActiveShfflings, getFinishedShfflings} from '../../../actions/shuffling';
-import {NotificationManager} from "react-notifications";
+import {getActiveShfflings} from '../../../actions/shuffling';
 import {getTransactionAction} from "../../../actions/transactions";
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {BlockUpdater} from "../../block-subscriber";
-import ContentLoader from '../../components/content-loader'
-import ContentHendler from '../../components/content-hendler'
-
-import CustomTable from '../../components/tables/table';
 
 
 const mapStateToPropms = state => ({
@@ -26,41 +21,31 @@ const mapStateToPropms = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    getActiveShfflings  : (reqParams) => dispatch(getActiveShfflings(reqParams)),
-    getFinishedShfflings: (reqParams) => dispatch(getFinishedShfflings(reqParams)),
+    getActiveShfflings: (reqParams) => dispatch(getActiveShfflings(reqParams)),
     getTransactionAction: (reqParams) => dispatch(getTransactionAction(reqParams)),
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 });
 
 class ActiveShufflings extends React.Component {
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            activeShuffling: null
-        }
-    }
+    state = {
+        activeShuffling: null,
+        page: 1,
+        firstIndex: 0,
+        lastIndex: 14,
+    };
 
     listener = data => {
         this.getActiveShfflings({
-            firstIndex: 0,
-            lastIndex: 14
-        });
-        this.getFinishedShfflings({
-            firstIndex: 0,
-            lastIndex: 14
+            firstIndex: this.state.firstIndex,
+            lastIndex: this.state.lastIndex
         });
     };
 
     componentDidMount() {
         NotificationManager.info('After creating or joining a shuffling, you must keep your node online and your shuffler running, leaving enough funds in your account to cover the shuffling fees, until the shuffling completes! If you don\'t and miss your turn, you will be fined.', null, 1000000);
         this.getActiveShfflings({
-            firstIndex: 0,
-            lastIndex: 14
-        });
-        this.getFinishedShfflings({
-            firstIndex: 0,
-            lastIndex: 14
+            firstIndex: this.state.firstIndex,
+            lastIndex: this.state.lastIndex
         });
         BlockUpdater.on("data", this.listener);
     }
@@ -69,39 +54,27 @@ class ActiveShufflings extends React.Component {
         BlockUpdater.removeListener("data", this.listener)
     }
 
-    getFinishedShfflings   = async (reqParams) => {
-        const finishedShufflings =  await this.props.getFinishedShfflings(reqParams);
-
-        if (finishedShufflings) {
-            this.setState({
-                ...this.state,
-                finishedShufflings: finishedShufflings.shufflings
-            })
-        }
-    };
-
-    getActiveShfflings   = async (reqParams) => {
-        const activeShuffling =  await this.props.getActiveShfflings(reqParams);
+    getActiveShfflings = async (reqParams, pagination) => {
+        const activeShuffling = await this.props.getActiveShfflings(reqParams);
 
         if (activeShuffling) {
             this.setState({
-                ...this.state,
+                ...pagination,
                 activeShuffling: activeShuffling.shufflings
             })
         }
     };
 
     onPaginate = (page) => {
-        this.setState({
+        const pagination = {
             page: page,
             firstIndex: page * 15 - 15,
-            lastIndex:  page * 15 - 1
-        }, () => {
-            this.getActiveShfflings({
-                firstIndex: this.state.firstIndex,
-                lastIndex: this.state.lastIndex
-            })
-        });
+            lastIndex: page * 15 - 1
+        };
+        this.getActiveShfflings({
+            firstIndex: pagination.firstIndex,
+            lastIndex: pagination.lastIndex
+        }, pagination);
     };
 
     getTransaction = async (data) => {
@@ -115,9 +88,9 @@ class ActiveShufflings extends React.Component {
             this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction);
         }
 
-    }
+    };
 
-    render () {
+    render() {
         return (
             <div className="page-content">
                 <SiteHeader
@@ -125,75 +98,44 @@ class ActiveShufflings extends React.Component {
                 />
                 <div className="page-body container-fluid">
                     <div className="active-polls white-space">
-                        <CustomTable 
+                        <CustomTable
                             header={[
                                 {
                                     name: 'Shuffling',
                                     alignRight: false
-                                },{
+                                }, {
                                     name: 'Stage',
                                     alignRight: false
-                                },{
+                                }, {
                                     name: 'Holding',
                                     alignRight: false
-                                },{
+                                }, {
                                     name: 'Amount',
                                     alignRight: false
-                                },{
+                                }, {
                                     name: 'Blocks Remaining',
                                     alignRight: false
-                                },{
+                                }, {
                                     name: 'Participants',
                                     alignRight: true
-                                },{
+                                }, {
                                     name: 'Assignee',
                                     alignRight: true
-                                },{
+                                }, {
                                     name: 'Status',
                                     alignRight: true
                                 }
                             ]}
-                            className={'no-min-height'}
-                            emptyMessage={'No active polls.'}
+                            className={'no-min-height mb-3'}
+                            emptyMessage={'No active shuffling.'}
                             TableRowComponent={ShufflingItem}
                             tableData={this.state.activeShuffling}
+                            passProps={{getTransaction: this.getTransaction}}
+                            isPaginate
+                            page={this.state.page}
+                            previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
+                            nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
                         />
-
-                        <div className="form-group-app offset-bottom height-auto no-padding mb-3">
-                            <CustomTable 
-                                tableName={'Finished Shufflings'}
-                                header={[
-                                    {
-                                        name: 'Shuffling',
-                                        alignRight: false
-                                    },{
-                                        name: 'Stage',
-                                        alignRight: false
-                                    },{
-                                        name: 'Holding',
-                                        alignRight: false
-                                    },{
-                                        name: 'Amount',
-                                        alignRight: false
-                                    },{
-                                        name: 'Participants',
-                                        alignRight: true
-                                    },{
-                                        name: 'Issuer',
-                                        alignRight: true
-                                    },
-                                ]}
-                                className={'no-min-height pb-0'}
-                                emptyMessage={'No finished polls.'}
-                                TableRowComponent={ShufflingItem}
-                                tableData={this.state.finishedShufflings}
-                                hintClassName={''}
-                                actionButton={{
-                                    name:'View All',
-                                    handler: this.handleGoToFinishedPolls
-                                }}
-                            />
-                        </div>
                     </div>
                 </div>
             </div>

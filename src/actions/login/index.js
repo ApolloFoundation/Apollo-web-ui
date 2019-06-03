@@ -27,7 +27,7 @@ export function getAccountDataAction(requestParams) {
             type: 'SET_LOGIN_PROBLEM',
             payload: false
         });
-        const loginStatus = (await makeLoginReq(dispatch, requestParams));
+        const loginStatus = (await dispatch(makeLoginReq(requestParams)));
 
         if (loginStatus) {
             if (loginStatus.errorCode && !loginStatus.account) {
@@ -49,7 +49,7 @@ export function getAccountDataBySecretPhrasseAction(requestParams) {
 
         localStorage.setItem('secretPhrase', JSON.stringify(requestParams.secretPhrase));
 
-        const loginStatus = await makeLoginReq(dispatch, {account: dispatch(accountRS)});
+        const loginStatus = await dispatch(makeLoginReq({account: dispatch(accountRS)}));
 
         if (loginStatus) {
             if (loginStatus.errorCode && !loginStatus.account) {
@@ -90,9 +90,7 @@ export function isLoggedIn(history) {
         let account = JSON.parse(readFromLocalStorage('APLUserRS'));
 
         if (account) {
-            makeLoginReq(dispatch, {
-                account: account
-            });
+            dispatch(makeLoginReq({account}));
         } else {
             if (document.location.pathname !== '/login' && document.location.pathname !== '/faucet')
                 history.push('/login');
@@ -138,7 +136,11 @@ export const updateAccount = (requestParams) => dispatch => {
         }
     })
         .then((res) => {
-            dispatch(login(res.data));
+            if (res.data && (!res.data.errorCode || res.data.errorCode === 5)) {
+                delete res.data.errorCode;
+                delete res.data.errorDescription;
+                dispatch(login(res.data));
+            }
         })
         .catch(function (err) {
             dispatch({
@@ -148,7 +150,7 @@ export const updateAccount = (requestParams) => dispatch => {
         });
 }
 
-export function makeLoginReq(dispatch, requestParams) {
+export const makeLoginReq = (requestParams) => (dispatch) => {
     dispatch(startLoad());
     return axios.get(config.api.serverUrl, {
         params: {
@@ -160,23 +162,27 @@ export function makeLoginReq(dispatch, requestParams) {
         }
     })
         .then((res) => {
-            if (res.data.account) {
-                dispatch(endLoad());
-                writeToLocalStorage('APLUserRS', res.data.accountRS);
-                dispatch(updateNotifications())(res.data.accountRS);
-                dispatch(getConstantsAction());
-                dispatch({
-                    type: 'SET_PASSPHRASE',
-                    payload: JSON.parse(localStorage.getItem('secretPhrase'))
-                });
-                dispatch({
-                    type: 'SET_DASHBOARD_ACCOUNT_INFO',
-                    payload: res.data
-                });
-                dispatch(login(res.data));
-                dispatch(getForging());
+            if (res.data) {
+                delete res.data.errorCode;
+                delete res.data.errorDescription;
+                if (res.data.account) {
+                    writeToLocalStorage('APLUserRS', res.data.accountRS);
+                    dispatch(updateNotifications())(res.data.accountRS);
+                    dispatch(getConstantsAction());
+                    dispatch({
+                        type: 'SET_PASSPHRASE',
+                        payload: JSON.parse(localStorage.getItem('secretPhrase'))
+                    });
+                    dispatch({
+                        type: 'SET_DASHBOARD_ACCOUNT_INFO',
+                        payload: res.data
+                    });
+                    dispatch(login(res.data));
+                    dispatch(getForging());
+                    dispatch(endLoad());
+                }
+                return res.data;
             }
-            return res.data;
         })
         .catch(function (err) {
             dispatch({

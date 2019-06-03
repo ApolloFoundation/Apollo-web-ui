@@ -1,24 +1,46 @@
 import React from 'react';
-import {connect} from "react-redux";
-import {Form} from "react-form";
-import {NotificationManager} from "react-notifications";
+import {connect} from 'react-redux';
+import {Form} from 'react-form';
+import {NotificationManager} from 'react-notifications';
 import InputForm from '../../../../components/input-form';
-import {currencyTypes, formatDivision, multiply} from "../../../../../helpers/format";
-import {createOffer} from "../../../../../actions/wallet";
-import {setBodyModalParamsAction} from "../../../../../modules/modals";
+import CustomSelect from '../../../../components/select';
+import {currencyTypes, formatDivision, multiply} from '../../../../../helpers/format';
+import {createOffer} from '../../../../../actions/wallet';
+import {setBodyModalParamsAction} from '../../../../../modules/modals';
+import {ONE_APL} from '../../../../../constants';
 
 class ExchangeSell extends React.Component {
     feeATM = 200000000;
     state = {
         form: null,
         currentCurrency: null,
+        wallet: null,
+        walletsList: null,
     };
 
     static getDerivedStateFromProps(props, state) {
-        if (props.currentCurrency.currency !== state.currentCurrency) {
-            if(state.form) state.form.resetAll();
+        if (props.currentCurrency.currency !== state.currentCurrency || props.wallet !== state.wallet) {
+            if (state.form && state.form.values) {
+                state.form.setAllValues({
+                    fromAddress: state.form.values.fromAddress,
+                    pairRate: '',
+                    offerAmount: '',
+                    total: '',
+                });
+            }
+
+            let walletsList = props.wallet || [];
+            walletsList = walletsList.map((wallet) => (
+                {
+                    value: wallet,
+                    label: wallet.address
+                }
+            ));
+
             return {
                 currentCurrency: props.currentCurrency.currency,
+                wallet: props.wallet,
+                walletsList,
             };
         }
 
@@ -28,8 +50,17 @@ class ExchangeSell extends React.Component {
     handleFormSubmit = (values) => {
         if (this.props.wallet) {
             if (values.offerAmount > 0 && values.pairRate > 0) {
-                const pairRate = multiply(values.pairRate, 100000000);
-                const offerAmount = multiply(values.offerAmount, 100000000);
+                const currency = this.props.currentCurrency.currency;
+                if (values.pairRate < 0.000000001) {
+                    NotificationManager.error(`Price must be more then 0.000000001 ${currency.toUpperCase()}`, 'Error', 5000);
+                    return;
+                }
+                if (values.offerAmount < 0.001) {
+                    NotificationManager.error('You can sell more then 0.001 APL', 'Error', 5000);
+                    return;
+                }
+                const pairRate = multiply(values.pairRate, ONE_APL);
+                const offerAmount = multiply(values.offerAmount, ONE_APL);
                 const balanceAPL = (this.props.dashboardAccoountInfo && this.props.dashboardAccoountInfo.unconfirmedBalanceATM) ?
                     parseFloat(this.props.dashboardAccoountInfo.unconfirmedBalanceATM)
                     :
@@ -42,22 +73,35 @@ class ExchangeSell extends React.Component {
 
                 const params = {
                     offerType: 1, // SELL
-                    pairCurrency: currencyTypes[this.props.currentCurrency.currency],
+                    pairCurrency: currencyTypes[currency],
                     pairRate,
                     offerAmount,
                     offerCurrency: currencyTypes['apl'],
                     sender: this.props.account,
                     passphrase: this.props.passPhrase,
-                    feeATM: this.feeATM
+                    feeATM: this.feeATM,
+                    fromAddress: values.fromAddress.address,
                 };
 
                 if (this.props.passPhrase) {
                     this.props.createOffer(params);
-                    if (this.state.form) this.state.form.resetAll();
+                    if (this.state.form) {
+                        this.state.form.setAllValues({
+                            fromAddress: values.fromAddress,
+                            pairRate: '',
+                            offerAmount: '',
+                            total: '',
+                        });
+                    }
                 } else {
                     this.props.setBodyModalParamsAction('CONFIRM_CREATE_OFFER', {
                         params,
-                        resetForm: this.state.form.resetAll
+                        resetForm: () => this.state.form.setAllValues({
+                            fromAddress: values.fromAddress,
+                            pairRate: '',
+                            offerAmount: '',
+                            total: '',
+                        })
                     });
                 }
             } else {
@@ -72,10 +116,20 @@ class ExchangeSell extends React.Component {
         this.setState({form})
     };
 
+    getWalletsList = () => {
+        const wallets = this.props.wallet || [];
+        return wallets.map((wallet) => (
+            {
+                value: wallet,
+                label: wallet.address
+            }
+        ));
+    };
+
     render() {
         const {currentCurrency: {currency}, wallet, balanceAPL, dashboardAccoountInfo} = this.props;
         const balance = (dashboardAccoountInfo && dashboardAccoountInfo.unconfirmedBalanceATM) ? dashboardAccoountInfo.unconfirmedBalanceATM : balanceAPL;
-        const balanceFormat = balance ? formatDivision(balance, 100000000, 3) : 0;
+        const balanceFormat = balance ? formatDivision(balance, ONE_APL, 3) : 0;
         const currencyName = currency.toUpperCase();
         return (
             <div className={'card-block green card card-medium pt-0 h-400'}>
@@ -88,8 +142,22 @@ class ExchangeSell extends React.Component {
                         <form className="modal-form modal-send-apollo modal-form" onSubmit={submitForm}>
                             <div className="form-title d-flex justify-content-between align-items-center">
                                 <p>Sell APL</p>
-                                <span>Fee: {this.feeATM/100000000} APL</span>
+                                <span>Fee: {this.feeATM/ONE_APL} APL</span>
                             </div>
+                            {this.state.walletsList && !!this.state.walletsList.length && (
+                                <div className="form-group row form-group-white mb-15">
+                                    <label>
+                                        {currencyName} Wallet
+                                    </label>
+                                    <CustomSelect
+                                        className="form-control"
+                                        field={'fromAddress'}
+                                        defaultValue={this.state.walletsList[0]}
+                                        setValue={setValue}
+                                        options={this.state.walletsList}
+                                    />
+                                </div>
+                            )}
                             <div className="form-group row form-group-white mb-15">
                                 <label>
                                     Price for 1 APL
@@ -138,7 +206,7 @@ class ExchangeSell extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                            {wallet && wallet.wallets && balanceFormat !== false && (
+                            {wallet && balanceFormat !== false && (
                                 <div className={'form-group-text d-flex justify-content-between'}>
                                     of Total Balance: <span><i
                                     className="zmdi zmdi-balance-wallet"/> {balanceFormat}&nbsp;APL</span>

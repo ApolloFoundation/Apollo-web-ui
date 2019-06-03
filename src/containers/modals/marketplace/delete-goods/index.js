@@ -101,7 +101,7 @@ class MarketplaceDelete extends React.Component {
                     image:  `${config.api.serverUrl}requestType=downloadPrunableMessage&transaction=${goods ? goods.goods : null}&retrieve=true`,
                     description: goods ? goods.description : null
                 }}
-                submitButtonName="Change quantity"
+                submitButtonName="Delete"
             >
                 <Form goods={this.state.goods}/>
             </ModalBody>

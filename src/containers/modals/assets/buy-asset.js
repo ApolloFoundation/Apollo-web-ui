@@ -8,6 +8,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {setBodyModalParamsAction} from '../../../modules/modals';
 import {Text} from 'react-form';
+import {ONE_APL} from '../../../constants';
 
 import {NotificationManager} from "react-notifications";
 
@@ -36,7 +37,7 @@ class BuyAsset extends React.Component {
         values = {
             ...values,
             asset: this.props.modalData.assetInfo.asset,
-            priceOrder: this.props.modalData.priceATM * (100000000 / Math.pow(10, this.props.modalData.assetInfo.decimals)),
+            priceOrder: this.props.modalData.priceATM * (ONE_APL / Math.pow(10, this.props.modalData.assetInfo.decimals)),
             quantityOrder: (this.props.modalData.quantityATU * Math.pow(10, this.props.modalData.assetInfo.decimals))
         };
 
@@ -59,7 +60,7 @@ class BuyAsset extends React.Component {
         const assetID     = modalData && modalData.assetInfo ? modalData.assetInfo.assetID : '';
         const quantityATU = modalData && modalData.quantityATU;
         const total       = modalData && modalData.total;
-        
+
         return (
             <ModalBody
                 loadForm={this.loadForm}
@@ -75,12 +76,12 @@ class BuyAsset extends React.Component {
                 <Text defaultValue={assetID} type="hidden" field={'asset'}/>
                 <Text defaultValue={quantityATU} placeholder={'Quantity'} type="hidden" field={'quantityATU'}/>
 
-                <TextualInputComponent 
+                <TextualInputComponent
                     label={'Order Description'}
                     text={`Buy ${quantityATU} ${name} assets at ${total / quantityATU} Apollo each.`}
                 />
 
-                <TextualInputComponent 
+                <TextualInputComponent
                     label={'Total'}
                     text={`${total} Apollo`}
                 />

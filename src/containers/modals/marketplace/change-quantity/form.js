@@ -1,13 +1,10 @@
 import React from 'react';
 
-import {formatTimestamp} from '../../../../helpers/util/time'
-import {connect} from 'react-redux';
-
 import NummericInput from '../../../components/form-components/numeric-input';
 import TextualInput from '../../../components/form-components/textual-input';
 
 
-const Form = ({setValue, goods}) => (
+const Form = ({setValue, goods, formatTimestamp}) => (
     <>
         {
             goods &&  
@@ -29,7 +26,7 @@ const Form = ({setValue, goods}) => (
                 />
                 <NummericInput
                     setValue={setValue}
-                    label="New quantity"
+                    label="Quantity"
                     field="quantity"
                     placeholder="Quantity"
                     defaultValue={1}
@@ -37,10 +34,6 @@ const Form = ({setValue, goods}) => (
             </>
         }
     </>
-)
+);
 
-const md2p = {
-    formatTimestamp
-}
-
-export default connect(null, md2p)(Form)
+export default Form;

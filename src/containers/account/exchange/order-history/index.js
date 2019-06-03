@@ -6,6 +6,7 @@ import {setCurrentCurrencyAction} from '../../../../modules/exchange';
 import {setBodyModalParamsAction} from '../../../../modules/modals';
 import {getMyOfferHistory} from '../../../../actions/wallet';
 import {formatDivision, currencyTypes} from '../../../../helpers/format';
+import {ONE_APL} from '../../../../constants';
 import InfoBox from '../../../components/info-box';
 
 class OrderHistory extends React.Component {
@@ -17,7 +18,7 @@ class OrderHistory extends React.Component {
     };
 
     componentDidMount() {
-        let wallets = JSON.parse(localStorage.getItem('wallets'));
+        let wallets = localStorage.getItem('wallets');
         if (!wallets) {
             this.props.setBodyModalParamsAction('LOGIN_EXCHANGE', {});
         } else {
@@ -98,8 +99,8 @@ class OrderHistory extends React.Component {
                                 emptyMessage={'No created orders.'}
                                 tableData={myOrderHistory}
                                 TableRowComponent={(props) => {
-                                    const pairRate = formatDivision(props.pairRate, 100000000, 9);
-                                    const offerAmount = formatDivision(props.offerAmount, 100000000, 3);
+                                    const pairRate = formatDivision(props.pairRate, ONE_APL, 9);
+                                    const offerAmount = formatDivision(props.offerAmount, ONE_APL, 3);
                                     const total = formatDivision(props.pairRate * props.offerAmount, Math.pow(10, 16), 9);
                                     const currency = props.type === 1 ? props.pairCurrency : props.offerCurrency;
                                     const type = Object.keys(currencyTypes).find(key => currencyTypes[key] === currency);

@@ -11,6 +11,7 @@ import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {formatTimestamp} from "../../../../helpers/util/time";
 import CryptoJS from 'crypto-js'
 import {getTransactionAction} from "../../../../actions/transactions";
+import {ONE_APL} from '../../../../constants';
 
 class Transaction extends React.Component {
     getTransactionInfo = async transaction => {
@@ -22,7 +23,7 @@ class Transaction extends React.Component {
 
     render () {
         const {transaction, timestamp, formatTimestamp, amountATM, feeATM, senderRS, attachment, height, confirmations, setBodyModalParamsAction} = this.props;
-        
+
         return (
             <tr key={uuid}>
                 <td className="blue-link-text">
@@ -31,8 +32,8 @@ class Transaction extends React.Component {
                     </a>
                 </td>
                 <td className="align-right">Ordinary Payment</td>
-                <td className="align-right">{amountATM / 100000000}</td>
-                <td>{feeATM / 100000000}</td>
+                <td className="align-right">{amountATM / ONE_APL}</td>
+                <td>{feeATM / ONE_APL}</td>
                 <td className="blue-link-text align-right"><a onClick={setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', senderRS)}>{senderRS}</a></td>
                 <td>{attachment.phasingHolding} / {attachment.phasingQuorum}</td>
                 <td>{height}</td>

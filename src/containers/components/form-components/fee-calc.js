@@ -2,6 +2,7 @@ import React from 'react';
 import InputForm from '../input-form';
 import {NotificationManager} from 'react-notifications';
 import {connect} from 'react-redux';
+import {ONE_APL} from '../../../constants';
 
 import {calculateFeeAction} from "../../../actions/forms";
 
@@ -21,16 +22,16 @@ class FeeCalc extends React.Component {
             feeATM: 0,
             calculateFee: true,
         };
-        
+
         const fee = await calculateFeeAction(requestParams, requestType);
 
         if (!fee.errorCode) {
-            setValue("feeATM", fee.transactionJSON.feeATM / 100000000);
+            setValue("feeATM", fee.transactionJSON.feeATM / ONE_APL);
         } else {
             NotificationManager.error(fee.errorDescription, 'Error', 5000);
         }
     };
-    
+
     render () {
         const {setValue, defaultValue} = this.props;
 
@@ -38,12 +39,6 @@ class FeeCalc extends React.Component {
             <div className="form-group row form-group-white mb-15">
                 <label className="col-sm-3 col-form-label">
                     Fee
-                    <span
-                        onClick={() => this.calculateFee()}
-                        className="calculate-fee"
-                    >
-                    Calculate
-                </span>
                 </label>
                 <div className="col-sm-9 input-group input-group-text-transparent input-group-sm">
                     <InputForm

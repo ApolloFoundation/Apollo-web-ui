@@ -10,6 +10,7 @@ import config from '../../config';
 import queryString from 'query-string';
 import {NotificationManager} from "react-notifications";
 import {processElGamalEncryption} from "../crypto";
+import {ONE_APL} from '../../constants';
 
 export function getTransactionsAction(requestParams) {
     return async (dispatch) => {
@@ -145,8 +146,8 @@ export function sendTransactionAction(requestParams) {
             ...requestParams,
             requestType: 'sendMoney',
             deadline: '1440',
-            amountATM: requestParams.amountATM * 100000000,
-            feeATM: requestParams.feeATM * 100000000,
+            amountATM: requestParams.amountATM * ONE_APL,
+            feeATM: requestParams.feeATM * ONE_APL,
         };
         if (data.passphrase) data.passphrase = await processElGamalEncryption(data.passphrase);
         else if (data.secretPhrase) data.secretPhrase = await processElGamalEncryption(data.secretPhrase);
@@ -174,8 +175,8 @@ export function sendPrivateTransaction(requestParams) {
             ...requestParams,
             requestType: 'sendMoneyPrivate',
             deadline: '1440',
-            amountATM: requestParams.amountATM * 100000000,
-            feeATM: requestParams.feeATM * 100000000,
+            amountATM: requestParams.amountATM * ONE_APL,
+            feeATM: requestParams.feeATM * ONE_APL,
         };
         if (data.passphrase) data.passphrase = await processElGamalEncryption(data.passphrase);
         else if (data.secretPhrase) data.secretPhrase = await processElGamalEncryption(data.secretPhrase);

@@ -10,6 +10,7 @@ import uuid from 'uuid';
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {formatTimestamp} from "../../../../helpers/util/time";
 import CryptoJS from 'crypto-js'
+import {ONE_APL} from '../../../../constants';
 
 const mapDispatchToProps = dispatch => ({
     formatTimestamp: (timestamp, date_only, isAbsoluteTime) => dispatch(formatTimestamp(timestamp, date_only, isAbsoluteTime)),
@@ -28,24 +29,24 @@ class Block extends React.Component {
         return (
             <tr key={uuid}>
                 <td className="blue-link-text">
-                    <a 
+                    <a
                         onClick={() => setBodyModalParamsAction('INFO_BLOCK', height)}
                     >
                         {height}
                     </a>
                 </td>
                 <td className="align-right">
-                    <a>{formatTimestamp(timestamp)}</a>
+                    <p>{formatTimestamp(timestamp)}</p>
                 </td>
-                <td className="align-right">{totalAmountATM / 100000000}</td>
-                <td className="align-right">{totalFeeATM    / 100000000}</td>
+                <td className="align-right">{totalAmountATM / ONE_APL}</td>
+                <td className="align-right">{totalFeeATM    / ONE_APL}</td>
                 <td className="align-right">
                     {numberOfTransactions}
                 </td>
                 <td className="blue-link-text">
                     <a onClick={() => setBodyModalParamsAction('INFO_ACCOUNT', generator)}>{generatorRS}</a>
                 </td>
-                <td className="align-right"><a>{payloadLength} B</a>
+                <td className="align-right"><p>{payloadLength} B</p>
                 </td>
                 {/*<td className="align-right"><a>{Math.round(this.props.block.baseTarget / 153722867 * 100)} %</a>*/}
                 {/*</td>*/}

@@ -33,9 +33,9 @@ class InputForm extends React.Component {
             if (type === "password" || isSpecialSymbols) {
                 if (this.props.onChange) this.props.onChange(value);
                 this.setState({value});
-                
+
                 return value;
-            } 
+            }
             if (type === "tel") {
                 value = value.replace(/[^\d]/g, "");
                 if (/^0+/.test(value)) {
@@ -65,8 +65,8 @@ class InputForm extends React.Component {
                 if (value.includes(".")) {
                     let fract = value.substring(value.indexOf("."));
                     value = value.substring(0, value.indexOf("."));
-                    if (fract.length > 9) {
-                        fract = fract.substring(0, 9);
+                    if (fract.length > 10) {
+                        fract = fract.substring(0, 10);
                     }
                     value += fract;
                 }
@@ -76,7 +76,7 @@ class InputForm extends React.Component {
                 if (this.props.minValue !== undefined && parseFloat(value) < parseFloat(this.props.minValue)) {
                     value = this.props.minValue;
                 }
-            } 
+            }
             if (type !== "password" && type !== "tel" && type !== "float" && !isSpecialSymbols) {
                 value = value.replace(/[;`'"%!#&~<>@_=*+?^${}|[\]\\]/g, "");
             }
@@ -86,15 +86,15 @@ class InputForm extends React.Component {
                 if (this.props.onChange) this.props.onChange(value);
                 this.setState({value});
                 return value;
-            } 
+            }
             if (type === "tel") {
                 value = value.replace(/[^\d]/g, "");
-            } 
+            }
             if (type === "float") {
                 value = value.replace(",", ".");
                 if (value === '.') value = '0.';
                 value = value.replace(/[^\d.]|\.(?=.*\.)/g, "");
-            } 
+            }
             if (type === "password" && type === "tel" && type === "float" && !isSpecialSymbols) {
                 value = value.replace(/[;`'"%!#&~<>@_=*+?^${}|[\]\\]/g, "");
             }
@@ -143,9 +143,9 @@ class InputForm extends React.Component {
     };
 
     render() {
+        const isNumberInput = (this.props.type === "tel" || this.props.type === "float") && !this.props.disabled;
         return (
-            <div className="input-text-wrap">
-            
+            <div className={`input-text-wrap ${isNumberInput ? 'input-text-number-wrap' : ''}`}>
                 <Text
                     value={this.state.value}
                     className={`form-control ${this.props.className}`}
@@ -157,15 +157,10 @@ class InputForm extends React.Component {
                     type={this.props.type}
                     id={this.props.id}
 
-                    onKeyUp={this.handleChange}
-                    onMouseUp={this.handleChange}
-                    onMouseDown={this.handleChange}
                     onChange={this.handleChange}
-                    onBlur={this.props.onBlur ? this.props.onBlur : () => {
-                    }}
-
+                    onBlur={this.props.onBlur ? this.props.onBlur : () => {}}
                 />
-                {(this.props.type === "tel" || this.props.type === "float") && !this.props.disabled && (
+                {isNumberInput && (
                     <div className="input-number-wrap">
                         <div className="input-number-up" onClick={this.handleClickUp}/>
                         <div className="input-number-down" onClick={this.handleClickDown}/>

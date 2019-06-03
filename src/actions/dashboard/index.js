@@ -26,7 +26,7 @@ export const getDashboardData = () => (dispatch, getState, subscribe) => {
     const rquestParams = {
         _transactions: {
             account,
-            firstIndex: 0, 
+            firstIndex: 0,
             lastIndex: 15
         },
         _accountAssets : {
@@ -40,7 +40,7 @@ export const getDashboardData = () => (dispatch, getState, subscribe) => {
             account
         },
         _messages: {
-            account, 
+            account,
             type: 1,
             subscribe: 0
         },
@@ -65,48 +65,48 @@ export const getDashboardData = () => (dispatch, getState, subscribe) => {
     }
 
     const block             = dispatch(getBlockAction());
-    const transactions      = dispatch(getTransactionsAction(rquestParams._transactions)); 
-    const currencies        = dispatch(getAccountCurrenciesAction(rquestParams._currencies)); 
-    const accountAssets     = dispatch(getAccountAssetsAction(rquestParams._accountAssets)); 
-    const aliaseesCount     = dispatch(getAliasesCountAction(rquestParams._aliaseesCount)); 
-    const messages          = dispatch(getMessages(rquestParams._messages)); 
+    const transactions      = dispatch(getTransactionsAction(rquestParams._transactions));
+    const currencies        = dispatch(getAccountCurrenciesAction(rquestParams._currencies));
+    const accountAssets     = dispatch(getAccountAssetsAction(rquestParams._accountAssets));
+    const aliaseesCount     = dispatch(getAliasesCountAction(rquestParams._aliaseesCount));
+    const messages          = dispatch(getMessages(rquestParams._messages));
     const dgsGoods          = Promise.all([
                                 dispatch(getDGSGoodsAction({seller: account})),
                                 dispatch(getDGSPendingPurchases({seller : account})),
                                 dispatch(getDGSPurchasesAction({buyer : account})),
-                            ]); 
-    const news              = dispatch(getNewsAction()); 
-    const taggetData        = dispatch(getAllTaggedDataAction(rquestParams._taggetData)); 
-    const activeShuffling   = dispatch(getActiveShfflings(rquestParams._activeShuffling)); 
-    const finishedShuffling = dispatch(getShufflingAction()); 
-    const activePolls       = dispatch(getpollsAction(rquestParams._activePolls)); 
-    const accountInfo       = dispatch(getAccountInfoAction(rquestParams._accountInfo)); 
+                            ]);
+    const news              = dispatch(getNewsAction());
+    const taggetData        = dispatch(getAllTaggedDataAction(rquestParams._taggetData));
+    const activeShuffling   = dispatch(getActiveShfflings(rquestParams._activeShuffling));
+    const finishedShuffling = dispatch(getShufflingAction());
+    const activePolls       = dispatch(getpollsAction(rquestParams._activePolls));
+    const accountInfo       = dispatch(getAccountInfoAction(rquestParams._accountInfo));
 
     Promise.all([
-        block,             
-        transactions,      
-        currencies,        
-        accountAssets,    
-        aliaseesCount,     
-        messages,    
+        block,
+        transactions,
+        currencies,
+        accountAssets,
+        aliaseesCount,
+        messages,
         dgsGoods,
-        news,    
-        taggetData,        
-        activeShuffling,   
-        finishedShuffling, 
-        activePolls,       
-        accountInfo       
+        news,
+        taggetData,
+        activeShuffling,
+        finishedShuffling,
+        activePolls,
+        accountInfo
     ])
         .then(async (resolved) => {
             const [block, transactions, currencies, accountAssets, aliaseesCount, messages, dgsGoods, news, taggetData, activeShuffling, finishedShuffling, activePolls, accountInfo] = resolved;
             const [numberOfGoods, numberOfPurchases, totalPurchases] = dgsGoods;
-            
-            if (transactions) 
+
+            if (transactions)
                 dispatch({
                     type: 'SET_DASHBOARD_TRANSACTIONS',
                     payload: transactions.transactions
                 });
-                
+
             dispatch({
                 type: 'SET_DASHBOARD_ASSETS',
                 payload: await dispatch(calculateAssets(accountAssets.accountAssets))
@@ -156,7 +156,8 @@ export const getDashboardData = () => (dispatch, getState, subscribe) => {
                 type: 'LOAD_ACCOUNT',
                 payload: await accountInfo
             });
-        })       
+
+        })
 };
 
 var calculateCurrencies = (currencies) => {

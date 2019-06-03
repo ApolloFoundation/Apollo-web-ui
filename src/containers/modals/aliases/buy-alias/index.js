@@ -11,6 +11,7 @@ import {NotificationManager}      from 'react-notifications';
 import {setBodyModalParamsAction} from '../../../../modules/modals';
 import {getAliasAction}           from '../../../../actions/aliases/';
 import handleFormSubmit           from './handle-form-submit';
+import {ONE_APL} from '../../../../constants';
 
 import TextualInputComponent from '../../../components/form-components/textual-input';
 import NumericInputComponent from '../../../components/form-components/numeric-input';
@@ -42,7 +43,7 @@ class GetAlias extends React.Component {
                 handleFormSubmit={(values) => this.handleFormSubmit(values)}
                 submitButtonName={'Buy Alias'}
             >
-                <TextualInputComponent 
+                <TextualInputComponent
                     label={'Alias'}
 
                     disabled={true}
@@ -56,11 +57,11 @@ class GetAlias extends React.Component {
 
                     countLabel={'APL'}
                     disabled={true}
-                    defaultValue={priceATM / 100000000}
+                    defaultValue={priceATM / ONE_APL}
                     field="amountAPL"
                     placeholder="Amount"
                     type={"float"}
-                />           
+                />
             </ModalBody>
         );
     }

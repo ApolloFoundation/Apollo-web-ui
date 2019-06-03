@@ -74,7 +74,7 @@ import MarketplaceSearch from "../account/marketplace-search";
 import Generators from "../account/generators"
 import Exchange from "../account/exchange/dashboard"
 import OrderHistory from "../account/exchange/order-history"
-import ChooseWallet from "../account/choose-wallet"
+import ChooseWallet from "../account/exchange/choose-wallet"
 
 import './App.scss';
 import './fonts.scss';

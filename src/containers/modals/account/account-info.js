@@ -109,13 +109,13 @@ class AccountInfo extends React.Component {
                                         values={values}
                                     />
 
-
+{/*
                                     <AdvancedSettings
                                         setValue={setValue}
                                         getFormState={getFormState}
                                         values={values}
                                         advancedState={this.state.advancedState}
-                                    />
+                                    /> */}
 
                                     <div className="btn-box align-buttons-inside absolute right-conner">
                                         <button
@@ -126,14 +126,6 @@ class AccountInfo extends React.Component {
                                             Update Account Info
                                         </button>
                                         <a onClick={() => this.props.closeModal()} className="btn btn-right round round-top-left">Cancel</a>
-                                    </div>
-                                    <div className="btn-box align-buttons-inside absolute left-conner">
-                                        <a
-                                            onClick={this.handleAdvancedState}
-                                            className="btn btn-left round round-bottom-left round-top-right"
-                                        >
-                                            {this.state.advancedState ? "Basic" : "Advanced"}
-                                        </a>
                                     </div>
                                 </div>
                             }

@@ -80,6 +80,8 @@ class AccountProperties extends React.Component {
         }
     };
 
+    setProperty  = (el) => this.props.setBodyModalParamsAction("SET_ACCOUNT_PROPERTY", el);
+
     render () {
         return (
             <div className="page-content">
@@ -118,7 +120,7 @@ class AccountProperties extends React.Component {
                         ]}
                         className={'mb-3'}
                         page={this.state.page}
-                        emptyMessage={'No account propertes found .'}
+                        emptyMessage={'No account properties found .'}
                         TableRowComponent={(props) => <AccountProperty incoming={this.state.incoming} {...props}/>}
                         tableData={this.state.properties}
                     />

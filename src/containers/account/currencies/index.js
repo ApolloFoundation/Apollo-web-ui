@@ -131,6 +131,7 @@ class Currencies extends React.Component {
                         isPaginate
                         previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
                         nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
+                        emptyMessage={'No currencies found.'}
                     />
                 </div>
             </div>

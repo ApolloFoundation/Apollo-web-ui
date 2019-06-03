@@ -12,6 +12,7 @@ import {formatTransactionType, getTransactionAction} from "../../../actions/tran
 import {formatTimestamp} from "../../../helpers/util/time";
 import InfoTransactionTable from "./info-transoction-table"
 import {getAccountInfoAction} from "../../../actions/account";
+import {ONE_APL} from '../../../constants';
 
 import CustomTable from '../../components/tables/table';
 import TabulationBody from '../../components/tabulator/tabuator-body';
@@ -79,13 +80,13 @@ class InfoLedgerTransaction extends React.Component {
                     account: el
                 })
             });
-    
+
             Promise.all(whitelist)
                 .then((data) => {
                     this.setState({
                         whitelist: data
                     })
-                }) 
+                })
         }
     };
 
@@ -105,7 +106,7 @@ class InfoLedgerTransaction extends React.Component {
 	                            }
                                 <p>Transaction {this.state.transaction.transaction} Info</p>
                             </div>
-                            
+
                             <TabulationBody>
 
                                 <TabContaier sectionName={'Info'}>
@@ -146,10 +147,12 @@ class InfoLedgerTransaction extends React.Component {
                                                 :
                                                 <a className="btn btn-primary blue-disabled static">Add as contact</a>
                                             }
-                                            <a className="btn btn-primary blue-disabled static">Send currency to sender</a>
-                                            <a className="btn btn-primary blue-disabled static">Send a message to sender</a>
-                                            <a className="btn btn-primary blue-disabled static">Apptove transaction</a>
-                                            <a className="btn btn-primary blue-disabled static">Extend data lifetime</a>
+                                            <button
+                                                type={'button'}
+                                                onClick={() => this.props.setBodyModalParamsAction('TRANSFER_CURRENCY', this.props.accountRS === this.state.transaction.recipientRS ? this.state.transaction.senderRS : this.state.transaction.recipientRS)}
+                                                className={`btn btn-primary ${this.state.transaction.recipientRS ? 'blue' : 'blue-disabled'} static`}>
+                                                Transfer Currency
+                                            </button>
                                         </div>
                                     }
                                 </TabContaier>
@@ -169,7 +172,7 @@ class InfoLedgerTransaction extends React.Component {
                                                 </tr>
                                                 <tr>
                                                     <td>Fee ATM:</td>
-                                                    <td>{this.state.transaction.feeATM / 100000000}</td>
+                                                    <td>{this.state.transaction.feeATM / ONE_APL}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Transaction index:</td>
@@ -223,7 +226,14 @@ class InfoLedgerTransaction extends React.Component {
                                                     this.state.transaction.amountATM &&
                                                     <tr>
                                                         <td>Amount ATM:</td>
-                                                        <td>{this.state.transaction.amountATM / 100000000}</td>
+                                                        <td>
+                                                            {
+                                                                (this.state.transaction.amountATM === "0" && this.state.transaction.attachment.priceATM) ?
+                                                                    this.state.transaction.attachment.priceATM  / ONE_APL
+                                                                    :
+                                                                    this.state.transaction.amountATM / ONE_APL
+                                                            }
+                                                        </td>
                                                     </tr>
                                                 }
                                                 <tr>
@@ -276,7 +286,7 @@ class InfoLedgerTransaction extends React.Component {
                                     this.state.transaction.attachment &&
                                     this.state.transaction.phased &&
                                     <TabContaier sectionName={'Phasing Details'}>
-                                
+
                                         <div className="transaction-table no-min-height transparent">
                                             <div className="transaction-table-body transparent full-info">
                                                 <table>
@@ -352,7 +362,7 @@ class InfoLedgerTransaction extends React.Component {
                                         </div>
                                     </TabContaier>
                                 }
-                                
+
                             </TabulationBody>
 
                             <div className="btn-box align-buttons-inside absolute right-conner">

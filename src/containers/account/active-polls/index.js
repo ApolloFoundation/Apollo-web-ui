@@ -6,16 +6,16 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {getAliasesAction} from "../../../actions/aliases";
-import SiteHeader from '../../components/site-header'
+import {withRouter} from 'react-router-dom';
+import SiteHeader from '../../components/site-header';
+import CustomTable from '../../components/tables/table';
 import {getpollsAction} from '../../../actions/polls';
-import PoolItem from './pool-item';
+import {getAliasesAction} from "../../../actions/aliases";
 import {getTransactionAction} from "../../../actions/transactions";
 import {setBodyModalParamsAction} from "../../../modules/modals";
-import {withRouter} from 'react-router-dom';
+import PoolItem from './pool-item';
 import {BlockUpdater} from "../../block-subscriber";
 
-import CustomTable from '../../components/tables/table';
 
 const mapStateToProps = state => ({
     account: state.account.account
@@ -24,39 +24,29 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     getpollsAction: (reqParams) => dispatch(getpollsAction(reqParams)),
     getAliasesAction: (reqParams) => dispatch(getAliasesAction(reqParams)),
-    getTransactionAction:     (requestParams) => dispatch(getTransactionAction(requestParams)),
+    getTransactionAction: (requestParams) => dispatch(getTransactionAction(requestParams)),
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 });
 
-
 class Activepolls extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            firstIndex: 0,
-            lastIndex: 14,
-            page: 1,
-            activepolls: null,
-            finishedpolls: null
-        };
-    }
+    state = {
+        activepolls: null,
+        page: 1,
+        firstIndex: 0,
+        lastIndex: 14,
+    };
 
     listener = data => {
-        this.getActivepolls();
-
-        this.getFinishedpolls({
-            firstIndex: 0,
-            lastIndex:  9,
+        this.getActivePolls({
+            firstIndex: this.state.firstIndex,
+            lastIndex: this.state.lastIndex
         });
     };
 
     componentDidMount() {
-        this.getActivepolls();
-
-        this.getFinishedpolls({
-            firstIndex: 0,
-            lastIndex:  9,
+        this.getActivePolls({
+            firstIndex: this.state.firstIndex,
+            lastIndex: this.state.lastIndex
         });
         BlockUpdater.on("data", this.listener);
     }
@@ -65,15 +55,7 @@ class Activepolls extends React.Component {
         BlockUpdater.removeListener("data", this.listener)
     };
 
-    componentWillReceiveProps(newState) {
-        this.getActivepolls();
-        this.getFinishedpolls({
-            firstIndex: 0,
-            lastIndex:  9,
-        });
-    }
-
-    getActivepolls = async (reqParams) => {
+    getActivePolls = async (reqParams, pagination) => {
         reqParams = {
             ...reqParams,
             includeFinished: false,
@@ -83,108 +65,62 @@ class Activepolls extends React.Component {
 
         if (activepolls) {
             this.setState({
-                ...this.props,
+                ...pagination,
                 activepolls: activepolls.polls
             });
         }
-    }
+    };
 
-    getFinishedpolls = async (reqParams) => {
-        reqParams = {
-            ...reqParams,
-            finishedOnly: true
+    onPaginate = (page) => {
+        const pagination = {
+            page: page,
+            firstIndex: page * 15 - 15,
+            lastIndex: page * 15 - 1
         };
+        this.getActivePolls({
+            firstIndex: pagination.firstIndex,
+            lastIndex: pagination.lastIndex
+        }, pagination);
+    };
 
-        const finishedpolls = await this.props.getpollsAction(reqParams);
-
-        if (finishedpolls) {
-            this.setState({
-                ...this.props,
-                finishedpolls: finishedpolls.polls
-            });
-        }
-    }
-
-    handleGoToFinishedPolls = () => {
-        this.props.history.push('/finished-polls')
-    }
-
-    render () {
+    render() {
         return (
             <div className="page-content">
                 <SiteHeader
                     pageTitle={'Active polls'}
                 />
                 <div className="page-body container-fluid">
-                    <div className="active-polls white-space">
-                        <CustomTable 
-                            header={[
-                                {
-                                    name: 'Title',
-                                    alignRight: false
-                                },{
-                                    name: 'Description',
-                                    alignRight: false
-                                },{
-                                    name: 'Sender',
-                                    alignRight: false
-                                },{
-                                    name: 'Start date',
-                                    alignRight: false
-                                },{
-                                    name: 'Blocks left',
-                                    alignRight: false
-                                },{
-                                    name: 'Actions',
-                                    alignRight: true
-                                }
-                            ]}
-                            className={'no-min-height'}
-                            emptyMessage={'No active polls.'}
-                            TableRowComponent={PoolItem}
-                            tableData={this.state.activepolls}
-                        />
-
-                        <div className="transaction-table no-min-height">
-                                
-                        </div>
-
-                        <div className="form-group-app offset-bottom height-auto no-padding mb-3">
-                            <CustomTable 
-                                tableName={'Finished polls'}
-                                header={[
-                                    {
-                                        name: 'Title',
-                                        alignRight: false
-                                    },{
-                                        name: 'Description',
-                                        alignRight: false
-                                    },{
-                                        name: 'Sender',
-                                        alignRight: false
-                                    },{
-                                        name: 'Start date',
-                                        alignRight: false
-                                    },{
-                                        name: 'Blocks left',
-                                        alignRight: false
-                                    },{
-                                        name: 'Actions',
-                                        alignRight: true
-                                    }
-                                ]}
-                                className={'no-min-height pb-0'}
-                                emptyMessage={'No finished polls.'}
-                                TableRowComponent={PoolItem}
-                                tableData={this.state.finishedpolls}
-                                hintClassName={'mt-4'}
-                                actionButton={{
-                                    name:'View All',
-                                    handler: this.handleGoToFinishedPolls
-                                }}
-                            />
-                        </div>
-                    </div>
+                    <CustomTable
+                        header={[
+                            {
+                                name: 'Title',
+                                alignRight: false
+                            }, {
+                                name: 'Description',
+                                alignRight: false
+                            }, {
+                                name: 'Sender',
+                                alignRight: false
+                            }, {
+                                name: 'Start date',
+                                alignRight: false
+                            }, {
+                                name: 'Blocks left',
+                                alignRight: false
+                            }, {
+                                name: 'Actions',
+                                alignRight: true
+                            }
+                        ]}
+                        className={'no-min-height mb-3'}
+                        emptyMessage={'No active polls.'}
+                        TableRowComponent={PoolItem}
+                        tableData={this.state.activepolls}
+                        isPaginate
+                        page={this.state.page}
+                        previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
+                        nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
+                    />
                 </div>
             </div>
         );

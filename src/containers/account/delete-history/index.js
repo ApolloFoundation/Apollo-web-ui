@@ -7,11 +7,12 @@
 import React from 'react';
 import SiteHeader from '../../components/site-header'
 import uuid from "uuid";
-import {connect} from "react-redux";
-import {getDeleteHistory} from "../../../actions/delete-history";
+import { connect } from "react-redux";
+import { getDeleteHistory } from "../../../actions/delete-history";
 import DeleteItem from "./deletes";
-import {BlockUpdater} from "../../block-subscriber";
+import { BlockUpdater } from "../../block-subscriber";
 import ContentHendler from '../../components/content-hendler'
+import classNames from 'classnames';
 
 import CustomTable from '../../components/tables/table';
 
@@ -19,17 +20,19 @@ class DeleteHistory extends React.Component {
 
     state = {
         deletes: null,
+        page: 1,
+        perPage: 15,
+        firstIndex: 0,
+        lastIndex: 14,
+        loader: false
     };
-
-    componentWillMount() {
-        this.getDeleteHistory(this.props.account);
-    }
 
     listener = data => {
         this.getDeleteHistory(this.props.account);
     };
 
     componentDidMount() {
+        this.getDeleteHistory(this.props.account);
         BlockUpdater.on("data", this.listener);
     }
 
@@ -43,46 +46,63 @@ class DeleteHistory extends React.Component {
         }
     };
 
-    getDeleteHistory = account => {
-        this.props.getDeleteHistory(account).then(history => this.setState({
+    getDeleteHistory = (account) => {
+        this.props.getDeleteHistory(account, this.state.firstIndex, this.state.lastIndex).then(history => {
+            this.setState({
                 deletes: history ? history.deletes : null
             })
-        )
+        })
     };
 
+    onPaginate(page) {
+
+        let reqParams = {
+            page: page,
+            firstIndex: page * 15 - 15,
+            lastIndex: page * 15 - 1
+        };
+
+        this.setState(reqParams, () => {
+            this.getDeleteHistory(this.props.account)
+        });
+    }
+
     render() {
+        let { page, deletes } = this.state;
         return (
             <div className="page-content">
                 <SiteHeader
                     pageTitle={'Delete History'}
                 />
                 <div className="page-body container-fluid">
-                    <CustomTable 
+                    <CustomTable
                         header={[
                             {
                                 name: 'Transaction',
                                 alignRight: false
-                            },{
+                            }, {
                                 name: 'Asset',
                                 alignRight: false
-                            },{
+                            }, {
                                 name: 'Date',
                                 alignRight: false
-                            },{
+                            }, {
                                 name: 'Quantity',
                                 alignRight: true
                             }
                         ]}
-                        page={this.state.page}
+                        previousHendler={() => this.onPaginate(this.state.page - 1)}
+                        nextHendler={() => this.onPaginate(this.state.page + 1)}
+                        page={page}
                         className={'mb-3'}
-                        TableRowComponent={(el) => <DeleteItem delete={el}/>}
-                        tableData={this.state.deletes}
-                        isPaginate
+                        TableRowComponent={(el) => <DeleteItem delete={el} />}
+                        tableData={deletes}
+                        isPaginate={true}
                         emptyMessage={'No asset deletion history available.'}
                     />
                 </div>
             </div>
-        );
+        )
     }
 }
 
@@ -94,12 +114,12 @@ const
 
 const
     mapDispatchToProps = dispatch => ({
-        getDeleteHistory: account => dispatch(getDeleteHistory(account))
+        getDeleteHistory: (account, firstIndex, lastIndex) => dispatch(getDeleteHistory(account, firstIndex, lastIndex))
     });
 
 export default connect(mapStateToProps, mapDispatchToProps)
 
-(
-    DeleteHistory
-)
-;
+    (
+        DeleteHistory
+    )
+    ;

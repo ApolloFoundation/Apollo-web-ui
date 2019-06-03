@@ -6,6 +6,7 @@ import {cancelOffer} from "../../../../actions/wallet";
 import ModalBody from '../../../components/modals/modal-body';
 import TextualInputComponent from '../../../components/form-components/textual-input';
 import InfoBox from "../../../components/info-box";
+import {ONE_APL} from '../../../../constants';
 
 class ConfirmCancelOffer extends React.Component {
 
@@ -18,7 +19,7 @@ class ConfirmCancelOffer extends React.Component {
 
         const params = {
             orderId: this.props.modalData.orderId,
-            feeATM: 100000000,
+            feeATM: ONE_APL,
             sender: this.props.account,
             passphrase
         };

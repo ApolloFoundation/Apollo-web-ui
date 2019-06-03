@@ -57,7 +57,9 @@ export function getAccountInfoAction(account) {
             }
         })
             .then((res) => {
-                if (res.data && !res.data.errorCode) {
+                if (res.data && (!res.data.errorCode || res.data.errorCode === 5)) {
+                    delete res.data.errorCode;
+                    delete res.data.errorDescription;
                     const {account} = getStore().account;
                     if (account === res.data.account) {
                         dispatch(login(res.data));
@@ -70,7 +72,7 @@ export function getAccountInfoAction(account) {
 
 export function switchAccountAction(account, history) {
     return async (dispatch) => {
-        const newAccount = await makeLoginReq(dispatch, {account});
+        await dispatch(makeLoginReq({account}));
         if (history) history.push('/dashboard');
 
         // Closing current modal window
