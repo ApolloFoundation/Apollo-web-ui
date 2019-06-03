@@ -33,7 +33,7 @@ class AccountProperty extends React.Component {
                     <button
                         type={'button'}
                         onClick={() => this.setProperty(this.props)}
-                        className="btn btn-green"
+                        className="btn btn-default"
                     >
                         Update
                     </button>

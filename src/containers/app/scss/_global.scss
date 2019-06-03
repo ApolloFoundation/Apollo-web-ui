@@ -1249,6 +1249,9 @@ div.info-box {
 		color: #8AA5C7;
 		background-color: #ffffff;
 		box-shadow: 0 1px 4px 0 rgba(137,151,169,0.3) !important;
+		&:hover {
+			background: #f5f7fc;
+		}
 	}
 	&.btn-green {
 		color: #ffffff;

@@ -28,11 +28,11 @@ const Currency = (props) =>  {
             <td className="align-right">{maxSupply / Math.pow(10, decimals)}</td>
             <td className="align-right">
                 <div className="btn-box inline">
-                    <Link to={"/exchange-booth/" + code} className="btn btn-green">Exchange</Link>
+                    <Link to={"/exchange-booth/" + code} className="btn btn-default">Exchange</Link>
                     <button
                         type={'button'}
                         onClick={() => setBodyModalParamsAction('RESERVE_CURRENCY', props)}
-                        className={`btn btn-green ${types.includes('RESERVABLE') ? '' : 'disabled'}`}
+                        className={`btn btn-default ${types.includes('RESERVABLE') ? '' : 'disabled'}`}
                     >
                         Reserve
                     </button>

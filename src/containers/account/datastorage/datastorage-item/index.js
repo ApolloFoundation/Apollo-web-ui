@@ -36,7 +36,7 @@ const DataStorageItem  = props => (
             <div className="btn-box">
                 <a
                     onClick={() => makeDownloadction(props.transaction, config.api.serverUrl + "requestType=downloadTaggedData&transaction=" + props.transaction + "&retrieve=true")}
-                    className="btn btn-green"
+                    className="btn btn-default"
                 >
                     Download
                 </a>
