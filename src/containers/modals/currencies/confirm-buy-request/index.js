@@ -60,22 +60,19 @@ class BuyCurrency extends React.Component {
                 submitButtonName={'Buy'}
                 nameModel={nameModal}
             >
-                <Text defaultValue={this.props.modalData.assetName} type="hidden" field={'name'}/>
-                <Text defaultValue={this.props.modalData.assetID} type="hidden" field={'asset'}/>
-                <Text defaultValue={this.props.modalData.quantityATU} placeholder={'Quantity'} type="hidden" field={'quantityATU'}/>
-                
-                <Text defaultValue={this.props.modalData.assetName} placeholder={'Quantity'} type="hidden" field={'quantityATU'}/>
-                
-                <TextualInputComponent
-                    label={"Order Description"}
-                    text={`Buy ${this.props.modalData.units} ${this.props.modalData.assetName} currencies at ${this.props.modalData.rateATM / this.props.modalData.units} Apollo each.`}
-                />
-                <TextualInputComponent
-                    label={"Total"}
-                    text={`${this.props.modalData.rateATM} Apollo`}
-                />
+                {this.props.modalData && (
+                    <React.Fragment>
+                        <TextualInputComponent
+                            label={"Order Description"}
+                            text={`Buy ${this.props.modalData.units} ${this.props.modalData.code} currencies at ${this.props.modalData.rateATM / this.props.modalData.units} Apollo each.`}
+                        />
+                        <TextualInputComponent
+                            label={"Total"}
+                            text={`${this.props.modalData.rateATM} Apollo`}
+                        />
+                    </React.Fragment>
+                )}
             </ModalBody>
-            
         );
     }
 }

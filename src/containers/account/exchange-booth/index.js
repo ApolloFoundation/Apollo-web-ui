@@ -200,6 +200,7 @@ class ExchangeBooth extends React.Component {
     handleMinimumBuyRate = (values) => {
         values = {
             ...values,
+            code: this.state.code,
             currency: this.state.currency,
             decimals: this.state.currencyInfo.decimals
         };
@@ -215,6 +216,7 @@ class ExchangeBooth extends React.Component {
     handleMinimumSellRate = (values) => {
         values = {
             ...values,
+            code: this.state.code,
             currency: this.state.currency,
             decimals: this.state.currencyInfo.decimals
         };

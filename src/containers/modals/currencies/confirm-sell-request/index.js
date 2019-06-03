@@ -11,8 +11,6 @@ import {setBodyModalParamsAction} from '../../../../modules/modals';
 import submitForm from "../../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
 
-import {Text} from 'react-form';
-
 import ModalBody from '../../../components/modals/modal-body';
 import TextualInputComponent from '../../../components/form-components/textual-input';
 
@@ -37,7 +35,7 @@ class SellCurrency extends React.Component {
         values = {
             ...values,
             ...this.props.modalData,
-            rateATM: this.props.modalData.rateATM  * (Math.pow(10, 8) / Math.pow(10, this.props.modalData.decimals)),
+            rateATM: this.props.modalData.rateATM * (Math.pow(10, 8) / Math.pow(10, this.props.modalData.decimals)),
             units: this.props.modalData.units * (Math.pow(10, this.props.modalData.decimals))
         };
 
@@ -53,7 +51,7 @@ class SellCurrency extends React.Component {
         return (
             <ModalBody
                 loadForm={this.loadForm}
-                modalTitle={'Confirm Order (Sell)'}
+                modalTitle={'Sell Currency'}
                 isAdvanced={true}
                 isFee
                 closeModal={this.props.closeModal}
@@ -61,22 +59,19 @@ class SellCurrency extends React.Component {
                 submitButtonName={'Sell'}
                 nameModel={nameModal}
             >
-                <Text defaultValue={this.props.modalData.assetName} type="hidden" field={'name'}/>
-                <Text defaultValue={this.props.modalData.assetID} type="hidden" field={'asset'}/>
-                <Text defaultValue={this.props.modalData.quantityATU} placeholder={'Quantity'} type="hidden" field={'quantityATU'}/>
-                
-                <Text defaultValue={this.props.modalData.assetName} placeholder={'Quantity'} type="hidden" field={'quantityATU'}/>
-                
-                <TextualInputComponent
-                    label={"Order Description"}
-                    text={`Sell ${this.props.modalData.units} ${this.props.modalData.assetName} currencies at ${this.props.modalData.rateATM / this.props.modalData.units} Apollo each.`}
-                />
-                <TextualInputComponent
-                    label={"Total"}
-                    text={`${this.props.modalData.rateATM} Apollo`}
-                />
+                {this.props.modalData && (
+                    <React.Fragment>
+                        <TextualInputComponent
+                            label={"Order Description"}
+                            text={`Sell ${this.props.modalData.units} ${this.props.modalData.code} currencies at ${this.props.modalData.rateATM / this.props.modalData.units} Apollo each.`}
+                        />
+                        <TextualInputComponent
+                            label={"Total"}
+                            text={`${this.props.modalData.rateATM} Apollo`}
+                        />
+                    </React.Fragment>
+                )}
             </ModalBody>
-            
         );
     }
 }
