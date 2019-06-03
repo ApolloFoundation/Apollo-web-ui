@@ -35,7 +35,7 @@ const Form = ({setValue, goods, formatTimestamp}) => (
                     setValue={setValue}
                     label="New price"
                     field="priceATM"
-                    placeholder="Price"
+                    placeholder="New price"
                     defaultValue={1}
                     countingTtile={'Apollo'}
                 />
