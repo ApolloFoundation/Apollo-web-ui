@@ -12,12 +12,25 @@ class InputForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: props.defaultValue || ''
+            value: props.defaultValue || '',
+            defaultValue: props.defaultValue,
         };
         if (props.setValue && props.field) {
             props.setValue(props.field, props.defaultValue || '');
         }
     };
+
+    static getDerivedStateFromProps(props, state) {
+        if (props.defaultValue !== state.defaultValue) {
+            if (props.setValue && props.field) props.setValue(props.field, props.defaultValue);
+            return {
+                defaultValue: props.defaultValue,
+                value: props.defaultValue,
+            };
+        }
+
+        return null;
+    }
 
     handleChange = (value) => {
         const {setValue, field} = this.props;
