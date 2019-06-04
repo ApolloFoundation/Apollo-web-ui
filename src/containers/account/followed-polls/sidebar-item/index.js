@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-const SideBarItem = ({actualBlock,finishHeight, name}) => {
+const SideBarItem = ({actualBlock, finishHeight, name}) => {
     const blocksLeft = parseInt(finishHeight) - parseInt(actualBlock);
 
     return (
@@ -14,7 +14,7 @@ const SideBarItem = ({actualBlock,finishHeight, name}) => {
             <div className="chat-date">
                 {
                     blocksLeft > 0 &&
-                    'Blocks left:' + blocksLeft
+                    'Blocks left: ' + blocksLeft
                 }
                 {
                     blocksLeft < 0 &&
@@ -23,10 +23,10 @@ const SideBarItem = ({actualBlock,finishHeight, name}) => {
             </div>
         </div>
     )
-}
+};
 
 const mapStateToProps = state => ({
     actualBlock: state.account.actualBlock
-})
+});
 
 export default connect(mapStateToProps)(SideBarItem);
