@@ -27,7 +27,7 @@ class MyCurrencytemItem extends Component {
                     <div className="btn-box inline">
                         <Link to={"/exchange-booth/" + code} className="btn btn-default">Exchange</Link>
                         <a
-                            onClick={() => setBodyModalParamsAction('TRANSFER_CURRENCY', {code})}
+                            onClick={() => setBodyModalParamsAction('TRANSFER_CURRENCY', {code, currency})}
                             style={{marginLeft: 15}}
                             className="btn btn-default"
                         >
