@@ -11,7 +11,7 @@ import {setBodyModalParamsAction} from "../../../../modules/modals";
 const Alias = (props) => (
     <tr>
         <td>{props.aliasName}</td>
-        <td className="blue-link-text"><a>{props.aliasURI}</a></td>
+        <td>{props.aliasURI}</td>
         {
             props.priceATM &&
             props.priceATM === '0' &&
