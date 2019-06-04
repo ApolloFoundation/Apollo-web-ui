@@ -134,7 +134,7 @@ class Aliases extends React.Component {
                                 name: 'Aliases',
                                 alignRight: false
                             },{
-                                name: 'URI',
+                                name: 'Type Value',
                                 alignRight: false
                             },{
                                 name: 'Status',
