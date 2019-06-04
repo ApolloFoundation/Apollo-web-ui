@@ -11,10 +11,9 @@ import {NotificationManager} from 'react-notifications';
 import AccountRS from '../../components/account-rs';
 import InfoBox from '../../components/info-box';
 import LogoImg from '../../../assets/logo.png';
-import {getCoins} from '../../../actions/faucet';
-import './style.scss'
-import {getAccountInfoAction} from "../../../actions/account";
+import {getCoins, getFaucetAccountInfoAction} from '../../../actions/faucet';
 import {ONE_APL} from "../../../constants";
+import './style.scss'
 
 class Faucet extends React.Component {
     state = {
@@ -27,7 +26,7 @@ class Faucet extends React.Component {
     }
 
     getAccountInfoAction = async () => {
-        const account = await this.props.getAccountInfoAction({
+        const account = await this.props.getFaucetAccountInfoAction({
             account: 'APL-TYSU-V4Z9-VWDY-7X95C',
         });
 
@@ -45,11 +44,13 @@ class Faucet extends React.Component {
         const result = await this.props.getCoins({
             address: values.accountRS
         });
-        if (result && result.success) {
-            NotificationManager.success('Success! Sent 30000 APL to your address', null, 5000);
-            this.state.form.resetAll();
-        } else {
-            NotificationManager.error(result.message, 'Error', 5000);
+        if (result) {
+            if (result.success) {
+                NotificationManager.success('Success! Sent 30000 APL to your address', null, 5000);
+                this.state.form.resetAll();
+            } else {
+                NotificationManager.error(result.message, 'Error', 5000);
+            }
         }
     };
 
@@ -147,7 +148,7 @@ class Faucet extends React.Component {
 
 const mapDipatchToProps = dispatch => ({
     getCoins: (requestParams) => dispatch(getCoins(requestParams)),
-    getAccountInfoAction: (account) => dispatch(getAccountInfoAction(account)),
+    getFaucetAccountInfoAction: (account) => dispatch(getFaucetAccountInfoAction(account)),
 });
 
 export default connect(null, mapDipatchToProps)(Faucet);
