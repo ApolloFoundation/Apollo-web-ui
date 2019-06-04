@@ -235,7 +235,7 @@ class PollForm extends React.Component {
                 
                 <div className="form-group row form-group-white mb-15">
                     <label className="col-sm-3 col-form-label align-self-start">
-                        Minimum nr of choices
+                        Min numbers of choices
                     </label>
                     <div className="col-sm-3">
                         <InputForm
@@ -248,7 +248,7 @@ class PollForm extends React.Component {
                         />
                     </div>
                     <label className="col-sm-3 col-form-label align-self-start">
-                        Maximum nr of choices
+                        Max numbers of choices
                     </label>
                     <div className="col-sm-3">
                         <InputForm
@@ -263,7 +263,7 @@ class PollForm extends React.Component {
                 </div>
                 <div className="form-group row form-group-white mb-15">
                     <label className="col-sm-3 col-form-label align-self-start">
-                        Minimum range value
+                        Min range value
                     </label>
                     <div className="col-sm-3">
                         <InputForm
@@ -276,7 +276,7 @@ class PollForm extends React.Component {
                         />
                     </div>
                     <label className="col-sm-3 col-form-label align-self-start">
-                        Maximum range value
+                        Max range value
                     </label>
                     <div className="col-sm-3">
                         <InputForm
