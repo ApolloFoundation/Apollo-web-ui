@@ -15,22 +15,27 @@ import ModalBody from '../../../components/modals/modal-body';
 import AddAliasForm from './form';
 
 class AddAlias extends React.Component {
-    handleFormSubmit = async (values) => {
-        this.setState({
-            isPending: true
-        })
-        const res = await this.props.submitForm( values, 'setAlias');
-        if (res && res.errorCode) {
-            this.setState({
-                isPending: false
-            })
-            NotificationManager.error(res.errorDescription, 'Error', 5000)
-        } else {
-            this.props.setBodyModalParamsAction(null, {});
+    state = {
+        isPending: false
+    };
 
-            NotificationManager.success('Product has been listed!', null, 5000);
+    handleFormSubmit = async (values) => {
+        if (!this.state.isPending) {
+            this.setState({
+                isPending: true
+            });
+            const res = await this.props.submitForm(values, 'setAlias');
+            if (res && res.errorCode) {
+                this.setState({
+                    isPending: false
+                });
+                NotificationManager.error(res.errorDescription, 'Error', 5000)
+            } else {
+                this.props.setBodyModalParamsAction(null, {});
+                NotificationManager.success('Alias has been listed!', null, 5000);
+            }
         }
-    }
+    };
 
     render() {
         return (
