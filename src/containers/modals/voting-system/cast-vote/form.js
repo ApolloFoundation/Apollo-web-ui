@@ -20,12 +20,12 @@ const CastVoteForm = ({currencyHint, assetHint, poll, votes, getFormState, setVa
 
                 <TextualInputForm
                     label={'Poll name'}
-                    text={poll ? poll.name : ' '}
+                    text={poll.name}
                 />
 
                 <TextualInputForm
                     label={'Description'}
-                    text={poll ? poll.name : ' '}
+                    text={poll.description}
                 />
 
                 {
