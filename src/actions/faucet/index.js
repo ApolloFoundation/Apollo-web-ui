@@ -6,8 +6,6 @@
 import config from '../../config';
 import {GET, handleFetch} from "../../helpers/fetch";
 import {NotificationManager} from "react-notifications";
-import axios from "axios";
-import {login} from "../../modules/account";
 
 export function getCoins(requestParams) {
     return dispatch => {
@@ -21,23 +19,22 @@ export function getCoins(requestParams) {
     }
 }
 
-
 export function getFaucetAccountInfoAction(account) {
-    return (dispatch, getStore) => {
-        return axios.get(`${config.api.faucetUrl}/apl?`, {
-            params: {
-                requestType: 'getAccount',
-                includeAssets: true,
-                includeCurrencies: true,
-                includeLessors: true,
-                includeEffectiveBalance: true,
-                ...account
-            }
-        })
+    const requestParams = {
+        requestType: 'getAccount',
+        includeAssets: true,
+        includeCurrencies: true,
+        includeLessors: true,
+        includeEffectiveBalance: true,
+        ...account
+    };
+    return dispatch => {
+        return handleFetch(`${config.api.faucetUrl}/apl`, GET, requestParams)
             .then((res) => {
-                if (res.data && (!res.data.errorCode || res.data.errorCode === 5)) {
-                    return res.data;
-                }
+                return res;
+            })
+            .catch((e) => {
+                NotificationManager.error('Please try again later.', 'Error', 5000);
             })
     }
 }
