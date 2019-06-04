@@ -35,12 +35,6 @@ class CreatePoll extends React.Component {
 
     handleFormSubmit = async(values) => handleFormSubmit.call(this.props, values)
 
-
-    handleVotingModel = (value, setValue) => {
-        if (value !== 0) setValue('minBalanceType', 0);
-        setValue('minBalanceModel', value);
-    };
-
     render() {
         const {nameModal} = this.props;
 
