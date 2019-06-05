@@ -7,7 +7,7 @@ import CustomSelect from '../../../../components/select';
 import {currencyTypes, multiply} from '../../../../../helpers/format';
 import {createOffer} from '../../../../../actions/wallet';
 import {setBodyModalParamsAction} from '../../../../../modules/modals';
-import {ONE_APL} from '../../../../../constants';
+import {ONE_APL, ONE_GWEI} from '../../../../../constants';
 
 class ExchangeBuy extends React.Component {
     feeATM = 200000000;
@@ -63,8 +63,8 @@ class ExchangeBuy extends React.Component {
                     NotificationManager.error('Please select wallet address', 'Error', 5000);
                     return;
                 }
-                const pairRate = multiply(values.pairRate, ONE_APL);
-                const offerAmount = multiply(values.offerAmount, ONE_APL);
+                const pairRate = multiply(values.pairRate, ONE_GWEI);
+                const offerAmount = multiply(values.offerAmount, ONE_GWEI);
                 const balanceETH = parseFloat(values.walletAddress.balances[currency]);
                 const balanceAPL = (this.props.dashboardAccoountInfo && this.props.dashboardAccoountInfo.unconfirmedBalanceATM) ?
                     parseFloat(this.props.dashboardAccoountInfo.unconfirmedBalanceATM)
