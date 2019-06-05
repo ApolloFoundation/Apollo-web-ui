@@ -99,7 +99,7 @@ class FollowedVotes extends React.Component {
         }
     };
 
-    getPollVotes = async (reqParams) => {
+    getPollVotes = async (reqParams, pagination) => {
         const votes = await this.props.getPollVotesAction(reqParams);
         const allVotesNumber = await this.props.getPollVotesAction({
             ...reqParams,
@@ -109,7 +109,7 @@ class FollowedVotes extends React.Component {
 
         if (votes && allVotesNumber && allVotesNumber.votes) {
             this.setState({
-                ...this.state,
+                ...pagination,
                 votes: votes.votes,
                 allVotesNumber: allVotesNumber.votes.length
             });
@@ -167,18 +167,16 @@ class FollowedVotes extends React.Component {
     };
 
     onPaginate = (page) => {
-        this.setState({
-            ...this.state,
+        const pagination = {
             page: page,
             firstIndex: page * 3 - 3,
             lastIndex:  page * 3 - 1
-        }, () => {
+        };
             this.getPollVotes({
                 poll: this.props.match.params.poll,
                 firstIndex: page * 3 - 3,
                 lastIndex:  page * 3 - 1
-            })
-        });
+            }, pagination);
     };
 
     render() {
@@ -272,6 +270,7 @@ class FollowedVotes extends React.Component {
                                                 TableRowComponent={VoteResult}
                                                 tableData={this.state.votes}
                                                 isPaginate
+                                                itemsPerPage={3}
                                                 previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
                                                 nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
                                                 emptyMessage={'No poll request.'}
