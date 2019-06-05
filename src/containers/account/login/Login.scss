@@ -44,15 +44,19 @@
 
         .login-wrap {
           width: 100%;
-          height: auto;
+          height: 100%;
           overflow-y: auto;
           -webkit-overflow-scrolling: touch;
           display: flex;
           flex-direction: row;
           padding: 5vh 0;
           justify-content: center;
-          align-items: flex-start;
+          align-items: center;
           margin: auto;
+          @media(max-height: 570px) {
+            align-items: flex-start;
+            height: auto;
+          }
           @media(max-width: 760px) {
             flex-direction: column;
           }

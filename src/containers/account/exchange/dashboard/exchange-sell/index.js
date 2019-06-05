@@ -7,7 +7,7 @@ import CustomSelect from '../../../../components/select';
 import {currencyTypes, formatDivision, multiply} from '../../../../../helpers/format';
 import {createOffer} from '../../../../../actions/wallet';
 import {setBodyModalParamsAction} from '../../../../../modules/modals';
-import {ONE_APL} from '../../../../../constants';
+import {ONE_APL, ONE_GWEI} from '../../../../../constants';
 
 class ExchangeSell extends React.Component {
     feeATM = 200000000;
@@ -22,7 +22,7 @@ class ExchangeSell extends React.Component {
         if (props.currentCurrency.currency !== state.currentCurrency || props.wallet !== state.wallet) {
             if (state.form && state.form.values) {
                 state.form.setAllValues({
-                    fromAddress: state.form.values.fromAddress,
+                    walletAddress: state.form.values.walletAddress,
                     pairRate: '',
                     offerAmount: '',
                     total: '',
@@ -59,8 +59,8 @@ class ExchangeSell extends React.Component {
                     NotificationManager.error('You can sell more then 0.001 APL', 'Error', 5000);
                     return;
                 }
-                const pairRate = multiply(values.pairRate, ONE_APL);
-                const offerAmount = multiply(values.offerAmount, ONE_APL);
+                const pairRate = multiply(values.pairRate, ONE_GWEI);
+                const offerAmount = multiply(values.offerAmount, ONE_GWEI);
                 const balanceAPL = (this.props.dashboardAccoountInfo && this.props.dashboardAccoountInfo.unconfirmedBalanceATM) ?
                     parseFloat(this.props.dashboardAccoountInfo.unconfirmedBalanceATM)
                     :
@@ -76,18 +76,17 @@ class ExchangeSell extends React.Component {
                     pairCurrency: currencyTypes[currency],
                     pairRate,
                     offerAmount,
-                    offerCurrency: currencyTypes['apl'],
                     sender: this.props.account,
                     passphrase: this.props.passPhrase,
                     feeATM: this.feeATM,
-                    fromAddress: values.fromAddress.address,
+                    walletAddress: values.walletAddress.address,
                 };
 
                 if (this.props.passPhrase) {
                     this.props.createOffer(params);
                     if (this.state.form) {
                         this.state.form.setAllValues({
-                            fromAddress: values.fromAddress,
+                            walletAddress: values.walletAddress,
                             pairRate: '',
                             offerAmount: '',
                             total: '',
@@ -97,7 +96,7 @@ class ExchangeSell extends React.Component {
                     this.props.setBodyModalParamsAction('CONFIRM_CREATE_OFFER', {
                         params,
                         resetForm: () => this.state.form.setAllValues({
-                            fromAddress: values.fromAddress,
+                            walletAddress: values.walletAddress,
                             pairRate: '',
                             offerAmount: '',
                             total: '',
@@ -151,7 +150,7 @@ class ExchangeSell extends React.Component {
                                     </label>
                                     <CustomSelect
                                         className="form-control"
-                                        field={'fromAddress'}
+                                        field={'walletAddress'}
                                         defaultValue={this.state.walletsList[0]}
                                         setValue={setValue}
                                         options={this.state.walletsList}

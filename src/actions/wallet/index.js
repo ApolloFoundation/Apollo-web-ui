@@ -146,8 +146,7 @@ export const getBuyOpenOffers = (currency, options) => async (dispatch, getState
     if (!currency) currency = getState().exchange.currentCurrency.currency;
     const params = {
         orderType: 0,
-        offerCurrency: currencyTypes[currency],
-        pairCurrency: 0,
+        pairCurrency: currencyTypes[currency],
         isAvailableForNow: true,
         status: 0,
 
@@ -163,7 +162,6 @@ export const getSellOpenOffers = (currency, options) => async (dispatch, getStat
     if (!currency) currency = getState().exchange.currentCurrency.currency;
     const params = {
         orderType: 1,
-        offerCurrency: 0,
         pairCurrency: currencyTypes[currency],
         isAvailableForNow: true,
         status: 0,
@@ -180,8 +178,7 @@ export const getPlotBuyOpenOffers = (currency, options) => async (dispatch, getS
     if (!currency) currency = getState().exchange.currentCurrency.currency;
     const params = {
         orderType: 0,
-        offerCurrency: currencyTypes[currency],
-        pairCurrency: 0,
+        pairCurrency: currencyTypes[currency],
         isAvailableForNow: true,
         status: 0,
     };
@@ -193,7 +190,6 @@ export const getPlotSellOpenOffers = (currency, options) => async (dispatch, get
     if (!currency) currency = getState().exchange.currentCurrency.currency;
     const params = {
         orderType: 1,
-        offerCurrency: 0,
         pairCurrency: currencyTypes[currency],
         isAvailableForNow: true,
         status: 0,
@@ -206,7 +202,6 @@ export const getMyOpenOffers = (currency) => async (dispatch, getState) => {
     if (!currency) currency = getState().exchange.currentCurrency.currency;
     const {account} = getState().account;
     const paramsSell = {
-        offerCurrency: 0,
         pairCurrency: currencyTypes[currency],
         accountId: account,
         isAvailableForNow: true,
@@ -214,8 +209,7 @@ export const getMyOpenOffers = (currency) => async (dispatch, getState) => {
         status: 0,
     };
     const paramsBuy = {
-        offerCurrency: currencyTypes[currency],
-        pairCurrency: 0,
+        pairCurrency: currencyTypes[currency],
         accountId: account,
         isAvailableForNow: true,
         orderType: 0,
