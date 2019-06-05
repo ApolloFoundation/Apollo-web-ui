@@ -13,6 +13,7 @@ import InfoBox from '../../components/info-box';
 import LogoImg from '../../../assets/logo.png';
 import {getCoins, getFaucetAccountInfoAction} from '../../../actions/faucet';
 import {ONE_APL} from "../../../constants";
+import config from "../../../config";
 import './style.scss'
 
 class Faucet extends React.Component {
@@ -46,7 +47,7 @@ class Faucet extends React.Component {
         });
         if (result) {
             if (result.success) {
-                NotificationManager.success('Success! Sent 30000 APL to your address', null, 5000);
+                NotificationManager.success('Success! Sent 30,000 APL to your address', null, 5000);
                 this.state.form.resetAll();
             } else {
                 NotificationManager.error(result.message, 'Error', 5000);
@@ -82,6 +83,19 @@ class Faucet extends React.Component {
                                         </p>
                                     </div>
                                 )}
+                                <div className={'flex-column text-section'}>
+                                    <p>
+                                        Now you’re looking at Apollo test Faucet.
+                                        You can get test APL to use them in Apollo testnet&nbsp;1.
+                                        Apollo testnet&nbsp;1 is a test network where you can check Apollo Wallet and Apollo API features.
+                                    </p>
+                                    <p>
+                                        Please, note that it’s not possible to use testnet APL in the Apollo mainnet.
+                                    </p>
+                                    <p>
+                                        Apollo testnet&nbsp;1 is available by the following link:<br/><a href={config.api.faucetUrl} target="_blank" rel="noopener noreferrer">{config.api.faucetUrl}</a>
+                                    </p>
+                                </div>
                             </div>
                             <div className={'right-section'}>
                                 <div className={'h-100 d-flex flex-column justify-content-between'}>
@@ -98,7 +112,7 @@ class Faucet extends React.Component {
                                                         onSubmit={submitForm}
                                                         className="tab-body mt-4 active">
                                                         <InfoBox className={'green-text'} transparent>
-                                                            Get free Apollo (APL) every 60 minutes
+                                                            Get free 30,000 APL every 60 minutes
                                                         </InfoBox>
                                                         <div className="input-group-app user">
                                                             <div>
