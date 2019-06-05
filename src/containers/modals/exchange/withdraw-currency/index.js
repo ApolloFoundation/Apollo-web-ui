@@ -184,7 +184,7 @@ class WithdrawCurrency extends React.Component {
                                                                 onClick={() => this.handleSelectTransactionFee({level: key, value: transactionFee[key]})}
                                                             >
                                                                 <span className={'text-uppercase'}>{key}</span><br/>
-                                                                <small>{formatGweiToEth(transactionFee[key], 0)} {currencyFormat}</small>
+                                                                <small>{formatGweiToEth(transactionFee[key], 0)} ETH</small>
                                                             </button>
                                                         ))}
                                                     </div>
@@ -195,7 +195,7 @@ class WithdrawCurrency extends React.Component {
                                                     Max Fee
                                                 </label>
                                                 <div className="col-sm-9">
-                                                    {formatGweiToEth(this.state.fee.value * gasLimit, 0)} {currencyFormat}
+                                                    {formatGweiToEth(this.state.fee.value * gasLimit, 0)} ETH
                                                 </div>
                                             </div>
                                         </React.Fragment>

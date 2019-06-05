@@ -94,40 +94,42 @@ class CastPoll extends React.Component {
     }
 
     handleFormSubmit = async(values) => {
-        let votes = values.voteOptions;
+        if (!this.state.isPending) {
+            this.setState({isPending: true});
+            let votes = values.voteOptions;
+
+            if (this.state.poll.maxRangeValue > 1) {
+                votes = values.voteOptions;
+                delete values.voteOptions;
+
+            } else {
+                const voteVals = Object.keys(values).filter((el) => {
+                    return el.includes('vote')
+                });
+
+                voteVals.map(vote => {
+                    values[vote] = values[vote] === true ? 1 : -128;
+                });
+            }
 
 
-        if (this.state.poll.maxRangeValue > 1) {
-            votes = values.voteOptions;
-            delete values.voteOptions;
+            values = {
+                poll: this.state.poll.poll,
+                ...values,
+                ...votes,
+            };
 
-        } else {
-            const voteVals = Object.keys(values).filter((el) => {
-                return el.includes('vote')
-            });
+            const res = await this.props.submitForm(values, 'castVote');
+            if (res.errorCode) {
+                this.setState({
+                    isPending: false
+                });
+                NotificationManager.error(res.errorDescription, 'Error', 5000)
+            } else {
+                this.props.setBodyModalParamsAction(null, {});
 
-            voteVals.map(vote => {
-                values[vote] = values[vote] === true ? 1 : -128;
-            });
-        }
-
-        
-        values = {
-            poll: this.state.poll.poll,
-            ...values,
-            ...votes,
-        };
-
-        const res = await this.props.submitForm( values, 'castVote');
-        if (res.errorCode) {
-            this.setState({
-                isPending: false
-            });
-            NotificationManager.error(res.errorDescription, 'Error', 5000)
-        } else {
-            this.props.setBodyModalParamsAction(null, {});
-
-            NotificationManager.success('Your vote has been cast!!', null, 5000);
+                NotificationManager.success('Your vote has been cast!', null, 5000);
+            }
         }
     };
 
@@ -146,8 +148,8 @@ class CastPoll extends React.Component {
     render() {
         const {asset, currency, poll, votes} = this.state;
 
-        const assetHint    = asset    ? `This vote is based on the balance of asset: ${asset.asset}. If you do not have enough of this asset, your vote will ot be counted.` : null;
-        const currencyHint = currency ? `This vote is based on the balance of asset: ${currency.currency}. If you do not have enough of this currency, your vote will ot be counted.` : null;
+        const assetHint    = asset    ? `This vote is based on the balance of asset: ${asset.asset}. If you do not have enough of this asset, your vote will not be counted.` : null;
+        const currencyHint = currency ? `This vote is based on the balance of asset: ${currency.currency}. If you do not have enough of this currency, your vote will not be counted.` : null;
 
         return (
             <ModalBody

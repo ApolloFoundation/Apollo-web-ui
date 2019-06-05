@@ -7,14 +7,15 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import uuid from 'uuid';
-import {setBodyModalParamsAction} from "../../../../modules/modals";
-import {Link} from "react-router-dom";
-import {formatTimestamp} from "../../../../helpers/util/time";
-
+import {Link} from 'react-router-dom';
+import {setBodyModalParamsAction} from '../../../../modules/modals';
+import {formatTimestamp} from '../../../../helpers/util/time';
 import {getTransactionAction} from '../../../../actions/transactions/';
+import {ONE_APL} from '../../../../constants';
 
 const mapStateToProps = state => ({
-    actualBlock: state.account.actualBlock
+    actualBlock: state.account.actualBlock,
+    balanceAPL: state.account.unconfirmedBalanceATM,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -26,6 +27,10 @@ const mapDispatchToProps = dispatch => ({
 
 const PoolItem  = props => {
     const blocksLeft = parseInt(props.finishHeight) - parseInt(props.actualBlock);
+    let checkAction = false;
+    if (props.minBalanceModel === 1 && parseFloat(props.minBalance) >= (props.balanceAPL / ONE_APL)) {
+        checkAction = true;
+    }
     return (
         <tr key={uuid()}>
             <td  key={uuid()} className="blue-link-text">
@@ -46,7 +51,7 @@ const PoolItem  = props => {
                     <button
                         type={'button'}
                         onClick={() => props.setBodyModalParamsAction('CAST_VOTE', props.poll)}
-                        className="btn primary blue"
+                        className={`btn primary blue ${checkAction ? 'blue-disabled' : ''}`}
                     >
                         Vote
                     </button>
