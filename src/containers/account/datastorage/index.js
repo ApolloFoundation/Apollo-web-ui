@@ -42,23 +42,29 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class DataStorage extends React.Component {
-	constructor(props) {
-		super(props);
-	}
-
 	state = {
 		dataTags: null,
-		taggedData: null
-
+		taggedData: null,
+		page: 1,
+		firstIndex: 0,
+		lastIndex: 14,
 	};
 
 	listener = data => {
-		this.getAllTaggedData(this.props);
+		const pagination = {
+			firstIndex: this.state.firstIndex,
+			lastIndex: this.state.lastIndex
+		};
+		this.getAllTaggedData(this.props, null, pagination);
 		this.getDataTags();
 	};
 
 	componentDidMount() {
-		this.getAllTaggedData();
+		const pagination = {
+			firstIndex: this.state.firstIndex,
+			lastIndex: this.state.lastIndex
+		};
+		this.getAllTaggedData(null, null, pagination);
 		this.getDataTags();
 		BlockUpdater.on("data", this.listener);
 	}
@@ -67,12 +73,7 @@ class DataStorage extends React.Component {
 		BlockUpdater.removeListener("data", this.listener);
 	}
 
-	//componentWillReceiveProps(newState) {
-	//	this.getAllTaggedData(newState);
-	//	this.getDataTags();
-	//}
-
-	getAllTaggedData = async (newState, query) => {
+	getAllTaggedData = async (newState, query, pagination) => {
 		if (!query) {
 			if (newState) {
 				query = newState.match.params.query;
@@ -89,38 +90,38 @@ class DataStorage extends React.Component {
 
 			switch (target) {
 				case ('tag'):
-					const searchTaggedData = await this.props.searchTaggedDataAction({ tag: value });
+					const searchTaggedData = await this.props.searchTaggedDataAction({ tag: value, ...pagination });
 					if (searchTaggedData) {
 						this.setState({
-							...this.state,
+							...pagination,
 							taggedData: searchTaggedData.data
 						})
 					}
 					return;
 				case ('account'):
-					const accountTaggedData = await this.props.getAccountTaggedDataAction({ account: value });
+					const accountTaggedData = await this.props.getAccountTaggedDataAction({ account: value, ...pagination });
 
 					this.setState({
-						...this.state,
+						...pagination,
 						taggedData: accountTaggedData ? accountTaggedData.data : []
 					});
 
 					return;
 
 				case ('query'):
-					const accountQueryData = await this.props.searchTaggedDataAction({ query: value });
+					const accountQueryData = await this.props.searchTaggedDataAction({ query: value, ...pagination });
 					if (accountQueryData) {
 						this.setState({
-							...this.state,
+							...pagination,
 							taggedData: accountQueryData.data
 						})
 					}
 					return;
 				default:
-					const allTaggedData = await this.props.getAllTaggedDataAction();
+					const allTaggedData = await this.props.getAllTaggedDataAction({...pagination});
 					if (allTaggedData) {
 						this.setState({
-							...this.state,
+							...pagination,
 							taggedData: allTaggedData.data
 						})
 					}
@@ -129,7 +130,7 @@ class DataStorage extends React.Component {
 			}
 
 		} else {
-			const allTaggedData = await this.props.getAllTaggedDataAction();
+			const allTaggedData = await this.props.getAllTaggedDataAction({...pagination});
 			if (allTaggedData) {
 				this.setState({
 					...this.state,
@@ -188,6 +189,15 @@ class DataStorage extends React.Component {
 		account.setValue('account', '');
 		tag.setValue('query', '');
 	}
+
+	onPaginate = (page) => {
+		const pagination = {
+			page: page,
+			firstIndex: page * 15 - 15,
+			lastIndex: page * 15 - 1
+		};
+		this.getAllTaggedData(null, null, pagination);
+	};
 
 	render() {
 		return (
@@ -333,12 +343,12 @@ class DataStorage extends React.Component {
 										}
 									]}
 									emptyMessage={'No tagget data found.'}
-									page={this.state.page}
 									TableRowComponent={DataStorageItem}
 									tableData={this.state.taggedData}
 									isPaginate
-								// previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
-								// nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
+									page={this.state.page}
+									previousHendler={() => this.onPaginate(this.state.page - 1)}
+									nextHendler={() => this.onPaginate(this.state.page + 1)}
 								/>
 							</div>
 						</div>

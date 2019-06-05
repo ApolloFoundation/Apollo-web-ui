@@ -35,7 +35,7 @@ const Form = ({setValue, goods}) => (
                 />
                 <NumericInput
                     setValue={setValue}
-                    label="New quantity"
+                    label="Quantity"
                     field="quantity"
                     placeholder="Quantity"
                     defaultValue={1}
