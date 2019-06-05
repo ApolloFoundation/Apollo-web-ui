@@ -7,7 +7,7 @@ import CustomSelect from '../../../../components/select';
 import {currencyTypes, formatDivision, multiply} from '../../../../../helpers/format';
 import {createOffer} from '../../../../../actions/wallet';
 import {setBodyModalParamsAction} from '../../../../../modules/modals';
-import {ONE_APL} from '../../../../../constants';
+import {ONE_APL, ONE_GWEI} from '../../../../../constants';
 
 class ExchangeSell extends React.Component {
     feeATM = 200000000;
@@ -59,8 +59,8 @@ class ExchangeSell extends React.Component {
                     NotificationManager.error('You can sell more then 0.001 APL', 'Error', 5000);
                     return;
                 }
-                const pairRate = multiply(values.pairRate, ONE_APL);
-                const offerAmount = multiply(values.offerAmount, ONE_APL);
+                const pairRate = multiply(values.pairRate, ONE_GWEI);
+                const offerAmount = multiply(values.offerAmount, ONE_GWEI);
                 const balanceAPL = (this.props.dashboardAccoountInfo && this.props.dashboardAccoountInfo.unconfirmedBalanceATM) ?
                     parseFloat(this.props.dashboardAccoountInfo.unconfirmedBalanceATM)
                     :

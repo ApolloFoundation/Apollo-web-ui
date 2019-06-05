@@ -66,9 +66,9 @@ class TokenGenerationValidation extends React.Component {
 
         if (validateToken) {
             if (validateToken.valid) {
-                NotificationManager.success('Notification message is valid!')
+                NotificationManager.success('Token is valid!')
             } else {
-                NotificationManager.error('Notification message is invalid!')
+                NotificationManager.error('Token is invalid!')
             }
         }
     };
