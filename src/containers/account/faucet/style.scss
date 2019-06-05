@@ -46,6 +46,10 @@
           justify-content: center;
           align-items: center;
           margin: auto;
+          @media(max-height: 570px) {
+            align-items: flex-start;
+            height: auto;
+          }
           @media(max-width: 760px) {
             flex-direction: column;
           }
