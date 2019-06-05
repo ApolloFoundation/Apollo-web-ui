@@ -31,6 +31,13 @@ const FinishedpollsItem = props => (
         </td>
         <td key={uuid()} className={"align-right"}>
             <div className="btn-box inline">
+                <button
+                    type={'button'}
+                    onClick={() =>  props.setBodyModalParamsAction('POLL_RESULTS', props.poll)}
+                    className="btn btn-default"
+                >
+                    Results
+                </button>
                 <Link to={"/followed-polls/" + props.poll} className="btn btn-default">View</Link>
             </div>
         </td>

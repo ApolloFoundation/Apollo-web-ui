@@ -1,9 +1,7 @@
 import React from 'react';
 
 import {Text} from 'react-form';
-import {CheckboxFormInput} from '../../../components/form-components/check-button-input';
 import TextualInputComponent from '../../../components/form-components/textual-input';
-import NumericInputComponent from '../../../components/form-components/numeric-input';
 import CustomTextArea from '../../../components/form-components/text-area';
 import CustomFormSelect from '../../../components/form-components/custom-form-select';
 import CustomInputForm from '../../../components/form-components/textual-input';
@@ -16,10 +14,10 @@ import BlockHeightInput from '../../../components/form-components/block-height-i
 import InputForm from '../../../components/input-form';
 
 const votingModelData = [
-    { value: 0, label: 'Vote by Account' },
-    { value: 1, label: 'Vote by Account Balance' },
-    { value: 2, label: 'Vote by Asset Balance' },
-    { value: 3, label: 'Vote by Currency Balance' }
+    {value: 0, label: 'Vote by Account'},
+    {value: 1, label: 'Vote by Account Balance'},
+    {value: 2, label: 'Vote by Asset Balance'},
+    {value: 3, label: 'Vote by Currency Balance'}
 ];
 
 class PollForm extends React.Component {
@@ -39,33 +37,29 @@ class PollForm extends React.Component {
         setValue(`answers[${arrItem}]`, '');
     };
 
-    selectedBalanceType = (values) => {
-        const type = values.minBalanceType || values.votingModel;
-        switch (type) {
+    selectedBalanceType = () => {
+        const {values} = this.props.getFormState();
+        switch (values.votingModel) {
             case 0:
                 return '(none)';
             case 1:
-                return '(Apollo)';
+                return '(APL)';
             case 2:
                 return '(Asset)';
             case 3:
                 return '(Currency)';
-            default: return null;
+            default:
+                return null;
         }
     };
 
-    handleVotingModel = (value, setValue) => {
-        if (value !== 0) setValue('minBalanceType', 0);
-        setValue('minBalanceModel', value);
-    };
-
-    render () {
+    render() {
         const {getFormState, setValue, idGroup} = this.props;
-        const {values: {minBalanceType, votingModel}} = getFormState()
+        const {values: {votingModel}} = getFormState();
 
         return (
             <>
-               <TextualInputComponent 
+                <TextualInputComponent
                     label={'Name'}
                     disabled={true}
                     field="name"
@@ -77,8 +71,8 @@ class PollForm extends React.Component {
                 />
 
                 <CustomTextArea
-                    label={'Description'} 
-                    field={'description'} 
+                    label={'Description'}
+                    field={'description'}
                     placeholder={'Description'}
                     setValue={setValue}
                     idGroup={idGroup}
@@ -92,26 +86,39 @@ class PollForm extends React.Component {
                     field={'votingModel'}
                     idGroup={idGroup}
                 />
-                
-                {
-                    minBalanceType === 2 ||
-                    votingModel === 2 &&
+
+                {votingModel === 2 && (
                     <AssetInput
                         field={'holding'}
                         setValue={setValue}
                         idGroup={idGroup}
                     />
-                }
-                {
-                    minBalanceType === 3 ||
-                    votingModel === 3 &&
-                    <CurrencyInput 
+                )}
+
+                {votingModel === 3 && (
+                    <CurrencyInput
                         field={'holding'}
                         setValue={setValue}
                         idGroup={idGroup}
                     />
-                }
-                <BlockHeightInput 
+                )}
+
+                {votingModel !== 0 && (
+                    <div className="form-group row form-group-white mb-15">
+                        <label className="col-sm-3 col-form-label">
+                            Min voting balance {this.selectedBalanceType()}
+                        </label>
+                        <div className="col-sm-9">
+                            <InputForm
+                                field="minBalance"
+                                placeholder=""
+                                type={"tel"}
+                                defaultValue={"0"}
+                                setValue={setValue}/>
+                        </div>
+                    </div>
+                )}
+                <BlockHeightInput
                     label={'Finish height'}
                     field={'finishHeight'}
                     placeholder={'Finish height'}
@@ -130,44 +137,44 @@ class PollForm extends React.Component {
                                 className="form-control"
                                 placeholder={'Answer'}
                             />
-                            <div 
+                            <div
                                 className="input-group-append"
                                 onClick={() => this.removeAnswer(setValue, getFormState().values.answers, 0)}
                             >
                                 <span className="input-group-text">
-                                    <i className="zmdi zmdi-minus-circle" />
+                                    <i className="zmdi zmdi-minus-circle"/>
                                 </span>
                             </div>
                         </div>
                         {getFormState().values.answers &&
-                            getFormState().values.answers.map((el, index) => {
-                                if(index !== 0 ) {
-                                    const filed = `answers[${index}]`;
-                                    return (
-                                        <div key={filed}
-                                            className="input-group input-group-sm mb-15 no-left-padding">
-                                            <Text
-                                                id={`${idGroup}${filed}-field`}
-                                                field={filed}
-                                                className="form-control"
-                                                placeholder={'Answer'}
-                                            />
-                                            <div className="input-group-append"
-                                                    onClick={() => this.removeAnswer(setValue, getFormState().values.answers, index)}>
+                        getFormState().values.answers.map((el, index) => {
+                            if (index !== 0) {
+                                const filed = `answers[${index}]`;
+                                return (
+                                    <div key={filed}
+                                         className="input-group input-group-sm mb-15 no-left-padding">
+                                        <Text
+                                            id={`${idGroup}${filed}-field`}
+                                            field={filed}
+                                            className="form-control"
+                                            placeholder={'Answer'}
+                                        />
+                                        <div className="input-group-append"
+                                             onClick={() => this.removeAnswer(setValue, getFormState().values.answers, index)}>
                                                 <span className="input-group-text">
                                                     <i className="zmdi zmdi-minus-circle"/>
                                                 </span>
-                                            </div>
                                         </div>
-                                    )
-                                }
-                            })
+                                    </div>
+                                )
+                            }
+                        })
                         }
                     </div>
                 </div>
                 <div className="mobile-class form-group-grey row mb-15">
                     <div className="col-sm-9 offset-sm-3">
-                        <a 
+                        <a
                             id={`${idGroup}addAnswer-field`}
                             className="no-margin btn btn-green"
                             onClick={() => this.addAnswer(setValue, getFormState().values.answers)}
@@ -180,7 +187,7 @@ class PollForm extends React.Component {
                 <div className="row">
                     <div className="col-sm-6">
                         <CustomInputForm
-                            label={'Minimum nr of choices'}
+                            label={'Min number of choices'}
                             setValue={setValue}
                             placeholder={''}
                             field={'minNumberOfOptions'}
@@ -189,7 +196,7 @@ class PollForm extends React.Component {
                             defaultValue={1}
                         />
                         <CustomInputForm
-                            label={'Maximum nr of choices'}
+                            label={'Max number of choices'}
                             setValue={setValue}
                             placeholder={''}
                             field={'maxNumberOfOptions'}
@@ -200,7 +207,7 @@ class PollForm extends React.Component {
                     </div>
                     <div className="col-sm-6">
                         <CustomInputForm
-                            label={'Minimum range value'}
+                            label={'Min range value'}
                             setValue={setValue}
                             placeholder={''}
                             field={'minRangeValue'}
@@ -209,7 +216,7 @@ class PollForm extends React.Component {
                             defaultValue={0}
                         />
                         <CustomInputForm
-                            label={'Maximum range value'}
+                            label={'Max range value'}
                             setValue={setValue}
                             placeholder={''}
                             field={'maxRangeValue'}
@@ -220,7 +227,7 @@ class PollForm extends React.Component {
                     </div>
                 </div>
             </>
-            
+
         )
     }
 }

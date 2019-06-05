@@ -26,8 +26,7 @@ export function handleFormSubmit (values) {
         ...values,
         votingModel : values.votingModel || 0,
         'create_poll_answers[]': values.answers[0],
-        minBalanceModel: 0,
-        minBalanceType: 0,
+        minBalanceModel: values.votingModel || 0,
         ...resultAnswers
     };
 
@@ -35,7 +34,7 @@ export function handleFormSubmit (values) {
         dispatch({
             type: IS_MODAL_PROCESSING,
             payload: false
-        })
+        });
 
         dispatch(setBodyModalParamsAction(null, {}));
         NotificationManager.success('Your vote has been created!', null, 5000);
