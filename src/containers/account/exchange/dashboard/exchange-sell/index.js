@@ -22,7 +22,7 @@ class ExchangeSell extends React.Component {
         if (props.currentCurrency.currency !== state.currentCurrency || props.wallet !== state.wallet) {
             if (state.form && state.form.values) {
                 state.form.setAllValues({
-                    fromAddress: state.form.values.fromAddress,
+                    walletAddress: state.form.values.walletAddress,
                     pairRate: '',
                     offerAmount: '',
                     total: '',
@@ -76,18 +76,17 @@ class ExchangeSell extends React.Component {
                     pairCurrency: currencyTypes[currency],
                     pairRate,
                     offerAmount,
-                    offerCurrency: currencyTypes['apl'],
                     sender: this.props.account,
                     passphrase: this.props.passPhrase,
                     feeATM: this.feeATM,
-                    fromAddress: values.fromAddress.address,
+                    walletAddress: values.walletAddress.address,
                 };
 
                 if (this.props.passPhrase) {
                     this.props.createOffer(params);
                     if (this.state.form) {
                         this.state.form.setAllValues({
-                            fromAddress: values.fromAddress,
+                            walletAddress: values.walletAddress,
                             pairRate: '',
                             offerAmount: '',
                             total: '',
@@ -97,7 +96,7 @@ class ExchangeSell extends React.Component {
                     this.props.setBodyModalParamsAction('CONFIRM_CREATE_OFFER', {
                         params,
                         resetForm: () => this.state.form.setAllValues({
-                            fromAddress: values.fromAddress,
+                            walletAddress: values.walletAddress,
                             pairRate: '',
                             offerAmount: '',
                             total: '',
@@ -151,7 +150,7 @@ class ExchangeSell extends React.Component {
                                     </label>
                                     <CustomSelect
                                         className="form-control"
-                                        field={'fromAddress'}
+                                        field={'walletAddress'}
                                         defaultValue={this.state.walletsList[0]}
                                         setValue={setValue}
                                         options={this.state.walletsList}

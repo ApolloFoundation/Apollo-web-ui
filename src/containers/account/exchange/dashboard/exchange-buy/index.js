@@ -22,7 +22,7 @@ class ExchangeBuy extends React.Component {
         if (props.currentCurrency.currency !== state.currentCurrency || props.wallet !== state.wallet) {
             if (state.form && state.form.values) {
                 state.form.setAllValues({
-                    fromAddress: state.form.values.fromAddress,
+                    walletAddress: state.form.values.walletAddress,
                     pairRate: '',
                     offerAmount: '',
                     total: '',
@@ -59,13 +59,13 @@ class ExchangeBuy extends React.Component {
                     NotificationManager.error('You can buy more then 0.001 APL', 'Error', 5000);
                     return;
                 }
-                if (!values.fromAddress || !values.fromAddress.balances) {
+                if (!values.walletAddress || !values.walletAddress.balances) {
                     NotificationManager.error('Please select wallet address', 'Error', 5000);
                     return;
                 }
                 const pairRate = multiply(values.pairRate, ONE_APL);
                 const offerAmount = multiply(values.offerAmount, ONE_APL);
-                const balanceETH = parseFloat(values.fromAddress.balances[currency]);
+                const balanceETH = parseFloat(values.walletAddress.balances[currency]);
                 const balanceAPL = (this.props.dashboardAccoountInfo && this.props.dashboardAccoountInfo.unconfirmedBalanceATM) ?
                     parseFloat(this.props.dashboardAccoountInfo.unconfirmedBalanceATM)
                     :
@@ -82,20 +82,19 @@ class ExchangeBuy extends React.Component {
 
                 const params = {
                     offerType: 0, // BUY
-                    pairCurrency: currencyTypes['apl'],
+                    pairCurrency: currencyTypes[currency],
                     pairRate,
                     offerAmount,
-                    offerCurrency: currencyTypes[currency],
                     sender: this.props.account,
                     passphrase: this.props.passPhrase,
                     feeATM: this.feeATM,
-                    fromAddress: values.fromAddress.address,
+                    walletAddress: values.walletAddress.address,
                 };
                 if (this.props.passPhrase) {
                     this.props.createOffer(params);
                     if (this.state.form) {
                         this.state.form.setAllValues({
-                            fromAddress: values.fromAddress,
+                            walletAddress: values.walletAddress,
                             pairRate: '',
                             offerAmount: '',
                             total: '',
@@ -105,7 +104,7 @@ class ExchangeBuy extends React.Component {
                     this.props.setBodyModalParamsAction('CONFIRM_CREATE_OFFER', {
                         params,
                         resetForm: () => this.state.form.setAllValues({
-                            fromAddress: values.fromAddress,
+                            walletAddress: values.walletAddress,
                             pairRate: '',
                             offerAmount: '',
                             total: '',
@@ -147,7 +146,7 @@ class ExchangeBuy extends React.Component {
                                     </label>
                                     <CustomSelect
                                         className="form-control"
-                                        field={'fromAddress'}
+                                        field={'walletAddress'}
                                         defaultValue={this.state.walletsList[0]}
                                         setValue={setValue}
                                         options={this.state.walletsList}
@@ -201,10 +200,10 @@ class ExchangeBuy extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                            {values.fromAddress && (
+                            {values.walletAddress && (
                                 <div className={'form-group-text d-flex justify-content-between'}>
                                     of Total Balance: <span><i
-                                    className="zmdi zmdi-balance-wallet"/> {values.fromAddress.balances[currency]}&nbsp;{currencyName}</span>
+                                    className="zmdi zmdi-balance-wallet"/> {values.walletAddress.balances[currency]}&nbsp;{currencyName}</span>
                                 </div>
                             )}
                             <div className="btn-box align-buttons-inside align-center form-footer">
