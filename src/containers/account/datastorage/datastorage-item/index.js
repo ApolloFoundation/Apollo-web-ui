@@ -19,12 +19,14 @@ const makeDownloadction = (transaction, downloadUrl) => {
     } else {
         document.location.href = config.api.serverUrl + "requestType=downloadTaggedData&transaction=" + transaction + "&retrieve=true";
     }
-}
+};
 
 const DataStorageItem  = props => (
     <tr>
         <td className="blue-link-text">
-            <a onClick={() => props.getTransaction(props.transaction)}>{props.name}</a>
+            <a onClick={() => props.setBodyModalParamsAction('INFO_TRANSACTION', props.transaction)}>
+                {props.name}
+            </a>
         </td>
         <td className="blue-link-text">
             <a onClick={() => props.setBodyModalParamsAction('INFO_ACCOUNT', props.account)}>{props.accountRS}</a>
