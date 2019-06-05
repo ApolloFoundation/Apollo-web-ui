@@ -39,7 +39,7 @@ class AvailableBalance extends Component {
                                 {dashboardAccoountInfo.accountRS}
                             </div>
                             {
-                                actualBlock &&
+                                actualBlock && timestamp &&
                                 <div className="account-sub-titles">
                                     Block:&nbsp;{actualBlock}&nbsp;/&nbsp;{formatTimestamp(timestamp)}
                                 </div>
