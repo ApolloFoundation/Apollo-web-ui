@@ -19,26 +19,30 @@ import CustomTable from '../../components/tables/table';
 
 const mapStateToProps = state => ({
     account: state.account.account
-})
+});
 
 const mapDisatchToProps = dispatch => ({
     getAccountPropertiesAction: (requsetParams) => dispatch(getAccountPropertiesAction(requsetParams)),
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-})
+});
+
+const initialPagination = {
+    page: 1,
+    firstIndex: 0,
+    lastIndex: 14,
+};
 
 class AccountProperties extends React.Component {
     state = {
         properties: null,
-        firstIndex: 0,
-        lastIndex: 14,
-        page: 1,
         recipientRS: null,
         setterRS: null,
-        incoming: true
+        incoming: true,
+        ...initialPagination,
     };
 
     componentDidMount() {
-        this.getAccountPropertiesIncoming(this.props);
+        this.getAccountPropertiesIncoming();
     }
 
     componentWillReceiveProps (newState) {
@@ -46,16 +50,23 @@ class AccountProperties extends React.Component {
         else this.getAccountPropertiesOutgoing(newState);
     }
 
-    getAccountPropertiesIncoming = async (newState) => {
+    getAccountPropertiesIncoming = async (newState, pagination) => {
         if (!newState) newState = this.props;
+        if (!pagination) {
+            pagination = {
+                firstIndex: this.state.firstIndex,
+                lastIndex: this.state.lastIndex,
+            }
+        }
         const properties = await this.props.getAccountPropertiesAction({
             recipient: newState.account,
-            firstIndex: this.state.firstIndex,
-            lastIndex: this.state.lastIndex,
+            firstIndex: pagination.firstIndex,
+            lastIndex: pagination.lastIndex,
         });
 
         if (properties) {
             this.setState({
+                ...pagination,
                 properties: properties.properties,
                 recipientRS: properties.recipientRS,
                 incoming: true
@@ -63,16 +74,23 @@ class AccountProperties extends React.Component {
         }
     };
 
-    getAccountPropertiesOutgoing = async (newState) => {
+    getAccountPropertiesOutgoing = async (newState, pagination) => {
         if (!newState) newState = this.props;
+        if (!pagination) {
+            pagination = {
+                firstIndex: this.state.firstIndex,
+                lastIndex: this.state.lastIndex,
+            }
+        }
         const properties = await this.props.getAccountPropertiesAction({
             setter: newState.account,
-            firstIndex: this.state.firstIndex,
-            lastIndex: this.state.lastIndex,
+            firstIndex: pagination.firstIndex,
+            lastIndex: pagination.lastIndex,
         });
 
         if (properties) {
             this.setState({
+                ...pagination,
                 properties: properties.properties,
                 setterRS: properties.setterRS,
                 incoming: false
@@ -82,6 +100,15 @@ class AccountProperties extends React.Component {
 
     setProperty  = (el) => this.props.setBodyModalParamsAction("SET_ACCOUNT_PROPERTY", el);
 
+    onPaginate = (page) => {
+        const pagination = {
+            page: page,
+            firstIndex: page * 15 - 15,
+            lastIndex: page * 15 - 1
+        };
+        this.getAccountPropertiesIncoming(null, pagination);
+    };
+
     render () {
         return (
             <div className="page-content">
@@ -89,11 +116,11 @@ class AccountProperties extends React.Component {
                     pageTitle={'Account properties'}
                 >
                     <a className={`btn ${this.state.incoming ? 'outline-primary' : 'outline-transparent'} mr-1`}
-                       onClick={() => this.getAccountPropertiesIncoming()}>
+                       onClick={() => this.getAccountPropertiesIncoming(null, initialPagination)}>
                         Incoming
                     </a>
                     <a className={`btn ${this.state.incoming ? 'outline-transparent' : 'outline-primary'} mr-1`}
-                       onClick={() => this.getAccountPropertiesOutgoing()}>
+                       onClick={() => this.getAccountPropertiesOutgoing(null, initialPagination)}>
                         Outgoing
                     </a>
                     <a className="btn primary"
@@ -119,10 +146,13 @@ class AccountProperties extends React.Component {
                             }
                         ]}
                         className={'mb-3'}
-                        page={this.state.page}
                         emptyMessage={'No account properties found .'}
                         TableRowComponent={(props) => <AccountProperty incoming={this.state.incoming} {...props}/>}
                         tableData={this.state.properties}
+                        isPaginate
+                        page={this.state.page}
+                        previousHendler={() => this.onPaginate(this.state.page - 1)}
+                        nextHendler={() => this.onPaginate(this.state.page + 1)}
                     />
                 </div>
             </div>
