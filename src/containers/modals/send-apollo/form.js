@@ -29,7 +29,7 @@ const SendMoneyForm = ({values, setValue, modalData, setBodyModalParamsAction, i
             idGroup={idGroup}
         />
         <CustomInputForm
-            hendler={() => setBodyModalParamsAction('SEND_APOLLO_PRIVATE')}
+            hendler={() => setBodyModalParamsAction('SEND_APOLLO_PRIVATE', values)}
             label={'Private transaction'}
             id={'open-private-transaction-from-modal'}
             type={'button'}
