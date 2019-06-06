@@ -56,7 +56,11 @@ class DataStorage extends React.Component {
 
 	componentDidUpdate(prevProps, prevState) {
 		if (this.state.actualBlock !== prevState.actualBlock) {
-			this.getAllTaggedData();
+			const pagination = {
+				firstIndex: this.state.firstIndex,
+				lastIndex: this.state.lastIndex
+			};
+			this.getAllTaggedData(null, pagination);
 			this.getDataTags();
 		}
 	}
@@ -67,17 +71,17 @@ class DataStorage extends React.Component {
 	}
 
 	getAllTaggedData = async (query, pagination) => {
+		if (!pagination) {
+			pagination = {
+				page: 1,
+				firstIndex: 0,
+				lastIndex: 14
+			};
+		}
 		if (!query) {
 			query = this.props.match.params.query;
 		}
 		if (query) {
-			if (!pagination) {
-				pagination = {
-					page: 1,
-					firstIndex: 0,
-					lastIndex: 14
-				};
-			}
 			query = query.split('=');
 			const target = query[0];
 			const value = query[1];
@@ -127,6 +131,7 @@ class DataStorage extends React.Component {
 			const allTaggedData = await this.props.getAllTaggedDataAction({...pagination});
 			if (allTaggedData) {
 				this.setState({
+					...pagination,
 					taggedData: allTaggedData.data
 				})
 			}
@@ -341,6 +346,7 @@ class DataStorage extends React.Component {
 									TableRowComponent={DataStorageItem}
 									tableData={this.state.taggedData}
 									isPaginate
+									itemsPerPage={15}
 									page={this.state.page}
 									previousHendler={() => this.onPaginate(this.state.page - 1)}
 									nextHendler={() => this.onPaginate(this.state.page + 1)}
