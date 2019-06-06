@@ -15,21 +15,16 @@ import {
 import { getTransactionAction } from '../../../actions/transactions/index';
 import { setBodyModalParamsAction } from "../../../modules/modals";
 import SiteHeader from '../../components/site-header';
-import uuid from 'uuid';
 import DataStorageItem from "./datastorage-item";
 import { Form, Text } from 'react-form';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
-import { BlockUpdater } from "../../block-subscriber";
-import ContentLoader from '../../components/content-loader'
-import InfoBox from '../../components/info-box'
-import ContentHendler from '../../components/content-hendler'
 
 import CustomTable from '../../components/tables/table';
 
 const mapStateToProps = state => ({
 	account: state.account.account,
-	state: state
+	actualBlock: state.account.actualBlock,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -48,43 +43,42 @@ class DataStorage extends React.Component {
 		page: 1,
 		firstIndex: 0,
 		lastIndex: 14,
+		actualBlock: null,
 	};
 
-	listener = data => {
-		const pagination = {
-			firstIndex: this.state.firstIndex,
-			lastIndex: this.state.lastIndex
-		};
-		this.getAllTaggedData(this.props, null, pagination);
-		this.getDataTags();
-	};
+	static getDerivedStateFromProps(props, state) {
+		if (props.actualBlock !== state.actualBlock) {
+			return {
+				actualBlock: props.actualBlock,
+			};
+		}
+	}
+
+	componentDidUpdate(prevProps, prevState) {
+		if (this.state.actualBlock !== prevState.actualBlock) {
+			this.getAllTaggedData();
+			this.getDataTags();
+		}
+	}
 
 	componentDidMount() {
-		const pagination = {
-			firstIndex: this.state.firstIndex,
-			lastIndex: this.state.lastIndex
-		};
-		this.getAllTaggedData(null, null, pagination);
+		this.getAllTaggedData();
 		this.getDataTags();
-		BlockUpdater.on("data", this.listener);
 	}
 
-	componentWillUnmount() {
-		BlockUpdater.removeListener("data", this.listener);
-	}
-
-	getAllTaggedData = async (newState, query, pagination) => {
+	getAllTaggedData = async (query, pagination) => {
 		if (!query) {
-			if (newState) {
-				query = newState.match.params.query;
-			} else {
-				query = this.props.match.params.query;
-
-			}
+			query = this.props.match.params.query;
 		}
 		if (query) {
+			if (!pagination) {
+				pagination = {
+					page: 1,
+					firstIndex: 0,
+					lastIndex: 14
+				};
+			}
 			query = query.split('=');
-
 			const target = query[0];
 			const value = query[1];
 
@@ -133,7 +127,6 @@ class DataStorage extends React.Component {
 			const allTaggedData = await this.props.getAllTaggedDataAction({...pagination});
 			if (allTaggedData) {
 				this.setState({
-					...this.state,
 					taggedData: allTaggedData.data
 				})
 			}
@@ -144,7 +137,6 @@ class DataStorage extends React.Component {
 		const allTaggedData = await this.props.getDataTagsAction(reqParams);
 		if (allTaggedData) {
 			this.setState({
-				...this.state,
 				dataTags: allTaggedData.tags
 			})
 		}
@@ -165,30 +157,33 @@ class DataStorage extends React.Component {
 
 	handleSearchByAccount = (values) => {
 		this.props.history.push('/data-storage/account=' + values.account);
-		this.getAllTaggedData(null, 'account=' + values.account)
+		this.getAllTaggedData('account=' + values.account)
 	};
 
 	handleSearchByQuery = (values) => {
 		this.props.history.push('/data-storage/query=' + values.query);
-		this.getAllTaggedData(null, 'query=' + values.query)
+		this.getAllTaggedData('query=' + values.query)
 	};
 
-	handleSearchByTag = () => {
-
+	handleSearchByTag = (tag) => {
+		this.props.history.push('/data-storage/tag=' + tag);
+		this.getAllTaggedData('tag=' + tag)
 	};
 
 	storeForm = (field, form) => {
 		this.setState({
 			[field]: form
 		})
-	}
+	};
 
-	handleReset = () => {
+	handleReset = async () => {
 		const { account, tag } = this.state;
 
 		account.setValue('account', '');
 		tag.setValue('query', '');
-	}
+		await this.props.history.push('/data-storage');
+		this.getAllTaggedData('');
+	};
 
 	onPaginate = (page) => {
 		const pagination = {
@@ -196,7 +191,7 @@ class DataStorage extends React.Component {
 			firstIndex: page * 15 - 15,
 			lastIndex: page * 15 - 1
 		};
-		this.getAllTaggedData(null, null, pagination);
+		this.getAllTaggedData(null, pagination);
 	};
 
 	render() {
@@ -296,9 +291,9 @@ class DataStorage extends React.Component {
 											const params = this.props.match.params.query;
 
 											return (
-												<Link
-													key={uuid()}
-													to={'/data-storage/tag=' + el.tag}
+												<button
+													type={'button'}
+													onClick={() => this.handleSearchByTag(el.tag)}
 													className={classNames({
 														'btn': true,
 														'btn-primary': true,
@@ -310,9 +305,9 @@ class DataStorage extends React.Component {
 														marginRight: 20,
 														marginBottom: 20
 													}}
-												>
+													>
 													{el.tag} [{el.count}]
-                                                </Link>
+												</button>
 											);
 										})
 									}

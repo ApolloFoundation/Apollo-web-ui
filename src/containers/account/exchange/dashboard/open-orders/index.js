@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import CustomTable from '../../../../components/tables/table';
 import {formatDivision} from '../../../../../helpers/format';
 import {setBodyModalParamsAction} from '../../../../../modules/modals';
-import {ONE_APL} from '../../../../../constants';
+import {ONE_GWEI} from '../../../../../constants';
 
 class TradeHistoryExchange extends React.Component {
     handleCancel = (data) => {
@@ -44,9 +44,9 @@ class TradeHistoryExchange extends React.Component {
                     tableData={myOrders}
                     emptyMessage={'No open orders found.'}
                     TableRowComponent={(props) => {
-                        const pairRate = formatDivision(props.pairRate, ONE_APL, 9);
-                        const offerAmount = formatDivision(props.offerAmount, ONE_APL, 3);
-                        const total = formatDivision(props.pairRate * props.offerAmount, Math.pow(10, 16), 9);
+                        const pairRate = formatDivision(props.pairRate, ONE_GWEI, 9);
+                        const offerAmount = formatDivision(props.offerAmount, ONE_GWEI, 3);
+                        const total = formatDivision(props.pairRate * props.offerAmount, Math.pow(10, 18), 9);
                         return (
                             <tr>
                                 <td className={`${props.type === 0 ? 'green-text' : 'red-text'}`}>{pairRate}</td>
