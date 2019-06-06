@@ -113,6 +113,7 @@ class InputForm extends React.Component {
             }
         }
         if (this.props.onChange) this.props.onChange(value);
+        if (this.props.setValue && this.props.field) this.props.setValue(this.props.field, value);
         this.setState({value});
         return value;
     };
