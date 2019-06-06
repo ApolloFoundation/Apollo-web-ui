@@ -4,6 +4,7 @@ import {NotificationManager} from 'react-notifications';
 import {Form} from 'react-form';
 import InputForm from '../../../components/input-form';
 import CustomFormSelect from "../../../components/form-components/custom-form-select";
+import ContentLoader from "../../../components/content-loader";
 import {getTransactionFee, walletWithdraw} from '../../../../actions/wallet';
 import {currencyTypes, formatGweiToEth} from '../../../../helpers/format';
 
@@ -145,7 +146,7 @@ class WithdrawCurrency extends React.Component {
                                             defaultValue={typeData.find(type => type.value.currency === currency)}
                                             setValue={setValue}
                                             options={typeData}
-                                            label={'Asset'}
+                                            label={'Wallet'}
                                             field={'asset'}
                                             onChange={this.handleChangeAsset}
                                         />
@@ -169,13 +170,13 @@ class WithdrawCurrency extends React.Component {
                                             </div>
                                         </div>
                                     </div>
-                                    {this.state.fee && (
-                                        <React.Fragment>
-                                            <div className="form-group row form-group-white mb-15">
-                                                <label className="col-sm-3 col-form-label">
-                                                    Gas Fee
-                                                </label>
-                                                <div className="col-sm-9">
+                                    <React.Fragment>
+                                        <div className="form-group row form-group-white mb-15">
+                                            <label className="col-sm-3 col-form-label">
+                                                Gas Fee
+                                            </label>
+                                            <div className="col-sm-9">
+                                                {this.state.fee ? (
                                                     <div className="btn-group w-100" role="group" aria-label="Basic example">
                                                         {transactionFee && Object.keys(transactionFee).map((key, index) => (
                                                             <button
@@ -188,18 +189,24 @@ class WithdrawCurrency extends React.Component {
                                                             </button>
                                                         ))}
                                                     </div>
-                                                </div>
+                                                ) : (
+                                                    <ContentLoader className={'m-0 p-0'}/>
+                                                )}
                                             </div>
-                                            <div className="form-group row form-group-white mb-15">
-                                                <label className="col-sm-3 col-form-label">
-                                                    Max Fee
-                                                </label>
-                                                <div className="col-sm-9">
-                                                    {formatGweiToEth(this.state.fee.value * gasLimit, 0)} ETH
-                                                </div>
+                                        </div>
+                                        <div className="form-group row form-group-white mb-15">
+                                            <label className="col-sm-3 col-form-label">
+                                                Max Fee
+                                            </label>
+                                            <div className="col-sm-9">
+                                                {this.state.fee ? (
+                                                    <span>{formatGweiToEth(this.state.fee.value * gasLimit, 0)} ETH</span>
+                                                ) : (
+                                                    <ContentLoader className={'m-0 p-0'}/>
+                                                )}
                                             </div>
-                                        </React.Fragment>
-                                    )}
+                                        </div>
+                                    </React.Fragment>
                                     <div className="form-group row form-group-white mb-15">
                                         <label className="col-sm-3 col-form-label">
                                             Secret phrase
@@ -217,8 +224,10 @@ class WithdrawCurrency extends React.Component {
                                     </div>
                                 </div>
 
-                                <button type="submit"
-                                        className="btn btn-right blue round round-bottom-right round-top-left absolute">
+                                <button
+                                    type="submit"
+                                    className={`btn btn-right blue round round-bottom-right round-top-left absolute ${!this.state.fee ? 'disabled' : ''}`}
+                                >
                                     Withdraw
                                 </button>
                             </div>
