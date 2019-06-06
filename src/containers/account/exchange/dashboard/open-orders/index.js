@@ -46,7 +46,7 @@ class TradeHistoryExchange extends React.Component {
                     TableRowComponent={(props) => {
                         const pairRate = formatDivision(props.pairRate, ONE_GWEI, 9);
                         const offerAmount = formatDivision(props.offerAmount, ONE_GWEI, 3);
-                        const total = formatDivision(props.pairRate * props.offerAmount, Math.pow(10, 16), 9);
+                        const total = formatDivision(props.pairRate * props.offerAmount, Math.pow(10, 18), 9);
                         return (
                             <tr>
                                 <td className={`${props.type === 0 ? 'green-text' : 'red-text'}`}>{pairRate}</td>

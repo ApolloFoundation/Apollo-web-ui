@@ -101,7 +101,7 @@ class OrderHistory extends React.Component {
                                 TableRowComponent={(props) => {
                                     const pairRate = formatDivision(props.pairRate, ONE_GWEI, 9);
                                     const offerAmount = formatDivision(props.offerAmount, ONE_GWEI, 3);
-                                    const total = formatDivision(props.pairRate * props.offerAmount, Math.pow(10, 16), 9);
+                                    const total = formatDivision(props.pairRate * props.offerAmount, Math.pow(10, 18), 9);
                                     const currency = props.type === 1 ? props.pairCurrency : props.offerCurrency;
                                     const type = Object.keys(currencyTypes).find(key => currencyTypes[key] === currency);
                                     return (
