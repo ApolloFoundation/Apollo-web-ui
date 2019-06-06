@@ -32,6 +32,7 @@ class ModalBody extends React.Component {
         } else {
             const { modalsHistory } = this.props;
             if (modalsHistory[modalsHistory.length - 1] && modalsHistory[modalsHistory.length - 1].value) {
+                console.log('=-=-=-modalsHistory=-=-', modalsHistory)
                 this.state.form.setAllValues(modalsHistory[modalsHistory.length - 1].value)
             }
         }
@@ -41,7 +42,12 @@ class ModalBody extends React.Component {
         if (this.props.handleFormSubmit) {
             this.props.handleFormSubmit(values)
         }
-    }
+    };
+
+    handleChange = (props) => {
+        this.props.saveSendModalState(props.values)
+        if (this.props.onChange) this.props.onChange();
+    };
 
     form = () => {
         const { CustomFooter, isDisableFormFooter, marketplace, onChange, isDisabledBackArrow, isAdvancedWhite,
@@ -56,14 +62,13 @@ class ModalBody extends React.Component {
         return (
             <BackForm
                 getApi={(value) => this.getForm(value)}
-                onChange={onChange}
+                onChange={this.handleChange}
                 onSubmit={(values) => this.handleFormSubmit(values)}
                 nameModel={nameModel}
                 render={({
                     submitForm, values, addValue, removeValue, setValue, getFormState, getValue
                 }) => (
                         <form
-                            onChange={() => saveSendModalState(values)}
                             onSubmit={submitForm}
                             className={`${isPour ? '' : 'modal-form modal-send-apollo'} ${className}`}
                         >
