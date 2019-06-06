@@ -165,9 +165,12 @@
         color: #25F459;
         font-size: 22px;
       }
-      @media(max-width: 425px) {
-        right: -10px;
-        top: -10px;
+      @media(max-width: 780px) {
+        top: 0;
+        right: 0;
+        border: none;
+        box-shadow: none;
+        background: transparent;
       }
     }
     .about {
