@@ -72,11 +72,12 @@ class AccountRS extends React.Component {
     };
 
     handleClickOutside = (event) => {
-        if (this.refContactsList && !this.refContactsList.contains(event.target) &&
-        this.refContactsIcon &&  !this.refContactsIcon.contains(event.target)) {
+        if (this.state.isContacts &&
+            this.refContactsList && !this.refContactsList.contains(event.target) &&
+            this.refContactsIcon &&  !this.refContactsIcon.contains(event.target)) {
             this.setState({
                 isContacts: false
-            })
+            });
         }
     };
 
