@@ -12,7 +12,7 @@ const CastVoteForm = ({currencyHint, assetHint, poll, votes, getFormState, setVa
             <>
                 {
                     (currencyHint || assetHint) &&
-                    <InfoBox warning>
+                    <InfoBox info>
                         {currencyHint || assetHint}
                     </InfoBox>
                 }
