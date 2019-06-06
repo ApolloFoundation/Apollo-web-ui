@@ -5,46 +5,39 @@
 
 
 import React from 'react';
-import { connect } from 'react-redux';
-import { NotificationManager } from 'react-notifications';
+import {connect} from 'react-redux';
+import {NotificationManager} from 'react-notifications';
 import SiteHeader from '../../components/site-header';
 import CustomTable from '../../components/tables/table';
-import { getBlocksAction } from '../../../actions/blocks';
-import { getAccountShufflingsAction } from '../../../actions/shuffling';
-import { getTransactionAction } from '../../../actions/transactions';
+import {getAccountShufflingsAction} from '../../../actions/shuffling';
+import {getTransactionAction} from '../../../actions/transactions';
 import ShufflingItem from './shuffling-item/'
 import submitForm from '../../../helpers/forms/forms';
-import { BlockUpdater } from '../../block-subscriber/index';
-import { setBodyModalParamsAction } from '../../../modules/modals';
+import {BlockUpdater} from '../../block-subscriber/index';
+import {setBodyModalParamsAction} from '../../../modules/modals';
 
+
+const initialPagination = {
+    page: 1,
+    firstIndex: 0,
+    lastIndex: 14,
+};
 
 class MyShufling extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.getBlocks = this.getBlocks.bind(this);
-
-        this.state = {
-            page: 1,
-            firstIndex: 0,
-            lastIndex: 14,
-            blocks: null
-        };
-    }
+    state = {
+        ...initialPagination,
+        shufflings: null,
+    };
 
     componentDidMount() {
         this.getAccountShufflings({
             account: this.props.account,
-            firstIndex: this.state.firstIndex,
-            lastIndex: this.state.lastIndex
         });
         BlockUpdater.on("data", data => {
             console.warn("height in dashboard", data);
             console.warn("updating dashboard");
             this.getAccountShufflings({
                 account: this.props.account,
-                firstIndex: this.state.firstIndex,
-                lastIndex: this.state.lastIndex
             });
         });
     }
@@ -55,45 +48,37 @@ class MyShufling extends React.Component {
 
     componentWillReceiveProps(newState) {
         this.getAccountShufflings({
-            account: newState.account,
-            firstIndex: newState.firstIndex,
-            lastIndex: newState.lastIndex
+            account: newState.account
         });
     }
 
-
-    async getBlocks(requestParams) {
-        const ledger = await this.props.getBlocksAction(requestParams);
-        this.setState({
-            ...this.props,
-            blocks: ledger.blocks
-        });
-    }
-
-    onPaginate(page) {
-        this.setState({
+    onPaginate = (page) => {
+        const pagination = {
             page: page,
-            account: this.props.account,
             firstIndex: page * 15 - 15,
             lastIndex: page * 15 - 1
-        }, () => {
-            this.getBlocks({
-                account: this.props.account,
-                firstIndex: this.state.firstIndex,
-                lastIndex: this.state.lastIndex
-            })
-        });
-    }
+        };
+        this.getAccountShufflings({
+            account: this.props.account
+        }, pagination);
+    };
 
-    getAccountShufflings = async (reqParams) => {
+    getAccountShufflings = async (reqParams, pagination) => {
+        if (!pagination) {
+            pagination = {
+                firstIndex: this.state.firstIndex,
+                lastIndex: this.state.lastIndex,
+            }
+        }
         const shufflings = await this.props.getAccountShufflingsAction({
             account: reqParams.account,
-            firstIndex: reqParams.firstIndex,
-            lastIndex: reqParams.lastIndex
+            firstIndex: pagination.firstIndex,
+            lastIndex: pagination.lastIndex
         });
 
         if (shufflings) {
             this.setState({
+                ...pagination,
                 shufflings: shufflings.shufflings
             });
         }
@@ -129,39 +114,41 @@ class MyShufling extends React.Component {
                     pageTitle={'My shuffling'}
                 />
                 <div className="page-body container-fluid">
-                    <div className="transaction-table">
-                        <CustomTable
-                            header={[
-                                {
-                                    name: 'Shuffling',
-                                    alignRight: false
-                                }, {
-                                    name: 'Stage',
-                                    alignRight: false
-                                }, {
-                                    name: 'Holding',
-                                    alignRight: false
-                                }, {
-                                    name: 'Amount',
-                                    alignRight: false
-                                }, {
-                                    name: 'Blocks Remaining',
-                                    alignRight: false
-                                }, {
-                                    name: 'Participants',
-                                    alignRight: true
-                                }, {
-                                    name: 'Assignee',
-                                    alignRight: true
-                                }
-                            ]}
-                            className={'no-min-height'}
-                            emptyMessage={'No active shuffling.'}
-                            TableRowComponent={ShufflingItem}
-                            tableData={this.state.shufflings}
-                            passProps={{ getTransaction: this.getTransaction }}
-                        />
-                    </div>
+                    <CustomTable
+                        header={[
+                            {
+                                name: 'Shuffling',
+                                alignRight: false
+                            }, {
+                                name: 'Stage',
+                                alignRight: false
+                            }, {
+                                name: 'Holding',
+                                alignRight: false
+                            }, {
+                                name: 'Amount',
+                                alignRight: false
+                            }, {
+                                name: 'Blocks Remaining',
+                                alignRight: false
+                            }, {
+                                name: 'Participants',
+                                alignRight: true
+                            }, {
+                                name: 'Assignee',
+                                alignRight: true
+                            }
+                        ]}
+                        className={'no-min-height mb-3'}
+                        emptyMessage={'No shufflings found.'}
+                        TableRowComponent={ShufflingItem}
+                        tableData={this.state.shufflings}
+                        passProps={{getTransaction: this.getTransaction}}
+                        isPaginate
+                        page={this.state.page}
+                        previousHendler={() => this.onPaginate(this.state.page - 1)}
+                        nextHendler={() => this.onPaginate(this.state.page + 1)}
+                    />
                 </div>
             </div>
         );
@@ -173,7 +160,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    getBlocksAction: (requestParams) => dispatch(getBlocksAction(requestParams)),
     getAccountShufflingsAction: (requestParams) => dispatch(getAccountShufflingsAction(requestParams)),
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
     submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),

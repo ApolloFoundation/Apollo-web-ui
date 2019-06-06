@@ -6,6 +6,7 @@ const ContentLoader = (props) => (
     <InfoBox
         noPaddingOnTheSides={props.noPaddingOnTheSides}
         onPaddingTop={props.onPaddingTop}
+        className={props.className}
     >
         <div
 
