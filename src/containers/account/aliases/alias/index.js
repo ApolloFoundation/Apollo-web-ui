@@ -11,7 +11,7 @@ import {setBodyModalParamsAction} from "../../../../modules/modals";
 const Alias = (props) => (
     <tr>
         <td>{props.aliasName}</td>
-        <td className="blue-link-text"><a>{props.aliasURI}</a></td>
+        <td>{props.aliasURI}</td>
         {
             props.priceATM &&
             props.priceATM === '0' &&
@@ -43,64 +43,52 @@ const Alias = (props) => (
 
         <td className="align-right unset-text-overflow">
             <div className="btn-box inline">
-                <a
+                <button
+                    type={'button'}
                     onClick={() => props.setBodyModalParamsAction('EDIT_ALIAS', props.alias)}
                     className="btn primary blue"
                 >
                     Edit
-                </a>
-                <a
+                </button>
+                <button
+                    type={'button'}
                     className="btn primary blue"
                     onClick={() => props.setBodyModalParamsAction('TRANSFER_ALIAS', props.alias)}
                 >
                     Transfer
-                </a>
-                <a
-                    className="btn primary blue"
-                    onClick={() => props.setBodyModalParamsAction('SELL_ALIAS', props.alias)}
-                >
-                    Sell
-                </a>
-                {
-                    (
-                        props.priceATM &&
-                        props.priceATM !== '0' &&
-                        !props.buyer
-                    ) &&
-                    <a
+                </button>
+                {(
+                    props.priceATM &&
+                    props.priceATM !== '0' &&
+                    (!props.buyer || typeof props.buyer !== "undefined")
+                ) ? (
+                    <button
+                        type={'button'}
                         className="btn primary blue"
                         onClick={() => props.setBodyModalParamsAction('CANCEL_SALE_ALIAS', props.alias)}
                     >
                         Cancel Sale
-                    </a>
-                }
-                {
-                    (
-                        props.priceATM &&
-                        props.priceATM !== '0' &&
-                        typeof props.buyer !== "undefined"
-                    ) &&
-                    <a
+                    </button>
+                ) : (
+                    <button
+                        type={'button'}
                         className="btn primary blue"
-                        onClick={() => props.setBodyModalParamsAction('CANCEL_SALE_ALIAS', props.alias)}
+                        onClick={() => props.setBodyModalParamsAction('SELL_ALIAS', props.alias)}
                     >
-                        Cancel Sale
-                    </a>
-                }
-
-                <a
+                        Sell
+                    </button>
+                )}
+                <button
+                    type={'button'}
                     className="btn primary"
                     onClick={() => props.setBodyModalParamsAction('DELETE_ALIAS', props.alias)}
                 >
-                    Delete</a>
+                    Delete
+                </button>
             </div>
         </td>
     </tr>
 );
-
-const mapStateToProps = (state) => ({
-    userAccount: state.account.account
-});
 
 const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),

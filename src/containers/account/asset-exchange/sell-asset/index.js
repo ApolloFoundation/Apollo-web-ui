@@ -1,26 +1,25 @@
 import React from 'react';
-import {Form} from 'react-form';
+import { Form } from 'react-form';
 import InputForm from '../../../components/input-form';
 import classNames from 'classnames';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
-const SellAsset = ({amountATM, asset, handleTotalValue, handleSellOrders}) => (
+const SellAsset = ({ amountATM, asset, handleTotalValue, handleSellOrders }) => (
     <Form
         onSubmit={(values) => handleSellOrders(values)}
-        render={({submitForm, values, addValue, removeValue, setValue, getFormState}) => (
-
-            <form style={{height: 'auto'}}
-                    className="card ballance card-medium medium-padding full-height h-100"
-                    onSubmit={submitForm}>
+        render={({ submitForm, values, addValue, removeValue, setValue, getFormState }) => (
+            <form style={{ height: 'auto' }}
+                className="card ballance card-medium medium-padding full-height h-100"
+                onSubmit={submitForm}>
                 <div className="form-group-app">
                     <div className="form-title">
-                        <p>Sell { asset.name}</p>
-                            <div className="form-sub-title">
-                                balance: <strong>{( amountATM / Math.pow(10,  asset.decimals)).toLocaleString('en', {
-                                minimumFractionDigits:  asset.decimals,
-                                maximumFractionDigits:  asset.decimals
-                                })} { asset.name}</strong>
-                            </div>
+                        <p>Sell {asset.name}</p>
+                        <div className="form-sub-title">
+                            balance: <strong>{(amountATM / Math.pow(10, asset.decimals)).toLocaleString('en', {
+                                minimumFractionDigits: asset.decimals,
+                                maximumFractionDigits: asset.decimals
+                            })} {asset.name}</strong>
+                        </div>
                     </div>
                     <div
                         className="input-group-app offset-top display-block inline no-margin">
@@ -34,11 +33,11 @@ const SellAsset = ({amountATM, asset, handleTotalValue, handleSellOrders}) => (
                                     field="quantity"
                                     placeholder="Quantity"
                                     type={"tel"}
-                                    onChange={() => handleTotalValue(setValue, getFormState)}
-                                    setValue={setValue}/>
+                                    onChange={value => handleTotalValue(setValue, value, values.priceATM)}
+                                    setValue={setValue} />
                                 <div className="input-group-append">
                                     <span className="input-group-text"
-                                            id="amountText">{ asset.name}</span>
+                                        id="amountText">{asset.name}</span>
                                 </div>
                             </div>
                         </div>
@@ -55,11 +54,11 @@ const SellAsset = ({amountATM, asset, handleTotalValue, handleSellOrders}) => (
                                     field="priceATM"
                                     placeholder="Price"
                                     type={"tel"}
-                                    onChange={() => handleTotalValue(setValue, getFormState)}
-                                    setValue={setValue}/>
+                                    onChange={value => handleTotalValue(setValue, value, values.quantity)}
+                                    setValue={setValue} />
                                 <div className="input-group-append">
                                     <span className="input-group-text"
-                                            id="amountText">APL / { asset.name}</span>
+                                        id="amountText">APL / {asset.name}</span>
                                 </div>
                             </div>
                         </div>
@@ -76,10 +75,10 @@ const SellAsset = ({amountATM, asset, handleTotalValue, handleSellOrders}) => (
                                     placeholder="Price"
                                     type={"tel"}
                                     disabled={true}
-                                    setValue={setValue}/>
+                                    setValue={setValue} />
                                 <div className="input-group-append">
                                     <span className="input-group-text"
-                                            id="amountText">{ asset.name}</span>
+                                        id="amountText">{asset.name}</span>
                                 </div>
                             </div>
                         </div>
@@ -98,8 +97,8 @@ const SellAsset = ({amountATM, asset, handleTotalValue, handleSellOrders}) => (
                                         "blue-disabled": !(!!getFormState().values.total)
                                     })}
                                 >
-                                    Sell ({ asset.name} > APL)
-                                </button>
+                                    Sell ({asset.name} > APL)
+                        </button>
                             </div>
                         </div>
                     </div>

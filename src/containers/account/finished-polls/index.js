@@ -6,43 +6,34 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import uuid from 'uuid';
-import SiteHeader from  '../../components/site-header'
+import SiteHeader from  '../../components/site-header';
+import CustomTable from '../../components/tables/table';
 import {getpollsAction} from "../../../actions/polls";
+import {getTransactionAction} from "../../../actions/transactions";
 import {BlockUpdater} from "../../block-subscriber";
 import FinishedpollsItem from "./finished-pools-item";
-import classNames from "classnames";
-import {getTransactionAction} from "../../../actions/transactions";
 import {setBodyModalParamsAction} from "../../../modules/modals";
-import ContentLoader from '../../components/content-loader'
-import ContentHendler from '../../components/content-hendler'
 
-import CustomTable from '../../components/tables/table';
 
 class Finishedpolls extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            firstIndex: 0,
-            lastIndex: 14,
-            page: 1,
-            activepolls: null,
-            finishedpolls: null
-        };
-
-        this.getFinishedpolls = this.getFinishedpolls.bind(this);
-        this.getTransaction   = this.getTransaction.bind(this);
-    }
+    state = {
+        finishedpolls: null,
+        page: 1,
+        firstIndex: 0,
+        lastIndex: 14,
+    };
 
     listener = data => {
-        this.getFinishedpolls()
+        this.getFinishedpolls({
+            firstIndex: this.state.firstIndex,
+            lastIndex: this.state.lastIndex
+        })
     };
 
     componentDidMount() {
         this.getFinishedpolls({
-            firstIndex: 0,
-            lastIndex:  9,
+            firstIndex: this.state.firstIndex,
+            lastIndex: this.state.lastIndex
         });
         BlockUpdater.on("data", this.listener);
     }
@@ -51,51 +42,33 @@ class Finishedpolls extends React.Component {
         BlockUpdater.removeListener("data", this.listener)
     }
 
-    componentWillReceiveProps(newState) {
-        this.getFinishedpolls();
-    }
-
-    async getFinishedpolls(reqParams){
+    getFinishedpolls = async (reqParams, pagination) => {
         reqParams = {
             ...reqParams,
             finishedOnly: true,
-            firstIndex: this.state.firstIndex,
-            lastIndex:  this.state.lastIndex
         };
 
         const finishedpolls = await this.props.getpollsAction(reqParams);
 
         if (finishedpolls) {
             this.setState({
-                ...this.props,
+                ...pagination,
                 finishedpolls: finishedpolls.polls
             });
         }
-    }
+    };
 
-    onPaginate (page) {
-        let reqParams = {
+    onPaginate = (page) => {
+        const pagination = {
             page: page,
             firstIndex: page * 15 - 15,
-            lastIndex:  page * 15 - 1
+            lastIndex: page * 15 - 1
         };
-
-        this.setState(reqParams, () => {
-            this.getFinishedpolls(reqParams)
-        });
-    }
-
-    async getTransaction(data) {
-        const reqParams = {
-            transaction: data,
-            account: this.props.account
-        };
-
-        const transaction = await this.props.getTransactionAction(reqParams);
-        if (transaction) {
-            this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction);
-        }
-    }
+        this.getFinishedpolls({
+            firstIndex: pagination.firstIndex,
+            lastIndex: pagination.lastIndex
+        }, pagination);
+    };
 
     render () {
         return (
@@ -119,16 +92,13 @@ class Finishedpolls extends React.Component {
                                 name: 'Start date',
                                 alignRight: false
                             },{
-                                name: 'Blocks left',
-                                alignRight: false
-                            },{
                                 name: 'Actions',
                                 alignRight: true
                             }
                         ]}
                         className={'no-min-height mb-3'}
                         emptyMessage={'No finished polls.'}
-                        TableRowComponent={(el) => <FinishedpollsItem {...el} activepolls getTransaction={this.getTransaction}/>}
+                        TableRowComponent={(el) => <FinishedpollsItem {...el} activepolls/>}
                         tableData={this.state.finishedpolls}
                         hintClassName={'mt-4'}
                         isPaginate
@@ -144,8 +114,6 @@ class Finishedpolls extends React.Component {
 
 const mapStateToProps = state => ({
     account: state.account.account,
-
-    // modals
     modalData: state.modals.modalData
 });
 

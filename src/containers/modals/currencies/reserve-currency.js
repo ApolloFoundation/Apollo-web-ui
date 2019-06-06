@@ -6,7 +6,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {setModalData} from '../../../modules/modals';
+import {setBodyModalParamsAction, setModalData} from '../../../modules/modals';
 import AdvancedSettings from '../../components/advanced-transaction-settings'
 import InputForm from "../../components/input-form";
 import ModalFooter from "../../components/modal-footer";
@@ -36,38 +36,31 @@ class ReserveCurrency extends React.Component {
     handleFormSubmit = async (values) => {
         if (!values.secretPhrase || values.secretPhrase.length === 0) {
             NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
+            return;
         }
 
         const toSend = {
             currency: this.props.modalData.currency,
             decimals: this.props.modalData.decimals,
-            amountPerUnitATM: this.state.reserve,
+            amountPerUnitATM: Number(this.state.reserve),
             deadline: 1440,
             phased: false,
             phasingHashedSecretAlgorithm: 2,
             secretPhrase: values.secretPhrase,
-            feeATM: values.fee,
+            feeATM: values.feeATM,
         };
 
         this.props.processForm(toSend, 'currencyReserveIncrease', 'Reserve has been increased!', (res) => {
             NotificationManager.success('Reserve has been increased!', null, 5000);
-            
             this.props.setBodyModalParamsAction(null, {});
         });
     };
 
     handleAdvancedState = () => {
-        if (this.state.advancedState) {
-            this.setState({
-                ...this.props,
-                advancedState: false
-            })
-        } else {
-            this.setState({
-                ...this.props,
-                advancedState: true
-            })
-        }
+        this.setState({
+            ...this.props,
+            advancedState: !this.state.advancedState
+        })
     };
 
     render() {
@@ -80,7 +73,7 @@ class ReserveCurrency extends React.Component {
                         <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close"/></a>
 
                         <div className="form-title">
-                            <p>Reserve Currency - {modalData.code / Math.pow(10, modalData.decimals)}</p>
+                            <p>Reserve Currency - {modalData.code}</p>
                             <br/>
                         </div>
                         <div className="form-group form-group-white row mb-15">
@@ -137,14 +130,14 @@ class ReserveCurrency extends React.Component {
                                             field="amount"
                                             placeholder="Amount"
                                             type="tel"
-                                            onBlur={() => {
-                                                const amount = values.amount;
-                                                const decimals = modalData.decimals;
-                                                const result = utils.resolverReservePerUnit(decimals, modalData.reserveSupply, amount);
-                                                setValue("amount", result.amount);
+                                            onChange={(value) => {
+                                                const amount = parseFloat(value || 0);
+                                                const decimals = parseFloat(modalData.decimals);
+                                                const reserveSupply = parseFloat(modalData.reserveSupply);
+                                                const result = utils.resolverReservePerUnit(decimals, reserveSupply, amount);
                                                 this.setState({
                                                     reserve: result.total,
-                                                })
+                                                });
                                             }}
                                             setValue={setValue}/>
                                         <div className="input-group-append">
@@ -165,6 +158,7 @@ class ReserveCurrency extends React.Component {
                                     values={getFormState().values}
                                     setValue={setValue}
                                     requestType={'currencyReserveIncrease'}
+                                    defaultValue={1}
                                 />
                                 <ModalFooter
                                     setValue={setValue}
@@ -196,6 +190,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
     submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReserveCurrency);

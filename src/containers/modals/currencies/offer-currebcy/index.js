@@ -88,7 +88,7 @@ class OfferCurrency extends React.Component {
                 />
                 
                 <NumericInput
-                    label={'Buy units (Initial'}
+                    label={'Buy units (Initial)'}
                     field={'initialBuySupply'}
                     countingTtile={this.props.modalData.code}
                     placeholder={'Amount'}

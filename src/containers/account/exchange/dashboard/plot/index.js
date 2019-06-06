@@ -3,7 +3,7 @@ import Chart from 'chart.js';
 
 import EthIcon from '../../../../../assets/ETH.png';
 import {formatDivision} from "../../../../../helpers/format";
-import {ONE_APL} from '../../../../../constants';
+import {ONE_GWEI} from '../../../../../constants';
 
 const chartJsOption = {
     type: 'bar',
@@ -127,8 +127,8 @@ export default class Plot extends React.Component {
             if (props.buyOrders !== state.buyOrders && props.buyOrders.length > 0) {
                 buyOrdersData = props.buyOrders.map((el, index) => ({
                     ...buyOptions,
-                    label: `Buy ${formatDivision(el.pairRate, ONE_APL, 9)}`,
-                    data: [parseFloat(el.offerAmount) / ONE_APL]
+                    label: `Buy ${formatDivision(el.pairRate, ONE_GWEI, 9)}`,
+                    data: [parseFloat(el.offerAmount) / ONE_GWEI]
                 }));
             }
 
@@ -136,8 +136,8 @@ export default class Plot extends React.Component {
             if (props.sellOrders !== state.sellOrders && props.sellOrders.length > 0) {
                 sellOrdersData = props.sellOrders.map((el, index) => ({
                     ...sellOptions,
-                    label: `Sell ${formatDivision(el.pairRate, ONE_APL, 9)}`,
-                    data: [parseFloat(el.offerAmount) / ONE_APL]
+                    label: `Sell ${formatDivision(el.pairRate, ONE_GWEI, 9)}`,
+                    data: [parseFloat(el.offerAmount) / ONE_GWEI]
                 }));
             }
             return {
@@ -173,13 +173,13 @@ export default class Plot extends React.Component {
     onHandleChangeChart = (filter) => {
         const buyOrdersData = this.props.buyOrders.map((el, index) => ({
             ...buyOptions,
-            label: `Buy ${formatDivision(el.pairRate, ONE_APL, 9)}`,
-            data: [parseFloat(el[filter]) / ONE_APL]
+            label: `Buy ${formatDivision(el.pairRate, ONE_GWEI, 9)}`,
+            data: [parseFloat(el[filter]) / ONE_GWEI]
         }));
         const sellOrdersData = this.props.sellOrders.map((el, index) => ({
             ...sellOptions,
-            label: `Sell ${formatDivision(el.pairRate, ONE_APL, 9)}`,
-            data: [parseFloat(el[filter]) / ONE_APL]
+            label: `Sell ${formatDivision(el.pairRate, ONE_GWEI, 9)}`,
+            data: [parseFloat(el[filter]) / ONE_GWEI]
         }));
         this.setState({
             buyOrdersData,

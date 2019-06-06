@@ -5,31 +5,26 @@
 
 
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import {
-    getAllTaggedDataAction,
-    searchTaggedDataAction,
-    getAccountTaggedDataAction,
-    getDataTagsAction
+	getAllTaggedDataAction,
+	searchTaggedDataAction,
+	getAccountTaggedDataAction,
+	getDataTagsAction
 } from "../../../actions/datastorage";
-import {getTransactionAction} from '../../../actions/transactions/index';
-import {setBodyModalParamsAction} from "../../../modules/modals";
+import { getTransactionAction } from '../../../actions/transactions/index';
+import { setBodyModalParamsAction } from "../../../modules/modals";
 import SiteHeader from '../../components/site-header';
-import uuid from 'uuid';
 import DataStorageItem from "./datastorage-item";
-import {Form, Text} from 'react-form';
+import { Form, Text } from 'react-form';
 import classNames from 'classnames';
-import {Link} from 'react-router-dom';
-import {BlockUpdater} from "../../block-subscriber";
-import ContentLoader from '../../components/content-loader'
-import InfoBox from '../../components/info-box'
-import ContentHendler from '../../components/content-hendler'
+import { Link } from 'react-router-dom';
 
 import CustomTable from '../../components/tables/table';
 
 const mapStateToProps = state => ({
 	account: state.account.account,
-	state: state
+	actualBlock: state.account.actualBlock,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -42,87 +37,89 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class DataStorage extends React.Component {
-	constructor(props) {
-		super(props);
-	}
-
 	state = {
 		dataTags: null,
-		taggedData: null
-
+		taggedData: null,
+		page: 1,
+		firstIndex: 0,
+		lastIndex: 14,
+		actualBlock: null,
 	};
 
-	listener = data => {
-        this.getAllTaggedData(this.props);
-        this.getDataTags();
-    };
-
-    componentDidMount() {
-        this.getAllTaggedData();
-        this.getDataTags();
-        BlockUpdater.on("data", this.listener);
-    }
-
-    componentWillUnmount() {
-        BlockUpdater.removeListener("data", this.listener);
-    }
-
-	//componentWillReceiveProps(newState) {
-	//	this.getAllTaggedData(newState);
-	//	this.getDataTags();
-	//}
-
-	getAllTaggedData = async (newState) => {
-		let query;
-
-		if (newState) {
-			query = newState.match.params.query;
-		} else {
-			query = this.props.match.params.query;
-
+	static getDerivedStateFromProps(props, state) {
+		if (props.actualBlock !== state.actualBlock) {
+			return {
+				actualBlock: props.actualBlock,
+			};
 		}
+	}
 
+	componentDidUpdate(prevProps, prevState) {
+		if (this.state.actualBlock !== prevState.actualBlock) {
+			const pagination = {
+				firstIndex: this.state.firstIndex,
+				lastIndex: this.state.lastIndex
+			};
+			this.getAllTaggedData(null, pagination);
+			this.getDataTags();
+		}
+	}
 
+	componentDidMount() {
+		this.getAllTaggedData();
+		this.getDataTags();
+	}
+
+	getAllTaggedData = async (query, pagination) => {
+		if (!pagination) {
+			pagination = {
+				page: 1,
+				firstIndex: 0,
+				lastIndex: 14
+			};
+		}
+		if (!query) {
+			query = this.props.match.params.query;
+		}
 		if (query) {
 			query = query.split('=');
-
 			const target = query[0];
 			const value = query[1];
 
 			switch (target) {
-				case('tag'):
-					const searchTaggedData = await this.props.searchTaggedDataAction({tag: value});
+				case ('tag'):
+					const searchTaggedData = await this.props.searchTaggedDataAction({ tag: value, ...pagination });
 					if (searchTaggedData) {
 						this.setState({
-							...this.state,
+							...pagination,
 							taggedData: searchTaggedData.data
 						})
 					}
 					return;
-				case('account'):
-					const accountTaggedData = await this.props.getAccountTaggedDataAction({account: value});
+				case ('account'):
+					const accountTaggedData = await this.props.getAccountTaggedDataAction({ account: value, ...pagination });
 
-                    this.setState({
-                        ...this.state,
-                        taggedData: accountTaggedData ? accountTaggedData.data : []
-                    });
+					this.setState({
+						...pagination,
+						taggedData: accountTaggedData ? accountTaggedData.data : []
+					});
 
 					return;
 
-				case('query'):
-					const accountQueryData = await this.props.searchTaggedDataAction({query: value});
+				case ('query'):
+					const accountQueryData = await this.props.searchTaggedDataAction({ query: value, ...pagination });
 					if (accountQueryData) {
 						this.setState({
-							...this.state,
+							...pagination,
 							taggedData: accountQueryData.data
 						})
 					}
 					return;
 				default:
-					const allTaggedData = await this.props.getAllTaggedDataAction();
+					const allTaggedData = await this.props.getAllTaggedDataAction({...pagination});
 					if (allTaggedData) {
 						this.setState({
-							...this.state,
+							...pagination,
 							taggedData: allTaggedData.data
 						})
 					}
@@ -131,10 +128,10 @@ class DataStorage extends React.Component {
 			}
 
 		} else {
-			const allTaggedData = await this.props.getAllTaggedDataAction();
+			const allTaggedData = await this.props.getAllTaggedDataAction({...pagination});
 			if (allTaggedData) {
 				this.setState({
-					...this.state,
+					...pagination,
 					taggedData: allTaggedData.data
 				})
 			}
@@ -145,7 +142,6 @@ class DataStorage extends React.Component {
 		const allTaggedData = await this.props.getDataTagsAction(reqParams);
 		if (allTaggedData) {
 			this.setState({
-				...this.state,
 				dataTags: allTaggedData.tags
 			})
 		}
@@ -166,28 +162,42 @@ class DataStorage extends React.Component {
 
 	handleSearchByAccount = (values) => {
 		this.props.history.push('/data-storage/account=' + values.account);
+		this.getAllTaggedData('account=' + values.account)
 	};
 
 	handleSearchByQuery = (values) => {
 		this.props.history.push('/data-storage/query=' + values.query);
+		this.getAllTaggedData('query=' + values.query)
 	};
 
-	handleSearchByTag = () => {
-
+	handleSearchByTag = (tag) => {
+		this.props.history.push('/data-storage/tag=' + tag);
+		this.getAllTaggedData('tag=' + tag)
 	};
 
 	storeForm = (field, form) => {
 		this.setState({
 			[field]: form
 		})
-	}
+	};
 
-	handleReset = () => {
-		const {account, tag} = this.state;
+	handleReset = async () => {
+		const { account, tag } = this.state;
 
 		account.setValue('account', '');
 		tag.setValue('query', '');
-	}
+		await this.props.history.push('/data-storage');
+		this.getAllTaggedData('');
+	};
+
+	onPaginate = (page) => {
+		const pagination = {
+			page: page,
+			firstIndex: page * 15 - 15,
+			lastIndex: page * 15 - 1
+		};
+		this.getAllTaggedData(null, pagination);
+	};
 
 	render() {
 		return (
@@ -210,9 +220,9 @@ class DataStorage extends React.Component {
 								<div className="transactions-filters align-for-inputs">
 									<div className="search-bar row">
 										<Form
-		        							getApi={(value) => this.storeForm('account', value)}
+											getApi={(value) => this.storeForm('account', value)}
 											onSubmit={values => this.handleSearchByAccount(values)}
-											render={({submitForm, setAllValues, setValue}) => {
+											render={({ submitForm, setAllValues, setValue }) => {
 
 												return (
 													<form onSubmit={submitForm} className="input-group-app search col-md-3 pl-0 pb-3">
@@ -234,7 +244,7 @@ class DataStorage extends React.Component {
 																	width: 41
 																}}
 															>
-																<i className="zmdi zmdi-search"/>
+																<i className="zmdi zmdi-search" />
 															</button>
 														</div>
 													</form>
@@ -242,9 +252,9 @@ class DataStorage extends React.Component {
 											}}
 										/>
 										<Form
-		        							getApi={(value) => this.storeForm('tag', value)}
+											getApi={(value) => this.storeForm('tag', value)}
 											onSubmit={values => this.handleSearchByQuery(values)}
-											render={({submitForm, setAllValues, setValue}) => {
+											render={({ submitForm, setAllValues, setValue }) => {
 
 												return (
 													<form onSubmit={submitForm} className="input-group-app search col-md-3 pl-0 pb-3">
@@ -261,7 +271,7 @@ class DataStorage extends React.Component {
 																	width: 41
 																}}
 															>
-																<i className="zmdi zmdi-search"/>
+																<i className="zmdi zmdi-search" />
 															</button>
 														</div>
 													</form>
@@ -277,76 +287,77 @@ class DataStorage extends React.Component {
 									className="transactions-filters align-for-inputs"
 									style={{
 										paddingBottom: 0,
-                                        display: 'block'
-                                    }}
-                                >
-                                    {
-                                        this.state.dataTags &&
-                                        this.state.dataTags.map((el, index) => {
-                                            const params = this.props.match.params.query;
+										display: 'block'
+									}}
+								>
+									{
+										this.state.dataTags &&
+										this.state.dataTags.map((el, index) => {
+											const params = this.props.match.params.query;
 
-                                            return (
-                                                <Link
-                                                    key={uuid()}
-                                                    to={'/data-storage/tag=' + el.tag}
-                                                    className={classNames({
-                                                        'btn': true,
-                                                        'btn-primary': true,
-                                                        'gray-lighten': !params || (params && params.split('=')[1] !== el.tag),
-                                                        'static': true,
-                                                        'blue': params && params.split('=')[1] === el.tag
-                                                    })}
-                                                    style={{
-                                                        marginRight: 20,
+											return (
+												<button
+													type={'button'}
+													onClick={() => this.handleSearchByTag(el.tag)}
+													className={classNames({
+														'btn': true,
+														'btn-primary': true,
+														'gray-lighten': !params || (params && params.split('=')[1] !== el.tag),
+														'static': true,
+														'blue': params && params.split('=')[1] === el.tag
+													})}
+													style={{
+														marginRight: 20,
 														marginBottom: 20
-                                                    }}
-                                                >
-                                                    {el.tag} [{el.count}]
-                                                </Link>
-                                            );
-                                        })
-                                    }
+													}}
+													>
+													{el.tag} [{el.count}]
+												</button>
+											);
+										})
+									}
 
-                                </div>
-                            </div>
+								</div>
+							</div>
 							<div className={'pl-0 pr-0 col-md-12 mb-3'}>
-								<CustomTable 
+								<CustomTable
 									header={[
 										{
 											name: 'Name',
 											alignRight: false
-										},{
+										}, {
 											name: 'Account ID',
 											alignRight: false
-										},{
+										}, {
 											name: 'Mime Type',
 											alignRight: false
-										},{
+										}, {
 											name: 'Channel',
 											alignRight: false
-										},{
+										}, {
 											name: 'Filename',
 											alignRight: false
-										},{
+										}, {
 											name: 'Data',
 											alignRight: true
 										}
 									]}
 									emptyMessage={'No tagget data found.'}
-									page={this.state.page}
 									TableRowComponent={DataStorageItem}
 									tableData={this.state.taggedData}
 									isPaginate
-									// previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
-									// nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
+									itemsPerPage={15}
+									page={this.state.page}
+									previousHendler={() => this.onPaginate(this.state.page - 1)}
+									nextHendler={() => this.onPaginate(this.state.page + 1)}
 								/>
 							</div>
 						</div>
-                	</div>
-                </div>
-            </div>
-        );
-    }
+					</div>
+				</div>
+			</div>
+		);
+	}
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(DataStorage);

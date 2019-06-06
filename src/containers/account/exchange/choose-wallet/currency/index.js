@@ -4,13 +4,19 @@ import {connect} from "react-redux";
 import {NotificationManager} from "react-notifications";
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 
-import {setBodyModalParamsAction} from '../../../../modules/modals';
-import {formatCrypto} from '../../../../helpers/format';
+import {setBodyModalParamsAction} from '../../../../../modules/modals';
+import {formatCrypto} from '../../../../../helpers/format';
 
 class CurrencyDescriptionComponent extends Component {
+    handleWithdrawModal = () => {
+        this.props.setBodyModalParamsAction('WITHDRAW_CURRENCY', {
+            balances: this.props.balances,
+            address: this.props.address,
+        });
+    };
+
     render() {
-        const {address, balance, currency, handleCurrentCurrency} = this.props;
-        const balanceFormat = formatCrypto(balance);
+        const {address, balances, currency, handleCurrentCurrency} = this.props;
         return (
             <tr>
                 <td>
@@ -23,7 +29,8 @@ class CurrencyDescriptionComponent extends Component {
                         <span className="cursor-pointer">{address}</span>
                     </CopyToClipboard>
                 </td>
-                <td>{balanceFormat}</td>
+                <td>{balances.eth}</td>
+                <td>{balances.pax}</td>
                 <td>
                     <div className="btn-box inline">
                         <Link
@@ -60,7 +67,7 @@ class CurrencyDescriptionComponent extends Component {
                     <div className="btn-box inline pr-1">
                         <a
                             className="btn primary defaullt"
-                            onClick={() => NotificationManager.error('This functionality will be delivered in May 2019.', 'Error', 5000)}
+                            onClick={this.handleWithdrawModal}
                         >
                             Withdraw
                         </a>

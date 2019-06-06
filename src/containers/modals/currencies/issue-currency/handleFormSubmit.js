@@ -1,13 +1,9 @@
 import {NotificationManager} from "react-notifications";
 import BigInteger from "big-integer";
 import {
-    setBodyModalParamsAction, 
-    setModalData, 
-    saveSendModalState, 
+    setBodyModalParamsAction,
     IS_MODAL_PROCESSING
 } from '../../../../modules/modals';
-
-import submitForm from '../../../../helpers/forms/forms';
 
 // validatePassphrase
 const typeValues = {
@@ -21,7 +17,7 @@ const typeValues = {
 
 export function handleFormSubmit (values) {
     const {processForm, store: {dispatch, getState}} = this;
-    const {account: {publicKey}} = getState()
+    const {account: {publicKey}} = getState();
 
     if (!values.secretPhrase || values.secretPhrase.length === 0) {
         NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
@@ -59,12 +55,12 @@ export function handleFormSubmit (values) {
         code2FA: values.code2FA,
     };
 
-    delete values.type1
-    delete values.type2
-    delete values.type3
-    delete values.type4
-    delete values.type5
-    delete values.type6
+    delete values.type1;
+    delete values.type2;
+    delete values.type3;
+    delete values.type4;
+    delete values.type5;
+    delete values.type6;
 
     processForm(values, 'issueCurrency', 'Issue currency request has been submitted!', (res) => {
         dispatch({
@@ -75,4 +71,4 @@ export function handleFormSubmit (values) {
         dispatch(setBodyModalParamsAction(null, {}));
         NotificationManager.success('Issue currency request has been submitted!', null, 5000);
     });
-};
+}

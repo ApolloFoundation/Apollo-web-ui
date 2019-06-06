@@ -5,13 +5,11 @@
 
 
 import React from 'react';
-import {connect} from 'react-redux';
-import {setModalData} from '../../../../modules/modals';
-import converters from "../../../../helpers/converters";
-import crypto from "../../../../helpers/crypto/crypto";
+import { connect } from 'react-redux';
+import { setModalData } from '../../../../modules/modals';
 import InfoBox from '../../../components/info-box'
-import {validateTokenAction} from "../../../../actions/account";
-import {NotificationManager} from 'react-notifications';
+import { validateTokenAction } from "../../../../actions/account";
+import { NotificationManager } from 'react-notifications';
 
 import QRCode from 'qrcode.react';
 
@@ -20,6 +18,7 @@ import TabulationBody from '../../../components/tabulator/tabuator-body';
 import TabContaier from '../../../components/tabulator/tab-container';
 import CustomTextArea from '../../../components/form-components/text-area';
 import TextualInputComponent from '../../../components/form-components/textual-input';
+import submitForm from "../../../../helpers/forms/forms";
 
 
 class TokenGenerationValidation extends React.Component {
@@ -43,11 +42,20 @@ class TokenGenerationValidation extends React.Component {
             return;
         }
 
-        const token = await this.props.generateTokenAPL(values.data, values.secretPhrase);
+        const res = await this.props.submitForm({
+            requestType: 'generateToken',
+            secretPhrase: values.secretPhrase,
+            website: values.data,
+            account: this.props.account,
+        }, 'generateToken');
 
-        this.setState({
-            generatedToken: token
-        });
+        if (res.errorCode) {
+            NotificationManager.error(res.errorDescription, 'Error', 5000)
+        } else {
+            this.setState({
+                generatedToken: res.token
+            });
+        }
     };
 
     handleValidateToken = async (values) => {
@@ -58,17 +66,11 @@ class TokenGenerationValidation extends React.Component {
 
         if (validateToken) {
             if (validateToken.valid) {
-                NotificationManager.success('Notification message is valid!')
+                NotificationManager.success('Token is valid!')
             } else {
-                NotificationManager.error('Notification message is invalid!')
+                NotificationManager.error('Token is invalid!')
             }
         }
-    };
-
-    handleChangeTab = () => {
-        this.setState({
-            generatedToken: null
-        })
     };
 
     render() {
@@ -81,7 +83,6 @@ class TokenGenerationValidation extends React.Component {
             >
                 <TabulationBody
                     className={'p-0'}
-                    onChange={this.handleChangeTab}
                 >
                     <TabContaier sectionName={'Generate token'}>
                         <ModalBody
@@ -93,14 +94,14 @@ class TokenGenerationValidation extends React.Component {
                             submitButtonName={'Generate'}
                         >
                             <CustomTextArea
-                                label={'Data'} 
-                                field={'data'} 
+                                label={'Data'}
+                                field={'data'}
                                 placeholder={'Website or text'}
                             />
                             {
                                 this.state.generatedToken &&
                                 <>
-                                    <p style={{marginBottom: 18}}>The generated token is:</p>
+                                    <p style={{ marginBottom: 18 }}>The generated token is:</p>
                                     <InfoBox info>
                                         <div className="token word-brake">{this.state.generatedToken}</div>
                                     </InfoBox>
@@ -118,26 +119,15 @@ class TokenGenerationValidation extends React.Component {
                             className={'p-0 transparent gray-form'}
                             isDisabe2FA
                             isPour
+                            isDisableSecretPhrase
                             submitButtonName={'Validate'}
                         >
-                            {
-                                this.state.generatedToken &&
-                                <>
-                                    <p style={{marginBottom: 18}}>The generated token is:</p>
-                                    <InfoBox info>
-                                        <div className="token word-brake">{this.state.generatedToken}</div>
-                                    </InfoBox>
-                                    <div className="qr-code-image">
-                                        <QRCode value={this.state.generatedToken} size={100} />
-                                    </div>
-                                </>
-                            }
                             <CustomTextArea
-                                label={'Data'} 
-                                field={'website'} 
+                                label={'Data'}
+                                field={'website'}
                                 placeholder={'Website or text'}
                             />
-                            <TextualInputComponent 
+                            <TextualInputComponent
                                 label={'Token'}
                                 field="token"
                                 placeholder="Token"
@@ -152,14 +142,14 @@ class TokenGenerationValidation extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    modalData: state.modals.modalData
+    modalData: state.modals.modalData,
+    account: state.account.account,
 });
 
 const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
-    generateTokenAPL: (message, secretPhrase) => dispatch(converters.generateTokenAPL(message, secretPhrase)),
-    validatePassphrase: (passPhrase) => dispatch(crypto.validatePassphrase(passPhrase)),
     validateTokenAction: (requestParams) => dispatch(validateTokenAction(requestParams)),
+    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TokenGenerationValidation);

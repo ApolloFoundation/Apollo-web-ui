@@ -25,6 +25,7 @@ import {getSavedAccountSettingsAction, saveAccountSettingsAction} from "../../mo
 // pages components
 import Dashboard from "../account/dashboard";
 import Login from "../account/login";
+import Faucet from "../account/faucet";
 
 import Transactions from '../account/transactions'
 import Ledger from '../account/ledger'
@@ -73,7 +74,7 @@ import MarketplaceSearch from "../account/marketplace-search";
 import Generators from "../account/generators"
 import Exchange from "../account/exchange/dashboard"
 import OrderHistory from "../account/exchange/order-history"
-import ChooseWallet from "../account/choose-wallet"
+import ChooseWallet from "../account/exchange/choose-wallet"
 
 import './App.scss';
 import './fonts.scss';
@@ -285,7 +286,7 @@ class App extends React.Component {
             }
         } = this.props;
 
-        const isLoginPage = pathname === '/login';
+        const isLoginPage = pathname === '/login' || pathname === '/faucet';
 
         return (
             <div
@@ -306,6 +307,7 @@ class App extends React.Component {
                 />
                 <header>
                     {
+                        this.props.location.pathname !== "/faucet" &&
                         this.props.location.pathname !== "/login" &&
                         this.props.account &&
                         <SideBar
@@ -330,6 +332,7 @@ class App extends React.Component {
                     }
                     
                     <Switch>
+                        <Route exact path="/faucet" component={Faucet}/>
                         <Route exact path="/login" render={() => (
                             !!this.props.account ? (
                                 <Redirect to="/dashboard"/>

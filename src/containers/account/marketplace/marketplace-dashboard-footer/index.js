@@ -20,7 +20,7 @@ class MarketplaceDashboardFooter extends Component {
     }
 
     componentWillReceiveProps = () => {
-        this.updateData();
+        // this.updateData();
     }
 
     updateData = () => {

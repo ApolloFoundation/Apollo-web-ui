@@ -66,8 +66,8 @@ class MyMadedCurrencies extends React.Component {
 
     getExchanges = async (newState , index) => {
         const exchanges = (await this.props.getAccountCurrenciesAction({
-            account: newState.accountRS, 
-            firstIndex: index ? index.firstIndex : null, 
+            account: newState.accountRS,
+            firstIndex: index ? index.firstIndex : null,
             lastIndex: index ? index.lastIndex: null
         }));
 
@@ -139,7 +139,7 @@ class MyMadedCurrencies extends React.Component {
                     pageTitle={'My currencies'}
                 />
                 <div className="page-body container-fluid">
-                    <CustomTable 
+                    <CustomTable
                         header={[
                             {
                                 name: 'Code',

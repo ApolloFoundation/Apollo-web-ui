@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {getBuyOpenOffers} from "../../../../../actions/wallet";
 import {formatDivision} from '../../../../../helpers/format';
-import {ONE_APL} from '../../../../../constants';
+import {ONE_GWEI} from '../../../../../constants';
 import CustomTable from '../../../../components/tables/table';
 import ArrowUp from '../../../../../assets/arrow-up.png';
 
@@ -12,6 +12,19 @@ class BuyOrders extends React.Component {
         firstIndex: 0,
         lastIndex: 14,
     };
+
+    static getDerivedStateFromProps(props, state) {
+        if (props.currentCurrency !== state.currentCurrency) {
+            return {
+                currentCurrency: props.currentCurrency,
+                page: 1,
+                firstIndex: 0,
+                lastIndex: 14,
+            };
+        }
+
+        return null;
+    }
 
     onPaginate = (page) => {
         this.setState({
@@ -55,9 +68,9 @@ class BuyOrders extends React.Component {
                     tableData={buyOrders}
                     emptyMessage={'No orders found.'}
                     TableRowComponent={(props) => {
-                        const pairRate = formatDivision(props.pairRate, ONE_APL, 9);
-                        const offerAmount = formatDivision(props.offerAmount, ONE_APL, 3);
-                        const total = formatDivision(props.pairRate * props.offerAmount, Math.pow(10, 16), 9);
+                        const pairRate = formatDivision(props.pairRate, ONE_GWEI, 9);
+                        const offerAmount = formatDivision(props.offerAmount, ONE_GWEI, 3);
+                        const total = formatDivision(props.pairRate * props.offerAmount, Math.pow(10, 18), 9);
                         return (
                             <tr>
                                 <td className={'green-text'}>{pairRate}</td>

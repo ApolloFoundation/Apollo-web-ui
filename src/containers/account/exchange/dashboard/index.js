@@ -21,7 +21,7 @@ class Exchange extends React.Component {
     };
 
     componentDidMount() {
-        let wallets = JSON.parse(localStorage.getItem('wallets'));
+        let wallets = localStorage.getItem('wallets');
         if (!wallets) {
             this.handleLoginModal();
         } else {
@@ -42,12 +42,18 @@ class Exchange extends React.Component {
 
     getCurrencyBalance = async (wallets) => {
         let params = {};
-        wallets.map(wallet => params[wallet.currency] = wallet.wallets[0].address);
-        const balances = await this.props.getCurrencyBalance(params);
-        if (balances) {
-            wallets.map(wallet => wallet.wallets[0].balance = balances[`balance${wallet.currency.toUpperCase()}`]);
+        wallets.map(wallet => {
+            params[wallet.currency] = [];
+            wallet.wallets.map(walletItem => {
+                params[wallet.currency].push(walletItem.address);
+                return walletItem;
+            });
+            return wallet;
+        });
+        const walletsBalances = await this.props.getCurrencyBalance(params);
+        if (walletsBalances) {
+            this.setState({wallets: walletsBalances});
         }
-        this.setState({wallets});
     };
 
     handleLoginModal = () => {
@@ -65,7 +71,7 @@ class Exchange extends React.Component {
 
     render () {
         const {currencies, currentCurrency, buyOrders, sellOrders, plotBuyOrders, plotSellOrders, myOrders} = this.props;
-        const wallet = this.state.wallets && this.state.wallets.filter(wallet => wallet.currency === currentCurrency.currency)[0];
+        const wallet = this.state.wallets && this.state.wallets['eth'];
         const buyOrdersCurrency = buyOrders[currentCurrency.currency];
         const sellOrdersCurrency = sellOrders[currentCurrency.currency];
         const plotBuyOrdersCurrency = plotBuyOrders[currentCurrency.currency];
@@ -80,7 +86,7 @@ class Exchange extends React.Component {
                         <div className={'col-md-12 pr-0 pb-3'}>
                             <InfoBox info>
                                 Please, notice - this is the first version on Apollo Exchange. Functionality of trading will be delivered in May 2019. At the moment you can deposit in ETH and PAX.
-                                Please, check our updates in the official <a href={'https://t.me/apolloofficialannouncements'} target='_blank'>Telegram channel</a> to be the first to use Apollo Exchange
+                                Please, check our updates in the official <a href={'https://t.me/apolloofficialannouncements'} target='_blank' rel='noopener noreferrer'>Telegram channel</a> to be the first to use Apollo Exchange
                             </InfoBox>
                         </div>
                         <div className={'col-md-12 pr-0 pb-3 pb-4'}>
@@ -106,15 +112,15 @@ class Exchange extends React.Component {
                             <SellOrders currentCurrency={currentCurrency} sellOrders={sellOrdersCurrency} />
                         </div>
                         <div className={'col-md-8 p-0'}>
-                            <div className={'container-fluid p-0'}>
-                                <div className={'col-md-6 pl-3 pr-0 pb-3 d-inline-flex'}>
+                            <div className={'container-fluid p-0 h-100'}>
+                                <div className={'col-md-6 pl-3 pr-0 pb-3 d-inline-flex h-100'}>
                                     <ExchangeBuy
                                         currentCurrency={currentCurrency}
                                         wallet={wallet}
                                         handleLoginModal={this.handleLoginModal}
                                     />
                                 </div>
-                                <div className={'col-md-6 pl-3 pr-0 pb-3 d-inline-flex'}>
+                                <div className={'col-md-6 pl-3 pr-0 pb-3 d-inline-flex h-100'}>
                                     <ExchangeSell
                                         currentCurrency={currentCurrency}
                                         wallet={wallet}
@@ -133,7 +139,6 @@ class Exchange extends React.Component {
                         <div className={'col-md-6 mb-3 pr-0'}>
                             <OpenOrders
                                 currentCurrency={currentCurrency}
-                                wallet={wallet}
                                 handleLoginModal={this.handleLoginModal}
                                 myOrders={myOrders[currentCurrency.currency]}
                             />

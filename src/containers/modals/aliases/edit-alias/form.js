@@ -63,6 +63,7 @@ class EditAliasForm extends React.Component {
                         placeholder="http://"
                         type={"text"}
                         setValue={setValue}
+                        defaultValue={this.state.alias ? this.state.alias.aliasURI : ''}
                     />
                 }
                 {

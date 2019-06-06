@@ -4,7 +4,7 @@ import ContentHendler from '../content-hendler';
 import uuid from 'uuid';
 
 const CustomTable = (props) => {
-    const {keyField, AboveTabeComponent, actionButton, passProps, hintClassName, className, tableName, emptyMessage, header, TableRowComponent, tableData, isPaginate, previousHendler, nextHendler, page} = props;
+    const {keyField, AboveTabeComponent, actionButton, passProps, hintClassName, className, tableName, emptyMessage, header, TableRowComponent, tableData, isPaginate, previousHendler, nextHendler, page, itemsPerPage = 15} = props;
     return (
             <ContentHendler
                 items={tableData}
@@ -87,16 +87,16 @@ const CustomTable = (props) => {
                                         Previous
                                     </a>
                                     <div className='pagination-nav'>
-                                        <span>{page * 15  - 15 + 1}</span>
+                                        <span>{page * itemsPerPage  - itemsPerPage + 1}</span>
                                         <span>&hellip;</span>
-                                        <span>{(page * 15 - 15) + tableData.length}</span> 
+                                        <span>{(page * itemsPerPage - itemsPerPage) + tableData.length}</span>
                                     </div>
                                     <a
                                         onClick={nextHendler}
                                         className={classNames({
                                             'btn' : true,
                                             'btn-right' : true,
-                                            'disabled' : tableData.length < 15,
+                                            'disabled' : tableData.length < itemsPerPage,
                                             'round': true,
                                             'round-top-left': true,
                                             'round-bottom-right': true,

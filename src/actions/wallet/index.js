@@ -25,12 +25,14 @@ export function getWallets(requestParams) {
             .then(async (res) => {
                 if (!res.errorCode) {
                     dispatch(setWallets(res.currencies));
-                    writeToLocalStorage('wallets', JSON.stringify(res.currencies));
+                    writeToLocalStorage('wallets', res.currencies);
                     return res;
+                } else {
+                    NotificationManager.error(res.errorDescription, 'Error', 5000);
                 }
             })
             .catch(() => {
-
+                NotificationManager.error('Secret Phrase is incorrect or you not in Vault Wallet.', 'Error', 5000);
             })
     }
 }
@@ -41,6 +43,8 @@ export function getCurrencyBalance(requestParams) {
             .then((res) => {
                 if (!res.errorCode) {
                     return res;
+                } else {
+                    NotificationManager.error(res.errorDescription, 'Error', 5000);
                 }
             })
             .catch(() => {
@@ -49,12 +53,14 @@ export function getCurrencyBalance(requestParams) {
     }
 }
 
-export function walletWidthraw(requestParams) {
+export function walletWithdraw(requestParams) {
     return dispatch => {
-        return handleFetch(`${config.api.server}/rest/dex/widthraw`, POST, requestParams)
+        return handleFetch(`${config.api.server}/rest/dex/withdraw`, POST, requestParams)
             .then(async (res) => {
                 if (!res.errorCode) {
                     return res;
+                } else {
+                    NotificationManager.error(res.errorDescription, 'Error', 5000);
                 }
             })
             .catch(() => {
@@ -140,8 +146,7 @@ export const getBuyOpenOffers = (currency, options) => async (dispatch, getState
     if (!currency) currency = getState().exchange.currentCurrency.currency;
     const params = {
         orderType: 0,
-        offerCurrency: currencyTypes[currency],
-        pairCurrency: 0,
+        pairCurrency: currencyTypes[currency],
         isAvailableForNow: true,
         status: 0,
 
@@ -157,7 +162,6 @@ export const getSellOpenOffers = (currency, options) => async (dispatch, getStat
     if (!currency) currency = getState().exchange.currentCurrency.currency;
     const params = {
         orderType: 1,
-        offerCurrency: 0,
         pairCurrency: currencyTypes[currency],
         isAvailableForNow: true,
         status: 0,
@@ -174,8 +178,7 @@ export const getPlotBuyOpenOffers = (currency, options) => async (dispatch, getS
     if (!currency) currency = getState().exchange.currentCurrency.currency;
     const params = {
         orderType: 0,
-        offerCurrency: currencyTypes[currency],
-        pairCurrency: 0,
+        pairCurrency: currencyTypes[currency],
         isAvailableForNow: true,
         status: 0,
     };
@@ -187,7 +190,6 @@ export const getPlotSellOpenOffers = (currency, options) => async (dispatch, get
     if (!currency) currency = getState().exchange.currentCurrency.currency;
     const params = {
         orderType: 1,
-        offerCurrency: 0,
         pairCurrency: currencyTypes[currency],
         isAvailableForNow: true,
         status: 0,
@@ -200,7 +202,6 @@ export const getMyOpenOffers = (currency) => async (dispatch, getState) => {
     if (!currency) currency = getState().exchange.currentCurrency.currency;
     const {account} = getState().account;
     const paramsSell = {
-        offerCurrency: 0,
         pairCurrency: currencyTypes[currency],
         accountId: account,
         isAvailableForNow: true,
@@ -208,8 +209,7 @@ export const getMyOpenOffers = (currency) => async (dispatch, getState) => {
         status: 0,
     };
     const paramsBuy = {
-        offerCurrency: currencyTypes[currency],
-        pairCurrency: 0,
+        pairCurrency: currencyTypes[currency],
         accountId: account,
         isAvailableForNow: true,
         orderType: 0,
@@ -230,3 +230,19 @@ export const getMyOfferHistory = (options) => async (dispatch, getState) => {
     const orders = await dispatch(getOpenOrders(params));
     dispatch(setMyOrderHistoryAction(orders));
 };
+
+export function getTransactionFee() {
+    return dispatch => {
+        return handleFetch(`${config.api.server}/rest/dex/ethInfo`, GET)
+            .then(async (res) => {
+                if (!res.errorCode) {
+                    return res;
+                } else {
+                    NotificationManager.error(res.errorDescription, 'Error', 5000);
+                }
+            })
+            .catch(() => {
+
+            })
+    }
+}

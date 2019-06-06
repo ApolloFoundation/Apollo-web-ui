@@ -1,9 +1,7 @@
 import React from 'react';
 
 import {Text} from 'react-form';
-import {CheckboxFormInput} from '../../../components/form-components/check-button-input';
 import TextualInputComponent from '../../../components/form-components/textual-input';
-import NumericInputComponent from '../../../components/form-components/numeric-input';
 import CustomTextArea from '../../../components/form-components/text-area';
 import CustomFormSelect from '../../../components/form-components/custom-form-select';
 
@@ -13,13 +11,12 @@ import CurrencyInput from '../../../components/form-components/currency-input';
 import BlockHeightInput from '../../../components/form-components/block-height-input';
 
 import InputForm from '../../../components/input-form';
-import ModalBody from '../../../components/modals/modal-body';
 
 const votingModelData = [
-    { value: 0, label: 'Vote by Account' },
-    { value: 1, label: 'Vote by Account Balance' },
-    { value: 2, label: 'Vote by Asset Balance' },
-    { value: 3, label: 'Vote by Currency Balance' }
+    {value: 0, label: 'Vote by Account'},
+    {value: 1, label: 'Vote by Account Balance'},
+    {value: 2, label: 'Vote by Asset Balance'},
+    {value: 3, label: 'Vote by Currency Balance'}
 ];
 
 class PollForm extends React.Component {
@@ -39,33 +36,29 @@ class PollForm extends React.Component {
         setValue(`answers[${arrItem}]`, '');
     };
 
-    selectedBalanceType = (values) => {
-        const type = values.minBalanceType || values.votingModel;
-        switch (type) {
+    selectedBalanceType = () => {
+        const {values} = this.props.getFormState();
+        switch (values.votingModel) {
             case 0:
                 return '(none)';
             case 1:
-                return '(Apollo)';
+                return '(APL)';
             case 2:
                 return '(Asset)';
             case 3:
                 return '(Currency)';
-            default: return null;
+            default:
+                return null;
         }
     };
 
-    handleVotingModel = (value, setValue) => {
-        if (value !== 0) setValue('minBalanceType', 0);
-        setValue('minBalanceModel', value);
-    };
-
-    render () {
+    render() {
         const {getFormState, setValue, idGroup} = this.props;
-        const {values: {minBalanceType, votingModel}} = getFormState()
+        const {values: {votingModel}} = getFormState();
 
         return (
             <>
-               <TextualInputComponent 
+                <TextualInputComponent
                     label={'Name'}
                     disabled={true}
                     field="name"
@@ -77,8 +70,8 @@ class PollForm extends React.Component {
                 />
 
                 <CustomTextArea
-                    label={'Description'} 
-                    field={'description'} 
+                    label={'Description'}
+                    field={'description'}
                     placeholder={'Description'}
                     setValue={setValue}
                     idGroup={idGroup}
@@ -92,89 +85,46 @@ class PollForm extends React.Component {
                     field={'votingModel'}
                     idGroup={idGroup}
                 />
-                
-                {
-                    minBalanceType === 2 ||
-                    votingModel === 2 &&
+
+                {votingModel === 2 && (
                     <AssetInput
                         field={'holding'}
                         setValue={setValue}
                         idGroup={idGroup}
                     />
-                }
-                {
-                    minBalanceType === 3 ||
-                    votingModel === 3 &&
-                    <CurrencyInput 
+                )}
+
+                {votingModel === 3 && (
+                    <CurrencyInput
                         field={'holding'}
                         setValue={setValue}
                         idGroup={idGroup}
                     />
-                }
-                {/*{getFormState().values.votingModel === votingModelData[0].value &&
-                <RadioGroup field={'minBalanceType'} defaultValue={0}>
-                    <div className="form-group row form-group-white">
-                        <label className="col-sm-3 col-form-label align-self-start">
-                            Min Balance Type
+                )}
+
+                {votingModel !== 0 && (
+                    <div className="form-group row form-group-white mb-15">
+                        <label className="col-sm-3 col-form-label">
+                            Min voting balance {this.selectedBalanceType()}
                         </label>
-                        <div className="col-md-9">
-                            <div className="form-sub-actions">
-                                <div
-                                    className="form-group-app no-padding-bottom"
-                                    style={{paddingTop: 0, paddingLeft: 0}}
-                                >
-                                    <div
-                                        className="input-group-app align-middle display-block mb-3">
-                                        <Radio value={0}/>
-                                        <label style={{display: 'inline-block'}}>None</label>
-                                    </div>
-                                    <div
-                                        className="input-group-app align-middle display-block mb-3">
-                                        <Radio value={1}/>
-                                        <label style={{display: 'inline-block'}}>Account
-                                            Balance</label>
-                                    </div>
-                                    <div
-                                        className="input-group-app align-middle display-block mb-3">
-                                        <Radio value={2}/>
-                                        <label style={{display: 'inline-block'}}>Asset
-                                            Balance</label>
-                                    </div>
-                                    <div
-                                        className="input-group-app align-middle display-block mb-3">
-                                        <Radio value={3}/>
-                                        <label style={{display: 'inline-block'}}>Currency
-                                            Balance</label>
-                                    </div>
-                                </div>
-                            </div>
+                        <div className="col-sm-9">
+                            <InputForm
+                                field="minBalance"
+                                placeholder=""
+                                type={"tel"}
+                                defaultValue={"0"}
+                                setValue={setValue}/>
                         </div>
                     </div>
-                </RadioGroup>
-                }
-                <div className="form-group row form-group-white mb-15">
-                    <label className="col-sm-3 col-form-label">
-                        Min voting balance {this.selectedBalanceType(getFormState().values)}
-                    </label>
-                    <div className="col-sm-9">
-                        <InputForm
-                            disabled={getFormState().values.minBalanceType === 0 &&
-                                        getFormState().values.votingModel === 0}
-                            field="minBalance"
-                            placeholder=""
-                            type={"tel"}
-                            defaultValue={0}
-                            setValue={setValue}/>
-                    </div>
-                </div>*/}
-                <BlockHeightInput 
+                )}
+                <BlockHeightInput
                     label={'Finish height'}
                     field={'finishHeight'}
                     placeholder={'Finish height'}
                     setValue={setValue}
                     idGroup={idGroup}
                 />
-                
+
                 <div className="form-group row form-group-white mb-0">
                     <label className="col-sm-3 col-form-label align-self-start">
                         Answer
@@ -186,44 +136,44 @@ class PollForm extends React.Component {
                                 className="form-control"
                                 placeholder={'Answer'}
                             />
-                            <div 
+                            <div
                                 className="input-group-append"
                                 onClick={() => this.removeAnswer(setValue, getFormState().values.answers, 0)}
                             >
                                 <span className="input-group-text">
-                                    <i className="zmdi zmdi-minus-circle" />
+                                    <i className="zmdi zmdi-minus-circle"/>
                                 </span>
                             </div>
                         </div>
                         {getFormState().values.answers &&
-                            getFormState().values.answers.map((el, index) => {
-                                if(index !== 0 ) {
-                                    const filed = `answers[${index}]`;
-                                    return (
-                                        <div key={filed}
-                                            className="input-group input-group-sm mb-15 no-left-padding">
-                                            <Text
-                                                id={`${idGroup}${filed}-field`}
-                                                field={filed}
-                                                className="form-control"
-                                                placeholder={'Answer'}
-                                            />
-                                            <div className="input-group-append"
-                                                    onClick={() => this.removeAnswer(setValue, getFormState().values.answers, index)}>
+                        getFormState().values.answers.map((el, index) => {
+                            if (index !== 0) {
+                                const filed = `answers[${index}]`;
+                                return (
+                                    <div key={filed}
+                                         className="input-group input-group-sm mb-15 no-left-padding">
+                                        <Text
+                                            id={`${idGroup}${filed}-field`}
+                                            field={filed}
+                                            className="form-control"
+                                            placeholder={'Answer'}
+                                        />
+                                        <div className="input-group-append"
+                                             onClick={() => this.removeAnswer(setValue, getFormState().values.answers, index)}>
                                                 <span className="input-group-text">
                                                     <i className="zmdi zmdi-minus-circle"/>
                                                 </span>
-                                            </div>
                                         </div>
-                                    )
-                                }
-                            })
+                                    </div>
+                                )
+                            }
+                        })
                         }
                     </div>
                 </div>
                 <div className="mobile-class form-group-grey row mb-15">
                     <div className="col-sm-9 offset-sm-3">
-                        <a 
+                        <a
                             id={`${idGroup}addAnswer-field`}
                             className="no-margin btn static blue"
                             onClick={() => this.addAnswer(setValue, getFormState().values.answers)}
@@ -232,10 +182,10 @@ class PollForm extends React.Component {
                         </a>
                     </div>
                 </div>
-                
+
                 <div className="form-group row form-group-white mb-15">
                     <label className="col-sm-3 col-form-label align-self-start">
-                        Minimum nr of choices
+                        Min number of choices
                     </label>
                     <div className="col-sm-3">
                         <InputForm
@@ -248,7 +198,7 @@ class PollForm extends React.Component {
                         />
                     </div>
                     <label className="col-sm-3 col-form-label align-self-start">
-                        Maximum nr of choices
+                        Max number of choices
                     </label>
                     <div className="col-sm-3">
                         <InputForm
@@ -263,7 +213,7 @@ class PollForm extends React.Component {
                 </div>
                 <div className="form-group row form-group-white mb-15">
                     <label className="col-sm-3 col-form-label align-self-start">
-                        Minimum range value
+                        Min range value
                     </label>
                     <div className="col-sm-3">
                         <InputForm
@@ -276,7 +226,7 @@ class PollForm extends React.Component {
                         />
                     </div>
                     <label className="col-sm-3 col-form-label align-self-start">
-                        Maximum range value
+                        Max range value
                     </label>
                     <div className="col-sm-3">
                         <InputForm
@@ -290,7 +240,7 @@ class PollForm extends React.Component {
                     </div>
                 </div>
             </>
-            
+
         )
     }
 }

@@ -92,7 +92,7 @@ export function isLoggedIn(history) {
         if (account) {
             dispatch(makeLoginReq({account}));
         } else {
-            if (document.location.pathname !== '/login')
+            if (document.location.pathname !== '/login' && document.location.pathname !== '/faucet')
                 history.push('/login');
         }
     };
@@ -136,7 +136,11 @@ export const updateAccount = (requestParams) => dispatch => {
         }
     })
         .then((res) => {
-            dispatch(login(res.data));
+            if (res.data && (!res.data.errorCode || res.data.errorCode === 5)) {
+                delete res.data.errorCode;
+                delete res.data.errorDescription;
+                dispatch(login(res.data));
+            }
         })
         .catch(function (err) {
             dispatch({
@@ -158,23 +162,27 @@ export const makeLoginReq = (requestParams) => (dispatch) => {
         }
     })
         .then((res) => {
-            if (res.data.account) {
-                writeToLocalStorage('APLUserRS', res.data.accountRS);
-                dispatch(updateNotifications())(res.data.accountRS);
-                dispatch(getConstantsAction());
-                dispatch({
-                    type: 'SET_PASSPHRASE',
-                    payload: JSON.parse(localStorage.getItem('secretPhrase'))
-                });
-                dispatch({
-                    type: 'SET_DASHBOARD_ACCOUNT_INFO',
-                    payload: res.data
-                });
-                dispatch(login(res.data));
-                dispatch(getForging());
-                dispatch(endLoad());
+            if (res.data) {
+                delete res.data.errorCode;
+                delete res.data.errorDescription;
+                if (res.data.account) {
+                    writeToLocalStorage('APLUserRS', res.data.accountRS);
+                    dispatch(updateNotifications())(res.data.accountRS);
+                    dispatch(getConstantsAction());
+                    dispatch({
+                        type: 'SET_PASSPHRASE',
+                        payload: JSON.parse(localStorage.getItem('secretPhrase'))
+                    });
+                    dispatch({
+                        type: 'SET_DASHBOARD_ACCOUNT_INFO',
+                        payload: res.data
+                    });
+                    dispatch(login(res.data));
+                    dispatch(getForging());
+                    dispatch(endLoad());
+                }
+                return res.data;
             }
-            return res.data;
         })
         .catch(function (err) {
             dispatch({
