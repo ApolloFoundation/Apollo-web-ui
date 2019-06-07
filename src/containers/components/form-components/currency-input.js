@@ -33,11 +33,11 @@ class CurrencyInput extends React.Component {
         const {setValue, field, disabled} = this.props;
 
         return (
-            <div className="form-group row form-group-grey mb-15">
-                <label className="col-sm-3 col-form-label">
+            <div className="form-group mb-15">
+                <label>
                     Currency
                 </label>
-                <div className="col-sm-9 input-group input-group-double input-group-text-transparent input-group-sm mb-0">
+                <div className="input-group">
                     <InputForm
                         field={field}
                         placeholder="Code"

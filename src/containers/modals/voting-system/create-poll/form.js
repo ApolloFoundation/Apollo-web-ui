@@ -104,11 +104,11 @@ class PollForm extends React.Component {
                 )}
 
                 {votingModel !== 0 && (
-                    <div className="form-group row form-group-white mb-15">
-                        <label className="col-sm-3 col-form-label">
+                    <div className="form-group mb-15">
+                        <label>
                             Min voting balance {this.selectedBalanceType()}
                         </label>
-                        <div className="col-sm-9">
+                        <div>
                             <InputForm
                                 field="minBalance"
                                 placeholder=""
@@ -131,7 +131,7 @@ class PollForm extends React.Component {
                         Answer
                     </label>
                     <div className="col-sm-9">
-                        <div className="input-group input-group-sm mb-15 no-left-padding">
+                        <div className="input-group mb-15 no-left-padding">
                             <Text
                                 field={'answers[0]'}
                                 className="form-control"
@@ -142,7 +142,7 @@ class PollForm extends React.Component {
                                 onClick={() => this.removeAnswer(setValue, getFormState().values.answers, 0)}
                             >
                                 <span className="input-group-text">
-                                    <i className="zmdi zmdi-minus-circle"/>
+                                    <i className="zmdi zmdi-minus-circle cursor-pointer"/>
                                 </span>
                             </div>
                         </div>
@@ -152,7 +152,7 @@ class PollForm extends React.Component {
                                 const filed = `answers[${index}]`;
                                 return (
                                     <div key={filed}
-                                         className="input-group input-group-sm mb-15 no-left-padding">
+                                         className="input-group mb-15 no-left-padding">
                                         <Text
                                             id={`${idGroup}${filed}-field`}
                                             field={filed}
@@ -162,7 +162,7 @@ class PollForm extends React.Component {
                                         <div className="input-group-append"
                                              onClick={() => this.removeAnswer(setValue, getFormState().values.answers, index)}>
                                                 <span className="input-group-text">
-                                                    <i className="zmdi zmdi-minus-circle"/>
+                                                    <i className="zmdi zmdi-minus-circle cursor-pointer"/>
                                                 </span>
                                         </div>
                                     </div>

@@ -1019,6 +1019,7 @@ div.info-box {
 	}
 	&.loading {
 		pointer-events: none;
+		position: relative;
 
 		.button-loader {
 			visibility: visible;
