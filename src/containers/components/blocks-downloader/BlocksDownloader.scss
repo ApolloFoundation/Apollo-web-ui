@@ -1,18 +1,29 @@
-.block-downloader {
+.wrap-block-downloader {
   position: fixed;
-  bottom: 15px;
-  right: 15px;
-  height: 70px !important;
-  width: 200px;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  z-index: 5;
+  bottom: 12px;
+  right: 12px;
   display: flex;
-}
+  flex-direction: column;
+  justify-content: flex-end;
+  height: auto !important;
+  z-index: 5;
 
-.block-downloader_text {
-  display: block;
-  padding: 12px;
-  align-self: center;
+  .block-downloader {
+    height: 70px !important;
+    width: 200px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    display: flex;
+    margin-bottom: 5px;
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+
+  .block-downloader_text {
+    display: block;
+    padding: 10px 10px 10px 0;
+    align-self: center;
+  }
 }

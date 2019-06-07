@@ -324,12 +324,9 @@ class App extends React.Component {
                          'hide-page-body': this.props.bodyModalType
                      })}
                 >
-                    {
-                        this.props.isLocalhost &&
-                        this.props.blockchainStatus &&
-                        this.props.blockchainStatus.isDownloading &&
+                    {this.props.isLocalhost && this.props.blockchainStatus && (
                         <BlocksDownloader/>
-                    }
+                    )}
                     
                     <Switch>
                         <Route exact path="/faucet" component={Faucet}/>

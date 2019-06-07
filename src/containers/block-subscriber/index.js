@@ -5,45 +5,48 @@
 
 
 import React from "react";
-import {startBlockPullingAction} from "../../actions/blocks/index";
-import {loadBlockchainStatus} from "../../actions/login/index";
+import {connect} from "react-redux";
+import {getBackendStatus, startBlockPullingAction} from "../../actions/blocks/index";
 import store from '../../store'
 
-
 const EventEmitter = require("events").EventEmitter;
-
-
 export const BlockUpdater = new EventEmitter();
 
-export default class BlockSubscriber extends React.Component {
-
-    interval = "";
-
+class BlockSubscriber extends React.Component {
+    interval = null;
     prevHeight = 0;
+    state = {
+        isPending: false,
+    };
 
     componentDidMount() {
         this.interval = setInterval(this.updateBlock, 4000)
     }
 
     updateBlock = async () => {
-        const blockData = await startBlockPullingAction();
-        if (blockData) {
-            const currHeight = blockData.height;
+        if (!this.state.isPending) {
+            this.setState({isPending: true});
+            Promise.all([this.props.getBackendStatus(), startBlockPullingAction()])
+                .then((values) => {
+                    const blockData = values[1];
+                    if (blockData) {
+                        const currHeight = blockData.height;
 
-            store.dispatch({
-                type: 'SET_ACTUAL_BLOCK',
-                payload: {
-                    actualBlock: currHeight,
-                    timestamp: blockData.timestamp,
-                }
-            });
+                        store.dispatch({
+                            type: 'SET_ACTUAL_BLOCK',
+                            payload: {
+                                actualBlock: currHeight,
+                                timestamp: blockData.timestamp,
+                            }
+                        });
 
-            const {account} = store.getState();
-
-            if (currHeight > this.prevHeight) {
-                this.prevHeight = currHeight;
-                BlockUpdater.emit("data", currHeight);
-            }
+                        if (currHeight > this.prevHeight) {
+                            this.prevHeight = currHeight;
+                            BlockUpdater.emit("data", currHeight);
+                        }
+                    }
+                    this.setState({isPending: false});
+                });
         }
     };
 
@@ -59,3 +62,9 @@ export default class BlockSubscriber extends React.Component {
         )
     }
 }
+
+const mapDispatchToProps = dispatch => ({
+    getBackendStatus: () => dispatch(getBackendStatus()),
+});
+
+export default connect(null, mapDispatchToProps)(BlockSubscriber)
