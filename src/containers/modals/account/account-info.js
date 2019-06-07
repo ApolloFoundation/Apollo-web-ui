@@ -14,6 +14,7 @@ import submitForm from "../../../helpers/forms/forms";
 import crypto from "../../../helpers/crypto/crypto";
 import ModalFooter from '../../components/modal-footer';
 import BackForm from '../modal-form/modal-form-container';
+import NummericInputForm from "../../components/form-components/numeric-input";
 
 class AccountInfo extends React.Component {
     constructor(props) {
@@ -85,31 +86,24 @@ class AccountInfo extends React.Component {
                                     <div className="form-group mb-15">
                                         <label>Description</label>
                                         <div>
-                                            <TextArea className={"form-control"} placeholder="Message" field="message"
+                                            <TextArea className={"form-control"} placeholder="Description" field="message"
                                                       cols="6" rows="10"/>
                                         </div>
                                     </div>
-                                    <div className="form-group mb-15">
-                                        <label>Fee</label>
-                                        <div>
-                                            <Text className={"form-control"} placeholder={'Amount'} type="tel"
-                                                  field={'feeATM'}/>
-                                        </div>
-                                    </div>
-
+                                    <NummericInputForm
+                                        field={'feeATM'}
+                                        counterLabel={'Apollo'}
+                                        type={'float'}
+                                        label={'Fee'}
+                                        setValue={setValue}
+                                        placeholder={'Fee'}
+                                        defaultValue={'1'}
+                                    />
                                     <ModalFooter
                                         setValue={setValue}
                                         getFormState={getFormState}
                                         values={values}
                                     />
-
-                                    {/*
-                                    <AdvancedSettings
-                                        setValue={setValue}
-                                        getFormState={getFormState}
-                                        values={values}
-                                        advancedState={this.state.advancedState}
-                                    /> */}
 
                                     <div className="btn-box right-conner align-right form-footer">
                                         <button
