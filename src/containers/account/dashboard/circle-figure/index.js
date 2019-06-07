@@ -7,7 +7,7 @@
 import React from 'react';
 import uuid from 'uuid';
 import CircularProgressbar from 'react-circular-progressbar';
-import './CircleFigure.css';
+import './CircleFigure.scss';
 import classNames from "classnames";
 
 class CircleFigure extends React.Component {
