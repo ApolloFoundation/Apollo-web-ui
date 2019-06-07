@@ -39,7 +39,7 @@ class FeeCalc extends React.Component {
                 <label>
                     Fee
                 </label>
-                <div className="input-group input-group-sm">
+                <div className="input-group">
                     <InputForm
                         field="feeATM"
                         placeholder="Minimum fee"

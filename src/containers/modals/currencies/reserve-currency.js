@@ -6,61 +6,51 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
+import {Form} from 'react-form';
+import {NotificationManager} from 'react-notifications';
+import classNames from 'classnames';
 import {setBodyModalParamsAction, setModalData} from '../../../modules/modals';
-import AdvancedSettings from '../../components/advanced-transaction-settings'
 import InputForm from "../../components/input-form";
 import ModalFooter from "../../components/modal-footer";
 import ButtonWrapper from "../mandatory-approval/components/ModalFooter";
-import {Form} from "react-form";
 import utils from "../../../../src/helpers/util/utils";
-import SubmitButton from "../mandatory-approval/components/SubmitButton";
 import CancelButton from "../mandatory-approval/components/CancelButton";
-import {NotificationManager} from "react-notifications";
 import submitForm from "../../../helpers/forms/forms";
-
-import ModalBody from '../../components/modals/modal-body';
 import FeeCalc from '../../components/form-components/fee-calc';
 
 class ReserveCurrency extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            activeTab: 0,
-            advancedState: false,
-            reserve: 0,
-        }
-
-    }
-
-    handleFormSubmit = async (values) => {
-        if (!values.secretPhrase || values.secretPhrase.length === 0) {
-            NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
-            return;
-        }
-
-        const toSend = {
-            currency: this.props.modalData.currency,
-            decimals: this.props.modalData.decimals,
-            amountPerUnitATM: Number(this.state.reserve),
-            deadline: 1440,
-            phased: false,
-            phasingHashedSecretAlgorithm: 2,
-            secretPhrase: values.secretPhrase,
-            feeATM: values.feeATM,
-        };
-
-        this.props.processForm(toSend, 'currencyReserveIncrease', 'Reserve has been increased!', (res) => {
-            NotificationManager.success('Reserve has been increased!', null, 5000);
-            this.props.setBodyModalParamsAction(null, {});
-        });
+    state = {
+        activeTab: 0,
+        reserve: 0,
+        isPending: false,
     };
 
-    handleAdvancedState = () => {
-        this.setState({
-            ...this.props,
-            advancedState: !this.state.advancedState
-        })
+    handleFormSubmit = async (values) => {
+        if (!this.state.isPending) {
+            this.setState({isPending: true});
+
+            if (!values.secretPhrase || values.secretPhrase.length === 0) {
+                NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
+                return;
+            }
+
+            const toSend = {
+                currency: this.props.modalData.currency,
+                decimals: this.props.modalData.decimals,
+                amountPerUnitATM: Number(this.state.reserve),
+                deadline: 1440,
+                phased: false,
+                phasingHashedSecretAlgorithm: 2,
+                secretPhrase: values.secretPhrase,
+                feeATM: values.feeATM,
+            };
+
+            await this.props.processForm(toSend, 'currencyReserveIncrease', 'Reserve has been increased!', (res) => {
+                NotificationManager.success('Reserve has been increased!', null, 5000);
+                this.props.setBodyModalParamsAction(null, {});
+            });
+            this.setState({isPending: false});
+        }
     };
 
     render() {
@@ -76,40 +66,36 @@ class ReserveCurrency extends React.Component {
                             <p>Reserve Currency - {modalData.code}</p>
                             <br/>
                         </div>
-                        <div className="form-group form-group-white row mb-15">
-                            <label className="col-sm-3 col-form-label">
+                        <div className="form-group mb-15">
+                            <label>
                                 Reserve supply
                             </label>
-                            <div
-                                className="col-sm-9 input-group input-group-text-transparent bold input-group-sm">
-                                {modalData.reserveSupply / Math.pow(10, modalData.decimals)}
+                            <div>
+                                <span>{modalData.reserveSupply / Math.pow(10, modalData.decimals)}</span>
                             </div>
                         </div>
-                        <div className="form-group form-group-white row mb-15">
-                            <label className="col-sm-3 col-form-label">
+                        <div className="form-group mb-15">
+                            <label>
                                 Initial supply included
                             </label>
-                            <div
-                                className="col-sm-9 input-group input-group-text-transparent bold input-group-sm">
-                                {modalData.initialSupply / Math.pow(10, modalData.decimals)}
+                            <div>
+                                <span>{modalData.initialSupply / Math.pow(10, modalData.decimals)}</span>
                             </div>
                         </div>
-                        <div className="form-group form-group-white row mb-15">
-                            <label className="col-sm-3 col-form-label">
+                        <div className="form-group mb-15">
+                            <label>
                                 Target reserve
                             </label>
-                            <div
-                                className="col-sm-9 input-group input-group-text-transparent bold input-group-sm">
-                                {modalData.minReservePerUnitATM / Math.pow(10, modalData.decimals)}
+                            <div>
+                                <span>{modalData.minReservePerUnitATM / Math.pow(10, modalData.decimals)}</span>
                             </div>
                         </div>
-                        <div className="form-group form-group-white row mb-15">
-                            <label className="col-sm-3 col-form-label">
+                        <div className="form-group mb-15">
+                            <label>
                                 Current reserve
                             </label>
-                            <div
-                                className="col-sm-9 input-group input-group-text-transparent bold input-group-sm">
-                                {modalData.currentReservePerUnitATM / Math.pow(10, modalData.decimals)}
+                            <div>
+                                <span>{modalData.currentReservePerUnitATM / Math.pow(10, modalData.decimals)}</span>
                             </div>
                         </div>
                         <Form
@@ -119,12 +105,11 @@ class ReserveCurrency extends React.Component {
                             render={({
                                          submitForm, values, addValue, removeValue, setValue, getFormState
                                      }) => <React.Fragment>
-                                <div className="form-group form-group-white row mb-15">
-                                    <label className="col-sm-3 col-form-label">
+                                <div className="form-group mb-15">
+                                    <label>
                                         Amount to reserve
                                     </label>
-                                    <div
-                                        className="col-sm-9 input-group input-group-text-transparent input-group-sm">
+                                    <div className="input-group">
                                         <InputForm
                                             defaultValue={''}
                                             field="amount"
@@ -145,13 +130,12 @@ class ReserveCurrency extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="form-group form-group-white row mb-15">
-                                    <label className="col-sm-3 col-form-label">
+                                <div className="form-group mb-15">
+                                    <label>
                                         Reserve per unit
                                     </label>
-                                    <div
-                                        className="col-sm-9 input-group input-group-text-transparent bold input-group-sm">
-                                        {this.state.reserve}
+                                    <div>
+                                        <span>{this.state.reserve}</span>
                                     </div>
                                 </div>
                                 <FeeCalc
@@ -166,13 +150,19 @@ class ReserveCurrency extends React.Component {
                                     values={values}
                                 />
                                 <ButtonWrapper>
-                                    <SubmitButton
-                                        text={"Reserve"}
-                                        submit={() => submitForm()}
-                                    />
                                     <CancelButton
                                         close={this.props.closeModal}
                                     />
+                                    <button
+                                        type="submit"
+                                        className={classNames({
+                                            "btn btn-right btn-green submit-button": true,
+                                            "btn-green-disabled": this.state.isPending,
+                                        })}
+                                        onClick={submitForm}
+                                    >
+                                        Reserve
+                                    </button>
                                 </ButtonWrapper>
                             </React.Fragment>}
                         />
