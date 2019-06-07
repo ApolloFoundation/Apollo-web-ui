@@ -156,12 +156,19 @@ class ReserveCurrency extends React.Component {
                                     <button
                                         type="submit"
                                         className={classNames({
-                                            "btn btn-right btn-green submit-button": true,
-                                            "btn-green-disabled": this.state.isPending,
+                                            "btn btn-green submit-button": true,
+                                            "loading btn-green-disabled": this.state.isPending,
                                         })}
                                         onClick={submitForm}
                                     >
-                                        Reserve
+                                        <div className="button-loader">
+                                            <div className="ball-pulse">
+                                                <div/>
+                                                <div/>
+                                                <div/>
+                                            </div>
+                                        </div>
+                                        <span className={'button-text'}>Reserve</span>
                                     </button>
                                 </ButtonWrapper>
                             </React.Fragment>}

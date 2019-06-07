@@ -1010,6 +1010,7 @@ div.info-box {
 	display: inline-flex !important;
 	align-items: center;
 	justify-content: center;
+	min-width: 80px;
 
 	&.under-table {
 		transform: translate(0, 0px);
