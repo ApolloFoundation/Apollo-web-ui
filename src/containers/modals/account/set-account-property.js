@@ -152,11 +152,18 @@ class SetAccountProperty extends React.Component {
                                         type="submit"
                                         name={'closeModal'}
                                         className={classNames({
-                                            "btn btn-right btn-green submit-button": true,
-                                            "btn-green-disabled": this.state.isPending,
+                                            "btn btn-green submit-button": true,
+                                            "loading btn-green-disabled": this.state.isPending,
                                         })}
                                     >
-                                        Set Property
+                                        <div className="button-loader">
+                                            <div className="ball-pulse">
+                                                <div/>
+                                                <div/>
+                                                <div/>
+                                            </div>
+                                        </div>
+                                        <span className={'button-text'}>Set Property</span>
                                     </button>
                                 </div>
                             </div>
