@@ -6,10 +6,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {setBodyModalParamsAction, setModalData, saveSendModalState, openPrevModal} from '../../../modules/modals';
-import InputForm from '../../components/input-form';
-import AccountRS from '../../components/account-rs';
-import {Form, Text, TextArea} from 'react-form';
+import {openPrevModal, saveSendModalState, setBodyModalParamsAction, setModalData} from '../../../modules/modals';
 
 import submitForm from "../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
@@ -57,17 +54,21 @@ class DeleteAccountProperty extends React.Component {
             <div className="modal-box">
 
                 <BackForm
-	                nameModal={this.props.nameModal}
+                    nameModal={this.props.nameModal}
                     onSubmit={(values) => this.handleFormSubmit(values)}
-                    render={({ submitForm, values, addValue, removeValue, setValue, getFormState, getValue }) => (
-                        <form className="modal-form" onChange={() => this.props.saveSendModalState(values)} onSubmit={submitForm}>
+                    render={({submitForm, values, addValue, removeValue, setValue, getFormState, getValue}) => (
+                        <form className="modal-form" onChange={() => this.props.saveSendModalState(values)}
+                              onSubmit={submitForm}>
                             <div className="form-group-app">
-                                <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
+                                <a onClick={() => this.props.closeModal()} className="exit"><i
+                                    className="zmdi zmdi-close"/></a>
 
                                 <div className="form-title">
-	                                {this.props.modalsHistory.length > 1 &&
-	                                <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
-	                                }
+                                    {this.props.modalsHistory.length > 1 &&
+                                    <div className={"backMy"} onClick={() => {
+                                        this.props.openPrevModal()
+                                    }}/>
+                                    }
                                     <p>Delete Account Property</p>
                                 </div>
                                 <div className="form-group mb-15">
@@ -76,7 +77,7 @@ class DeleteAccountProperty extends React.Component {
                                     </label>
                                     <div>
                                         <span>
-                                            {(this.props.modalData && this.props.modalData.setterRS) ? this.props.modalData.setterRS : ''}
+                                            {(this.props.modalData && this.props.modalData.setterRS) ? this.props.modalData.setterRS : '-'}
                                         </span>
                                     </div>
                                 </div>
@@ -96,11 +97,11 @@ class DeleteAccountProperty extends React.Component {
                                     </label>
                                     <div>
                                         <span>
-                                            {(this.props.modalData && this.props.modalData.property) ? this.props.modalData.property : ''}
+                                            {(this.props.modalData && this.props.modalData.property) ? this.props.modalData.property : '-'}
                                         </span>
                                     </div>
                                 </div>
-                                <FeeCalc 
+                                <FeeCalc
                                     values={getFormState().values}
                                     setValue={setValue}
                                     requestType={'setAccountInfo'}
@@ -130,7 +131,6 @@ class DeleteAccountProperty extends React.Component {
                                     </button>
                                 </div>
                             </div>
-
                         </form>
                     )}
                 />
@@ -150,7 +150,7 @@ const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
     saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
-	openPrevModal: () => dispatch(openPrevModal()),
+    openPrevModal: () => dispatch(openPrevModal()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeleteAccountProperty);

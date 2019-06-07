@@ -9,15 +9,9 @@ import {Text} from 'react-form';
 
 
 class InputForm extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            value: props.defaultValue || '',
-            defaultValue: props.defaultValue,
-        };
-        if (props.setValue && props.field) {
-            props.setValue(props.field, props.defaultValue || '');
-        }
+    state = {
+        value: null,
+        defaultValue: null,
     };
 
     static getDerivedStateFromProps(props, state) {
@@ -40,7 +34,7 @@ class InputForm extends React.Component {
     };
 
     validateInput = (value) => {
-        const {type, isSpecialSymbols, id} = this.props;
+        const {type, isSpecialSymbols} = this.props;
 
         if (!value.target) {
             if (type === "password" || isSpecialSymbols) {
