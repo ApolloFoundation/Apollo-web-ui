@@ -28,11 +28,8 @@ const FormFooter = ({
                 name={'closeModal'}
                 id={`${idGroup}submit-button`}
                 className={classNames({
-                    "btn" : true,
-                    "btn-right" : true,
-                    "btn-green" : true,
-                    "submit-button" : true,
-                    "btn-green-disabled": isDisabled,
+                    "btn btn-green" : true,
+                    "btn-green-disabled": isDisabled || isMomalProcessing,
                     "loading": isMomalProcessing
                 })}
             >

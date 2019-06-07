@@ -455,6 +455,9 @@
 		font-size: 11px;
 		margin-bottom: 5px;
 		display: inline-block;
+		&.col-form-label {
+			padding: 12px 15px;
+		}
 	}
 	input, textarea {
 		color: #3D5A7E;
