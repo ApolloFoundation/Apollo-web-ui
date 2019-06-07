@@ -59,7 +59,6 @@ class SetAccountProperty extends React.Component {
     }
 
     render() {
-        const contactRS = this.props.modalData.setterRS || this.props.modalData.recipientRS || '';
         return (
             <div className="modal-box">
                 <BackForm
@@ -73,47 +72,45 @@ class SetAccountProperty extends React.Component {
                                     className="zmdi zmdi-close"/></a>
 
                                 <div className="form-title">
-                                    {this.props.modalsHistory.length > 1 &&
-                                    <div className={"backMy"} onClick={() => {
-                                        this.props.openPrevModal()
-                                    }}/>
-                                    }
+                                    {this.props.modalsHistory.length > 1 && (
+                                        <div className={"backMy"} onClick={() => {
+                                            this.props.openPrevModal()
+                                        }}/>
+                                    )}
                                     <p>{this.props.modalData.property ? 'Update' : 'Set'} Account Property</p>
                                 </div>
-                                {contactRS !== '' ?
+                                {(this.props.modalData && this.props.modalData.recipientRS) ? (
                                     <div className="form-group mb-15">
                                         <label>
                                             Recipient
                                         </label>
                                         <div>
                                             <span>
-                                                {(this.props.modalData && this.props.modalData.setterRS) ? this.props.modalData.setterRS : ''}
+                                                {this.props.modalData.recipientRS}
                                             </span>
                                         </div>
                                     </div>
-                                    :
+                                ) : (
                                     <AccountRSFormInput
                                         field={'recipient'}
                                         label={'Recipient'}
                                         setValue={setValue}
                                     />
-                                }
+                                )}
                                 <div className="form-group mb-15">
                                     <label>
                                         Property
                                     </label>
                                     <div>
-                                        {
-                                            (this.props.modalData && this.props.modalData.property) ?
-                                                <span>
-                                                {this.props.modalData.property}
-                                            </span> :
-                                                <InputForm
-                                                    field="property"
-                                                    placeholder="Property"
-                                                    setValue={setValue}
-                                                />
-                                        }
+                                        {(this.props.modalData && this.props.modalData.property) ? (
+                                            <span>{this.props.modalData.property}</span>
+                                        ) : (
+                                            <InputForm
+                                                field="property"
+                                                placeholder="Property"
+                                                setValue={setValue}
+                                            />
+                                        )}
                                     </div>
                                 </div>
                                 <div className="form-group mb-15">
