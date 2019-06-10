@@ -26,28 +26,28 @@ class MyCurrencytemItem extends Component {
                 <td className="align-right">
                     <div className="btn-box inline">
                         <Link to={"/exchange-booth/" + code} className="btn btn-default">Exchange</Link>
-                        <a
+                        <button
+                            type={'button'}
                             onClick={() => setBodyModalParamsAction('TRANSFER_CURRENCY', {code, currency})}
                             style={{marginLeft: 15}}
                             className="btn btn-default"
                         >
                             Transfer
-                        </a>
-                        <a
+                        </button>
+                        <button
+                            type={'button'}
                             onClick={() => setBodyModalParamsAction('OFFER_CURRENCY', {code})}
                             className="btn btn-default"
                         >
                             Offer
-                        </a>
-                        {
-                            isClaimable && 
-                            <a
-                                onClick={() => setBodyModalParamsAction('CLAIM_CURRENCY', currency)}
-                                className="btn btn-default"
-                            >
-                                Claim
-                            </a>
-                        }
+                        </button>
+                        <button
+                            type={'button'}
+                            onClick={() => setBodyModalParamsAction('CLAIM_CURRENCY', currency)}
+                            className={`btn btn-default ${isClaimable ? '' : 'disabled'}`}
+                        >
+                            Claim
+                        </button>
                     </div>
                 </td>
             </tr>
