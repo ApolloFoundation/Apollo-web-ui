@@ -6,11 +6,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {setBodyModalParamsAction, setModalData, saveSendModalState, openPrevModal} from '../../../modules/modals';
-import CustomSelect from '../../components/select';
-import AdvancedSettings from '../../components/advanced-transaction-settings';
-import InputForm from '../../components/input-form';
-import {Form, Text, TextArea, Number, Radio, RadioGroup} from 'react-form';
+import {openPrevModal, saveSendModalState, setBodyModalParamsAction, setModalData} from '../../../modules/modals';
 import submitForm from "../../../helpers/forms/forms";
 import {getBlockAction} from "../../../actions/blocks";
 import {getCurrencyAction} from "../../../actions/currencies";
@@ -23,6 +19,8 @@ import ModalFooter from '../../components/modal-footer'
 import FeeCalc from '../../components/form-components/fee-calc';
 
 import BackForm from '../modal-form/modal-form-container';
+import ButtonWrapper from "../mandatory-approval/components/ModalFooter";
+import classNames from "classnames";
 
 class OrderCancel extends React.Component {
     constructor(props) {
@@ -30,6 +28,7 @@ class OrderCancel extends React.Component {
         this.state = {
             activeTab: 0,
             advancedState: false,
+            isPending: false,
 
             // submitting
             passphraseStatus: false,
@@ -43,42 +42,36 @@ class OrderCancel extends React.Component {
         }
     }
 
-    handleFormSubmit = async(values) => {
-        const {modalData} = this.props;
+    handleFormSubmit = async (values) => {
+        if (!this.state.isPending) {
+            this.setState({isPending: true});
+            const {modalData} = this.props;
 
-        this.setState({
-            isPending: true
-        })
-
-        values.publicKey = await crypto.getPublicKeyAPL(values.secretPhrase);
-        const res = await this.props.submitForm( {
-            ...values,
-            order: modalData.order,
-            phased: false,
-            deadline: 0,
-            phasingHashedSecretAlgorithm: 2,
-        }, modalData.type);
-        if (res.errorCode) {
-            this.setState({
-                isPending: false
-            })
-            NotificationManager.error(res.errorDescription, 'Error', 5000)
-        } else {
-            this.props.setBodyModalParamsAction(null, {});
-
-            NotificationManager.success('Your order has been canceled!', null, 5000);
+            values.publicKey = await crypto.getPublicKeyAPL(values.secretPhrase);
+            const res = await this.props.submitForm({
+                ...values,
+                order: modalData.order,
+                phased: false,
+                deadline: 0,
+                phasingHashedSecretAlgorithm: 2,
+            }, modalData.type);
+            if (res.errorCode) {
+                NotificationManager.error(res.errorDescription, 'Error', 5000)
+            } else {
+                this.props.setBodyModalParamsAction(null, {});
+                NotificationManager.success('Your order has been canceled!', null, 5000);
+            }
+            this.setState({isPending: false});
         }
     };
 
     handleAdvancedState = () => {
         if (this.state.advancedState) {
             this.setState({
-                ...this.props,
                 advancedState: false
             })
         } else {
             this.setState({
-                ...this.props,
                 advancedState: true
             })
         }
@@ -88,21 +81,24 @@ class OrderCancel extends React.Component {
         return (
             <div className="modal-box">
                 <BackForm
-	                nameModal={this.props.nameModal}
+                    nameModal={this.props.nameModal}
                     onSubmit={(values) => this.handleFormSubmit(values)}
                     render={
-                        ({ submitForm, values, addValue, removeValue, setValue, getFormState }) => (
+                        ({submitForm, values, addValue, removeValue, setValue, getFormState}) => (
                             <form
                                 className="modal-form"
                                 onChange={() => this.props.saveSendModalState(values)}
                                 onSubmit={submitForm}
                             >
                                 <div className="form-group-app">
-                                    <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
+                                    <a onClick={() => this.props.closeModal()} className="exit"><i
+                                        className="zmdi zmdi-close"/></a>
                                     <div className="form-title">
                                         {this.props.modalsHistory.length > 1 &&
-	                                <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
-	                                }
+                                        <div className={"backMy"} onClick={() => {
+                                            this.props.openPrevModal()
+                                        }}/>
+                                        }
                                         <p>Confirm Order Cancellation</p>
                                     </div>
                                     <InfoBox default>
@@ -118,36 +114,31 @@ class OrderCancel extends React.Component {
                                         getFormState={getFormState}
                                         values={values}
                                     />
-                                    <div className="btn-box align-buttons-inside absolute right-conner align-right">
-                                        <a
+                                    <ButtonWrapper>
+                                        <button
+                                            type={'button'}
                                             onClick={() => this.props.closeModal()}
-                                            className="btn round round-top-left"
+                                            className="btn btn-default mr-3"
                                         >
                                             No, do not cancel
-                                        </a>
+                                        </button>
                                         <button
                                             type="submit"
-                                            name={'closeModal'}
-                                            className="btn btn-right blue round round-bottom-right"
+                                            className={classNames({
+                                                "btn btn-green submit-button": true,
+                                                "loading btn-green-disabled": this.state.isPending,
+                                            })}
                                         >
-                                            Cancel my order
+                                            <div className="button-loader">
+                                                <div className="ball-pulse">
+                                                    <div/>
+                                                    <div/>
+                                                    <div/>
+                                                </div>
+                                            </div>
+                                            <span className={'button-text'}>Cancel my order</span>
                                         </button>
-                                    </div>
-                                    <div className="btn-box align-buttons-inside absolute left-conner">
-                                        <a
-                                            onClick={this.handleAdvancedState}
-                                            className="btn btn-right round round-bottom-left round-top-right absolute"
-                                            style={{left : 0, right: 'auto'}}
-                                        >
-                                            {this.state.advancedState ? "Basic" : "Advanced"}
-                                        </a>
-                                    </div>
-                                    <AdvancedSettings
-                                        setValue={setValue}
-                                        getFormState={getFormState}
-                                        values={values}
-                                        advancedState={this.state.advancedState}
-                                    />
+                                    </ButtonWrapper>
                                 </div>
                             </form>
                         )}
@@ -171,7 +162,7 @@ const mapDispatchToProps = dispatch => ({
     getCurrencyAction: (requestParams) => dispatch(getCurrencyAction(requestParams)),
     getAssetAction: (requestParams) => dispatch(getAssetAction(requestParams)),
     saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
-	openPrevModal: () => dispatch(openPrevModal()),
+    openPrevModal: () => dispatch(openPrevModal()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrderCancel);

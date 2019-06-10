@@ -569,17 +569,8 @@ function sendRequest(requestType, data, callback, options) {
             });
             return;
         }
-        // check to see if secretPhrase supplied matches logged in account, if not - show error.
-        if ("secretPhrase" in data) {
-            return (dispatch(processAjaxRequest(requestType, data, callback, options)));
 
-
-        } else {
-            const formRes = dispatch(processAjaxRequest(requestType, data, callback, options));
-
-            return formRes;
-            // dispatch(processAjaxRequest(requestType, data, callback, options));
-        }
+        return dispatch(processAjaxRequest(requestType, data, callback, options));
     }
 };
 

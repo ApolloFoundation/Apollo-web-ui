@@ -38,8 +38,6 @@ export const processForm = async (values, requestType, successMesage, successCal
             } else {
                 NotificationManager.error(res.errorDescription, 'Error', 5000)
             }
-            
-
         } else {
             dispatch({
                 type: IS_MODAL_PROCESSING,
@@ -50,5 +48,14 @@ export const processForm = async (values, requestType, successMesage, successCal
                 successCallback(res)
             }
         }
+    } else {
+        dispatch({
+            type: IS_MODAL_PROCESSING,
+            payload: false
+        });
+
+        if (errorCallback) {
+            errorCallback(res);
+        }
     }
-}
+};
