@@ -18,6 +18,7 @@ const Settings = ({setBodyModalParamsAction, isLocalhost, isActive, closeMenu}) 
                 <li><NavLink activeClass={'active'} className="option" to="/blocks">Blocks</NavLink></li>
                 <li><NavLink activeClass={'active'} className="option" to="/peers">Peers</NavLink></li>
                 <li><NavLink activeClass={'active'} className="option" to="/generators">Generators</NavLink></li>
+                <li><NavLink activeClass={'active'} className="option" to="/backend-status">Backend Status Tasks</NavLink></li>
                 {
                     isLocalhost &&
                     <>
