@@ -29,8 +29,8 @@ const FormFooter = ({
                 id={`${idGroup}submit-button`}
                 className={classNames({
                     "btn btn-green" : true,
-                    "btn-green-disabled": isDisabled || isMomalProcessing,
-                    "loading": isMomalProcessing
+                    "disabled": isDisabled || isMomalProcessing || isPending,
+                    "loading": isMomalProcessing || isPending
                 })}
             >
                 <div
