@@ -20,7 +20,11 @@ class MyCurrencytemItem extends Component {
 
         return (
             <tr key={uuid()}>
-                <td>{code}</td>
+                <td className="blue-link-text">
+                    <a onClick={() => setBodyModalParamsAction('INFO_TRANSACTION', currency)}>
+                        {code}
+                    </a>
+                </td>
                 <td>{name}</td>
                 <td className="align-right">{(unconfirmedUnits / Math.pow(10, decimals)).toFixed(2)}</td>
                 <td className="align-right">
