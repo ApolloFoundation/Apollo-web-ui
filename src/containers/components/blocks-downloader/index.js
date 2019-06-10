@@ -6,11 +6,12 @@ import './BlocksDownloader.scss'
 
 const maStateToProps = state => ({
     blockchainStatus: state.account.blockchainStatus,
-    actualBlock: state.account.actualBlock
+    actualBlock: state.account.actualBlock,
+    isLocalhost: state.account.isLocalhost,
 });
 
-const BlocksDownloader = ({blockchainStatus, actualBlock}) => {
-    const percentage = blockchainStatus && actualBlock && (parseInt(actualBlock) / parseInt(blockchainStatus.lastBlockchainFeederHeight) * 100);
+const BlocksDownloader = ({blockchainStatus, actualBlock, isLocalhost}) => {
+    const percentage = actualBlock && (parseInt(actualBlock) / parseInt(blockchainStatus.lastBlockchainFeederHeight) * 100);
 
     return (
         <div className={'wrap-block-downloader'}>
@@ -42,7 +43,7 @@ const BlocksDownloader = ({blockchainStatus, actualBlock}) => {
                     </div>
                 ) : null
             ))}
-            {blockchainStatus && actualBlock && blockchainStatus.isDownloading ? (
+            {isLocalhost && actualBlock && blockchainStatus.isDownloading ? (
                 <div className={'block-downloader'}>
                     <CircularProgressbar
                         className={classNames({

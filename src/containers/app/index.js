@@ -53,6 +53,7 @@ import FundingMonitorsStatus from '../account/funding-monitors-status'
 import MyAssets from '../account/my-assets'
 import OpenOrders from '../account/open-orders'
 import Peers from '../account/peers'
+import BackendStatus from '../account/backend-status'
 import Plugins from '../account/plugins'
 import ScheduledTransactions from '../account/scheduled-transactions'
 import Settings from '../account/settings'
@@ -253,6 +254,7 @@ class App extends React.Component {
             <Route exact path="/my-currencies" component={MyMadedCurrencies}/>
             <Route exact path="/open-orders" component={OpenOrders}/>
             <Route exact path="/peers" component={Peers}/>
+            <Route exact path="/backend-status" component={BackendStatus}/>
             <Route exact path="/purchased-products" component={PurchasdProucts}/>
             {/*,<Route exact path="/plugins" component={Plugins}/>*/}
             <Route exact path="/scheduled-transactions" component={ScheduledTransactions}/>
@@ -324,7 +326,7 @@ class App extends React.Component {
                          'hide-page-body': this.props.bodyModalType
                      })}
                 >
-                    {this.props.isLocalhost && this.props.blockchainStatus && (
+                    {this.props.blockchainStatus && (
                         <BlocksDownloader/>
                     )}
                     
