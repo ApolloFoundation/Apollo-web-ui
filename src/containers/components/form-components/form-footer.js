@@ -33,8 +33,8 @@ const FormFooter = ({
                     "round" : true,
                     "submit-button" : true,
                     "round-bottom-right" : true,
-                    "blue-disabled": isDisabled,
-                    "loading": isMomalProcessing
+                    "blue-disabled": isDisabled || isPending,
+                    "loading": isMomalProcessing || isPending
                 })}
             >
                 <div
