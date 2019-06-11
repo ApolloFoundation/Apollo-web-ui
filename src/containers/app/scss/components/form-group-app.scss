@@ -115,9 +115,6 @@
 			padding-bottom: 35px;
 			border-bottom: 1px solid #E6E6E6;
 			cursor: auto;
-			@media (max-width: 760px) {
-				border-bottom: 1px solid #777;
-			}
 			&:last-child {
 				padding-bottom: 0;
 				border-bottom: 0;
