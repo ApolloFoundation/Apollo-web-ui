@@ -1353,20 +1353,6 @@ div.info-box {
 	border-radius: 3px;
 }
 
-// card
-
-.page-body {
-	padding-top: 132px;
-
-	&.white-space {
-		background-color: #fff;
-		border-radius: 3px;
-	}
-	@media(max-width: 1024px) {
-		padding-top: 149px;
-	}
-}
-
 .page-body-item {
 	display: inline-flex;
 	flex-direction: column;

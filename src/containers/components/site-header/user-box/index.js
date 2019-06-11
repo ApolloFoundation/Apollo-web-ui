@@ -14,7 +14,7 @@ import {CopyToClipboard} from 'react-copy-to-clipboard';
 import {getTransactionAction} from "../../../../actions/transactions";
 import {getBlockAction} from "../../../../actions/blocks";
 import {getAccountInfoAction} from "../../../../actions/account";
-
+import ApolloLogo from "../../../../assets/apollo-icon.png";
 
 class UserBox extends Component {
     refSearchInput = React.createRef();
@@ -99,19 +99,9 @@ class UserBox extends Component {
                     "user-search-box": true,
                     "searching": this.state.searching
                 })}>
-                    {/*TODO : fix site header search animation*/}
                     <Link className="logo" to={"/"}>
-                        <img src="https://apollowallet.org/apollo-logo.svg"/>
+                        <img src={ApolloLogo} alt={''}/>
                     </Link>
-                    <div
-                        className={`burger-mobile ${menuShow ? "menu-open" : ""}`}
-                        onClick={showMenu}
-                    >
-                        <div className="line"/>
-                    </div>
-                    <div className={`mobile-nav ${menuShow ? "show" : ""}`}>
-                        <MobieMenu closeMenu={closeMenu}/>
-                    </div>
                     <div
                         className={classNames({
                             'search-bar': true,
@@ -121,14 +111,6 @@ class UserBox extends Component {
                             onSubmit={values => this.handleSearchind(values)}
                             render={({submitForm, getFormState}) => (
                                 <form onSubmit={submitForm}>
-                                    <div ref={this.refSearchInput}>
-                                        <Text
-                                            field={'value'}
-                                            className={"searching-window"}
-                                            type="text"
-                                            placeholder="Enter Transaction/Account ID/Block ID"
-                                        />
-                                    </div>
 
                                     <div className="user-account-actions">
                                         <CopyToClipboard
@@ -161,25 +143,42 @@ class UserBox extends Component {
                                             icon={<i className="zmdi zmdi-help"/>}
                                             action={() => setBodyModalParamsAction('GENERAL_INFO')}
                                         />
-                                        {
-                                            window.innerWidth > 768 &&
-                                            <IconndeButton
-                                                id={'open-search-transaction'}
-                                                icon={<i className="zmdi zmdi-search"/>}
-                                                action={() => this.setSearchStateToActive(getFormState().values)}
+                                        <div ref={this.refSearchInput} className={'searching-window-wrap'}>
+                                            <div
+                                                className={'searching-window-icon'}
+                                            >
+                                                <IconndeButton
+                                                    id={'open-search-transaction'}
+                                                    icon={<i className="zmdi zmdi-search"/>}
+                                                    action={() => this.setSearchStateToActive(getFormState().values)}
+                                                />
+                                            </div>
+                                            <Text
+                                                field={'value'}
+                                                className={"searching-window"}
+                                                type="text"
+                                                placeholder="Enter Transaction/Account ID/Block ID"
                                             />
-                                        }
-
+                                        </div>
                                     </div>
                                 </form>
                             )}
                         />
 
                     </div>
-                    <div className="user-box"
+                    <div className="user-box cursor-pointer"
                          onClick={(e) => setBodyModalType('ACCOUNT_BODY_MODAL', e)}
                     >
                         <CurrentAccountIcon/>
+                    </div>
+                    <div
+                        className={`burger-mobile ${menuShow ? "menu-open" : ""}`}
+                        onClick={showMenu}
+                    >
+                        <div className="line"/>
+                    </div>
+                    <div className={`mobile-nav ${menuShow ? "show" : ""}`}>
+                        <MobieMenu closeMenu={closeMenu}/>
                     </div>
                 </div>
             )
