@@ -12,13 +12,12 @@
 	justify-content: space-between;
 	align-items: center;
 	position: fixed;
-	z-index: 2;
 	background-color: #F5F7FC;
 	padding: 20px 50px;
 	width: calc(100% - 220px);
 	top: 0;
 	right: 0;
-
+	z-index: 2;
 	@media (max-width: 1000px) {
 		padding: 12px 12px 18px 12px;
 		width: calc(100% - 100px);
@@ -29,6 +28,7 @@
 		padding: 12px;
 		flex-direction: column;
 		align-items: flex-start;
+		z-index: 1;
 	}
 	.page-title-box {
 		.page-title-box {
@@ -107,6 +107,7 @@
 	.user-search-box {
 		display: flex;
 		justify-content: flex-end;
+		z-index: 2;
 		@media (max-width: 760px) {
 			position: fixed;
 			top: 0;
@@ -698,9 +699,9 @@
 	left: auto;
 	top: 0;
 	bottom: 0;
-	background-color: #333333;
+	background-color: #F5F7FC;
 	width: 100%;
-	padding: 65px 20px 20px;
+	padding: 54px 12px 12px;
 	overflow: auto;
 	max-height: 100%;
 	right: -100%;
@@ -712,7 +713,7 @@
 	}
 	&:after {
 		content: '';
-		background-color: #333333;
+		background-color: #F5F7FC;
 		position: fixed;
 		z-index: 2;
 		top: 0;
@@ -720,7 +721,6 @@
 		width: 100%;
 		right: -100%;
 		transition: 0.2s;
-		box-shadow: 0px 0px 9px 2px rgba(#333333, 1);
 	}
 	&.show {
 		right: 0;
@@ -756,7 +756,7 @@
 		width: 20px;
 		height: auto;
 		text-align: center;
-		color: #787878;
+		color: #8AA5C7;
 		&:before {
 			font-size: 27px;
 		}
@@ -768,11 +768,11 @@
 		position: relative;
 		display: flex;
 		font-size: 14px;
-		color: #787878;
+		color: #3D5A7E;
 		padding: 0 40px;
 		&[aria-selected="true"] {
 			.arrow {
-				border-color: #fff transparent transparent #fff;
+				border-color: #8AA5C7 transparent transparent #8AA5C7;
 			}
 		}
 		&.active {
@@ -792,7 +792,7 @@
 		width: 8px;
 		height: 8px;
 		border: 1px solid;
-		border-color: transparent #fff #fff transparent;
+		border-color: transparent #8AA5C7 #8AA5C7 transparent;
 		border-radius: 2px;
 		transition: 0.2s;
 	}
@@ -802,8 +802,8 @@
 		a {
 			display: block;
 			padding: 0 40px;
-			color: #787878;
-			margin-top: 20px;
+			color: #8AA5C7;
+			margin-top: 12px;
 			&.active {
 				color: #ffffff;
 			}
@@ -820,11 +820,10 @@
 	z-index: 6;
 	cursor: pointer;
 	margin-left: 15px;
+	position: relative;
 	@media (max-width: 760px) {
 		display: flex;
 		flex-direction: column;
-		justify-content: space-between;
-		align-items: center;
 	}
 	&.menu-open {
 		.line {
@@ -848,6 +847,7 @@
 		right: 0;
 		background-color: #8AA5C7;
 		transition: 0.25s;
+		position: absolute;
 	}
 	&:before {
 		top: 0;
@@ -860,6 +860,7 @@
 		height: 3px;
 		transition: 0.2s;
 		background-color: #8AA5C7;
+		position: absolute;
 	}
 }
 
@@ -900,27 +901,17 @@
 	}
 
 	@media (max-width: 760px) {
-		background-color: #333333 !important;
-		height: calc(100vh - 50px);
+		margin-top: 42px;
+		left: 0;
+		background-color: #F5F7FC !important;
+		height: calc(100vh - 42px);
 		max-height: 100vh !important;
 		width: 100% !important;
-	}
-	.form-group-app {
-		@media (max-width: 760px) {
-			padding-left: 55px !important;
-			padding-right: 55px !important;
-		}
+		border-radius: 0;
 	}
 	.input-section .row .col-md-6 {
 		@media (max-width: 760px) {
 			max-width: 50%;
-		}
-	}
-	.form-title {
-		p {
-			@media (max-width: 760px) {
-				color: #ffffff !important;
-			}
 		}
 	}
 	&.active {
@@ -948,10 +939,6 @@
 		&.active {
 			label, i {
 				color: #2547f4;
-
-				@media (max-width: 768px) {
-					color: #fff;
-				}
 			}
 		}
 		.zmdi {
@@ -960,9 +947,6 @@
 			display: inline-block;
 			vertical-align: middle;
 			margin-right: 15px;
-			@media (max-width: 760px) {
-				color: #777;
-			}
 		}
 		label {
 			font-size: 13px;
@@ -971,14 +955,6 @@
 			vertical-align: middle;
 			margin: 0;
 			cursor: inherit;
-			@media (max-width: 760px) {
-				color: #777;
-			}
 		}
 	}
-	.form-group-app {
-		@media (max-width: 760px) {
-			background-color: #333333 !important;
-		}
-	}	
 }

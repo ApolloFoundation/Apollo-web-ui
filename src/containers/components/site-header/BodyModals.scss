@@ -1,52 +1,69 @@
 .forging-body-modal-window {
-    min-width: 200px;
+	min-width: 200px;
+	left: 40px;
 
-    @media(max-width: 1000px) {
-        left: 12px;
-        margin-top: 64px;
-    }
+	@media(max-width: 1000px) {
+		left: 12px;
+		margin-top: 64px;
+	}
+	@media(max-width: 760px) {
+		margin-top: 0;
+		left: 0;
+	}
 }
 
 .account-body-modal-window {
-    min-width: 300px;
-    @media(max-width: 1000px) {
-        right: 12px;
-        margin-top: 64px;
-    }
+	min-width: 300px;
+	right: 40px;
 
-    .form-group-app {
-        .form-title {
-            padding: 0;
-            p {
-                color: #3D5A7E;
-                font-size: 28px;
-                font-weight: 300;
-                line-height: 34px;
-                letter-spacing: -0.93px;
-            }
-        }
-        .form-sub-title {
-            margin: 0;
-            color: #3D5A7E;
-            font-size: 13px;
-            font-weight: normal;
-        }
-        .form-body {
-            .input-section {
-                padding: 12px 0;
-            }
-        }
-    }
+	@media(max-width: 1000px) {
+		right: 12px;
+		margin-top: 64px;
+	}
+	@media(max-width: 760px) {
+		margin-top: 0;
+		right: 0;
+	}
+
+	.form-group-app {
+		.form-title {
+			padding: 0;
+
+			p {
+				color: #3D5A7E;
+				font-size: 28px;
+				font-weight: 300;
+				line-height: 34px;
+				letter-spacing: -0.93px;
+			}
+		}
+
+		.form-sub-title {
+			margin: 0;
+			color: #3D5A7E;
+			font-size: 13px;
+			font-weight: normal;
+		}
+
+		.form-body {
+			.input-section {
+				padding: 12px 0;
+			}
+		}
+	}
 }
 
 .settings-body-modal-window {
-    min-width: 550px;
-    right: 30px;
-
-    @media (max-width: 1000px) {
-        flex-direction: column;
-        min-width: 300px;
-        right: 12px;
-        margin-top: 64px;
-    }
+	min-width: 550px;
+	right: 40px;
+	@media (max-width: 1000px) {
+		flex-direction: column;
+		justify-content: flex-start;
+		min-width: 300px;
+		right: 12px;
+		margin-top: 64px;
+	}
+	@media (max-width: 760px) {
+		margin-top: 0;
+	}
 }
