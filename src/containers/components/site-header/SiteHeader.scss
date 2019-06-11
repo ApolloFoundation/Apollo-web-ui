@@ -17,6 +17,7 @@
 	padding: 20px 50px;
 	width: calc(100% - 220px);
 	top: 0;
+	right: 0;
 
 	@media (max-width: 1000px) {
 		padding: 12px 12px 18px 12px;
@@ -136,6 +137,9 @@
 					overflow: hidden;
 					white-space: nowrap;
 					text-overflow: ellipsis;
+					color: #3D5A7E;
+					font-size: 12px;
+					line-height: 14px;
 				}
 				.user-status {
 					color: #F36;
@@ -289,7 +293,10 @@
 		position: absolute;
 		bottom: 6px;
 		right: 50px;
-		@media (max-width: 768px) {
+		@media (max-width: 1000px) {
+			right: 12px;
+		}
+		@media (max-width: 760px) {
 			right: auto;
 			bottom: auto;
 			position: relative;
@@ -311,7 +318,6 @@
 	display: flex;
 	justify-content: space-around;
 	background: #F5F7FC;
-	padding: 12px 0;
 	box-sizing: border-box;
 	border-bottom-right-radius: 3px;
 	border-bottom-left-radius: 3px;
@@ -331,18 +337,40 @@
 	}
 	.options-col {
 		width: 100%;
-		border-right: 1px solid #E6E6E6;
+		border-right: 1px solid #E6EAEE;
 
-		a {
-			color: #333;
-			font-size: 12px;
-			line-height: 14px;
-			padding: 0 35px;
-			margin: 10px 0;
-		}
-		
 		&:last-child {
 			border: 0;
+			@media (max-width: 1024px) {
+				padding-bottom: 6px;
+			}
+		}
+
+		li {
+			padding: 6px 12px;
+			color: #3D5A7E;
+			a {
+				font-size: 12px;
+				line-height: 14px;
+			}
+
+			&:first-of-type {
+				padding-top: 12px;
+			}
+
+			&:last-of-type {
+				padding-bottom: 12px;
+			}
+
+			@media (max-width: 1024px) {
+				&:first-of-type {
+					padding-top: 6px;
+				}
+
+				&:last-of-type {
+					padding-bottom: 6px;
+				}
+			}
 		}
 	}
 }
