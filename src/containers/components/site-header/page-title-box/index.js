@@ -13,7 +13,7 @@ const PageTitleBox = ({setBodyModalType, children, dashboardPage, pageTitle}) =>
                 dashboardPage &&
                 <>
                     <div className="general open-settings">
-                        <div onClick={(e) => setBodyModalType('FORGING_BODY_MODAL', e)}>
+                        <div className={'cursor-pointer'} onClick={(e) => setBodyModalType('FORGING_BODY_MODAL', e)}>
                             <i className="user-box-icon zmdi zmdi-chevron-down"/>
                         </div>
                     </div>

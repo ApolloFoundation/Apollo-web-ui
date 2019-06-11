@@ -69,24 +69,24 @@ class ForgingBodyModalWindow extends Component {
                             {
                                 forgingStatus &&
                                 forgingStatus.errorCode === 5 &&
-                                <a
+                                <div
                                     onClick={() => this.setForging({requestType: 'startForging'})}
-                                    className="image-button  danger"
+                                    className="image-button cursor-pointer danger"
                                 >
                                     <i className="zmdi zmdi-close-circle"/>
                                     <label>Not forging</label>
-                                </a>
+                                </div>
                             }
                             {
                                 forgingStatus &&
                                 !forgingStatus.errorCode &&
-                                <a
+                                <div
                                     onClick={() => this.setForging({requestType: 'stopForging'})}
-                                    className="image-button  success"
+                                    className="image-button cursor-pointer success"
                                 >
                                     <i className="zmdi zmdi-check-circle"/>
                                     <label>Forging</label>
-                                </a>
+                                </div>
                             }
                             {forgingStatus &&
                             (
@@ -94,13 +94,13 @@ class ForgingBodyModalWindow extends Component {
                                 forgingStatus.errorCode === 3 || forgingStatus.errorCode === 2 ||
                                 forgingStatus.errorCode === 1
                             ) && (
-                                <a
+                                <div
                                     onClick={() => this.setForging({requestType: 'startForging'})}
-                                    className="image-button danger"
+                                    className="image-button cursor-pointer danger"
                                 >
                                     <i className="zmdi zmdi-help"/>
                                     <label>Unknown forging status</label>
-                                </a>
+                                </div>
                             )}
 
                             <p className="mb-2">
