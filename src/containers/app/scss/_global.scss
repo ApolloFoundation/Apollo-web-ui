@@ -397,20 +397,25 @@ input[type="file"] {
 	transition: all 0.3s ease-in-out;
 	border: 1px solid #E5E5E5;
 	border-radius: 3px;
+	display: none;
 	
 	&.active {
 		opacity: 1;
 		transform: none;
 		visibility: visible;
 		margin-top: -1px;
+		display: block;
 	}
 	
 	ul {
-		background-color: #F5F5F5;
+		background-color: #ffffff;
 		box-shadow: 0 6px 10px 0 #e5e5e5;
 		
 		li {
 			border-bottom: 1px solid #E5E5E5;
+			&:hover {
+				background-color: #F5F7FC;
+			}
 			
 			&:last-child {
 				border-bottom: 0;
@@ -419,7 +424,7 @@ input[type="file"] {
 				padding: 10px 15px;
 				display: block;
 				width: 100%;
-				color: #000;
+				color: #3D5A7E;
 			}
 		}
 	}

@@ -310,8 +310,8 @@
 	position: absolute;
 	display: flex;
 	justify-content: space-around;
-	background: #fff;
-	padding: 35px 0;
+	background: #F5F7FC;
+	padding: 12px 0;
 	box-sizing: border-box;
 	border-bottom-right-radius: 3px;
 	border-bottom-left-radius: 3px;
@@ -321,9 +321,9 @@
 	transition: all 0.3s ease-in-out;
 	z-index: 4;
 	overflow: auto;
-	max-height: calc(100vh - 120px);
+	max-height: calc(100vh - 86px);
 	top: 0;
-	
+
 	&.active {
 		opacity: 1;
 		transform: none;
@@ -864,6 +864,11 @@
 		border-top-right-radius: 0;
 		background-color: #F5F7FC;
 		padding: 12px !important;
+		p:last-of-type {
+			label {
+				margin-bottom: 0;
+			}
+		}
 	}
 
 	@media (max-width: 760px) {
@@ -894,7 +899,7 @@
 
 	}
 	.image-button {
-		margin-bottom: 10px;
+		margin-bottom: 6px;
 		position: relative;
 		transition: 0.2s;
 		display: flex;
@@ -923,10 +928,10 @@
 		}
 		.zmdi {
 			font-size: 18px;
-			color: #3D5A7E;
+			color: #8AA5C7;
 			display: inline-block;
 			vertical-align: middle;
-			margin-right: 10px;
+			margin-right: 15px;
 			@media (max-width: 760px) {
 				color: #777;
 			}
