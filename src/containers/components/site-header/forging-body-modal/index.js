@@ -103,7 +103,7 @@ class ForgingBodyModalWindow extends Component {
                                 </div>
                             )}
 
-                            <p className="mb-2">
+                            <p>
                                 {
                                     actualBlock &&
                                     <label>Height: {actualBlock}</label>

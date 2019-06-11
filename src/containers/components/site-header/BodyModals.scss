@@ -8,9 +8,32 @@
 
 .account-body-modal-window {
     min-width: 300px;
-
     @media(min-width: 768px) {
         right: 30px;
+    }
+
+    .form-group-app {
+        .form-title {
+            padding: 0;
+            p {
+                color: #3D5A7E;
+                font-size: 28px;
+                font-weight: 300;
+                line-height: 34px;
+                letter-spacing: -0.93px;
+            }
+        }
+        .form-sub-title {
+            margin: 0;
+            color: #3D5A7E;
+            font-size: 13px;
+            font-weight: normal;
+        }
+        .form-body {
+            .input-section {
+                padding: 12px 0;
+            }
+        }
     }
 }
 
