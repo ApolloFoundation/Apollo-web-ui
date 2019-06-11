@@ -5,6 +5,10 @@
         left: 12px;
         margin-top: 64px;
     }
+    @media(max-width: 760px) {
+        margin-top: 42px;
+        left: 0;
+    }
 }
 
 .account-body-modal-window {
@@ -12,6 +16,10 @@
     @media(max-width: 1000px) {
         right: 12px;
         margin-top: 64px;
+    }
+    @media(max-width: 760px) {
+        margin-top: 42px;
+        right: 0;
     }
 
     .form-group-app {
@@ -42,11 +50,13 @@
 .settings-body-modal-window {
     min-width: 550px;
     right: 30px;
-
     @media (max-width: 1000px) {
         flex-direction: column;
         min-width: 300px;
         right: 12px;
         margin-top: 64px;
+    }
+    @media (max-width: 760px) {
+        margin-top: 42px;
     }
 }

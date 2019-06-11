@@ -115,6 +115,11 @@ class ForgingBodyModalWindow extends Component {
                                     <label>Forged balance: {(forgedBalanceATM / ONE_APL).toLocaleString('en')}&nbsp;APL</label>
                                 }
                             </p>
+                            <div className="btn-block text-center d-sm-block d-md-none mt-2">
+                                <div className="btn btn-default btn-sm" onClick={closeMenu}>
+                                    Close
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -212,6 +212,7 @@ class SiteHeader extends React.Component {
                         contacts={contacts}
                         history={history}
                         isActive={bodyModalType === "ACCOUNT_BODY_MODAL"}
+                        closeMenu={this.closeMenu}
                     />
                     <ForgingBodyModal isActive={bodyModalType === "FORGING_BODY_MODAL"} closeMenu={this.closeMenu}/>
                     <Settings isActive={bodyModalType === "SETTINGS_BODY_MODAL"} closeMenu={this.closeMenu}/>
