@@ -1,13 +1,13 @@
 import React from 'react';
 
 const IconndeButton = ({id, action, icon}) => (
-    <a
+    <span
         id={id}
-        className="user-account-action"
+        className="header-action cursor-pointer"
         onClick={action}
     >
         {icon}
-    </a>
-)
+    </span>
+);
 
 export default IconndeButton;

@@ -4,22 +4,17 @@ import {setBodyModalParamsAction} from '../../../../modules/modals';
 
 class UserBottomBox extends Component {
     render () {
-        const {appState, setBodyModalParamsAction, children} = this.props;
+        const {appState, setBodyModalParamsAction} = this.props;
 
         return (
             <div className="network-overview">
-                {window.innerWidth && children && (
-                    <div className="media-page-actions">
-                        {children}
-                    </div>
-                )}
                 {appState && (
-                    <a
-                        className="mt-3"
+                    <span
+                        className="mt-3 cursor-pointer"
                         onClick={() => setBodyModalParamsAction('INFO_NETWORK')}
                     >
                         {appState.chainName}
-                    </a>
+                    </span>
                 )}
             </div>
         )
