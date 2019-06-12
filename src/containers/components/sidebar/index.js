@@ -10,7 +10,7 @@ import {connect} from 'react-redux';
 import classNames from 'classnames'
 import {Scrollbars} from 'react-custom-scrollbars';
 import {setModalType} from "../../../modules/modals";
-
+import ApolloLogo from "../../../assets/apollo-icon.png";
 import './Sidebar.scss';
 
 const mapStateToProps = state => ({
@@ -92,12 +92,9 @@ class Sidebar extends React.Component {
 						onMouseOver={this.handleMenuMouseOver}
 						onMouseOut={this.handleMenuMouseOut}
 						className="site-logo"
-						style={{
-							background: this.props.settings.sidebar !== '#F5F5F5' ? this.props.settings.sidebar : '#333'
-						}}
 						to="/"
 					>
-						<img src="https://apollowallet.org/apollo-logo.svg"/>
+						<img src={ApolloLogo} alt={''} />
 					</Link>
 
 					<nav
@@ -105,22 +102,9 @@ class Sidebar extends React.Component {
 						onMouseOver={this.handleMenuMouseOver}
 						onMouseOut={this.handleMenuMouseOut}
 					>
-						<ul
-							style={{
-                                "paddingBottom": "60px",
-                                "background": this.props.settings.sidebar !== '#F5F5F5' ? this.props.settings.sidebar : '#333'
-
-                            }}
-						>
-							<li
-                                style={{
-                                    background: this.props.settings.sidebar !== '#F5F5F5' ? this.props.settings.sidebar : '#333'
-                                }}
-							>
+						<ul>
+							<li>
 								<NavLink exact={true}
-                                         style={{
-                                             background: this.props.settings.sidebar !== '#F5F5F5' ? this.props.settings.sidebar : '#333'
-                                         }}
 										 activeClassName="active" to="/dashboard"
 								         className={`text ${this.getNavLinkClass(["/",
 									         "/dashboard",
@@ -144,9 +128,6 @@ class Sidebar extends React.Component {
 								</NavLink>
 								<div
 									ref={(ref) => this.submenuRef = ref}
-                                    style={{
-                                        background: this.props.settings.sidebar !== '#F5F5F5' ? this.props.settings.sidebar : '#333'
-                                    }}
 									className="dropdown-menu"
 								>
 									<ul>
@@ -165,7 +146,6 @@ class Sidebar extends React.Component {
 							</li>
                             <li>
                                 <NavLink
-                                    style={{background: this.props.settings.sidebar !== '#F5F5F5' ? this.props.settings.sidebar : '#333'}}
                                     exact={true}
                                     className={`text ${this.getNavLinkClass(["/exchange", "/choose-wallet", "/order-history"])}`}
                                     activeClassName="active"
@@ -175,10 +155,7 @@ class Sidebar extends React.Component {
                                     <i className="zmdi zmdi-trending-up left"/>
                                     <i className="zmdi zmdi-chevron-right right"/>
                                 </NavLink>
-                                <div
-                                    style={{background: this.props.settings.sidebar !== '#F5F5F5' ? this.props.settings.sidebar : '#333'}}
-                                    className="dropdown-menu"
-                                >
+                                <div className="dropdown-menu">
                                     <ul>
                                         <li>
                                             <NavLink
@@ -210,9 +187,6 @@ class Sidebar extends React.Component {
 							<li>
 
 								<NavLink exact={true}
-                                         style={{
-                                             background: this.props.settings.sidebar !== '#F5F5F5' ? this.props.settings.sidebar : '#333'
-                                         }}
 										 activeClassName="active" to="/asset-exchange"
 								         className={`text ${this.getNavLinkClass(["/trade-history",
 									         "/transfer-history",
@@ -226,12 +200,7 @@ class Sidebar extends React.Component {
 									<i className="zmdi zmdi-case left"/>
 									<i className="zmdi zmdi-chevron-right right"/>
 								</NavLink>
-								<div
-                                    style={{
-                                        background: this.props.settings.sidebar !== '#F5F5F5' ? this.props.settings.sidebar : '#333'
-                                    }}
-									className="dropdown-menu"
-								>
+								<div className="dropdown-menu">
 									<ul>
 										<li>
                                             <NavLink exact={true} activeClassName="active" to="/all-assets">
@@ -269,9 +238,6 @@ class Sidebar extends React.Component {
 							</li>
 							<li>
 								<NavLink
-                                    style={{
-                                        background: this.props.settings.sidebar !== '#F5F5F5' ? this.props.settings.sidebar : '#333'
-                                    }}
 									to="/currencies"
 										 className={`text ${this.getNavLinkClass(["/currencies",
 									// "/my-shuffling",
@@ -281,12 +247,7 @@ class Sidebar extends React.Component {
 									<i className="zmdi zmdi-money left"/>
 									<i className="zmdi zmdi-chevron-right right"/>
 								</NavLink>
-								<div
-                                    style={{
-                                        background: this.props.settings.sidebar !== '#F5F5F5' ? this.props.settings.sidebar : '#333'
-                                    }}
-									className="dropdown-menu"
-								>
+								<div className="dropdown-menu">
 									<ul>
 										<li><NavLink to="/currencies">Currencies</NavLink></li>
 										{/*<li><NavLink to="/my-shuffling">Exchange history</NavLink></li>*/}
@@ -307,9 +268,6 @@ class Sidebar extends React.Component {
 							</li>
 							<li>
 								<NavLink
-                                    style={{
-                                        background: this.props.settings.sidebar !== '#F5F5F5' ? this.props.settings.sidebar : '#333'
-                                    }}
 									to="/active-polls"
 									className={`text ${this.getNavLinkClass(["/active-polls",
 										"/finished-polls",
@@ -320,12 +278,7 @@ class Sidebar extends React.Component {
 									<i className="zmdi zmdi-star left"/>
 									<i className="zmdi zmdi-chevron-right right"/>
 								</NavLink>
-								<div
-                                    style={{
-                                        background: this.props.settings.sidebar !== '#F5F5F5' ? this.props.settings.sidebar : '#333'
-                                    }}
-									className="dropdown-menu"
-								>
+								<div className="dropdown-menu">
 									<ul>
 										<li><NavLink to="/active-polls">Active polls</NavLink></li>
 										<li><NavLink to="/finished-polls">Finished polls</NavLink></li>
@@ -345,21 +298,13 @@ class Sidebar extends React.Component {
 							</li>
 							<li>
 								<NavLink
-                                    style={{
-                                        background: this.props.settings.sidebar !== '#F5F5F5' ? this.props.settings.sidebar : '#333'
-                                    }}
 									to="/data-storage"
 								         className={`text ${this.getNavLinkClass(["/data-storage"])}`}>
 									Data storage
 									<i className="zmdi zmdi-dns left"/>
 									<i className="zmdi zmdi-chevron-right right"/>
 								</NavLink>
-								<div
-                                    style={{
-                                        background: this.props.settings.sidebar !== '#F5F5F5' ? this.props.settings.sidebar : '#333'
-                                    }}
-									className="dropdown-menu"
-								>
+								<div className="dropdown-menu">
 									<ul>
 										<li><NavLink to="/data-storage">Search</NavLink></li>
 										<li>
@@ -375,9 +320,6 @@ class Sidebar extends React.Component {
 							</li>
 							<li>
 								<NavLink
-									style={{
-										background: this.props.settings.sidebar !== '#F5F5F5' ? this.props.settings.sidebar : '#333'
-									}}
 									to='/marketplace'
 									className={`text ${this.getNavLinkClass(["/my-products-for-sale",
 										"/my-pending-orders",
@@ -388,12 +330,7 @@ class Sidebar extends React.Component {
 									<i className="zmdi zmdi-label left"/>
 									<i className="zmdi zmdi-chevron-right right"/>
 								</NavLink>
-								<div
-									style={{
-										background: this.props.settings.sidebar !== '#F5F5F5' ? this.props.settings.sidebar : '#333'
-									}}
-									className="dropdown-menu"
-								>
+								<div className="dropdown-menu">
 									<ul>
 										<li><NavLink to='/purchased-products'>Purchased products</NavLink></li>
 										<li><NavLink to='/my-products-for-sale'>My products for sale</NavLink></li>
@@ -412,9 +349,6 @@ class Sidebar extends React.Component {
 							</li>
 							<li>
 								<NavLink
-                                    style={{
-                                        background: this.props.settings.sidebar !== '#F5F5F5' ? this.props.settings.sidebar : '#333'
-                                    }}
 									to="/active-shuffling"
 								         className={`text ${this.getNavLinkClass(["/active-shuffling",
 									         "/finished-shuffling",
@@ -423,12 +357,7 @@ class Sidebar extends React.Component {
 									<i className="zmdi zmdi-circle-o left"/>
 									<i className="zmdi zmdi-chevron-right right"/>
 								</NavLink>
-								<div
-                                    style={{
-                                        background: this.props.settings.sidebar !== '#F5F5F5' ? this.props.settings.sidebar : '#333'
-                                    }}
-									className="dropdown-menu"
-								>
+								<div className="dropdown-menu">
 									<ul>
 										<li><NavLink to="/active-shuffling">Active shuffling</NavLink></li>
 										<li><NavLink to="/finished-shuffling">Finished shuffling</NavLink></li>
@@ -446,9 +375,6 @@ class Sidebar extends React.Component {
 							</li>
 							<li>
 								<NavLink
-                                    style={{
-                                        background: this.props.settings.sidebar !== '#F5F5F5' ? this.props.settings.sidebar : '#333'
-                                    }}
 									exact={true}
 									activeClassName="active"
 									to="/my-messages"
@@ -458,12 +384,7 @@ class Sidebar extends React.Component {
 									<i className="zmdi zmdi-comments left"/>
 									<i className="zmdi zmdi-chevron-right right"/>
 								</NavLink>
-								<div
-                                    style={{
-                                        background: this.props.settings.sidebar !== '#F5F5F5' ? this.props.settings.sidebar : '#333'
-                                    }}
-									className="dropdown-menu"
-								>
+								<div className="dropdown-menu">
 									<ul>
 										<li>
 											<NavLink
@@ -479,9 +400,7 @@ class Sidebar extends React.Component {
 							</li>
 							<li>
 								<NavLink
-                                    style={{
-                                        background: this.props.settings.sidebar !== '#F5F5F5' ? this.props.settings.sidebar : '#333'
-                                    }}className={"text"} exact={true} activeClassName="active" to="/aliases">
+                                    className={"text"} exact={true} activeClassName="active" to="/aliases">
 									Aliases
 									<i className="zmdi zmdi-accounts left"/>
 								</NavLink>
