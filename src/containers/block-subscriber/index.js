@@ -6,8 +6,9 @@
 
 import React from "react";
 import {connect} from "react-redux";
-import {getBackendStatus, startBlockPullingAction} from "../../actions/blocks/index";
-import store from '../../store'
+import {getBackendStatus, startBlockPullingAction} from "../../actions/blocks";
+import {loadBlockchainStatus} from "../../actions/login";
+import store from '../../store';
 
 const EventEmitter = require("events").EventEmitter;
 export const BlockUpdater = new EventEmitter();
@@ -26,7 +27,7 @@ class BlockSubscriber extends React.Component {
     updateBlock = async () => {
         if (!this.state.isPending) {
             this.setState({isPending: true});
-            Promise.all([this.props.getBackendStatus(), startBlockPullingAction()])
+            Promise.all([this.props.getBackendStatus(), startBlockPullingAction(), this.props.loadBlockchainStatus()])
                 .then((values) => {
                     const blockData = values[1];
                     if (blockData) {
@@ -65,6 +66,7 @@ class BlockSubscriber extends React.Component {
 
 const mapDispatchToProps = dispatch => ({
     getBackendStatus: () => dispatch(getBackendStatus()),
+    loadBlockchainStatus: () => dispatch(loadBlockchainStatus()),
 });
 
 export default connect(null, mapDispatchToProps)(BlockSubscriber)

@@ -5,19 +5,16 @@
 
 
 import React from 'react';
-import SiteHeader from '../../components/site-header'
 import {connect} from 'react-redux';
-import {getBlocksAction, getBlockAction} from "../../../actions/blocks";
+import SiteHeader from '../../components/site-header'
+import {getBlocksAction, getBlockAction, getNextBlockGeneratorsAction} from "../../../actions/blocks";
+import {getTime} from '../../../actions/login';
 import {setBodyModalParamsAction} from "../../../modules/modals";
-import Block from './block';
 import {BlockUpdater} from "../../block-subscriber";
-import './Blocks.css';
-import classNames from "classnames";
-import {getNextBlockGeneratorsAction} from '../../../actions/blocks'
 import {formatTimestamp} from "../../../helpers/util/time";
-import {getTime} from '../../../actions/login/index'
-import uuid from "uuid";
 import {ONE_APL} from '../../../constants';
+import Block from './block';
+import './Blocks.scss';
 
 import CustomTable from '../../components/tables/table';
 import TopPageBlocks from '../../components/tob-page-blocks';
