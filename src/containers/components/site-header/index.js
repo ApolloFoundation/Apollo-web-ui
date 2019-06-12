@@ -5,30 +5,19 @@
 
 
 import React from "react";
-import { connect } from 'react-redux';
-import { Link, NavLink, withRouter } from 'react-router-dom';
+import {connect} from 'react-redux';
+import {withRouter} from 'react-router-dom';
 
-import { setPageEvents } from '../../../modules/account';
-import classNames from 'classnames';
-import { setModalType, setBodyModalType, setBodyModalParamsAction } from "../../../modules/modals";
-import { Form, Text } from 'react-form';
-import PrivateTransactions from "../../modals/private-transaction";
-import { switchAccountAction } from "../../../actions/account";
-import { setForging } from '../../../actions/login';
-import store from '../../../store';
-import { setModalData } from "../../../modules/modals";
-import { getAccountInfoAction } from "../../../actions/account";
-import { getTransactionAction } from "../../../actions/transactions";
-import { getBlockAction } from "../../../actions/blocks";
-import { getForging } from "../../../actions/login"
+import {setPageEvents} from '../../../modules/account';
+import {setBodyModalParamsAction, setBodyModalType, setModalData, setModalType} from "../../../modules/modals";
+import {getAccountInfoAction, switchAccountAction} from "../../../actions/account";
+import {getForging, setForging} from '../../../actions/login';
+import {getTransactionAction} from "../../../actions/transactions";
+import {getBlockAction} from "../../../actions/blocks";
 import crypto from '../../../helpers/crypto/crypto';
-
 // Demo styles, see 'Styles' section below for some notes on use.
 import 'react-accessible-accordion/dist/fancy-example.css';
-import { NotificationManager } from "react-notifications";
-import uuid from "uuid";
-import { CopyToClipboard } from 'react-copy-to-clipboard';
-import accountSettings from "../../../modules/accountSettings";
+import {NotificationManager} from "react-notifications";
 
 import PageTitleBox from './page-title-box';
 
@@ -57,7 +46,7 @@ class SiteHeader extends React.Component {
     }
 
     showMenu = () => {
-        this.setState({ menuShow: !this.state.menuShow });
+        this.setState({menuShow: !this.state.menuShow});
     }
 
     closeMenu = () => {
@@ -68,14 +57,14 @@ class SiteHeader extends React.Component {
     }
 
     showHideTitleForginMenu = () => {
-        this.setState({ showTitleForginMenu: !this.state.showTitleForginMenu });
+        this.setState({showTitleForginMenu: !this.state.showTitleForginMenu});
     }
 
     setSearchStateToActive = (form) => {
         clearInterval(this.searchInterval);
         if (!this.state.searching) {
 
-            this.setState({ searching: true });
+            this.setState({searching: true});
 
         } else {
             if (form.value) this.handleSearchind(form);
@@ -84,7 +73,7 @@ class SiteHeader extends React.Component {
 
     resetSearchStateToActive = () => {
         this.searchInterval = setTimeout(() => {
-            this.setState({ searching: false });
+            this.setState({searching: false});
         }, 4000);
     }
 
@@ -102,20 +91,20 @@ class SiteHeader extends React.Component {
         const forgingStatus = await this.props.getForging();
 
         if (forgingStatus) {
-            this.setState({ forgingStatus: forgingStatus });
+            this.setState({forgingStatus: forgingStatus});
         }
     };
 
     setBodyModalType = (bodyModalType, e) => {
         const selector = document.querySelector(`.${bodyModalType}`);
         if (bodyModalType && bodyModalType !== this.state.bodyModalType) {
-            this.setState({ bodyModalType: bodyModalType });
+            this.setState({bodyModalType: bodyModalType});
         }
 
         if (selector &&
             Object.values(e.target.classList).indexOf('stop') !== -1 &&
             Object.values(selector.classList).indexOf('active') !== -1) {
-            this.setState({ bodyModalType: null });
+            this.setState({bodyModalType: null});
         }
     }
 
@@ -123,7 +112,7 @@ class SiteHeader extends React.Component {
         return {
             getStatus: action,
             handleSuccess: (forgingStatus) => {
-                this.setState({ forgingStatus });
+                this.setState({forgingStatus});
             }
         }
     };
@@ -137,14 +126,14 @@ class SiteHeader extends React.Component {
         if (!passPhrase || this.props.is2FA) {
             this.props.setBodyModalParamsAction('CONFIRM_FORGING', this.setForgingData(action.requestType));
         } else {
-            const forging = await this.props.setForging({ requestType: action.requestType });
+            const forging = await this.props.setForging({requestType: action.requestType});
 
             if (forging) {
                 if (!forging.errorCode) {
                     const forgingStatus = await this.props.getForging();
 
                     if (!forgingStatus.errorCode || forgingStatus.errorCode === 5) {
-                        this.setState({ forgingStatus: forgingStatus });
+                        this.setState({forgingStatus: forgingStatus});
                     } else {
                         NotificationManager.error('Something went wrong. Please, try again later', 'Error', 5000);
                     }
@@ -162,12 +151,12 @@ class SiteHeader extends React.Component {
         const name = e.target.closest('.name') || null;
 
         if (this.state.bodyModalType && !parents && !btn && !name && !userAvatar) {
-            this.setState({ bodyModalType: null })
+            this.setState({bodyModalType: null})
         }
 
         const search = e.target.closest('.user-search-box') || null;
         if (this.state.searching && !search) {
-            this.setState({ searching: false })
+            this.setState({searching: false})
         }
     };
 
@@ -186,7 +175,7 @@ class SiteHeader extends React.Component {
             bodyModalType,
             isContacts,
             contacts
-        } = this.state
+        } = this.state;
 
         return (
             <>
@@ -194,33 +183,27 @@ class SiteHeader extends React.Component {
                     className="page-header"
                     onClick={this.handleModal}
                 >
-                    <div className="container-fluid">
-                        <div className="row">
-                            <div className="col-md-6">
-                                <PageTitleBox
-                                    pageTitle={pageTitle}
-                                    children={children}
-                                    dashboardPage={dashboardPage}
-                                    setBodyModalType={this.setBodyModalType}
-                                />
-                            </div>
-                            <div className="col-md-6">
-                                <UserBox
-                                    showMenu={this.showMenu}
-                                    setBodyModalType={this.setBodyModalType}
-                                    menuShow={menuShow}
-                                    closeMenu={this.closeMenu}
-                                />
-                                <UserBottomBox />
-                            </div>
-                        </div>
+                    <PageTitleBox
+                        pageTitle={pageTitle}
+                        children={children}
+                        dashboardPage={dashboardPage}
+                        setBodyModalType={this.setBodyModalType}
+                    />
+                    <div>
+                        <UserBox
+                            showMenu={this.showMenu}
+                            setBodyModalType={this.setBodyModalType}
+                            menuShow={menuShow}
+                            closeMenu={this.closeMenu}
+                        />
+                        <UserBottomBox/>
                     </div>
                 </div>
                 <div
                     className={`overflow-menu ${bodyModalType ? '' : 'hidden'}`}
                     onClick={this.handleModal}
 
-                //  onClick={() => this.setState({bodyModalType: null})}
+                    //  onClick={() => this.setState({bodyModalType: null})}
                 >
                     <CurrentAccount
                         setBodyModalParamsAction={setBodyModalParamsAction}
@@ -229,9 +212,10 @@ class SiteHeader extends React.Component {
                         contacts={contacts}
                         history={history}
                         isActive={bodyModalType === "ACCOUNT_BODY_MODAL"}
+                        closeMenu={this.closeMenu}
                     />
-                    <ForgingBodyModal isActive={bodyModalType === "FORGING_BODY_MODAL"} closeMenu={this.closeMenu} />
-                    <Settings isActive={bodyModalType === "SETTINGS_BODY_MODAL"} closeMenu={this.closeMenu} />
+                    <ForgingBodyModal isActive={bodyModalType === "FORGING_BODY_MODAL"} closeMenu={this.closeMenu}/>
+                    <Settings isActive={bodyModalType === "SETTINGS_BODY_MODAL"} closeMenu={this.closeMenu}/>
                 </div>
             </>
         );

@@ -114,7 +114,7 @@ class CurrentAccount extends React.Component {
                                 <div className="col-xc-12 col-md-6">
                                     <a
                                         onClick={() => setBodyModalParamsAction('SET_ACCOUNT_INFO', {})}
-                                        className="btn static blue block"
+                                        className="btn btn-green block"
                                     >
                                         Set account info
                                     </a>
@@ -124,7 +124,7 @@ class CurrentAccount extends React.Component {
                                         type={'button'}
                                         ref={this.setWrapperContactsButtonRef}
                                         onClick={() => this.handleContacts()}
-                                        className="btn static block"
+                                        className="btn btn-default block"
                                     >
                                         Switch account
                                     </button>
@@ -138,7 +138,7 @@ class CurrentAccount extends React.Component {
                                     })}
                                     style={{
                                         padding: 0,
-                                        margin: 5
+                                        margin: '0 5px 5px 5px'
                                     }}
                                 >
                                     <ul>

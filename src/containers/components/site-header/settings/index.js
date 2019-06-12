@@ -60,17 +60,6 @@ const Settings = ({setBodyModalParamsAction, isLocalhost, isActive, closeMenu}) 
         </div>
         <div className="options-col">
             <ul>
-                <li>
-                    {/*<a*/}
-                        {/*onClick={() => {*/}
-                            {/*this.setState({bodyModalType: null});*/}
-                            {/*return this.props.setBodyModalParamsAction('DEVICE_SETTINGS');*/}
-                        {/*}}*/}
-                        {/*className="option"*/}
-                    {/*>*/}
-                        {/*Device settings*/}
-                    {/*</a>*/}
-                </li>
                 {util.isDesktopApp() && (
                     <li className={'hide-media'}>
                         <a
