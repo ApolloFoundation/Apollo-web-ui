@@ -196,7 +196,6 @@ class SiteHeader extends React.Component {
                             menuShow={menuShow}
                             closeMenu={this.closeMenu}
                         />
-                        <UserBottomBox/>
                     </div>
                 </div>
                 <div

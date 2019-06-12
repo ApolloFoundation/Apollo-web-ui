@@ -83,13 +83,15 @@ class Exchange extends React.Component {
                 />
                 <div className="exchange page-body container-fluid pl-0">
                     <div className={'row'}>
-                        <div className={'col-md-12 pr-0 pb-3'}>
+                        <div className={'col-md-12 p-0 pb-3'}>
                             <InfoBox info>
                                 Please, notice - this is the first version on Apollo Exchange. Functionality of trading will be delivered in May 2019. At the moment you can deposit in ETH and PAX.
                                 Please, check our updates in the official <a href={'https://t.me/apolloofficialannouncements'} target='_blank' rel='noopener noreferrer'>Telegram channel</a> to be the first to use Apollo Exchange
                             </InfoBox>
                         </div>
-                        <div className={'col-md-12 pr-0 pb-3 pb-4'}>
+                    </div>
+                    <div className={'row'}>
+                        <div className={'col-md-12 p-0 pb-3 pb-4'}>
                             <ExchangeHeader
                                 currencies={currencies}
                                 currentCurrency={currentCurrency}
@@ -98,7 +100,9 @@ class Exchange extends React.Component {
                                 handleLoginModal={this.handleLoginModal}
                             />
                         </div>
-                        <div className={'col-md-4 pr-0 pb-3'}>
+                    </div>
+                    <div className={'row'}>
+                        <div className={'col-md-4 p-0 pb-3'}>
                             <BuyOrders currentCurrency={currentCurrency} buyOrders={buyOrdersCurrency} />
                         </div>
                         <div className={'col-md-8 pr-0 pb-3'}>
@@ -108,7 +112,9 @@ class Exchange extends React.Component {
                                 sellOrders={plotSellOrdersCurrency}
                             />
                         </div>
-                        <div className={'col-md-4 pr-0 pb-3'}>
+                    </div>
+                    <div className={'row'}>
+                        <div className={'col-md-4 p-0 pb-3'}>
                             <SellOrders currentCurrency={currentCurrency} sellOrders={sellOrdersCurrency} />
                         </div>
                         <div className={'col-md-8 p-0'}>
@@ -129,7 +135,9 @@ class Exchange extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className={'col-md-6 mb-3 pr-0'}>
+                    </div>
+                    <div className={'row'}>
+                        <div className={'col-md-6 mb-3 p-0'}>
                             <TradeHistoryExchange
                                 currentCurrency={currentCurrency}
                                 wallet={wallet}
