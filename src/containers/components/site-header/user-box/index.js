@@ -143,6 +143,15 @@ class UserBox extends Component {
                                             icon={<i className="zmdi zmdi-help"/>}
                                             action={() => setBodyModalParamsAction('GENERAL_INFO')}
                                         />
+
+                                        {this.props.appState && (
+                                            <IconndeButton
+                                                id={'open-info-apollo'}
+                                                icon={<i className="zmdi zmdi-info"/>}
+                                                action={() => setBodyModalParamsAction('INFO_NETWORK')}
+                                            />
+                                        )}
+
                                         <div ref={this.refSearchInput} className={'searching-window-wrap'}>
                                             <div
                                                 className={'searching-window-icon'}
@@ -188,6 +197,7 @@ class UserBox extends Component {
 
 const mapStateToProps = state => ({
     accountRS: state.account.accountRS,
+    appState: state.account.blockchainStatus,
 });
 
 const mapDispatchToProps = dispatch => ({

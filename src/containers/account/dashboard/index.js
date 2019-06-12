@@ -63,10 +63,10 @@ class Dashboard extends React.Component {
 					pageTitle={'Dashboard'}
 					dashboardPage
 				/>
-				<div className="page-body container-fluid full-screen-block no-padding-on-the-sides">
+				<div className="page-body container-fluid full-screen-block">
 					<div className={'container-fluid pl-0 pr-0'}>
 						<div className={'row'}>
-							<div className="col-lg-3 col-md-6 pr-0 mb-3">
+							<div className="col-lg-3 col-md-6 p-0 mb-3">
 								<AvailableBalance />
 							</div>
 							<div className="col-lg-3 col-md-6 pr-0 mb-3">
@@ -80,7 +80,7 @@ class Dashboard extends React.Component {
 							</div>
 						</div>
 						<div className={'row'}>
-							<div className="col-xl-3 col-lg-6 col-md-6 pr-0 mb-3">
+							<div className="col-xl-3 col-lg-6 col-md-6 p-0 mb-3">
 								<DashboardTransactions />
 							</div>
 							<div className="col-xl-3 col-lg-6 col-md-6 pr-0 mb-3">

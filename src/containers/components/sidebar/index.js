@@ -88,6 +88,7 @@ class Sidebar extends React.Component {
 					id={'sidebar-menu'}
 					ref={(ref) => this.menuRef = ref}
 				>
+					<div>
 					<Link
 						onMouseOver={this.handleMenuMouseOver}
 						onMouseOut={this.handleMenuMouseOut}
@@ -426,6 +427,7 @@ class Sidebar extends React.Component {
 					>
 						<i className="zmdi zmdi-chevron-right left"/>
 					</a>
+				</div>
 				</div>
 			</Scrollbars>
 		);

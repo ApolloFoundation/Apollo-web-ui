@@ -24,12 +24,11 @@ input {
 
 .site-content {
   position: relative;
-  margin-left: 231px;
+  margin-left: 235px;
   @media (max-width: 1000px) {
-    margin-left: 100px;
+    margin-left: 80px;
   }
   @media (max-width: 768px) {
-    margin-left: 100px;
     padding-top: 0;
   }
   @media (max-width: 767px) {
@@ -55,9 +54,9 @@ input {
       position: relative;
       display: flex;
       flex-wrap: wrap;
-      min-height: calc(100vh - 80px);
+      min-height: calc(100vh - 74px);
       z-index: 0;
-      padding-top: 80px;
+      padding: 74px 26px 0 26px !important;
       @media(max-width: 760px) {
         padding-top: 0;
         min-height: auto;
@@ -81,7 +80,7 @@ input {
         position: fixed;
         top: 100px;
         bottom: 0;
-        left: 220px;
+        left: 235px;
         right: 0;
         z-index: 4;
         background: rgba(0,0,0,0.6);
