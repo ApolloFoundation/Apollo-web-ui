@@ -344,7 +344,8 @@ export function getConstantsAction() {
 }
 
 export function loadBlockchainStatus() {
-    return dispatch => {
+    return (dispatch, getState) => {
+        const {blockchainStatus} = getState().account;
         return axios.get(config.api.serverUrl, {
             params: {
                 requestType: 'getBlockchainStatus'
@@ -354,7 +355,10 @@ export function loadBlockchainStatus() {
                 if (!res.data.errorCode) {
                     dispatch({
                         type: "LOAD_BLOCKCHAIN_STATUS",
-                        payload: res.data
+                        payload: {
+                            ...blockchainStatus,
+                            ...res.data
+                        }
                     });
                     return res.data;
                 }
