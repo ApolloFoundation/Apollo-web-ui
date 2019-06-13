@@ -18,16 +18,26 @@ class BlockSubscriber extends React.Component {
     prevHeight = 0;
     state = {
         isPending: false,
+        isPendingBlockchainStatus: false,
     };
 
     componentDidMount() {
-        this.interval = setInterval(this.updateBlock, 4000)
+        this.interval = setInterval(this.updateBlock, 4000);
+        this.intervalBlockchainStatus = setInterval(this.updateBlockchainStatus, 60000);
     }
+
+    updateBlockchainStatus = async () => {
+        if (!this.state.isPendingBlockchainStatus) {
+            this.setState({isPendingBlockchainStatus: true});
+            await this.props.loadBlockchainStatus();
+            this.setState({isPendingBlockchainStatus: false});
+        }
+    };
 
     updateBlock = async () => {
         if (!this.state.isPending) {
             this.setState({isPending: true});
-            Promise.all([this.props.getBackendStatus(), startBlockPullingAction(), this.props.loadBlockchainStatus()])
+            Promise.all([this.props.getBackendStatus(), startBlockPullingAction()])
                 .then((values) => {
                     const blockData = values[1];
                     if (blockData) {
@@ -53,6 +63,7 @@ class BlockSubscriber extends React.Component {
 
     componentWillUnmount() {
         clearInterval(this.interval);
+        clearInterval(this.intervalBlockchainStatus);
     }
 
     render() {
