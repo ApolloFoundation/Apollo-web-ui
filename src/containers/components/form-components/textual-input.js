@@ -35,7 +35,7 @@ const TextualInputComponent = ({setValue, hendler, placeholder, field, type, lab
                                                 placeholder={placeholder}
                                                 setValue={setValue}
                                                 id={`${idGroup}${field}-field`}
-                                                defaultValue={defaultValue}
+                                                defaultValue={defaultValue || ''}
                                             />
                                             {code && (
                                                 <div className="input-group-append">
