@@ -104,7 +104,7 @@ class ChooseWallet extends React.Component {
                         ):(
                             <div>
                                 <InfoBox default>
-                                    You have no wallets at that moment.&nbsp;
+                                    You have no wallets at the moment.&nbsp;
                                     <a onClick={() => this.props.setBodyModalParamsAction('LOGIN_EXCHANGE', {})}>Log in</a>
                                 </InfoBox>
                             </div>
