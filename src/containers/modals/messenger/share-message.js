@@ -10,7 +10,7 @@ class ShareMessage extends React.Component {
         const lnik = `${window.location.protocol}//${window.location.host}?isShareMessage=true&account=${this.props.account}&transaction=${data.transaction}`
 
         return (
-            <div className="modal-box x-wide">
+            <div className="modal-box wide">
                 <div className="modal-form">
                     <div className="form-group-app">
                         <a onClick={() => this.props.closeModal()} className="exit"><i
@@ -26,7 +26,7 @@ class ShareMessage extends React.Component {
                                         <td>Transaction:</td>
                                         <td>
                                             <a
-                                                onClick={() => setBodyModalParamsAction('INFO_TRANSACTION', data.transaction)}
+                                                onClick={() => this.props.setBodyModalParamsAction('INFO_TRANSACTION', data.transaction)}
                                                 className={'blue-link-text'}
                                             >
                                                 {data.transaction}
@@ -34,16 +34,9 @@ class ShareMessage extends React.Component {
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td className={'align-top'}>Share Link:</td>
-                                        <td>
-                                            <a
-                                                className={'blue-text'}
-                                                href={lnik}
-                                                rel="noopener noreferrer"
-                                                target="_blank">
-                                                {lnik}
-                                            </a>
-                                            <br/><br/>
+                                        <td className={'align-top'}>
+                                            Share Link:
+                                            <br/>
                                             <CopyToClipboard
                                                 text={lnik}
                                                 onCopy={() => {
@@ -52,11 +45,19 @@ class ShareMessage extends React.Component {
                                             >
                                                 <button
                                                     type={'button'}
-                                                    className="btn btn-green"
+                                                    className="btn btn-green mt-2"
                                                 >
                                                     Copy to clipboard
                                                 </button>
-                                            </CopyToClipboard>
+                                            </CopyToClipboard></td>
+                                        <td>
+                                            <a
+                                                className={'blue-text'}
+                                                href={lnik}
+                                                rel="noopener noreferrer"
+                                                target="_blank">
+                                                {lnik}
+                                            </a>
                                         </td>
                                     </tr>
                                     </tbody>
