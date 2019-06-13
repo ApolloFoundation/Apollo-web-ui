@@ -142,7 +142,7 @@ class SendApolloPrivate extends React.Component {
             >
                 {!this.state.isPrivateTransactionAlert && (
                     <InfoBox info>
-                        Private transactions currently protect down the the API level. Database level
+                        Private transactions currently protect down to the API level. Database level
                         protection will start with Olympus 2.0 <br/>
                         <button
                             type={'button'}
