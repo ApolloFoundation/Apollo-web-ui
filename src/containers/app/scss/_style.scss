@@ -54,9 +54,9 @@ input {
       position: relative;
       display: flex;
       flex-wrap: wrap;
-      min-height: calc(100vh - 74px);
+      min-height: calc(100vh - 85px);
       z-index: 0;
-      padding: 74px 26px 0 26px !important;
+      padding: 85px 26px 0 26px !important;
       @media(max-width: 760px) {
         padding-top: 0;
         min-height: auto;
