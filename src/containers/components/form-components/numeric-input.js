@@ -13,7 +13,7 @@ const NumericInput = ({values, label, field, countingTtile, counterLabel, setVal
                     placeholder={placeholder}
                     type={'float'}
                     setValue={setValue}
-                    defaultValue={defaultValue}
+                    defaultValue={defaultValue || ''}
                     id={`${idGroup}${field}-field`}
                 />
                 {(countingTtile || counterLabel) && (
