@@ -1,115 +1,70 @@
 import React from 'react';
-import { Form } from 'react-form';
-import InputForm from '../../../components/input-form';
+import {Form} from 'react-form';
 import classNames from 'classnames';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
+import NummericInput from "../../../components/form-components/numeric-input";
 
-const SellAsset = ({ amountATM, asset, handleTotalValue, handleSellOrders }) => (
-    <Form
-        onSubmit={(values) => handleSellOrders(values)}
-        render={({ submitForm, values, addValue, removeValue, setValue, getFormState }) => (
-            <form style={{ height: 'auto' }}
-                className="card ballance card-medium medium-padding full-height h-100"
-                onSubmit={submitForm}>
-                <div className="form-group-app">
-                    <div className="form-title">
-                        <p>Sell {asset.name}</p>
-                        <div className="form-sub-title">
-                            balance: <strong>{(amountATM / Math.pow(10, asset.decimals)).toLocaleString('en', {
-                                minimumFractionDigits: asset.decimals,
-                                maximumFractionDigits: asset.decimals
-                            })} {asset.name}</strong>
+const SellAsset = ({asset, handleTotalValue, handleSellOrders}) => (
+    <div className={'card green full-height'}>
+        <div className="card-title d-flex justify-content-between align-items-center">
+            <span className={'d-flex'}>Sell {asset.name}</span>
+            <span>Balance: {asset.balanceATU ? (asset.balanceATU / Math.pow(10, asset.decimals)).toLocaleString('en', {
+                minimumFractionDigits: asset.decimals,
+                maximumFractionDigits: asset.decimals
+            }) : 0} {asset.name}</span>
+        </div>
+        <div className="card-body">
+            <Form
+                onSubmit={(values) => handleSellOrders(values)}
+                render={({submitForm, values, addValue, removeValue, setValue, getFormState}) => (
+                    <form onSubmit={submitForm}>
+                        <div className="form-group-app">
+                            <NummericInput
+                                setValue={setValue}
+                                label="Quantity"
+                                field="quantity"
+                                type={"tel"}
+                                placeholder="Quantity"
+                                onChange={value => handleTotalValue(setValue, value, values.priceATM)}
+                                counterLabel={asset.name}
+                            />
+                            <NummericInput
+                                setValue={setValue}
+                                label="Price"
+                                field="priceATM"
+                                type={"tel"}
+                                placeholder="Price"
+                                onChange={value => handleTotalValue(setValue, value, values.quantity)}
+                                counterLabel={`APL / ${asset.name}`}
+                            />
+                            <NummericInput
+                                setValue={setValue}
+                                label="Total"
+                                field="total"
+                                type={"tel"}
+                                placeholder="Total"
+                                counterLabel={asset.name}
+                                disabled
+                            />
+                            <button
+                                className={classNames({
+                                    "btn btn-lg btn-green submit-button": true,
+                                    "disabled": !values.total
+                                })}
+                            >
+                                Sell ({asset.name} > APL)
+                            </button>
                         </div>
-                    </div>
-                    <div
-                        className="input-group-app offset-top display-block inline no-margin">
-                        <div className="form-group row form-group-white">
-                            <div className="col-md-3 pl-0">
-                                <label>Quantity</label>
-                            </div>
-                            <div
-                                className="col-md-9 pr-0 input-group input-group-text-transparent">
-                                <InputForm
-                                    field="quantity"
-                                    placeholder="Quantity"
-                                    type={"tel"}
-                                    onChange={value => handleTotalValue(setValue, value, values.priceATM)}
-                                    setValue={setValue} />
-                                <div className="input-group-append">
-                                    <span className="input-group-text"
-                                        id="amountText">{asset.name}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        className="input-group-app offset-top display-block inline no-margin">
-                        <div className="form-group row form-group-white">
-                            <div className="col-md-3 pl-0">
-                                <label>Price</label>
-                            </div>
-                            <div
-                                className="col-md-9 pr-0 input-group input-group-text-transparent">
-                                <InputForm
-                                    field="priceATM"
-                                    placeholder="Price"
-                                    type={"tel"}
-                                    onChange={value => handleTotalValue(setValue, value, values.quantity)}
-                                    setValue={setValue} />
-                                <div className="input-group-append">
-                                    <span className="input-group-text"
-                                        id="amountText">APL / {asset.name}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        className="input-group-app offset-top display-block inline no-margin">
-                        <div className="form-group row form-group-white">
-                            <div className="col-md-3 pl-0">
-                                <label>Total</label>
-                            </div>
-                            <div className="col-md-9 pr-0 input-group">
-                                <InputForm
-                                    field="total"
-                                    placeholder="Price"
-                                    type={"tel"}
-                                    disabled={true}
-                                    setValue={setValue} />
-                                <div className="input-group-append">
-                                    <span className="input-group-text"
-                                        id="amountText">{asset.name}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        className="input-group-app offset-top display-block inline no-margin">
-                        <div className="row form-group-white">
-                            <div className="col-md-3 pl-0">
-                            </div>
-                            <div className="col-md-9 pr-0">
-                                <button
-                                    className={classNames({
-                                        "btn btn-green": true,
-                                        "disabled": !(!!getFormState().values.total)
-                                    })}
-                                >
-                                    Sell ({asset.name} > APL)
-                        </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </form>
-
-        )}
-    />
-)
+                    </form>
+                )}
+            />
+        </div>
+    </div>
+);
 
 const mapStateToProps = state => ({
     amountATM: state.account.balanceATM,
     assetBalances: state.account.assetBalances
-})
+});
 
 export default connect(mapStateToProps)(SellAsset);

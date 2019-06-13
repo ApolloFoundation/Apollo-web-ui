@@ -1,7 +1,8 @@
 import React from 'react';
 import InputForm from '../input-form';
 
-const NumericInput = ({values, label, field, countingTtile, counterLabel, setValue, placeholder, type, idGroup, inputHint, defaultValue}) => (
+const NumericInput = ({values, label, field, countingTtile, counterLabel, setValue, placeholder, type, idGroup,
+                          inputHint, defaultValue, onChange, disabled}) => (
     <>
         <div className="form-group mb-15">
             <label>
@@ -11,10 +12,12 @@ const NumericInput = ({values, label, field, countingTtile, counterLabel, setVal
                 <InputForm
                     field={field}
                     placeholder={placeholder}
-                    type={'float'}
+                    type={type || 'float'}
                     setValue={setValue}
                     defaultValue={defaultValue || ''}
                     id={`${idGroup}${field}-field`}
+                    onChange={onChange}
+                    disabled={disabled}
                 />
                 {(countingTtile || counterLabel) && (
                     <div className="input-group-append">
