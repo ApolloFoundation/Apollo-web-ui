@@ -276,6 +276,11 @@ class CreateUser extends React.Component {
                                                         this.state.keySeed.secretBytes && (
                                                             <InfoBox attentionLeft className={'dark-info'}>
                                                                 <p className={'mb-3'}>
+                                                                    Account ID:
+                                                                    <span
+                                                                        className={'itatic'}>{this.state.accountData.accountRS}</span>
+                                                                </p>
+                                                                <p className={'mb-3'}>
                                                                     Your {!this.state.isCustomPassphraseTextarea && 'randomly generated'} secret
                                                                     phrase is:
                                                                 </p>
@@ -285,19 +290,14 @@ class CreateUser extends React.Component {
                                                                         className={'itatic'}>{this.state.accountData.passphrase}</span>
                                                                 </p>
                                                                 <p className={'mb-3'}>
-                                                                    Account ID:
-                                                                    <span
-                                                                        className={'itatic'}>{this.state.accountData.accountRS}</span>
-                                                                </p>
-                                                                <p className={'mb-3'}>
                                                                     Public Key:
                                                                     <span
                                                                         className={'itatic word-brake-for-info'}>{this.state.accountData.publicKey}</span>
                                                                 </p>
                                                                 <CopyToClipboard
                                                                     text={
-                                                                        `Secret Phrase: ${this.state.accountData.passphrase}\n` +
                                                                         `Account ID: ${this.state.accountData.accountRS}\n` +
+                                                                        `Secret Phrase: ${this.state.accountData.passphrase}\n` +
                                                                         `Public Key: ${this.state.accountData.publicKey}\n`
                                                                     }
                                                                     onCopy={() => {
@@ -483,6 +483,10 @@ class CreateUser extends React.Component {
                                                     {this.state.generatedPassphrase && (
                                                         <InfoBox attentionLeft className={'dark-info'}>
                                                             <p className={'mb-3'}>
+                                                                Account ID: <span
+                                                                className={'itatic notranslate'}>{this.state.generatedAccount}</span>
+                                                            </p>
+                                                            <p className={'mb-3'}>
                                                                 Your {!this.state.isCustomPassphraseTextarea && 'randomly generated'} secret
                                                                 phrase is:
                                                             </p>
@@ -490,14 +494,10 @@ class CreateUser extends React.Component {
                                                                 Secret Phrase: <span
                                                                 className={'itatic notranslate'}>{this.state.generatedPassphrase}</span>
                                                             </p>
-                                                            <p className={'mb-3'}>
-                                                                Account ID: <span
-                                                                className={'itatic notranslate'}>{this.state.generatedAccount}</span>
-                                                            </p>
                                                             <CopyToClipboard
                                                                 text={
-                                                                    `Secret Phrase: ${this.state.generatedPassphrase}\n` +
-                                                                    `Account ID: ${this.state.generatedAccount}\n`
+                                                                    `Account ID: ${this.state.generatedAccount}\n` +
+                                                                    `Secret Phrase: ${this.state.generatedPassphrase}\n`
                                                                 }
                                                                 onCopy={() => {
                                                                     NotificationManager.success('The account data has been copied to clipboard.')

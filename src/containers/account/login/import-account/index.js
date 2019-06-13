@@ -114,7 +114,9 @@ class ImportAccount extends React.Component {
     handleTab = (e, index) => {
         this.setState({
             ...this.props,
-            format: index
+            format: index,
+            isGenerated: false,
+            importAccount: null,
         })
     };
 
@@ -202,20 +204,20 @@ class ImportAccount extends React.Component {
                                             </React.Fragment>
                                         )}
 
-                                        {this.state && this.state.importAccount && (
+                                        {this.state.importAccount && (
                                             <InfoBox attentionLeft className={'dark-info'}>
-                                                <p className={'mb-3'}>
-                                                    Secret Phrase: <span
-                                                    className={'itatic'}>{this.state.importAccount.passphrase}</span>
-                                                </p>
                                                 <p className={'mb-3'}>
                                                     Account ID: <span
                                                     className={'itatic'}>{this.state.importAccount.accountRS}</span>
                                                 </p>
+                                                <p className={'mb-3'}>
+                                                    Secret Phrase: <span
+                                                    className={'itatic'}>{this.state.importAccount.passphrase}</span>
+                                                </p>
                                                 <CopyToClipboard
                                                     text={
-                                                        `Secret Phrase: ${this.state.importAccount.passphrase}\n` +
-                                                        `Account ID: ${this.state.importAccount.accountRS}\n`
+                                                        `Account ID: ${this.state.importAccount.accountRS}\n` +
+                                                        `Secret Phrase: ${this.state.importAccount.passphrase}\n`
                                                     }
                                                     onCopy={() => {
                                                         NotificationManager.success('The account data has been copied to clipboard.')
@@ -227,7 +229,7 @@ class ImportAccount extends React.Component {
                                                 </CopyToClipboard>
                                             </InfoBox>
                                         )}
-                                        {this.state && this.state.importAccount && (
+                                        {this.state.importAccount && (
                                             <InfoBox className={'dark-info'}>
                                                 <ul className={'marked-list'}>
                                                     <li className={'danger-icon'}>
