@@ -11,8 +11,8 @@ const maStateToProps = state => ({
 });
 
 const BlocksDownloader = ({blockchainStatus, actualBlock, isLocalhost}) => {
-    const percentage = actualBlock && (parseInt(actualBlock) / parseInt(blockchainStatus.lastBlockchainFeederHeight) * 100);
-
+    let percentage = actualBlock ? (parseInt(actualBlock) / parseInt(blockchainStatus.lastBlockchainFeederHeight) * 100) : 0;
+    percentage = percentage > 100 ? 99.9 : percentage;
     return (
         <div className={'wrap-block-downloader'}>
             {blockchainStatus.status && blockchainStatus.status.tasks.map(task => (
