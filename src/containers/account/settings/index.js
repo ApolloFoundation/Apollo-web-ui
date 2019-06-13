@@ -5,22 +5,19 @@
 
 
 import React from 'react';
-import SiteHeader from '../../../containers/components/site-header'
 import {connect} from "react-redux";
-import {Form, Text, TextArea, Checkbox} from 'react-form';
-import {getSavedAccountSettingsAction, saveAccountSettingsAction} from "../../../modules/accountSettings";
-import CustomSelect from "../../components/select";
+import {Form} from 'react-form';
 import {NotificationManager} from "react-notifications";
-import store from '../../../store'
-import './Settings.css';
-import ContentLoader from '../../components/content-loader';
-import {enable2FAActon, disable2FAActon} from '../../../actions/account'
+import {getSavedAccountSettingsAction, saveAccountSettingsAction} from "../../../modules/accountSettings";
+import {disable2FAActon, enable2FAActon, getAccountInfoAction} from '../../../actions/account';
 import {setBodyModalParamsAction} from "../../../modules/modals";
-import {getAccountInfoAction} from "../../../actions/account";
-import {login} from '../../../modules/account'
-import AccountRS from '../../components/account-rs';
+import {login} from '../../../modules/account';
+import SiteHeader from '../../../containers/components/site-header';
 import InputForm from '../../components/input-form';
 import ModalFooter from '../../components/modal-footer';
+import AccountRSFormInput from "../../components/form-components/account-rs";
+
+import './Settings.scss';
 
 class Settings extends React.Component {
 
@@ -68,7 +65,7 @@ class Settings extends React.Component {
 
     componentWillReceiveProps = (newState, oldState) => {
         this.getAccountInfoAction(newState);
-        if(newState.settings !== oldState.settings){
+        if (newState.settings !== oldState.settings) {
             this.setState({
                 settings: newState.settings
             });
@@ -84,7 +81,7 @@ class Settings extends React.Component {
         }
     };
 
-    set2faStatus =(selectedOption) => {
+    set2faStatus = (selectedOption) => {
         if (selectedOption.value) {
             this.setState({
                 is2FA: true
@@ -102,11 +99,11 @@ class Settings extends React.Component {
         if (!values.account) {
             NotificationManager.error('Account ID is not specified.', 'Error', 5000);
             return;
-        } 
+        }
 
-        const status =  await enable2FAActon({
+        const status = await enable2FAActon({
             passphrase: values.secretPhrase,
-            account:    values.account
+            account: values.account
         });
 
         if (status.errorCode) {
@@ -115,7 +112,7 @@ class Settings extends React.Component {
             this.props.setBodyModalParamsAction('CONFIRM_2FA_OPERATION', {
                 ...status,
                 passphrase: values.secretPhrase,
-                account:    values.account,
+                account: values.account,
                 operation: 'enable 2FA',
                 settingsReloader: this.getAccountInfoAction
             })
@@ -132,12 +129,12 @@ class Settings extends React.Component {
         if (!values.account) {
             NotificationManager.error('Account ID is not specified.', 'Error', 5000);
             return;
-        } 
+        }
 
-        const status =  await disable2FAActon({
+        const status = await disable2FAActon({
             passphrase: values.secretPhrase,
-            account:    values.account,
-            code2FA:       values.code2FA
+            account: values.account,
+            code2FA: values.code2FA
         });
 
         if (status.errorCode) {
@@ -173,140 +170,115 @@ class Settings extends React.Component {
                 <SiteHeader
                     pageTitle={'Settings'}
                 />
-                <div className="page-body container-fluid">
-                    <div className="account-settings" style={{padding: 0}}>
-                        <div className="row" style={{padding: 0, width: '100%'}}>
-
-                            <div className="page-settings-body">
-                                <div className="page-settings-item">
-                                    <Form
-                                        onSubmit={(values) => this.handleFormSubmit(values)}
-                                        render={({submitForm, setValue, values, addValue, removeValue, getFormState}) => (
-                                            <form className="modal-form" onSubmit={submitForm}>
-                                                <div className="form-group-app">
-                                                    <div className="form-title">
-                                                        <p>Two Factor Authentication (2FA)</p>
-                                                        {
-                                                            !this.props.is2FA &&
-                                                            <div className="form-sub-title">
-                                                                The 2FA currently disabled on this account. You can increase your wallet security with this option.
-                                                            </div>
-                                                        }
-                                                        {
-                                                            this.props.is2FA &&
-                                                            <div className="form-sub-title">
-                                                                The 2FA currently enabled on this account.
-                                                            </div>
-                                                        }
-                                                    </div>
-                                                    
-                                                    <div className="input-group-app form-group mb-15 display-block inline user">
-                                                        <div className="row form-group-white">
-                                                            <label htmlFor="recipient" className="col-sm-3 col-form-label">
-                                                                Account ID
-                                                            </label>
-                                                            <div className="col-sm-9">
-                                                                <AccountRS
-                                                                    value={''}
-                                                                    noContactList={true}
-                                                                    placeholder="Account ID"
-                                                                    setValue={setValue}
-                                                                    field={'account'}
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <ModalFooter
-                                                        setValue={setValue}
-                                                    />
-                                                    <div className="mobile-class form-group-grey row mb-15">
-                                                        <div
-                                                            style={{
-                                                                marginTop: 15,
-                                                            }}
-                                                            className="col-sm-6 offset-sm-3"
-                                                        >
-                                                            {
-                                                                this.state.account &&
-                                                                !this.state.account.is2FA &&
-                                                                <button
-                                                                    type={'button'}
-                                                                    className="no-margin btn static blue"
-                                                                    onClick={() => this.getQRCode(getFormState)}
-                                                                >
-                                                                    Get Qr code
-                                                                </button>
-                                                            }
-                                                            {
-                                                                this.state.account &&
-                                                                this.state.account.is2FA &&
-                                                                <button
-                                                                    type={'button'}
-                                                                    className="no-margin btn static blue"
-                                                                    onClick={() => this.disable2fa(getFormState)}
-                                                                >
-                                                                    Confirm disable
-                                                                </button>
-                                                            }
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                            )}
-                                        />
-
-                                </div>
-                                {
-                                    this.props.isLocalhost &&
-                                    <div className="page-settings-item full-height">
+                <div className="page-body container-fluid full-screen-block">
+                    <div className="account-settings">
+                        <div className="row">
+                            <div className="page-settings-item col-sm-6 pl-0 pr-0 mb-3">
+                                <div className={'card full-height'}>
+                                    <div className="card-title">Two Factor Authentication (2FA)</div>
+                                    <div className="card-body">
                                         <Form
-                                            onSubmit={(values) => this.handleGeneralSettingFormSubmit(values)}
+                                            onSubmit={(values) => this.handleFormSubmit(values)}
                                             render={({submitForm, setValue, values, addValue, removeValue, getFormState}) => (
                                                 <form className="modal-form" onSubmit={submitForm}>
                                                     <div className="form-group-app">
                                                         <div className="form-title">
-                                                            <p>General</p>
-                                                        </div>
-                                                        <div className="form-group row form-group-white mb-15">
-                                                            <label className="col-sm-3 col-form-label">
-                                                                Admin password
-                                                            </label>
-                                                            <div className="col-sm-9">
-
-                                                                <InputForm
-                                                                    isPlain
-                                                                    type="password"
-                                                                    field="adminPassword"
-                                                                    placeholder="Admin password"
-                                                                    setValue={setValue}
-                                                                    defaultValue={this.state.adminPassword}
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                        <div className="form-group row form-group-white mb-15">
-                                                            <div className="mobile-class form-group-grey row mb-15">
-                                                                <div
-                                                                    style={{
-                                                                        marginTop: 15,
-                                                                    }}
-                                                                    className="col-sm-6 offset-sm-3"
-                                                                >
-                                                                    <button className="no-margin btn static blue">
-                                                                        Save
-                                                                    </button>
+                                                            {
+                                                                !this.props.is2FA &&
+                                                                <div className="form-sub-title">
+                                                                    The 2FA currently disabled on this account. You can
+                                                                    increase
+                                                                    your wallet security with this option.
                                                                 </div>
-                                                            </div>
+                                                            }
+                                                            {
+                                                                this.props.is2FA &&
+                                                                <div className="form-sub-title">
+                                                                    The 2FA currently enabled on this account.
+                                                                </div>
+                                                            }
                                                         </div>
+
+                                                        <AccountRSFormInput
+                                                            setValue={setValue}
+                                                            noContactList
+                                                            field={'account'}
+                                                            label={'Account ID'}
+                                                            placeholder={'Account ID'}
+                                                        />
+                                                        <ModalFooter
+                                                            setValue={setValue}
+                                                        />
+                                                        {this.state.account && (
+                                                            <div>
+                                                                {!this.state.account.is2FA ? (
+                                                                    <button
+                                                                        type={'button'}
+                                                                        className="btn btn-green"
+                                                                        onClick={() => this.getQRCode(getFormState)}
+                                                                    >
+                                                                        Get Qr code
+                                                                    </button>
+                                                                ) : (
+                                                                    <button
+                                                                        type={'button'}
+                                                                        className="btn btn-green"
+                                                                        onClick={() => this.disable2fa(getFormState)}
+                                                                    >
+                                                                        Confirm disable
+                                                                    </button>
+                                                                )}
+
+                                                            </div>
+                                                        )}
                                                     </div>
                                                 </form>
                                             )}
                                         />
-
                                     </div>
-                                }
+                                </div>
                             </div>
-
+                            {
+                                this.props.isLocalhost &&
+                                <div className="page-settings-item col-sm-6 pr-0 mb-3">
+                                    <div className={'card full-height'}>
+                                        <div className="card-title">General</div>
+                                        <div className="card-body">
+                                            <Form
+                                                onSubmit={(values) => this.handleGeneralSettingFormSubmit(values)}
+                                                render={({submitForm, setValue, values, addValue, removeValue, getFormState}) => (
+                                                    <form className="modal-form" onSubmit={submitForm}>
+                                                        <div className="form-group-app">
+                                                            <div className="form-group mb-15">
+                                                                <label>
+                                                                    Admin password
+                                                                </label>
+                                                                <div>
+                                                                    <InputForm
+                                                                        isPlain
+                                                                        className={'form-control'}
+                                                                        type="password"
+                                                                        field="adminPassword"
+                                                                        placeholder="Admin password"
+                                                                        setValue={setValue}
+                                                                        defaultValue={this.state.adminPassword}
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                            <button
+                                                                type={'submit'}
+                                                                className="btn btn-green"
+                                                            >
+                                                                Save
+                                                            </button>
+                                                        </div>
+                                                    </form>
+                                                )}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            }
                         </div>
                     </div>
                 </div>
@@ -323,10 +295,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    getSavedAccountSettings:   () =>           dispatch(getSavedAccountSettingsAction()),
+    getSavedAccountSettings: () => dispatch(getSavedAccountSettingsAction()),
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-    getAccountInfoAction: (account) =>        dispatch(getAccountInfoAction(account)),
-    login: (account) =>                       dispatch(login(account))
+    getAccountInfoAction: (account) => dispatch(getAccountInfoAction(account)),
+    login: (account) => dispatch(login(account))
 
 });
 
