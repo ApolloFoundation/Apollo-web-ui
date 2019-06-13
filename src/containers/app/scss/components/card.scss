@@ -473,4 +473,14 @@
 			font-weight: 400;
 		}
 	}
+	&.green .card-title {
+		color: #FFF;
+		font-size: 14px;
+		line-height: 17px;
+		background: linear-gradient(179.43deg, #2AC940 0%, #31D947 100%);
+		box-shadow: none;
+		p {
+			color: #FFF;
+		}
+	}
 }

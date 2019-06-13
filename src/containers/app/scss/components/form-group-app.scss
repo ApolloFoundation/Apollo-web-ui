@@ -382,7 +382,6 @@
 		}
 	}
 	.btn {
-		font-size: 11px;
 		&:hover {
 			opacity: 0.9;
 		}
@@ -416,6 +415,9 @@
 		width: 100%;
 		&:focus {
 			border-color: #E6EAEE;
+		}
+		&:disabled {
+			background-color: #FCFCFD;
 		}
 	}
 	textarea {

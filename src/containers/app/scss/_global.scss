@@ -1179,6 +1179,12 @@ div.info-box {
 		min-width: 40px;
 		min-height: 29px;
 	}
+	&.btn-lg {
+		width: 100%;
+		padding: 15px 30px;
+		text-transform: uppercase;
+		font-weight: 700;
+	}
 	&.btn-simple {
 		color: #8AA5C7;
 		padding-left: 0;
