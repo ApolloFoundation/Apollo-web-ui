@@ -33,14 +33,13 @@ class AvailableBalance extends Component {
                                         {dashboardAccoountInfo.accountRS}
                                     </div>
                                     {
-                                        actualBlock && timestamp &&
+                                        !!(actualBlock && timestamp) &&
                                         <div className="account-sub-titles text-sm mb-2">
                                             Block:&nbsp;{actualBlock}&nbsp;/&nbsp;{formatTimestamp(timestamp)}
                                         </div>
                                     }
                                     {
-                                        blockchainStatus &&
-                                        blockchainStatus.blockTime &&
+                                        !!(blockchainStatus && blockchainStatus.blockTime) &&
                                         <div className="account-sub-titles text-sm mb-2">
                                             Transaction Time :&nbsp;{blockchainStatus.blockTime} s
                                         </div>

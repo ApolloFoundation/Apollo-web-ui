@@ -132,7 +132,7 @@ class AccountDetails extends React.Component {
                                                 <td>{this.state.account.account}</td>
                                             </tr>
                                             <tr>
-                                                <td className="no-brake">Balance::</td>
+                                                <td className="no-brake">Balance:</td>
                                                 <td>{this.state.account.balanceATM ? (this.state.account.balanceATM / ONE_APL).toFixed(2) : '0'} Apollo</td>
                                             </tr>
                                             <tr>

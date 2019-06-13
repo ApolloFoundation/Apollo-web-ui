@@ -3,7 +3,6 @@ import {connect} from 'react-redux';
 import {Text} from 'react-form';
 
 import {CheckboxFormInput} from '../../../components/form-components/check-button-input';
-import NummericInputForm from '../../../components/form-components/numeric-input'
 import InfoBox from "../../../components/info-box";
 import {CopyToClipboard} from "react-copy-to-clipboard";
 import {NotificationManager} from "react-notifications";
@@ -62,18 +61,18 @@ const JoinShufflingForm = ({values, setValue, getFormState, modalData, setAccoun
                 vaultWallet &&
                 <InfoBox attentionLeft>
                     <p className={'mb-3'}>
-                        Secret Phrase:  <span className={'itatic'}>{vaultWallet.passphrase}</span>
+                        Account ID: <span className={'itatic'}>{vaultWallet.accountRS}</span>
                     </p>
                     <p className={'mb-3'}>
-                        Account ID: <span className={'itatic'}>{vaultWallet.accountRS}</span>
+                        Secret Phrase:  <span className={'itatic'}>{vaultWallet.passphrase}</span>
                     </p>
                     <p className={'mb-3'}>
                         Public Key: <span className={'itatic'}>{vaultWallet.publicKey}</span>
                     </p>
                     <CopyToClipboard
                         text={
-                            `Secret Phrase: ${vaultWallet.passphrase}\n` +
                             `Account ID: ${vaultWallet.accountRS}\n` +
+                            `Secret Phrase: ${vaultWallet.passphrase}\n` +
                             `Public Key: ${vaultWallet.publicKey}\n`
                         }
                         onCopy={() => {
