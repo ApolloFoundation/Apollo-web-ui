@@ -332,6 +332,9 @@
 		box-shadow: 0 0 10px 0 #E6EAEE, 0 10px 20px 0 rgba(30,30,30,0.05);
 		padding: 10px 12px;
 		z-index: 1;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
 		&.bg-primary {
 			background: linear-gradient(179.43deg, #2B23FF 0%, #2547F4 100%);
 			box-shadow: none;

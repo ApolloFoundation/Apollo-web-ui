@@ -221,7 +221,16 @@ class AssetExchange extends React.Component {
             <div className="page-content">
                 <SiteHeader
                     pageTitle={'Asset exchange'}
-                />
+                >
+                    {window.innerWidth < 768 && (
+                        <button
+                            type={'button'}
+                            onClick={this.goBack} className="btn btn-default btn-sm">
+                            <i className="zmdi zmdi-arrow-left"/> &nbsp;
+                            Back to list
+                        </button>
+                    )}
+                </SiteHeader>
                 {
                     this.state.asset &&
                     <div className="page-body container-fluid assets-exchange">
@@ -306,18 +315,6 @@ class AssetExchange extends React.Component {
                             {
                                 this.props.match.params &&
                                 <div className="col-md-9 p-0">
-                                    <div className="row">
-                                        {
-                                            window.innerWidth < 768 &&
-                                            <div className="col-xl-6 col-md-12 pr-0">
-                                                <a onClick={this.goBack} className="btn primary mb-3">
-                                                    <i className="zmdi zmdi-arrow-left"/> &nbsp;
-                                                    Back to list
-                                                </a>
-                                            </div>
-                                        }
-                                    </div>
-
                                     <div className={'row'}>
                                         <div className="col-xl-6 col-md-12 pr-0 pb-3">
                                             <BuyAsset balanceATU={this.state.asset.balanceATU} asset={this.state.asset}
