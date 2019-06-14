@@ -31,9 +31,7 @@
 		}
 
 		.h-400 {
-			height: 100%;
-			max-height: 473px;
-			min-height: 352px !important;
+			height: 385px;
 			display: flex;
 			flex-direction: column;
 		}
@@ -96,7 +94,14 @@
 			border-radius: 3px;
 			background-color: #FFF;
 			box-shadow: 0 0 10px 0 #E6EAEE, 0 10px 20px 0 rgba(30,30,30,0.05);
-			min-height: 590px;
+			min-height: 385px;
+			overflow: auto;
+			.modal-form {
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				height: 100%;
+			}
 			&.card {
 				padding: 0;
 				margin: 0;
@@ -130,14 +135,20 @@
 				padding: 10px 12px;
 				z-index: 1;
 				p {
+					font-weight: 500;
 					color: #2547F4;
 					font-size: 14px;
 					line-height: 17px;
 					padding: 0;
 					word-break: normal;
+					margin-bottom: 0;
 				}
 				&.form-title-lg {
 					height: 80px;
+					min-height: 80px;
+					p {
+						font-weight: 400;
+					}
 					img {
 						margin-right: 10px;
 						margin-top: 4px;
@@ -148,6 +159,7 @@
 						font-size: 34px;
 						letter-spacing: -0.89px;
 						line-height: 41px;
+						margin-bottom: 0;
 					}
 					.form-title-actions {
 						display: flex;
@@ -373,7 +385,7 @@
 					width: 100%;
 					padding: 15px 30px;
 					text-transform: uppercase;
-					font-weight: 700;
+					font-weight: 600;
 				}
 				&.btn-green {
 					color: #ffffff;
@@ -398,7 +410,8 @@
 					img {
 						height: 11px;
 						width: 8px;
-						margin-right: 0;
+						margin-right: 5px;
+						margin-top: 0;
 					}
 
 				}

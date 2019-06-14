@@ -6,8 +6,8 @@ import NummericInput from "../../../components/form-components/numeric-input";
 import {ONE_APL} from "../../../../constants";
 
 const BuyAsset = ({balanceATM, asset, handleTotalValue, handleBuyOrders}) => (
-    <div className={'card green full-height'}>
-        <div className="card-title d-flex justify-content-between align-items-center">
+    <div className={'card green'}>
+        <div className="card-title card-title-lg d-flex justify-content-between align-items-center">
             Buy {asset.name}
             <span>Balance: {(balanceATM / ONE_APL).toLocaleString('en', {
                 minimumFractionDigits: asset.decimals,

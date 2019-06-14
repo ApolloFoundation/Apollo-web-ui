@@ -5,9 +5,9 @@ import {connect} from 'react-redux';
 import NummericInput from "../../../components/form-components/numeric-input";
 
 const SellAsset = ({asset, handleTotalValue, handleSellOrders}) => (
-    <div className={'card green full-height'}>
-        <div className="card-title d-flex justify-content-between align-items-center">
-            <span className={'d-flex'}>Sell {asset.name}</span>
+    <div className={'card green'}>
+        <div className="card-title card-title-lg d-flex justify-content-between align-items-center">
+            Sell {asset.name}
             <span>Balance: {asset.balanceATU ? (asset.balanceATU / Math.pow(10, asset.decimals)).toLocaleString('en', {
                 minimumFractionDigits: asset.decimals,
                 maximumFractionDigits: asset.decimals

@@ -1181,9 +1181,9 @@ div.info-box {
 	}
 	&.btn-lg {
 		width: 100%;
-		padding: 15px 30px;
+		padding: 15px;
 		text-transform: uppercase;
-		font-weight: 700;
+		font-weight: 600;
 	}
 	&.btn-simple {
 		color: #8AA5C7;
@@ -1494,6 +1494,25 @@ table {
 }
 
 .assets-exchange {
+	.card {
+		height: 390px;
+		.wrap-info {
+			max-height: 228px;
+			overflow: auto;
+			margin-bottom: 12px;
+		}
+		.card-body {
+			form {
+				height: 100%;
+				.form-group-app {
+					display: flex;
+					flex-direction: column;
+					justify-content: space-between;
+					height: 100%;
+				}
+			}
+		}
+	}
 	& > .row {
 		position: relative;
 		@media (min-width: 768px) {
@@ -1580,7 +1599,7 @@ table {
 		overflow-y: auto;
 		height: calc(100vh - 135px);
 		max-height: 100%;
-		top: 135px;
+		top: 85px;
 		@media (max-width: 767px) {
 			position: relative;
 			height: 100%;
