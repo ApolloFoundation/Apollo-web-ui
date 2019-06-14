@@ -436,34 +436,22 @@ input[type="file"] {
 }
 
 ::-webkit-scrollbar {
-	width: 10px;
-	height: 10px;
+	width: 9px;
+	height: 9px;
 }
 
 /* Track */
 ::-webkit-scrollbar-track {
-	background: #f1f1f1;
+	background: #F5F7FC;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-	background: #888;
-}
-
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-	background: #555;
-}
-
-@keyframes notification-animation {
-	0% {
-	
-	}
-	10% {
-	
-	}
-	100% {
-	
+	transition: 0.3s;
+	background: linear-gradient(179.43deg, #2AC940 0%, #31D947 100%);
+	border: 2px solid #F5F7FC;
+	&:hover {
+		border: none;
 	}
 }
 
