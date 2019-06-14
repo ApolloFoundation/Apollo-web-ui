@@ -317,8 +317,6 @@ input {
         width: 100%;
 
         .transactions-filters {
-          min-height: 120px;
-          padding-left: 40px;
 
           .monitors-table {
             display: table;
@@ -342,7 +340,6 @@ input {
           .top-bar {
             display: flex;
             flex-wrap: wrap;
-            margin-bottom: 20px;
 
             .btn {
               margin-top: 10px;
@@ -356,7 +353,7 @@ input {
           }
         }
         .transaction-table {
-          height: calc(100% - 120px);
+          height: calc(100% - 60px);
           min-height: 560px;
           overflow: hidden;
           @media (max-width: 1024px) {
