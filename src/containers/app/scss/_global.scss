@@ -449,7 +449,7 @@ input[type="file"] {
 ::-webkit-scrollbar-thumb {
 	transition: 0.3s;
 	background: linear-gradient(179.43deg, #2AC940 0%, #31D947 100%);
-	border: 2px solid #F5F7FC;
+	border: 3px solid #F5F7FC;
 	&:hover {
 		border: none;
 	}
@@ -1481,7 +1481,7 @@ table {
 	}
 }
 
-.assets-exchange {
+.assets-exchange, .exchange-booth {
 	.card {
 		height: 390px;
 		.wrap-info {
@@ -1501,87 +1501,6 @@ table {
 			}
 		}
 	}
-	& > .row {
-		position: relative;
-		@media (min-width: 768px) {
-			min-height: calc(100vh - 135px) !important;
-		}
-	}
-	.right-col {
-		@media (min-width: 768px) {
-			margin-left: 25%;
-		}
-	}
-	.left-col {
-		@media (min-width: 768px) {
-			position: absolute;
-			top: 0;
-			bottom: 0;
-			height: 100%;
-		}
-	}
-	.one-col{
-		max-height: calc(100vh - 135px);
-	}
-	.row {
-		//min-height: 100%;
-		align-items: stretch;
-		//	max-height: 100%;
-	}
-	.card.header {
-		min-height: 200px;
-	}
-	.card.card-tiny {
-		height: auto;
-	}
-	.card.card-full-screen {
-		overflow-y: auto;
-	}
-	.ballance .form-group-app {
-		height: auto;
-	}
-	.transaction-table {
-		height: auto;
-		min-height: auto;
-	}
-	.transaction-table-body {
-		padding: 0 !important;
-		table {
-			padding: 0 !important;
-		}
-	}
-	.info-box.simple {
-		margin-bottom: 0;
-		padding-bottom: 0;
-	}
-	.full-box-item {
-		display: block !important;
-		.box {
-			margin-bottom: 5px;
-			max-width: 100%;
-		}
-		.card-title.description {
-			white-space: nowrap;
-			overflow: hidden;
-			text-overflow: ellipsis;
-			padding-left: 10px;
-		}
-		.asset-id {
-			white-space: nowrap;
-			overflow: hidden;
-			text-overflow: ellipsis;
-		}
-	}
-	.card.scroll {
-		@media (max-width: 767px) {
-			max-height: 300px;
-		}
-	}
-	.col-xl-6.col-md-12 {
-		@media (max-width: 767px) {
-			padding: 0;
-		}
-	}
 	.sticky-block {
 		position: sticky;
 		overflow-y: auto;
@@ -1594,6 +1513,14 @@ table {
 			max-height: 226px;
 			display: flex;
 			top: unset;
+		}
+	}
+}
+.exchange-booth {
+	.card {
+		height: 450px;
+		.wrap-info {
+			max-height: 288px;
 		}
 	}
 }
