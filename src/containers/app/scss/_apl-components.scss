@@ -4,14 +4,14 @@
   flex-wrap: nowrap;
   flex-direction: column;
   justify-content: space-between;
-  padding: 29px 0 28px 0;
+  padding: 0 0 12px 0;
 
 
   &.padding-left {
     padding-left: 36px;
   }
   &.align-for-inputs {
-    padding: 0px 0 23px 29px;
+    padding: 0 0 23px 29px;
     @media (max-width: 760px) {
       padding-left: 9px;
       padding-bottom: 10px;
@@ -29,22 +29,27 @@
     position: static;
 
     &.filter {
-      padding: 6px 8px;
-      display: inline;
-      border-radius: 3px;
-      background-color: #F5F5F5;
-      color: #3D5A7E;
-      font-weight: 700;
+      height: 30px;
+      min-width: 30px;
+      color: #8AA5C7;
       font-size: 12px;
-      line-height: 14px;
       min-height: auto;
+      border-radius: 2px;
+      background-color: #FFF;
+      box-shadow: 0 1px 4px 0 rgba(137,151,169,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
+      &:hover {
+        opacity: 0.7;
+      }
       i {
-        font-size: 20px;
+        font-size: 15px;
       }
       &.active {
-        border: 1px solid #333333;
-
+        background-color: rgba(147,169,195,0.24);
+        box-shadow: none;
       }
     }
   }
