@@ -209,55 +209,55 @@ export function getDGSPendingPurchases(reqParams) {
     }
 }
 
-export const getAskOrders = asset => {
-    return axios.get(config.api.serverUrl, {
-        params: {
-            requestType: 'getAskOrders',
-            asset
-        }
-    })
-        .then(async (res) => {
-            if (!res.data.errorCode) {
-                const assets = res.data.askOrders.map((el, index) => {
-                    return store.dispatch(getAssetAction({
-                        asset: el.asset
-                    }))
-                });
-
-                return {assets: await Promise.all(assets), orders: res.data.askOrders};
-
-
+export function getAskOrders(asset) {
+    return dispatch => {
+        return axios.get(config.api.serverUrl, {
+            params: {
+                requestType: 'getAskOrders',
+                asset
             }
         })
-        .catch((err) => {
-            console.log(err);
-        });
-}
+            .then(async (res) => {
+                if (!res.data.errorCode) {
+                    const assets = res.data.askOrders.map((el, index) => {
+                        return store.dispatch(getAssetAction({
+                            asset: el.asset
+                        }))
+                    });
 
-export const getBidOrders = asset => {
-    return axios.get(config.api.serverUrl, {
-        params: {
-            requestType: 'getBidOrders',
-            asset
-        }
-    })
-        .then(async (res) => {
-            if (!res.data.errorCode) {
-                const assets = res.data.bidOrders.map((el, index) => {
-                    return store.dispatch(getAssetAction({
-                        asset: el.asset
-                    }))
-                });
+                    return {assets: await Promise.all(assets), orders: res.data.askOrders};
 
-                return {assets: await Promise.all(assets), orders: res.data.bidOrders};
 
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+};
+
+export function getBidOrders(asset) {
+    return dispatch => {
+        return axios.get(config.api.serverUrl, {
+            params: {
+                requestType: 'getBidOrders',
+                asset
             }
         })
-        .catch((err) => {
-            console.log(err);
-        })
-}
+            .then(async (res) => {
+                if (!res.data.errorCode) {
+                    const assets = res.data.bidOrders.map((el, index) => {
+                        return store.dispatch(getAssetAction({
+                            asset: el.asset
+                        }))
+                    });
 
+                    return {assets: await Promise.all(assets), orders: res.data.bidOrders};
 
-
-
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+    }
+};

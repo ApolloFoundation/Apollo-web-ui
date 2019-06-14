@@ -5,14 +5,13 @@ const OffersToBuy = ({bidOrders, asset}) => (
     <div className={'card'}>
         <div className="card-title">Offers to buy {asset.name}</div>
         <div className="card-body">
-            <div className="form-group-app">
                 {
                     bidOrders &&
                     bidOrders.length === 0 ?
                         <div className="info-box simple">
                             <p>No buy offers for this asset.</p>
                         </div> :
-                        <div className="transaction-table no-min-height">
+                        <div className="transaction-table no-min-height p-0">
                             <div className="transaction-table-body">
                                 <table>
                                     <thead>
@@ -42,8 +41,6 @@ const OffersToBuy = ({bidOrders, asset}) => (
                             </div>
                         </div>
                 }
-
-            </div>
         </div>
     </div>
 );

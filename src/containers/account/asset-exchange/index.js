@@ -7,11 +7,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import SiteHeader from '../../components/site-header'
-import {getAssetAction} from "../../../actions/assets";
+import {buyAssetAction, getAssetAction, getSpecificAccountAssetsAction, sellAssetAction} from "../../../actions/assets";
 import {Link} from 'react-router-dom';
 import crypto from '../../../helpers/crypto/crypto'
-import {buyAssetAction} from "../../../actions/assets";
-import {sellAssetAction, getSpecificAccountAssetsAction} from "../../../actions/assets";
 import {setAlert, setBodyModalParamsAction} from "../../../modules/modals";
 import classNames from "classnames";
 import {getAskOrders, getBidOrders} from "../../../actions/marketplace";
@@ -39,6 +37,7 @@ class AssetExchange extends React.Component {
     };
 
     listener = data => {
+        console.log('---assetId----', this.props.match.params)
         this.getAsset(this.props.match.params.asset);
         this.getAssets();
     };
@@ -71,8 +70,8 @@ class AssetExchange extends React.Component {
             asset,
         });
 
-        if (asset && this.props.assetBalances) {
-            const assetBalance = this.props.assetBalances.find(item => {
+        if (asset) {
+            const assetBalance = this.props.assetBalances && this.props.assetBalances.find(item => {
                 if (item) return item.asset === asset.asset;
             });
             asset.balanceATU = assetBalance ? assetBalance.balanceATU : 0;
@@ -211,7 +210,7 @@ class AssetExchange extends React.Component {
 
     goBack = () => {
         this.setState({
-           asset: null
+            asset: null
         }, () => {
             this.props.history.push('/asset-exchange')
         });
@@ -229,7 +228,71 @@ class AssetExchange extends React.Component {
                         <div className="row">
                             {
                                 window.innerWidth > 767 &&
-                                <div className="col-md-3 p-0 pb-3 sticky-block">
+                                <div className="col-md-3 p-0 pb-3">
+                                    <div className="card mb-3">
+                                        <div className="card-title card-title-lg bg-primary">
+                                            <span className={'title-lg'}>{this.state.asset.name}</span>
+                                        </div>
+                                        <div className="card-body">
+                                            <div className={'form-group-app'}>
+                                                <div className={'wrap-info'}>
+                                                    <p className={'mb-3'}>
+                                                        <label>
+                                                            Total available:
+                                                        </label>
+                                                        <div>
+                                                            {(this.state.asset.quantityATU / Math.pow(10, this.state.asset.decimals)).toFixed(this.state.asset.decimals)} {this.state.asset.name}
+                                                        </div>
+                                                    </p>
+                                                    <p className={'mb-3'}>
+                                                        <label>
+                                                            Description:
+                                                        </label>
+                                                        <div>
+                                                            {this.state.asset.description}
+                                                        </div>
+                                                    </p>
+                                                    <p className={'mb-3'}>
+                                                        <label>
+                                                            Account:
+                                                        </label>
+                                                        <div>
+                                                            {this.state.asset.accountRS}
+                                                        </div>
+                                                    </p>
+                                                    <p className={'mb-3'}>
+                                                        <label>
+                                                            Asset ID:
+                                                        </label>
+                                                        <div>
+                                                            {this.state.asset.asset}
+                                                        </div>
+                                                    </p>
+                                                    <p>
+                                                        <label>
+                                                            Asset decimals:
+                                                        </label>
+                                                        <div>
+                                                            {this.state.asset.decimals}
+                                                        </div>
+                                                    </p>
+                                                </div>
+                                                <button
+                                                    type={'button'}
+                                                    className={"btn btn-default btn-lg"}
+                                                    onClick={() => {
+                                                        this.props.setBodyModalParamsAction('VIEW_ASSET_DISTRIBUTION', {
+                                                            asset: this.props.match.params.asset,
+                                                            decimals: this.state.asset.decimals,
+                                                            totalAvailable: this.state.asset.quantityATU
+                                                        })
+                                                    }}
+                                                >
+                                                    View Account Distribution
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <SidebarContent
                                         element={'asset'}
                                         baseUrl={'/asset-exchange/'}
@@ -248,88 +311,22 @@ class AssetExchange extends React.Component {
                                             window.innerWidth < 768 &&
                                             <div className="col-xl-6 col-md-12 pr-0">
                                                 <a onClick={this.goBack} className="btn primary mb-3">
-                                                    <i className="zmdi zmdi-arrow-left" /> &nbsp;
+                                                    <i className="zmdi zmdi-arrow-left"/> &nbsp;
                                                     Back to list
                                                 </a>
                                             </div>
                                         }
-                                        <div className={'col-xl-6 col-md-12 pr-0'}>
-                                            <div className="card header ballance card-tiny medium-padding mb-3">
-                                                <div className="row">
-                                                    <div className="col-md-6">
-                                                        <div className="card-title medium">{this.state.asset.name}</div>
-
-                                                    </div>
-                                                    <div className="col-md-6 flex">
-                                                        <div
-                                                            className="card-title small break-word">{this.state.asset.description}</div>
-                                                    </div>
-	                                                <div className="asset-btns-block">
-		                                                <button
-                                                            type={'button'}
-			                                                className={"btn static blue"}
-			                                                onClick={() => {
-				                                                this.props.setBodyModalParamsAction('VIEW_ASSET_DISTRIBUTION', {
-					                                                asset: this.props.match.params.asset,
-					                                                decimals: this.state.asset.decimals,
-					                                                totalAvailable: this.state.asset.quantityATU
-				                                                })
-			                                                }}
-		                                                >
-			                                                View Account Distribution
-		                                                </button>
-	                                                </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className={'col-xl-6 col-md-12 pr-0'}>
-                                            <div className="card header assets card-tiny medium-padding mb-3">
-                                                <div className="full-box full">
-                                                    <div className="full-box-item">
-                                                        <div className='box'>
-                                                            <div className="card-title bold small">Account:</div>
-                                                            <div
-                                                                className="card-title description small"
-                                                            >
-                                                                {this.state.asset.accountRS}
-                                                            </div>
-                                                        </div>
-                                                        <div className='box'>
-                                                            <div className="card-title bold small">Asset ID:</div>
-                                                            <div
-                                                                className="card-title asset-id description small">{this.state.asset.asset}</div>
-                                                        </div>
-                                                    </div>
-                                                    <div className="full-box-item">
-                                                        <div className='box'>
-                                                            <div className="card-title bold small">Total available:
-                                                            </div>
-                                                            <div
-                                                                className="card-title description small"
-                                                            >
-                                                                {/*(el.quantityATU / Math.pow(10, el.decimals)).toFixed(el.decimals)*/}
-                                                                {(this.state.asset.quantityATU / Math.pow(10, this.state.asset.decimals)).toFixed(this.state.asset.decimals)}
-                                                            </div>
-                                                        </div>
-                                                        <div className='box'>
-                                                            <div
-                                                                className="card-title bold small">Asset decimals
-                                                            </div>
-                                                            <div
-                                                                className="card-title description small">{this.state.asset.decimals}</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
 
                                     <div className={'row'}>
                                         <div className="col-xl-6 col-md-12 pr-0 pb-3">
-                                            <BuyAsset balanceATU={this.state.asset.balanceATU} asset={this.state.asset} handleTotalValue={this.handleTotalValue} handleBuyOrders={this.handleBuyOrders}/>
+                                            <BuyAsset balanceATU={this.state.asset.balanceATU} asset={this.state.asset}
+                                                      handleTotalValue={this.handleTotalValue}
+                                                      handleBuyOrders={this.handleBuyOrders}/>
                                         </div>
                                         <div className="col-xl-6 col-md-12 pr-0 pb-3">
-                                            <SellAsset asset={this.state.asset} handleTotalValue={this.handleTotalValue} handleSellOrders={this.handleSellOrders}/>
+                                            <SellAsset asset={this.state.asset} handleTotalValue={this.handleTotalValue}
+                                                       handleSellOrders={this.handleSellOrders}/>
                                         </div>
                                     </div>
                                     <div className={'row'}>
@@ -408,8 +405,8 @@ const mapDispatchToProps = dispatch => ({
     getTransactionAction: (requestParams) => dispatch(getTransactionAction(requestParams)),
 
     getAccountAssetAction: (reqParams) => dispatch(getSpecificAccountAssetsAction(reqParams)),
-    getAskOrders: asset => getAskOrders(asset),
-    getBidOrders: asset => getBidOrders(asset),
+    getAskOrders: asset => dispatch(getAskOrders(asset)),
+    getBidOrders: asset => dispatch(getBidOrders(asset)),
 });
 
 

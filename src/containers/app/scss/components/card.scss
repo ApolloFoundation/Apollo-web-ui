@@ -236,20 +236,8 @@
 		height: auto;
 	}
 	&.dashboard {
-		.card-title {
-		
-		}
-		.amount {
-		
-		}
-		.owned {
-		
-		}
-		.rs {
-		
-		}
-		.blocks {
-		
+		.card {
+			height: 200px;
 		}
 	}
 	
@@ -354,9 +342,16 @@
 			box-shadow: none;
 			color: #FFF;
 		}
+		.title-lg {
+			font-size: 34px;
+			letter-spacing: -0.89px;
+			line-height: 41px;
+			font-weight: normal;
+		}
 	}
 	.card-title-lg {
 		height: 80px;
+		min-height: 80px;
 		font-size: 18px;
 		line-height: 22px;
 	}
@@ -384,6 +379,9 @@
 		}
 		.text-green {
 			color: rgba(0,189,32,0.92);
+		}
+		.transaction-table {
+			background-color: transparent;
 		}
 	}
 	.amount {
@@ -481,6 +479,9 @@
 		box-shadow: none;
 		p {
 			color: #FFF;
+		}
+		span {
+			font-size: 11px;
 		}
 	}
 }

@@ -8,7 +8,7 @@ import {withRouter} from 'react-router-dom';
 
 const SidebarContent = ({emptyMessage, baseUrl, data, bottomBarPreText, element, location, Component, currentItem}) => (
     <>
-        <div className="card card-full-screen no-padding d-block">
+        <div className="card">
             {
                 !!data &&
                 data.length > 0 &&
