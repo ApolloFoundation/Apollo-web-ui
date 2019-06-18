@@ -2,10 +2,10 @@ import React from 'react';
 import {Checkbox} from 'react-form';
 
 export const CheckboxFormInput = (props) => {
-    const {checkboxes, label, idGroup, setValue} = props;
+    const {checkboxes, label, idGroup, setValue, className} = props;
 
     return (
-        <div className={'mb-15'}>
+        <div className={`mb-15 ${className}`}>
             {label && (
                 <label>{label}</label>
             )}

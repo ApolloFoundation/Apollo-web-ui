@@ -7,13 +7,14 @@
 import React from 'react';
 import SiteHeader from '../../components/site-header';
 import {connect} from 'react-redux';
+import {withRouter} from "react-router-dom";
 import './Messenger.scss';
 import {BlockUpdater} from "../../block-subscriber/index";
 import {getChatsPerPage, getChatHistory} from "../../../actions/messager";
 
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import Chat from './chat';
-import SidebarMessages from './sidebar-messenger/';
+import SidebarMessages from './sidebar-messenger';
 import SidebarContentPage from '../../components/sidebar-content-page';
 
 class Messenger extends React.PureComponent {
@@ -55,12 +56,8 @@ class Messenger extends React.PureComponent {
                     </button>
 				</SiteHeader>
                 <SidebarContentPage
-                    SidebarContent={() => (
-                        <SidebarMessages />
-                    )}
-                    PageContent={() => (
-                        <Chat/>
-                    )}
+                    SidebarContent={SidebarMessages}
+                    PageContent={Chat}
                     pageContentClassName={'pl-3 pr-0'}
                 />
 			</div>
@@ -78,4 +75,4 @@ const mapDispatchToProps = {
     setBodyModalParamsAction,
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Messenger);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Messenger));
