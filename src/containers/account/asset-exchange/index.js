@@ -297,7 +297,7 @@ class AssetExchange extends React.Component {
                                                         })
                                                     }}
                                                 >
-                                                    View Account Distribution
+                                                    View Asset Distribution
                                                 </button>
                                             </div>
                                         </div>
