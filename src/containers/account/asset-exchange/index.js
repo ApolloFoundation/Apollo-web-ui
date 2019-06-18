@@ -28,17 +28,31 @@ import SellAsset from './sell-asset';
 import SidebatAsset from './sidebar-asset';
 import SidebarContent from '../../components/sidebar-list';
 
+const itemsPerPage = 5;
+
 class AssetExchange extends React.Component {
     state = {
         asset: null,
         assets: null,
-        bidOrders: [],
-        askOrders: [],
+        buyOrders: [],
+        sellOrders: [],
+        pagination: {
+            sell: {
+                page: 1,
+                firstIndex: 0,
+                lastIndex: itemsPerPage - 1,
+            },
+            buy: {
+                page: 1,
+                firstIndex: 0,
+                lastIndex: itemsPerPage - 1,
+            },
+        }
     };
 
     listener = data => {
-        console.log('---assetId----', this.props.match.params)
-        this.getAsset(this.props.match.params.asset);
+        const assetId = this.props.match.params.asset || (this.state.assets && this.state.assets[0].asset);
+        this.getAsset(assetId);
         this.getAssets();
     };
 
@@ -66,9 +80,6 @@ class AssetExchange extends React.Component {
     getAsset = async (assetID) => {
         let asset = await this.props.getAssetAction({asset: assetID});
 
-        this.setState({
-            asset,
-        });
 
         if (asset) {
             const assetBalance = this.props.assetBalances && this.props.assetBalances.find(item => {
@@ -76,13 +87,12 @@ class AssetExchange extends React.Component {
             });
             asset.balanceATU = assetBalance ? assetBalance.balanceATU : 0;
 
-            const bidOrders = await this.getBuyOrders(asset);
-            const askOrders = await this.getSellOrders(asset);
             this.setState({
-                askOrders: askOrders,
-                bidOrders: bidOrders,
-            })
+                asset,
+            });
 
+            this.getBuyOrders(asset);
+            this.getSellOrders(asset);
         }
     };
 
@@ -90,25 +100,31 @@ class AssetExchange extends React.Component {
         const assets = await this.props.getAccountAssetAction({account: newState.account});
 
         if (assets) {
-
-            const accountAssets = assets.accountAssets;
-            const assetsInfo = assets.assets;
-
-
-            const result = accountAssets.map((el, index) => {
-                return {...(assetsInfo[index]), ...el}
+            const assetId = this.props.match.params.asset || (this.state.assets && this.state.assets[0].asset);
+            const accountAsset = assets.accountAssets.find((el) => {
+                return el.asset === assetId
             });
 
             this.setState({
-                accountAssets: result,
+                accountAsset,
+                accountAssets: assets.accountAssets,
             })
         }
 
     };
 
-    getBuyOrders = async assetName => {
-
-        const buyOrders = await this.props.getBidOrders(assetName.asset);
+    getBuyOrders = async (assetName, pagination) => {
+        if (!pagination) {
+            pagination = {
+                firstIndex: this.state.pagination.buy.firstIndex,
+                lastIndex: this.state.pagination.buy.lastIndex,
+            }
+        }
+        const buyOrders = await this.props.getBidOrders({
+            asset: assetName.asset,
+            firstIndex: pagination.firstIndex,
+            lastIndex: pagination.lastIndex
+        });
         if (buyOrders) {
             const assets = buyOrders.assets;
             const orders = buyOrders.orders;
@@ -118,22 +134,50 @@ class AssetExchange extends React.Component {
                 return {...el, ...asset}
             });
 
-            return result;
+            const newPagination = this.state.pagination;
+            newPagination.buy = {
+                ...newPagination.buy,
+                ...pagination
+            };
+
+            this.setState({
+                pagination: newPagination,
+                buyOrders: result,
+            });
         }
     };
 
-    getSellOrders = async assetName => {
-        const buyOrders = await this.props.getAskOrders(assetName.asset);
-        if (buyOrders) {
-            const assets = buyOrders.assets;
-            const orders = buyOrders.orders;
+    getSellOrders = async (assetName, pagination) => {
+        if (!pagination) {
+            pagination = {
+                firstIndex: this.state.pagination.sell.firstIndex,
+                lastIndex: this.state.pagination.sell.lastIndex,
+            }
+        }
+        const sellOrders = await this.props.getAskOrders({
+            asset: assetName.asset,
+            firstIndex: pagination.firstIndex,
+            lastIndex: pagination.lastIndex
+        });
+        if (sellOrders) {
+            const assets = sellOrders.assets;
+            const orders = sellOrders.orders;
 
             const result = assets.map((el, index) => {
                 const asset = orders[index];
                 return {...el, ...asset}
             });
 
-            return result;
+            const newPagination = this.state.pagination;
+            newPagination.sell = {
+                ...newPagination.sell,
+                ...pagination
+            };
+
+            this.setState({
+                pagination: newPagination,
+                sellOrders: result,
+            });
         }
     };
 
@@ -214,6 +258,19 @@ class AssetExchange extends React.Component {
         }, () => {
             this.props.history.push('/asset-exchange')
         });
+    };
+
+    onPaginate = (type, page) => {
+        const pagination = {
+            page: page,
+            firstIndex: page * itemsPerPage - itemsPerPage,
+            lastIndex: page * itemsPerPage - 1
+        };
+        if (type === 'buy') {
+            this.getBuyOrders(this.state.asset, pagination);
+        } else if(type === 'sell') {
+            this.getSellOrders(this.state.asset, pagination);
+        }
     };
 
     render() {
@@ -317,21 +374,40 @@ class AssetExchange extends React.Component {
                                 <div className="col-md-9 p-0">
                                     <div className={'row'}>
                                         <div className="col-xl-6 col-md-12 pr-0 pb-3">
-                                            <BuyAsset balanceATU={this.state.asset.balanceATU} asset={this.state.asset}
-                                                      handleTotalValue={this.handleTotalValue}
-                                                      handleBuyOrders={this.handleBuyOrders}/>
+                                            <BuyAsset
+                                                asset={this.state.asset}
+                                                balanceATU={this.state.asset.balanceATU}
+                                                handleTotalValue={this.handleTotalValue}
+                                                handleBuyOrders={this.handleBuyOrders}
+                                            />
                                         </div>
                                         <div className="col-xl-6 col-md-12 pr-0 pb-3">
-                                            <SellAsset asset={this.state.asset} handleTotalValue={this.handleTotalValue}
-                                                       handleSellOrders={this.handleSellOrders}/>
+                                            <SellAsset
+                                                asset={this.state.asset}
+                                                accountAsset={this.state.accountAsset}
+                                                handleTotalValue={this.handleTotalValue}
+                                                handleSellOrders={this.handleSellOrders}
+                                            />
                                         </div>
                                     </div>
                                     <div className={'row'}>
                                         <div className={'col-xl-6 col-md-12 pr-0 pb-3'}>
-                                            <OffersToBuy bidOrders={this.state.bidOrders} asset={this.state.asset}/>
+                                            <OffersToBuy
+                                                buyOrders={this.state.buyOrders}
+                                                asset={this.state.asset}
+                                                page={this.state.pagination.buy.page}
+                                                onPaginate={this.onPaginate}
+                                                itemsPerPage={itemsPerPage}
+                                            />
                                         </div>
                                         <div className={'col-xl-6 col-md-12 pr-0 pb-3'}>
-                                            <OffersToSell askOrders={this.state.askOrders} asset={this.state.asset}/>
+                                            <OffersToSell
+                                                sellOrders={this.state.sellOrders}
+                                                asset={this.state.asset}
+                                                page={this.state.pagination.sell.page}
+                                                onPaginate={this.onPaginate}
+                                                itemsPerPage={itemsPerPage}
+                                            />
                                         </div>
                                     </div>
                                 </div>
@@ -402,8 +478,8 @@ const mapDispatchToProps = dispatch => ({
     getTransactionAction: (requestParams) => dispatch(getTransactionAction(requestParams)),
 
     getAccountAssetAction: (reqParams) => dispatch(getSpecificAccountAssetsAction(reqParams)),
-    getAskOrders: asset => dispatch(getAskOrders(asset)),
-    getBidOrders: asset => dispatch(getBidOrders(asset)),
+    getAskOrders: requestParams => dispatch(getAskOrders(requestParams)),
+    getBidOrders: requestParams => dispatch(getBidOrders(requestParams)),
 });
 
 

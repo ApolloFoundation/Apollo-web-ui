@@ -208,6 +208,11 @@ class Sidebar extends React.Component {
 												All assets
                                             </NavLink>
                                         </li>
+										<li>
+											<NavLink exact={true} activeClassName="active" to="/my-assets">
+												My assets
+											</NavLink>
+										</li>
                                         <li>
                                             <NavLink exact={true} activeClassName="active" to="/asset-exchange">
                                                 Asset exchange
@@ -222,8 +227,6 @@ class Sidebar extends React.Component {
 											history</NavLink></li>
 										<li><NavLink exact={true} activeClassName="active" to="/delete-history">Delete
 											history</NavLink></li>
-										<li><NavLink exact={true} activeClassName="active" to="/my-assets">My
-											assets</NavLink></li>
 										<li><NavLink exact={true} activeClassName="active" to="/open-orders">Open
 											orders</NavLink></li>
 										<li>

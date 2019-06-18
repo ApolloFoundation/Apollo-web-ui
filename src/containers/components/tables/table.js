@@ -26,7 +26,7 @@ const CustomTable = (props) => {
                                 AboveTabeComponent &&
                                 <AboveTabeComponent />
                             }
-                            <div className="transaction-table-body pb-0 mb-4">
+                            <div className="transaction-table-body pb-0">
                                 <table>
                                     <thead>
                                         <tr>

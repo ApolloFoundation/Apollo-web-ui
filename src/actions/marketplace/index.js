@@ -209,12 +209,12 @@ export function getDGSPendingPurchases(reqParams) {
     }
 }
 
-export function getAskOrders(asset) {
+export function getAskOrders(reqParams) {
     return dispatch => {
         return axios.get(config.api.serverUrl, {
             params: {
                 requestType: 'getAskOrders',
-                asset
+                ...reqParams
             }
         })
             .then(async (res) => {
@@ -236,12 +236,12 @@ export function getAskOrders(asset) {
     }
 };
 
-export function getBidOrders(asset) {
+export function getBidOrders(reqParams) {
     return dispatch => {
         return axios.get(config.api.serverUrl, {
             params: {
                 requestType: 'getBidOrders',
-                asset
+                ...reqParams
             }
         })
             .then(async (res) => {
