@@ -31,9 +31,9 @@ class MyAssetItem extends React.Component {
     getAskOrders = async () => {
         const {asset} = this.props;
 
-        const askOrders = await this.props.getAskOrders(asset);
+        const askOrders = await this.props.getAskOrders({asset});
 
-        if (askOrders) {
+        if (askOrders && askOrders.orders) {
             let orders = Math.min(...askOrders.orders.map((el) => {
                 return el.priceATM
             }));
@@ -50,22 +50,18 @@ class MyAssetItem extends React.Component {
     getBidOrders = async () => {
         const {asset} = this.props;
 
-        const bidOrders = await this.props.getBidOrders(asset);
+        const bidOrders = await this.props.getBidOrders({asset});
 
-        if (bidOrders) {
+        if (bidOrders && bidOrders.orders) {
+            let orders = Math.max(...bidOrders.orders.map((el) => {
+                return el.priceATM
+            }));
 
-            if (bidOrders) {
+            orders = isFinite(orders) ? orders : null;
 
-                let orders = Math.max(...bidOrders.orders.map((el) => {
-                    return el.priceATM
-                }));
-
-                orders = isFinite(orders) ? orders : null;
-
-                this.setState({
-                    highestBidOrder : orders
-                })
-            }
+            this.setState({
+                highestBidOrder : orders
+            })
         }
     };
 

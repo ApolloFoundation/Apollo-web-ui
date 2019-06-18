@@ -29,7 +29,7 @@ class OrderItem extends React.Component {
     }
 
     getOrderInfo = () => {
-        this.props.getOrderInfo(this.props.order.asset).then(res => {
+        this.props.getOrderInfo(this.props.asset).then(res => {
             this.setState({
                 orderInfo: res ? res : {}
             })
@@ -50,12 +50,12 @@ class OrderItem extends React.Component {
                 <td
                     className="align-left"
                 >
-                    {this.props.order.quantityATU / Math.pow(10, this.props.order.decimals)}
+                    {this.props.quantityATU / Math.pow(10, this.props.decimals)}
                 </td>
 
-                <td>{((this.props.order.quantityATU * this.props.order.priceATM) /  ONE_APL) / (this.props.order.quantityATU / Math.pow(10, this.props.order.decimals))}</td>
+                <td>{((this.props.quantityATU * this.props.priceATM) /  ONE_APL) / (this.props.quantityATU / Math.pow(10, this.props.decimals))}</td>
 
-                <td className="align-right">{(this.props.order.quantityATU * this.props.order.priceATM) /  ONE_APL}</td>
+                <td className="align-right">{(this.props.quantityATU * this.props.priceATM) /  ONE_APL}</td>
 
             </tr>
         );

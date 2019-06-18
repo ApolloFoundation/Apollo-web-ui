@@ -85,6 +85,9 @@ const MobileMenu = ({setBodyModalParamsAction, closeMenu}) => (
                             <NavLink exact={true} activeClassName="active" to="/all-assets">
                                 All assets
                             </NavLink>
+                            <NavLink exact={true} activeClassName="active" to="/my-assets">
+                                My assets
+                            </NavLink>
                             <NavLink exact={true} activeClassName="active" to="/asset-exchange">
                                 Asset exchange
                             </NavLink>
@@ -94,8 +97,6 @@ const MobileMenu = ({setBodyModalParamsAction, closeMenu}) => (
                                         to="/transfer-history">Transfer history</NavLink>
                             <NavLink exact={true} activeClassName="active"
                                         to="/delete-history">Delete history</NavLink>
-                            <NavLink exact={true} activeClassName="active" to="/my-assets">My
-                                assets</NavLink>
                             <NavLink exact={true} activeClassName="active"
                                         to="/open-orders">Open orders</NavLink>
                             {/* <NavLink exact={true} activeClassName="active"
