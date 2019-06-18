@@ -56,7 +56,7 @@ class AssetExchange extends React.Component {
     componentDidUpdate = (prevProps) => {
         if (this.props.location.pathname !== prevProps.location.pathname ||
             (!this.props.match.params.asset && !this.state.asset && this.state.assets && this.state.assets.length > 0)) {
-            const assetId = this.props.match.params.asset || this.state.assets[0].asset;
+            const assetId = this.props.match.params.asset || (this.state.assets && this.state.assets[0].asset);
             this.getAsset(assetId);
             this.getAssets();
             this.getAccountAsset(this.props);

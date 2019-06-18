@@ -32,7 +32,7 @@ class AssetItem extends React.Component {
 
         const askOrders = await this.props.getAskOrders(asset);
 
-        if (askOrders) {
+        if (askOrders && askOrders.orders) {
             let orders = Math.min(...askOrders.orders.map((el) => {
                 return el.priceATM
             }));
@@ -51,20 +51,16 @@ class AssetItem extends React.Component {
 
         const bidOrders = await this.props.getBidOrders(asset);
 
-        if (bidOrders) {
+        if (bidOrders && bidOrders.orders) {
+            let orders = Math.max(...bidOrders.orders.map((el) => {
+                return el.priceATM
+            }));
 
-            if (bidOrders) {
+            orders = isFinite(orders) ? orders : null;
 
-                let orders = Math.max(...bidOrders.orders.map((el) => {
-                    return el.priceATM
-                }));
-
-                orders = isFinite(orders) ? orders : null;
-
-                this.setState({
-                    highestBidOrder : orders
-                })
-            }
+            this.setState({
+                highestBidOrder: orders
+            });
         }
     };
 

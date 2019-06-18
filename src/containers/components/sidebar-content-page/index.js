@@ -13,27 +13,19 @@ class SidebarContentPage extends PureComponent {
         }
 
         push(path.split(':')[0]);
-    }
+    };
 
     render () {
         const {SidebarContent, PageContent, match: {params}, pageContentClassName, backButtonClassname} = this.props;
-        const isGoBack = !!Object.values(params).length
+        const isGoBack = !!Object.values(params).length;
 
         return (
-            <div className="page-body container-fluid followed-polls-container pl-0">
+            <div className="page-body container-fluid followed-polls-container pl-0 sidebar-content-page">
                     <div className="row">
-                        <div className={`col-md-3 p-0 pb-3 pl-3 pr-0`}>
-                            {
-                                window.innerWidth > 767 &&
-                                <SidebarContent />                         
-                                ||
-                                <>
-                                    {
-                                        !isGoBack &&
-                                        <SidebarContent />                         
-                                    }
-                                </>
-                            }
+                        <div className={`col-md-3 p-0 pb-3`}>
+                            {(window.innerWidth > 767 || !isGoBack) && (
+                                <SidebarContent params={params} />
+                            )}
                         </div> 
 
                         <div className={`col-md-9 pb-3 ${pageContentClassName ? pageContentClassName: 'pl-0'}`}>
@@ -48,18 +40,9 @@ class SidebarContentPage extends PureComponent {
                                     Back to list
                                 </div>
                             }
-                            {
-                                window.innerWidth > 767 &&
-                                <PageContent />                         
-                                ||
-                                <>
-                                    {
-                                        isGoBack &&
-                                        <PageContent />                         
-                                    }
-                                </>
-
-                            }
+                            {(window.innerWidth > 767 || isGoBack) && (
+                                <PageContent />
+                            )}
                         </div>
                     </div>
                 </div>

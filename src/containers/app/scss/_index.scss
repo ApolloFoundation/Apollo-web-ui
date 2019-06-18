@@ -5,12 +5,6 @@
 @import "~react-hint/css/index.css";
 @import "~@fortawesome/fontawesome-free/css/all.css";
 
-//@import "~bootstrap/dist/css/bootstrap.min.css";
-
-
-@import "mixins.scss";
-
-@import "global.scss";
 @import "bootstrap/mixins";
 @import "bootstrap/functions";
 @import "bootstrap/variables";
@@ -21,16 +15,16 @@
 @import "bootstrap/badge";
 @import "bootstrap/button-group";
 
-@import "_global.scss";
-@import "_apl-components.scss";
-
 @import "./components/tabels.scss";
 @import "./components/form-group-app.scss";
 @import "./components/input-group-app.scss";
 @import "./components/card.scss";
 @import "./components/modal-window.scss";
 
-@import "_style.scss";
-@import "_media.scss";
-@import "_exchange.scss";
+@import "global.scss";
+@import "mixins.scss";
+@import "apl-components.scss";
+@import "style.scss";
+@import "media.scss";
+@import "exchange.scss";
 
