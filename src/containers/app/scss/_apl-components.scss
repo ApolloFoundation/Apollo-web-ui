@@ -18,15 +18,16 @@
     }
   }
   .top-bar {
+    display: flex;
+    flex-wrap: wrap;
     & > {
       margin-right: 15px;
     }
   }
-  .bottom-bar {
-
-  }
   .btn {
     position: static;
+    margin: 12px 12px 0 0;
+    height: max-content;
 
     &.filter {
       height: 30px;
@@ -50,6 +51,25 @@
       &.active {
         background-color: rgba(147,169,195,0.24);
         box-shadow: none;
+      }
+    }
+  }
+  .monitors-table {
+    display: table;
+    width: 100%;
+    max-width: 300px;
+    padding: 15px;
+    background-color: #fff;
+    border-radius: 6px;
+    border: 1px solid #efefef;
+
+    tr {
+      td {
+        padding: 5px;
+
+        a {
+          color: #00C8FF;
+        }
       }
     }
   }
