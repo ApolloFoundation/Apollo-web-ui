@@ -16,10 +16,11 @@ button {
 
 input {
   width: 100%;
-  border: 1px solid #E5E5E5;
-  background-color: #F5F5F5;
-  border-radius: 3px;
-  padding: 10px 20px;
+  color: #3D5A7E;
+  background-color: #FCFCFD;
+  border: 1px solid #E6EAEE;
+  border-radius: 2px;
+  padding: 5px;
 }
 
 .site-content {
@@ -311,47 +312,10 @@ input {
           min-height: auto;
         }
       }
-
       // my transactions page
       .my-transactions {
         width: 100%;
 
-        .transactions-filters {
-
-          .monitors-table {
-            display: table;
-            width: 100%;
-            max-width: 300px;
-            padding: 15px;
-            background-color: #fff;
-            border-radius: 6px;
-            border: 1px solid #efefef;
-
-            tr {
-              td {
-                padding: 5px;
-
-                a {
-                  color: #00C8FF;
-                }
-              }
-            }
-          }
-          .top-bar {
-            display: flex;
-            flex-wrap: wrap;
-
-            .btn {
-              margin-top: 10px;
-              margin-right: 15px;
-              height: max-content;
-
-              &.active {
-                border-color: #101010;                 
-              }
-            }
-          }
-        }
         .transaction-table {
           height: calc(100% - 60px);
           min-height: 560px;
