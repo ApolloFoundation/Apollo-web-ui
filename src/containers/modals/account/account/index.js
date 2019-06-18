@@ -77,16 +77,6 @@ class InfoAccount extends React.PureComponent {
         }
     }
 
-    componentWillReceiveProps(newState) {
-        if (newState.modalData) {
-            this.getAcccount({
-                account: newState.modalData,
-                firstIndex: 0,
-                lastIndex: 14
-            })
-        }
-    }
-
     // requets
     getAcccount = async (requestParams) => {
         const accountData = this.props.getAccountAction(requestParams);
@@ -251,6 +241,7 @@ class InfoAccount extends React.PureComponent {
                                             }
                                         ]}
                                         className={'no-min-height transparent'}
+                                        hintClassName={'simple no-padding-on-the-sides no-margin'}
                                         emptyMessage={'This account doesn\'t have any transactions'}
                                         TableRowComponent={ModalTransaction}
                                         tableData={this.state.transactions ? this.state.transactions.transactions : null}
@@ -287,6 +278,7 @@ class InfoAccount extends React.PureComponent {
                                             }
                                         ]}
                                         className={'no-min-height transparent'}
+                                        hintClassName={'simple no-padding-on-the-sides no-margin'}
                                         emptyMessage={'This account doesn\'t have any ledger'}
                                         TableRowComponent={Entry}
                                         tableData={this.state.account_ledger ? this.state.account_ledger.entries : null}
@@ -323,14 +315,10 @@ class InfoAccount extends React.PureComponent {
                                             }
                                         ]}
                                         className={'no-min-height transparent'}
+                                        hintClassName={'simple no-padding-on-the-sides no-margin'}
                                         emptyMessage={'This account doesn\'t have any assets'}
                                         TableRowComponent={Asset}
-                                        hintClassName={'simple no-padding-on-the-sides'}
                                         tableData={this.state.assets}
-                                        isPaginate
-                                        page={this.state.pagination.assets}
-                                        previousHendler={() => this.onPaginate('assets', this.state.pagination.assets - 1)}
-                                        nextHendler={() => this.onPaginate('assets', this.state.pagination.assets + 1)}
                                     />
                                 </TabContaier>
                                 <TabContaier sectionName="Trade history">
@@ -357,9 +345,9 @@ class InfoAccount extends React.PureComponent {
                                             }
                                         ]}
                                         className={'no-min-height transparent'}
+                                        hintClassName={'simple no-padding-on-the-sides no-margin'}
                                         emptyMessage={'This account doesn\'t have any trades.'}
                                         TableRowComponent={Trade}
-                                        hintClassName={'simple no-padding-on-the-sides'}
                                         tableData={this.state.trades ? this.state.trades.trades : null}
                                         isPaginate
                                         page={this.state.pagination.trades}
@@ -382,9 +370,9 @@ class InfoAccount extends React.PureComponent {
                                             },
                                         ]}
                                         className={'no-min-height transparent'}
+                                        hintClassName={'simple no-padding-on-the-sides no-margin'}
                                         emptyMessage={'This account doesn\'t have any currencies.'}
                                         TableRowComponent={Currency}
-                                        hintClassName={'simple no-padding-on-the-sides'}
                                         tableData={this.state.currencies ? this.state.currencies.accountCurrencies : null}
                                         isPaginate
                                         page={this.state.pagination.currencies}
@@ -407,9 +395,9 @@ class InfoAccount extends React.PureComponent {
                                             },
                                         ]}
                                         className={'no-min-height transparent'}
+                                        hintClassName={'simple no-padding-on-the-sides no-margin'}
                                         emptyMessage={'This account doesn\'t have any goods.'}
                                         TableRowComponent={Goods}
-                                        hintClassName={'simple no-padding-on-the-sides'}
                                         tableData={this.state.goods ? this.state.goods.goods : null}
                                         isPaginate
                                         page={this.state.pagination.goods}
@@ -430,9 +418,9 @@ class InfoAccount extends React.PureComponent {
                                             },
                                         ]}
                                         className={'no-min-height transparent'}
+                                        hintClassName={'simple no-padding-on-the-sides no-margin'}
                                         emptyMessage={'This account doesn\'t have any aliases.'}
                                         TableRowComponent={Alias}
-                                        hintClassName={'simple no-padding-on-the-sides'}
                                         tableData={this.state.aliases ? this.state.aliases.aliases : null}
                                         isPaginate
                                         page={this.state.pagination.aliases}

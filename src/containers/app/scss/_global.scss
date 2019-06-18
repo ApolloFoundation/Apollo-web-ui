@@ -635,15 +635,29 @@ div.info-box {
 	border-radius: 3px;
 	font-size: 11px;
 	line-height: 13px;
+	margin-bottom: 15px;
 	li {
 		color: #ffffff;
 		font-size: 11px;
 		line-height: 13px;
 		margin-bottom: 10px;
-		padding-left: 30px;
+		padding: 0 0 0 30px;
+		display: block;
+		position: relative;
 
 		&:last-of-type {
 			margin-bottom: 0;
+		}
+
+		&:before {
+			content: '';
+			position: absolute;
+			top: 7px;
+			left: 0;
+			height: 6px;
+			width: 6px;
+			background: white;
+			border-radius: 100%;
 		}
 
 		&.check-icon:before {
@@ -740,6 +754,7 @@ div.info-box {
 		background: transparent;
 		padding-left: 0;
 		padding-right: 0;
+		color: #8AA5C7;
 	}
 	&.no-padding-on-the-sides {
 		padding-left: 0;
@@ -748,8 +763,17 @@ div.info-box {
 	&.no-padding-top {
 		padding-top: 0;
 	}
+	&.no-margin {
+		margin: 0;
+	}
 	&.nowrap {
 		word-break: unset;
+	}
+	&.mt {
+		margin-top: 25px;
+	}
+	a {
+		color: #2547F4;
 	}
 }
 
