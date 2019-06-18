@@ -159,7 +159,7 @@ class App extends React.Component {
                         <div
                             className="phased-transaction"
                         >
-                            <div className="phasing-box__phasing-description p-3">
+                            <div className="phasing-box__phasing-description">
                                 {catId.infoContent}
                             </div>
                         </div>

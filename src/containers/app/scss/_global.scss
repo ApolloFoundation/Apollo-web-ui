@@ -759,19 +759,25 @@ div.info-box {
 
 .phased-transaction {
 	.phasing-box__phasing-description {
-		border: 1px solid #666;
-		width: 300px;
+		min-width: 102px;
 		background-color: #fff;
 		box-sizing: border-box;
 		transition: all 0.3s ease-in-out;
 		transform: translateY(-15px);
+		color: #98B0CD;
+		border: 1px solid #E6EAEE;
+		box-shadow: 0 7px 15px 0 rgba(218,218,218,0.49);
+		border-radius: 3px;
+		font-size: 10px;
+		text-align: center;
+		padding: 12px 6px;
 
 		&::after {
 			content: '';
 			height: 15px;
 			width: 15px;
-			border-bottom: 1px solid #666;
-			border-right: 1px solid #666;
+			border-bottom: 1px solid #E6EAEE;
+			border-right: 1px solid #E6EAEE;
 			transform: rotate(45deg) translateX(-50%);
 			position: absolute;
 			left: 50%;
