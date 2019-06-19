@@ -92,7 +92,7 @@ class AccountInfo extends React.Component {
                                     </div>
                                     <NummericInputForm
                                         field={'feeATM'}
-                                        counterLabel={'Apollo'}
+                                        counterLabel={'APL'}
                                         type={'float'}
                                         label={'Fee'}
                                         setValue={setValue}

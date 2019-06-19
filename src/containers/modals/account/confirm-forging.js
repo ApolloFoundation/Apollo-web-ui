@@ -81,7 +81,7 @@ class ConfirmForging extends React.Component {
             >
                 {action.getStatus === 'startForging' && (
                     <InfoBox info>
-                        You can start forging only if your effective balance exceed 1000 Apollo.
+                        You can start forging only if your effective balance exceed 1000 APL.
                     </InfoBox>
                 )}
 

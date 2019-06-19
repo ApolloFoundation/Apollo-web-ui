@@ -49,7 +49,7 @@ class FeeCalc extends React.Component {
                     />
                     <div className="input-group-append">
                         <span className="input-group-text">
-                            Apollo
+                            APL
                         </span>
                     </div>
                 </div>

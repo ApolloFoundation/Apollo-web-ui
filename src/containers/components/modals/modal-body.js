@@ -129,7 +129,7 @@ class ModalBody extends React.Component {
                                     {
                                         marketplace && marketplace.name &&
                                         <div className="price">
-                                            {marketplace.priceATM / ONE_APL} Apollo
+                                            {marketplace.priceATM / ONE_APL} APL
                                         </div>
                                     }
 
@@ -155,7 +155,7 @@ class ModalBody extends React.Component {
                                     {isFee && (
                                         <NummericInputForm
                                             field={'feeATM'}
-                                            counterLabel={'Apollo'}
+                                            counterLabel={'APL'}
                                             type={'float'}
                                             label={'Fee'}
                                             setValue={setValue}

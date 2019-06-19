@@ -126,7 +126,7 @@ class ReserveCurrency extends React.Component {
                                             }}
                                             setValue={setValue}/>
                                         <div className="input-group-append">
-                                            <span className="input-group-text">Apollo</span>
+                                            <span className="input-group-text">APL</span>
                                         </div>
                                     </div>
                                 </div>

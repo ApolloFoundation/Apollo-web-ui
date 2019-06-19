@@ -72,7 +72,7 @@ export default class CurrencyIssuance extends Component {
 	            {this.props.transaction.attachment.hasOwnProperty("minReservePerUnitATM") &&
 	            <tr>
 		            <td>Minimum Reserve Per Unit:</td>
-		            <td>{this.props.transaction.attachment.minReservePerUnitATM / ONE_APL} Apollo</td>
+		            <td>{this.props.transaction.attachment.minReservePerUnitATM / ONE_APL} APL</td>
 	            </tr>
 	            }
 	            {this.props.transaction.attachment.hasOwnProperty("minDifficulty") &&
