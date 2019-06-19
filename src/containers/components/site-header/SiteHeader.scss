@@ -787,9 +787,10 @@
 			}
 		}
 		&.active {
-			color: #ffffff;
+			color: #2547F4;
+			font-weight: 500;
 			.zmdi {
-				color: #00c8ff;
+				color: #2547F4;
 			}
 		}
 		
@@ -816,7 +817,7 @@
 			color: #8AA5C7;
 			margin-top: 12px;
 			&.active {
-				color: #ffffff;
+				color: #2547F4;
 			}
 		}
 	}

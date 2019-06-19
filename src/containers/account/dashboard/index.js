@@ -28,6 +28,7 @@ import DashboardTransactions from './dashboard-transactions';
 import DecentralizedMarketplace from './decentralized-market';
 import ActivePolls from './active-polls';
 import DashboardNews from './news';
+import TalkToUs from './talk-to-us';
 
 
 class Dashboard extends React.Component {
@@ -93,6 +94,7 @@ class Dashboard extends React.Component {
 							</div>
 							<div className="col-xl-3 col-lg-6 col-md-6 pr-0 mb-3">
 								<DashboardNews />
+								<TalkToUs />
 							</div>
 						</div>
 					</div>

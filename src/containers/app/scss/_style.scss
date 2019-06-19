@@ -294,11 +294,42 @@ input {
           }
         }
         &.apollo-news {
+          height: 315px;
           .card-news-content {
             color: #777777;
             font-weight: 400;
             font-size: 12px;
             line-height: 18px;
+          }
+        }
+        &.talk-to-us {
+          .social-wrap {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 25px;
+            .social-row {
+              display: flex;
+              width: 100%;
+              height: 100%;
+              align-items: center;
+              justify-content: space-between;
+            }
+          }
+          a {
+            cursor: pointer;
+            transition: 0.3s;
+            &:hover {
+              color: #2547F4;
+              box-shadow: 0 6px 4px rgba(37, 71, 244, 0.13);
+            }
+            img {
+              width: 30px;
+              fill: rgb(152,176,205);
+            }
           }
         }
       }
