@@ -1511,9 +1511,10 @@ table {
 	}
 }
 
-.assets-exchange, .exchange-booth {
+.assets-exchange, .exchange-booth, .followed-pools {
 	.card {
 		height: 390px;
+		justify-content: flex-start;
 		.wrap-info {
 			max-height: 228px;
 			overflow: auto;
@@ -1522,12 +1523,12 @@ table {
 		.card-body {
 			form {
 				height: 100%;
-				.form-group-app {
-					display: flex;
-					flex-direction: column;
-					justify-content: space-between;
-					height: 100%;
-				}
+			}
+			.form-group-app {
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				height: 100%;
 			}
 		}
 	}

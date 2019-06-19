@@ -16,11 +16,11 @@ class SidebarContentPage extends PureComponent {
     };
 
     render () {
-        const {SidebarContent, PageContent, match: {params}, pageContentClassName, backButtonClassname} = this.props;
+        const {SidebarContent, PageContent, match: {params}, pageContentClassName, backButtonClassname, className} = this.props;
         const isGoBack = !!Object.values(params).length;
 
         return (
-            <div className="page-body container-fluid followed-polls-container pl-0 sidebar-content-page">
+            <div className={`page-body container-fluid followed-polls-container pl-0 sidebar-content-page ${className}`}>
                     <div className="row">
                         <div className={`col-md-3 p-0 pb-3`}>
                             {(window.innerWidth > 767 || !isGoBack) && (

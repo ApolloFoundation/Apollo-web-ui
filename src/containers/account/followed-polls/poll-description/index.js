@@ -11,63 +11,73 @@ const PollDescription = ({colors, poll, pollResults, setBodyModalParamsAction, b
         checkAction = true;
     }
     return (
-        <div className="card card-flexible mb-3">
-            <div className="row">
-                <div className="col-md-7">
-                    <div className="right-bar">
-                        <div className="form-group-app">
-                            <div className="form-title word-brake">
-                                <p>{poll.name}</p>
-                            </div>
-                            <div className="account-bar">
-                                <div className="information">
-                                    <div className="title">Account ID:&nbsp;&nbsp;</div>
-                                    <div className="content">{poll.accountRS}</div>
-                                </div>
-                                <div className="information">
-                                    <div className="title">Poll ID:&nbsp;&nbsp;</div>
-                                    <div className="content">{poll.poll}</div>
+        <div className="d-flex mb-3">
+            <div className="card">
+                <div className="card-title card-title-lg bg-primary">
+                    <span className={'title-lg'}>{poll.name}</span>
+                </div>
+                <div className="card-body">
+                    <div className={'form-group-app'}>
+                        <div className={'wrap-info'}>
+                            <div className={'mb-3'}>
+                                <label>
+                                    Account ID:
+                                </label>
+                                <div>
+                                    {poll.accountRS}
                                 </div>
                             </div>
-                            <div className="description-bar word-brake">
-                                <p>{poll.description}</p>
+                            <div className={'mb-3'}>
+                                <label>
+                                    Poll ID:
+                                </label>
+                                <div>
+                                    {poll.poll}
+                                </div>
                             </div>
-                            {!poll.finished && (
-                                <button
-                                    type={'button'}
-                                    onClick={() => setBodyModalParamsAction('CAST_VOTE', poll.poll)}
-                                    className={`btn btn-primary static blue ${checkAction ? 'blue-disabled' : ''}`}
-                                >
-                                    Vote in poll
-                                </button>
-                            )}
+                            <div className={'mb-3'}>
+                                <label>
+                                    Description:
+                                </label>
+                                <div>
+                                    {poll.description}
+                                </div>
+                            </div>
                         </div>
+                        {!poll.finished && (
+                            <button
+                                type={'button'}
+                                onClick={() => setBodyModalParamsAction('CAST_VOTE', poll.poll)}
+                                className={`btn btn-default btn-lg ${checkAction ? 'disabled' : ''}`}
+                            >
+                                Vote in poll
+                            </button>
+                        )}
                     </div>
                 </div>
-                <div
-                    className="col-md-5"
-                    style={{
-                        transition: 'all 0.3s ease-in-out'
-                    }}
-                >
-                    {
-                        colors.length > 0 && pollResults && poll.options && pollResults.results &&
-                        <Pie
-                            data={pollResults.results.map((el, index) => {
-                                return parseInt(el.result) || 0.05
-                            })}
-                            votes={poll.options}
-                            radius={ 150 }
-                            hole={ 0 }
-                            colors={ colors }
-                            strokeWidth={ 1 }
-                            stroke={ 'rgba(0, 0, 0, .5)' }
-                        />
-                    }
-
-                </div>
             </div>
+            <div
+                className={'d-flex align-items-center justify-content-center p-3 w-100'}
+                style={{
+                    transition: 'all 0.3s ease-in-out',
+                }}
+            >
+                {
+                    colors.length > 0 && pollResults && poll.options && pollResults.results &&
+                    <Pie
+                        data={pollResults.results.map((el, index) => {
+                            return parseInt(el.result) || 0.05
+                        })}
+                        votes={poll.options}
+                        radius={150}
+                        hole={0}
+                        colors={colors}
+                        strokeWidth={1}
+                        stroke={'rgba(0, 0, 0, .5)'}
+                    />
+                }
 
+            </div>
         </div>
 
     )
