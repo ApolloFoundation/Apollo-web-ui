@@ -162,7 +162,7 @@ class MarketplaceTags extends Component {
                         this.state.getDGSTags &&
                         this.state.getDGSTags.map((el, index) => {
                             return (
-                                <Link key={uuid()} to={'/marketplace/' + el.tag} className="btn primary">{el.tag}&nbsp;[{el.totalCount}]</Link>
+                                <Link key={uuid()} to={'/marketplace/' + el.tag} className="btn filter">{el.tag}&nbsp;[{el.totalCount}]</Link>
                             );
                         })
                     }
