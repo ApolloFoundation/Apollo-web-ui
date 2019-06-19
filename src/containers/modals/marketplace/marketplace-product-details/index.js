@@ -88,7 +88,7 @@ class MarketplaceProductDetails extends React.Component {
                                     <p>{this.state.goods.name}</p>
                                 </div>
                                 <div className="price">
-                                    {this.state.goods.priceATM / ONE_APL} Apollo
+                                    {this.state.goods.priceATM / ONE_APL} APL
                                 </div>
                                 <div className="info-table">
                                     <div className="t-row">

@@ -41,7 +41,7 @@ const SendPrivateMoneyForm = ({values, setValue, modalData, idGroup, useMixer, m
         }
         <NummericInputForm
             field={'amountATM'}
-            counterLabel={'Apollo'}
+            counterLabel={'APL'}
             type={'tel'}
             label={'Amount'}
             setValue={setValue}
@@ -75,7 +75,7 @@ const SendPrivateMoneyForm = ({values, setValue, modalData, idGroup, useMixer, m
         )}
         <NummericInputForm
             field={'feeATM'}
-            counterLabel={'Apollo'}
+            counterLabel={'APL'}
             type={'float'}
             label={'Fee'}
             setValue={setValue}

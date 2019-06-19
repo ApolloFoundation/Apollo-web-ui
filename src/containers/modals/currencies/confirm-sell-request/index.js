@@ -63,11 +63,11 @@ class SellCurrency extends React.Component {
                     <React.Fragment>
                         <TextualInputComponent
                             label={"Order Description"}
-                            text={`Sell ${this.props.modalData.units} ${this.props.modalData.code} currencies at ${this.props.modalData.rateATM / this.props.modalData.units} Apollo each.`}
+                            text={`Sell ${this.props.modalData.units} ${this.props.modalData.code} currencies at ${this.props.modalData.rateATM / this.props.modalData.units} APL each.`}
                         />
                         <TextualInputComponent
                             label={"Total"}
-                            text={`${this.props.modalData.rateATM} Apollo`}
+                            text={`${this.props.modalData.rateATM} APL`}
                         />
                     </React.Fragment>
                 )}

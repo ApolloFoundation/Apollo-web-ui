@@ -176,7 +176,7 @@ class CurrencyExchangeOffer extends Component {
                     this.state.exchanges.length &&
                     <tr>
                         <td>Total Exchanged:</td>
-                        <td>{totalExchanges} Apollo</td>
+                        <td>{totalExchanges} APL</td>
                     </tr>
                 }
 

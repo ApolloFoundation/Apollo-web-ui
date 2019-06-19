@@ -21,7 +21,7 @@ const SendMoneyForm = ({values, setValue, modalData, setBodyModalParamsAction, i
         />
         <NummericInputForm
             field={'amountATM'}
-            counterLabel={'Apollo'}
+            counterLabel={'APL'}
             type={'tel'}
             label={'Amount'}
             setValue={setValue}

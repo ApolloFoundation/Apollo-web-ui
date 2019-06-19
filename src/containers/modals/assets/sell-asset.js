@@ -71,12 +71,12 @@ class SellAsset extends React.Component {
 
                 <TextualInputComponent
                     label={'Order Description'}
-                    text={`Sell ${quantityATU} ${name} assets at ${total / quantityATU} Apollo each.`}
+                    text={`Sell ${quantityATU} ${name} assets at ${total / quantityATU} APL each.`}
                 />
 
                 <TextualInputComponent
                     label={'Total'}
-                    text={`${total} Apollo`}
+                    text={`${total} APL`}
                 />
             </ModalBody>
         );

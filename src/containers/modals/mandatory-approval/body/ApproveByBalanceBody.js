@@ -67,7 +67,7 @@ export default class ApproveByBalanceBody extends React.Component {
                     field="maxFees"
                     placeholder="Max fees"
                     type={"number"}
-                    countingTtile={'Apollo'}
+                    countingTtile={'APL'}
                 />
             </ModalBody>
         );

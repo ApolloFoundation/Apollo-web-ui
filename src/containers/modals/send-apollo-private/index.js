@@ -76,7 +76,7 @@ class SendApolloPrivate extends React.Component {
                 });
 
                 if (values.amountATM < 100) {
-                    NotificationManager.error('Minimal amountATM shold exceed 100 Apollo while using mixer.', 'Error', 5000);
+                    NotificationManager.error('Minimal amountATM shold exceed 100 APL while using mixer.', 'Error', 5000);
                     return;
                 }
 

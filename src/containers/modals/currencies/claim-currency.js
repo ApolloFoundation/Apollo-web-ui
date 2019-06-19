@@ -103,7 +103,7 @@ class ClaimCurrency extends React.Component {
                                         this.state.accountCurrecny && 
                                         this.state.currency &&
                                         <FormRowText
-                                            text={`Number of units to claim ${this.state.accountCurrecny.currentSupply / Math.pow(10, this.state.accountCurrecny.decimals)} Claim rate ${this.state.accountCurrecny.currentReservePerUnitATM / Math.pow(10, this.state.accountCurrecny.decimals)} [Apollo/${this.state.currency.code}]`}
+                                            text={`Number of units to claim ${this.state.accountCurrecny.currentSupply / Math.pow(10, this.state.accountCurrecny.decimals)} Claim rate ${this.state.accountCurrecny.currentReservePerUnitATM / Math.pow(10, this.state.accountCurrecny.decimals)} [APL/${this.state.currency.code}]`}
                                         />
                                     }
 
