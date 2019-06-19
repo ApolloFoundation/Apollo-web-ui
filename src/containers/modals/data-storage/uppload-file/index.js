@@ -39,20 +39,17 @@ class UploadFile extends React.Component {
     }
 
     handleFormSubmit = async(values) => {
-        this.setState({
-            isPending: true
-        })
+        if (!this.state.isPending) {
+            this.setState({isPending: true});
 
-        const res = await this.props.submitForm( values, 'uploadTaggedData');
-        if (res && res.errorCode) {
-            this.setState({
-                isPending: false
-            })
-            NotificationManager.error(res.errorDescription, 'Error', 5000)
-        } else {
-            this.props.setBodyModalParamsAction(null, {});
-
-            NotificationManager.success('File has been submitted!', null, 5000);
+            const res = await this.props.submitForm(values, 'uploadTaggedData');
+            if (res && res.errorCode) {
+                NotificationManager.error(res.errorDescription, 'Error', 5000)
+            } else {
+                this.props.setBodyModalParamsAction(null, {});
+                NotificationManager.success('File has been submitted!', null, 5000);
+            }
+            this.setState({isPending: false});
         }
     };
 
@@ -66,6 +63,7 @@ class UploadFile extends React.Component {
                 closeModal={this.props.closeModal}
                 handleFormSubmit={(values) => this.handleFormSubmit(values)}
                 submitButtonName={'Upload file'}
+                isPending={this.state.isPending}
             >
             
                 <UpploadFileForm />

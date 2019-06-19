@@ -39,7 +39,7 @@ const buyOrders = [
 class TradeHistoryExchange extends React.Component {
     handleFormSubmit = () => {
         if (this.props.wallet) {
-            NotificationManager.error('This functionality will be delivered in Q2 2019.', 'Error', 5000);
+            NotificationManager.error('This functionality will be delivered in future release.', 'Error', 5000);
         } else {
             this.props.handleLoginModal();
         }

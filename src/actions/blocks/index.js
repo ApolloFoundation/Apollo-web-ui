@@ -5,8 +5,9 @@
 
 
 import axios from 'axios/index';
+import {NotificationManager} from "react-notifications";
 import config from '../../config';
-import {SET_CURRENT_BLOCK} from "../../modules/account";
+import {GET, handleFetch} from "../../helpers/fetch";
 
 export function getBlocksAction(requestParams) {
     return dispatch => {
@@ -72,3 +73,27 @@ export const getNextBlockGeneratorsAction = (reqParams) => axios.get(config.api.
     .catch(() => {
 
     });
+
+export function getBackendStatus(requestParams) {
+    return (dispatch, getState) => {
+        const {blockchainStatus} = getState().account;
+        return handleFetch(`${config.api.server}/rest/control/status`, GET, requestParams)
+            .then((res) => {
+                if (!res.errorCode) {
+                    dispatch({
+                        type: "LOAD_BLOCKCHAIN_STATUS",
+                        payload: {
+                            ...blockchainStatus,
+                            status: res
+                        }
+                    });
+                    return res;
+                } else {
+                    NotificationManager.error(res.errorDescription, 'Error', 5000);
+                }
+            })
+            .catch(() => {
+
+            })
+    }
+}

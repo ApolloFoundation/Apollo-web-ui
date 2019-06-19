@@ -220,10 +220,10 @@ class JoinShuffling extends React.Component {
                                             getFormState().values.isVaultWallet &&
                                             this.state.vaultWallet &&
                                             <InfoBox attentionLeft>
-                                                Secret Phrase:  <span className={'itatic'}>{this.state.vaultWallet.passphrase}</span>
-                                                <br/>
-                                                <br/>
                                                 Account ID: <span className={'itatic'}>{this.state.vaultWallet.accountRS}</span>
+                                                <br/>
+                                                <br/>
+                                                Secret Phrase:  <span className={'itatic'}>{this.state.vaultWallet.passphrase}</span>
                                                 <br/>
                                                 <br/>
                                                 Public Key: <span className={'itatic'}>{this.state.vaultWallet.publicKey}</span>
@@ -231,8 +231,8 @@ class JoinShuffling extends React.Component {
                                                 <br/>
                                                 <CopyToClipboard
                                                     text={
-                                                        `Secret Phrase: ${this.state.vaultWallet.passphrase}\n` +
                                                         `Account ID: ${this.state.vaultWallet.accountRS}\n` +
+                                                        `Secret Phrase: ${this.state.vaultWallet.passphrase}\n` +
                                                         `Public Key: ${this.state.vaultWallet.publicKey}\n`
                                                     }
                                                     onCopy={() => {

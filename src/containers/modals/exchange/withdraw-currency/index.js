@@ -176,18 +176,43 @@ class WithdrawCurrency extends React.Component {
                                                 Gas Fee
                                             </label>
                                             <div className="col-sm-9">
-                                                {this.state.fee ? (
-                                                    <div className="btn-group w-100" role="group" aria-label="Basic example">
-                                                        {transactionFee && Object.keys(transactionFee).map((key, index) => (
-                                                            <button
-                                                                type="button"
-                                                                className={`w-100 btn btn-secondary submit-button ${this.state.fee.level === key ? 'blue': ''}`}
-                                                                onClick={() => this.handleSelectTransactionFee({level: key, value: transactionFee[key]})}
-                                                            >
-                                                                <span className={'text-uppercase'}>{key}</span><br/>
-                                                                <small>{formatGweiToEth(transactionFee[key], 0)} ETH</small>
-                                                            </button>
-                                                        ))}
+                                                {transactionFee && this.state.fee ? (
+                                                    <div className="btn-group w-100"
+                                                         role="group"
+                                                         aria-label="Gas Fee">
+                                                        <button
+                                                            type="button"
+                                                            className={`w-100 p-2 btn btn-secondary submit-button ${this.state.fee.level === 'safeLow' ? 'blue' : ''}`}
+                                                            onClick={() => this.handleSelectTransactionFee({
+                                                                level: 'safeLow',
+                                                                value: transactionFee['safeLow']
+                                                            })}
+                                                        >
+                                                            <span className="text-uppercase">SafeLow</span><br/>
+                                                            <small>{formatGweiToEth(transactionFee['safeLow'], 0)} ETH</small>
+                                                        </button>
+                                                        <button
+                                                            type="button"
+                                                            className={`w-100 p-2 btn btn-secondary submit-button ${this.state.fee.level === 'average' ? 'blue' : ''}`}
+                                                            onClick={() => this.handleSelectTransactionFee({
+                                                                level: 'average',
+                                                                value: transactionFee['average']
+                                                            })}
+                                                        >
+                                                            <span className="text-uppercase">Average</span><br/>
+                                                            <small>{formatGweiToEth(transactionFee['average'], 0)} ETH</small>
+                                                        </button>
+                                                        <button
+                                                            type="button"
+                                                            className={`w-100 p-2 btn btn-secondary submit-button ${this.state.fee.level === 'fast' ? 'blue' : ''}`}
+                                                            onClick={() => this.handleSelectTransactionFee({
+                                                                level: 'fast',
+                                                                value: transactionFee['fast']
+                                                            })}
+                                                        >
+                                                            <span className="text-uppercase">Fast</span><br/>
+                                                            <small>{formatGweiToEth(transactionFee['fast'], 0)} ETH</small>
+                                                        </button>
                                                     </div>
                                                 ) : (
                                                     <ContentLoader className={'m-0 p-0'}/>

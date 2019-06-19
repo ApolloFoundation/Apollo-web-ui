@@ -27,7 +27,7 @@ class BlockHeightInput extends Component {
                         type={"tel"}
                         field={field}
                         placeholder={placeholder}
-                        defaultValue={actualBlock + (deafultPlus || 10000)}
+                        defaultValue={''}
                         setValue={setValue}
                         id={`${idGroup}${field}-field`}
                     />

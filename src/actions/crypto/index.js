@@ -9,6 +9,7 @@ import { ECAsymCrypto }      from '../../vendors/fb-crypto/ec_crypto';
 import { ECPointFp }         from '../../vendors/fb-crypto/ec';
 import converters from "../../helpers/converters";
 import sha256 from 'js-sha256';
+import queryString from "query-string";
 
 var BigInteger = require('jsbn').BigInteger;
 
@@ -16,11 +17,10 @@ var SecureRandom = require('../../vendors/fb-crypto/rng').SecureRandom;
 
 
 export const getElGamalPublicKey = () => {
-    return axios.get(config.api.serverUrl, {
-        params: {
-            requestType: 'getElGamalPublicKey',
-        }
-    })
+    const data = {
+        requestType: 'getElGamalPublicKey',
+    };
+    return axios.post(config.api.serverUrl + queryString.stringify(data))
         .then(({data}) => {
             return data;
         })

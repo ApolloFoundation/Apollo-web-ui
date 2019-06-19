@@ -85,7 +85,7 @@ class Exchange extends React.Component {
                     <div className={'row'}>
                         <div className={'col-md-12 pr-0 pb-3'}>
                             <InfoBox info>
-                                Please, notice - this is the first version on Apollo Exchange. Functionality of trading will be delivered in May 2019. At the moment you can deposit in ETH and PAX.
+                                Please, notice - this is the first version on Apollo Exchange. Functionality of trading will be delivered in future release. At the moment you can deposit in ETH and PAX.
                                 Please, check our updates in the official <a href={'https://t.me/apolloofficialannouncements'} target='_blank' rel='noopener noreferrer'>Telegram channel</a> to be the first to use Apollo Exchange
                             </InfoBox>
                         </div>

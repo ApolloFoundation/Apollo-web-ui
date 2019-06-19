@@ -51,7 +51,7 @@ class InputForm extends React.Component {
             }
             if (type === "tel") {
                 value = value.replace(/[^\d]/g, "");
-                if (/^0+/.test(value)) {
+                if (value !== '0' && /^0+/.test(value)) {
                     value = value.replace(/0+/, "");
                 }
 
@@ -113,6 +113,7 @@ class InputForm extends React.Component {
             }
         }
         if (this.props.onChange) this.props.onChange(value);
+        if (this.props.setValue && this.props.field) this.props.setValue(this.props.field, value);
         this.setState({value});
         return value;
     };
