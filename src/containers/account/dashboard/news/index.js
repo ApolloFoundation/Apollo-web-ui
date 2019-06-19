@@ -37,7 +37,8 @@ class DashboardNews extends Component {
 
     render () {
         return (
-            <div className="card card-tall justify-content-start apollo-news">
+            <div className={'page-body-item h-auto w-100 p-0'}>
+            <div className="card justify-content-start apollo-news mb-3">
                 <div className="card-title">Apollo News</div>
                 <div className="card-body d-flex flex-column justify-content-between">
                     <div className="card-news-content">
@@ -84,6 +85,7 @@ class DashboardNews extends Component {
                         }
                     </div>
                 )}
+            </div>
             </div>
         )
     }
