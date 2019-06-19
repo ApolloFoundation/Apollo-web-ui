@@ -56,6 +56,7 @@ class Messenger extends React.PureComponent {
                     </button>
 				</SiteHeader>
                 <SidebarContentPage
+                    className={'messenger-height'}
                     SidebarContent={SidebarMessages}
                     PageContent={Chat}
                     pageContentClassName={'pl-3 pr-0'}

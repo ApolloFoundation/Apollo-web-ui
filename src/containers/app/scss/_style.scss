@@ -505,9 +505,12 @@ input {
       }
       &.sidebar-content-page {
         .card {
-          height: 100%;
+          height: auto;
           min-height: 200px;
-          max-height: calc(100vh - 183px);
+          &.messenger-height {
+            height: 100%;
+            max-height: calc(100vh - 183px);
+          }
         }
       }
     }
