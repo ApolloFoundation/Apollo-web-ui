@@ -4,7 +4,7 @@ import classNames from 'classnames';
 const PageTitleBox = ({setBodyModalType, children, dashboardPage, pageTitle}) => (
     <div className="page-title-box">
         <div className="page-title-box transactions-title">
-            <h1 className="title">{pageTitle}</h1>
+            <h1 className="title" dangerouslySetInnerHTML={{__html: pageTitle}} />
             {
                 children &&
                 children

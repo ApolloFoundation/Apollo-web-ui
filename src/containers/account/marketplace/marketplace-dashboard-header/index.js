@@ -28,7 +28,7 @@ class MarketplaceDashboardHeader extends Component {
                 <div className={classNames({
                     'col-md-12 col-lg-6 marketplace-preview-item' : !this.state.isShowMore,
                     'col-md-3' : this.state.isShowMore,
-                    'pl-3': true,
+                    'pl-0': true,
                     'pr-0': true,
                     'pb-3': true,
                 })}>
