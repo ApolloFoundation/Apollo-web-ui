@@ -1584,7 +1584,10 @@ table {
 }
 .exchange-booth {
 	.card {
-		height: 450px;
+		height: 100%;
+		&.custom-height {
+			height: 450px;
+		}
 		.wrap-info {
 			max-height: 288px;
 		}
@@ -1865,4 +1868,8 @@ table {
 		margin-top: 10px;
 		margin-right: 10px;
 	}
+}
+
+.absolute {
+	position: absolute;
 }

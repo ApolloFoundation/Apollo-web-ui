@@ -11,7 +11,7 @@ import {ONE_APL} from '../../../../constants';
 
 class OfferItem extends React.Component {
     render() {
-        const {offer} = this.props;
+        const {...offer} = this.props;
         return (
             <tr>
                 <td className="blue-link-text" onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', offer.accountRS)}><a>{offer.accountRS}</a></td>

@@ -10,7 +10,7 @@ import {ONE_APL} from '../../../../constants';
 
 class ExchangeItem extends React.Component {
     render() {
-        const {exchange, setBlockInfo} = this.props;
+        const {setBlockInfo, ...exchange} = this.props;
 
         return (
             <tr>

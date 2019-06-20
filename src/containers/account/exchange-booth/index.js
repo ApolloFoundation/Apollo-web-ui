@@ -23,7 +23,6 @@ import OfferItem from './offer-item/'
 import ExchangeItem from './exchange-item/ExchangeItem'
 import ExecutedItem from './executed-item/ExecutedItem'
 import {Form} from 'react-form';
-import uuid from 'uuid'
 import {NotificationManager} from "react-notifications";
 import {getBlockAction} from "../../../actions/blocks";
 import {getTransactionAction} from "../../../actions/transactions";
@@ -32,6 +31,9 @@ import SidebarContent from '../../components/sidebar-list';
 import BackForm from '../../modals/modal-form/modal-form-container';
 import SidebarCurrency from './sdiebar-item';
 import NummericInput from "../../components/form-components/numeric-input";
+import CustomTable from "../../components/tables/table";
+
+const itemsPerPage = 5;
 
 class ExchangeBooth extends React.Component {
     constructor(props) {
@@ -42,13 +44,33 @@ class ExchangeBooth extends React.Component {
             buyOffers: [],
             exchangeRequest: [],
             executedExchanges: [],
+            pagination: {
+                sellOffers: {
+                    page: 1,
+                    firstIndex: 0,
+                    lastIndex: itemsPerPage - 1,
+                },
+                buyOffers: {
+                    page: 1,
+                    firstIndex: 0,
+                    lastIndex: itemsPerPage - 1,
+                },
+                exchangeRequest: {
+                    page: 1,
+                    firstIndex: 0,
+                    lastIndex: itemsPerPage - 1,
+                },
+                executedExchanges: {
+                    page: 1,
+                    firstIndex: 0,
+                    lastIndex: itemsPerPage - 1,
+                },
+            },
             minimumSellRate: null,
             minimumBuyRate: null,
             totalBuyRate: 0,
             totalSellRate: 0
         };
-        this.getBlock = this.getBlock.bind(this);
-        this.getTransaction = this.getTransaction.bind(this);
     }
 
     listener = data => {
@@ -119,7 +141,6 @@ class ExchangeBooth extends React.Component {
 
         if (currency) {
             this.setState({
-                ...this.state,
                 ...currency,
                 currencyInfo: currency
             });
@@ -131,18 +152,34 @@ class ExchangeBooth extends React.Component {
         }
     };
 
-    getBuyOffers = async currency => {
-        const buyOffers = await this.props.getBuyOffers(currency);
+    getBuyOffers = async (currency, pagination) => {
+        if (!pagination) {
+            pagination = {
+                firstIndex: this.state.pagination.buyOffers.firstIndex,
+                lastIndex: this.state.pagination.buyOffers.lastIndex,
+            }
+        }
+        const buyOffers = await this.props.getBuyOffers({
+            currency,
+            firstIndex: pagination.firstIndex,
+            lastIndex: pagination.lastIndex
+        });
         const offers = buyOffers.offers;
 
         const values = Math.min.apply(null, offers.map((el) => {
             return el.rateATM
         }));
 
+        const newPagination = this.state.pagination;
+        newPagination.buyOffers = {
+            ...newPagination.buyOffers,
+            ...pagination
+        };
 
         this.setState({
             buyOffers: offers,
-            minimumBuyRate: '0'
+            minimumBuyRate: '0',
+            pagination: newPagination,
         }, () => {
             if (offers.length) {
                 this.setState({
@@ -152,17 +189,34 @@ class ExchangeBooth extends React.Component {
         })
     };
 
-    getSellOffers = async currency => {
-        const sellOffers = await this.props.getSellOffers(currency);
+    getSellOffers = async (currency, pagination) => {
+        if (!pagination) {
+            pagination = {
+                firstIndex: this.state.pagination.sellOffers.firstIndex,
+                lastIndex: this.state.pagination.sellOffers.lastIndex,
+            }
+        }
+        const sellOffers = await this.props.getSellOffers({
+            currency,
+            firstIndex: pagination.firstIndex,
+            lastIndex: pagination.lastIndex
+        });
         const offers = sellOffers.offers;
 
         const values = Math.min.apply(null, offers.map((el) => {
             return el.rateATM
         }));
 
+        const newPagination = this.state.pagination;
+        newPagination.sellOffers = {
+            ...newPagination.sellOffers,
+            ...pagination
+        };
+
         this.setState({
             sellOffers: offers,
-            minimumSellRate: '0'
+            minimumSellRate: '0',
+            pagination: newPagination,
         }, () => {
             if (offers.length) {
                 this.setState({
@@ -172,18 +226,55 @@ class ExchangeBooth extends React.Component {
         })
     };
 
-    getAccountExchanges = async (currency, account) => {
-        const accountExchanges = await this.props.getAccountExchanges(currency, account);
+    getAccountExchanges = async (currency, account, pagination) => {
+        if (!pagination) {
+            pagination = {
+                firstIndex: this.state.pagination.exchangeRequest.firstIndex,
+                lastIndex: this.state.pagination.exchangeRequest.lastIndex,
+            }
+        }
+        const accountExchanges = await this.props.getAccountExchanges({
+            currency,
+            account,
+            firstIndex: pagination.firstIndex,
+            lastIndex: pagination.lastIndex
+        });
         const exchanges = accountExchanges.exchangeRequests;
+
+        const newPagination = this.state.pagination;
+        newPagination.exchangeRequest = {
+            ...newPagination.exchangeRequest,
+            ...pagination
+        };
+
         this.setState({
-            exchangeRequest: exchanges
+            exchangeRequest: exchanges,
+            pagination: newPagination,
         });
     };
 
-    getExchanges = async currency => {
-        const exchanges = (await this.props.getExchanges(currency)).exchanges;
+    getExchanges = async (currency, pagination) => {
+        if (!pagination) {
+            pagination = {
+                firstIndex: this.state.pagination.executedExchanges.firstIndex,
+                lastIndex: this.state.pagination.executedExchanges.lastIndex,
+            }
+        }
+        const exchanges = (await this.props.getExchanges({
+            currency,
+            firstIndex: pagination.firstIndex,
+            lastIndex: pagination.lastIndex
+        })).exchanges;
+
+        const newPagination = this.state.pagination;
+        newPagination.executedExchanges = {
+            ...newPagination.executedExchanges,
+            ...pagination
+        };
+
         this.setState({
-            executedExchanges: exchanges
+            executedExchanges: exchanges,
+            pagination: newPagination,
         })
     };
 
@@ -229,7 +320,7 @@ class ExchangeBooth extends React.Component {
         }
     };
 
-    async getBlock(type, blockHeight) {
+    getBlock = async (type, blockHeight) => {
         const requestParams = {
             height: blockHeight
         };
@@ -239,9 +330,9 @@ class ExchangeBooth extends React.Component {
         if (block) {
             this.props.setBodyModalParamsAction('INFO_BLOCK', block)
         }
-    }
+    };
 
-    async getTransaction(requestParams) {
+    getTransaction = async (requestParams) => {
         const transaction = await this.props.getTransactionAction(requestParams);
 
         if (transaction) {
@@ -255,6 +346,23 @@ class ExchangeBooth extends React.Component {
         }, () => {
             this.props.history.push('/currencies')
         });
+    };
+
+    onPaginate = (type, page) => {
+        const pagination = {
+            page: page,
+            firstIndex: page * itemsPerPage - itemsPerPage,
+            lastIndex: page * itemsPerPage - 1
+        };
+        if (type === 'buyOffers') {
+            this.getBuyOffers(this.state.currency.currency, pagination);
+        } else if (type === 'sellOffers') {
+            this.getSellOffers(this.state.currency.currency, pagination);
+        } else if (type === 'exchangeRequest') {
+            this.getAccountExchanges(this.state.currency.currency, this.props.account, pagination);
+        } else if (type === 'executedExchanges') {
+            this.getExchanges(this.state.currency.currency, pagination);
+        }
     };
 
     render() {
@@ -299,8 +407,8 @@ class ExchangeBooth extends React.Component {
                 </SiteHeader>
                 <div className="page-body container-fluid exchange-booth">
                     <div className="row">
-                        <div className={`col-md-3 col-sm-4 p-0 pb-3 pl-0 pr-0`}>
-                            <div className="card mb-3">
+                        <div className={`col-md-3 col-sm-4 p-0`}>
+                            <div className="card mb-3 custom-height">
                                 <div className="card-title card-title-lg bg-primary">
                                     <span className={'title-lg'}>{this.state.code}</span>
                                 </div>
@@ -357,18 +465,8 @@ class ExchangeBooth extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                            {(window.innerWidth > 767 || !isGoBack) && (
-                                <SidebarContent
-                                    element={'code'}
-                                    baseUrl={'/exchange-booth/'}
-                                    data={this.state.currencies}
-                                    emptyMessage={'No currencies found.'}
-                                    Component={SidebarCurrency}
-                                />
-                            )}
                         </div>
-
-                        <div className={`col-md-9 col-sm-8 pb-3 pl-0 pr-0`}>
+                        <div className={`col-md-9 col-sm-8 p-0`}>
                             {(window.innerWidth > 767 || isGoBack) && (
                                 <>
                                     {
@@ -562,6 +660,30 @@ class ExchangeBooth extends React.Component {
                                                     </div>
                                                 </div>
                                             </div>
+                                        </div>
+                                    }
+                                </>
+                            )}
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className={`col-md-3 col-sm-4 p-0 mb-3`}>
+                            {(window.innerWidth > 767 || !isGoBack) && (
+                                <SidebarContent
+                                    element={'code'}
+                                    baseUrl={'/exchange-booth/'}
+                                    data={this.state.currencies}
+                                    emptyMessage={'No currencies found.'}
+                                    Component={SidebarCurrency}
+                                />
+                            )}
+                        </div>
+                        <div className={`col-md-9 col-sm-8 p-0`}>
+                            {(window.innerWidth > 767 || isGoBack) && (
+                                <>
+                                    {
+                                        this.state.currency &&
+                                        <div className="row">
                                             <div className="col-md-12 p-0">
                                                 <div className="row">
                                                     <div className="col-md-6 display-flex pr-0 mb-3">
@@ -570,40 +692,33 @@ class ExchangeBooth extends React.Component {
                                                                 Offers to sell {this.state.code}
                                                             </div>
                                                             <div className="card-body h-auto">
-                                                                {this.state.sellOffers.length === 0 ?
-                                                                    <div className="info-box simple">
-                                                                        <p>No open sell offers.<br/>You cannot sell this
-                                                                            currency
-                                                                            now,
-                                                                            but you could publish an exchange offer
-                                                                            instead, and
-                                                                            wait for others to fill it.</p>
-                                                                    </div> :
-                                                                    <div className="transaction-table no-min-height">
-                                                                        <div
-                                                                            className="transaction-table-body padding-only-top">
-                                                                            <table>
-                                                                                <thead>
-                                                                                <tr>
-                                                                                    <td>Account</td>
-                                                                                    <td className="align-right">Units</td>
-                                                                                    <td className="align-right">Limit</td>
-                                                                                    <td className="align-right">Rate</td>
-                                                                                </tr>
-                                                                                </thead>
-                                                                                <tbody>
-                                                                                {this.state.sellOffers.map(offer =>
-                                                                                    <OfferItem
-                                                                                        key={uuid()}
-                                                                                        offer={offer}
-                                                                                        decimals={this.state.currencyInfo.decimals}
-                                                                                    />
-                                                                                )}
-                                                                                </tbody>
-                                                                            </table>
-                                                                        </div>
-                                                                    </div>
-                                                                }
+                                                                <CustomTable
+                                                                    header={[
+                                                                        {
+                                                                            name: 'Account',
+                                                                            alignRight: false
+                                                                        }, {
+                                                                            name: 'Units',
+                                                                            alignRight: true
+                                                                        }, {
+                                                                            name: 'Limit',
+                                                                            alignRight: true
+                                                                        }, {
+                                                                            name: 'Rate',
+                                                                            alignRight: true
+                                                                        }
+                                                                    ]}
+                                                                    className={'p-0'}
+                                                                    emptyMessage={'No open sell offers. You cannot sell this currency now, but you could publish an exchange offer instead, and wait for others to fill it.'}
+                                                                    TableRowComponent={OfferItem}
+                                                                    tableData={this.state.sellOffers}
+                                                                    passProps={{decimals: this.state.currencyInfo.decimals}}
+                                                                    isPaginate
+                                                                    itemsPerPage={itemsPerPage}
+                                                                    page={this.state.pagination.sellOffers.page}
+                                                                    previousHendler={() => this.onPaginate('sellOffers', this.state.pagination.sellOffers.page - 1)}
+                                                                    nextHendler={() => this.onPaginate('sellOffers', this.state.pagination.sellOffers.page + 1)}
+                                                                />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -613,42 +728,33 @@ class ExchangeBooth extends React.Component {
                                                                 Offers to buy {this.state.code}
                                                             </div>
                                                             <div className="card-body h-auto">
-                                                                {this.state.buyOffers.length === 0 ?
-                                                                    <div className="info-box simple">
-                                                                        <p>No open buy offers.<br/>You cannot sell this
-                                                                            currency
-                                                                            now,
-                                                                            but you could publish an exchange offer
-                                                                            instead,
-                                                                            and
-                                                                            wait for others to fill it.</p>
-                                                                    </div> :
-                                                                    <div
-                                                                        className="transaction-table no-min-height">
-                                                                        <div
-                                                                            className="transaction-table-body padding-only-top">
-                                                                            <table>
-                                                                                <thead>
-                                                                                <tr>
-                                                                                    <td>Account</td>
-                                                                                    <td className="align-right">Units</td>
-                                                                                    <td className="align-right">Limit</td>
-                                                                                    <td className="align-right">Rate</td>
-                                                                                </tr>
-                                                                                </thead>
-                                                                                <tbody>
-                                                                                {this.state.buyOffers.map(offer =>
-                                                                                    <OfferItem
-                                                                                        key={uuid()}
-                                                                                        offer={offer}
-                                                                                        decimals={this.state.currencyInfo.decimals}
-                                                                                    />
-                                                                                )}
-                                                                                </tbody>
-                                                                            </table>
-                                                                        </div>
-                                                                    </div>
-                                                                }
+                                                                <CustomTable
+                                                                    header={[
+                                                                        {
+                                                                            name: 'Account',
+                                                                            alignRight: false
+                                                                        }, {
+                                                                            name: 'Units',
+                                                                            alignRight: true
+                                                                        }, {
+                                                                            name: 'Limit',
+                                                                            alignRight: true
+                                                                        }, {
+                                                                            name: 'Rate',
+                                                                            alignRight: true
+                                                                        }
+                                                                    ]}
+                                                                    className={'p-0'}
+                                                                    emptyMessage={'No open buy offers. You cannot sell this currency now, but you could publish an exchange offer instead, and wait for others to fill it.'}
+                                                                    TableRowComponent={OfferItem}
+                                                                    tableData={this.state.buyOffers}
+                                                                    passProps={{decimals: this.state.currencyInfo.decimals}}
+                                                                    isPaginate
+                                                                    itemsPerPage={itemsPerPage}
+                                                                    page={this.state.pagination.buyOffers.page}
+                                                                    previousHendler={() => this.onPaginate('buyOffers', this.state.pagination.buyOffers.page - 1)}
+                                                                    nextHendler={() => this.onPaginate('buyOffers', this.state.pagination.buyOffers.page + 1)}
+                                                                />
                                                             </div>
                                                         </div>
                                                     </div>
@@ -660,38 +766,39 @@ class ExchangeBooth extends React.Component {
                                                         Exchange requests
                                                     </div>
                                                     <div className="card-body h-auto">
-                                                        {this.state.exchangeRequest.length === 0 ?
-                                                            <div className="info-box simple">
-                                                                <p>No exchange requests found.</p>
-                                                            </div>
-                                                            :
-                                                            <div className="transaction-table no-min-height">
-                                                                <div
-                                                                    className="transaction-table-body padding-only-top">
-                                                                    <table>
-                                                                        <thead>
-                                                                        <tr>
-                                                                            <td>Height</td>
-                                                                            <td>Type</td>
-                                                                            <td className="align-right">Units</td>
-                                                                            <td className="align-right">Rate</td>
-                                                                            <td className="align-right">Total</td>
-                                                                        </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                        {this.state.exchangeRequest.map(exchange =>
-                                                                            <ExchangeItem
-                                                                                decimals={this.state.currencyInfo.decimals}
-                                                                                key={uuid()}
-                                                                                exchange={exchange}
-                                                                                setBlockInfo={this.getBlock}
-                                                                            />
-                                                                        )}
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                            </div>
-                                                        }
+                                                        <CustomTable
+                                                            header={[
+                                                                {
+                                                                    name: 'Height',
+                                                                    alignRight: false
+                                                                }, {
+                                                                    name: 'Type',
+                                                                    alignRight: false
+                                                                }, {
+                                                                    name: 'Units',
+                                                                    alignRight: true
+                                                                }, {
+                                                                    name: 'Rate',
+                                                                    alignRight: true
+                                                                }, {
+                                                                    name: 'Total',
+                                                                    alignRight: true
+                                                                }
+                                                            ]}
+                                                            className={'p-0'}
+                                                            emptyMessage={'No exchange requests found.'}
+                                                            TableRowComponent={ExchangeItem}
+                                                            tableData={this.state.exchangeRequest}
+                                                            passProps={{
+                                                                decimals: this.state.currencyInfo.decimals,
+                                                                setBlockInfo: this.getBlock
+                                                            }}
+                                                            isPaginate
+                                                            itemsPerPage={itemsPerPage}
+                                                            page={this.state.pagination.exchangeRequest.page}
+                                                            previousHendler={() => this.onPaginate('exchangeRequest', this.state.pagination.exchangeRequest.page - 1)}
+                                                            nextHendler={() => this.onPaginate('exchangeRequest', this.state.pagination.exchangeRequest.page + 1)}
+                                                        />
                                                     </div>
                                                 </div>
                                             </div>
@@ -701,39 +808,42 @@ class ExchangeBooth extends React.Component {
                                                         Executed exchanges
                                                     </div>
                                                     <div className="card-body h-auto">
-                                                        {this.state.executedExchanges.length === 0 ?
-                                                            <div className="info-box simple">
-                                                                <p>No executed exchanges found.</p>
-                                                            </div>
-                                                            :
-                                                            <div className="transaction-table no-min-height">
-                                                                <div
-                                                                    className="transaction-table-body padding-only-top">
-                                                                    <table>
-                                                                        <thead>
-                                                                        <tr>
-                                                                            <td>Date</td>
-                                                                            <td>Seller</td>
-                                                                            <td>Buyer</td>
-                                                                            <td className="align-right">Units</td>
-                                                                            <td className="align-right">Rate</td>
-                                                                            <td className="align-right">Total</td>
-                                                                        </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                        {this.state.executedExchanges.map(exchange =>
-                                                                            <ExecutedItem
-                                                                                decimals={this.state.currencyInfo.decimals}
-                                                                                key={uuid()}
-                                                                                exchange={exchange}
-                                                                                setTransactionInfo={this.getTransaction}
-                                                                            />
-                                                                        )}
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                            </div>
-                                                        }
+                                                        <CustomTable
+                                                            header={[
+                                                                {
+                                                                    name: 'Date',
+                                                                    alignRight: false
+                                                                }, {
+                                                                    name: 'Seller',
+                                                                    alignRight: false
+                                                                }, {
+                                                                    name: 'Buyer',
+                                                                    alignRight: false
+                                                                }, {
+                                                                    name: 'Units',
+                                                                    alignRight: true
+                                                                }, {
+                                                                    name: 'Rate',
+                                                                    alignRight: true
+                                                                }, {
+                                                                    name: 'Total',
+                                                                    alignRight: true
+                                                                }
+                                                            ]}
+                                                            className={'p-0'}
+                                                            emptyMessage={'No executed exchanges found.'}
+                                                            TableRowComponent={ExecutedItem}
+                                                            tableData={this.state.executedExchanges}
+                                                            passProps={{
+                                                                decimals: this.state.currencyInfo.decimals,
+                                                                setTransactionInfo: this.getTransaction
+                                                            }}
+                                                            isPaginate
+                                                            itemsPerPage={itemsPerPage}
+                                                            page={this.state.pagination.executedExchanges.page}
+                                                            previousHendler={() => this.onPaginate('executedExchanges', this.state.pagination.executedExchanges.page - 1)}
+                                                            nextHendler={() => this.onPaginate('executedExchanges', this.state.pagination.executedExchanges.page + 1)}
+                                                        />
                                                     </div>
                                                 </div>
                                             </div>
@@ -757,10 +867,10 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
 
-    getBuyOffers: currency => dispatch(getBuyOffersAction(currency)),
-    getSellOffers: currency => dispatch(getSellOffersAction(currency)),
-    getAccountExchanges: (currency, account) => dispatch(getAccountExchangeAction(currency, account)),
-    getExchanges: currency => dispatch(getExchangesAction(currency)),
+    getBuyOffers: reqParams => dispatch(getBuyOffersAction(reqParams)),
+    getSellOffers: reqParams => dispatch(getSellOffersAction(reqParams)),
+    getAccountExchanges: reqParams => dispatch(getAccountExchangeAction(reqParams)),
+    getExchanges: reqParams => dispatch(getExchangesAction(reqParams)),
 
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
     getCurrencyAction: (reqParams) => dispatch(getCurrencyAction(reqParams)),

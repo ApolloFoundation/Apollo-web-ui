@@ -7,15 +7,13 @@
 import axios from "axios";
 import config from "../../config";
 
-export const getBuyOffersAction = currency => dispatch => {
+export const getBuyOffersAction = (reqParams) => dispatch => {
     return axios.get(config.api.serverUrl, {
         params: {
             requestType: 'getBuyOffers',
-            currency,
             availableOnly: true,
-            firstIndex: 0,
-            lastIndex: 15,
-            random: Math.random()
+            random: Math.random(),
+            ...reqParams
         }
     }).then((res) => {
         if (!res.data.errorCode) {
@@ -24,15 +22,13 @@ export const getBuyOffersAction = currency => dispatch => {
     });
 };
 
-export const getSellOffersAction = currency => dispatch => {
+export const getSellOffersAction = (reqParams) => dispatch => {
     return axios.get(config.api.serverUrl, {
         params: {
             requestType: 'getSellOffers',
-            currency,
             availableOnly: true,
-            firstIndex: 0,
-            lastIndex: 15,
-            random: Math.random()
+            random: Math.random(),
+            ...reqParams
         }
     }).then((res) => {
         if (!res.data.errorCode) {
@@ -41,15 +37,12 @@ export const getSellOffersAction = currency => dispatch => {
     });
 };
 
-export const getAccountExchangeAction = (currency, account) => dispatch => {
+export const getAccountExchangeAction = (reqParams) => dispatch => {
     return axios.get(config.api.serverUrl, {
         params: {
             requestType: 'getAccountExchangeRequests',
-            currency,
-            account,
-            firstIndex: 0,
-            lastIndex: 15,
-            random: Math.random()
+            random: Math.random(),
+            ...reqParams
         }
     }).then((res) => {
         if (!res.data.errorCode) {
@@ -58,15 +51,13 @@ export const getAccountExchangeAction = (currency, account) => dispatch => {
     });
 };
 
-export const getExchangesAction = currency => dispatch => {
+export const getExchangesAction = reqParams => dispatch => {
     return axios.get(config.api.serverUrl, {
         params: {
             requestType: 'getExchanges',
-            currency,
             includeCurrencyInfo: true,
-            firstIndex: 0,
-            lastIndex: 15,
-            random: Math.random()
+            random: Math.random(),
+            ...reqParams
         }
     }).then((res) => {
         if (!res.data.errorCode) {
