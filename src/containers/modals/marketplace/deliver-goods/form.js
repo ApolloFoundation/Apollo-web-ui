@@ -8,7 +8,7 @@ import TextualInput from '../../../components/form-components/textual-input';
 import NumericInput from '../../../components/form-components/numeric-input';
 import TextArea from '../../../components/form-components/text-area';
 
-const Form = ({setValue, goods}) => (
+const Form = ({setValue, goods, formatTimestamp}) => (
     <>
         {
             goods &&

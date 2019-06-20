@@ -55,12 +55,17 @@
 				letter-spacing: -0.93px;
 				display: inline-block;
 				margin-right: 15px;
+				small {
+					font-size: 20px;
+				}
 				@media (max-width: 1024px) {
 					font-size: 30px;
 				}
 				@media (max-width: 760px) {
 					font-size: 26px;
-					
+					small {
+						font-size: 18px;
+					}
 				}
 			}
 			.btn.icon-button i {

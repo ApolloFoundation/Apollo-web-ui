@@ -6,13 +6,13 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {setModalData} from '../../../../modules/modals';
-import  {getDGSGoodAction} from "../../../../actions/marketplace";
-import {setBodyModalParamsAction} from "../../../../modules/modals";
+import {setBodyModalParamsAction, setModalData} from '../../../../modules/modals';
+import {getDGSGoodAction} from "../../../../actions/marketplace";
 import classNames from 'classnames';
 import {formatTimestamp} from '../../../../helpers/util/time'
 import config from '../../../../config';
 import {ONE_APL} from '../../../../constants';
+import TextualInput from "../../../components/form-components/textual-input";
 
 
 const mapStateToProps = state => ({
@@ -55,65 +55,66 @@ class MarketplaceProductDetails extends React.Component {
 
     render() {
         return (
-            <div className="modal-box x-wide">
+            <div className="modal-box">
                 <div className="modal-form">
-                    <div className="form-group-app devided p-0 overflow-hidden">
-                        <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
+                    <div className="form-group-app">
+                        <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close"/></a>
 
-                    {
-
-                        this.state.goods &&
-
-                        [
-                            <div className="left-bar">
-                                <div className="top-bar">
-                                    <div
-                                        style={{
-                                            backgroundImage: 'url(' + config.api.serverUrl + 'requestType=downloadPrunableMessage&transaction=' + this.state.goods.goods + '&retrieve=true)'
-                                        }}
-                                        className={classNames({
-                                            "marketplace-image": true,
-                                            "no-image": !this.state.goods.hasImage
-                                        })}
-                                    />
-                                </div>
-                                <div className="bottom-bar">
-                                    <div className="description word-brake">
-                                        {this.state.goods.description}
-                                    </div>
-                                </div>
-                            </div>,
+                        {this.state.goods && (
                             <div className="right-bar">
                                 <div className="form-title">
                                     <p>{this.state.goods.name}</p>
                                 </div>
-                                <div className="price">
-                                    {this.state.goods.priceATM / ONE_APL} APL
-                                </div>
-                                <div className="info-table">
-                                    <div className="t-row">
-                                        <div className="t-cell"><span>Date:</span></div>
-                                        <div className="t-cell">{this.props.formatTimestamp(this.state.goods.timestamp)}</div>
-                                    </div>
-                                    <div className="t-row">
-                                        <div className="t-cell"><span>Seller:</span></div>
-                                        <div className="t-cell">{this.state.goods.sellerRS}</div>
-                                    </div>
-                                    <div className="t-row">
-                                        <div className="t-cell"><span>Quantity:</span></div>
-                                        <div className="t-cell">{this.state.goods.quantity}</div>
+                                <div className="form-group mb-15">
+                                    <div className="top-bar">
+                                        <div
+                                            style={{
+                                                backgroundImage: 'url(' + config.api.serverUrl + 'requestType=downloadPrunableMessage&transaction=' + this.state.goods.goods + '&retrieve=true)'
+                                            }}
+                                            className={classNames({
+                                                "marketplace-image": true,
+                                                "no-image": !this.state.goods.hasImage
+                                            })}
+                                        />
                                     </div>
                                 </div>
+                                <div className="form-group mb-15">
+                                    <label>
+                                        Price:
+                                    </label>
+                                    <div className="price">
+                                        {this.state.goods.priceATM / ONE_APL} APL
+                                    </div>
+                                </div>
+                                {this.state.goods.description && (
+                                    <div className="form-group mb-15">
+                                        <label>
+                                            Description:
+                                        </label>
+                                        <div>
+                                            {this.state.goods.description}
+                                        </div>
+                                    </div>
+                                )}
+                                <TextualInput
+                                    label="Date:"
+                                    text={this.props.formatTimestamp(this.state.goods.timestamp)}
+                                />
+                                <TextualInput
+                                    label="Seller:"
+                                    text={this.state.goods.sellerRS}
+                                />
+                                <TextualInput
+                                    label="Quantity:"
+                                    text={this.state.goods.quantity}
+                                />
                             </div>
-                        ]
-                    }
+                        )}
                     </div>
                 </div>
             </div>
         );
     }
-}
-
-
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(MarketplaceProductDetails);
