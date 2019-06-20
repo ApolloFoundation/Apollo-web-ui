@@ -28,31 +28,6 @@
     position: static;
     margin: 12px 12px 0 0;
     height: max-content;
-
-    &.filter {
-      height: 30px;
-      min-width: 30px;
-      color: #8AA5C7;
-      font-size: 12px;
-      min-height: auto;
-      border-radius: 2px;
-      background-color: #FFF;
-      box-shadow: 0 1px 4px 0 rgba(137,151,169,0.3);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      &:hover {
-        opacity: 0.7;
-      }
-      i {
-        font-size: 15px;
-      }
-      &.active {
-        background-color: rgba(147,169,195,0.24);
-        box-shadow: none;
-      }
-    }
   }
   .monitors-table {
     display: table;

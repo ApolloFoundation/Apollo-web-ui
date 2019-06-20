@@ -137,11 +137,11 @@ class ResentMarketplaceListing extends React.Component {
                                 this.state.getDGSGoods.map((el, index) => {
                                     return (
                                         <div
-                                            key={uuid()}
+                                            key={`marketplace-item-${index}`}
                                             className={classNames({
                                                 'marketplace-item' : this.state.isGrid,
                                                 'marketplace-item--full-width': !this.state.isGrid,
-                                                'd-flex pl-3 pb-3 ': true
+                                                'd-flex': true
                                             })}
                                         >
                                             <MarketplaceItem

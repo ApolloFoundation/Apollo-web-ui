@@ -1,13 +1,10 @@
 import React from 'react';
-import ContentLoader from '../content-loader';
 import ContentHendler from '../content-hendler';
 import classNames from 'classnames';
-import uuid from 'uuid';
-import InfoBox from '../../components/info-box';
 
 import MarketplaceItem from "../../account/marketplace/marketplace-card";
 
-const MarketplaceColumnTable = ({data, page, deliver, emptyMessage}) => (
+const MarketplaceColumnTable = ({data, page, itemsPerPage = 15, deliver, emptyMessage}) => (
     <>
         <ContentHendler
             items={data}
@@ -17,47 +14,44 @@ const MarketplaceColumnTable = ({data, page, deliver, emptyMessage}) => (
                 data &&
                 !!data.length &&
                 <>
-                    {
-                        data.map((el, index) => {
-                            return (
-                                <MarketplaceItem
-                                    key={uuid()}
-                                    tall={false}
-                                    fluid={true}
-                                    isHovered
-                                    deliver={deliver}
-                                    index={index}
-                                    {...el}
-                                />
-                            );
-                        })
-                    }
-                    <div className="btn-box relative right-conner align-right mt-4">
-                        <a
-                            className={classNames({
-                                'btn' : true,
-                                'btn-left' : true,
-                                'disabled' : page <= 1
-                            })}
-                            // onClick={this.onPaginate.bind(this, this.state.page - 1)}
-                        > 
-                            Previous
-                        </a>
-                        <div className='pagination-nav'>
-                            <span>{page * 15 - 15 + 1}</span>
-                            <span>&hellip;</span>
-                            <span>{(page * 15 - 15) + (data.length)}</span>
+                    {data.map((el, index) => (
+                        <div
+                            key={`marketplace-item-${index}`}
+                            className={'marketplace-item'}
+                        >
+                            <MarketplaceItem
+                                tall={true}
+                                fluid={true}
+                                deliver={deliver}
+                                index={index}
+                                {...el}
+                            />
                         </div>
-                        <a
-                            // onClick={this.onPaginate.bind(this, this.state.page + 1)}
+                    ))}
+                    <div className="btn-box pagination">
+                        <button
+                            type={'button'}
                             className={classNames({
-                                'btn' : true,
-                                'btn-right' : true,
-                                'disabled' : data.length < 8
+                                'btn btn-default' : true,
+                                'disabled' : page <= 1,
+                            })}
+                        >
+                            Previous
+                        </button>
+                        <div className='pagination-nav'>
+                            <span>{page * itemsPerPage  - itemsPerPage + 1}</span>
+                            <span>&hellip;</span>
+                            <span>{(page * itemsPerPage - itemsPerPage) + data.length}</span>
+                        </div>
+                        <button
+                            type={'button'}
+                            className={classNames({
+                                'btn btn-default' : true,
+                                'disabled' : data.length < itemsPerPage,
                             })}
                         >
                             Next
-                        </a>
+                        </button>
                     </div>
                 </>
             }

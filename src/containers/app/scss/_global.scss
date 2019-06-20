@@ -636,6 +636,8 @@ div.info-box {
 	font-size: 11px;
 	line-height: 13px;
 	margin-bottom: 15px;
+	width: 100%;
+	height: fit-content;
 	li {
 		color: #ffffff;
 		font-size: 11px;
@@ -1186,11 +1188,44 @@ div.info-box {
 			}
 		}
 	}
+	&.filter {
+		height: 30px;
+		min-width: 30px;
+		color: #8AA5C7;
+		font-size: 12px;
+		min-height: auto;
+		border-radius: 2px;
+		background-color: #FFF;
+		box-shadow: 0 1px 4px 0 rgba(137,151,169,0.3);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		&:hover {
+			opacity: 0.7;
+		}
+		i {
+			font-size: 15px;
+		}
+		&.active {
+			background-color: rgba(147,169,195,0.24);
+			box-shadow: none;
+		}
+	}
 	.no-border {
 		border: 0;
 	}
 	&.transparent {
 		background-color: rgba(255, 255, 255, 0) !important;
+	}
+	&.btn-xs {
+		font-size: 10px;
+		letter-spacing: -0.08px;
+		line-height: normal;
+		min-width: 35px;
+		min-height: 20px;
+		padding: 4px 6px;
+		height: auto;
 	}
 	&.btn-sm {
 		font-size: 11px;
