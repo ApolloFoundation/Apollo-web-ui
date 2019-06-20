@@ -8,54 +8,51 @@ import uuid from 'uuid';
 import {Link, withRouter} from 'react-router-dom';
 
 class MarketplaceTags extends Component {
-    state = {};
+    state = {
+        itemsPerPage: 10
+    };
 
     componentDidMount = () => {
-        // this.getInitialData({
-        //     buyer: this.props.account
-        // });
-        // this.getDGSGoods({
-        //     firstIndex: 0,
-        //     lastIndex: 5,
-        //     completed: true
-        // });
         this.getDGSTags({
             firstIndex: 0,
-            lastIndex: 9,
+            lastIndex: this.state.itemsPerPage - 1,
             completed: true
         });
-    }
+    };
 
     componentWillReceiveProps = (newProps) => {
-        if (this.state.isShowMore){
+        if (newProps.isShowMore){
             this.setState({
                 page: 1,
                 firstIndex: 0,
-                lastIndex: 31
-            })
-            this.getDGSTags({
-                firstIndex: 0,
-                lastIndex: 31
-            })
+                lastIndex: 31,
+                itemsPerPage: 32,
+            }, () => {
+                this.getDGSTags({
+                    firstIndex: 0,
+                    lastIndex: 31
+                });
+            });
         } else {
             this.setState({
                 page: 1,
                 firstIndex: 0,
-                lastIndex: 9
-            })
-            this.getDGSTags({
-                firstIndex: 0,
-                lastIndex: 9
-            })
+                lastIndex: 9,
+                itemsPerPage: 10
+            }, () => {
+                this.getDGSTags({
+                    firstIndex: 0,
+                    lastIndex: 9
+                });
+            });
         }
-    }
+    };
 
     getDGSTags = async (reqParams) => {
         const getDGSTags = await this.props.getDGSTagsAction(reqParams);
 
         if (getDGSTags) {
             this.setState({
-                ...this.state,
                 getDGSTags: getDGSTags.tags
             })
         }
@@ -73,20 +70,14 @@ class MarketplaceTags extends Component {
         }
     };
 
-    showMoreController = () => {
-        this.setState({
-
-        })
-    }
-
     onPaginate = (page) => {
         let reqParams = {
             page: page,
-            firstIndex: page * 32 - 32,
-            lastIndex:  page * 32 - 1
+            firstIndex: page * this.state.itemsPerPage - this.state.itemsPerPage,
+            lastIndex:  page * this.state.itemsPerPage - 1
         };
 
-        this.setState({...this.state,...reqParams}, () => {
+        this.setState({...reqParams}, () => {
             this.getDGSTags(reqParams)
         });
     };
@@ -100,7 +91,6 @@ class MarketplaceTags extends Component {
                 <div className="search-bar m-0">
                     <div className="row m-0">
                         <div className={classNames({
-                            'pl-3' : true,
                             'col-md-12 pr-0 pl-0' : !isShowMore,
                             'col-md-6 pr-0 pl-0' : isShowMore
                         })}>
@@ -121,7 +111,7 @@ class MarketplaceTags extends Component {
                                                         );
                                                     }}
                                                 </InputMask>
-                                                <button className="input-icon">
+                                                <button className="search-icon">
                                                     <i className="zmdi zmdi-search" />
                                                 </button>
                                             </form>
@@ -131,7 +121,6 @@ class MarketplaceTags extends Component {
                             </div>
                         </div>
                         <div className={classNames({
-                            'pl-3' : true,
                             'col-md-12 pr-0 pl-0' : !isShowMore,
                             'col-md-6 pr-0 pl-0' : isShowMore
                         })}>
@@ -147,7 +136,7 @@ class MarketplaceTags extends Component {
                                             >
                                                 <Text field="tag" placeholder="Title, description or Tag" />
 
-                                                <button className="input-icon">
+                                                <button className="search-icon">
                                                     <i className="zmdi zmdi-search" />
                                                 </button>
                                             </form>
@@ -157,58 +146,53 @@ class MarketplaceTags extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="filters-bar pl-3" ref={'filtersBar'}>
+                <div className="filters-bar" ref={'filtersBar'}>
                     {
                         this.state.getDGSTags &&
                         this.state.getDGSTags.map((el, index) => {
                             return (
-                                <Link key={uuid()} to={'/marketplace/' + el.tag} className="btn filter">{el.tag}&nbsp;[{el.totalCount}]</Link>
+                                <Link key={uuid()} to={'/marketplace/' + el.tag} className="btn filter btn-xs">{el.tag}&nbsp;[{el.totalCount}]</Link>
                             );
                         })
                     }
-                    <a 
-                        onClick={showMoreController} 
-                        className="btn btn-green"
-                        dangerouslySetInnerHTML={{__html: this.props.isShowMore ? 'View less' : 'View more'}}
+                    <button
+                        type={'button'}
+                        className="btn btn-green btn-sm"
+                        onClick={showMoreController}
+                        dangerouslySetInnerHTML={{__html: isShowMore ? 'View less' : 'View more'}}
                     />
-                    {
-                        this.state.getDGSTags && isShowMore &&
+                    {this.state.getDGSTags && isShowMore && (
                         <div
                             ref={'btnBox'}
-                            className="btn-box"
-                            style={{
-                                overflow: 'auto',
-                                height: 52,
-                                position: 'relative'
-                            }}
+                            className="btn-box pagination"
                         >
-                            <a
+                            <button
+                                type={'button'}
                                 className={classNames({
-                                    'btn' : true,
-                                    'btn-left' : true,
-                                    'disabled' : this.state.page <= 1
+                                    'btn btn-default': true,
+                                    'disabled': this.state.page <= 1,
                                 })}
                                 onClick={this.onPaginate.bind(this, this.state.page - 1)}
-                            > 
+                            >
                                 Previous
-                            </a>
+                            </button>
                             <div className='pagination-nav'>
-                                <span>{this.state.firstIndex + 1}</span>
+                                <span>{this.state.page * this.state.itemsPerPage - this.state.itemsPerPage + 1}</span>
                                 <span>&hellip;</span>
-                                <span>{this.state.lastIndex + 1}</span>
+                                <span>{(this.state.page * this.state.itemsPerPage - this.state.itemsPerPage) + this.state.getDGSTags.length}</span>
                             </div>
-                            <a
+                            <button
+                                type={'button'}
                                 onClick={this.onPaginate.bind(this, this.state.page + 1)}
                                 className={classNames({
-                                    'btn' : true,
-                                    'btn-right' : true,
-                                    'disabled' : this.state.getDGSTags.length < 32
+                                    'btn btn-default': true,
+                                    'disabled': this.state.getDGSTags.length < this.state.itemsPerPage
                                 })}
                             >
                                 Next
-                            </a>
+                            </button>
                         </div>
-                    }
+                        )}
                 </div>
             </div> 
         );

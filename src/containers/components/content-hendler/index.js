@@ -10,19 +10,14 @@ const ContentHendler = (props) => (
             props.items.length > 0 &&
             props.children
         }
-        {
-            props.items &&
-            props.items.length === 0 &&
-            <div>
-                <InfoBox default className={props.className}>
-                    {props.emptyMessage}
-                </InfoBox>
-            </div>
-        }
-        {
-            !props.items &&
-            <ContentLoader />
-        }
+        {props.items && props.items.length === 0 && (
+            <InfoBox default className={props.className}>
+                {props.emptyMessage}
+            </InfoBox>
+        )}
+        {!props.items && (
+            <ContentLoader/>
+        )}
 
     </React.Fragment>
 );

@@ -17,320 +17,257 @@ import uuid from 'uuid';
 import config from '../../../../config';
 
 const mapDispatchToProps = dispatch => ({
-	setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-	formatTimestamp: (timestamp, date_only, isAbsoluteTime) => dispatch(formatTimestamp(timestamp, date_only, isAbsoluteTime)),
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
+    formatTimestamp: (timestamp, date_only, isAbsoluteTime) => dispatch(formatTimestamp(timestamp, date_only, isAbsoluteTime)),
 });
 
 const MarketplaceItem = (props, history) => {
-const tagsArr = utils.parseStringBySpace(props.tags);
+    const tagsArr = utils.parseStringBySpace(props.tags);
     return (
-    <div className={`${props.tall || props.fluid || props.fullHeight ? '' : 'pl-3'}  pb-3 w-100 position-relative`}>
-        <div
-            className={classNames({
-                'card': true,
-                'position-md-absolute': !props.fluid,
-                'position-sm-static': true,
-                'marketplace': true,
-                'market': true,
-                'hovered': props.isHovered,
-                'relative': props.relative,
-                'full-height': props.fullHeight,
-                'tall-card': props.tall,
-                'card-fluid': props.fluid,
-                "is-last-row": (props.index >= 4 && window.innerWidth > 1000) || (props.index > 2 && window.innerWidth > 720 && window.innerWidth < 1000)
-            })}
-            key={uuid()}
-            data-index={props.index}
-            data-sceen-size={window.innerWidth}
-        >
-            {
-                !props.tall && !props.fluid &&
-
-                <React.Fragment>
-                    <div
-                        onClick={() => props.setBodyModalParamsAction('MARKETPLACE_IMAGE', props.goods)}
-                        className={classNames({
-                            "card-avatar": true,
-                            "no-image": !props.hasImage,
-                            "cursor-pointer": true
-                        })}
-                        style={{
-                            backgroundImage: 'url(' + config.api.serverUrl + 'requestType=downloadPrunableMessage&transaction=' + props.goods + '&retrieve=true)'
-                        }}
-                    />
-                    <div className="price-box">
-                        <div className='price-amount'>
-                            <div className="amount">
-                                {props.priceATM / ONE_APL}
-                            </div>
-                            <div className="currency">
-                                APL
-                            </div>
-                        </div>
-                        <div
-                            onClick={() => props.setBodyModalParamsAction('MARKETPLACE_PURCHASE', props.goods)}
-                            className="user cursor-pointer"
-                        >
-                            {props.name}
-                        </div>
-                    </div>
-                    <div className="btn-box align-buttons-inside absolute right-conner align-right">
-                        <a
-                            onClick={() => props.setBodyModalParamsAction('MARKETPLACE_PURCHASE', props.goods)}
-                            className="btn btn-right blue round round-bottom-right round-top-left"
-                        >
-                            Purchase
-                        </a>
-
-                    </div>
-                </React.Fragment>
-
-            }
-            {
-                props.tall &&
-                <React.Fragment>
-                    <div
-                        onClick={() => props.setBodyModalParamsAction('MARKETPLACE_IMAGE', props.goods)}
-                        className={classNames({
-                            "card-avatar": true,
-                            "cursor-pointer": true,
-                            "no-image": !props.hasImage
-                        })}
-                        style={{
-                            backgroundImage: 'url(' + config.api.serverUrl + 'requestType=downloadPrunableMessage&transaction=' + props.goods + '&retrieve=true)'
-                        }}
-                    />
-                    <div className="price-box">
-                        <div className='price-amount'>
-                            <div className="amount">
-                                {props.priceATM / ONE_APL}
-                            </div>
-                            <div className="currency">
-                                APL
-                            </div>
-                        </div>
-                        <div className="cargo-title-description">
-                            <a
+        <div className={`w-100 h-100`}>
+            <div
+                className={classNames({
+                    'card green': true,
+                    // 'position-md-absolute': !props.fluid,
+                    'position-sm-static': true,
+                    'marketplace': true,
+                    'market': true,
+                    // 'hovered': props.isHovered,
+                    'relative': props.relative,
+                    'full-height': props.fullHeight,
+                    'tall-card': props.tall,
+                    'card-fluid': props.fluid,
+                    "is-last-row": (props.index >= 4 && window.innerWidth > 1000) || (props.index > 2 && window.innerWidth > 720 && window.innerWidth < 1000)
+                })}
+                key={uuid()}
+                data-index={props.index}
+                data-sceen-size={window.innerWidth}
+            >
+                {!props.tall ? (
+                    <React.Fragment>
+                        <div className="card-title">
+                            <p
+                                className={'cursor-pointer'}
                                 onClick={() => props.setBodyModalParamsAction('MARKETPLACE_PURCHASE', props.goods)}
-                                className="cargo-title cursor-pointer"
                             >
                                 {props.name}
-                            </a>
-                            <div className="cargo-description"
-                                dangerouslySetInnerHTML={{__html: props.description.length < 100 ? props.description : props.description.slice(0, 100) + '&hellip;'}}/>
+                            </p>
                         </div>
-                        <div className="cargo-owner-box">
-                            <div className="cargo-owner">
-                                <span
-                                    className={"cursor-pointer blue-link-text"}
-                                    onClick={() => props.setBodyModalParamsAction('INFO_ACCOUNT', props.sellerRS)}
-                                >
-                                    {props.sellerRS}
-                                </span>
-                                <Link to={'/marketplace/' + props.sellerRS}
-                                    className="btn btn-green"
-                                >
-                                    Store
-                                </Link>
-                            </div>
-                            <div className="publishing-date">
-                                {props.formatTimestamp(props.timestamp)}
-                            </div>
-                        </div>
-                        {
-                            props.tags &&
+                        <div className="card-body">
                             <div
+                                onClick={() => props.setBodyModalParamsAction('MARKETPLACE_IMAGE', props.goods)}
                                 className={classNames({
-                                    'tags': true,
+                                    "card-avatar": true,
+                                    "no-image": !props.hasImage,
+                                    "cursor-pointer": true
                                 })}
+                                style={{
+                                    backgroundImage: 'url(' + config.api.serverUrl + 'requestType=downloadPrunableMessage&transaction=' + props.goods + '&retrieve=true)'
+                                }}
+                            />
+                            <div className="price-box">
+                                <div className='price-amount mb-3'>
+                                    <span className="amount">{props.priceATM / ONE_APL}</span>
+                                    <span className="currency">APL</span>
+                                </div>
+                                <div className="user mb-3">
+                                    {props.description}
+                                </div>
+                            </div>
+                            <button
+                                type={'button'}
+                                onClick={() => props.setBodyModalParamsAction('MARKETPLACE_PURCHASE', props.goods)}
+                                className="btn btn-lg btn-green submit-button"
                             >
-                                tags: {tagsArr.map((el, index) => {
-                                return <Link key={uuid()} to={'/marketplace/' + el} style={{marginLeft: 15}}
-                                            className="btn static primary">{el}</Link>
-                            })}
-                            </div>
-                        }
-                    </div>
-                </React.Fragment>
-            }
-            {
-                props.fluid &&
-                <React.Fragment>
-                    <div
-                        onClick={() => props.setBodyModalParamsAction('MARKETPLACE_IMAGE', props.goods)}
-                        className={classNames({
-                            "card-avatar": true,
-                            "cursor-pointer": true,
-                            "no-image": !props.hasImage
-                        })}
-                        style={{
-                            backgroundImage: 'url(' + config.api.serverUrl + 'requestType=downloadPrunableMessage&transaction=' + props.goods + '&retrieve=true)'
-                        }}
-                    />
-                    <div className='right-bar'>
-                        <div className="item cargo-major-details">
-                            <div className="group">
-                                {
-                                    props.purchase &&
-                                    <a
-                                        onClick={() => props.setBodyModalParamsAction('MARKETPLACE_PURCHASE', props.purchase)}
-                                        className="cargo-title cursor-pointer"
-                                    >
-                                        {props.name}
-                                    </a>
-                                    ||
-                                    <a
-                                        onClick={() => props.setBodyModalParamsAction('MARKETPLACE_PURCHASE', props.goods)}
-                                        className="cargo-title cursor-pointer"
-                                    >
-                                        {props.name}
-                                    </a>
-                                }
+                                Purchase
+                            </button>
+                        </div>
+                    </React.Fragment>
+                ) : (
+                    <React.Fragment>
+                        <div className="card-title">
+                            <p
+                                className={'cursor-pointer'}
+                                onClick={() => props.setBodyModalParamsAction('MARKETPLACE_PURCHASE', (props.fluid && props.purchase) ? props.purchase : props.goods)}
+                            >
+                                {props.name}
+                            </p>
+                        </div>
+                        <div className="card-body">
+                            <div className={'form-group-app'}>
+                                <div
+                                    onClick={() => props.setBodyModalParamsAction('MARKETPLACE_IMAGE', props.goods)}
+                                    className={classNames({
+                                        "card-avatar": true,
+                                        "cursor-pointer": true,
+                                        "no-image": !props.hasImage
+                                    })}
+                                    style={{
+                                        backgroundImage: 'url(' + config.api.serverUrl + 'requestType=downloadPrunableMessage&transaction=' + props.goods + '&retrieve=true)'
+                                    }}
+                                />
+                                <div className="price-box">
+                                    <div className='price-amount mb-3'>
+                                        <span className="amount">{props.priceATM / ONE_APL}</span>
+                                        <span className="currency">APL</span>
+                                    </div>
+                                    {props.fluid && (
+                                        <div className="mb-3">
+                                            <label>Good:</label>
+                                            <div
+                                                className={"cursor-pointer blue-link-text"}
+                                                onClick={() => props.setBodyModalParamsAction('MARKETPLACE_GOOD_DETAILS', props.goods)}
+                                            >
+                                                {props.goods}
+                                            </div>
+                                        </div>
+                                    )}
+                                    {props.description && (
+                                        <div className="cargo-title-description mb-3">
+                                            <label>Description:</label>
+                                            <div className="user"
+                                                 dangerouslySetInnerHTML={{__html: props.description.length < 100 ? props.description : props.description.slice(0, 100) + '&hellip;'}}/>
+                                        </div>
+                                    )}
+                                    {props.completedOrders && (
+                                        <>
+                                            <div className={'mb-3'}>
+                                                <label>Buyer:</label>
+                                                <div
+                                                    className={"cursor-pointer blue-link-text"}
+                                                    onClick={() => props.setBodyModalParamsAction('INFO_ACCOUNT', props.buyerRS)}
+                                                >
+                                                    {props.buyerRS}
+                                                </div>
+                                            </div>
+                                            <div className={'mb-3'}>
+                                                <label>Order date:</label>
+                                                <div>
+                                                    {props.formatTimestamp(props.timestamp)}
+                                                </div>
+                                            </div>
+                                            <div className={'mb-3'}>
+                                                <label>Order status:</label>
+                                                <div>
+                                                    {props.pending ? "Pending" : "Completed"}
+                                                </div>
+                                            </div>
+                                            <div className={'mb-3'}>
+                                                <label>Quantity:</label>
+                                                <div>
+                                                    {props.quantity}
+                                                </div>
+                                            </div>
+                                        </>
+                                    )}
 
-                                <a
-                                    onClick={() => props.setBodyModalParamsAction('MARKETPLACE_GOOD_DETAILS', props.goods)}
-                                    className="cargo-id cursor-pointer"
-                                >
-                                    {props.goods}
-                                </a>
-                            </div>
-                            <div className="group">
-                                <div className="amount">
-                                    {props.priceATM / ONE_APL}
-                                    <small>APL</small>
-                                </div>
-                                <div className="cargo-id">
-                                    <span>Quantity: {props.quantity}</span>
-                                    {
-                                        !!props.numberOfPurchases &&
-                                        <span className={'blue-text'}>Purchases: {props.numberOfPurchases}</span>
-                                    }
+                                    {props.deliver && (
+                                        <>
+                                            <div className={'mb-3'}>
+                                                <label>Buyer:</label>
+                                                <div
+                                                    className={"cursor-pointer blue-link-text"}
+                                                    onClick={() => props.setBodyModalParamsAction('INFO_ACCOUNT', props.buyerRS)}
+                                                >
+                                                    {props.buyerRS}
+                                                </div>
+                                            </div>
+                                            <div className={'mb-3'}>
+                                                <label>Order date:</label>
+                                                <div>
+                                                    {props.formatTimestamp(props.timestamp)}
+                                                </div>
+                                            </div>
+                                            <div className={'mb-3'}>
+                                                <label>Delivery deadline:</label>
+                                                <div>
+                                                    {props.formatTimestamp(props.deliveryDeadlineTimestamp)}
+                                                </div>
+                                            </div>
+                                            <div className={'mb-3'}>
+                                                <label>Quantity:</label>
+                                                <div>
+                                                    {props.quantity}
+                                                </div>
+                                            </div>
+                                            <button
+                                                type={'button'}
+                                                onClick={() => props.setBodyModalParamsAction('MARKETPLACE_GOODS_DELIVER', props.purchase)}
+                                                className="btn btn-lg btn-green submit-button"
+                                            >
+                                                Deliver Goods
+                                            </button>
+                                        </>
+                                    )}
+                                    {(!props.deliver && !props.completedOrders) && (
+                                        <>
+                                            {props.fluid && (
+                                                <>
+                                                    <div className={'mb-3'}>
+                                                        <label>Quantity:</label>
+                                                        <div>
+                                                            {props.quantity}
+                                                        </div>
+                                                    </div>
+                                                    {!!props.numberOfPurchases && (
+                                                        <div className={'mb-3'}>
+                                                            <label>Purchases:</label>
+                                                            <div>
+                                                                {props.numberOfPurchases}
+                                                            </div>
+                                                        </div>
+                                                    )}
+                                                </>
+                                            )}
+                                            <div className={'mb-3'}>
+                                                <label>Seller:</label>
+                                                <div
+                                                    className={"cursor-pointer blue-link-text"}
+                                                    onClick={() => props.setBodyModalParamsAction('INFO_ACCOUNT', props.sellerRS)}
+                                                >
+                                                    {props.sellerRS}
+                                                </div>
+                                            </div>
+                                            <div className="mb-3">
+                                                <Link
+                                                    to={'/marketplace/' + props.sellerRS}
+                                                    className="btn btn-green btn-sm"
+                                                >
+                                                    Store
+                                                </Link>
+                                            </div>
+                                            <div className={'mb-3'}>
+                                                <label>Listing date:</label>
+                                                <div>
+                                                    {props.formatTimestamp(props.timestamp)}
+                                                </div>
+                                            </div>
+                                            {props.tags && (
+                                                <div className={'tags mb-3'}>
+                                                    <label>Tags:</label>
+                                                    <div>
+                                                        {tagsArr.map((el, index) => (
+                                                            <Link
+                                                                key={uuid()}
+                                                                to={'/marketplace/' + el}
+                                                                className="btn filter"
+                                                            >
+                                                                {el}
+                                                            </Link>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </>
+                                    )}
                                 </div>
                             </div>
                         </div>
-                        <div className="item description">
-                            <div className="text">
-                                {props.description}
-                            </div>
-                        </div>
-                        {
-                            props.completedOrders &&
-                            <div className="info-table">
-                                <div className="t-row">
-                                    <div className="t-cell"><span>Buyer:</span></div>
-                                    <div className="t-cell">
-                                        <a onClick={() => props.setBodyModalParamsAction("INFO_ACCOUNT", props.buyerRS)} className="blue-text">
-                                            {props.buyerRS}
-                                        </a>
-                                        <Link to={'/marketplace/' + props.sellerRS}
-                                            className="btn btn-green ml-3"
-                                        >
-                                            Store
-                                        </Link>
-                                    </div>
-                                </div>
-                                <div className="t-row">
-                                    <div className="t-cell"><span>Order date:</span></div>
-                                    <div className="t-cell">{props.formatTimestamp(props.timestamp)}</div>
-                                </div>
-                                <div className="t-row">
-                                    <div className="t-cell"><span>Order status:</span></div>
-                                    <div className="t-cell">{props.pending ? "Pending" : "Completed"}</div>
-                                </div>
-                                <div className="t-row">
-                                    <div className="t-cell"><span>Quantity:</span></div>
-                                    <div className="t-cell">{props.quantity}</div>
-                                </div>
-                            </div>
-                        }
-
-                        {
-                            props.deliver &&
-                            <div className="info-table">
-                                <div className="t-row">
-                                    <div className="t-cell"><span>Buyer:</span></div>
-                                    <div className="t-cell"><a onClick={() => props.setBodyModalParamsAction("INFO_ACCOUNT", props.buyerRS)} className="blue-text">{props.buyerRS}</a></div>
-                                </div>
-                                <div className="t-row">
-                                    <div className="t-cell"><span>Order date:</span></div>
-                                    <div className="t-cell">{props.formatTimestamp(props.timestamp)}</div>
-                                </div>
-                                <div className="t-row">
-                                    <div className="t-cell"><span>Delivery deadline:</span></div>
-                                    <div className="t-cell">{props.formatTimestamp(props.deliveryDeadlineTimestamp)}</div>
-                                </div>
-                                <div className="t-row">
-                                    <div className="t-cell"><span>Quantity:</span></div>
-                                    <div className="t-cell">{props.quantity}</div>
-                                </div>
-                                <div className="t-row">
-                                    <div className="t-cell">
-                                        <a
-                                            onClick={() => props.setBodyModalParamsAction('MARKETPLACE_GOODS_DELIVER', props.purchase)}
-                                            className="btn blue static cursor-pointer"
-                                        >
-                                            Deliver Goods
-                                        </a>
-                                    </div>
-                                    <div className="t-cell"></div>
-                                </div>
-                            </div>
-
-                        }{
-                            !props.deliver && !props.completedOrders &&
-                            <div className="item tags-links">
-                                <div className="top">
-                                    <div className="seller">
-                                        <div className="name">Seller:</div>
-                                        <div className="link-date">
-                                            <div className="link cursor-pointer"
-                                                onClick={() => props.setBodyModalParamsAction('INFO_ACCOUNT', props.sellerRS)}>
-                                                {props.sellerRS}
-                                            </div>
-                                            <div className="date">Listing
-                                                Date: {props.formatTimestamp(props.timestamp)}</div>
-                                        </div>
-                                        <Link to={'/marketplace/' + props.sellerRS}
-                                            className="btn btn-green"
-                                        >
-                                            Store
-                                        </Link>
-                                    </div>
-                                </div>
-                                <div className="bottom">
-                                    {
-                                        props.tags &&
-                                        <div className="seller">
-                                            <div className="name">Tags:</div>
-                                            <div className="tags">
-                                                {
-                                                    props.tags &&
-                                                    tagsArr.map((el, index) => {
-                                                        return <Link key={uuid()} to={'/marketplace/' + el} style={{marginLeft: 15}}
-                                                                    className="btn static primary">{el}</Link>
-                                                    })}
-                                            </div>
-                                        </div>
-                                    }
-                                </div>
-                                {
-                                    props.deliver &&
-                                    <div className="deliver" style={{paddingTop: 35}}>
-                                        <a
-                                            onClick={() => props.setBodyModalParamsAction('MARKETPLACE_GOODS_DELIVER', props.purchase)}
-                                            className="btn blue static cursor-pointer"
-                                        >
-                                            Deliver Goods
-                                        </a>
-                                    </div>
-                                }
-                            </div>
-                        }
-                    </div>
-                </React.Fragment>
-            }
+                    </React.Fragment>
+                )}
+            </div>
         </div>
-    </div>
-);}
+    );
+};
 
 export default connect(null, mapDispatchToProps)(MarketplaceItem);
