@@ -2,9 +2,9 @@ import React from 'react';
 
 import {Text} from 'react-form';
 import TextualInputComponent from '../../../components/form-components/textual-input';
+import CustomInputForm from '../../../components/form-components/textual-input';
 import CustomTextArea from '../../../components/form-components/text-area';
 import CustomFormSelect from '../../../components/form-components/custom-form-select';
-import CustomInputForm from '../../../components/form-components/textual-input';
 
 import AssetInput from '../../../components/form-components/asset-input';
 import CurrencyInput from '../../../components/form-components/currency-input';
@@ -125,13 +125,13 @@ class PollForm extends React.Component {
                     setValue={setValue}
                     idGroup={idGroup}
                 />
-                
-                <div className="form-group row mb-0">
-                    <label className="col-sm-3 col-form-label align-self-start">
+
+                <div className="form-group mb-0">
+                    <label>
                         Answer
                     </label>
-                    <div className="col-sm-9">
-                        <div className="input-group mb-15 no-left-padding">
+                    <div>
+                        <div className="input-group mb-15">
                             <Text
                                 field={'answers[0]'}
                                 className="form-control"
@@ -172,18 +172,17 @@ class PollForm extends React.Component {
                         }
                     </div>
                 </div>
-                <div className="mobile-class form-group-grey row mb-15">
-                    <div className="col-sm-9 offset-sm-3">
-                        <a
-                            id={`${idGroup}addAnswer-field`}
-                            className="no-margin btn btn-green"
-                            onClick={() => this.addAnswer(setValue, getFormState().values.answers)}
-                        >
-                            Add answer
-                        </a>
-                    </div>
+                <div className="mb-15">
+                    <button
+                        type={'button'}
+                        id={`${idGroup}addAnswer-field`}
+                        className="no-margin btn btn-green"
+                        onClick={() => this.addAnswer(setValue, getFormState().values.answers)}
+                    >
+                        Add answer
+                    </button>
                 </div>
-                
+
                 <div className="row">
                     <div className="col-sm-6">
                         <CustomInputForm
@@ -213,7 +212,7 @@ class PollForm extends React.Component {
                             field={'minRangeValue'}
                             type={'tel'}
                             idGroup={idGroup}
-                            defaultValue={0}
+                            defaultValue={"0"}
                         />
                         <CustomInputForm
                             label={'Max range value'}
