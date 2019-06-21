@@ -22,7 +22,7 @@ class SidebarContentPage extends PureComponent {
         return (
             <div className={`page-body container-fluid followed-polls-container pl-0 sidebar-content-page ${className}`}>
                     <div className="row">
-                        <div className={`col-md-3 p-0 pb-3`}>
+                        <div className={`col-md-3 p-0 mb-3`}>
                             {(window.innerWidth > 767 || !isGoBack) && (
                                 <SidebarContent params={params} />
                             )}

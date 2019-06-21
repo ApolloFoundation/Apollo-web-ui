@@ -226,7 +226,7 @@ class FollowedVotes extends React.Component {
                             />
                         </div>
                     </div>
-                    <div className="card mb-3">
+                    <div className="card">
                         <div className="card-title">Votes cast ({this.state.allVotesNumber})</div>
                         <div className="card-body">
                             <CustomTable
