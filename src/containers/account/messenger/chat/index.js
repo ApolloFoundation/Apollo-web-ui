@@ -20,7 +20,7 @@ class Chat extends React.Component {
                         Chat with <strong className={'blue-text'}>{chat}</strong>
                     </InfoBox>
                 )}
-                <div className="card p-0">
+                <div className="card p-0 h-100">
                     {chat ? (
                         <>
                             <div className="chatting-box">
