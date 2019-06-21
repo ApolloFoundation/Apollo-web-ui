@@ -292,7 +292,7 @@ class AssetExchange extends React.Component {
                     this.state.asset &&
                     <div className="page-body container-fluid assets-exchange">
                         <div className="row">
-                            <div className="col-md-3 p-0 pb-3">
+                            <div className="col-md-3 p-0">
                                 <div className="card mb-3">
                                     <div className="card-title card-title-lg bg-primary">
                                         <span className={'title-lg'}>{this.state.asset.name}</span>
