@@ -28,13 +28,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class MyAssets extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.getTransaction = this.getTransaction.bind(this);
-        this.getAssets      = this.getAssets.bind(this);
-    }
-
     state = {
         assets: null,
         page: 1,
@@ -43,25 +36,19 @@ class MyAssets extends React.Component {
     };
 
     onPaginate = (page) => {
-        let reqParams = {
-            ...this.props,
+        const pagination = {
             page: page,
-            account: this.props.account,
             firstIndex: page * 15 - 15,
             lastIndex:  page * 15 - 1
         };
 
-        this.setState(reqParams, () => {
-            this.getAssets(reqParams)
-        });
+        this.getAssets(pagination);
     };
 
 
     componentDidMount() {
         this.getAssets();
         BlockUpdater.on("data", data => {
-            console.warn("height in dashboard", data);
-            console.warn("updating dashboard");
             this.getAssets();
         });
     }
@@ -70,19 +57,22 @@ class MyAssets extends React.Component {
         BlockUpdater.removeAllListeners('data');
     }
 
-    componentWillReceiveProps () {
-        this.getAssets();
-    }
-
-    async getAssets () {
+    getAssets = async (pagination) => {
+        if (!pagination) {
+            pagination = {
+                firstIndex: this.state.firstIndex,
+                lastIndex: this.state.lastIndex,
+            }
+        }
         let assets = await this.props.getAssetAction({
-            account: this.props.account
+            account: this.props.account,
+            firstIndex: pagination.firstIndex,
+            lastIndex: pagination.lastIndex,
         });
 
         if (assets) {
             const accountAssets = assets.accountAssets;
             const assetsInfo    = assets.assets;
-
 
             const result = assetsInfo.map((el, index) => {
                 return {
@@ -92,12 +82,13 @@ class MyAssets extends React.Component {
             });
 
             this.setState({
+                ...pagination,
                 assets: result,
             })
         }
-    }
+    };
 
-    async getTransaction (data) {
+    getTransaction = async (data) => {
         const reqParams = {
             transaction: data,
             account: this.props.account
@@ -107,7 +98,7 @@ class MyAssets extends React.Component {
         if (transaction) {
             this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction);
         }
-    }
+    };
 
     render () {
         return (
@@ -144,11 +135,11 @@ class MyAssets extends React.Component {
                                 alignRight: true
                             }
                         ]}
-                        page={this.state.page}
                         TableRowComponent={MyAssetItem}
                         tableData={this.state.assets}
                         className={'mb-3'}
                         isPaginate
+                        page={this.state.page}
                         emptyMessage={'No assets found.'}
                         previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
                         nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
