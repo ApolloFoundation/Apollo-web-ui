@@ -268,7 +268,7 @@ class AssetExchange extends React.Component {
         };
         if (type === 'buy') {
             this.getBuyOrders(this.state.asset, pagination);
-        } else if(type === 'sell') {
+        } else if (type === 'sell') {
             this.getSellOrders(this.state.asset, pagination);
         }
     };
@@ -292,73 +292,100 @@ class AssetExchange extends React.Component {
                     this.state.asset &&
                     <div className="page-body container-fluid assets-exchange">
                         <div className="row">
-                            {
-                                window.innerWidth > 767 &&
-                                <div className="col-md-3 p-0 pb-3">
-                                    <div className="card mb-3">
-                                        <div className="card-title card-title-lg bg-primary">
-                                            <span className={'title-lg'}>{this.state.asset.name}</span>
-                                        </div>
-                                        <div className="card-body">
-                                            <div className={'form-group-app'}>
-                                                <div className={'wrap-info'}>
-                                                    <p className={'mb-3'}>
-                                                        <label>
-                                                            Total available:
-                                                        </label>
-                                                        <div>
-                                                            {(this.state.asset.quantityATU / Math.pow(10, this.state.asset.decimals)).toFixed(this.state.asset.decimals)} {this.state.asset.name}
-                                                        </div>
-                                                    </p>
-                                                    <p className={'mb-3'}>
-                                                        <label>
-                                                            Description:
-                                                        </label>
-                                                        <div>
-                                                            {this.state.asset.description}
-                                                        </div>
-                                                    </p>
-                                                    <p className={'mb-3'}>
-                                                        <label>
-                                                            Account:
-                                                        </label>
-                                                        <div>
-                                                            {this.state.asset.accountRS}
-                                                        </div>
-                                                    </p>
-                                                    <p className={'mb-3'}>
-                                                        <label>
-                                                            Asset ID:
-                                                        </label>
-                                                        <div>
-                                                            {this.state.asset.asset}
-                                                        </div>
-                                                    </p>
-                                                    <p>
-                                                        <label>
-                                                            Asset decimals:
-                                                        </label>
-                                                        <div>
-                                                            {this.state.asset.decimals}
-                                                        </div>
-                                                    </p>
-                                                </div>
-                                                <button
-                                                    type={'button'}
-                                                    className={"btn btn-default btn-lg"}
-                                                    onClick={() => {
-                                                        this.props.setBodyModalParamsAction('VIEW_ASSET_DISTRIBUTION', {
-                                                            asset: this.props.match.params.asset,
-                                                            decimals: this.state.asset.decimals,
-                                                            totalAvailable: this.state.asset.quantityATU
-                                                        })
-                                                    }}
-                                                >
-                                                    View Asset Distribution
-                                                </button>
+                            <div className="col-md-3 p-0 pb-3">
+                                <div className="card mb-3">
+                                    <div className="card-title card-title-lg bg-primary">
+                                        <span className={'title-lg'}>{this.state.asset.name}</span>
+                                    </div>
+                                    <div className="card-body">
+                                        <div className={'form-group-app'}>
+                                            <div className={'wrap-info'}>
+                                                <p className={'mb-3'}>
+                                                    <label>
+                                                        Total available:
+                                                    </label>
+                                                    <div>
+                                                        {(this.state.asset.quantityATU / Math.pow(10, this.state.asset.decimals)).toFixed(this.state.asset.decimals)} {this.state.asset.name}
+                                                    </div>
+                                                </p>
+                                                <p className={'mb-3'}>
+                                                    <label>
+                                                        Description:
+                                                    </label>
+                                                    <div>
+                                                        {this.state.asset.description}
+                                                    </div>
+                                                </p>
+                                                <p className={'mb-3'}>
+                                                    <label>
+                                                        Account:
+                                                    </label>
+                                                    <div>
+                                                        {this.state.asset.accountRS}
+                                                    </div>
+                                                </p>
+                                                <p className={'mb-3'}>
+                                                    <label>
+                                                        Asset ID:
+                                                    </label>
+                                                    <div>
+                                                        {this.state.asset.asset}
+                                                    </div>
+                                                </p>
+                                                <p>
+                                                    <label>
+                                                        Asset decimals:
+                                                    </label>
+                                                    <div>
+                                                        {this.state.asset.decimals}
+                                                    </div>
+                                                </p>
                                             </div>
+                                            <button
+                                                type={'button'}
+                                                className={"btn btn-default btn-lg"}
+                                                onClick={() => {
+                                                    this.props.setBodyModalParamsAction('VIEW_ASSET_DISTRIBUTION', {
+                                                        asset: this.props.match.params.asset,
+                                                        decimals: this.state.asset.decimals,
+                                                        totalAvailable: this.state.asset.quantityATU
+                                                    })
+                                                }}
+                                            >
+                                                View Asset Distribution
+                                            </button>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                            {
+                                this.props.match.params &&
+                                <div className="col-md-9 p-0">
+                                    <div className={'row'}>
+                                        <div className="col-xl-6 col-md-12 pr-0 pb-3">
+                                            <BuyAsset
+                                                asset={this.state.asset}
+                                                balanceATU={this.state.asset.balanceATU}
+                                                handleTotalValue={this.handleTotalValue}
+                                                handleBuyOrders={this.handleBuyOrders}
+                                            />
+                                        </div>
+                                        <div className="col-xl-6 col-md-12 pr-0 pb-3">
+                                            <SellAsset
+                                                asset={this.state.asset}
+                                                accountAsset={this.state.accountAsset}
+                                                handleTotalValue={this.handleTotalValue}
+                                                handleSellOrders={this.handleSellOrders}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+
+                        </div>
+                        <div className="row">
+                            {window.innerWidth > 767 && (
+                                <div className="col-md-3 p-0 mb-3">
                                     <SidebarContent
                                         element={'asset'}
                                         baseUrl={'/asset-exchange/'}
@@ -368,9 +395,8 @@ class AssetExchange extends React.Component {
                                         Component={SidebatAsset}
                                     />
                                 </div>
-                            }
-                            {
-                                this.props.match.params &&
+                            )}
+                            {this.props.match.params && (
                                 <div className="col-md-9 p-0">
                                     <div className={'row'}>
                                         <div className="col-xl-6 col-md-12 pr-0 pb-3">
@@ -411,7 +437,7 @@ class AssetExchange extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                            }
+                            )}
                         </div>
                     </div>
                 }
