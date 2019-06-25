@@ -161,6 +161,11 @@ class App extends React.Component {
                         >
                             <div className="phasing-box__phasing-description">
                                 {catId.infoContent}
+                                {catId.infoTitle && (
+                                    <div className="phasing-box__phasing-title">
+                                        {catId.infoTitle}
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>

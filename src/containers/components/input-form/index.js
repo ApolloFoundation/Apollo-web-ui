@@ -151,7 +151,7 @@ class InputForm extends React.Component {
     };
 
     render() {
-        const isNumberInput = (this.props.type === "tel" || this.props.type === "float") && !this.props.disabled;
+        const isNumberInput = (this.props.type === "tel" || this.props.type === "float") && !this.props.disabled && !this.props.disableArrows;
         return (
             <div className={`input-text-wrap ${isNumberInput ? 'input-text-number-wrap' : ''}`}>
                 <Text

@@ -25,7 +25,6 @@ import UserBox from './user-box';
 import UserBottomBox from './user-bottom-box';
 
 import CurrentAccount from './current-account';
-import ForgingBodyModal from './forging-body-modal';
 import Settings from './settings';
 
 import './SiteHeader.scss';
@@ -213,7 +212,6 @@ class SiteHeader extends React.Component {
                         isActive={bodyModalType === "ACCOUNT_BODY_MODAL"}
                         closeMenu={this.closeMenu}
                     />
-                    <ForgingBodyModal isActive={bodyModalType === "FORGING_BODY_MODAL"} closeMenu={this.closeMenu}/>
                     <Settings isActive={bodyModalType === "SETTINGS_BODY_MODAL"} closeMenu={this.closeMenu}/>
                 </div>
             </>
