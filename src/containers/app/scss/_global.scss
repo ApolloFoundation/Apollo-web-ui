@@ -448,7 +448,7 @@ input[type="file"] {
 /* Handle */
 ::-webkit-scrollbar-thumb {
 	transition: 0.3s;
-	background: linear-gradient(179.43deg, #2AC940 0%, #31D947 100%);
+	background: #2B36FF;
 	border: 3px solid #F5F7FC;
 	&:hover {
 		border: none;
@@ -788,8 +788,6 @@ div.info-box {
 		min-width: 102px;
 		background-color: #fff;
 		box-sizing: border-box;
-		transition: all 0.3s ease-in-out;
-		transform: translateY(-15px);
 		color: #98B0CD;
 		border: 1px solid #E6EAEE;
 		box-shadow: 0 7px 15px 0 rgba(218,218,218,0.49);
@@ -797,6 +795,10 @@ div.info-box {
 		font-size: 10px;
 		text-align: center;
 		padding: 12px 6px;
+		animation: scale .3s;
+		transform-origin: 75% 75%;
+		margin-bottom: 15px;
+		position: relative;
 
 		&::after {
 			content: '';
@@ -804,13 +806,22 @@ div.info-box {
 			width: 15px;
 			border-bottom: 1px solid #E6EAEE;
 			border-right: 1px solid #E6EAEE;
-			transform: rotate(45deg) translateX(-50%);
+			transform: rotate(45deg);
 			position: absolute;
-			left: 50%;
-			bottom: -14px;
+			left: calc(50% - 4px);
+			bottom: -8px;
 			z-index: 2;
 			background: #fff;
 		}
+	}
+	.phasing-box__phasing-title {
+		color: #3D5A7E;
+		font-size: 12px;
+		font-weight: 600;
+		line-height: 14px;
+		text-align: center;
+		text-transform: uppercase;
+		margin-top: 4px;
 	}
 }
 
@@ -1237,6 +1248,8 @@ div.info-box {
 		padding: 15px;
 		text-transform: uppercase;
 		font-weight: 600;
+		height: 45px;
+		min-height: 45px;
 	}
 	&.btn-simple {
 		color: #8AA5C7;
@@ -1318,15 +1331,36 @@ div.info-box {
 			background: #f5f7fc;
 		}
 	}
+	&.btn-grey {
+		color: #98B0CD;
+		background-color: rgba(152,176,205,0.15);
+		box-shadow: none;
+		svg {
+			fill: #98B0CD !important;
+			g use {
+				stroke: #98B0CD;
+			}
+		}
+		&:hover {
+			opacity: 0.8;
+		}
+	}
 	&.btn-green {
 		color: #ffffff;
 		background: linear-gradient(270deg, #2AC940 0%, #31D947 100%);
 		box-shadow: 0 10px 20px 0 rgba(37,244,89,0.26);
+		&:hover {
+			opacity: 0.8;
+		}
 	}
 	&.btn-danger {
 		color: #ffffff;
 		background: linear-gradient(270deg, #ef2e5c 0%, #F36 100%);
 		box-shadow: 0 10px 20px 0 rgba(255, 51, 102, 0.26);
+	}
+	&.btn-primary {
+		color: #ffffff;
+		background: linear-gradient(79.43deg, #2B36FF 0%, #535BFF 100%);
 	}
 	&.btn-green-disabled {
 		opacity: 0.5;
@@ -1872,4 +1906,27 @@ table {
 
 .absolute {
 	position: absolute;
+}
+
+.label {
+	color: #98B0CD;
+	font-size: 11px;
+}
+
+.ml-15 {
+	margin-left: 15px;
+}
+
+.mb-15 {
+	margin-bottom: 15px;
+}
+
+.text-ellipsis {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+svg {
+	margin: 0;
 }

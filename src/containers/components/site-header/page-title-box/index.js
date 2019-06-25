@@ -9,16 +9,6 @@ const PageTitleBox = ({setBodyModalType, children, dashboardPage, pageTitle}) =>
                 children &&
                 children
             }
-            {
-                dashboardPage &&
-                <>
-                    <div className="general open-settings">
-                        <div className={'cursor-pointer'} onClick={(e) => setBodyModalType('FORGING_BODY_MODAL', e)}>
-                            <i className="user-box-icon zmdi zmdi-chevron-down"/>
-                        </div>
-                    </div>
-                </>
-            }
         </div>
         {children && (
             <div className={'media-site-header-buttons mt-3'}>
