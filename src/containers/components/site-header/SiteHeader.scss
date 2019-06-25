@@ -244,6 +244,18 @@
 					text-align: center;
 					transition: 0.3s;
 
+					&.header-action-text {
+						width: auto;
+						color: #98B0CD;
+						font-size: 13px;
+						line-height: 16px;
+						padding: 8px;
+						.zmdi {
+							font-size: 16px;
+							margin-right: 8px;
+						}
+					}
+
 					&:hover {
 						border-color: #E6EAEE;
 					}

@@ -127,6 +127,15 @@ class UserBox extends Component {
                                         </CopyToClipboard>
 
                                         <IconndeButton
+                                            className={'d-none d-sm-flex text-ellipsis'}
+                                            id={'open-send-apollo-modal-window'}
+                                            icon={<i className="zmdi zmdi-alert-circle"/>}
+                                            text={'Support'}
+                                            action={'https://support.apollocurrency.com/support/home'}
+                                            link
+                                        />
+
+                                        <IconndeButton
                                             id={'open-send-apollo-modal-window'}
                                             icon={<i className="zmdi zmdi-balance-wallet"/>}
                                             action={() => setBodyModalParamsAction('SEND_APOLLO')}
