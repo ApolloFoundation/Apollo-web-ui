@@ -131,11 +131,13 @@
 		}
 	}
 	.about-image {
-		height: 155px;
+		max-height: 155px;
+		height: 100%;
 		background-repeat: no-repeat;
 		background-size: contain;
-		background-position: left;
-		background-image: url(../../assets/brand-logo.png) !important;
+		background-position: center;
+		background-image: url(../../assets/apollo-logo.png) !important;
+		margin-right: 12px;
 	}
 	.form-title {
 		//padding-top: 30px;
