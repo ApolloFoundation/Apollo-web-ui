@@ -81,7 +81,7 @@ const TransactionItem = (props) => {
                 <div className={'transaction-rs-wrap d-flex justify-content-between align-items-center'}>
                     <div className={senderRS === 'You' ? 'transaction-you mr-2' : 'transaction-rs text-ellipsis mr-2'}>
                         {isDexOrder ? (
-                            props.attachment.offerCurrency === 0 ? senderRS : <i className="zmdi zmdi-trending-up left"/>
+                            props.attachment.offerCurrency === 0 ? senderRS : <div className={'transaction-type text-ellipsis'}>{transactionType}</div>
                         ) : (
                             senderRS
                         )}
@@ -97,7 +97,7 @@ const TransactionItem = (props) => {
                     </div>
                     <div className={recipientRS === 'You' ? 'transaction-you ml-2' : 'transaction-rs text-ellipsis ml-2'}>
                         {isDexOrder ? (
-                            props.attachment.offerCurrency !== 0 ? senderRS : <i className="zmdi zmdi-trending-up left"/>
+                            props.attachment.offerCurrency !== 0 ? senderRS : <div className={'transaction-type text-ellipsis'}>{transactionType}</div>
                         ) : (
                             props.recipientRS ? (
                                 <span>{recipientRS}</span>

@@ -22,7 +22,6 @@ import InfoStatistic from "./InfoStatistic";
 
 import TwitterBanner from "../../../assets/twitter-banner2.png";
 import InfoBanner from "../../../assets/info-banner.png";
-import './style.scss';
 
 class Dashboard extends React.Component {
     state = {

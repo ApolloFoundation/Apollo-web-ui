@@ -18,6 +18,7 @@ class BlockchainStatus extends Component {
     };
 
     handleSetForging = async (action) => {
+        console.log('----this.props.effectiveBalanceAPL----', this.props.effectiveBalanceAPL)
         if (!this.props.effectiveBalanceAPL || this.props.effectiveBalanceAPL < 1000) {
             NotificationManager.error('You can start forging only if your effective balance exceed 1000 APL.', 'Error', 5000);
             return;

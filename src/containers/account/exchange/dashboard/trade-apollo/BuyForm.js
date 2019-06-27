@@ -4,12 +4,14 @@ import {Form} from 'react-form';
 import {NotificationManager} from 'react-notifications';
 import InputForm from '../../../../components/input-form';
 import CustomSelect from '../../../../components/select';
+import InputRange from "../../../../components/input-range";
 import {currencyTypes, multiply} from '../../../../../helpers/format';
 import {createOffer} from '../../../../../actions/wallet';
 import {setBodyModalParamsAction} from '../../../../../modules/modals';
-import {ONE_APL, ONE_GWEI} from '../../../../../constants';
+import {ONE_GWEI} from '../../../../../constants';
+import {ReactComponent as ArrowRight} from "../../../../../assets/arrow-right.svg";
 
-class ExchangeBuy extends React.Component {
+class BuyForm extends React.Component {
     feeATM = 200000000;
     state = {
         form: null,
@@ -19,7 +21,7 @@ class ExchangeBuy extends React.Component {
     };
 
     static getDerivedStateFromProps(props, state) {
-        if (props.currentCurrency.currency !== state.currentCurrency || props.wallet !== state.wallet) {
+        if (props.currentCurrency && (props.currentCurrency.currency !== state.currentCurrency || props.wallet !== state.wallet)) {
             if (state.form && state.form.values) {
                 state.form.setAllValues({
                     walletAddress: state.form.values.walletAddress,
@@ -127,20 +129,20 @@ class ExchangeBuy extends React.Component {
         const {currentCurrency: {currency}} = this.props;
         const currencyName = currency.toUpperCase();
         return (
-            <div className={'card-block green card card-medium pt-0 h-400'}>
-                <Form
-                    onSubmit={values => this.handleFormSubmit(values)}
-                    getApi={this.getFormApi}
-                    render={({
-                                 submitForm, setValue, values
-                             }) => (
-                        <form className="modal-form modal-send-apollo modal-form" onSubmit={submitForm}>
-                            <div className="form-title d-flex justify-content-between align-items-center">
-                                <p>Buy APL</p>
-                                <span>Fee: {this.feeATM/ONE_APL} APL</span>
-                            </div>
+            <Form
+                onSubmit={values => this.handleFormSubmit(values)}
+                getApi={this.getFormApi}
+                render={({
+                             submitForm, setValue, values
+                         }) => {
+                    const balance = values.walletAddress && values.walletAddress.balances[currency];
+                    return (
+                        <form
+                            className="form-group-app d-flex flex-column justify-content-between h-100 mb-0"
+                            onSubmit={submitForm}
+                        >
                             {this.state.walletsList && !!this.state.walletsList.length && (
-                                <div className="form-group row form-group-white mb-15">
+                                <div className="form-group mb-3">
                                     <label>
                                         {currencyName} Wallet
                                     </label>
@@ -153,80 +155,124 @@ class ExchangeBuy extends React.Component {
                                     />
                                 </div>
                             )}
-                            <div className="form-group row form-group-white mb-15">
+                            <div className="form-group mb-3">
                                 <label>
                                     Price for 1 APL
                                 </label>
-                                <div className="input-group input-group-text-transparent">
+                                <div className="input-group">
                                     <InputForm
                                         field="pairRate"
                                         type={"float"}
-                                        onChange={(price) => setValue("total", multiply(values.offerAmount, price))}
-                                        setValue={setValue}/>
+                                        onChange={(price) => {
+                                            let amount = values.offerAmount || 0;
+                                            if (balance) {
+                                                if ((amount * price) > balance) {
+                                                    amount = balance / price;
+                                                    setValue("range", 100);
+                                                    setValue("total", balance);
+                                                    setValue("offerAmount", amount);
+                                                    return;
+                                                } else {
+                                                    setValue("range", ((amount * price) * 100 / balance).toFixed(0));
+                                                }
+                                            }
+                                            setValue("total", multiply(amount, price));
+                                        }}
+                                        setValue={setValue}
+                                        disableArrows
+                                    />
                                     <div className="input-group-append">
                                         <span className="input-group-text">{currencyName}</span>
                                     </div>
                                 </div>
                             </div>
-                            <div className="form-group row form-group-white mb-15">
+                            <div className="form-group mb-3">
                                 <label>
                                     I want to Buy
                                 </label>
                                 <div
-                                    className="input-group input-group-text-transparent">
+                                    className="input-group">
                                     <InputForm
                                         field="offerAmount"
                                         type={"float"}
-                                        onChange={(amount) => setValue("total", multiply(amount, values.pairRate))}
-                                        setValue={setValue}/>
+                                        onChange={(amount) => {
+                                            if (balance) {
+                                                if ((amount * values.pairRate) > balance) {
+                                                    amount = balance / values.pairRate;
+                                                    setValue("range", 100);
+                                                    setValue("total", balance);
+                                                    setValue("offerAmount", amount);
+                                                    return;
+                                                } else {
+                                                    setValue("range", (amount * 100 / balance).toFixed(0));
+                                                }
+                                            }
+                                            setValue("total", multiply(amount, values.pairRate));
+                                        }}
+                                        setValue={setValue}
+                                        disableArrows
+                                    />
                                     <div className="input-group-append">
                                         <span className="input-group-text">APL</span>
                                     </div>
                                 </div>
                             </div>
-                            <div className="form-group row form-group-white mb-15">
+                            <div className="form-group mb-3">
                                 <label>
                                     I will pay
                                 </label>
-                                <div
-                                    className="input-group input-group-text-transparent">
+                                <div className="input-group">
                                     <InputForm
                                         field="total"
                                         type={"float"}
                                         setValue={setValue}
                                         disabled/>
                                     <div className="input-group-append">
-                                        <span className="input-group-text">{currencyName}</span>
+                                    <span className="input-group-text">
+                                        {values.walletAddress && (
+                                            <span className={'input-group-info-text'}><i
+                                                className="zmdi zmdi-balance-wallet"/>&nbsp;
+                                                {values.walletAddress.balances[currency]}&nbsp;</span>
+                                        )}
+                                        {currencyName}</span>
                                     </div>
                                 </div>
                             </div>
                             {values.walletAddress && (
-                                <div className={'form-group-text d-flex justify-content-between'}>
-                                    of Total Balance: <span><i
-                                    className="zmdi zmdi-balance-wallet"/> {values.walletAddress.balances[currency]}&nbsp;{currencyName}</span>
-                                </div>
+                                <InputRange
+                                    field="range"
+                                    min={0}
+                                    max={100}
+                                    disabled={!values.pairRate || values.pairRate === '0' || values.pairRate === ''}
+                                    onChange={(amount) => {
+                                        const offerAmount = values.pairRate !== '0' ? ((amount * balance) / (100 * values.pairRate)).toFixed(10) : 0;
+                                        setValue("offerAmount", offerAmount);
+                                        setValue("total", multiply(offerAmount, values.pairRate));
+                                    }}
+                                />
                             )}
-                            <div className="btn-box align-buttons-inside align-center form-footer">
-                                <button
-                                    type="submit"
-                                    name={'closeModal'}
-                                    className={'btn btn-lg btn-green submit-button'}
-                                >
-                                    <span className={'button-text'}>Buy APL</span>
-                                </button>
-                            </div>
+                            <button
+                                type={'submit'}
+                                className={'btn btn-green btn-lg'}
+                            >
+                                <span>Buy APL</span>
+                                <div className={'btn-arrow'}>
+                                    <ArrowRight/>
+                                </div>
+                            </button>
                         </form>
-                    )}/>
-            </div>
+                    )
+                }}/>
         )
     }
 }
 
-const mapStateToProps = ({account, dashboard}) => ({
+const mapStateToProps = ({account, dashboard, exchange}) => ({
     account: account.account,
     balanceAPL: account.unconfirmedBalanceATM,
     dashboardAccoountInfo: dashboard.dashboardAccoountInfo,
     passPhrase: account.passPhrase,
+    currentCurrency: exchange.currentCurrency,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -234,4 +280,4 @@ const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, value) => dispatch(setBodyModalParamsAction(type, value)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ExchangeBuy);
+export default connect(mapStateToProps, mapDispatchToProps)(BuyForm);
