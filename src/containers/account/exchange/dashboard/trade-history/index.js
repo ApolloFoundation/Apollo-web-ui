@@ -39,7 +39,7 @@ const buyOrders = [
 class TradeHistoryExchange extends React.Component {
     handleFormSubmit = () => {
         if (this.props.wallet) {
-            NotificationManager.error('This functionality will be delivered in future release.', 'Error', 5000);
+            NotificationManager.error('This functionality will be delivered in future releases.', 'Error', 5000);
         } else {
             this.props.handleLoginModal();
         }
@@ -48,41 +48,38 @@ class TradeHistoryExchange extends React.Component {
     render() {
         const {currency} = this.props.currentCurrency;
         return (
-            <div className={'card-block form-group-app p-0 h-400'}>
-                <div className={'form-title white d-flex justify-content-between'}>
-                    <p>Trade history</p>
-                    <button
-                        type={'button'}
-                        className={'btn btn-sm'}
-                        onClick={this.handleFormSubmit}
-                    >
-                        View All
-                    </button>
+            <div className={'card card-light triangle-bg card-square'}>
+                <div className="card-body">
+                    <div className={'tabs-wrap tabs-primary mb-3'}>
+                        <div className={'tab-item w-auto active'}>
+                            Trade history
+                        </div>
+                    </div>
+                    <CustomTable
+                        header={[
+                            {
+                                name: `Price ${currency.toUpperCase()}`,
+                                alignRight: false
+                            }, {
+                                name: `Amount APL`,
+                                alignRight: true
+                            }, {
+                                name: `Total ${currency.toUpperCase()}`,
+                                alignRight: true
+                            }
+                        ]}
+                        className={'table-sm'}
+                        tableData={buyOrders}
+                        emptyMessage={'No trade history found.'}
+                        TableRowComponent={(props) => (
+                            <tr className={''}>
+                                <td>{props.price}</td>
+                                <td className={'align-right'}>{props.amount}</td>
+                                <td className={'align-right'}>{props.total}</td>
+                            </tr>
+                        )}
+                    />
                 </div>
-                <CustomTable
-                    header={[
-                        {
-                            name: `Price ${currency.toUpperCase()}`,
-                            alignRight: false
-                        }, {
-                            name: `Amount APL`,
-                            alignRight: false
-                        }, {
-                            name: `Total ${currency.toUpperCase()}`,
-                            alignRight: true
-                        }
-                    ]}
-                    className={'pt-0 no-min-height pb-4'}
-                    tableData={buyOrders}
-                    emptyMessage={'No trade history found.'}
-                    TableRowComponent={(props) => (
-                        <tr className={''}>
-                            <td>{props.price}</td>
-                            <td>{props.amount}</td>
-                            <td className={'align-right'}>{props.total}</td>
-                        </tr>
-                    )}
-                />
             </div>
         );
     }

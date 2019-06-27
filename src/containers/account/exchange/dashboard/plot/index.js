@@ -203,26 +203,6 @@ export default class Plot extends React.Component {
                             </p>
                         </div>
                         <div className={'form-title-actions'}>
-                            <div className={'options-section'}>
-                                <button
-                                    onClick={() => this.onHandleChangeFilter('buy')}
-                                    className={`btn btn-sm bg-success ml-3 mt-2 ${this.state.filter === 'buy' ? 'bold-text' : ''}`}
-                                >
-                                    Buy
-                                </button>
-                                <button
-                                    onClick={() => this.onHandleChangeFilter('sell')}
-                                    className={`btn btn-sm bg-danger ml-3 mt-2 ${this.state.filter === 'sell' ? 'bold-text' : ''}`}
-                                >
-                                    Sell
-                                </button>
-                                <button
-                                    onClick={() => this.onHandleChangeChart('offerAmount')}
-                                    className={`btn btn-sm blue ml-3 mt-2 mr-3 ${this.state.chartBy === 'offerAmount' ? 'bold-text' : ''}`}
-                                >
-                                    Amount
-                                </button>
-                            </div>
                             <div className={'info-section'}>
                                 <div>
                                     0.00001540 <span className={'green'}>+11.19%</span>
@@ -244,26 +224,6 @@ export default class Plot extends React.Component {
                                 <div>High: <span>0.0000017</span></div>
                                 <div>Low: <span>0.0000017</span></div>
                             </div>
-                        </div>
-                        <div className={'options-section'}>
-                            <button
-                                onClick={() => this.onHandleChangeFilter('buy')}
-                                className={'btn btn-sm bg-success ml-3 mt-2'}
-                            >
-                                Buy
-                            </button>
-                            <button
-                                onClick={() => this.onHandleChangeFilter('sell')}
-                                className={'btn btn-sm bg-danger ml-3 mt-2'}
-                            >
-                                Sell
-                            </button>
-                            <button
-                                onClick={() => this.onHandleChangeChart('offerAmount')}
-                                className={'btn btn-sm blue ml-3 mt-2 mr-3'}
-                            >
-                                Amount
-                            </button>
                         </div>
                         <div className={'full-box overflow-hidden'}>
                             {!this.state.loading && (
