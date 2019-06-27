@@ -9,6 +9,7 @@ import {createOffer} from '../../../../../actions/wallet';
 import {setBodyModalParamsAction} from '../../../../../modules/modals';
 import {ONE_APL, ONE_GWEI} from '../../../../../constants';
 import {ReactComponent as ArrowRight} from "../../../../../assets/arrow-right.svg";
+import InputRange from "../../../../components/input-range";
 
 class SellForm extends React.Component {
     feeATM = 200000000;
@@ -129,7 +130,7 @@ class SellForm extends React.Component {
     render() {
         const {currentCurrency: {currency}, wallet, balanceAPL, dashboardAccoountInfo} = this.props;
         const balance = (dashboardAccoountInfo && dashboardAccoountInfo.unconfirmedBalanceATM) ? dashboardAccoountInfo.unconfirmedBalanceATM : balanceAPL;
-        const balanceFormat = balance ? formatDivision(balance, ONE_APL, 3) : 0;
+        const balanceFormat = balance ? (balance / ONE_APL) : 0;
         const currencyName = currency.toUpperCase();
         return (
             <Form
@@ -164,7 +165,16 @@ class SellForm extends React.Component {
                                 <InputForm
                                     field="pairRate"
                                     type={"float"}
-                                    onChange={(price) => setValue("total", multiply(values.offerAmount, price))}
+                                    onChange={(price) => {
+                                        let amount = values.offerAmount || 0;
+                                        if (balanceFormat) {
+                                            if (amount > balanceFormat) {
+                                                amount = balanceFormat;
+                                            }
+                                            setValue("range", (amount * 100 / balanceFormat).toFixed(0));
+                                        }
+                                        setValue("total", multiply(amount, price));
+                                    }}
                                     setValue={setValue}
                                     disableArrows
                                 />
@@ -181,7 +191,15 @@ class SellForm extends React.Component {
                                 <InputForm
                                     field="offerAmount"
                                     type={"float"}
-                                    onChange={(amount) => setValue("total", multiply(amount, values.pairRate))}
+                                    onChange={(amount) => {
+                                        if (balanceFormat) {
+                                            if (amount > balanceFormat) {
+                                                amount = balanceFormat;
+                                            }
+                                            setValue("range", (amount * 100 / balanceFormat).toFixed(0));
+                                        }
+                                        setValue("total", multiply(amount, values.pairRate));
+                                    }}
                                     setValue={setValue}
                                     disableArrows
                                 />
@@ -189,7 +207,10 @@ class SellForm extends React.Component {
                                     <span className="input-group-text">
                                         {wallet && balanceFormat !== false && (
                                             <span className={'input-group-info-text'}><i className="zmdi zmdi-balance-wallet"/>&nbsp;
-                                                {balanceFormat}&nbsp;</span>
+                                                {balanceFormat.toLocaleString('en', {
+                                                    minimumFractionDigits: 3,
+                                                    maximumFractionDigits: 3
+                                                })}&nbsp;</span>
                                         )}
                                         APL</span>
                                 </div>
@@ -211,6 +232,18 @@ class SellForm extends React.Component {
                                 </div>
                             </div>
                         </div>
+                        {values.walletAddress && (
+                            <InputRange
+                                field="range"
+                                min={0}
+                                max={100}
+                                onChange={(amount) => {
+                                    const offerAmount = values.pairRate !== '0' ? ((amount * balanceFormat) / 100).toFixed(3) : 0;
+                                    setValue("offerAmount", offerAmount);
+                                    setValue("total", multiply(offerAmount, values.pairRate));
+                                }}
+                            />
+                        )}
                         <button
                             type={'submit'}
                             className={'btn btn-green btn-lg'}

@@ -22,8 +22,6 @@
     "express": "4.16.4",
     "fetch": "1.1.0",
     "file-loader": "1.1.11",
-    "highcharts": "7.1.2",
-    "highcharts-react-official": "2.2.2",
     "history": "4.9.0",
     "html-webpack-plugin": "2.30.1",
     "i18next": "11.10.2",
