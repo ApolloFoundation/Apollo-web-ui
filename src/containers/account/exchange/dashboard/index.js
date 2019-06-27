@@ -103,27 +103,20 @@ class Exchange extends React.Component {
                             </div>
                         </div>
                         <div className={'cards-wrap row'}>
-                            <div className={'col-md-12 p-0'}>
-                                <ExchangeHeader
-                                    currencies={currencies}
-                                    currentCurrency={currentCurrency}
-                                    switchCurrency={this.switchCurrency}
-                                    wallet={wallet}
-                                    handleLoginModal={this.handleLoginModal}
-                                />
-                            </div>
-                        </div>
-                        <div className={'cards-wrap row'}>
-                            <div className={'col-md-9 p-0'}>
+                            <div className={'col-md-9 col-sm-7 p-0'}>
                                 <div className={'row'}>
-                                    <div className={'col-md-8 p-0'}>
+                                    <div className={'col-md-8 col-sm-12 p-0'}>
                                         <Plot
                                             currentCurrency={currentCurrency}
                                             buyOrders={plotBuyOrdersCurrency}
                                             sellOrders={plotSellOrdersCurrency}
+                                            currencies={currencies}
+                                            switchCurrency={this.switchCurrency}
+                                            wallet={wallet}
+                                            handleLoginModal={this.handleLoginModal}
                                         />
                                     </div>
-                                    <div className={'col-md-4 p-0'}>
+                                    <div className={'col-md-4 col-sm-12 p-0'}>
                                         <TradeApollo
                                             currentCurrency={currentCurrency}
                                             wallet={wallet}
@@ -132,21 +125,21 @@ class Exchange extends React.Component {
                                     </div>
                                 </div>
                                 <div className={'row'}>
-                                    <div className={'col-md-4 p-0'}>
+                                    <div className={'col-md-4 col-sm-12 p-0'}>
                                         <TradeHistoryExchange
                                             currentCurrency={currentCurrency}
                                             wallet={wallet}
                                             handleLoginModal={this.handleLoginModal}
                                         />
                                     </div>
-                                    <div className={'col-md-4 p-0'}>
+                                    <div className={'col-md-4 col-sm-6 p-0'}>
                                         <OpenOrders
                                             currentCurrency={currentCurrency}
                                             handleLoginModal={this.handleLoginModal}
                                             myOrders={myOrders[currentCurrency.currency]}
                                         />
                                     </div>
-                                    <div className={'col-md-4 p-0'}>
+                                    <div className={'col-md-4 col-sm-6 p-0'}>
                                         <a
                                             href={'https://twitter.com/ApolloCurrency'}
                                             target="_blank"
@@ -157,7 +150,7 @@ class Exchange extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                            <div className={'col-md-3 p-0'}>
+                            <div className={'col-md-3 col-sm-5 p-0'}>
                                 <Orderbook
                                     currentCurrency={currentCurrency}
                                     buyOrders={buyOrdersCurrency}

@@ -1,9 +1,15 @@
 import React from 'react';
 import Chart from 'chart.js';
 
-import EthIcon from '../../../../../assets/ETH.png';
 import {formatDivision} from "../../../../../helpers/format";
 import {ONE_GWEI} from '../../../../../constants';
+
+import BtcIcon from '../../../../../assets/BTC.png';
+import EthIcon from '../../../../../assets/ETH.png';
+import PaxIcon from '../../../../../assets/PAX.png';
+import {NotificationManager} from "react-notifications";
+import ExchangeSwitch from "./ExchangeSwitch";
+const currencyIcons = {btc: BtcIcon, eth: EthIcon, pax: PaxIcon};
 
 const chartJsOption = {
     type: 'bar',
@@ -26,15 +32,17 @@ const chartJsOption = {
         },
         scales: {
             yAxes: [{
+                position: 'right',
                 gridLines: {
-                    display: false,
-                    color: '#CFDAE8',
+                    display: true,
+                    color: 'rgba(207,218,232,0.4)',
+                    zeroLineColor: '#CFDAE8',
                 },
                 ticks: {
                     min: 0,
-                    fontColor: '#8AA5C7',
+                    fontColor: '#CFDAE8',
                     fontFamily: 'BBRollerMonoProST, sans-serif',
-                    fontSize: '11',
+                    fontSize: '9',
                     callback: function(value) {
                         return formatDivision(value, 1, 3);
                     },
@@ -43,13 +51,14 @@ const chartJsOption = {
             xAxes: [{
                 gridLines: {
                     display: false,
-                    color: '#CFDAE8',
+                    color: 'rgba(207,218,232,0.4)',
+                    zeroLineColor: 'rgba(207,218,232,0.4)',
                 },
                 ticks: {
                     min: 0,
-                    fontColor: '#8AA5C7',
+                    fontColor: '#CFDAE8',
                     fontFamily: 'BBRollerMonoProST, sans-serif',
-                    fontSize: '11',
+                    fontSize: '9',
                 }
             }]
         }
@@ -75,7 +84,7 @@ const sellOptions = {
 const buyOptions = {
     fill: false,
     lineTension: 0.1,
-    backgroundColor: 'rgba(0,189,32,0.92)',
+    backgroundColor: '#2AC940',
     borderColor: 'rgba(0,189,32,0.92)',
     borderCapStyle: 'butt',
     borderDash: [],
@@ -190,17 +199,20 @@ export default class Plot extends React.Component {
     };
 
     render() {
-        const {currency} = this.props.currentCurrency;
+        const {currentCurrency: {currency}, currencies, switchCurrency, wallet, handleLoginModal} = this.props;
         return (
             <div className={'card-block primary card card-medium pt-0 h-400'}>
-                <div className={'form-group-app overflow-hidden'}>
+                <div className={'form-group-app overflow-hidden h-100'}>
                     <div
                         className={'form-title form-title-lg d-flex flex-row justify-content-between align-items-center'}>
                         <div className={'d-flex align-items-center mr-2'}>
-                            <img src={EthIcon} alt="ETH"/>
-                            <p className={'title-lg'}>
-                                APL/{currency.toUpperCase()}
-                            </p>
+                            <ExchangeSwitch
+                                currency={currency}
+                                currencies={currencies}
+                                switchCurrency={switchCurrency}
+                                wallet={wallet}
+                                handleLoginModal={handleLoginModal}
+                            />
                         </div>
                         <div className={'form-title-actions'}>
                             <div className={'info-section'}>

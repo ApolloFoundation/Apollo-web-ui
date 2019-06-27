@@ -14,9 +14,9 @@ class TradeApollo extends React.Component {
     };
 
     render() {
-        const {buyOrders, sellOrders} = this.props;
+        const {wallet, handleLoginModal} = this.props;
         return (
-            <div className={'card card-light'}>
+            <div className={'card card-light h-400'}>
                 <div className="card-title">
                     <div className={'title'}>Trade Apollo</div>
                     <span className={'sub-title'}>Fee: {this.feeATM / ONE_APL} APL</span>
@@ -38,11 +38,13 @@ class TradeApollo extends React.Component {
                     </div>
                     {this.state.actionType === 0 ? (
                         <BuyForm
-                            buyOrders={buyOrders}
+                            wallet={wallet}
+                            handleLoginModal={handleLoginModal}
                         />
                     ) : (
                         <SellForm
-                            sellOrders={sellOrders}
+                            wallet={wallet}
+                            handleLoginModal={handleLoginModal}
                         />
                     )}
                 </div>
