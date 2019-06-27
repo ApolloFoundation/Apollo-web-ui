@@ -165,7 +165,9 @@ class SellForm extends React.Component {
                                     field="pairRate"
                                     type={"float"}
                                     onChange={(price) => setValue("total", multiply(values.offerAmount, price))}
-                                    setValue={setValue}/>
+                                    setValue={setValue}
+                                    disableArrows
+                                />
                                 <div className="input-group-append">
                                     <span className="input-group-text">{currencyName}</span>
                                 </div>
@@ -180,9 +182,16 @@ class SellForm extends React.Component {
                                     field="offerAmount"
                                     type={"float"}
                                     onChange={(amount) => setValue("total", multiply(amount, values.pairRate))}
-                                    setValue={setValue}/>
+                                    setValue={setValue}
+                                    disableArrows
+                                />
                                 <div className="input-group-append">
-                                    <span className="input-group-text">APL</span>
+                                    <span className="input-group-text">
+                                        {wallet && balanceFormat !== false && (
+                                            <span className={'input-group-info-text'}><i className="zmdi zmdi-balance-wallet"/>&nbsp;
+                                                {balanceFormat}&nbsp;</span>
+                                        )}
+                                        APL</span>
                                 </div>
                                 <small className={'text-note'}>Will be frozen on your balance during 24 hours.</small>
                             </div>
@@ -202,12 +211,6 @@ class SellForm extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        {wallet && balanceFormat !== false && (
-                            <div className={'form-group-text d-flex justify-content-between mb-3'}>
-                                of Total Balance: <span><i
-                                className="zmdi zmdi-balance-wallet"/> {balanceFormat}&nbsp;APL</span>
-                            </div>
-                        )}
                         <button
                             type={'submit'}
                             className={'btn btn-green btn-lg'}

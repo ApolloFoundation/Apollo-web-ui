@@ -156,12 +156,14 @@ class BuyForm extends React.Component {
                             <label>
                                 Price for 1 APL
                             </label>
-                            <div className="input-group input-group-text-transparent">
+                            <div className="input-group">
                                 <InputForm
                                     field="pairRate"
                                     type={"float"}
                                     onChange={(price) => setValue("total", multiply(values.offerAmount, price))}
-                                    setValue={setValue}/>
+                                    setValue={setValue}
+                                    disableArrows
+                                />
                                 <div className="input-group-append">
                                     <span className="input-group-text">{currencyName}</span>
                                 </div>
@@ -172,12 +174,14 @@ class BuyForm extends React.Component {
                                 I want to Buy
                             </label>
                             <div
-                                className="input-group input-group-text-transparent">
+                                className="input-group">
                                 <InputForm
                                     field="offerAmount"
                                     type={"float"}
                                     onChange={(amount) => setValue("total", multiply(amount, values.pairRate))}
-                                    setValue={setValue}/>
+                                    setValue={setValue}
+                                    disableArrows
+                                />
                                 <div className="input-group-append">
                                     <span className="input-group-text">APL</span>
                                 </div>
@@ -187,23 +191,22 @@ class BuyForm extends React.Component {
                             <label>
                                 I will pay
                             </label>
-                            <div className="input-group input-group-text-transparent">
+                            <div className="input-group">
                                 <InputForm
                                     field="total"
                                     type={"float"}
                                     setValue={setValue}
                                     disabled/>
                                 <div className="input-group-append">
-                                    <span className="input-group-text">{currencyName}</span>
+                                    <span className="input-group-text">
+                                        {values.walletAddress && (
+                                            <span className={'input-group-info-text'}><i className="zmdi zmdi-balance-wallet"/>&nbsp;
+                                                {values.walletAddress.balances[currency]}&nbsp;</span>
+                                        )}
+                                        {currencyName}</span>
                                 </div>
                             </div>
                         </div>
-                        {values.walletAddress && (
-                            <div className={'form-group-text d-flex justify-content-between mb-3'}>
-                                of Total Balance: <span><i
-                                className="zmdi zmdi-balance-wallet"/> {values.walletAddress.balances[currency]}&nbsp;{currencyName}</span>
-                            </div>
-                        )}
                         <button
                             type={'submit'}
                             className={'btn btn-green btn-lg'}

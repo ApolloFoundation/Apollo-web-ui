@@ -239,20 +239,6 @@
 			background-color: transparent;
 		}
 	}
-	.input-group-text-transparent {
-		.form-control {
-			border-right: none;
-			border-right-color: transparent;
-		}
-		.input-group-text {
-			background-color: transparent;
-			color: #98B0CD;
-			border-left: none;
-			border-color: #e5e5e5;
-			font-size: 11px;
-			line-height: 11px;
-		}
-	}
 
 	// needed for modal windows
 	.form-tabulator {
@@ -412,6 +398,13 @@
 		padding: 5px;
 		margin: 0;
 		height: 40px;
+	}
+	.input-group-info-text {
+		color: #3D5A7E;
+		font-size: 14px;
+		letter-spacing: -0.64px;
+		line-height: normal;
+		text-align: right;
 	}
 	.iconned-input-field {
 		position: relative;
