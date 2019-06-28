@@ -19,7 +19,10 @@ const TotalBalance = ({dashboardAccountInfo, setBodyModalParamsAction}) => {
             <div className="card-body">
                 {dashboardAccountInfo ? (
                     <>
-                        <div className={'balance-info'}>
+                        <div
+                            className={'balance-info cursor-pointer'}
+                            onClick={() => setBodyModalParamsAction('ACCOUNT_DETAILS')}
+                        >
                             <span className={'balance'}>{balanceAPL}</span>
                             <span className={'currency'}>APL</span>
                         </div>
