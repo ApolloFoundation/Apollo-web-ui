@@ -42,8 +42,8 @@ class ModalBody extends React.Component {
     };
 
     handleChange = (props) => {
-        this.props.saveSendModalState(props.values)
-        if (this.props.onChange) this.props.onChange();
+        this.props.saveSendModalState(props.values);
+        if (this.props.onChange) this.props.onChange(props);
     };
 
     form = () => {

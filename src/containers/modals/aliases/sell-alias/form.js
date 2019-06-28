@@ -49,6 +49,7 @@ class SellAliasForm extends React.Component {
                             isDisableFormFooter
                             isFee
                             isPour
+                            idGroup={'sell-alias-account-modal-'}
                         >
                             <SellToAccountForm 
                                 setValue={setValue}
@@ -68,6 +69,7 @@ class SellAliasForm extends React.Component {
                             isDisableFormFooter
                             isFee
                             isPour
+                            idGroup={'sell-alias-anyone-modal-'}
                         >
                             <SellToAllForm 
                                 setValue={setValue}
