@@ -129,7 +129,14 @@ class FollowedVotes extends React.Component {
 
     componentDidUpdate = (prevProps) => {
         if (this.props.location.pathname !== prevProps.location.pathname) {
-            this.setState({isPending: true}, () => {
+            this.setState({
+                isPending: true,
+                colors: [],
+                pollResults: null,
+                poll: null,
+                votes: null,
+                allVotesNumber: null,
+            }, () => {
                 this.listener();
             });
         }
