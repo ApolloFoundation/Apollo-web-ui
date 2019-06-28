@@ -15,6 +15,7 @@ import submitForm from "../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
 
 import BackForm from '../modal-form/modal-form-container';
+import classNames from "classnames";
 
 class AddAccount extends React.Component {
     constructor(props) {
@@ -28,50 +29,59 @@ class AddAccount extends React.Component {
             passphraseStatus: false,
             recipientStatus: false,
             amountStatus: false,
-            feeStatus: false
+            feeStatus: false,
+            isPending: false,
         }
 
     }
 
     handleFormSubmit = async(values) => {
-        if (!values.name) {
-            NotificationManager.error('Enter the contact name.', 'Error', 5000);
-            return;
-        }
+        if (!this.state.isPending) {
+            this.setState({isPending: true});
 
-        if (values.recipient) {
-            values.accountRS = values.recipient;
-            delete values.recipient;
-        }
+            if (!values.name) {
+                NotificationManager.error('Enter the contact name.', 'Error', 5000);
+                this.setState({isPending: false});
+                return;
+            }
 
-        if (!values.recipient && !values.accountRS) {
-            values.accountRS = this.props.modalData;
-        }
+            if (values.recipient) {
+                values.accountRS = values.recipient;
+                delete values.recipient;
+            }
 
-        if (!values.accountRS) {
-            NotificationManager.error('Enter the contact id.', 'Error', 5000);
-            return;
-        }
+            if (!values.recipient && !values.accountRS) {
+                values.accountRS = this.props.modalData;
+            }
 
-        let localContacts = localStorage.getItem('APLContacts');
+            if (!values.accountRS) {
+                NotificationManager.error('Enter the contact id.', 'Error', 5000);
+                this.setState({isPending: false});
+                return;
+            }
 
-        if (localContacts) {
-            localContacts = JSON.parse(localContacts);
+            let localContacts = localStorage.getItem('APLContacts');
 
-            if (!localContacts.filter(contact => contact.accountRS === values.accountRS).length) {
-                localContacts.push(values);
-                localStorage.setItem('APLContacts', JSON.stringify(localContacts));
+            if (localContacts) {
+                localContacts = JSON.parse(localContacts);
+
+                if (!localContacts.filter(contact => contact.accountRS === values.accountRS).length) {
+                    localContacts.push(values);
+                    localStorage.setItem('APLContacts', JSON.stringify(localContacts));
+                    NotificationManager.success('Added to contacts!', null, 5000);
+                    this.props.closeModal()
+
+                } else {
+                    NotificationManager.error('Already in contacts.', 'Error', 5000)
+
+                }
+            } else {
+                localStorage.setItem('APLContacts', JSON.stringify([values]));
                 NotificationManager.success('Added to contacts!', null, 5000);
                 this.props.closeModal()
-
-            } else {
-                NotificationManager.error('Already in contacts.', 'Error', 5000)
-
             }
-        } else {
-            localStorage.setItem('APLContacts', JSON.stringify([values]));
-            NotificationManager.success('Added to contacts!', null, 5000);
-            this.props.closeModal()
+
+            this.setState({isPending: false});
         }
     };
 
@@ -106,22 +116,22 @@ class AddAccount extends React.Component {
 	                                }
                                     <p>Add Contact</p>
                                 </div>
-                                <div className="form-group row form-group-white mb-15">
-                                    <label className="col-sm-3 col-form-label">
+                                <div className="form-group mb-15">
+                                    <label>
                                         Name
                                     </label>
-                                    <div className="col-sm-9">
+                                    <div>
                                         <InputForm
                                             field="name"
                                             placeholder="Contact Name"
                                             setValue={setValue}/>
                                     </div>
                                 </div>
-                                <div className="form-group row form-group-white mb-15">
-                                    <label className="col-sm-3 col-form-label">
+                                <div className="form-group mb-15">
+                                    <label>
                                         Account ID
                                     </label>
-                                    <div className="col-sm-9">
+                                    <div>
                                         <AccountRS
                                             field={'accountRS'}
                                             noContactList={true}
@@ -133,37 +143,47 @@ class AddAccount extends React.Component {
                                         />
                                     </div>
                                 </div>
-                                <div className="form-group row form-group-white mb-15">
-                                    <label className="col-sm-3 col-form-label">
+                                <div className="form-group mb-15">
+                                    <label>
                                         Email Address
                                     </label>
-                                    <div className="col-md-9">
+                                    <div>
                                         <Text className="form-control" placeholder={'contact@email.com'} type="text" field={'email'}/>
                                     </div>
                                 </div>
-                                <div className="form-group row form-group-white mb-15">
-                                    <label className="col-sm-3 col-form-label align-self-start">
+                                <div className="form-group mb-15">
+                                    <label>
                                         Description
                                     </label>
-                                    <div className="col-sm-9">
+                                    <div>
                                         <TextArea className="form-control" placeholder="Optional" field="message" cols="30" rows="5" />
                                     </div>
                                 </div>
-
-                                <div className="btn-box align-buttons-inside absolute right-conner">
-                                    <button
-                                        type="submit"
-                                        name={'closeModal'}
-                                        className="btn btn-right blue round round-bottom-right"
-                                    >
-                                        Add Account
-                                    </button>
+                                <div className="btn-box right-conner align-right form-footer">
                                     <button
                                         type={'button'}
                                         onClick={() => this.props.closeModal()}
-                                        className="btn btn-right round round-top-left"
+                                        className="btn btn-default mr-3"
                                     >
                                         Cancel
+                                    </button>
+
+                                    <button
+                                        type="submit"
+                                        name={'closeModal'}
+                                        className={classNames({
+                                            "btn btn-green submit-button": true,
+                                            "loading btn-green-disabled": this.state.isPending,
+                                        })}
+                                    >
+                                        <div className="button-loader">
+                                            <div className="ball-pulse">
+                                                <div/>
+                                                <div/>
+                                                <div/>
+                                            </div>
+                                        </div>
+                                        <span className={'button-text'}>Add Account</span>
                                     </button>
                                 </div>
                             </div>
