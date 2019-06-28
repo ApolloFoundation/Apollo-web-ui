@@ -399,24 +399,6 @@ class AssetExchange extends React.Component {
                             {this.props.match.params && (
                                 <div className="col-md-9 p-0">
                                     <div className={'row'}>
-                                        <div className="col-xl-6 col-md-12 pr-0 pb-3">
-                                            <BuyAsset
-                                                asset={this.state.asset}
-                                                balanceATU={this.state.asset.balanceATU}
-                                                handleTotalValue={this.handleTotalValue}
-                                                handleBuyOrders={this.handleBuyOrders}
-                                            />
-                                        </div>
-                                        <div className="col-xl-6 col-md-12 pr-0 pb-3">
-                                            <SellAsset
-                                                asset={this.state.asset}
-                                                accountAsset={this.state.accountAsset}
-                                                handleTotalValue={this.handleTotalValue}
-                                                handleSellOrders={this.handleSellOrders}
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className={'row'}>
                                         <div className={'col-xl-6 col-md-12 pr-0 pb-3'}>
                                             <OffersToBuy
                                                 buyOrders={this.state.buyOrders}
