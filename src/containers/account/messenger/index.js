@@ -35,7 +35,7 @@ class Messenger extends React.PureComponent {
     };
     
     componentDidUpdate(prevProps) {
-        if (this.props.location.pathname !== prevProps.location.pathname) {
+        if (this.props.location.pathname !== prevProps.location.pathname || prevProps.passPhrase !== this.props.passPhrase) {
             this.listener();
         }
     }
@@ -68,6 +68,7 @@ class Messenger extends React.PureComponent {
 
 const mapStateToProps = state => ({
 	account: state.account.account,
+    passPhrase: state.account.passPhrase,
 });
 
 const mapDispatchToProps = {
