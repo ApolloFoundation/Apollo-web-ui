@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 import NummericInput from "../../../components/form-components/numeric-input";
 import {ONE_APL} from "../../../../constants";
 
-const BuyAsset = ({balanceATM, asset, handleTotalValue, handleBuyOrders}) => (
+const BuyAsset = ({balanceATM, asset, handleTotalValue, handleBuyOrders, getFormApi}) => (
     <div className={'card green'}>
         <div className="card-title card-title-lg d-flex justify-content-between align-items-center">
             Buy {asset.name}
@@ -16,6 +16,7 @@ const BuyAsset = ({balanceATM, asset, handleTotalValue, handleBuyOrders}) => (
         </div>
         <div className="card-body">
             <Form
+                getApi={getFormApi}
                 onSubmit={(values) => handleBuyOrders(values)}
                 render={({submitForm, values, addValue, removeValue, setValue, getFormState}) => (
                     <form onSubmit={submitForm}>
