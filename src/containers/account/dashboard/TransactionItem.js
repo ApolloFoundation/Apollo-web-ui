@@ -25,7 +25,7 @@ const TransactionItem = (props) => {
     const isAliasSell = !!props.constants.transactionTypes && props.constants.transactionTypes[props.type].subtypes[props.subtype].name === "AliasSell";
     const senderRS = (props.senderRS && props.senderRS === props.accountRS) ? 'You' : props.senderRS;
     const recipientRS = (props.recipientRS && props.recipientRS === props.accountRS) ? 'You' : props.recipientRS;
-    const transactionType = formatTransactionType(props.constants.transactionTypes[props.type].subtypes[props.subtype].name);
+    const transactionType = props.constants.transactionTypes && formatTransactionType(props.constants.transactionTypes[props.type].subtypes[props.subtype].name);
     return (
         <div
             className="transaction-item cursor-pointer"
