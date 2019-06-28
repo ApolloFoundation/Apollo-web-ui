@@ -13,7 +13,7 @@ import '../messenger/Messenger.scss';
 import './FollowedPools.css';
 import {getpollAction, getPollResultAction, getPollVotesAction} from '../../../actions/polls';
 import {setBodyModalParamsAction} from "../../../modules/modals";
-import {getBlockAction} from "../../../actions/blocks";
+import {getBlockAction, startBlockPullingAction} from "../../../actions/blocks";
 import colorGenerator from "../../../helpers/colorGenerator";
 import {getFollowedPolls} from '../../../modules/polls';
 import SidebarContent from '../../components/sidebar-list/';
@@ -25,6 +25,7 @@ import VoteResult from './vote-result';
 import PollDescription from './poll-description';
 import {getAssetAction} from "../../../actions/assets";
 import {getCurrencyAction} from "../../../actions/currencies";
+import ContentLoader from "../../components/content-loader";
 
 const mapStateToProps = state => ({
     followedPolls: state.polls.followedPolls
@@ -55,18 +56,26 @@ class FollowedVotes extends React.Component {
         followedpolls: [],
         currency: null,
         asset: null,
+        isPending: false,
     };
 
     listener = data => {
-        this.getPollVotes({
-            poll: this.props.match.params.poll,
-            firstIndex: this.state.firstIndex,
-            lastIndex:  this.state.lastIndex
+        Promise.all([
+            this.getpoll({
+                poll: this.props.match.params.poll
+            }),
+            this.getPollVotes({
+                poll: this.props.match.params.poll,
+                firstIndex: this.state.firstIndex,
+                lastIndex:  this.state.lastIndex
+            }),
+            this.getpollResults({
+                poll: this.props.match.params.poll
+            }),
+            this.props.getFollowedPolls()
+        ]).then((values) => {
+            this.setState({isPending: false});
         });
-        this.getpollResults({
-            poll: this.props.match.params.poll
-        });
-        this.props.getFollowedPolls();
     };
 
     componentDidMount() {
@@ -97,6 +106,7 @@ class FollowedVotes extends React.Component {
                 poll: poll
             });
         }
+        return true;
     };
 
     getPollVotes = async (reqParams, pagination) => {
@@ -114,11 +124,14 @@ class FollowedVotes extends React.Component {
                 allVotesNumber: allVotesNumber.votes.length
             });
         }
+        return true;
     };
-    
+
     componentDidUpdate = (prevProps) => {
         if (this.props.location.pathname !== prevProps.location.pathname) {
-            this.listener()
+            this.setState({isPending: true}, () => {
+                this.listener();
+            });
         }
     };
 
@@ -142,6 +155,7 @@ class FollowedVotes extends React.Component {
                 });
             }
         }
+        return true;
     };
 
     addToFollowedPolls = () => {
@@ -172,11 +186,11 @@ class FollowedVotes extends React.Component {
             firstIndex: page * 3 - 3,
             lastIndex:  page * 3 - 1
         };
-            this.getPollVotes({
-                poll: this.props.match.params.poll,
-                firstIndex: page * 3 - 3,
-                lastIndex:  page * 3 - 1
-            }, pagination);
+        this.getPollVotes({
+            poll: this.props.match.params.poll,
+            firstIndex: page * 3 - 3,
+            lastIndex:  page * 3 - 1
+        }, pagination);
     };
 
     initSidebarContent = () => (
@@ -192,7 +206,7 @@ class FollowedVotes extends React.Component {
 
     initPageContent = () => (
         <>
-            {
+            {!this.state.isPending ? (
                 this.state.poll &&
                 <>
                     <PollDescription
@@ -255,7 +269,9 @@ class FollowedVotes extends React.Component {
                         </div>
                     </div>
                 </>
-            }
+            ) : (
+                <ContentLoader />
+            )}
         </>
     );
 
@@ -283,11 +299,11 @@ class FollowedVotes extends React.Component {
                     PageContent={this.initPageContent}
                     pageContentClassName={'pl-3 pr-0 followed-pools'}
                 />
-                
+
             </div>
         );
     }
-};
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(FollowedVotes);
 
