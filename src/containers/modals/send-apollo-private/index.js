@@ -76,7 +76,7 @@ class SendApolloPrivate extends React.Component {
                 });
 
                 if (values.amountATM < 100) {
-                    NotificationManager.error('Minimal amountATM shold exceed 100 Apollo while using mixer.', 'Error', 5000);
+                    NotificationManager.error('Minimal amountATM shold exceed 100 APL while using mixer.', 'Error', 5000);
                     return;
                 }
 
@@ -146,8 +146,7 @@ class SendApolloPrivate extends React.Component {
                         protection will start with Olympus 2.0 <br/>
                         <button
                             type={'button'}
-                            className={'btn static primary'}
-                            style={{background: '#fff', color: '#00C8FF'}}
+                            className={'btn btn-default mt-3'}
                             onClick={this.setConfirm}
                         >
                             I agree

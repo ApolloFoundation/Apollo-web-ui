@@ -34,7 +34,7 @@ export function getSpecificAccountAssetsAction(reqParams) {
         return axios.get(config.api.serverUrl, {
             params: {
                 requestType: 'getAccountAssets',
-                includeAssetInf: true,
+                includeAssetInfo: true,
                 ...reqParams
             }
         })

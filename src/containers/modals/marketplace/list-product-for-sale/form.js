@@ -2,17 +2,12 @@ import React from 'react';
 import TextualInputComponent from '../../../components/form-components/textual-input';
 import CustomTextArea from '../../../components/form-components/text-area';
 import NumericInputComponent from '../../../components/form-components/numeric-input';
-import ImageInput from '../../../components/form-components/image-input';
-
-import {CheckboxFormInput} from '../../../components/form-components/check-button-input';
 import FileInput from '../../../components/form-components/file-input';
-import ModalBody from '../../../components/modals/modal-body';
-
 
 
 const ListProductForSaleFrom = ({setValue}) => (
     <>
-        <TextualInputComponent 
+        <TextualInputComponent
             label={'Name'}
             field="name"
             placeholder="Name"
@@ -21,13 +16,13 @@ const ListProductForSaleFrom = ({setValue}) => (
         />
 
         <CustomTextArea
-            label={'Description'} 
-            field={'description'} 
+            label={'Description'}
+            field={'description'}
             placeholder={'Description'}
             setValue={setValue}
         />
 
-        <TextualInputComponent 
+        <TextualInputComponent
             label={'Tags'}
             field="tags"
             placeholder={"Tags (categories)"}
@@ -50,11 +45,15 @@ const ListProductForSaleFrom = ({setValue}) => (
             placeholder={'Quantity'}
             setValue={setValue}
         />
-        
-        <ImageInput 
+
+        <FileInput
+            label={'Image'}
+            type={'image/jpeg, image/jpg, image/png'}
+            showPreview
+            maxSize={40000}
             setValue={setValue}
         />
     </>
-)
+);
 
 export default ListProductForSaleFrom;

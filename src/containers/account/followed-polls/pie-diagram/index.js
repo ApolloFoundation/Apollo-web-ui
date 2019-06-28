@@ -16,7 +16,6 @@ class Pie extends React.Component{
             hole = this.props.hole,
             radius = this.props.radius,
             diameter = radius * 2,
-            self = this,
             sum, startAngle, d = null;
 
         sum = this.props.data.reduce(function (carry, current) { return carry + current }, 0);
@@ -50,10 +49,10 @@ class Pie extends React.Component{
                         hole={ radius - hole }
                         trueHole={ hole }
                         showLabel='label'
-                        stroke={ self.props.stroke }
-                        strokeWidth={ self.props.strokeWidth }
-                        startColorGradient={self.props.colors[sliceIndex].startColorGradient}
-                        stopColorGradient={self.props.colors[sliceIndex].stopColorGradient}
+                        stroke={ this.props.stroke }
+                        strokeWidth={ this.props.strokeWidth }
+                        startColorGradient={this.props.colors[sliceIndex].startColorGradient}
+                        stopColorGradient={this.props.colors[sliceIndex].stopColorGradient}
                     />
                 }) }
 
@@ -89,7 +88,7 @@ class Slice extends React.Component {
     }
 
     draw(s) {
-        var p = this.props, path = [], a, b, c, self = this, step;
+        var p = this.props, path = [], a, b, c, step;
 
         step = p.angle / (37.5 / 2);
 

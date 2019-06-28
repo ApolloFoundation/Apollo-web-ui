@@ -8,7 +8,7 @@ import {ONE_APL} from '../../../../constants';
 import TextualInput from '../../../components/form-components/textual-input';
 import NumericInput from '../../../components/form-components/numeric-input';
 
-const Form = ({setValue, goods}) => (
+const Form = ({setValue, goods, formatTimestamp}) => (
     <>
         {
             goods &&
@@ -50,10 +50,10 @@ const Form = ({setValue, goods}) => (
             </>
         }
     </>
-)
+);
 
 const md2p = {
     formatTimestamp
-}
+};
 
 export default connect(null, md2p)(Form)

@@ -12,14 +12,15 @@ const FormFooter = ({
     closeModal,
     isMomalProcessing
 }) => (
-    <div className="btn-box align-buttons-inside absolute right-conner align-right form-footer">
-        <a
+    <div className="btn-box right-conner align-right form-footer">
+        <button
+            type={'button'}
             id={`${idGroup}cancel-button`}
             onClick={closeModal}
-            className={`btn round round-top-left ${submitButtonName ? '' : 'round-bottom-right' }`}
+            className="btn btn-default mr-3"
         >
             Cancel
-        </a>
+        </button>
         {
             submitButtonName &&
             <button
@@ -27,13 +28,8 @@ const FormFooter = ({
                 name={'closeModal'}
                 id={`${idGroup}submit-button`}
                 className={classNames({
-                    "btn" : true,
-                    "btn-right" : true,
-                    "blue" : true,
-                    "round" : true,
-                    "submit-button" : true,
-                    "round-bottom-right" : true,
-                    "blue-disabled": isDisabled || isPending,
+                    "btn btn-green" : true,
+                    "disabled": isDisabled || isMomalProcessing || isPending,
                     "loading": isMomalProcessing || isPending
                 })}
             >
@@ -41,9 +37,9 @@ const FormFooter = ({
                     className="button-loader"
                 >
                     <div className="ball-pulse">
-                        <div></div>
-                        <div></div>
-                        <div></div>
+                        <div />
+                        <div />
+                        <div />
                     </div>
                 </div>
                 <span className={'button-text'}>

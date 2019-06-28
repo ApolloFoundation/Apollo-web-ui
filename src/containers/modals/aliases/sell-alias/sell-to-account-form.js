@@ -12,7 +12,7 @@ import CustomTextArea from '../../../components/form-components/text-area';
 
 const SellToAccountForm = (props) => {
 
-    const {alias, setValue, getFormState} = props;
+    const {alias, setValue, getFormState, idGroup} = props;
     const {values: {add_message}} = getFormState();
     
     return (
@@ -38,6 +38,7 @@ const SellToAccountForm = (props) => {
                 placeholder={'Price'}
                 countingTtile={'APL'}
                 setValue={setValue}
+                idGroup={idGroup}
             />
             <CheckboxFormInput
                 setValue={setValue}

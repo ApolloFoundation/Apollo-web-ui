@@ -20,7 +20,7 @@ class ExecutedItem extends React.Component {
     };
 
     render() {
-        const {exchange, setBodyModalParamsAction} = this.props;
+        const {setBodyModalParamsAction, ...exchange} = this.props;
         return (
             <tr>
                 <td className="blue-link-text"><a onClick={setBodyModalParamsAction.bind(this, 'INFO_TRANSACTION', exchange.transaction)}>{this.props.formatTimestamp(exchange.timestamp)}</a></td>

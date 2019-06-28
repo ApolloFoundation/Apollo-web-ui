@@ -9,6 +9,7 @@ import {connect} from 'react-redux';
 import {setModalData, openPrevModal} from '../../../modules/modals';
 import {getLedgerEntryAction} from '../../../actions/ledger/';
 import {ONE_APL} from '../../../constants';
+import ModalBody from "../../components/modals/modal-body";
 
 class InfoTransactions extends React.Component {
     constructor(props) {
@@ -69,20 +70,13 @@ class InfoTransactions extends React.Component {
 
     render() {
         return (
-            <div className="modal-box wide">
-                {
-                    this.props.modalData &&
-                    <form className="modal-form">
-                        <div className="form-group-app">
-                            <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
-
-                            <div className="form-title">
-	                            {this.props.modalsHistory.length > 1 &&
-	                            <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
-	                            }
-                                <p>Ledger <strong>{this.props.modalData.ledgerId}</strong> info</p>
-                            </div>
-
+            <ModalBody
+                modalTitle={`Ledger ${this.state.entry ? this.state.entry.ledgerId : ''} info`}
+                closeModal={this.props.closeModal}
+                isDisableFormFooter
+                isDisableSecretPhrase
+                isWide
+            >
                             <div className="transaction-table no-min-height">
                                 <div className="transaction-table-body transparent">
                                     <table>
@@ -134,18 +128,7 @@ class InfoTransactions extends React.Component {
                                     </table>
                                 </div>
                             </div>
-                            <div className="btn-box align-buttons-inside absolute right-conner">
-                                <a className="btn btn-right round round-top-left round-bottom-right"
-                                   onClick={() => this.props.closeModal()}
-                                >
-                                    Close
-                                </a>
-                            </div>
-                        </div>
-                    </form>
-                }
-
-            </div>
+            </ModalBody>
         );
     }
 }

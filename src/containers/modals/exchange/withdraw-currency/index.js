@@ -7,12 +7,14 @@ import CustomFormSelect from "../../../components/form-components/custom-form-se
 import ContentLoader from "../../../components/content-loader";
 import {getTransactionFee, walletWithdraw} from '../../../../actions/wallet';
 import {currencyTypes, formatGweiToEth} from '../../../../helpers/format';
+import classNames from "classnames";
 
 class WithdrawCurrency extends React.Component {
     state = {
         transactionFee: null,
         fee: null,
         currency: 'eth',
+        isPending: false,
     };
 
     componentDidMount() {
@@ -20,43 +22,51 @@ class WithdrawCurrency extends React.Component {
     }
 
     handleFormSubmit = async (values) => {
-        if (!values.toAddress) {
-            NotificationManager.error('To wallet is required field.', 'Error', 5000);
-            return;
-        }
-        if (!values.amount) {
-            NotificationManager.error('Amount is required.', 'Error', 5000);
-            return;
-        }
-        if (!values.secretPhrase || values.secretPhrase.length === 0) {
-            NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
-            return;
-        }
+        if (!this.state.isPending) {
 
-        const gasLimit = values.asset.currency === 'eth' ? this.props.constants.gasLimitEth : this.props.constants.gasLimitERC20;
-        const maxFee = this.state.fee.value * gasLimit * 0.000000001;
-        const balance = parseFloat(values.asset.balance);
-        const amount = parseFloat(values.amount);
+            if (!values.toAddress) {
+                NotificationManager.error('To wallet is required field.', 'Error', 5000);
+                return;
+            }
+            if (!values.amount) {
+                NotificationManager.error('Amount is required.', 'Error', 5000);
+                return;
+            }
+            if (!values.secretPhrase || values.secretPhrase.length === 0) {
+                NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
+                return;
+            }
 
-        if (balance === 0 || balance < (amount + maxFee)) {
-            NotificationManager.error(`Not enough founds on your ${values.asset.currency.toUpperCase()} balance.`, 'Error', 5000);
-            return;
-        }
+            const gasLimit = values.asset.currency === 'eth' ? this.props.constants.gasLimitEth : this.props.constants.gasLimitERC20;
+            const maxFee = this.state.fee.value * gasLimit * 0.000000001;
+            const balance = parseFloat(values.asset.balance);
+            const amount = parseFloat(values.amount);
 
-        const params = {
-            fromAddress: values.fromAddress,
-            toAddress: values.toAddress,
-            amount: values.amount,
-            transferFee: parseFloat(this.state.fee.value),
-            cryptocurrency: currencyTypes[this.state.currency],
-            passphrase: values.secretPhrase,
-            sender: this.props.account,
-        };
+            if (balance === 0 || balance < (amount + maxFee)) {
+                NotificationManager.error(`Not enough founds on your ${values.asset.currency.toUpperCase()} balance.`, 'Error', 5000);
+                return;
+            }
 
-        const result = await this.props.walletWithdraw(params);
-        if (result) {
-            NotificationManager.success('Successfully sent.', null, 5000);
-            this.props.closeModal();
+
+            this.setState({isPending: true});
+
+            const params = {
+                fromAddress: values.fromAddress,
+                toAddress: values.toAddress,
+                amount: values.amount,
+                transferFee: parseFloat(this.state.fee.value),
+                cryptocurrency: currencyTypes[this.state.currency],
+                passphrase: values.secretPhrase,
+                sender: this.props.account,
+            };
+
+            const result = await this.props.walletWithdraw(params);
+            if (result) {
+                NotificationManager.success('Successfully sent.', null, 5000);
+                this.props.closeModal();
+            }
+
+            this.setState({isPending: false});
         }
     };
 
@@ -113,12 +123,11 @@ class WithdrawCurrency extends React.Component {
                                 <div className="form-title">
                                     <p>Withdraw</p>
                                 </div>
-                                <div className="input-group-app">
-                                    <div className="form-group row form-group-white mb-15">
-                                        <label className="col-sm-3 col-form-label">
+                                    <div className="form-group mb-15">
+                                        <label>
                                             From
                                         </label>
-                                        <div className="col-sm-9">
+                                        <div>
                                             <InputForm
                                                 field="fromAddress"
                                                 placeholder={`${currencyFormat} Wallet`}
@@ -129,11 +138,11 @@ class WithdrawCurrency extends React.Component {
                                             />
                                         </div>
                                     </div>
-                                    <div className="form-group row form-group-white mb-15">
-                                        <label className="col-sm-3 col-form-label">
+                                    <div className="form-group mb-15">
+                                        <label>
                                             To
                                         </label>
-                                        <div className="col-sm-9">
+                                        <div>
                                             <InputForm
                                                 field="toAddress"
                                                 placeholder={`${currencyFormat} Wallet`}
@@ -151,12 +160,11 @@ class WithdrawCurrency extends React.Component {
                                             onChange={this.handleChangeAsset}
                                         />
                                     )}
-                                    <div className="form-group row form-group-white mb-15">
-                                        <label htmlFor={"withdraw-modal-amount"} className="col-sm-3 col-form-label">
+                                    <div className="form-group mb-15">
+                                        <label htmlFor={"withdraw-modal-amount"}>
                                             Amount
                                         </label>
-                                        <div
-                                            className="col-sm-9 input-group input-group-text-transparent input-group-sm">
+                                        <div className="input-group">
                                             <InputForm
                                                 field="amount"
                                                 placeholder="Amount"
@@ -171,46 +179,46 @@ class WithdrawCurrency extends React.Component {
                                         </div>
                                     </div>
                                     <React.Fragment>
-                                        <div className="form-group row form-group-white mb-15">
-                                            <label className="col-sm-3 col-form-label">
+                                        <div className="form-group mb-15">
+                                            <label>
                                                 Gas Fee
                                             </label>
-                                            <div className="col-sm-9">
+                                            <div>
                                                 {transactionFee && this.state.fee ? (
-                                                    <div className="btn-group w-100"
+                                                    <div className="btn-group btn-group-switch w-100"
                                                          role="group"
                                                          aria-label="Gas Fee">
                                                         <button
                                                             type="button"
-                                                            className={`w-100 p-2 btn btn-secondary submit-button ${this.state.fee.level === 'safeLow' ? 'blue' : ''}`}
+                                                            className={`w-100 p-2 btn btn-secondary btn-grey ${this.state.fee.level === 'safeLow' ? 'btn-green' : ''}`}
                                                             onClick={() => this.handleSelectTransactionFee({
                                                                 level: 'safeLow',
                                                                 value: transactionFee['safeLow']
                                                             })}
                                                         >
-                                                            <span className="text-uppercase">SafeLow</span><br/>
+                                                            <span className="text-uppercase">SafeLow</span>
                                                             <small>{formatGweiToEth(transactionFee['safeLow'], 0)} ETH</small>
                                                         </button>
                                                         <button
                                                             type="button"
-                                                            className={`w-100 p-2 btn btn-secondary submit-button ${this.state.fee.level === 'average' ? 'blue' : ''}`}
+                                                            className={`w-100 p-2 btn btn-secondary btn-grey ${this.state.fee.level === 'average' ? 'btn-green' : ''}`}
                                                             onClick={() => this.handleSelectTransactionFee({
                                                                 level: 'average',
                                                                 value: transactionFee['average']
                                                             })}
                                                         >
-                                                            <span className="text-uppercase">Average</span><br/>
+                                                            <span className="text-uppercase">Average</span>
                                                             <small>{formatGweiToEth(transactionFee['average'], 0)} ETH</small>
                                                         </button>
                                                         <button
                                                             type="button"
-                                                            className={`w-100 p-2 btn btn-secondary submit-button ${this.state.fee.level === 'fast' ? 'blue' : ''}`}
+                                                            className={`w-100 p-2 btn btn-secondary btn-grey ${this.state.fee.level === 'fast' ? 'btn-green' : ''}`}
                                                             onClick={() => this.handleSelectTransactionFee({
                                                                 level: 'fast',
                                                                 value: transactionFee['fast']
                                                             })}
                                                         >
-                                                            <span className="text-uppercase">Fast</span><br/>
+                                                            <span className="text-uppercase">Fast</span>
                                                             <small>{formatGweiToEth(transactionFee['fast'], 0)} ETH</small>
                                                         </button>
                                                     </div>
@@ -219,11 +227,11 @@ class WithdrawCurrency extends React.Component {
                                                 )}
                                             </div>
                                         </div>
-                                        <div className="form-group row form-group-white mb-15">
-                                            <label className="col-sm-3 col-form-label">
+                                        <div className="form-group mb-15">
+                                            <label>
                                                 Max Fee
                                             </label>
-                                            <div className="col-sm-9">
+                                            <div>
                                                 {this.state.fee ? (
                                                     <span>{formatGweiToEth(this.state.fee.value * gasLimit, 0)} ETH</span>
                                                 ) : (
@@ -232,11 +240,11 @@ class WithdrawCurrency extends React.Component {
                                             </div>
                                         </div>
                                     </React.Fragment>
-                                    <div className="form-group row form-group-white mb-15">
-                                        <label className="col-sm-3 col-form-label">
+                                    <div className="form-group mb-15">
+                                        <label>
                                             Secret phrase
                                         </label>
-                                        <div className="col-sm-9">
+                                        <div>
                                             <InputForm
                                                 isPlain
                                                 className={'form-control'}
@@ -247,15 +255,33 @@ class WithdrawCurrency extends React.Component {
                                             />
                                         </div>
                                     </div>
+                                <div className="btn-box right-conner align-right form-footer">
+                                    <button
+                                        type={'button'}
+                                        onClick={() => this.props.closeModal()}
+                                        className="btn btn-default mr-3"
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        type="submit"
+                                        className={classNames({
+                                            "btn btn-green submit-button": true,
+                                            "loading": this.state.isPending,
+                                            "btn-green-disabled": !this.state.fee || this.state.isPending,
+                                        })}
+                                    >
+                                        <div className="button-loader">
+                                            <div className="ball-pulse">
+                                                <div/>
+                                                <div/>
+                                                <div/>
+                                            </div>
+                                        </div>
+                                        <span className={'button-text'}>Withdraw</span>
+                                    </button>
                                 </div>
-
-                                <button
-                                    type="submit"
-                                    className={`btn btn-right blue round round-bottom-right round-top-left absolute ${!this.state.fee ? 'disabled' : ''}`}
-                                >
-                                    Withdraw
-                                </button>
-                            </div>
+                        </div>
                         </form>
                     )
                     }/>

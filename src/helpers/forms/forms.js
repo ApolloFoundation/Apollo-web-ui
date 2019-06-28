@@ -177,7 +177,7 @@ function submitForm(data, requestType) {
         if ((data.feeAPL             > fee.minFeeAmount ||
              data.feeATM / ONE_APL > fee.minFeeAmount
         ) && !fee.isFeeAlert) {
-            NotificationManager.warning(`You are trying to send the transaction with fee that increases ${fee.minFeeAmount} Apollo`, 'Attention', 10000);
+            NotificationManager.warning(`You are trying to send the transaction with fee that increases ${fee.minFeeAmount} APL`, 'Attention', 10000);
 
             dispatch({
                 type: 'SET_FEE_ALERT',
@@ -569,17 +569,8 @@ function sendRequest(requestType, data, callback, options) {
             });
             return;
         }
-        // check to see if secretPhrase supplied matches logged in account, if not - show error.
-        if ("secretPhrase" in data) {
-            return (dispatch(processAjaxRequest(requestType, data, callback, options)));
 
-
-        } else {
-            const formRes = dispatch(processAjaxRequest(requestType, data, callback, options));
-
-            return formRes;
-            // dispatch(processAjaxRequest(requestType, data, callback, options));
-        }
+        return dispatch(processAjaxRequest(requestType, data, callback, options));
     }
 };
 

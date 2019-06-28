@@ -1,45 +1,36 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import classNames from 'classnames';
+import {setBodyModalParamsAction} from "../../../../modules/modals";
 
-const CurrentAccountIcon = ({name}) => (
+const CurrentAccountIcon = ({name, publicKey, appState, setBodyModalParamsAction}) => (
     <>
-        <div className="user-name">
-            <a
-                style={{
-                    height: 25,
-                    width: 25,
-                    margin: "0 15px 0 0"
-                }}
-                className={classNames({
-                    "underscore": true,
-                    "account": true,
-                    "btn": true,
-                    "stop": true,
-                    "icon-button": true,
-                    "filters": true,
-                    "ACCOUNT_BODY_MODAL": true,
-                    "primary": true,
-                    // "active": this.state.bodyModalType=== "ACCOUNT_BODY_MODAL",
-                    "active": false,
-                    "transparent": true,
-                    "open-settings": true,
-                    "icon-button ": true,
-                    "user-account-action": true
-                })}
-            >
-                <i className="to-revert stop zmdi zmdi-chevron-down"/>
-            </a>
-            <a className={"name stop"}>{name}</a>
-        </div>
         <div className="user-avatar stop">
-            <i className="zmdi stop zmdi-account"></i>
+            <i className="zmdi stop zmdi-account"/>
+        </div>
+        <div className="user-box-info">
+            <div>
+                {name && (
+                    <p className={'user-name'}>
+                        {name}
+                    </p>
+                )}
+                <p className={`user-status ${publicKey ? 'verified' : ''}`}>
+                    {publicKey ? 'Verified' : 'Not Verified'}
+                </p>
+            </div>
+            <i className="user-box-icon to-revert zmdi zmdi-chevron-down"/>
         </div>
     </>
-)
+);
 
 const mapStateToProps = state => ({
     name: state.account.name,
-})
+    publicKey: state.account.publicKey,
+    appState: state.account.blockchainStatus,
+});
 
-export default connect(mapStateToProps)(CurrentAccountIcon);
+const mapDispatchToProps = dispatch => ({
+    setBodyModalParamsAction: (type, values) => dispatch(setBodyModalParamsAction(type, values))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CurrentAccountIcon);

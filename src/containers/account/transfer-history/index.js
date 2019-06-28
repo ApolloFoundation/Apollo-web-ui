@@ -110,7 +110,7 @@ class ScheduledTransactions extends React.Component {
                     pageTitle={'Transfer History'}
                 />
                 <div className="page-body container-fluid">
-                <CustomTable 
+                    <CustomTable
                         header={[
                             {
                                 name: 'Transaction',

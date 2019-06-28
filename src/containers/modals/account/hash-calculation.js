@@ -5,39 +5,55 @@
 
 
 import React from 'react';
-import { connect } from 'react-redux';
-import { setModalData } from '../../../modules/modals';
-import converters from '../../../helpers/converters';
-import classNames from 'classnames';
-
-import { Form, Text, TextArea, Checkbox, Select } from 'react-form';
-import InfoBox from '../../components/info-box';
+import {connect} from 'react-redux';
+import {setModalData} from '../../../modules/modals';
 import submitForm from "../../../helpers/forms/forms";
-import { NotificationManager } from "react-notifications";
-import CustomSelect from '../../components/select'
+import CustomTextArea from "../../components/form-components/text-area";
+import {CheckboxFormInput} from "../../components/form-components/check-button-input";
+import CustomFormSelect from "../../components/form-components/custom-form-select";
+import ModalBody from "../../components/modals/modal-body";
+
+const hashOptions = [
+    {
+        label: "SHA256",
+        value: "2"
+    },
+    {
+        label: "SHA3",
+        value: "3",
+    },
+    {
+        label: "SCRYPT",
+        value: "5",
+    },
+    {
+        label: "RIPEMD160",
+        value: "6"
+    },
+    {
+        label: "Keccak25",
+        value: "25"
+    },
+    {
+        label: "RIPEMD160_SHA256",
+        value: "62"
+    }
+];
 
 class HashCalculation extends React.Component {
-    constructor(props) {
-        super(props);
+    state = {
+        activeTab: 0,
+        advancedState: false,
 
-        this.handleFormSubmit = this.handleFormSubmit.bind(this);
+        // submitting
+        passphraseStatus: false,
+        recipientStatus: false,
+        amountStatus: false,
+        feeStatus: false,
+        generatedHash: false,
+    };
 
-        this.state = {
-            activeTab: 0,
-            advancedState: false,
-
-            // submitting
-            passphraseStatus: false,
-            recipientStatus: false,
-            amountStatus: false,
-            feeStatus: false,
-            generatedHash: false,
-        };
-        this.handleAdvancedState = this.handleAdvancedState.bind(this);
-    }
-
-    async handleFormSubmit(values) {
-        console.warn(values);
+    handleFormSubmit = async (values) => {
         values = {
             secret: values.data,
             secretIsText: values.isMessage,
@@ -50,9 +66,9 @@ class HashCalculation extends React.Component {
                 generatedHash: res.hash
             });
         });
-    }
+    };
 
-    handleAdvancedState() {
+    handleAdvancedState = () => {
         if (this.state.advancedState) {
             this.setState({
                 ...this.props,
@@ -64,123 +80,45 @@ class HashCalculation extends React.Component {
                 advancedState: true
             })
         }
-    }
-
-    hashOptions = [
-        {
-            label: "SHA256",
-            value: "2"
-        },
-        {
-            label: "SHA3",
-            value: "3",
-        },
-        {
-            label: "SCRYPT",
-            value: "5",
-        },
-        {
-            label: "RIPEMD160",
-            value: "6"
-        },
-        {
-            label: "Keccak25",
-            value: "25"
-        },
-        {
-            label: "RIPEMD160_SHA256",
-            value: "62"
-        }
-    ];
+    };
 
     render() {
         return (
-            <div className="modal-box">
-                <Form
-                    onSubmit={(values) => this.handleFormSubmit(values)}
-                    render={({
-                        submitForm, setValue
-                    }) => (
-                            <form className="modal-form" onSubmit={submitForm}>
-                                <div className="form-group-app">
-                                    <a onClick={() => this.props.closeModal()} className="exit"><i
-                                        className="zmdi zmdi-close" /></a>
-
-                                    <div className="form-title">
-                                        <p>Hash calculation</p>
-                                    </div>
-                                    <div className="input-group-app offset-top display-block">
-                                        <div className="row">
-                                            <div className="col-md-3">
-                                                <label>Data</label>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <TextArea rows={5} field="data" placeholder="Data to hash" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="input-group-app offset-top display-block">
-                                        <div className="row">
-                                            <div className="col-md-3" />
-                                            <div className="col-md-9">
-                                                <div className="input-wrapper">
-                                                    <div
-                                                        className="input-group-app align-middle display-block">
-                                                        <Checkbox
-                                                            style={{ display: 'inline-block', paddingTop: 0 }}
-                                                            defaultValue={true}
-                                                            type="checkbox"
-                                                            field="isMessage" />
-                                                        <label style={{ display: 'inline-block' }}>Textual data representation</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="input-group-app offset-top display-block position-relative">
-                                        <div className="row">
-                                            <div className="col-md-3 pr-0">
-                                                <label className={"nowrap"}>Hash algorithm</label>
-                                            </div>
-                                            <div className="col-md-9">
-                                                <div className="input-group-app align-middle display-block" style={{ width: "100%" }}>
-                                                    <CustomSelect
-                                                        field={'alg'}
-                                                        setValue={setValue}
-                                                        options={this.hashOptions}
-                                                    />
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    {
-                                        this.state.generatedHash && <div className='info-box blue-info'>
-                                            <div class="token word-brake">{this.state.generatedHash}</div>
-                                        </div>
-                                    }
-
-                                    <div className="btn-box align-buttons-inside absolute left-conner">
-                                        <button
-                                            className="btn btn-right blue round round-bottom-right"
-                                            type="submit"
-                                        >
-                                            Calculate
-                                    </button>
-                                        <a
-                                            onClick={() => this.props.closeModal()}
-                                            className="btn btn-right round round-top-left"
-                                        >
-                                            Cancel
-                                    </a>
-                                    </div>
-                                </div>
-                            </form>
-                        )}
-                >
-
-                </Form>
-            </div>
+            <ModalBody
+                modalTitle={'Hash calculation'}
+                closeModal={this.props.closeModal}
+                handleFormSubmit={(values) => this.handleFormSubmit(values)}
+                submitButtonName={'Calculate'}
+                isDisableSecretPhrase
+            >
+                <CustomTextArea
+                    label={'Data'}
+                    placeholder={'Data to hash'}
+                    field={'data'}
+                />
+                <CheckboxFormInput
+                    checkboxes={[
+                        {
+                            field: 'isMessage',
+                            label: 'Textual data representation',
+                            defaultValue: true
+                        }
+                    ]}
+                />
+                {hashOptions && (
+                    <CustomFormSelect
+                        options={hashOptions}
+                        defaultValue={hashOptions[0]}
+                        label={'Hash algorithm'}
+                        field={'alg'}
+                    />
+                )}
+                {this.state.generatedHash && (
+                    <div className='info-box blue-info'>
+                        <div className="token word-brake">{this.state.generatedHash}</div>
+                    </div>
+                )}
+            </ModalBody>
         );
     }
 }

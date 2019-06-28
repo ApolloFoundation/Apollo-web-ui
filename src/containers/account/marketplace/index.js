@@ -65,7 +65,7 @@ class Marketplace extends React.Component {
                     pageTitle={'Marketplace'}
                 />
                 <div className="page-body container-fluid pl-0">
-                    <div className="marketplace marketplace-preview">
+                    <div className="marketplace">
                         <div className="row">
                             <MarketplaceDashboardHeader />
                             <MarketplaceDashboardFooter/>

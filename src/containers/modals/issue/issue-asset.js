@@ -51,23 +51,19 @@ class IssueAsset extends React.Component {
     }
 
     handleFormSubmit = async(values) => {
+        if (!this.state.isPending) {
+            this.setState({isPending: true});
+            values = {
+                ...values,
+                quantityATU: values.quantityATU * Math.pow(10, values.decimals)
+            };
 
-        values = {
-            ...values,
-            quantityATU: values.quantityATU * Math.pow(10, values.decimals)
-        };
-
-        this.setState({
-            isPending: true
-        })
-
-        // Todo: finish form validating
-        this.props.processForm(values, 'issueAsset', 'Transaction has been submitted!', (res) => {
-            // this.props.issueAssetAction(values);
-            this.props.setBodyModalParamsAction(null, {});
-
-            NotificationManager.success('Asset has been submitted!', null, 5000);
-		});
+            await this.props.processForm(values, 'issueAsset', 'Transaction has been submitted!', () => {
+                this.props.setBodyModalParamsAction(null, {});
+                NotificationManager.success('Asset has been submitted!', null, 5000);
+            });
+            this.setState({isPending: false});
+        }
     };
 
     handleAdvancedState = () => {

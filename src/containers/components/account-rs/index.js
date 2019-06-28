@@ -11,6 +11,9 @@ import {NotificationManager} from 'react-notifications';
 import {connect} from 'react-redux';
 
 class AccountRS extends React.Component {
+    refContactsList = React.createRef();
+    refContactsIcon = React.createRef();
+
     constructor(props) {
         super(props);
         this.state = {
@@ -49,6 +52,32 @@ class AccountRS extends React.Component {
 
         if (this.props.exportAccountList) {
             this.props.exportAccountList(account)
+        }
+    };
+
+    componentDidMount() {
+        document.addEventListener('mousedown', this.handleClickOutside);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('mousedown', this.handleClickOutside);
+    }
+
+    setWrapperContactsIconRef = (node) => {
+        this.refContactsIcon = node;
+    };
+
+    setWrapperContactsRef = (node) => {
+        this.refContactsList = node;
+    };
+
+    handleClickOutside = (event) => {
+        if (this.state.isContacts &&
+            this.refContactsList && !this.refContactsList.contains(event.target) &&
+            this.refContactsIcon &&  !this.refContactsIcon.contains(event.target)) {
+            this.setState({
+                isContacts: false
+            });
         }
     };
 
@@ -101,15 +130,15 @@ class AccountRS extends React.Component {
                            id={this.props.id}
                 />
                 {!this.props.noContactList && (
-                    <a
-                        onClick={() => this.handleContacts()}
-                        className="input-icon"
-                    >
-                        <i className="zmdi zmdi-account-box"/>
-                    </a>
+                    <div className="input-group-append cursor-pointer"
+                         ref={this.setWrapperContactsIconRef}
+                         onClick={() => this.handleContacts()}>
+                        <span className="input-group-text"><i className="zmdi zmdi-account-box"/></span>
+                    </div>
                 )}
                 {this.state.contacts && (
                     <div
+                        ref={this.setWrapperContactsRef}
                         className={classNames({
                             'contacts-list': true,
                             'active': this.state.isContacts

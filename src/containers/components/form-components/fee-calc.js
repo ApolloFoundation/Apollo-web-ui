@@ -1,9 +1,8 @@
 import React from 'react';
-import InputForm from '../input-form';
 import {NotificationManager} from 'react-notifications';
 import {connect} from 'react-redux';
+import InputForm from '../input-form';
 import {ONE_APL} from '../../../constants';
-
 import {calculateFeeAction} from "../../../actions/forms";
 
 class FeeCalc extends React.Component {
@@ -32,25 +31,25 @@ class FeeCalc extends React.Component {
         }
     };
 
-    render () {
+    render() {
         const {setValue, defaultValue} = this.props;
 
         return (
-            <div className="form-group row form-group-white mb-15">
-                <label className="col-sm-3 col-form-label">
+            <div className="form-group mb-15">
+                <label>
                     Fee
                 </label>
-                <div className="col-sm-9 input-group input-group-text-transparent input-group-sm">
+                <div className="input-group">
                     <InputForm
                         field="feeATM"
                         placeholder="Minimum fee"
                         type={"float"}
                         setValue={setValue}
-                        defaultValue={defaultValue}
+                        defaultValue={defaultValue || '1'}
                     />
                     <div className="input-group-append">
                         <span className="input-group-text">
-                            Apollo
+                            APL
                         </span>
                     </div>
                 </div>
@@ -61,6 +60,6 @@ class FeeCalc extends React.Component {
 
 const mapStateToProps = state => ({
     publicKey: state.account.publicKey
-})
+});
 
 export default connect(mapStateToProps)(FeeCalc)

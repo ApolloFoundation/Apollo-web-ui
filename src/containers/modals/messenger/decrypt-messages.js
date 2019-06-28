@@ -64,6 +64,7 @@ class DecryptMessage extends React.Component {
                 submitButtonName={'Decrypt messages'}
                 handleFormSubmit={values => this.handleFormSubmit(values)}
                 closeModal={this.props.closeModal}
+                isDisabe2FA
             />
         );
     }

@@ -8,9 +8,8 @@ class AccountProperty extends React.Component {
 
     deleteProperty  = (el) => {
         const data = el;
-        const {recipientRS, setterRS} = this.props;
-        if (this.props.incoming && recipientRS) data.recipientRS = recipientRS;
-        else data.setterRS = setterRS;
+        const {recipientRS, incoming} = this.props;
+        if (incoming && recipientRS) data.recipientRS = recipientRS;
         this.props.setBodyModalParamsAction("DELETE_ACCOUNT_PROPERTY", data);
     };
     
@@ -31,11 +30,21 @@ class AccountProperty extends React.Component {
             <td className="align-right">
                 <div className="btn-box inline">
                     {(recipientRS === setterRS || !incoming) &&
-                    <a onClick={() => this.setProperty(this.props)}
-                        className="btn primary blue">Update</a>
+                    <button
+                        type={'button'}
+                        onClick={() => this.setProperty(this.props)}
+                        className="btn btn-default"
+                    >
+                        Update
+                    </button>
                     }
-                    <a onClick={() => this.deleteProperty(this.props)}
-                        className="btn primary">Delete</a>
+                    <button
+                        type={'button'}
+                        onClick={() => this.deleteProperty(this.props)}
+                        className="btn btn-default"
+                    >
+                        Delete
+                    </button>
                 </div>
             </td>
         </tr>

@@ -3,11 +3,13 @@ import React from "react";
 export default class CancelButton extends React.Component {
     render() {
         return (
-            <a className="btn btn-right round round-top-left"
-               onClick={() => this.props.close()}
+            <button
+                type={'button'}
+                className="btn btn-default mr-3"
+                onClick={() => this.props.close()}
             >
                 Cancel
-            </a>
+            </button>
         );
     }
 }
