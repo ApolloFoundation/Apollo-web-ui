@@ -1273,6 +1273,14 @@ div.info-box {
 	&.gray {
 		background: #666666;
 	}
+	&.btn-secondary {
+		display: flex;
+		flex-direction: column;
+		transition: background-color 0.3s;
+		&.btn-green {
+			box-shadow: none;
+		}
+	}
 	&.primary {
 		padding: 5px 7px;
 		background: #666666;
