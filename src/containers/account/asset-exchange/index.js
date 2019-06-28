@@ -47,7 +47,9 @@ class AssetExchange extends React.Component {
                 firstIndex: 0,
                 lastIndex: itemsPerPage - 1,
             },
-        }
+        },
+        buyForm: null,
+        sellForm: null,
     };
 
     listener = data => {
@@ -64,7 +66,7 @@ class AssetExchange extends React.Component {
     }
 
     componentWillUnmount() {
-        BlockUpdater.removeListener("data", this.listener)
+        BlockUpdater.removeListener("data", this.listener);
     }
 
     componentDidUpdate = (prevProps) => {
@@ -74,6 +76,8 @@ class AssetExchange extends React.Component {
             this.getAsset(assetId);
             this.getAssets();
             this.getAccountAsset(this.props);
+            if (this.state.buyForm) this.state.buyForm.resetAll();
+            if (this.state.sellForm) this.state.sellForm.resetAll();
         }
     };
 
@@ -220,7 +224,8 @@ class AssetExchange extends React.Component {
             priceATM: values.priceATM,
             total: values.total,
             assetInfo: this.state.asset
-        })
+        });
+        this.state.sellForm.resetAll();
     };
 
     handleBuyOrders = async (values) => {
@@ -229,7 +234,8 @@ class AssetExchange extends React.Component {
             priceATM: values.priceATM,
             total: values.total,
             assetInfo: this.state.asset
-        })
+        });
+        this.state.buyForm.resetAll();
     };
 
     handleTotalValue = (setValue, v1, v2) => {
@@ -271,6 +277,14 @@ class AssetExchange extends React.Component {
         } else if (type === 'sell') {
             this.getSellOrders(this.state.asset, pagination);
         }
+    };
+
+    getBuyFormApi = (form) => {
+        this.setState({buyForm: form})
+    };
+
+    getSellFormApi = (form) => {
+        this.setState({sellForm: form})
     };
 
     render() {
@@ -368,6 +382,7 @@ class AssetExchange extends React.Component {
                                                 balanceATU={this.state.asset.balanceATU}
                                                 handleTotalValue={this.handleTotalValue}
                                                 handleBuyOrders={this.handleBuyOrders}
+                                                getFormApi={this.getBuyFormApi}
                                             />
                                         </div>
                                         <div className="col-xl-6 col-md-12 pr-0 pb-3">
@@ -376,6 +391,7 @@ class AssetExchange extends React.Component {
                                                 accountAsset={this.state.accountAsset}
                                                 handleTotalValue={this.handleTotalValue}
                                                 handleSellOrders={this.handleSellOrders}
+                                                getFormApi={this.getSellFormApi}
                                             />
                                         </div>
                                     </div>

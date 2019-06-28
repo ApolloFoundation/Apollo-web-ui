@@ -55,7 +55,7 @@ class OrderItem extends React.Component {
 
                 <td>{((this.props.quantityATU * this.props.priceATM) /  ONE_APL) / (this.props.quantityATU / Math.pow(10, this.props.decimals))}</td>
 
-                <td className="align-right">{(this.props.quantityATU * this.props.priceATM) /  ONE_APL}</td>
+                <td>{(this.props.quantityATU * this.props.priceATM) /  ONE_APL}</td>
 
             </tr>
         );

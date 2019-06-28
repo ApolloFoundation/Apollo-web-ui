@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import {connect} from 'react-redux';
 import NummericInput from "../../../components/form-components/numeric-input";
 
-const SellAsset = ({asset, handleTotalValue, handleSellOrders, accountAsset}) => {
+const SellAsset = ({asset, handleTotalValue, handleSellOrders, accountAsset, getFormApi}) => {
     const balance = !!accountAsset && !!accountAsset.unconfirmedQuantityATU ? (accountAsset.unconfirmedQuantityATU / Math.pow(10, accountAsset.decimals)) : 0;
 
     return (
@@ -18,6 +18,7 @@ const SellAsset = ({asset, handleTotalValue, handleSellOrders, accountAsset}) =>
             </div>
             <div className="card-body">
                 <Form
+                    getApi={getFormApi}
                     onSubmit={(values) => handleSellOrders(values)}
                     render={({submitForm, values, addValue, removeValue, setValue, getFormState}) => (
                         <form onSubmit={submitForm}>
