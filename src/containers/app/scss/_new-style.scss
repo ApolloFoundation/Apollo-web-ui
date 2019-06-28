@@ -487,13 +487,22 @@
 			}
 		}
 
-		.ball-pulse {
-			display: inline-block;
+		.loader-box {
+			.ball-pulse {
+				display: inline-block;
 
-			> div {
-				background-color: #2B36FF;
-				width: 4px;
-				height: 4px;
+				> div {
+					background-color: #2B36FF;
+					width: 4px;
+					height: 4px;
+				}
+			}
+			&.white {
+				.ball-pulse {
+					> div {
+						background-color: #ffffff;
+					}
+				}
 			}
 		}
 
