@@ -5,25 +5,18 @@
 
 
 import React from 'react';
-import { connect } from 'react-redux';
-import classNames from 'classnames';
-import uuid from 'uuid';
-import SiteHeader from  '../../components/site-header'
-import { setBodyModalParamsAction } from "../../../modules/modals";
+import {connect} from 'react-redux';
+import SiteHeader from '../../components/site-header'
+import {setBodyModalParamsAction} from "../../../modules/modals";
 
 import {getDGSGoodsAction} from "../../../actions/marketplace";
-import MarketplaceItem from "../marketplace/marketplace-card";
-
-import InfoBox from "../../components/info-box";
 import {BlockUpdater} from "../../block-subscriber";
-import ContentLoader from '../../components/content-loader'
 
 import MarketplaceColumnTable from '../../components/marketplace-column-table/';
 
 class PurchasedProducts extends React.Component {
     constructor(props) {
         super(props);
-
 
         this.state = {
             page: 1,
@@ -69,13 +62,13 @@ class PurchasedProducts extends React.Component {
         });
     }
 
-    onPaginate (page) {
+    onPaginate(page) {
         let reqParams = {
             page: page,
             requestType: 'getDGSPurchases',
             buyer: this.props.account,
             firstIndex: page * 8 - 8,
-            lastIndex:  page * 8 - 1
+            lastIndex: page * 8 - 1
         };
 
         this.setState(reqParams, () => {
@@ -88,25 +81,26 @@ class PurchasedProducts extends React.Component {
 
         if (getDGSGoods) {
             this.setState({
-                ...this.state,
                 getDGSGoods: getDGSGoods.purchases
             })
         }
     };
 
-    render () {
+    render() {
         return (
             <div className="page-content">
                 <SiteHeader
                     pageTitle={'Purchased Products'}
                 />
                 <div className="page-body container-fluid">
-                    <div className="account-ledger p-0">
-                        <MarketplaceColumnTable
-                            data={this.state.getDGSGoods}
-                            page={this.state.page}
-                            emptyMessage={'No purchased products found.'}
-                        />
+                    <div className={'marketplace'}>
+                        <div className={'row'}>
+                            <MarketplaceColumnTable
+                                data={this.state.getDGSGoods}
+                                page={this.state.page}
+                                emptyMessage={'No purchased products found.'}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>

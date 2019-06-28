@@ -6,19 +6,15 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {setBodyModalParamsAction, setModalData, saveSendModalState, openPrevModal} from '../../../modules/modals';
-import AdvancedSettings from '../../components/advanced-transaction-settings'
-import InfoBox from '../../components/info-box'
-import {Form, Text, TextArea} from 'react-form';
-
-import AccountRS from '../../components/account-rs';
-import submitForm from "../../../helpers/forms/forms";
+import {Text, TextArea} from 'react-form';
+import classNames from "classnames";
 import {NotificationManager} from "react-notifications";
+import {openPrevModal, saveSendModalState, setBodyModalParamsAction, setModalData} from '../../../modules/modals';
+import submitForm from "../../../helpers/forms/forms";
 import crypto from "../../../helpers/crypto/crypto";
 import ModalFooter from '../../components/modal-footer';
-import FeeCalc from '../../components/form-components/fee-calc';
-
 import BackForm from '../modal-form/modal-form-container';
+import NummericInputForm from "../../components/form-components/numeric-input";
 
 class AccountInfo extends React.Component {
     constructor(props) {
@@ -27,6 +23,7 @@ class AccountInfo extends React.Component {
         this.state = {
             activeTab: 0,
             advancedState: false,
+            isPending: false,
 
             // submitting
             passphraseStatus: false,
@@ -36,96 +33,103 @@ class AccountInfo extends React.Component {
         }
     }
 
-    handleFormSubmit = async(values) => {
-        values = {
-            ...values,
+    handleFormSubmit = async (values) => {
+        if (!this.state.isPending) {
+            this.setState({isPending: true});
 
-        };
-
-        const res = await this.props.submitForm( values, 'setAccountInfo');
-        if (res && res.errorCode) {
-            NotificationManager.error(res.errorDescription, 'Error', 5000)
-        } else {
-            this.props.setBodyModalParamsAction(null, {});
-            NotificationManager.success('Account info has been submitted!', null, 5000);
+            const res = await this.props.submitForm(values, 'setAccountInfo');
+            if (res && res.errorCode) {
+                NotificationManager.error(res.errorDescription, 'Error', 5000)
+            } else {
+                this.props.setBodyModalParamsAction(null, {});
+                NotificationManager.success('Account info has been submitted!', null, 5000);
+            }
+            this.setState({isPending: false});
         }
     };
 
     handleAdvancedState = () => {
-        if (this.state.advancedState) {
-            this.setState({
-                ...this.props,
-                advancedState: false
-            })
-        } else {
-            this.setState({
-                ...this.props,
-                advancedState: true
-            })
-        }
+        this.setState({
+            advancedState: !this.state.advancedState
+        });
     };
 
     render() {
         return (
             <div className="modal-box">
                 <BackForm
-	                nameModal={this.props.nameModal}
+                    nameModal={this.props.nameModal}
                     onSubmit={(values) => this.handleFormSubmit(values)}
-                    render={({ submitForm, values, addValue, removeValue, setValue, getFormState }) => (
-                        <form className="modal-form" onChange={() => this.props.saveSendModalState(values)} onSubmit={submitForm}>
+                    render={({submitForm, values, addValue, removeValue, setValue, getFormState}) => (
+                        <form className="modal-form" onChange={() => this.props.saveSendModalState(values)}
+                              onSubmit={submitForm}>
                             {
                                 this.props.modalData &&
                                 <div className="form-group-app">
-                                    <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
+                                    <a onClick={() => this.props.closeModal()} className="exit"><i
+                                        className="zmdi zmdi-close"/></a>
 
                                     <div className="form-title">
-	                                    {this.props.modalsHistory.length > 1 &&
-	                                    <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
-	                                    }
+                                        {this.props.modalsHistory.length > 1 &&
+                                        <div className={"backMy"} onClick={() => {
+                                            this.props.openPrevModal()
+                                        }}></div>
+                                        }
                                         <p>Set Account Info</p>
                                     </div>
-	                                <div className="form-group row form-group-white mb-15">
-		                                <label className={'col-sm-3 col-form-label'}>Name</label>
-		                                <div className="col-sm-9">
-			                                <Text className={"form-control"} placeholder={'Your name'} field={'name'}/>
-		                                </div>
-	                                </div>
-	                                <div className="form-group row form-group-white mb-15">
-		                                <label className={'col-sm-3 col-form-label'}>Description</label>
-		                                <div className="col-md-9">
-			                                <TextArea className={"form-control"} placeholder="Message" field="message" cols="6" rows="10"/>
-		                                </div>
-	                                </div>
-	                                <div className="form-group row form-group-white mb-15">
-		                                <label className={'col-sm-3 col-form-label'}>Fee</label>
-		                                <div className="col-md-9">
-			                                <Text className={"form-control"} placeholder={'Amount'} type="tel" field={'feeATM'}/>
-		                                </div>
-	                                </div>
-
+                                    <div className="form-group mb-15">
+                                        <label>Name</label>
+                                        <div>
+                                            <Text className={"form-control"} placeholder={'Your name'} field={'name'}/>
+                                        </div>
+                                    </div>
+                                    <div className="form-group mb-15">
+                                        <label>Description</label>
+                                        <div>
+                                            <TextArea className={"form-control"} placeholder="Description" field="message"
+                                                      cols="6" rows="10"/>
+                                        </div>
+                                    </div>
+                                    <NummericInputForm
+                                        field={'feeATM'}
+                                        counterLabel={'APL'}
+                                        type={'float'}
+                                        label={'Fee'}
+                                        setValue={setValue}
+                                        placeholder={'Fee'}
+                                        defaultValue={'1'}
+                                    />
                                     <ModalFooter
                                         setValue={setValue}
                                         getFormState={getFormState}
                                         values={values}
                                     />
 
-{/*
-                                    <AdvancedSettings
-                                        setValue={setValue}
-                                        getFormState={getFormState}
-                                        values={values}
-                                        advancedState={this.state.advancedState}
-                                    /> */}
-
-                                    <div className="btn-box align-buttons-inside absolute right-conner">
+                                    <div className="btn-box right-conner align-right form-footer">
+                                        <button
+                                            type={'button'}
+                                            onClick={() => this.props.closeModal()}
+                                            className="btn btn-default mr-3"
+                                        >
+                                            Cancel
+                                        </button>
                                         <button
                                             type="submit"
                                             name={'closeModal'}
-                                            className="btn btn-right blue round round-bottom-right"
+                                            className={classNames({
+                                                "btn btn-green submit-button": true,
+                                                "loading btn-green-disabled": this.state.isPending,
+                                            })}
                                         >
-                                            Update Account Info
+                                            <div className="button-loader">
+                                                <div className="ball-pulse">
+                                                    <div/>
+                                                    <div/>
+                                                    <div/>
+                                                </div>
+                                            </div>
+                                            <span className={'button-text'}>Update Account Info</span>
                                         </button>
-                                        <a onClick={() => this.props.closeModal()} className="btn btn-right round round-top-left">Cancel</a>
                                     </div>
                                 </div>
                             }
@@ -139,7 +143,7 @@ class AccountInfo extends React.Component {
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
-	modalsHistory: state.modals.modalsHistory
+    modalsHistory: state.modals.modalsHistory
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -147,8 +151,8 @@ const mapDispatchToProps = dispatch => ({
     submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
-	saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
-	openPrevModal: () => dispatch(openPrevModal())
+    saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
+    openPrevModal: () => dispatch(openPrevModal())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AccountInfo);

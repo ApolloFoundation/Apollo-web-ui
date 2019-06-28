@@ -200,27 +200,27 @@ class InfoBlock extends React.Component {
                                                 <tbody>
                                                 <tr>
                                                     <td>Previous Block Hash:</td>
-                                                    <td className="word-brake">{blockInfo.previousBlockHash}</td>
+                                                    <td className="no-white-space break-word">{blockInfo.previousBlockHash}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Payload Length:</td>
-                                                    <td className="word-brake">{blockInfo.payloadLength}</td>
+                                                    <td className="no-white-space break-word">{blockInfo.payloadLength}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Total Fee ATM:</td>
-                                                    <td className="word-brake">{blockInfo.totalFeeATM / ONE_APL}</td>
+                                                    <td className="no-white-space break-word">{blockInfo.totalFeeATM / ONE_APL}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Generation Signature:</td>
-                                                    <td className="word-brake">{blockInfo.generationSignature}</td>
+                                                    <td className="no-white-space break-word">{blockInfo.generationSignature}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Executed Phased Transactions:</td>
-                                                    <td className="word-brake">{blockInfo.fullHash}</td>
+                                                    <td className="no-white-space break-word">{blockInfo.fullHash}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Generator Public Key:</td>
-                                                    <td className="word-brake">{blockInfo.generatorPublicKey}</td>
+                                                    <td className="no-white-space break-word">{blockInfo.generatorPublicKey}</td>
                                                 </tr>
                                                 {/*<tr>*/}
                                                 {/*<td>Full Hash:</td>*/}
@@ -228,51 +228,51 @@ class InfoBlock extends React.Component {
                                                 {/*</tr>*/}
                                                 <tr>
                                                     <td>Base Target:</td>
-                                                    <td className="word-brake">{blockInfo.baseTarget}</td>
+                                                    <td className="no-white-space break-word">{blockInfo.baseTarget}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Payload Hash:</td>
-                                                    <td className="word-brake">{blockInfo.payloadHash}</td>
+                                                    <td className="no-white-space break-word">{blockInfo.payloadHash}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Number of Transactions:</td>
-                                                    <td className="word-brake">{blockInfo.numberOfTransactions}</td>
+                                                    <td className="no-white-space break-word">{blockInfo.numberOfTransactions}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Block Signature:</td>
-                                                    <td className="word-brake">{blockInfo.blockSignature}</td>
+                                                    <td className="no-white-space break-word">{blockInfo.blockSignature}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Version:</td>
-                                                    <td className="word-brake">{blockInfo.version}</td>
+                                                    <td className="no-white-space break-word">{blockInfo.version}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Total Amount ATM:</td>
-                                                    <td className="word-brake">{blockInfo.totalFeeATM / ONE_APL}</td>
+                                                    <td className="no-white-space break-word">{blockInfo.totalFeeATM / ONE_APL}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Cumulative Difficulty:</td>
-                                                    <td className="word-brake">{blockInfo.cumulativeDifficulty}</td>
+                                                    <td className="no-white-space break-word">{blockInfo.cumulativeDifficulty}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Block:</td>
-                                                    <td className="word-brake">{blockInfo.block}</td>
+                                                    <td className="no-white-space break-word">{blockInfo.block}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Height:</td>
-                                                    <td className="word-brake">{blockInfo.height}</td>
+                                                    <td className="no-white-space break-word">{blockInfo.height}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Timestamp:</td>
-                                                    <td className="word-brake">{blockInfo.timestamp}</td>
+                                                    <td className="no-white-space break-word">{blockInfo.timestamp}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Generator:</td>
-                                                    <td className="word-brake">{blockInfo.generatorRS}</td>
+                                                    <td className="no-white-space break-word">{blockInfo.generatorRS}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Previous Block:</td>
-                                                    <td className="word-brake">{blockInfo.previousBlock}</td>
+                                                    <td className="no-white-space break-word">{blockInfo.previousBlock}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>Block Generating Time:</td>
@@ -284,14 +284,6 @@ class InfoBlock extends React.Component {
                                     </div>
                                 </TabContaier>
                             </TabulationBody>
-
-                            <div className="btn-box align-buttons-inside absolute right-conner">
-                                <a className="btn btn-right round round-top-left round-bottom-right"
-                                   onClick={() => this.props.closeModal()}
-                                >
-                                    Close
-                                </a>
-                            </div>
                         </div>
                     </div>
                 }

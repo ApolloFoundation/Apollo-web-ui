@@ -31,8 +31,7 @@ class OrderItem extends React.Component {
     }
 
     getOrderInfo = () => {
-        this.props.getOrderInfo(this.props.order.asset).then(res => {
-            console.warn("aitem", res, this.props.order);
+        this.props.getOrderInfo(this.props.asset).then(res => {
             this.setState({
                 orderInfo: res ? res : {}
             })
@@ -55,18 +54,20 @@ class OrderItem extends React.Component {
                 <td
                     className="align-left"
                 >
-                    {this.props.order.quantityATU / Math.pow(10, this.props.order.decimals)}
+                    {this.props.quantityATU / Math.pow(10, this.props.decimals)}
                 </td>
-                <td>{((this.props.order.quantityATU * this.props.order.priceATM) /  ONE_APL) / (this.props.order.quantityATU / Math.pow(10, this.props.order.decimals))}</td>
+                <td>{((this.props.quantityATU * this.props.priceATM) /  ONE_APL) / (this.props.quantityATU / Math.pow(10, this.props.decimals))}</td>
 
-                <td>{(this.props.order.quantityATU * this.props.order.priceATM) /  ONE_APL}</td>
+                <td>{(this.props.quantityATU * this.props.priceATM) /  ONE_APL}</td>
                 <td className="align-right">
                     <div className="btn-box inline">
-                        <a className={'btn primary'}
-                            onClick={() => this.props.setBodyModalParamsAction("CANCEL_ORDER", {...this.props.order, type: this.props.type})}
+                        <button
+                            type={'button'}
+                            className={'btn btn-default'}
+                            onClick={() => this.props.setBodyModalParamsAction("CANCEL_ORDER", {...this.props, type: this.props.type})}
                         >
                             Cancel
-                        </a>
+                        </button>
                     </div>
 
                 </td>

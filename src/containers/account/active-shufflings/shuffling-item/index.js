@@ -79,7 +79,7 @@ const ShufflingItem = (props) => {
                 props.blocksRemaining && props.stage !== 1 ?
                     <td className="align-right">
                         <div className="btn-box inline">
-                            <a className={'btn primary blue'}
+                            <a className={'btn btn-default'}
                                 onClick={() => props.setBodyModalParamsAction('START_SHUFFLING', props.shuffling)}>
                                 Join
                             </a>

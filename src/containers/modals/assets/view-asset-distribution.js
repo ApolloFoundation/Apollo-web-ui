@@ -49,7 +49,7 @@ class AssetDistribution extends React.Component {
 
     render() {
         return (
-            <div className="modal-box x-wide">
+            <div className="modal-box">
                 <div className="modal-form">
                     <div className="form-group-app">
                         <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close"/></a>
@@ -97,14 +97,6 @@ class AssetDistribution extends React.Component {
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
-
-                        <div className="btn-box align-buttons-inside absolute right-conner">
-                            <a className="btn btn-right round round-top-left round-bottom-right"
-                               onClick={() => this.props.closeModal()}
-                            >
-                                Close
-                            </a>
                         </div>
                     </div>
                 </div>

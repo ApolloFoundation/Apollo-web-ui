@@ -117,7 +117,7 @@ class AboutPeerInfo extends React.Component {
                                         </tr>
                                         <tr>
                                             <td>Share Address:</td>
-                                            <td>{peer.shareAddress === undefined ? "" : peer.shareAddress.toString()}</td>
+                                            <td>{(!!peer.sharedAddress).toString()}</td>
                                         </tr>
                                         <tr>
                                             <td>Downloaded:</td>
@@ -131,12 +131,6 @@ class AboutPeerInfo extends React.Component {
                                     </table>
                                 </div>
                             </div>
-                            <a
-                                className="btn btn-right round round-top-left round-bottom-right absolute"
-                                onClick={() => this.props.closeModal()}
-                            >
-                                Close
-                            </a>
                         </div>
                     </form>
                 }

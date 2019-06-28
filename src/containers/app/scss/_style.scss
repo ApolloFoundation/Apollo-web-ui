@@ -4,10 +4,10 @@
 
 .btn {
   display: inline-block;
-  padding: 9px 11px;
+  padding: 5px 7px;
   cursor: pointer;
   user-select: none;
-	min-height: 33px;
+  min-height: 33px;
 }
 
 button {
@@ -16,30 +16,24 @@ button {
 
 input {
   width: 100%;
-  border: 1px solid #E5E5E5;
-  background-color: #F5F5F5;
-  border-radius: 3px;
-  padding: 10px 20px;
-}
-
-input[type="tel"],
-input[type="number"] {
-  width: 100%;
-  border: 1px solid #E5E5E5;
-  background-color: #F5F5F5;
-  border-radius: 3px;
+  color: #3D5A7E;
+  background-color: #FCFCFD;
+  border: 1px solid #E6EAEE;
+  border-radius: 2px;
+  padding: 5px;
 }
 
 .site-content {
   position: relative;
-  margin-left: 220px;
+  margin-left: 235px;
+  @media (max-width: 1000px) {
+    margin-left: 80px;
+  }
   @media (max-width: 768px) {
-    margin-left: 100px;
     padding-top: 0;
   }
   @media (max-width: 767px) {
     margin-left: 0 !important;
-    padding-top: 50px;
   }
 
   &.hide-page-body {
@@ -53,17 +47,20 @@ input[type="number"] {
     }
   }
   .page-content {
-    @media (max-width: 768px) {
+    @media (max-width: 760px) {
       overflow-x: hidden;
+      margin-top: 42px;
     }
     .page-body {
       position: relative;
       display: flex;
       flex-wrap: wrap;
-      min-height: 100vh;
+      min-height: calc(100vh - 85px);
       z-index: 0;
+      padding: 85px 26px 0 26px !important;
+      flex-direction: column;
       @media(max-width: 760px) {
-        padding-top: 0;
+        padding: 0 12px !important;
         min-height: auto;
       }
 
@@ -85,7 +82,7 @@ input[type="number"] {
         position: fixed;
         top: 100px;
         bottom: 0;
-        left: 220px;
+        left: 235px;
         right: 0;
         z-index: 4;
         background: rgba(0,0,0,0.6);
@@ -116,23 +113,6 @@ input[type="number"] {
         &.transactions {
           justify-content: flex-start;
           .transactions-dashboard {
-            position: absolute;
-            top: 38px;
-            left: 30px;
-            right: 30px;
-            bottom: 20px;
-            @media (max-width: 760px) {
-              position: static;
-            }
-
-            &.scroll {
-              overflow-y: auto;
-              margin-right: -30px;
-              padding-right: 20px;
-              @media (max-width: 760px) {
-                // max-height: 300px;
-              }
-            }
             .transaction-item {
               height: 33.33%;
               padding: 20px 0;
@@ -140,7 +120,9 @@ input[type="number"] {
               box-sizing: border-box;
               border-bottom: 1px solid #E5E5E5;
               position: relative;
-
+              &:first-child {
+                padding-top: 0;
+              }
               @media (max-width: 760px) {
                 height: auto;
                 margin-top: 20px;
@@ -197,8 +179,8 @@ input[type="number"] {
                   }
                 }
                 .transaction-amount {
-                  color: #333333;
-                  font-family: "Roboto-Regular";
+                  color: #3D5A7E;
+                  font-family: "BBRollerMonoProST", sans-serif;
                   font-size: 13px;
                   line-height: 14px;
                   margin-left: 6px;
@@ -208,21 +190,10 @@ input[type="number"] {
           }
         }
         &.asset-portfolio {
-          .card-title {
-            margin-bottom: 30px;
-          }
+          height: 315px;
+
           .full-box {
-            position: absolute;
-            top: 65px;
-            left: 30px;
-            right: 30px;
-            display: flex;
-            justify-content: flex-start;
-            flex-direction: column;
-            bottom: 40px;
-
             .full-box-item {
-
               &.coin {
                 padding-left: 45px;
                 display: flex;
@@ -251,7 +222,7 @@ input[type="number"] {
                     }
                   }
                   .amount {
-                    color: #333333;
+                    color: #3D5A7E;
                     font-size: 17px;
                     margin-right: 15px;
                     min-width: 70px;
@@ -279,16 +250,6 @@ input[type="number"] {
         }
         &.decentralized-marketplace {
           .full-box {
-            position: absolute;
-            top: 58px;
-            left: 30px;
-            right: 30px;
-            display: flex;
-            justify-content: space-between;
-            flex-direction: column;
-            bottom: 20px;
-            padding-bottom: 50px;
-
             .full-box-item {
               display: flex;
               flex-direction: row;
@@ -302,13 +263,13 @@ input[type="number"] {
                 flex: 1;
 
                 .digit {
-                  color: #333333;
+                  color: #3D5A7E;
                   font-weight: 400;
                   font-size: 36px;
-                  line-height: 60px;
+                  line-height: normal;
                 }
                 .subtitle {
-                  color: #777777;
+                  color: #98B0CD;
                   font-weight: 400;
                   font-size: 12px;
                   line-height: 14px;
@@ -320,12 +281,10 @@ input[type="number"] {
           }
         }
         &.send-apollo {
-
+          height: 315px;
         }
         &.active-polls {
           .full-box {
-            margin-top: 30px;
-
             p {
               color: #777777;
               font-weight: 400;
@@ -336,27 +295,48 @@ input[type="number"] {
           }
         }
         &.apollo-news {
-          padding-bottom: 45px !important;
+          height: 315px;
           .card-news-content {
-            margin-top: 30px;
             color: #777777;
             font-weight: 400;
             font-size: 12px;
             line-height: 18px;
           }
         }
-        .full-box {
-          position: absolute;
-          top: 38px;
-          left: 30px;
-          right: 30px;
-          bottom: 20px;
+        &.talk-to-us {
+          .social-wrap {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 25px;
+            .social-row {
+              display: flex;
+              width: 100%;
+              height: 100%;
+              align-items: center;
+              justify-content: space-between;
+            }
+          }
+          a {
+            cursor: pointer;
+            transition: 0.3s;
+            &:hover {
+              color: #2547F4;
+              box-shadow: 0 6px 4px rgba(37, 71, 244, 0.13);
+            }
+            img {
+              width: 30px;
+              fill: rgb(152,176,205);
+            }
+          }
         }
       }
 
       // dashboard page
       & > div {
-        min-height: 750px;
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -364,52 +344,12 @@ input[type="number"] {
           min-height: auto;
         }
       }
-
       // my transactions page
       .my-transactions {
         width: 100%;
 
-        .transactions-filters {
-          min-height: 120px;
-          padding-left: 40px;
-
-          .monitors-table {
-            display: table;
-            width: 100%;
-            max-width: 300px;
-            padding: 15px;
-            background-color: #fff;
-            border-radius: 6px;
-            border: 1px solid #efefef;
-
-            tr {
-              td {
-                padding: 5px;
-
-                a {
-                  color: #00C8FF;
-                }
-              }
-            }
-          }
-          .top-bar {
-            display: flex;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-
-            .btn {
-              margin-top: 10px;
-              margin-right: 15px;
-              height: max-content;
-
-              &.active {
-                border-color: #101010;                 
-              }
-            }
-          }
-        }
         .transaction-table {
-          height: calc(100% - 120px);
+          height: calc(100% - 60px);
           min-height: 560px;
           overflow: hidden;
           @media (max-width: 1024px) {
@@ -438,9 +378,7 @@ input[type="number"] {
 
                     &.blue-link-text {
                       a {
-                        color: #00C8FF;
-                        font-size: 14px;
-                        line-height: 16px;
+                        color: #2547F4;
                         font-weight: 400;
                       }
                     }
@@ -503,7 +441,7 @@ input[type="number"] {
         overflow: auto;
 
         .alert {
-          color: #333333;
+          color: #3D5A7E;
           font-weight: 400;
           font-size: 14px;
           line-height: 16px;
@@ -597,6 +535,16 @@ input[type="number"] {
           }
         }
       }
+      &.sidebar-content-page {
+        .card {
+          height: auto;
+          min-height: 200px;
+          &.messenger-height {
+            height: 100%;
+            max-height: calc(100vh - 183px);
+          }
+        }
+      }
     }
   }
 }
@@ -609,4 +557,19 @@ input[type="number"] {
   color: rgba(0, 189, 32, 0.92);
 }
 
+.blue-link-text {
+  color: #2547F4;
+}
+
+.bg-primary {
+  background: linear-gradient(179.43deg, #2B23FF 0%, #2547F4 100%);
+  box-shadow: none;
+  color: #FFF;
+}
+
+.bg-green {
+  background: linear-gradient(179.43deg, #2AC940 0%, #31D947 100%);
+  box-shadow: none;
+  color: #FFF;
+}
 

@@ -11,23 +11,28 @@ import {Form, Text} from 'react-form';
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../helpers/forms/forms";
 import InputForm from '../../components/input-form';
+import classNames from "classnames";
 
 class ConnectPeer extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+    state = {
+        isPending: false,
+    };
 
     handleFormSubmit = async (values) => {
-        const toSend = {
-            adminPassword: values.adminPassword,
-            peer: this.props.modalData || values.peer,
-        };
-        const res = await this.props.submitForm( toSend, "addPeer");
-        if (res.errorCode) {
-            NotificationManager.error(res.errorDescription, 'Error', 5000)
-        } else {
-            NotificationManager.success('Peer has been conected!', null, 5000);
-            this.props.closeModal();
+        if (!this.state.isPending) {
+            this.setState({isPending: true});
+            const toSend = {
+                adminPassword: values.adminPassword,
+                peer: this.props.modalData || values.peer,
+            };
+            const res = await this.props.submitForm(toSend, "addPeer");
+            if (res.errorCode) {
+                NotificationManager.error(res.errorDescription, 'Error', 5000)
+            } else {
+                NotificationManager.success('Peer has been conected!', null, 5000);
+                this.props.closeModal();
+            }
+            this.setState({isPending: false});
         }
     };
 
@@ -45,11 +50,11 @@ class ConnectPeer extends React.Component {
                                 <div className="form-title">
                                     <p>{this.props.modalData ? 'Connect Peer' : 'Add Peer'}</p>
                                 </div>
-                                <div className="form-group row form-group-white mb-15">
-                                    <label className="col-sm-3 col-form-label">
+                                <div className="form-group mb-15">
+                                    <label>
                                         Address
                                     </label>
-                                    <div className="col-sm-9">
+                                    <div>
                                         {this.props.modalData ?
                                             <div className="input-wrapper">
                                                 {this.props.modalData}
@@ -62,30 +67,41 @@ class ConnectPeer extends React.Component {
                                         }
                                     </div>
                                 </div>
-                                <div className="form-group row form-group-white mb-15">
-                                    <label className="col-sm-3 col-form-label">
+                                <div className="form-group mb-15">
+                                    <label>
                                         Admin Password
                                     </label>
-                                    <div className="col-sm-9">
+                                    <div>
                                         <Text className="form-control"
                                               field="adminPassword"
                                               placeholder="Admin Password"
                                               type={'password'}/>
                                     </div>
                                 </div>
-                                <div className="btn-box align-buttons-inside absolute right-conner align-right">
-                                    <a
+                                <div className="btn-box right-conner align-right form-footer">
+                                    <button
+                                        type={'button'}
                                         onClick={() => this.props.closeModal()}
-                                        className="btn round round-top-left"
+                                        className="btn btn-default mr-3"
                                     >
                                         Cancel
-                                    </a>
+                                    </button>
                                     <button
                                         type="submit"
                                         name={'closeModal'}
-                                        className="btn btn-right blue round round-bottom-right"
+                                        className={classNames({
+                                            "btn btn-green submit-button": true,
+                                            "loading btn-green-disabled": this.state.isPending,
+                                        })}
                                     >
-                                        Send
+                                        <div className="button-loader">
+                                            <div className="ball-pulse">
+                                                <div/>
+                                                <div/>
+                                                <div/>
+                                            </div>
+                                        </div>
+                                        <span className={'button-text'}>Send</span>
                                     </button>
 
                                 </div>

@@ -20,12 +20,13 @@ const PageLoader = ({loginProblem, getAccountDataAction}) => (
                     Problem with connectoin
                 </p>
                 <br/>
-                <a
+                <button
+                    type={'button'}
                     className={'btn'}
                     onClick={() => getAccountDataAction(savedAccount)}
                 >
                     try to reconnect
-                </a>
+                </button>
             </div> :
             <div className="loader ball-scale-multiple">
                 <div></div>

@@ -97,46 +97,44 @@ class ActiveShufflings extends React.Component {
                     pageTitle={'Active Shuffling'}
                 />
                 <div className="page-body container-fluid">
-                    <div className="active-polls white-space">
-                        <CustomTable
-                            header={[
-                                {
-                                    name: 'Shuffling',
-                                    alignRight: false
-                                }, {
-                                    name: 'Stage',
-                                    alignRight: false
-                                }, {
-                                    name: 'Holding',
-                                    alignRight: false
-                                }, {
-                                    name: 'Amount',
-                                    alignRight: false
-                                }, {
-                                    name: 'Blocks Remaining',
-                                    alignRight: false
-                                }, {
-                                    name: 'Participants',
-                                    alignRight: true
-                                }, {
-                                    name: 'Assignee',
-                                    alignRight: true
-                                }, {
-                                    name: 'Status',
-                                    alignRight: true
-                                }
-                            ]}
-                            className={'no-min-height mb-3'}
-                            emptyMessage={'No active shuffling.'}
-                            TableRowComponent={ShufflingItem}
-                            tableData={this.state.activeShuffling}
-                            passProps={{getTransaction: this.getTransaction}}
-                            isPaginate
-                            page={this.state.page}
-                            previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
-                            nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
-                        />
-                    </div>
+                    <CustomTable
+                        header={[
+                            {
+                                name: 'Shuffling',
+                                alignRight: false
+                            }, {
+                                name: 'Stage',
+                                alignRight: false
+                            }, {
+                                name: 'Holding',
+                                alignRight: false
+                            }, {
+                                name: 'Amount',
+                                alignRight: false
+                            }, {
+                                name: 'Blocks Remaining',
+                                alignRight: false
+                            }, {
+                                name: 'Participants',
+                                alignRight: true
+                            }, {
+                                name: 'Assignee',
+                                alignRight: true
+                            }, {
+                                name: 'Status',
+                                alignRight: true
+                            }
+                        ]}
+                        className={'no-min-height mb-3'}
+                        emptyMessage={'No active shuffling.'}
+                        TableRowComponent={ShufflingItem}
+                        tableData={this.state.activeShuffling}
+                        passProps={{getTransaction: this.getTransaction}}
+                        isPaginate
+                        page={this.state.page}
+                        previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
+                        nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
+                    />
                 </div>
             </div>
         );

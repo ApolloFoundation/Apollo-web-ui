@@ -20,11 +20,11 @@ const Entry = ({formatTimestamp, event, eventType, timestamp, change, holdingTyp
             <a
                 onClick={() => setBodyModalParamsAction('INFO_TRANSACTION', event)}
             >
+                {eventType}
+                &nbsp;&nbsp;
                 <span
                     className="zmdi zmdi-info"
                 />
-                &nbsp;&nbsp;
-                {eventType}
             </a>
         </td>
         <td className="align-right">

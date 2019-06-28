@@ -46,13 +46,13 @@ const Alias = (props) => (
                 <button
                     type={'button'}
                     onClick={() => props.setBodyModalParamsAction('EDIT_ALIAS', props.alias)}
-                    className="btn primary blue"
+                    className="btn btn-default"
                 >
                     Edit
                 </button>
                 <button
                     type={'button'}
-                    className="btn primary blue"
+                    className="btn btn-default"
                     onClick={() => props.setBodyModalParamsAction('TRANSFER_ALIAS', props.alias)}
                 >
                     Transfer
@@ -64,7 +64,7 @@ const Alias = (props) => (
                 ) ? (
                     <button
                         type={'button'}
-                        className="btn primary blue"
+                        className="btn btn-default"
                         onClick={() => props.setBodyModalParamsAction('CANCEL_SALE_ALIAS', props.alias)}
                     >
                         Cancel Sale
@@ -72,7 +72,7 @@ const Alias = (props) => (
                 ) : (
                     <button
                         type={'button'}
-                        className="btn primary blue"
+                        className="btn btn-default"
                         onClick={() => props.setBodyModalParamsAction('SELL_ALIAS', props.alias)}
                     >
                         Sell
@@ -80,7 +80,7 @@ const Alias = (props) => (
                 )}
                 <button
                     type={'button'}
-                    className="btn primary"
+                    className="btn btn-default"
                     onClick={() => props.setBodyModalParamsAction('DELETE_ALIAS', props.alias)}
                 >
                     Delete

@@ -4,16 +4,22 @@ import SiteHeader from '../../../components/site-header';
 import InfoBox from '../../../components/info-box';
 
 import ExchangeHeader from './exchange-header';
-import ExchangeBuy from './exchange-buy';
-import ExchangeSell from './exchange-sell';
-import SellOrders from './sell-orders';
-import BuyOrders from './buy-orders';
 import Plot from './plot';
 import TradeHistoryExchange from './trade-history';
 import OpenOrders from './open-orders';
 import {setCurrentCurrencyAction} from "../../../../modules/exchange";
 import {setBodyModalParamsAction} from "../../../../modules/modals";
-import {getCurrencyBalance, getBuyOpenOffers, getSellOpenOffers, getPlotBuyOpenOffers, getPlotSellOpenOffers, getMyOpenOffers} from "../../../../actions/wallet";
+import {
+    getBuyOpenOffers,
+    getCurrencyBalance,
+    getMyOpenOffers,
+    getPlotBuyOpenOffers,
+    getPlotSellOpenOffers,
+    getSellOpenOffers
+} from "../../../../actions/wallet";
+import Orderbook from "./orderbook";
+import TradeApollo from "./trade-apollo";
+import TwitterBanner from "../../../../assets/twitter-banner2.png";
 
 class Exchange extends React.Component {
     state = {
@@ -69,7 +75,7 @@ class Exchange extends React.Component {
         this.props.setCurrentCurrency(currency);
     };
 
-    render () {
+    render() {
         const {currencies, currentCurrency, buyOrders, sellOrders, plotBuyOrders, plotSellOrders, myOrders} = this.props;
         const wallet = this.state.wallets && this.state.wallets['eth'];
         const buyOrdersCurrency = buyOrders[currentCurrency.currency];
@@ -81,67 +87,76 @@ class Exchange extends React.Component {
                 <SiteHeader
                     pageTitle={'Decentralized Exchange'}
                 />
-                <div className="exchange page-body container-fluid pl-0">
-                    <div className={'row'}>
-                        <div className={'col-md-12 pr-0 pb-3'}>
-                            <InfoBox info>
-                                Please, notice - this is the first version on Apollo Exchange. Functionality of trading will be delivered in future release. At the moment you can deposit in ETH and PAX.
-                                Please, check our updates in the official <a href={'https://t.me/apolloofficialannouncements'} target='_blank' rel='noopener noreferrer'>Telegram channel</a> to be the first to use Apollo Exchange
-                            </InfoBox>
-                        </div>
-                        <div className={'col-md-12 pr-0 pb-3 pb-4'}>
-                            <ExchangeHeader
-                                currencies={currencies}
-                                currentCurrency={currentCurrency}
-                                switchCurrency={this.switchCurrency}
-                                wallet={wallet}
-                                handleLoginModal={this.handleLoginModal}
-                            />
-                        </div>
-                        <div className={'col-md-4 pr-0 pb-3'}>
-                            <BuyOrders currentCurrency={currentCurrency} buyOrders={buyOrdersCurrency} />
-                        </div>
-                        <div className={'col-md-8 pr-0 pb-3'}>
-                            <Plot
-                                currentCurrency={currentCurrency}
-                                buyOrders={plotBuyOrdersCurrency}
-                                sellOrders={plotSellOrdersCurrency}
-                            />
-                        </div>
-                        <div className={'col-md-4 pr-0 pb-3'}>
-                            <SellOrders currentCurrency={currentCurrency} sellOrders={sellOrdersCurrency} />
-                        </div>
-                        <div className={'col-md-8 p-0'}>
-                            <div className={'container-fluid p-0 h-100'}>
-                                <div className={'col-md-6 pl-3 pr-0 pb-3 d-inline-flex h-100'}>
-                                    <ExchangeBuy
-                                        currentCurrency={currentCurrency}
-                                        wallet={wallet}
-                                        handleLoginModal={this.handleLoginModal}
-                                    />
-                                </div>
-                                <div className={'col-md-6 pl-3 pr-0 pb-3 d-inline-flex h-100'}>
-                                    <ExchangeSell
-                                        currentCurrency={currentCurrency}
-                                        wallet={wallet}
-                                        handleLoginModal={this.handleLoginModal}
-                                    />
-                                </div>
+                <div className="page-body exchange">
+                    <div className={'container-fluid p-0'}>
+                        <div className={'cards-wrap row'}>
+                            <div className={'col-md-12 p-0'}>
+                                <InfoBox info>
+                                    Please, notice - this is the first version on Apollo Exchange. Functionality of
+                                    trading
+                                    will be delivered in future releases. At the moment you can deposit in ETH and PAX.
+                                    Please, check our updates in the official <a
+                                    href={'https://t.me/apolloofficialannouncements'} target='_blank'
+                                    rel='noopener noreferrer'>Telegram channel</a> to be the first to use Apollo
+                                    Exchange
+                                </InfoBox>
                             </div>
                         </div>
-                        <div className={'col-md-6 mb-3 pr-0'}>
-                            <TradeHistoryExchange
-                                currentCurrency={currentCurrency}
-                                wallet={wallet}
-                                handleLoginModal={this.handleLoginModal}
-                            />
-                        </div>
-                        <div className={'col-md-6 mb-3 pr-0'}>
-                            <OpenOrders
-                                currentCurrency={currentCurrency}
-                                handleLoginModal={this.handleLoginModal}
-                                myOrders={myOrders[currentCurrency.currency]}
-                            />
+                        <div className={'cards-wrap row'}>
+                            <div className={'col-md-9 col-sm-7 p-0'}>
+                                <div className={'row'}>
+                                    <div className={'col-md-8 col-sm-12 p-0'}>
+                                        <Plot
+                                            currentCurrency={currentCurrency}
+                                            buyOrders={plotBuyOrdersCurrency}
+                                            sellOrders={plotSellOrdersCurrency}
+                                            currencies={currencies}
+                                            switchCurrency={this.switchCurrency}
+                                            wallet={wallet}
+                                            handleLoginModal={this.handleLoginModal}
+                                        />
+                                    </div>
+                                    <div className={'col-md-4 col-sm-12 p-0'}>
+                                        <TradeApollo
+                                            currentCurrency={currentCurrency}
+                                            wallet={wallet}
+                                            handleLoginModal={this.handleLoginModal}
+                                        />
+                                    </div>
+                                </div>
+                                <div className={'row'}>
+                                    <div className={'col-md-4 col-sm-12 p-0'}>
+                                        <TradeHistoryExchange
+                                            currentCurrency={currentCurrency}
+                                            wallet={wallet}
+                                            handleLoginModal={this.handleLoginModal}
+                                        />
+                                    </div>
+                                    <div className={'col-md-4 col-sm-6 p-0'}>
+                                        <OpenOrders
+                                            currentCurrency={currentCurrency}
+                                            handleLoginModal={this.handleLoginModal}
+                                            myOrders={myOrders[currentCurrency.currency]}
+                                        />
+                                    </div>
+                                    <div className={'col-md-4 col-sm-6 p-0'}>
+                                        <a
+                                            href={'https://twitter.com/ApolloCurrency'}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className={`card card-square`}
+                                            style={{backgroundImage: `url(${TwitterBanner})`}}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={'col-md-3 col-sm-5 p-0'}>
+                                <Orderbook
+                                    currentCurrency={currentCurrency}
+                                    buyOrders={buyOrdersCurrency}
+                                    sellOrders={sellOrdersCurrency}
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>

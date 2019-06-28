@@ -6,9 +6,10 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {SET_MODAL_DATA, setModalType, closeModal} from '../../modules/modals';
+import {closeModal, SET_MODAL_DATA, setModalType} from '../../modules/modals';
 import classNames from 'classnames';
 import ModalProvider from '../components/modals/modal-provider';
+import $ from 'jquery';
 // Modals
 import PrivateTransactions from "./private-transaction";
 import SendApollo from "./send-apollo";
@@ -18,7 +19,6 @@ import InfoTransaction from './info-transaction/info-transaction';
 import InfoLedgerTransaction from './info-ledger-transaction';
 import InfoBlock from './info-block';
 import RawTransactionDetails from './send-apollo/raw-transaction-details';
-
 // Account
 import InfoAccount from './account/account/';
 import CreateUser from './account/create-account';
@@ -38,14 +38,12 @@ import CheckForgingStatus from './account/check-forging-status';
 import SetAccountProperty from './account/set-account-property';
 import DeleteAccountProperty from './account/delete-account-property';
 import ChainProps from './account/chain-properties';
-
 // Assets
 import TransferAsset from './assets/transfer-asset/';
 import DeleteShares from './assets/delete-shares';
 import BuyAssets from './assets/buy-asset';
 import SellAssets from './assets/sell-asset';
 import AssetDistribution from './assets/view-asset-distribution';
-
 // Currency System
 import TransferCurrency from './currencies/transfer-currency/'
 import OfferCurrency from './currencies/offer-currebcy/'
@@ -54,28 +52,22 @@ import IssueCurrency from './currencies/issue-currency/';
 import ClaimCurrency from './currencies/claim-currency/';
 import BuyCurrency from './currencies/confirm-buy-request/';
 import SellCurrency from './currencies/confirm-sell-request/';
-
 // Voting system
 import CreatePoll from './voting-system/create-poll/';
 import CastVote from './voting-system/cast-vote/';
 import PollResults from './voting-system/poll-results/';
-
 // Data storage
 import UploadFile from './data-storage/uppload-file/';
-
 // Coin shuffling
 import CreateShuffling from './coin-shuffling/create-shuffling/';
 import JoinShuffling from './coin-shuffling/join-shuffling/';
-
 // Aliases
-import EditAlias     from './aliases/edit-alias';
-import SellAlias     from './aliases/sell-alias';
-import CancelSaleAlias     from './aliases/cancel-alias';
+import EditAlias from './aliases/edit-alias';
+import SellAlias from './aliases/sell-alias';
 import TransferAlias from './aliases/transfer-alias';
-import DeleteAlias   from './aliases/delete-alias';
-import AddAlias   from './aliases/add-alias';
+import DeleteAlias from './aliases/delete-alias';
+import AddAlias from './aliases/add-alias';
 import CancelSell from './aliases/cancel-sell';
-
 // Marketplace
 import MarketplaceImage from './marketplace/mraketplace-image-view';
 import MarketplaceProductDetails from './marketplace/marketplace-product-details';
@@ -85,7 +77,6 @@ import MarketplaceChangePrice from './marketplace/change-price/';
 import MarketplaceChangeQuantity from './marketplace/change-quantity/';
 import MarketplaceDelete from './marketplace/delete-goods/';
 import MarketplaceDeliver from './marketplace/deliver-goods/';
-
 // Messenger
 import DecryptMessage from './messenger/decrypt-messages';
 import ComposeMessage from './messenger/compose-message/';
@@ -102,21 +93,17 @@ import ApproveTransaction from "./approve-transaction";
 
 
 import store from '../../store';
-
 //2fa
 import Confirm2FA from './2fa'
 import DeleteAccountFromWebNode from './account/delete-account-from-node';
 import ConfirmForging from './account/confirm-forging';
-
 //Login
 import ImportAccount from '../modals/account/import-account'
 import ExportAccount from '../modals/account/export-account'
-
 // scheduled transactins
 import ScheaduleCurrency from '../modals/scheaduled-transactions/sceadule-currency'
 import AssetDividendHistory from "./assets/view-asset-dividend-history";
 import PayDividends from "./assets/pay-dividends";
-
 //exchange
 import LoginToExchange from './exchange/login';
 import WithdrawCurrency from './exchange/withdraw-currency';
@@ -124,46 +111,31 @@ import ConfirmCreateOffer from './exchange/confirm-create-offer';
 import ConfirmCancelOrder from './exchange/confirm-cancel-offer';
 
 class ModalWindow extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-
-        };
-
-        this.handleModal = this.handleModal.bind(this);
+    componentDidMount() {
+        document.addEventListener('mousedown', this.handleClickOutside);
     }
 
-    handleModal(e) {
+    componentWillUnmount() {
+        document.removeEventListener('mousedown', this.handleClickOutside);
+    }
+
+    handleClickOutside = (event) => {
         const modalWindow = document.querySelector('.modal-window');
-        const modalBox = document.querySelectorAll('.modal-box');
+        const modalBox = $('.modal-box');
 
-        if (Object.values(modalWindow.classList).indexOf('active') !== -1) {
+        if (Object.values(modalWindow.classList).indexOf('active') !== -1 &&
+            !modalBox.is(event.target) && modalBox.has(event.target).length === 0) {
+            this.closeModal();
+        }
+    };
 
-            if (!e.target.closest('.modal-window .modal-box') && !e.target.closest('.modal-window .area-hider')) {
-                Object.values(modalBox).map((el, index) => {
-                    setTimeout(() => {
-                        el.classList.remove('active');
-                    }, 1);
+    handleModal = (e) => {
+        const modalWindow = document.querySelector('.modal-window');
 
-
-                });
-                modalWindow.classList.remove('active');
-                setTimeout(() => {
-                    this.props.setModalType(null);
-                    store.dispatch({
-                        type: SET_MODAL_DATA,
-                        payload: null
-                    });
-                    this.props.closeModal();
-                }, 300);
-            }
-
-
-        } else {
+        if (Object.values(modalWindow.classList).indexOf('active') === -1) {
             modalWindow.classList.add('active');
         }
-    }
+    };
 
     componentDidUpdate() {
         const modalBox = document.querySelector('.modal-box');
@@ -201,7 +173,7 @@ class ModalWindow extends React.Component {
                 payload: null
             });
 
-	        this.props.closeModal();
+            this.props.closeModal();
         }, 300);
 
     };
@@ -211,7 +183,7 @@ class ModalWindow extends React.Component {
             <div
                 onClick={(e) => this.handleModal(e)}
                 className={classNames({
-                    "modal-window" : true,
+                    "modal-window": true,
                     "active": this.props.modalType
                 })}
                 ref={'modalWindow'}
@@ -345,8 +317,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    setModalType : (modalType) => dispatch(setModalType(modalType)),
-    closeModal : (param) => dispatch(closeModal(param))
+    setModalType: (modalType) => dispatch(setModalType(modalType)),
+    closeModal: (param) => dispatch(closeModal(param))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ModalWindow)

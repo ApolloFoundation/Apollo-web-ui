@@ -2,6 +2,7 @@ import React from 'react';
 
 import {Text} from 'react-form';
 import TextualInputComponent from '../../../components/form-components/textual-input';
+import CustomInputForm from '../../../components/form-components/textual-input';
 import CustomTextArea from '../../../components/form-components/text-area';
 import CustomFormSelect from '../../../components/form-components/custom-form-select';
 
@@ -103,11 +104,11 @@ class PollForm extends React.Component {
                 )}
 
                 {votingModel !== 0 && (
-                    <div className="form-group row form-group-white mb-15">
-                        <label className="col-sm-3 col-form-label">
+                    <div className="form-group mb-15">
+                        <label>
                             Min voting balance {this.selectedBalanceType()}
                         </label>
-                        <div className="col-sm-9">
+                        <div>
                             <InputForm
                                 field="minBalance"
                                 placeholder=""
@@ -125,12 +126,12 @@ class PollForm extends React.Component {
                     idGroup={idGroup}
                 />
 
-                <div className="form-group row form-group-white mb-0">
-                    <label className="col-sm-3 col-form-label align-self-start">
+                <div className="form-group mb-0">
+                    <label>
                         Answer
                     </label>
-                    <div className="col-sm-9">
-                        <div className="input-group input-group-sm mb-15 no-left-padding">
+                    <div>
+                        <div className="input-group mb-15">
                             <Text
                                 field={'answers[0]'}
                                 className="form-control"
@@ -141,7 +142,7 @@ class PollForm extends React.Component {
                                 onClick={() => this.removeAnswer(setValue, getFormState().values.answers, 0)}
                             >
                                 <span className="input-group-text">
-                                    <i className="zmdi zmdi-minus-circle"/>
+                                    <i className="zmdi zmdi-minus-circle cursor-pointer"/>
                                 </span>
                             </div>
                         </div>
@@ -151,7 +152,7 @@ class PollForm extends React.Component {
                                 const filed = `answers[${index}]`;
                                 return (
                                     <div key={filed}
-                                         className="input-group input-group-sm mb-15 no-left-padding">
+                                         className="input-group mb-15 no-left-padding">
                                         <Text
                                             id={`${idGroup}${filed}-field`}
                                             field={filed}
@@ -161,7 +162,7 @@ class PollForm extends React.Component {
                                         <div className="input-group-append"
                                              onClick={() => this.removeAnswer(setValue, getFormState().values.answers, index)}>
                                                 <span className="input-group-text">
-                                                    <i className="zmdi zmdi-minus-circle"/>
+                                                    <i className="zmdi zmdi-minus-circle cursor-pointer"/>
                                                 </span>
                                         </div>
                                     </div>
@@ -171,71 +172,56 @@ class PollForm extends React.Component {
                         }
                     </div>
                 </div>
-                <div className="mobile-class form-group-grey row mb-15">
-                    <div className="col-sm-9 offset-sm-3">
-                        <a
-                            id={`${idGroup}addAnswer-field`}
-                            className="no-margin btn static blue"
-                            onClick={() => this.addAnswer(setValue, getFormState().values.answers)}
-                        >
-                            Add answer
-                        </a>
-                    </div>
+                <div className="mb-15">
+                    <button
+                        type={'button'}
+                        id={`${idGroup}addAnswer-field`}
+                        className="no-margin btn btn-green"
+                        onClick={() => this.addAnswer(setValue, getFormState().values.answers)}
+                    >
+                        Add answer
+                    </button>
                 </div>
 
-                <div className="form-group row form-group-white mb-15">
-                    <label className="col-sm-3 col-form-label align-self-start">
-                        Min number of choices
-                    </label>
-                    <div className="col-sm-3">
-                        <InputForm
-                            defaultValue={1}
-                            type="tel"
-                            field="minNumberOfOptions"
-                            placeholder=""
+                <div className="row">
+                    <div className="col-sm-6">
+                        <CustomInputForm
+                            label={'Min number of choices'}
                             setValue={setValue}
-                            id={`${idGroup}minNumberOfOptions-field`}
+                            placeholder={''}
+                            field={'minNumberOfOptions'}
+                            type={'tel'}
+                            idGroup={idGroup}
+                            defaultValue={1}
+                        />
+                        <CustomInputForm
+                            label={'Max number of choices'}
+                            setValue={setValue}
+                            placeholder={''}
+                            field={'maxNumberOfOptions'}
+                            type={'tel'}
+                            idGroup={idGroup}
+                            defaultValue={1}
                         />
                     </div>
-                    <label className="col-sm-3 col-form-label align-self-start">
-                        Max number of choices
-                    </label>
-                    <div className="col-sm-3">
-                        <InputForm
-                            defaultValue={1}
-                            type="tel"
-                            field="maxNumberOfOptions"
-                            placeholder=""
+                    <div className="col-sm-6">
+                        <CustomInputForm
+                            label={'Min range value'}
                             setValue={setValue}
-                            id={`${idGroup}maxNumberOfOptions-field`}
+                            placeholder={''}
+                            field={'minRangeValue'}
+                            type={'tel'}
+                            idGroup={idGroup}
+                            defaultValue={"0"}
                         />
-                    </div>
-                </div>
-                <div className="form-group row form-group-white mb-15">
-                    <label className="col-sm-3 col-form-label align-self-start">
-                        Min range value
-                    </label>
-                    <div className="col-sm-3">
-                        <InputForm
-                            defaultValue={0}
-                            type="tel"
-                            field="minRangeValue"
-                            placeholder=""
+                        <CustomInputForm
+                            label={'Max range value'}
                             setValue={setValue}
-                            id={`${idGroup}minRangeValue-field`}
-                        />
-                    </div>
-                    <label className="col-sm-3 col-form-label align-self-start">
-                        Max range value
-                    </label>
-                    <div className="col-sm-3">
-                        <InputForm
+                            placeholder={''}
+                            field={'maxRangeValue'}
+                            type={'tel'}
+                            idGroup={idGroup}
                             defaultValue={1}
-                            type="tel"
-                            field="maxRangeValue"
-                            placeholder=""
-                            setValue={setValue}
-                            id={`${idGroup}maxRangeValue-field`}
                         />
                     </div>
                 </div>

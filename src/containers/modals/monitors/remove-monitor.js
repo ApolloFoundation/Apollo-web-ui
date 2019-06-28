@@ -113,7 +113,7 @@ class RemoveMonitor extends React.Component {
                                             type={"float"}
                                             setValue={setValue}/>
                                         <div className="input-group-append">
-                                            <span className="input-group-text">Apollo</span>
+                                            <span className="input-group-text">APL</span>
                                         </div>
                                     </div>
                                 </div>
@@ -130,12 +130,13 @@ class RemoveMonitor extends React.Component {
                                     </div>
                                 </div>
                                 <div className="btn-box align-buttons-inside absolute right-conner align-right">
-                                    <a
+                                    <button
+                                        type={'button'}
                                         onClick={() => this.props.closeModal()}
                                         className="btn round round-top-left"
                                     >
                                         Cancel
-                                    </a>
+                                    </button>
                                     <button
                                         type="submit"
                                         name={'closeModal'}

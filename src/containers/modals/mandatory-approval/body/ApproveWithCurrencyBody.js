@@ -75,7 +75,7 @@ export default class ApproveWithCurrencyBody extends React.Component {
                     field="maxFees"
                     placeholder="Max fees"
                     type={"number"}
-                    countingTtile={'Apollo'}
+                    countingTtile={'APL'}
                 />
             </ModalBody>
         );

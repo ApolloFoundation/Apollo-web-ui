@@ -219,10 +219,12 @@ class DeviceSettings extends React.Component {
                                                 </button>
                                         }
 
-                                        <a onClick={() => this.props.closeModal()}
-                                           className="btn btn-right round round-top-left">
+                                        <button
+                                            type={'button'}
+                                            onClick={() => this.props.closeModal()}
+                                            className="btn btn-right round round-top-left">
                                             Cancel
-                                        </a>
+                                        </button>
                                     </div>
                                 </div>
                             </form>

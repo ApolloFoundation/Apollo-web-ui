@@ -1,12 +1,8 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import uuid from 'uuid';
 import {connect} from 'react-redux';
 
-import {
-    getDGSGoodsAction,
-    getDGSPurchasesAction
-} from '../../../../actions/marketplace';
+import {getDGSGoodsAction, getDGSPurchasesAction} from '../../../../actions/marketplace';
 
 import InfoBox from '../../../components/info-box';
 import MarketplaceItem from '../marketplace-card';
@@ -59,76 +55,78 @@ class MarketplaceDashboardFooter extends Component {
         }
     };
 
-    render () {
+    render() {
 
         const {totalPurchasedProducts} = this.props;
 
         return (
             <>
-                {
-                    this.state.getDGSGoods &&
-                    <div className="form-group-app transparent marketplace no-padding-bottom height-auto">
-                        <div className="form-title padding-left pb-5">
-                            <p>
-                                Recent listings&nbsp;&nbsp;
-                                <Link to="/recent-listing" className="btn primary static">View more</Link>
-                            </p>
-                        </div>
-                        <div className="row marketplace-row">
-                            {
-                                !!this.state.getDGSGoods.length &&
-                                this.state.getDGSGoods.map((el, index) => {
-                                    return (
-                                        <div key={el.goods} className="marketplace-row-item col-xl-2 pl-3 pr-0">
-                                            <MarketplaceItem
-                                                fullHeight
-                                                relative={true}
-                                                {...el}
-                                            />
-                                        </div>
-                                    );
-                                }) ||
-                                <InfoBox>
-                                    No purchased products.
-                                </InfoBox>
-                            }
-                        </div>
-                    </div> ||
-                    <ContentLoader/>
-                }
-                 {
-                    this.state.getDGSGoods &&
-                    <div className="form-group-app transparent marketplace no-padding-bottom height-auto">
-                        <div className="form-title padding-left pb-5">
-                            <p>
-                                Recent purchases&nbsp;&nbsp;
-                                <Link to="/purchased-products" className="btn primary static">View more</Link>
-                            </p>
-                        </div>
-                        <div className="row marketplace-row">
-                            {
-                                totalPurchasedProducts &&
-                                !!totalPurchasedProducts.length &&
-                                totalPurchasedProducts.map((el, index) => {
-                                    return (
-                                        <div key={el.goods} className="marketplace-row-item col-xl-2 pl-3 pr-0">
-                                            <MarketplaceItem
-                                                fullHeight
-                                                relative={true}
-                                                {...el}
-                                            />
-                                        </div>
-                                    );
-                                }) ||
-                                <InfoBox>
-                                    No purchased products.
-                                </InfoBox>
-                            }
-                        </div>
-                    </div> ||
-                    <ContentLoader/>
-                }
-
+                <div className="card justify-content-start mb-3">
+                    <div className="card-title">
+                        <span>Recent listings</span>
+                        <Link to="/recent-listing" className="btn btn-default btn-xs">View more</Link>
+                    </div>
+                    <div className="card-body">
+                        {this.state.getDGSGoods ? (
+                            <div className="form-group-app">
+                                <div className="row marketplace-row">
+                                    {(this.state.getDGSGoods && !!this.state.getDGSGoods.length) ? (
+                                        this.state.getDGSGoods.map((el, index) => {
+                                            return (
+                                                <div key={el.goods} className="marketplace-row-item col-xl-2 pr-0">
+                                                    <MarketplaceItem
+                                                        fullHeight
+                                                        relative={true}
+                                                        {...el}
+                                                    />
+                                                </div>
+                                            );
+                                        })
+                                    ) : (
+                                        <InfoBox default className={'simple'}>
+                                            No recent products.
+                                        </InfoBox>
+                                    )}
+                                </div>
+                            </div>
+                        ) : (
+                            <ContentLoader/>
+                        )}
+                    </div>
+                </div>
+                <div className="card justify-content-start mb-3">
+                    <div className="card-title">
+                        <span>Recent purchases</span>
+                        <Link to="/purchased-products" className="btn btn-default btn-xs">View more</Link>
+                    </div>
+                    <div className="card-body">
+                        {this.state.getDGSGoods ? (
+                            <div className="form-group-app">
+                                <div className="row marketplace-row">
+                                    {(totalPurchasedProducts && !!totalPurchasedProducts.length) ? (
+                                        totalPurchasedProducts.map((el, index) => {
+                                            return (
+                                                <div key={el.goods} className="marketplace-row-item col-xl-2 pr-0">
+                                                    <MarketplaceItem
+                                                        fullHeight
+                                                        relative={true}
+                                                        {...el}
+                                                    />
+                                                </div>
+                                            );
+                                        })
+                                    ) : (
+                                        <InfoBox default className={'simple'}>
+                                            No purchased products.
+                                        </InfoBox>
+                                    )}
+                                </div>
+                            </div>
+                        ) : (
+                            <ContentLoader/>
+                        )}
+                    </div>
+                </div>
             </>
         )
     }
@@ -143,7 +141,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-    getDGSGoodsAction:     (reqParams) => dispatch(getDGSGoodsAction(reqParams)),
+    getDGSGoodsAction: (reqParams) => dispatch(getDGSGoodsAction(reqParams)),
     getDGSPurchasesAction: (reqParams) => dispatch(getDGSPurchasesAction(reqParams)),
 })
 

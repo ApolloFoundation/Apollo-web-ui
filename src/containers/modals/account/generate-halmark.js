@@ -13,31 +13,15 @@ import {Form, Text, TextArea} from 'react-form'
 import submitForm from "../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
 import InfoBox from "../../components/info-box";
+import ModalBody from "../../components/modals/modal-body";
+import TabContaier from "../../components/tabulator/tab-container";
+import TabulationBody from "../../components/tabulator/tabuator-body";
+import TextualInputComponent from "../../components/form-components/textual-input";
+import CustomTextArea from "../../components/form-components/text-area";
+import AccountRSFormInput from "../../components/form-components/account-rs";
 
 
 class GenerateHallmark extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            activeTab: 0,
-            hallmark: false,
-            nowDate: this.getNowDate(),
-            parsedHallmark: false,
-        };
-
-        this.handleTab = this.handleTab.bind(this);
-    }
-
-    handleTab(e, index) {
-        e.preventDefault();
-
-        this.setState({
-            ...this.props,
-            activeTab: index
-        })
-    }
-
     getNowDate = () => {
         var today = new Date();
         var dd = today.getDate();
@@ -51,43 +35,52 @@ class GenerateHallmark extends React.Component {
             viewDate: `${yyyy}.${mm}.${dd}`,
             postDate: `${yyyy}-${mm}-${dd}`
         }
-    }
+    };
+
+    state = {
+        activeTab: 0,
+        hallmark: false,
+        nowDate: this.getNowDate(),
+        parsedHallmark: false,
+    };
+
+    handleChangeTab = (e, index) => {
+        this.setState({
+            activeTab: index
+        })
+    };
 
     handleFormSubmit = async values => {
-        this.setState({
-            hallmark: false
-        });
         let res = null;
 
         this.setState({
+            hallmark: false,
             isPending: true
-        })
+        });
 
         switch (this.state.activeTab) {
             case 0://generate hallmark
-                res = await this.props.submitForm( {
+                res = await this.props.submitForm({
                     host: values.hostGenerate,
                     weight: values.weightGenerate,
                     date: values.dateGenerate,
-                    secretPhrase: values.passphraseGenerate,
+                    secretPhrase: values.secretPhrase,
                     feeATM: 0,
                 }, 'markHost');
                 if (res && res.errorCode) {
                     this.setState({
                         isPending: false
-                    })
+                    });
                     NotificationManager.error(res.errorDescription, "Error", 5000)
                 } else {
                     this.setState({
-                        isPending: false
-                    })
-                    this.setState({
+                        isPending: false,
                         hallmark: res.hallmark
-                    })
+                    });
                 }
                 break;
             case 1://parse hallmark
-                res = await this.props.submitForm( {
+                res = await this.props.submitForm({
                     hallmark: values.hallmarkParse,
                     account: values.accountParse,
                     host: values.hostParse,
@@ -100,15 +93,17 @@ class GenerateHallmark extends React.Component {
                 if (res && res.errorCode) {
                     this.setState({
                         isPending: false
-                    })
+                    });
                     NotificationManager.error(res.errorDescription, "Error", 5000)
                 } else {
                     this.setState({
-                        isPending: false
-                    })
+                        isPending: false,
+                        parsedHallmark: res
+                    });
                     NotificationManager.success("Hallmark parsed", null, 5000);
-                    this.setState({parsedHallmark: res})
                 }
+                break;
+            default:
                 break;
         }
     };
@@ -118,254 +113,115 @@ class GenerateHallmark extends React.Component {
     render() {
 
         return (
-            <div className="modal-box">
-                <Form
-                    onSubmit={(values) => this.handleFormSubmit(values)}
-                    render={({submitForm, setAllValues}) => {
-                        if (this.state.parsedHallmark) {
-                            if (!this.set) {
-                                this.set = true;
-                                const parsedHallmark = this.state.parsedHallmark;
-                                setAllValues({
-                                    accountParse: parsedHallmark.accountRS,
-                                    hostParse: parsedHallmark.host,
-                                    portParse: parsedHallmark.port,
-                                    weightParse: parsedHallmark.weight,
-                                    dateParse: parsedHallmark.date,
-                                    validParse: parsedHallmark.valid ? "true" : "false",
-                                })
-                            }
-                        }
-                        return (
-                            <form className="modal-form" onSubmit={submitForm}>
-                                <div className="form-group-app">
-                                    <a onClick={() => this.props.closeModal()} className="exit"><i
-                                        className="zmdi zmdi-close"/></a>
-
-                                    <div className="form-title">
-                                        <p>Generate Hallmark</p>
-                                    </div>
-
-                                    <div className="form-tabulator active">
-                                        <div className="form-tab-nav-box justify-left">
-                                            <a onClick={(e) => this.handleTab(e, 0)} className={classNames({
-                                                "form-tab": true,
-                                                "active": this.state.activeTab === 0
-                                            })}>
-                                                <p>Generate hallmark</p>
-                                            </a>
-                                            <a onClick={(e) => this.handleTab(e, 1)} className={classNames({
-                                                "form-tab": true,
-                                                "active": this.state.activeTab === 1
-                                            })}>
-                                                <p>Parse hallmark</p>
-                                            </a>
-                                        </div>
-
-                                        <div className={classNames({
-                                            "tab-body": true,
-                                            "active": this.state.activeTab === 0
-                                        })}>
-                                            <div className="input-group-app block offset-bottom offset-top">
-
-                                                <div className="row">
-                                                    <div className="col-md-3">
-                                                        <label>Host</label>
-                                                    </div>
-                                                    <div className="col-md-9">
-                                                        <Text rows={5} type="text"
-                                                              field={'hostGenerate'}
-                                                              placeholder="Public Host Address"/>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="input-group-app block offset-bottom">
-
-                                                <div className="row">
-                                                    <div className="col-md-3">
-                                                        <label>Weight</label>
-                                                    </div>
-                                                    <div className="col-md-9">
-                                                        <Text type="text" field={'weightGenerate'}
-                                                              placeholder="Proportional Weight [0-1000000000]"/>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="input-group-app block offset-bottom">
-
-                                                <div className="row">
-                                                    <div className="col-md-3">
-                                                        <label>Date</label>
-                                                    </div>
-                                                    <div className="col-md-9">
-                                                        {this.state.nowDate.viewDate}
-                                                        <Text
-                                                            type="hidden"
-                                                            field={'dateGenerate'}
-                                                            defaultValue={this.state.nowDate.postDate}
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="input-group-app block offset-bottom">
-
-                                                <div className="row">
-                                                    <div className="col-md-3">
-                                                        <label>Secret phrase</label>
-                                                    </div>
-                                                    <div className="col-md-9">
-                                                        <Text type="password"
-                                                              field={'passphraseGenerate'}
-                                                              placeholder="Secret phrase"/>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            {this.state.hallmark ? <InfoBox info>
-                                                {this.state.hallmark}
-                                            </InfoBox> : null}
-
-                                            <div className="btn-box align-buttons-inside absolute right-conner">
-                                                <button
-                                                    type="submit"
-                                                    name={'closeModal'}
-                                                    className="btn btn-right blue round round-bottom-right"
-                                                >
-                                                    Generate
-                                                </button>
-                                                <a className="btn btn-right round round-top-left"
-                                                   onClick={() => this.props.closeModal()}>Cancel
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div className={classNames({
-                                            "tab-body": true,
-                                            "active": this.state.activeTab === 1
-                                        })}>
-                                            <div className="input-group-app block offset-bottom offset-top">
-
-                                                <div className="row">
-                                                    <div className="col-md-3">
-                                                        <label>Hallmark</label>
-                                                    </div>
-                                                    <div className="col-md-9">
-                                                            <TextArea rows={5} type="text" field={'hallmarkParse'}
-                                                                      placeholder="Hallmark"/>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="input-group-app block offset-bottom">
-
-                                                <div className="row">
-                                                    <div className="col-md-3">
-                                                        <label>Account</label>
-                                                    </div>
-                                                    <div className="col-md-9">
-                                                        <Text rows={5} type="text" field={'accountParse'}
-                                                              placeholder="Account"/>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="input-group-app block offset-bottom">
-
-                                                <div className="row">
-                                                    <div className="col-md-3">
-                                                        <label>Host</label>
-                                                    </div>
-                                                    <div className="col-md-9">
-                                                        <Text type="text" field={'hostParse'} placeholder="Host"/>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="input-group-app block offset-bottom">
-
-                                                <div className="row">
-                                                    <div className="col-md-3">
-                                                        <label>Port</label>
-                                                    </div>
-                                                    <div className="col-md-9">
-                                                        <Text type="text" field={'portParse'} placeholder="Port"/>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="input-group-app block offset-bottom">
-
-                                                <div className="row">
-                                                    <div className="col-md-3">
-                                                        <label>Weight</label>
-                                                    </div>
-                                                    <div className="col-md-9">
-                                                        <Text type="text"
-                                                              field={'weightParse'}
-                                                              placeholder="Weight"/>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="input-group-app block offset-bottom">
-
-                                                <div className="row">
-                                                    <div className="col-md-3">
-                                                        <label>Date</label>
-                                                    </div>
-                                                    <div className="col-md-9">
-                                                        <Text type="text"
-                                                              field={'dateParse'} placeholder="Date"/>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="input-group-app block offset-bottom">
-
-                                                <div className="row">
-                                                    <div className="col-md-3">
-                                                        <label>Valid</label>
-                                                    </div>
-                                                    <div className="col-md-9">
-                                                        <Text type="text"
-                                                              field={'validParse'} placeholder="Valid"/>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="btn-box align-buttons-inside absolute right-conner">
-
-                                                {
-                                                    !!this.state.isPending ?
-                                                        <div
-                                                            style={{
-                                                                width: 67.88
-                                                            }}
-                                                            className="btn btn-right blue round round-bottom-right"
-                                                        >
-                                                            <div className="ball-pulse">
-                                                                <div></div>
-                                                                <div></div>
-                                                                <div></div>
-                                                            </div>
-                                                        </div> :
-                                                        <button
-
-                                                            type="submit"
-                                                            name={'closeModal'}
-                                                            className="btn btn-right blue round round-bottom-right"
-                                                        >
-                                                            Parse
-                                                        </button>
-                                                }
-
-                                                <a className="btn btn-right round round-top-left"
-                                                   onClick={() => this.props.closeModal()}
-                                                >
-                                                    Cancel
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        );
-                    }}
+            <ModalBody
+                modalTitle={'Generate Hallmark'}
+                closeModal={this.props.closeModal}
+                isDisableFormFooter
+                isDisableSecretPhrase
+            >
+                <TabulationBody
+                    className={'p-0'}
+                    onChange={this.handleChangeTab}
                 >
-                </Form>
-            </div>
+                    <TabContaier sectionName={'Generate hallmark'}>
+                        <ModalBody
+                            closeModal={this.props.closeModal}
+                            handleFormSubmit={(values) => this.handleFormSubmit(values)}
+                            className={'p-0 transparent gray-form'}
+                            isDisabe2FA
+                            isPour
+                            submitButtonName={'Generate'}
+                        >
+                            <TextualInputComponent
+                                label={'Host'}
+                                field="hostGenerate"
+                                placeholder="Public Host Address"
+                                type={"text"}
+                            />
+                            <TextualInputComponent
+                                label={'Weight'}
+                                field="weightGenerate"
+                                placeholder="Proportional Weight [0-1000000000]"
+                                type={"text"}
+                            />
+                            <div className="form-group mb-15">
+                                <label>Date</label>
+                                <div>
+                                    {this.state.nowDate.viewDate}
+                                    <Text
+                                        type="hidden"
+                                        field={'dateGenerate'}
+                                        defaultValue={this.state.nowDate.postDate}
+                                    />
+                                </div>
+                            </div>
+                            {this.state.hallmark && (
+                                <InfoBox info>
+                                    {this.state.hallmark}
+                                </InfoBox>
+                            )}
+                        </ModalBody>
+                    </TabContaier>
+                    <TabContaier sectionName={'Parse hallmark'}>
+                        <ModalBody
+                            closeModal={this.props.closeModal}
+                            handleFormSubmit={(values) => this.handleFormSubmit(values)}
+                            className={'p-0 transparent gray-form'}
+                            isDisabe2FA
+                            isPour
+                            isDisableSecretPhrase
+                            submitButtonName={'Parse'}
+                        >
+                            <CustomTextArea
+                                label={'Hallmark'}
+                                field={'hallmarkParse'}
+                                placeholder={'Hallmark'}
+                            />
+                            <AccountRSFormInput
+                                field={'accountParse'}
+                                label={'Account'}
+                                placeholder={'Account'}
+                                defaultValue={this.state.parsedHallmark ? this.state.parsedHallmark.accountRS : ''}
+                            />
+                            <TextualInputComponent
+                                label={'Host'}
+                                field="hostParse"
+                                placeholder="Host"
+                                type={"text"}
+                                defaultValue={this.state.parsedHallmark ? this.state.parsedHallmark.host : ''}
+                            />
+                            <TextualInputComponent
+                                label={'Port'}
+                                field="portParse"
+                                placeholder="Port"
+                                type={"text"}
+                                defaultValue={this.state.parsedHallmark ? this.state.parsedHallmark.port : ''}
+                            />
+                            <TextualInputComponent
+                                label={'Weight'}
+                                field="weightParse"
+                                placeholder="Weight"
+                                type={"text"}
+                                defaultValue={this.state.parsedHallmark ? this.state.parsedHallmark.weight : ''}
+                            />
+                            <TextualInputComponent
+                                label={'Date'}
+                                field="dateParse"
+                                placeholder="Date"
+                                type={"text"}
+                                defaultValue={this.state.parsedHallmark ? this.state.parsedHallmark.date : ''}
+                            />
+                            <TextualInputComponent
+                                label={'Valid'}
+                                field="validParse"
+                                placeholder="Valid"
+                                type={"text"}
+                                defaultValue={this.state.parsedHallmark ? this.state.parsedHallmark.valid.toString() : ''}
+                            />
+                        </ModalBody>
+                    </TabContaier>
+                </TabulationBody>
+            </ModalBody>
         );
     }
 }

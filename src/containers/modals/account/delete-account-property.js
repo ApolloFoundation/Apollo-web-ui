@@ -6,10 +6,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {setBodyModalParamsAction, setModalData, saveSendModalState, openPrevModal} from '../../../modules/modals';
-import InputForm from '../../components/input-form';
-import AccountRS from '../../components/account-rs';
-import {Form, Text, TextArea} from 'react-form';
+import {openPrevModal, saveSendModalState, setBodyModalParamsAction, setModalData} from '../../../modules/modals';
 
 import submitForm from "../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
@@ -18,6 +15,7 @@ import ModalFooter from '../../components/modal-footer';
 import FeeCalc from '../../components/form-components/fee-calc';
 
 import BackForm from '../modal-form/modal-form-container';
+import classNames from "classnames";
 
 class DeleteAccountProperty extends React.Component {
     constructor(props) {
@@ -26,6 +24,7 @@ class DeleteAccountProperty extends React.Component {
         this.state = {
             activeTab: 0,
             advancedState: false,
+            isPending: false,
 
             // submitting
             passphraseStatus: false,
@@ -37,13 +36,16 @@ class DeleteAccountProperty extends React.Component {
     }
 
     async handleFormSubmit(values) {
-        const res = await this.props.submitForm( values, 'deleteAccountProperty');
-        if (res && res.errorCode) {
-            NotificationManager.error(res.errorDescription, 'Error', 5000)
-        } else {
-            this.props.setBodyModalParamsAction(null, {});
-
-            NotificationManager.success('Account property has been deleted!', null, 5000);
+        if (!this.state.isPending) {
+            this.setState({isPending: true});
+            const res = await this.props.submitForm(values, 'deleteAccountProperty');
+            if (res && res.errorCode) {
+                NotificationManager.error(res.errorDescription, 'Error', 5000)
+            } else {
+                this.props.setBodyModalParamsAction(null, {});
+                NotificationManager.success('Account property has been deleted!', null, 5000);
+            }
+            this.setState({isPending: false});
         }
     }
 
@@ -52,50 +54,54 @@ class DeleteAccountProperty extends React.Component {
             <div className="modal-box">
 
                 <BackForm
-	                nameModal={this.props.nameModal}
+                    nameModal={this.props.nameModal}
                     onSubmit={(values) => this.handleFormSubmit(values)}
-                    render={({ submitForm, values, addValue, removeValue, setValue, getFormState, getValue }) => (
-                        <form className="modal-form" onChange={() => this.props.saveSendModalState(values)} onSubmit={submitForm}>
+                    render={({submitForm, values, addValue, removeValue, setValue, getFormState, getValue}) => (
+                        <form className="modal-form" onChange={() => this.props.saveSendModalState(values)}
+                              onSubmit={submitForm}>
                             <div className="form-group-app">
-                                <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
+                                <a onClick={() => this.props.closeModal()} className="exit"><i
+                                    className="zmdi zmdi-close"/></a>
 
                                 <div className="form-title">
-	                                {this.props.modalsHistory.length > 1 &&
-	                                <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
-	                                }
+                                    {this.props.modalsHistory.length > 1 &&
+                                    <div className={"backMy"} onClick={() => {
+                                        this.props.openPrevModal()
+                                    }}/>
+                                    }
                                     <p>Delete Account Property</p>
                                 </div>
-                                <div className="form-group row form-group-white mb-15">
-                                    <label className="col-sm-3 col-form-label">
+                                <div className="form-group mb-15">
+                                    <label>
                                         Setter
                                     </label>
-                                    <div className="col-sm-9">
+                                    <div>
                                         <span>
-                                            {(this.props.modalData && this.props.modalData.setterRS) ? this.props.modalData.setterRS : ''}
+                                            {(this.props.modalData && this.props.modalData.setterRS) ? this.props.modalData.setterRS : '-'}
                                         </span>
                                     </div>
                                 </div>
-                                <div className="form-group row form-group-white mb-15">
-                                    <label className="col-sm-3 col-form-label">
+                                <div className="form-group mb-15">
+                                    <label>
                                         Recipient
                                     </label>
-                                    <div className="col-sm-9">
+                                    <div>
                                         <span>
-                                            {(this.props.modalData && this.props.modalData.recipientRS) ? this.props.modalData.recipientRS : ''}
+                                            {(this.props.modalData && this.props.modalData.recipientRS) ? this.props.modalData.recipientRS : '-'}
                                         </span>
                                     </div>
                                 </div>
-                                <div className="form-group row form-group-white mb-15">
-                                    <label className="col-sm-3 col-form-label">
+                                <div className="form-group mb-15">
+                                    <label>
                                         Property
                                     </label>
-                                    <div className="col-sm-9">
+                                    <div>
                                         <span>
-                                            {(this.props.modalData && this.props.modalData.property) ? this.props.modalData.property : ''}
+                                            {(this.props.modalData && this.props.modalData.property) ? this.props.modalData.property : '-'}
                                         </span>
                                     </div>
                                 </div>
-                                <FeeCalc 
+                                <FeeCalc
                                     values={getFormState().values}
                                     setValue={setValue}
                                     requestType={'setAccountInfo'}
@@ -105,20 +111,33 @@ class DeleteAccountProperty extends React.Component {
                                     getFormState={getFormState}
                                     values={values}
                                 />
-
-
-                                <div className="btn-box align-buttons-inside absolute right-conner">
+                                <div className="btn-box right-conner align-right form-footer">
+                                    <button
+                                        type={'button'}
+                                        onClick={() => this.props.closeModal()}
+                                        className="btn btn-default mr-3"
+                                    >
+                                        Cancel
+                                    </button>
                                     <button
                                         type="submit"
                                         name={'closeModal'}
-                                        className="btn btn-right blue round round-bottom-right"
+                                        className={classNames({
+                                            "btn btn-green submit-button": true,
+                                            "loading btn-green-disabled": this.state.isPending,
+                                        })}
                                     >
-                                        Delete Property
+                                        <div className="button-loader">
+                                            <div className="ball-pulse">
+                                                <div/>
+                                                <div/>
+                                                <div/>
+                                            </div>
+                                        </div>
+                                        <span className={'button-text'}>Delete Property</span>
                                     </button>
-                                    <a onClick={() => this.props.closeModal()} className="btn btn-right round round-top-left">Cancel</a>
                                 </div>
                             </div>
-
                         </form>
                     )}
                 />
@@ -138,7 +157,7 @@ const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
     saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
-	openPrevModal: () => dispatch(openPrevModal()),
+    openPrevModal: () => dispatch(openPrevModal()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DeleteAccountProperty);

@@ -31,7 +31,7 @@ const CreateShufflngForm = (props) => {
                 setValue={setValue}
                 label={'Amount'}
                 field={'amount'}
-                countingTtile={'Apollo'}
+                countingTtile={'APL'}
                 placeholder={'Amount'}
                 type={'tel'}
             />

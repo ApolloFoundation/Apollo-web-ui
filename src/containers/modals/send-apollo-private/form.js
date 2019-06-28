@@ -41,7 +41,7 @@ const SendPrivateMoneyForm = ({values, setValue, modalData, idGroup, useMixer, m
         }
         <NummericInputForm
             field={'amountATM'}
-            counterLabel={'Apollo'}
+            counterLabel={'APL'}
             type={'tel'}
             label={'Amount'}
             setValue={setValue}
@@ -63,18 +63,19 @@ const SendPrivateMoneyForm = ({values, setValue, modalData, idGroup, useMixer, m
         )}
         {useMixer && (
             <NummericInputForm
-                label={'Mixing time'}
-                countLabel={'Minutes'}
-                disabled={true}
-                defaultValue={(modalData && modalData.duration) ? modalData.duration : ''}
                 field="duration"
-                placeholder="Duration"
+                counterLabel={'Minutes'}
                 type={"float"}
+                label={'Mixing time'}
+                setValue={setValue}
+                placeholder="Duration"
+                idGroup={idGroup}
+                defaultValue={(modalData && modalData.duration) ? modalData.duration : ''}
             />
         )}
         <NummericInputForm
             field={'feeATM'}
-            counterLabel={'Apollo'}
+            counterLabel={'APL'}
             type={'float'}
             label={'Fee'}
             setValue={setValue}

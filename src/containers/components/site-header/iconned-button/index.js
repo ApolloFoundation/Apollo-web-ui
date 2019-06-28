@@ -1,13 +1,27 @@
 import React from 'react';
 
-const IconndeButton = ({id, action, icon}) => (
-    <a
-        id={id}
-        className="user-account-action"
-        onClick={action}
-    >
+const IconndeButton = ({id, action, icon, text, link, className}) => (
+    link ? (
+        <a
+            id={id}
+            className={`header-action cursor-pointer ${text ? 'header-action-text' : ''} ${className}`}
+            href={action}
+            target={'_blank'}
+            rel={'noopener noreferrer'}
+        >
+            {icon}
+            {text}
+        </a>
+    ) : (
+        <span
+            id={id}
+            className={`header-action cursor-pointer ${text ? 'header-action-text' : ''} ${className}`}
+            onClick={action}
+        >
         {icon}
-    </a>
-)
+            {text}
+    </span>
+    )
+);
 
 export default IconndeButton;

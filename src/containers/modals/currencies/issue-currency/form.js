@@ -168,10 +168,9 @@ const IssueCurrencyForm = (props) => {
                 field={'height'}
                 placeholder={'Activation height'}
                 deafultPlus={100}
-                isSubtitle
             />
         </>
     )
-}
+};
 
 export default IssueCurrencyForm;

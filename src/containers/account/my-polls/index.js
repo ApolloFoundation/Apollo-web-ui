@@ -87,13 +87,14 @@ class MyVotes extends React.Component {
                 <SiteHeader
                     pageTitle={'My Polls'}
                 >
-                    <a
-                        className="btn primary"
+                    <button
+                        type={'button'}
+                        className="btn btn-green btn-sm"
                         style={{marginLeft: 15}}
                         onClick={() => this.props.setBodyModalParamsAction('ISSUE_POLL', {})}
                     >
                         Create Poll
-                    </a>
+                    </button>
                 </SiteHeader>
                 <div className="page-body container-fluid">
                     <CustomTable 
@@ -118,6 +119,7 @@ class MyVotes extends React.Component {
                                 alignRight: true
                             }
                         ]}
+                        className={'no-min-height mb-3'}
                         emptyMessage={'No polls found.'}
                         page={this.state.page}
                         TableRowComponent={PoolItem}

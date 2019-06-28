@@ -30,7 +30,7 @@ const DataStorageItem  = props => (
             <div className="btn-box">
                 <a
                     href={config.api.serverUrl + "requestType=downloadTaggedData&transaction=" + props.transaction + "&retrieve=true"}
-                    className="btn primary blue"
+                    className="btn btn-default"
                     target={'_blank'}
                     download={props.filename}
                 >
