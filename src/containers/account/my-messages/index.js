@@ -32,17 +32,27 @@ class MyMessages extends React.Component {
         };
     }
 
+    listener = () => {
+        const {page} = this.state;
+        this.props.getMessagesPerpage({
+            firstIndex: page * 15 - 15,
+            lastIndex: page * 15 - 1
+        });
+    };
+
     componentDidMount() {
         this.props.getMessagesPerpage({firstIndex: 0, lastIndex: 14});
 
         if (!BlockUpdater.listeners('data').length) {
             BlockUpdater.on("data", data => {
-                const {page} = this.state;
-                this.props.getMessagesPerpage({
-                    firstIndex: page * 15 - 15,
-                    lastIndex: page * 15 - 1
-                });
+                this.listener();
             });
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.passPhrase !== this.props.passPhrase) {
+            this.listener();
         }
     }
 
@@ -56,10 +66,10 @@ class MyMessages extends React.Component {
             lastIndex: page * 15 - 1
         };
 
-        this.props.getMessagesPerpage(reqParams)
+        this.props.getMessagesPerpage(reqParams);
 
         this.setState({page});
-    }
+    };
 
     render() {
         const {page} = this.state;
@@ -115,7 +125,8 @@ class MyMessages extends React.Component {
 
 const mapStateToProps = state => ({
     account: state.account.account,
-    messages: state.messages.messages
+    messages: state.messages.messages,
+    passPhrase: state.account.passPhrase,
 });
 
 const mapDispatchToProps = dispatch => ({
