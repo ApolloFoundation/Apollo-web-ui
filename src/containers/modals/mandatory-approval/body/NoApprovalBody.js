@@ -24,7 +24,7 @@ export default class NoApprovalBody extends React.Component {
                 <NummericFormInput
                     label={'Amount'}
                     placeholder={'Amount'}
-                    countingTtile={'Apollo'}
+                    countingTtile={'APL'}
                     field={'fee'}
                 />
             </ModalBody>

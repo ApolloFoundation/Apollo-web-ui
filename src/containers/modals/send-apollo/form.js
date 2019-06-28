@@ -1,8 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {
-    setBodyModalParamsAction, 
-} from '../../../modules/modals';
+import {setBodyModalParamsAction,} from '../../../modules/modals';
 
 import {CheckboxFormInput} from '../../components/form-components/check-button-input';
 import CustomInputForm from '../../components/form-components/textual-input';
@@ -21,17 +19,17 @@ const SendMoneyForm = ({values, setValue, modalData, setBodyModalParamsAction, i
             idGroup={idGroup}
             id={`${idGroup}recipient-field`}
         />
-        <NummericInputForm 
+        <NummericInputForm
             field={'amountATM'}
-            counterLabel={'Apollo'}
+            counterLabel={'APL'}
             type={'tel'}
             label={'Amount'}
             setValue={setValue}
             placeholder={'Amount'}
             idGroup={idGroup}
         />
-        <CustomInputForm 
-            hendler={() => setBodyModalParamsAction('SEND_APOLLO_PRIVATE', values)}
+        <CustomInputForm
+            hendler={() => setBodyModalParamsAction('SEND_APOLLO_PRIVATE', {...values, feeATM: 5})}
             label={'Private transaction'}
             id={'open-private-transaction-from-modal'}
             type={'button'}
@@ -48,9 +46,9 @@ const SendMoneyForm = ({values, setValue, modalData, setBodyModalParamsAction, i
             ]}
         />
         {
-            values.add_message && 
+            values.add_message &&
             <>
-                <CustomTextArea 
+                <CustomTextArea
                     setValue={setValue}
                     label={'Message'}
                     placeholder={'Message'}
@@ -74,14 +72,14 @@ const SendMoneyForm = ({values, setValue, modalData, setBodyModalParamsAction, i
             </>
         }
     </>
-)
+);
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData
 });
 
 const mapDispatchToProps = dispatch => ({
-	setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 });
 
 

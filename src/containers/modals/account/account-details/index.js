@@ -133,23 +133,23 @@ class AccountDetails extends React.Component {
                                             </tr>
                                             <tr>
                                                 <td className="no-brake">Balance:</td>
-                                                <td>{this.state.account.balanceATM ? (this.state.account.balanceATM / ONE_APL).toFixed(2) : '0'} Apollo</td>
+                                                <td>{this.state.account.balanceATM ? (this.state.account.balanceATM / ONE_APL).toFixed(2) : '0'} APL</td>
                                             </tr>
                                             <tr>
                                                 <td className="no-brake">Available Balance:</td>
-                                                <td>{this.state.account.unconfirmedBalanceATM ? (this.state.account.unconfirmedBalanceATM / ONE_APL).toFixed(2) : '0'} Apollo</td>
+                                                <td>{this.state.account.unconfirmedBalanceATM ? (this.state.account.unconfirmedBalanceATM / ONE_APL).toFixed(2) : '0'} APL</td>
                                             </tr>
                                             <tr>
                                                 <td className="no-brake">Guaranteed Balance:</td>
-                                                <td>{this.state.account.guaranteedBalanceATM ? (this.state.account.guaranteedBalanceATM / ONE_APL).toFixed(2) : '0'} Apollo</td>
+                                                <td>{this.state.account.guaranteedBalanceATM ? (this.state.account.guaranteedBalanceATM / ONE_APL).toFixed(2) : '0'} APL</td>
                                             </tr>
                                             <tr>
                                                 <td className="no-brake">Effective Balance:</td>
-                                                <td>{this.state.account.effectiveBalanceAPL ? (this.state.account.effectiveBalanceAPL).toFixed(2) : '0'} Apollo</td>
+                                                <td>{this.state.account.effectiveBalanceAPL ? (this.state.account.effectiveBalanceAPL).toFixed(2) : '0'} APL</td>
                                             </tr>
                                             <tr>
                                                 <td className="no-brake">Forged Balance:</td>
-                                                <td>{this.state.account.forgedBalanceATM ? (this.state.account.forgedBalanceATM / ONE_APL).toFixed(2) : '0'} Apollo</td>
+                                                <td>{this.state.account.forgedBalanceATM ? (this.state.account.forgedBalanceATM / ONE_APL).toFixed(2) : '0'} APL</td>
                                             </tr>
                                             <tr>
                                                 <td className="no-brake">Public Key:</td>
@@ -180,7 +180,7 @@ class AccountDetails extends React.Component {
                                             <tr>
                                                 <td className="no-brake">Paper Wallet:</td>
                                                 <td>
-                                                    <a className="btn primary"
+                                                    <a className="btn btn-default"
                                                         onClick={() => this.generatePDFStandard([
                                                             {name: 'Account ID', value: this.state.account.accountRS},
                                                         ])}
@@ -202,7 +202,7 @@ class AccountDetails extends React.Component {
                                 <p>Your account effective balance is not leased out.</p>
                                 <a
                                     onClick={() => this.props.setBodyModalParamsAction('LEASE_BALANCE')}
-                                    data-blue-link-text
+                                    className={'blue-link-text'}
                                 >
                                     Lease your balance to another account.
                                 </a>

@@ -246,3 +246,19 @@ export function getTransactionFee() {
             })
     }
 }
+
+export function getIdaxPair(requestParams) {
+    return dispatch => {
+        return handleFetch('https://openapi.idax.pro/api/v2/ticker', GET, requestParams)
+            .then((res) => {
+                if (res && res.ticker) {
+                    return res.ticker;
+                } else {
+                    NotificationManager.error('IDAX not working now.', 'Error', 5000);
+                }
+            })
+            .catch(() => {
+
+            })
+    }
+}

@@ -29,29 +29,29 @@ class MyCurrencytemItem extends Component {
                 <td className="align-right">{(unconfirmedUnits / Math.pow(10, decimals)).toFixed(2)}</td>
                 <td className="align-right">
                     <div className="btn-box inline">
-                        <Link to={"/exchange-booth/" + code} className="btn primary blue">Exchange</Link>
-                        <a
+                        <Link to={"/exchange-booth/" + code} className="btn btn-default">Exchange</Link>
+                        <button
+                            type={'button'}
                             onClick={() => setBodyModalParamsAction('TRANSFER_CURRENCY', {code, currency})}
                             style={{marginLeft: 15}}
-                            className="btn primary blue"
+                            className="btn btn-default"
                         >
                             Transfer
-                        </a>
-                        <a
+                        </button>
+                        <button
+                            type={'button'}
                             onClick={() => setBodyModalParamsAction('OFFER_CURRENCY', {code})}
-                            className="btn primary blue"
+                            className="btn btn-default"
                         >
                             Offer
-                        </a>
-                        {
-                            isClaimable && 
-                            <a
-                                onClick={() => setBodyModalParamsAction('CLAIM_CURRENCY', currency)}
-                                className="btn primary blue"
-                            >
-                                Claim
-                            </a>
-                        }
+                        </button>
+                        <button
+                            type={'button'}
+                            onClick={() => setBodyModalParamsAction('CLAIM_CURRENCY', currency)}
+                            className={`btn btn-default ${isClaimable ? '' : 'disabled'}`}
+                        >
+                            Claim
+                        </button>
                     </div>
                 </td>
             </tr>

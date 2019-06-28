@@ -57,7 +57,7 @@ class CurrencyDescriptionComponent extends Component {
                     <div className="btn-box inline">
                         <a
                             className="btn primary defaullt"
-                            onClick={() => NotificationManager.error('This functionality will be delivered in future release.', 'Error', 5000)}
+                            onClick={() => NotificationManager.error('This functionality will be delivered in future releases.', 'Error', 5000)}
                         >
                             View History
                         </a>
@@ -78,7 +78,7 @@ class CurrencyDescriptionComponent extends Component {
                             }}
                         >
                             <a
-                                className="btn primary blue"
+                                className="btn btn-green"
                             >
                                 Deposit
                             </a>

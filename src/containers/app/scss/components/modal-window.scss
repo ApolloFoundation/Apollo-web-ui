@@ -128,12 +128,76 @@
       }
 
       .form-group-app {
-        padding-bottom: 92px;
+        padding: 12px !important;
         position: relative;
+        border: 2px solid #25F459;
+        box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.26);
         @media (max-width: 760px) {
           border-radius: 0;
           height: auto;
         }
+      }
+
+      .form-tabulator {
+        .form-group-app {
+          border: none;
+          border-radius: 3px;
+          box-shadow: none;
+          padding: 0 !important;
+        }
+      }
+    }
+    .exit {
+      box-sizing: border-box;
+      height: 30px;
+      width: 30px;
+      background-color: #ffffff;
+      border: 2px solid #25F459;
+      box-shadow: 0 10px 20px 0 rgba(0,0,0,0.26);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      right: -15px;
+      top: -15px;
+      i {
+        color: #25F459;
+        font-size: 22px;
+      }
+      @media(max-width: 780px) {
+        top: 0;
+        right: 0;
+        border: none;
+        box-shadow: none;
+        background: transparent;
+      }
+    }
+    .about {
+      display: flex;
+      .left-bar {
+        width: 200px;
+        margin: 0;
+      }
+      .right-bar {
+        width: calc(100% - 160px);
+        .description {
+          color: #3D5A7E;
+          p {
+            margin-top: 15px;
+            a {
+              color: #00C8FF;
+              font-weight: normal;
+            }
+          }
+        }
+      }
+    }
+    .transaction-table-body {
+      padding: 0;
+      table tr td {
+        border: none;
+        padding: 10px 5px;
       }
     }
   }

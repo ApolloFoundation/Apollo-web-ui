@@ -6,19 +6,19 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
+import classNames from "classnames";
+import {Link} from 'react-router-dom';
 import SiteHeader from '../../../components/site-header/index';
 import MarketplaceItem from '../marketplace-card'
-import {Link} from 'react-router-dom';
 import {getDGSGoodsAction} from "../../../../actions/marketplace";
 
-import classNames from "classnames";
-
 import '../MarketPLace.scss';
-import uuid from "uuid";
 
 const mapDispatchToProps = dispatch => ({
     getDGSGoodsAction: (reqParams) => dispatch(getDGSGoodsAction(reqParams))
 });
+
+const itemsPerPage = 8;
 
 class ResentMarketplaceListing extends React.Component {
     constructor(props) {
@@ -28,7 +28,7 @@ class ResentMarketplaceListing extends React.Component {
             market: [],
             page: 1,
             firstIndex: 0,
-            lastIndex: 7,
+            lastIndex: itemsPerPage - 1,
             isGrid: true
         };
     }
@@ -47,7 +47,6 @@ class ResentMarketplaceListing extends React.Component {
 
         if (getDGSGoods) {
             this.setState({
-                ...this.state,
                 getDGSGoods: getDGSGoods.goods
             })
         }
@@ -57,68 +56,53 @@ class ResentMarketplaceListing extends React.Component {
         let reqParams = {
             includeCounts: true,
             page: page,
-            firstIndex: page * 8 - 8,
-            lastIndex:  page * 8 - 1
+            firstIndex: page * itemsPerPage - itemsPerPage,
+            lastIndex: page * itemsPerPage - 1
         };
 
         this.setState({
-            ...this.state,
             ...reqParams,
         }, () => {
             this.getDGSGoods(reqParams)
         });
-    }
+    };
 
     handleGrid = () => {
         this.setState({
-            ...this.state,
             isGrid: !this.state.isGrid
         })
     };
 
-    handleCardMouseOver = (e) =>  {
+    handleCardMouseOver = (e) => {
         e.currentTarget.classList.add('active')
     };
-    handleCardMouseOut = (e) =>  {
+
+    handleCardMouseOut = (e) => {
         const selected = Object.values(document.querySelectorAll('.site-content .page-content .page-body .marketplace .row > *.active'));
 
-        const event = e;
         selected.map((el, index) => {
             setTimeout(() => {
                 el.classList.remove('active')
-            },300)
+            }, 300)
         });
 
     };
 
-    render () {
+    render() {
         return (
             <div className="page-content">
                 <SiteHeader
                     pageTitle={'Recent listing'}
                 >
-	                <Link
-		                to={'/marketplace'}
-		                className="btn primary"
-	                >
-		                Back
-	                </Link>
-                    <a
-                        className="btn primary transparent icon-button with-out-border"
-                        style={{marginLeft: 15}}
-                        onClick={this.handleGrid}
+                    <Link
+                        to={'/marketplace'}
+                        className="btn btn-default"
                     >
-                        {
-                            this.state.isGrid &&
-                            <i className="zmdi zmdi-view-list" />
-                        }
-                        {
-                            !this.state.isGrid &&
-                            <i className="zmdi zmdi-view-module" />
-                        }
-                    </a>
+                        Back
+                    </Link>
                 </SiteHeader>
-                <div className="page-body container-fluid full-screen-block no-padding-on-the-sides marketplace-container">
+                <div
+                    className="page-body container-fluid full-screen-block no-padding-on-the-sides marketplace-container">
                     <div
                         className="marketplace"
                     >
@@ -136,11 +120,11 @@ class ResentMarketplaceListing extends React.Component {
                                 this.state.getDGSGoods.map((el, index) => {
                                     return (
                                         <div
-                                            key={uuid()}
+                                            key={`marketplace-item-${index}`}
                                             className={classNames({
-                                                'marketplace-item' : this.state.isGrid,
+                                                'marketplace-item': this.state.isGrid,
                                                 'marketplace-item--full-width': !this.state.isGrid,
-                                                'd-flex pl-3 pb-3 ': true
+                                                'd-flex': true
                                             })}
                                         >
                                             <MarketplaceItem
@@ -156,56 +140,32 @@ class ResentMarketplaceListing extends React.Component {
                             }
                             {
                                 this.state.getDGSGoods &&
-                                <div
-                                    className="btn-box relative pl-3"
-                                    style={{
-                                        position: "relative",
-                                        height: 37,
-                                        marginBottom: 15
-                                    }}
-                                >
-                                    <a
+                                <div className="btn-box pagination">
+                                    <button
+                                        type={'button'}
                                         className={classNames({
-                                            'btn' : true,
-                                            'btn-left' : true,
-                                            'static' : true,
-                                            'disabled' : this.state.page <= 1
+                                            'btn btn-default': true,
+                                            'disabled': this.state.page <= 1,
                                         })}
-                                        style={{
-                                            left: 7.5
-                                        }}
                                         onClick={this.onPaginate.bind(this, this.state.page - 1)}
                                     >
                                         Previous
-                                    </a>
-                                    {
-                                        this.state.getDGSGoods.length < 8 &&
-                                        <div className='pagination-nav'>
-                                            <span>{(this.state.page * 8) - 7}</span>
-                                            <span>&hellip;</span>
-                                            <span>{this.state.page * 8 + this.state.getDGSGoods.length - 8}</span>
-                                        </div>
-                                    }
-                                    {
-                                        this.state.getDGSGoods.length === 8 &&
-                                        <div className='pagination-nav'>
-                                            <span>{this.state.firstIndex + 1}</span>
-                                            <span>&hellip;</span>
-                                            <span>{this.state.lastIndex + 1}</span>
-                                        </div>
-                                    }
-                                    <a
+                                    </button>
+                                    <div className='pagination-nav'>
+                                        <span>{this.state.page * itemsPerPage - itemsPerPage + 1}</span>
+                                        <span>&hellip;</span>
+                                        <span>{(this.state.page * itemsPerPage - itemsPerPage) + this.state.getDGSGoods.length}</span>
+                                    </div>
+                                    <button
+                                        type={'button'}
                                         onClick={this.onPaginate.bind(this, this.state.page + 1)}
                                         className={classNames({
-                                            'btn' : true,
-                                            'btn-right' : true,
-                                            'static' : true,
-                                            'disabled' : this.state.getDGSGoods.length < 8
+                                            'btn btn-default': true,
+                                            'disabled': this.state.getDGSGoods.length < itemsPerPage
                                         })}
-                                        style={{
-                                            right: 0
-                                        }}
-                                    >Next</a>
+                                    >
+                                        Next
+                                    </button>
                                 </div>
                             }
 
@@ -215,6 +175,6 @@ class ResentMarketplaceListing extends React.Component {
             </div>
         );
     }
-};
+}
 
 export default connect(null, mapDispatchToProps)(ResentMarketplaceListing);

@@ -1,11 +1,7 @@
 import React from 'react';
-
 import TextualInputComponent from '../../../components/form-components/textual-input';
 import CustomTextArea from '../../../components/form-components/text-area';
-
-import {CheckboxFormInput} from '../../../components/form-components/check-button-input';
 import FileInput from '../../../components/form-components/file-input';
-import ModalBody from '../../../components/modals/modal-body';
 
 
 const UpploadFileForm = ({setValue}) => (
@@ -42,10 +38,11 @@ const UpploadFileForm = ({setValue}) => (
         />
 
         <FileInput
+            label={'File'}
+            maxSize={40000}
             setValue={setValue}
         />
-
     </>
-)
+);
 
 export default UpploadFileForm;

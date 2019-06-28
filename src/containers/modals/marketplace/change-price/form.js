@@ -37,7 +37,7 @@ const Form = ({setValue, goods, formatTimestamp}) => (
                     field="priceATM"
                     placeholder="New price"
                     defaultValue={1}
-                    countingTtile={'Apollo'}
+                    countingTtile={'APL'}
                 />
             </>
         }

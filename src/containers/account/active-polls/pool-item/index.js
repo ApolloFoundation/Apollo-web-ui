@@ -51,18 +51,18 @@ const PoolItem  = props => {
                     <button
                         type={'button'}
                         onClick={() => props.setBodyModalParamsAction('CAST_VOTE', props.poll)}
-                        className={`btn primary blue ${checkAction ? 'blue-disabled' : ''}`}
+                        className={`btn btn-default ${checkAction ? 'disabled' : ''}`}
                     >
                         Vote
                     </button>
                     <button
                         type={'button'}
                         onClick={() =>  props.setBodyModalParamsAction('POLL_RESULTS', props.poll)}
-                        className="btn primary blue"
+                        className="btn btn-default"
                     >
                         Results
                     </button>
-                    <Link to={"/followed-polls/" + props.poll } className="btn primary blue">View</Link>
+                    <Link to={"/followed-polls/" + props.poll } className="btn btn-default">View</Link>
                 </div>
             </td>
         </tr>

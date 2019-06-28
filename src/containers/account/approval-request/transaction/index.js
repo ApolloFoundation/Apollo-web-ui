@@ -40,13 +40,15 @@ class Transaction extends React.Component {
                 <td>{confirmations}</td>
                 <td className="">
                     <div className="btn-box inline">
-                        <a  onClick={() => {
+                        <button
+                            type={'button'}
+                            onClick={() => {
                                 setBodyModalParamsAction("APPROVE_TRANSACTION", {transaction: this.props});
                             }}
-                            className="btn primary blue"
+                            className="btn btn-default"
                         >
                             Approve
-                        </a>
+                        </button>
                     </div>
                 </td>
             </tr>

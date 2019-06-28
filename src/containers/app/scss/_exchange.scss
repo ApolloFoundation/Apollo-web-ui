@@ -31,9 +31,7 @@
 		}
 
 		.h-400 {
-			height: 100%;
-			max-height: 473px;
-			min-height: 352px !important;
+			height: 490px;
 			display: flex;
 			flex-direction: column;
 		}
@@ -96,19 +94,22 @@
 			border-radius: 3px;
 			background-color: #FFF;
 			box-shadow: 0 0 10px 0 #E6EAEE, 0 10px 20px 0 rgba(30,30,30,0.05);
-			min-height: 590px;
+			min-height: 385px;
+			overflow: auto;
+			.modal-form {
+				display: flex;
+				flex-direction: column;
+				justify-content: space-between;
+				height: 100%;
+			}
 			&.card {
-				padding: 0;
-				margin: 0;
 				.card-content {
 					position: relative;
-					height: 100%;
+					height: calc(100% - 80px);
 					.full-box {
 						margin: auto;
-						height: 215px;
-						left: 12px;
-						right: 12px;
-						bottom: 12px;
+						height: calc(100% - 41px);
+						padding: 12px;
 						@media(max-width: 1024px) {
 							height: 200px;
 						}
@@ -130,14 +131,20 @@
 				padding: 10px 12px;
 				z-index: 1;
 				p {
+					font-weight: 500;
 					color: #2547F4;
 					font-size: 14px;
 					line-height: 17px;
 					padding: 0;
 					word-break: normal;
+					margin-bottom: 0;
 				}
 				&.form-title-lg {
 					height: 80px;
+					min-height: 80px;
+					p {
+						font-weight: 400;
+					}
 					img {
 						margin-right: 10px;
 						margin-top: 4px;
@@ -148,6 +155,9 @@
 						font-size: 34px;
 						letter-spacing: -0.89px;
 						line-height: 41px;
+						margin-bottom: 0;
+						display: flex;
+						align-items: center;
 					}
 					.form-title-actions {
 						display: flex;
@@ -204,7 +214,6 @@
 			}
 
 			.transaction-table {
-				padding-bottom: 30px !important;
 				overflow-y: hidden;
 				border-radius: 0;
 				height: 100%;
@@ -374,6 +383,7 @@
 					width: 100%;
 					padding: 15px 30px;
 					text-transform: uppercase;
+					font-weight: 600;
 				}
 				&.btn-green {
 					color: #ffffff;
@@ -398,7 +408,8 @@
 					img {
 						height: 11px;
 						width: 8px;
-						margin-right: 0;
+						margin-right: 5px;
+						margin-top: 0;
 					}
 
 				}
@@ -434,6 +445,7 @@
 			}
 		}
 		.info-box.blue-info a {
+			font-size: inherit;
 			color: #fff;
 			text-decoration: underline;
 		}
@@ -527,6 +539,70 @@
 				cursor: pointer;
 				&:hover {
 					background-color: #E6EAEE;
+				}
+			}
+		}
+
+		.currency-switch-wrap {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			position: relative;
+
+			.currency-switch {
+				height: 30px;
+				width: 30px;
+				border-radius: 0 2px 2px 0;
+				background-color: rgba(255, 255, 255, 0.05);
+				margin: 5px 0 0 12px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				font-size: 15px;
+				cursor: pointer;
+				transition: 0.3s;
+
+				&:hover {
+					background-color: rgba(255, 255, 255, 0.1);
+				}
+			}
+
+			.currency-switch-dropdown {
+				position: absolute;
+				left: 0;
+				top: calc(100% + 12px);
+				background: #ffffff;
+				box-shadow: 0 5px 10px 0 #E6EAEE, 0 10px 20px 0 rgba(30, 30, 30, 0.05);
+				border-radius: 3px;
+				width: 100%;
+				z-index: 1;
+				height: 0;
+				transition: 0.3s;
+				opacity: 0;
+				overflow: auto;
+				&.open {
+					height: auto;
+					opacity: 1;
+				}
+				.dropdown-item {
+					padding: 6px 12px;
+					color: #2547F4;
+					font-size: 14px;
+					font-weight: 500;
+					text-transform: uppercase;
+					display: flex;
+					align-items: center;
+					cursor: pointer;
+					transition: 0.3s;
+					&:hover {
+						background: #F5F7FC;
+					}
+					&:first-of-type {
+						padding-top: 12px;
+					}
+					&:last-of-type {
+						padding-bottom: 12px;
+					}
 				}
 			}
 		}

@@ -91,18 +91,21 @@ class MyProductsForSale extends React.Component {
                 <SiteHeader
                     pageTitle={'My pending orders'}
                 />
-                <div className="page-body container-fluid">
-                    <div className="account-ledger p-0">
-                        {this.state.getDGSGoods && this.state.getDGSGoods.length ?
-                            (<MarketplaceColumnTable
+                <div className="page-body container-fluid full-screen-block">
+                    <div className={'marketplace'}>
+                        <div className={'row'}>
+                        {this.state.getDGSGoods && this.state.getDGSGoods.length ? (
+                            <MarketplaceColumnTable
                                 data={getDGSGoods}
                                 page={this.state.page}
                                 deliver
-                            />) :
-                            (<InfoBox default>
+                            />
+                        ) : (
+                            <InfoBox default>
                                 No orders found.
-                            </InfoBox>)
-                        }
+                            </InfoBox>
+                        )}
+                        </div>
                     </div>
                 </div>
             </div>

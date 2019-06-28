@@ -5,11 +5,11 @@ const CustomFormSelect = (props) => {
     const {defaultValue, setValue, options, label, field, onChange} = props;
 
     return (
-        <div className="form-group row form-group-grey mb-15">
-            <label className="col-sm-3 col-form-label">
+        <div className="form-group mb-15">
+            <label>
                 {label}
             </label>
-            <div className="col-sm-9 mb-0">
+            <div>
                 <div className="form-group-select">
                     <CustomSelect
                         className="form-control"

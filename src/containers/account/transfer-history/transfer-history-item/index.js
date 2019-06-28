@@ -31,7 +31,7 @@ class TransferHistoryItem extends React.Component {
                 </td>
                 <td>
                     {name}
-                    <a><span className="info"></span></a>
+                    <a><span className="info"/></a>
                 </td>
                 <td className="">{this.props.formatTimestamp(timestamp)}</td>
                 <td className="align-right" >{(quantityATU / Math.pow(10, decimals)).toLocaleString('en', {

@@ -351,19 +351,18 @@ class Transactions extends React.Component {
                 <SiteHeader
                     pageTitle={'Transactions'}
                 >
-                    <a
+                    <button
+                        type={'button'}
                         className={classNames({
-                            'btn': true,
-                            'primary': true,
+                            'btn btn-green btn-sm': true,
                             'disabled' : this.state.isPrivate
                         })}
                         onClick={() => {
                             this.props.setModalType('PrivateTransactions')
-
                         }}
                     >
                         Show private transactions
-                    </a>
+                    </button>
                 </SiteHeader>
                 <div className="page-body container-fluid">
                     <div className={'my-transactions'}>

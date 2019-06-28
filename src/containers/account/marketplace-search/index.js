@@ -21,6 +21,8 @@ const mapDispatchToProps = dispatch => ({
     searchDGSGoodsAction: (reqParams) => dispatch(searchDGSGoodsAction(reqParams))
 });
 
+const itemsPerPage = 8;
+
 class MarketplaceSearch extends React.Component {
     constructor(props) {
         super(props);
@@ -29,7 +31,7 @@ class MarketplaceSearch extends React.Component {
             market: [],
             page: 1,
             firstIndex: 0,
-            lastIndex: 7,
+            lastIndex: itemsPerPage - 1,
             tag: this.props.match.params.tag,
             isGrid: true,
 
@@ -70,7 +72,6 @@ class MarketplaceSearch extends React.Component {
 
         if (getDGSGoods) {
             this.setState({
-                ...this.state,
                 DGSGoods: getDGSGoods.goods
             })
         }
@@ -91,12 +92,11 @@ class MarketplaceSearch extends React.Component {
             page: page,
             tag: this.state.tag,
             ...searchingBy,
-            firstIndex: page * 8 - 8,
-            lastIndex: page * 8 - 1
+            firstIndex: page * itemsPerPage - itemsPerPage,
+            lastIndex: page * itemsPerPage - 1
         };
 
         this.setState({
-            ...this.state,
             ...reqParams,
         }, () => {
             this.getDGSGoods(reqParams)
@@ -105,7 +105,6 @@ class MarketplaceSearch extends React.Component {
 
     handleGrid = () => {
         this.setState({
-            ...this.state,
             isGrid: !this.state.isGrid
         })
     };
@@ -117,7 +116,6 @@ class MarketplaceSearch extends React.Component {
     handleCardMouseOut = (e) => {
         const selected = Object.values(document.querySelectorAll('.site-content .page-content .page-body .marketplace .row > *.active'));
 
-        const event = e;
         selected.map((el, index) => {
             setTimeout(() => {
                 el.classList.remove('active')
@@ -132,29 +130,15 @@ class MarketplaceSearch extends React.Component {
         return (
             <div className="page-content">
                 <SiteHeader
-                    pageTitle={'Search “' + this.state.tag + '”'}
+                    pageTitle={`Search <small>"${this.state.tag}"</small>`}
                     showPrivateTransactions={'ledger'}
                 >
                     <Link
                         to='/marketplace'
-                        className="btn primary"
+                        className="btn btn-default"
                     >
                         Back
                     </Link>
-                    <a
-                        className="btn primary transparent icon-button with-out-border"
-                        style={{ marginLeft: 15 }}
-                        onClick={this.handleGrid}
-                    >
-                        {
-                            this.state.isGrid &&
-                            <i className="zmdi zmdi-view-module" />
-                        }
-                        {
-                            !this.state.isGrid &&
-                            <i className="zmdi zmdi-view-list" />
-                        }
-                    </a>
                 </SiteHeader>
                 <div className="page-body container-fluid full-screen-block no-padding-on-the-sides marketplace-container">
                     <div
@@ -174,7 +158,7 @@ class MarketplaceSearch extends React.Component {
                                 DGSGoods.map((el, index) => {
                                     return (
                                         <div
-                                            key={uuid()}
+                                            key={`marketplace-search-item-${index}`}
                                             className={classNames({
                                                 'marketplace-item': this.state.isGrid,
                                                 'marketplace-item--full-width': !this.state.isGrid,
@@ -194,56 +178,32 @@ class MarketplaceSearch extends React.Component {
                             }
                             {
                                 DGSGoods &&
-                                <div
-                                    className="btn-box relative pl-3"
-                                    style={{
-                                        position: "relative",
-                                        height: 37,
-                                        marginBottom: 15
-                                    }}
-                                >
-                                    <a
+                                <div className="btn-box pagination">
+                                    <button
+                                        type={'button'}
                                         className={classNames({
-                                            'btn': true,
-                                            'btn-left': true,
-                                            'static': true,
-                                            'disabled': this.state.page <= 1
+                                            'btn btn-default': true,
+                                            'disabled': this.state.page <= 1,
                                         })}
-                                        style={{
-                                            left: 7.5
-                                        }}
                                         onClick={this.onPaginate.bind(this, this.state.page - 1)}
                                     >
                                         Previous
-                                    </a>
-                                    {
-                                        DGSGoods.length < 8 &&
-                                        <div className='pagination-nav'>
-                                            <span>{(this.state.page * 8) - 7}</span>
-                                            <span>&hellip;</span>
-                                            <span>{this.state.page * 8 + DGSGoods.length - 8}</span>
-                                        </div>
-                                    }
-                                    {
-                                        DGSGoods.length === 8 &&
-                                        <div className='pagination-nav'>
-                                            <span>{this.state.firstIndex + 1}</span>
-                                            <span>&hellip;</span>
-                                            <span>{this.state.lastIndex + 1}</span>
-                                        </div>
-                                    }
-                                    <a
+                                    </button>
+                                    <div className='pagination-nav'>
+                                        <span>{this.state.page * itemsPerPage - itemsPerPage + 1}</span>
+                                        <span>&hellip;</span>
+                                        <span>{(this.state.page * itemsPerPage - itemsPerPage) + DGSGoods.length}</span>
+                                    </div>
+                                    <button
+                                        type={'button'}
                                         onClick={this.onPaginate.bind(this, this.state.page + 1)}
                                         className={classNames({
-                                            'btn': true,
-                                            'btn-right': true,
-                                            'static': true,
-                                            'disabled': DGSGoods.length < 8
+                                            'btn btn-default': true,
+                                            'disabled': DGSGoods.length < itemsPerPage
                                         })}
-                                        style={{
-                                            right: 0
-                                        }}
-                                    >Next</a>
+                                    >
+                                        Next
+                                    </button>
                                 </div>
                             }
 

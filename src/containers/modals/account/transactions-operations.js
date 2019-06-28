@@ -5,48 +5,42 @@
 
 
 import React from 'react';
-import { connect } from 'react-redux';
-import { setModalData } from '../../../modules/modals';
-import classNames from 'classnames';
-import AdvancedSettings from '../../components/advanced-transaction-settings'
-import { Checkbox, Form, Text, TextArea } from 'react-form'
-import { NotificationManager } from "react-notifications";
+import {connect} from 'react-redux';
+import QRCode from "qrcode.react";
+import {setModalData} from '../../../modules/modals';
+import {NotificationManager} from "react-notifications";
 import crypto from "../../../helpers/crypto/crypto";
 import submitForm from "../../../helpers/forms/forms";
-import { signBytesArrayAPL } from "../../../helpers/converters";
-import QRCode from "qrcode.react";
-import AccountRS from "../../components/account-rs";
-import InfoBox from "../../components/info-box";
+import {signBytesArrayAPL} from "../../../helpers/converters";
+import TabulationBody from "../../components/tabulator/tabuator-body";
+import TabContaier from "../../components/tabulator/tab-container";
+import ModalBody from "../../components/modals/modal-body";
+import TextualInputComponent from "../../components/form-components/textual-input";
+import CustomTextArea from "../../components/form-components/text-area";
+import {CheckboxFormInput} from "../../components/form-components/check-button-input";
+import InputForm from "../../components/input-form";
+import InfoBox from '../../components/info-box';
 
 class TransactionOperations extends React.Component {
-    constructor(props) {
-        super(props);
+    state = {
+        activeTab: 0,
+        showSignature: false,
+        signedBytesSignature: "",
+        generatedQr: "",
+    };
 
-        this.state = {
-            activeTab: 0,
-            showSignature: false,
-            signedBytesSignature: "",
-            generatedQr: "",
-            form: {}
-        };
-
-        this.handleTab = this.handleTab.bind(this);
-    }
-
-    handleTab(e, index) {
-        e.preventDefault();
-
+    handleTab = (e, index) => {
         this.setState({
             ...this.props,
             activeTab: index
         })
-    }
+    };
 
     handleFormSubmit = async values => {
         let res = null;
         switch (this.state.activeTab) {
             case 0:
-                if (!values.signPassphrase) {
+                if (!values.secretPhrase) {
                     NotificationManager.error("Secret phrase is required", "Error", 5000);
                     break;
                 }
@@ -58,7 +52,7 @@ class TransactionOperations extends React.Component {
                         unsignedTransactionJSON: values.signJson,
                         validate: values.signValidate,
                         publicKey: this.props.publicKey,
-                        secretPhrase: values.signPassphrase,
+                        secretPhrase: values.secretPhrase,
                         feeATM: 0,
                         ecBlockHeight: 0
                     };
@@ -69,8 +63,7 @@ class TransactionOperations extends React.Component {
                         NotificationManager.success("Transaction signed!", null, 5000);
                     }
                 } else if (values.signBytes) {
-                    const signature = signBytesArrayAPL(values.signBytes, values.signPassphrase);
-                    this.state.form.setValue('signedBytesSignature', signature);
+                    const signature = signBytesArrayAPL(values.signBytes, values.secretPhrase);
                     this.setState({
                         showSignature: true,
                         signedBytesSignature: signature,
@@ -122,269 +115,161 @@ class TransactionOperations extends React.Component {
                     NotificationManager.success("Hash calculated", null, 5000);
                 }
                 break;
+            default:
+                break;
         }
-    };
-
-    getFormApi = formApi => {
-        this.setState({ form: formApi })
     };
 
     render() {
         return (
-            <div className="modal-box wide">
-                <Form
-                    onSubmit={(values) => this.handleFormSubmit(values)}
-                    getApi={this.getFormApi}
-                    render={({
-                        submitForm,
-                        setValue
-                    }) => (
-                            <form className="modal-form" onSubmit={submitForm}>
-                                <div className="form-group-app media-tab">
-                                    <a onClick={() => this.props.closeModal()} className="exit"><i
-                                        className="zmdi zmdi-close" /></a>
-
-                                    <div className="form-title">
-                                        <p>Transaction Operations</p>
-                                    </div>
-
-                                    <div className="form-tabulator active">
-                                        <div className="form-tab-nav-box justify-left">
-                                            <a onClick={(e) => this.handleTab(e, 0)} className={classNames({
-                                                "form-tab": true,
-                                                "active": this.state.activeTab === 0
-                                            })}>
-                                                <p>Sign transaction</p>
-                                            </a>
-                                            <a onClick={(e) => this.handleTab(e, 1)} className={classNames({
-                                                "form-tab": true,
-                                                "active": this.state.activeTab === 1
-                                            })}>
-                                                <p>Broadcast transaction</p>
-                                            </a>
-                                            <a onClick={(e) => this.handleTab(e, 2)} className={classNames({
-                                                "form-tab": true,
-                                                "active": this.state.activeTab === 2
-                                            })}>
-                                                <p>Parse transaction</p>
-                                            </a>
-                                            <a onClick={(e) => this.handleTab(e, 3)} className={classNames({
-                                                "form-tab": true,
-                                                "active": this.state.activeTab === 3
-                                            })}>
-                                                <p>Calculate full hash</p>
-                                            </a>
-                                        </div>
-
-                                        <div className={classNames({
-                                            "tab-body": true,
-                                            "active": this.state.activeTab === 0
-                                        })}>
-                                            <div className="input-group-app align-top form-group mb-15 pl-0 display-block inline user">
-                                                <div className="row form-group-white">
-                                                    <label htmlFor="recipient" className="col-sm-3 col-form-label">
-                                                        Unsigned Transaction Bytes <i className="zmdi zmdi-upload" />
-                                                    </label>
-                                                    <div className="col-sm-9">
-                                                        <TextArea rows={5} type="textarea" field={'signBytes'}
-                                                            placeholder="Unsigned Transaction Bytes" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="input-group-app align-top form-group mb-15 pl-0 display-block inline user">
-                                                <div className="row form-group-white">
-                                                    <label htmlFor="recipient" className="col-sm-3 col-form-label">
-                                                        Unsigned Transaction JSON <i className="zmdi zmdi-portable-wifi-changes" />
-                                                    </label>
-                                                    <div className="col-sm-9">
-                                                        <TextArea rows={5} field={'signJson'}
-                                                            placeholder="Unsigned Transaction JSON" />
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div className="mobile-class row mb-15 form-group-white">
-                                                <div className="col-md-9 offset-md-3 pl-0">
-                                                    <div className="form-check custom-checkbox single">
-                                                        <Checkbox style={{ display: 'inline-block' }} type="checkbox"
-                                                            field="signValidate" />
-                                                        <label className="form-check-label custom-control-label">
-                                                            Validate
-                                                    </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-                                            <div className="input-group-app form-group mb-15 pl-0 display-block inline user">
-                                                <div className="row form-group-white">
-                                                    <label htmlFor="recipient" className="col-sm-3 col-form-label">
-                                                        Secret phrase <i className="zmdi zmdi-portable-wifi-changes" />
-                                                    </label>
-                                                    <div className="col-sm-9">
-                                                        <Text type="password" field={'signPassphrase'} />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            {this.state.showSignature &&
-                                                <React.Fragment>
-                                                    <InfoBox info>
-                                                        <div className="token word-brake">
-                                                            {this.state.signedBytesSignature}
-                                                        </div>
-                                                    </InfoBox>
-                                                    <div className='block'>
-                                                        <div className='row form-group-white'>
-                                                            <label className="col-sm-3 col-form-label">Transaction Signature QR code</label>
-                                                            <div className='col-md-9'>
-                                                                <QRCode
-                                                                    value={this.state.signedBytesSignature}
-                                                                    size={100}
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </React.Fragment>
-                                            }
-
-                                        </div>
-                                        <div className={classNames({
-                                            "tab-body": true,
-                                            "active": this.state.activeTab === 1
-                                        })}>
-                                            <div className="input-group-app block offset-bottom offset-top">
-
-                                                <div className="row">
-                                                    <div className="col-md-3">
-                                                        <label>Transaction Bytes</label>
-                                                    </div>
-                                                    <div className="col-md-9">
-                                                        <TextArea rows={5} type="text" field={'broadcastBytes'}
-                                                            placeholder="Signed Transaction Bytes" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="input-group-app block offset-bottom">
-
-                                                <div className="row">
-                                                    <div className="col-md-3">
-                                                        <label>Signed Transaction JSON</label>
-                                                    </div>
-                                                    <div className="col-md-9">
-                                                        <Text rows={5} type="text" field={'broadcastJson'}
-                                                            placeholder="Signed Transaction JSON" />
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div className={classNames({
-                                            "tab-body": true,
-                                            "active": this.state.activeTab === 2
-                                        })}>
-
-                                            <div className="input-group-app block offset-bottom offset-top">
-
-                                                <div className="row">
-                                                    <div className="col-md-3">
-                                                        <label>Transaction Bytes</label>
-                                                    </div>
-                                                    <div className="col-md-9">
-                                                        <TextArea rows={5} type="text" field={'parseBytes'}
-                                                            placeholder="Transaction Bytes" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="input-group-app block offset-bottom">
-
-                                                <div className="row">
-                                                    <div className="col-md-3">
-                                                        <label>Transaction JSON</label>
-                                                    </div>
-                                                    <div className="col-md-9">
-                                                        <Text rows={5} type="text" field={'parseJson'}
-                                                            placeholder="Transaction JSON" />
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div className={classNames({
-                                            "tab-body": true,
-                                            "active": this.state.activeTab === 3
-                                        })}>
-                                            <div className="input-group-app block offset-bottom offset-top">
-
-                                                <div className="row">
-                                                    <div className="col-md-3">
-                                                        <label>Unsigned Transaction Bytes</label>
-                                                    </div>
-                                                    <div className="col-md-9">
-                                                        <TextArea rows={5} type="text" field={'calculateBytes'}
-                                                            placeholder="Unsigned Transaction Bytes" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="input-group-app block offset-bottom">
-
-                                                <div className="row">
-                                                    <div className="col-md-3">
-                                                        <label>Unsigned Transaction JSON</label>
-                                                    </div>
-                                                    <div className="col-md-9">
-                                                        <TextArea rows={5} type="text" field={'calculateJson'}
-                                                            placeholder="Unsigned Transaction JSON" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="input-group-app block offset-bottom">
-
-                                                <div className="row">
-                                                    <div className="col-md-3">
-                                                        <label>Signature Hash</label>
-                                                    </div>
-                                                    <div className="col-md-9">
-                                                        <TextArea rows={1} type="text" field={'calculateHash'}
-                                                            placeholder="Signature Hash" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="btn-box align-buttons-inside absolute right-conner">
-                                        <button
-                                            type="submit"
-                                            name={'closeModal'}
-                                            className="btn btn-right blue round round-bottom-right"
-                                        >
-                                            {
-                                                this.state.activeTab === 0 &&
-                                                'Sign Transaction'
-                                            }
-                                            {
-                                                this.state.activeTab === 1 &&
-                                                'Broadcast'
-                                            }
-                                            {
-                                                this.state.activeTab === 2 &&
-                                                'Parse Transaction'
-                                            }
-                                            {
-                                                this.state.activeTab === 3 &&
-                                                'Calculate Full Hash'
-                                            }
-                                        </button>
-                                        <a onClick={() => this.props.closeModal()}
-                                            className="btn btn-right round round-top-left">
-                                            Cancel
-                                    </a>
-                                    </div>
-                                </div>
-                            </form>
-                        )}
+            <ModalBody
+                modalTitle={'Transaction Operations'}
+                closeModal={this.props.closeModal}
+                isDisableFormFooter
+                isDisableSecretPhrase
+                isXWide
+            >
+                <TabulationBody
+                    className={'p-0'}
+                    onChange={this.handleTab}
                 >
-                </Form>
-            </div>
+                    <TabContaier sectionName={'Sign transaction'}>
+                        <ModalBody
+                            closeModal={this.props.closeModal}
+                            handleFormSubmit={(values) => this.handleFormSubmit(values)}
+                            isDisabe2FA
+                            isPour
+                            isDisableSecretPhrase
+                            submitButtonName={'Sign Transaction'}
+                        >
+                            <CustomTextArea
+                                label={'Unsigned Transaction Bytes'}
+                                field={'signBytes'}
+                                placeholder={'Unsigned Transaction Bytes'}
+                            />
+                            <CustomTextArea
+                                label={'Unsigned Transaction JSON'}
+                                field={'signJson'}
+                                placeholder={'Unsigned Transaction JSON'}
+                            />
+                            <CheckboxFormInput
+                                checkboxes={[
+                                    {
+                                        field: 'signValidate',
+                                        label: 'Validate',
+                                    }
+                                ]}
+                            />
+                            <div className="form-group mb-15">
+                                <label>
+                                    Secret phrase
+                                </label>
+                                <div>
+                                    <InputForm
+                                        isPlain
+                                        className={'form-control'}
+                                        type="password"
+                                        field="secretPhrase"
+                                        placeholder="Secret Phrase"
+                                    />
+                                </div>
+                            </div>
+                            {this.state.showSignature && (
+                                <React.Fragment>
+                                    <div className="form-group mb-15">
+                                        <label>
+                                            Signature
+                                        </label>
+                                        <InfoBox info>
+                                            <div className="token word-brake">
+                                                {this.state.signedBytesSignature}
+                                            </div>
+                                        </InfoBox>
+                                    </div>
+                                    <div className='form-group mb-15'>
+                                        <label>Transaction Signature QR code</label>
+                                        <div>
+                                            <QRCode
+                                                value={this.state.signedBytesSignature}
+                                                size={100}
+                                            />
+                                        </div>
+                                    </div>
+                                </React.Fragment>
+                            )}
+                        </ModalBody>
+                    </TabContaier>
+                    <TabContaier sectionName={'Broadcast transaction'}>
+                        <ModalBody
+                            closeModal={this.props.closeModal}
+                            handleFormSubmit={(values) => this.handleFormSubmit(values)}
+                            isDisabe2FA
+                            isPour
+                            isDisableSecretPhrase
+                            submitButtonName={'Broadcast'}
+                        >
+                            <CustomTextArea
+                                label={'Transaction Bytes'}
+                                field={'broadcastBytes'}
+                                placeholder={'Signed Transaction Bytes'}
+                            />
+                            <CustomTextArea
+                                label={'Signed Transaction JSON'}
+                                field={'broadcastJson'}
+                                placeholder={'Signed Transaction JSON'}
+                            />
+                        </ModalBody>
+                    </TabContaier>
+                    <TabContaier sectionName={'Parse transaction'}>
+                        <ModalBody
+                            closeModal={this.props.closeModal}
+                            handleFormSubmit={(values) => this.handleFormSubmit(values)}
+                            isDisabe2FA
+                            isPour
+                            isDisableSecretPhrase
+                            submitButtonName={'Parse Transaction'}
+                        >
+                            <CustomTextArea
+                                label={'Transaction Bytes'}
+                                field={'parseBytes'}
+                                placeholder={'Signed Transaction Bytes'}
+                            />
+                            <CustomTextArea
+                                label={'Transaction JSON'}
+                                field={'parseJson'}
+                                placeholder={'Transaction JSON'}
+                            />
+                        </ModalBody>
+                    </TabContaier>
+                    <TabContaier sectionName={'Calculate full hash'}>
+                        <ModalBody
+                            closeModal={this.props.closeModal}
+                            handleFormSubmit={(values) => this.handleFormSubmit(values)}
+                            isDisabe2FA
+                            isPour
+                            isDisableSecretPhrase
+                            submitButtonName={'Calculate Full Hash'}
+                        >
+                            <CustomTextArea
+                                label={'Unsigned Transaction Bytes'}
+                                field={'calculateBytes'}
+                                placeholder={'Unsigned Transaction Bytes'}
+                            />
+                            <CustomTextArea
+                                label={'Unsigned Transaction JSON'}
+                                field={'calculateJson'}
+                                placeholder={'Unsigned Transaction JSON'}
+                            />
+                            <TextualInputComponent
+                                label={'Signature Hash'}
+                                field="calculateHash"
+                                placeholder="Signature Hash"
+                                type={"text"}
+                            />
+                        </ModalBody>
+                    </TabContaier>
+                </TabulationBody>
+            </ModalBody>
         );
     }
 }

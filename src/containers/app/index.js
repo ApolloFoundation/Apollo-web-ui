@@ -159,8 +159,13 @@ class App extends React.Component {
                         <div
                             className="phased-transaction"
                         >
-                            <div className="phasing-box__phasing-description p-3">
+                            <div className="phasing-box__phasing-description">
                                 {catId.infoContent}
+                                {catId.infoTitle && (
+                                    <div className="phasing-box__phasing-title">
+                                        {catId.infoTitle}
+                                    </div>
+                                )}
                             </div>
                         </div>
                     </div>
@@ -355,7 +360,7 @@ class App extends React.Component {
                     {
                         !this.props.loading && !isLoginPage &&
                         <div className="site-footer">
-                            Copyright © 2017-2019 Apollo Foundation.
+                            Copyright © 2017-2019 Apollo Foundation.&nbsp;
                             <br className={'show-media hide-desktop'}/>
                             Apollo Version: {!!this.props.appState && this.props.appState.version} <br/>
                         </div>

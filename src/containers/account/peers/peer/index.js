@@ -37,7 +37,7 @@ const Peer = (props) => (
                 <>
                     <button
                         type={'button'}
-                        className="btn primary blue mt-0"
+                        className="btn btn-default mt-0"
                         onClick={() => props.onConnectClick(props.address)}
                     >
                         Connect
@@ -45,7 +45,7 @@ const Peer = (props) => (
                     <button
                         type={'button'}
                         onClick={() => props.onBlacklistClick(props.address)}
-                        className="btn primary mt-0 ml-3"
+                        className="btn btn-default mt-0 ml-3"
                     >
                         Blacklist
                     </button>

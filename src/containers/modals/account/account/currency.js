@@ -5,7 +5,7 @@ const Currency = ({code, name, unconfirmedUnits, decimals}) => (
     <tr key={uuid()}>
         <td>{code}</td>
         <td>{name}</td>
-        <td className="align-right">{(unconfirmedUnits / Math.pow(10, decimals)).toFixed(2)}</td>
+        <td>{(unconfirmedUnits / Math.pow(10, decimals)).toFixed(2)}</td>
     </tr>
 )
 

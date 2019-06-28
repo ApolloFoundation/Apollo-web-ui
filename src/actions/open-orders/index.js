@@ -10,14 +10,12 @@ import Marketplace from "../../containers/account/marketplace";
 import store from '../../store'
 import {getAssetAction} from "../assets";
 
-export const getSellOrdersAction = account => dispatch =>
+export const getSellOrdersAction = reqParams => dispatch =>
     axios.get(config.api.serverUrl, {
         params: {
             requestType: 'getAccountCurrentAskOrders',
-            account,
-            firstIndex: 0,
-            lastIndex: 100,
-            random: Math.random()
+            random: Math.random(),
+            ...reqParams
         }
     })
         .then(async (res) => {
@@ -49,29 +47,29 @@ export const getClearSellOrdersAction = account => dispatch => axios.get(config.
     }
 });
 
-export const getBuyOrdersAction = account => dispatch => axios.get(config.api.serverUrl, {
-    params: {
-        requestType: 'getAccountCurrentBidOrders',
-        account,
-        firstIndex: 0,
-        lastIndex: 100,
-        random: Math.random()
-    }
-}).then(async (res) => {
-    if (!res.data.errorCode) {
-        const assets = res.data.bidOrders.map((el, index) => {
-            return store.dispatch(getAssetAction({
-                asset: el.asset
-            }))
+export const getBuyOrdersAction = reqParams => dispatch =>
+    axios.get(config.api.serverUrl, {
+        params: {
+            requestType: 'getAccountCurrentBidOrders',
+            random: Math.random(),
+            ...reqParams
+        }
+    })
+        .then(async (res) => {
+            if (!res.data.errorCode) {
+                const assets = res.data.bidOrders.map((el, index) => {
+                    return store.dispatch(getAssetAction({
+                        asset: el.asset
+                    }))
+                });
+
+                return {assets: await Promise.all(assets), orders: res.data.bidOrders};
+
+            }
+            if (!res.data.errorCode) {
+                return res.data
+            }
         });
-
-        return {assets: await Promise.all(assets), orders: res.data.bidOrders};
-
-    }
-    if (!res.data.errorCode) {
-        return res.data
-    }
-});
 
 export const getClearBuyOrdersAction = account => dispatch => axios.get(config.api.serverUrl, {
     params: {

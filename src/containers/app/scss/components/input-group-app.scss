@@ -50,10 +50,13 @@
 		}
 		input {
 			display: block;
+			border-right: 0;
 		}
 		.input-icon {
-			border: 1px solid #E5E5E5;
-			background: #E5E5E5;
+			color: #3D5A7E;
+			background: #FCFCFD;
+			border: 1px solid #E6EAEE;
+			border-left: 0;
 			font-size: 18px;
 			vertical-align: middle;
 			text-align: center;
@@ -142,11 +145,6 @@
 		padding: 0 0 0 5px;
 		font-size: 13.5px;
 		align-self: center;
-		color: #333333;
-	}
-	input {
-		display: table-cell;
-		border-radius: 3px 0 0 3px;
-		padding: 7px 20px;
+		color: #3D5A7E;
 	}
 }

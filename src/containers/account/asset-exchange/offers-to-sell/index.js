@@ -1,54 +1,39 @@
 import React from 'react';
-import OrderItem from "../order/index"
+import OrderItem from "../order";
+import CustomTable from "../../../components/tables/table";
 
-const OffersToSell = ({ askOrders, asset }) => (
-    <div
-        className="card ballance card-tiny medium-padding mb-3 h-100"
-        style={{ marginBottom: 0 }}
-    >
-        <div className="form-group-app">
-            <div className="form-title">
-                <p>Offers to sell {asset.name}</p>
-            </div>
-            {
-                askOrders &&
-                    askOrders.length === 0 ?
-                    <div className="info-box simple">
-                        <p>No sell offers for this asset.</p>
-                    </div> :
-                    <div className="transaction-table no-min-height">
-                        <div className="transaction-table-body">
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <td className="align-left">Asset</td>
-                                        <td>Quantity</td>
-                                        <td className="align-left">Price</td>
-                                        <td className="align-right">Total</td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {
-                                        askOrders &&
-                                            askOrders.length > 0 ?
-                                            askOrders.map(el => {
-                                                return (
-                                                    <OrderItem
-                                                        key={el.asset}
-                                                        order={el}
-                                                    />
-                                                )
-                                            }) : <p>No delete history</p>
-                                    }
-                                </tbody>
-                            </table>
-
-                        </div>
-                    </div>
-            }
+const OffersToSell = ({sellOrders, asset, page, onPaginate, itemsPerPage}) => (
+    <div className={'card'}>
+        <div className="card-title">Offers to sell {asset.name}</div>
+        <div className="card-body">
+            <CustomTable
+                header={[
+                    {
+                        name: 'Asset',
+                        alignRight: false
+                    }, {
+                        name: 'Quantity',
+                        alignRight: false
+                    }, {
+                        name: 'Price',
+                        alignRight: false
+                    }, {
+                        name: 'Total',
+                        alignRight: false
+                    }
+                ]}
+                className={'p-0'}
+                emptyMessage={'No sell offers for this asset.'}
+                TableRowComponent={OrderItem}
+                tableData={sellOrders}
+                isPaginate
+                itemsPerPage={itemsPerPage}
+                page={page}
+                previousHendler={() => onPaginate('sell', page - 1)}
+                nextHendler={() => onPaginate('sell', page + 1)}
+            />
         </div>
     </div>
-
-)
+);
 
 export default OffersToSell;

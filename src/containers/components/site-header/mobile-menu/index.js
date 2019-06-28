@@ -85,6 +85,9 @@ const MobileMenu = ({setBodyModalParamsAction, closeMenu}) => (
                             <NavLink exact={true} activeClassName="active" to="/all-assets">
                                 All assets
                             </NavLink>
+                            <NavLink exact={true} activeClassName="active" to="/my-assets">
+                                My assets
+                            </NavLink>
                             <NavLink exact={true} activeClassName="active" to="/asset-exchange">
                                 Asset exchange
                             </NavLink>
@@ -94,8 +97,6 @@ const MobileMenu = ({setBodyModalParamsAction, closeMenu}) => (
                                         to="/transfer-history">Transfer history</NavLink>
                             <NavLink exact={true} activeClassName="active"
                                         to="/delete-history">Delete history</NavLink>
-                            <NavLink exact={true} activeClassName="active" to="/my-assets">My
-                                assets</NavLink>
                             <NavLink exact={true} activeClassName="active"
                                         to="/open-orders">Open orders</NavLink>
                             {/* <NavLink exact={true} activeClassName="active"
@@ -267,7 +268,7 @@ const MobileMenu = ({setBodyModalParamsAction, closeMenu}) => (
             <p className="text">Aliases <i className="zmdi zmdi-accounts"/></p>
         </NavLink>
         <div className="btn-block text-center">
-            <div className="close-menu-btn" onClick={closeMenu}>
+            <div className="btn btn-default btn-sm" onClick={closeMenu}>
                 Close
             </div>
         </div>

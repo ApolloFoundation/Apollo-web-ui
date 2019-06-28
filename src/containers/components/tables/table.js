@@ -15,7 +15,7 @@ const CustomTable = (props) => {
                     tableData &&
                     !!tableData.length &&
                     <>
-                        <div className={`transaction-table pb-5 ${className}`}>
+                        <div className={`transaction-table ${className}`}>
                             {
                                 tableName && 
                                 <div className="form-title padding-left padding-top">
@@ -26,7 +26,7 @@ const CustomTable = (props) => {
                                 AboveTabeComponent &&
                                 <AboveTabeComponent />
                             }
-                            <div className="transaction-table-body pb-0 mb-4">
+                            <div className="transaction-table-body pb-0">
                                 <table>
                                     <thead>
                                         <tr>
@@ -73,55 +73,43 @@ const CustomTable = (props) => {
                                 isPaginate &&
                                 <div className="btn-box pagination">
 
-                                    <a
+                                    <button
+                                        type={'button'}
                                         className={classNames({
-                                            'btn' : true,
-                                            'btn-left' : true,
+                                            'btn btn-default' : true,
                                             'disabled' : page <= 1,
-                                            'round': true,
-                                            'round-top-right': true,
-                                            'round-bottom-left': true,
                                         })}
                                         onClick={previousHendler}
                                     > 
                                         Previous
-                                    </a>
+                                    </button>
                                     <div className='pagination-nav'>
                                         <span>{page * itemsPerPage  - itemsPerPage + 1}</span>
                                         <span>&hellip;</span>
                                         <span>{(page * itemsPerPage - itemsPerPage) + tableData.length}</span>
                                     </div>
-                                    <a
+                                    <button
+                                        type={'button'}
                                         onClick={nextHendler}
                                         className={classNames({
-                                            'btn' : true,
-                                            'btn-right' : true,
+                                            'btn btn-default' : true,
                                             'disabled' : tableData.length < itemsPerPage,
-                                            'round': true,
-                                            'round-top-left': true,
-                                            'round-bottom-right': true,
                                         })}
                                     >
                                         Next
-                                    </a>
+                                    </button>
                                 </div>
                             }
                             {
                                 actionButton && 
                                 <div className="btn-box pagination">
-                                    <a
+                                    <button
+                                        type={'button'}
                                         onClick={actionButton.handler}
-                                        className={classNames({
-                                            'btn' : true,
-                                            'btn-right' : true,
-                                            'blue': true,
-                                            'round': true,
-                                            'round-top-left': true,
-                                            'round-bottom-right': true,
-                                        })}
+                                        className={'btn btn-default'}
                                     >
                                         {actionButton.name}
-                                    </a>
+                                    </button>
                                 </div>
                             }
                         </div>

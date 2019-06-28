@@ -61,16 +61,17 @@ const MonitorItem = (props) => (
         >
             <Link
                 to={`/funding-monitors/${props.accountRS}/${props.property}`}
-                className={'btn primary blue'}
+                className={'btn btn-default'}
             >
                 Status
             </Link>
-            <a
-                className={'btn primary default'}
+            <button
+                type={'button'}
+                className={'btn btn-default'}
                 onClick={() => stopMonitorAction(props)}
             >
                 Stop
-            </a>
+            </button>
         </td>
     </tr>
 )
