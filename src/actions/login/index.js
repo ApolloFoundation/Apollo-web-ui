@@ -152,6 +152,7 @@ export const updateAccount = (requestParams) => dispatch => {
 
 export const makeLoginReq = (requestParams) => (dispatch) => {
     dispatch(startLoad());
+    dispatch(logout());
     return axios.get(config.api.serverUrl, {
         params: {
             requestType: 'getAccount',
