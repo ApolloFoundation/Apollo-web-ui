@@ -27,14 +27,13 @@ const BlocksDownloader = ({blockchainStatus, actualBlock, isLocalhost}) => {
                             text={`${task.percentComplete.toFixed(2)}%`}
                             styles={{
                                 path: {
-                                    stroke: `rgba(62, 152, 199, ${Math.floor(task.percentComplete / 100)})`,
+                                    stroke: '#2547F4',
                                     strokeLinecap: 'butt',
                                 },
-                                text: {fill: '#f88', fontSize: '16px'},
-                            }}
-                            style={{
-                                margin: 0,
-                                height: 70
+                                trail: {
+                                    stroke: '#E6EAEE',
+                                },
+                                text: {fill: '#F36', fontSize: '16px'},
                             }}
                             strokeWidth={12}
                         />
