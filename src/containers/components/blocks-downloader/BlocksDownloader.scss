@@ -12,12 +12,17 @@
     height: 70px !important;
     width: 200px;
     background-color: #fff;
-    border: 1px solid #ccc;
+    border: 1px solid #E6EAEE;
     border-radius: 3px;
     display: flex;
     margin-bottom: 5px;
     &:last-of-type {
       margin-bottom: 0;
+    }
+    svg {
+      margin: 10px;
+      width: 48px;
+      height: 48px;
     }
   }
 
@@ -25,5 +30,7 @@
     display: block;
     padding: 10px 10px 10px 0;
     align-self: center;
+    color: #3D5A7E;
+    font-size: 12px;
   }
 }

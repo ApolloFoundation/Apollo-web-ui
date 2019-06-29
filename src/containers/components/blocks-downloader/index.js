@@ -2,7 +2,8 @@ import React from 'react';
 import {connect} from 'react-redux';
 import CircularProgressbar from 'react-circular-progressbar';
 import classNames from 'classnames';
-import './BlocksDownloader.scss'
+import 'react-circular-progressbar/dist/styles.css';
+import './BlocksDownloader.scss';
 
 const maStateToProps = state => ({
     blockchainStatus: state.account.blockchainStatus,
@@ -53,14 +54,13 @@ const BlocksDownloader = ({blockchainStatus, actualBlock, isLocalhost}) => {
                         text={`${percentage.toFixed(2)}%`}
                         styles={{
                             path: {
-                                stroke: `rgba(62, 152, 199, ${percentage / 100})`,
+                                stroke: '#2547F4',
                                 strokeLinecap: 'butt',
                             },
-                            text: {fill: '#f88', fontSize: '16px'},
-                        }}
-                        style={{
-                            margin: 0,
-                            height: 70
+                            trail: {
+                                stroke: '#E6EAEE',
+                            },
+                            text: {fill: '#F36', fontSize: '16px'},
                         }}
                         strokeWidth={12}
                     />
