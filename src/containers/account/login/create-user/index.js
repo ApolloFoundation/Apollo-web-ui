@@ -211,8 +211,7 @@ class CreateUser extends React.Component {
                                             <li className={'check-icon'}>2FA works from any device when you use your
                                                 Vault.
                                             </li>
-                                            <li className={'minus-icon'}>If you lose your device before exporting your
-                                                Secret File you will not be able to access your wallet.
+                                            <li className={'minus-icon'}>If you lose your device or uninstall the wallet before exporting your secret file, you will lose access to your account.
                                             </li>
                                         </ul>
                                     </InfoBox>

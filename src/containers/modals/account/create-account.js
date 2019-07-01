@@ -235,10 +235,7 @@ class CreateUser extends React.Component {
                                                                                         <li>2FA works from any device
                                                                                             when you use your Vault.
                                                                                         </li>
-                                                                                        <li>If you lose your device
-                                                                                            before exporting your security
-                                                                                            key you will not be able to
-                                                                                            access your wallet.
+                                                                                        <li>If you lose your device or uninstall the wallet before exporting your secret file, you will lose access to your account.
                                                                                         </li>
                                                                                     </ul>
                                                                                 </InfoBox>
@@ -398,11 +395,7 @@ class CreateUser extends React.Component {
                                                                                                 device when you use your
                                                                                                 Vault.
                                                                                             </li>
-                                                                                            <li>If you lose your device
-                                                                                                before exporting your
-                                                                                                security key you will
-                                                                                                not be able to access
-                                                                                                your wallet.
+                                                                                            <li>If you lose your device or uninstall the wallet before exporting your secret file, you will lose access to your account.
                                                                                             </li>
                                                                                         </ul>
                                                                                     </InfoBox>
