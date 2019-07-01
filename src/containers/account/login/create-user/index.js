@@ -199,7 +199,7 @@ class CreateUser extends React.Component {
                                     <InfoBox className={'dark-info'}>
                                         <ul className={'marked-list'}>
                                             <li className={'check-icon'}>The most secure Apollo Wallet.</li>
-                                            <li className={'check-icon'}>You can log in to this wallet using your
+                                            <li className={'check-icon'}>You can log in using your
                                                 Account ID.
                                             </li>
                                             <li className={'check-icon'}>The wallet is encrypted (via Secret File) on one
@@ -211,7 +211,7 @@ class CreateUser extends React.Component {
                                             <li className={'check-icon'}>2FA works from any device when you use your
                                                 Vault.
                                             </li>
-                                            <li className={'minus-icon'}>If you loose your device before export your
+                                            <li className={'minus-icon'}>If you lose your device before exporting your
                                                 Secret File you will not be able to access your wallet.
                                             </li>
                                         </ul>
