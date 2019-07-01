@@ -93,7 +93,6 @@ class MarketplaceDelete extends React.Component {
                 closeModal={this.props.closeModal}
                 isAdvanced
                 isFee
-                isWide
                 marketplace={{
                     priceATM: goods ? goods.priceATM : null,
                     name: goods ? goods.name : null,
