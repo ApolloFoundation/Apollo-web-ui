@@ -80,12 +80,12 @@ class SendApollo extends React.Component {
 	render() {
 		return (
 			<ModalBody
-				modalTitle={'Send Money'}
+				modalTitle={'Create transaction'}
 				closeModal={this.props.closeModal}
 				handleFormSubmit={(values) => this.handleFormSubmit(values)}
 				isFee
 				isAdvanced				
-				submitButtonName={'Send Apollo'}
+				submitButtonName={'Send'}
 				idGroup={'send-money-modal-'}
 			>
 

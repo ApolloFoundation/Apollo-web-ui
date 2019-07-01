@@ -106,7 +106,7 @@ class SellForm extends React.Component {
                     });
                 }
             } else {
-                NotificationManager.error('Price and amount are required fields', 'Error', 5000);
+                NotificationManager.error('Price and amount are required', 'Error', 5000);
             }
         } else {
             this.props.handleLoginModal();

@@ -31,7 +31,7 @@ class RemoveMonitor extends React.Component {
     handleFormSubmit = async values => {
         console.warn("values", values);
         if (!values.phrase) {
-            NotificationManager.error("Secret phrase is a required field", "Error", 5000);
+            NotificationManager.error("Secret phrase is required", "Error", 5000);
         }
 
         const toSend = {

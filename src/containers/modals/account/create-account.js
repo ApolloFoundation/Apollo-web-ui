@@ -222,8 +222,7 @@ class CreateUser extends React.Component {
                                                                                         <li>The most secure Apollo
                                                                                             Wallet.
                                                                                         </li>
-                                                                                        <li>You can log in to this
-                                                                                            wallet using your Account
+                                                                                        <li>You can log in using your Account
                                                                                             ID.
                                                                                         </li>
                                                                                         <li>The wallet is encrypted (via
@@ -236,10 +235,7 @@ class CreateUser extends React.Component {
                                                                                         <li>2FA works from any device
                                                                                             when you use your Vault.
                                                                                         </li>
-                                                                                        <li>If you loose your device
-                                                                                            before export your security
-                                                                                            key you will not be able to
-                                                                                            access your wallet.
+                                                                                        <li>If you lose your device or uninstall the wallet before exporting your secret file, you will lose access to your account.
                                                                                         </li>
                                                                                     </ul>
                                                                                 </InfoBox>
@@ -384,8 +380,7 @@ class CreateUser extends React.Component {
                                                                                             <li>The most secure Apollo
                                                                                                 Wallet.
                                                                                             </li>
-                                                                                            <li>You can log in to this
-                                                                                                wallet using your
+                                                                                            <li>You can log in using your
                                                                                                 Account ID.
                                                                                             </li>
                                                                                             <li>The wallet is encrypted
@@ -400,11 +395,7 @@ class CreateUser extends React.Component {
                                                                                                 device when you use your
                                                                                                 Vault.
                                                                                             </li>
-                                                                                            <li>If you loose your device
-                                                                                                before export your
-                                                                                                security key you will
-                                                                                                not be able to access
-                                                                                                your wallet.
+                                                                                            <li>If you lose your device or uninstall the wallet before exporting your secret file, you will lose access to your account.
                                                                                             </li>
                                                                                         </ul>
                                                                                     </InfoBox>

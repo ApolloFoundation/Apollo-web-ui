@@ -58,7 +58,7 @@ class PrivateTransactions extends React.Component {
                 nameModel={this.props.nameModal}
             >
                 <InfoBox info>
-                    You can start forging only if your effective balance exceed 1000 APL.
+                    Your effective balance must be greater than 1000 APL to forge.
                 </InfoBox>
 
                 <TextualInputComponent

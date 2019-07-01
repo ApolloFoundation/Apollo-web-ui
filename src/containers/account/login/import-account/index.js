@@ -89,7 +89,7 @@ class ImportAccount extends React.Component {
 
     handleEnterAccount = (values) => {
         if (values.account !== this.state.importAccount.accountRS) {
-            NotificationManager.error('Account do not match each other', 'Error', 5000);
+            NotificationManager.error('Accounts do not match', 'Error', 5000);
             return;
         }
         if (values.passphrase !== this.state.importAccount.passphrase) {
@@ -162,9 +162,9 @@ class ImportAccount extends React.Component {
                                             <ul className={'marked-list'}>
                                                 <li className={'danger-icon'}>
                                                     {this.state.format !== 'file' ? (
-                                                        <span>Please enter your account secret key.</span>
+                                                        <span>Please note that after import of the secret key the usage of the same vault wallet on different nodes will cause creation of different ETH, PAX, BTC wallets for each node.</span>
                                                     ) : (
-                                                        <span>Please notice that usage of the same vault wallet on different nodes will cause creation of different ETH, PAX, BTC wallets for each node.</span>
+                                                        <span>Please enter your account secret file.</span>
                                                     )}
                                                 </li>
                                             </ul>

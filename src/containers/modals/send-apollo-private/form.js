@@ -36,7 +36,7 @@ const SendPrivateMoneyForm = ({values, setValue, modalData, idGroup, useMixer, m
             useMixer &&
             <InfoBox info>
                 Your money will be sent directly to mixer account and during estimated mixing
-                time, money will be transmitted to recipient account.
+                time, money will be transferred to recipient's account.
             </InfoBox>
         }
         <NummericInputForm

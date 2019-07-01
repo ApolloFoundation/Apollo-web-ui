@@ -12,7 +12,7 @@ export const handleFormSubmit = function (values) {
     const {store : {dispatch}} = this;
 
     if (!values.recipient) {
-        NotificationManager.error('Recipient is a required field.', 'Error', 5000);
+        NotificationManager.error('Recipient is required.', 'Error', 5000);
         return;
     }
 
