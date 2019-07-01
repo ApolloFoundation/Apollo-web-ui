@@ -115,7 +115,7 @@ export function getUpdateStatus() {
                     }
                 }
                 if (res.data.isUpdate) {
-                    NotificationManager.error('You current version is expired. Available new version: ' + res.data.level, 'Attention', 900000);
+                    NotificationManager.error('Your current version is expired. New version is available: ' + res.data.level, 'Attention', 900000);
                 }
             }
         })

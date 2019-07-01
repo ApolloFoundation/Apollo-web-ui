@@ -48,9 +48,9 @@ class PayDividends extends React.Component {
             feeATM: values.feeATM,
         };
 
-        this.props.processForm(values, 'dividendPayment', 'Dividends have been payed!', () => {
+        this.props.processForm(values, 'dividendPayment', 'Dividends paid!', () => {
             this.props.setBodyModalParamsAction(null, {});
-            NotificationManager.success('Dividends have been payed!', null, 5000);
+            NotificationManager.success('Dividends paid!', null, 5000);
         })
     };
 

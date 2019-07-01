@@ -93,8 +93,7 @@ class ExportAccount extends React.Component {
                     <ul className={'marked-list'}>
                         <li className={'danger-icon'}>
                             <strong>Attention!</strong><br/>
-                            Please, check your wallets to make sure there are no funds on them. Deleting a key
-                            from the node may lead to funds loss.
+                            Please, check your wallets to make sure there are no funds on them. Deleting a key from the node may lead to the loss of all funds.
                         </li>
                     </ul>
                 </InfoBox>
@@ -139,7 +138,7 @@ class ExportAccount extends React.Component {
                             If you delete this account data you will need to import this secret key to
                             login again.
                             <br/>
-                            Do you wish to delete it?
+                            Do you want to delete it?
                             <br/>
                             <button
                                 type={'button'}

@@ -38,7 +38,7 @@ class OfferCurrency extends React.Component {
 
     handleFormSubmit = (values) => {
         if (!this.state.currency) {
-            NotificationManager.error('Can not create an offer with zero balance of the currency.', 'Error', 5000)
+            NotificationManager.error('Impossible to create an offer with zero balance of currency.', 'Error', 5000)
             return;
         }
         const {currency, decimals} = this.state.currency;

@@ -1535,7 +1535,7 @@
   "delete_property": "Delete Property",
   "participants": "Participants",
   "shuffler": "Shuffler",
-  "shuffling_recipient_passphrase_warning": "Use a strong recipient passphrase and do not forget it !",
+  "shuffling_recipient_passphrase_warning": "Use the recipient's strong secret phrase and do not forget it!",
   "shuffling_node_running_warning": "After creating or joining a shuffling, you must keep your node online and your shuffler running, leaving enough funds in your account to cover the shuffling fees, until the shuffling completes! If you don't and miss your turn, you will be fined.",
   "in_progress": "In Progress",
   "already_joined": "Already Joined",

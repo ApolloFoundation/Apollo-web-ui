@@ -89,7 +89,7 @@ class ImportAccount extends React.Component {
 
     handleEnterAccount = (values) => {
         if (values.account !== this.state.importAccount.accountRS) {
-            NotificationManager.error('Account do not match each other', 'Error', 5000);
+            NotificationManager.error('Accounts do not match', 'Error', 5000);
             return;
         }
         if (values.passphrase !== this.state.importAccount.passphrase) {

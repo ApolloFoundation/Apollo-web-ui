@@ -76,17 +76,17 @@ class SendApolloPrivate extends React.Component {
                 });
 
                 if (values.amountATM < 100) {
-                    NotificationManager.error('Minimal amountATM shold exceed 100 APL while using mixer.', 'Error', 5000);
+                    NotificationManager.error('To use mixer you should send at least 100 APL.', 'Error', 5000);
                     return;
                 }
 
                 if (values.duration < 15) {
-                    NotificationManager.error('Mixing duration should downplay 15 minutes.', 'Error', 5000);
+                    NotificationManager.error('The mixing time should be at least 15 minutes.', 'Error', 5000);
                     return;
                 }
 
                 if (values.duration > 11000) {
-                    NotificationManager.error('Mixing duration should exceed 11000 minutes.', 'Error', 5000);
+                    NotificationManager.error('The mixing time should not exceed 11000 minutes.', 'Error', 5000);
                     return;
                 }
 
@@ -132,7 +132,7 @@ class SendApolloPrivate extends React.Component {
     render() {
         return (
             <ModalBody
-                modalTitle={'Send Apollo Private'}
+                modalTitle={'Send Private transaction'}
                 closeModal={this.props.closeModal}
                 handleFormSubmit={(values) => this.handleFormSubmit(values)}
                 isAdvanced
@@ -142,8 +142,7 @@ class SendApolloPrivate extends React.Component {
             >
                 {!this.state.isPrivateTransactionAlert && (
                     <InfoBox info>
-                        Private transactions currently protect down to the API level. Database level
-                        protection will start with Olympus 2.0 <br/>
+                        Private transactions are currently protected on the API level. Database level protection will be launched with Olympus 2.0.<br/>
                         <button
                             type={'button'}
                             className={'btn btn-default mt-3'}

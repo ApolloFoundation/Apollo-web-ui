@@ -44,7 +44,7 @@ class TotalBalance extends Component {
 
     handleSetForging = async (action) => {
         if (!this.props.effectiveBalanceAPL || this.props.effectiveBalanceAPL < 1000) {
-            NotificationManager.error('You can start forging only if your effective balance exceed 1000 APL.', 'Error', 5000);
+            NotificationManager.error('Your effective balance must be greater than 1000 APL to forge.', 'Error', 5000);
             return;
         }
         const passPhrase = JSON.parse(localStorage.getItem('secretPhrase')) || this.props.secretPhrase;
