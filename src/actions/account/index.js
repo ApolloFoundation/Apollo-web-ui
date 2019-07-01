@@ -242,12 +242,7 @@ export const removeAccountAction = async (requestParams) => {
 export const generatePDF = (args) => {
     // e.preventDefault();
 
-    let doc = new jsPDF({
-        // orientation: 'landscape',
-        unit: 'in',
-        // format: [4, 2]  // tinggi, lebar
-        format: [116,9, 82,7]
-    });
+    let doc = new jsPDF();
 
     var today = new Date();
     var dd = today.getDate();
@@ -256,18 +251,18 @@ export const generatePDF = (args) => {
 
 
     doc.setFontSize(15);
-    doc.text('Apollo Paper Wallet', 0.5, 0.5);
+    doc.text('Apollo Paper Wallet', 15, 15);
     doc.setFontSize(10);
-    doc.text(`${yyyy}/${mm}/${dd}`, 0.5, 0.8 + (0.3))
+    doc.text(`${yyyy}/${mm}/${dd}`, 15, 24 + (6));
 
     args.map((arg, index) => {
-        doc.text(`${arg.name}:`, 0.5, 0.8 + (0.3 * (2 + (1 * 10 * index))))
-        doc.text(`${arg.value}`, 0.5, 0.8 + (0.3 * (3 + (1 * 10 * index))))
+        doc.text(`${arg.name}:`, 15, 24 + (6 * (2 + (10 * index))));
+        doc.text(`${arg.value}`, 15, 24 + (6 * (3 + (10 * index))));
 
         QRCode.toDataURL(arg.value, function (err, url) {
-            doc.addImage( url, 'SVG', 0.5, 1.9 + (3 * index), 1.9, 1.9)
+            doc.addImage( url, 'SVG', 15, 24 + (6 * (4 + (10 * index))), 48, 48);
         })
-    })
+    });
 
     doc.save(`apollo-wallet-${args[0].value}`)
-}
+};
