@@ -186,7 +186,7 @@ class Settings extends React.Component {
                                                             {
                                                                 !this.props.is2FA &&
                                                                 <div className="form-sub-title">
-                                                                    The 2FA currently disabled on this account. You can
+                                                                    The 2FA is currently disabled on this account. You can
                                                                     increase
                                                                     your wallet security with this option.
                                                                 </div>
@@ -194,7 +194,7 @@ class Settings extends React.Component {
                                                             {
                                                                 this.props.is2FA &&
                                                                 <div className="form-sub-title">
-                                                                    The 2FA currently enabled on this account.
+                                                                    The 2FA is currently enabled on this account.
                                                                 </div>
                                                             }
                                                         </div>

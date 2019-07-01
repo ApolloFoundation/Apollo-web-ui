@@ -520,7 +520,7 @@ class ExchangeBooth extends React.Component {
 
                                                                                 <div className="input-group-append">
                                                                                     <span className="input-group-text"
-                                                                                          id="amountText">{this.state.code}</span>
+                                                                                          id="amountText">APL/{this.state.code}</span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -540,7 +540,7 @@ class ExchangeBooth extends React.Component {
                                                                                 }
                                                                                 <div className="input-group-append">
                                                                                     <span className="input-group-text"
-                                                                                          id="amountText">{this.state.code}</span>
+                                                                                          id="amountText">APL/{this.state.code}</span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -550,7 +550,7 @@ class ExchangeBooth extends React.Component {
                                                                             field="rateATM"
                                                                             type={"tel"}
                                                                             placeholder="Price"
-                                                                            counterLabel={this.state.code}
+                                                                            counterLabel={'APL'}
                                                                             disabled
                                                                         />
                                                                         <button
@@ -612,7 +612,7 @@ class ExchangeBooth extends React.Component {
                                                                                 }
                                                                                 <div className="input-group-append">
                                                                                     <span className="input-group-text"
-                                                                                          id="amountText">{this.state.code}</span>
+                                                                                          id="amountText">APL/{this.state.code}</span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -632,7 +632,7 @@ class ExchangeBooth extends React.Component {
                                                                                 }
                                                                                 <div className="input-group-append">
                                                                                     <span className="input-group-text"
-                                                                                          id="amountText">{this.state.code}</span>
+                                                                                          id="amountText">APL/{this.state.code}</span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -642,7 +642,7 @@ class ExchangeBooth extends React.Component {
                                                                             field="rateATM"
                                                                             type={"tel"}
                                                                             placeholder="Price"
-                                                                            counterLabel={this.state.code}
+                                                                            counterLabel={'APL'}
                                                                             disabled
                                                                         />
                                                                         <button
@@ -651,7 +651,7 @@ class ExchangeBooth extends React.Component {
                                                                                 'disabled': !(!!parseInt(getFormState().values.rateATM)),
                                                                             })}
                                                                         >
-                                                                            Buy (APL > {this.state.code})
+                                                                            Buy ({this.state.code} > APL)
                                                                         </button>
                                                                     </form>
                                                                 )
