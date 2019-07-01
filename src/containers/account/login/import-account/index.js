@@ -162,9 +162,9 @@ class ImportAccount extends React.Component {
                                             <ul className={'marked-list'}>
                                                 <li className={'danger-icon'}>
                                                     {this.state.format !== 'file' ? (
-                                                        <span>Please enter your account secret key.</span>
+                                                        <span>Please note that after import of the secret key the usage of the same vault wallet on different nodes will cause creation of different ETH, PAX, BTC wallets for each node.</span>
                                                     ) : (
-                                                        <span>Please notice that usage of the same vault wallet on different nodes will cause creation of different ETH, PAX, BTC wallets for each node.</span>
+                                                        <span>Please enter your account secret file.</span>
                                                     )}
                                                 </li>
                                             </ul>
