@@ -35,10 +35,9 @@ class TradeHistoryItem extends React.Component {
                     <td className="blue-link-text">
                         <a onClick={() => this.props.setBodyModalParamsAction('INFO_TRANSACTION', this.state.transfer.offer)}>{this.state.transfer.offer}</a>
                     </td>
-                    <td>
-                        <Link key={uuid()}
-                              style={{display: 'block'}}
-                              to={"/exchange-booth/" + (this.state ? this.state.code : "")}
+                    <td className="blue-link-text">
+                        <Link
+                            to={"/exchange-booth/" + (this.state.transfer.code || "")}
                         >
                             {this.state.transfer.name}
                         </Link>

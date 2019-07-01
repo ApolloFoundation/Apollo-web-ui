@@ -27,7 +27,7 @@ class ConfirmForging extends React.Component {
 
     handleFormSubmit = async (params) => {
         if (!this.props.balanceATM || (this.props.balanceATM / ONE_APL) < 1000) {
-            NotificationManager.error('You can start forging only if your effective balance exceed 1000 APL.', 'Error', 5000);
+            NotificationManager.error('Your effective balance must be greater than 1000 APL to forge.', 'Error', 5000);
             return;
         }
         const action = this.props.action.getStatus;
@@ -81,7 +81,7 @@ class ConfirmForging extends React.Component {
             >
                 {action.getStatus === 'startForging' && (
                     <InfoBox info>
-                        You can start forging only if your effective balance exceed 1000 APL.
+                        Your effective balance must be greater than 1000 APL to forge.
                     </InfoBox>
                 )}
 

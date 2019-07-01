@@ -29,7 +29,7 @@ class AddMonitor extends React.Component {
 
     handleFormSubmit = async values => {
         if (!values.phrase) {
-            NotificationManager.error("Secret phrase is a required field", "Error", 5000);
+            NotificationManager.error("Secret phrase is required", "Error", 5000);
         }
 
         const toSend = {

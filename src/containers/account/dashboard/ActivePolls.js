@@ -8,7 +8,7 @@ import ContentLoader from "../../components/content-loader";
 const ActivePolls = ({dashboardActivePolls, setBodyModalParamsAction}) => (
     <div className={`card card-light card-h-255`}>
         <div className="card-title">
-            <div className={'title'}>Active Pools</div>
+            <div className={'title'}>Active Poll</div>
         </div>
         <div className="card-body">
             <div className={'d-flex flex-column justify-content-between h-100'}>
@@ -36,7 +36,7 @@ const ActivePolls = ({dashboardActivePolls, setBodyModalParamsAction}) => (
                     className={'btn btn-grey btn-lg'}
                     onClick={() => setBodyModalParamsAction('ISSUE_POLL')}
                 >
-                    <span>Create pool</span>
+                    <span>Create poll</span>
                     <div className={'btn-arrow'}>
                         <ArrowRight/>
                     </div>

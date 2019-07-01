@@ -62,14 +62,8 @@ class AccountDetails extends React.Component {
     generatePDFStandard = (credentials) => {
         // e.preventDefault();
 
-        let doc = new jsPDF({
-            // orientation: 'landscape',
-            unit: 'in',
-            // format: [4, 2]  // tinggi, lebar
-            format: [this.state.tinggi, this.state.lebar]
-        });
+        let doc = new jsPDF();
 
-        var qrcode;
         var today = new Date();
         var dd = today.getDate();
         var mm = today.getMonth()+1; //January is 0!
@@ -77,29 +71,28 @@ class AccountDetails extends React.Component {
 
 
         doc.setFontSize(15);
-        doc.text('Apollo Paper Wallet', 0.5, 0.5);
+        doc.text('Apollo Paper Wallet', 15, 15);
         doc.setFontSize(10);
-
-        doc.text(`${yyyy}/${mm}/${dd}`, 0.5, 0.8 + (0.3))
-        doc.text(`${credentials[0].name}:`, 0.5, 0.8 + (0.3 * 2))
-        doc.text(`${credentials[0].value}`, 0.5, 0.8 + (0.3 * 3))
+        doc.text(`${yyyy}/${mm}/${dd}`, 15, 30);
+        doc.text(`${credentials[0].name}:`, 15, 36);
+        doc.text(`${credentials[0].value}`, 15, 42);
 
         QR.toDataURL(credentials[0].value, function (err, url) {
-            doc.addImage( url, 'SVG', 0.5, 1.9, 1.9, 1.9)
-        })
+            doc.addImage( url, 'SVG', 15, 48, 48, 48)
+        });
 
         doc.save(`apollo-wallet-${credentials[0].value}`)
     };
 
     formatControlType = (type) => {
         switch (type) {
-            case 0: return 'Control by account'
+            case 0: return 'Control by account';
             case 1: return 'Control by account balance';
             case 2: return 'Control by asset balance';
-            case 3: return 'Contorl by currency balance';
+            case 3: return 'Control by currency balance';
             default: return null;
         }
-    }
+    };
 
     render() {
         const {phasingControl} = this.state;

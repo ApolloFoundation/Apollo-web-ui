@@ -25,7 +25,7 @@ class WithdrawCurrency extends React.Component {
         if (!this.state.isPending) {
 
             if (!values.toAddress) {
-                NotificationManager.error('To wallet is required field.', 'Error', 5000);
+                NotificationManager.error('To wallet is required.', 'Error', 5000);
                 return;
             }
             if (!values.amount) {
