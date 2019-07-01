@@ -32,24 +32,19 @@ const CastVoteForm = ({currencyHint, assetHint, poll, votes, getFormState, setVa
                     poll && 
                     votes &&
                     poll.maxRangeValue > 1 &&
-                    <div className="row form-group-grey">
-                        <div className={`col-md-3 pl-0`}>
-                            <span>Select option</span>
-                        </div>
-                        
-                        <div className={`col-md-9 offset-md-3`}>
-                            <div className="form-check custom-checkbox mb-15">
-                                {Object.keys(votes).map((el) =>
-                                    <CustomRange 
-                                        setValue={setValue}
-                                        label={votes[el]}
-                                        min={poll.minRangeValue}
-                                        max={poll.maxRangeValue}
-                                        el={el}
-                                        getFormState={getFormState}
-                                    />
-                                )}
-                            </div>
+                    <div className="mb-15">
+                        <label>Select option</label>
+                        <div className="form-check custom-checkbox mb-15 pl-0">
+                            {Object.keys(votes).map((el) =>
+                                <CustomRange
+                                    setValue={setValue}
+                                    label={votes[el]}
+                                    min={poll.minRangeValue}
+                                    max={poll.maxRangeValue}
+                                    el={el}
+                                    getFormState={getFormState}
+                                />
+                            )}
                         </div>
                     </div>
                     
