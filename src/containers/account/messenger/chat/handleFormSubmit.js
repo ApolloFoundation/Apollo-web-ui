@@ -14,7 +14,7 @@ export const handleSendMessageFormSubmit = (values, formApi) => {
         }
 
         if (values.message.length > 100) {
-            NotificationManager.error('Message length should not be grater than 100 symbols.', 'Error', 5000);
+            NotificationManager.error('Message must not exceed 100 characters.', 'Error', 5000);
             return;
         }
 
@@ -43,7 +43,7 @@ export const handleSendMessageFormSubmit = (values, formApi) => {
         }, 'sendMessage'));
     
         if (res && res.errorCode === 4) {
-            NotificationManager.error('Message length should not be grater than 100 symbols.', 'Error', 5000);
+            NotificationManager.error('Message must not exceed 100 characters.', 'Error', 5000);
             return;
         }
         if (res && res.errorCode === 6) {
