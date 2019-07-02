@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import {getDGSTagsAction,} from '../../../../actions/marketplace'
 import uuid from 'uuid';
 import {Link, withRouter} from 'react-router-dom';
+import AccountRS from "../../../components/account-rs";
 
 class MarketplaceTags extends Component {
     state = {
@@ -104,13 +105,12 @@ class MarketplaceTags extends Component {
                                                 className="iconned-input-field"
                                                 onSubmit={submitForm}
                                             >
-                                                <InputMask mask='APL-****-****-****-*****' value={this.state.value}  onChange={(e) => {if (e.target) setValue('recipient', e.target.value)}}>
-                                                    {(inputProps) => {
-                                                        return (
-                                                            <Text  {...inputProps} field="seller" placeholder="Seller`s Account ID" />
-                                                        );
-                                                    }}
-                                                </InputMask>
+                                                <AccountRS
+                                                    field={'seller'}
+                                                    setValue={setValue}
+                                                    noContactList
+                                                    placeholder="Seller's Account ID"
+                                                />
                                                 <button className="search-icon">
                                                     <i className="zmdi zmdi-search" />
                                                 </button>
