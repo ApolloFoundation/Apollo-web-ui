@@ -220,10 +220,16 @@
 			input[type='checkbox'] {
 				margin-left: 0;
 			}
+
+			.checkbox-group {
+				white-space: nowrap;
+			}
+
 			.btn {
 				position: relative;
 				margin-left: 15px;
 				white-space: pre;
+				min-width: auto;
 			}
 
 			@media(max-width: 768px) {
