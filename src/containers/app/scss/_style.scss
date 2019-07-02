@@ -536,14 +536,21 @@ input {
         }
       }
       &.sidebar-content-page {
+        .card {
+          height: auto;
+          min-height: calc(100vh - 183px);
+        }
         &.messenger-height {
           .card {
             height: calc(100vh - 183px);
           }
         }
-        .card {
-          height: auto;
-          min-height: calc(100vh - 183px);
+        &.followed-polls-container {
+          .followed-pools {
+            .card {
+              min-height: auto;
+            }
+          }
         }
       }
     }
