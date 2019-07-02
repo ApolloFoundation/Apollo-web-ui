@@ -4,10 +4,24 @@ import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {handleSendMessageFormSubmit} from './handleFormSubmit';
 import {CheckboxFormInput} from "../../../components/form-components/check-button-input";
+import classNames from "classnames";
 
 class ChatForm extends React.PureComponent {
-    handleSendMessageFormSubmit = (values) =>
-        this.props.handleSendMessageFormSubmit({...values, recipient: this.props.match.params.chat, resetForm: this.resetForm});
+    state = {
+        isPending: false,
+    };
+
+    handleSendMessageFormSubmit = async (values) => {
+        if (!this.state.isPending) {
+            this.setState({isPending: true});
+            await this.props.handleSendMessageFormSubmit({
+                ...values,
+                recipient: this.props.match.params.chat,
+                resetForm: this.resetForm
+            });
+            this.setState({isPending: false});
+        }
+    };
 
     resetForm = () => {
         if (this.props.form) this.props.form.resetAll();
@@ -65,9 +79,21 @@ class ChatForm extends React.PureComponent {
                                         placeholder={'2FA Code'}
                                         type="password"/>
                                 }
-
-                                <button type="submit" className="btn btn-green">
-                                    Send Message
+                                <button
+                                    type="submit"
+                                    className={classNames({
+                                        "btn btn-green submit-button": true,
+                                        "loading btn-green-disabled": this.state.isPending,
+                                    })}
+                                >
+                                    <div className="button-loader">
+                                        <div className="ball-pulse">
+                                            <div/>
+                                            <div/>
+                                            <div/>
+                                        </div>
+                                    </div>
+                                    <span className={'button-text'}>Send Message</span>
                                 </button>
                             </div>
                         </div>
