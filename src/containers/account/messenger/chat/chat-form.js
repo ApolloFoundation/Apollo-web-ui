@@ -11,10 +11,7 @@ class ChatForm extends React.PureComponent {
     };
 
     handleSendMessageFormSubmit = (values) =>
-        this.props.handleSendMessageFormSubmit(
-            {...values, recipient: this.props.match.params.chat, resetForm: this.resetForm},
-            this.props.form,
-        );
+        this.props.handleSendMessageFormSubmit({...values, recipient: this.props.match.params.chat, resetForm: this.resetForm});
 
     resetForm = () => {
         if (this.props.form) this.props.form.resetAll();
