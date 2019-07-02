@@ -39,7 +39,7 @@ class TradeHistoryItem extends React.Component {
                         <Link
                             to={"/exchange-booth/" + (this.state.transfer.code || "")}
                         >
-                            {this.state.transfer.name}
+                            {this.state.transfer.code}
                         </Link>
                     </td>
                     <td className="blue-link-text">
