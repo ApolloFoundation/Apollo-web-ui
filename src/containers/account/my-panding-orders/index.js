@@ -36,8 +36,6 @@ class MyProductsForSale extends React.Component {
             lastIndex: this.state.lastIndex
         });
         BlockUpdater.on("data", data => {
-            console.warn("height in dashboard", data);
-            console.warn("updating dashboard");
             this.updateDgsGoods();
         });
     }
@@ -50,14 +48,6 @@ class MyProductsForSale extends React.Component {
             lastIndex: this.state.lastIndex
         });
     };
-
-    componentWillReceiveProps(newState) {
-        this.setState({
-            ...newState
-        }, () => {
-            this.updateDgsGoods();
-        });
-    }
 
     onPaginate(page) {
         let reqParams = {
@@ -78,7 +68,6 @@ class MyProductsForSale extends React.Component {
 
         if (getDGSGoods) {
             this.setState({
-                ...this.state,
                 getDGSGoods: getDGSGoods.purchases
             })
         }

@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import MarketplaceItem from "../../account/marketplace/marketplace-card";
 
-const MarketplaceColumnTable = ({data, page, itemsPerPage = 15, deliver, emptyMessage}) => (
+const MarketplaceColumnTable = ({data, page, itemsPerPage = 15, onPaginate, deliver, emptyMessage, ...props}) => (
     <>
         <ContentHendler
             items={data}
@@ -24,6 +24,7 @@ const MarketplaceColumnTable = ({data, page, itemsPerPage = 15, deliver, emptyMe
                                 fluid={true}
                                 deliver={deliver}
                                 index={index}
+                                {...props}
                                 {...el}
                             />
                         </div>
@@ -35,6 +36,7 @@ const MarketplaceColumnTable = ({data, page, itemsPerPage = 15, deliver, emptyMe
                                 'btn btn-default' : true,
                                 'disabled' : page <= 1,
                             })}
+                            onClick={onPaginate && onPaginate.bind(this, page - 1)}
                         >
                             Previous
                         </button>
@@ -49,6 +51,7 @@ const MarketplaceColumnTable = ({data, page, itemsPerPage = 15, deliver, emptyMe
                                 'btn btn-default' : true,
                                 'disabled' : data.length < itemsPerPage,
                             })}
+                            onClick={onPaginate && onPaginate.bind(this, page + 1)}
                         >
                             Next
                         </button>

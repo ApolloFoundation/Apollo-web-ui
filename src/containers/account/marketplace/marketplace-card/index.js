@@ -39,7 +39,6 @@ const MarketplaceItem = (props, history) => {
                     'card-fluid': props.fluid,
                     "is-last-row": (props.index >= 4 && window.innerWidth > 1000) || (props.index > 2 && window.innerWidth > 720 && window.innerWidth < 1000)
                 })}
-                key={uuid()}
                 data-index={props.index}
                 data-sceen-size={window.innerWidth}
             >
@@ -86,12 +85,18 @@ const MarketplaceItem = (props, history) => {
                 ) : (
                     <React.Fragment>
                         <div className="card-title">
-                            <p
-                                className={'cursor-pointer'}
-                                onClick={() => props.setBodyModalParamsAction('MARKETPLACE_PURCHASE', (props.fluid && props.purchase) ? props.purchase : props.goods)}
-                            >
-                                {props.name}
-                            </p>
+                            {props.completedOrders ? (
+                                <p>
+                                    {props.name}
+                                </p>
+                            ) : (
+                                <p
+                                    className={'cursor-pointer'}
+                                    onClick={() => props.setBodyModalParamsAction('MARKETPLACE_PURCHASE', (props.fluid && props.purchase) ? props.purchase : props.goods)}
+                                >
+                                    {props.name}
+                                </p>
+                            )}
                         </div>
                         <div className="card-body">
                             <div className={'form-group-app'}>
@@ -248,7 +253,7 @@ const MarketplaceItem = (props, history) => {
                                                     <div>
                                                         {tagsArr.map((el, index) => (
                                                             <Link
-                                                                key={uuid()}
+                                                                key={`tag-item-${index}`}
                                                                 to={'/marketplace/' + el}
                                                                 className="btn filter"
                                                             >
