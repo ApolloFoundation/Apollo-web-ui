@@ -64,13 +64,15 @@ class MarketplaceDashboardFooter extends Component {
                 <div className="card justify-content-start mb-3">
                     <div className="card-title">
                         <span>Recent listings</span>
-                        <Link to="/recent-listing" className="btn btn-default btn-xs">View more</Link>
+                        {this.state.getDGSGoods && !!this.state.getDGSGoods.length && (
+                            <Link to="/recent-listing" className="btn btn-default btn-xs">View all</Link>
+                        )}
                     </div>
                     <div className="card-body">
                         {this.state.getDGSGoods ? (
                             <div className="form-group-app">
                                 <div className="row marketplace-row">
-                                    {(this.state.getDGSGoods && !!this.state.getDGSGoods.length) ? (
+                                    {(this.state.getDGSGoods && this.state.getDGSGoods.length > 0) ? (
                                         this.state.getDGSGoods.map((el, index) => {
                                             return (
                                                 <div key={el.goods} className="marketplace-row-item col-xl-2 pr-0">
@@ -97,10 +99,12 @@ class MarketplaceDashboardFooter extends Component {
                 <div className="card justify-content-start mb-3">
                     <div className="card-title">
                         <span>Recent purchases</span>
-                        <Link to="/purchased-products" className="btn btn-default btn-xs">View more</Link>
+                        {totalPurchasedProducts && !!totalPurchasedProducts.length && (
+                            <Link to="/purchased-products" className="btn btn-default btn-xs">View all</Link>
+                        )}
                     </div>
                     <div className="card-body">
-                        {this.state.getDGSGoods ? (
+                        {totalPurchasedProducts ? (
                             <div className="form-group-app">
                                 <div className="row marketplace-row">
                                     {(totalPurchasedProducts && !!totalPurchasedProducts.length) ? (
