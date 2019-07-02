@@ -328,6 +328,15 @@ export const getMessagesPerpage = (reqPrams) => {
     }
 };
 
+export const resetChatHistory = (reqParams) => {
+    return (dispatch, getState) => {
+        dispatch({
+            type: 'SET_CHAT_MESSAGES',
+            payload: null
+        });
+    }
+};
+
 export const getChatHistory = (reqParams) => {
     return (dispatch, getState) => {
         const {account: {account}} = getState();
@@ -336,7 +345,7 @@ export const getChatHistory = (reqParams) => {
             dispatch({
                 type: 'SET_CHAT_MESSAGES',
                 payload: null
-            })
+            });
             return;
         }
 
@@ -359,7 +368,7 @@ export const getChatHistory = (reqParams) => {
                 }
             })
     }
-}
+};
 
 export const getChatsPerPage = () => {
     return (dispatch, getState) => {
