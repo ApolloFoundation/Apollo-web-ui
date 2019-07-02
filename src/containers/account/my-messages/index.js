@@ -19,33 +19,31 @@ import ContentHendler from '../../components/content-hendler'
 import CustomTable from '../../components/tables/table';
 import {getMessagesPerpage} from '../../../actions/messager'
 
+const itemsPerPage = 15;
+
 class MyMessages extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             page: 1,
             firstIndex: 0,
-            lastIndex: 14,
+            lastIndex: itemsPerPage - 1,
             messages: null,
             isLoading: false,
             account: null
         };
     }
 
-    listener = () => {
-        const {page} = this.state;
-        this.props.getMessagesPerpage({
-            firstIndex: page * 15 - 15,
-            lastIndex: page * 15 - 1
-        });
-    };
+    listener = () => this.getMessagesPerpage();
 
     componentDidMount() {
-        this.props.getMessagesPerpage({firstIndex: 0, lastIndex: 14});
+        this.getMessagesPerpage();
 
         if (!BlockUpdater.listeners('data').length) {
             BlockUpdater.on("data", data => {
-                this.listener();
+                if (!this.state.isLoading) {
+                    this.listener();
+                }
             });
         }
     }
@@ -60,19 +58,38 @@ class MyMessages extends React.Component {
         BlockUpdater.removeAllListeners('data');
     }
 
+    getMessagesPerpage = async (pagination) => {
+        this.setState({isLoading: true});
+        if (!pagination) {
+            pagination = {
+                page: this.state.page,
+                firstIndex: this.state.firstIndex,
+                lastIndex: this.state.lastIndex
+            };
+        }
+
+        await this.props.getMessagesPerpage({
+            firstIndex: pagination.firstIndex,
+            lastIndex: pagination.lastIndex
+        });
+
+        this.setState({
+            ...pagination,
+            isLoading: false
+        });
+    };
+
     onPaginate = (page) => {
-        let reqParams = {
-            firstIndex: page * 15 - 15,
-            lastIndex: page * 15 - 1
+        const pagination = {
+            page: page,
+            firstIndex: page * itemsPerPage - itemsPerPage,
+            lastIndex: page * itemsPerPage - 1
         };
 
-        this.props.getMessagesPerpage(reqParams);
-
-        this.setState({page});
+        this.getMessagesPerpage(pagination);
     };
 
     render() {
-        const {page} = this.state;
         const {messages, setBodyModalParamsAction} = this.props;
 
         return (
@@ -110,10 +127,11 @@ class MyMessages extends React.Component {
                         ]}
                         emptyMessage={'No messages found.'}
                         className={'mb-3'}
-                        page={page}
                         TableRowComponent={MessageItem}
                         tableData={messages}
                         isPaginate
+                        itemsPerPage={itemsPerPage}
+                        page={this.state.page}
                         previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
                         nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
                     />
