@@ -322,10 +322,11 @@ export const getMessagesPerpage = (reqPrams) => {
             dispatch({
                 type: 'SET_MESSAGES',
                 payload: await dispatch(formatMessages(messages.transactions))
-            })
+            });
+            return messages.transactions;
         }
     }
-}
+};
 
 export const getChatHistory = (reqParams) => {
     return (dispatch, getState) => {
