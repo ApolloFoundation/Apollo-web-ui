@@ -13,18 +13,13 @@ class ChatForm extends React.PureComponent {
     handleSendMessageFormSubmit = (values) =>
         this.props.handleSendMessageFormSubmit(
             {...values, recipient: this.props.match.params.chat, resetForm: this.resetForm},
-            this.state.form,
+            this.props.form,
         );
 
     resetForm = () => {
+        if (this.props.form) this.props.form.resetAll();
         this.setState({
             textareaCount: 0
-        })
-    };
-
-    getFormApi = (form) => {
-        this.setState({
-            form
         })
     };
 
@@ -32,7 +27,7 @@ class ChatForm extends React.PureComponent {
         return (
             <Form
                 onSubmit={(values) => this.handleSendMessageFormSubmit(values)}
-                getApi={this.getFormApi}
+                getApi={this.props.getFormApi}
                 render={({
                              submitForm, values, addValue, removeValue, setValue, getFormState
                          }) => (
