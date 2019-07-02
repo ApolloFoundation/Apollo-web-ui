@@ -15,6 +15,8 @@ import MarketplaceItem from "../marketplace/marketplace-card";
 import {BlockUpdater} from "../../block-subscriber/index";
 import InfoBox from "../../components/info-box"
 import ContentLoader from '../../components/content-loader'
+import ContentHendler from "../../components/content-hendler";
+import MarketplaceColumnTable from "../../components/marketplace-column-table";
 
 const itemsPerPage = 15;
 
@@ -39,9 +41,7 @@ class MyProductsForSale extends React.Component {
             completed: true
         });
         BlockUpdater.on("data", data => {
-            console.warn("height in dashboard", data);
-            console.warn("updating dashboard");
-            this.updateMyCompletedOrders(this.props);
+            this.updateMyCompletedOrders();
         });
     }
 
@@ -49,24 +49,15 @@ class MyProductsForSale extends React.Component {
         BlockUpdater.removeAllListeners('data');
     }
 
-    updateMyCompletedOrders = (newState) => {
-        this.setState({
-            ...newState
-        }, () => {
-            this.getDGSGoods({
-                requestType: 'getDGSPurchases',
-                seller: this.props.account,
-                firstIndex: this.state.firstIndex,
-                lastIndex: this.state.lastIndex,
-                completed: true
-            });
+    updateMyCompletedOrders = () => {
+        this.getDGSGoods({
+            requestType: 'getDGSPurchases',
+            seller: this.props.account,
+            firstIndex: this.state.firstIndex,
+            lastIndex: this.state.lastIndex,
+            completed: true
         });
     };
-
-    componentWillReceiveProps(newState) {
-        this.updateMyCompletedOrders(newState);
-
-    }
 
     onPaginate(page) {
         let reqParams = {
@@ -94,6 +85,7 @@ class MyProductsForSale extends React.Component {
     };
 
     render() {
+        const { getDGSGoods } = this.state;
         return (
             <div className="page-content">
                 <SiteHeader
@@ -102,61 +94,18 @@ class MyProductsForSale extends React.Component {
                 <div className="page-body container-fluid">
                     <div className={'marketplace'}>
                         <div className={'row'}>
-                            {this.state.getDGSGoods ? (
-                                !!this.state.getDGSGoods.length ? (
-                                    <>
-                                        {this.state.getDGSGoods.map((el, index) => {
-                                            return (
-                                                <div
-                                                    key={`completed-order-item-${index}`}
-                                                    className={'marketplace-item'}
-                                                >
-                                                    <MarketplaceItem
-                                                        tall={true}
-                                                        fluid={!this.state.isGrid}
-                                                        isHovered
-                                                        completedOrders
-                                                        index={index}
-                                                        {...el}
-                                                    />
-                                                </div>
-                                            );
-                                        })}
-                                        <div className="btn-box pagination">
-                                            <button
-                                                type={'button'}
-                                                className={classNames({
-                                                    'btn btn-default': true,
-                                                    'disabled': this.state.page <= 1,
-                                                })}
-                                                onClick={this.onPaginate.bind(this, this.state.page - 1)}
-                                            >
-                                                Previous
-                                            </button>
-                                            <div className='pagination-nav'>
-                                                <span>{this.state.page * itemsPerPage - itemsPerPage + 1}</span>
-                                                <span>&hellip;</span>
-                                                <span>{(this.state.page * itemsPerPage - itemsPerPage) + this.state.getDGSGoods.length}</span>
-                                            </div>
-                                            <button
-                                                type={'button'}
-                                                onClick={this.onPaginate.bind(this, this.state.page + 1)}
-                                                className={classNames({
-                                                    'btn btn-default': true,
-                                                    'disabled': this.state.getDGSGoods.length < itemsPerPage
-                                                })}
-                                            >
-                                                Next
-                                            </button>
-                                        </div>
-                                    </>
-                                ) : (
-                                    <InfoBox default>
-                                        No orders found.
-                                    </InfoBox>
-                                )
+                            {getDGSGoods && getDGSGoods.length ? (
+                                <MarketplaceColumnTable
+                                    data={getDGSGoods}
+                                    page={this.state.page}
+                                    onPaginate={this.onPaginate}
+                                    tall={true}
+                                    completedOrders
+                                />
                             ) : (
-                                <ContentLoader/>
+                                <InfoBox default>
+                                    No orders found.
+                                </InfoBox>
                             )}
                         </div>
                     </div>
