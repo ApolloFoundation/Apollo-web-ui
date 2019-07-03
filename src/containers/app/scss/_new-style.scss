@@ -160,8 +160,10 @@
 		&.card-square {
 			height: 315px;
 			min-height: 315px;
-			background-size: cover;
+			background-size: contain;
 			background-position: center;
+			background-repeat: no-repeat;
+			background-color: #000;
 		}
 
 		&.card-transactions {
