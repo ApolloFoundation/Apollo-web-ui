@@ -59,6 +59,9 @@ input {
       z-index: 0;
       padding: 85px 26px 0 26px !important;
       flex-direction: column;
+      @media(max-width: 1000px) {
+        padding: 78px 12px 0 12px !important;
+      }
       @media(max-width: 760px) {
         padding: 0 12px !important;
         min-height: auto;

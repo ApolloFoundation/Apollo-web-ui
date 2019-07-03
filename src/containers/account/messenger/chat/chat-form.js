@@ -56,29 +56,34 @@ class ChatForm extends React.PureComponent {
                                 />
                             </div>
                             <div className="bottom-bar">
-                                <CheckboxFormInput
-                                    className={'mb-0'}
-                                    setValue={setValue}
-                                    checkboxes={[
-                                        {
-                                            field: 'messageToEncrypt',
-                                            label: 'Encrypt message'
-                                        }
-                                    ]}
-                                />
-                                <Text
-                                    className={"form-control"}
-                                    field={'secretPhrase'}
-                                    placeholder={'Secret Phrase'}
-                                    type="password"/>
-                                {
-                                    this.props.is2FA &&
-                                    <Text
-                                        className={"form-control"}
-                                        field={'code2FA'}
-                                        placeholder={'2FA Code'}
-                                        type="password"/>
-                                }
+                                <div className={'bottom-bar-wrap'}>
+                                    <CheckboxFormInput
+                                        className={'mb-0'}
+                                        setValue={setValue}
+                                        checkboxes={[
+                                            {
+                                                field: 'messageToEncrypt',
+                                                label: 'Encrypt message'
+                                            }
+                                        ]}
+                                    />
+                                    <div className={'bottom-bar-input-wrap'}>
+                                        <Text
+                                            className={"form-control"}
+                                            field={'secretPhrase'}
+                                            placeholder={'Secret Phrase'}
+                                            type="password"
+                                        />
+                                        {this.props.is2FA && (
+                                            <Text
+                                                className={"form-control"}
+                                                field={'code2FA'}
+                                                placeholder={'2FA Code'}
+                                                type="password"
+                                            />
+                                        )}
+                                    </div>
+                                </div>
                                 <button
                                     type="submit"
                                     className={classNames({
