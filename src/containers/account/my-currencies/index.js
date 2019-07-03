@@ -148,6 +148,9 @@ class MyMadedCurrencies extends React.Component {
                                 name: 'Name',
                                 alignRight: false
                             },{
+                                name: 'Type',
+                                alignRight: false
+                            },{
                                 name: 'Units',
                                 alignRight: true
                             },{
