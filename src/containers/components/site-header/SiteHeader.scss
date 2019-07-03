@@ -169,9 +169,6 @@
 			display: flex;
 			align-items: center;
 			margin-right: 12px;
-			@media (max-width: 760px) {
-				margin-right: 0;
-			}
 
 			.searching-window-wrap {
 				position: relative;
