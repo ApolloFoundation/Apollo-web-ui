@@ -104,7 +104,6 @@ class App extends React.Component {
 
         getSavedAccountSettings();
         this.checkUrl();
-        // this.props.startBlockPullingAction();
         getUpdateStatus();
         if (!this.shareMessage) {
             isLoggedIn(this.props.history);
@@ -112,11 +111,20 @@ class App extends React.Component {
         getConstantsAction();
         this.setState({
             isMounted: true
-        })
+        });
 
 
         // Hints settings
         window.ReactHint = ReactHint;
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.location.pathname !== prevProps.location.pathname &&
+            this.props.location.pathname !== '/login' &&
+            this.props.location.pathname !== '/faucet'
+        ) {
+            this.props.isLoggedIn(this.props.history);
+        }
     }
 
     state = {
@@ -346,16 +354,11 @@ class App extends React.Component {
                         )}/>
 
 
-                        {
-                            !!this.props.account &&
-                            !this.props.loading &&
-                            <>
-                                {this.routers()}
-                            </> ||
-                            <>
-                                <PageLoader />
-                            </>
-                        }
+                        {(!!this.props.account && !this.props.loading) ? (
+                            this.routers()
+                        ) : (
+                            <PageLoader />
+                        )}
                     </Switch>
                     {
                         !this.props.loading && !isLoginPage &&
