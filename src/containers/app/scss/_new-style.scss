@@ -167,6 +167,12 @@
 		&.card-transactions {
 			height: calc(100vh - 397px);
 			min-height: 586px;
+			@media (min-width: 992px) {
+
+			}
+			@media(max-width: 425px) {
+				max-height: 586px;
+			}
 		}
 
 		&.triangle-bg {

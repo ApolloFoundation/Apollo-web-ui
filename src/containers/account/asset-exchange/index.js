@@ -293,7 +293,7 @@ class AssetExchange extends React.Component {
                 <SiteHeader
                     pageTitle={'Asset exchange'}
                 >
-                    {window.innerWidth < 768 && (
+                    {this.state.asset && window.innerWidth < 768 && (
                         <button
                             type={'button'}
                             onClick={this.goBack} className="btn btn-default btn-sm">

@@ -1627,6 +1627,15 @@ table {
 	.assets-exchange-not-selected {
 		height: calc(100vh - 183px);
 		min-height: fit-content !important;
+		@media (max-width: 1000px) {
+			height: calc(100vh - 130px);
+		}
+		@media (max-width: 767px) {
+			height: calc(100vh - 165px);
+		}
+		@media (max-width: 425px) {
+			height: calc(100vh - 165px);
+		}
 	}
 }
 
@@ -1808,10 +1817,11 @@ table {
 	padding: 35px;
 	//margin-top: 15px;
 	background-color: #fff;
-	color: #BBBBBB;
+	color: #8AA5C7;
 	
-	@media(max-width: 768px) {
+	@media(max-width: 767px) {
 		text-align: center;
+		padding: 12px;
 	}
 }
 
