@@ -6,18 +6,18 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
+import classNames from "classnames";
+import {NotificationManager} from "react-notifications";
 import {openPrevModal, saveSendModalState, setBodyModalParamsAction, setModalData} from '../../../modules/modals';
 import InputForm from '../../components/input-form';
 
 import submitForm from "../../../helpers/forms/forms";
-import {NotificationManager} from "react-notifications";
 import crypto from "../../../helpers/crypto/crypto";
 import ModalFooter from '../../components/modal-footer'
 
 import BackForm from '../modal-form/modal-form-container';
 import AccountRSFormInput from "../../components/form-components/account-rs";
-import classNames from "classnames";
-import NummericInputForm from "../../components/form-components/numeric-input";
+import FeeInputForm from "../../components/form-components/fee-input";
 
 class SetAccountProperty extends React.Component {
     constructor(props) {
@@ -125,14 +125,10 @@ class SetAccountProperty extends React.Component {
                                             setValue={setValue}/>
                                     </div>
                                 </div>
-                                <NummericInputForm
+                                <FeeInputForm
                                     field={'feeATM'}
-                                    counterLabel={'APL'}
-                                    type={'float'}
-                                    label={'Fee'}
+                                    values={values}
                                     setValue={setValue}
-                                    placeholder={'Fee'}
-                                    defaultValue={'1'}
                                 />
                                 <ModalFooter
                                     setValue={setValue}

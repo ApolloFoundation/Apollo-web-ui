@@ -10,6 +10,7 @@ import {ReactComponent as QrIcon} from "../../../assets/qr-icon.svg";
 import AccountRSFormInput from "../../components/form-components/account-rs";
 import NummericInputForm from "../../components/form-components/numeric-input";
 import ContentLoader from "../../components/content-loader";
+import FeeInputForm from "../../components/form-components/fee-input";
 
 class SendApollo extends Component {
     state = {
@@ -98,16 +99,11 @@ class SendApollo extends Component {
                                             setValue={setValue}
                                             placeholder={'Amount'}
                                         />
-                                        <NummericInputForm
+                                        <FeeInputForm
                                             field={'feeATM'}
-                                            counterLabel={'APL'}
                                             type={'tel'}
-                                            label={'Fee'}
                                             values={values}
                                             setValue={setValue}
-                                            placeholder={'Fee'}
-                                            defaultValue={"1"}
-                                            disabledFee
                                             disableArrows
                                         />
                                         <button

@@ -5,6 +5,7 @@ import {CheckboxFormInput} from '../../components/form-components/check-button-i
 import AccountRSFormInput from '../../components/form-components/account-rs'
 import NummericInputForm from '../../components/form-components/numeric-input'
 import InfoBox from "../../components/info-box";
+import FeeInputForm from "../../components/form-components/fee-input";
 
 const SendPrivateMoneyForm = ({values, setValue, modalData, idGroup, useMixer, mixerData, handleUseMixer}) => (
     <>
@@ -73,13 +74,10 @@ const SendPrivateMoneyForm = ({values, setValue, modalData, idGroup, useMixer, m
                 defaultValue={(modalData && modalData.duration) ? modalData.duration : ''}
             />
         )}
-        <NummericInputForm
+        <FeeInputForm
             field={'feeATM'}
-            counterLabel={'APL'}
-            type={'float'}
-            label={'Fee'}
+            values={values}
             setValue={setValue}
-            placeholder={'Fee'}
             idGroup={idGroup}
             defaultValue={(modalData && modalData.feeATM) || '5'}
         />
