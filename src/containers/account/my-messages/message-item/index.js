@@ -145,20 +145,6 @@ class MessageItem extends React.Component {
                                 Decrypt
                             </button>
                         }
-                        {
-                            (publicMessage || decryptedMessage) &&
-                            <button
-                                type={'button'}
-                                onClick={() => setBodyModalParamsAction('SHARE_MESSAGE', {
-                                    transaction,
-                                    attachment,
-                                    message: publicMessage || decryptedMessage 
-                                })}
-                                className="btn btn-default"
-                            >
-                                Share
-                            </button>
-                        } 
                     </div>
                 </td>
             </tr>
