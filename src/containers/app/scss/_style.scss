@@ -543,11 +543,30 @@ input {
           height: auto;
           min-height: calc(100vh - 183px);
         }
+
         &.messenger-height {
           .card {
             height: calc(100vh - 183px);
+            min-height: 400px;
+            @media(max-width: 425px) {
+              height: calc(100vh - 260px);
+            }
+          }
+
+          .sidebar-content {
+            @media(max-width: 425px) {
+              position: relative;
+            }
+          }
+
+          @media(max-width: 425px) {
+            .row > div {
+              padding: 0 !important;
+              margin-bottom: 15px;
+            }
           }
         }
+
         &.followed-polls-container {
           .followed-pools {
             .card {
