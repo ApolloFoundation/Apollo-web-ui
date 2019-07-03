@@ -77,7 +77,11 @@
 			display: block;
 			width: 100%;
 			height: auto;
-			
+
+			&:last-of-type {
+				padding-top: 12px;
+			}
+
 			&.incoming {
 				text-align: left;
 				.message {
@@ -191,7 +195,7 @@
 	}
 	.compose-message-box {
 		height: auto;
-		padding: 0 12px 12px 12px;
+		padding: 18px 12px 12px 12px;
 		
 		.top-bar {
 			width: 100%;
