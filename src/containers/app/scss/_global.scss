@@ -1647,7 +1647,7 @@ table {
 		}
 	}
 	.btn {
-		@media (max-width: 1024px) {
+		@media(max-width: 760px) {
 			display: none !important;
 		}
 	}
@@ -1828,7 +1828,7 @@ table {
 	}
 
 	@media (max-width: 1000px) {
-		left: 100px;
+		left: 80px;
 	}
 	@media (max-width: 760px) {
 		left: 0;
