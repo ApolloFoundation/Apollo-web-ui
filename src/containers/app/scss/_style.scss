@@ -547,7 +547,7 @@ input {
         &.messenger-height {
           .card {
             height: calc(100vh - 183px);
-            min-height: 400px;
+            min-height: 350px;
             @media(max-width: 425px) {
               height: calc(100vh - 260px);
             }

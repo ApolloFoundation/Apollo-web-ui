@@ -1623,7 +1623,13 @@ table {
 			top: unset;
 		}
 	}
+
+	.assets-exchange-not-selected {
+		height: calc(100vh - 183px);
+		min-height: fit-content !important;
+	}
 }
+
 .exchange-booth {
 	.card {
 		height: 100%;
