@@ -15,7 +15,7 @@ import {getCurrencyTypes} from '../../../../modules/currencies';
 class MyCurrencytemItem extends Component {
     render () {
         const {code, type, name, unconfirmedUnits, decimals, setBodyModalParamsAction, currency} = this.props;
-        const currencyTypes = getCurrencyTypes(type, true);
+        const currencyTypes = getCurrencyTypes(type);
         const isClaimable = currencyTypes.includes('Claimable');
 
         return (
@@ -26,6 +26,7 @@ class MyCurrencytemItem extends Component {
                     </a>
                 </td>
                 <td>{name}</td>
+                <td className="" dangerouslySetInnerHTML={{__html: currencyTypes}} />
                 <td className="align-right">{(unconfirmedUnits / Math.pow(10, decimals)).toFixed(2)}</td>
                 <td className="align-right">
                     <div className="btn-box inline">
