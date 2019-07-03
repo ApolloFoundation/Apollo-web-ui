@@ -75,7 +75,9 @@ export default (state = initialState, action) => {
         case CLOSE_MODAL:
             return {
                 ...state,
-	            modalsHistory: []
+	            modalsHistory: [],
+                modalType: null,
+                modalData: null
             };
 
         case OPEN_PREV_MODAL:
@@ -234,22 +236,29 @@ export const setBodyModalType = (reqParams) => {
 
 export const setBodyModalParamsAction = (type, data, valueForModal) => {
     return dispatch => {
-        dispatch({
-            type: 'SET_FEE_ALERT',
-            payload: false
-        });
-        dispatch({
-            type: SET_MODAL_TYPE,
-            payload: type
-        });
-        dispatch({
-            type: SET_MODAL_DATA,
-            payload: data
-        });
-        dispatch({
-		    type: SET_MODAL_VALUE,
-		    payload: valueForModal
-	    });
+        if (!type) {
+            dispatch({
+                type: CLOSE_MODAL,
+                payload: false
+            });
+        } else {
+            dispatch({
+                type: 'SET_FEE_ALERT',
+                payload: false
+            });
+            dispatch({
+                type: SET_MODAL_TYPE,
+                payload: type
+            });
+            dispatch({
+                type: SET_MODAL_DATA,
+                payload: data
+            });
+            dispatch({
+                type: SET_MODAL_VALUE,
+                payload: valueForModal
+            });
+        }
     }
 };
 
