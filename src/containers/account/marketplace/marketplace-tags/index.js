@@ -7,6 +7,7 @@ import {getDGSTagsAction,} from '../../../../actions/marketplace'
 import uuid from 'uuid';
 import {Link, withRouter} from 'react-router-dom';
 import AccountRS from "../../../components/account-rs";
+import {NotificationManager} from "react-notifications";
 
 class MarketplaceTags extends Component {
     state = {
@@ -66,8 +67,12 @@ class MarketplaceTags extends Component {
     };
 
     handleSearchByAccount = (values) => {
-        if (values) {
-            this.props.history.push('/marketplace/' + values.seller)
+        if (values && values.seller) {
+            if (!values.seller.includes("_")) {
+                this.props.history.push('/marketplace/' + values.seller);
+            } else {
+                NotificationManager.error('The account ID is incorrect.', 'Error', 5000);
+            }
         }
     };
 
