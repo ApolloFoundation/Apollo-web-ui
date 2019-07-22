@@ -26,7 +26,7 @@ class TradeHistoryExchange extends React.Component {
     render() {
         const {currentCurrency: {currency}, myOrders} = this.props;
         return (
-            <div className={'card card-light card-square'}>
+            <div className={'card card-light card-square bg-white'}>
                 <div className="card-body">
                     <div className={'tabs-wrap tabs-primary mb-3'}>
                         <div
