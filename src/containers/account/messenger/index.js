@@ -23,15 +23,11 @@ class Messenger extends React.PureComponent {
     componentDidMount () {
         this.props.getChatHistory({account2: this.props.match.params.chat});
         this.props.getChatsPerPage();
-        if (!BlockUpdater.listeners('data').length) {
-            BlockUpdater.on("data", data => {
-                this.listener();
-            });
-        }
+        BlockUpdater.on("data", this.listener);
     };
 
     componentWillUnmount() {
-        BlockUpdater.removeListener("data", this.listener)
+        BlockUpdater.removeListener("data", this.listener);
     };
     
     componentDidUpdate(prevProps) {

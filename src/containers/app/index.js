@@ -240,8 +240,7 @@ class App extends React.Component {
             <Route exact path="/followed-polls" component={Followedpolls}/>
             <Route exact path="/my-votes" component={MyVotes}/>
             <Route exact path="/my-polls" component={MyPolls}/>
-            <Route exact path="/messenger" component={Messenger}/>
-            <Route exact path="/messenger/:chat" component={Messenger}/>
+            <Route exact path="/messenger/:chat?" component={Messenger}/>
             <Route exact path="/recent-listing" component={ResentMarketplaceListing}/>
             <Route exact path="/currencies" component={Currencies}/>
             <Route exact path="/marketplace/" component={Marketplace}/>
@@ -403,4 +402,4 @@ const mapDispatchToProps = dispatch => ({
     startBlockPullingAction: () => dispatch(startBlockPullingAction())
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(App));
