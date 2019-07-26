@@ -196,19 +196,21 @@ class BuyForm extends React.Component {
                                         field="offerAmount"
                                         type={"float"}
                                         onChange={(amount) => {
+                                            const pairRate = +values.pairRate || 0;
                                             if (balance) {
-                                                if ((amount * values.pairRate) > balance) {
-                                                    amount = balance / values.pairRate;
+                                                if ((amount * pairRate) > +balance) {
+                                                    amount = balance / pairRate;
                                                     setValue("range", 100);
                                                     setValue("total", balance);
                                                     setValue("offerAmount", amount);
                                                     return;
                                                 } else {
-                                                    setValue("range", (amount * 100 / balance).toFixed(0));
+                                                    setValue("range", (amount * pairRate * 100 / balance).toFixed(0));
                                                 }
                                             }
-                                            setValue("total", multiply(amount, values.pairRate));
+                                            setValue("total", multiply(amount, pairRate));
                                         }}
+                                        maxValue={values.pairRate ? balance/values.pairRate : null}
                                         setValue={setValue}
                                         disableArrows
                                     />

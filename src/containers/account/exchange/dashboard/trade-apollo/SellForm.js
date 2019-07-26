@@ -192,13 +192,14 @@ class SellForm extends React.Component {
                                     field="offerAmount"
                                     type={"float"}
                                     onChange={(amount) => {
-                                        if (balanceFormat) {
-                                            if (amount > balanceFormat) {
+                                        const pairRate = +values.pairRate || 0;
+                                        if (+balanceFormat) {
+                                            if (+amount > +balanceFormat) {
                                                 amount = balanceFormat;
                                             }
                                             setValue("range", (amount * 100 / balanceFormat).toFixed(0));
                                         }
-                                        setValue("total", multiply(amount, values.pairRate));
+                                        setValue("total", multiply(amount, pairRate));
                                     }}
                                     setValue={setValue}
                                     disableArrows
