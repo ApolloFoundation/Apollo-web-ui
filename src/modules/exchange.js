@@ -16,8 +16,21 @@ const initState = {
     currentCurrency: {
         currency: 'eth',
     },
+
     buyOrders: {},
+    buyOrdersPagination: {
+        page: 1,
+        firstIndex: 0,
+        lastIndex: 14,
+    },
+
     sellOrders: {},
+    sellOrdersPagination: {
+        page: 1,
+        firstIndex: 0,
+        lastIndex: 14,
+    },
+
     plotBuyOrders: {},
     plotSellOrders: {},
     myOrders: {},
@@ -39,6 +52,10 @@ export default (state = initState, {type, payload}) => {
                 buyOrders: {
                     ...state.buyOrders,
                     [payload.currency]: payload.orders,
+                },
+                buyOrdersPagination: {
+                    ...state.buyOrdersPagination,
+                    ...payload.pagination,
                 }
             };
         case SET_SELL_ORDERS:
@@ -47,6 +64,10 @@ export default (state = initState, {type, payload}) => {
                 sellOrders: {
                     ...state.sellOrders,
                     [payload.currency]: payload.orders,
+                },
+                sellOrdersPagination: {
+                    ...state.sellOrdersPagination,
+                    ...payload.pagination,
                 }
             };
         case SET_PLOT_BUY_ORDERS:
@@ -90,22 +111,24 @@ export const setCurrentCurrencyAction = (currency) => dispatch => {
     })
 };
 
-export const setBuyOrdersAction = (currency, orders) => dispatch => {
+export const setBuyOrdersAction = (currency, orders, pagination) => dispatch => {
     dispatch({
         type: SET_BUY_ORDERS,
         payload: {
             currency,
             orders,
+            pagination,
         }
     })
 };
 
-export const setSellOrdersAction = (currency, orders) => dispatch => {
+export const setSellOrdersAction = (currency, orders, pagination) => dispatch => {
     dispatch({
         type: SET_SELL_ORDERS,
         payload: {
             currency,
             orders,
+            pagination,
         }
     })
 };

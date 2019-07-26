@@ -38,7 +38,7 @@ export function getWallets(requestParams) {
 }
 
 export function getCurrencyBalance(requestParams) {
-    return dispatch => {
+    return () => {
         return handleFetch(`${config.api.server}/rest/dex/balance`, GET, requestParams)
             .then((res) => {
                 if (!res.errorCode) {
@@ -54,7 +54,7 @@ export function getCurrencyBalance(requestParams) {
 }
 
 export function walletWithdraw(requestParams) {
-    return dispatch => {
+    return () => {
         return handleFetch(`${config.api.server}/rest/dex/withdraw`, POST, requestParams)
             .then(async (res) => {
                 if (!res.errorCode) {
@@ -127,7 +127,7 @@ export function cancelOffer(requestParams) {
 }
 
 export function getOpenOrders(requestParams) {
-    return dispatch => {
+    return () => {
         return handleFetch(`${config.api.server}/rest/dex/offers`, GET, requestParams)
             .then(async (res) => {
                 if (!res.errorCode) {
@@ -143,35 +143,35 @@ export function getOpenOrders(requestParams) {
 }
 
 export const getBuyOpenOffers = (currency, options) => async (dispatch, getState) => {
-    if (!currency) currency = getState().exchange.currentCurrency.currency;
+    const {currentCurrency, buyOrdersPagination} = getState().exchange;
+    if (!currency) currency = currentCurrency.currency;
     const params = {
         orderType: 0,
         pairCurrency: currencyTypes[currency],
         isAvailableForNow: true,
         status: 0,
 
-        firstIndex: 0,
-        lastIndex: 14,
+        ...buyOrdersPagination,
         ...options,
     };
     const buyOrders = await dispatch(getOpenOrders(params));
-    dispatch(setBuyOrdersAction(currency, buyOrders));
+    dispatch(setBuyOrdersAction(currency, buyOrders, options));
 };
 
 export const getSellOpenOffers = (currency, options) => async (dispatch, getState) => {
-    if (!currency) currency = getState().exchange.currentCurrency.currency;
+    const {currentCurrency, sellOrdersPagination} = getState().exchange;
+    if (!currency) currency = currentCurrency.currency;
     const params = {
         orderType: 1,
         pairCurrency: currencyTypes[currency],
         isAvailableForNow: true,
         status: 0,
 
-        firstIndex: 0,
-        lastIndex: 14,
+        ...sellOrdersPagination,
         ...options,
     };
     const sellOrders = await dispatch(getOpenOrders(params));
-    dispatch(setSellOrdersAction(currency, sellOrders));
+    dispatch(setSellOrdersAction(currency, sellOrders, options));
 };
 
 export const getPlotBuyOpenOffers = (currency, options) => async (dispatch, getState) => {
@@ -232,7 +232,7 @@ export const getMyOfferHistory = (options) => async (dispatch, getState) => {
 };
 
 export function getTransactionFee() {
-    return dispatch => {
+    return () => {
         return handleFetch(`${config.api.server}/rest/dex/ethInfo`, GET)
             .then(async (res) => {
                 if (!res.errorCode) {
@@ -248,7 +248,7 @@ export function getTransactionFee() {
 }
 
 export function getIdaxPair(requestParams) {
-    return dispatch => {
+    return () => {
         return handleFetch('https://openapi.idax.pro/api/v2/ticker', GET, requestParams)
             .then((res) => {
                 if (res && res.ticker) {
