@@ -12,6 +12,7 @@ class ConfirmCreateOffer extends React.Component {
         super(props);
 
         this.state = {
+            isPending: false,
             passphraseStatus: false
         };
 
@@ -19,6 +20,7 @@ class ConfirmCreateOffer extends React.Component {
     }
 
     async handleFormSubmit(values) {
+        this.setState({isPending: true});
         let passphrase = values.passphrase;
         if (!passphrase || passphrase.length === 0) {
             NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
@@ -34,6 +36,7 @@ class ConfirmCreateOffer extends React.Component {
             this.props.modalData.resetForm();
             this.props.setAccountPassphrase(passphrase);
             this.props.closeModal();
+            this.setState({isPending: false});
         }
     }
 
@@ -45,6 +48,7 @@ class ConfirmCreateOffer extends React.Component {
                 closeModal={this.props.closeModal}
                 handleFormSubmit={this.handleFormSubmit}
                 submitButtonName={'Enter'}
+                isPending={this.state.isPending}
                 isDisableSecretPhrase
                 nameModel={this.props.nameModal}
             >

@@ -7,6 +7,7 @@ import {setBodyModalParamsAction} from '../../../../modules/modals';
 import {getMyOfferHistory} from '../../../../actions/wallet';
 import {formatDivision, currencyTypes} from '../../../../helpers/format';
 import {ONE_GWEI} from '../../../../constants';
+import {BlockUpdater} from "../../../block-subscriber";
 import InfoBox from '../../../components/info-box';
 
 class OrderHistory extends React.Component {
@@ -28,6 +29,11 @@ class OrderHistory extends React.Component {
             });
             this.setState({loading: false});
         }
+        BlockUpdater.on("data", this.listener);
+    }
+
+    componentWillUnmount() {
+        BlockUpdater.removeListener("data", this.listener)
     }
 
     componentDidUpdate() {
@@ -39,6 +45,13 @@ class OrderHistory extends React.Component {
             this.setState({loading: false});
         }
     }
+
+    listener = () => {
+        this.props.getMyOfferHistory({
+            firstIndex: this.state.firstIndex,
+            lastIndex: this.state.lastIndex
+        });
+    };
 
     handleCancel = (data) => {
         this.props.setBodyModalParamsAction('CONFIRM_CANCEL_ORDER', data);

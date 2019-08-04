@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Form} from 'react-form';
+import classNames from "classnames";
 import {NotificationManager} from 'react-notifications';
 import InputForm from '../../../../components/input-form';
 import CustomSelect from '../../../../components/select';
@@ -14,6 +15,7 @@ import {ReactComponent as ArrowRight} from "../../../../../assets/arrow-right.sv
 class BuyForm extends React.Component {
     feeATM = 200000000;
     state = {
+        isPending: false,
         form: null,
         currentCurrency: null,
         wallet: null,
@@ -101,7 +103,10 @@ class BuyForm extends React.Component {
                     walletAddress: values.walletAddress.address,
                 };
                 if (this.props.passPhrase) {
-                    this.props.createOffer(params);
+                    this.setPending()
+                    this.props.createOffer(params).then(() => {
+                        this.setPending(false)
+                    });
                     if (this.state.form) {
                         this.state.form.setAllValues({
                             walletAddress: values.walletAddress,
@@ -111,15 +116,18 @@ class BuyForm extends React.Component {
                         });
                     }
                 } else {
+                    this.setPending();
                     this.props.setBodyModalParamsAction('CONFIRM_CREATE_OFFER', {
                         params,
-                        resetForm: () => this.state.form.setAllValues({
+                        resetForm: () => {
+                            this.setPending(false);
+                            this.state.form.setAllValues({
                             walletAddress: values.walletAddress,
                             pairRate: '',
                             offerAmount: '',
                             total: '',
-                        })
-                    });
+                        })}
+                    })
                 }
             } else {
                 NotificationManager.error('Price and amount are required', 'Error', 5000);
@@ -128,6 +136,8 @@ class BuyForm extends React.Component {
             this.props.handleLoginModal();
         }
     };
+
+    setPending = (value = true) => this.setState({isPending: value})
 
     getFormApi = (form) => {
         this.setState({form})
@@ -264,15 +274,27 @@ class BuyForm extends React.Component {
                             <button
                                 type={'submit'}
                                 className={'btn btn-green btn-lg'}
+                                className={classNames({
+                                    "btn btn-green btn-lg": true,
+                                    "loading btn-green-disabled": this.state.isPending,
+                                })}
                             >
-                                <span>Buy APL</span>
+                                <div className="button-loader">
+                                    <div className="ball-pulse">
+                                        <div/>
+                                        <div/>
+                                        <div/>
+                                    </div>
+                                </div>
+                                <span className={'button-text'}>Buy APL</span>
                                 <div className={'btn-arrow'}>
                                     <ArrowRight/>
                                 </div>
                             </button>
                         </form>
                     )
-                }}/>
+                }}
+            />
         )
     }
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Form} from 'react-form';
 import {NotificationManager} from 'react-notifications';
+import classNames from "classnames";
 import InputForm from '../../../../components/input-form';
 import CustomSelect from '../../../../components/select';
 import {currencyTypes, formatDivision, multiply} from '../../../../../helpers/format';
@@ -14,6 +15,7 @@ import InputRange from "../../../../components/input-range";
 class SellForm extends React.Component {
     feeATM = 200000000;
     state = {
+        isPending: false,
         form: null,
         currentCurrency: null,
         wallet: null,
@@ -93,7 +95,10 @@ class SellForm extends React.Component {
                 };
 
                 if (this.props.passPhrase) {
-                    this.props.createOffer(params);
+                    this.setPending();
+                    this.props.createOffer(params).then(() => {
+                        this.setPending(false)
+                    });
                     if (this.state.form) {
                         this.state.form.setAllValues({
                             walletAddress: values.walletAddress,
@@ -103,14 +108,17 @@ class SellForm extends React.Component {
                         });
                     }
                 } else {
+                    this.setPending();
                     this.props.setBodyModalParamsAction('CONFIRM_CREATE_OFFER', {
                         params,
-                        resetForm: () => this.state.form.setAllValues({
+                        resetForm: () => {
+                            this.setPending(false);
+                            this.state.form.setAllValues({
                             walletAddress: values.walletAddress,
                             pairRate: '',
                             offerAmount: '',
                             total: '',
-                        })
+                        })}
                     });
                 }
             } else {
@@ -120,6 +128,8 @@ class SellForm extends React.Component {
             this.props.handleLoginModal();
         }
     };
+
+    setPending = (value = true) => this.setState({isPending: value})
 
     getFormApi = (form) => {
         this.setState({form})
@@ -255,9 +265,19 @@ class SellForm extends React.Component {
                         )}
                         <button
                             type={'submit'}
-                            className={'btn btn-green btn-lg'}
+                            className={classNames({
+                                "btn btn-green btn-lg": true,
+                                "loading btn-green-disabled": this.state.isPending,
+                            })}
                         >
-                            <span>Sell APL</span>
+                            <div className="button-loader">
+                                <div className="ball-pulse">
+                                    <div/>
+                                    <div/>
+                                    <div/>
+                                </div>
+                            </div>
+                            <span className={'button-text'}>Sell APL</span>
                             <div className={'btn-arrow'}>
                                 <ArrowRight/>
                             </div>
