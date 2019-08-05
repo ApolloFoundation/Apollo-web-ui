@@ -112,7 +112,6 @@ class BuyForm extends React.Component {
                         walletAddress: values.walletAddress.address,
                     };
                     if (this.props.passPhrase) {
-                        this.setPending();
                         this.props.createOffer(params).then(() => {
                             this.setPending(false);
                         });

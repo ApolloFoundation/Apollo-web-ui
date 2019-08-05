@@ -20,6 +20,7 @@ class ConfirmCancelOffer extends React.Component {
             let passphrase = values.passphrase;
             if (!passphrase || passphrase.length === 0) {
                 NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
+                this.setState({isPending: false});
                 return;
             }
     
