@@ -12,6 +12,7 @@ class ConfirmCreateOffer extends React.Component {
         super(props);
 
         this.state = {
+            isPending: false,
             passphraseStatus: false
         };
 
@@ -19,21 +20,26 @@ class ConfirmCreateOffer extends React.Component {
     }
 
     async handleFormSubmit(values) {
-        let passphrase = values.passphrase;
-        if (!passphrase || passphrase.length === 0) {
-            NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
-            return;
-        }
-
-        const params = {
-            ...this.props.modalData.params,
-            passphrase
-        };
-        const offer = await this.props.createOffer(params);
-        if (offer) {
-            this.props.modalData.resetForm();
-            this.props.setAccountPassphrase(passphrase);
-            this.props.closeModal();
+        if(!this.state.isPending) {
+            this.setState({isPending: true});
+            let passphrase = values.passphrase;
+            if (!passphrase || passphrase.length === 0) {
+                NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
+                this.setState({isPending: false});
+                return;
+            }
+    
+            const params = {
+                ...this.props.modalData.params,
+                passphrase
+            };
+            const offer = await this.props.createOffer(params);
+            if (offer) {
+                this.props.modalData.resetForm();
+                this.props.setAccountPassphrase(passphrase);
+                this.props.closeModal();
+            }
+            this.setState({isPending: false});
         }
     }
 
@@ -45,6 +51,7 @@ class ConfirmCreateOffer extends React.Component {
                 closeModal={this.props.closeModal}
                 handleFormSubmit={this.handleFormSubmit}
                 submitButtonName={'Enter'}
+                isPending={this.state.isPending}
                 isDisableSecretPhrase
                 nameModel={this.props.nameModal}
             >
