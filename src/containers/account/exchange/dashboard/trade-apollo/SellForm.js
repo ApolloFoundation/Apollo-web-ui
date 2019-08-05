@@ -103,7 +103,6 @@ class SellForm extends React.Component {
                     };
     
                     if (this.props.passPhrase) {
-                        this.setPending();
                         this.props.createOffer(params).then(() => {
                             this.setPending(false);
                         });
