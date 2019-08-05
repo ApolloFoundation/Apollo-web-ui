@@ -129,20 +129,6 @@ export function validateTokenAction(reqParams) {
     }
 }
 
-export function getNewsAction(reqParams) {
-    return (dispatch) => {
-        return axios.get(config.api.localServerUrl)
-            .then((res) => {
-                if (res.data.tweets) {
-                    return res.data;
-                }
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-    }
-}
-
 export function getAccountPropertiesAction(reqParams) {
     return (dispatch) => {
         return axios.get(config.api.serverUrl, {
