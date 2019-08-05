@@ -34,11 +34,6 @@ export default (state = initialState, action) => {
                 ...state,
                 dashboardMessagesCount: action.payload,
             }
-        case 'SET_DASHBOARD_NEWS':
-            return {
-                ...state,
-                dashboardNews: action.payload,
-            }
         case 'SET_DASHBOARD_TAGGEDDATA':
             return {
                 ...state,
