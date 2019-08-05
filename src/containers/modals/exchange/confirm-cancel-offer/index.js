@@ -15,23 +15,25 @@ class ConfirmCancelOffer extends React.Component {
     }
 
     handleFormSubmit = async (values) => {
-        this.setState({isPending: true});
-        let passphrase = values.passphrase;
-        if (!passphrase || passphrase.length === 0) {
-            NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
-            return;
-        }
-
-        const params = {
-            orderId: this.props.modalData.orderId,
-            feeATM: ONE_APL,
-            sender: this.props.account,
-            passphrase
-        };
-        const offer = await this.props.cancelOffer(params);
-        if (offer) {
-            this.props.setAccountPassphrase(passphrase);
-            this.props.closeModal();
+        if(!this.state.isPending) {
+            this.setState({isPending: true});
+            let passphrase = values.passphrase;
+            if (!passphrase || passphrase.length === 0) {
+                NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
+                return;
+            }
+    
+            const params = {
+                orderId: this.props.modalData.orderId,
+                feeATM: ONE_APL,
+                sender: this.props.account,
+                passphrase
+            };
+            const offer = await this.props.cancelOffer(params);
+            if (offer) {
+                this.props.setAccountPassphrase(passphrase);
+                this.props.closeModal();
+            }
             this.setState({isPending: false});
         }
     };

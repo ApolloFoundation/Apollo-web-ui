@@ -52,88 +52,99 @@ class BuyForm extends React.Component {
     }
 
     handleFormSubmit = (values) => {
-        if (this.props.wallet) {
-            if (values.offerAmount > 0 && values.pairRate > 0) {
-                const currency = this.props.currentCurrency.currency;
-                if (values.pairRate < 0.000000001) {
-                    NotificationManager.error(`Price must be more then 0.000000001 ${currency.toUpperCase()}`, 'Error', 5000);
-                    return;
-                }
-                if (values.offerAmount < 0.001) {
-                    NotificationManager.error('You can buy more then 0.001 APL', 'Error', 5000);
-                    return;
-                }
-                if (!values.walletAddress || !values.walletAddress.balances) {
-                    NotificationManager.error('Please select wallet address', 'Error', 5000);
-                    return;
-                }
-                if (!this.props.ethFee || +this.props.ethFee === 0) {
-                    NotificationManager.error('Can\'t get Gas fee. Something went wrong. Please, try again later', 'Error', 5000);
-                    return;
-                }
-                if (+this.props.ethFee > +values.walletAddress.balances.eth) {
-                    NotificationManager.error(`To sell APL you need to have at least ${this.props.ethFee.toLocaleString('en')} ETH on your balance to confirm transaction`, 'Error', 5000);
-                    return;
-                }
-                const pairRate = multiply(values.pairRate, ONE_GWEI);
-                const offerAmount = multiply(values.offerAmount, ONE_GWEI);
-                const balanceETH = parseFloat(values.walletAddress.balances[currency]);
-                const balanceAPL = (this.props.dashboardAccoountInfo && this.props.dashboardAccoountInfo.unconfirmedBalanceATM) ?
-                    parseFloat(this.props.dashboardAccoountInfo.unconfirmedBalanceATM)
-                    :
-                    parseFloat(this.props.balanceAPL);
-
-                if (balanceETH === 0 || balanceETH < values.total) {
-                    NotificationManager.error(`Not enough founds on your ${currency.toUpperCase()} balance.`, 'Error', 5000);
-                    return;
-                }
-                if (!this.props.balanceAPL || balanceAPL === 0 || balanceAPL < this.feeATM) {
-                    NotificationManager.error('Not enough founds on your APL balance. You need to pay 2 APL fee.', 'Error', 5000);
-                    return;
-                }
-
-                const params = {
-                    offerType: 0, // BUY
-                    pairCurrency: currencyTypes[currency],
-                    pairRate,
-                    offerAmount,
-                    sender: this.props.account,
-                    passphrase: this.props.passPhrase,
-                    feeATM: this.feeATM,
-                    walletAddress: values.walletAddress.address,
-                };
-                if (this.props.passPhrase) {
-                    this.setPending()
-                    this.props.createOffer(params).then(() => {
-                        this.setPending(false)
-                    });
-                    if (this.state.form) {
-                        this.state.form.setAllValues({
-                            walletAddress: values.walletAddress,
-                            pairRate: '',
-                            offerAmount: '',
-                            total: '',
+        if (!this.state.isPending) {
+            this.setPending()
+            if (this.props.wallet) {
+                if (values.offerAmount > 0 && values.pairRate > 0) {
+                    const currency = this.props.currentCurrency.currency;
+                    let isError = false;
+                    if (values.pairRate < 0.000000001) {
+                        NotificationManager.error(`Price must be more then 0.000000001 ${currency.toUpperCase()}`, 'Error', 5000);
+                        isError = true;
+                    }
+                    if (values.offerAmount < 0.001) {
+                        NotificationManager.error('You can buy more then 0.001 APL', 'Error', 5000);
+                        isError = true;
+                    }
+                    if (!values.walletAddress || !values.walletAddress.balances) {
+                        NotificationManager.error('Please select wallet address', 'Error', 5000);
+                        isError = true;
+                    }
+                    if (!this.props.ethFee || +this.props.ethFee === 0) {
+                        NotificationManager.error('Can\'t get Gas fee. Something went wrong. Please, try again later', 'Error', 5000);
+                        isError = true;
+                    }
+                    if (+this.props.ethFee > +values.walletAddress.balances.eth) {
+                        NotificationManager.error(`To sell APL you need to have at least ${this.props.ethFee.toLocaleString('en')} ETH on your balance to confirm transaction`, 'Error', 5000);
+                        isError = true;
+                    }
+                    if (isError) {
+                        this.setPending(false);
+                        return;
+                    }
+                    const pairRate = multiply(values.pairRate, ONE_GWEI);
+                    const offerAmount = multiply(values.offerAmount, ONE_GWEI);
+                    const balanceETH = parseFloat(values.walletAddress.balances[currency]);
+                    const balanceAPL = (this.props.dashboardAccoountInfo && this.props.dashboardAccoountInfo.unconfirmedBalanceATM) ?
+                        parseFloat(this.props.dashboardAccoountInfo.unconfirmedBalanceATM)
+                        :
+                        parseFloat(this.props.balanceAPL);
+    
+                    if (balanceETH === 0 || balanceETH < values.total) {
+                        NotificationManager.error(`Not enough founds on your ${currency.toUpperCase()} balance.`, 'Error', 5000);
+                        this.setPending(false);
+                        return;
+                    }
+                    if (!this.props.balanceAPL || balanceAPL === 0 || balanceAPL < this.feeATM) {
+                        NotificationManager.error('Not enough founds on your APL balance. You need to pay 2 APL fee.', 'Error', 5000);
+                        this.setPending(false);
+                        return;
+                    }
+    
+                    const params = {
+                        offerType: 0, // BUY
+                        pairCurrency: currencyTypes[currency],
+                        pairRate,
+                        offerAmount,
+                        sender: this.props.account,
+                        passphrase: this.props.passPhrase,
+                        feeATM: this.feeATM,
+                        walletAddress: values.walletAddress.address,
+                    };
+                    if (this.props.passPhrase) {
+                        this.setPending();
+                        this.props.createOffer(params).then(() => {
+                            this.setPending(false);
                         });
+                        if (this.state.form) {
+                            this.state.form.setAllValues({
+                                walletAddress: values.walletAddress,
+                                pairRate: '',
+                                offerAmount: '',
+                                total: '',
+                            });
+                        }
+                    } else {
+                        this.props.setBodyModalParamsAction('CONFIRM_CREATE_OFFER', {
+                            params,
+                            resetForm: () => {
+                                this.state.form.setAllValues({
+                                walletAddress: values.walletAddress,
+                                pairRate: '',
+                                offerAmount: '',
+                                total: '',
+                            })}
+                        })
+                        this.setPending(false);
                     }
                 } else {
-                    this.setPending();
-                    this.props.setBodyModalParamsAction('CONFIRM_CREATE_OFFER', {
-                        params,
-                        resetForm: () => {
-                            this.setPending(false);
-                            this.state.form.setAllValues({
-                            walletAddress: values.walletAddress,
-                            pairRate: '',
-                            offerAmount: '',
-                            total: '',
-                        })}
-                    })
+                    NotificationManager.error('Price and amount are required', 'Error', 5000);
+                    this.setPending(false);
                 }
             } else {
-                NotificationManager.error('Price and amount are required', 'Error', 5000);
+                this.setPending(false);
+                this.props.handleLoginModal();
             }
-        } else {
-            this.props.handleLoginModal();
         }
     };
 

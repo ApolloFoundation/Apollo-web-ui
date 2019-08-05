@@ -20,22 +20,24 @@ class ConfirmCreateOffer extends React.Component {
     }
 
     async handleFormSubmit(values) {
-        this.setState({isPending: true});
-        let passphrase = values.passphrase;
-        if (!passphrase || passphrase.length === 0) {
-            NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
-            return;
-        }
-
-        const params = {
-            ...this.props.modalData.params,
-            passphrase
-        };
-        const offer = await this.props.createOffer(params);
-        if (offer) {
-            this.props.modalData.resetForm();
-            this.props.setAccountPassphrase(passphrase);
-            this.props.closeModal();
+        if(!this.state.isPending) {
+            this.setState({isPending: true});
+            let passphrase = values.passphrase;
+            if (!passphrase || passphrase.length === 0) {
+                NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
+                return;
+            }
+    
+            const params = {
+                ...this.props.modalData.params,
+                passphrase
+            };
+            const offer = await this.props.createOffer(params);
+            if (offer) {
+                this.props.modalData.resetForm();
+                this.props.setAccountPassphrase(passphrase);
+                this.props.closeModal();
+            }
             this.setState({isPending: false});
         }
     }
