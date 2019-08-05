@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {NotificationManager} from "react-notifications";
 import SiteHeader from '../../../components/site-header';
 import InfoBox from '../../../components/info-box';
 
@@ -27,6 +28,7 @@ class Exchange extends React.Component {
     };
 
     componentDidMount() {
+        NotificationManager.info('After creating an order, you must keep your node online, leaving enough funds in your account to cover the exchange fees (min 12 APL), until the exchange completes', null, 1000000);
         let wallets = localStorage.getItem('wallets');
         if (!wallets) {
             this.handleLoginModal();
