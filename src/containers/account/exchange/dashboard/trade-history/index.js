@@ -1,40 +1,8 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
 import {NotificationManager} from "react-notifications";
 import CustomTable from '../../../../components/tables/table';
-
-const buyOrders = [
-    {
-        price: '0.000011',
-        amount: '44971',
-        total: '44971'
-    },
-    {
-        price: '0.000011',
-        amount: '44971',
-        total: '44971'
-    },
-    {
-        price: '0.000011',
-        amount: '44971',
-        total: '44971'
-    },
-    {
-        price: '0.000011',
-        amount: '44971',
-        total: '44971'
-    },
-    {
-        price: '0.000011',
-        amount: '44971',
-        total: '44971'
-    },
-    {
-        price: '0.000011',
-        amount: '44971',
-        total: '44971'
-    },
-];
 
 class TradeHistoryExchange extends React.Component {
     handleFormSubmit = () => {
@@ -46,7 +14,8 @@ class TradeHistoryExchange extends React.Component {
     };
 
     render() {
-        const {currency} = this.props.currentCurrency;
+        const {buyOrders, currentCurrency: {currency}} = this.props;
+
         return (
             <div className={'card card-light triangle-bg card-square'}>
                 <div className="card-body">
@@ -55,7 +24,8 @@ class TradeHistoryExchange extends React.Component {
                             Trade history
                         </div>
                     </div>
-                    <CustomTable
+                    {buyOrders.eth 
+                    ? <CustomTable
                         header={[
                             {
                                 name: `Price ${currency.toUpperCase()}`,
@@ -69,7 +39,11 @@ class TradeHistoryExchange extends React.Component {
                             }
                         ]}
                         className={'table-sm'}
-                        tableData={buyOrders}
+                        tableData={buyOrders.eth.map(i => ({
+                            price: i.pairRate,
+                            amount: i.offerAmount,
+                            total: i.pairRate
+                        }))}
                         emptyMessage={'No trade history found.'}
                         TableRowComponent={(props) => (
                             <tr className={''}>
@@ -79,10 +53,21 @@ class TradeHistoryExchange extends React.Component {
                             </tr>
                         )}
                     />
+                    : <div className={'align-items-center loader-box'}>
+                        <div className="ball-pulse">
+                            <div/>
+                            <div/>
+                            <div/>
+                        </div>
+                    </div>}
                 </div>
             </div>
         );
     }
 }
 
-export default withRouter(TradeHistoryExchange);
+const mapStateToProps = state => ({
+    buyOrders: state.exchange.buyOrders,
+});
+
+export default withRouter(connect(mapStateToProps, null)(TradeHistoryExchange));
