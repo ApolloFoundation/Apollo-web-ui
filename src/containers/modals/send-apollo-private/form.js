@@ -38,6 +38,12 @@ const SendPrivateMoneyForm = ({values, setValue, modalData, idGroup, useMixer, m
             <InfoBox info>
                 Your money will be sent directly to mixer account and during estimated mixing
                 time, money will be transferred to recipient's account.
+                <br />
+                Disclaimer:
+                <br />
+                the fee does not include any fees deducted from the mixing process itself.
+                The amount that arrives at the destination is dependent on the amount of wallets used to mask this transaction. 
+                Each wallet passed through will incur a fee.
             </InfoBox>
         }
         <NummericInputForm
