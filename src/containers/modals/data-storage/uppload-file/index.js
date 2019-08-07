@@ -6,6 +6,9 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
+import {
+    getDataTagsAction,
+} from "../../../../actions/datastorage";
 import {setBodyModalParamsAction, setModalData, saveSendModalState, openPrevModal} from '../../../../modules/modals';
 import InputForm from '../../../components/input-form';
 import InfoBox from '../../../components/info-box';
@@ -28,6 +31,7 @@ class UploadFile extends React.Component {
         this.state = {
             activeTab: 0,
             advancedState: false,
+            dataTags: '',
 
             // submitting
             passphraseStatus: false,
@@ -37,6 +41,19 @@ class UploadFile extends React.Component {
         }
 
     }
+
+    componentDidMount() {
+        this.getDataTags();
+    }
+
+    getDataTags = async (reqParams) => {
+        const allTaggedData = await this.props.getDataTagsAction(reqParams);
+        if (allTaggedData) {
+            this.setState({
+                dataTags: allTaggedData.tags
+            })
+        }
+    };
 
     handleFormSubmit = async(values) => {
         if (!this.state.isPending) {
@@ -54,6 +71,7 @@ class UploadFile extends React.Component {
     };
 
     render() {
+        const {dataTags} = this.state;
         return (
             <ModalBody
                 loadForm={this.loadForm}
@@ -65,8 +83,13 @@ class UploadFile extends React.Component {
                 submitButtonName={'Upload file'}
                 isPending={this.state.isPending}
             >
-            
-                <UpploadFileForm />
+
+                {dataTags.length && <UpploadFileForm
+                    dataTags={this.state.dataTags.map(tags => ({
+                        value: tags.count,
+                        label: tags.tag,
+                    }))}
+                />}
 
             </ModalBody>
         );
@@ -83,7 +106,8 @@ const mapDispatchToProps = dispatch => ({
     submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
     saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
-	openPrevModal: () => dispatch(openPrevModal()),
+    openPrevModal: () => dispatch(openPrevModal()),
+    getDataTagsAction: (reqParams) => dispatch(getDataTagsAction(reqParams)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UploadFile);

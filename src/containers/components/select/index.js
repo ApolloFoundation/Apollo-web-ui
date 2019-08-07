@@ -27,24 +27,9 @@ class CustomSelect extends React.Component {
         return null;
     }
 
-    customStyles = {
-        option: (styles, {data, isDisabled, isFocused, isSelected}) => {
-            return {
-                ...styles,
-                backgroundColor: isDisabled
-                    ? null
-                    : isSelected ? '#eee' : '#fff',
-                color: '#515151',
-                padding: 10,
-                cursor: isDisabled ? 'not-allowed' : 'default',
-            };
-        },
-    };
-
     render() {
         return (
             <Select
-                styles={this.customStyles}
                 className={'form-custom-select'}
                 classNamePrefix={'custom-select-box'}
                 options={this.props.options}
