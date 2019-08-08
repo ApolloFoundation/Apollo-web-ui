@@ -32,6 +32,7 @@ class UploadFile extends React.Component {
             activeTab: 0,
             advancedState: false,
             dataTags: '',
+            selectTags: [],
 
             // submitting
             passphraseStatus: false,
@@ -55,6 +56,18 @@ class UploadFile extends React.Component {
         }
     };
 
+    handleChangeTags = (newValue, actionMeta) => {
+        if(newValue.length > 3) {
+            NotificationManager.error('You can add only 3 tags for the product', 'Error', 5000);
+            return
+        }
+        if(newValue[newValue.length - 1].label.length > 20) {
+            NotificationManager.error('Tag name must be no more than 20 symbols', 'Error', 5000);
+            return
+        }
+        this.setState({selectTags: newValue});
+    };
+
     handleFormSubmit = async(values) => {
         if (!this.state.isPending) {
             this.setState({isPending: true});
@@ -71,7 +84,7 @@ class UploadFile extends React.Component {
     };
 
     render() {
-        const {dataTags} = this.state;
+        const {dataTags, isPending, selectTags} = this.state;
         return (
             <ModalBody
                 loadForm={this.loadForm}
@@ -81,11 +94,13 @@ class UploadFile extends React.Component {
                 closeModal={this.props.closeModal}
                 handleFormSubmit={(values) => this.handleFormSubmit(values)}
                 submitButtonName={'Upload file'}
-                isPending={this.state.isPending}
+                isPending={isPending}
             >
 
                 {dataTags.length && <UpploadFileForm
-                    dataTags={this.state.dataTags.map(tags => ({
+                    onChange={this.handleChangeTags}
+                    value={selectTags}
+                    dataTags={dataTags.map(tags => ({
                         value: tags.count,
                         label: tags.tag,
                     }))}
