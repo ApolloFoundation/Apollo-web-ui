@@ -6,9 +6,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {
-    getDataTagsAction,
-} from "../../../../actions/datastorage";
+import {getDataTagsAction} from "../../../../actions/datastorage";
 import {setBodyModalParamsAction, setModalData, saveSendModalState, openPrevModal} from '../../../../modules/modals';
 import InputForm from '../../../components/input-form';
 import InfoBox from '../../../components/info-box';
@@ -61,7 +59,7 @@ class UploadFile extends React.Component {
             NotificationManager.error('You can add only 3 tags for the product', 'Error', 5000);
             return
         }
-        if(newValue[newValue.length - 1].label.length > 20) {
+        if(newValue.length && (newValue[newValue.length - 1].label.length > 20)) {
             NotificationManager.error('Tag name must be no more than 20 symbols', 'Error', 5000);
             return
         }
@@ -96,16 +94,22 @@ class UploadFile extends React.Component {
                 submitButtonName={'Upload file'}
                 isPending={isPending}
             >
-
-                {dataTags.length && <UpploadFileForm
+                {dataTags.length 
+                ? <UpploadFileForm
                     onChange={this.handleChangeTags}
                     value={selectTags}
                     dataTags={dataTags.map(tags => ({
                         value: tags.count,
                         label: tags.tag,
                     }))}
-                />}
-
+                />
+                : <div className={'align-items-center loader-box'}>
+                    <div className="ball-pulse">
+                        <div/>
+                        <div/>
+                        <div/>
+                    </div>
+                </div>}
             </ModalBody>
         );
     }
