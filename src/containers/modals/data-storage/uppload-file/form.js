@@ -1,6 +1,6 @@
 import React from 'react';
 import TextualInputComponent from '../../../components/form-components/textual-input';
-import MultiSelect from '../../../components/multy-select';
+import MultiSelect from '../../../components/multi-select';
 import CustomTextArea from '../../../components/form-components/text-area';
 import FileInput from '../../../components/form-components/file-input';
 
