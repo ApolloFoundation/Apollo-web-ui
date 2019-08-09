@@ -171,14 +171,20 @@
 			margin-right: 12px;
 
 			.searching-window-wrap {
-				position: relative;
+				width: 30px;
 				margin: 0 0 0 15px;
 				@media (max-width: 760px) {
 					margin: 0 0 0 10px;
 				}
+				.searching-window-slide {
+					position: absolute;
+					top: 0;
+					right: 0;
+					transition: width 1s ease;
+					width: 30px;
+				}
 
 				.searching-window {
-					width: 30px;
 					box-sizing: border-box;
 					height: 30px;
 					border-radius: 3px;
@@ -277,6 +283,12 @@
 				.searching-window {
 					width: 100%;
 				}
+				.searching-window-slide {
+					transition: width 1s ease;
+					right: 0;
+					width: 100%;
+				}
+
 				.searching-window-icon {
 					position: absolute;
 

@@ -162,21 +162,23 @@ class UserBox extends Component {
                                         )}
 
                                         <div ref={this.refSearchInput} className={'searching-window-wrap'}>
-                                            <div
-                                                className={'searching-window-icon'}
-                                            >
-                                                <IconndeButton
-                                                    id={'open-search-transaction'}
-                                                    icon={<i className="zmdi zmdi-search"/>}
-                                                    action={() => this.setSearchStateToActive(getFormState().values)}
+                                            <div className={'searching-window-slide'}> 
+                                                <div
+                                                    className={'searching-window-icon'}
+                                                >
+                                                    <IconndeButton
+                                                        id={'open-search-transaction'}
+                                                        icon={<i className="zmdi zmdi-search"/>}
+                                                        action={() => this.setSearchStateToActive(getFormState().values)}
+                                                    />
+                                                </div>
+                                                <Text
+                                                    field={'value'}
+                                                    className={"searching-window"}
+                                                    type="text"
+                                                    placeholder="Enter Transaction/Account ID/Block ID"
                                                 />
                                             </div>
-                                            <Text
-                                                field={'value'}
-                                                className={"searching-window"}
-                                                type="text"
-                                                placeholder="Enter Transaction/Account ID/Block ID"
-                                            />
                                         </div>
                                     </div>
                                 </form>
