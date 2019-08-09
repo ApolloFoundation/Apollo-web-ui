@@ -320,9 +320,8 @@ class DataStorage extends React.Component {
                                             this.state.dataTags &&
                                             this.state.dataTags.map((el, index) => {
                                                 const params = this.props.match.params.query;
-                                                
                                                 return (
-                                                    <> <div
+                                                    <div
                                                         onClick={() => this.handleSearchByTag(el.tag)}
                                                         className={classNames({
                                                             'btn filter': true,
@@ -331,7 +330,6 @@ class DataStorage extends React.Component {
                                                     >
                                                         {el.tag} [{el.count}]
                                                     </div>
-                                                </>
                                                 );
                                             })
                                         }
