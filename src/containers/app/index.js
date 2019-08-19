@@ -75,6 +75,7 @@ import MarketplaceSearch from "../account/marketplace-search";
 import Generators from "../account/generators"
 import Exchange from "../account/exchange/dashboard"
 import OrderHistory from "../account/exchange/order-history"
+import TradeHistoryExchange from "../account/exchange/trade-history"
 import ChooseWallet from "../account/exchange/choose-wallet"
 
 import './App.scss';
@@ -283,8 +284,9 @@ class App extends React.Component {
             <Route exact path="/generators" component={Generators}/>
             <Route exact path="/exchange" component={Exchange}/>
             <Route exact path="/order-history" component={OrderHistory}/>
+            <Route exact path="/trade-history-exchange" component={TradeHistoryExchange}/>
             <Route exact path="/choose-wallet" component={ChooseWallet}/>
-
+            
             <Route exact path="/index.html" render={() => <Redirect to="/dashboard"/>}/>
             <Route exact path="*" render={() => <Redirect to="/dashboard"/>}/>
         </Switch>
