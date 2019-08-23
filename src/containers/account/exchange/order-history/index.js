@@ -126,7 +126,7 @@ class OrderHistory extends React.Component {
                                     return (
                                         <tr style={{cursor: 'pointer'}} onClick={() => this.handleSelectOrder({pairRate, offerAmount, total, currency, typeName, statusName})}>
                                             <td>APL/{type.toUpperCase()}</td>
-                                            <td>{props.type === 0 ? 'BUY' : 'SELL'}</td>
+                                            <td>{typeName}</td>
                                             <td className={`${props.type === 1 ? 'red-text' : 'green-text'}`}>{pairRate}</td>
                                             <td>{offerAmount}</td>
                                             <td>{total}</td>
