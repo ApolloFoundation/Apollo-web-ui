@@ -11,6 +11,7 @@ class SelectOrder extends React.Component {
                 modalTitle={'Chosen trade'}
                 closeModal={this.props.closeModal}
                 isDisableSecretPhrase
+                isDisableFormFooter
                 nameModel={this.props.nameModal}
             >
                 <TextualInputComponent
