@@ -4,6 +4,7 @@ import SiteHeader from '../../../components/site-header';
 import CustomTable from '../../../components/tables/table';
 import {getMyOfferHistory} from '../../../../actions/wallet';
 import {formatDivision} from '../../../../helpers/format';
+import {BlockUpdater} from "../../../block-subscriber";
 import {ONE_GWEI} from '../../../../constants';
 import InfoBox from '../../../components/info-box';
 
@@ -26,12 +27,12 @@ class TradeHistory extends React.Component {
             });
             this.setState({loading: false});
         }
-        // BlockUpdater.on("data", this.listener);
+        BlockUpdater.on("data", this.listener);
     }
 
-    // componentWillUnmount() {
-    //     BlockUpdater.removeListener("data", this.listener)
-    // }
+    componentWillUnmount() {
+        BlockUpdater.removeListener("data", this.listener)
+    }
 
     componentDidUpdate() {
         if (this.props.wallets && this.state.loading) {
@@ -43,12 +44,12 @@ class TradeHistory extends React.Component {
         }
     }
 
-    // listener = () => {
-    //     this.props.getMyOfferHistory({
-    //         firstIndex: this.state.firstIndex,
-    //         lastIndex: this.state.lastIndex
-    //     });
-    // };
+    listener = () => {
+        this.props.getMyOfferHistory({
+            firstIndex: this.state.firstIndex,
+            lastIndex: this.state.lastIndex
+        });
+    };
 
     onPaginate = (page) => {
         this.setState({
@@ -80,13 +81,25 @@ class TradeHistory extends React.Component {
                             ?   <CustomTable
                                     header={[
                                         {
-                                            name: `Price `,
+                                            name: 'Pair name',
                                             alignRight: false
                                         }, {
-                                            name: `Amount APL`,
-                                            alignRight: true
+                                            name: 'Type',
+                                            alignRight: false
                                         }, {
-                                            name: `Total `,
+                                            name: 'Price',
+                                            alignRight: false
+                                        }, {
+                                            name: 'Amount',
+                                            alignRight: false
+                                        }, {
+                                            name: 'Total',
+                                            alignRight: false
+                                        }, {
+                                            name: 'Status',
+                                            alignRight: false
+                                        }, {
+                                            name: ``,
                                             alignRight: true
                                         }
                                     ]}

@@ -1,5 +1,5 @@
 import React from 'react';
-import {withRouter} from 'react-router-dom';
+import {withRouter, Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {NotificationManager} from "react-notifications";
 import CustomTable from '../../../../components/tables/table';
@@ -20,9 +20,9 @@ class TradeHistoryExchange extends React.Component {
             <div className={'card card-light triangle-bg card-square'}>
                 <div className="card-body">
                     <div className={'tabs-wrap tabs-primary mb-3'}>
-                        <div className={'tab-item w-auto active'}>
+                        <Link to='/trade-history-exchange' className={'tab-item w-auto active'}>
                             Trade history
-                        </div>
+                        </Link>
                     </div>
                     {buyOrders.eth 
                     ? <CustomTable
