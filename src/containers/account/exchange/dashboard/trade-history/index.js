@@ -20,7 +20,7 @@ class TradeHistoryExchange extends React.Component {
             <div className={'card card-light triangle-bg card-square'}>
                 <div className="card-body">
                     <div className={'tabs-wrap tabs-primary mb-3'}>
-                        <div to='/trade-history-exchange' onClick={this.handleFormSubmit} className={'tab-item w-auto active'}>
+                        <div className={'tab-item w-auto active'}>
                             Trade history
                         </div>
                     </div>
