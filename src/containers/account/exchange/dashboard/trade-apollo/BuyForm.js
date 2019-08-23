@@ -70,10 +70,10 @@ class BuyForm extends React.Component {
                         NotificationManager.error('Please select wallet address', 'Error', 5000);
                         isError = true;
                     }
-                    // if (!this.props.ethFee || +this.props.ethFee === 0) {
-                    //     NotificationManager.error('Can\'t get Gas fee. Something went wrong. Please, try again later', 'Error', 5000);
-                    //     isError = true;
-                    // }
+                    if (!this.props.ethFee || +this.props.ethFee === 0) {
+                        NotificationManager.error('Can\'t get Gas fee. Something went wrong. Please, try again later', 'Error', 5000);
+                        isError = true;
+                    }
                     if (+this.props.ethFee > +values.walletAddress.balances.eth) {
                         NotificationManager.error(`To sell APL you need to have at least ${this.props.ethFee.toLocaleString('en')} ETH on your balance to confirm transaction`, 'Error', 5000);
                         isError = true;
