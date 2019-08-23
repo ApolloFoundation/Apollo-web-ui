@@ -117,13 +117,14 @@ class OrderHistory extends React.Component {
                                 tableData={myOrderHistory}
                                 TableRowComponent={(props) => {
                                     const statusName = props.status === 0 ? 'Active' : 'Expired'
+                                    const typeName = props.type === 0 ? 'BUY' : 'SELL'
                                     const pairRate = formatDivision(props.pairRate, ONE_GWEI, 9);
                                     const offerAmount = formatDivision(props.offerAmount, ONE_GWEI, 3);
                                     const total = formatDivision(props.pairRate * props.offerAmount, Math.pow(10, 18), 9);
                                     const currency = props.type === 1 ? props.pairCurrency : props.offerCurrency;
                                     const type = Object.keys(currencyTypes).find(key => currencyTypes[key] === currency);
                                     return (
-                                        <tr style={{cursor: 'pointer'}} onClick={() => this.handleSelectOrder({pairRate, offerAmount, total, currency, type, statusName})}>
+                                        <tr style={{cursor: 'pointer'}} onClick={() => this.handleSelectOrder({pairRate, offerAmount, total, currency, typeName, statusName})}>
                                             <td>APL/{type.toUpperCase()}</td>
                                             <td>{props.type === 0 ? 'BUY' : 'SELL'}</td>
                                             <td className={`${props.type === 1 ? 'red-text' : 'green-text'}`}>{pairRate}</td>

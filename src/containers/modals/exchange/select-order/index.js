@@ -14,7 +14,7 @@ class SelectOrder extends React.Component {
                 nameModel={this.props.nameModal}
             >
                 <TextualInputComponent
-                    field={'type'}
+                    field={'typeName'}
                     disabled
                     label={'Type'}
                     placeholder={'Type'}
