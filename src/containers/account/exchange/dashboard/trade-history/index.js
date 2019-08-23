@@ -1,18 +1,16 @@
 import React from 'react';
 import {withRouter} from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import {connect} from 'react-redux';
 import {NotificationManager} from "react-notifications";
 import CustomTable from '../../../../components/tables/table';
 
 class TradeHistoryExchange extends React.Component {
     handleFormSubmit = () => {
-
-        // if (this.props.wallet) {
-        //     NotificationManager.error('This functionality will be delivered in future releases.', 'Error', 5000);
-        // } else {
-        //     this.props.handleLoginModal();
-        // }
+        if (this.props.wallet) {
+            NotificationManager.error('This functionality will be delivered in future releases.', 'Error', 5000);
+        } else {
+            this.props.handleLoginModal();
+        }
     };
 
     render() {
@@ -22,9 +20,9 @@ class TradeHistoryExchange extends React.Component {
             <div className={'card card-light triangle-bg card-square'}>
                 <div className="card-body">
                     <div className={'tabs-wrap tabs-primary mb-3'}>
-                        <Link to='/trade-history-exchange' onClick={this.handleFormSubmit} className={'tab-item w-auto active'}>
+                        <div to='/trade-history-exchange' onClick={this.handleFormSubmit} className={'tab-item w-auto active'}>
                             Trade history
-                        </Link>
+                        </div>
                     </div>
                     {buyOrders.eth 
                     ? <CustomTable
