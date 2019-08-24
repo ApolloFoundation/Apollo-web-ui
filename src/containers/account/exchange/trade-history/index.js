@@ -2,10 +2,12 @@ import React from 'react';
 import {connect} from 'react-redux';
 import SiteHeader from '../../../components/site-header';
 import CustomTable from '../../../components/tables/table';
+import {setCurrentCurrencyAction} from '../../../../modules/exchange';
+import {setBodyModalParamsAction} from '../../../../modules/modals';
 import {getMyOfferHistory} from '../../../../actions/wallet';
-import {formatDivision} from '../../../../helpers/format';
-import {BlockUpdater} from "../../../block-subscriber";
+import {formatDivision, currencyTypes} from '../../../../helpers/format';
 import {ONE_GWEI} from '../../../../constants';
+import {BlockUpdater} from "../../../block-subscriber";
 import InfoBox from '../../../components/info-box';
 
 class TradeHistory extends React.Component {
@@ -28,11 +30,11 @@ class TradeHistory extends React.Component {
             this.setState({loading: false});
         }
         BlockUpdater.on("data", this.listener);
-    }
+    };
 
     componentWillUnmount() {
         BlockUpdater.removeListener("data", this.listener)
-    }
+    };
 
     componentDidUpdate() {
         if (this.props.wallets && this.state.loading) {
@@ -41,8 +43,16 @@ class TradeHistory extends React.Component {
                 lastIndex: this.state.lastIndex
             });
             this.setState({loading: false});
-        }
-    }
+        };
+    };
+
+    handleSelectOrder = (data) => {
+        this.props.setBodyModalParamsAction('SELECT_ORDER', data);
+    };
+
+    handleCancel = (data) => {
+        this.props.setBodyModalParamsAction('CONFIRM_CANCEL_ORDER', data);
+    };
 
     listener = () => {
         this.props.getMyOfferHistory({
@@ -107,14 +117,41 @@ class TradeHistory extends React.Component {
                                     emptyMessage={'No created orders.'}
                                     tableData={myOrderHistory}
                                     TableRowComponent={(props) => {
+                                        const statusName = props.status === 0 ? 'Active' : 'Expired';
+                                        const typeName = props.type === 0 ? 'BUY' : 'SELL';
                                         const pairRate = formatDivision(props.pairRate, ONE_GWEI, 9);
                                         const offerAmount = formatDivision(props.offerAmount, ONE_GWEI, 3);
                                         const total = formatDivision(props.pairRate * props.offerAmount, Math.pow(10, 18), 9);
+                                        const currency = props.type === 1 ? props.pairCurrency : props.offerCurrency;
+                                        const type = Object.keys(currencyTypes).find(key => currencyTypes[key] === currency);
                                         return (
-                                            <tr>
-                                                <td>{pairRate}</td>
-                                                <td  className={'align-right'}>{offerAmount}</td>
-                                                <td  className={'align-right'}>{total}</td>
+                                            <tr style={{cursor: 'pointer'}} onClick={() => this.handleSelectOrder({pairRate, offerAmount, total, currency, typeName, statusName})}>
+                                                <td>APL/{type.toUpperCase()}</td>
+                                                <td>{props.type === 0 ? 'BUY' : 'SELL'}</td>
+                                                <td className={`${props.type === 1 ? 'red-text' : 'green-text'}`}>{pairRate}</td>
+                                                <td>{offerAmount}</td>
+                                                <td>{total}</td>
+                                                <td className={`${props.status !== 0 ?'red-text' : ''}`}>{props.status === 0 ? 'Active' : 'Expired'}</td>
+                                                <td className={'align-right'}>
+                                                    {props.status === 0 && (
+                                                        <button
+                                                            type={'button'}
+                                                            className="btn btn-sm"
+                                                            onClick={(event) => {
+                                                                event.stopPropagation();
+                                                                this.handleCancel({
+                                                                    currency: type,
+                                                                    pairRate,
+                                                                    offerAmount,
+                                                                    total,
+                                                                    orderId: props.id,
+                                                                })
+                                                            }}
+                                                        >
+                                                            Cancel
+                                                        </button>
+                                                    )}
+                                                </td>
                                             </tr>
                                         )
                                     }}
@@ -153,6 +190,8 @@ const mapStateToProps = ({exchange, account}) => ({
 
 const mapDispatchToProps = dispatch => ({
     getMyOfferHistory: (options) => dispatch(getMyOfferHistory(options)),
+    setBodyModalParamsAction: (type, value) => dispatch(setBodyModalParamsAction(type, value)),
+    setCurrentCurrency: (currency) => dispatch(setCurrentCurrencyAction(currency)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TradeHistory)
