@@ -7,12 +7,10 @@ class SelectOrder extends React.Component {
     render() {
         return (
             <ModalBody
-                loadForm={this.loadForm}
                 modalTitle={'Chosen trade'}
                 closeModal={this.props.closeModal}
                 isDisableSecretPhrase
                 isDisableFormFooter
-                nameModel={this.props.nameModal}
             >
                 <TextualInputComponent
                     field={'typeName'}
