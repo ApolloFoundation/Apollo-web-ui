@@ -1,10 +1,28 @@
 import React from 'react';
-import {withRouter} from 'react-router-dom';
+import {withRouter, Link} from 'react-router-dom';
 import {connect} from 'react-redux';
+import {formatDivision} from '../../../../../helpers/format';
+import {ONE_GWEI} from '../../../../../constants';
 import {NotificationManager} from "react-notifications";
+import {BlockUpdater} from "../../../../block-subscriber";
+import {getMyOfferHistory} from '../../../../../actions/wallet';
 import CustomTable from '../../../../components/tables/table';
 
 class TradeHistoryExchange extends React.Component {
+
+    componentDidMount() {
+        this.props.getMyOfferHistory();
+        BlockUpdater.on("data", this.listener);
+    }
+
+    componentWillUnmount() {
+        BlockUpdater.removeListener("data", this.listener)
+    };
+
+    listener = () => {
+        this.props.getMyOfferHistory();
+    };
+
     handleFormSubmit = () => {
         if (this.props.wallet) {
             NotificationManager.error('This functionality will be delivered in future releases.', 'Error', 5000);
@@ -14,44 +32,45 @@ class TradeHistoryExchange extends React.Component {
     };
 
     render() {
-        const {buyOrders, currentCurrency: {currency}} = this.props;
+        const {myOrderHistory, currentCurrency: {currency}} = this.props;
 
         return (
             <div className={'card card-light triangle-bg card-square'}>
                 <div className="card-body">
                     <div className={'tabs-wrap tabs-primary mb-3'}>
-                        <div className={'tab-item w-auto active'}>
+                        <Link to='/trade-history-exchange' className={'tab-item w-auto active'}>
                             Trade history
-                        </div>
+                        </Link>
                     </div>
-                    {buyOrders.eth 
+                    {myOrderHistory 
                     ? <CustomTable
                         header={[
                             {
-                                name: `Price ${currency.toUpperCase()}`,
+                                name: 'Price',
                                 alignRight: false
                             }, {
-                                name: `Amount APL`,
-                                alignRight: true
+                                name: 'Amount APL',
+                                alignRight: false
                             }, {
-                                name: `Total ${currency.toUpperCase()}`,
-                                alignRight: true
+                                name: 'Total',
+                                alignRight: false
                             }
                         ]}
                         className={'table-sm'}
-                        tableData={buyOrders.eth.map(i => ({
-                            price: i.pairRate,
-                            amount: i.offerAmount,
-                            total: i.pairRate
-                        }))}
+                        tableData={myOrderHistory}
                         emptyMessage={'No trade history found.'}
-                        TableRowComponent={(props) => (
-                            <tr className={''}>
-                                <td>{props.price}</td>
-                                <td className={'align-right'}>{props.amount}</td>
-                                <td className={'align-right'}>{props.total}</td>
-                            </tr>
-                        )}
+                        TableRowComponent={(props) => {
+                            const pairRate = formatDivision(props.pairRate, ONE_GWEI, 9);
+                            const offerAmount = formatDivision(props.offerAmount, ONE_GWEI, 3);
+                            const total = formatDivision(props.pairRate * props.offerAmount, Math.pow(10, 18), 9);
+                            return (
+                                <tr>
+                                    <td>{pairRate}</td>
+                                    <td>{offerAmount}</td>
+                                    <td>{total}</td>
+                                </tr>
+                            )
+                        }}
                     />
                     : <div className={'align-items-center loader-box'}>
                         <div className="ball-pulse">
@@ -66,8 +85,12 @@ class TradeHistoryExchange extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({
-    buyOrders: state.exchange.buyOrders,
+const mapStateToProps = ({exchange}) => ({
+    myOrderHistory: exchange.myOrderHistory,
 });
 
-export default withRouter(connect(mapStateToProps, null)(TradeHistoryExchange));
+const mapDispatchToProps = dispatch => ({
+    getMyOfferHistory: (options) => dispatch(getMyOfferHistory(options)),
+});
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TradeHistoryExchange));
