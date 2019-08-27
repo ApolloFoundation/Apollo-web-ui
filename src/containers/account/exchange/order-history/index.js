@@ -53,6 +53,10 @@ class OrderHistory extends React.Component {
         });
     };
 
+    handleSelectOrder = (data) => {
+        this.props.setBodyModalParamsAction('SELECT_ORDER', data);
+    };
+
     handleCancel = (data) => {
         this.props.setBodyModalParamsAction('CONFIRM_CANCEL_ORDER', data);
     };
@@ -72,6 +76,7 @@ class OrderHistory extends React.Component {
 
     render() {
         const {myOrderHistory} = this.props;
+        const activeOrders = !!myOrderHistory.length && myOrderHistory.filter(order => order.status === 0);
         return (
             <div className="page-content">
                 <SiteHeader
@@ -110,33 +115,38 @@ class OrderHistory extends React.Component {
                                 ]}
                                 className={'no-min-height transparent'}
                                 emptyMessage={'No created orders.'}
-                                tableData={myOrderHistory}
+                                tableData={activeOrders}
                                 TableRowComponent={(props) => {
+                                    const statusName = props.status === 0 ? 'Active' : 'Expired'
+                                    const typeName = props.type === 0 ? 'BUY' : 'SELL'
                                     const pairRate = formatDivision(props.pairRate, ONE_GWEI, 9);
                                     const offerAmount = formatDivision(props.offerAmount, ONE_GWEI, 3);
                                     const total = formatDivision(props.pairRate * props.offerAmount, Math.pow(10, 18), 9);
                                     const currency = props.type === 1 ? props.pairCurrency : props.offerCurrency;
                                     const type = Object.keys(currencyTypes).find(key => currencyTypes[key] === currency);
                                     return (
-                                        <tr>
+                                        <tr style={{cursor: 'pointer'}} onClick={() => this.handleSelectOrder({pairRate, offerAmount, total, currency, typeName, statusName})}>
                                             <td>APL/{type.toUpperCase()}</td>
-                                            <td>{props.type === 0 ? 'BUY' : 'SELL'}</td>
+                                            <td>{typeName}</td>
                                             <td className={`${props.type === 1 ? 'red-text' : 'green-text'}`}>{pairRate}</td>
                                             <td>{offerAmount}</td>
                                             <td>{total}</td>
-                                            <td className={`${props.status !== 0 ?'red-text' : ''}`}>{props.status === 0 ? 'Active' : 'Expired'}</td>
+                                            <td className={`${props.status !== 0 ?'red-text' : ''}`}>{statusName}</td>
                                             <td className={'align-right'}>
                                                 {props.status === 0 && (
                                                     <button
                                                         type={'button'}
                                                         className="btn btn-sm"
-                                                        onClick={() => this.handleCancel({
-                                                            currency: type,
-                                                            pairRate,
-                                                            offerAmount,
-                                                            total,
-                                                            orderId: props.id,
-                                                        })}
+                                                        onClick={event => {
+                                                            event.stopPropagation();
+                                                            this.handleCancel({
+                                                                currency: type,
+                                                                pairRate,
+                                                                offerAmount,
+                                                                total,
+                                                                orderId: props.id,
+                                                            })
+                                                        }}
                                                     >
                                                         Cancel
                                                     </button>

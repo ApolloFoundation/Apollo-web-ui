@@ -8,10 +8,12 @@ import uuid from 'uuid';
 import {Link, withRouter} from 'react-router-dom';
 import AccountRS from "../../../components/account-rs";
 import {NotificationManager} from "react-notifications";
+import { thisExpression } from '@babel/types';
 
 class MarketplaceTags extends Component {
     state = {
-        itemsPerPage: 10
+        itemsPerPage: 10,
+        itemsPerPageMore: 32,
     };
 
     componentDidMount = () => {
@@ -23,16 +25,17 @@ class MarketplaceTags extends Component {
     };
 
     componentWillReceiveProps = (newProps) => {
+        const {itemsPerPageMore} = this.state;
         if (newProps.isShowMore){
             this.setState({
                 page: 1,
                 firstIndex: 0,
-                lastIndex: 31,
-                itemsPerPage: 32,
+                lastIndex: itemsPerPageMore,
+                itemsPerPage: itemsPerPageMore + 1,
             }, () => {
                 this.getDGSTags({
                     firstIndex: 0,
-                    lastIndex: 31
+                    lastIndex: itemsPerPageMore,
                 });
             });
         } else {
@@ -76,11 +79,19 @@ class MarketplaceTags extends Component {
         }
     };
 
+    isNextDisabled = () => !this.state.getDGSTags[this.state.itemsPerPageMore]
+
+    prepareTags = () => {
+        const {itemsPerPageMore, getDGSTags = []} = this.state;
+        return getDGSTags.length > itemsPerPageMore ? getDGSTags.slice(0, -1) : getDGSTags
+    }
+
     onPaginate = (page) => {
+        const {itemsPerPageMore} = this.state;
         let reqParams = {
             page: page,
-            firstIndex: page * this.state.itemsPerPage - this.state.itemsPerPage,
-            lastIndex:  page * this.state.itemsPerPage - 1
+            firstIndex: page * itemsPerPageMore - itemsPerPageMore,
+            lastIndex:  page * itemsPerPageMore
         };
 
         this.setState({...reqParams}, () => {
@@ -89,9 +100,9 @@ class MarketplaceTags extends Component {
     };
 
     render () {
-
         const {showMoreController, isShowMore} = this.props;
-
+        const {getDGSTags, itemsPerPageMore, page} = this.state;
+        
         return (
             <div className="card  marketplace filters transparent">
                 <div className="search-bar m-0">
@@ -153,8 +164,7 @@ class MarketplaceTags extends Component {
                 </div>
                 <div className="filters-bar" ref={'filtersBar'}>
                     {
-                        this.state.getDGSTags &&
-                        this.state.getDGSTags.map((el, index) => {
+                        this.prepareTags().map((el, index) => {
                             return (
                                 <Link key={uuid()} to={'/marketplace/' + el.tag} className="btn filter btn-xs">{el.tag}&nbsp;[{el.totalCount}]</Link>
                             );
@@ -166,7 +176,7 @@ class MarketplaceTags extends Component {
                         onClick={showMoreController}
                         dangerouslySetInnerHTML={{__html: isShowMore ? 'View less' : 'View more'}}
                     />
-                    {this.state.getDGSTags && isShowMore && (
+                    {getDGSTags && isShowMore && (
                         <div
                             ref={'btnBox'}
                             className="btn-box pagination"
@@ -175,23 +185,23 @@ class MarketplaceTags extends Component {
                                 type={'button'}
                                 className={classNames({
                                     'btn btn-default': true,
-                                    'disabled': this.state.page <= 1,
+                                    'disabled': page <= 1,
                                 })}
-                                onClick={this.onPaginate.bind(this, this.state.page - 1)}
+                                onClick={this.onPaginate.bind(this, page - 1)}
                             >
                                 Previous
                             </button>
                             <div className='pagination-nav'>
-                                <span>{this.state.page * this.state.itemsPerPage - this.state.itemsPerPage + 1}</span>
+                                <span>{page * itemsPerPageMore - itemsPerPageMore + 1}</span>
                                 <span>&hellip;</span>
-                                <span>{(this.state.page * this.state.itemsPerPage - this.state.itemsPerPage) + this.state.getDGSTags.length}</span>
+                                <span>{(page * itemsPerPageMore - itemsPerPageMore - 1) + getDGSTags.length + this.isNextDisabled()}</span>
                             </div>
                             <button
                                 type={'button'}
-                                onClick={this.onPaginate.bind(this, this.state.page + 1)}
+                                onClick={this.onPaginate.bind(this, page + 1)}
                                 className={classNames({
                                     'btn btn-default': true,
-                                    'disabled': this.state.getDGSTags.length < this.state.itemsPerPage
+                                    'disabled': this.isNextDisabled()
                                 })}
                             >
                                 Next
