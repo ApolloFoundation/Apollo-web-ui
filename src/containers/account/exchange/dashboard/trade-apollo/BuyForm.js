@@ -96,7 +96,7 @@ class BuyForm extends React.Component {
                         return;
                     }
                     if (!this.props.balanceAPL || balanceAPL === 0 || balanceAPL < this.feeATM) {
-                        NotificationManager.error('Not enough founds on your APL balance. You need to pay 2 APL fee.', 'Error', 5000);
+                        NotificationManager.error('Not enough funds on your APL balance. You need to pay 2 APL fee.', 'Error', 5000);
                         this.setPending(false);
                         return;
                     }

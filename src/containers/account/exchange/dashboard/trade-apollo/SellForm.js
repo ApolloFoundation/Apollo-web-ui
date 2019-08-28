@@ -86,7 +86,7 @@ class SellForm extends React.Component {
                         parseFloat(this.props.balanceAPL);
     
                     if (!this.props.balanceAPL || balanceAPL === 0 || balanceAPL < (offerAmount + this.feeATM)) {
-                        NotificationManager.error('Not enough founds on your APL balance.', 'Error', 5000);
+                        NotificationManager.error('NNot enough funds on your APL balance.', 'Error', 5000);
                         this.setPending(false);
                         return;
                     }
