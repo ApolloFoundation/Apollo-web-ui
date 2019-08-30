@@ -222,33 +222,51 @@ export const createAccountAction = async (requestParams) => {
 
 export const removeAccountAction = async (requestParams) => {
     return store.dispatch(await submitForm.submitForm(requestParams, 'deleteKey'))
-}
+};
 
 
 export const generatePDF = (args) => {
-    // e.preventDefault();
+    const today = new Date();
+    const dd = today.getDate();
+    const mm = today.getMonth()+1; //January is 0!
+    const yyyy = today.getFullYear();
 
-    let doc = new jsPDF();
+    if (window.cordova && window.pdf) {
+        let options = {
+            documentSize: 'A4',
+            type: 'share',
+            fileName: `apollo-wallet-${args[0].value}`
+        };
 
-    var today = new Date();
-    var dd = today.getDate();
-    var mm = today.getMonth()+1; //January is 0!
-    var yyyy = today.getFullYear();
+        let arrText = '';
+        args.map((arg) => {
+            arrText += `<h3>${arg.name}:</h3>`;
+            arrText += `<p>${arg.value}</p>`;
+            QRCode.toDataURL(arg.value, function (err, url) {
+                arrText += `<p><img src=${url} style="width: 100px" alt=""></p>`;
+            })
+        });
 
+        window.pdf.fromData(`<html><h2>Apollo Paper Wallet</h2><p>${yyyy}/${mm}/${dd}</p>${arrText}</html>`, options)
+            .then((stats) => console.log('status', stats))
+            .catch((err) => console.err(err))
+    } else {
+        let doc = new jsPDF();
 
-    doc.setFontSize(15);
-    doc.text('Apollo Paper Wallet', 15, 15);
-    doc.setFontSize(10);
-    doc.text(`${yyyy}/${mm}/${dd}`, 15, 24 + (6));
+        doc.setFontSize(15);
+        doc.text('Apollo Paper Wallet', 15, 15);
+        doc.setFontSize(10);
+        doc.text(`${yyyy}/${mm}/${dd}`, 15, 24 + (6));
 
-    args.map((arg, index) => {
-        doc.text(`${arg.name}:`, 15, 24 + (6 * (2 + (10 * index))));
-        doc.text(`${arg.value}`, 15, 24 + (6 * (3 + (10 * index))));
+        args.map((arg, index) => {
+            doc.text(`${arg.name}:`, 15, 24 + (6 * (2 + (10 * index))));
+            doc.text(`${arg.value}`, 15, 24 + (6 * (3 + (10 * index))));
 
-        QRCode.toDataURL(arg.value, function (err, url) {
-            doc.addImage( url, 'SVG', 15, 24 + (6 * (4 + (10 * index))), 48, 48);
-        })
-    });
+            QRCode.toDataURL(arg.value, function (err, url) {
+                doc.addImage( url, 'SVG', 15, 24 + (6 * (4 + (10 * index))), 48, 48);
+            })
+        });
 
-    doc.save(`apollo-wallet-${args[0].value}`)
+        doc.save(`apollo-wallet-${args[0].value}`)
+    }
 };
