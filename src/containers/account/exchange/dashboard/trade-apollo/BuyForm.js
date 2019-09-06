@@ -70,10 +70,10 @@ class BuyForm extends React.Component {
                         NotificationManager.error('Please select wallet address', 'Error', 5000);
                         isError = true;
                     }
-                    if (!this.props.ethFee || +this.props.ethFee === 0) {
-                        NotificationManager.error('Can\'t get Gas fee. Something went wrong. Please, try again later', 'Error', 5000);
-                        isError = true;
-                    }
+                    // if (!this.props.ethFee || +this.props.ethFee === 0) {
+                    //     NotificationManager.error('Can\'t get Gas fee. Something went wrong. Please, try again later', 'Error', 5000);
+                    //     isError = true;
+                    // }
                     if (+this.props.ethFee > +values.walletAddress.balances.eth) {
                         NotificationManager.error(`To sell APL you need to have at least ${this.props.ethFee.toLocaleString('en')} ETH on your balance to confirm transaction`, 'Error', 5000);
                         isError = true;
@@ -164,6 +164,8 @@ class BuyForm extends React.Component {
                              submitForm, setValue, values
                          }) => {
                     const balance = values.walletAddress && values.walletAddress.balances[currency];
+                    console.log(balance);
+                    
                     return (
                         <form
                             className="form-group-app d-flex flex-column justify-content-between h-100 mb-0"
@@ -201,7 +203,8 @@ class BuyForm extends React.Component {
                                                     setValue("offerAmount", amount);
                                                     return;
                                                 } else {
-                                                    setValue("range", ((amount * price) * 100 / balance).toFixed(0));
+                                                    const rangeValue = ((amount * price) * 100 / +balance).toFixed(0);
+                                                    setValue("range", rangeValue === 'NaN' ? 0 : rangeValue)
                                                 }
                                             }
                                             setValue("total", multiply(amount, price));
@@ -221,24 +224,25 @@ class BuyForm extends React.Component {
                                 <div
                                     className="input-group">
                                     <InputForm
-                                        field="offerAmount"
+                                        field="values"
                                         type={"float"}
                                         onChange={(amount) => {
                                             const pairRate = +values.pairRate || 0;
                                             if (balance) {
                                                 if ((amount * pairRate) > +balance) {
-                                                    amount = balance / pairRate;
+                                                    // amount = balance / pairRate;
                                                     setValue("range", 100);
-                                                    setValue("total", balance);
+                                                    setValue("total", ((amount) * pairRate));
                                                     setValue("offerAmount", amount);
                                                     return;
                                                 } else {
-                                                    setValue("range", (amount * pairRate * 100 / balance).toFixed(0));
+                                                    const rangeValue = (amount * pairRate * 100 / balance).toFixed(0)
+                                                    setValue("range", rangeValue === 'NaN' ? 0 : rangeValue);
                                                 }
                                             }
                                             setValue("total", multiply(amount, pairRate));
                                         }}
-                                        maxValue={values.pairRate ? balance/values.pairRate : null}
+                                        // maxValue={values.pairRate ? balance/values.pairRate : null}
                                         setValue={setValue}
                                         disableArrows
                                     />

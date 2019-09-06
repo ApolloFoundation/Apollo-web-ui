@@ -13,7 +13,7 @@ const CustomTable = (props) => {
             >
                 {
                     tableData &&
-                    !!tableData.length &&
+                    (!!tableData.length || tableData.length === 0) &&
                     <>
                         <div className={`transaction-table ${className}`}>
                             {
