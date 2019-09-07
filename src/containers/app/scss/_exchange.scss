@@ -206,6 +206,7 @@
 				background: transparent;
 				color: #2dd043;
 				padding: 18px 15px;
+				text-align: center;
 			}
 
 			.form-group-app {
@@ -222,7 +223,7 @@
 					height: 100%;
 					padding: 15px !important;
 					margin-bottom: 0 !important;
-					background-color: transparent;
+					background: linear-gradient(to bottom, #f5f7fc 42px, #ffffff 0%) !important;
 					display: flex;
 					table {
 						padding: 0;
