@@ -273,7 +273,6 @@ class BuyForm extends React.Component {
                                     onChange={(amount) => {
                                         const offerAmount = values.pairRate !== '0' ? ((amount * balance) / (100 * values.pairRate)).toFixed(10) : 0;
                                         setValue("offerAmount", offerAmount);
-                                        setValue("values", offerAmount);
                                         setValue("total", multiply(offerAmount, values.pairRate));
                                     }}
                                 />
