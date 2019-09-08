@@ -12,12 +12,9 @@ const ContentHendler = (props) => (
             props.children
         }
         {props.items && props.items.length === 0 && (
-            <>
-                {props.children}
-                <InfoBox default className={props.className}>
-                    {props.emptyMessage}
-                </InfoBox>
-            </>
+            <InfoBox default className={props.className}>
+                {props.emptyMessage}
+            </InfoBox>
         )}
         {!props.items && (
             <ContentLoader/>
