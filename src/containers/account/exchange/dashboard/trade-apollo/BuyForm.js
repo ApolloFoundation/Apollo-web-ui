@@ -52,11 +52,12 @@ class BuyForm extends React.Component {
     }
 
     handleFormSubmit = (values) => {
+        
         if (!this.state.isPending) {
             this.setPending()
             if (this.props.wallet) {
                 if (values.offerAmount > 0 && values.pairRate > 0) {
-                    const currency = this.props.currentCurrency.currency;
+                    const {currentCurrency: {currency}} = this.props;
                     let isError = false;
                     if (values.pairRate < 0.000000001) {
                         NotificationManager.error(`Price must be more then 0.000000001 ${currency.toUpperCase()}`, 'Error', 5000);
@@ -78,10 +79,19 @@ class BuyForm extends React.Component {
                         NotificationManager.error(`To sell APL you need to have at least ${this.props.ethFee.toLocaleString('en')} ETH on your balance to confirm transaction`, 'Error', 5000);
                         isError = true;
                     }
+
+                    const balance = values.walletAddress && values.walletAddress.balances[currency];
+
+                    if (values.total > balance) {
+                        NotificationManager.error('You need more ETH. Please check your wallet balance.', 'Error', 5000);
+                        isError = true;
+                    }
+
                     if (isError) {
                         this.setPending(false);
                         return;
                     }
+
                     const pairRate = multiply(values.pairRate, ONE_GWEI);
                     const offerAmount = multiply(values.offerAmount, ONE_GWEI);
                     const balanceETH = parseFloat(values.walletAddress.balances[currency]);
@@ -192,18 +202,11 @@ class BuyForm extends React.Component {
                                         field="pairRate"
                                         type={"float"}
                                         onChange={(price) => {
-                                            let amount = values.offerAmount || 0;
-                                            if (balance) {
-                                                if ((amount * price) > balance) {
-                                                    amount = balance / price;
-                                                    setValue("range", 100);
-                                                    setValue("total", balance);
-                                                    setValue("offerAmount", amount);
-                                                    return;
-                                                } else {
-                                                    setValue("range", ((amount * price) * 100 / balance).toFixed(0));
-                                                }
-                                            }
+                                            const amount = values.offerAmount || 0;
+                                            let rangeValue = ((amount * price) * 100).toFixed(0);
+                                            if (rangeValue > 100) rangeValue = 100
+                                            setValue("offerAmount", amount);
+                                            setValue("range", rangeValue === 'NaN' ? 0 : rangeValue)
                                             setValue("total", multiply(amount, price));
                                         }}
                                         setValue={setValue}
@@ -225,20 +228,13 @@ class BuyForm extends React.Component {
                                         type={"float"}
                                         onChange={(amount) => {
                                             const pairRate = +values.pairRate || 0;
-                                            if (balance) {
-                                                if ((amount * pairRate) > +balance) {
-                                                    amount = balance / pairRate;
-                                                    setValue("range", 100);
-                                                    setValue("total", balance);
-                                                    setValue("offerAmount", amount);
-                                                    return;
-                                                } else {
-                                                    setValue("range", (amount * pairRate * 100 / balance).toFixed(0));
-                                                }
-                                            }
+                                            let rangeValue = (amount * pairRate * 100).toFixed(0)
+                                            if (rangeValue > 100) rangeValue = 100
+                                            setValue("offerAmount", amount);
+                                            setValue("range", rangeValue === 'NaN' ? 0 : rangeValue);
                                             setValue("total", multiply(amount, pairRate));
                                         }}
-                                        maxValue={values.pairRate ? balance/values.pairRate : null}
+                                        // maxValue={values.pairRate ? balance/values.pairRate : null}
                                         setValue={setValue}
                                         disableArrows
                                     />

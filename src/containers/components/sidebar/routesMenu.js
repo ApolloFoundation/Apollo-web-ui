@@ -1,5 +1,5 @@
 export const dashboardMenu = {
-	className: '/',
+	className: ['/', '/dashboard'],
 	to: '/',
 	label: 'Dashboard',
 	icon: 'zmdi-view-dashboard',

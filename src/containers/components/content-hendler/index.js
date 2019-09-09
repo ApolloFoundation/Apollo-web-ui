@@ -5,6 +5,7 @@ import ContentLoader from '../content-loader'
 
 const ContentHendler = (props) => (
     <React.Fragment>
+        {/* {props.items.length === 0 && props.children} */}
         {
             props.items &&
             props.items.length > 0 &&
