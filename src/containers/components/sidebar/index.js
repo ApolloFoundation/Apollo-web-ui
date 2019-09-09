@@ -32,41 +32,44 @@ class Sidebar extends React.Component {
 		isMenuCollapsed: false,
 	};
 
-	componentDidMount() {
-		document.addEventListener('touchstart', this.handleMenuTouchOut);
-	}
+	// componentDidMount() {
+	// 	document.addEventListener('touchstart', this.handleMenuTouchOut);
+	// }
 
-	componentWillUnmount() {
-		document.removeEventListener('touchstart', this.handleMenuTouchOut);
-	}
+	// componentWillUnmount() {
+	// 	document.removeEventListener('touchstart', this.handleMenuTouchOut);
+	// }
 
-	handleMenuMouseOver = () => {
-		this.setState({
-			isHover: true
-		});
-	};
+	// handleMenuMouseOver = () => {
+	// 	console.log('open');
+		
+	// 	this.setState({
+	// 		isHover: true
+	// 	});
+	// };
 
-	handleMenuMouseOut = (event) => {
-		this.setState({
-			isHover: false
-		});
-	};
+	// handleMenuMouseOut = (event) => {
+	// 	console.log(event, 'close');
+	// 	this.setState({
+	// 		isHover: false
+	// 	});
+	// };
 
-	handleMenuTouchOut = (event) => {
-		if (this.menuRef && !this.menuRef.contains(event.target) &&
-			this.submenuRef && !this.submenuRef.contains(event.target)) {
-			this.setState({
-				isHover: false
-			});
-		}
-	};
+	// handleMenuTouchOut = (event) => {
+	// 	if (this.menuRef && !this.menuRef.contains(event.target) &&
+	// 		this.submenuRef && !this.submenuRef.contains(event.target)) {
+	// 		this.setState({
+	// 			isHover: false
+	// 		});
+	// 	}
+	// };
 
-	handleMenuCollapse = () => {
-		this.setState({
-			...this.state,
-			isMenuCollapsed: !this.state.isMenuCollapsed
-		})
-	};
+	// handleMenuCollapse = () => {
+	// 	this.setState({
+	// 		...this.state,
+	// 		isMenuCollapsed: !this.state.isMenuCollapsed
+	// 	})
+	// };
 
 	createNav = ({className, to, icon, label}) => {
 		return <NavLink
@@ -89,11 +92,10 @@ class Sidebar extends React.Component {
 		allRoutes = allRoutes.concat(menu.children.map(opt => opt.to));
 		return <li className={`active-menu ${this.getNavLinkClass(allRoutes)}`}>
 			{this.createNav(menu)}
-			{this.getNavLinkClass(allRoutes) === 'active' && 
 			<>
 				{menu.children.map(opt => this.createNav(opt))}
 				{menu.additionalChildren && this.createAdditionalNav(menu.additionalChildren)}
-			</>}
+			</>
 		</li>
 	};
 
