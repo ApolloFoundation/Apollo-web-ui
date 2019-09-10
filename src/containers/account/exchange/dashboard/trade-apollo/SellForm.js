@@ -103,7 +103,7 @@ class SellForm extends React.PureComponent {
                         :
                         parseFloat(this.props.balanceAPL);
     
-                    if (!this.props.balanceAPL || balanceAPL === 0 || balanceAPL < (offerAmount + this.feeATM)) {
+                    if (!this.props.balanceAPL || balanceAPL === 0 || balanceAPL < ((offerAmount + this.feeATM) / 10)) {
                         NotificationManager.error('Not enough founds on your APL balance.', 'Error', 5000);
                         this.setPending(false);
                         return;
