@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {getBuyOpenOffers} from "../../../../../actions/wallet";
+import {setSelectedOrderInfo} from "../../../../../modules/modals";
 import {formatDivision} from '../../../../../helpers/format';
 import {ONE_GWEI} from '../../../../../constants';
 import CustomTable from '../../../../components/tables/table';
@@ -24,6 +25,10 @@ class BuyOrders extends React.Component {
         }
 
         return null;
+    }
+
+    handleSelectOrder = orderInfo => {
+        this.props.setSelectedOrderInfo(orderInfo);
     }
 
     onPaginate = (page) => {
@@ -60,7 +65,7 @@ class BuyOrders extends React.Component {
                     const offerAmount = formatDivision(props.offerAmount, ONE_GWEI, 3);
                     const total = formatDivision(props.pairRate * props.offerAmount, Math.pow(10, 18), 9);
                     return (
-                        <tr className={'success'}>
+                        <tr onClick={() => this.handleSelectOrder({pairRate, offerAmount, total})} className={'success'}>
                             <td className={'text-success'}>{pairRate}</td>
                             <td className={'align-right'}>{offerAmount}</td>
                             <td className={'align-right'}>{total}</td>
@@ -82,6 +87,7 @@ const mapStateToProps = ({exchange}) => ({
 
 const mapDispatchToProps = dispatch => ({
     getBuyOpenOffers: (currency, options) => dispatch(getBuyOpenOffers(currency, options)),
+    setSelectedOrderInfo: (data) => dispatch(setSelectedOrderInfo(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BuyOrders);

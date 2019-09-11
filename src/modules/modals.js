@@ -15,7 +15,7 @@ export const SET_BODY_MODAL_DATA = 'SET_BODY_MODAL_DATA';
 export const SET_MODAL_CALLBACK = 'SET_MODAL_CALLBACK';
 export const SET_ALERT_DATA = 'SET_ALERT_DATA';
 
-
+export const SET_SELECTED_ORDER_INFO = 'SET_SELECTED_ORDER_INFO';
 
 export const SET_AMOUNT_WARNING = 'SET_AMOUNT_WARNING';
 export const SET_FEE_WARNING = 'SET_FEE_WARNING';
@@ -47,7 +47,8 @@ const initialState = {
     maxCurrencyTransferWarningStage: 0,
     savedValues: {},
     backClicked: false,
-	modalsHistory: []
+    modalsHistory: [],
+    infoSelectedOrder : null
 };
 
 export default (state = initialState, action) => {
@@ -164,11 +165,23 @@ export default (state = initialState, action) => {
                 isMomalProcessing: action.payload
             };
 
+        case SET_SELECTED_ORDER_INFO: 
+            return {
+                ...state,
+                infoSelectedOrder: action.payload
+            };
+
         default:
             return state
     }
 }
 
+export const setSelectedOrderInfo = (stateValues) => dispatch => {
+	dispatch({
+		type: SET_SELECTED_ORDER_INFO,
+		payload: stateValues
+	});
+};
 
 export const saveSendModalState = (stateValues) => dispatch => {
 	dispatch({
