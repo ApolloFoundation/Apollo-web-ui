@@ -27,10 +27,6 @@ class BuyOrders extends React.Component {
         return null;
     }
 
-    handleSelectOrder = orderInfo => {
-        this.props.setSelectedOrderInfo(orderInfo);
-    }
-
     onPaginate = (page) => {
         const pagination = {
             page: page,
@@ -65,7 +61,7 @@ class BuyOrders extends React.Component {
                     const offerAmount = formatDivision(props.offerAmount, ONE_GWEI, 3);
                     const total = formatDivision(props.pairRate * props.offerAmount, Math.pow(10, 18), 9);
                     return (
-                        <tr onClick={() => this.handleSelectOrder({pairRate, offerAmount, total})} className={'success'}>
+                        <tr onClick={() => this.props.setSelectedOrderInfo({pairRate, offerAmount, total, type: 'BUY'})} className={'success'}>
                             <td className={'text-success'}>{pairRate}</td>
                             <td className={'align-right'}>{offerAmount}</td>
                             <td className={'align-right'}>{total}</td>
