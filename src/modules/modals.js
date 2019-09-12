@@ -15,7 +15,8 @@ export const SET_BODY_MODAL_DATA = 'SET_BODY_MODAL_DATA';
 export const SET_MODAL_CALLBACK = 'SET_MODAL_CALLBACK';
 export const SET_ALERT_DATA = 'SET_ALERT_DATA';
 
-
+export const SET_SELECTED_BUY_ORDER_INFO = 'SET_SELECTED_BUY_ORDER_INFO';
+export const SET_SELECTED_SELL_ORDER_INFO = 'SET_SELECTED_SELL_ORDER_INFO';
 
 export const SET_AMOUNT_WARNING = 'SET_AMOUNT_WARNING';
 export const SET_FEE_WARNING = 'SET_FEE_WARNING';
@@ -47,7 +48,9 @@ const initialState = {
     maxCurrencyTransferWarningStage: 0,
     savedValues: {},
     backClicked: false,
-	modalsHistory: []
+    modalsHistory: [],
+    infoSelectedBuyOrder : null,
+    infoSelectedSellOrder: null,
 };
 
 export default (state = initialState, action) => {
@@ -158,10 +161,22 @@ export default (state = initialState, action) => {
                 dashboardForm : action.payload
             };
 
-        case IS_MODAL_PROCESSING: 
+        case IS_MODAL_PROCESSING:
             return {
                 ...state,
                 isMomalProcessing: action.payload
+            };
+
+        case SET_SELECTED_BUY_ORDER_INFO:
+            return {
+                ...state,
+                infoSelectedBuyOrder: action.payload
+            };
+
+        case SET_SELECTED_SELL_ORDER_INFO: 
+            return {
+                ...state,
+                infoSelectedSellOrder: action.payload
             };
 
         default:
@@ -169,6 +184,12 @@ export default (state = initialState, action) => {
     }
 }
 
+export const setSelectedOrderInfo = (stateValues) => dispatch => {
+    dispatch({
+		type: stateValues.type === 'BUY' ? SET_SELECTED_BUY_ORDER_INFO : SET_SELECTED_SELL_ORDER_INFO,
+		payload: stateValues
+        })
+};
 
 export const saveSendModalState = (stateValues) => dispatch => {
 	dispatch({

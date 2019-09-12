@@ -12,7 +12,7 @@ import {setBodyModalParamsAction} from '../../../../../modules/modals';
 import {ONE_GWEI} from '../../../../../constants';
 import {ReactComponent as ArrowRight} from "../../../../../assets/arrow-right.svg";
 
-class BuyForm extends React.Component {
+class BuyForm extends React.PureComponent {
     feeATM = 200000000;
     state = {
         isPending: false,
@@ -23,6 +23,7 @@ class BuyForm extends React.Component {
     };
 
     static getDerivedStateFromProps(props, state) {
+        
         if (props.currentCurrency && (props.currentCurrency.currency !== state.currentCurrency || props.wallet !== state.wallet)) {
             if (state.form && state.form.values) {
                 state.form.setAllValues({
@@ -51,8 +52,22 @@ class BuyForm extends React.Component {
         return null;
     }
 
+    componentDidUpdate(prevProps) {
+        if(prevProps.infoSelectedBuyOrder !== this.props.infoSelectedBuyOrder) {
+            const { pairRate, offerAmount, total } = this.props.infoSelectedBuyOrder;
+            const { form, wallet } = this.state;
+            const rangeValue = (pairRate * offerAmount * 100).toFixed(0);
+            form.setAllValues({
+                walletAddress: wallet[0],
+                pairRate: pairRate,
+                offerAmount: offerAmount,
+                total: +total,
+                range: rangeValue > 100 ? 100 : rangeValue,
+            });
+        }
+    }
+
     handleFormSubmit = (values) => {
-        
         if (!this.state.isPending) {
             this.setPending()
             if (this.props.wallet) {
@@ -305,10 +320,11 @@ class BuyForm extends React.Component {
     }
 }
 
-const mapStateToProps = ({account, dashboard, exchange}) => ({
+const mapStateToProps = ({account, dashboard, exchange, modals}) => ({
     account: account.account,
     balanceAPL: account.unconfirmedBalanceATM,
     dashboardAccoountInfo: dashboard.dashboardAccoountInfo,
+    infoSelectedBuyOrder: modals.infoSelectedBuyOrder,
     passPhrase: account.passPhrase,
     currentCurrency: exchange.currentCurrency,
 });

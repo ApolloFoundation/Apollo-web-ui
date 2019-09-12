@@ -12,7 +12,7 @@ import {ONE_APL, ONE_GWEI} from '../../../../../constants';
 import {ReactComponent as ArrowRight} from "../../../../../assets/arrow-right.svg";
 import InputRange from "../../../../components/input-range";
 
-class SellForm extends React.Component {
+class SellForm extends React.PureComponent {
     feeATM = 200000000;
     state = {
         isPending: false,
@@ -49,6 +49,24 @@ class SellForm extends React.Component {
         }
 
         return null;
+    }
+
+    componentDidUpdate(prevProps) {
+        if(prevProps.infoSelectedSellOrder !== this.props.infoSelectedSellOrder) {
+            const { balanceAPL, dashboardAccoountInfo } = this.props;
+            const balance = (dashboardAccoountInfo && dashboardAccoountInfo.unconfirmedBalanceATM) ? dashboardAccoountInfo.unconfirmedBalanceATM : balanceAPL;
+            const balanceFormat = balance ? (balance / ONE_APL) : 0;
+            const { pairRate, offerAmount, total } = this.props.infoSelectedSellOrder;
+            const { form, wallet } = this.state;
+            const rangeValue = (pairRate * offerAmount * 100).toFixed(0);
+            form.setAllValues({
+                walletAddress: wallet[0],
+                pairRate: pairRate,
+                offerAmount: offerAmount,
+                total: +total,
+                range: (offerAmount * 100 / balanceFormat).toFixed(0)
+            });
+        }
     }
 
     handleFormSubmit = (values) => {
@@ -297,9 +315,10 @@ class SellForm extends React.Component {
     }
 }
 
-const mapStateToProps = ({account, dashboard, exchange}) => ({
+const mapStateToProps = ({account, dashboard, exchange, modals}) => ({
     account: account.account,
     balanceAPL: account.unconfirmedBalanceATM,
+    infoSelectedSellOrder: modals.infoSelectedSellOrder,
     dashboardAccoountInfo: dashboard.dashboardAccoountInfo,
     passPhrase: account.passPhrase,
     currentCurrency: exchange.currentCurrency,
