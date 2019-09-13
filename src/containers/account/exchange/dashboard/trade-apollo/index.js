@@ -2,22 +2,18 @@ import React from 'react';
 import {connect} from "react-redux";
 import {ONE_APL} from '../../../../../constants';
 import {getTransactionFee} from "../../../../../actions/wallet";
+import {setTypeOfTrade} from "../../../../../modules/modals";
 import BuyForm from "./BuyForm";
 import SellForm from "./SellForm";
 
 class TradeApollo extends React.Component {
     feeATM = 200000000;
     state = {
-        actionType: 0,
         maxFee: null,
     };
 
     componentDidMount() {
         this.getTransactionFee();
-    }
-
-    handleActionType = (type) => {
-        this.setState({actionType: type});
     };
 
     getTransactionFee = async () => {
@@ -28,7 +24,7 @@ class TradeApollo extends React.Component {
     };
 
     render() {
-        const {wallet, handleLoginModal, currency, constants} = this.props;
+        const {wallet, handleLoginModal, currency, constants, typeOfTrade, infoSelectedBuyOrder, infoSelectedSellOrder} = this.props;
         const gasLimit = currency === 'eth' ? constants.gasLimitEth : constants.gasLimitERC20;
         const ethFee = this.state.maxFee * gasLimit * 0.000000001;
         return (
@@ -40,19 +36,19 @@ class TradeApollo extends React.Component {
                 <div className="card-body">
                     <div className={'tabs-wrap mb-3'}>
                         <div
-                            className={`tab-item ${this.state.actionType === 0 ? 'active' : ''}`}
-                            onClick={this.handleActionType.bind(this, 0)}
+                            className={`tab-item ${typeOfTrade === 'BUY' ? 'active' : ''}`}
+                            onClick={() => this.props.setTypeOfTrade('BUY')}
                         >
                             Buy APL
                         </div>
                         <div
-                            className={`tab-item ${this.state.actionType === 1 ? 'active' : ''}`}
-                            onClick={this.handleActionType.bind(this, 1)}
+                            className={`tab-item ${typeOfTrade === 'SELL' ? 'active' : ''}`}
+                            onClick={() => this.props.setTypeOfTrade('SELL')}
                         >
                             Sell APL
                         </div>
                     </div>
-                    {this.state.actionType === 0 ? (
+                    {typeOfTrade === 'BUY' ? (
                         <BuyForm
                             wallet={wallet}
                             handleLoginModal={handleLoginModal}
@@ -73,10 +69,14 @@ class TradeApollo extends React.Component {
 
 const mapStateToProps = state => ({
     constants: state.account.constants,
+    typeOfTrade: state.modals.typeOfTrade,
+    infoSelectedBuyOrder: state.modals.infoSelectedBuyOrder,
+    infoSelectedSellOrder: state.modals.infoSelectedSellOrder,
 });
 
 const mapDispatchToProps = dispatch => ({
     getTransactionFee: () => dispatch(getTransactionFee()),
+    setTypeOfTrade: (params) => dispatch(setTypeOfTrade(params)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TradeApollo);
