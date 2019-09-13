@@ -28,7 +28,7 @@ class Exchange extends React.Component {
     };
 
     componentDidMount() {
-        NotificationManager.info('After creating an order, you must keep your node online, leaving enough funds in your account to cover the exchange fees (min 12 APL), until the exchange completes', null, 1000000);
+        NotificationManager.info('After creating an order, you should keep your node online, leaving enough funds on your account to cover the exchange fees (min 12 APL), until the exchange completes', null, 1000000);
         let wallets = localStorage.getItem('wallets');
         if (!wallets) {
             this.handleLoginModal();
