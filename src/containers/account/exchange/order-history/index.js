@@ -76,7 +76,6 @@ class OrderHistory extends React.Component {
 
     render() {
         const {myOrderHistory} = this.props;
-        const activeOrders = !!myOrderHistory.length && myOrderHistory.filter(order => order.status === 0);
         return (
             <div className="page-content">
                 <SiteHeader
@@ -115,14 +114,14 @@ class OrderHistory extends React.Component {
                                 ]}
                                 className={'no-min-height transparent'}
                                 emptyMessage={'No created orders.'}
-                                tableData={activeOrders}
+                                tableData={myOrderHistory}
                                 TableRowComponent={(props) => {
                                     const statusName = props.status === 0 ? 'Active' : 'Expired'
                                     const typeName = props.type === 0 ? 'BUY' : 'SELL'
                                     const pairRate = formatDivision(props.pairRate, ONE_GWEI, 9);
                                     const offerAmount = formatDivision(props.offerAmount, ONE_GWEI, 3);
                                     const total = formatDivision(props.pairRate * props.offerAmount, Math.pow(10, 18), 9);
-                                    const currency = props.type === 1 ? props.pairCurrency : props.offerCurrency;
+                                    const currency = props.pairCurrency;
                                     const type = Object.keys(currencyTypes).find(key => currencyTypes[key] === currency);
                                     return (
                                         <tr style={{cursor: 'pointer'}} onClick={() => this.handleSelectOrder({pairRate, offerAmount, total, currency, typeName, statusName})}>

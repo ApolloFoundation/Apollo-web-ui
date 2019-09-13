@@ -31,6 +31,7 @@ const initialState = {
     description: null,
     forgedBalanceATM: null,
     name: null,
+    gasTransactionMultiply: 6,
     publicKey: null,
     requestProcessingTime: null,
     unconfirmedBalanceATM: null,

@@ -12,7 +12,7 @@ import {setBodyModalParamsAction} from '../../../../../modules/modals';
 import {ONE_GWEI} from '../../../../../constants';
 import {ReactComponent as ArrowRight} from "../../../../../assets/arrow-right.svg";
 
-class BuyForm extends React.Component {
+class BuyForm extends React.PureComponent {
     feeATM = 200000000;
     state = {
         isPending: false,
@@ -23,6 +23,7 @@ class BuyForm extends React.Component {
     };
 
     static getDerivedStateFromProps(props, state) {
+        
         if (props.currentCurrency && (props.currentCurrency.currency !== state.currentCurrency || props.wallet !== state.wallet)) {
             if (state.form && state.form.values) {
                 state.form.setAllValues({
@@ -51,12 +52,30 @@ class BuyForm extends React.Component {
         return null;
     }
 
+    componentDidUpdate() {
+        if(this.props.infoSelectedBuyOrder) {
+            const { pairRate, offerAmount, total } = this.props.infoSelectedBuyOrder;
+            const {currentCurrency: {currency}} = this.props;
+            const { form, wallet } = this.state;
+            const balance = wallet && wallet[0].balances[currency];
+            const rangeValue = ((pairRate * offerAmount) * 100 / balance).toFixed(0);
+            form.setAllValues({
+                walletAddress: wallet[0],
+                pairRate: pairRate,
+                offerAmount: offerAmount,
+                total: +total,
+                range: rangeValue > 100 ? 100 : rangeValue,
+            });
+        }
+    }
+
     handleFormSubmit = (values) => {
         if (!this.state.isPending) {
             this.setPending()
             if (this.props.wallet) {
                 if (values.offerAmount > 0 && values.pairRate > 0) {
-                    const currency = this.props.currentCurrency.currency;
+                    const {currentCurrency: {currency}} = this.props;
+                    const balance = values.walletAddress && values.walletAddress.balances[currency];
                     let isError = false;
                     if (values.pairRate < 0.000000001) {
                         NotificationManager.error(`Price must be more then 0.000000001 ${currency.toUpperCase()}`, 'Error', 5000);
@@ -78,10 +97,17 @@ class BuyForm extends React.Component {
                         NotificationManager.error(`To sell APL you need to have at least ${this.props.ethFee.toLocaleString('en')} ETH on your balance to confirm transaction`, 'Error', 5000);
                         isError = true;
                     }
+
+                    if (values.total > balance) {
+                        NotificationManager.error(`You need more ${currency.toUpperCase()}. Please check your wallet balance.`, 'Error', 5000);
+                        isError = true;
+                    }
+
                     if (isError) {
                         this.setPending(false);
                         return;
                     }
+                    
                     const pairRate = multiply(values.pairRate, ONE_GWEI);
                     const offerAmount = multiply(values.offerAmount, ONE_GWEI);
                     const balanceETH = parseFloat(values.walletAddress.balances[currency]);
@@ -89,7 +115,13 @@ class BuyForm extends React.Component {
                         parseFloat(this.props.dashboardAccoountInfo.unconfirmedBalanceATM)
                         :
                         parseFloat(this.props.balanceAPL);
-    
+
+                    if (values.total + this.props.gasFee > balanceETH) {
+                        NotificationManager.error(`Not enough founds on your ${currency.toUpperCase()} balance. You need to pay Gas fee`, 'Error', 5000);
+                        this.setPending(false);
+                        return;
+                    }
+
                     if (balanceETH === 0 || balanceETH < values.total) {
                         NotificationManager.error(`Not enough founds on your ${currency.toUpperCase()} balance.`, 'Error', 5000);
                         this.setPending(false);
@@ -192,18 +224,11 @@ class BuyForm extends React.Component {
                                         field="pairRate"
                                         type={"float"}
                                         onChange={(price) => {
-                                            let amount = values.offerAmount || 0;
-                                            if (balance) {
-                                                if ((amount * price) > balance) {
-                                                    amount = balance / price;
-                                                    setValue("range", 100);
-                                                    setValue("total", balance);
-                                                    setValue("offerAmount", amount);
-                                                    return;
-                                                } else {
-                                                    setValue("range", ((amount * price) * 100 / balance).toFixed(0));
-                                                }
-                                            }
+                                            const amount = values.offerAmount || 0;
+                                            let rangeValue = ((amount * price) * 100 / balance).toFixed(0)
+                                            if (rangeValue > 100) rangeValue = 100
+                                            setValue("offerAmount", amount);
+                                            setValue("range", rangeValue)
                                             setValue("total", multiply(amount, price));
                                         }}
                                         setValue={setValue}
@@ -225,20 +250,13 @@ class BuyForm extends React.Component {
                                         type={"float"}
                                         onChange={(amount) => {
                                             const pairRate = +values.pairRate || 0;
-                                            if (balance) {
-                                                if ((amount * pairRate) > +balance) {
-                                                    amount = balance / pairRate;
-                                                    setValue("range", 100);
-                                                    setValue("total", balance);
-                                                    setValue("offerAmount", amount);
-                                                    return;
-                                                } else {
-                                                    setValue("range", (amount * pairRate * 100 / balance).toFixed(0));
-                                                }
-                                            }
+                                            let rangeValue = ((amount * pairRate) * 100 / balance).toFixed(0)
+                                            if (rangeValue > 100) rangeValue = 100
+                                            setValue("offerAmount", amount);
+                                            setValue("range", rangeValue);
                                             setValue("total", multiply(amount, pairRate));
                                         }}
-                                        maxValue={values.pairRate ? balance/values.pairRate : null}
+                                        // maxValue={values.pairRate ? balance/values.pairRate : null}
                                         setValue={setValue}
                                         disableArrows
                                     />
@@ -309,10 +327,11 @@ class BuyForm extends React.Component {
     }
 }
 
-const mapStateToProps = ({account, dashboard, exchange}) => ({
+const mapStateToProps = ({account, dashboard, exchange, modals}) => ({
     account: account.account,
     balanceAPL: account.unconfirmedBalanceATM,
     dashboardAccoountInfo: dashboard.dashboardAccoountInfo,
+    infoSelectedBuyOrder: modals.infoSelectedBuyOrder,
     passPhrase: account.passPhrase,
     currentCurrency: exchange.currentCurrency,
 });

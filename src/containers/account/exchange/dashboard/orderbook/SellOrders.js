@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {getSellOpenOffers} from "../../../../../actions/wallet";
+import {setSelectedOrderInfo} from "../../../../../modules/modals";
 import {formatDivision} from "../../../../../helpers/format";
 import {ONE_GWEI} from '../../../../../constants';
 import CustomTable from '../../../../components/tables/table';
@@ -60,7 +61,7 @@ class SellOrders extends React.Component {
                     const offerAmount = formatDivision(props.offerAmount, ONE_GWEI, 3);
                     const total = formatDivision(props.pairRate * props.offerAmount, Math.pow(10, 18), 9);
                     return (
-                        <tr>
+                        <tr onClick={() => this.props.setSelectedOrderInfo({pairRate, offerAmount, total, type: 'BUY'})}>
                             <td className={'text-danger'}>{pairRate}</td>
                             <td className={'align-right'}>{offerAmount}</td>
                             <td className={'align-right'}>{total}</td>
@@ -82,6 +83,7 @@ const mapStateToProps = ({exchange}) => ({
 
 const mapDispatchToProps = dispatch => ({
     getSellOpenOffers: (currency, options) => dispatch(getSellOpenOffers(currency, options)),
+    setSelectedOrderInfo: (data) => dispatch(setSelectedOrderInfo(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SellOrders);

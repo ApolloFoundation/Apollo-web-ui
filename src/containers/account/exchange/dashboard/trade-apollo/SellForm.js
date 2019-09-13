@@ -12,7 +12,7 @@ import {ONE_APL, ONE_GWEI} from '../../../../../constants';
 import {ReactComponent as ArrowRight} from "../../../../../assets/arrow-right.svg";
 import InputRange from "../../../../components/input-range";
 
-class SellForm extends React.Component {
+class SellForm extends React.PureComponent {
     feeATM = 200000000;
     state = {
         isPending: false,
@@ -51,6 +51,23 @@ class SellForm extends React.Component {
         return null;
     }
 
+    componentDidUpdate() {
+        if(this.props.infoSelectedSellOrder) {
+            const { balanceAPL, dashboardAccoountInfo } = this.props;
+            const balance = (dashboardAccoountInfo && dashboardAccoountInfo.unconfirmedBalanceATM) ? dashboardAccoountInfo.unconfirmedBalanceATM : balanceAPL;
+            const balanceFormat = balance ? (balance / ONE_APL) : 0;
+            const { pairRate, offerAmount, total } = this.props.infoSelectedSellOrder;
+            const { form, wallet } = this.state;
+            form.setAllValues({
+                walletAddress: wallet[0],
+                pairRate: pairRate,
+                offerAmount: offerAmount,
+                total: +total,
+                range: (offerAmount * 100 / balanceFormat).toFixed(0)
+            });
+        }
+    }
+
     handleFormSubmit = (values) => {
         if (!this.state.isPending) {
             this.setPending();
@@ -85,7 +102,7 @@ class SellForm extends React.Component {
                         :
                         parseFloat(this.props.balanceAPL);
     
-                    if (!this.props.balanceAPL || balanceAPL === 0 || balanceAPL < (offerAmount + this.feeATM)) {
+                    if (!this.props.balanceAPL || balanceAPL === 0 || balanceAPL < ((offerAmount + this.feeATM) / 10)) {
                         NotificationManager.error('Not enough funds on your APL balance.', 'Error', 5000);
                         this.setPending(false);
                         return;
@@ -297,9 +314,10 @@ class SellForm extends React.Component {
     }
 }
 
-const mapStateToProps = ({account, dashboard, exchange}) => ({
+const mapStateToProps = ({account, dashboard, exchange, modals}) => ({
     account: account.account,
     balanceAPL: account.unconfirmedBalanceATM,
+    infoSelectedSellOrder: modals.infoSelectedSellOrder,
     dashboardAccoountInfo: dashboard.dashboardAccoountInfo,
     passPhrase: account.passPhrase,
     currentCurrency: exchange.currentCurrency,
