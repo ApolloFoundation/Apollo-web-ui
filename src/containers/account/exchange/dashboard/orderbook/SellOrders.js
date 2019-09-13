@@ -61,7 +61,7 @@ class SellOrders extends React.Component {
                     const offerAmount = formatDivision(props.offerAmount, ONE_GWEI, 3);
                     const total = formatDivision(props.pairRate * props.offerAmount, Math.pow(10, 18), 9);
                     return (
-                        <tr onClick={() => this.props.setSelectedOrderInfo({pairRate, offerAmount, total, type: 'SELL'})}>
+                        <tr onClick={() => this.props.setSelectedOrderInfo({pairRate, offerAmount, total, type: 'BUY'})}>
                             <td className={'text-danger'}>{pairRate}</td>
                             <td className={'align-right'}>{offerAmount}</td>
                             <td className={'align-right'}>{total}</td>

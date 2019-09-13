@@ -17,6 +17,7 @@ export const SET_ALERT_DATA = 'SET_ALERT_DATA';
 
 export const SET_SELECTED_BUY_ORDER_INFO = 'SET_SELECTED_BUY_ORDER_INFO';
 export const SET_SELECTED_SELL_ORDER_INFO = 'SET_SELECTED_SELL_ORDER_INFO';
+export const SET_TYPE_OF_TRADE = 'SET_TYPE_OF_TRADE';
 
 export const SET_AMOUNT_WARNING = 'SET_AMOUNT_WARNING';
 export const SET_FEE_WARNING = 'SET_FEE_WARNING';
@@ -51,6 +52,7 @@ const initialState = {
     modalsHistory: [],
     infoSelectedBuyOrder : null,
     infoSelectedSellOrder: null,
+    typeOfTrade: 'BUY'
 };
 
 export default (state = initialState, action) => {
@@ -170,13 +172,21 @@ export default (state = initialState, action) => {
         case SET_SELECTED_BUY_ORDER_INFO:
             return {
                 ...state,
-                infoSelectedBuyOrder: action.payload
+                typeOfTrade: 'BUY',
+                infoSelectedBuyOrder: action.payload,
             };
 
         case SET_SELECTED_SELL_ORDER_INFO: 
             return {
                 ...state,
-                infoSelectedSellOrder: action.payload
+                typeOfTrade: 'SELL',
+                infoSelectedSellOrder: action.payload,
+            };
+
+        case SET_TYPE_OF_TRADE: 
+            return {
+                ...state,
+                typeOfTrade: action.payload
             };
 
         default:
@@ -187,6 +197,13 @@ export default (state = initialState, action) => {
 export const setSelectedOrderInfo = (stateValues) => dispatch => {
     dispatch({
 		type: stateValues.type === 'BUY' ? SET_SELECTED_BUY_ORDER_INFO : SET_SELECTED_SELL_ORDER_INFO,
+		payload: stateValues
+        })
+};
+
+export const setTypeOfTrade = (stateValues) => dispatch => {
+    dispatch({
+		type: SET_TYPE_OF_TRADE,
 		payload: stateValues
         })
 };

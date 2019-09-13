@@ -52,8 +52,8 @@ class BuyForm extends React.PureComponent {
         return null;
     }
 
-    componentDidUpdate(prevProps) {
-        if(prevProps.infoSelectedBuyOrder !== this.props.infoSelectedBuyOrder) {
+    componentDidUpdate() {
+        if(this.props.infoSelectedBuyOrder) {
             const { pairRate, offerAmount, total } = this.props.infoSelectedBuyOrder;
             const {currentCurrency: {currency}} = this.props;
             const { form, wallet } = this.state;
@@ -99,7 +99,7 @@ class BuyForm extends React.PureComponent {
                     }
 
                     if (values.total > balance) {
-                        NotificationManager.error('You need more ETH. Please check your wallet balance.', 'Error', 5000);
+                        NotificationManager.error(`You need more ${currency.toUpperCase()}. Please check your wallet balance.`, 'Error', 5000);
                         isError = true;
                     }
 
@@ -128,7 +128,7 @@ class BuyForm extends React.PureComponent {
                         return;
                     }
                     if (!this.props.balanceAPL || balanceAPL === 0 || balanceAPL < this.feeATM) {
-                        NotificationManager.error('Not enough founds on your APL balance. You need to pay 2 APL fee.', 'Error', 5000);
+                        NotificationManager.error('Not enough funds on your APL balance. You need to pay 2 APL fee.', 'Error', 5000);
                         this.setPending(false);
                         return;
                     }

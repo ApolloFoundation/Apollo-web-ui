@@ -76,6 +76,7 @@ class TradeHistory extends React.Component {
 
     render() {
         const {myOrderHistory} = this.props;
+        const activeOrders = !!myOrderHistory.length && myOrderHistory.filter(order => order.status === 0);
         return (
             <div className="page-content">
                 <SiteHeader
@@ -115,7 +116,7 @@ class TradeHistory extends React.Component {
                                     ]}
                                     className={'no-min-height transparent'}
                                     emptyMessage={'No created orders.'}
-                                    tableData={myOrderHistory}
+                                    tableData={activeOrders}
                                     TableRowComponent={(props) => {
                                         const statusName = props.status === 0 ? 'Active' : 'Expired';
                                         const typeName = props.type === 0 ? 'BUY' : 'SELL';
