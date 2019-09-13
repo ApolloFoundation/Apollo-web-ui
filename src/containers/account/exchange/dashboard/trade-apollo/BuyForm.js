@@ -52,8 +52,8 @@ class BuyForm extends React.PureComponent {
         return null;
     }
 
-    componentDidUpdate(prevProps) {
-        if(prevProps.infoSelectedBuyOrder !== this.props.infoSelectedBuyOrder) {
+    componentDidUpdate() {
+        if(this.props.infoSelectedBuyOrder) {
             const { pairRate, offerAmount, total } = this.props.infoSelectedBuyOrder;
             const {currentCurrency: {currency}} = this.props;
             const { form, wallet } = this.state;
