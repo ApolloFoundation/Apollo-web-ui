@@ -96,11 +96,10 @@ class BuyForm extends React.PureComponent {
                         NotificationManager.error(`To sell APL you need to have at least ${this.props.ethFee.toLocaleString('en')} ETH on your balance to confirm transaction`, 'Error', 5000);
                         isError = true;
                     }
-
                     const balance = values.walletAddress && values.walletAddress.balances[currency];
 
                     if (values.total > balance) {
-                        NotificationManager.error('You need more ETH. Please check your wallet balance.', 'Error', 5000);
+                        NotificationManager.error(`You need more ${currency.toUpperCase()}. Please check your wallet balance.`, 'Error', 5000);
                         isError = true;
                     }
 
@@ -123,7 +122,7 @@ class BuyForm extends React.PureComponent {
                         return;
                     }
                     if (!this.props.balanceAPL || balanceAPL === 0 || balanceAPL < this.feeATM) {
-                        NotificationManager.error('Not enough founds on your APL balance. You need to pay 2 APL fee.', 'Error', 5000);
+                        NotificationManager.error('Not enough funds on your APL balance. You need to pay 2 APL fee.', 'Error', 5000);
                         this.setPending(false);
                         return;
                     }
