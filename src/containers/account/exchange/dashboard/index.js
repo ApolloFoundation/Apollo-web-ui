@@ -9,7 +9,7 @@ import Plot from './plot';
 import TradeHistoryExchange from './trade-history';
 import OpenOrders from './open-orders';
 import {setCurrentCurrencyAction} from "../../../../modules/exchange";
-import {setBodyModalParamsAction} from "../../../../modules/modals";
+import {setBodyModalParamsAction, resetTrade} from "../../../../modules/modals";
 import {
     getBuyOpenOffers,
     getCurrencyBalance,
@@ -69,6 +69,7 @@ class Exchange extends React.Component {
     };
 
     switchCurrency = (currency) => {
+        this.props.resetTrade();
         this.props.getBuyOpenOffers(currency);
         this.props.getSellOpenOffers(currency);
         this.props.getPlotBuyOpenOffers(currency);
@@ -187,6 +188,7 @@ const mapDispatchToProps = dispatch => ({
     getPlotBuyOpenOffers: (currency) => dispatch(getPlotBuyOpenOffers(currency)),
     getPlotSellOpenOffers: (currency) => dispatch(getPlotSellOpenOffers(currency)),
     getMyOpenOffers: (currency) => dispatch(getMyOpenOffers(currency)),
+    resetTrade: () => dispatch(resetTrade()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Exchange)

@@ -18,6 +18,7 @@ export const SET_ALERT_DATA = 'SET_ALERT_DATA';
 export const SET_SELECTED_BUY_ORDER_INFO = 'SET_SELECTED_BUY_ORDER_INFO';
 export const SET_SELECTED_SELL_ORDER_INFO = 'SET_SELECTED_SELL_ORDER_INFO';
 export const SET_TYPE_OF_TRADE = 'SET_TYPE_OF_TRADE';
+export const RESET_TRADE_OFFER = 'RESET_TRADE_OFFER';
 
 export const SET_AMOUNT_WARNING = 'SET_AMOUNT_WARNING';
 export const SET_FEE_WARNING = 'SET_FEE_WARNING';
@@ -189,10 +190,31 @@ export default (state = initialState, action) => {
                 typeOfTrade: action.payload
             };
 
+        case RESET_TRADE_OFFER: 
+            return {
+                ...state,
+                infoSelectedBuyOrder : {
+                    pairRate: '',
+                    offerAmount: '',
+                    total: 0,
+                    range: 0
+                },
+                infoSelectedSellOrder: {
+                    pairRate: '',
+                    offerAmount: '',
+                    total: '',
+                    range: 0
+                },
+            };
+
         default:
             return state
     }
 }
+
+export const resetTrade = () => dispatch => {
+    dispatch({type: RESET_TRADE_OFFER})
+};
 
 export const setSelectedOrderInfo = (stateValues) => dispatch => {
     dispatch({

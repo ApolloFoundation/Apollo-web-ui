@@ -74,6 +74,19 @@ class OrderHistory extends React.Component {
         });
     };
 
+    statusOfOrder = status => {
+        const allStatuses = {
+            0: 'Open',
+            1: 'Pending',
+            2: 'Expired',
+            3: 'Cancel',
+            4: 'Waiting approval',
+            5: 'Closed',
+        };
+
+        return allStatuses[status];
+    };
+
     render() {
         const {myOrderHistory} = this.props;
         return (
@@ -116,7 +129,7 @@ class OrderHistory extends React.Component {
                                 emptyMessage={'No created orders.'}
                                 tableData={myOrderHistory}
                                 TableRowComponent={(props) => {
-                                    const statusName = props.status === 0 ? 'Active' : 'Expired'
+                                    const statusName = this.statusOfOrder(props.status);
                                     const typeName = props.type === 0 ? 'BUY' : 'SELL'
                                     const pairRate = formatDivision(props.pairRate, ONE_GWEI, 9);
                                     const offerAmount = formatDivision(props.offerAmount, ONE_GWEI, 3);
