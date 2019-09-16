@@ -7,7 +7,7 @@ import InputForm from '../../../../components/input-form';
 import CustomSelect from '../../../../components/select';
 import {currencyTypes, formatDivision, multiply} from '../../../../../helpers/format';
 import {createOffer} from '../../../../../actions/wallet';
-import {setBodyModalParamsAction} from '../../../../../modules/modals';
+import {setBodyModalParamsAction, resetTrade} from '../../../../../modules/modals';
 import {ONE_APL, ONE_GWEI} from '../../../../../constants';
 import {ReactComponent as ArrowRight} from "../../../../../assets/arrow-right.svg";
 import InputRange from "../../../../components/input-range";
@@ -58,12 +58,13 @@ class SellForm extends React.PureComponent {
             const balanceFormat = balance ? (balance / ONE_APL) : 0;
             const { pairRate, offerAmount, total } = this.props.infoSelectedSellOrder;
             const { form, wallet } = this.state;
+            const rangeValue = (offerAmount * 100 / balanceFormat).toFixed(0)
             form.setAllValues({
                 walletAddress: wallet[0],
                 pairRate: pairRate,
                 offerAmount: offerAmount,
                 total: +total,
-                range: (offerAmount * 100 / balanceFormat).toFixed(0)
+                range: rangeValue === "NaN" ? 0 : rangeValue,
             });
         }
     }
@@ -124,6 +125,7 @@ class SellForm extends React.PureComponent {
                             this.setPending(false);
                         });
                         if (this.state.form) {
+                            this.props.resetTrade();
                             this.state.form.setAllValues({
                                 walletAddress: values.walletAddress,
                                 pairRate: '',
@@ -135,6 +137,7 @@ class SellForm extends React.PureComponent {
                         this.props.setBodyModalParamsAction('CONFIRM_CREATE_OFFER', {
                             params,
                             resetForm: () => {
+                                this.props.resetTrade();
                                 this.state.form.setAllValues({
                                 walletAddress: values.walletAddress,
                                 pairRate: '',
@@ -325,6 +328,7 @@ const mapStateToProps = ({account, dashboard, exchange, modals}) => ({
 
 const mapDispatchToProps = dispatch => ({
     createOffer: (params) => dispatch(createOffer(params)),
+    resetTrade: () => dispatch(resetTrade()),
     setBodyModalParamsAction: (type, value) => dispatch(setBodyModalParamsAction(type, value)),
 });
 

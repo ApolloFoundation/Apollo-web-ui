@@ -8,7 +8,7 @@ import CustomSelect from '../../../../components/select';
 import InputRange from "../../../../components/input-range";
 import {currencyTypes, multiply} from '../../../../../helpers/format';
 import {createOffer} from '../../../../../actions/wallet';
-import {setBodyModalParamsAction} from '../../../../../modules/modals';
+import {setBodyModalParamsAction, resetTrade} from '../../../../../modules/modals';
 import {ONE_GWEI} from '../../../../../constants';
 import {ReactComponent as ArrowRight} from "../../../../../assets/arrow-right.svg";
 
@@ -61,10 +61,10 @@ class BuyForm extends React.PureComponent {
             const rangeValue = ((pairRate * offerAmount) * 100 / balance).toFixed(0);
             form.setAllValues({
                 walletAddress: wallet[0],
-                pairRate: pairRate,
-                offerAmount: offerAmount,
+                pairRate: +pairRate,
+                offerAmount: +offerAmount,
                 total: +total,
-                range: rangeValue > 100 ? 100 : rangeValue,
+                range: rangeValue === 'NaN' ? 0 : rangeValue > 100 ? 100 : rangeValue,
             });
         }
     }
@@ -107,7 +107,6 @@ class BuyForm extends React.PureComponent {
                         this.setPending(false);
                         return;
                     }
-                    
                     const pairRate = multiply(values.pairRate, ONE_GWEI);
                     const offerAmount = multiply(values.offerAmount, ONE_GWEI);
                     const balanceETH = parseFloat(values.walletAddress.balances[currency]);
@@ -115,7 +114,6 @@ class BuyForm extends React.PureComponent {
                         parseFloat(this.props.dashboardAccoountInfo.unconfirmedBalanceATM)
                         :
                         parseFloat(this.props.balanceAPL);
-
                     if (values.total + this.props.gasFee > balanceETH) {
                         NotificationManager.error(`Not enough founds on your ${currency.toUpperCase()} balance. You need to pay Gas fee`, 'Error', 5000);
                         this.setPending(false);
@@ -132,7 +130,6 @@ class BuyForm extends React.PureComponent {
                         this.setPending(false);
                         return;
                     }
-    
                     const params = {
                         offerType: 0, // BUY
                         pairCurrency: currencyTypes[currency],
@@ -148,6 +145,7 @@ class BuyForm extends React.PureComponent {
                             this.setPending(false);
                         });
                         if (this.state.form) {
+                            this.props.resetTrade();
                             this.state.form.setAllValues({
                                 walletAddress: values.walletAddress,
                                 pairRate: '',
@@ -159,6 +157,7 @@ class BuyForm extends React.PureComponent {
                         this.props.setBodyModalParamsAction('CONFIRM_CREATE_OFFER', {
                             params,
                             resetForm: () => {
+                                this.props.resetTrade();
                                 this.state.form.setAllValues({
                                 walletAddress: values.walletAddress,
                                 pairRate: '',
@@ -228,7 +227,7 @@ class BuyForm extends React.PureComponent {
                                             let rangeValue = ((amount * price) * 100 / balance).toFixed(0)
                                             if (rangeValue > 100) rangeValue = 100
                                             setValue("offerAmount", amount);
-                                            setValue("range", rangeValue)
+                                            setValue("range", rangeValue === 'NaN' ? 0 : rangeValue)
                                             setValue("total", multiply(amount, price));
                                         }}
                                         setValue={setValue}
@@ -253,7 +252,7 @@ class BuyForm extends React.PureComponent {
                                             let rangeValue = ((amount * pairRate) * 100 / balance).toFixed(0)
                                             if (rangeValue > 100) rangeValue = 100
                                             setValue("offerAmount", amount);
-                                            setValue("range", rangeValue);
+                                            setValue("range", rangeValue === 'NaN' ? 0 : rangeValue);
                                             setValue("total", multiply(amount, pairRate));
                                         }}
                                         // maxValue={values.pairRate ? balance/values.pairRate : null}
@@ -338,6 +337,7 @@ const mapStateToProps = ({account, dashboard, exchange, modals}) => ({
 
 const mapDispatchToProps = dispatch => ({
     createOffer: (params) => dispatch(createOffer(params)),
+    resetTrade: () => dispatch(resetTrade()),
     setBodyModalParamsAction: (type, value) => dispatch(setBodyModalParamsAction(type, value)),
 });
 

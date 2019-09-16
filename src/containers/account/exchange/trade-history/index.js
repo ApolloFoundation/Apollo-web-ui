@@ -74,9 +74,22 @@ class TradeHistory extends React.Component {
         });
     };
 
+    statusOfOrder = status => {
+        const allStatuses = {
+            0: 'Open',
+            1: 'Pending',
+            2: 'Expired',
+            3: 'Cancel',
+            4: 'Waiting approval',
+            5: 'Closed',
+        };
+
+        return allStatuses[status];
+    };
+
     render() {
         const {myOrderHistory} = this.props;
-        const activeOrders = !!myOrderHistory.length && myOrderHistory.filter(order => order.status === 0);
+        const activeOrders = !!myOrderHistory.length && myOrderHistory.filter(order => order.status === 0 || order.status === 1 || order.status === 4);
         return (
             <div className="page-content">
                 <SiteHeader
@@ -118,12 +131,12 @@ class TradeHistory extends React.Component {
                                     emptyMessage={'No created orders.'}
                                     tableData={activeOrders}
                                     TableRowComponent={(props) => {
-                                        const statusName = props.status === 0 ? 'Active' : 'Expired';
+                                        const statusName = this.statusOfOrder(props.status);
                                         const typeName = props.type === 0 ? 'BUY' : 'SELL';
                                         const pairRate = formatDivision(props.pairRate, ONE_GWEI, 9);
                                         const offerAmount = formatDivision(props.offerAmount, ONE_GWEI, 3);
                                         const total = formatDivision(props.pairRate * props.offerAmount, Math.pow(10, 18), 9);
-                                        const currency = props.type === 1 ? props.pairCurrency : props.offerCurrency;
+                                        const currency = props.pairCurrency;
                                         const type = Object.keys(currencyTypes).find(key => currencyTypes[key] === currency);
                                         return (
                                             <tr style={{cursor: 'pointer'}} onClick={() => this.handleSelectOrder({pairRate, offerAmount, total, currency, typeName, statusName})}>
@@ -132,7 +145,7 @@ class TradeHistory extends React.Component {
                                                 <td className={`${props.type === 1 ? 'red-text' : 'green-text'}`}>{pairRate}</td>
                                                 <td>{offerAmount}</td>
                                                 <td>{total}</td>
-                                                <td className={`${props.status !== 0 ?'red-text' : ''}`}>{props.status === 0 ? 'Active' : 'Expired'}</td>
+                                                <td className={`${props.status !== 0 ?'red-text' : ''}`}>{statusName}</td>
                                                 <td className={'align-right'}>
                                                     {props.status === 0 && (
                                                         <button

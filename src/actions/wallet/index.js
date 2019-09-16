@@ -198,6 +198,69 @@ export const getPlotSellOpenOffers = (currency, options) => async (dispatch, get
     dispatch(setPlotSellOrdersAction(currency, sellOrders));
 };
 
+export const getAllMyOpenOffers = (currency) => async (dispatch, getState) => {
+    if (!currency) currency = getState().exchange.currentCurrency.currency;
+    const {account} = getState().account;
+    const paramsSellOpen = {
+        pairCurrency: currencyTypes[currency],
+        accountId: account,
+        isAvailableForNow: true,
+        orderType: 1,
+        status: 0,
+    };
+
+    const paramsSellPending = {
+        pairCurrency: currencyTypes[currency],
+        accountId: account,
+        isAvailableForNow: true,
+        orderType: 1,
+        status: 1,
+    };
+
+    const paramsSellWaitApproval = {
+        pairCurrency: currencyTypes[currency],
+        accountId: account,
+        isAvailableForNow: true,
+        orderType: 1,
+        status: 4,
+    };
+
+    const paramsBuyOpen = {
+        pairCurrency: currencyTypes[currency],
+        accountId: account,
+        isAvailableForNow: true,
+        orderType: 0,
+        status: 0,
+    };
+
+    const paramsBuyPending = {
+        pairCurrency: currencyTypes[currency],
+        accountId: account,
+        isAvailableForNow: true,
+        orderType: 0,
+        status: 1,
+    };
+
+    const paramsBuyWaitApproval = {
+        pairCurrency: currencyTypes[currency],
+        accountId: account,
+        isAvailableForNow: true,
+        orderType: 0,
+        status: 4,
+    };
+
+    const sellOrdersOpen = await dispatch(getOpenOrders(paramsSellOpen));
+    const sellOrdersPending = await dispatch(getOpenOrders(paramsSellPending));
+    const sellOrdersWaitApproval = await dispatch(getOpenOrders(paramsSellWaitApproval));
+    const buyOrdersOpen = await dispatch(getOpenOrders(paramsBuyOpen));
+    const buyOrdersPending = await dispatch(getOpenOrders(paramsBuyPending));
+    const buyOrdersWaitApproval = await dispatch(getOpenOrders(paramsBuyWaitApproval));
+    const orders = sellOrdersOpen && sellOrdersPending && sellOrdersWaitApproval && buyOrdersOpen && buyOrdersPending && buyOrdersWaitApproval
+    ? [...sellOrdersOpen, ...sellOrdersPending, ...sellOrdersWaitApproval, ...buyOrdersOpen, ...buyOrdersPending, ...buyOrdersWaitApproval].sort((a, b) => b.finishTime - a.finishTime)
+    : [];
+    dispatch(setMyOrdersAction(currency, orders));
+};
+
 export const getMyOpenOffers = (currency) => async (dispatch, getState) => {
     if (!currency) currency = getState().exchange.currentCurrency.currency;
     const {account} = getState().account;
