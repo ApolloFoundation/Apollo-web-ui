@@ -4,16 +4,39 @@ import ContentHendler from '../content-hendler';
 import uuid from 'uuid';
 
 const CustomTable = (props) => {
+
+    const normalizeTableData = () => {
+        const {tableData , defaultRowCount} = props;
+        let newTableData = [];
+        if(defaultRowCount && tableData && tableData.length) {
+            newTableData = tableData.slice(0, defaultRowCount)
+            return newTableData
+        } else {
+            return tableData
+        }
+    };
+
+    const isNextDisabled = newTableData => {
+        const {tableData , defaultRowCount, itemsPerPage = 15} = props;
+        if(defaultRowCount) {
+            return !tableData[defaultRowCount]
+        } else {
+            return newTableData.length < itemsPerPage
+        }
+    }
+
     const {keyField, AboveTabeComponent, actionButton, passProps, hintClassName, className, tableName, emptyMessage, header, TableRowComponent, tableData, isPaginate, previousHendler, nextHendler, page, itemsPerPage = 15} = props;
+    const newTableData = normalizeTableData();
+
     return (
             <ContentHendler
-                items={tableData}
+                items={newTableData}
                 emptyMessage={emptyMessage}
                 className={hintClassName}
             >
                 {
-                    tableData &&
-                    (!!tableData.length || tableData.length === 0) &&
+                    newTableData &&
+                    (!!newTableData.length || newTableData.length === 0) &&
                     <>
                         <div className={`transaction-table ${className}`}>
                             {
@@ -52,7 +75,7 @@ const CustomTable = (props) => {
                                     </thead>
                                     <tbody>
                                     {
-                                        tableData.map((el, index) => {
+                                        newTableData.map((el, index) => {
                                             return (
                                                 <TableRowComponent
                                                     key={index}
@@ -68,8 +91,8 @@ const CustomTable = (props) => {
                             {/** Table paginator */}
                             {
                                 page &&
-                                tableData &&
-                                !!tableData.length &&
+                                newTableData &&
+                                !!newTableData.length &&
                                 isPaginate &&
                                 <div className="btn-box pagination">
 
@@ -86,14 +109,14 @@ const CustomTable = (props) => {
                                     <div className='pagination-nav'>
                                         <span>{page * itemsPerPage  - itemsPerPage + 1}</span>
                                         <span>&hellip;</span>
-                                        <span>{(page * itemsPerPage - itemsPerPage) + tableData.length}</span>
+                                        <span>{(page * itemsPerPage - itemsPerPage) + newTableData.length}</span>
                                     </div>
                                     <button
                                         type={'button'}
                                         onClick={nextHendler}
                                         className={classNames({
                                             'btn btn-default' : true,
-                                            'disabled' : tableData.length < itemsPerPage,
+                                            'disabled' : isNextDisabled(newTableData),
                                         })}
                                     >
                                         Next

@@ -16,7 +16,7 @@ class BuyOrders extends React.Component {
             const pagination = {
                 page: 1,
                 firstIndex: 0,
-                lastIndex: 14,
+                lastIndex: 15,
             };
             props.getBuyOpenOffers(null, pagination);
             return {
@@ -31,7 +31,7 @@ class BuyOrders extends React.Component {
         const pagination = {
             page: page,
             firstIndex: page * 15 - 15,
-            lastIndex: page * 15 - 1
+            lastIndex: page * 15
         };
 
         this.props.getBuyOpenOffers(null, pagination);
@@ -54,6 +54,7 @@ class BuyOrders extends React.Component {
                     }
                 ]}
                 className={'table-sm orderbook'}
+                defaultRowCount={15}
                 tableData={buyOrders}
                 emptyMessage={'No buy orders found.'}
                 TableRowComponent={(props) => {
