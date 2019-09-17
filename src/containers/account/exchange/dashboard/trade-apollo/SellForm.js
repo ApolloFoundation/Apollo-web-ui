@@ -60,7 +60,7 @@ class SellForm extends React.PureComponent {
             const { form, wallet } = this.state;
             const rangeValue = (offerAmount * 100 / balanceFormat).toFixed(0)
             form.setAllValues({
-                walletAddress: wallet[0],
+                walletAddress: wallet && wallet[0],
                 pairRate: pairRate,
                 offerAmount: offerAmount,
                 total: +total,

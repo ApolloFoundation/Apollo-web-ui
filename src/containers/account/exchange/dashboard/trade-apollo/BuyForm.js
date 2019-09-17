@@ -60,7 +60,7 @@ class BuyForm extends React.PureComponent {
             const balance = wallet && wallet[0].balances[currency];
             const rangeValue = ((pairRate * offerAmount) * 100 / balance).toFixed(0);
             form.setAllValues({
-                walletAddress: wallet[0],
+                walletAddress: wallet && wallet[0],
                 pairRate: +pairRate,
                 offerAmount: +offerAmount,
                 total: +total,

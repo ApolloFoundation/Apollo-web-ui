@@ -14,7 +14,7 @@ class TradeHistory extends React.Component {
     state = {
         loading: true,
         firstIndex: 0,
-        lastIndex: 14,
+        lastIndex: 15,
         page: 1,
     };
 
@@ -65,7 +65,7 @@ class TradeHistory extends React.Component {
         this.setState({
             page: page,
             firstIndex: page * 15 - 15,
-            lastIndex:  page * 15 - 1
+            lastIndex:  page * 15
         }, () => {
             this.props.getMyOfferHistory({
                 firstIndex: this.state.firstIndex,
@@ -129,6 +129,7 @@ class TradeHistory extends React.Component {
                                     ]}
                                     className={'no-min-height transparent'}
                                     emptyMessage={'No created orders.'}
+                                    defaultRowCount={15}
                                     tableData={activeOrders}
                                     TableRowComponent={(props) => {
                                         const statusName = this.statusOfOrder(props.status);
