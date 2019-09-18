@@ -14,6 +14,7 @@ class TradeApollo extends React.Component {
 
     componentDidMount() {
         this.getTransactionFee();
+        this.props.resetTrade();
     };
 
     getTransactionFee = async () => {
