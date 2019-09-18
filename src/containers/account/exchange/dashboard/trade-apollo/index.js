@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from "react-redux";
 import {ONE_APL} from '../../../../../constants';
 import {getTransactionFee} from "../../../../../actions/wallet";
-import {setTypeOfTrade} from "../../../../../modules/modals";
+import {setTypeOfTrade, resetTrade} from "../../../../../modules/modals";
 import BuyForm from "./BuyForm";
 import SellForm from "./SellForm";
 
@@ -14,6 +14,7 @@ class TradeApollo extends React.Component {
 
     componentDidMount() {
         this.getTransactionFee();
+        this.props.resetTrade();
     };
 
     getTransactionFee = async () => {
@@ -77,6 +78,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+    resetTrade: () => dispatch(resetTrade()),
     getTransactionFee: () => dispatch(getTransactionFee()),
     setTypeOfTrade: (params) => dispatch(setTypeOfTrade(params)),
 });
