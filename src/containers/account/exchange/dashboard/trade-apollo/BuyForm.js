@@ -55,14 +55,15 @@ class BuyForm extends React.PureComponent {
     componentDidUpdate() {
         if(this.props.infoSelectedBuyOrder) {
             const { pairRate, offerAmount, total } = this.props.infoSelectedBuyOrder;
+            const normalizeOfferAmount = offerAmount.replace(',', '');
             const {currentCurrency: {currency}} = this.props;
             const { form, wallet } = this.state;
             const balance = wallet && wallet[0].balances[currency];
-            const rangeValue = ((pairRate * offerAmount) * 100 / balance).toFixed(0);
+            const rangeValue = ((pairRate * normalizeOfferAmount) * 100 / balance).toFixed(0);
             form.setAllValues({
                 walletAddress: wallet && wallet[0],
-                pairRate: +pairRate,
-                offerAmount: +offerAmount,
+                pairRate: pairRate,
+                offerAmount: normalizeOfferAmount,
                 total: +total,
                 range: rangeValue === 'NaN' ? 0 : rangeValue > 100 ? 100 : rangeValue,
             });
