@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from "react-redux";
 import {ONE_APL} from '../../../../../constants';
 import {getTransactionFee} from "../../../../../actions/wallet";
-import {setTypeOfTrade} from "../../../../../modules/modals";
+import {setTypeOfTrade, resetTrade} from "../../../../../modules/modals";
 import BuyForm from "./BuyForm";
 import SellForm from "./SellForm";
 
@@ -23,6 +23,11 @@ class TradeApollo extends React.Component {
         }
     };
 
+    changeTabOfTrade = typeOfTrade => {
+        this.props.setTypeOfTrade(typeOfTrade);
+        this.props.resetTrade();
+    }
+
     render() {
         const {wallet, handleLoginModal, currentCurrency: {currency}, constants, gasTransactionMultiply, typeOfTrade} = this.props;
         const gasLimit = currency === 'eth' ? constants.gasLimitEth : constants.gasLimitERC20;
@@ -38,13 +43,13 @@ class TradeApollo extends React.Component {
                     <div className={'tabs-wrap mb-3'}>
                         <div
                             className={`tab-item ${typeOfTrade === 'BUY' ? 'active' : ''}`}
-                            onClick={() => this.props.setTypeOfTrade('BUY')}
+                            onClick={() => this.changeTabOfTrade('BUY')}
                         >
                             Buy APL
                         </div>
                         <div
                             className={`tab-item ${typeOfTrade === 'SELL' ? 'active' : ''}`}
-                            onClick={() => this.props.setTypeOfTrade('SELL')}
+                            onClick={() => this.changeTabOfTrade('SELL')}
                         >
                             Sell APL
                         </div>
@@ -77,6 +82,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+    resetTrade: () => dispatch(resetTrade()),
     getTransactionFee: () => dispatch(getTransactionFee()),
     setTypeOfTrade: (params) => dispatch(setTypeOfTrade(params)),
 });
