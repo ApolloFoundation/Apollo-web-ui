@@ -14,7 +14,6 @@ class TradeApollo extends React.Component {
 
     componentDidMount() {
         this.getTransactionFee();
-        this.props.resetTrade();
     };
 
     getTransactionFee = async () => {
@@ -23,6 +22,11 @@ class TradeApollo extends React.Component {
             this.setState({maxFee: transactionFee.fast});
         }
     };
+
+    changeTabOfTrade = typeOfTrade => {
+        this.props.setTypeOfTrade(typeOfTrade);
+        this.props.resetTrade();
+    }
 
     render() {
         const {wallet, handleLoginModal, currentCurrency: {currency}, constants, gasTransactionMultiply, typeOfTrade} = this.props;
@@ -39,13 +43,13 @@ class TradeApollo extends React.Component {
                     <div className={'tabs-wrap mb-3'}>
                         <div
                             className={`tab-item ${typeOfTrade === 'BUY' ? 'active' : ''}`}
-                            onClick={() => this.props.setTypeOfTrade('BUY')}
+                            onClick={() => this.changeTabOfTrade('BUY')}
                         >
                             Buy APL
                         </div>
                         <div
                             className={`tab-item ${typeOfTrade === 'SELL' ? 'active' : ''}`}
-                            onClick={() => this.props.setTypeOfTrade('SELL')}
+                            onClick={() => this.changeTabOfTrade('SELL')}
                         >
                             Sell APL
                         </div>
