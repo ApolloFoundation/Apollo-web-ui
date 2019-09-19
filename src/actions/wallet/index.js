@@ -37,6 +37,22 @@ export function getWallets(requestParams) {
     }
 }
 
+export function logout(requestParams) {
+    return () => {
+        return handleFetch(`${config.api.server}/dex/flush`, GET, requestParams)
+            .then((res) => {
+                if (!res.errorCode) {
+                    return res;
+                } else {
+                    NotificationManager.error(res.errorDescription, 'Error', 5000);
+                }
+            })
+            .catch(() => {
+
+            })
+    }
+}
+
 export function getCurrencyBalance(requestParams) {
     return () => {
         return handleFetch(`${config.api.server}/rest/dex/balance`, GET, requestParams)

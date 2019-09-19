@@ -186,6 +186,12 @@ class UserBox extends Component {
                         />
 
                     </div>
+                    {window.location.pathname === '/exchange' && <IconndeButton
+                        className={'logout-button'}
+                        id={'open-about-apollo'}
+                        icon={<i className="zmdi zmdi-power"/>}
+                        action={() => setBodyModalParamsAction('LOGOUT_EXCHANGE')}
+                    />}
                     <div className="user-box cursor-pointer"
                          onClick={(e) => setBodyModalType('ACCOUNT_BODY_MODAL', e)}
                     >
