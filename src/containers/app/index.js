@@ -12,6 +12,7 @@ import {isLoggedIn, getConstantsAction} from '../../actions/login';
 import {setPageEvents, loadConstants} from '../../modules/account' ;
 import {setBodyModalType} from '../../modules/modals' ;
 import PageLoader from '../components/page-loader/page-loader';
+import { version } from '../../../package.json';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import ReactHintFactory from 'react-hint';
 
@@ -366,7 +367,8 @@ class App extends React.Component {
                         <div className="site-footer">
                             Copyright © 2017-2019 Apollo Foundation.&nbsp;
                             <br className={'show-media hide-desktop'}/>
-                            Apollo Version: {!!this.props.appState && this.props.appState.version} <br/>
+                            Apollo Version: {!!this.props.appState && this.props.appState.version}.
+                            <span>{` UI Version: ${version}`} </span>
                         </div>
                     }
                 </div>
