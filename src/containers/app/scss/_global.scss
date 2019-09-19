@@ -1817,6 +1817,8 @@ table {
 	padding: 35px;
 	//margin-top: 15px;
 	background-color: #fff;
+	display: flex;
+	justify-content: space-between;
 	color: #8AA5C7;
 	
 	@media(max-width: 767px) {
