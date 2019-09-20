@@ -30,6 +30,7 @@ class Sidebar extends React.Component {
 	state = {
 		isHover: false,
 		isMenuCollapsed: false,
+		activeMenu: null,
 	};
 
 	// componentDidMount() {
@@ -74,11 +75,19 @@ class Sidebar extends React.Component {
 	createNav = ({className, to, icon, label}) => {
 		return <NavLink
 			exact={true}
-			className={`text ${this.getNavLinkClass(className instanceof Array ? className : [className])}`}
+			className={`text ${this.getNavLinkClass(className)}`}
 			activeClassName="active"
 			to={to}>{label}<i className={`zmdi ${icon} left`}/>
 		</NavLink>
 	};
+
+	createItemMenu = ({to, className, icon, label}) => {
+		return this.state.activeMenu === to
+		? (this.createNav({to, className, icon, label}))
+		: (<div onClick={() => this.hanldeActive(to)} className={`text ${this.getNavLinkClass(className)}`}>
+			{label}<i className={`zmdi ${icon} left`}/>
+		</div>)
+	}
 
 	createAdditionalNav = ({id, modalType, label}) => {
 		return <li className={`text`}>
@@ -91,7 +100,7 @@ class Sidebar extends React.Component {
 		let allRoutes = menu.className instanceof Array ? menu.className : [menu.className];
 		allRoutes = allRoutes.concat(menu.children.map(opt => opt.to));
 		return <li className={`active-menu ${this.getNavLinkClass(allRoutes)}`}>
-			{this.createNav(menu)}
+			{this.createItemMenu(menu)}
 			<>
 				{menu.children.map(opt => this.createNav(opt))}
 				{menu.additionalChildren && this.createAdditionalNav(menu.additionalChildren)}
@@ -99,8 +108,13 @@ class Sidebar extends React.Component {
 		</li>
 	};
 
+	hanldeActive = (activeMenu) => {this.setState({activeMenu})};
+	
 	getNavLinkClass = (path) => {
-		return path.some(i => window.location.pathname === i) ? 'active' : '';
+		const routes = path instanceof Array ? path : [path];
+		if(routes.some(i => window.location.pathname === i)) return 'active';
+		else if(routes.some(i => this.state.activeMenu === i)) return 'open';
+		return ''
 	};
 
 	render() {
