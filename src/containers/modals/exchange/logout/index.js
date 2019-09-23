@@ -25,7 +25,7 @@ class LogoutExchange extends React.Component {
             return;
         }
         const params = {
-            account: this.props.account,
+            accountid: this.props.account,
             passphrase
         };
         await this.props.logout(params);

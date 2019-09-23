@@ -39,7 +39,7 @@ export function getWallets(requestParams) {
 
 export function logout(requestParams) {
     return () => {
-        return handleFetch(`${config.api.server}/dex/flush`, GET, requestParams)
+        return handleFetch(`${config.api.server}/rest/dex/flush`, GET, requestParams)
             .then((res) => {
                 if (!res.errorCode) {
                     return res;
