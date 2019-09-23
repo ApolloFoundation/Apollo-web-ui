@@ -6,6 +6,23 @@
 	}
 }
 
+.logout-button {
+	color: #8AA5C7;
+    font-size: 15px;
+    margin-right: 15px;
+    height: 30px;
+    width: 30px;
+    border-radius: 3px;
+    background-color: #FFF;
+    border: 1px solid transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+}
+
 .page-header {
 	display: flex;
 	flex-wrap: nowrap;
