@@ -54,15 +54,16 @@ class SellForm extends React.PureComponent {
     componentDidUpdate() {
         if(this.props.infoSelectedSellOrder) {
             const { balanceAPL, dashboardAccoountInfo } = this.props;
+            const { pairRate, offerAmount, total } = this.props.infoSelectedSellOrder;
+            const normalizeOfferAmount = offerAmount.replaceAll(',', '');
             const balance = (dashboardAccoountInfo && dashboardAccoountInfo.unconfirmedBalanceATM) ? dashboardAccoountInfo.unconfirmedBalanceATM : balanceAPL;
             const balanceFormat = balance ? (balance / ONE_APL) : 0;
-            const { pairRate, offerAmount, total } = this.props.infoSelectedSellOrder;
             const { form, wallet } = this.state;
-            const rangeValue = (offerAmount * 100 / balanceFormat).toFixed(0)
+            const rangeValue = (normalizeOfferAmount * 100 / balanceFormat).toFixed(0);
             form.setAllValues({
                 walletAddress: wallet && wallet[0],
                 pairRate: pairRate,
-                offerAmount: offerAmount,
+                offerAmount: normalizeOfferAmount,
                 total: +total,
                 range: rangeValue === "NaN" ? 0 : rangeValue,
             });

@@ -4,7 +4,7 @@ import SiteHeader from '../../../components/site-header';
 import CustomTable from '../../../components/tables/table';
 import {setCurrentCurrencyAction} from '../../../../modules/exchange';
 import {setBodyModalParamsAction} from '../../../../modules/modals';
-import {getMyOfferHistory} from '../../../../actions/wallet';
+import {getAllMyOpenOffers} from '../../../../actions/wallet';
 import {formatDivision, currencyTypes} from '../../../../helpers/format';
 import {ONE_GWEI} from '../../../../constants';
 import {BlockUpdater} from "../../../block-subscriber";
@@ -23,7 +23,7 @@ class TradeHistory extends React.Component {
         if (!wallets) {
             this.props.setBodyModalParamsAction('LOGIN_EXCHANGE', {});
         } else {
-            this.props.getMyOfferHistory({
+            this.props.getAllMyOpenOffers(null, {
                 firstIndex: this.state.firstIndex,
                 lastIndex: this.state.lastIndex
             });
@@ -38,7 +38,7 @@ class TradeHistory extends React.Component {
 
     componentDidUpdate() {
         if (this.props.wallets && this.state.loading) {
-            this.props.getMyOfferHistory(null, {
+            this.props.getAllMyOpenOffers(null, {
                 firstIndex: this.state.firstIndex,
                 lastIndex: this.state.lastIndex
             });
@@ -55,7 +55,7 @@ class TradeHistory extends React.Component {
     };
 
     listener = () => {
-        this.props.getMyOfferHistory({
+        this.props.getAllMyOpenOffers(null, {
             firstIndex: this.state.firstIndex,
             lastIndex: this.state.lastIndex
         });
@@ -67,7 +67,7 @@ class TradeHistory extends React.Component {
             firstIndex: page * 15 - 15,
             lastIndex:  page * 15
         }, () => {
-            this.props.getMyOfferHistory({
+            this.props.getAllMyOpenOffers(null, {
                 firstIndex: this.state.firstIndex,
                 lastIndex: this.state.lastIndex
             });
@@ -88,8 +88,7 @@ class TradeHistory extends React.Component {
     };
 
     render() {
-        const {myOrderHistory} = this.props;
-        const activeOrders = !!myOrderHistory.length && myOrderHistory.filter(order => order.status === 0 || order.status === 1 || order.status === 4);
+        const {myOrders, currentCurrency : {currency}} = this.props;
         return (
             <div className="page-content">
                 <SiteHeader
@@ -101,7 +100,7 @@ class TradeHistory extends React.Component {
                         <div className={'form-title form-title-lg d-flex flex-column justify-content-between'}>
                             <p className="title-lg">My trades</p>
                         </div>
-                            {myOrderHistory
+                            {!myOrders.length
                             ?   <CustomTable
                                     header={[
                                         {
@@ -130,7 +129,7 @@ class TradeHistory extends React.Component {
                                     className={'no-min-height transparent'}
                                     emptyMessage={'No created orders.'}
                                     defaultRowCount={15}
-                                    tableData={activeOrders}
+                                    tableData={myOrders[currency]}
                                     TableRowComponent={(props) => {
                                         const statusName = this.statusOfOrder(props.status);
                                         const typeName = props.type === 0 ? 'BUY' : 'SELL';
@@ -200,11 +199,11 @@ class TradeHistory extends React.Component {
 const mapStateToProps = ({exchange, account}) => ({
     wallets: account.wallets,
     currentCurrency: exchange.currentCurrency,
-    myOrderHistory: exchange.myOrderHistory,
+    myOrders: exchange.myOrders
 });
 
 const mapDispatchToProps = dispatch => ({
-    getMyOfferHistory: (options) => dispatch(getMyOfferHistory(options)),
+    getAllMyOpenOffers: (currency, options) => dispatch(getAllMyOpenOffers(currency, options)),
     setBodyModalParamsAction: (type, value) => dispatch(setBodyModalParamsAction(type, value)),
     setCurrentCurrency: (currency) => dispatch(setCurrentCurrencyAction(currency)),
 });

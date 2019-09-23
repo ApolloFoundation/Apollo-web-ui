@@ -93,17 +93,8 @@
 				width: 85%;
 				overflow: hidden;
 				height: 46px;
-				max-height: 46px;
-				transition: max-height 2s ease;
 				border-radius: 3px;
-				&:hover {
-					box-shadow: inset 0 1px 3px 0 rgba(152,176,205,0.64);
-					padding: 7px 0;
-					margin-bottom: 23px;
-					height: 100%;
-					max-height: 1000px;
-				}
-				&.active {
+				&.active, &.open {
 					height: auto;
 					box-shadow: inset 0 1px 3px 0 rgba(152,176,205,0.64);
 					padding: 7px 0;
