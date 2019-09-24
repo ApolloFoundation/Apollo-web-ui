@@ -7,7 +7,7 @@ import InputForm from '../../../../components/input-form';
 import CustomSelect from '../../../../components/select';
 import {currencyTypes, formatDivision, multiply} from '../../../../../helpers/format';
 import {createOffer} from '../../../../../actions/wallet';
-import {setBodyModalParamsAction, resetTrade} from '../../../../../modules/modals';
+import {setBodyModalParamsAction, resetTrade, setSelectedOrderInfo} from '../../../../../modules/modals';
 import {ONE_APL, ONE_GWEI} from '../../../../../constants';
 import {ReactComponent as ArrowRight} from "../../../../../assets/arrow-right.svg";
 import InputRange from "../../../../components/input-range";
@@ -53,6 +53,10 @@ class SellForm extends React.PureComponent {
 
     componentDidUpdate() {
         if(this.props.infoSelectedSellOrder) {
+            const numberTypes = {
+                'NaN': 0,
+                Infinity: 100,
+            }
             const { balanceAPL, dashboardAccoountInfo } = this.props;
             const { pairRate, offerAmount, total } = this.props.infoSelectedSellOrder;
             const normalizeOfferAmount = offerAmount.replaceAll(',', '');
@@ -65,13 +69,14 @@ class SellForm extends React.PureComponent {
                 pairRate: pairRate,
                 offerAmount: normalizeOfferAmount,
                 total: +total,
-                range: rangeValue === "NaN" ? 0 : rangeValue,
+                range: numberTypes[rangeValue] || rangeValue,
             });
         }
     }
 
     handleFormSubmit = (values) => {
         if (!this.state.isPending) {
+            this.props.setSelectedOrderInfo({pairRate: values.pairRate, offerAmount: values.offerAmount, total: values.total, type: 'SELL'});
             this.setPending();
             if (this.props.wallet) {
                 if (values.offerAmount > 0 && values.pairRate > 0) {
@@ -94,6 +99,7 @@ class SellForm extends React.PureComponent {
                         isError = true;
                     }
                     if (isError) {
+                        this.props.resetTrade();
                         this.setPending(false);
                         return;
                     }                    
@@ -180,6 +186,10 @@ class SellForm extends React.PureComponent {
         const balance = (dashboardAccoountInfo && dashboardAccoountInfo.unconfirmedBalanceATM) ? dashboardAccoountInfo.unconfirmedBalanceATM : balanceAPL;
         const balanceFormat = balance ? (balance / ONE_APL) : 0;
         const currencyName = currency.toUpperCase();
+        const numberTypes = {
+            'NaN': 0,
+            Infinity: 100,
+        }
         return (
             <Form
                 onSubmit={values => this.handleFormSubmit(values)}
@@ -219,7 +229,8 @@ class SellForm extends React.PureComponent {
                                             if (amount > balanceFormat) {
                                                 amount = balanceFormat;
                                             }
-                                            setValue("range", (amount * 100 / balanceFormat).toFixed(0));
+                                            let rangeValue = (amount * 100 / balanceFormat).toFixed(0);
+                                            setValue("range", numberTypes[rangeValue] || rangeValue);
                                         }
                                         setValue("total", multiply(amount, price));
                                     }}
@@ -245,7 +256,8 @@ class SellForm extends React.PureComponent {
                                             if (+amount > +balanceFormat) {
                                                 amount = balanceFormat;
                                             }
-                                            setValue("range", (amount * 100 / balanceFormat).toFixed(0));
+                                            let rangeValue = (amount * 100 / balanceFormat).toFixed(0);
+                                            setValue("range", numberTypes[rangeValue] || rangeValue);
                                         }
                                         setValue("total", multiply(amount, pairRate));
                                     }}
@@ -330,6 +342,7 @@ const mapStateToProps = ({account, dashboard, exchange, modals}) => ({
 const mapDispatchToProps = dispatch => ({
     createOffer: (params) => dispatch(createOffer(params)),
     resetTrade: () => dispatch(resetTrade()),
+    setSelectedOrderInfo: (params) => dispatch(setSelectedOrderInfo(params)),
     setBodyModalParamsAction: (type, value) => dispatch(setBodyModalParamsAction(type, value)),
 });
 

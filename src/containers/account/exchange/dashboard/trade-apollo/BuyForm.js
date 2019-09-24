@@ -8,7 +8,7 @@ import CustomSelect from '../../../../components/select';
 import InputRange from "../../../../components/input-range";
 import {currencyTypes, multiply} from '../../../../../helpers/format';
 import {createOffer} from '../../../../../actions/wallet';
-import {setBodyModalParamsAction, resetTrade} from '../../../../../modules/modals';
+import {setBodyModalParamsAction, resetTrade, setSelectedOrderInfo} from '../../../../../modules/modals';
 import {ONE_GWEI} from '../../../../../constants';
 import {ReactComponent as ArrowRight} from "../../../../../assets/arrow-right.svg";
 
@@ -72,7 +72,8 @@ class BuyForm extends React.PureComponent {
 
     handleFormSubmit = (values) => {
         if (!this.state.isPending) {
-            this.setPending()
+            this.props.setSelectedOrderInfo({pairRate: values.pairRate, offerAmount: values.offerAmount, total: values.total, type: 'BUY'});
+            this.setPending();
             if (this.props.wallet) {
                 if (values.offerAmount > 0 && values.pairRate > 0) {
                     const {currentCurrency: {currency}} = this.props;
@@ -95,15 +96,13 @@ class BuyForm extends React.PureComponent {
                         isError = true;
                     }
                     if (+this.props.ethFee > +values.walletAddress.balances.eth) {
-                        NotificationManager.error(`To sell APL you need to have at least ${this.props.ethFee.toLocaleString('en')} ETH on your balance to confirm transaction`, 'Error', 5000);
+                        NotificationManager.error(`To buy APL you need to have at least ${this.props.ethFee.toLocaleString('en')} ETH on your balance to confirm transaction`, 'Error', 5000);
                         isError = true;
                     }
-
                     if (values.total > balance) {
                         NotificationManager.error(`You need more ${currency.toUpperCase()}. Please check your wallet balance.`, 'Error', 5000);
                         isError = true;
                     }
-
                     if (isError) {
                         this.setPending(false);
                         return;
@@ -340,6 +339,7 @@ const mapDispatchToProps = dispatch => ({
     createOffer: (params) => dispatch(createOffer(params)),
     resetTrade: () => dispatch(resetTrade()),
     setBodyModalParamsAction: (type, value) => dispatch(setBodyModalParamsAction(type, value)),
+    setSelectedOrderInfo: (params) => dispatch(setSelectedOrderInfo(params)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(BuyForm);
