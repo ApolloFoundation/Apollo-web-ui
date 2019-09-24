@@ -17,7 +17,7 @@ const PageLoader = ({loginProblem, getAccountDataAction}) => (
             <div className="connection problem">
                 <i class="zmdi zmdi-portable-wifi-off"></i>
                 <p>
-                    Problem with connectoin
+                    Problem with connection
                 </p>
                 <br/>
                 <button
