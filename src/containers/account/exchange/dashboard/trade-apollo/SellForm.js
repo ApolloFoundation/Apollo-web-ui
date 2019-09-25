@@ -54,7 +54,7 @@ class SellForm extends React.PureComponent {
     componentDidUpdate() {
         if(this.props.infoSelectedSellOrder) {
             const numberTypes = {
-                'NaN': 0,
+                NaN: '0',
                 Infinity: 100,
             }
             const { balanceAPL, dashboardAccoountInfo } = this.props;
@@ -187,7 +187,7 @@ class SellForm extends React.PureComponent {
         const balanceFormat = balance ? (balance / ONE_APL) : 0;
         const currencyName = currency.toUpperCase();
         const numberTypes = {
-            'NaN': 0,
+            NaN: '0',
             Infinity: 100,
         }
         return (
