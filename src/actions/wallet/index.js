@@ -41,11 +41,10 @@ export function logout(requestParams) {
     return () => {
         return handleFetch(`${config.api.server}/rest/dex/flush`, GET, requestParams)
             .then((res) => {
-                if (!res.errorCode) {
-                    return res;
-                } else {
+                if (res.errorCode) {
                     NotificationManager.error(res.errorDescription, 'Error', 5000);
                 }
+                return res
             })
             .catch(() => {
 
