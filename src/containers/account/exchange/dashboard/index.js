@@ -6,6 +6,7 @@ import InfoBox from '../../../components/info-box';
 
 import ExchangeHeader from './exchange-header';
 import Plot from './plot';
+import TVChartContainer from './trading-view';
 import TradeHistoryExchange from './trade-history';
 import OpenOrders from './open-orders';
 import {setCurrentCurrencyAction} from "../../../../modules/exchange";
@@ -109,7 +110,8 @@ class Exchange extends React.Component {
                             <div className={'col-md-9 col-sm-7 p-0'}>
                                 <div className={'row'}>
                                     <div className={'col-md-8 col-sm-12 p-0'}>
-                                        <Plot
+                                        <TVChartContainer />
+                                        {/* <Plot
                                             currentCurrency={currentCurrency}
                                             buyOrders={plotBuyOrdersCurrency}
                                             sellOrders={plotSellOrdersCurrency}
@@ -117,7 +119,7 @@ class Exchange extends React.Component {
                                             switchCurrency={this.switchCurrency}
                                             wallet={wallet}
                                             handleLoginModal={this.handleLoginModal}
-                                        />
+                                        /> */}
                                     </div>
                                     <div className={'col-md-4 col-sm-12 p-0'}>
                                         <TradeApollo

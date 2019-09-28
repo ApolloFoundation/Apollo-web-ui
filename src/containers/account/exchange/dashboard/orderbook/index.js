@@ -47,7 +47,7 @@ class Orderbook extends React.Component {
                             sellOrders={sellOrders}
                         />
                     )}
-                    {this.state.actionType === 0 && (
+                    {/* {this.state.actionType === 0 && (
                         <div className={'card card-price'}>
                             <div className={'card-body'}>
                                 <div className={'price-wrap'}>
@@ -60,7 +60,7 @@ class Orderbook extends React.Component {
                                 </div>
                             </div>
                         </div>
-                    )}
+                    )} */}
                     {(this.state.actionType === 0 || this.state.actionType === 1) && (
                         <BuyOrders
                             currentCurrency={currentCurrency}
