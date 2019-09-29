@@ -109,13 +109,13 @@ class SellForm extends React.PureComponent {
                         parseFloat(this.props.dashboardAccoountInfo.unconfirmedBalanceATM)
                         :
                         parseFloat(this.props.balanceAPL);
-    
+
                     if (!this.props.balanceAPL || balanceAPL === 0 || balanceAPL < ((offerAmount + this.feeATM) / 10)) {
                         NotificationManager.error('Not enough funds on your APL balance.', 'Error', 5000);
                         this.setPending(false);
                         return;
                     }
-    
+
                     const params = {
                         offerType: 1, // SELL
                         pairCurrency: currencyTypes[currency],
@@ -126,7 +126,7 @@ class SellForm extends React.PureComponent {
                         feeATM: this.feeATM,
                         walletAddress: values.walletAddress.address,
                     };
-    
+
                     if (this.props.passPhrase) {
                         this.props.createOffer(params).then(() => {
                             this.setPending(false);
