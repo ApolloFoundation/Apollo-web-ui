@@ -103,7 +103,7 @@ class SellForm extends React.PureComponent {
                         this.setPending(false);
                         return;
                     }                    
-                    const pairRate = multiply(values.pairRate, ONE_GWEI);
+                    const pairRate = Math.round(multiply(values.pairRate, ONE_GWEI));
                     const offerAmount = multiply(values.offerAmount, ONE_GWEI);
                     const balanceAPL = (this.props.dashboardAccoountInfo && this.props.dashboardAccoountInfo.unconfirmedBalanceATM) ?
                         parseFloat(this.props.dashboardAccoountInfo.unconfirmedBalanceATM)
