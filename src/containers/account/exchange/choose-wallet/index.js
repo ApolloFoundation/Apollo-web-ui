@@ -31,9 +31,10 @@ class ChooseWallet extends React.Component {
     }
 
     getFullNumber = (num) => {
-        const [, float, exp] = num.toString().match(/\d+.(\d+)[eE]-(\d+)/) || []
-        if (!exp) return num.toString()
-        return (+num).toFixed(float.length + +exp)
+        const value = num ? num.toString() : ''
+        const [, float, exp] = value.match(/\d+.(\d+)[eE]-(\d+)/) || []
+        if (!exp) return value
+        return (+value).toFixed(float.length + +exp)
     }
 
     getCurrencyBalance = async (wallets) => {

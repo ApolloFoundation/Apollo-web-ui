@@ -107,19 +107,18 @@ class BuyForm extends React.PureComponent {
                         this.setPending(false);
                         return;
                     }
-                    const pairRate = multiply(values.pairRate, ONE_GWEI);
+                    const pairRate = Math.round(multiply(values.pairRate, ONE_GWEI));
                     const offerAmount = multiply(values.offerAmount, ONE_GWEI);
                     const balanceETH = parseFloat(values.walletAddress.balances[currency]);
                     const balanceAPL = (this.props.dashboardAccoountInfo && this.props.dashboardAccoountInfo.unconfirmedBalanceATM) ?
                         parseFloat(this.props.dashboardAccoountInfo.unconfirmedBalanceATM)
                         :
                         parseFloat(this.props.balanceAPL);
-                    if (values.total + this.props.gasFee > balanceETH) {
+                    if (values.total + this.props.ethFee > balanceETH) {
                         NotificationManager.error(`Not enough founds on your ${currency.toUpperCase()} balance. You need to pay Gas fee`, 'Error', 5000);
                         this.setPending(false);
                         return;
                     }
-
                     if (balanceETH === 0 || balanceETH < values.total) {
                         NotificationManager.error(`Not enough founds on your ${currency.toUpperCase()} balance.`, 'Error', 5000);
                         this.setPending(false);
