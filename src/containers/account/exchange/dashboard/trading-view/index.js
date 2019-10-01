@@ -1,6 +1,7 @@
 import * as React from 'react';
 import './index.css';
 import Datafeed from './api/'
+import ExchangeSwitch from '../plot/ExchangeSwitch'
 
 
 function getLanguageFromURL() {
@@ -68,11 +69,22 @@ export default class TVChartContainer extends React.PureComponent {
 	}
 
 	render() {
+        const {currentCurrency: {currency}, currencies, switchCurrency, wallet, handleLoginModal} = this.props;
+
 		return (
-			<div
-				id={ this.props.containerId }
-				className={ 'TVChartContainer' }
-			/>
+			<div>
+				<ExchangeSwitch
+					currency={currency}
+					currencies={currencies}
+					switchCurrency={switchCurrency}
+					wallet={wallet}
+					handleLoginModal={handleLoginModal}
+				/>
+				<div
+					id={ this.props.containerId }
+					className={ 'TVChartContainer' }
+				/>
+			</div>
 		);
 	}
 }
