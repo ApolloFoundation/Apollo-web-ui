@@ -5,17 +5,14 @@
 
 
 import React from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 import SiteHeader from '../../components/site-header/index';
 import MarketplaceItem from '../marketplace/marketplace-card'
-import { searchDGSGoodsAction } from "../../../actions/marketplace";
-import ContentLoader from '../../components/content-loader'
-import ContentHendler from '../../components/content-hendler'
+import {searchDGSGoodsAction} from "../../../actions/marketplace";
 
 import classNames from "classnames";
-
-import uuid from "uuid";
+import InfoBox from "../../components/info-box";
 
 const mapDispatchToProps = dispatch => ({
     searchDGSGoodsAction: (reqParams) => dispatch(searchDGSGoodsAction(reqParams))
@@ -32,18 +29,18 @@ class MarketplaceSearch extends React.Component {
             page: 1,
             firstIndex: 0,
             lastIndex: itemsPerPage - 1,
-            tag: this.props.match.params.tag,
+            tag: this.props.match.params ? this.props.match.params.tag : null,
             isGrid: true,
 
         };
     }
 
     componentWillMount() {
-        this.loadAccount(this.props.match.params.tag);
+        if (this.props.match.params) this.loadAccount(this.props.match.params.tag);
     }
 
     componentWillReceiveProps(newProps) {
-        this.loadAccount(newProps.match.params.tag);
+        if (this.props.match.params) this.loadAccount(newProps.match.params.tag);
     }
 
     loadAccount = (tag) => {
@@ -65,7 +62,7 @@ class MarketplaceSearch extends React.Component {
         this.setState({
             tag: tag
         })
-    }
+    };
 
     getDGSGoods = async (reqParams) => {
         const getDGSGoods = await this.props.searchDGSGoodsAction(reqParams);
@@ -84,7 +81,7 @@ class MarketplaceSearch extends React.Component {
                 requestType: 'getDGSGoods'
             } : {
                 tag: this.state.tag
-            }
+            };
 
         let reqParams = {
             includeCounts: true,
@@ -109,24 +106,8 @@ class MarketplaceSearch extends React.Component {
         })
     };
 
-
-    handleCardMouseOver = (e) => {
-        e.currentTarget.classList.add('active')
-    };
-    handleCardMouseOut = (e) => {
-        const selected = Object.values(document.querySelectorAll('.site-content .page-content .page-body .marketplace .row > *.active'));
-
-        selected.map((el, index) => {
-            setTimeout(() => {
-                el.classList.remove('active')
-            }, 300)
-        });
-
-    };
-
-
     render() {
-        const { DGSGoods } = this.state;
+        const {DGSGoods} = this.state;
         return (
             <div className="page-content">
                 <SiteHeader
@@ -141,43 +122,32 @@ class MarketplaceSearch extends React.Component {
                     </Link>
                 </SiteHeader>
                 <div className="page-body container-fluid full-screen-block no-padding-on-the-sides marketplace-container">
-                    <div
-                        className="marketplace"
-                    >
-                        <div
-                            className={classNames({
-                                'row': true,
-                                'fluid-row': !this.state.isGrid
-                            })}
-                            style={{
-                                position: 'relative',
-                            }}
-                        >
-                            {
-                                DGSGoods &&
-                                DGSGoods.map((el, index) => {
-                                    return (
-                                        <div
-                                            key={`marketplace-search-item-${index}`}
-                                            className={classNames({
-                                                'marketplace-item': this.state.isGrid,
-                                                'marketplace-item--full-width': !this.state.isGrid,
-                                                'd-flex pl-3 pb-3 ': true
-                                            })}
-                                        >
-                                            <MarketplaceItem
-                                                tall={this.state.isGrid}
-                                                fluid={!this.state.isGrid}
-                                                isHovered
-                                                index={index}
-                                                {...el}
-                                            />
-                                        </div>
-                                    );
-                                })
-                            }
-                            {
-                                DGSGoods &&
+                    {(DGSGoods && DGSGoods.length > 0) ? (
+                        <div className="marketplace">
+                            <div
+                                className={classNames({
+                                    'row': true,
+                                    'fluid-row': !this.state.isGrid
+                                })}
+                            >
+                                {DGSGoods.map((el, index) => (
+                                    <div
+                                        key={`marketplace-search-item-${index}`}
+                                        className={classNames({
+                                            'marketplace-item': this.state.isGrid,
+                                            'marketplace-item--full-width': !this.state.isGrid,
+                                            'd-flex pl-3 pb-3 ': true
+                                        })}
+                                    >
+                                        <MarketplaceItem
+                                            tall={this.state.isGrid}
+                                            fluid={!this.state.isGrid}
+                                            isHovered
+                                            index={index}
+                                            {...el}
+                                        />
+                                    </div>
+                                ))}
                                 <div className="btn-box pagination">
                                     <button
                                         type={'button'}
@@ -205,10 +175,13 @@ class MarketplaceSearch extends React.Component {
                                         Next
                                     </button>
                                 </div>
-                            }
-
+                            </div>
                         </div>
-                    </div>
+                    ) : (
+                        <InfoBox default>
+                            Nothing was found.
+                        </InfoBox>
+                    )}
                 </div>
             </div>
         );

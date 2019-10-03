@@ -88,8 +88,25 @@
 			@media(max-width: 1000px) {
 				width: 80px;
 			}
+			.active-menu {
+				margin: 0 auto;
+				width: 85%;
+				overflow: hidden;
+				height: 46px;
+				border-radius: 3px;
+				&.active, &.open {
+					height: auto;
+					box-shadow: inset 0 1px 3px 0 rgba(152,176,205,0.64);
+					padding: 7px 0;
+					max-height: 100%;
+					margin-bottom: 23px;
+				}
+			}
 			a {
 				text-decoration: none !important;
+				@media(max-width: 1000px) {
+					font-size: 0;
+				}
 			}
 			ul {
 				background-color: #fff;
@@ -104,18 +121,18 @@
 					}
 					.text {
 						color: #98B0CD;
-						padding: 15px 30px 15px 80px;
+						padding: 15px 30px 15px 45px;
 						display: block;
 						position: relative;
 						z-index: 2;
-						font-size: 14px;
+						cursor: pointer;
+						font-size: 13px;
 						line-height: normal;
 						transition: 0.2s;
 						height: 46px;
 						&.active {
 							color: #2547F4;
 							font-weight: 500;
-							
 							.zmdi.left {
 								background: linear-gradient(179.43deg, #2B23FF 0%, #2547F4 100%);
 								color: #ffffff;
@@ -135,7 +152,7 @@
 							align-items: center;
 							
 							&.left {
-								left: 24px;
+								left: 8px;
 							}
 							&.right {
 								right: 0;
@@ -157,12 +174,11 @@
 						-webkit-box-sizing: border-box;
 						-moz-box-sizing: border-box;
 						box-sizing: border-box;
-						position: absolute;
 						left: 100%;
 						top: 0;
-						min-width: 235px;
+						margin: 15px;
+						min-width: 80%;
 						background-color: #FFF;
-						box-shadow: 5px 0 6px 0 rgba(117,120,138,0.1);
 						display: none;
 						padding: 6px 0;
 						z-index: 1;
@@ -255,6 +271,12 @@
 		.menu-bar-container {
 			.site-logo {
 				width: auto;
+			}
+
+			@media(max-width: 1000px) {
+				a {
+					font-size: 14px
+				}
 			}
 
 			nav {

@@ -162,21 +162,23 @@ class UserBox extends Component {
                                         )}
 
                                         <div ref={this.refSearchInput} className={'searching-window-wrap'}>
-                                            <div
-                                                className={'searching-window-icon'}
-                                            >
-                                                <IconndeButton
-                                                    id={'open-search-transaction'}
-                                                    icon={<i className="zmdi zmdi-search"/>}
-                                                    action={() => this.setSearchStateToActive(getFormState().values)}
+                                            <div className={'searching-window-slide'}> 
+                                                <div
+                                                    className={'searching-window-icon'}
+                                                >
+                                                    <IconndeButton
+                                                        id={'open-search-transaction'}
+                                                        icon={<i className="zmdi zmdi-search"/>}
+                                                        action={() => this.setSearchStateToActive(getFormState().values)}
+                                                    />
+                                                </div>
+                                                <Text
+                                                    field={'value'}
+                                                    className={"searching-window"}
+                                                    type="text"
+                                                    placeholder="Enter Transaction/Account ID/Block ID"
                                                 />
                                             </div>
-                                            <Text
-                                                field={'value'}
-                                                className={"searching-window"}
-                                                type="text"
-                                                placeholder="Enter Transaction/Account ID/Block ID"
-                                            />
                                         </div>
                                     </div>
                                 </form>
@@ -184,6 +186,12 @@ class UserBox extends Component {
                         />
 
                     </div>
+                    {window.location.pathname === '/exchange' && <IconndeButton
+                        className={'logout-button'}
+                        id={'open-about-apollo'}
+                        icon={<i className="zmdi zmdi-power"/>}
+                        action={() => setBodyModalParamsAction('LOGOUT_EXCHANGE')}
+                    />}
                     <div className="user-box cursor-pointer"
                          onClick={(e) => setBodyModalType('ACCOUNT_BODY_MODAL', e)}
                     >

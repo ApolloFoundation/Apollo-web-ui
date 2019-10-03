@@ -85,7 +85,7 @@ class Transaction extends React.Component {
 
     render() {
         const {isUnconfirmed, timestamp, confirmations, amountATM, feeATM, sender, senderRS, recipient, recipientRS, constants, height, formatTimestamp, transaction, type, setBodyModalParamsAction, subtype, attachment} = this.props;
-        const transactionType = constants.transactionTypes[type];
+        const transactionType = constants.transactionTypes && constants.transactionTypes[type];
         return (
             <tr key={uuid()}>
                 {
@@ -99,13 +99,12 @@ class Transaction extends React.Component {
                             </a>
                         </td>
                         <td>
-                            {
-                                !!transactionType &&
+                            {!!transactionType && (
                                 (transactionType.subtypes[subtype].name === "AliasSell" && amountATM === "0" && attachment.priceATM === "0") ?
                                     formatTransactionType("AliasTransfer")
                                     :
                                     formatTransactionType(transactionType.subtypes[subtype].name)
-                            }
+                            )}
                         </td>
                         <td className="align-right">
                             {

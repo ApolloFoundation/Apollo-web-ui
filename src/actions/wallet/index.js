@@ -37,9 +37,25 @@ export function getWallets(requestParams) {
     }
 }
 
+export function logout(requestParams) {
+    return () => {
+        return handleFetch(`${config.api.server}/rest/dex/flush`, GET, requestParams, true)
+            .then((res) => {
+                if (!res.errorCode) {
+                    return res;
+                } else {
+                    NotificationManager.error(res.errorDescription, 'Error', 5000);
+                }
+            })
+            .catch(() => {
+
+            })
+    }
+}
+
 export function getCurrencyBalance(requestParams) {
-    return dispatch => {
-        return handleFetch(`${config.api.server}/rest/dex/balance`, GET, requestParams)
+    return () => {
+        return handleFetch(`${config.api.server}/rest/dex/balance`, GET, requestParams, true)
             .then((res) => {
                 if (!res.errorCode) {
                     return res;
@@ -54,8 +70,8 @@ export function getCurrencyBalance(requestParams) {
 }
 
 export function walletWithdraw(requestParams) {
-    return dispatch => {
-        return handleFetch(`${config.api.server}/rest/dex/withdraw`, POST, requestParams)
+    return () => {
+        return handleFetch(`${config.api.server}/rest/dex/withdraw`, POST, requestParams, true)
             .then(async (res) => {
                 if (!res.errorCode) {
                     return res;
@@ -88,7 +104,7 @@ export function createOffer(requestParams) {
         amountOfTime: 86400,
     };
     return dispatch => {
-        return handleFetch(`${config.api.server}/rest/dex/offer`, POST, params)
+        return handleFetch(`${config.api.server}/rest/dex/offer`, POST, params, true)
             .then(async (res) => {
                 if (!res.errorCode) {
                     NotificationManager.success('Your offer has been created!', null, 5000);
@@ -108,7 +124,7 @@ export function createOffer(requestParams) {
 
 export function cancelOffer(requestParams) {
     return dispatch => {
-        return handleFetch(`${config.api.server}/rest/dex/offer/cancel`, POST, requestParams)
+        return handleFetch(`${config.api.server}/rest/dex/offer/cancel`, POST, requestParams, true)
             .then(async (res) => {
                 if (!res.errorCode) {
                     NotificationManager.success('Your offer has been canceled!', null, 5000);
@@ -127,8 +143,8 @@ export function cancelOffer(requestParams) {
 }
 
 export function getOpenOrders(requestParams) {
-    return dispatch => {
-        return handleFetch(`${config.api.server}/rest/dex/offers`, GET, requestParams)
+    return () => {
+        return handleFetch(`${config.api.server}/rest/dex/offers`, GET, requestParams, true)
             .then(async (res) => {
                 if (!res.errorCode) {
                     return res;
@@ -143,35 +159,35 @@ export function getOpenOrders(requestParams) {
 }
 
 export const getBuyOpenOffers = (currency, options) => async (dispatch, getState) => {
-    if (!currency) currency = getState().exchange.currentCurrency.currency;
+    const {currentCurrency, buyOrdersPagination} = getState().exchange;
+    if (!currency) currency = currentCurrency.currency;
     const params = {
         orderType: 0,
         pairCurrency: currencyTypes[currency],
         isAvailableForNow: true,
         status: 0,
 
-        firstIndex: 0,
-        lastIndex: 14,
+        ...buyOrdersPagination,
         ...options,
     };
     const buyOrders = await dispatch(getOpenOrders(params));
-    dispatch(setBuyOrdersAction(currency, buyOrders));
+    dispatch(setBuyOrdersAction(currency, buyOrders, options));
 };
 
 export const getSellOpenOffers = (currency, options) => async (dispatch, getState) => {
-    if (!currency) currency = getState().exchange.currentCurrency.currency;
+    const {currentCurrency, sellOrdersPagination} = getState().exchange;
+    if (!currency) currency = currentCurrency.currency;
     const params = {
         orderType: 1,
         pairCurrency: currencyTypes[currency],
         isAvailableForNow: true,
         status: 0,
 
-        firstIndex: 0,
-        lastIndex: 14,
+        ...sellOrdersPagination,
         ...options,
     };
     const sellOrders = await dispatch(getOpenOrders(params));
-    dispatch(setSellOrdersAction(currency, sellOrders));
+    dispatch(setSellOrdersAction(currency, sellOrders, options));
 };
 
 export const getPlotBuyOpenOffers = (currency, options) => async (dispatch, getState) => {
@@ -196,6 +212,23 @@ export const getPlotSellOpenOffers = (currency, options) => async (dispatch, get
     };
     const sellOrders = await dispatch(getOpenOrders(params));
     dispatch(setPlotSellOrdersAction(currency, sellOrders));
+};
+
+export const getAllMyOpenOffers = (currency, options) => async (dispatch, getState) => {
+    if (!currency) currency = getState().exchange.currentCurrency.currency;
+    const {account} = getState().account;
+    const paramsOpenOrder = {
+        pairCurrency: currencyTypes[currency],
+        accountId: account,
+        isAvailableForNow: true,
+        status: 0,
+        ...options
+    };
+
+    const openOrders = await dispatch(getOpenOrders(paramsOpenOrder));
+    const orders = openOrders ? [...openOrders].sort((a, b) => b.finishTime - a.finishTime)
+    : [];
+    dispatch(setMyOrdersAction(currency, orders));
 };
 
 export const getMyOpenOffers = (currency) => async (dispatch, getState) => {
@@ -232,8 +265,8 @@ export const getMyOfferHistory = (options) => async (dispatch, getState) => {
 };
 
 export function getTransactionFee() {
-    return dispatch => {
-        return handleFetch(`${config.api.server}/rest/dex/ethInfo`, GET)
+    return () => {
+        return handleFetch(`${config.api.server}/rest/dex/ethInfo`, GET, null, true)
             .then(async (res) => {
                 if (!res.errorCode) {
                     return res;
@@ -248,7 +281,7 @@ export function getTransactionFee() {
 }
 
 export function getIdaxPair(requestParams) {
-    return dispatch => {
+    return () => {
         return handleFetch('https://openapi.idax.pro/api/v2/ticker', GET, requestParams)
             .then((res) => {
                 if (res && res.ticker) {

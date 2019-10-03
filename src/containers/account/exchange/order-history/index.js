@@ -7,13 +7,14 @@ import {setBodyModalParamsAction} from '../../../../modules/modals';
 import {getMyOfferHistory} from '../../../../actions/wallet';
 import {formatDivision, currencyTypes} from '../../../../helpers/format';
 import {ONE_GWEI} from '../../../../constants';
+import {BlockUpdater} from "../../../block-subscriber";
 import InfoBox from '../../../components/info-box';
 
 class OrderHistory extends React.Component {
     state = {
         loading: true,
         firstIndex: 0,
-        lastIndex: 14,
+        lastIndex: 15,
         page: 1,
     };
 
@@ -28,6 +29,11 @@ class OrderHistory extends React.Component {
             });
             this.setState({loading: false});
         }
+        BlockUpdater.on("data", this.listener);
+    }
+
+    componentWillUnmount() {
+        BlockUpdater.removeListener("data", this.listener)
     }
 
     componentDidUpdate() {
@@ -40,6 +46,17 @@ class OrderHistory extends React.Component {
         }
     }
 
+    listener = () => {
+        this.props.getMyOfferHistory({
+            firstIndex: this.state.firstIndex,
+            lastIndex: this.state.lastIndex
+        });
+    };
+
+    handleSelectOrder = (data) => {
+        this.props.setBodyModalParamsAction('SELECT_ORDER', data);
+    };
+
     handleCancel = (data) => {
         this.props.setBodyModalParamsAction('CONFIRM_CANCEL_ORDER', data);
     };
@@ -48,13 +65,26 @@ class OrderHistory extends React.Component {
         this.setState({
             page: page,
             firstIndex: page * 15 - 15,
-            lastIndex:  page * 15 - 1
+            lastIndex:  page * 15
         }, () => {
             this.props.getMyOfferHistory({
                 firstIndex: this.state.firstIndex,
                 lastIndex: this.state.lastIndex
             });
         });
+    };
+
+    statusOfOrder = status => {
+        const allStatuses = {
+            0: 'Open',
+            1: 'Pending',
+            2: 'Expired',
+            3: 'Cancel',
+            4: 'Waiting approval',
+            5: 'Closed',
+        };
+
+        return allStatuses[status];
     };
 
     render() {
@@ -98,32 +128,38 @@ class OrderHistory extends React.Component {
                                 className={'no-min-height transparent'}
                                 emptyMessage={'No created orders.'}
                                 tableData={myOrderHistory}
+                                defaultRowCount={15}
                                 TableRowComponent={(props) => {
+                                    const statusName = this.statusOfOrder(props.status);
+                                    const typeName = props.type === 0 ? 'BUY' : 'SELL'
                                     const pairRate = formatDivision(props.pairRate, ONE_GWEI, 9);
                                     const offerAmount = formatDivision(props.offerAmount, ONE_GWEI, 3);
                                     const total = formatDivision(props.pairRate * props.offerAmount, Math.pow(10, 18), 9);
-                                    const currency = props.type === 1 ? props.pairCurrency : props.offerCurrency;
+                                    const currency = props.pairCurrency;
                                     const type = Object.keys(currencyTypes).find(key => currencyTypes[key] === currency);
                                     return (
-                                        <tr>
+                                        <tr style={{cursor: 'pointer'}} onClick={() => this.handleSelectOrder({pairRate, offerAmount, total, currency, typeName, statusName})}>
                                             <td>APL/{type.toUpperCase()}</td>
-                                            <td>{props.type === 0 ? 'BUY' : 'SELL'}</td>
+                                            <td>{typeName}</td>
                                             <td className={`${props.type === 1 ? 'red-text' : 'green-text'}`}>{pairRate}</td>
                                             <td>{offerAmount}</td>
                                             <td>{total}</td>
-                                            <td className={`${props.status !== 0 ?'red-text' : ''}`}>{props.status === 0 ? 'Active' : 'Expired'}</td>
+                                            <td className={`${props.status !== 0 ?'red-text' : ''}`}>{statusName}</td>
                                             <td className={'align-right'}>
                                                 {props.status === 0 && (
                                                     <button
                                                         type={'button'}
                                                         className="btn btn-sm"
-                                                        onClick={() => this.handleCancel({
-                                                            currency: type,
-                                                            pairRate,
-                                                            offerAmount,
-                                                            total,
-                                                            orderId: props.id,
-                                                        })}
+                                                        onClick={event => {
+                                                            event.stopPropagation();
+                                                            this.handleCancel({
+                                                                currency: type,
+                                                                pairRate,
+                                                                offerAmount,
+                                                                total,
+                                                                orderId: props.id,
+                                                            })
+                                                        }}
                                                     >
                                                         Cancel
                                                     </button>

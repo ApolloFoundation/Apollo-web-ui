@@ -53,12 +53,13 @@
           justify-content: center;
           align-items: center;
           margin: auto;
-          @media(max-height: 570px) {
+          @media(max-height: 820px) {
             align-items: flex-start;
             height: auto;
           }
           @media(max-width: 760px) {
             flex-direction: column;
+            align-items: center;
           }
           @media(max-width: 425px) {
             padding: 12px;
@@ -238,7 +239,7 @@
               padding: 0;
               i {
                 font-size: 24px;
-                padding: 0 15px 0 10px !important;
+                padding: 0 12px !important;
               }
             }
 

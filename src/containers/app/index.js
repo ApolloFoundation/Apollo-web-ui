@@ -12,6 +12,7 @@ import {isLoggedIn, getConstantsAction} from '../../actions/login';
 import {setPageEvents, loadConstants} from '../../modules/account' ;
 import {setBodyModalType} from '../../modules/modals' ;
 import PageLoader from '../components/page-loader/page-loader';
+import { version } from '../../../package.json';
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import ReactHintFactory from 'react-hint';
 
@@ -74,6 +75,7 @@ import MyMessages from "../account/my-messages";
 import MarketplaceSearch from "../account/marketplace-search";
 import Generators from "../account/generators"
 import Exchange from "../account/exchange/dashboard"
+import TradeHistoryExchange from "../account/exchange/trade-history"
 import OrderHistory from "../account/exchange/order-history"
 import ChooseWallet from "../account/exchange/choose-wallet"
 
@@ -104,7 +106,6 @@ class App extends React.Component {
 
         getSavedAccountSettings();
         this.checkUrl();
-        // this.props.startBlockPullingAction();
         getUpdateStatus();
         if (!this.shareMessage) {
             isLoggedIn(this.props.history);
@@ -112,11 +113,20 @@ class App extends React.Component {
         getConstantsAction();
         this.setState({
             isMounted: true
-        })
+        });
 
 
         // Hints settings
         window.ReactHint = ReactHint;
+    }
+
+    componentDidUpdate(prevProps) {
+        if (this.props.location.pathname !== prevProps.location.pathname &&
+            this.props.location.pathname !== '/login' &&
+            this.props.location.pathname !== '/faucet'
+        ) {
+            this.props.isLoggedIn(this.props.history);
+        }
     }
 
     state = {
@@ -232,8 +242,7 @@ class App extends React.Component {
             <Route exact path="/followed-polls" component={Followedpolls}/>
             <Route exact path="/my-votes" component={MyVotes}/>
             <Route exact path="/my-polls" component={MyPolls}/>
-            <Route exact path="/messenger" component={Messenger}/>
-            <Route exact path="/messenger/:chat" component={Messenger}/>
+            <Route exact path="/messenger/:chat?" component={Messenger}/>
             <Route exact path="/recent-listing" component={ResentMarketplaceListing}/>
             <Route exact path="/currencies" component={Currencies}/>
             <Route exact path="/marketplace/" component={Marketplace}/>
@@ -277,6 +286,7 @@ class App extends React.Component {
             <Route exact path="/exchange" component={Exchange}/>
             <Route exact path="/order-history" component={OrderHistory}/>
             <Route exact path="/choose-wallet" component={ChooseWallet}/>
+            <Route exact path="/trade-history-exchange" component={TradeHistoryExchange}/>
 
             <Route exact path="/index.html" render={() => <Redirect to="/dashboard"/>}/>
             <Route exact path="*" render={() => <Redirect to="/dashboard"/>}/>
@@ -346,23 +356,19 @@ class App extends React.Component {
                         )}/>
 
 
-                        {
-                            !!this.props.account &&
-                            !this.props.loading &&
-                            <>
-                                {this.routers()}
-                            </> ||
-                            <>
-                                <PageLoader />
-                            </>
-                        }
+                        {(!!this.props.account && !this.props.loading) ? (
+                            this.routers()
+                        ) : (
+                            <PageLoader />
+                        )}
                     </Switch>
                     {
                         !this.props.loading && !isLoginPage &&
                         <div className="site-footer">
                             Copyright © 2017-2019 Apollo Foundation.&nbsp;
                             <br className={'show-media hide-desktop'}/>
-                            Apollo Version: {!!this.props.appState && this.props.appState.version} <br/>
+                            Apollo Version: {!!this.props.appState && this.props.appState.version}.
+                            <span>{` UI Version: ${version}`} </span>
                         </div>
                     }
                 </div>
@@ -400,4 +406,4 @@ const mapDispatchToProps = dispatch => ({
     startBlockPullingAction: () => dispatch(startBlockPullingAction())
 });
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(App));

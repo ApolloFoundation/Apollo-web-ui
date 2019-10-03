@@ -1,9 +1,26 @@
 .media-site-header-buttons {
 	display: none;
-	
-	@media(max-width: 1024px) {
+
+	@media(max-width: 760px) {
 		display: block;
 	}
+}
+
+.logout-button {
+	color: #8AA5C7;
+    font-size: 15px;
+    margin-right: 15px;
+    height: 30px;
+    width: 30px;
+    border-radius: 3px;
+    background-color: #FFF;
+    border: 1px solid transparent;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
 }
 
 .page-header {
@@ -13,14 +30,14 @@
 	align-items: center;
 	position: fixed;
 	background-color: #F5F7FC;
-	padding: 20px 50px 20px 26px;
+	padding: 20px 26px;
 	width: calc(100% - 235px);
 	top: 0;
 	right: 0;
 	z-index: 2;
 	@media (max-width: 1000px) {
 		padding: 12px 12px 18px 12px;
-		width: calc(100% - 100px);
+		width: calc(100% - 80px);
 	}
 	@media (max-width: 760px) {
 		position: relative;
@@ -31,6 +48,8 @@
 		z-index: 1;
 	}
 	.page-title-box {
+		white-space: nowrap;
+
 		.page-title-box {
 			position: relative;
 			
@@ -51,7 +70,6 @@
 				color: #3D5A7E;
 				font-size: 28px;
 				font-weight: 300;
-				line-height: 34px;
 				letter-spacing: -0.93px;
 				display: inline-block;
 				margin-right: 15px;
@@ -128,7 +146,7 @@
 				color: #3D5A7E;
 				font-size: 12px;
 				line-height: normal;
-				@media (max-width: 760px) {
+				@media (max-width: 1000px) {
 					display: none;
 				}
 				.user-name {
@@ -168,19 +186,22 @@
 			display: flex;
 			align-items: center;
 			margin-right: 12px;
-			@media (max-width: 760px) {
-				margin-right: 0;
-			}
 
 			.searching-window-wrap {
-				position: relative;
-				margin-right: 15px;
+				width: 30px;
+				margin: 0 0 0 15px;
 				@media (max-width: 760px) {
-					margin-right: 10px;
+					margin: 0 0 0 10px;
+				}
+				.searching-window-slide {
+					position: absolute;
+					top: 0;
+					right: 0;
+					transition: width 1s ease;
+					width: 30px;
 				}
 
 				.searching-window {
-					width: 30px;
 					box-sizing: border-box;
 					height: 30px;
 					border-radius: 3px;
@@ -210,6 +231,9 @@
 					color: #8AA5C7;
 					font-size: 15px;
 					z-index: 1;
+					.header-action {
+						margin-left: 0;
+					}
 				}
 			}
 
@@ -222,7 +246,6 @@
 					color: #2B23FF;
 					font-size: 12px;
 					text-align: center;
-					margin-right: 15px;
 					display: none;
 					@media (min-width: 1200px) {
 						display: flex;
@@ -232,7 +255,7 @@
 				.header-action {
 					color: #8AA5C7;
 					font-size: 15px;
-					margin-right: 15px;
+					margin-left: 15px;
 					height: 30px;
 					width: 30px;
 					border-radius: 3px;
@@ -266,7 +289,7 @@
 					}
 
 					@media (max-width: 760px) {
-						margin-right: 10px;
+						margin-left: 10px;
 					}
 				}
 			}
@@ -277,6 +300,12 @@
 				.searching-window {
 					width: 100%;
 				}
+				.searching-window-slide {
+					transition: width 1s ease;
+					right: 0;
+					width: 100%;
+				}
+
 				.searching-window-icon {
 					position: absolute;
 

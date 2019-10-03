@@ -5,6 +5,7 @@ import {CheckboxFormInput} from '../../components/form-components/check-button-i
 import AccountRSFormInput from '../../components/form-components/account-rs'
 import NummericInputForm from '../../components/form-components/numeric-input'
 import InfoBox from "../../components/info-box";
+import FeeInputForm from "../../components/form-components/fee-input";
 
 const SendPrivateMoneyForm = ({values, setValue, modalData, idGroup, useMixer, mixerData, handleUseMixer}) => (
     <>
@@ -37,6 +38,12 @@ const SendPrivateMoneyForm = ({values, setValue, modalData, idGroup, useMixer, m
             <InfoBox info>
                 Your money will be sent directly to mixer account and during estimated mixing
                 time, money will be transferred to recipient's account.
+                <br />
+                Disclaimer:
+                <br />
+                the fee does not include any fees deducted from the mixing process itself.
+                The amount that arrives at the destination is dependent on the amount of wallets used to mask this transaction. 
+                Each wallet passed through will incur a fee.
             </InfoBox>
         }
         <NummericInputForm
@@ -73,13 +80,10 @@ const SendPrivateMoneyForm = ({values, setValue, modalData, idGroup, useMixer, m
                 defaultValue={(modalData && modalData.duration) ? modalData.duration : ''}
             />
         )}
-        <NummericInputForm
+        <FeeInputForm
             field={'feeATM'}
-            counterLabel={'APL'}
-            type={'float'}
-            label={'Fee'}
+            values={values}
             setValue={setValue}
-            placeholder={'Fee'}
             idGroup={idGroup}
             defaultValue={(modalData && modalData.feeATM) || '5'}
         />

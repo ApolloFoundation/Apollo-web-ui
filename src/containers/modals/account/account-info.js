@@ -15,6 +15,7 @@ import crypto from "../../../helpers/crypto/crypto";
 import ModalFooter from '../../components/modal-footer';
 import BackForm from '../modal-form/modal-form-container';
 import NummericInputForm from "../../components/form-components/numeric-input";
+import FeeInputForm from "../../components/form-components/fee-input";
 
 class AccountInfo extends React.Component {
     constructor(props) {
@@ -90,14 +91,10 @@ class AccountInfo extends React.Component {
                                                       cols="6" rows="10"/>
                                         </div>
                                     </div>
-                                    <NummericInputForm
+                                    <FeeInputForm
                                         field={'feeATM'}
-                                        counterLabel={'APL'}
-                                        type={'float'}
-                                        label={'Fee'}
+                                        values={values}
                                         setValue={setValue}
-                                        placeholder={'Fee'}
-                                        defaultValue={'1'}
                                     />
                                     <ModalFooter
                                         setValue={setValue}

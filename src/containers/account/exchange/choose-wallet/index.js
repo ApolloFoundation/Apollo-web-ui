@@ -30,6 +30,13 @@ class ChooseWallet extends React.Component {
         }
     }
 
+    getFullNumber = (num) => {
+        const value = num ? num.toString() : ''
+        const [, float, exp] = value.match(/\d+.(\d+)[eE]-(\d+)/) || []
+        if (!exp) return value
+        return (+value).toFixed(float.length + +exp)
+    }
+
     getCurrencyBalance = async (wallets) => {
         this.setState({loading: true});
         let params = {};
@@ -94,7 +101,15 @@ class ChooseWallet extends React.Component {
                                             }
                                         ]}
                                         className={'pt-0 no-min-height no-padding rounded-top'}
-                                        tableData={this.state.wallets[currency]}
+                                        tableData={this.state.wallets[currency].map(wallet => {
+                                            return ({
+                                            ...wallet,
+                                            balances: {
+                                                ...wallet.balances,
+                                                pax: this.getFullNumber(wallet.balances.pax),
+                                                eth: this.getFullNumber(wallet.balances.eth),
+                                            }
+                                        })}) }
                                         passProps={{currency, handleCurrentCurrency: this.handleCurrentCurrency}}
                                         emptyMessage={'No wallet info found.'}
                                         TableRowComponent={CurrencyDescriptionComponent}

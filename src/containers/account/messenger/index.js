@@ -10,7 +10,7 @@ import {connect} from 'react-redux';
 import {withRouter} from "react-router-dom";
 import './Messenger.scss';
 import {BlockUpdater} from "../../block-subscriber/index";
-import {getChatsPerPage, getChatHistory} from "../../../actions/messager";
+import {getChatsPerPage, getChatHistory, resetChatHistory} from "../../../actions/messager";
 
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import Chat from './chat';
@@ -23,19 +23,18 @@ class Messenger extends React.PureComponent {
     componentDidMount () {
         this.props.getChatHistory({account2: this.props.match.params.chat});
         this.props.getChatsPerPage();
-        if (!BlockUpdater.listeners('data').length) {
-            BlockUpdater.on("data", data => {
-                this.listener();
-            });
-        }
+        BlockUpdater.on("data", this.listener);
     };
 
     componentWillUnmount() {
-        BlockUpdater.removeListener("data", this.listener)
+        BlockUpdater.removeListener("data", this.listener);
     };
     
     componentDidUpdate(prevProps) {
-        if (this.props.location.pathname !== prevProps.location.pathname || prevProps.passPhrase !== this.props.passPhrase) {
+        if (prevProps.passPhrase !== this.props.passPhrase) {
+            this.listener();
+        } else if (this.props.location.pathname !== prevProps.location.pathname) {
+            this.props.resetChatHistory();
             this.listener();
         }
     }
@@ -75,6 +74,7 @@ const mapDispatchToProps = {
     getChatsPerPage,
     getChatHistory,
     setBodyModalParamsAction,
+    resetChatHistory,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Messenger));

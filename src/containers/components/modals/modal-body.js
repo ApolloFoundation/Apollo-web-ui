@@ -10,7 +10,7 @@ import AdvancedSettings from '../advanced-transaction-settings';
 import {openPrevModal, saveSendModalState} from "../../../modules/modals";
 
 import BackForm from '../../../containers/modals/modal-form/modal-form-container';
-import NummericInputForm from "../form-components/numeric-input";
+import FeeInputForm from "../form-components/fee-input";
 
 
 class ModalBody extends React.Component {
@@ -165,13 +165,10 @@ class ModalBody extends React.Component {
                                 }
 
                                 {isFee && (
-                                    <NummericInputForm
+                                    <FeeInputForm
                                         field={'feeATM'}
-                                        counterLabel={'APL'}
-                                        type={'float'}
-                                        label={'Fee'}
+                                        values={values}
                                         setValue={setValue}
-                                        placeholder={'Fee'}
                                         idGroup={idGroup}
                                         defaultValue={(modalData && modalData.feeATM) || '1'}
                                     />

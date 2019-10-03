@@ -293,7 +293,7 @@ class AssetExchange extends React.Component {
                 <SiteHeader
                     pageTitle={'Asset exchange'}
                 >
-                    {window.innerWidth < 768 && (
+                    {this.state.asset && window.innerWidth < 768 && (
                         <button
                             type={'button'}
                             onClick={this.goBack} className="btn btn-default btn-sm">
@@ -444,7 +444,7 @@ class AssetExchange extends React.Component {
                     <div className="page-body container-fluid assets-exchange">
                         <div className="row">
                             <div className="col-md-3 p-0 one-col pb-3">
-                                <div className="card card-full-screen no-padding scroll justify-content-start">
+                                <div className="card card-full-screen no-padding scroll justify-content-start assets-exchange-not-selected">
                                     {
                                         this.state.accountAssets &&
                                         !!this.state.accountAssets.length &&

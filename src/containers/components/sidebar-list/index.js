@@ -7,7 +7,7 @@ import ContentLoader from '../../components/content-loader';
 const SidebarContent = ({emptyMessage, baseUrl, data, bottomBarPreText, element, location, Component, currentItem}) => {
     return (
         <>
-            <div className="card scroll justify-content-start absolute h-100">
+            <div className="card scroll justify-content-start absolute h-100 sidebar-content">
                 {
                     !!data &&
                     data.length > 0 &&

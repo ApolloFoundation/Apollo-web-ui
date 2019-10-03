@@ -61,9 +61,8 @@ class PollForm extends React.Component {
             <>
                 <TextualInputComponent
                     label={'Name'}
-                    disabled={true}
-                    field="name"
-                    placeholder="Poll Name"
+                    field={"name"}
+                    placeholder={"Poll Name"}
                     type={"text"}
                     setValue={setValue}
                     isSpecialSymbols

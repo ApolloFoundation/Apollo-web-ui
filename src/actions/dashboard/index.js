@@ -11,7 +11,6 @@ import {
 import {getAccountAssetsAction, getAssetAction, getSpecificAccountAssetsAction} from '../../actions/assets'
 import {getAliasesCountAction} from '../../actions/aliases'
 import {getMessages} from "../../actions/messager";
-import {getNewsAction} from "../../actions/account";
 // import {BlockUpdater} from "../../block-subscriber/index";
 import {getAllTaggedDataAction} from "../../actions/datastorage";
 import {getActiveShfflings, getShufflingAction} from "../../actions/shuffling";
@@ -75,7 +74,6 @@ export const getDashboardData = () => (dispatch, getState, subscribe) => {
                                 dispatch(getDGSPendingPurchases({seller : account})),
                                 dispatch(getDGSPurchasesAction({buyer : account})),
                             ]);
-    const news              = dispatch(getNewsAction());
     const taggetData        = dispatch(getAllTaggedDataAction(rquestParams._taggetData));
     const activeShuffling   = dispatch(getActiveShfflings(rquestParams._activeShuffling));
     const finishedShuffling = dispatch(getShufflingAction());
@@ -90,7 +88,6 @@ export const getDashboardData = () => (dispatch, getState, subscribe) => {
         aliaseesCount,
         messages,
         dgsGoods,
-        news,
         taggetData,
         activeShuffling,
         finishedShuffling,
@@ -98,7 +95,7 @@ export const getDashboardData = () => (dispatch, getState, subscribe) => {
         accountInfo
     ])
         .then(async (resolved) => {
-            const [block, transactions, currencies, accountAssets, aliaseesCount, messages, dgsGoods, news, taggetData, activeShuffling, finishedShuffling, activePolls, accountInfo] = resolved;
+            const [block, transactions, currencies, accountAssets, aliaseesCount, messages, dgsGoods, taggetData, activeShuffling, finishedShuffling, activePolls, accountInfo] = resolved;
             const [numberOfGoods, numberOfPurchases, totalPurchases] = dgsGoods;
 
             if (transactions)
@@ -130,10 +127,6 @@ export const getDashboardData = () => (dispatch, getState, subscribe) => {
             dispatch({
                 type: 'SET_DASHBOARD_MESSAGES_COUNT',
                 payload: messages.transactions.length
-            });
-            dispatch({
-                type: 'SET_DASHBOARD_NEWS',
-                payload: news ? news.tweets : []
             });
             dispatch({
                 type: 'SET_DASHBOARD_TAGGEDDATA',

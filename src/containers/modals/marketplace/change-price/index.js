@@ -88,7 +88,6 @@ class MarketplaceChangePrice extends React.Component {
                 closeModal={this.props.closeModal}
                 isAdvanced
                 isFee
-                isXWide
                 marketplace={{
                     priceATM: goods ? goods.priceATM : null,
                     name: goods ? goods.name : null,

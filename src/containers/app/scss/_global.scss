@@ -1623,7 +1623,22 @@ table {
 			top: unset;
 		}
 	}
+
+	.assets-exchange-not-selected {
+		height: calc(100vh - 183px);
+		min-height: fit-content !important;
+		@media (max-width: 1000px) {
+			height: calc(100vh - 130px);
+		}
+		@media (max-width: 767px) {
+			height: calc(100vh - 165px);
+		}
+		@media (max-width: 425px) {
+			height: calc(100vh - 165px);
+		}
+	}
 }
+
 .exchange-booth {
 	.card {
 		height: 100%;
@@ -1647,7 +1662,7 @@ table {
 		}
 	}
 	.btn {
-		@media (max-width: 1024px) {
+		@media(max-width: 760px) {
 			display: none !important;
 		}
 	}
@@ -1802,10 +1817,13 @@ table {
 	padding: 35px;
 	//margin-top: 15px;
 	background-color: #fff;
-	color: #BBBBBB;
+	display: flex;
+	justify-content: space-between;
+	color: #8AA5C7;
 	
-	@media(max-width: 768px) {
+	@media(max-width: 767px) {
 		text-align: center;
+		padding: 12px;
 	}
 }
 
@@ -1828,7 +1846,7 @@ table {
 	}
 
 	@media (max-width: 1000px) {
-		left: 100px;
+		left: 80px;
 	}
 	@media (max-width: 760px) {
 		left: 0;
@@ -1937,4 +1955,8 @@ table {
 
 svg {
 	margin: 0;
+}
+
+.bg-white {
+	background-color: #ffffff;
 }

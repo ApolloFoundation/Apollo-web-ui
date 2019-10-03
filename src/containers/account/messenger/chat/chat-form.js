@@ -4,35 +4,35 @@ import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {handleSendMessageFormSubmit} from './handleFormSubmit';
 import {CheckboxFormInput} from "../../../components/form-components/check-button-input";
+import classNames from "classnames";
 
 class ChatForm extends React.PureComponent {
     state = {
-        textareaCount: 0
+        isPending: false,
     };
 
-    handleSendMessageFormSubmit = (values) =>
-        this.props.handleSendMessageFormSubmit(
-            {...values, recipient: this.props.match.params.chat, resetForm: this.resetForm},
-            this.state.form,
-        );
+    handleSendMessageFormSubmit = async (values) => {
+        if (!this.state.isPending) {
+            this.setState({isPending: true});
+            await this.props.handleSendMessageFormSubmit({
+                ...values,
+                recipient: this.props.match.params.chat,
+                resetForm: this.resetForm
+            });
+            this.setState({isPending: false});
+        }
+    };
 
     resetForm = () => {
-        this.setState({
-            textareaCount: 0
-        })
-    };
-
-    getFormApi = (form) => {
-        this.setState({
-            form
-        })
+        if (this.props.form) this.props.form.resetAll();
     };
 
     render() {
         return (
             <Form
+                defaultValues={{textareaCount: 0}}
                 onSubmit={(values) => this.handleSendMessageFormSubmit(values)}
-                getApi={this.getFormApi}
+                getApi={this.props.getFormApi}
                 render={({
                              submitForm, values, addValue, removeValue, setValue, getFormState
                          }) => (
@@ -40,10 +40,10 @@ class ChatForm extends React.PureComponent {
                         <div className={'form-group-app'}>
                             <div className="top-bar">
                                 <div className={"textareaCount"}>
-                                    {this.state.textareaCount > 100 ?
+                                    {values.textareaCount > 100 ?
                                         <div className={"textareaCount-message"}>Message is too long</div> :
                                         <div>
-                                            <div className={'textareaCount-text'}>{100 - this.state.textareaCount}</div>
+                                            <div className={'textareaCount-text'}>{100 - values.textareaCount}</div>
                                             /100</div>
                                     }
                                 </div>
@@ -52,36 +52,53 @@ class ChatForm extends React.PureComponent {
                                     field={'message'}
                                     rows="3"
                                     placeholder={'Message'}
-                                    onChange={(text) => this.setState({textareaCount: text.length})}
+                                    onChange={(text) => setValue('textareaCount', text.length)}
                                 />
                             </div>
                             <div className="bottom-bar">
-                                <CheckboxFormInput
-                                    className={'mb-0'}
-                                    setValue={setValue}
-                                    checkboxes={[
-                                        {
-                                            field: 'messageToEncrypt',
-                                            label: 'Encrypt message'
-                                        }
-                                    ]}
-                                />
-                                <Text
-                                    className={"form-control"}
-                                    field={'secretPhrase'}
-                                    placeholder={'Secret Phrase'}
-                                    type="password"/>
-                                {
-                                    this.props.is2FA &&
-                                    <Text
-                                        className={"form-control"}
-                                        field={'code2FA'}
-                                        placeholder={'2FA Code'}
-                                        type="password"/>
-                                }
-
-                                <button type="submit" className="btn btn-green">
-                                    Send Message
+                                <div className={'bottom-bar-wrap'}>
+                                    <CheckboxFormInput
+                                        className={'mb-0'}
+                                        setValue={setValue}
+                                        checkboxes={[
+                                            {
+                                                field: 'messageToEncrypt',
+                                                label: 'Encrypt message'
+                                            }
+                                        ]}
+                                    />
+                                    <div className={'bottom-bar-input-wrap'}>
+                                        <Text
+                                            className={"form-control"}
+                                            field={'secretPhrase'}
+                                            placeholder={'Secret Phrase'}
+                                            type="password"
+                                        />
+                                        {this.props.is2FA && (
+                                            <Text
+                                                className={"form-control"}
+                                                field={'code2FA'}
+                                                placeholder={'2FA Code'}
+                                                type="password"
+                                            />
+                                        )}
+                                    </div>
+                                </div>
+                                <button
+                                    type="submit"
+                                    className={classNames({
+                                        "btn btn-green submit-button": true,
+                                        "loading btn-green-disabled": this.state.isPending,
+                                    })}
+                                >
+                                    <div className="button-loader">
+                                        <div className="ball-pulse">
+                                            <div/>
+                                            <div/>
+                                            <div/>
+                                        </div>
+                                    </div>
+                                    <span className={'button-text'}>Send Message</span>
                                 </button>
                             </div>
                         </div>

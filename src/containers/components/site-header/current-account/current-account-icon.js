@@ -14,7 +14,7 @@ const CurrentAccountIcon = ({name, publicKey, appState, setBodyModalParamsAction
                         {name}
                     </p>
                 )}
-                <p className={`user-status ${publicKey ? 'verified' : ''}`}>
+                <p className={`user-status text-ellipsis ${publicKey ? 'verified' : ''}`}>
                     {publicKey ? 'Verified' : 'Not Verified'}
                 </p>
             </div>

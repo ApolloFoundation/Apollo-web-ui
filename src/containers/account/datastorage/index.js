@@ -38,6 +38,10 @@ const mapDispatchToProps = dispatch => ({
 
 class DataStorage extends React.Component {
     state = {
+        pageTag: 1,
+        itemsPerPage: 32,
+        firstIndexTag: 0,
+        lastIndexTag: 31,
         dataTags: null,
         taggedData: null,
         page: 1,
@@ -61,14 +65,42 @@ class DataStorage extends React.Component {
                 lastIndex: this.state.lastIndex
             };
             this.getAllTaggedData(null, pagination);
-            this.getDataTags();
+            this.getDataTags({
+                firstIndex: this.state.firstIndexTag,
+                lastIndex: this.state.lastIndexTag,
+            });
         }
     }
 
     componentDidMount() {
         this.getAllTaggedData();
-        this.getDataTags();
+        this.getDataTags({
+            firstIndex: this.state.firstIndexTag,
+            lastIndex: this.state.lastIndexTag,
+        });
     }
+
+    getTags = async (reqParams) => {
+        const getTags = await this.getDataTags(reqParams);
+
+        if (getTags) {
+            this.setState({
+                dataTags: getTags
+            })
+        }
+    };
+
+    onPaginateTags = (pageTag) => {
+        let reqParams = {
+            pageTag: pageTag,
+            firstIndex: pageTag * this.state.itemsPerPage - this.state.itemsPerPage,
+            lastIndex:  pageTag * this.state.itemsPerPage - 1
+        };
+
+        this.setState({...reqParams}, () => {
+            this.getTags(reqParams)
+        });
+    };
 
     getAllTaggedData = async (query, pagination) => {
         if (!pagination) {
@@ -288,7 +320,6 @@ class DataStorage extends React.Component {
                                             this.state.dataTags &&
                                             this.state.dataTags.map((el, index) => {
                                                 const params = this.props.match.params.query;
-
                                                 return (
                                                     <div
                                                         onClick={() => this.handleSearchByTag(el.tag)}
@@ -302,6 +333,36 @@ class DataStorage extends React.Component {
                                                 );
                                             })
                                         }
+                                        {this.state.dataTags && <div
+                                            ref={'btnBox'}
+                                            className="btn-box pagination"
+                                        >
+                                            <button
+                                                type={'button'}
+                                                className={classNames({
+                                                    'btn btn-default': true,
+                                                    'disabled': this.state.pageTag <= 1,
+                                                })}
+                                                onClick={this.onPaginateTags.bind(this, this.state.pageTag - 1)}
+                                            >
+                                                Previous
+                                            </button>
+                                            <div className='pagination-nav'>
+                                                <span>{this.state.pageTag * this.state.itemsPerPage - this.state.itemsPerPage + 1}</span>
+                                                <span>&hellip;</span>
+                                                <span>{(this.state.pageTag * this.state.itemsPerPage - this.state.itemsPerPage) + this.state.dataTags.length}</span>
+                                            </div>
+                                            <button
+                                                type={'button'}
+                                                onClick={this.onPaginateTags.bind(this, this.state.pageTag + 1)}
+                                                className={classNames({
+                                                    'btn btn-default': true,
+                                                    'disabled': this.state.dataTags.length < this.state.itemsPerPage
+                                                })}
+                                            >
+                                                Next
+                                            </button>
+                                        </div>}
                                     </div>
                                 </div>
                             </div>

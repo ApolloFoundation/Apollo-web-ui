@@ -8,7 +8,22 @@ import {withRouter} from 'react-router-dom';
 import ChatForm from './chat-form';
 
 class Chat extends React.Component {
-    state = {textareaCount: 0};
+    state = {
+        textareaCount: 0,
+        form: null
+    };
+
+    componentDidUpdate(prevProps) {
+        if (this.props.match.params.chat !== prevProps.match.params.chat && this.state.form) {
+            this.state.form.resetAll();
+        }
+    }
+
+    getFormApi = (form) => {
+        this.setState({
+            form
+        })
+    };
 
     render() {
         const {chatMessages, match: {params: {chat}}} = this.props;
@@ -20,7 +35,7 @@ class Chat extends React.Component {
                         Chat with <strong className={'blue-text'}>{chat}</strong>
                     </InfoBox>
                 )}
-                <div className="card p-0 h-100">
+                <div className="card p-0">
                     {chat ? (
                         <>
                             <div className="chatting-box">
@@ -35,7 +50,10 @@ class Chat extends React.Component {
                                     <ContentLoader/>
                                 )}
                             </div>
-                            <ChatForm/>
+                            <ChatForm
+                                getFormApi={this.getFormApi}
+                                form={this.state.form}
+                            />
                         </>
                     ) : (
                         <InfoBox>

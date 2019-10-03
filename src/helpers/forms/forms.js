@@ -38,7 +38,6 @@ function checkRequestType(requestType, data) {
 function submitForm(data, requestType) {
     return async (dispatch, getState) => {
         const {account, accountSettings, modals, fee} = getState();
-
         if (requestType !== 'generateAccount') {
             if (data.secretPhrase) {
                 let isPassphrase = dispatch(await dispatch(crypto.getAccountIdAsyncApl(data.secretPhrase)));

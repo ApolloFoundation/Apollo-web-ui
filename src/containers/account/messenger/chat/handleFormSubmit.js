@@ -1,7 +1,7 @@
 import {NotificationManager} from 'react-notifications';
 import submitForm from '../../../../helpers/forms/forms';
 
-export const handleSendMessageFormSubmit = (values, formApi) => {
+export const handleSendMessageFormSubmit = (values) => {
     return async (dispatch, getState) => {
         const {account: {account, puplicKey}} = getState();
         const {recipient, resetForm} = values;
@@ -42,18 +42,12 @@ export const handleSendMessageFormSubmit = (values, formApi) => {
             feeATM: 4
         }, 'sendMessage'));
     
-        if (res && res.errorCode === 4) {
-            NotificationManager.error('Message must not exceed 100 characters.', 'Error', 5000);
-            return;
-        }
-        if (res && res.errorCode === 6) {
-            NotificationManager.error('Incorrect secret phrase.', 'Error', 5000);
-            return;
-        }
-        if (res &&  !res.errorCode) {
-            formApi.resetAll()
-            resetForm()
+        if (res && res.errorCode) {
+            NotificationManager.error(res.errorDescription, 'Error', 5000);
+        } else if (res &&  !res.errorCode) {
+            resetForm();
             NotificationManager.success('Message has been submitted!', null, 5000);
         }
+        return;
     }
 };

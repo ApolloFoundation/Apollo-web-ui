@@ -2,18 +2,20 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Form} from 'react-form';
 import {NotificationManager} from 'react-notifications';
+import classNames from "classnames";
 import InputForm from '../../../../components/input-form';
 import CustomSelect from '../../../../components/select';
 import {currencyTypes, formatDivision, multiply} from '../../../../../helpers/format';
 import {createOffer} from '../../../../../actions/wallet';
-import {setBodyModalParamsAction} from '../../../../../modules/modals';
+import {setBodyModalParamsAction, resetTrade, setSelectedOrderInfo} from '../../../../../modules/modals';
 import {ONE_APL, ONE_GWEI} from '../../../../../constants';
 import {ReactComponent as ArrowRight} from "../../../../../assets/arrow-right.svg";
 import InputRange from "../../../../components/input-range";
 
-class SellForm extends React.Component {
+class SellForm extends React.PureComponent {
     feeATM = 200000000;
     state = {
+        isPending: false,
         form: null,
         currentCurrency: null,
         wallet: null,
@@ -49,69 +51,121 @@ class SellForm extends React.Component {
         return null;
     }
 
+    componentDidUpdate() {
+        if(this.props.infoSelectedSellOrder) {
+            const numberTypes = {
+                NaN: '0',
+                Infinity: 100,
+            }
+            const { balanceAPL, dashboardAccoountInfo } = this.props;
+            const { pairRate, offerAmount, total } = this.props.infoSelectedSellOrder;
+            const normalizeOfferAmount = offerAmount.replaceAll(',', '');
+            const balance = (dashboardAccoountInfo && dashboardAccoountInfo.unconfirmedBalanceATM) ? dashboardAccoountInfo.unconfirmedBalanceATM : balanceAPL;
+            const balanceFormat = balance ? (balance / ONE_APL) : 0;
+            const { form, wallet } = this.state;
+            const rangeValue = (normalizeOfferAmount * 100 / balanceFormat).toFixed(0);
+            form.setAllValues({
+                walletAddress: wallet && wallet[0],
+                pairRate: pairRate,
+                offerAmount: normalizeOfferAmount,
+                total: +total,
+                range: numberTypes[rangeValue] || rangeValue,
+            });
+        }
+    }
+
     handleFormSubmit = (values) => {
-        if (this.props.wallet) {
-            if (values.offerAmount > 0 && values.pairRate > 0) {
-                const currency = this.props.currentCurrency.currency;
-                if (values.pairRate < 0.000000001) {
-                    NotificationManager.error(`Price must be more then 0.000000001 ${currency.toUpperCase()}`, 'Error', 5000);
-                    return;
-                }
-                if (values.offerAmount < 0.001) {
-                    NotificationManager.error('You can sell more then 0.001 APL', 'Error', 5000);
-                    return;
-                }
-                const pairRate = multiply(values.pairRate, ONE_GWEI);
-                const offerAmount = multiply(values.offerAmount, ONE_GWEI);
-                const balanceAPL = (this.props.dashboardAccoountInfo && this.props.dashboardAccoountInfo.unconfirmedBalanceATM) ?
-                    parseFloat(this.props.dashboardAccoountInfo.unconfirmedBalanceATM)
-                    :
-                    parseFloat(this.props.balanceAPL);
+        if (!this.state.isPending) {
+            this.props.setSelectedOrderInfo({pairRate: values.pairRate, offerAmount: values.offerAmount, total: values.total, type: 'SELL'});
+            this.setPending();
+            if (this.props.wallet) {
+                if (values.offerAmount > 0 && values.pairRate > 0) {
+                    const currency = this.props.currentCurrency.currency;
+                    let isError = false;
+                    if (values.pairRate < 0.000000001) {
+                        NotificationManager.error(`Price must be more then 0.000000001 ${currency.toUpperCase()}`, 'Error', 5000);
+                        isError = true;
+                    }
+                    if (values.offerAmount < 0.001) {
+                        NotificationManager.error('You can sell more then 0.001 APL', 'Error', 5000);
+                        isError = true;
+                    }
+                    if (!this.props.ethFee || +this.props.ethFee === 0) {
+                        NotificationManager.error('Can\'t get Gas fee. Something went wrong. Please, try again later', 'Error', 5000);
+                        isError = true;
+                    }
+                    if (+this.props.ethFee > +values.walletAddress.balances.eth) {
+                        NotificationManager.error(`To sell APL you need to have at least ${this.props.ethFee.toLocaleString('en')} ETH on your balance to confirm transaction`, 'Error', 5000);
+                        isError = true;
+                    }
+                    if (isError) {
+                        this.props.resetTrade();
+                        this.setPending(false);
+                        return;
+                    }                    
+                    const pairRate = Math.round(multiply(values.pairRate, ONE_GWEI));
+                    const offerAmount = multiply(values.offerAmount, ONE_GWEI);
+                    const balanceAPL = (this.props.dashboardAccoountInfo && this.props.dashboardAccoountInfo.unconfirmedBalanceATM) ?
+                        parseFloat(this.props.dashboardAccoountInfo.unconfirmedBalanceATM)
+                        :
+                        parseFloat(this.props.balanceAPL);
 
-                if (!this.props.balanceAPL || balanceAPL === 0 || balanceAPL < (offerAmount + this.feeATM)) {
-                    NotificationManager.error('Not enough founds on your APL balance.', 'Error', 5000);
-                    return;
-                }
+                    if (!this.props.balanceAPL || balanceAPL === 0 || balanceAPL < ((offerAmount + this.feeATM) / 10)) {
+                        NotificationManager.error('Not enough funds on your APL balance.', 'Error', 5000);
+                        this.setPending(false);
+                        return;
+                    }
 
-                const params = {
-                    offerType: 1, // SELL
-                    pairCurrency: currencyTypes[currency],
-                    pairRate,
-                    offerAmount,
-                    sender: this.props.account,
-                    passphrase: this.props.passPhrase,
-                    feeATM: this.feeATM,
-                    walletAddress: values.walletAddress.address,
-                };
+                    const params = {
+                        offerType: 1, // SELL
+                        pairCurrency: currencyTypes[currency],
+                        pairRate,
+                        offerAmount,
+                        sender: this.props.account,
+                        passphrase: this.props.passPhrase,
+                        feeATM: this.feeATM,
+                        walletAddress: values.walletAddress.address,
+                    };
 
-                if (this.props.passPhrase) {
-                    this.props.createOffer(params);
-                    if (this.state.form) {
-                        this.state.form.setAllValues({
-                            walletAddress: values.walletAddress,
-                            pairRate: '',
-                            offerAmount: '',
-                            total: '',
+                    if (this.props.passPhrase) {
+                        this.props.createOffer(params).then(() => {
+                            this.setPending(false);
                         });
+                        if (this.state.form) {
+                            this.props.resetTrade();
+                            this.state.form.setAllValues({
+                                walletAddress: values.walletAddress,
+                                pairRate: '',
+                                offerAmount: '',
+                                total: '',
+                            });
+                        }
+                    } else {
+                        this.props.setBodyModalParamsAction('CONFIRM_CREATE_OFFER', {
+                            params,
+                            resetForm: () => {
+                                this.props.resetTrade();
+                                this.state.form.setAllValues({
+                                walletAddress: values.walletAddress,
+                                pairRate: '',
+                                offerAmount: '',
+                                total: '',
+                            })}
+                        });
+                        this.setPending(false);
                     }
                 } else {
-                    this.props.setBodyModalParamsAction('CONFIRM_CREATE_OFFER', {
-                        params,
-                        resetForm: () => this.state.form.setAllValues({
-                            walletAddress: values.walletAddress,
-                            pairRate: '',
-                            offerAmount: '',
-                            total: '',
-                        })
-                    });
+                    NotificationManager.error('Price and amount are required', 'Error', 5000);
+                    this.setPending(false);
                 }
             } else {
-                NotificationManager.error('Price and amount are required', 'Error', 5000);
+                this.setPending(false);
+                this.props.handleLoginModal();
             }
-        } else {
-            this.props.handleLoginModal();
         }
     };
+
+    setPending = (value = true) => this.setState({isPending: value})
 
     getFormApi = (form) => {
         this.setState({form})
@@ -132,6 +186,10 @@ class SellForm extends React.Component {
         const balance = (dashboardAccoountInfo && dashboardAccoountInfo.unconfirmedBalanceATM) ? dashboardAccoountInfo.unconfirmedBalanceATM : balanceAPL;
         const balanceFormat = balance ? (balance / ONE_APL) : 0;
         const currencyName = currency.toUpperCase();
+        const numberTypes = {
+            NaN: '0',
+            Infinity: 100,
+        }
         return (
             <Form
                 onSubmit={values => this.handleFormSubmit(values)}
@@ -171,7 +229,8 @@ class SellForm extends React.Component {
                                             if (amount > balanceFormat) {
                                                 amount = balanceFormat;
                                             }
-                                            setValue("range", (amount * 100 / balanceFormat).toFixed(0));
+                                            let rangeValue = (amount * 100 / balanceFormat).toFixed(0);
+                                            setValue("range", numberTypes[rangeValue] || rangeValue);
                                         }
                                         setValue("total", multiply(amount, price));
                                     }}
@@ -192,13 +251,15 @@ class SellForm extends React.Component {
                                     field="offerAmount"
                                     type={"float"}
                                     onChange={(amount) => {
-                                        if (balanceFormat) {
-                                            if (amount > balanceFormat) {
+                                        const pairRate = +values.pairRate || 0;
+                                        if (+balanceFormat) {
+                                            if (+amount > +balanceFormat) {
                                                 amount = balanceFormat;
                                             }
-                                            setValue("range", (amount * 100 / balanceFormat).toFixed(0));
+                                            let rangeValue = (amount * 100 / balanceFormat).toFixed(0);
+                                            setValue("range", numberTypes[rangeValue] || rangeValue);
                                         }
-                                        setValue("total", multiply(amount, values.pairRate));
+                                        setValue("total", multiply(amount, pairRate));
                                     }}
                                     setValue={setValue}
                                     disableArrows
@@ -246,9 +307,19 @@ class SellForm extends React.Component {
                         )}
                         <button
                             type={'submit'}
-                            className={'btn btn-green btn-lg'}
+                            className={classNames({
+                                "btn btn-green btn-lg": true,
+                                "loading btn-green-disabled": this.state.isPending,
+                            })}
                         >
-                            <span>Sell APL</span>
+                            <div className="button-loader">
+                                <div className="ball-pulse">
+                                    <div/>
+                                    <div/>
+                                    <div/>
+                                </div>
+                            </div>
+                            <span className={'button-text'}>Sell APL</span>
                             <div className={'btn-arrow'}>
                                 <ArrowRight/>
                             </div>
@@ -259,9 +330,10 @@ class SellForm extends React.Component {
     }
 }
 
-const mapStateToProps = ({account, dashboard, exchange}) => ({
+const mapStateToProps = ({account, dashboard, exchange, modals}) => ({
     account: account.account,
     balanceAPL: account.unconfirmedBalanceATM,
+    infoSelectedSellOrder: modals.infoSelectedSellOrder,
     dashboardAccoountInfo: dashboard.dashboardAccoountInfo,
     passPhrase: account.passPhrase,
     currentCurrency: exchange.currentCurrency,
@@ -269,6 +341,8 @@ const mapStateToProps = ({account, dashboard, exchange}) => ({
 
 const mapDispatchToProps = dispatch => ({
     createOffer: (params) => dispatch(createOffer(params)),
+    resetTrade: () => dispatch(resetTrade()),
+    setSelectedOrderInfo: (params) => dispatch(setSelectedOrderInfo(params)),
     setBodyModalParamsAction: (type, value) => dispatch(setBodyModalParamsAction(type, value)),
 });
 
