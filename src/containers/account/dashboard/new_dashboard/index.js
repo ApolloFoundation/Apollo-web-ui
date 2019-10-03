@@ -17,8 +17,8 @@ import SendApollo from "./SendApollo";
 import MyTransactions from "./MyTransactions";
 import StayInTouch from "./StayInTouch";
 
-import TwitterBanner from "../../../assets/twitter-banner.png";
-import InfoBanner from "../../../assets/info-banner.png";
+import TwitterBanner from "../../../assets/why-apollo.png";
+import InfoBanner from "../../../assets/new-vision-2020.png";
 import './style.scss';
 
 class Dashboard extends React.Component {
@@ -70,7 +70,7 @@ class Dashboard extends React.Component {
                                 style={{backgroundImage: `url(${TwitterBanner})`}}
                             />
                             <a
-                                href={'https://twitter.com/ApolloCurrency'}
+                                href={'https://medium.com/@apollocurrency'}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className={`card card-square card-xl`}

@@ -20,8 +20,8 @@ import StayInTouch from "./StayInTouch";
 import ActivePolls from "./ActivePolls";
 import InfoStatistic from "./InfoStatistic";
 
-import TwitterBanner from "../../../assets/twitter-banner2.png";
-import InfoBanner from "../../../assets/info-banner.png";
+import TwitterBanner from "../../../assets/why-apollo.png";
+import InfoBanner from "../../../assets/new-vision-2020.png";
 
 class Dashboard extends React.Component {
     state = {
@@ -80,7 +80,7 @@ class Dashboard extends React.Component {
                                             </div>
                                         </div>
                                         <a
-                                            href={'https://twitter.com/ApolloCurrency'}
+                                            href={'https://medium.com/@apollocurrency'}
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             className={`card card-square card-xl`}
