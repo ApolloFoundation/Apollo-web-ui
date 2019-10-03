@@ -26,3 +26,7 @@ yarn-error.log*
 .css
 
 /desktop-builds
+
+# target builds
+target
+target/*
