@@ -18,7 +18,7 @@ var SecureRandom = require('../../vendors/fb-crypto/rng').SecureRandom;
 
 export const getElGamalPublicKey = () => {
     const data = {
-        requestType: 'getElGamalPublicKey',
+        requestType: 'getElGamalPublicKey'
     };
     return axios.post(config.api.serverUrl + queryString.stringify(data))
         .then(({data}) => {
@@ -26,18 +26,27 @@ export const getElGamalPublicKey = () => {
         })
 }
 
+export const getForgingPublicKey = () => {
+  const data = {
+      requestType: 'getForgingPublicKey'
+  };
+  return axios.post(config.api.serverUrl + queryString.stringify(data))
+      .then(({data}) => {
+          return data;
+      })
+}
+
 const getZeros = (value) => {
     return !!(131 - value.length) ? new Array(131 - value.length).fill('0').reduce((a, b) => {return a + b}) : '';
 }
 
-export const processElGamalEncryption = async (secretPhrase) => {
-
+export const processElGamalEncryption = async (secretPhrase, reqType) => {
     const KEY = new Buffer(crypto.randomBytes(32), 'utf8');
     const aesCipher = aes256gcm(KEY);
     const [encrypted, iv, authTag] = aesCipher.encrypt(secretPhrase);
 
     const c = getSECCurveByName( "secp521r1" );
-    const {ElGamalX, ElGamalY} = await getElGamalPublicKey();
+    const {ElGamalX, ElGamalY} = !reqType ? await getElGamalPublicKey() : await getForgingPublicKey();
 
     const EcCryptoCtx = new ECAsymCrypto ( c, new SecureRandom() );
 
