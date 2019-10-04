@@ -12,8 +12,8 @@ export const dashboardMenu = {
 };
 
 export const exchangeMenu = {
-	className: '/exchange',
-	to: '/exchange',
+	className: '/dex',
+	to: '/dex',
 	label: 'Exchange',
 	icon: 'zmdi-refresh',
 	children: [
