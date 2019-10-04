@@ -283,7 +283,7 @@ class App extends React.Component {
             <Route exact path="/finished-shuffling" component={FinishedShufflings}/>
             <Route exact path="/my-messages" component={MyMessages}/>
             <Route exact path="/generators" component={Generators}/>
-            <Route exact path="/exchange" component={Exchange}/>
+            <Route exact path="/dex" component={Exchange}/>
             <Route exact path="/order-history" component={OrderHistory}/>
             <Route exact path="/choose-wallet" component={ChooseWallet}/>
             <Route exact path="/trade-history-exchange" component={TradeHistoryExchange}/>

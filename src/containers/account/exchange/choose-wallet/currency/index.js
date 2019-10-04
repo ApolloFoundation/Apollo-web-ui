@@ -34,7 +34,7 @@ class CurrencyDescriptionComponent extends Component {
                 <td>
                     <div className="btn-box inline">
                         <Link
-                            to={'/exchange'}
+                            to={'/dex'}
                             className="btn primary bg-success"
                             onClick={() => handleCurrentCurrency(currency)}
                         >
@@ -45,7 +45,7 @@ class CurrencyDescriptionComponent extends Component {
                 <td>
                     <div className="btn-box inline">
                         <Link
-                            to={'/exchange'}
+                            to={'/dex'}
                             className="btn primary bg-danger"
                             onClick={() => handleCurrentCurrency(currency)}
                         >
