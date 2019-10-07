@@ -21,7 +21,7 @@ import {currencyTypes} from "../../helpers/format";
 
 export function getWallets(requestParams) {
     return dispatch => {
-        return handleFetch(`${config.api.server}/rest/keyStore/accountInfo`, POST, requestParams)
+        return handleFetch(`${config.api.server}/rest/keyStore/accountInfo`, POST, requestParams, true)
             .then(async (res) => {
                 if (!res.errorCode) {
                     dispatch(setWallets(res.currencies));
