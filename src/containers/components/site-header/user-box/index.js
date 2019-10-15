@@ -186,7 +186,7 @@ class UserBox extends Component {
                         />
 
                     </div>
-                    {window.location.pathname === '/exchange' && <IconndeButton
+                    {window.location.pathname === '/dex' && <IconndeButton
                         className={'logout-button'}
                         id={'open-about-apollo'}
                         icon={<i className="zmdi zmdi-power"/>}

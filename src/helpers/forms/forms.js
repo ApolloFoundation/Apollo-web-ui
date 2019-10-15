@@ -23,10 +23,21 @@ const configServer = config;
 
 let isLocalHost = false;
 
+function checkRequestType(requestType, data) {
+    const reqTypeOfForging = [
+        'startForging',
+        'stopForging'
+    ]
+    if (reqTypeOfForging.includes(requestType)) {
+        return processElGamalEncryption(data, requestType);
+    } else {
+        return processElGamalEncryption(data);
+    }
+}
+
 function submitForm(data, requestType) {
     return async (dispatch, getState) => {
         const {account, accountSettings, modals, fee} = getState();
-
         if (requestType !== 'generateAccount') {
             if (data.secretPhrase) {
                 let isPassphrase = dispatch(await dispatch(crypto.getAccountIdAsyncApl(data.secretPhrase)));
@@ -35,11 +46,10 @@ function submitForm(data, requestType) {
                 isPassphrase = isPassphrase.join('-');
 
                 if (account.accountRS !== isPassphrase) {
-                    data.passphrase = await processElGamalEncryption(data.secretPhrase);
-
+                    data.passphrase = await checkRequestType(requestType ,data.secretPhrase);
                     delete data.secretPhrase;
                 } else {
-                    data.secretPhrase = await processElGamalEncryption(data.secretPhrase);
+                    data.secretPhrase = await checkRequestType(requestType ,data.secretPhrase);
                     delete data.passphrase;
                 }
             } else if (data.passphrase) {
@@ -47,14 +57,11 @@ function submitForm(data, requestType) {
                 isPassphrase = isPassphrase.split('-');
                 isPassphrase[0] = account.constants.accountPrefix;
                 isPassphrase = isPassphrase.join('-');
-
                 if (account.accountRS !== isPassphrase) {
-                    data.passphrase = await processElGamalEncryption(data.passphrase);
-
+                    data.passphrase = await checkRequestType(requestType ,data.passphrase);
                     delete data.secretPhrase;
                 } else {
-                    data.secretPhrase = await processElGamalEncryption(data.passphrase);
-
+                    data.secretPhrase = await checkRequestType(requestType ,data.passphrase);
                     delete data.passphrase;
                 }
             }
