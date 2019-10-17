@@ -148,11 +148,14 @@ export const updateAccount = (requestParams) => dispatch => {
                 payload: true
             })
         });
-}
+};
 
-export const makeLoginReq = (requestParams) => (dispatch) => {
-    dispatch(startLoad());
-    dispatch(logout());
+export const makeLoginReq = (requestParams) => (dispatch, getState) => {
+    const {account: {accountRS}} = getState();
+    if (accountRS && accountRS !== requestParams.account) {
+        dispatch(startLoad());
+        dispatch(logout());
+    }
     return axios.get(config.api.serverUrl, {
         params: {
             requestType: 'getAccount',
