@@ -326,7 +326,7 @@
 					width: 100%;
 					height: 100%;
 					align-items: center;
-					justify-content: space-evenly;
+					justify-content: space-around;
 				}
 			}
 
@@ -536,6 +536,8 @@
 		position: relative;
 
 		&.btn-white {
+			display: inline-block;
+			vertical-align: middle;
 			border-radius: 2px;
 			background-color: #FFF;
 			box-shadow: none;
@@ -551,6 +553,8 @@
 		.btn-arrow {
 			position: absolute;
 			right: 12px;
+			top: 50%;
+			transform: translate(0, -50%);
 		}
 
 		&.btn-icon {
