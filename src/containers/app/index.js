@@ -133,23 +133,6 @@ class App extends React.Component {
         isMounted: false
     };
 
-    componentWillReceiveProps(newState) {
-        this.setState({...newState});
-    }
-
-    // handleModal = (e) => {
-    //     const parents = e.target.closest('.settings-bar') || null;
-
-    //     if (!parents) {
-    //         if (this) {
-
-    //             if (this.state.bodyModalType) {
-    //                 this.props.setBodyModalType(null);
-    //             }
-    //         }
-    //     }
-    // };
-
     checkUrl = () => {
         const params = urlHelper.parseUrl();
         if (params.isShareMessage) {
