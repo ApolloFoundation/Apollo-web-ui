@@ -55,7 +55,8 @@ class TradeHistoryExchange extends React.Component {
                                 alignRight: false
                             }, {
                                 name: ``,
-                                alignRight: true
+                                alignRight: true,
+                                isRender: !(myOrders && myOrders.length > 0)
                             }
                         ]}
                         className={'table-sm'}

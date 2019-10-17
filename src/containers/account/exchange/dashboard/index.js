@@ -148,11 +148,13 @@ class Exchange extends React.Component {
                                 </div>
                             </div>
                             <div className={'col-md-3 col-sm-5 p-0'}>
-                                <Orderbook
-                                    currentCurrency={currentCurrency}
-                                    buyOrders={buyOrdersCurrency}
-                                    sellOrders={sellOrdersCurrency}
-                                />
+                                <div className={'d-flex flex-column h-100'}>
+                                    <Orderbook
+                                        currentCurrency={currentCurrency}
+                                        buyOrders={buyOrdersCurrency}
+                                        sellOrders={sellOrdersCurrency}
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
