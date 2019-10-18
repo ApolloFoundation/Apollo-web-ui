@@ -105,10 +105,10 @@
 			&.card {
 				.card-content {
 					position: relative;
-					height: calc(100% - 80px);
+					height: calc(100% - 40px);
 					.full-box {
 						margin: auto;
-						height: calc(100% - 41px);
+						height: calc(100% - 40px);
 						padding: 12px;
 						@media(max-width: 1024px) {
 							height: 200px;
