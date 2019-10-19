@@ -59,7 +59,7 @@ class BuyOrders extends React.Component {
                 emptyMessage={'No buy orders found.'}
                 TableRowComponent={(props) => {
                     const pairRate = formatDivision(props.pairRate, ONE_GWEI, 9);
-                    const offerAmount = formatDivision(props.offerAmount, ONE_GWEI, 3);
+                    const offerAmount = formatDivision(props.offerAmount, ONE_GWEI, 9);
                     const total = formatDivision(props.pairRate * props.offerAmount, Math.pow(10, 18), 9);
                     return (
                         <tr onClick={() => this.props.setSelectedOrderInfo({pairRate, offerAmount, total, type: 'SELL'})} className={'success'}>
