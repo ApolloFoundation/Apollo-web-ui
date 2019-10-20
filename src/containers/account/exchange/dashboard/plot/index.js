@@ -214,29 +214,8 @@ export default class Plot extends React.Component {
                                 handleLoginModal={handleLoginModal}
                             />
                         </div>
-                        <div className={'form-title-actions'}>
-                            <div className={'info-section'}>
-                                <div>
-                                    0.00001540 <span className={'green'}>+11.19%</span>
-                                </div>
-                                <div className={'sub-info-section'}>
-                                    ≈0.0022$ (0.12%)
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <div className={'card-content'}>
-                        <div className={'chart-options'}>
-                            <div className={'time-section'}>
-                                <button className={'btn btn-sm'}>1h</button>
-                                <button className={'btn btn-sm ml-3 active'}>1d</button>
-                                <button className={'btn btn-sm ml-3'}>1w</button>
-                            </div>
-                            <div className={'info-section'}>
-                                <div>High: <span>0.0000017</span></div>
-                                <div>Low: <span>0.0000017</span></div>
-                            </div>
-                        </div>
                         <div className={'full-box overflow-hidden'}>
                             {!this.state.loading && (
                                 <canvas

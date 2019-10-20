@@ -315,10 +315,9 @@ class DataStorage extends React.Component {
                                     </div>
                                 </div>
                                 <div className="transactions-filters">
-                                    <div className={'top-bar'}>
-                                        {
-                                            this.state.dataTags &&
-                                            this.state.dataTags.map((el, index) => {
+                                    {this.state.dataTags && this.state.dataTags.length > 0 && (
+                                        <div className={'top-bar'}>
+                                            {this.state.dataTags.map((el, index) => {
                                                 const params = this.props.match.params.query;
                                                 return (
                                                     <div
@@ -332,73 +331,73 @@ class DataStorage extends React.Component {
                                                     </div>
                                                 );
                                             })
-                                        }
-                                        {this.state.dataTags && <div
-                                            ref={'btnBox'}
-                                            className="btn-box pagination"
-                                        >
-                                            <button
-                                                type={'button'}
-                                                className={classNames({
-                                                    'btn btn-default': true,
-                                                    'disabled': this.state.pageTag <= 1,
-                                                })}
-                                                onClick={this.onPaginateTags.bind(this, this.state.pageTag - 1)}
+                                            }
+                                            {this.state.dataTags && <div
+                                                ref={'btnBox'}
+                                                className="btn-box pagination"
                                             >
-                                                Previous
-                                            </button>
-                                            <div className='pagination-nav'>
-                                                <span>{this.state.pageTag * this.state.itemsPerPage - this.state.itemsPerPage + 1}</span>
-                                                <span>&hellip;</span>
-                                                <span>{(this.state.pageTag * this.state.itemsPerPage - this.state.itemsPerPage) + this.state.dataTags.length}</span>
-                                            </div>
-                                            <button
-                                                type={'button'}
-                                                onClick={this.onPaginateTags.bind(this, this.state.pageTag + 1)}
-                                                className={classNames({
-                                                    'btn btn-default': true,
-                                                    'disabled': this.state.dataTags.length < this.state.itemsPerPage
-                                                })}
-                                            >
-                                                Next
-                                            </button>
-                                        </div>}
-                                    </div>
+                                                <button
+                                                    type={'button'}
+                                                    className={classNames({
+                                                        'btn btn-default': true,
+                                                        'disabled': this.state.pageTag <= 1,
+                                                    })}
+                                                    onClick={this.onPaginateTags.bind(this, this.state.pageTag - 1)}
+                                                >
+                                                    Previous
+                                                </button>
+                                                <div className='pagination-nav'>
+                                                    <span>{this.state.pageTag * this.state.itemsPerPage - this.state.itemsPerPage + 1}</span>
+                                                    <span>&hellip;</span>
+                                                    <span>{(this.state.pageTag * this.state.itemsPerPage - this.state.itemsPerPage) + this.state.dataTags.length}</span>
+                                                </div>
+                                                <button
+                                                    type={'button'}
+                                                    onClick={this.onPaginateTags.bind(this, this.state.pageTag + 1)}
+                                                    className={classNames({
+                                                        'btn btn-default': true,
+                                                        'disabled': this.state.dataTags.length < this.state.itemsPerPage
+                                                    })}
+                                                >
+                                                    Next
+                                                </button>
+                                            </div>}
+                                        </div>
+                                    )}
                                 </div>
                             </div>
-                            <div className={'pl-0 pr-0 col-md-12 mb-3'}>
-                                <CustomTable
-                                    header={[
-                                        {
-                                            name: 'Name',
-                                            alignRight: false
-                                        }, {
-                                            name: 'Account ID',
-                                            alignRight: false
-                                        }, {
-                                            name: 'Mime Type',
-                                            alignRight: false
-                                        }, {
-                                            name: 'Channel',
-                                            alignRight: false
-                                        }, {
-                                            name: 'Filename',
-                                            alignRight: false
-                                        }, {
-                                            name: 'Data',
-                                            alignRight: true
-                                        }
-                                    ]}
-                                    emptyMessage={'No tagget data found.'}
-                                    TableRowComponent={DataStorageItem}
-                                    tableData={this.state.taggedData}
-                                    isPaginate
-                                    itemsPerPage={15}
-                                    page={this.state.page}
-                                    previousHendler={() => this.onPaginate(this.state.page - 1)}
-                                    nextHendler={() => this.onPaginate(this.state.page + 1)}
-                                />
-                            </div>
+                            <CustomTable
+                                header={[
+                                    {
+                                        name: 'Name',
+                                        alignRight: false
+                                    }, {
+                                        name: 'Account ID',
+                                        alignRight: false
+                                    }, {
+                                        name: 'Mime Type',
+                                        alignRight: false
+                                    }, {
+                                        name: 'Channel',
+                                        alignRight: false
+                                    }, {
+                                        name: 'Filename',
+                                        alignRight: false
+                                    }, {
+                                        name: 'Data',
+                                        alignRight: true
+                                    }
+                                ]}
+                                className={'mb-3'}
+                                emptyMessage={'No tagget data found.'}
+                                TableRowComponent={DataStorageItem}
+                                tableData={this.state.taggedData}
+                                isPaginate
+                                itemsPerPage={15}
+                                page={this.state.page}
+                                previousHendler={() => this.onPaginate(this.state.page - 1)}
+                                nextHendler={() => this.onPaginate(this.state.page + 1)}
+                            />
                         </div>
                     </div>
                 </div>

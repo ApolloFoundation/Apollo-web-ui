@@ -105,10 +105,10 @@
 			&.card {
 				.card-content {
 					position: relative;
-					height: calc(100% - 80px);
+					height: calc(100% - 40px);
 					.full-box {
 						margin: auto;
-						height: calc(100% - 41px);
+						height: calc(100% - 40px);
 						padding: 12px;
 						@media(max-width: 1024px) {
 							height: 200px;
@@ -218,6 +218,7 @@
 				overflow-y: hidden;
 				border-radius: 0;
 				height: 100%;
+				padding: 0;
 				.transaction-table-body {
 					overflow-y: auto;
 					height: 100%;
@@ -264,6 +265,9 @@
 								}
 								&.green-text {
 									color: rgba(0, 189, 32, 0.92);
+								}
+								.btn-box {
+									margin: 0;
 								}
 							}
 						}
@@ -463,6 +467,7 @@
 			height: 40px;
 			font-weight: 400;
 			width: 100%;
+			margin-bottom: 0;
 
 			span {
 				background-color: transparent;

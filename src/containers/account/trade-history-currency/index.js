@@ -188,7 +188,7 @@ class TradeHistoryCurrency extends React.Component {
                         page={this.state.page}
                         previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
                         nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
-                        className={'no-min-height'}
+                        className={'mb-3'}
                         emptyMessage={'No exchange history found.'}
                     />  
                 </div>

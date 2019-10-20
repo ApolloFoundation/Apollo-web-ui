@@ -21,7 +21,7 @@ import {
 } from "../../../../actions/wallet";
 import Orderbook from "./orderbook";
 import TradeApollo from "./trade-apollo";
-import TwitterBanner from "../../../../assets/twitter-banner2.png";
+import TwitterBanner from "../../../../assets/why-apollo.png";
 
 class Exchange extends React.Component {
     state = {
@@ -96,13 +96,7 @@ class Exchange extends React.Component {
                         <div className={'cards-wrap row'}>
                             <div className={'col-md-12 p-0'}>
                                 <InfoBox info>
-                                    Please, notice - this is the first version on Apollo Exchange. Functionality of
-                                    trading
-                                    will be delivered in future releases. At the moment you can deposit in ETH and PAX.
-                                    Please, check our updates in the official <a
-                                    href={'https://t.me/apolloofficialannouncements'} target='_blank'
-                                    rel='noopener noreferrer'>Telegram channel</a> to be the first to use Apollo
-                                    Exchange
+                                    Welcome to the Beta version of the Apollo DEX, more functions are to follow.
                                 </InfoBox>
                             </div>
                         </div>
@@ -163,11 +157,13 @@ class Exchange extends React.Component {
                                 </div>
                             </div>
                             <div className={'col-md-3 col-sm-5 p-0'}>
-                                <Orderbook
-                                    currentCurrency={currentCurrency}
-                                    buyOrders={buyOrdersCurrency}
-                                    sellOrders={sellOrdersCurrency}
-                                />
+                                <div className={'d-flex flex-column h-100'}>
+                                    <Orderbook
+                                        currentCurrency={currentCurrency}
+                                        buyOrders={buyOrdersCurrency}
+                                        sellOrders={sellOrdersCurrency}
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
