@@ -203,8 +203,7 @@ export default class Plot extends React.Component {
         return (
             <div className={'card-block primary card card-medium pt-0 h-400'}>
                 <div className={'form-group-app overflow-hidden h-100'}>
-                    <div
-                        className={'form-title form-title-lg d-flex flex-row justify-content-between align-items-center'}>
+                    <div className={'form-title form-title-lg d-flex flex-row justify-content-between align-items-center'}>
                         <div className={'d-flex align-items-center mr-2'}>
                             <ExchangeSwitch
                                 currency={currency}

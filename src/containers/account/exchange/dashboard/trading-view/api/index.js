@@ -12,9 +12,9 @@ export default {
 		setTimeout(() => cb(config), 0)
 		
 	},
-	// searchSymbols: (userInput, exchange, symbolType, onResultReadyCallback) => {
-	// 	console.log('====Search Symbols running')
-	// },
+	searchSymbols: (userInput, exchange, symbolType, onResultReadyCallback) => {
+		console.log('====Search Symbols running')
+	},
 	resolveSymbol: (symbolName, onSymbolResolvedCallback, onResolveErrorCallback) => {
 		// expects a symbolInfo object in response
 		console.log('======resolveSymbol running')
@@ -67,28 +67,28 @@ export default {
 		})
 
 	},
-	// subscribeBars: (symbolInfo, resolution, onRealtimeCallback, subscribeUID, onResetCacheNeededCallback) => {
-	// 	console.log('=====subscribeBars runnning')
-	// },
-	// unsubscribeBars: subscriberUID => {
-	// 	console.log('=====unsubscribeBars running')
-	// },
-	// calculateHistoryDepth: (resolution, resolutionBack, intervalBack) => {
-	// 	//optional
-	// 	console.log('=====calculateHistoryDepth running')
-	// 	// while optional, this makes sure we request 24 hours of minute data at a time
-	// 	// CryptoCompare's minute data endpoint will throw an error if we request data beyond 7 days in the past, and return no data
-	// 	return resolution < 60 ? {resolutionBack: 'D', intervalBack: '1'} : undefined
-	// },
-	// getMarks: (symbolInfo, startDate, endDate, onDataCallback, resolution) => {
-	// 	//optional
-	// 	console.log('=====getMarks running')
-	// },
-	// getTimeScaleMarks: (symbolInfo, startDate, endDate, onDataCallback, resolution) => {
-	// 	//optional
-	// 	console.log('=====getTimeScaleMarks running')
-	// },
-	// getServerTime: cb => {
-	// 	console.log('=====getServerTime running')
-	// }
+	subscribeBars: (symbolInfo, resolution, onRealtimeCallback, subscribeUID, onResetCacheNeededCallback) => {
+		console.log('=====subscribeBars runnning')
+	},
+	unsubscribeBars: subscriberUID => {
+		console.log('=====unsubscribeBars running')
+	},
+	calculateHistoryDepth: (resolution, resolutionBack, intervalBack) => {
+		//optional
+		console.log('=====calculateHistoryDepth running')
+		// while optional, this makes sure we request 24 hours of minute data at a time
+		// CryptoCompare's minute data endpoint will throw an error if we request data beyond 7 days in the past, and return no data
+		return resolution < 60 ? {resolutionBack: 'D', intervalBack: '1'} : undefined
+	},
+	getMarks: (symbolInfo, startDate, endDate, onDataCallback, resolution) => {
+		//optional
+		console.log('=====getMarks running')
+	},
+	getTimeScaleMarks: (symbolInfo, startDate, endDate, onDataCallback, resolution) => {
+		//optional
+		console.log('=====getTimeScaleMarks running')
+	},
+	getServerTime: cb => {
+		console.log('=====getServerTime running')
+	}
 }

@@ -1,3 +1,7 @@
 .TVChartContainer {
 	height: 476px;
 }
+
+.chart-page {
+	background: none;
+}
