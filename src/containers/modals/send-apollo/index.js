@@ -71,6 +71,7 @@ class SendApollo extends React.Component {
             if (dashboardForm) {
                 dashboardForm.resetAll();
                 dashboardForm.setValue('recipient', '');
+                dashboardForm.setValue('feeATM', '1');
             }
             NotificationManager.success('Transaction has been submitted!', null, 5000);
 		});
