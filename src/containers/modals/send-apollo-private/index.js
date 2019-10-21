@@ -107,6 +107,11 @@ class SendApolloPrivate extends React.Component {
                     } else {
                         NotificationManager.success('Private transaction has been submitted.', null, 5000);
                         this.props.setBodyModalParamsAction(null, {});
+                        if (this.props.dashboardForm) {
+                            this.props.dashboardForm.resetAll();
+                            this.props.dashboardForm.setValue('recipient', '');
+                            this.props.dashboardForm.setValue('feeATM', '1');
+                        }
                     }
                     this.setState({isPending: false});
                 });
@@ -167,6 +172,7 @@ const mapStateToProps = state => ({
     modalData: state.modals.modalData,
     publicKey: state.account.publicKey,
     modalsHistory: state.modals.modalsHistory,
+    dashboardForm: state.modals.dashboardForm,
     accountPrefix: state.account.constants ? state.account.constants.accountPrefix : ''
 });
 
