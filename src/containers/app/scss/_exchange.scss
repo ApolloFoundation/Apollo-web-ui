@@ -105,13 +105,19 @@
 			&.card {
 				.card-content {
 					position: relative;
-					height: calc(100% - 40px);
+					height: calc(100% - 60px);
 					.full-box {
 						margin: auto;
-						height: calc(100% - 40px);
+						// height: calc(100% - 40px);
 						padding: 12px;
 						@media(max-width: 1024px) {
 							height: 200px;
+						}
+						&.chart {
+							padding: 0;
+							@media(max-width: 1024px) {
+								height: 100%;
+							}
 						}
 					}
 					.options-section {
@@ -140,8 +146,8 @@
 					margin-bottom: 0;
 				}
 				&.form-title-lg {
-					height: 80px;
-					min-height: 80px;
+					height: 60px;
+					min-height: 60px;
 					p {
 						font-weight: 400;
 					}

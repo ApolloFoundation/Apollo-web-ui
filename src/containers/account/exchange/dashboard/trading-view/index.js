@@ -1,8 +1,6 @@
 import * as React from 'react';
-import './index.css';
+import './index.scss';
 import Datafeed from './api/'
-import ExchangeSwitch from '../plot/ExchangeSwitch'
-
 
 function getLanguageFromURL() {
 	const regex = new RegExp('[\\?&]lang=([^&#]*)');
@@ -17,9 +15,6 @@ export default class TVChartContainer extends React.PureComponent {
 		interval: '15',
 		containerId: 'tv_chart_container',
 		libraryPath: '/charting_library/',
-		chartsStorageUrl: 'https://saveload.tradingview.com',
-		chartsStorageApiVersion: '1.1',
-		clientId: 'tradingview.com',
 		userId: 'public_user_id',
 		fullscreen: false,
 		autosize: true,
@@ -36,12 +31,10 @@ export default class TVChartContainer extends React.PureComponent {
 			interval: this.props.interval,
 			container_id: this.props.containerId,
 			library_path: this.props.libraryPath,
-			toolbar_bg: '#f4f7f9',
+			// toolbar_bg: '#fff',
 			locale: getLanguageFromURL() || 'en',
-			disabled_features: ['timeframes_toolbar', 'use_localstorage_for_settings', 'header_chart_type', 'header_symbol_search', 'header_compare', 'header_undo_redo', 'header_saveload', 'header_screenshot'],
-			enabled_features: ['hide_left_toolbar_by_default'],
-			charts_storage_url: this.props.chartsStorageUrl,
-			charts_storage_api_version: this.props.chartsStorageApiVersion,
+			disabled_features: ['scales_context_menu', 'context_menus', 'volume_force_overlay', 'use_localstorage_for_settings', 'timeframes_toolbar', 'scales_context_menu', 'header_chart_type', 'header_symbol_search', 'header_compare', 'header_undo_redo', 'header_saveload', 'header_screenshot'],
+			enabled_features: ['hide_left_toolbar_by_default', 'hide_last_na_study_output'],
 			client_id: this.props.clientId,
 			user_id: this.props.userId,
 			fullscreen: this.props.fullscreen,
@@ -50,10 +43,16 @@ export default class TVChartContainer extends React.PureComponent {
 			overrides: {
 				// "mainSeriesProperties.showCountdown": true,
 				"paneProperties.background": "#fff",
-				"paneProperties.vertGridProperties.color": "#363c4e",
-				"paneProperties.horzGridProperties.color": "#363c4e",
+				"paneProperties.vertGridProperties.color": "#98b0cd",
+				"paneProperties.horzGridProperties.color": "#98b0cd",
+				"mainSeriesProperties.hiloStyle.borderColor": "#98b0cd",
 				"symbolWatermarkProperties.transparency": 90,
-				"scalesProperties.textColor" : "#AAA",
+				"mainSeriesProperties.hiloStyle.showLabels": false,
+				"scalesProperties.textColor" : "#98b0cd",
+				"paneProperties.legendProperties.showSeriesTitle": false,
+				"paneProperties.legendProperties.showLegend": false,
+				"paneProperties.legendProperties.showBarChange": false,
+				"paneProperties.legendProperties.showOnlyPriceSource": false,
 				"mainSeriesProperties.candleStyle.wickUpColor": '#336854',
 				"mainSeriesProperties.candleStyle.wickDownColor": '#7f323f',
 			}
@@ -70,22 +69,12 @@ export default class TVChartContainer extends React.PureComponent {
 	}
 
 	render() {
-        const {currentCurrency: {currency}, currencies, switchCurrency, wallet, handleLoginModal} = this.props;
 
 		return (
-			<div>
-				<ExchangeSwitch
-					currency={currency}
-					currencies={currencies}
-					switchCurrency={switchCurrency}
-					wallet={wallet}
-					handleLoginModal={handleLoginModal}
-				/>
-				<div
-					id={ this.props.containerId }
-					className={ 'TVChartContainer' }
-				/>
-			</div>
+			<div
+				id={ this.props.containerId }
+				className={ 'TVChartContainer' }
+			/>
 		);
 	}
 }

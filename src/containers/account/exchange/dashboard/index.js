@@ -101,10 +101,19 @@ class Exchange extends React.Component {
                             </div>
                         </div>
                         <div className={'cards-wrap row'}>
-                            <div className={'col-md-9 col-sm-7 p-0'}>
+                            <div className={'col-md-9 col-sm-7 p-0 tradingview'}>
                                 <div className={'row'}>
-                                    <div className={'col-md-8 col-sm-12 p-0'}>
-                                        {/* <Plot
+                                    <div className={'col-md-8 col-sm-12 p-0 tv-chart'}>
+                                        <Plot
+                                            currentCurrency={currentCurrency}
+                                            buyOrders={plotBuyOrdersCurrency}
+                                            sellOrders={plotSellOrdersCurrency}
+                                            currencies={currencies}
+                                            switchCurrency={this.switchCurrency}
+                                            wallet={wallet}
+                                            handleLoginModal={this.handleLoginModal}
+                                        />
+                                        {/* <TVChartContainer
                                             currentCurrency={currentCurrency}
                                             buyOrders={plotBuyOrdersCurrency}
                                             sellOrders={plotSellOrdersCurrency}
@@ -113,15 +122,25 @@ class Exchange extends React.Component {
                                             wallet={wallet}
                                             handleLoginModal={this.handleLoginModal}
                                         /> */}
-                                        <TVChartContainer
-                                            currentCurrency={currentCurrency}
-                                            buyOrders={plotBuyOrdersCurrency}
-                                            sellOrders={plotSellOrdersCurrency}
-                                            currencies={currencies}
-                                            switchCurrency={this.switchCurrency}
-                                            wallet={wallet}
-                                            handleLoginModal={this.handleLoginModal} />
                                     </div>
+                                    <div className={'col-md-4 col-sm-12 p-0 trade'}>
+                                        <TradeApollo
+                                            currentCurrency={currentCurrency}
+                                            wallet={wallet}
+                                            handleLoginModal={this.handleLoginModal}
+                                        />
+                                    </div>
+                                    <div className={'col-md-3 col-sm-5 p-0 order-book'}>
+                                        <div className={'d-flex flex-column h-100'}>
+                                            <Orderbook
+                                                currentCurrency={currentCurrency}
+                                                buyOrders={buyOrdersCurrency}
+                                                sellOrders={sellOrdersCurrency}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                {/* <div className={'row'}>
                                     <div className={'col-md-4 col-sm-12 p-0'}>
                                         <TradeApollo
                                             currentCurrency={currentCurrency}
@@ -129,8 +148,17 @@ class Exchange extends React.Component {
                                             handleLoginModal={this.handleLoginModal}
                                         />
                                     </div>
-                                </div>
-                                <div className={'row'}>
+                                        <div className={'col-md-4 col-sm-6 p-0'}>
+                                            <a
+                                                href={'https://twitter.com/ApolloCurrency'}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className={`card card-square`}
+                                                style={{backgroundImage: `url(${TwitterBanner})`}}
+                                            />
+                                        </div>
+                                </div> */}
+                                <div className={'row bottom'}>
                                     <div className={'col-md-4 col-sm-12 p-0'}>
                                         <TradeHistoryExchange
                                             currentCurrency={currentCurrency}
@@ -156,7 +184,7 @@ class Exchange extends React.Component {
                                     </div>
                                 </div>
                             </div>
-                            <div className={'col-md-3 col-sm-5 p-0'}>
+                            {/* <div className={'col-md-3 col-sm-5 p-0 orderbook'}>
                                 <div className={'d-flex flex-column h-100'}>
                                     <Orderbook
                                         currentCurrency={currentCurrency}
@@ -164,7 +192,7 @@ class Exchange extends React.Component {
                                         sellOrders={sellOrdersCurrency}
                                     />
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>

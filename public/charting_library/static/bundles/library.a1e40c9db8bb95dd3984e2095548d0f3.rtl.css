@@ -1996,6 +1996,7 @@ html.theme-dark ._tv-dialog-content a:not([class*='button']):not([class*='btn'])
 }
 ._tv-dialog-content .main-properties {
   padding: 25px;
+  max-height: 150px;
 }
 ._tv-dialog-content .main-properties.main-properties-aftertabs, ._tv-dialog-content .main-properties.alert-aftertabs {
   padding-top: 5px;
