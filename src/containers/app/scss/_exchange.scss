@@ -234,6 +234,7 @@
 					display: flex;
 					table {
 						padding: 0;
+
 						thead {
 							tr td {
 								color: #8AA5C7;
@@ -242,38 +243,59 @@
 								font-weight: normal;
 								padding: 0 0 10px 0;
 								text-align: center;
+
 								&:first-child {
 									text-align: left;
 								}
+
 								&:last-child {
 									text-align: right;
 								}
 							}
 						}
+
 						tbody {
-							tr td {
-								color: #3D5A7E;
-								font-size: 12px;
-								letter-spacing: -0.4px;
-								font-weight: normal;
-								padding: 5px 0;
-								border: none;
-								text-align: center;
-								&:first-child {
-									text-align: left;
+							tr {
+								td {
+									color: #3D5A7E;
+									font-size: 12px;
+									letter-spacing: -0.4px;
+									font-weight: normal;
+									padding: 5px 0;
+									border: none;
+									text-align: center;
+
+									&:first-child {
+										text-align: left;
+									}
+
+									&:last-child {
+										text-align: right;
+										color: #8AA5C7;
+									}
+
+									&.red-text {
+										color: #F36;
+									}
+
+									&.green-text {
+										color: rgba(0, 189, 32, 0.92);
+									}
+
+									.btn-box {
+										margin: 0;
+									}
 								}
-								&:last-child {
-									text-align: right;
-									color: #8AA5C7;
+
+								&.history-order-active {
+									cursor: pointer;
 								}
-								&.red-text {
-									color: #F36;
-								}
-								&.green-text {
-									color: rgba(0, 189, 32, 0.92);
-								}
-								.btn-box {
-									margin: 0;
+
+								&.history-order-disabled {
+									cursor: no-drop;
+									td {
+										color: #98B0CD;
+									}
 								}
 							}
 						}
