@@ -96,7 +96,10 @@ class BuyForm extends React.PureComponent {
                         isError = true;
                     }
                     if (+this.props.ethFee > +values.walletAddress.balances.eth) {
-                        NotificationManager.error(`To buy APL you need to have at least ${this.props.ethFee.toLocaleString('en')} ETH on your balance to confirm transaction`, 'Error', 5000);
+                        NotificationManager.error(`To buy APL you need to have at least ${this.props.ethFee.toLocaleString('en', {
+                            minimumFractionDigits: 0,
+                            maximumFractionDigits: 9
+                        })} ETH on your balance to confirm transaction`, 'Error', 5000);
                         isError = true;
                     }
                     if (values.total > balance) {

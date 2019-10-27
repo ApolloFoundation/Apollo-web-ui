@@ -95,7 +95,10 @@ class SellForm extends React.PureComponent {
                         isError = true;
                     }
                     if (+this.props.ethFee > +values.walletAddress.balances.eth) {
-                        NotificationManager.error(`To sell APL you need to have at least ${this.props.ethFee.toLocaleString('en')} ETH on your balance to confirm transaction`, 'Error', 5000);
+                        NotificationManager.error(`To sell APL you need to have at least ${this.props.ethFee.toLocaleString('en', {
+                            minimumFractionDigits: 0,
+                            maximumFractionDigits: 9
+                        })} ETH on your balance to confirm transaction`, 'Error', 5000);
                         isError = true;
                     }
                     if (isError) {
