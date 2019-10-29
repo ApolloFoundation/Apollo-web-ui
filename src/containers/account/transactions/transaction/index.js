@@ -39,7 +39,7 @@ class Transaction extends React.Component {
     }
 
     componentDidUpdate() {
-        if (this.props.phased && this.props.transaction !== this.state.transaction) {
+        if (this.props.transaction !== this.state.transaction) {
             this.getPhasingTransactionInfo();
         }
     }
