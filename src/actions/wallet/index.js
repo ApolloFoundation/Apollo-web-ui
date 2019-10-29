@@ -114,6 +114,7 @@ export function createOffer(requestParams) {
                     return res;
                 } else {
                     NotificationManager.error(res.errorDescription, 'Error', 5000);
+                    return null;
                 }
             })
             .catch(() => {
