@@ -105,10 +105,15 @@
 	}
 	.exit {
 		position: absolute;
+		z-index: 100;
 		top: 35px;
 		right: 35px;
-		z-index: 100;
-    padding: 10px;
+    	padding: 10px;
+		
+		&.current-account {
+			top: 9px;
+			right: 12px;
+		}
 
 		i {
 			font-size: 20px;
