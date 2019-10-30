@@ -9,6 +9,7 @@ export const SET_SELL_ORDERS = "SET_SELL_ORDERS";
 export const SET_PLOT_BUY_ORDERS = "SET_PLOT_BUY_ORDERS";
 export const SET_PLOT_SELL_ORDERS = "SET_PLOT_SELL_ORDERS";
 export const SET_MY_ORDERS = "SET_MY_ORDERS";
+export const SET_MY_TRADE_HISTORY = "SET_MY_TRADE_HISTORY";
 export const SET_MY_ORDER_HISTORY = "SET_MY_ORDER_HISTORY";
 
 const initState = {
@@ -35,6 +36,7 @@ const initState = {
     plotSellOrders: {},
     myOrders: {},
     myOrderHistory: {},
+    myTradeHistory: {},
 };
 
 export default (state = initState, {type, payload}) => {
@@ -98,6 +100,14 @@ export default (state = initState, {type, payload}) => {
             return {
                 ...state,
                 myOrderHistory: payload.orders,
+            };
+        case SET_MY_TRADE_HISTORY:
+            return {
+                ...state,
+                myTradeHistory: {
+                    ...state.myTradeHistory,
+                    [payload.currency]: payload.orders,
+                }
             };
         default:
             return state;
@@ -167,6 +177,16 @@ export const setMyOrderHistoryAction = (orders) => dispatch => {
     dispatch({
         type: SET_MY_ORDER_HISTORY,
         payload: {
+            orders,
+        }
+    })
+};
+
+export const setMyTradeHistoryAction = (currency, orders) => dispatch => {
+    dispatch({
+        type: SET_MY_TRADE_HISTORY,
+        payload: {
+            currency,
             orders,
         }
     })

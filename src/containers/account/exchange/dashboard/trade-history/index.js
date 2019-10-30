@@ -5,13 +5,13 @@ import {formatDivision} from '../../../../../helpers/format';
 import {ONE_GWEI} from '../../../../../constants';
 import {NotificationManager} from "react-notifications";
 import {BlockUpdater} from "../../../../block-subscriber";
-import {getMyOpenOffers} from '../../../../../actions/wallet';
+import {getMyTradeHistory} from '../../../../../actions/wallet';
 import CustomTable from '../../../../components/tables/table';
 
 class TradeHistoryExchange extends React.Component {
 
     componentDidMount() {
-        this.props.getMyOpenOffers();
+        this.props.getMyTradeHistory();
         BlockUpdater.on("data", this.listener);
     }
 
@@ -20,7 +20,7 @@ class TradeHistoryExchange extends React.Component {
     };
 
     listener = () => {
-        this.props.getMyOpenOffers();
+        this.props.getMyTradeHistory();
     };
 
     handleFormSubmit = () => {
@@ -32,7 +32,7 @@ class TradeHistoryExchange extends React.Component {
     };
 
     render() {
-        const {myOrders, currentCurrency: {currency}} = this.props;
+        const {myTradeHistory, currentCurrency: {currency}} = this.props;
         return (
             <div className={'card card-light triangle-bg card-square'}>
                 <div className="card-body">
@@ -41,7 +41,7 @@ class TradeHistoryExchange extends React.Component {
                             Trade history
                         </Link>
                     </div>
-                    {myOrders 
+                    {myTradeHistory
                     ? <CustomTable
                         header={[
                             {
@@ -56,7 +56,7 @@ class TradeHistoryExchange extends React.Component {
                             }
                         ]}
                         className={'table-sm'}
-                        tableData={myOrders[currency]}
+                        tableData={myTradeHistory[currency]}
                         emptyMessage={'No trade history found.'}
                         TableRowComponent={(props) => {
                             const pairRate = formatDivision(props.pairRate, ONE_GWEI, 9);
@@ -85,11 +85,11 @@ class TradeHistoryExchange extends React.Component {
 }
 
 const mapStateToProps = ({exchange}) => ({
-    myOrders: exchange.myOrders,
+    myTradeHistory: exchange.myTradeHistory,
 });
 
 const mapDispatchToProps = dispatch => ({
-    getMyOpenOffers: (options) => dispatch(getMyOpenOffers(options)),
+    getMyTradeHistory: (options) => dispatch(getMyTradeHistory(options)),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TradeHistoryExchange));
