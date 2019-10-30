@@ -159,8 +159,11 @@
 		&.card-transactions {
 			height: calc(100vh - 397px);
 			min-height: 586px;
-			@media (min-width: 992px) {
-
+			&.empty {
+				@media (max-width: 767px) {
+					height: 125px;
+					min-height: 125px;
+				}
 			}
 			@media(max-width: 425px) {
 				max-height: 586px;

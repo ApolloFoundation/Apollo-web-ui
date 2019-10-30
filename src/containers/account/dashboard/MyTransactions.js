@@ -4,18 +4,22 @@ import TransactionItem from "./TransactionItem";
 import ContentLoader from "../../components/content-loader";
 
 const MyTransactions = ({dashboardTransactions}) => (
-    <div className={`card card-light card-transactions`}>
+    <div className={`card card-light card-transactions ${dashboardTransactions && !dashboardTransactions.length ? 'empty' : ''}`}>
         <div className="card-title">
             <div className={'title'}>My Transactions</div>
         </div>
         <div className="card-body">
             {dashboardTransactions ? (
-                dashboardTransactions.map((el, index) => (
-                    <TransactionItem
-                        key={`transaction-item-${index}`}
-                        {...el}
-                    />
-                ))
+                !dashboardTransactions.length ? (
+                    <p>No Transactions.</p>
+                ) : (
+                    dashboardTransactions.map((el, index) => (
+                        <TransactionItem
+                            key={`transaction-item-${index}`}
+                            {...el}
+                        />
+                    ))
+                )
             ) : (
                 <ContentLoader noPaddingOnTheSides/>
             )}
