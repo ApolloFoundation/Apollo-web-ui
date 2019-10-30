@@ -63,6 +63,7 @@ const MobileMenu = ({setBodyModalParamsAction, closeMenu}) => (
                             <NavLink to="/dex">Dashboard</NavLink>
                             <NavLink to="/choose-wallet">Wallets</NavLink>
                             <NavLink to="/order-history">Order History</NavLink>
+                            <NavLink to="/trade-history-exchange">Trade History</NavLink>
                         </div>
                     </AccordionItemBody>
                 </div>
