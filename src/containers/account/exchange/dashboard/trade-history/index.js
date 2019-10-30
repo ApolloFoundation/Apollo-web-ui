@@ -5,6 +5,8 @@ import {formatDivision} from '../../../../../helpers/format';
 import {ONE_GWEI} from '../../../../../constants';
 import {NotificationManager} from "react-notifications";
 import {BlockUpdater} from "../../../../block-subscriber";
+import ArrowUp from "../../../../../assets/arrow-up.png";
+import ArrowDown from "../../../../../assets/arrow-down.png";
 import {getMyTradeHistory} from '../../../../../actions/wallet';
 import CustomTable from '../../../../components/tables/table';
 
@@ -64,7 +66,7 @@ class TradeHistoryExchange extends React.Component {
                             const total = formatDivision(props.pairRate * props.offerAmount, Math.pow(10, 18), 9);
                             return (
                                 <tr>
-                                    <td>{pairRate}</td>
+                                    <td><img className={'arrow'} src={props.type ? ArrowDown : ArrowUp} alt={'Apollo'}/>{pairRate}</td>
                                     <td>{offerAmount}</td>
                                     <td>{total}</td>
                                 </tr>
