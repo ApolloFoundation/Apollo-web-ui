@@ -19,6 +19,7 @@ export const exchangeMenu = {
 	children: [
 		{className: '/choose-wallet', to: '/choose-wallet', label: 'Choose wallet', icon: 'zmdi-case'},
 		{className: '/order-history', to: '/order-history', label: 'Order history', icon: 'zmdi-chart'},
+		{className: '/trade-history-exchange', to: '/trade-history-exchange', label: 'Trade history', icon: 'zmdi-chart'},
 	],
 };
 
