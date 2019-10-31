@@ -7,7 +7,12 @@ import {setBodyModalParamsAction} from '../../../modules/modals';
 import {ONE_APL} from '../../../constants';
 
 const TotalBalance = ({dashboardAccountInfo, setBodyModalParamsAction}) => {
-    const balanceAPL = (dashboardAccountInfo && dashboardAccountInfo.unconfirmedBalanceATM) ? Math.round(dashboardAccountInfo.unconfirmedBalanceATM / ONE_APL).toLocaleString('de-DE') : 0;
+    const balanceAPL = (dashboardAccountInfo && dashboardAccountInfo.unconfirmedBalanceATM)
+        ? (dashboardAccountInfo.unconfirmedBalanceATM / ONE_APL).toLocaleString('de-DE', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2,
+            }) 
+        : 0;
     return (
         <div className={`card card-primary card-h-195`}>
             <div
