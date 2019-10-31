@@ -111,8 +111,12 @@
     	padding: 10px;
 		
 		&.current-account {
+			display: none;
 			top: 9px;
 			right: 12px;
+			@media (max-width: 768px) {
+				display: block;
+			}
 		}
 
 		i {
