@@ -166,7 +166,7 @@ class BuyForm extends React.PureComponent {
                                 offerAmount: '',
                                 total: '',
                             })}
-                        })
+                        });
                         this.setPending(false);
                     }
                 } else {
@@ -286,6 +286,11 @@ class BuyForm extends React.PureComponent {
                                         {currencyName}</span>
                                     </div>
                                 </div>
+                                {this.props.ethFee && (
+                                    <div className={'text-right'}>
+                                        <small className={'text-note'}> Max Fee: {this.props.ethFee} ETH</small>
+                                    </div>
+                                )}
                             </div>
                             {values.walletAddress && (
                                 <InputRange
