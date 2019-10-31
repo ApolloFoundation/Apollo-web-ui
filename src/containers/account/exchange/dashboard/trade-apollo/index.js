@@ -31,9 +31,9 @@ class TradeApollo extends React.Component {
     };
 
     render() {
-        const {wallet, handleLoginModal, currentCurrency: {currency}, constants, gasTransactionMultiply, typeOfTrade} = this.props;
-        const gasLimit = currency === 'eth' ? constants.gasLimitEth : constants.gasLimitERC20;
-        const ethFee = formatGweiToEth(this.state.maxFee * gasLimit, 0);
+        const {wallet, handleLoginModal, constants, typeOfTrade} = this.props;
+        const gasLimit = constants.gasLimitERC20;
+        const ethFee = this.state.maxFee ? formatGweiToEth(this.state.maxFee * gasLimit, 0) : null;
         return (
             <div className={'card card-light h-400'}>
                 <div className="card-title">
@@ -76,7 +76,6 @@ class TradeApollo extends React.Component {
 
 const mapStateToProps = state => ({
     constants: state.account.constants,
-    gasTransactionMultiply: state.account.gasTransactionMultiply,
     typeOfTrade: state.modals.typeOfTrade,
 });
 
