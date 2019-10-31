@@ -132,7 +132,7 @@ class TradeHistory extends React.Component {
                                     tableData={myTradeHistory[currency]}
                                     TableRowComponent={(props) => {
                                         const statusName = this.statusOfOrder(props.status);
-                                        const typeName = props.type === 0 ? 'BUY' : 'SELL';
+                                        const typeName = props.type ? 'SELL' : 'BUY';
                                         const pairRate = formatDivision(props.pairRate, ONE_GWEI, 9);
                                         const offerAmount = formatDivision(props.offerAmount, ONE_GWEI, 3);
                                         const total = formatDivision(props.pairRate * props.offerAmount, Math.pow(10, 18), 9);
@@ -141,13 +141,13 @@ class TradeHistory extends React.Component {
                                         return (
                                             <tr style={{cursor: 'pointer'}} onClick={() => this.handleSelectOrder({pairRate, offerAmount, total, currency, typeName, statusName})}>
                                                 <td>APL/{type.toUpperCase()}</td>
-                                                <td>{props.type === 0 ? 'BUY' : 'SELL'}</td>
-                                                <td className={`${props.type === 1 ? 'red-text' : 'green-text'}`}>{pairRate}</td>
+                                                <td>{props.type ? 'SELL' : 'BUY'}</td>
+                                                <td className={`${props.type ? 'red-text' : 'green-text'}`}>{pairRate}</td>
                                                 <td>{offerAmount}</td>
                                                 <td>{total}</td>
-                                                <td className={`${props.status !== 0 ?'red-text' : ''}`}>{statusName}</td>
+                                                <td className={`${props.status ? 'red-text' : ''}`}>{statusName}</td>
                                                 <td className={'align-right'}>
-                                                    {props.status === 0 && (
+                                                    {!props.status && (
                                                         <button
                                                             type={'button'}
                                                             className="btn btn-sm"
