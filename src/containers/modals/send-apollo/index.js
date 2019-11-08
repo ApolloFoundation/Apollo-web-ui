@@ -13,6 +13,7 @@ import submitForm from "../../../helpers/forms/forms";
 // Form components
 import {NotificationManager} from 'react-notifications';
 
+import {getRecipientIdByAlias} from '../../../actions/aliases';
 import ModalBody from '../../components/modals/modal-body';
 import SendApolloForm from './form';
 
@@ -30,7 +31,8 @@ class SendApollo extends React.Component {
 			passphraseStatus: false,
 			recipientStatus: false,
 			amountStatus: false,
-			feeStatus: false
+			feeStatus: false,
+			alias: null,
 		};
 	}
 
@@ -49,6 +51,10 @@ class SendApollo extends React.Component {
 
 		if (values.phasingFinishHeight) {
 			values.phased = true;
+		}
+
+		if (values.alias && this.state.alias && !values.recipient) {
+			values.recipient = this.state.alias;
 		}
 
 		this.setState({
@@ -77,6 +83,7 @@ class SendApollo extends React.Component {
 		});
 	}
 
+	handelChangeAlias = ({value}) => {this.setState({alias: value})}
 
 	render() {
 		return (
@@ -90,7 +97,7 @@ class SendApollo extends React.Component {
 				idGroup={'send-money-modal-'}
 			>
 
-				<SendApolloForm/>
+				<SendApolloForm onChangeAlias={this.handelChangeAlias} />
 
 			</ModalBody>
 			
@@ -109,6 +116,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
 	submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
 	setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
+    getRecipientIdByAlias: (requestParams) => dispatch(getRecipientIdByAlias(requestParams)),
 	validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
 	getPublicKeyAPL: (passphrase) => dispatch(crypto.getPublicKeyAPL(passphrase)),
 });
