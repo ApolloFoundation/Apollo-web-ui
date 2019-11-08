@@ -54,8 +54,7 @@ class OrderHistory extends React.Component {
     };
 
     handleSelectOrder = (data, hasFrozenMoney) => {
-        // if (hasFrozenMoney) this.props.setBodyModalParamsAction('SELECT_ORDER', data);
-        this.props.setBodyModalParamsAction('SELECT_ORDER', data);
+        if (hasFrozenMoney) this.props.setBodyModalParamsAction('SELECT_ORDER', data);
     };
 
     handleCancel = (data) => {
@@ -139,18 +138,17 @@ class OrderHistory extends React.Component {
                                     const currency = props.pairCurrency;
                                     const type = Object.keys(currencyTypes).find(key => currencyTypes[key] === currency);
                                     let trProps = '';
-                                    /*if (!props.hasFrozenMoney) {
+                                    if (!props.hasFrozenMoney) {
                                         trProps = {
                                             'data-custom': true,
                                             'data-custom-at': "top",
                                             'data-cat-id': JSON.stringify({'infoContent': 'Order cant be matched, your deposit doesnt allow to freeze funds'})
                                         }
-                                    }*/
+                                    }
                                     return (
                                         <tr
                                             onClick={() => this.handleSelectOrder({pairRate, offerAmount, total, currency, typeName, statusName}, props.hasFrozenMoney)}
-                                            // className={props.hasFrozenMoney ? 'history-order-active' : 'history-order-disabled'}
-                                            className={'history-order-active'}
+                                            className={props.hasFrozenMoney ? 'history-order-active' : 'history-order-disabled'}
                                             {...trProps}
                                         >
                                             <td>APL/{type.toUpperCase()}</td>
@@ -160,8 +158,7 @@ class OrderHistory extends React.Component {
                                             <td>{total}</td>
                                             <td className={`${props.status ? 'red-text' : ''}`}>{statusName}</td>
                                             <td className={'align-right'}>
-                                                {/*{props.status === 0 && props.hasFrozenMoney && (*/}
-                                                {!props.status && (
+                                                {props.status && props.hasFrozenMoney && (
                                                     <button
                                                         type={'button'}
                                                         className="btn btn-sm"

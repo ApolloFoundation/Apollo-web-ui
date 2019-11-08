@@ -168,7 +168,7 @@ export const getBuyOpenOffers = (currency, options) => async (dispatch, getState
         pairCurrency: currencyTypes[currency],
         isAvailableForNow: true,
         status: 0,
-        // hasFrozenMoney: true,
+        hasFrozenMoney: true,
 
         ...buyOrdersPagination,
         ...options,
@@ -185,7 +185,7 @@ export const getSellOpenOffers = (currency, options) => async (dispatch, getStat
         pairCurrency: currencyTypes[currency],
         isAvailableForNow: true,
         status: 0,
-        // hasFrozenMoney: true,
+        hasFrozenMoney: true,
 
         ...sellOrdersPagination,
         ...options,
@@ -201,7 +201,7 @@ export const getPlotBuyOpenOffers = (currency, options) => async (dispatch, getS
         pairCurrency: currencyTypes[currency],
         isAvailableForNow: true,
         status: 0,
-        // hasFrozenMoney: true,
+        hasFrozenMoney: true,
     };
     const buyOrders = await dispatch(getOpenOrders(params));
     dispatch(setPlotBuyOrdersAction(currency, buyOrders));
@@ -214,7 +214,7 @@ export const getPlotSellOpenOffers = (currency, options) => async (dispatch, get
         pairCurrency: currencyTypes[currency],
         isAvailableForNow: true,
         status: 0,
-        // hasFrozenMoney: true,
+        hasFrozenMoney: true,
     };
     const sellOrders = await dispatch(getOpenOrders(params));
     dispatch(setPlotSellOrdersAction(currency, sellOrders));
@@ -228,7 +228,7 @@ export const getAllMyOpenOffers = (currency, options) => async (dispatch, getSta
         accountId: account,
         isAvailableForNow: true,
         status: 0,
-        // hasFrozenMoney: true,
+        hasFrozenMoney: true,
         ...options
     };
 
@@ -245,7 +245,7 @@ export const getMyTradeHistory = (currency, options) => async (dispatch, getStat
         pairCurrency: currencyTypes[currency],
         accountId: account,
         status: 5,
-        // hasFrozenMoney: true,
+        hasFrozenMoney: true,
         ...options
     };
 
@@ -264,7 +264,7 @@ export const getMyOpenOffers = (currency) => async (dispatch, getState) => {
         isAvailableForNow: true,
         orderType: 1,
         status: 0,
-        // hasFrozenMoney: true,
+        hasFrozenMoney: true,
     };
     const paramsBuy = {
         pairCurrency: currencyTypes[currency],
@@ -272,7 +272,7 @@ export const getMyOpenOffers = (currency) => async (dispatch, getState) => {
         isAvailableForNow: true,
         orderType: 0,
         status: 0,
-        // hasFrozenMoney: true,
+        hasFrozenMoney: true,
     };
     const sellOrders = await dispatch(getOpenOrders(paramsSell));
     const buyOrders = await dispatch(getOpenOrders(paramsBuy));
