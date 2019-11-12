@@ -67,6 +67,18 @@ class InfoAccount extends React.PureComponent {
         })
     }
 
+    static getDerivedStateFromProps(props, state) {
+        if (props.modalData && Object.keys(props.modalData).length > 0 && (!state.account || props.modalData !== state.modalData)) {
+            if (props.modalData && !props.modalData.errorCode) {
+                return {
+                    modalData: props.modalData,
+                    account: props.modalData
+                };
+            }
+        }
+        return null;
+    };
+
     componentDidMount() {
         if (this.props.modalData) {
             this.getAcccount({
@@ -76,6 +88,18 @@ class InfoAccount extends React.PureComponent {
             })
         }
     }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (this.state.account && prevState.account !== this.state.account) {
+            if (!(this.state.account instanceof Object)) {
+                this.getAcccount({
+                    account: this.props.modalData,
+                    firstIndex: 0,
+                    lastIndex: 14
+                });
+            }
+        }
+    };
 
     // requets
     getAcccount = async (requestParams) => {

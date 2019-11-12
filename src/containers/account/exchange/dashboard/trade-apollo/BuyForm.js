@@ -91,14 +91,6 @@ class BuyForm extends React.PureComponent {
                         NotificationManager.error('Please select wallet address', 'Error', 5000);
                         isError = true;
                     }
-                    if (!this.props.ethFee || +this.props.ethFee === 0) {
-                        NotificationManager.error('Can\'t get Gas fee. Something went wrong. Please, try again later', 'Error', 5000);
-                        isError = true;
-                    }
-                    if (+this.props.ethFee > +values.walletAddress.balances.eth) {
-                        NotificationManager.error(`To buy APL you need to have at least ${this.props.ethFee.toLocaleString('en')} ETH on your balance to confirm transaction`, 'Error', 5000);
-                        isError = true;
-                    }
                     if (values.total > balance) {
                         NotificationManager.error(`You need more ${currency.toUpperCase()}. Please check your wallet balance.`, 'Error', 5000);
                         isError = true;
@@ -114,11 +106,7 @@ class BuyForm extends React.PureComponent {
                         parseFloat(this.props.dashboardAccoountInfo.unconfirmedBalanceATM)
                         :
                         parseFloat(this.props.balanceAPL);
-                    if (values.total + this.props.ethFee > balanceETH) {
-                        NotificationManager.error(`Not enough founds on your ${currency.toUpperCase()} balance. You need to pay Gas fee`, 'Error', 5000);
-                        this.setPending(false);
-                        return;
-                    }
+
                     if (balanceETH === 0 || balanceETH < values.total) {
                         NotificationManager.error(`Not enough founds on your ${currency.toUpperCase()} balance.`, 'Error', 5000);
                         this.setPending(false);
@@ -163,7 +151,7 @@ class BuyForm extends React.PureComponent {
                                 offerAmount: '',
                                 total: '',
                             })}
-                        })
+                        });
                         this.setPending(false);
                     }
                 } else {

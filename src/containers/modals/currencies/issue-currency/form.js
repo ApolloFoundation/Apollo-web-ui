@@ -15,17 +15,17 @@ const IssueCurrencyForm = (props) => {
         <>
             <TextualInputComponent 
                 label={'Currency Name'}
-                disabled={true}
+                disabled={false}
                 field="name"
                 placeholder="Currency Name"
                 type={"text"}
                 setValue={setValue}
                 idGroup={idGroup}
             />
-            
+
             <TextualInputComponent 
                 label={'Currency Code'}
-                disabled={true}
+                disabled={false}
                 field="code"
                 placeholder="Currency Code"
                 type={"text"}
@@ -33,7 +33,7 @@ const IssueCurrencyForm = (props) => {
                 idGroup={idGroup}
     
             />
-    
+
             <CustomTextArea
                 label={'Description'} 
                 field={'description'} 

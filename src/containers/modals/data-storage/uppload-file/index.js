@@ -29,7 +29,7 @@ class UploadFile extends React.Component {
         this.state = {
             activeTab: 0,
             advancedState: false,
-            dataTags: '',
+            dataTags: null,
             selectTags: [],
 
             // submitting
@@ -94,22 +94,24 @@ class UploadFile extends React.Component {
                 submitButtonName={'Upload file'}
                 isPending={isPending}
             >
-                {dataTags.length 
-                ? <UpploadFileForm
-                    onChange={this.handleChangeTags}
-                    value={selectTags}
-                    dataTags={dataTags.map(tags => ({
-                        value: tags.count,
-                        label: tags.tag,
-                    }))}
-                />
-                : <div className={'align-items-center loader-box'}>
-                    <div className="ball-pulse">
-                        <div/>
-                        <div/>
-                        <div/>
+                {dataTags ? (
+                    <UpploadFileForm
+                        onChange={this.handleChangeTags}
+                        value={selectTags}
+                        dataTags={dataTags.map(tags => ({
+                            value: tags.count,
+                            label: tags.tag,
+                        }))}
+                    />
+                ) : (
+                    <div className={'align-items-center loader-box'}>
+                        <div className="ball-pulse">
+                            <div/>
+                            <div/>
+                            <div/>
+                        </div>
                     </div>
-                </div>}
+                )}
             </ModalBody>
         );
     }

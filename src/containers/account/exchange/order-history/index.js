@@ -53,7 +53,8 @@ class OrderHistory extends React.Component {
         });
     };
 
-    handleSelectOrder = (data) => {
+    handleSelectOrder = (data, hasFrozenMoney) => {
+        // if (hasFrozenMoney) this.props.setBodyModalParamsAction('SELECT_ORDER', data);
         this.props.setBodyModalParamsAction('SELECT_ORDER', data);
     };
 
@@ -131,22 +132,36 @@ class OrderHistory extends React.Component {
                                 defaultRowCount={15}
                                 TableRowComponent={(props) => {
                                     const statusName = this.statusOfOrder(props.status);
-                                    const typeName = props.type === 0 ? 'BUY' : 'SELL'
+                                    const typeName = props.type ? 'SELL' : 'BUY'
                                     const pairRate = formatDivision(props.pairRate, ONE_GWEI, 9);
                                     const offerAmount = formatDivision(props.offerAmount, ONE_GWEI, 3);
                                     const total = formatDivision(props.pairRate * props.offerAmount, Math.pow(10, 18), 9);
                                     const currency = props.pairCurrency;
                                     const type = Object.keys(currencyTypes).find(key => currencyTypes[key] === currency);
+                                    let trProps = '';
+                                    /*if (!props.hasFrozenMoney) {
+                                        trProps = {
+                                            'data-custom': true,
+                                            'data-custom-at': "top",
+                                            'data-cat-id': JSON.stringify({'infoContent': 'Order cant be matched, your deposit doesnt allow to freeze funds'})
+                                        }
+                                    }*/
                                     return (
-                                        <tr style={{cursor: 'pointer'}} onClick={() => this.handleSelectOrder({pairRate, offerAmount, total, currency, typeName, statusName})}>
+                                        <tr
+                                            onClick={() => this.handleSelectOrder({pairRate, offerAmount, total, currency, typeName, statusName}, props.hasFrozenMoney)}
+                                            // className={props.hasFrozenMoney ? 'history-order-active' : 'history-order-disabled'}
+                                            className={'history-order-active'}
+                                            {...trProps}
+                                        >
                                             <td>APL/{type.toUpperCase()}</td>
                                             <td>{typeName}</td>
-                                            <td className={`${props.type === 1 ? 'red-text' : 'green-text'}`}>{pairRate}</td>
+                                            <td className={`${props.type ? 'red-text' : 'green-text'}`}>{pairRate}</td>
                                             <td>{offerAmount}</td>
                                             <td>{total}</td>
-                                            <td className={`${props.status !== 0 ?'red-text' : ''}`}>{statusName}</td>
+                                            <td className={`${props.status ? 'red-text' : ''}`}>{statusName}</td>
                                             <td className={'align-right'}>
-                                                {props.status === 0 && (
+                                                {/*{props.status === 0 && props.hasFrozenMoney && (*/}
+                                                {!props.status && (
                                                     <button
                                                         type={'button'}
                                                         className="btn btn-sm"

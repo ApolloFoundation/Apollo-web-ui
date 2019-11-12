@@ -46,7 +46,7 @@ const MarketplaceItem = (props, history) => {
                     <React.Fragment>
                         <div className="card-title">
                             <p
-                                className={'cursor-pointer'}
+                                className={'cursor-pointer text-ellipsis'}
                                 onClick={() => props.setBodyModalParamsAction('MARKETPLACE_PURCHASE', props.goods)}
                             >
                                 {props.name}
@@ -86,12 +86,12 @@ const MarketplaceItem = (props, history) => {
                     <React.Fragment>
                         <div className="card-title">
                             {props.completedOrders ? (
-                                <p>
+                                <p className={'text-ellipsis'}>
                                     {props.name}
                                 </p>
                             ) : (
                                 <p
-                                    className={'cursor-pointer'}
+                                    className={'cursor-pointer text-ellipsis'}
                                     onClick={() => props.setBodyModalParamsAction('MARKETPLACE_PURCHASE', (props.fluid && props.purchase) ? props.purchase : props.goods)}
                                 >
                                     {props.name}

@@ -23,7 +23,7 @@ class Orderbook extends React.Component {
                 <div className="card-body">
                     <div className={'tabs-wrap tabs-primary mb-3'}>
                         <div
-                            className={`tab-item w-auto ${this.state.actionType === 0 ? 'active' : ''}`}
+                            className={`tab-item ${this.state.actionType === 0 ? 'active' : ''}`}
                             onClick={this.handleActionType.bind(this, 0)}
                         >
                             All
@@ -46,20 +46,6 @@ class Orderbook extends React.Component {
                             currentCurrency={currentCurrency}
                             sellOrders={sellOrders}
                         />
-                    )}
-                    {this.state.actionType === 0 && (
-                        <div className={'card card-price'}>
-                            <div className={'card-body'}>
-                                <div className={'price-wrap'}>
-                                    <div>
-                                        <p className={'text-success price text-ellipsis'}>
-                                            <i className="zmdi zmdi-long-arrow-up"/> 0.000017654
-                                        </p>
-                                        <p className={'text-right'}>≈ 0.0019$</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     )}
                     {(this.state.actionType === 0 || this.state.actionType === 1) && (
                         <BuyOrders

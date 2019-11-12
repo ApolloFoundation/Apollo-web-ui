@@ -94,7 +94,6 @@ class SendApollo extends Component {
                                         />
                                         <NummericInputForm
                                             field={'amountATM'}
-                                            type={'tel'}
                                             label={'Amount APL'}
                                             setValue={setValue}
                                             placeholder={'Amount'}
