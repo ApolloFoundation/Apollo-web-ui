@@ -1,6 +1,6 @@
 import historyProvider from './historyProvider'
 
-const supportedResolutions = ["1", "3", "5", "15", "30", "60", "120", "240", "D"]
+const supportedResolutions = ["1", "3", "5", "15", "30", "60", "120", "240", "480", "D", "2D"]
 
 const config = {
     supported_resolutions: supportedResolutions
@@ -38,7 +38,7 @@ export default {
 			data_status: 'streaming',
 		}
 
-		if (split_data[2].match(/USD|EUR|JPY|AUD|GBP|KRW|CNY/)) {
+		if (split_data[2].match(/APL|ETH|PAX/)) {
 			symbol_stub.pricescale = 100
 		}
 		setTimeout(function() {
