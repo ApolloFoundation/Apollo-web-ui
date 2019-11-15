@@ -61,14 +61,11 @@ class MarketplaceChangePrice extends React.Component {
     };
 
     async handleFormSubmit(values) {
-        const publicKey = await crypto.getPublicKeyAPL(values.secretPhrase, false);
-
         values = {
             ...values,
             priceATM: parseInt(values.priceATM),
             goods: this.state.goods.goods,
             recipient: this.props.account,
-            publicKey: publicKey
         };
 
         this.props.processForm(values, 'dgsPriceChange', 'The marketplace item\'s price has been changed successfully!', () => {
