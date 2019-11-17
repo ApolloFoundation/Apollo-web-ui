@@ -39,7 +39,7 @@ export default {
 							high: el.high,
 							open: el.open,
 							close: el.close,
-							volume: el.volumefrom 
+							volume: el.volumefrom,
 						}
 					})
 						if (first) {

@@ -1,6 +1,7 @@
 import * as React from 'react';
-import './index.scss';
+import { connect } from 'react-redux';
 import Datafeed from './api/'
+import './index.scss';
 
 function getLanguageFromURL() {
 	const regex = new RegExp('[\\?&]lang=([^&#]*)');
@@ -8,7 +9,7 @@ function getLanguageFromURL() {
 	return results === null ? null : decodeURIComponent(results[1].replace(/\+/g, ' '));
 }
 
-export default class TVChartContainer extends React.PureComponent {
+class TVChartContainer extends React.PureComponent {
 
 	static defaultProps = {
 		symbol: 'Coinbase:APL/ETH',
@@ -19,14 +20,23 @@ export default class TVChartContainer extends React.PureComponent {
 		fullscreen: false,
 		autosize: true,
 		studiesOverrides: {},
+		currency: 'ETH',
 	};
 
 	componentDidMount() {
-		console.log(Datafeed, '1');
-		
+		this.createTVChart();
+	}
+
+	componentDidUpdate(props,state) {
+		if(props.currency !== this.props.currency) {
+			this.createTVChart();
+		}
+	}
+
+	createTVChart = () => {
 		const widgetOptions = {
 			debug: false,
-			symbol: this.props.symbol,
+			symbol: `Coinbase:APL/${this.props.currency.toUpperCase()}`,
 			datafeed: Datafeed,
 			interval: this.props.interval,
 			container_id: this.props.containerId,
@@ -57,8 +67,6 @@ export default class TVChartContainer extends React.PureComponent {
 				"mainSeriesProperties.candleStyle.wickDownColor": '#7f323f',
 			}
 		};
-		console.log(widgetOptions, '2');
-		
 		// window.TradingView.onready(() => {
 			const widget = window.tvWidget = new window.TradingView.widget(widgetOptions);
 
@@ -69,7 +77,6 @@ export default class TVChartContainer extends React.PureComponent {
 	}
 
 	render() {
-
 		return (
 			<div
 				id={ this.props.containerId }
@@ -78,3 +85,9 @@ export default class TVChartContainer extends React.PureComponent {
 		);
 	}
 }
+
+const mapStateToProps = ({exchange}) => ({
+    currency: exchange.currentCurrency.currency,
+});
+
+export default connect(mapStateToProps, null)(TVChartContainer)
