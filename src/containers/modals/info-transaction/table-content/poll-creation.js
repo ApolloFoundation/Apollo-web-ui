@@ -42,7 +42,7 @@ export default class PollCreation extends Component {
                     <td>{atch.maxNumberOfOptions}</td>
                 </tr>
                 }
-                {atch.minRangeValue &&
+                {atch.minRangeValue !== undefined && atch.minRangeValue !== null &&
                 <tr>
                     <td>Min Range Value:</td>
                     <td>{atch.minRangeValue}</td>
