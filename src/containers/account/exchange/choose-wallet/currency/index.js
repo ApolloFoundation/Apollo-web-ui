@@ -15,18 +15,9 @@ class CurrencyDescriptionComponent extends Component {
     };
 
     handleExport = async () => {
-        if (this.props.passPhrase && !this.props.is2FA) {
-            const params = {
-                account: this.props.account,
-                passphrase: this.props.passPhrase,
-                ethAddress: this.props.address,
-            };
-            const wallet = await this.props.exportWallet(params);
-        } else {
-            this.props.setBodyModalParamsAction('CONFIRM_EXPORT_WALLET', {
-                ethAddress: this.props.address
-            });
-        }
+        this.props.setBodyModalParamsAction('CONFIRM_EXPORT_WALLET', {
+            ethAddress: this.props.address
+        });
     };
 
     render() {
