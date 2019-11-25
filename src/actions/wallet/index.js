@@ -321,3 +321,20 @@ export function getIdaxPair(requestParams) {
             })
     }
 }
+
+export function exportWallet(requestParams) {
+    return () => {
+        return handleFetch(`${config.api.server}/rest/keyStore/eth`, POST, requestParams, true)
+            .then(async (res) => {
+                if (!res.errorCode) {
+                    return res;
+                } else {
+                    NotificationManager.error(res.errorDescription, 'Error', 5000);
+                    return null;
+                }
+            })
+            .catch(() => {
+
+            })
+    }
+}
