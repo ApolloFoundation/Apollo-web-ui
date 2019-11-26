@@ -5,15 +5,12 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {
-    setBodyModalParamsAction, 
-} from '../../../modules/modals';
+import {setBodyModalParamsAction} from '../../../modules/modals';
 import submitForm from "../../../helpers/forms/forms";
 
 // Form components
 import {NotificationManager} from 'react-notifications';
 
-import {getRecipientIdByAlias} from '../../../actions/aliases';
 import ModalBody from '../../components/modals/modal-body';
 import SendApolloForm from './form';
 
@@ -116,7 +113,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
 	submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
 	setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-    getRecipientIdByAlias: (requestParams) => dispatch(getRecipientIdByAlias(requestParams)),
 	validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
 	getPublicKeyAPL: (passphrase) => dispatch(crypto.getPublicKeyAPL(passphrase)),
 });

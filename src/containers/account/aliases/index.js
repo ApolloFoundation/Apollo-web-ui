@@ -7,13 +7,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {getAliasesAction} from "../../../actions/aliases";
-import SiteHeader from '../../components/site-header'
-import Alias from "./alias";
-import classNames from "classnames";
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {BlockUpdater} from "../../block-subscriber";
-import uuid from "uuid";
-import ContentHendler from '../../components/content-hendler'
+import SiteHeader from '../../components/site-header'
+import Alias from "./alias";
 
 import CustomTable from '../../components/tables/table';
 
