@@ -78,8 +78,8 @@ class Sidebar extends React.Component {
 		</NavLink>
 	};
 
-	createItemMenu = ({to, className, icon, label, children}) => {
-		return this.state.activeMenu === to || !children.length
+	createItemMenu = ({to, className, icon, label}) => {
+		return this.state.activeMenu === to
 		? (this.createNav({to, className, icon, label}))
 		: (<div onClick={() => this.hanldeActive(to)} className={`text ${this.getNavLinkClass(className)}`}>
 			{label}<i className={`zmdi ${icon} left`}/>
@@ -105,9 +105,7 @@ class Sidebar extends React.Component {
 		</li>
 	};
 
-	hanldeActive = (activeMenu) => {
-		this.setState({activeMenu})
-	};
+	hanldeActive = (activeMenu) => {this.setState({activeMenu})};
 	
 	getNavLinkClass = (path) => {
 		const routes = path instanceof Array ? path : [path];
