@@ -52,6 +52,10 @@ class SearchAliases extends React.Component {
 
     handleSearchAlias = ({alias}) => {
         const {firstIndex, lastIndex} = this.state;
+        if(alias.length < 2) {
+            NotificationManager.error('Alias name must be no less than 2 symbols.', 'Error', 5000);
+            return
+        }
         this.setState({alias});
         this.getAliases({
             aliasPrefix: alias,
@@ -122,7 +126,7 @@ class SearchAliases extends React.Component {
                                 previousHendler={this.onPaginate.bind(this, page - 1)}
                                 nextHendler={this.onPaginate.bind(this, page + 1)}
                                 className={'no-min-height mb-3'}
-                                emptyMessage={'Enter the Alias you want to find'}
+                                emptyMessage={'Enter the Alias you want to find (no less than 2 symbols)'}
                             />
                         </div>
                     </div>
