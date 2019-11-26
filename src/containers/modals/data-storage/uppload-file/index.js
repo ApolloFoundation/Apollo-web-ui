@@ -69,7 +69,7 @@ class UploadFile extends React.Component {
     handleFormSubmit = async(values) => {
         if (!this.state.isPending) {
             this.setState({isPending: true});
-
+            values.tags = JSON.stringify(values.tags)
             const res = await this.props.submitForm(values, 'uploadTaggedData');
             if (res && res.errorCode) {
                 NotificationManager.error(res.errorDescription, 'Error', 5000)
