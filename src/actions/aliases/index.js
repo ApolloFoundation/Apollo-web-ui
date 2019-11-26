@@ -9,12 +9,12 @@ import axios from 'axios';
 import {login} from "../../modules/account";
 import {processElGamalEncryption} from "../crypto";
 
-export function getRecipientIdByAlias(reqParams) {
+export function searchAliases(reqParams) {
     return dispatch => {
         return axios.get(config.api.serverUrl, {
             params: {
                 requestType: 'getAliasesLike',
-                aliasPrefix: reqParams,
+                ...reqParams,
             }
         })
             .then((res) => {

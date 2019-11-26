@@ -48,6 +48,7 @@ import ApprovalRequest from '../account/approval-request'
 import ApprovalRequestAssets from '../account/approval-request-assets'
 import AssetExchange from '../account/asset-exchange'
 import Aliases from '../account/aliases'
+import SearchAliases from '../account/search-aliases'
 import DeleteHistory from '../account/delete-history'
 import FundingMonitors from '../account/funding-monitors'
 import FundingMonitorsStatus from '../account/funding-monitors-status'
@@ -243,7 +244,8 @@ class App extends React.Component {
             <Route exact path="/asset-exchange/:asset" component={AssetExchange}/>
             <Route exact path="/asset-exchange" component={AssetExchange}/>
             <Route exact path="/all-assets" component={Assets}/>
-            <Route exact path="/aliases" component={Aliases}/>
+            <Route exact path="/aliases" component={SearchAliases}/>
+            <Route exact path="/my-aliases" component={Aliases}/>
             <Route exact path="/delete-history" component={DeleteHistory}/>
             <Route exact path="/funding-monitors" component={FundingMonitors}/>
             <Route exact path="/funding-monitors/:account/:property" component={FundingMonitorsStatus}/>
