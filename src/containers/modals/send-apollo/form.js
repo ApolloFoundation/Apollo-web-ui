@@ -1,12 +1,12 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {searchAliases} from '../../../actions/aliases';
+// import {searchAliases} from '../../../actions/aliases';
 import {setBodyModalParamsAction,} from '../../../modules/modals';
 
 import {CheckboxFormInput} from '../../components/form-components/check-button-input';
 import CustomInputForm from '../../components/form-components/textual-input';
 import CustomTextArea from '../../components/form-components/text-area';
-import AutoComplete from '../../components/auto-complete';
+// import AutoComplete from '../../components/auto-complete';
 import AccountRSFormInput from '../../components/form-components/account-rs'
 import NummericInputForm from '../../components/form-components/numeric-input'
 
@@ -21,7 +21,7 @@ const SendMoneyForm = ({values, setValue, modalData, setBodyModalParamsAction, i
             idGroup={idGroup}
             id={`${idGroup}recipient-field`}
         />
-        <CheckboxFormInput
+        {/* <CheckboxFormInput
             setValue={setValue}
             idGroup={idGroup}
             checkboxes={[
@@ -30,8 +30,8 @@ const SendMoneyForm = ({values, setValue, modalData, setBodyModalParamsAction, i
                     label: 'Use alias?'
                 }
             ]}
-        />
-        {values.alias && 
+        /> */}
+        {/* {values.alias && 
             <AutoComplete
                 placeholder={'Alias'}
                 label={'Alias'}
@@ -45,7 +45,7 @@ const SendMoneyForm = ({values, setValue, modalData, setBodyModalParamsAction, i
                     });
                 }}
             />
-        }
+        } */}
         <NummericInputForm
             field={'amountATM'}
             counterLabel={'APL'}
@@ -106,7 +106,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    searchAliases: (requestParams) => dispatch(searchAliases(requestParams)),
+    // searchAliases: (requestParams) => dispatch(searchAliases(requestParams)),
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 });
 
