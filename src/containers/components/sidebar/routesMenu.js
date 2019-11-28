@@ -114,7 +114,9 @@ export const messagesMenu = {
 export const aliasesMenu = {
 	className: '/aliases',
 	to: '/aliases',
-	label: 'Aliases',
+	label: 'Search Aliases',
 	icon: 'zmdi-accounts',
-	children: [],
+	children: [
+		{className: '/my-aliases', to: '/my-aliases', label: 'My Aliases', icon: 'zmdi-accounts'},
+	],
 };

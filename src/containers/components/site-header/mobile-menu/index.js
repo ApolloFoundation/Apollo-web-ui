@@ -51,6 +51,7 @@ const MobileMenu = ({setBodyModalParamsAction, closeMenu}) => (
                     </AccordionItemBody>
                 </div>
             </AccordionItem>
+
             <AccordionItem>
                 <div className={"mobile-nav-item"}>
                     <AccordionItemTitle
@@ -68,6 +69,7 @@ const MobileMenu = ({setBodyModalParamsAction, closeMenu}) => (
                     </AccordionItemBody>
                 </div>
             </AccordionItem>
+
             <AccordionItem>
                 <div className={"mobile-nav-item"}>
                     <AccordionItemTitle
@@ -112,8 +114,8 @@ const MobileMenu = ({setBodyModalParamsAction, closeMenu}) => (
                         </div>
                     </AccordionItemBody>
                 </div>
-
             </AccordionItem>
+
             <AccordionItem>
                 <div className={"mobile-nav-item"}>
                     <AccordionItemTitle
@@ -140,8 +142,8 @@ const MobileMenu = ({setBodyModalParamsAction, closeMenu}) => (
                         </div>
                     </AccordionItemBody>
                 </div>
-
             </AccordionItem>
+
             <AccordionItem>
                 <div className={"mobile-nav-item"}>
                     <AccordionItemTitle
@@ -170,8 +172,8 @@ const MobileMenu = ({setBodyModalParamsAction, closeMenu}) => (
                         </div>
                     </AccordionItemBody>
                 </div>
-
             </AccordionItem>
+
             <AccordionItem>
                 <div className={"mobile-nav-item"}>
                     <AccordionItemTitle
@@ -191,8 +193,8 @@ const MobileMenu = ({setBodyModalParamsAction, closeMenu}) => (
                         </div>
                     </AccordionItemBody>
                 </div>
-
             </AccordionItem>
+
             <AccordionItem>
                 <div className={"mobile-nav-item"}>
                     <AccordionItemTitle
@@ -219,8 +221,8 @@ const MobileMenu = ({setBodyModalParamsAction, closeMenu}) => (
                         </div>
                     </AccordionItemBody>
                 </div>
-
             </AccordionItem>
+
             <AccordionItem>
                 <div className={"mobile-nav-item"}>
                     <AccordionItemTitle
@@ -245,8 +247,8 @@ const MobileMenu = ({setBodyModalParamsAction, closeMenu}) => (
                         </div>
                     </AccordionItemBody>
                 </div>
-
             </AccordionItem>
+
             <AccordionItem>
                 <div className={"mobile-nav-item"}>
                     <AccordionItemTitle
@@ -260,14 +262,27 @@ const MobileMenu = ({setBodyModalParamsAction, closeMenu}) => (
                         </div>
                     </AccordionItemBody>
                 </div>
+            </AccordionItem>
 
+            <AccordionItem>
+                <div className={"mobile-nav-item"}>
+                    <AccordionItemTitle className={`text ${getNavLinkClass(["/aliases", "/my-aliases"])}`}>
+                        <i className="zmdi zmdi-comments"/>Search Aliases<span className="arrow"/>
+                    </AccordionItemTitle>
+                    <AccordionItemBody>
+                        <div className="item-dropdown">
+                            <NavLink exact={true} activeClassName="active" to="/aliases" className={"mobile-nav-item"}>
+                                Search Aliases
+                            </NavLink>
+                            <NavLink exact={true} activeClassName="active" to="/my-aliases" className={"mobile-nav-item"}>
+                                My Aliases
+                            </NavLink>
+                        </div>
+                    </AccordionItemBody>
+                </div>
             </AccordionItem>
         </Accordion>
 
-        <NavLink exact={true} activeClassName="active" to="/aliases"
-                    className={"mobile-nav-item"}>
-            <p className="text">Aliases <i className="zmdi zmdi-accounts"/></p>
-        </NavLink>
         <div className="btn-block text-center">
             <div className="btn btn-default btn-sm" onClick={closeMenu}>
                 Close

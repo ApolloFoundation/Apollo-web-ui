@@ -49,7 +49,7 @@ const ChainProps = (props) => (
                                         </tr>
                                         <tr>
                                             <td>Block Time:</td>
-                                            <td>{props.appState.blockTime.toString()}</td>
+                                            <td>{props.appState.blockTime.toString()}s</td>
                                         </tr>
                                         <tr>
                                             <td>Adaptive forging:</td>

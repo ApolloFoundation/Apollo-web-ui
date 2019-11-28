@@ -100,7 +100,7 @@ class TradeHistory extends React.Component {
                         <div className={'form-title form-title-lg d-flex flex-column justify-content-between'}>
                             <p className="title-lg">My trades</p>
                         </div>
-                            {!myTradeHistory.length
+                            {!myTradeHistory['allTrades'] || !myTradeHistory['allTrades'].length
                             ?   <CustomTable
                                     header={[
                                         {
@@ -129,7 +129,7 @@ class TradeHistory extends React.Component {
                                     className={'no-min-height transparent'}
                                     emptyMessage={'No created orders.'}
                                     defaultRowCount={15}
-                                    tableData={myTradeHistory[currency]}
+                                    tableData={myTradeHistory['allTrades']}
                                     TableRowComponent={(props) => {
                                         const statusName = this.statusOfOrder(props.status);
                                         const typeName = props.type ? 'SELL' : 'BUY';

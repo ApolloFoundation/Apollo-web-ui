@@ -5,15 +5,12 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {
-    setBodyModalParamsAction, 
-} from '../../../modules/modals';
+import {setBodyModalParamsAction} from '../../../modules/modals';
 import submitForm from "../../../helpers/forms/forms";
 
 // Form components
 import {NotificationManager} from 'react-notifications';
 
-import {getRecipientIdByAlias} from '../../../actions/aliases';
 import ModalBody from '../../components/modals/modal-body';
 import SendApolloForm from './form';
 
@@ -32,7 +29,7 @@ class SendApollo extends React.Component {
 			recipientStatus: false,
 			amountStatus: false,
 			feeStatus: false,
-			alias: null,
+			// alias: null,
 		};
 	}
 
@@ -53,9 +50,9 @@ class SendApollo extends React.Component {
 			values.phased = true;
 		}
 
-		if (values.alias && this.state.alias && !values.recipient) {
-			values.recipient = this.state.alias;
-		}
+		// if (values.alias && this.state.alias && !values.recipient) {
+		// 	values.recipient = this.state.alias;
+		// }
 
 		this.setState({
 			isPending: true
@@ -83,7 +80,7 @@ class SendApollo extends React.Component {
 		});
 	}
 
-	handelChangeAlias = ({value}) => {this.setState({alias: value})}
+	// handelChangeAlias = ({value}) => {this.setState({alias: value})}
 
 	render() {
 		return (
@@ -97,7 +94,8 @@ class SendApollo extends React.Component {
 				idGroup={'send-money-modal-'}
 			>
 
-				<SendApolloForm onChangeAlias={this.handelChangeAlias} />
+				<SendApolloForm />
+				{/* <SendApolloForm onChangeAlias={this.handelChangeAlias} /> */}
 
 			</ModalBody>
 			
@@ -116,7 +114,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
 	submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
 	setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-    getRecipientIdByAlias: (requestParams) => dispatch(getRecipientIdByAlias(requestParams)),
 	validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
 	getPublicKeyAPL: (passphrase) => dispatch(crypto.getPublicKeyAPL(passphrase)),
 });

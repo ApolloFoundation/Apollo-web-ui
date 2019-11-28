@@ -56,11 +56,15 @@ class UploadFile extends React.Component {
 
     handleChangeTags = (newValue, actionMeta) => {
         if(newValue.length > 3) {
-            NotificationManager.error('You can add only 3 tags for the product', 'Error', 5000);
+            NotificationManager.error('You can add only 5 tags for the product', 'Error', 5000);
             return
         }
         if(newValue.length && (newValue[newValue.length - 1].label.length > 20)) {
             NotificationManager.error('Tag name must be no more than 20 symbols', 'Error', 5000);
+            return
+        }
+        if(newValue.length && (newValue[newValue.length - 1].label.length < 3)) {
+            NotificationManager.error('Tag name must be no less than 3 symbols', 'Error', 5000);
             return
         }
         this.setState({selectTags: newValue});
@@ -69,8 +73,8 @@ class UploadFile extends React.Component {
     handleFormSubmit = async(values) => {
         if (!this.state.isPending) {
             this.setState({isPending: true});
-
-            const res = await this.props.submitForm(values, 'uploadTaggedData');
+            const tags = values.tags.map(({label}) => label).join(', ');
+            const res = await this.props.submitForm({...values, tags}, 'uploadTaggedData');
             if (res && res.errorCode) {
                 NotificationManager.error(res.errorDescription, 'Error', 5000)
             } else {

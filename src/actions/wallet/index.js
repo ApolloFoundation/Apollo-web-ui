@@ -239,20 +239,21 @@ export const getAllMyOpenOffers = (currency, options) => async (dispatch, getSta
 };
 
 export const getMyTradeHistory = (currency, options) => async (dispatch, getState) => {
-    if (!currency) currency = getState().exchange.currentCurrency.currency;
+    const currentCurrency = currency === null ? null : (currency || getState().exchange.currentCurrency.currency);
     const {account} = getState().account;
     const paramsOpenOrder = {
-        pairCurrency: currencyTypes[currency],
         accountId: account,
         status: 5,
         hasFrozenMoney: true,
         ...options
     };
 
-    const openOrders = await dispatch(getOpenOrders(paramsOpenOrder));
+    const currentParamsOpenOrder = currentCurrency ? {...paramsOpenOrder, pairCurrency: currencyTypes[currency]} : paramsOpenOrder;
+
+    const openOrders = await dispatch(getOpenOrders(currentParamsOpenOrder));
     const orders = openOrders ? [...openOrders].sort((a, b) => b.finishTime - a.finishTime)
     : [];
-    dispatch(setMyTradeHistoryAction(currency, orders));
+    dispatch(setMyTradeHistoryAction(currentCurrency || 'allTrades', orders));
 };
 
 export const getMyOpenOffers = (currency) => async (dispatch, getState) => {
