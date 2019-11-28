@@ -26,6 +26,8 @@ const TransactionItem = (props) => {
     const senderRS = (props.senderRS && props.senderRS === props.accountRS) ? 'You' : props.senderRS;
     const recipientRS = (props.recipientRS && props.recipientRS === props.accountRS) ? 'You' : props.recipientRS;
     const transactionType = props.constants.transactionTypes && formatTransactionType(props.constants.transactionTypes[props.type].subtypes[props.subtype].name);
+    console.log(props);
+    
     return (
         <div
             className="transaction-item cursor-pointer"
@@ -67,15 +69,16 @@ const TransactionItem = (props) => {
                         })}>
                         {
                             isDexOrder ?
-                                `${props.attachment.offerCurrency === 0 ? "-" : ""}${props.attachment.offerAmount / ONE_APL}`
-                                :
-                                `${props.account === props.sender ? "-" : ""}${(
-                                    ((props.amountATM === "0" && props.attachment.priceATM && props.attachment.priceATM !== "0") ?
-                                            props.attachment.priceATM
-                                            : props.amountATM
-                                    ) / ONE_APL
-                                )}`
+                            `${props.attachment.offerCurrency === 0 ? "-" : ""}${props.attachment.offerAmount / ONE_APL}`
+                            :
+                            `${props.account === props.sender ? "-" : ""}${(
+                                ((props.amountATM === "0" && props.attachment.priceATM && props.attachment.priceATM !== "0") ?
+                                props.attachment.priceATM
+                                : props.amountATM
+                                ) / ONE_APL
+                            )}`
                         }
+                        <div className={'transaction-confirmation fee'}>fee: 2</div>
                     </div>
                 </div>
                 <div className={'transaction-rs-wrap d-flex justify-content-between align-items-center'}>
