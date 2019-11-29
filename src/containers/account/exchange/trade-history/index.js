@@ -173,6 +173,7 @@ class TradeHistory extends React.Component {
                                     page={this.state.page}
                                     previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
                                     nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
+                                    itemsPerPage={15}
                                 />
                             : <div className={'align-items-center loader-box'}>
                                 <div className="ball-pulse">

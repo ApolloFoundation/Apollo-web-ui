@@ -27,7 +27,7 @@ class MyMessages extends React.Component {
         this.state = {
             page: 1,
             firstIndex: 0,
-            lastIndex: itemsPerPage - 1,
+            lastIndex: itemsPerPage,
             messages: null,
             isLoading: false,
             account: null
@@ -83,7 +83,7 @@ class MyMessages extends React.Component {
         const pagination = {
             page: page,
             firstIndex: page * itemsPerPage - itemsPerPage,
-            lastIndex: page * itemsPerPage - 1
+            lastIndex: page * itemsPerPage
         };
 
         this.getMessagesPerpage(pagination);
