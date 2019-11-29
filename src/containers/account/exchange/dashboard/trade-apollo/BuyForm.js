@@ -106,7 +106,7 @@ class BuyForm extends React.PureComponent {
                         parseFloat(this.props.dashboardAccoountInfo.unconfirmedBalanceATM)
                         :
                         parseFloat(this.props.balanceAPL);
-
+                    const fixedOfferAmount = offerAmount.toFixed();
                     if (balanceETH === 0 || balanceETH < values.total) {
                         NotificationManager.error(`Not enough founds on your ${currency.toUpperCase()} balance.`, 'Error', 5000);
                         this.setPending(false);
@@ -121,7 +121,7 @@ class BuyForm extends React.PureComponent {
                         offerType: 0, // BUY
                         pairCurrency: currencyTypes[currency],
                         pairRate,
-                        offerAmount,
+                        offerAmount: fixedOfferAmount,
                         sender: this.props.account,
                         passphrase: this.props.passPhrase,
                         feeATM: this.feeATM,
