@@ -34,7 +34,7 @@ class MyVotes extends React.Component {
 
         this.state = {
             firstIndex: 0,
-            lastIndex: 14,
+            lastIndex: 9,
             page: 1,
             myVotes: null
         };
@@ -62,14 +62,6 @@ class MyVotes extends React.Component {
         BlockUpdater.removeAllListeners('data');
     }
 
-    componentWillReceiveProps(newState) {
-        this.getMyVotes({
-            account: this.props.account,
-            firstIndex: 0,
-            lastIndex:  9,
-        });
-    }
-
     getMyVotes = async (reqParams) => {
         const myVotes = await this.props.getMyVotesAction(reqParams);
 
@@ -83,6 +75,7 @@ class MyVotes extends React.Component {
                 .then((data) => {
                     this.setState({
                         ...this.props,
+                        ...reqParams,
                         myVotes: data
                     });
                 })
@@ -110,11 +103,11 @@ class MyVotes extends React.Component {
     };
     
     onPaginate = (page) => {
-        this.setState({
+        this.getMyVotes({
             page: page,
             account: this.props.account,
-            firstIndex: page * 15 - 15,
-            lastIndex:  page * 15 - 1
+            firstIndex: page * 9 - 9,
+            lastIndex:  page * 9
         });
     };
 
@@ -164,6 +157,7 @@ class MyVotes extends React.Component {
                         isPaginate
                         previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
                         nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
+                        itemsPerPage={9}
                     />
                 </div>
             </div>

@@ -27,7 +27,7 @@ class Transactions extends React.Component {
         this.state = {
             page: 1,
             firstIndex: 0,
-            lastIndex: 14,
+            lastIndex: 15,
             type: null,
             subtype: null,
             isUnconfirmed: false,
@@ -105,7 +105,7 @@ class Transactions extends React.Component {
             account:    this.props.account,
             page:       page,
             firstIndex: page * 15 - 15,
-            lastIndex:  page * 15 - 1,
+            lastIndex:  page * 15,
             requestType: this.state.requestType,
             ...this.state.passphrase
         };
@@ -262,7 +262,7 @@ class Transactions extends React.Component {
                 subtype: subtype,
                 page:       1,
                 firstIndex: 0,
-                lastIndex:  14,
+                lastIndex:  15,
                 requestType: requestType,
                 ...this.state.passphrase
 
@@ -271,7 +271,7 @@ class Transactions extends React.Component {
                     type: this.state.type,
                     account:    this.props.account,
                     firstIndex: 0,
-                    lastIndex:  14,
+                    lastIndex:  15,
                     requestType: requestType,
                     ...this.state.passphrase
                 }, all);
@@ -408,6 +408,7 @@ class Transactions extends React.Component {
                             page={this.state.page}
                             previousHendler={() => this.onPaginate(this.state.page - 1)}
                             nextHendler={() => this.onPaginate(this.state.page + 1)}
+                            itemsPerPage={15}
                         />
                     </div>
                 </div>

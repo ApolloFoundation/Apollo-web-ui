@@ -20,7 +20,7 @@ class Finishedpolls extends React.Component {
         finishedpolls: null,
         page: 1,
         firstIndex: 0,
-        lastIndex: 14,
+        lastIndex: 15,
     };
 
     listener = data => {
@@ -62,7 +62,7 @@ class Finishedpolls extends React.Component {
         const pagination = {
             page: page,
             firstIndex: page * 15 - 15,
-            lastIndex: page * 15 - 1
+            lastIndex: page * 15
         };
         this.getFinishedpolls({
             firstIndex: pagination.firstIndex,
@@ -105,6 +105,7 @@ class Finishedpolls extends React.Component {
                         page={this.state.page}
                         previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
                         nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
+                        itemsPerPage={15}
                     />
                 </div>
             </div>

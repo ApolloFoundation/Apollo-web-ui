@@ -50,7 +50,7 @@ class FollowedVotes extends React.Component {
         poll: null,
         votes: null,
         firstIndex: 0,
-        lastIndex: 2,
+        lastIndex: 3,
         allVotesNumber: null,
         colors: [],
         followedpolls: [],
@@ -191,12 +191,12 @@ class FollowedVotes extends React.Component {
         const pagination = {
             page: page,
             firstIndex: page * 3 - 3,
-            lastIndex:  page * 3 - 1
+            lastIndex:  page * 3
         };
         this.getPollVotes({
             poll: this.props.match.params.poll,
             firstIndex: page * 3 - 3,
-            lastIndex:  page * 3 - 1
+            lastIndex:  page * 3
         }, pagination);
     };
 

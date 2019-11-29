@@ -22,12 +22,12 @@ class OpenOrders extends React.Component {
             sell: {
                 page: 1,
                 firstIndex: 0,
-                lastIndex: 14,
+                lastIndex: 15,
             },
             buy: {
                 page: 1,
                 firstIndex: 0,
-                lastIndex: 14,
+                lastIndex: 15,
             },
         }
     };
@@ -118,7 +118,7 @@ class OpenOrders extends React.Component {
         const pagination = {
             page: page,
             firstIndex: page * 15 - 15,
-            lastIndex: page * 15 - 1
+            lastIndex: page * 15
         };
         if (type === 'buy') {
             this.getBuyOrders({account: this.props.account}, pagination);
@@ -167,6 +167,7 @@ class OpenOrders extends React.Component {
                                             page={this.state.pagination.sell.page}
                                             previousHendler={() => this.onPaginate('sell', this.state.pagination.sell.page - 1)}
                                             nextHendler={() => this.onPaginate('sell', this.state.pagination.sell.page + 1)}
+                                            itemsPerPage={15}
                                         />
                                     ) : (
                                         <ContentLoader noPaddingOnTheSides/>
@@ -206,6 +207,7 @@ class OpenOrders extends React.Component {
                                             page={this.state.pagination.buy.page}
                                             previousHendler={() => this.onPaginate('buy', this.state.pagination.buy.page - 1)}
                                             nextHendler={() => this.onPaginate('buy', this.state.pagination.buy.page + 1)}
+                                            itemsPerPage={15}
                                         />
                                     ) : (
                                         <ContentLoader noPaddingOnTheSides/>

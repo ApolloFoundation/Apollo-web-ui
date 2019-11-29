@@ -23,11 +23,8 @@ class ApprovalRequests extends React.Component {
         transactions: []
     };
 
-    componentWillMount() {
-        this.getApproves(this.props.account);
-    }
-
     componentDidMount() {
+        this.getApproves(this.props.account);
         BlockUpdater.on("data", this.listener);
     };
 
@@ -89,6 +86,7 @@ class ApprovalRequests extends React.Component {
                         emptyMessage={'No approval requests found.'}
                         TableRowComponent={Transaction}
                         tableData={this.state.transactions}
+                        itemsPerPage={15}
                     />
                 </div>
             </div>

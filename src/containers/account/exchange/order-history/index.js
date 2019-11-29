@@ -5,7 +5,7 @@ import CustomTable from '../../../components/tables/table';
 import {setCurrentCurrencyAction} from '../../../../modules/exchange';
 import {setBodyModalParamsAction} from '../../../../modules/modals';
 import {getMyOfferHistory} from '../../../../actions/wallet';
-import {formatDivision, currencyTypes} from '../../../../helpers/format';
+import {currencyTypes, formatDivision} from '../../../../helpers/format';
 import {ONE_GWEI} from '../../../../constants';
 import {BlockUpdater} from "../../../block-subscriber";
 import InfoBox from '../../../components/info-box';
@@ -65,7 +65,7 @@ class OrderHistory extends React.Component {
         this.setState({
             page: page,
             firstIndex: page * 15 - 15,
-            lastIndex:  page * 15
+            lastIndex: page * 15
         }, () => {
             this.props.getMyOfferHistory({
                 firstIndex: this.state.firstIndex,
@@ -96,10 +96,10 @@ class OrderHistory extends React.Component {
                 />
                 <div className="exchange page-body container-fluid">
                     {!this.state.loading ? (
-                    <div className={'card-block primary form-group-app p-0 mb-3'}>
-                        <div className={'form-title form-title-lg d-flex flex-column justify-content-between'}>
-                            <p className="title-lg">My orders</p>
-                        </div>
+                        <div className={'card-block primary form-group-app p-0 mb-3'}>
+                            <div className={'form-title form-title-lg d-flex flex-column justify-content-between'}>
+                                <p className="title-lg">My orders</p>
+                            </div>
                             <CustomTable
                                 header={[
                                     {
@@ -147,7 +147,14 @@ class OrderHistory extends React.Component {
                                     }
                                     return (
                                         <tr
-                                            onClick={() => this.handleSelectOrder({pairRate, offerAmount, total, currency, typeName, statusName}, props.hasFrozenMoney)}
+                                            onClick={() => this.handleSelectOrder({
+                                                pairRate,
+                                                offerAmount,
+                                                total,
+                                                currency,
+                                                typeName,
+                                                statusName
+                                            }, props.hasFrozenMoney)}
                                             className={props.hasFrozenMoney ? 'history-order-active' : 'history-order-disabled'}
                                             {...trProps}
                                         >
@@ -184,13 +191,15 @@ class OrderHistory extends React.Component {
                                 page={this.state.page}
                                 previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
                                 nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
+                                itemsPerPage={15}
                             />
-                    </div>
-                    ):(
+                        </div>
+                    ) : (
                         <div>
                             <InfoBox default>
                                 You have no Wallet at the moment.&nbsp;
-                                <a className={'blue-link-text'} onClick={() => this.props.setBodyModalParamsAction('LOGIN_EXCHANGE', {})}>Log in</a>
+                                <a className={'blue-link-text'}
+                                   onClick={() => this.props.setBodyModalParamsAction('LOGIN_EXCHANGE', {})}>Log in</a>
                             </InfoBox>
                         </div>
                     )}
