@@ -41,6 +41,7 @@ class TVChartContainer extends React.PureComponent {
 			interval: this.props.interval,
 			container_id: this.props.containerId,
 			library_path: this.props.libraryPath,
+			timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
 			// toolbar_bg: '#fff',
 			locale: getLanguageFromURL() || 'en',
 			disabled_features: ['scales_context_menu', 'context_menus', 'volume_force_overlay', 'use_localstorage_for_settings', 'timeframes_toolbar', 'scales_context_menu', 'header_chart_type', 'header_symbol_search', 'header_compare', 'header_undo_redo', 'header_saveload', 'header_screenshot'],

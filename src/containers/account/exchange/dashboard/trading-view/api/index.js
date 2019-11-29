@@ -26,7 +26,6 @@ export default {
 			description: '',
 			type: 'crypto',
 			session: '24x7',
-			timezone: 'Etc/UTC',
 			ticker: symbolName,
 			exchange: split_data[0],
 			minmov: 1,
