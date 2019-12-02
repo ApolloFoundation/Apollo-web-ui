@@ -26,8 +26,8 @@ const TransactionItem = (props) => {
     const senderRS = (props.senderRS && props.senderRS === props.accountRS) ? 'You' : props.senderRS;
     const recipientRS = (props.recipientRS && props.recipientRS === props.accountRS) ? 'You' : props.recipientRS;
     const transactionType = props.constants.transactionTypes && formatTransactionType(props.constants.transactionTypes[props.type].subtypes[props.subtype].name);
-    console.log(props);
-    
+    const marketplaceTypes = ['DIGITAL GOODS DELISTING', 'DIGITAL GOODS PURCHASE', 'DIGITAL GOODS PRICE CHANGE', 'DIGITAL GOODS LISTING', 'DIGITAL GOODS QUANTITY CHANGE'];
+
     return (
         <div
             className="transaction-item cursor-pointer"
@@ -78,7 +78,7 @@ const TransactionItem = (props) => {
                                 ) / ONE_APL
                             )}`
                         }
-                        <div className={'transaction-confirmation fee'}>fee: 2</div>
+                        {marketplaceTypes.includes(transactionType) && <div className={'transaction-confirmation fee'}>fee: {props.feeATM / ONE_APL}</div>}
                     </div>
                 </div>
                 <div className={'transaction-rs-wrap d-flex justify-content-between align-items-center'}>
