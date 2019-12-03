@@ -19,11 +19,10 @@ export default class ExchangeSwitch extends React.Component {
     render() {
         const {currency, currencies, switchCurrency, wallet, handleLoginModal} = this.props;
         return (
-
-            <div className={'currency-switch-wrap'}>
+            <div className={'currency-switch-wrap chart-currency'}>
                 {/* <img src={EthIcon} alt="ETH"/> */}
                 <p className={'title-lg'}>
-                    APL/{currency.toUpperCase()}
+                    {currency.toUpperCase()}
                     <div
                         className={'currency-switch'}
                         onClick={this.handleOpenSwitch}

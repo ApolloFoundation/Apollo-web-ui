@@ -403,6 +403,11 @@
 					transition: 0.3s;
 					white-space: nowrap;
 
+					&.plot {
+						border-color: #fff;
+						color: #fff;
+					}
+
 					&:hover {
 						opacity: 0.8;
 					}
