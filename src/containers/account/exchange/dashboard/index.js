@@ -16,7 +16,8 @@ import {
     getMyOpenOffers,
     getPlotBuyOpenOffers,
     getPlotSellOpenOffers,
-    getSellOpenOffers
+    getSellOpenOffers,
+    getMyTradeHistory,
 } from "../../../../actions/wallet";
 import Orderbook from "./orderbook";
 import TradeApollo from "./trade-apollo";
@@ -38,6 +39,7 @@ class Exchange extends React.Component {
         this.props.getBuyOpenOffers();
         this.props.getSellOpenOffers();
         this.props.getPlotBuyOpenOffers();
+        this.props.getMyTradeHistory();
         this.props.getPlotSellOpenOffers();
         this.props.getMyOpenOffers();
     }
@@ -70,12 +72,13 @@ class Exchange extends React.Component {
 
     switchCurrency = (currency) => {
         this.props.resetTrade();
+        this.props.setCurrentCurrency(currency);
         this.props.getBuyOpenOffers(currency);
         this.props.getSellOpenOffers(currency);
         this.props.getPlotBuyOpenOffers(currency);
         this.props.getPlotSellOpenOffers(currency);
+        this.props.getMyTradeHistory();
         this.props.getMyOpenOffers(currency);
-        this.props.setCurrentCurrency(currency);
     };
 
     render() {
@@ -184,6 +187,7 @@ const mapDispatchToProps = dispatch => ({
     getPlotBuyOpenOffers: (currency) => dispatch(getPlotBuyOpenOffers(currency)),
     getPlotSellOpenOffers: (currency) => dispatch(getPlotSellOpenOffers(currency)),
     getMyOpenOffers: (currency) => dispatch(getMyOpenOffers(currency)),
+    getMyTradeHistory: () => dispatch(getMyTradeHistory()),
     resetTrade: () => dispatch(resetTrade()),
 });
 

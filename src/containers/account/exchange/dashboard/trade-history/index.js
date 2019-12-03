@@ -43,7 +43,7 @@ class TradeHistoryExchange extends React.Component {
                             Trade history
                         </Link>
                     </div>
-                    {myTradeHistory
+                    {myTradeHistory[currency]
                     ? <CustomTable
                         header={[
                             {

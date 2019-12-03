@@ -106,7 +106,7 @@ export default (state = initState, {type, payload}) => {
                 ...state,
                 myTradeHistory: {
                     ...state.myTradeHistory,
-                    [payload.currency]: payload.orders,
+                    [payload.currency]: payload.orders || [],
                 }
             };
         default:
