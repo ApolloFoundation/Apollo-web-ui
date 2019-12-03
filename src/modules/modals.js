@@ -20,6 +20,8 @@ export const SET_SELECTED_SELL_ORDER_INFO = 'SET_SELECTED_SELL_ORDER_INFO';
 export const SET_TYPE_OF_TRADE = 'SET_TYPE_OF_TRADE';
 export const RESET_TRADE_OFFER = 'RESET_TRADE_OFFER';
 
+export const SET_TYPE_AMOUNT_OF_CHART = 'SET_TYPE_AMOUNT_OF_CHART';
+
 export const SET_AMOUNT_WARNING = 'SET_AMOUNT_WARNING';
 export const SET_FEE_WARNING = 'SET_FEE_WARNING';
 export const SET_ASSET_WARNING = 'SET_ASSET_WARNING';
@@ -53,7 +55,8 @@ const initialState = {
     modalsHistory: [],
     infoSelectedBuyOrder : null,
     infoSelectedSellOrder: null,
-    typeOfTrade: 'BUY'
+    typeOfTrade: 'BUY',
+    typeAmountOfChart: 'BUY',
 };
 
 export default (state = initialState, action) => {
@@ -190,6 +193,11 @@ export default (state = initialState, action) => {
                 typeOfTrade: action.payload
             };
 
+        case SET_TYPE_AMOUNT_OF_CHART: 
+            return {
+                ...state,
+                typeAmountOfChart: action.payload
+            };
         case RESET_TRADE_OFFER: 
             return {
                 ...state,
@@ -226,6 +234,13 @@ export const setSelectedOrderInfo = (stateValues) => dispatch => {
 export const setTypeOfTrade = (stateValues) => dispatch => {
     dispatch({
 		type: SET_TYPE_OF_TRADE,
+		payload: stateValues
+        })
+};
+
+export const setTypeAmountOfChart = (stateValues) => dispatch => {
+    dispatch({
+		type: SET_TYPE_AMOUNT_OF_CHART,
 		payload: stateValues
         })
 };

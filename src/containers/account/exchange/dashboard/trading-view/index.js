@@ -28,29 +28,31 @@ class TVChartContainer extends React.PureComponent {
 	}
 
 	componentDidUpdate(props,state) {
-		if(props.currency !== this.props.currency) {
+		if(props.currency !== this.props.currency || props.typeAmountOfChart !== this.props.typeAmountOfChart) {
 			this.createTVChart();
 		}
 	}
 
 	createTVChart = () => {
+		const {interval, containerId, libraryPath, clientId, userId, fullscreen, autosize, studiesOverrides, typeAmountOfChart, currency } = this.props;
+		const currencyUnit = currency.toUpperCase();
 		const widgetOptions = {
 			debug: false,
-			symbol: `Coinbase:APL/${this.props.currency.toUpperCase()}`,
+			symbol: `Coinbase:${typeAmountOfChart === 'BUY' ? `APL/${currencyUnit}` : `${currencyUnit}/APL`}`,
 			datafeed: Datafeed,
-			interval: this.props.interval,
-			container_id: this.props.containerId,
-			library_path: this.props.libraryPath,
+			interval: interval,
+			container_id: containerId,
+			library_path: libraryPath,
 			timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
 			// toolbar_bg: '#fff',
 			locale: getLanguageFromURL() || 'en',
 			disabled_features: ['scales_context_menu', 'context_menus', 'volume_force_overlay', 'use_localstorage_for_settings', 'timeframes_toolbar', 'scales_context_menu', 'header_chart_type', 'header_symbol_search', 'header_compare', 'header_undo_redo', 'header_saveload', 'header_screenshot'],
 			enabled_features: ['hide_left_toolbar_by_default', 'hide_last_na_study_output'],
-			client_id: this.props.clientId,
-			user_id: this.props.userId,
-			fullscreen: this.props.fullscreen,
-			autosize: this.props.autosize,
-			studies_overrides: this.props.studiesOverrides,
+			client_id: clientId,
+			user_id: userId,
+			fullscreen: fullscreen,
+			autosize: autosize,
+			studies_overrides: studiesOverrides,
 			overrides: {
 				// "mainSeriesProperties.showCountdown": true,
 				"paneProperties.background": "#fff",
@@ -78,6 +80,8 @@ class TVChartContainer extends React.PureComponent {
 	}
 
 	render() {
+		console.log(this.props.typeAmountOfChart);
+		
 		return (
 			<div
 				id={ this.props.containerId }
@@ -87,7 +91,8 @@ class TVChartContainer extends React.PureComponent {
 	}
 }
 
-const mapStateToProps = ({exchange}) => ({
+const mapStateToProps = ({exchange, modals}) => ({
+    typeAmountOfChart: modals.typeAmountOfChart,
     currency: exchange.currentCurrency.currency,
 });
 

@@ -178,6 +178,9 @@
 			display: flex;
 			flex-direction: column;
 
+			&.reverse{
+				height: auto;
+			}
 			p {
 				color: #3D5A7E;
 				font-size: 11px;
