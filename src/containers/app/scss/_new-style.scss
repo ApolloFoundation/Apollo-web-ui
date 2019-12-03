@@ -263,6 +263,10 @@
 					color: #93A9C3;
 					font-size: 9px;
 					letter-spacing: -0.25px;
+					
+					&.fee {
+						text-align: right;
+					}
 				}
 
 				.transaction-amount {
