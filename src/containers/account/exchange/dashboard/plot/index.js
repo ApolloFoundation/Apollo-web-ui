@@ -24,16 +24,16 @@ class Plot extends React.Component {
                         <div className='card-body reverse'>
                             <div className={'tabs-wrap'}>
                                 <div
-                                    className={`tab-item ${typeAmountOfChart === 'BUY' ? 'active' : ''} plot`}
+                                    className={`tab-item ${typeAmountOfChart === 'BUY' ? 'active' : ''}`}
                                     onClick={() => this.props.setTypeAmountOfChart('BUY')}
                                 >
-                                    APL/{currency}
+                                    BUY
                                 </div>
                                 <div
-                                    className={`tab-item ${typeAmountOfChart === 'SELL' ? 'active' : ''} plot`}
+                                    className={`tab-item ${typeAmountOfChart === 'SELL' ? 'active' : ''}`}
                                     onClick={() => this.props.setTypeAmountOfChart('SELL')}
                                 >
-                                    {currency}/APL
+                                    SELL
                                 </div>
                             </div>
                         </div>
