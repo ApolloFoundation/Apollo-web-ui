@@ -133,7 +133,7 @@ class OrderHistory extends React.Component {
                                     const statusName = this.statusOfOrder(props.status);
                                     const typeName = props.type ? 'SELL' : 'BUY'
                                     const pairRate = formatDivision(props.pairRate, ONE_GWEI, 9);
-                                    const offerAmount = formatDivision(props.offerAmount, ONE_GWEI, 3);
+                                    const offerAmount = formatDivision(props.offerAmount, ONE_GWEI, 9);
                                     const total = formatDivision(props.pairRate * props.offerAmount, Math.pow(10, 18), 9);
                                     const currency = props.pairCurrency;
                                     const type = Object.keys(currencyTypes).find(key => currencyTypes[key] === currency);
