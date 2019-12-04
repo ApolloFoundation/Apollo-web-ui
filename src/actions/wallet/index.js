@@ -233,8 +233,7 @@ export const getAllMyOpenOffers = (currency, options) => async (dispatch, getSta
     };
 
     const openOrders = await dispatch(getOpenOrders(paramsOpenOrder));
-    const orders = openOrders ? [...openOrders].sort((a, b) => b.finishTime - a.finishTime)
-    : [];
+    const orders = openOrders ? [...openOrders].sort((a, b) => b.finishTime - a.finishTime) : [];
     dispatch(setMyOrdersAction(currency, orders));
 };
 
@@ -248,11 +247,10 @@ export const getMyTradeHistory = (currency, options) => async (dispatch, getStat
         ...options
     };
 
-    const currentParamsOpenOrder = currentCurrency ? {...paramsOpenOrder, pairCurrency: currencyTypes[currency]} : paramsOpenOrder;
+    const currentParamsOpenOrder = currentCurrency ? {...paramsOpenOrder, pairCurrency: currencyTypes[currentCurrency]} : paramsOpenOrder;
 
     const openOrders = await dispatch(getOpenOrders(currentParamsOpenOrder));
-    const orders = openOrders ? [...openOrders].sort((a, b) => b.finishTime - a.finishTime)
-    : [];
+    const orders = openOrders ? [...openOrders].sort((a, b) => b.finishTime - a.finishTime) : [];
     dispatch(setMyTradeHistoryAction(currentCurrency || 'allTrades', orders));
 };
 
