@@ -6,6 +6,8 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
+import {Form, Text} from 'react-form';
+import {Link} from 'react-router-dom';
 import {
     getAccountTaggedDataAction,
     getAllTaggedDataAction,
@@ -16,9 +18,7 @@ import {getTransactionAction} from '../../../actions/transactions/index';
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import SiteHeader from '../../components/site-header';
 import DataStorageItem from "./datastorage-item";
-import {Form, Text} from 'react-form';
 import classNames from 'classnames';
-import {Link} from 'react-router-dom';
 
 import CustomTable from '../../components/tables/table';
 

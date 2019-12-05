@@ -4,7 +4,7 @@ import SiteHeader from '../../../components/site-header';
 import CustomTable from '../../../components/tables/table';
 import {setCurrentCurrencyAction} from '../../../../modules/exchange';
 import {setBodyModalParamsAction} from '../../../../modules/modals';
-import {getAllMyOpenOffers} from '../../../../actions/wallet';
+import {getMyTradeHistory} from '../../../../actions/wallet';
 import {formatDivision, currencyTypes} from '../../../../helpers/format';
 import {ONE_GWEI} from '../../../../constants';
 import {BlockUpdater} from "../../../block-subscriber";
@@ -23,7 +23,7 @@ class TradeHistory extends React.Component {
         if (!wallets) {
             this.props.setBodyModalParamsAction('LOGIN_EXCHANGE', {});
         } else {
-            this.props.getAllMyOpenOffers(null, {
+            this.props.getMyTradeHistory(null, {
                 firstIndex: this.state.firstIndex,
                 lastIndex: this.state.lastIndex
             });
@@ -38,12 +38,12 @@ class TradeHistory extends React.Component {
 
     componentDidUpdate() {
         if (this.props.wallets && this.state.loading) {
-            this.props.getAllMyOpenOffers(null, {
+            this.props.getMyTradeHistory(null, {
                 firstIndex: this.state.firstIndex,
                 lastIndex: this.state.lastIndex
             });
             this.setState({loading: false});
-        };
+        }
     };
 
     handleSelectOrder = (data) => {
@@ -55,7 +55,7 @@ class TradeHistory extends React.Component {
     };
 
     listener = () => {
-        this.props.getAllMyOpenOffers(null, {
+        this.props.getMyTradeHistory(null, {
             firstIndex: this.state.firstIndex,
             lastIndex: this.state.lastIndex
         });
@@ -67,7 +67,7 @@ class TradeHistory extends React.Component {
             firstIndex: page * 15 - 15,
             lastIndex:  page * 15
         }, () => {
-            this.props.getAllMyOpenOffers(null, {
+            this.props.getMyTradeHistory(null, {
                 firstIndex: this.state.firstIndex,
                 lastIndex: this.state.lastIndex
             });
@@ -88,7 +88,7 @@ class TradeHistory extends React.Component {
     };
 
     render() {
-        const {myOrders, currentCurrency : {currency}} = this.props;
+        const {myTradeHistory, currentCurrency : {currency}} = this.props;
         return (
             <div className="page-content">
                 <SiteHeader
@@ -100,7 +100,7 @@ class TradeHistory extends React.Component {
                         <div className={'form-title form-title-lg d-flex flex-column justify-content-between'}>
                             <p className="title-lg">My trades</p>
                         </div>
-                            {!myOrders.length
+                            {myTradeHistory['allTrades']
                             ?   <CustomTable
                                     header={[
                                         {
@@ -129,25 +129,25 @@ class TradeHistory extends React.Component {
                                     className={'no-min-height transparent'}
                                     emptyMessage={'No created orders.'}
                                     defaultRowCount={15}
-                                    tableData={myOrders[currency]}
+                                    tableData={myTradeHistory['allTrades']}
                                     TableRowComponent={(props) => {
                                         const statusName = this.statusOfOrder(props.status);
-                                        const typeName = props.type === 0 ? 'BUY' : 'SELL';
+                                        const typeName = props.type ? 'SELL' : 'BUY';
                                         const pairRate = formatDivision(props.pairRate, ONE_GWEI, 9);
-                                        const offerAmount = formatDivision(props.offerAmount, ONE_GWEI, 3);
+                                        const offerAmount = formatDivision(props.offerAmount, ONE_GWEI, 9);
                                         const total = formatDivision(props.pairRate * props.offerAmount, Math.pow(10, 18), 9);
                                         const currency = props.pairCurrency;
                                         const type = Object.keys(currencyTypes).find(key => currencyTypes[key] === currency);
                                         return (
                                             <tr style={{cursor: 'pointer'}} onClick={() => this.handleSelectOrder({pairRate, offerAmount, total, currency, typeName, statusName})}>
                                                 <td>APL/{type.toUpperCase()}</td>
-                                                <td>{props.type === 0 ? 'BUY' : 'SELL'}</td>
-                                                <td className={`${props.type === 1 ? 'red-text' : 'green-text'}`}>{pairRate}</td>
+                                                <td>{props.type ? 'SELL' : 'BUY'}</td>
+                                                <td className={`${props.type ? 'red-text' : 'green-text'}`}>{pairRate}</td>
                                                 <td>{offerAmount}</td>
                                                 <td>{total}</td>
-                                                <td className={`${props.status !== 0 ?'red-text' : ''}`}>{statusName}</td>
+                                                <td className={`${props.status ? 'red-text' : ''}`}>{statusName}</td>
                                                 <td className={'align-right'}>
-                                                    {props.status === 0 && (
+                                                    {!props.status && (
                                                         <button
                                                             type={'button'}
                                                             className="btn btn-sm"
@@ -199,11 +199,11 @@ class TradeHistory extends React.Component {
 const mapStateToProps = ({exchange, account}) => ({
     wallets: account.wallets,
     currentCurrency: exchange.currentCurrency,
-    myOrders: exchange.myOrders
+    myTradeHistory: exchange.myTradeHistory
 });
 
 const mapDispatchToProps = dispatch => ({
-    getAllMyOpenOffers: (currency, options) => dispatch(getAllMyOpenOffers(currency, options)),
+    getMyTradeHistory: (currency, options) => dispatch(getMyTradeHistory(currency, options)),
     setBodyModalParamsAction: (type, value) => dispatch(setBodyModalParamsAction(type, value)),
     setCurrentCurrency: (currency) => dispatch(setCurrentCurrencyAction(currency)),
 });

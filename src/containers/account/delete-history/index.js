@@ -5,14 +5,14 @@
 
 
 import React from 'react';
-import SiteHeader from '../../components/site-header'
-import uuid from "uuid";
 import { connect } from "react-redux";
 import { getDeleteHistory } from "../../../actions/delete-history";
-import DeleteItem from "./deletes";
 import { BlockUpdater } from "../../block-subscriber";
-import ContentHendler from '../../components/content-hendler'
 import classNames from 'classnames';
+import uuid from "uuid";
+import DeleteItem from "./deletes";
+import SiteHeader from '../../components/site-header'
+import ContentHendler from '../../components/content-hendler'
 
 import CustomTable from '../../components/tables/table';
 

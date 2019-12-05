@@ -54,7 +54,7 @@ class Sidebar extends React.Component {
 	};
 
 	handleMenuTouchOut = (event) => {
-		if (this.menuRef && !this.menuRef.contains(event.target) &&
+		if (this.menuRef && this.menuRef.contains && !this.menuRef.contains(event.target) &&
 			this.submenuRef && !this.submenuRef.contains(event.target)) {
 			this.setState({
 				isHover: false

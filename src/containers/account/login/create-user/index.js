@@ -277,7 +277,7 @@ class CreateUser extends React.Component {
                                                                 <p className={'mb-3'}>
                                                                     Account ID:
                                                                     <span
-                                                                        className={'itatic'}>{this.state.accountData.accountRS}</span>
+                                                                        className={'itatic notranslate'}>{this.state.accountData.accountRS}</span>
                                                                 </p>
                                                                 <p className={'mb-3'}>
                                                                     Your {!this.state.isCustomPassphraseTextarea && 'randomly generated'} secret
@@ -286,12 +286,12 @@ class CreateUser extends React.Component {
                                                                 <p className={'mb-3'}>
                                                                     Secret Phrase:
                                                                     <span
-                                                                        className={'itatic'}>{this.state.accountData.passphrase}</span>
+                                                                        className={'itatic notranslate'}>{this.state.accountData.passphrase}</span>
                                                                 </p>
                                                                 <p className={'mb-3'}>
                                                                     Public Key:
                                                                     <span
-                                                                        className={'itatic word-brake-for-info'}>{this.state.accountData.publicKey}</span>
+                                                                        className={'itatic word-brake-for-info notranslate'}>{this.state.accountData.publicKey}</span>
                                                                 </p>
                                                                 <CopyToClipboard
                                                                     text={

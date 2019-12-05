@@ -5,9 +5,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {
-    setBodyModalParamsAction, 
-} from '../../../modules/modals';
+import {setBodyModalParamsAction} from '../../../modules/modals';
 import submitForm from "../../../helpers/forms/forms";
 
 // Form components
@@ -30,7 +28,8 @@ class SendApollo extends React.Component {
 			passphraseStatus: false,
 			recipientStatus: false,
 			amountStatus: false,
-			feeStatus: false
+			feeStatus: false,
+			// alias: null,
 		};
 	}
 
@@ -50,6 +49,10 @@ class SendApollo extends React.Component {
 		if (values.phasingFinishHeight) {
 			values.phased = true;
 		}
+
+		// if (values.alias && this.state.alias && !values.recipient) {
+		// 	values.recipient = this.state.alias;
+		// }
 
 		this.setState({
 			isPending: true
@@ -77,6 +80,7 @@ class SendApollo extends React.Component {
 		});
 	}
 
+	// handelChangeAlias = ({value}) => {this.setState({alias: value})}
 
 	render() {
 		return (
@@ -90,7 +94,8 @@ class SendApollo extends React.Component {
 				idGroup={'send-money-modal-'}
 			>
 
-				<SendApolloForm/>
+				<SendApolloForm />
+				{/* <SendApolloForm onChangeAlias={this.handelChangeAlias} /> */}
 
 			</ModalBody>
 			
