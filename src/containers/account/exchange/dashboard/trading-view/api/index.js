@@ -29,7 +29,7 @@ export default {
 			ticker: symbolName,
 			exchange: split_data[0],
 			minmov: 1,
-			pricescale: 100000000,
+			pricescale: 1000000000,
 			has_intraday: true,
 			intraday_multipliers: ['1', '60'],
 			supported_resolution:  supportedResolutions,
@@ -38,7 +38,7 @@ export default {
 		}
 
 		if (split_data[2].match(/APL|ETH|PAX/)) {
-			symbol_stub.pricescale = 100
+			symbol_stub.pricescale = 1000000000
 		}
 		setTimeout(function() {
 			onSymbolResolvedCallback(symbol_stub)

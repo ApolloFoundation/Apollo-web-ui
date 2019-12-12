@@ -1,13 +1,15 @@
+import config from '../../../../../../config'
+
 var rp = require('request-promise').defaults({json: true})
 
-const api_root = 'https://min-api.cryptocompare.com'
+const api_root = config.api.server
 const history = {}
 
 export default {
 	history: history,
     getBars: function(symbolInfo, resolution, from, to, first, limit) {
 		var split_symbol = symbolInfo.name.split(/[:/]/)
-			const url = resolution === 'D' || resolution === '1D' ? '/data/histoday' : resolution >= 60 ? '/data/histohour' : '/data/histominute'
+			const url = resolution === 'D' || resolution === '1D' ? '/rest/dex/histoday' : resolution >= 60 ? '/rest/dex/histohour' : '/rest/dex/histominute'
 			const qs = {
 					e: split_symbol[0],
 					fsym: split_symbol[1],
