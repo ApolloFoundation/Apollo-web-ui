@@ -15,7 +15,8 @@ import {
     setPlotSellOrdersAction,
     setMyOrdersAction,
     setMyTradeHistoryAction,
-    setMyOrderHistoryAction
+    setMyOrderHistoryAction,
+    setContractStatus
 } from "../../modules/exchange";
 import {handleFetch, GET, POST} from "../../helpers/fetch";
 import {currencyTypes} from "../../helpers/format";
@@ -34,6 +35,24 @@ export function getWallets(requestParams) {
             })
             .catch(() => {
                 NotificationManager.error('Secret Phrase is incorrect or you not in Vault Wallet.', 'Error', 5000);
+            })
+    }
+}
+
+export function getContractStatus(requestParams) {
+    return (dispatch, getState) => {
+        const {account} = getState().account;
+        return handleFetch(`${config.api.server}/rest/dex/contracts`, GET, {...requestParams, accountId: account})
+            .then((res) => {
+                if (!res.errorCode) {
+                    dispatch(setContractStatus(res))
+                    return res;
+                } else {
+                    NotificationManager.error(res.errorDescription, 'Error', 5000);
+                }
+            })
+            .catch(() => {
+
             })
     }
 }
