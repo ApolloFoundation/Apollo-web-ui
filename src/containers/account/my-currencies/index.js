@@ -52,7 +52,7 @@ class MyMadedCurrencies extends React.Component {
         trades: null,
         page: 1,
         firstIndex: 0,
-        lastIndex: 14,
+        lastIndex: 15,
     };
 
     componentWillMount() {
@@ -97,7 +97,7 @@ class MyMadedCurrencies extends React.Component {
             page: page,
             account: this.props.account,
             firstIndex: page * 15 - 15,
-            lastIndex:  page * 15 - 1
+            lastIndex:  page * 15
         };
 
         this.setState(reqParams, () => {
@@ -166,6 +166,7 @@ class MyMadedCurrencies extends React.Component {
                         emptyMessage={'No currencies found.'}
                         previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
                         nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
+                        itemsPerPage={15}
                     />
                 </div>
             </div>

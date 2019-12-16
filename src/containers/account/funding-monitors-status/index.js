@@ -34,7 +34,7 @@ class FundingMonitorsStatus extends React.Component {
     state = {
         properties: null,
         firstIndex: 0,
-        lastIndex: 14,
+        lastIndex: 15,
         page: 1,
         recipientRS: null,
         setterRS: null,

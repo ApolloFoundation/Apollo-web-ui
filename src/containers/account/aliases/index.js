@@ -21,7 +21,7 @@ class Aliases extends React.Component {
         this.state = {
             aliases: null,
             firstIndex: 0,
-            lastIndex: 14,
+            lastIndex: 15,
             page: 1
         };
 
@@ -76,7 +76,7 @@ class Aliases extends React.Component {
             page: page,
             account: this.props.account,
             firstIndex: page * 15 - 15,
-            lastIndex:  page * 15 - 1
+            lastIndex:  page * 15
         }, () => {
             this.getAliases({
                 account: this.props.account,
@@ -149,6 +149,7 @@ class Aliases extends React.Component {
                         nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
                         className={'no-min-height mb-3'}
                         emptyMessage={'No aliases found.'}
+                        itemsPerPage={15}
                     />        
                 </div>
             </div>
