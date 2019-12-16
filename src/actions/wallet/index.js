@@ -16,7 +16,8 @@ import {
     setMyOrdersAction,
     setMyTradeHistoryAction,
     setMyOrderHistoryAction,
-    setContractStatus
+    setContractStatus,
+    setAllContractStatus,
 } from "../../modules/exchange";
 import {handleFetch, GET, POST} from "../../helpers/fetch";
 import {currencyTypes} from "../../helpers/format";
@@ -46,6 +47,24 @@ export function getContractStatus(requestParams) {
             .then((res) => {
                 if (!res.errorCode) {
                     dispatch(setContractStatus(res))
+                    return res;
+                } else {
+                    NotificationManager.error(res.errorDescription, 'Error', 5000);
+                }
+            })
+            .catch(() => {
+
+            })
+    }
+}
+
+export function getAllContractStatus(requestParams) {
+    return (dispatch, getState) => {
+        const {account} = getState().account;
+        return handleFetch(`${config.api.server}/rest/dex/all-contracts`, GET, {...requestParams, accountId: account})
+            .then((res) => {
+                if (!res.errorCode) {
+                    dispatch(setAllContractStatus(res))
                     return res;
                 } else {
                     NotificationManager.error(res.errorDescription, 'Error', 5000);

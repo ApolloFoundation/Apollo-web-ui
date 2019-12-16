@@ -12,6 +12,7 @@ export const SET_MY_ORDERS = "SET_MY_ORDERS";
 export const SET_MY_TRADE_HISTORY = "SET_MY_TRADE_HISTORY";
 export const SET_MY_ORDER_HISTORY = "SET_MY_ORDER_HISTORY";
 export const SET_CONTRACT_STATUS = "SET_CONTRACT_STATUS";
+export const SET_ALL_CONTRACT_STATUS = "SET_ALL_CONTRACT_STATUS";
 
 const initState = {
     currencies: ['btc', 'eth', 'pax'],
@@ -38,7 +39,8 @@ const initState = {
     myOrders: {},
     myOrderHistory: {},
     myTradeHistory: {},
-    contractStatus: {},
+    contractStatus: null,
+    allContractStatus: null,
 };
 
 export default (state = initState, {type, payload}) => {
@@ -116,6 +118,12 @@ export default (state = initState, {type, payload}) => {
             return {
                 ...state,
                 contractStatus: payload.statusInfo,
+            };
+
+        case SET_ALL_CONTRACT_STATUS:
+            return {
+                ...state,
+                allContractStatus: payload.allStatusInfo,
             };
         default:
             return state;
@@ -205,6 +213,15 @@ export const setContractStatus = (statusInfo) => dispatch => {
         type: SET_CONTRACT_STATUS,
         payload: {
             statusInfo,
+        }
+    })
+};
+
+export const setAllContractStatus = (allStatusInfo) => dispatch => {
+    dispatch({
+        type: SET_ALL_CONTRACT_STATUS,
+        payload: {
+            allStatusInfo,
         }
     })
 };

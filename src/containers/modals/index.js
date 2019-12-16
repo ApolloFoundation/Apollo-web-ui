@@ -111,7 +111,6 @@ import WithdrawCurrency from './exchange/withdraw-currency';
 import ConfirmCreateOffer from './exchange/confirm-create-offer';
 import ConfirmCancelOrder from './exchange/confirm-cancel-offer';
 import SelectOrder from './exchange/select-order';
-import SelectOrderProgress from './exchange/select-order-progress';
 
 class ModalWindow extends React.Component {
     componentDidMount() {
@@ -310,7 +309,6 @@ class ModalWindow extends React.Component {
                     {this.props.modalType === 'CONFIRM_CREATE_OFFER'        && <ConfirmCreateOffer        closeModal={this.closeModal}/>}
                     {this.props.modalType === 'CONFIRM_CANCEL_ORDER'        && <ConfirmCancelOrder        closeModal={this.closeModal}/>}
                     {this.props.modalType === 'SELECT_ORDER'                && <SelectOrder               closeModal={this.closeModal}/>}
-                    {this.props.modalType === 'SELECT_ORDER_PROGRESS'       && <SelectOrderProgress       closeModal={this.closeModal}/>}
                     {this.props.modalType === 'LOGOUT_EXCHANGE'             && <LogoutExchange            closeModal={this.closeModal}/>}
                 </ModalProvider>
             </div>
