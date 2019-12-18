@@ -2,13 +2,15 @@ import React from 'react';
 import {Form} from 'react-form';
 import {connect} from 'react-redux';
 import {getAllContractStatus, getContractStatus} from '../../../../actions/wallet';
+import {NotificationManager} from "react-notifications";
 import SiteHeader from '../../../components/site-header';
 import TextualInputComponent from '../../../components/form-components/textual-input';
 import SimpleProgressBar from '../../../components/simple-progress-bar/simple-progress-bar';
+import ContractStatusItem from './contract-status-item';
 
 class OrderDetails extends React.Component {
     state = {
-        gg: false,
+        isShowingContractHistory: false,
     };
 
     componentDidMount() {
@@ -16,127 +18,19 @@ class OrderDetails extends React.Component {
         this.props.getAllContractStatus({orderId: this.props.location.state.selectOrderId})
     }
 
-    renderMoreDetails = () => {
-        console.log(this.props);
-        const {account: {accountRS}, selectedContractStatus} = this.props
-        this.renderContractHistory()
-        if (accountRS === selectedContractStatus[0].sender) {
-            return this.renderBasicSenderContractInfo()
+    renderMoreDetails = type => {
+        const {account, selectedContractStatus, allContractStatus} = this.props
+        if (type) {
+            return <ContractStatusItem isShowTime account={account} contract={allContractStatus} />
         } else {
-            return this.renderBasicRecipientContractInfo()
+            return <ContractStatusItem account={account} contract={selectedContractStatus} label={'Contract (Status) details'} />
         }
-    }
-
-    renderBasicSenderContractInfo = () => {
-        const { orderId, counterOrderId, contractStatus , recipient, deadlineToReply, counterTransferTxId } = this.props.selectedContractStatus[0]
-        return (
-            <table>
-                <tbody>
-                    <tr>
-                        <td>Your Order ID:</td>
-                        <td>{orderId}</td>
-                    </tr>
-                    <tr>
-                        <td>Partner Order ID:</td>
-                        <td>{counterOrderId}</td>
-                    </tr>
-                    <tr>
-                        <td>Partner Account:</td>
-                        <td>{recipient}</td>
-                    </tr>
-                    <tr>
-                        <td>Max waiting time:</td>
-                        <td>{deadlineToReply}</td>
-                    </tr>
-                    {(contractStatus === 1 || contractStatus === 2) &&
-                        <tr>
-                            <td>Partner transfer
-                                money transaction:</td>
-                            <td>{counterTransferTxId}</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        )
-    }
-
-    renderContractHistory = () => {
-        const { allContractStatus } = this.props
-        console.log(allContractStatus);
-        
-        return (
-            <>
-                {allContractStatus && allContractStatus.map(i =>
-                    <div className="transaction-table details">
-                        <table>
-                            <tbody>
-                                <tr>
-                                    <td>Chain ID:</td>
-                                    <td>{i.orderId}</td>
-                                </tr>
-                                <tr>
-                                    <td>Chain Name:</td>
-                                    <td>{i.counterOrderId}</td>
-                                </tr>
-                                <tr>
-                                    <td>Project Name:</td>
-                                    <td>{i.sender}</td>
-                                </tr>
-                                <tr>
-                                    <td>Application:</td>
-                                    <td>{i.deadlineToReply}</td>
-                                </tr>
-                                {(i.contractStatus === 1 || i.contractStatus === 2) &&
-                                    <tr>
-                                        <td>Coin symbol:</td>
-                                        <td>{i.counterTransferTxId}</td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                )}
-            </>
-        )
-    }
-
-    renderBasicRecipientContractInfo = () => {
-        const { orderId, counterOrderId , sender, contractStatus, deadlineToReply, counterTransferTxId } = this.props.selectedContractStatus[0]
-        return (
-            <table>
-                <tbody>
-                    <tr>
-                        <td>Chain ID:</td>
-                        <td>{orderId}</td>
-                    </tr>
-                    <tr>
-                        <td>Chain Name:</td>
-                        <td>{counterOrderId}</td>
-                    </tr>
-                    <tr>
-                        <td>Project Name:</td>
-                        <td>{sender}</td>
-                    </tr>
-                    <tr>
-                        <td>Application:</td>
-                        <td>{deadlineToReply}</td>
-                    </tr>
-                    {(contractStatus === 1 || contractStatus === 2) &&
-                        <tr>
-                            <td>Coin symbol:</td>
-                            <td>{counterTransferTxId}</td>
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        )
     }
 
     render() {
         const {typeName, pairRate, offerAmount, total, statusName, type} = this.props.location.state.orderInfo
-        const {selectedContractStatus, allContractStatus} = this.props
-        console.log(allContractStatus);
-        
+        const {selectedContractStatus, allContractStatus, account} = this.props
+        const {isShowingContractHistory} = this.state
         return (
             <div className="page-content">
                 <SiteHeader
@@ -146,27 +40,39 @@ class OrderDetails extends React.Component {
                     <div className="account-settings">
                         <div className="page-settings-item">
                             <div className={'card full-height'}>
-                                <div className="card-title">Order 341235412234 
+                                <div className="card-title">Order {this.props.location.state.selectOrderId}
                                     <button
                                         type={'button'}
                                         className="btn btn-green"
-                                        onClick={() => this.setState({gg: !this.state.gg})}
+                                        onClick={() => {
+                                            if(!allContractStatus) {
+                                                NotificationManager.error('Error', 'Error', 5000);
+                                                return 
+                                            }
+                                            this.setState({isShowingContractHistory: !isShowingContractHistory})
+                                        }}
                                     >
-                                        {this.state.gg ? 'Hide more details' : 'Show more details'}
-                                    </button></div>
+                                        {isShowingContractHistory ? 'Hide more details' : 'Show more details'}
+                                    </button>
+                                </div>
                                 <div className="card-body">
                                     <Form
-                                        render={({submitForm, setValue, values, addValue, removeValue, getFormState}) => (
-                                            <form className="modal-form" onSubmit={submitForm}>
+                                        render={() => (
+                                            <form className="modal-form">
                                                 <div className="form-group-app">
                                                     {/* <div className="form-title">
                                                         <div className="form-sub-title">
                                                             Chosen order information
                                                         </div>
                                                     </div> */}
-                                                    {!this.state.gg
+                                                    {!isShowingContractHistory
                                                         ? <>
-                                                            {selectedContractStatus && <SimpleProgressBar step={selectedContractStatus[0].contractStatus} time={selectedContractStatus[0].deadlineToReply} />}
+                                                            {!!(selectedContractStatus && selectedContractStatus.length) &&
+                                                                <SimpleProgressBar
+                                                                    step={selectedContractStatus[0].contractStatus}
+                                                                    time={selectedContractStatus[0].deadlineToReply}
+                                                                    blockTime={account.timestamp}
+                                                                />}
                                                             <TextualInputComponent
                                                                 field={'current'}
                                                                 label={'Pair Name'}
@@ -209,18 +115,9 @@ class OrderDetails extends React.Component {
                                                                 disabled
                                                                 placeholder={'Status'}
                                                             />
-                                                            {selectedContractStatus &&
-                                                                <>
-                                                                    <label>
-                                                                        Conntract (Status) details
-                                                                    </label>
-                                                                    <div className="transaction-table details">
-                                                                            {this.renderMoreDetails()}
-                                                                    </div>
-                                                                </>
-                                                            }
+                                                            {!!(selectedContractStatus && selectedContractStatus.length) && this.renderMoreDetails()}
                                                         </>
-                                                        : allContractStatus && <>{selectedContractStatus && this.renderContractHistory()}</>
+                                                        : !!(allContractStatus && allContractStatus.length) && this.renderMoreDetails('history')
                                                     }
                                                 </div>
                                             </form>
