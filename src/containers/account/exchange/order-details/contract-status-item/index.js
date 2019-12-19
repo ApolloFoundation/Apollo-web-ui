@@ -108,8 +108,8 @@ class ContractStatusItem extends React.Component {
         const {contracts, label, isContractHistory} = this.props
         return (
             <>
-                {contracts && contracts.map(contract => (
-                    <div className={'contract-item'}>
+                {contracts && contracts.map((contract, key) => (
+                    <div key={key} className={'contract-item'}>
                         <span className={'contract-item__label'}>
                             {label}
                         </span>

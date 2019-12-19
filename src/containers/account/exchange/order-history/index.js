@@ -54,8 +54,6 @@ class OrderHistory extends React.Component {
     };
 
     handleSelectOrder = (data, hasFrozenMoney, selectOrderId) => {
-        // if (hasFrozenMoney) this.props.setBodyModalParamsAction('SELECT_ORDER', data);
-        // this.props.getContractStatus({orderId: selectOrderId, accountId: accId})
         this.props.history.push({
             pathname: '/order-details',
             state: {orderInfo: data, selectOrderId},
@@ -94,8 +92,6 @@ class OrderHistory extends React.Component {
 
     render() {
         const {myOrderHistory, contractStatus} = this.props;
-        console.log(this.props);
-
         return (
             <div className="page-content">
                 <SiteHeader
