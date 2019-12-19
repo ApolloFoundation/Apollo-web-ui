@@ -4,8 +4,8 @@ import SiteHeader from '../../../components/site-header';
 import CustomTable from '../../../components/tables/table';
 import {setCurrentCurrencyAction} from '../../../../modules/exchange';
 import {setBodyModalParamsAction} from '../../../../modules/modals';
-import {getMyOfferHistory} from '../../../../actions/wallet';
-import {currencyTypes, formatDivision} from '../../../../helpers/format';
+import {getMyOfferHistory, getContractStatus} from '../../../../actions/wallet';
+import {formatDivision, currencyTypes} from '../../../../helpers/format';
 import {ONE_GWEI} from '../../../../constants';
 import {BlockUpdater} from "../../../block-subscriber";
 import InfoBox from '../../../components/info-box';
@@ -53,8 +53,11 @@ class OrderHistory extends React.Component {
         });
     };
 
-    handleSelectOrder = (data, hasFrozenMoney) => {
-        if (hasFrozenMoney) this.props.setBodyModalParamsAction('SELECT_ORDER', data);
+    handleSelectOrder = (data, hasFrozenMoney, selectOrderId) => {
+        this.props.history.push({
+            pathname: '/order-details',
+            state: {orderInfo: data, selectOrderId},
+          })
     };
 
     handleCancel = (data) => {
@@ -88,7 +91,7 @@ class OrderHistory extends React.Component {
     };
 
     render() {
-        const {myOrderHistory} = this.props;
+        const {myOrderHistory, contractStatus} = this.props;
         return (
             <div className="page-content">
                 <SiteHeader
@@ -136,9 +139,9 @@ class OrderHistory extends React.Component {
                                     const offerAmount = formatDivision(props.offerAmount, ONE_GWEI, 9);
                                     const total = formatDivision(props.pairRate * props.offerAmount, Math.pow(10, 18), 9);
                                     const currency = props.pairCurrency;
-                                    const type = Object.keys(currencyTypes).find(key => currencyTypes[key] === currency);
+                                    const type = Object.keys(currencyTypes).find(key => currencyTypes[key] === currency).toUpperCase();
                                     let trProps = '';
-                                    if (!props.hasFrozenMoney) {
+                                    if (!props.hasFrozenMoney && props.status === 0) {
                                         trProps = {
                                             'data-custom': true,
                                             'data-custom-at': "top",
@@ -147,16 +150,13 @@ class OrderHistory extends React.Component {
                                     }
                                     return (
                                         <tr
-                                            onClick={() => this.handleSelectOrder({
-                                                pairRate,
-                                                offerAmount,
-                                                total,
-                                                currency,
-                                                typeName,
-                                                statusName
-                                            }, props.hasFrozenMoney)}
-                                            className={props.hasFrozenMoney ? 'history-order-active' : 'history-order-disabled'}
+                                            onClick={() => this.handleSelectOrder(
+                                                    {pairRate, offerAmount, total, currency, typeName, statusName, type},
+                                                    props.hasFrozenMoney,
+                                                    props.id,
+                                                )}
                                             {...trProps}
+                                            className={'history-order-active'}
                                         >
                                             <td>APL/{type.toUpperCase()}</td>
                                             <td>{typeName}</td>
@@ -165,7 +165,7 @@ class OrderHistory extends React.Component {
                                             <td>{total}</td>
                                             <td className={`${props.status ? 'red-text' : ''}`}>{statusName}</td>
                                             <td className={'align-right'}>
-                                                {props.status && props.hasFrozenMoney && (
+                                                {props.status === 0 && (
                                                     <button
                                                         type={'button'}
                                                         className="btn btn-sm"
@@ -213,12 +213,14 @@ const mapStateToProps = ({exchange, account}) => ({
     wallets: account.wallets,
     currentCurrency: exchange.currentCurrency,
     myOrderHistory: exchange.myOrderHistory,
+    contractStatus: exchange.contractStatus,
 });
 
 const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, value) => dispatch(setBodyModalParamsAction(type, value)),
     setCurrentCurrency: (currency) => dispatch(setCurrentCurrencyAction(currency)),
     getMyOfferHistory: (options) => dispatch(getMyOfferHistory(options)),
+    getContractStatus: (options) => dispatch(getContractStatus(options)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrderHistory)
