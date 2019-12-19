@@ -1,4 +1,5 @@
 import React from 'react';
+import {Redirect} from 'react-router-dom'
 import {Form} from 'react-form';
 import {connect} from 'react-redux';
 import {getAllContractStatus, getContractStatus} from '../../../../actions/wallet';
@@ -14,23 +15,34 @@ class OrderDetails extends React.Component {
     };
 
     componentDidMount() {
-        this.props.getContractStatus({orderId: this.props.location.state.selectOrderId})
-        this.props.getAllContractStatus({orderId: this.props.location.state.selectOrderId})
+        if (this.props.location.state) {
+            this.props.getContractStatus({orderId: this.props.location.state.selectOrderId})
+            this.props.getAllContractStatus({orderId: this.props.location.state.selectOrderId})
+        }
     }
 
     renderMoreDetails = type => {
         const {account, selectedContractStatus, allContractStatus} = this.props
         if (type) {
-            return <ContractStatusItem isShowTime account={account} contract={allContractStatus} />
+            return <ContractStatusItem isContractHistory account={account} contracts={allContractStatus} />
         } else {
-            return <ContractStatusItem account={account} contract={selectedContractStatus} label={'Contract (Status) details'} />
+            return <ContractStatusItem account={account} contracts={selectedContractStatus} label={'Contract (Status) details'} />
         }
     }
 
+    handleOpenContractHistory = () => {
+        if(!this.props.allContractStatus) {
+            NotificationManager.error('Error', 'Error', 5000);
+            return
+        }
+        this.setState({isShowingContractHistory: !this.state.isShowingContractHistory})
+    }
+
     render() {
-        const {typeName, pairRate, offerAmount, total, statusName, type} = this.props.location.state.orderInfo
+        const {orderInfo: {typeName, pairRate, offerAmount, total, statusName, type} = {}, selectOrderId} = this.props.location.state || {}
         const {selectedContractStatus, allContractStatus, account} = this.props
         const {isShowingContractHistory} = this.state
+        if (!this.props.location.state) return <Redirect to='/order-history' />
         return (
             <div className="page-content">
                 <SiteHeader
@@ -40,17 +52,11 @@ class OrderDetails extends React.Component {
                     <div className="account-settings">
                         <div className="page-settings-item">
                             <div className={'card full-height'}>
-                                <div className="card-title">Order {this.props.location.state.selectOrderId}
+                                <div className="card-title">Order {selectOrderId}
                                     <button
                                         type={'button'}
                                         className="btn btn-green"
-                                        onClick={() => {
-                                            if(!allContractStatus) {
-                                                NotificationManager.error('Error', 'Error', 5000);
-                                                return 
-                                            }
-                                            this.setState({isShowingContractHistory: !isShowingContractHistory})
-                                        }}
+                                        onClick={this.handleOpenContractHistory}
                                     >
                                         {isShowingContractHistory ? 'Hide more details' : 'Show more details'}
                                     </button>
@@ -60,11 +66,6 @@ class OrderDetails extends React.Component {
                                         render={() => (
                                             <form className="modal-form">
                                                 <div className="form-group-app">
-                                                    {/* <div className="form-title">
-                                                        <div className="form-sub-title">
-                                                            Chosen order information
-                                                        </div>
-                                                    </div> */}
                                                     {!isShowingContractHistory
                                                         ? <>
                                                             {!!(selectedContractStatus && selectedContractStatus.length) &&
@@ -72,6 +73,7 @@ class OrderDetails extends React.Component {
                                                                     step={selectedContractStatus[0].contractStatus}
                                                                     time={selectedContractStatus[0].deadlineToReply}
                                                                     blockTime={account.timestamp}
+                                                                    status={statusName}
                                                                 />}
                                                             <TextualInputComponent
                                                                 field={'current'}
