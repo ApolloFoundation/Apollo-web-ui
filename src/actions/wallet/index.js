@@ -281,7 +281,6 @@ export const getMyTradeHistory = (currency, options) => async (dispatch, getStat
     const paramsOpenOrder = {
         accountId: account,
         status: 5,
-        hasFrozenMoney: true,
         ...options
     };
 

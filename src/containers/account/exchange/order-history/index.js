@@ -145,7 +145,7 @@ class OrderHistory extends React.Component {
                                     const currency = props.pairCurrency;
                                     const type = Object.keys(currencyTypes).find(key => currencyTypes[key] === currency).toUpperCase();
                                     let trProps = '';
-                                    if (!props.hasFrozenMoney) {
+                                    if (!props.hasFrozenMoney && props.status === 0) {
                                         trProps = {
                                             'data-custom': true,
                                             'data-custom-at': "top",
@@ -159,8 +159,8 @@ class OrderHistory extends React.Component {
                                                     props.hasFrozenMoney,
                                                     props.id,
                                                 )}
-                                            className={props.hasFrozenMoney ? 'history-order-active' : 'history-order-disabled'}
                                             {...trProps}
+                                            className={'history-order-active'}
                                         >
                                             <td>APL/{type.toUpperCase()}</td>
                                             <td>{typeName}</td>
@@ -169,7 +169,7 @@ class OrderHistory extends React.Component {
                                             <td>{total}</td>
                                             <td className={`${props.status ? 'red-text' : ''}`}>{statusName}</td>
                                             <td className={'align-right'}>
-                                                {props.status && props.hasFrozenMoney && (
+                                                {props.status === 0 && (
                                                     <button
                                                         type={'button'}
                                                         className="btn btn-sm"
