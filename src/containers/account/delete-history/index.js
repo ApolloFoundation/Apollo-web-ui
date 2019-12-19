@@ -23,7 +23,7 @@ class DeleteHistory extends React.Component {
         page: 1,
         perPage: 15,
         firstIndex: 0,
-        lastIndex: 14,
+        lastIndex: 15,
         loader: false
     };
 
@@ -59,7 +59,7 @@ class DeleteHistory extends React.Component {
         let reqParams = {
             page: page,
             firstIndex: page * 15 - 15,
-            lastIndex: page * 15 - 1
+            lastIndex: page * 15
         };
 
         this.setState(reqParams, () => {
@@ -99,6 +99,7 @@ class DeleteHistory extends React.Component {
                         tableData={deletes}
                         isPaginate={true}
                         emptyMessage={'No asset deletion history available.'}
+                        itemsPerPage={15}
                     />
                 </div>
             </div>

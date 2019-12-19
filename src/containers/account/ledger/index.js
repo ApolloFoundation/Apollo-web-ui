@@ -30,7 +30,7 @@ class Ledger extends React.Component {
         this.state = {
             page: 1,
             firstIndex: 0,
-            lastIndex: 14,
+            lastIndex: 15,
             ledger: null
         };
     }
@@ -101,7 +101,7 @@ class Ledger extends React.Component {
             page: page,
             account: this.props.account,
             firstIndex: page * 15 - 15,
-            lastIndex: page * 15 - 1,
+            lastIndex: page * 15,
             includeHoldingInfo: true,
             ...this.state.passphrase,
         };
@@ -270,6 +270,7 @@ class Ledger extends React.Component {
                                 page={this.state.page}
                                 previousHendler={() => this.onPaginate(this.state.page - 1)}
                                 nextHendler={() => this.onPaginate(this.state.page + 1)}
+                                itemsPerPage={15}
                             />
                         </div>
                     </div>

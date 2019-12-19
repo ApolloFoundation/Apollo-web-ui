@@ -29,7 +29,7 @@ const mapDisatchToProps = dispatch => ({
 const initialPagination = {
     page: 1,
     firstIndex: 0,
-    lastIndex: 14,
+    lastIndex: 15,
 };
 
 class AccountProperties extends React.Component {
@@ -104,7 +104,7 @@ class AccountProperties extends React.Component {
         const pagination = {
             page: page,
             firstIndex: page * 15 - 15,
-            lastIndex: page * 15 - 1
+            lastIndex: page * 15
         };
         this.getAccountPropertiesIncoming(null, pagination);
     };
@@ -155,6 +155,7 @@ class AccountProperties extends React.Component {
                         page={this.state.page}
                         previousHendler={() => this.onPaginate(this.state.page - 1)}
                         nextHendler={() => this.onPaginate(this.state.page + 1)}
+                        itemsPerPage={15}
                     />
                 </div>
             </div>

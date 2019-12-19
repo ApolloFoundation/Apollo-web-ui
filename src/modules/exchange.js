@@ -24,14 +24,14 @@ const initState = {
     buyOrdersPagination: {
         page: 1,
         firstIndex: 0,
-        lastIndex: 14,
+        lastIndex: 15,
     },
 
     sellOrders: {},
     sellOrdersPagination: {
         page: 1,
         firstIndex: 0,
-        lastIndex: 14,
+        lastIndex: 15,
     },
 
     plotBuyOrders: {},

@@ -52,6 +52,7 @@ class BackendStatus extends React.Component {
                             tableData={blockchainStatus.status.tasks}
                             className={'no-min-height mb-3'}
                             emptyMessage={'No tasks found.'}
+                            itemsPerPage={15}
                         />
                     )}
                 </div>

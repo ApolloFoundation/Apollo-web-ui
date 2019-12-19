@@ -107,7 +107,7 @@ class Generators extends React.Component {
                             tableData={this.state.generators}
                             isPaginate
                             page={this.state.page}
-                            className={'no-min-height'}
+                            className={'mb-3'}
                             emptyMessage={'Active generators not yet initialized.'}
                         />
 

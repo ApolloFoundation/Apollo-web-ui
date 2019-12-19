@@ -29,7 +29,7 @@ class Blocks extends React.Component {
 		this.state = {
 			page: 1,
 			firstIndex: 0,
-			lastIndex: 14,
+			lastIndex: 15,
 			blocks: [],
 
 			avgFee: 0,
@@ -122,7 +122,7 @@ class Blocks extends React.Component {
 			page: page,
 			account: this.props.account,
 			firstIndex: page * 15 - 15,
-			lastIndex: page * 15 - 1
+			lastIndex: page * 15
 		}, () => {
 			this.getBlocks({
 				account: this.props.account,
@@ -202,6 +202,7 @@ class Blocks extends React.Component {
 							nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
 							className={'no-min-height mb-3'}
 							emptyMessage={'No blocks found.'}
+							itemsPerPage={15}
 						/>
 					</div>
 				</div>

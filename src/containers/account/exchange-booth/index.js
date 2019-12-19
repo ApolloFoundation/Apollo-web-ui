@@ -48,22 +48,22 @@ class ExchangeBooth extends React.Component {
                 sellOffers: {
                     page: 1,
                     firstIndex: 0,
-                    lastIndex: itemsPerPage - 1,
+                    lastIndex: itemsPerPage,
                 },
                 buyOffers: {
                     page: 1,
                     firstIndex: 0,
-                    lastIndex: itemsPerPage - 1,
+                    lastIndex: itemsPerPage,
                 },
                 exchangeRequest: {
                     page: 1,
                     firstIndex: 0,
-                    lastIndex: itemsPerPage - 1,
+                    lastIndex: itemsPerPage,
                 },
                 executedExchanges: {
                     page: 1,
                     firstIndex: 0,
-                    lastIndex: itemsPerPage - 1,
+                    lastIndex: itemsPerPage,
                 },
             },
             minimumSellRate: null,
@@ -352,7 +352,7 @@ class ExchangeBooth extends React.Component {
         const pagination = {
             page: page,
             firstIndex: page * itemsPerPage - itemsPerPage,
-            lastIndex: page * itemsPerPage - 1
+            lastIndex: page * itemsPerPage
         };
         if (type === 'buyOffers') {
             this.getBuyOffers(this.state.currency.currency, pagination);
