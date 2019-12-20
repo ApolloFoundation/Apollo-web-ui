@@ -843,6 +843,9 @@ function processAjaxRequest(requestType, data, callback, options) {
 
                 });
         }
+        if (requestType === "cancelBidOrder" || requestType === "cancelAskOrder") {
+            delete data.publicKey;
+        }
         return $.ajax({
             url: url,
             crossDomain: true,
