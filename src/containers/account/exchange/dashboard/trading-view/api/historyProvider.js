@@ -1,4 +1,5 @@
 import config from '../../../../../../config'
+import {handleFetch, GET, POST} from "../../../../../../helpers/fetch";
 
 var rp = require('request-promise').defaults({json: true})
 
@@ -18,10 +19,21 @@ export default {
 					limit: limit ? limit : 2000, 
 					// aggregate: 1//resolution 
 				}
-        return rp({
-                url: `${api_root}${url}`,
-                qs,
-            })
+		return handleFetch(`${api_root}${url}`, GET, qs)
+				// .then((res) => {
+				// 	if (!res.errorCode) {
+				// 		return res;
+				// 	} else {
+				// 		NotificationManager.error(res.errorDescription, 'Error', 5000);
+				// 	}
+				// })
+				// .catch(() => {
+	
+				// })
+        // return rp({
+        //         url: `${api_root}${url}`,
+        //         qs,
+        //     })
             .then(data => {
                 console.log({data})
 				if (data.Response && data.Response === 'Error') {
