@@ -1,7 +1,5 @@
 import config from '../../../../../../config'
-import {handleFetch, GET, POST} from "../../../../../../helpers/fetch";
-
-var rp = require('request-promise').defaults({json: true})
+import {handleFetch, GET} from "../../../../../../helpers/fetch";
 
 const api_root = config.api.server
 const history = {}
@@ -20,31 +18,14 @@ export default {
 					// aggregate: 1//resolution 
 				}
 		return handleFetch(`${api_root}${url}`, GET, qs)
-				// .then((res) => {
-				// 	if (!res.errorCode) {
-				// 		return res;
-				// 	} else {
-				// 		NotificationManager.error(res.errorDescription, 'Error', 5000);
-				// 	}
-				// })
-				// .catch(() => {
-	
-				// })
-        // return rp({
-        //         url: `${api_root}${url}`,
-        //         qs,
-        //     })
             .then(data => {
-                console.log({data})
 				if (data.Response && data.Response === 'Error') {
-					console.log('CryptoCompare API error:',data.Message)
 					return []
 				}
 				if (data.Data.length) {
-					console.log(`Actually returned: ${new Date(data.TimeFrom * 1000).toISOString()} - ${new Date(data.TimeTo * 1000).toISOString()}`)
 					var bars = data.Data.map(el => {
 						return {
-							time: el.time * 1000, //TradingView requires bar time in ms
+							time: el.time * 1000,
 							low: el.low,
 							high: el.high,
 							open: el.open,
@@ -61,5 +42,5 @@ export default {
 					return []
 				}
 			})
-}
+	}
 }

@@ -56,9 +56,7 @@ class TVChartContainer extends React.PureComponent {
 				"paneProperties.background": "#fff",
 				"paneProperties.vertGridProperties.color": "#98b0cd",
 				"paneProperties.horzGridProperties.color": "#98b0cd",
-				"mainSeriesProperties.hiloStyle.borderColor": "#98b0cd",
 				"symbolWatermarkProperties.transparency": 90,
-				"mainSeriesProperties.hiloStyle.showLabels": false,
 				"scalesProperties.textColor" : "#98b0cd",
 				"paneProperties.legendProperties.showSeriesTitle": false,
 				"paneProperties.legendProperties.showLegend": false,
@@ -70,9 +68,7 @@ class TVChartContainer extends React.PureComponent {
 		};
 		// window.TradingView.onready(() => {
 			const widget = window.tvWidget = new window.TradingView.widget(widgetOptions);
-
 			widget.onChartReady(() => {
-				console.log('Chart has loaded!')
 			});
 		// });
 	}
