@@ -41,7 +41,7 @@ class MyCurrencytemItem extends Component {
                         </button>
                         <button
                             type={'button'}
-                            onClick={() => setBodyModalParamsAction('OFFER_CURRENCY', {code})}
+                            onClick={() => setBodyModalParamsAction('OFFER_CURRENCY', {code, currency})}
                             className="btn btn-default"
                         >
                             Offer
