@@ -7,23 +7,13 @@
 import React from 'react';
 import SiteHeader from '../../components/site-header'
 import MyCurrencytemItem from './my-currency-item'
-import classNames from "classnames";
-import uuid from "uuid";
 import {connect} from 'react-redux'
-import InfoBox from '../../components/info-box';
-import ContentLoader from '../../components/content-loader'
-
 import {getTradesHistoryAction}   from "../../../actions/assets";
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {getTransactionAction}     from "../../../actions/transactions";
 import {BlockUpdater} from "../../block-subscriber";
-import {
-    getAccountExchangesAction
-} from "../../../actions/exchange-booth";
-
+import {getAccountExchangesAction} from "../../../actions/exchange-booth";
 import {getAccountCurrenciesAction} from '../../../actions/currencies';
-import ContentHendler from '../../components/content-hendler'
-
 import CustomTable from '../../components/tables/table';
 
 
