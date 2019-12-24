@@ -62,6 +62,7 @@ class Assets extends Component {
                         nextHendler={getAssets.bind(this, assetsPage + 1)}
                         className={'no-min-height mb-3'}
                         emptyMessage={'No assets found.'}
+                        itemsPerPage={15}
                     />        
                 </div>
             </div>

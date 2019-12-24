@@ -313,7 +313,7 @@ export const getMessagesPerpage = (reqPrams) => {
         const {account: {account}} = getState();
 
         if (!account) {
-            return handleAcount(getMessagesPerpage, {firstIndex: 0, lastIndex: 14})();
+            return handleAcount(getMessagesPerpage, {firstIndex: 0, lastIndex: 15})();
         }
     
         const messages = await dispatch(getMessages({...reqPrams, account}));

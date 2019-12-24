@@ -39,7 +39,7 @@ class TradeHistory extends React.Component {
         trades: null,
         page: 1,
         firstIndex: 0,
-        lastIndex: 14,
+        lastIndex: 15,
     };
 
     componentWillMount() {
@@ -77,7 +77,7 @@ class TradeHistory extends React.Component {
             page: page,
             account: this.props.account,
             firstIndex: page * 15 - 15,
-            lastIndex:  page * 15 - 1
+            lastIndex:  page * 15
         };
 
         this.setState(reqParams, () => {
@@ -161,6 +161,7 @@ class TradeHistory extends React.Component {
                         tableData={this.state.trades}
                         previousHendler={() => this.onPaginate(this.state.page - 1)}
                         nextHendler={() => this.onPaginate(this.state.page + 1)}
+                        itemsPerPage={15}
                     />
                 </div>
             </div>

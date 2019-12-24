@@ -73,6 +73,7 @@ class BuyOrders extends React.Component {
                 page={pagination.page}
                 previousHendler={this.onPaginate.bind(this, pagination.page - 1)}
                 nextHendler={this.onPaginate.bind(this, pagination.page + 1)}
+                itemsPerPage={15}
             />
         );
     }

@@ -47,6 +47,20 @@ class Orderbook extends React.Component {
                             sellOrders={sellOrders}
                         />
                     )}
+                    {/* {this.state.actionType === 0 && (
+                        <div className={'card card-price'}>
+                            <div className={'card-body'}>
+                                <div className={'price-wrap'}>
+                                    <div>
+                                        <p className={'text-success price text-ellipsis'}>
+                                            <i className="zmdi zmdi-long-arrow-up"/> 0.000017654
+                                        </p>
+                                        <p className={'text-right'}>≈ 0.0019$</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )} */}
                     {(this.state.actionType === 0 || this.state.actionType === 1) && (
                         <BuyOrders
                             currentCurrency={currentCurrency}

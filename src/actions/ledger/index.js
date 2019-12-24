@@ -78,7 +78,10 @@ export const initLedgerPage = () => {
         
         if (!account) {
             setTimeout(() => {
-                return handleAcount(initLedgerPage, {firstIndex: 0, lastIndex: 14})();
+                return handleAcount(initLedgerPage, {
+                    firstIndex: 0,
+                    lastIndex: 15
+                })();
             }, 1000)   
         }
         
@@ -96,9 +99,9 @@ export const initLedgerPage = () => {
             account,
             firstIndex: page * 15 - 15,
             lastIndex: page * 15
-        }
+        };
     
-        const ledger = await dispatch(getAccountLedgerAction(reqParams))
+        const ledger = await dispatch(getAccountLedgerAction(reqParams));
 
         dispatch({
             type: 'SET_LEGDER',
@@ -132,7 +135,7 @@ export const paginateLedger = (page) => {
         const reqParams = {
             account,
             firstIndex: page * 15 - 15,
-            lastIndex: page * 15 - 1
+            lastIndex: page * 15
         }
 
         dispatch(getAccountLedgerPerPage(reqParams))

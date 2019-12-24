@@ -6,26 +6,22 @@ import uuid from 'uuid';
 const CustomTable = (props) => {
 
     const normalizeTableData = () => {
-        const {tableData , defaultRowCount} = props;
+        const {tableData , itemsPerPage} = props;
         let newTableData = [];
-        if(defaultRowCount && tableData && tableData.length) {
-            newTableData = tableData.slice(0, defaultRowCount)
+        if(itemsPerPage && tableData && tableData.length > itemsPerPage) {
+            newTableData = tableData.slice(0, itemsPerPage);
             return newTableData
         } else {
             return tableData
         }
     };
 
-    const isNextDisabled = newTableData => {
-        const {tableData , defaultRowCount, itemsPerPage = 15} = props;
-        if(defaultRowCount) {
-            return !tableData[defaultRowCount]
-        } else {
-            return newTableData.length < itemsPerPage
-        }
-    }
+    const isNextDisabled = () => {
+        const {tableData , itemsPerPage = 15} = props;
+        return tableData.length <= itemsPerPage
+    };
 
-    const {keyField, AboveTabeComponent, actionButton, passProps, hintClassName, className, tableName, emptyMessage, header, TableRowComponent, tableData, isPaginate, previousHendler, nextHendler, page, itemsPerPage = 15} = props;
+    const {AboveTabeComponent, actionButton, passProps, hintClassName, className, tableName, emptyMessage, header, TableRowComponent, tableData, isPaginate, previousHendler, nextHendler, page, itemsPerPage = 15} = props;
     const newTableData = normalizeTableData();
 
     return (
@@ -108,7 +104,7 @@ const CustomTable = (props) => {
                                     </button>
                                     <div className='pagination-nav'>
                                         <span>{page * itemsPerPage  - itemsPerPage + 1}</span>
-                                        <span>&hellip;</span>
+                                        <span> - </span>
                                         <span>{(page * itemsPerPage - itemsPerPage) + newTableData.length}</span>
                                     </div>
                                     <button
