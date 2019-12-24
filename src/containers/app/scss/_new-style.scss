@@ -159,8 +159,11 @@
 		&.card-transactions {
 			height: calc(100vh - 397px);
 			min-height: 586px;
-			@media (min-width: 992px) {
-
+			&.empty {
+				@media (max-width: 767px) {
+					height: 125px;
+					min-height: 125px;
+				}
 			}
 			@media(max-width: 425px) {
 				max-height: 586px;
@@ -260,6 +263,10 @@
 					color: #93A9C3;
 					font-size: 9px;
 					letter-spacing: -0.25px;
+					
+					&.fee {
+						text-align: right;
+					}
 				}
 
 				.transaction-amount {
@@ -326,7 +333,7 @@
 					width: 100%;
 					height: 100%;
 					align-items: center;
-					justify-content: space-evenly;
+					justify-content: space-around;
 				}
 			}
 
@@ -536,6 +543,8 @@
 		position: relative;
 
 		&.btn-white {
+			display: inline-block;
+			vertical-align: middle;
 			border-radius: 2px;
 			background-color: #FFF;
 			box-shadow: none;
@@ -551,6 +560,8 @@
 		.btn-arrow {
 			position: absolute;
 			right: 12px;
+			top: 50%;
+			transform: translate(0, -50%);
 		}
 
 		&.btn-icon {
@@ -602,6 +613,12 @@
 		}
 	}
 
+	.arrow {
+		width: 8px;
+		height: 12px;
+		margin-right: 8px;
+	}
+
 	.table-sm {
 		padding: 0;
 
@@ -614,6 +631,14 @@
 				letter-spacing: -0.3px;
 				line-height: 13px;
 				padding: 6px;
+				min-width: auto;
+
+				&:first-of-type {
+					padding-left: 0;
+				}
+				&:last-of-type {
+					padding-right: 0;
+				}
 			}
 
 			tbody tr {
@@ -627,11 +652,17 @@
 					letter-spacing: -0.4px;
 					line-height: 15px;
 					transition: 0.3s;
+					min-width: auto;
 
 					&:first-of-type {
 						color: #3D5A7E;
 						letter-spacing: -0.04px;
 						font-weight: 500;
+						padding-left: 0;
+					}
+
+					&:last-of-type {
+						padding-right: 0;
 					}
 				}
 			}
@@ -658,12 +689,14 @@
 						border-right: 0;
 						border-top-left-radius: 2px;
 						border-bottom-left-radius: 2px;
+						padding-left: 2px;
 					}
 
 					&:last-of-type {
 						border-left: 0;
 						border-top-right-radius: 2px;
 						border-bottom-right-radius: 2px;
+						padding-right: 2px;
 					}
 				}
 

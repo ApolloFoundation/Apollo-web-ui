@@ -22,7 +22,7 @@ class BackendStatus extends React.Component {
         return (
             <div className="page-content">
                 <SiteHeader
-                    pageTitle={'Backend Status Tasks'}
+                    pageTitle={'Backend Tasks Status'}
                 />
                 <div className="page-body container-fluid">
                     {blockchainStatus && blockchainStatus.status && (

@@ -172,7 +172,7 @@ class MarketplaceTags extends Component {
                     }
                     <button
                         type={'button'}
-                        className="btn btn-green btn-sm"
+                        className="btn btn-green btn-xs m-1"
                         onClick={showMoreController}
                         dangerouslySetInnerHTML={{__html: isShowMore ? 'View less' : 'View more'}}
                     />

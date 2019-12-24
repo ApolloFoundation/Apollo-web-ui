@@ -55,7 +55,7 @@ class CurrentAccount extends React.Component {
     };
 
     render() {
-        const {accountRS, account, publicKey, isActive, setBodyModalParamsAction, history, switchAccountAction, forgingStatus} = this.props;
+        const {accountRS, account, publicKey, isActive, setBodyModalParamsAction, history, switchAccountAction, forgingStatus, closeMenu} = this.props;
 
         return (
             <div
@@ -70,6 +70,9 @@ class CurrentAccount extends React.Component {
                 })}>
                 <div className="form-group-app">
                     <div className="form-title">
+                        <a onClick={() => this.props.closeMenu()} className="exit current-account">
+                            <i className="zmdi zmdi-close"/>
+                        </a>
                         <p>Current account</p>
                     </div>
                     {
