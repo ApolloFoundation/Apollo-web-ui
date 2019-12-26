@@ -44,6 +44,7 @@ export default class TVChartContainer extends React.PureComponent {
 			timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
 			locale: getLanguageFromURL() || 'en',
 			disabled_features: [
+				'use_localstorage_for_settings',
 				'volume_force_overlay',
 				'timeframes_toolbar',
 				'header_chart_type',
@@ -64,7 +65,7 @@ export default class TVChartContainer extends React.PureComponent {
 			overrides: {
 				"scalesProperties.textColor" : "#98b0cd",
 				"paneProperties.legendProperties.showSeriesTitle": false,
-				"paneProperties.legendProperties.showLegend": false,
+				"paneProperties.legendProperties.showLegend": true,
 				"paneProperties.legendProperties.showBarChange": true,
 				"paneProperties.legendProperties.showOnlyPriceSource": true,
 				"paneProperties.background": "#fff",

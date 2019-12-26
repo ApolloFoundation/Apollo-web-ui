@@ -49,7 +49,7 @@ export class HistoryProvider {
 	private readonly _requester: Requester;
 
 	public constructor(datafeedUrl: string, requester: Requester) {
-		this._datafeedUrl = datafeedUrl;
+		this._datafeedUrl = 'http://127.0.0.1:7876';
 		this._requester = requester;
 	}
 
@@ -62,7 +62,7 @@ export class HistoryProvider {
 		};
 
 		return new Promise((resolve: (result: GetBarsResult) => void, reject: (reason: string) => void) => {
-			this._requester.sendRequest<HistoryResponse>(this._datafeedUrl, 'history', requestParams)
+			this._requester.sendRequest<HistoryResponse>(this._datafeedUrl, 'rest/dex/history', requestParams)
 				.then((response: HistoryResponse | UdfErrorResponse) => {
 					if (response.s !== 'ok' && response.s !== 'no_data') {
 						reject(response.errmsg);
