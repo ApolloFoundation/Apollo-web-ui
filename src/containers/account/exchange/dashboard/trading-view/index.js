@@ -23,7 +23,8 @@ export default class TVChartContainer extends React.PureComponent {
 		userId: 'public_user_id',
 		fullscreen: false,
 		autosize: true,
-		studiesOverrides: {},
+		studiesOverrides: {
+		},
 	};
 
 	tvWidget = null;
@@ -42,7 +43,16 @@ export default class TVChartContainer extends React.PureComponent {
 			library_path: this.props.libraryPath,
 			timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
 			locale: getLanguageFromURL() || 'en',
-			disabled_features: ['has_empty_bars', 'scales_context_menu', 'context_menus', 'volume_force_overlay', 'timeframes_toolbar', 'scales_context_menu', 'header_chart_type', 'header_symbol_search', 'header_compare', 'header_undo_redo', 'header_saveload', 'header_screenshot'],
+			disabled_features: [
+				'volume_force_overlay',
+				'timeframes_toolbar',
+				'header_chart_type',
+				'header_symbol_search',
+				'header_compare',
+				'header_undo_redo',
+				'header_saveload',
+				'header_screenshot',
+			],
 			enabled_features: ['hide_left_toolbar_by_default', 'hide_last_na_study_output'],
 			charts_storage_url: this.props.chartsStorageUrl,
 			charts_storage_api_version: this.props.chartsStorageApiVersion,
@@ -51,6 +61,20 @@ export default class TVChartContainer extends React.PureComponent {
 			fullscreen: this.props.fullscreen,
 			autosize: this.props.autosize,
 			studies_overrides: this.props.studiesOverrides,
+			overrides: {
+				"scalesProperties.textColor" : "#98b0cd",
+				"paneProperties.legendProperties.showSeriesTitle": false,
+				"paneProperties.legendProperties.showLegend": false,
+				"paneProperties.legendProperties.showBarChange": true,
+				"paneProperties.legendProperties.showOnlyPriceSource": true,
+				"paneProperties.background": "#fff",
+				"paneProperties.vertGridProperties.color": "#98b0cd",
+				"paneProperties.horzGridProperties.color": "#98b0cd",
+				"symbolWatermarkProperties.transparency": 90,
+				"mainSeriesProperties.hiloStyle.showLabels": true,
+				"mainSeriesProperties.candleStyle.wickUpColor": '#336854',
+				"mainSeriesProperties.candleStyle.wickDownColor": '#7f323f',
+			},
 		};
 		
 		console.log(widgetOptions);
