@@ -30,12 +30,12 @@ export const getAssets = (page) => dispatch => {
     if (!page) {
         reqParams = {
             firstIndex: 0,
-            lastIndex: 14
+            lastIndex: 15
         }
     } else {
         reqParams = {
             firstIndex: page * 15 - 15,
-            lastIndex: page * 14
+            lastIndex: page * 15
         }
     }
 

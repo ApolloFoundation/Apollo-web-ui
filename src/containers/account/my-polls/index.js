@@ -35,7 +35,7 @@ class MyVotes extends React.Component {
 
         this.state = {
             firstIndex: 0,
-            lastIndex: 14,
+            lastIndex: 15,
             page: 1,
             myPolls: null
         };
@@ -77,7 +77,7 @@ class MyVotes extends React.Component {
             page: page,
             account: this.props.account,
             firstIndex: page * 15 - 15,
-            lastIndex:  page * 15 - 1
+            lastIndex:  page * 15
         });
     };
 
@@ -127,6 +127,7 @@ class MyVotes extends React.Component {
                         isPaginate
                         previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
                         nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
+                        itemsPerPage={15}
                     />
                 </div>
             </div>

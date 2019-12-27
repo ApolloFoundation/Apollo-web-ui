@@ -101,17 +101,28 @@
 				flex-direction: column;
 				justify-content: space-between;
 				height: 100%;
+
+				&.row {
+					flex-direction: row;
+
+				}
 			}
 			&.card {
 				.card-content {
 					position: relative;
-					height: calc(100% - 40px);
+					height: calc(100% - 60px);
 					.full-box {
 						margin: auto;
-						height: calc(100% - 40px);
+						// height: calc(100% - 40px);
 						padding: 12px;
 						@media(max-width: 1024px) {
 							height: 200px;
+						}
+						&.chart {
+							padding: 0;
+							@media(max-width: 1024px) {
+								height: 100%;
+							}
 						}
 					}
 					.options-section {
@@ -140,8 +151,8 @@
 					margin-bottom: 0;
 				}
 				&.form-title-lg {
-					height: 80px;
-					min-height: 80px;
+					height: 60px;
+					min-height: 60px;
 					p {
 						font-weight: 400;
 					}
@@ -573,16 +584,21 @@
 
 		.currency-switch-wrap {
 			display: flex;
-			justify-content: center;
-			align-items: center;
+			// justify-content: center;
+			// align-items: center;
 			position: relative;
+			margin-bottom: 10px;
+
+			.title-lg {
+				display: flex;
+			}
 
 			.currency-switch {
-				height: 30px;
+				// height: 30px;
 				width: 30px;
 				border-radius: 0 2px 2px 0;
 				background-color: rgba(255, 255, 255, 0.05);
-				margin: 5px 0 0 12px;
+				// margin: 0px 0 0 0px;
 				display: flex;
 				align-items: center;
 				justify-content: center;

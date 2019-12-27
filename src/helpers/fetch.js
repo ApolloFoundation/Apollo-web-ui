@@ -15,8 +15,12 @@ export const handleFetch = async (url, method, value = null, typeOfRequest) => {
         },
     };
     if (value !== null) {
-        if (value.passphrase) value.passphrase = await processElGamalEncryption(value.passphrase, typeOfRequest);
-        else if (value.secretPhrase) value.secretPhrase = await processElGamalEncryption(value.secretPhrase, typeOfRequest);
+        if (value.passphrase) {
+            value.passphrase = await processElGamalEncryption(value.passphrase, typeOfRequest);
+            delete value.secretPhrase;
+        } else if (value.secretPhrase) {
+            value.secretPhrase = await processElGamalEncryption(value.secretPhrase, typeOfRequest);
+        }
 
         if (method === GET) {
             queryPath += `?${qs.stringify(value)}`;
