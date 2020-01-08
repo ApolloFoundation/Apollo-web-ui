@@ -106,6 +106,10 @@ class OrderHistory extends React.Component {
                             <CustomTable
                                 header={[
                                     {
+                                        name: 'ID',
+                                        alignRight: false
+                                    },
+                                    {
                                         name: 'Pair name',
                                         alignRight: false
                                     }, {
@@ -158,6 +162,7 @@ class OrderHistory extends React.Component {
                                             {...trProps}
                                             className={'history-order-active'}
                                         >
+                                            <td>{props.id}</td>
                                             <td>APL/{type.toUpperCase()}</td>
                                             <td>{typeName}</td>
                                             <td className={`${props.type ? 'red-text' : 'green-text'}`}>{pairRate}</td>

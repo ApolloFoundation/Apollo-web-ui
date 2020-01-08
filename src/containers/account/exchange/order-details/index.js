@@ -31,7 +31,7 @@ class OrderDetails extends React.Component {
     }
 
     handleOpenContractHistory = () => {
-        if(!this.props.allContractStatus) {
+        if(!(this.props.allContractStatus && this.props.allContractStatus.length)) {
             NotificationManager.error('Error', 'Error', 5000);
             return
         }
