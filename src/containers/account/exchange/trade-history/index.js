@@ -104,6 +104,10 @@ class TradeHistory extends React.Component {
                             ?   <CustomTable
                                     header={[
                                         {
+                                            name: 'ID',
+                                            alignRight: false
+                                        },
+                                        {
                                             name: 'Pair name',
                                             alignRight: false
                                         }, {
@@ -140,6 +144,7 @@ class TradeHistory extends React.Component {
                                         const type = Object.keys(currencyTypes).find(key => currencyTypes[key] === currency);
                                         return (
                                             <tr style={{cursor: 'pointer'}} onClick={() => this.handleSelectOrder({pairRate, offerAmount, total, currency, typeName, statusName})}>
+                                                <td>{props.id}</td>
                                                 <td>APL/{type.toUpperCase()}</td>
                                                 <td>{props.type ? 'SELL' : 'BUY'}</td>
                                                 <td className={`${props.type ? 'red-text' : 'green-text'}`}>{pairRate}</td>
