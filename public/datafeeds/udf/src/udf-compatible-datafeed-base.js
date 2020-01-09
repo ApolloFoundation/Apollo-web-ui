@@ -50,9 +50,9 @@ var UDFCompatibleDatafeedBase = /** @class */ (function () {
         return undefined;
     };
     UDFCompatibleDatafeedBase.prototype.getMarks = function (symbolInfo, from, to, onDataCallback, resolution) {
-        if (!this._configuration.supports_marks) {
+        // if (!this._configuration.supports_marks) {
             return;
-        }
+        // }
         var requestParams = {
             symbol: symbolInfo.ticker || '',
             from: from,
@@ -84,9 +84,9 @@ var UDFCompatibleDatafeedBase = /** @class */ (function () {
         });
     };
     UDFCompatibleDatafeedBase.prototype.getTimescaleMarks = function (symbolInfo, from, to, onDataCallback, resolution) {
-        if (!this._configuration.supports_timescale_marks) {
+        // if (!this._configuration.supports_timescale_marks) {
             return;
-        }
+        // }
         var requestParams = {
             symbol: symbolInfo.ticker || '',
             from: from,

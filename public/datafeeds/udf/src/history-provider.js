@@ -1,7 +1,7 @@
 import { getErrorMessage, } from './helpers';
 var HistoryProvider = /** @class */ (function () {
     function HistoryProvider(datafeedUrl, requester) {
-        this._datafeedUrl = 'http://127.0.0.1:7876';
+        this._datafeedUrl = datafeedUrl;
         this._requester = requester;
     }
     HistoryProvider.prototype.getBars = function (symbolInfo, resolution, rangeStartDate, rangeEndDate) {
@@ -13,7 +13,7 @@ var HistoryProvider = /** @class */ (function () {
             to: rangeEndDate,
         };
         return new Promise(function (resolve, reject) {
-            _this._requester.sendRequest(_this._datafeedUrl, 'rest/dex/history', requestParams)
+            _this._requester.sendRequest(_this._datafeedUrl, 'history', requestParams)
                 .then(function (response) {
                 if (response.s !== 'ok' && response.s !== 'no_data') {
                     reject(response.errmsg);

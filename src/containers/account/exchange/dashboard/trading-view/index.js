@@ -53,6 +53,7 @@ export default class TVChartContainer extends React.PureComponent {
 				'header_undo_redo',
 				'header_saveload',
 				'header_screenshot',
+				'display_market_status',
 			],
 			enabled_features: ['hide_left_toolbar_by_default', 'hide_last_na_study_output'],
 			charts_storage_url: this.props.chartsStorageUrl,

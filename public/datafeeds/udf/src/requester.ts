@@ -12,6 +12,10 @@ export class Requester {
 	public sendRequest<T extends UdfResponse>(datafeedUrl: string, urlPath: string, params?: RequestParams): Promise<T | UdfErrorResponse>;
 	public sendRequest<T>(datafeedUrl: string, urlPath: string, params?: RequestParams): Promise<T>;
 	public sendRequest<T>(datafeedUrl: string, urlPath: string, params?: RequestParams): Promise<T> {
+		console.log(urlPath);
+		const urldata = (urlPath === 'history' || urlPath === 'symbols') ? 'http://127.0.0.1:7876' : datafeedUrl
+        const url = (urlPath === 'history' || urlPath === 'symbols') ? '/rest/dex/' : '/'
+        // const gg = urlPath === 'search' ? 'https://demo_feed.tradingview.com/'  : `${datafeedUrl}/rest/dex/`
 		if (params !== undefined) {
 			const paramKeys = Object.keys(params);
 			if (paramKeys.length !== 0) {
@@ -31,8 +35,9 @@ export class Requester {
 		if (this._headers !== undefined) {
 			options.headers = this._headers;
 		}
+        // console.log(urldata + url);
 
-		return fetch(`${datafeedUrl}/${urlPath}`, options)
+		return fetch(`${urldata}${url}${urlPath}`, options)
 			.then((response: Response) => response.text())
 			.then((responseTest: string) => JSON.parse(responseTest));
 	}

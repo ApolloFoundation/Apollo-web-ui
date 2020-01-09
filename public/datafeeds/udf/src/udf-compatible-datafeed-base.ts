@@ -136,9 +136,9 @@ export class UDFCompatibleDatafeedBase implements IExternalDatafeed, IDatafeedQu
 	}
 
 	public getMarks(symbolInfo: LibrarySymbolInfo, from: number, to: number, onDataCallback: GetMarksCallback<Mark>, resolution: ResolutionString): void {
-		if (!this._configuration.supports_marks) {
+		// if (!this._configuration.supports_marks) {
 			return;
-		}
+		// }
 
 		const requestParams: RequestParams = {
 			symbol: symbolInfo.ticker || '',
@@ -175,9 +175,9 @@ export class UDFCompatibleDatafeedBase implements IExternalDatafeed, IDatafeedQu
 	}
 
 	public getTimescaleMarks(symbolInfo: LibrarySymbolInfo, from: number, to: number, onDataCallback: GetMarksCallback<TimescaleMark>, resolution: ResolutionString): void {
-		if (!this._configuration.supports_timescale_marks) {
+		// if (!this._configuration.supports_timescale_marks) {
 			return;
-		}
+		// }
 
 		const requestParams: RequestParams = {
 			symbol: symbolInfo.ticker || '',

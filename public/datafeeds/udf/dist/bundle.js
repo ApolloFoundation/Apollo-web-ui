@@ -52,7 +52,7 @@ function getErrorMessage(error) {
 
 var HistoryProvider = /** @class */ (function () {
     function HistoryProvider(datafeedUrl, requester) {
-        this._datafeedUrl = 'http://127.0.0.1:7876';
+        this._datafeedUrl = datafeedUrl;
         this._requester = requester;
     }
     HistoryProvider.prototype.getBars = function (symbolInfo, resolution, rangeStartDate, rangeEndDate) {
@@ -64,7 +64,7 @@ var HistoryProvider = /** @class */ (function () {
             to: rangeEndDate,
         };
         return new Promise(function (resolve, reject) {
-            _this._requester.sendRequest(_this._datafeedUrl, 'rest/dex/history', requestParams)
+            _this._requester.sendRequest(_this._datafeedUrl, 'history', requestParams)
                 .then(function (response) {
                 if (response.s !== 'ok' && response.s !== 'no_data') {
                     reject(response.errmsg);
@@ -497,9 +497,9 @@ var UDFCompatibleDatafeedBase = /** @class */ (function () {
         return undefined;
     };
     UDFCompatibleDatafeedBase.prototype.getMarks = function (symbolInfo, from, to, onDataCallback, resolution) {
-        if (!this._configuration.supports_marks) {
-            return;
-        }
+        // if (!this._configuration.supports_marks) {
+        return;
+        // }
         var requestParams = {
             symbol: symbolInfo.ticker || '',
             from: from,
@@ -531,9 +531,9 @@ var UDFCompatibleDatafeedBase = /** @class */ (function () {
         });
     };
     UDFCompatibleDatafeedBase.prototype.getTimescaleMarks = function (symbolInfo, from, to, onDataCallback, resolution) {
-        if (!this._configuration.supports_timescale_marks) {
-            return;
-        }
+        // if (!this._configuration.supports_timescale_marks) {
+        return;
+        // }
         var requestParams = {
             symbol: symbolInfo.ticker || '',
             from: from,
@@ -722,6 +722,10 @@ var Requester = /** @class */ (function () {
         }
     }
     Requester.prototype.sendRequest = function (datafeedUrl, urlPath, params) {
+        console.log(urlPath);
+        var urldata = (urlPath === 'history' || urlPath === 'symbols') ? 'http://127.0.0.1:7876' : datafeedUrl;
+        var url = (urlPath === 'history' || urlPath === 'symbols') ? '/rest/dex/' : '/';
+        // const gg = urlPath === 'search' ? 'https://demo_feed.tradingview.com/'  : `${datafeedUrl}/rest/dex/`
         if (params !== undefined) {
             var paramKeys = Object.keys(params);
             if (paramKeys.length !== 0) {
@@ -737,7 +741,8 @@ var Requester = /** @class */ (function () {
         if (this._headers !== undefined) {
             options.headers = this._headers;
         }
-        return fetch(datafeedUrl + "/" + urlPath, options)
+        // console.log(urldata + url);
+        return fetch("" + urldata + url + urlPath, options)
             .then(function (response) { return response.text(); })
             .then(function (responseTest) { return JSON.parse(responseTest); });
     };
