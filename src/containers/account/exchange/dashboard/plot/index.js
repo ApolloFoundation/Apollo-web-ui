@@ -8,7 +8,7 @@ import BtcIcon from '../../../../../assets/BTC.png';
 import EthIcon from '../../../../../assets/ETH.png';
 import PaxIcon from '../../../../../assets/PAX.png';
 import {NotificationManager} from "react-notifications";
-import TVChartContainer from '../trading-view';
+import TradingView from '../trading-view';
 import ExchangeSwitch from "./ExchangeSwitch";
 const currencyIcons = {btc: BtcIcon, eth: EthIcon, pax: PaxIcon};
 
@@ -217,7 +217,7 @@ export default class Plot extends React.Component {
                     </div>
                     <div className={'card-content'}>
                         <div className={'full-box overflow-hidden chart'}>
-                            <TVChartContainer />
+                            <TradingView />
                             {/* {!this.state.loading && (
                                 <canvas
                                     className={`chart`}

@@ -6,7 +6,6 @@ import InfoBox from '../../../components/info-box';
 
 import ExchangeHeader from './exchange-header';
 import Plot from './plot';
-import TVChartContainer from './trading-view';
 import TradeHistoryExchange from './trade-history';
 import OpenOrders from './open-orders';
 import {setCurrentCurrencyAction} from "../../../../modules/exchange";

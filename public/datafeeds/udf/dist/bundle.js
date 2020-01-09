@@ -722,10 +722,6 @@ var Requester = /** @class */ (function () {
         }
     }
     Requester.prototype.sendRequest = function (datafeedUrl, urlPath, params) {
-        console.log(urlPath);
-        var urldata = (urlPath === 'history' || urlPath === 'symbols') ? 'http://127.0.0.1:7876' : datafeedUrl;
-        var url = (urlPath === 'history' || urlPath === 'symbols') ? '/rest/dex/' : '/';
-        // const gg = urlPath === 'search' ? 'https://demo_feed.tradingview.com/'  : `${datafeedUrl}/rest/dex/`
         if (params !== undefined) {
             var paramKeys = Object.keys(params);
             if (paramKeys.length !== 0) {
@@ -741,8 +737,7 @@ var Requester = /** @class */ (function () {
         if (this._headers !== undefined) {
             options.headers = this._headers;
         }
-        // console.log(urldata + url);
-        return fetch("" + urldata + url + urlPath, options)
+        return fetch(datafeedUrl + "/rest/dex/" + urlPath, options)
             .then(function (response) { return response.text(); })
             .then(function (responseTest) { return JSON.parse(responseTest); });
     };

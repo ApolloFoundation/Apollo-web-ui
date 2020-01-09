@@ -1,8 +1,6 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
 import './index.scss';
-
-// import { widget } from 'charting_library/charting_library.min.js'
-
 
 function getLanguageFromURL() {
 	const regex = new RegExp('[\\?&]lang=([^&#]*)');
@@ -10,37 +8,40 @@ function getLanguageFromURL() {
 	return results === null ? null : decodeURIComponent(results[1].replace(/\+/g, ' '));
 }
 
-export default class TVChartContainer extends React.PureComponent {
+class TradingView extends React.PureComponent {
 	static defaultProps = {
 		symbol: 'AAPL',
 		interval: '15',
-		containerId: 'tv_chart_container',
-		datafeedUrl: 'https://demo_feed.tradingview.com',
+		containerId: 'trading_view',
+		datafeedUrl: 'http://127.0.0.1:7876',
 		libraryPath: '/charting_library/',
-		chartsStorageUrl: 'https://saveload.tradingview.com',
-		chartsStorageApiVersion: '1.1',
-		clientId: 'tradingview.com',
-		userId: 'public_user_id',
 		fullscreen: false,
 		autosize: true,
-		studiesOverrides: {
-		},
+		studiesOverrides: {},
 	};
 
 	tvWidget = null;
 
 	componentDidMount() {
 		this.createTVChart();
-	}
+	};
+
+	componentWillUnmount() {
+		if (this.tvWidget !== null) {
+			this.tvWidget.remove();
+			this.tvWidget = null;
+		};
+	};
 
 	createTVChart = () => {
+		const {symbol, datafeedUrl, interval, libraryPath, fullscreen, studiesOverrides, autosize} = this.props;
 		const widgetOptions = {
-			symbol: this.props.symbol,
-			// BEWARE: no trailing slash is expected in feed URL
-			datafeed: new window.Datafeeds.UDFCompatibleDatafeed(this.props.datafeedUrl),
-			interval: this.props.interval,
+			symbol: symbol,
+			// symbol: `APL/${this.props.currency.toUpperCase()}`,
+			datafeed: new window.Datafeeds.UDFCompatibleDatafeed(datafeedUrl),
+			interval: interval,
 			container_id: this.props.containerId,
-			library_path: this.props.libraryPath,
+			library_path: libraryPath,
 			timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
 			locale: getLanguageFromURL() || 'en',
 			disabled_features: [
@@ -56,36 +57,28 @@ export default class TVChartContainer extends React.PureComponent {
 				'display_market_status',
 			],
 			enabled_features: ['hide_left_toolbar_by_default', 'hide_last_na_study_output'],
-			charts_storage_url: this.props.chartsStorageUrl,
-			charts_storage_api_version: this.props.chartsStorageApiVersion,
-			client_id: this.props.clientId,
-			user_id: this.props.userId,
-			fullscreen: this.props.fullscreen,
-			autosize: this.props.autosize,
-			studies_overrides: this.props.studiesOverrides,
+			fullscreen: fullscreen,
+			autosize: autosize,
+			studies_overrides: studiesOverrides,
 			overrides: {
 				"scalesProperties.textColor" : "#98b0cd",
 				"paneProperties.legendProperties.showSeriesTitle": false,
 				"paneProperties.legendProperties.showLegend": true,
-				"paneProperties.legendProperties.showBarChange": true,
+				"paneProperties.legendProperties.showBarChange": false,
 				"paneProperties.legendProperties.showOnlyPriceSource": true,
 				"paneProperties.background": "#fff",
 				"paneProperties.vertGridProperties.color": "#98b0cd",
 				"paneProperties.horzGridProperties.color": "#98b0cd",
 				"symbolWatermarkProperties.transparency": 90,
-				"mainSeriesProperties.hiloStyle.showLabels": true,
 				"mainSeriesProperties.candleStyle.wickUpColor": '#336854',
 				"mainSeriesProperties.candleStyle.wickDownColor": '#7f323f',
 			},
 		};
-		
-		console.log(widgetOptions);
-		
+
 		const widget = window.tvWidget = new window.TradingView.widget(widgetOptions);
-		widget.onChartReady(() => {
-		});
+		widget.onChartReady(() => {});
 		this.tvWidget = widget;
-		
+
 		widget.onChartReady(() => {
 			widget.headerReady().then(() => {
 				const button = widget.createButton();
@@ -104,19 +97,19 @@ export default class TVChartContainer extends React.PureComponent {
 		});
 	}
 
-	componentWillUnmount() {
-		if (this.tvWidget !== null) {
-			this.tvWidget.remove();
-			this.tvWidget = null;
-		}
-	}
 
 	render() {
 		return (
 			<div
 				id={ this.props.containerId }
-				className={ 'TVChartContainer' }
+				className={'trading-view'}
 			/>
 		);
 	}
 }
+
+const mapStateToProps = ({exchange}) => ({
+    currency: exchange.currentCurrency.currency,
+});
+
+export default connect(mapStateToProps, null)(TradingView)
