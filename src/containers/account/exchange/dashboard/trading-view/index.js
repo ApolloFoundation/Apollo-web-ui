@@ -10,7 +10,6 @@ function getLanguageFromURL() {
 
 class TradingView extends React.PureComponent {
 	static defaultProps = {
-		symbol: 'AAPL',
 		interval: '15',
 		containerId: 'trading_view',
 		datafeedUrl: 'http://127.0.0.1:7876',
@@ -18,6 +17,7 @@ class TradingView extends React.PureComponent {
 		fullscreen: false,
 		autosize: true,
 		studiesOverrides: {},
+		currency: 'eth',
 	};
 
 	tvWidget = null;
@@ -25,6 +25,12 @@ class TradingView extends React.PureComponent {
 	componentDidMount() {
 		this.createTVChart();
 	};
+
+	componentDidUpdate(props,state) {
+		if(props.currency !== this.props.currency) {
+			this.createTVChart();
+		}
+	}
 
 	componentWillUnmount() {
 		if (this.tvWidget !== null) {
@@ -36,8 +42,7 @@ class TradingView extends React.PureComponent {
 	createTVChart = () => {
 		const {symbol, datafeedUrl, interval, libraryPath, fullscreen, studiesOverrides, autosize} = this.props;
 		const widgetOptions = {
-			symbol: symbol,
-			// symbol: `APL/${this.props.currency.toUpperCase()}`,
+			symbol: `APL_${this.props.currency.toUpperCase()}`,
 			datafeed: new window.Datafeeds.UDFCompatibleDatafeed(datafeedUrl),
 			interval: interval,
 			container_id: this.props.containerId,
