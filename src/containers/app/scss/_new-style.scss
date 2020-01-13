@@ -1,3 +1,6 @@
+$card-margin: 8px;
+$img-ratio-xl: 564/1140;
+
 .dashboard, .exchange {
 	color: #3D5A7E;
 	font-size: 11px;
@@ -148,8 +151,6 @@
 		}
 
 		&.card-square {
-			height: 315px;
-			min-height: 315px;
 			background-size: cover;
 			background-position: center;
 			background-repeat: no-repeat;
@@ -157,15 +158,21 @@
 		}
 
 		&.card-transactions {
-			height: calc(100vh - 397px);
-			min-height: 586px;
+			position: absolute;
+			width: calc(100% - 16px);
+			height: calc(100% - 227px);
+			top: 211px;
+
 			&.empty {
 				@media (max-width: 767px) {
 					height: 125px;
 					min-height: 125px;
 				}
 			}
-			@media(max-width: 425px) {
+
+			@media (max-width: 767px) {
+				position: relative;
+				top: 0;
 				max-height: 586px;
 			}
 		}
@@ -535,6 +542,41 @@
 				.connect-icon {
 					background-color: #ffffff;
 				}
+			}
+		}
+	}
+
+	.wrap-card-square-xl {
+		position: relative;
+		padding-top: calc(#{$card-margin} * 2 + #{$img-ratio-xl} * (100% - #{$card-margin} * 2));
+
+		.card-square {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: calc(100% - #{$card-margin} * 2);
+			height: calc(100% - #{$card-margin} * 2);
+		}
+	}
+
+	.wrap-card-square {
+		position: relative;
+		padding-top: calc(#{$card-margin} * 2 + #{$img-ratio-xl} * (200% - #{$card-margin} * 2));
+
+		@media (max-width: 767px) {
+			padding-top: 300px;
+		}
+
+		.card-square {
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: calc(100% - #{$card-margin} * 2);
+			height: calc(100% - #{$card-margin} * 2);
+
+			@media (max-width: 767px) {
+				background-size: contain;
+				background-color: #fff;
 			}
 		}
 	}
