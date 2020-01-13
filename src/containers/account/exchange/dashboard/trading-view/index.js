@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import config from '../../../../../config';
 import './index.scss';
 
 function getLanguageFromURL() {
@@ -10,9 +11,9 @@ function getLanguageFromURL() {
 
 class TradingView extends React.PureComponent {
 	static defaultProps = {
-		interval: '15',
+		interval: 'D',
 		containerId: 'trading_view',
-		datafeedUrl: 'http://127.0.0.1:7876',
+		datafeedUrl: config.api.server,
 		libraryPath: '/charting_library/',
 		fullscreen: false,
 		autosize: true,
