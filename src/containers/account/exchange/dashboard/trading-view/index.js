@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import Datafeed from './api/'
 import './index.scss';
 
 function getLanguageFromURL() {
@@ -9,23 +8,23 @@ function getLanguageFromURL() {
 	return results === null ? null : decodeURIComponent(results[1].replace(/\+/g, ' '));
 }
 
-class TVChartContainer extends React.PureComponent {
-
+class TradingView extends React.PureComponent {
 	static defaultProps = {
-		symbol: 'Coinbase:APL/ETH',
 		interval: '15',
-		containerId: 'tv_chart_container',
+		containerId: 'trading_view',
+		datafeedUrl: 'http://127.0.0.1:7876',
 		libraryPath: '/charting_library/',
-		userId: 'public_user_id',
 		fullscreen: false,
 		autosize: true,
 		studiesOverrides: {},
-		currency: 'ETH',
+		currency: 'eth',
 	};
+
+	tvWidget = null;
 
 	componentDidMount() {
 		this.createTVChart();
-	}
+	};
 
 	componentDidUpdate(props,state) {
 		if(props.currency !== this.props.currency) {
@@ -33,51 +32,82 @@ class TVChartContainer extends React.PureComponent {
 		}
 	}
 
+	componentWillUnmount() {
+		if (this.tvWidget !== null) {
+			this.tvWidget.remove();
+			this.tvWidget = null;
+		};
+	};
+
 	createTVChart = () => {
+		const {symbol, datafeedUrl, interval, libraryPath, fullscreen, studiesOverrides, autosize} = this.props;
 		const widgetOptions = {
-			debug: false,
-			symbol: `Coinbase:APL/${this.props.currency.toUpperCase()}`,
-			datafeed: Datafeed,
-			interval: this.props.interval,
+			symbol: `APL_${this.props.currency.toUpperCase()}`,
+			datafeed: new window.Datafeeds.UDFCompatibleDatafeed(datafeedUrl),
+			interval: interval,
 			container_id: this.props.containerId,
-			library_path: this.props.libraryPath,
+			library_path: libraryPath,
 			timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-			// toolbar_bg: '#fff',
 			locale: getLanguageFromURL() || 'en',
-			disabled_features: ['scales_context_menu', 'context_menus', 'volume_force_overlay', 'use_localstorage_for_settings', 'timeframes_toolbar', 'scales_context_menu', 'header_chart_type', 'header_symbol_search', 'header_compare', 'header_undo_redo', 'header_saveload', 'header_screenshot'],
+			disabled_features: [
+				'use_localstorage_for_settings',
+				'volume_force_overlay',
+				'timeframes_toolbar',
+				'header_chart_type',
+				'header_symbol_search',
+				'header_compare',
+				'header_undo_redo',
+				'header_saveload',
+				'header_screenshot',
+				'display_market_status',
+			],
 			enabled_features: ['hide_left_toolbar_by_default', 'hide_last_na_study_output'],
-			client_id: this.props.clientId,
-			user_id: this.props.userId,
-			fullscreen: this.props.fullscreen,
-			autosize: this.props.autosize,
-			studies_overrides: this.props.studiesOverrides,
+			fullscreen: fullscreen,
+			autosize: autosize,
+			studies_overrides: studiesOverrides,
 			overrides: {
-				// "mainSeriesProperties.showCountdown": true,
+				"scalesProperties.textColor" : "#98b0cd",
+				"paneProperties.legendProperties.showSeriesTitle": false,
+				"paneProperties.legendProperties.showLegend": true,
+				"paneProperties.legendProperties.showBarChange": false,
+				"paneProperties.legendProperties.showOnlyPriceSource": true,
 				"paneProperties.background": "#fff",
 				"paneProperties.vertGridProperties.color": "#98b0cd",
 				"paneProperties.horzGridProperties.color": "#98b0cd",
 				"symbolWatermarkProperties.transparency": 90,
-				"scalesProperties.textColor" : "#98b0cd",
-				"paneProperties.legendProperties.showSeriesTitle": false,
-				"paneProperties.legendProperties.showLegend": false,
-				"paneProperties.legendProperties.showBarChange": false,
-				"paneProperties.legendProperties.showOnlyPriceSource": false,
 				"mainSeriesProperties.candleStyle.wickUpColor": '#336854',
 				"mainSeriesProperties.candleStyle.wickDownColor": '#7f323f',
-			}
+			},
 		};
-		// window.TradingView.onready(() => {
-			const widget = window.tvWidget = new window.TradingView.widget(widgetOptions);
-			widget.onChartReady(() => {
+
+		const widget = window.tvWidget = new window.TradingView.widget(widgetOptions);
+		widget.onChartReady(() => {});
+		this.tvWidget = widget;
+
+		widget.onChartReady(() => {
+			widget.headerReady().then(() => {
+				const button = widget.createButton();
+				button.setAttribute('title', 'Click to show a notification popup');
+				button.classList.add('apply-common-tooltip');
+				button.addEventListener('click', () => widget.showNoticeDialog({
+					title: 'Notification',
+					body: 'TradingView Charting Library API works correctly',
+					callback: () => {
+						console.log('Noticed!');
+					},
+				}));
+
+				button.innerHTML = 'Check API';
 			});
-		// });
+		});
 	}
+
 
 	render() {
 		return (
 			<div
 				id={ this.props.containerId }
-				className={ 'TVChartContainer' }
+				className={'trading-view'}
 			/>
 		);
 	}
@@ -87,4 +117,4 @@ const mapStateToProps = ({exchange}) => ({
     currency: exchange.currentCurrency.currency,
 });
 
-export default connect(mapStateToProps, null)(TVChartContainer)
+export default connect(mapStateToProps, null)(TradingView)

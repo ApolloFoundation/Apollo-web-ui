@@ -30,3 +30,4 @@ yarn-error.log*
 # target builds
 target
 target/*
+public/datafeeds/udf/node_modules/
