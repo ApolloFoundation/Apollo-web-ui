@@ -97,7 +97,7 @@ export function getTransactionAction(requestParams) {
                     return res.data
                 } else {
                     if (res.data.errorCode === 5) {
-                        NotificationManager.error('To view all the information, the entire blockchain database must be downloaded.', 'Error', 5000);
+                        NotificationManager.error('To view all the information, the entire blockchain database should be downloaded.', 'Error', 5000);
                     } else {
                         NotificationManager.error(res.data.errorDescription, 'Error', 5000);
                     }
