@@ -10,11 +10,33 @@ import ArrowDown from "../../../../../assets/arrow-down.png";
 import {getMyTradeHistory} from '../../../../../actions/wallet';
 import CustomTable from '../../../../components/tables/table';
 
+const itemsPerPage = 15;
 class TradeHistoryExchange extends React.Component {
+    state = {
+        page: 1,
+        firstIndex: 0,
+        lastIndex: itemsPerPage,
+        currentCurrency: null,
+    };
 
     componentDidMount() {
-        this.props.getMyTradeHistory();
         BlockUpdater.on("data", this.listener);
+    }
+
+    static getDerivedStateFromProps(props, state) {
+        if (props.currentCurrency !== state.currentCurrency) {
+            const pagination = {
+                page: 1,
+                firstIndex: 0,
+                lastIndex: itemsPerPage,
+            };
+            props.getMyTradeHistory(props.currentCurrency.currency, pagination);
+            return {
+                currentCurrency: props.currentCurrency,
+            };
+        }
+
+        return null;
     }
 
     componentWillUnmount() {
@@ -22,7 +44,11 @@ class TradeHistoryExchange extends React.Component {
     };
 
     listener = () => {
-        this.props.getMyTradeHistory();
+        this.props.getMyTradeHistory(this.state.currentCurrency.currency, {
+            page: this.state.page,
+            firstIndex: this.state.firstIndex,
+            lastIndex: this.state.lastIndex,
+        });
     };
 
     handleFormSubmit = () => {
@@ -31,6 +57,17 @@ class TradeHistoryExchange extends React.Component {
         } else {
             this.props.handleLoginModal();
         }
+    };
+
+    onPaginate = async (page = 1) => {
+        const pagination = {
+            page: page,
+            firstIndex: page * itemsPerPage - itemsPerPage,
+            lastIndex: page * itemsPerPage,
+        };
+
+        await this.props.getMyTradeHistory(this.state.currentCurrency.currency, pagination);
+        this.setState(pagination);
     };
 
     render() {
@@ -74,6 +111,11 @@ class TradeHistoryExchange extends React.Component {
                                         </tr>
                                     )
                                 }}
+                                isPaginate
+                                page={this.state.page}
+                                previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
+                                nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
+                                itemsPerPage={itemsPerPage}
                             />
                             : <div className={'align-items-center loader-box'}>
                                 <div className="ball-pulse">
@@ -94,7 +136,7 @@ const mapStateToProps = ({exchange}) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-    getMyTradeHistory: (options) => dispatch(getMyTradeHistory(options)),
+    getMyTradeHistory: (currency, options) => dispatch(getMyTradeHistory(currency, options)),
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(TradeHistoryExchange));
