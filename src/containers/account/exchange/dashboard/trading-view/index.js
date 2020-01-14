@@ -41,12 +41,12 @@ class TradingView extends React.PureComponent {
 	};
 
 	createTVChart = () => {
-		const {symbol, datafeedUrl, interval, libraryPath, fullscreen, studiesOverrides, autosize} = this.props;
+		const {datafeedUrl, interval, libraryPath, containerId, fullscreen, studiesOverrides, autosize, currency} = this.props;
 		const widgetOptions = {
-			symbol: `APL_${this.props.currency.toUpperCase()}`,
+			symbol: `APL_${currency.toUpperCase()}`,
 			datafeed: new window.Datafeeds.UDFCompatibleDatafeed(datafeedUrl),
 			interval: interval,
-			container_id: this.props.containerId,
+			container_id: containerId,
 			library_path: libraryPath,
 			timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
 			locale: getLanguageFromURL() || 'en',
@@ -84,23 +84,6 @@ class TradingView extends React.PureComponent {
 		const widget = window.tvWidget = new window.TradingView.widget(widgetOptions);
 		widget.onChartReady(() => {});
 		this.tvWidget = widget;
-
-		widget.onChartReady(() => {
-			widget.headerReady().then(() => {
-				const button = widget.createButton();
-				button.setAttribute('title', 'Click to show a notification popup');
-				button.classList.add('apply-common-tooltip');
-				button.addEventListener('click', () => widget.showNoticeDialog({
-					title: 'Notification',
-					body: 'TradingView Charting Library API works correctly',
-					callback: () => {
-						console.log('Noticed!');
-					},
-				}));
-
-				button.innerHTML = 'Check API';
-			});
-		});
 	}
 
 
