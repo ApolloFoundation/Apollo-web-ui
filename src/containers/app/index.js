@@ -271,7 +271,7 @@ class App extends React.Component {
             <Route exact path="/generators" component={Generators}/>
             <Route exact path="/dex" component={Exchange}/>
             <Route exact path="/order-history" component={OrderHistory}/>
-            <Route exact path="/order-details/:id?" component={OrderDetails}/>
+            <Route exact path="/order/:id?" component={OrderDetails}/>
             <Route exact path="/choose-wallet" component={ChooseWallet}/>
             <Route exact path="/trade-history-exchange" component={TradeHistoryExchange}/>
 
