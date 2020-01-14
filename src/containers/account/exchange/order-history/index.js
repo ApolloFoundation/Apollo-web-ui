@@ -56,7 +56,6 @@ class OrderHistory extends React.Component {
     handleSelectOrder = (data, hasFrozenMoney, selectOrderId) => {
         this.props.history.push({
             pathname: `/order/${selectOrderId}`,
-            state: {orderInfo: data},
           })
     };
 

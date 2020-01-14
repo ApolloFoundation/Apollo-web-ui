@@ -182,6 +182,22 @@ export function cancelOffer(requestParams) {
     }
 }
 
+export function getOrderById(orderId) {
+    return () => {
+        return handleFetch(`${config.api.server}/rest/dex/orders/${orderId}`, GET, null, true)
+            .then(async (res) => {
+                if (!res.errorCode) {
+                    return res;
+                } else {
+                    return null;
+                }
+            })
+            .catch(() => {
+
+            })
+    }
+}
+
 export function getOpenOrders(requestParams) {
     return () => {
         return handleFetch(`${config.api.server}/rest/dex/offers`, GET, requestParams, true)

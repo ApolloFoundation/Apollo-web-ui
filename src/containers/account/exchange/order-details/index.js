@@ -1,27 +1,63 @@
 import React from 'react';
-import {Redirect} from 'react-router-dom'
 import {Form} from 'react-form';
 import {connect} from 'react-redux';
-import {getAllContractStatus, getContractStatus} from '../../../../actions/wallet';
-import {NotificationManager} from "react-notifications";
+import {NotificationManager} from 'react-notifications';
+import {getAllContractStatus, getContractStatus, getOrderById} from '../../../../actions/wallet';
 import SiteHeader from '../../../components/site-header';
 import TextualInputComponent from '../../../components/form-components/textual-input';
 import SimpleProgressBar from '../../../components/simple-progress-bar/simple-progress-bar';
+import InfoBox from "../../../components/info-box";
 import ContractStatusItem from './contract-status-item';
+import {currencyTypes, formatDivision} from "../../../../helpers/format";
+import {ONE_GWEI} from "../../../../constants";
 
 class OrderDetails extends React.Component {
     state = {
         isShowingContractHistory: false,
         selectOrderId: null,
+        orderInfo: null,
     };
 
     componentDidMount() {
         if (this.props.match.params.id) {
-            this.props.getContractStatus({orderId: this.props.match.params.id});
-            this.props.getAllContractStatus({orderId: this.props.match.params.id});
-            this.setState({selectOrderId: this.props.match.params.id})
+            this.getOrder(this.props.match.params.id);
         }
     }
+
+    statusOfOrder = status => {
+        const allStatuses = {
+            0: 'Open',
+            1: 'Pending',
+            2: 'Expired',
+            3: 'Cancel',
+            4: 'Waiting approval',
+            5: 'Closed',
+        };
+
+        return allStatuses[status];
+    };
+
+    getOrder = async orderId => {
+        const orderInfo = await this.props.getOrderById(orderId);
+        if (orderInfo) {
+            this.props.getContractStatus({orderId});
+            this.props.getAllContractStatus({orderId});
+
+            const pairRate = formatDivision(orderInfo.pairRate, ONE_GWEI, 9);
+            const offerAmount = formatDivision(orderInfo.offerAmount, ONE_GWEI, 9);
+            const total = formatDivision(orderInfo.pairRate * orderInfo.offerAmount, Math.pow(10, 18), 9);
+            const currency = orderInfo.pairCurrency;
+            const statusName = this.statusOfOrder(orderInfo.status);
+            const typeName = orderInfo.type ? 'SELL' : 'BUY';
+            const type = Object.keys(currencyTypes).find(key => currencyTypes[key] === currency).toUpperCase();
+            this.setState({
+                selectOrderId: orderId,
+                orderInfo: {pairRate, offerAmount, total, currency, typeName, statusName, type}
+            });
+        } else {
+            this.setState({selectOrderId: orderId});
+        }
+    };
 
     renderMoreDetails = type => {
         const {account, selectedContractStatus, allContractStatus} = this.props;
@@ -48,10 +84,8 @@ class OrderDetails extends React.Component {
     };
 
     render() {
-        const {orderInfo: {typeName, pairRate, offerAmount, total, statusName, type} = {}} = this.props.location.state || {};
+        const {orderInfo, isShowingContractHistory} = this.state;
         const {selectedContractStatus, allContractStatus, account} = this.props;
-        const {isShowingContractHistory} = this.state;
-        if (!this.props.location.state) return <Redirect to='/order-history'/>;
         return (
             <div className="page-content">
                 <SiteHeader
@@ -71,79 +105,87 @@ class OrderDetails extends React.Component {
                                             >
                                                 Back to list
                                             </button>
-                                            <button
-                                                type={'button'}
-                                                className="btn btn-green"
-                                                onClick={this.handleOpenContractHistory}
-                                            >
-                                                {isShowingContractHistory ? 'Hide more details' : 'Show more details'}
-                                            </button>
+                                            {orderInfo && (
+                                                <button
+                                                    type={'button'}
+                                                    className="btn btn-green"
+                                                    onclick={this.handleOpenContractHistory}
+                                                >
+                                                    {isShowingContractHistory ? 'Hide more details' : 'Show more details'}
+                                                </button>
+                                            )}
                                         </div>
                                     </div>
                                     <div className="card-body">
-                                        <Form
-                                            render={() => (
-                                                <form className="modal-form">
-                                                    <div className="form-group-app">
-                                                        {!isShowingContractHistory
-                                                            ? <>
-                                                                {!!(selectedContractStatus && selectedContractStatus.length) &&
-                                                                <SimpleProgressBar
-                                                                    step={selectedContractStatus[0].contractStatus}
-                                                                    time={selectedContractStatus[0].deadlineToReply}
-                                                                    blockTime={account.timestamp}
-                                                                    status={statusName}
-                                                                />}
-                                                                <TextualInputComponent
-                                                                    field={'current'}
-                                                                    label={'Pair Name'}
-                                                                    defaultValue={`APL/${type.toUpperCase()}`}
-                                                                    disabled
-                                                                    placeholder={'Pair Name'}
-                                                                />
-                                                                <TextualInputComponent
-                                                                    field={'typeName'}
-                                                                    label={'Type'}
-                                                                    defaultValue={typeName}
-                                                                    disabled
-                                                                    placeholder={'Type'}
-                                                                />
-                                                                <TextualInputComponent
-                                                                    field={'pairRate'}
-                                                                    label={'Price'}
-                                                                    defaultValue={pairRate}
-                                                                    disabled
-                                                                    placeholder={'Price'}
-                                                                />
-                                                                <TextualInputComponent
-                                                                    field={'offerAmount'}
-                                                                    label={'Amount'}
-                                                                    defaultValue={offerAmount}
-                                                                    disabled
-                                                                    placeholder={'Amount'}
-                                                                />
-                                                                <TextualInputComponent
-                                                                    field={'total'}
-                                                                    label={'Total'}
-                                                                    disabled
-                                                                    defaultValue={total}
-                                                                    placeholder={'Total'}
-                                                                />
-                                                                <TextualInputComponent
-                                                                    field={'status'}
-                                                                    label={'Status'}
-                                                                    defaultValue={statusName}
-                                                                    disabled
-                                                                    placeholder={'Status'}
-                                                                />
-                                                                {!!(selectedContractStatus && selectedContractStatus.length) && this.renderMoreDetails()}
-                                                            </>
-                                                            : !!(allContractStatus && allContractStatus.length) && this.renderMoreDetails('history')
-                                                        }
-                                                    </div>
-                                                </form>
-                                            )}
-                                        />
+                                        {orderInfo ? (
+                                            <Form
+                                                render={() => (
+                                                    <form className="modal-form">
+                                                        <div className="form-group-app">
+                                                            {!isShowingContractHistory
+                                                                ? <>
+                                                                    {!!(selectedContractStatus && selectedContractStatus.length) &&
+                                                                    <SimpleProgressBar
+                                                                        step={selectedContractStatus[0].contractStatus}
+                                                                        time={selectedContractStatus[0].deadlineToReply}
+                                                                        blockTime={account.timestamp}
+                                                                        status={orderInfo.statusName}
+                                                                    />}
+                                                                    <TextualInputComponent
+                                                                        field={'current'}
+                                                                        label={'Pair Name'}
+                                                                        defaultValue={`APL/${orderInfo.type.toUpperCase()}`}
+                                                                        disabled
+                                                                        placeholder={'Pair Name'}
+                                                                    />
+                                                                    <TextualInputComponent
+                                                                        field={'typeName'}
+                                                                        label={'Type'}
+                                                                        defaultValue={orderInfo.typeName}
+                                                                        disabled
+                                                                        placeholder={'Type'}
+                                                                    />
+                                                                    <TextualInputComponent
+                                                                        field={'pairRate'}
+                                                                        label={'Price'}
+                                                                        defaultValue={orderInfo.pairRate}
+                                                                        disabled
+                                                                        placeholder={'Price'}
+                                                                    />
+                                                                    <TextualInputComponent
+                                                                        field={'offerAmount'}
+                                                                        label={'Amount'}
+                                                                        defaultValue={orderInfo.offerAmount}
+                                                                        disabled
+                                                                        placeholder={'Amount'}
+                                                                    />
+                                                                    <TextualInputComponent
+                                                                        field={'total'}
+                                                                        label={'Total'}
+                                                                        disabled
+                                                                        defaultValue={orderInfo.total}
+                                                                        placeholder={'Total'}
+                                                                    />
+                                                                    <TextualInputComponent
+                                                                        field={'status'}
+                                                                        label={'Status'}
+                                                                        defaultValue={orderInfo.statusName}
+                                                                        disabled
+                                                                        placeholder={'Status'}
+                                                                    />
+                                                                    {!!(selectedContractStatus && selectedContractStatus.length) && this.renderMoreDetails()}
+                                                                </>
+                                                                : !!(allContractStatus && allContractStatus.length) && this.renderMoreDetails('history')
+                                                            }
+                                                        </div>
+                                                    </form>
+                                                )}
+                                            />
+                                        ) : (
+                                            <InfoBox>
+                                                Order not found.
+                                            </InfoBox>
+                                        )}
                                     </div>
                                 </div>
                             )}
@@ -164,6 +206,7 @@ const mapStateToProps = ({exchange, account}) => ({
 const mapDispatchToProps = dispatch => ({
     getContractStatus: (options) => dispatch(getContractStatus(options)),
     getAllContractStatus: (options) => dispatch(getAllContractStatus(options)),
+    getOrderById: (orderId) => dispatch(getOrderById(orderId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrderDetails)
