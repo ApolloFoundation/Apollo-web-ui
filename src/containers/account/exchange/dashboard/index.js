@@ -149,13 +149,15 @@ class Exchange extends React.Component {
                                         />
                                     </div>
                                     <div className={'col-md-4 col-sm-6 p-0'}>
-                                        <a
-                                            href={'https://twitter.com/ApolloCurrency'}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className={`card card-square`}
-                                            style={{backgroundImage: `url(${TwitterBanner})`}}
-                                        />
+                                        <div className={'wrap-card-square'}>
+                                            <a
+                                                href={'https://twitter.com/ApolloCurrency'}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className={`card card-square`}
+                                                style={{backgroundImage: `url(${TwitterBanner})`}}
+                                            />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
