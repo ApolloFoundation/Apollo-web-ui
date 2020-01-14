@@ -305,6 +305,7 @@ export const getMyTradeHistory = (currency, options) => async (dispatch, getStat
     const openOrders = await dispatch(getOpenOrders(currentParamsOpenOrder));
     const orders = openOrders ? [...openOrders].sort((a, b) => b.finishTime - a.finishTime) : [];
     dispatch(setMyTradeHistoryAction(currentCurrency || 'allTrades', orders));
+    return orders;
 };
 
 export const getMyOpenOffers = (currency) => async (dispatch, getState) => {

@@ -5,10 +5,16 @@ import CustomTable from '../../../../components/tables/table';
 import {formatDivision} from '../../../../../helpers/format';
 import {setBodyModalParamsAction} from '../../../../../modules/modals';
 import {ONE_GWEI} from '../../../../../constants';
+import {getMyOpenOffers} from "../../../../../actions/wallet";
 
-class TradeHistoryExchange extends React.Component {
+const itemsPerPage = 10;
+class OpenOrdersExchange extends React.Component {
     state = {
         actionType: 0,
+        page: 1,
+        firstIndex: 0,
+        lastIndex: itemsPerPage,
+        currentCurrency: null,
     };
 
     handleCancel = (data) => {
@@ -100,6 +106,7 @@ class TradeHistoryExchange extends React.Component {
 
 const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, value) => dispatch(setBodyModalParamsAction(type, value)),
+    getMyOpenOffers: (currency) => dispatch(getMyOpenOffers(currency)),
 });
 
-export default connect(null, mapDispatchToProps)(TradeHistoryExchange);
+export default connect(null, mapDispatchToProps)(OpenOrdersExchange);
