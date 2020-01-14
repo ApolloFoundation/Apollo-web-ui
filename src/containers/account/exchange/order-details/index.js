@@ -182,7 +182,7 @@ class OrderDetails extends React.Component {
                                                 )}
                                             />
                                         ) : (
-                                            <InfoBox>
+                                            <InfoBox default>
                                                 Order not found.
                                             </InfoBox>
                                         )}

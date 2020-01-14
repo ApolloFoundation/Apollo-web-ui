@@ -370,7 +370,7 @@ class InfoLedgerTransaction extends React.Component {
                             }
                         </TabulationBody>
                     ) : (
-                        <InfoBox>
+                        <InfoBox default>
                             Transaction not found
                         </InfoBox>
                     )
