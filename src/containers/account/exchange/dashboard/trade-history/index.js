@@ -10,7 +10,7 @@ import ArrowDown from "../../../../../assets/arrow-down.png";
 import {getMyTradeHistory} from '../../../../../actions/wallet';
 import CustomTable from '../../../../components/tables/table';
 
-const itemsPerPage = 10;
+const itemsPerPage = 15;
 class TradeHistoryExchange extends React.Component {
     state = {
         page: 1,
