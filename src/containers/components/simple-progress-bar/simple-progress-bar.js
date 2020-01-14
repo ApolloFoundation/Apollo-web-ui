@@ -15,9 +15,11 @@ const SimpleProgressBar = ({step, time, blockTime, status}) => {
         'Expired': 'Contract was Expired'
     }
 
+    const timeLeft = (time - blockTime) / 60 / 60
     const maxStep = 4
     const isClosedStatus = Object.keys(listClosedStatuses).includes(status)
-    const currentStep = isClosedStatus ? maxStep : step + 1 
+    
+    const currentStep = (isClosedStatus || timeLeft <= 0) ? maxStep : step + 1 
     const progress = (currentStep / maxStep) * 100
 
     return (
