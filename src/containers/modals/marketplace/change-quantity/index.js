@@ -66,7 +66,8 @@ class MarketplaceChangeQuantity extends React.Component {
     async handleFormSubmit(values) {
         this.setState({
             isPending: true
-        })
+        });
+
         values = {
             ...values,
             deltaQuantity: (values.quantity - this.state.goods.quantity),
