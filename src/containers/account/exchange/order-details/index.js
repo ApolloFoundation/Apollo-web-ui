@@ -57,7 +57,7 @@ class OrderDetails extends React.Component {
                 <SiteHeader
                     pageTitle={'Order Details'}
                 />
-                <div className="page-body container-fluid full-screen-block">
+                <div className="page-body container-fluid full-screen-block mb-3">
                     <div className="account-settings">
                         <div className="page-settings-item">
                             {this.state.selectOrderId && (

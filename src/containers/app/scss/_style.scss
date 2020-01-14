@@ -63,8 +63,8 @@ input {
       &.exchange {
         .order-book {
           position: absolute;
-          right: 0px;
-          height: 834px !important;
+          right: 0;
+          height: 100%;
           flex: 0 0 27%;
           max-width: 27%;
         }
@@ -79,6 +79,7 @@ input {
         .tradingview {
           flex: 0 0 100%;
           max-width: 100%;
+          position: relative;
         }
         .bottom {
           width: 73%;
@@ -118,6 +119,7 @@ input {
           }
           .trade {
             max-width: 100%;
+            flex: 1;
           }
         }
       }

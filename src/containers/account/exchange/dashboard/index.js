@@ -6,7 +6,6 @@ import InfoBox from '../../../components/info-box';
 
 import ExchangeHeader from './exchange-header';
 import Plot from './plot';
-import TVChartContainer from './trading-view';
 import TradeHistoryExchange from './trade-history';
 import OpenOrders from './open-orders';
 import {setCurrentCurrencyAction} from "../../../../modules/exchange";
@@ -150,13 +149,15 @@ class Exchange extends React.Component {
                                         />
                                     </div>
                                     <div className={'col-md-4 col-sm-6 p-0'}>
-                                        <a
-                                            href={'https://twitter.com/ApolloCurrency'}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className={`card card-square`}
-                                            style={{backgroundImage: `url(${TwitterBanner})`}}
-                                        />
+                                        <div className={'wrap-card-square'}>
+                                            <a
+                                                href={'https://twitter.com/ApolloCurrency'}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className={`card card-square`}
+                                                style={{backgroundImage: `url(${TwitterBanner})`}}
+                                            />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
