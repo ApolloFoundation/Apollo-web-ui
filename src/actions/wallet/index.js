@@ -42,11 +42,14 @@ export function getWallets(requestParams) {
 
 export function getContractStatus(requestParams) {
     return (dispatch, getState) => {
-        const {account} = getState().account;
-        return handleFetch(`${config.api.server}/rest/dex/contracts`, GET, {...requestParams, accountId: account})
+        if (!requestParams.accountId) {
+            const {account} = getState().account;
+            requestParams.accountId = account;
+        }
+        return handleFetch(`${config.api.server}/rest/dex/contracts`, GET, requestParams)
             .then((res) => {
                 if (!res.errorCode) {
-                    dispatch(setContractStatus(res))
+                    dispatch(setContractStatus(res));
                     return res;
                 } else {
                     NotificationManager.error(res.errorDescription, 'Error', 5000);
@@ -60,11 +63,14 @@ export function getContractStatus(requestParams) {
 
 export function getAllContractStatus(requestParams) {
     return (dispatch, getState) => {
-        const {account} = getState().account;
-        return handleFetch(`${config.api.server}/rest/dex/all-contracts`, GET, {...requestParams, accountId: account})
+        if (!requestParams.accountId) {
+            const {account} = getState().account;
+            requestParams.accountId = account;
+        }
+        return handleFetch(`${config.api.server}/rest/dex/all-contracts`, GET, requestParams)
             .then((res) => {
                 if (!res.errorCode) {
-                    dispatch(setAllContractStatus(res))
+                    dispatch(setAllContractStatus(res));
                     return res;
                 } else {
                     NotificationManager.error(res.errorDescription, 'Error', 5000);

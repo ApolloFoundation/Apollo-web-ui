@@ -144,7 +144,7 @@ class OrderHistory extends React.Component {
                                     const currency = props.pairCurrency;
                                     const type = Object.keys(currencyTypes).find(key => currencyTypes[key] === currency).toUpperCase();
                                     let trProps = '';
-                                    if (!props.hasFrozenMoney && props.status === 0) {
+                                    if (!props.hasFrozenMoney && props.status !== 2 && props.status !== 3 && props.status !== 5) {
                                         trProps = {
                                             'data-custom': true,
                                             'data-custom-at': "top",
