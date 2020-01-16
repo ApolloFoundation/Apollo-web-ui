@@ -270,82 +270,6 @@
 		&.active {
 			display: block;
 		}
-		.form-tab-nav-box {
-			display: flex;
-			flex-direction: row;
-			justify-content: space-between;
-			//position: absolute;
-			overflow-x: auto;
-			bottom: 100%;
-			right: 20px;
-			left: 20px;
-
-			&.justify-left {
-				justify-content: flex-start;
-
-				.form-tab {
-					margin-right: 15px;
-					width: auto;
-					padding: 0 15px;
-					white-space: pre;
-				}
-			}
-
-			.form-tab {
-				display: flex;
-				align-items: center;
-				width: 54px;
-				height: 32px;
-				border-top-left-radius: 3px;
-				border-top-right-radius: 3px;
-				transition: 0.3s;
-				&:hover {
-					background-color: rgba(230, 234, 238, 0.5);
-				}
-				&.active {
-					background-color: #E6EAEE;
-				}
-				p {
-					font-size: 14px !important;
-				}
-				& > * {
-					margin: auto;
-					font-size: 14px;
-				}
-			}
-
-			&.form-tab-icons {
-				.form-tab {
-					& > * {
-						margin: auto;
-						font-size: 18px;
-					}
-				}
-			}
-		}
-		.tab-body {
-			display: none;
-			background-color: #FCFCFD;
-			border-radius: 0 3px 3px 3px;
-			border: 1px solid #E6EAEE;
-			padding: 12px;
-			&.active {
-				display: block;
-			}
-			.form-group-app {
-				border: none;
-				border-radius: 3px;
-				box-shadow: none;
-				padding: 0;
-				background: transparent;
-				textarea, input {
-					background: #ffffff;
-				}
-			}
-			.transaction-table {
-				padding: 0;
-			}
-		}
 		.form-sub-actions {
 			display: block;
 			padding-top: 7px;
@@ -518,5 +442,82 @@
 	}
 	&.upload-block-active {
 		border: 1px dashed #a5b9d3;
+	}
+}
+
+.form-tab-nav-box {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	//position: absolute;
+	overflow-x: auto;
+	bottom: 100%;
+	right: 20px;
+	left: 20px;
+
+	&.justify-left {
+		justify-content: flex-start;
+
+		.form-tab {
+			margin-right: 15px;
+			width: auto;
+			padding: 0 15px;
+			white-space: pre;
+		}
+	}
+
+	.form-tab {
+		display: flex;
+		align-items: center;
+		width: 54px;
+		height: 32px;
+		border-top-left-radius: 3px;
+		border-top-right-radius: 3px;
+		transition: 0.3s;
+		&:hover {
+			background-color: rgba(230, 234, 238, 0.5);
+		}
+		&.active {
+			background-color: #E6EAEE;
+		}
+		p {
+			font-size: 14px !important;
+		}
+		& > * {
+			margin: auto;
+			font-size: 14px;
+		}
+	}
+
+	&.form-tab-icons {
+		.form-tab {
+			& > * {
+				margin: auto;
+				font-size: 18px;
+			}
+		}
+	}
+}
+.tab-body {
+	display: none;
+	background-color: #FCFCFD;
+	border-radius: 0 3px 3px 3px;
+	border: 1px solid #E6EAEE;
+	padding: 12px;
+	&.active {
+		display: block;
+	}
+	.form-group-app {
+		border: none;
+		border-radius: 3px;
+		box-shadow: none;
+		padding: 0;
+		background: transparent;
+		textarea, input {
+			background: #ffffff;
+		}
+	}
+	.transaction-table {
+		padding: 0;
 	}
 }
