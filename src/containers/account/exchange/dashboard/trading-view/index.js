@@ -48,7 +48,6 @@ class TradingView extends React.PureComponent {
 			interval: interval,
 			container_id: containerId,
 			library_path: libraryPath,
-			timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
 			locale: getLanguageFromURL() || 'en',
 			disabled_features: [
 				'use_localstorage_for_settings',
