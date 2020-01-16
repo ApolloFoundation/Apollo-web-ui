@@ -37,16 +37,29 @@ class WithdrawCurrency extends React.Component {
                 return;
             }
 
-            const gasLimit = values.asset.currency === 'eth' ? this.props.constants.gasLimitEth : this.props.constants.gasLimitERC20;
+            const {
+                constants: {gasLimitEth, gasLimitERC20},
+                modalData: {balances}
+            } = this.props;
+            const gasLimit = values.asset.currency === 'eth' ? gasLimitEth : gasLimitERC20;
             const maxFee = this.state.fee.value * gasLimit * 0.000000001;
             const balance = parseFloat(values.asset.balance);
             const amount = parseFloat(values.amount);
 
-            if (balance === 0 || balance < (amount + maxFee)) {
-                NotificationManager.error(`Not enough founds on your ${values.asset.currency.toUpperCase()} balance.`, 'Error', 5000);
-                return;
+            if (values.asset.currency === 'eth') {
+                if (balance === 0 || balance < (amount + maxFee)) {
+                    NotificationManager.error(`Not enough founds on your ${values.asset.currency.toUpperCase()} balance.`, 'Error', 5000);
+                    return;
+                }
+            } else {
+                if (balance === 0 || balance < amount) {
+                    NotificationManager.error(`Not enough founds on your ${values.asset.currency.toUpperCase()} balance.`, 'Error', 5000);
+                    return;
+                } else if (balances.eth === 0 || balances.eth < maxFee) {
+                    NotificationManager.error(`Not enough founds on your ETH balance.`, 'Error', 5000);
+                    return;
+                }
             }
-
 
             this.setState({isPending: true});
 
