@@ -58,7 +58,10 @@ class OrderDetails extends React.Component {
                 orderInfo: {...orderInfo, pairRate, offerAmount, total, currency, typeName, statusName, type}
             });
         } else {
-            this.setState({selectOrderId: orderId});
+            this.setState({
+                isPending: false,
+                selectOrderId: orderId
+            });
         }
     };
 
@@ -81,9 +84,9 @@ class OrderDetails extends React.Component {
     handleOpenContractHistory = () => {
         if (!(this.props.allContractStatus && this.props.allContractStatus.length)) {
             NotificationManager.error('Error', 'Error', 5000);
-            return
+            return;
         }
-        this.setState((state) => ({isShowingContractHistory: !state.isShowingContractHistory}))
+        this.setState((state) => ({isShowingContractHistory: !state.isShowingContractHistory}));
     };
 
     render() {
@@ -113,7 +116,7 @@ class OrderDetails extends React.Component {
                                                     <button
                                                         type={'button'}
                                                         className="btn btn-green"
-                                                        onclick={this.handleOpenContractHistory}
+                                                        onClick={this.handleOpenContractHistory}
                                                     >
                                                         {isShowingContractHistory ? 'Hide more details' : 'Show more details'}
                                                     </button>
