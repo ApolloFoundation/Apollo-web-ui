@@ -67,15 +67,39 @@ class InfoAccount extends React.PureComponent {
         })
     }
 
+    static getDerivedStateFromProps(props, state) {
+        if (props.modalData && Object.keys(props.modalData).length > 0 && (!state.account || props.modalData !== state.modalData)) {
+            if (props.modalData && !props.modalData.errorCode) {
+                return {
+                    modalData: props.modalData,
+                    account: props.modalData
+                };
+            }
+        }
+        return null;
+    };
+
     componentDidMount() {
         if (this.props.modalData) {
             this.getAcccount({
                 account: this.props.modalData,
                 firstIndex: 0,
-                lastIndex: 14
+                lastIndex: 15
             })
         }
     }
+
+    componentDidUpdate(prevProps, prevState) {
+        if (this.state.account && prevState.account !== this.state.account) {
+            if (!(this.state.account instanceof Object)) {
+                this.getAcccount({
+                    account: this.props.modalData,
+                    firstIndex: 0,
+                    lastIndex: 15
+                });
+            }
+        }
+    };
 
     // requets
     getAcccount = async (requestParams) => {
@@ -138,7 +162,7 @@ class InfoAccount extends React.PureComponent {
             account:    this.props.modalData,
             page:       page,
             firstIndex: page * 15 - 15,
-            lastIndex:  page * 15 - 1,
+            lastIndex:  page * 15,
         };
         const accountData = await this.props.getAccountAction(reqParams);
         if (accountData) {
@@ -249,6 +273,7 @@ class InfoAccount extends React.PureComponent {
                                         page={this.state.pagination.transactions}
                                         previousHendler={() => this.onPaginate('transactions', this.state.pagination.transactions - 1)}
                                         nextHendler={() => this.onPaginate('transactions', this.state.pagination.transactions + 1)}
+                                        itemsPerPage={15}
                                     />
                                 </TabContaier>
                                 <TabContaier sectionName="Ledger">
@@ -286,6 +311,7 @@ class InfoAccount extends React.PureComponent {
                                         page={this.state.pagination.account_ledger}
                                         previousHendler={() => this.onPaginate('account_ledger', this.state.pagination.account_ledger - 1)}
                                         nextHendler={() => this.onPaginate('account_ledger', this.state.pagination.account_ledger + 1)}
+                                        itemsPerPage={15}
                                     />
                                 </TabContaier>
                                 <TabContaier sectionName="Assets">
@@ -353,6 +379,7 @@ class InfoAccount extends React.PureComponent {
                                         page={this.state.pagination.trades}
                                         previousHendler={() => this.onPaginate('trades', this.state.pagination.trades - 1)}
                                         nextHendler={() => this.onPaginate('trades', this.state.pagination.trades + 1)}
+                                        itemsPerPage={15}
                                     />
                                 </TabContaier>
                                 <TabContaier sectionName="Currencies">
@@ -378,6 +405,7 @@ class InfoAccount extends React.PureComponent {
                                         page={this.state.pagination.currencies}
                                         previousHendler={() => this.onPaginate('currencies', this.state.pagination.currencies - 1)}
                                         nextHendler={() => this.onPaginate('currencies', this.state.pagination.currencies + 1)}
+                                        itemsPerPage={15}
                                     />
                                 </TabContaier>
                                 <TabContaier sectionName="Marketplace">
@@ -403,6 +431,7 @@ class InfoAccount extends React.PureComponent {
                                         page={this.state.pagination.goods}
                                         previousHendler={() => this.onPaginate('goods', this.state.pagination.goods - 1)}
                                         nextHendler={() => this.onPaginate('goods', this.state.pagination.goods + 1)}
+                                        itemsPerPage={15}
                                     />
 
                                 </TabContaier>
@@ -426,6 +455,7 @@ class InfoAccount extends React.PureComponent {
                                         page={this.state.pagination.aliases}
                                         previousHendler={() => this.onPaginate('aliases', this.state.pagination.aliases - 1)}
                                         nextHendler={() => this.onPaginate('aliases', this.state.pagination.aliases + 1)}
+                                        itemsPerPage={15}
                                     />
                                 </TabContaier>
                                 <TabContaier sectionName="Actions">

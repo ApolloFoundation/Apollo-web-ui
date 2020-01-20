@@ -54,7 +54,7 @@ class OrderCancel extends React.Component {
                 phased: false,
                 deadline: 0,
                 phasingHashedSecretAlgorithm: 2,
-            }, modalData.type);
+            }, modalData.type === 'bid' ? 'cancelBidOrder' : modalData.type === 'ask' ? 'cancelAskOrder' : modalData.type);
             if (res.errorCode) {
                 NotificationManager.error(res.errorDescription, 'Error', 5000)
             } else {

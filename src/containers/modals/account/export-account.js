@@ -60,7 +60,7 @@ class ExportAccount extends React.Component {
                         account: values.account,
                     }
                 }, async () => {
-                    const base64 = "data:application/octet-stream;base64,"+ accountKeySeedData.file;
+                    const base64 = "data:application/octet-stream;base64," + accountKeySeedData.file;
                     this.downloadSecretFile.current.href = encodeURI(base64);
                     this.setState({
                         accountKeySeedData: {
@@ -74,6 +74,60 @@ class ExportAccount extends React.Component {
                 NotificationManager.error(accountKeySeedData.errorDescription, 'Error', 5000);
             }
         }
+    };
+
+    checkPermissionCallback = (status) => {
+        if (!status.hasPermission) {
+            const errorCallback = () => {
+                console.warn('Storage permission is not turned on')
+            };
+            window.cordova.plugins.permissions.requestPermission(
+                window.cordova.plugins.permissions.WRITE_EXTERNAL_STORAGE,
+                (status) => {
+                    if (!status.hasPermission) {
+                        errorCallback();
+                    } else {
+                        this.writeFile();
+                    }
+                },
+                errorCallback
+            );
+        } else {
+            this.writeFile();
+        }
+    };
+
+    downloadFile = () => {
+        if (window.cordova && window.plugins) {
+            let permissions = window.cordova.plugins.permissions;
+            permissions.checkPermission(permissions.WRITE_EXTERNAL_STORAGE, this.checkPermissionCallback, null);
+        }
+    };
+
+    writeFile = () => {
+        const filename = this.state.accountKeySeedData.account;
+        let base64 = `data:application/octet-stream;df:${filename};base64,${this.state.accountKeySeedData.file}`;
+        let subject = null;
+        if (window.cordova.platformId === "android") {
+            base64 = `data:application/;base64,${this.state.accountKeySeedData.file}`;
+            subject = filename;
+        }
+        const uri = encodeURI(base64);
+
+        const options = {
+            message: null,
+            subject,
+            files: [uri],
+            url: null,
+            chooserTitle: 'Export Account',
+        };
+
+        const onError = (msg) => {
+            console.log("Downloading failed with message: " + msg);
+            NotificationManager.error('Downloading Secret File failed', 'Error', 5000);
+        };
+
+        window.plugins.socialsharing.shareWithOptions(options, null, onError);
     };
 
     componentDidCatch(error, info) {
@@ -93,7 +147,8 @@ class ExportAccount extends React.Component {
                     <ul className={'marked-list'}>
                         <li className={'danger-icon'}>
                             <strong>Attention!</strong><br/>
-                            Please, check your wallets to make sure there are no funds on them. Deleting a key from the node may lead to the loss of all funds.
+                            Please, check your wallets to make sure there are no funds on them. Deleting a key from the
+                            node may lead to the loss of all funds.
                         </li>
                     </ul>
                 </InfoBox>
@@ -120,7 +175,7 @@ class ExportAccount extends React.Component {
                     <React.Fragment>
                         <InfoBox attentionLeft>
                             <p className={'mb-3'}>
-                            Account ID: <span className={'itatic'}>{this.state.accountKeySeedData.account}</span>
+                                Account ID: <span className={'itatic'}>{this.state.accountKeySeedData.account}</span>
                             </p>
                             <a
                                 ref={this.downloadSecretFile}
@@ -129,6 +184,7 @@ class ExportAccount extends React.Component {
                                 className="btn btn-green"
                                 target="_blank"
                                 rel="noopener noreferrer"
+                                onClick={this.downloadFile}
                             >
                                 Download Secret File
                             </a>
@@ -168,7 +224,7 @@ class ExportAccount extends React.Component {
 
                         </InfoBox>
                     </React.Fragment>
-                    )}
+                )}
             </ModalBody>
         );
     }

@@ -5,6 +5,7 @@ import {getTransactionFee} from "../../../../../actions/wallet";
 import {setTypeOfTrade, resetTrade} from "../../../../../modules/modals";
 import BuyForm from "./BuyForm";
 import SellForm from "./SellForm";
+import {formatGweiToEth} from "../../../../../helpers/format";
 
 class TradeApollo extends React.Component {
     feeATM = 200000000;
@@ -27,13 +28,10 @@ class TradeApollo extends React.Component {
     changeTabOfTrade = typeOfTrade => {
         this.props.setTypeOfTrade(typeOfTrade);
         this.props.resetTrade();
-    }
+    };
 
     render() {
-        const {wallet, handleLoginModal, currentCurrency: {currency}, constants, gasTransactionMultiply, typeOfTrade} = this.props;
-        const gasLimit = currency === 'eth' ? constants.gasLimitEth : constants.gasLimitERC20;
-        const ethFee = this.state.maxFee * gasLimit * 0.000000001;
-        const gasFee = this.state.maxFee * gasTransactionMultiply * 0.000000001;
+        const {wallet, handleLoginModal, typeOfTrade} = this.props;
         return (
             <div className={'card card-light h-400'}>
                 <div className="card-title">
@@ -59,15 +57,11 @@ class TradeApollo extends React.Component {
                         <BuyForm
                             wallet={wallet}
                             handleLoginModal={handleLoginModal}
-                            ethFee={ethFee}
-                            gasFee={gasFee}
                         />
                     ) : (
                         <SellForm
                             wallet={wallet}
                             handleLoginModal={handleLoginModal}
-                            gasFee={gasFee}
-                            ethFee={ethFee}
                         />
                     )}
                 </div>
@@ -77,8 +71,6 @@ class TradeApollo extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    constants: state.account.constants,
-    gasTransactionMultiply: state.account.gasTransactionMultiply,
     typeOfTrade: state.modals.typeOfTrade,
 });
 

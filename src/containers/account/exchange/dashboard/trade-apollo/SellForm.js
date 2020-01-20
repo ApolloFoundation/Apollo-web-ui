@@ -54,7 +54,7 @@ class SellForm extends React.PureComponent {
     componentDidUpdate() {
         if(this.props.infoSelectedSellOrder) {
             const numberTypes = {
-                'NaN': 0,
+                NaN: '0',
                 Infinity: 100,
             }
             const { balanceAPL, dashboardAccoountInfo } = this.props;
@@ -90,32 +90,24 @@ class SellForm extends React.PureComponent {
                         NotificationManager.error('You can sell more then 0.001 APL', 'Error', 5000);
                         isError = true;
                     }
-                    if (!this.props.ethFee || +this.props.ethFee === 0) {
-                        NotificationManager.error('Can\'t get Gas fee. Something went wrong. Please, try again later', 'Error', 5000);
-                        isError = true;
-                    }
-                    if (+this.props.ethFee > +values.walletAddress.balances.eth) {
-                        NotificationManager.error(`To sell APL you need to have at least ${this.props.ethFee.toLocaleString('en')} ETH on your balance to confirm transaction`, 'Error', 5000);
-                        isError = true;
-                    }
                     if (isError) {
                         this.props.resetTrade();
                         this.setPending(false);
                         return;
                     }                    
-                    const pairRate = multiply(values.pairRate, ONE_GWEI);
+                    const pairRate = Math.round(multiply(values.pairRate, ONE_GWEI));
                     const offerAmount = multiply(values.offerAmount, ONE_GWEI);
                     const balanceAPL = (this.props.dashboardAccoountInfo && this.props.dashboardAccoountInfo.unconfirmedBalanceATM) ?
                         parseFloat(this.props.dashboardAccoountInfo.unconfirmedBalanceATM)
                         :
                         parseFloat(this.props.balanceAPL);
-    
+
                     if (!this.props.balanceAPL || balanceAPL === 0 || balanceAPL < ((offerAmount + this.feeATM) / 10)) {
                         NotificationManager.error('Not enough funds on your APL balance.', 'Error', 5000);
                         this.setPending(false);
                         return;
                     }
-    
+
                     const params = {
                         offerType: 1, // SELL
                         pairCurrency: currencyTypes[currency],
@@ -126,7 +118,7 @@ class SellForm extends React.PureComponent {
                         feeATM: this.feeATM,
                         walletAddress: values.walletAddress.address,
                     };
-    
+
                     if (this.props.passPhrase) {
                         this.props.createOffer(params).then(() => {
                             this.setPending(false);
@@ -187,7 +179,7 @@ class SellForm extends React.PureComponent {
         const balanceFormat = balance ? (balance / ONE_APL) : 0;
         const currencyName = currency.toUpperCase();
         const numberTypes = {
-            'NaN': 0,
+            NaN: '0',
             Infinity: 100,
         }
         return (

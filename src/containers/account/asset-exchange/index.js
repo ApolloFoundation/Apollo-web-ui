@@ -40,12 +40,12 @@ class AssetExchange extends React.Component {
             sell: {
                 page: 1,
                 firstIndex: 0,
-                lastIndex: itemsPerPage - 1,
+                lastIndex: itemsPerPage,
             },
             buy: {
                 page: 1,
                 firstIndex: 0,
-                lastIndex: itemsPerPage - 1,
+                lastIndex: itemsPerPage,
             },
         },
         buyForm: null,
@@ -270,7 +270,7 @@ class AssetExchange extends React.Component {
         const pagination = {
             page: page,
             firstIndex: page * itemsPerPage - itemsPerPage,
-            lastIndex: page * itemsPerPage - 1
+            lastIndex: page * itemsPerPage
         };
         if (type === 'buy') {
             this.getBuyOrders(this.state.asset, pagination);

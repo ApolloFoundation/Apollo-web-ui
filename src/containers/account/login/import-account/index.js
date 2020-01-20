@@ -52,7 +52,7 @@ class ImportAccount extends React.Component {
             generatedAccount: null,
             isValidating: false,
             isAccountLoaded: false,
-            format: 'text',
+            format: 'file',
         }
     };
 
@@ -113,7 +113,6 @@ class ImportAccount extends React.Component {
 
     handleTab = (e, index) => {
         this.setState({
-            ...this.props,
             format: index,
             isGenerated: false,
             importAccount: null,
@@ -141,20 +140,20 @@ class ImportAccount extends React.Component {
                                     <div className="form-tabulator">
                                         <div className="form-tab-nav-box">
                                             <a
-                                                onClick={(e) => this.handleTab(e, 'text')}
-                                                className={classNames({
-                                                    "form-tab": true,
-                                                    "active": this.state.format === 'text'
-                                                })}>
-                                                <p>Secret key</p>
-                                            </a>
-                                            <a
                                                 onClick={(e) => this.handleTab(e, 'file')}
                                                 className={classNames({
                                                     "form-tab": true,
                                                     "active": this.state.format === 'file'
                                                 })}>
                                                 <p>Secret file</p>
+                                            </a>
+                                            <a
+                                                onClick={(e) => this.handleTab(e, 'text')}
+                                                className={classNames({
+                                                    "form-tab": true,
+                                                    "active": this.state.format === 'text'
+                                                })}>
+                                                <p>Secret key</p>
                                             </a>
                                         </div>
 

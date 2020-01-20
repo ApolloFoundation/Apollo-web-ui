@@ -1,0 +1,20 @@
+.progress-bar-simple {
+    &__header {
+        display: flex;
+        justify-content: space-between;
+    }
+    &__progress-bar {
+        border: 1px solid #2AC940;
+        border-radius: 10px;
+        height: 20px;
+        overflow: hidden;
+    }
+    &__progress-step {
+        background-color: #2B36FF;
+        height: 100%;
+    }
+
+    &__info {
+        margin: 5px 0;
+    }
+}

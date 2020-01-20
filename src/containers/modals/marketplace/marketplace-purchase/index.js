@@ -87,6 +87,10 @@ class MarketplacePurchase extends React.Component {
             NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
             return;
         }
+        if (!values.quantity || parseInt(values.quantity) === 0) {
+            NotificationManager.error('Quantity must be greater than 0.', 'Error', 5000);
+            return;
+        }
 
         values = {
             ...values,

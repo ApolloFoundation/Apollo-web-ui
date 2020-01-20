@@ -1,14 +1,16 @@
 import React from 'react';
 import {connect} from 'react-redux';
+// import {searchAliases} from '../../../actions/aliases';
 import {setBodyModalParamsAction,} from '../../../modules/modals';
 
 import {CheckboxFormInput} from '../../components/form-components/check-button-input';
 import CustomInputForm from '../../components/form-components/textual-input';
 import CustomTextArea from '../../components/form-components/text-area';
+// import AutoComplete from '../../components/auto-complete';
 import AccountRSFormInput from '../../components/form-components/account-rs'
 import NummericInputForm from '../../components/form-components/numeric-input'
 
-const SendMoneyForm = ({values, setValue, modalData, setBodyModalParamsAction, idGroup}) => (
+const SendMoneyForm = ({values, setValue, modalData, setBodyModalParamsAction, idGroup, searchAliases, onChangeAlias}) => (
     <>
         <AccountRSFormInput
             field={'recipient'}
@@ -19,6 +21,31 @@ const SendMoneyForm = ({values, setValue, modalData, setBodyModalParamsAction, i
             idGroup={idGroup}
             id={`${idGroup}recipient-field`}
         />
+        {/* <CheckboxFormInput
+            setValue={setValue}
+            idGroup={idGroup}
+            checkboxes={[
+                {
+                    field: 'alias',
+                    label: 'Use alias?'
+                }
+            ]}
+        /> */}
+        {/* {values.alias && 
+            <AutoComplete
+                placeholder={'Alias'}
+                label={'Alias'}
+                onChange={onChangeAlias}
+                loadOptions={(alias) => {
+                    return searchAliases({aliasPrefix: alias}).then(({aliases}) => {
+                        return aliases.map(({aliasName, accountRS}) => ({
+                            value: accountRS,
+                            label: `${aliasName} / ${accountRS}`,
+                        }));
+                    });
+                }}
+            />
+        } */}
         <NummericInputForm
             field={'amountATM'}
             counterLabel={'APL'}
@@ -79,6 +106,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+    // searchAliases: (requestParams) => dispatch(searchAliases(requestParams)),
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 });
 

@@ -26,3 +26,8 @@ yarn-error.log*
 .css
 
 /desktop-builds
+
+# target builds
+target
+target/*
+public/datafeeds/udf/node_modules/

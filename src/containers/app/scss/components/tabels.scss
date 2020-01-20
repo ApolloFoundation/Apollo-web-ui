@@ -26,6 +26,13 @@
     }
   }
 
+  &.details {
+    background-color: #FCFCFD !important;
+    border-radius: 0 3px 3px 3px;
+    border: 1px solid #E6EAEE;
+    padding: 12px;
+  }
+
   &.position-static {
     position: static;
   }

@@ -6,6 +6,7 @@ import InfoBox from '../../../components/info-box';
 import CurrencyDescriptionComponent from './currency';
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {getCurrencyBalance} from "../../../../actions/wallet";
+import getFullNumber from '../../../../helpers/util/expancionalParser';
 import {readFromLocalStorage} from "../../../../actions/localStorage";
 import {setCurrentCurrencyAction} from "../../../../modules/exchange";
 
@@ -28,12 +29,6 @@ class ChooseWallet extends React.Component {
         if (!this.state.wallets && this.props.wallets && !this.state.loading) {
             this.getCurrencyBalance(this.props.wallets);
         }
-    }
-
-    getFullNumber = (num) => {
-        const [, float, exp] = num.toString().match(/\d+.(\d+)[eE]-(\d+)/) || []
-        if (!exp) return num.toString()
-        return (+num).toFixed(float.length + +exp)
     }
 
     getCurrencyBalance = async (wallets) => {
@@ -105,8 +100,8 @@ class ChooseWallet extends React.Component {
                                             ...wallet,
                                             balances: {
                                                 ...wallet.balances,
-                                                pax: this.getFullNumber(wallet.balances.pax),
-                                                eth: this.getFullNumber(wallet.balances.eth),
+                                                pax: getFullNumber(Number(wallet.balances.pax)),
+                                                eth: getFullNumber(Number(wallet.balances.eth)),
                                             }
                                         })}) }
                                         passProps={{currency, handleCurrentCurrency: this.handleCurrentCurrency}}

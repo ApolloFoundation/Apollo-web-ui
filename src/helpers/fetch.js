@@ -6,7 +6,7 @@ export const GET = 'GET';
 export const POST = 'POST';
 export const DELETE = 'DELETE';
 
-export const handleFetch = async (url, method, value = null) => {
+export const handleFetch = async (url, method, value = null, typeOfRequest) => {
     let queryPath = url;
     const options =  {
         method,
@@ -15,8 +15,12 @@ export const handleFetch = async (url, method, value = null) => {
         },
     };
     if (value !== null) {
-        if (value.passphrase) value.passphrase = await processElGamalEncryption(value.passphrase);
-        else if (value.secretPhrase) value.secretPhrase = await processElGamalEncryption(value.secretPhrase);
+        if (value.passphrase) {
+            value.passphrase = await processElGamalEncryption(value.passphrase, typeOfRequest);
+            delete value.secretPhrase;
+        } else if (value.secretPhrase) {
+            value.secretPhrase = await processElGamalEncryption(value.secretPhrase, typeOfRequest);
+        }
 
         if (method === GET) {
             queryPath += `?${qs.stringify(value)}`;

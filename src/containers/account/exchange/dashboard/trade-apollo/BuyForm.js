@@ -11,6 +11,7 @@ import {createOffer} from '../../../../../actions/wallet';
 import {setBodyModalParamsAction, resetTrade, setSelectedOrderInfo} from '../../../../../modules/modals';
 import {ONE_GWEI} from '../../../../../constants';
 import {ReactComponent as ArrowRight} from "../../../../../assets/arrow-right.svg";
+import getFullNumber from '../../../../../helpers/util/expancionalParser'
 
 class BuyForm extends React.PureComponent {
     feeATM = 200000000;
@@ -91,14 +92,6 @@ class BuyForm extends React.PureComponent {
                         NotificationManager.error('Please select wallet address', 'Error', 5000);
                         isError = true;
                     }
-                    if (!this.props.ethFee || +this.props.ethFee === 0) {
-                        NotificationManager.error('Can\'t get Gas fee. Something went wrong. Please, try again later', 'Error', 5000);
-                        isError = true;
-                    }
-                    if (+this.props.ethFee > +values.walletAddress.balances.eth) {
-                        NotificationManager.error(`To buy APL you need to have at least ${this.props.ethFee.toLocaleString('en')} ETH on your balance to confirm transaction`, 'Error', 5000);
-                        isError = true;
-                    }
                     if (values.total > balance) {
                         NotificationManager.error(`You need more ${currency.toUpperCase()}. Please check your wallet balance.`, 'Error', 5000);
                         isError = true;
@@ -107,19 +100,14 @@ class BuyForm extends React.PureComponent {
                         this.setPending(false);
                         return;
                     }
-                    const pairRate = multiply(values.pairRate, ONE_GWEI);
+                    const pairRate = Math.round(multiply(values.pairRate, ONE_GWEI));
                     const offerAmount = multiply(values.offerAmount, ONE_GWEI);
                     const balanceETH = parseFloat(values.walletAddress.balances[currency]);
                     const balanceAPL = (this.props.dashboardAccoountInfo && this.props.dashboardAccoountInfo.unconfirmedBalanceATM) ?
                         parseFloat(this.props.dashboardAccoountInfo.unconfirmedBalanceATM)
                         :
                         parseFloat(this.props.balanceAPL);
-                    if (values.total + this.props.gasFee > balanceETH) {
-                        NotificationManager.error(`Not enough founds on your ${currency.toUpperCase()} balance. You need to pay Gas fee`, 'Error', 5000);
-                        this.setPending(false);
-                        return;
-                    }
-
+                    const fixedOfferAmount = offerAmount.toFixed();
                     if (balanceETH === 0 || balanceETH < values.total) {
                         NotificationManager.error(`Not enough founds on your ${currency.toUpperCase()} balance.`, 'Error', 5000);
                         this.setPending(false);
@@ -134,7 +122,7 @@ class BuyForm extends React.PureComponent {
                         offerType: 0, // BUY
                         pairCurrency: currencyTypes[currency],
                         pairRate,
-                        offerAmount,
+                        offerAmount: fixedOfferAmount,
                         sender: this.props.account,
                         passphrase: this.props.passPhrase,
                         feeATM: this.feeATM,
@@ -164,7 +152,7 @@ class BuyForm extends React.PureComponent {
                                 offerAmount: '',
                                 total: '',
                             })}
-                        })
+                        });
                         this.setPending(false);
                     }
                 } else {
@@ -279,7 +267,8 @@ class BuyForm extends React.PureComponent {
                                         {values.walletAddress && (
                                             <span className={'input-group-info-text'}><i
                                                 className="zmdi zmdi-balance-wallet"/>&nbsp;
-                                                {values.walletAddress.balances[currency]}&nbsp;</span>
+                                                {(getFullNumber(Number(values.walletAddress.balances[currency])))}
+                                                &nbsp;</span>
                                         )}
                                         {currencyName}</span>
                                     </div>

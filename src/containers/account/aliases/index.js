@@ -7,13 +7,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {getAliasesAction} from "../../../actions/aliases";
-import SiteHeader from '../../components/site-header'
-import Alias from "./alias";
-import classNames from "classnames";
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {BlockUpdater} from "../../block-subscriber";
-import uuid from "uuid";
-import ContentHendler from '../../components/content-hendler'
+import SiteHeader from '../../components/site-header'
+import Alias from "./alias";
 
 import CustomTable from '../../components/tables/table';
 
@@ -24,7 +21,7 @@ class Aliases extends React.Component {
         this.state = {
             aliases: null,
             firstIndex: 0,
-            lastIndex: 14,
+            lastIndex: 15,
             page: 1
         };
 
@@ -79,7 +76,7 @@ class Aliases extends React.Component {
             page: page,
             account: this.props.account,
             firstIndex: page * 15 - 15,
-            lastIndex:  page * 15 - 1
+            lastIndex:  page * 15
         }, () => {
             this.getAliases({
                 account: this.props.account,
@@ -152,6 +149,7 @@ class Aliases extends React.Component {
                         nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
                         className={'no-min-height mb-3'}
                         emptyMessage={'No aliases found.'}
+                        itemsPerPage={15}
                     />        
                 </div>
             </div>
