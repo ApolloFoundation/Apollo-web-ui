@@ -11,6 +11,7 @@ import {createOffer} from '../../../../../actions/wallet';
 import {setBodyModalParamsAction, resetTrade, setSelectedOrderInfo} from '../../../../../modules/modals';
 import {ONE_GWEI} from '../../../../../constants';
 import {ReactComponent as ArrowRight} from "../../../../../assets/arrow-right.svg";
+import getFullNumber from '../../../../../helpers/util/expancionalParser'
 
 class BuyForm extends React.PureComponent {
     feeATM = 200000000;
@@ -266,7 +267,8 @@ class BuyForm extends React.PureComponent {
                                         {values.walletAddress && (
                                             <span className={'input-group-info-text'}><i
                                                 className="zmdi zmdi-balance-wallet"/>&nbsp;
-                                                {values.walletAddress.balances[currency]}&nbsp;</span>
+                                                {(getFullNumber(Number(values.walletAddress.balances[currency])))}
+                                                &nbsp;</span>
                                         )}
                                         {currencyName}</span>
                                     </div>
