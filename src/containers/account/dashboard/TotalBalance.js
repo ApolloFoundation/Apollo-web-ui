@@ -8,7 +8,7 @@ import {ONE_APL} from '../../../constants';
 
 const TotalBalance = ({dashboardAccountInfo, setBodyModalParamsAction}) => {
     const balanceAPL = (dashboardAccountInfo && dashboardAccountInfo.unconfirmedBalanceATM)
-        ? (dashboardAccountInfo.unconfirmedBalanceATM / ONE_APL).toLocaleString('de-DE', {
+        ? (dashboardAccountInfo.unconfirmedBalanceATM / ONE_APL).toLocaleString('en-GB', {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 2,
             }) 
