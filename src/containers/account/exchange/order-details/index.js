@@ -83,7 +83,7 @@ class OrderDetails extends React.Component {
 
     handleOpenContractHistory = () => {
         if (!(this.props.allContractStatus && this.props.allContractStatus.length)) {
-            NotificationManager.error('Error', 'Error', 5000);
+            NotificationManager.error('No contracts found.', 'Error', 5000);
             return;
         }
         this.setState((state) => ({isShowingContractHistory: !state.isShowingContractHistory}));
@@ -115,7 +115,7 @@ class OrderDetails extends React.Component {
                                                 {orderInfo && (
                                                     <button
                                                         type={'button'}
-                                                        className="btn btn-green"
+                                                        className={`btn btn-green ${allContractStatus && allContractStatus.length ? '' : 'btn-green-disabled'}`}
                                                         onClick={this.handleOpenContractHistory}
                                                     >
                                                         {isShowingContractHistory ? 'Hide more details' : 'Show more details'}
