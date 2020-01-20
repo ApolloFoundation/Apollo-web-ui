@@ -22,9 +22,21 @@ class Block extends React.Component {
         super(props);
     }
 
+    pad = (value, size) => {
+        if (typeof(size) !== "number") {
+            size = 2;
+        }
+
+        while (value.toString().length < size) {
+            value = "0" + value;
+        }
+        return value;
+    };
+
     render () {
 
-        const {height, totalAmountATM, timestamp, totalFeeATM, numberOfTransactions, formatTimestamp, setBodyModalParamsAction, generator, generatorRS, payloadLength} = this.props;
+        const {height, totalAmountATM, timestamp, totalFeeATM, numberOfTransactions, formatTimestamp,
+            setBodyModalParamsAction, generator, generatorRS, payloadLength, baseTarget} = this.props;
 
         return (
             <tr key={uuid}>
@@ -46,10 +58,12 @@ class Block extends React.Component {
                 <td className="blue-link-text">
                     <a onClick={() => setBodyModalParamsAction('INFO_ACCOUNT', generator)}>{generatorRS}</a>
                 </td>
-                <td className="align-right"><p>{payloadLength} B</p>
+                <td className="align-right">
+                    <p>{payloadLength} B</p>
                 </td>
-                {/*<td className="align-right"><a>{Math.round(this.props.block.baseTarget / 153722867 * 100)} %</a>*/}
-                {/*</td>*/}
+                <td className="align-right">
+                    {this.pad(Math.round(baseTarget / 153722867 * 100), 4)} %
+                </td>
             </tr>
         );
     }

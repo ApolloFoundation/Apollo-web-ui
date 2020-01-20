@@ -7,7 +7,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import SiteHeader from '../../components/site-header'
-import {getBlockAction, getBlocksAction, getNextBlockGeneratorsAction} from "../../../actions/blocks";
+import {
+    getAccountBlockCountAction,
+    getBlockAction,
+    getBlocksAction,
+    getForgedBlocksAction,
+    getNextBlockGeneratorsAction
+} from "../../../actions/blocks";
 import {getTime} from '../../../actions/login';
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {BlockUpdater} from "../../block-subscriber";
@@ -26,45 +32,56 @@ class Blocks extends React.Component {
         super(props);
 
         this.state = {
+            isForged: false,
             page: 1,
             firstIndex: 0,
             lastIndex: 15,
-            blocks: [],
 
-			pageForged: 1,
-			firstIndexForged: 0,
-			lastIndexForged: 15,
+            blocks: null,
+			blocksInfo: {
+				avgFee: 0,
+				avgAmount: 0,
+				blockGenerateTime: 0,
+				transactionPerHour: 0,
+			},
+
 			blocksForged: null,
-
-            avgFee: 0,
-            avgAmount: 0,
-            blockGenerateTime: 0,
-            transactionPerHour: 0,
+			forgedInfo: {
+				avgFee: 0,
+				avgAmount: 0,
+				forgedBlocks: 0,
+				forgedFees: 0,
+			},
         };
     }
 
     listener = data => {
+        if(this.state.isForged) {
+            this.getForgedBlocks({
+                account: this.props.account,
+                firstIndex: this.state.firstIndex,
+                lastIndex: this.state.lastIndex
+            });
+        } else {
+            this.getBlocks({
+                account: this.props.account,
+                firstIndex: this.state.firstIndex,
+                lastIndex: this.state.lastIndex
+            });
+        }
+    };
+
+    componentDidMount() {
         this.getBlocks({
             account: this.props.account,
             firstIndex: this.state.firstIndex,
             lastIndex: this.state.lastIndex
         });
-    };
-
-    componentDidMount() {
         BlockUpdater.on("data", this.listener)
     }
 
     componentWillUnmount() {
         BlockUpdater.removeListener("data", this.listener)
-    }
-
-    componentWillMount() {
-        this.getBlocks({
-            account: this.props.account,
-            firstIndex: this.state.firstIndex,
-            lastIndex: this.state.lastIndex
-        });
     }
 
     getNextBlock = async () => {
@@ -73,7 +90,7 @@ class Blocks extends React.Component {
         const currentTime = await this.props.getTime();
     };
 
-    getBlocks = async (requestParams, isForged) => {
+    getBlocks = async (requestParams) => {
         const blocks = (await this.props.getBlocksAction(requestParams)).blocks;
         let totalFee = 0;
         let totalAmount = 0;
@@ -102,10 +119,50 @@ class Blocks extends React.Component {
         this.setState({
             ...requestParams,
             blocks: blocks,
-            avgFee,
-            avgAmount,
-            blockGenerateTime: time,
-            transactionPerHour: Math.floor(transactions / 15)
+			blocksInfo: {
+				avgFee,
+				avgAmount,
+				blockGenerateTime: time,
+				transactionPerHour: Math.floor(transactions / 15)
+			}
+        });
+    };
+
+    getForgedBlocks = async (requestParams) => {
+        const blocks = (await this.props.getForgedBlocksAction(requestParams)).blocks;
+        const blockCount = await this.props.getAccountBlockCountAction(requestParams);
+        let avgFee = 0;
+        let forgedBlocks = 0;
+        if (blockCount.numberOfBlocks && blockCount.numberOfBlocks > 0) {
+            forgedBlocks = blockCount.numberOfBlocks;
+            avgFee = (this.props.forgedBalanceATM / blockCount.numberOfBlocks / ONE_APL).toFixed(2);
+        }
+
+        let totalFee = 0;
+        let totalAmount = 0;
+        let transactions = 0;
+
+        let avgAmount = 0;
+        blocks.forEach(block => {
+            totalFee += parseFloat(block.totalFeeATM);
+            totalAmount += parseFloat(block.totalAmountATM);
+            transactions += parseFloat(block.numberOfTransactions);
+        });
+
+        if (blocks.length) {
+            avgAmount = (totalAmount / ONE_APL / blocks.length).toFixed(2);
+        }
+
+        this.setState({
+            ...requestParams,
+			blocksForged: blocks,
+			forgedInfo: {
+				avgFee,
+				avgAmount,
+				transactionPerHour: Math.floor(transactions / 15),
+                forgedFees: this.props.forgedBalanceATM / ONE_APL,
+                forgedBlocks,
+			}
         });
     };
 
@@ -126,15 +183,20 @@ class Blocks extends React.Component {
             page: page,
             account: this.props.account,
             firstIndex: page * 15 - 15,
-            lastIndex: page * 15
+            lastIndex: page * 15,
+            isForged: !!isForged
         };
 
-        if (isForged) {
-			this.getBlocks(pagination);
+        if (!!isForged) {
+			this.getForgedBlocks(pagination);
 		} else {
 			this.getBlocks(pagination);
 		}
     };
+
+	handleChangeTab = (e, index) => {
+		this.onPaginate(1, index)
+	};
 
     render() {
         return (
@@ -142,21 +204,24 @@ class Blocks extends React.Component {
                 <SiteHeader
                     pageTitle={'Blocks'}
                 />
-                <div className="page-body container-fluid">
-                    <div className="">
-                        <TabulationBody className={'p-0'}>
+                <div className="page-body container-fluid mb-3">
+                    <div className="form-group-app transparent">
+                        <TabulationBody
+							className={'p-0'}
+							onChange={this.handleChangeTab}
+						>
                             <TabContaier sectionName={'Blocks'}>
                                 <TopPageBlocks
                                     cards={[
                                         {
                                             label: 'AVG. Amount Per Block',
-                                            value: this.state.avgAmount
+                                            value: this.state.blocksInfo.avgAmount
                                         }, {
                                             label: 'AVG. Fee Per Block',
-                                            value: this.state.avgFee
+                                            value: this.state.blocksInfo.avgFee
                                         }, {
                                             label: 'Transactions Per Hour',
-                                            value: this.state.transactionPerHour
+                                            value: this.state.blocksInfo.transactionPerHour
                                         }, {
                                             label: 'Transactions Per Hour',
                                             value: [
@@ -165,8 +230,8 @@ class Blocks extends React.Component {
                                                     value: this.props.blockTime
                                                 },
                                                 {
-                                                    label: 'Average Block Creating Frequency',
-                                                    value: `${this.state.blockGenerateTime} s`
+                                                    label: 'Avg. Block Creating Frequency',
+                                                    value: `${this.state.blocksInfo.blockGenerateTime} s`
                                                 }
                                             ]
                                         }
@@ -195,20 +260,49 @@ class Blocks extends React.Component {
                                         }, {
                                             name: 'Payload',
                                             alignRight: true
+                                        }, {
+                                            name: 'Base Target',
+                                            alignRight: true
                                         }
                                     ]}
                                     TableRowComponent={Block}
                                     tableData={this.state.blocks}
                                     isPaginate
                                     page={this.state.page}
-                                    previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
-                                    nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
-                                    className={'no-min-height mb-3'}
+                                    previousHendler={this.onPaginate.bind(this, this.state.page - 1, false)}
+                                    nextHendler={this.onPaginate.bind(this, this.state.page + 1, false)}
+                                    className={'no-min-height'}
                                     emptyMessage={'No blocks found.'}
                                     itemsPerPage={15}
                                 />
                             </TabContaier>
 							<TabContaier sectionName={'Forged by You'}>
+								<TopPageBlocks
+									cards={[
+										{
+											label: 'AVG. Amount Per Block',
+											value: this.state.forgedInfo.avgAmount
+										}, {
+											label: 'AVG. Fee Per Block',
+											value: this.state.forgedInfo.avgFee
+										}, {
+											label: 'Transaction Time',
+											value: this.props.blockTime
+										}, {
+											label: '# Forged Blocks',
+											value: [
+												{
+													label: '# Forged Blocks',
+													value: this.state.forgedInfo.forgedBlocks
+												},
+												{
+													label: 'Forged Fees Total',
+													value: `${this.state.forgedInfo.forgedFees}`
+												}
+											]
+										}
+									]}
+								/>
 								<CustomTable
 									header={[
 										{
@@ -232,15 +326,18 @@ class Blocks extends React.Component {
 										}, {
 											name: 'Payload',
 											alignRight: true
+										}, {
+											name: 'Base Target',
+											alignRight: true
 										}
 									]}
 									TableRowComponent={Block}
 									tableData={this.state.blocksForged}
 									isPaginate
-									page={this.state.pageForged}
-									previousHendler={this.onPaginate.bind(this, this.state.pageForged - 1, true)}
-									nextHendler={this.onPaginate.bind(this, this.state.pageForged + 1, true)}
-									className={'no-min-height mb-3'}
+									page={this.state.page}
+									previousHendler={this.onPaginate.bind(this, this.state.page - 1, true)}
+									nextHendler={this.onPaginate.bind(this, this.state.page + 1, true)}
+									className={'no-min-height'}
 									emptyMessage={'No forged blocks found.'}
 									itemsPerPage={15}
 								/>
@@ -255,15 +352,18 @@ class Blocks extends React.Component {
 
 const mapStateToProps = state => ({
     account: state.account.account,
+    forgedBalanceATM: state.account.forgedBalanceATM,
     blockTime: state.account.blockchainStatus ? state.account.blockchainStatus.blockTime : null
 });
 
 const mapDispatchToProps = dispatch => ({
     getBlocksAction: (requestParams) => dispatch(getBlocksAction(requestParams)),
+	getForgedBlocksAction: (requestParams) => dispatch(getForgedBlocksAction(requestParams)),
+    getAccountBlockCountAction: (requestParams) => dispatch(getAccountBlockCountAction(requestParams)),
     getBlockAction: (requestParams) => dispatch(getBlockAction(requestParams)),
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
     formatTimestamp: (timestamp, date_only, isAbsoluteTime) => dispatch(formatTimestamp(timestamp, date_only, isAbsoluteTime)),
     getTime: () => dispatch(getTime())
-})
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Blocks);
