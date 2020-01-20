@@ -18,7 +18,7 @@ class LogoutExchange extends React.Component {
         this.handleFormSubmit = this.handleFormSubmit.bind(this);
     }
 
-    async handleFormSubmit(values) {
+    handleFormSubmit(values) {
         let passphrase = values.passphrase;
         if (!passphrase || passphrase.length === 0) {
             NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
@@ -28,9 +28,12 @@ class LogoutExchange extends React.Component {
             accountid: this.props.account,
             passphrase
         };
-        await this.props.logout(params);
-        logOutAction('simpleLogOut', this.props.history);
-        this.props.closeModal();
+        this.props.logout(params).then((res) => {
+            if (!res.errorCode) {
+                logOutAction('simpleLogOut', this.props.history);
+                this.props.closeModal();
+            } 
+        });
     }
 
     render() {
