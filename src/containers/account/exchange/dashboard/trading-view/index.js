@@ -14,7 +14,7 @@ class TradingView extends React.PureComponent {
 		interval: 'D',
 		containerId: 'trading_view',
 		datafeedUrl: config.api.server,
-		libraryPath: '/charting_library/',
+		libraryPath: '/tradingview/charting_library/',
 		fullscreen: false,
 		autosize: true,
 		studiesOverrides: {},
