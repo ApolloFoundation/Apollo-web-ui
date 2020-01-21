@@ -25,7 +25,6 @@ import CreateUser from './account/create-account';
 import AccountDetails from './account/account-details/';
 import LeaseBalance from './account/lease-balance/';
 import TokenGenerationValidation from './account/token-generation-validation/';
-import GenerateHallmark from './account/generate-halmark';
 import HashCalculation from './account/hash-calculation';
 import TransactionOperations from './account/transactions-operations';
 import DeviceSettings from './account/device-settings';
@@ -242,7 +241,6 @@ class ModalWindow extends React.Component {
                     {this.props.modalType === 'CALCULATE_CACHE'             && <HashCalculation           closeModal={this.closeModal} nameModal={'CALCULATE_CACHE'}/>}
                     {this.props.modalType === 'TRANSACTIONS_OPERATIONS'     && <TransactionOperations     closeModal={this.closeModal} nameModal={'TRANSACTIONS_OPERATIONS'}/>}
                     {this.props.modalType === 'DEVICE_SETTINGS'             && <DeviceSettings            closeModal={this.closeModal} nameModal={'DEVICE_SETTINGS'}/>}
-                    {this.props.modalType === 'GENERATE_HALLMARK'           && <GenerateHallmark          closeModal={this.closeModal} nameModal={'GENERATE_HALLMARK'}/>}
                     {this.props.modalType === 'GENERAL_INFO'                && <ApolloAbout               closeModal={this.closeModal} nameModal={'GENERAL_INFO'}/>}
                     {this.props.modalType === 'CREATE_USER'                 && <CreateUser                closeModal={this.closeModal} nameModal={'CREATE_USER'}/>}
                     {this.props.modalType === 'SET_ACCOUNT_INFO'            && <AccountInfo               closeModal={this.closeModal} nameModal={'SET_ACCOUNT_INFO'}/>}
