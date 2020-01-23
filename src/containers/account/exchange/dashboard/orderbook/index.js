@@ -1,6 +1,4 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {getBuyOpenOffers} from "../../../../../actions/wallet";
 import BuyOrders from "./BuyOrders";
 import SellOrders from "./SellOrders";
 
@@ -73,8 +71,4 @@ class Orderbook extends React.Component {
     }
 }
 
-const mapDispatchToProps = dispatch => ({
-    getBuyOpenOffers: (currency, options) => dispatch(getBuyOpenOffers(currency, options)),
-});
-
-export default connect(null, mapDispatchToProps)(Orderbook);
+export default Orderbook;
