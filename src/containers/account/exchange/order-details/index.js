@@ -126,7 +126,7 @@ class OrderDetails extends React.Component {
                                         <div className="card-body">
                                             {orderInfo ? (
                                                 <>
-                                                    {!orderInfo.hasFrozenMoney && orderInfo.status !== 2 && orderInfo.status !== 3 && orderInfo.status !== 5 && (
+                                                    {!orderInfo.hasFrozenMoney && orderInfo.status === 0 && (
                                                         <InfoBox default>
                                                             Order cant be matched, your deposit doesnt allow to freeze
                                                             funds.
