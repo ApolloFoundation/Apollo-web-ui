@@ -29,7 +29,7 @@ class SendApollo extends React.Component {
 			recipientStatus: false,
 			amountStatus: false,
 			feeStatus: false,
-			// alias: null,
+			alias: null,
 		};
 	}
 
@@ -50,9 +50,9 @@ class SendApollo extends React.Component {
 			values.phased = true;
 		}
 
-		// if (values.alias && this.state.alias && !values.recipient) {
-		// 	values.recipient = this.state.alias;
-		// }
+		if (values.alias && this.state.alias && !values.recipient) {
+			values.recipient = this.state.alias;
+		}
 
 		this.setState({
 			isPending: true
@@ -80,7 +80,7 @@ class SendApollo extends React.Component {
 		});
 	}
 
-	// handelChangeAlias = ({value}) => {this.setState({alias: value})}
+	handelChangeAlias = ({value}) => {this.setState({alias: value})}
 
 	render() {
 		return (
@@ -94,8 +94,7 @@ class SendApollo extends React.Component {
 				idGroup={'send-money-modal-'}
 			>
 
-				<SendApolloForm />
-				{/* <SendApolloForm onChangeAlias={this.handelChangeAlias} /> */}
+				<SendApolloForm onChangeAlias={this.handelChangeAlias} />
 
 			</ModalBody>
 			
