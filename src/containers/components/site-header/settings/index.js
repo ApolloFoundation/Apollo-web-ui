@@ -102,7 +102,7 @@ const Settings = ({setBodyModalParamsAction, isLocalhost, isActive, closeMenu}) 
                         closeMenu();                        
                         return setBodyModalParamsAction('NODE_HEALTH_INFO');
                     }}
-                    className="option">Add node health info</a></li>
+                    className="option">Node Health Info</a></li>
             </ul>
         </div>
     </div>

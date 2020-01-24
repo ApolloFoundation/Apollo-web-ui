@@ -41,7 +41,7 @@ class NodeHealthInfo extends React.Component {
                                 <tbody>
                                     <tr>
                                         <td>Database:</td>
-                                        <td>{nodeHealthInfo.healthInfo.dbOK && 'OK'}</td>
+                                        <td>{nodeHealthInfo.healthInfo.dbOK ? 'OK' : 'FAILED'}</td>
                                     </tr>
                                     <tr>
                                         <td>CPU Load:</td>
@@ -49,11 +49,11 @@ class NodeHealthInfo extends React.Component {
                                     </tr>
                                     <tr>
                                         <td>Appolo memory total:</td>
-                                        <td>{nodeHealthInfo.statusInfo.memoryTotal / 1000000}</td>
+                                        <td>{Math.round(nodeHealthInfo.statusInfo.memoryTotal / 1000000)} MB</td>
                                     </tr>
                                     <tr>
                                         <td>Apollo free memory:</td>
-                                        <td>{nodeHealthInfo.statusInfo.memoryFree / 1000000}</td>
+                                        <td>{Math.round(nodeHealthInfo.statusInfo.memoryFree / 1000000)} MB</td>
                                     </tr>
                                     <tr>
                                         <td>Inbound Peers Number:</td>
