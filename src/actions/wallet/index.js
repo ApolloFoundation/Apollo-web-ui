@@ -228,7 +228,8 @@ export const getBuyOpenOffers = (currency, options) => async (dispatch, getState
         isAvailableForNow: true,
         status: 0,
         hasFrozenMoney: true,
-
+        sortBy: 'PAIR_RATE',
+        sortOrder: 'DESC',
         ...buyOrdersPagination,
         ...options,
     };
@@ -245,7 +246,8 @@ export const getSellOpenOffers = (currency, options) => async (dispatch, getStat
         isAvailableForNow: true,
         status: 0,
         hasFrozenMoney: true,
-
+        sortBy: 'PAIR_RATE',
+        sortOrder: 'DESC',
         ...sellOrdersPagination,
         ...options,
     };
@@ -261,6 +263,8 @@ export const getPlotBuyOpenOffers = (currency, options) => async (dispatch, getS
         isAvailableForNow: true,
         status: 0,
         hasFrozenMoney: true,
+        sortBy: 'PAIR_RATE',
+        sortOrder: 'DESC',
     };
     const buyOrders = await dispatch(getOpenOrders(params));
     dispatch(setPlotBuyOrdersAction(currency, buyOrders));
@@ -274,6 +278,8 @@ export const getPlotSellOpenOffers = (currency, options) => async (dispatch, get
         isAvailableForNow: true,
         status: 0,
         hasFrozenMoney: true,
+        sortBy: 'PAIR_RATE',
+        sortOrder: 'DESC',
     };
     const sellOrders = await dispatch(getOpenOrders(params));
     dispatch(setPlotSellOrdersAction(currency, sellOrders));
@@ -302,6 +308,8 @@ export const getMyTradeHistory = (currency, options) => async (dispatch, getStat
     const paramsOpenOrder = {
         accountId: account,
         status: 5,
+        sortBy: 'DB_ID',
+        sortOrder: 'DESC', 
         ...options
     };
 
@@ -323,6 +331,8 @@ export const getMyOpenOffers = (currency) => async (dispatch, getState) => {
         orderType: 1,
         status: 0,
         hasFrozenMoney: true,
+        sortBy: 'DB_ID',
+        sortOrder: 'DESC',
     };
     const paramsBuy = {
         pairCurrency: currencyTypes[currency],
@@ -331,6 +341,8 @@ export const getMyOpenOffers = (currency) => async (dispatch, getState) => {
         orderType: 0,
         status: 0,
         hasFrozenMoney: true,
+        sortBy: 'DB_ID',
+        sortOrder: 'DESC',
     };
     const sellOrders = await dispatch(getOpenOrders(paramsSell));
     const buyOrders = await dispatch(getOpenOrders(paramsBuy));
@@ -342,6 +354,8 @@ export const getMyOfferHistory = (options) => async (dispatch, getState) => {
     const {account} = getState().account;
     const params = {
         accountId: account,
+        sortBy: 'DB_ID',
+        sortOrder: 'DESC', 
         ...options
     };
     const orders = await dispatch(getOpenOrders(params));

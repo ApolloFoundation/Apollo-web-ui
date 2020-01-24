@@ -107,8 +107,10 @@ class OrderHistory extends React.Component {
                                     {
                                         name: 'ID',
                                         alignRight: false
-                                    },
-                                    {
+                                    }, {
+                                        name: 'Height',
+                                        alignRight: false
+                                    }, {
                                         name: 'Pair name',
                                         alignRight: false
                                     }, {
@@ -144,7 +146,7 @@ class OrderHistory extends React.Component {
                                     const currency = props.pairCurrency;
                                     const type = Object.keys(currencyTypes).find(key => currencyTypes[key] === currency).toUpperCase();
                                     let trProps = '';
-                                    if (!props.hasFrozenMoney && props.status !== 2 && props.status !== 3 && props.status !== 5) {
+                                    if (!props.hasFrozenMoney && props.status === 0) {
                                         trProps = {
                                             'data-custom': true,
                                             'data-custom-at': "top",
@@ -162,6 +164,7 @@ class OrderHistory extends React.Component {
                                             className={'history-order-active'}
                                         >
                                             <td>{props.id}</td>
+                                            <td>{props.height}</td>
                                             <td>APL/{type.toUpperCase()}</td>
                                             <td>{typeName}</td>
                                             <td className={`${props.type ? 'red-text' : 'green-text'}`}>{pairRate}</td>

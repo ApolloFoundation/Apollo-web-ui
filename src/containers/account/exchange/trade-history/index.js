@@ -106,8 +106,10 @@ class TradeHistory extends React.Component {
                                         {
                                             name: 'ID',
                                             alignRight: false
-                                        },
-                                        {
+                                        }, {
+                                            name: 'Height',
+                                            alignRight: false
+                                        }, {
                                             name: 'Pair name',
                                             alignRight: false
                                         }, {
@@ -145,6 +147,7 @@ class TradeHistory extends React.Component {
                                         return (
                                             <tr style={{cursor: 'pointer'}} onClick={() => this.handleSelectOrder({pairRate, offerAmount, total, currency, typeName, statusName})}>
                                                 <td>{props.id}</td>
+                                                <td>{props.height}</td>
                                                 <td>APL/{type.toUpperCase()}</td>
                                                 <td>{props.type ? 'SELL' : 'BUY'}</td>
                                                 <td className={`${props.type ? 'red-text' : 'green-text'}`}>{pairRate}</td>
