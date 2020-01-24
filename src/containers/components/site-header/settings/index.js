@@ -91,6 +91,12 @@ const Settings = ({setBodyModalParamsAction, isLocalhost, isActive, closeMenu}) 
                         return setBodyModalParamsAction('SHARDING_INFO');
                     }}
                     className="option">Sharding info</a></li>
+                <li><a
+                    onClick={() => {
+                        closeMenu();                        
+                        return setBodyModalParamsAction('NODE_HEALTH_INFO');
+                    }}
+                    className="option">Node Health Info</a></li>
             </ul>
         </div>
     </div>
