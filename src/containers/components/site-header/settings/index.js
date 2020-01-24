@@ -91,6 +91,12 @@ const Settings = ({setBodyModalParamsAction, isLocalhost, isActive, closeMenu}) 
                         Export Secret File
                     </a>
                 </li>
+                <li><a
+                    onClick={() => {
+                        closeMenu();                        
+                        return setBodyModalParamsAction('SHARDING_INFO');
+                    }}
+                    className="option">Sharding info</a></li>
             </ul>
         </div>
     </div>
