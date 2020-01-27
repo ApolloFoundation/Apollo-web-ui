@@ -15,7 +15,6 @@ const SimpleProgressBar = ({contractOrder: {deadlineToReply, contractStatus}, bl
         'Closed': 'Contract was Closed',
         'Expired': 'Contract was Expired',
     }
-console.log(deadlineToReply, contractStatus);
 
     const timeLeft = (deadlineToReply - blockTime) / 60 / 60
     const maxStep = 4
