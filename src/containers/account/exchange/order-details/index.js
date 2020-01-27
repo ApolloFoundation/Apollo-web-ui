@@ -70,8 +70,7 @@ class OrderDetails extends React.Component {
         if (type) {
             return <ContractStatusItem isContractHistory account={account} contracts={allContractStatus}/>
         } else {
-            return <ContractStatusItem account={account} contracts={selectedContractStatus}
-                                       label={'Contract (Status) details'}/>
+            return <ContractStatusItem account={account} contracts={selectedContractStatus} label={'Contract (Status) details'}/>
         }
     };
 
@@ -92,6 +91,10 @@ class OrderDetails extends React.Component {
     render() {
         const {orderInfo, isShowingContractHistory, isPending} = this.state;
         const {selectedContractStatus, allContractStatus, account} = this.props;
+        const isShowSelectedContractStatus = orderInfo && !!(orderInfo.statusName !== 'Open' && selectedContractStatus && selectedContractStatus.length)
+        const currentContractOrder = selectedContractStatus && selectedContractStatus.reduce(
+            (res, order) => res.contractStatus <= order.contractStatus ? order : res,
+            {contractStatus: 0})
         return (
             <div className="page-content">
                 <SiteHeader
@@ -139,13 +142,13 @@ class OrderDetails extends React.Component {
                                                                 <div className="form-group-app">
                                                                     {!isShowingContractHistory
                                                                         ? <>
-                                                                            {!!(selectedContractStatus && selectedContractStatus.length) &&
-                                                                            <SimpleProgressBar
-                                                                                step={selectedContractStatus[0].contractStatus}
-                                                                                time={selectedContractStatus[0].deadlineToReply}
-                                                                                blockTime={account.timestamp}
-                                                                                status={orderInfo.statusName}
-                                                                            />}
+                                                                            {isShowSelectedContractStatus && (
+                                                                                <SimpleProgressBar
+                                                                                    contractOrder={currentContractOrder}
+                                                                                    blockTime={account.timestamp}
+                                                                                    status={orderInfo.statusName}
+                                                                                />
+                                                                            )}
                                                                             <TextualInputComponent
                                                                                 field={'current'}
                                                                                 label={'Pair Name'}
@@ -188,10 +191,10 @@ class OrderDetails extends React.Component {
                                                                                 disabled
                                                                                 placeholder={'Status'}
                                                                             />
-                                                                            {!!(selectedContractStatus && selectedContractStatus.length) && this.renderMoreDetails()}
+                                                                            {isShowSelectedContractStatus && this.renderMoreDetails()}
                                                                         </>
-                                                                        : !!(allContractStatus && allContractStatus.length) && this.renderMoreDetails('history')
-                                                                    }
+                                                                        : !!(allContractStatus && allContractStatus.length)
+                                                                                && this.renderMoreDetails('history')}
                                                                 </div>
                                                             </form>
                                                         )}

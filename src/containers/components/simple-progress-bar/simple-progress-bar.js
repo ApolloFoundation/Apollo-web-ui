@@ -2,7 +2,7 @@ import React from 'react';
 import normalizeDeadline from '../../../helpers/normalizeTime';
 import './style.scss';
 
-const SimpleProgressBar = ({step, time, blockTime, status}) => {
+const SimpleProgressBar = ({contractOrder: {deadlineToReply, contractStatus}, blockTime, status}) => {
 
     const infoAboutStep = {
         0: 'The first user send a contract, wait for review and approval. (On this step user doesn`t transfer money.)',
@@ -13,14 +13,14 @@ const SimpleProgressBar = ({step, time, blockTime, status}) => {
 
     const listClosedStatuses = {
         'Closed': 'Contract was Closed',
-        'Expired': 'Contract was Expired'
+        'Expired': 'Contract was Expired',
     }
 
-    const timeLeft = (time - blockTime) / 60 / 60
+    const timeLeft = (deadlineToReply - blockTime) / 60 / 60
     const maxStep = 4
     const isClosedStatus = Object.keys(listClosedStatuses).includes(status)
 
-    const currentStep = (isClosedStatus || timeLeft <= 0) ? maxStep : step + 1 
+    const currentStep = (isClosedStatus || timeLeft <= 0) ? maxStep : contractStatus + 1
     const progress = (currentStep / maxStep) * 100
 
     return (
@@ -29,10 +29,10 @@ const SimpleProgressBar = ({step, time, blockTime, status}) => {
                 <div className='progress-bar-simple__info'>
                     Step {currentStep}
                 </div>
-                {timeLeft >= 0 && (
-                    !isClosedStatus && time && blockTime
+                {(currentStep !== 4 || !isClosedStatus) && (
+                    deadlineToReply && blockTime
                     ?   <div className='progress-bar-simple__info'>
-                            Max waiting time for end of point: {normalizeDeadline(time, blockTime)}
+                            Max waiting time for end of point: {normalizeDeadline(deadlineToReply, blockTime)}
                         </div>
                     :   <div className={'align-items-center loader-box'}>
                             <div className="ball-pulse">
@@ -47,7 +47,7 @@ const SimpleProgressBar = ({step, time, blockTime, status}) => {
                 <div className='progress-bar-simple__progress-step' style={{width: `${progress}%`}}></div>
             </div>
             <div className='progress-bar-simple__info'>
-                {isClosedStatus ? listClosedStatuses[status] : infoAboutStep[step]}
+                {isClosedStatus ? listClosedStatuses[status] : infoAboutStep[contractStatus]}
             </div>
         </div>
     )
