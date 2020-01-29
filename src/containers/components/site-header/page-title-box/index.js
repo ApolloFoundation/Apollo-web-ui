@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 
 const PageTitleBox = ({setBodyModalType, children, dashboardPage, pageTitle}) => (
-    <div className="page-title-box">
+    <div className="page-title-box text-ellipsis">
         <div className="page-title-box transactions-title">
             <h1 className="title" dangerouslySetInnerHTML={{__html: pageTitle}} />
             {
