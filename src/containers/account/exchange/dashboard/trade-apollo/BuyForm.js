@@ -56,7 +56,7 @@ class BuyForm extends React.PureComponent {
     componentDidUpdate() {
         if(this.props.infoSelectedBuyOrder) {
             const { pairRate, offerAmount, total } = this.props.infoSelectedBuyOrder;
-            const normalizeOfferAmount = typeof offerAmount === String ? offerAmount.replaceAll(',', '') : offerAmount;
+            const normalizeOfferAmount = offerAmount.toString().replaceAll(',', '');
             const {currentCurrency: {currency}} = this.props;
             const { form, wallet } = this.state;
             const balance = wallet && wallet[0].balances[currency];

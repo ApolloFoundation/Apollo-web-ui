@@ -59,7 +59,7 @@ class SellForm extends React.PureComponent {
             }
             const { balanceAPL, dashboardAccoountInfo } = this.props;
             const { pairRate, offerAmount, total } = this.props.infoSelectedSellOrder;
-            const normalizeOfferAmount = typeof offerAmount === String ? offerAmount.replaceAll(',', '') : offerAmount;
+            const normalizeOfferAmount = offerAmount.toString().replaceAll(',', '');
             const balance = (dashboardAccoountInfo && dashboardAccoountInfo.unconfirmedBalanceATM) ? dashboardAccoountInfo.unconfirmedBalanceATM : balanceAPL;
             const balanceFormat = balance ? (balance / ONE_APL) : 0;
             const { form, wallet } = this.state;
