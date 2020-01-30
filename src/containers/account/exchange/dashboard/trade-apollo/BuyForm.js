@@ -56,7 +56,7 @@ class BuyForm extends React.PureComponent {
     componentDidUpdate() {
         if(this.props.infoSelectedBuyOrder) {
             const { pairRate, offerAmount, total } = this.props.infoSelectedBuyOrder;
-            const normalizeOfferAmount = offerAmount.replaceAll(',', '');
+            const normalizeOfferAmount = offerAmount.toString().replaceAll(',', '');
             const {currentCurrency: {currency}} = this.props;
             const { form, wallet } = this.state;
             const balance = wallet && wallet[0].balances[currency];
@@ -96,6 +96,17 @@ class BuyForm extends React.PureComponent {
                         NotificationManager.error(`You need more ${currency.toUpperCase()}. Please check your wallet balance.`, 'Error', 5000);
                         isError = true;
                     }
+                    if (!this.props.ethFee || +this.props.ethFee === 0) {
+                        NotificationManager.error('Can\'t get Gas fee. Something went wrong. Please, try again later', 'Error', 5000);
+                        isError = true;
+                    }
+                    if (+this.props.ethFee > +values.walletAddress.balances.eth) {
+                        NotificationManager.error(`To buy APL you need to have at least ${this.props.ethFee.toLocaleString('en', {
+                            minimumFractionDigits: 0,
+                            maximumFractionDigits: 9
+                        })} ETH on your balance to confirm transaction`, 'Error', 5000);
+                        isError = true;
+                    }
                     if (isError) {
                         this.setPending(false);
                         return;
@@ -108,6 +119,12 @@ class BuyForm extends React.PureComponent {
                         :
                         parseFloat(this.props.balanceAPL);
                     const fixedOfferAmount = offerAmount.toFixed();
+                    const checkFee = currency === 'eth' ? values.total + this.props.ethFee : this.props.ethFee;
+                    if (checkFee > balanceETH) {
+                        NotificationManager.error(`Not enough founds on your ETH balance. You need to pay Gas fee`, 'Error', 5000);
+                        this.setPending(false);
+                        return;
+                    }
                     if (balanceETH === 0 || balanceETH < values.total) {
                         NotificationManager.error(`Not enough founds on your ${currency.toUpperCase()} balance.`, 'Error', 5000);
                         this.setPending(false);
@@ -273,6 +290,11 @@ class BuyForm extends React.PureComponent {
                                         {currencyName}</span>
                                     </div>
                                 </div>
+                                {this.props.ethFee && (
+                                    <div className={'text-right'}>
+                                        <small className={'text-note'}> Max Fee: {this.props.ethFee} ETH</small>
+                                    </div>
+                                )}
                             </div>
                             {values.walletAddress && (
                                 <InputRange
@@ -281,9 +303,13 @@ class BuyForm extends React.PureComponent {
                                     max={100}
                                     disabled={!values.pairRate || values.pairRate === '0' || values.pairRate === ''}
                                     onChange={(amount) => {
-                                        const offerAmount = values.pairRate !== '0' ? ((amount * balance) / (100 * values.pairRate)).toFixed(10) : 0;
-                                        setValue("offerAmount", offerAmount);
-                                        setValue("total", multiply(offerAmount, values.pairRate));
+                                        const offerAmount = values.pairRate !== '0' ? ((amount * balance) / (100 * values.pairRate)) : 0;
+                                        let availableTotalValue = currency === 'eth' ? offerAmount - this.props.ethFee : offerAmount;
+                                        availableTotalValue = availableTotalValue < 0 ? 0 : availableTotalValue.toFixed(10);
+                                        const total = multiply(availableTotalValue, values.pairRate);
+
+                                        setValue("offerAmount", availableTotalValue);
+                                        setValue("total", total);
                                     }}
                                 />
                             )}

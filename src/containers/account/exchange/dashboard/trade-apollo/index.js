@@ -31,7 +31,9 @@ class TradeApollo extends React.Component {
     };
 
     render() {
-        const {wallet, handleLoginModal, typeOfTrade} = this.props;
+        const {wallet, handleLoginModal, constants, typeOfTrade} = this.props;
+        const gasLimit = constants.gasLimitERC20;
+        const ethFee = this.state.maxFee ? formatGweiToEth(this.state.maxFee * gasLimit, 0) : null;
         return (
             <div className={'card card-light h-400'}>
                 <div className="card-title">
@@ -57,11 +59,13 @@ class TradeApollo extends React.Component {
                         <BuyForm
                             wallet={wallet}
                             handleLoginModal={handleLoginModal}
+                            ethFee={ethFee}
                         />
                     ) : (
                         <SellForm
                             wallet={wallet}
                             handleLoginModal={handleLoginModal}
+                            ethFee={ethFee}
                         />
                     )}
                 </div>
@@ -71,6 +75,7 @@ class TradeApollo extends React.Component {
 }
 
 const mapStateToProps = state => ({
+    constants: state.account.constants,
     typeOfTrade: state.modals.typeOfTrade,
 });
 
