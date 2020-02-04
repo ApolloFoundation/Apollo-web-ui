@@ -5,7 +5,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {setBodyModalParamsAction} from '../../../modules/modals';
+import {setBodyModalParamsAction, setTransactionAlias} from '../../../modules/modals';
 import submitForm from "../../../helpers/forms/forms";
 
 // Form components
@@ -80,7 +80,10 @@ class SendApollo extends React.Component {
 		});
 	}
 
-	handelChangeAlias = ({value}) => {this.setState({alias: value})}
+	handelChangeAlias = ({value}) => {
+		this.props.setTransactionAlias(value)
+		this.setState({alias: value})
+	}
 
 	render() {
 		return (
@@ -102,12 +105,12 @@ class SendApollo extends React.Component {
 	}
 }
 
-const mapStateToProps = state => ({
-	modalData: state.modals.modalData,
-	account: state.account.account,
-	publicKey: state.account.publicKey,
-	modalsHistory: state.modals.modalsHistory,
-	dashboardForm: state.modals.dashboardForm
+const mapStateToProps = ({modals, account}) => ({
+	modalData: modals.modalData,
+	account: account.account,
+	publicKey: account.publicKey,
+	modalsHistory: modals.modalsHistory,
+	dashboardForm: modals.dashboardForm,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -115,6 +118,7 @@ const mapDispatchToProps = dispatch => ({
 	setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 	validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
 	getPublicKeyAPL: (passphrase) => dispatch(crypto.getPublicKeyAPL(passphrase)),
+	setTransactionAlias: (alias) => dispatch(setTransactionAlias(alias)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SendApollo);
