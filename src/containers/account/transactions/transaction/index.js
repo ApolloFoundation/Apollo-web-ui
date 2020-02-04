@@ -144,7 +144,7 @@ class Transaction extends React.Component {
                                     &nbsp;
                                     &nbsp;
                                     <span className="phasing-box__result">
-                                    {this.state.phasing.result} / {this.state.phasing.quorum}
+                                    {this.state.phasing.result} / {this.state.phasing.quorum || '0'}
                                 </span>
                                 </div>
                             )}
