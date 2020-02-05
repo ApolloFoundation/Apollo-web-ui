@@ -6,7 +6,6 @@
 
 import config from '../../config';
 import axios from 'axios';
-import {login} from "../../modules/account";
 import {processElGamalEncryption} from "../crypto";
 
 export function searchAliases(reqParams) {
