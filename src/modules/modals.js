@@ -31,6 +31,8 @@ export const CLEAR_GO_BACK = 'CLEAR_GO_BACK';
 
 export const CLOSE_MODAL = 'CLOSE_MODAL';
 
+export const SET_TRANSACTION_ALIAS = 'SET_TRANSACTION_ALIAS';
+
 export const OPEN_PREV_MODAL = 'OPEN_PREV_MODAL';
 export const SET_DASHBOARD_FORM = 'SET_DASHBOARD_FORM';
 export const IS_MODAL_PROCESSING = 'IS_MODAL_PROCESSING';
@@ -53,7 +55,8 @@ const initialState = {
     modalsHistory: [],
     infoSelectedBuyOrder : null,
     infoSelectedSellOrder: null,
-    typeOfTrade: 'BUY'
+    typeOfTrade: 'BUY',
+    alias: null,
 };
 
 export default (state = initialState, action) => {
@@ -190,6 +193,12 @@ export default (state = initialState, action) => {
                 typeOfTrade: action.payload
             };
 
+        case SET_TRANSACTION_ALIAS: 
+            return {
+                ...state,
+                alias: action.payload
+            };
+
         case RESET_TRADE_OFFER: 
             return {
                 ...state,
@@ -290,6 +299,15 @@ export const setBodyModalType = (reqParams) => {
         dispatch({
             type: SET_BODY_MODAL_DATA,
             payload: reqParams
+        });
+    }
+};
+
+export const setTransactionAlias = (alias) => {
+    return dispatch => {
+        dispatch({
+            type: SET_TRANSACTION_ALIAS,
+            payload: alias
         });
     }
 };
