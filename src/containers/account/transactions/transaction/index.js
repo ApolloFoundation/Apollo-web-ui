@@ -86,6 +86,7 @@ class Transaction extends React.Component {
     render() {
         const {isUnconfirmed, timestamp, confirmations, amountATM, feeATM, sender, senderRS, recipient, recipientRS, constants, height, formatTimestamp, transaction, type, setBodyModalParamsAction, subtype, attachment} = this.props;
         const transactionType = constants.transactionTypes && constants.transactionTypes[type];
+        const {phasing} = this.state;
         return (
             <tr key={uuid()}>
                 {
@@ -132,11 +133,11 @@ class Transaction extends React.Component {
                         </td>
                         <td className="align-right phasing">
 
-                            {this.state.phasing && (
+                            {phasing && (
                                 <div className="phasing-box"
                                      style={{zIndex: 12}}
                                      data-custom-at="top"
-                                     data-cat-id={JSON.stringify({...this.props.transaction, ...this.state.phasing})}
+                                     data-cat-id={JSON.stringify({...this.props.transaction, ...phasing})}
                                 >
                                     <spna className="phasing-box__icon">
                                         <i className={'zmdi zmdi-accounts-alt'}/>
@@ -144,7 +145,7 @@ class Transaction extends React.Component {
                                     &nbsp;
                                     &nbsp;
                                     <span className="phasing-box__result">
-                                    {this.state.phasing.result} / {this.state.phasing.quorum}
+                                    {phasing.result} / {!!phasing.approved ? phasing.result : phasing.quorum}
                                 </span>
                                 </div>
                             )}
