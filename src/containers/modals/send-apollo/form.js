@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {searchAliases} from '../../../actions/aliases';
-import {setBodyModalParamsAction, setTransactionAlias} from '../../../modules/modals';
+import {setBodyModalParamsAction} from '../../../modules/modals';
 
 import {CheckboxFormInput} from '../../components/form-components/check-button-input';
 import CustomInputForm from '../../components/form-components/textual-input';
@@ -10,22 +10,22 @@ import AutoComplete from '../../components/auto-complete';
 import AccountRSFormInput from '../../components/form-components/account-rs'
 import NummericInputForm from '../../components/form-components/numeric-input'
 
-const SendMoneyForm = ({values, setValue, modalData, setBodyModalParamsAction, idGroup, searchAliases, onChangeAlias, transactionAlias, setTransactionAlias}) => {
-    return(
-    <>
-        <AccountRSFormInput
-            field={'recipient'}
-            defaultValue={(modalData && modalData.recipient) ? modalData.recipient : transactionAlias && values.alias ? transactionAlias : ''}
-            label={'Recipient'}
-            placeholder={'Recipient'}
-            setValue={setValue}
-            idGroup={idGroup}
-            id={`${idGroup}recipient-field`}
-        />
+const SendMoneyForm = ({values, setValue, modalData, setBodyModalParamsAction, idGroup, searchAliases, onChangeAlias}) => 
+    (<>
+        {!values.alias &&
+            <AccountRSFormInput
+                field={'recipient'}
+                defaultValue={(modalData && modalData.recipient) ? modalData.recipient : ''}
+                label={'Recipient'}
+                placeholder={'Recipient'}
+                setValue={setValue}
+                idGroup={idGroup}
+                id={`${idGroup}recipient-field`}
+            />
+        }
         <CheckboxFormInput
             setValue={setValue}
             idGroup={idGroup}
-            onChange={() => !values.alias && setTransactionAlias(null)}
             checkboxes={[
                 {
                     field: 'alias',
@@ -102,15 +102,13 @@ const SendMoneyForm = ({values, setValue, modalData, setBodyModalParamsAction, i
         }
     </>
 );
-}
+
 const mapStateToProps = ({modals}) => ({
     modalData: modals.modalData,
-	transactionAlias: modals.alias,
 });
 
 const mapDispatchToProps = dispatch => ({
     searchAliases: (requestParams) => dispatch(searchAliases(requestParams)),
-    setTransactionAlias: (data) => dispatch(setTransactionAlias(data)),
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 });
 
