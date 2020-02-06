@@ -26,7 +26,20 @@ export const formatDivision = (val1, val2, digits = 6) => {
     });
 };
 
-export const multiply = (val1, val2) => parseFloat((val1 * val2).toFixed(10));
+export const division = (val1, val2, digits = 6) => {
+    const result = val2 === 0 ? 0 : val1 / val2;
+    return result.toLocaleString('en', {
+        minimumFractionDigits: digits,
+        maximumFractionDigits: digits,
+        useGrouping: false
+    });
+};
+
+export const multiply = (val1, val2, digits = 10) => parseFloat((val1 * val2).toLocaleString('en', {
+    minimumFractionDigits: digits,
+    maximumFractionDigits: digits,
+    useGrouping: false
+}).replaceAll(',', ''));
 
 export const currencyTypes = {
     'apl': 0,
