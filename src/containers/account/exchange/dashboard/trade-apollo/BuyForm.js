@@ -201,7 +201,7 @@ class BuyForm extends React.PureComponent {
                 render={({
                              submitForm, setValue, values
                          }) => {
-                    let balance = values.walletAddress && 104.6565440342568;
+                    let balance = values.walletAddress && values.walletAddress.balances[currency];
                     balance = currency === 'eth' ? balance - this.props.ethFee : balance;
                     balance = balance < 0 ? 0 : balance;
                     return (
@@ -288,7 +288,7 @@ class BuyForm extends React.PureComponent {
                                         {values.walletAddress && (
                                             <span className={'input-group-info-text'}><i
                                                 className="zmdi zmdi-balance-wallet"/>&nbsp;
-                                                {(getFullNumber(Number(104.6565440342568)))}
+                                                {(getFullNumber(Number(values.walletAddress.balances[currency])))}
                                                 &nbsp;</span>
                                         )}
                                         {currencyName}</span>
