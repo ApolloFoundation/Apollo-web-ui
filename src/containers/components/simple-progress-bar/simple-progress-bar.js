@@ -14,6 +14,7 @@ const SimpleProgressBar = ({contractOrder: {deadlineToReply, contractStatus}, bl
     const listClosedStatuses = {
         'Closed': 'Contract was Closed',
         'Expired': 'Contract was Expired',
+        'Accounting': 'Waiting expiration of atomic swap',
     }
 
     const timeLeft = (deadlineToReply - blockTime) / 60 / 60
