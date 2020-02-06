@@ -82,6 +82,7 @@ class TradeHistory extends React.Component {
             3: 'Cancel',
             4: 'Waiting approval',
             5: 'Closed',
+            6: 'Accounting',
         };
 
         return allStatuses[status];
