@@ -35,9 +35,9 @@ export const division = (val1, val2, digits = 6) => {
     });
 };
 
-export const multiply = (val1, val2, digits = 10) => parseFloat((val1 * val2).toLocaleString('en', {
-    minimumFractionDigits: digits,
-    maximumFractionDigits: digits,
+export const multiply = (val1, val2, digitsMax = 10, digitsMin = 10) => parseFloat((val1 * val2).toLocaleString('en', {
+    minimumFractionDigits: digitsMin,
+    maximumFractionDigits: digitsMax,
     useGrouping: false
 }).replaceAll(',', ''));
 
