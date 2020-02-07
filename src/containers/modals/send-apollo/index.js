@@ -80,6 +80,8 @@ class SendApollo extends React.Component {
 		});
 	}
 
+	onChosenTransactionOnAlias = () => {this.setState({alias: null})}
+
 	handelChangeAlias = ({value}) => {this.setState({alias: value})}
 
 	render() {
@@ -94,7 +96,7 @@ class SendApollo extends React.Component {
 				idGroup={'send-money-modal-'}
 			>
 
-				<SendApolloForm onChangeAlias={this.handelChangeAlias} />
+				<SendApolloForm onChangeAlias={this.handelChangeAlias} onChosenTransactionOnAlias={this.onChosenTransactionOnAlias} />
 
 			</ModalBody>
 			

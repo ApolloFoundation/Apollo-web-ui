@@ -10,7 +10,7 @@ import AutoComplete from '../../components/auto-complete';
 import AccountRSFormInput from '../../components/form-components/account-rs'
 import NummericInputForm from '../../components/form-components/numeric-input'
 
-const SendMoneyForm = ({values, setValue, modalData, setBodyModalParamsAction, idGroup, searchAliases, onChangeAlias}) => 
+const SendMoneyForm = ({values, setValue, modalData, setBodyModalParamsAction, idGroup, searchAliases, onChangeAlias, onChosenTransactionOnAlias}) => 
     (<>
         {!values.alias &&
             <AccountRSFormInput
@@ -26,6 +26,7 @@ const SendMoneyForm = ({values, setValue, modalData, setBodyModalParamsAction, i
         <CheckboxFormInput
             setValue={setValue}
             idGroup={idGroup}
+            onChange={onChosenTransactionOnAlias}
             checkboxes={[
                 {
                     field: 'alias',
