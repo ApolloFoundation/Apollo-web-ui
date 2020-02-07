@@ -307,8 +307,8 @@ class BuyForm extends React.PureComponent {
                                     max={100}
                                     disabled={!values.pairRate || values.pairRate === '0' || values.pairRate === ''}
                                     onChange={(amount) => {
-                                        const offerAmount = values.pairRate !== '0' ? ((amount * balance) / (100 * values.pairRate)) : 0;
-                                        const total = multiply(offerAmount, values.pairRate);
+                                        const offerAmount = values.pairRate !== '0' ? division((amount * balance), (100 * values.pairRate), 10) : 0;
+                                        const total = multiply(offerAmount, values.pairRate, 14);
 
                                         setValue("offerAmount", offerAmount);
                                         setValue("total", total);
