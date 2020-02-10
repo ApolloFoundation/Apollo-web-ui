@@ -28,6 +28,10 @@ yarn build
 To change testnet: change number in `-n 3`
 
 ### Run desktop app (from backend Apollo repository)
-1. `mvn clean install -Pprod`
-2. `cd bin/`
-3. `java -jar ../apl-exec/target/lib/apl-desktop-1.30.16.jar`
+1. Switch Java version `export JAVA_HOME='/usr/libexec/java_home -v 11.0.2'`
+2. Build `mvn -DskipTests=true clean package`
+3. Copy directory `apl-exec/target/apollo-wallet-1.41.12.tar.gz`
+4. `cd bin/`
+5. `./apl-start.sh -s -n 2 --no-shards-import true`
+6. `./apl-start-desktop.sh`
+7. `./apl-stop.sh`
