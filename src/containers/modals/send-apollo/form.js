@@ -23,7 +23,7 @@ const SendMoneyForm = ({values, setValue, modalData, setBodyModalParamsAction, i
                 id={`${idGroup}recipient-field`}
             />
         }
-        <CheckboxFormInput
+        {/* <CheckboxFormInput
             setValue={setValue}
             idGroup={idGroup}
             onChange={onChosenTransactionOnAlias}
@@ -33,7 +33,7 @@ const SendMoneyForm = ({values, setValue, modalData, setBodyModalParamsAction, i
                     label: 'Use alias?'
                 }
             ]}
-        />
+        /> */}
         {values.alias && 
             <AutoComplete
                 placeholder={'Alias'}
