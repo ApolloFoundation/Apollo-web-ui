@@ -16,6 +16,7 @@ import {
 } from "../../../modules/modals";
 import crypto from '../../../helpers/crypto/crypto';
 import submitForm from "../../../helpers/forms/forms";
+import util from "../../../helpers/util/utils";
 import {getAccountDataAction} from "../../../actions/login";
 import {exportAccount} from '../../../actions/account';
 import InfoBox from '../../components/info-box';
@@ -68,7 +69,11 @@ class ExportAccount extends React.Component {
                             href: this.downloadSecretFile.current.href
                         }
                     });
-                    this.downloadSecretFile.current.click();
+                    if (util.isDesktopApp() && window.java) {
+                        window.java.downloadFile(accountKeySeedData.file, values.account);
+                    } else {
+                        this.downloadSecretFile.current.click();
+                    }
                 });
             } else {
                 NotificationManager.error(accountKeySeedData.errorDescription, 'Error', 5000);
@@ -101,6 +106,9 @@ class ExportAccount extends React.Component {
         if (window.cordova && window.plugins) {
             let permissions = window.cordova.plugins.permissions;
             permissions.checkPermission(permissions.WRITE_EXTERNAL_STORAGE, this.checkPermissionCallback, null);
+        }
+        if (util.isDesktopApp() && window.java) {
+            window.java.downloadFile(this.state.accountKeySeedData.file, this.state.accountKeySeedData.account);
         }
     };
 
