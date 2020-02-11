@@ -5,7 +5,7 @@
     <groupId>com.apollocurrency</groupId>
     <artifactId>web-wallet</artifactId>
     <name>web-wallet</name>
-    <version>2.5.47</version>
+    <version>2.5.49</version>
 
     <build>
         <plugins>

@@ -5,6 +5,7 @@ import {setBodyModalParamsAction, setModalData, setModalType} from '../../../../
 import {setAccountPassphrase} from '../../../../modules/account';
 import {exportWallet} from "../../../../actions/wallet";
 import ModalBody from '../../../components/modals/modal-body';
+import util from "../../../../helpers/util/utils";
 
 class ConfirmExportWallet extends React.Component {
     downloadSecretFile = React.createRef();
@@ -41,7 +42,11 @@ class ConfirmExportWallet extends React.Component {
                     let objJsonB64 = Buffer.from(objJsonStr).toString("base64");
                     const base64 = `data:application/octet-stream;base64,${objJsonB64}`;
                     this.downloadSecretFile.current.href = encodeURI(base64);
-                    this.downloadSecretFile.current.click();
+                    if (util.isDesktopApp() && window.java) {
+                        window.java.downloadFile(objJsonB64, wallet.address);
+                    } else {
+                        this.downloadSecretFile.current.click();
+                    }
                 });
 
                 NotificationManager.success('Selected ETH wallet exported successfully!', null, 5000);
@@ -102,6 +107,11 @@ class ConfirmExportWallet extends React.Component {
         if (window.cordova && window.plugins) {
             let permissions = window.cordova.plugins.permissions;
             permissions.checkPermission(permissions.WRITE_EXTERNAL_STORAGE, this.checkPermissionCallback, null);
+        }
+        if (util.isDesktopApp() && window.java) {
+            let objJsonStr = JSON.stringify(this.state.wallet);
+            let objJsonB64 = Buffer.from(objJsonStr).toString("base64");
+            window.java.downloadFile(objJsonB64, this.state.wallet.address);
         }
     };
 
