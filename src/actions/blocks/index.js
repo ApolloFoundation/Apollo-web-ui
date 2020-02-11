@@ -28,6 +28,44 @@ export function getBlocksAction(requestParams) {
     }
 }
 
+export function getForgedBlocksAction(requestParams) {
+    return dispatch => {
+        return axios.get(config.api.serverUrl, {
+            params: {
+                requestType: 'getAccountBlocks',
+                ...requestParams
+            }
+        })
+            .then((res) => {
+                if (!res.data.errorCode) {
+                    return res.data
+                }
+            })
+            .catch(() => {
+
+            })
+    }
+}
+
+export function getAccountBlockCountAction(requestParams) {
+    return dispatch => {
+        return axios.get(config.api.serverUrl, {
+            params: {
+                requestType: 'getAccountBlockCount',
+                ...requestParams
+            }
+        })
+            .then((res) => {
+                if (!res.data.errorCode) {
+                    return res.data
+                }
+            })
+            .catch(() => {
+
+            })
+    }
+}
+
 export function getBlockAction(requestParams) {
     return dispatch => {
         return axios.get(config.api.serverUrl, {

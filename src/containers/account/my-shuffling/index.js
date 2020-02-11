@@ -20,7 +20,7 @@ import {setBodyModalParamsAction} from '../../../modules/modals';
 const initialPagination = {
     page: 1,
     firstIndex: 0,
-    lastIndex: 14,
+    lastIndex: 15,
 };
 
 class MyShufling extends React.Component {
@@ -56,7 +56,7 @@ class MyShufling extends React.Component {
         const pagination = {
             page: page,
             firstIndex: page * 15 - 15,
-            lastIndex: page * 15 - 1
+            lastIndex: page * 15
         };
         this.getAccountShufflings({
             account: this.props.account
@@ -148,6 +148,7 @@ class MyShufling extends React.Component {
                         page={this.state.page}
                         previousHendler={() => this.onPaginate(this.state.page - 1)}
                         nextHendler={() => this.onPaginate(this.state.page + 1)}
+                        itemsPerPage={15}
                     />
                 </div>
             </div>

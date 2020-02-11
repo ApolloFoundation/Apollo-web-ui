@@ -17,7 +17,6 @@ import {
     getPlotBuyOpenOffers,
     getPlotSellOpenOffers,
     getSellOpenOffers,
-    getMyTradeHistory,
 } from "../../../../actions/wallet";
 import Orderbook from "./orderbook";
 import TradeApollo from "./trade-apollo";
@@ -39,7 +38,6 @@ class Exchange extends React.Component {
         this.props.getBuyOpenOffers();
         this.props.getSellOpenOffers();
         this.props.getPlotBuyOpenOffers();
-        this.props.getMyTradeHistory();
         this.props.getPlotSellOpenOffers();
         this.props.getMyOpenOffers();
     }
@@ -77,7 +75,6 @@ class Exchange extends React.Component {
         this.props.getSellOpenOffers(currency);
         this.props.getPlotBuyOpenOffers(currency);
         this.props.getPlotSellOpenOffers(currency);
-        this.props.getMyTradeHistory();
         this.props.getMyOpenOffers(currency);
     };
 
@@ -103,9 +100,9 @@ class Exchange extends React.Component {
                             </div>
                         </div>
                         <div className={'cards-wrap row'}>
-                            <div className={'col-md-9 col-sm-7 p-0'}>
+                            <div className={'col-md-9 col-sm-7 p-0 tradingview'}>
                                 <div className={'row'}>
-                                    <div className={'col-md-8 col-sm-12 p-0'}>
+                                    <div className={'col-md-8 col-sm-12 p-0 tv-chart'}>
                                         <Plot
                                             currentCurrency={currentCurrency}
                                             buyOrders={plotBuyOrdersCurrency}
@@ -116,15 +113,24 @@ class Exchange extends React.Component {
                                             handleLoginModal={this.handleLoginModal}
                                         />
                                     </div>
-                                    <div className={'col-md-4 col-sm-12 p-0'}>
+                                    <div className={'col-md-4 col-sm-12 p-0 trade'}>
                                         <TradeApollo
                                             currentCurrency={currentCurrency}
                                             wallet={wallet}
                                             handleLoginModal={this.handleLoginModal}
                                         />
                                     </div>
+                                    <div className={'col-md-3 col-sm-5 p-0 order-book'}>
+                                        <div className={'d-flex flex-column h-100'}>
+                                            <Orderbook
+                                                currentCurrency={currentCurrency}
+                                                buyOrders={buyOrdersCurrency}
+                                                sellOrders={sellOrdersCurrency}
+                                            />
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className={'row'}>
+                                <div className={'row bottom'}>
                                     <div className={'col-md-4 col-sm-12 p-0'}>
                                         <TradeHistoryExchange
                                             currentCurrency={currentCurrency}
@@ -140,23 +146,16 @@ class Exchange extends React.Component {
                                         />
                                     </div>
                                     <div className={'col-md-4 col-sm-6 p-0'}>
-                                        <a
-                                            href={'https://twitter.com/ApolloCurrency'}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className={`card card-square`}
-                                            style={{backgroundImage: `url(${TwitterBanner})`}}
-                                        />
+                                        <div className={'wrap-card-square'}>
+                                            <a
+                                                href={'https://twitter.com/ApolloCurrency'}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className={`card card-square`}
+                                                style={{backgroundImage: `url(${TwitterBanner})`}}
+                                            />
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div className={'col-md-3 col-sm-5 p-0'}>
-                                <div className={'d-flex flex-column h-100'}>
-                                    <Orderbook
-                                        currentCurrency={currentCurrency}
-                                        buyOrders={buyOrdersCurrency}
-                                        sellOrders={sellOrdersCurrency}
-                                    />
                                 </div>
                             </div>
                         </div>
@@ -187,7 +186,6 @@ const mapDispatchToProps = dispatch => ({
     getPlotBuyOpenOffers: (currency) => dispatch(getPlotBuyOpenOffers(currency)),
     getPlotSellOpenOffers: (currency) => dispatch(getPlotSellOpenOffers(currency)),
     getMyOpenOffers: (currency) => dispatch(getMyOpenOffers(currency)),
-    getMyTradeHistory: () => dispatch(getMyTradeHistory()),
     resetTrade: () => dispatch(resetTrade()),
 });
 

@@ -36,7 +36,7 @@ class Currencies extends React.Component {
         this.state = {
             page: 1,
             firstIndex: 0,
-            lastIndex: 14,
+            lastIndex: 15,
             currencies: null
         };
     }
@@ -77,11 +77,11 @@ class Currencies extends React.Component {
     }
 
     onPaginate = (page) => {
-        this.setState({
+        this.getCurrencie({
             page: page,
             account: this.props.account,
             firstIndex: page * 15 - 15,
-            lastIndex:  page * 15 - 1
+            lastIndex:  page * 15
         });
     };
 
@@ -90,6 +90,7 @@ class Currencies extends React.Component {
 
         if (allCurrencies) {
             this.setState({
+                ...reqParams,
                 currencies: allCurrencies.currencies
             })
         }
@@ -132,6 +133,7 @@ class Currencies extends React.Component {
                         previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
                         nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
                         emptyMessage={'No currencies found.'}
+                        itemsPerPage={15}
                     />
                 </div>
             </div>

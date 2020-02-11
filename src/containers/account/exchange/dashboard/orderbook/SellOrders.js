@@ -60,12 +60,13 @@ class SellOrders extends React.Component {
                 TableRowComponent={(props) => {
                     const pairRate = formatDivision(props.pairRate, ONE_GWEI, 9);
                     const offerAmount = formatDivision(props.offerAmount, ONE_GWEI, 9);
-                    const total = formatDivision(props.pairRate * props.offerAmount, Math.pow(10, 18), 9);
+                    const total = props.pairRate * props.offerAmount;
+                    const totalFormat = formatDivision(total, Math.pow(10, 18), 9);
                     return (
-                        <tr onClick={() => this.props.setSelectedOrderInfo({pairRate, offerAmount, total, type: 'BUY'})}>
+                        <tr onClick={() => this.props.setSelectedOrderInfo({pairRate: props.pairRate, offerAmount: props.offerAmount, total, type: 'BUY'})}>
                             <td className={'text-danger'}>{pairRate}</td>
                             <td className={'align-right'}>{offerAmount}</td>
-                            <td className={'align-right'}>{total}</td>
+                            <td className={'align-right'}>{totalFormat}</td>
                         </tr>
                     )
                 }}
@@ -73,6 +74,7 @@ class SellOrders extends React.Component {
                 page={pagination.page}
                 previousHendler={this.onPaginate.bind(this, pagination.page - 1)}
                 nextHendler={this.onPaginate.bind(this, pagination.page + 1)}
+                itemsPerPage={15}
             />
         );
     }

@@ -79,25 +79,29 @@ class Dashboard extends React.Component {
                                                 <SendApollo/>
                                             </div>
                                         </div>
-                                        <a
-                                            href={'https://medium.com/@apollocurrency'}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className={`card card-square card-xl`}
-                                            style={{backgroundImage: `url(${InfoBanner})`}}
-                                        />
+                                        <div className={'wrap-card-square-xl'}>
+                                            <a
+                                                href={'https://medium.com/@apollocurrency'}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className={`card card-square card-xl`}
+                                                style={{backgroundImage: `url(${InfoBanner})`}}
+                                            />
+                                        </div>
                                     </div>
                                     <div className={'col-lg-4 p-0'}>
                                         <div className={'d-flex flex-column'}>
                                             <InfoStatistic/>
                                             <StayInTouch/>
-                                            <a
-                                                href={'https://twitter.com/ApolloCurrency'}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className={`card card-square`}
-                                                style={{backgroundImage: `url(${TwitterBanner})`}}
-                                            />
+                                            <div className={'wrap-card-square'}>
+                                                <a
+                                                    href={'https://twitter.com/ApolloCurrency'}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                    className={`card card-square`}
+                                                    style={{backgroundImage: `url(${TwitterBanner})`}}
+                                                />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

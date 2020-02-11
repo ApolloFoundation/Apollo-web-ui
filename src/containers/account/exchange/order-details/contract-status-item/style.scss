@@ -1,0 +1,27 @@
+.contract-item {
+    margin-bottom: 10px;
+
+    &__label {
+        color: #98B0CD;
+        font-size: 11px;
+        margin-bottom: 5px;
+        display: inline-block;
+    }
+}
+
+.transaction-table {
+    &.details {
+        overflow-x: auto;
+
+        td {
+            white-space: initial;
+            width: 40%;
+            min-width: 200px;
+
+            &:last-child {
+                width: 60%;
+                min-width: 320px;
+            }
+        }
+    }
+}

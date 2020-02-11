@@ -15,7 +15,9 @@ import {
     setPlotSellOrdersAction,
     setMyOrdersAction,
     setMyTradeHistoryAction,
-    setMyOrderHistoryAction
+    setMyOrderHistoryAction,
+    setContractStatus,
+    setAllContractStatus,
 } from "../../modules/exchange";
 import {handleFetch, GET, POST} from "../../helpers/fetch";
 import {currencyTypes} from "../../helpers/format";
@@ -38,15 +40,56 @@ export function getWallets(requestParams) {
     }
 }
 
-export function logout(requestParams) {
-    return () => {
-        return handleFetch(`${config.api.server}/rest/dex/flush`, GET, requestParams, true)
+export function getContractStatus(requestParams) {
+    return (dispatch, getState) => {
+        if (!requestParams.accountId) {
+            const {account} = getState().account;
+            requestParams.accountId = account;
+        }
+        return handleFetch(`${config.api.server}/rest/dex/contracts`, GET, requestParams)
             .then((res) => {
                 if (!res.errorCode) {
+                    dispatch(setContractStatus(res));
                     return res;
                 } else {
                     NotificationManager.error(res.errorDescription, 'Error', 5000);
                 }
+            })
+            .catch(() => {
+
+            })
+    }
+}
+
+export function getAllContractStatus(requestParams) {
+    return (dispatch, getState) => {
+        if (!requestParams.accountId) {
+            const {account} = getState().account;
+            requestParams.accountId = account;
+        }
+        return handleFetch(`${config.api.server}/rest/dex/all-contracts`, GET, requestParams)
+            .then((res) => {
+                if (!res.errorCode) {
+                    dispatch(setAllContractStatus(res));
+                    return res;
+                } else {
+                    NotificationManager.error(res.errorDescription, 'Error', 5000);
+                }
+            })
+            .catch(() => {
+
+            })
+    }
+}
+
+export function logout(requestParams) {
+    return () => {
+        return handleFetch(`${config.api.server}/rest/dex/flush`, GET, requestParams, true)
+            .then((res) => {
+                if (res.errorCode) {
+                    NotificationManager.error(res.errorDescription, 'Error', 5000);
+                }
+                return res
             })
             .catch(() => {
 
@@ -144,6 +187,22 @@ export function cancelOffer(requestParams) {
     }
 }
 
+export function getOrderById(orderId) {
+    return () => {
+        return handleFetch(`${config.api.server}/rest/dex/orders/${orderId}`, GET, null, true)
+            .then(async (res) => {
+                if (!res.errorCode) {
+                    return res;
+                } else {
+                    return null;
+                }
+            })
+            .catch(() => {
+
+            })
+    }
+}
+
 export function getOpenOrders(requestParams) {
     return () => {
         return handleFetch(`${config.api.server}/rest/dex/offers`, GET, requestParams, true)
@@ -168,8 +227,9 @@ export const getBuyOpenOffers = (currency, options) => async (dispatch, getState
         pairCurrency: currencyTypes[currency],
         isAvailableForNow: true,
         status: 0,
-        // hasFrozenMoney: true,
-
+        hasFrozenMoney: true,
+        sortBy: 'PAIR_RATE',
+        sortOrder: 'DESC',
         ...buyOrdersPagination,
         ...options,
     };
@@ -185,8 +245,9 @@ export const getSellOpenOffers = (currency, options) => async (dispatch, getStat
         pairCurrency: currencyTypes[currency],
         isAvailableForNow: true,
         status: 0,
-        // hasFrozenMoney: true,
-
+        hasFrozenMoney: true,
+        sortBy: 'PAIR_RATE',
+        sortOrder: 'DESC',
         ...sellOrdersPagination,
         ...options,
     };
@@ -201,7 +262,9 @@ export const getPlotBuyOpenOffers = (currency, options) => async (dispatch, getS
         pairCurrency: currencyTypes[currency],
         isAvailableForNow: true,
         status: 0,
-        // hasFrozenMoney: true,
+        hasFrozenMoney: true,
+        sortBy: 'PAIR_RATE',
+        sortOrder: 'DESC',
     };
     const buyOrders = await dispatch(getOpenOrders(params));
     dispatch(setPlotBuyOrdersAction(currency, buyOrders));
@@ -214,7 +277,9 @@ export const getPlotSellOpenOffers = (currency, options) => async (dispatch, get
         pairCurrency: currencyTypes[currency],
         isAvailableForNow: true,
         status: 0,
-        // hasFrozenMoney: true,
+        hasFrozenMoney: true,
+        sortBy: 'PAIR_RATE',
+        sortOrder: 'DESC',
     };
     const sellOrders = await dispatch(getOpenOrders(params));
     dispatch(setPlotSellOrdersAction(currency, sellOrders));
@@ -228,7 +293,7 @@ export const getAllMyOpenOffers = (currency, options) => async (dispatch, getSta
         accountId: account,
         isAvailableForNow: true,
         status: 0,
-        // hasFrozenMoney: true,
+        hasFrozenMoney: true,
         ...options
     };
 
@@ -243,7 +308,8 @@ export const getMyTradeHistory = (currency, options) => async (dispatch, getStat
     const paramsOpenOrder = {
         accountId: account,
         status: 5,
-        // hasFrozenMoney: true,
+        sortBy: 'DB_ID',
+        sortOrder: 'DESC', 
         ...options
     };
 
@@ -252,6 +318,7 @@ export const getMyTradeHistory = (currency, options) => async (dispatch, getStat
     const openOrders = await dispatch(getOpenOrders(currentParamsOpenOrder));
     const orders = openOrders ? [...openOrders].sort((a, b) => b.finishTime - a.finishTime) : [];
     dispatch(setMyTradeHistoryAction(currentCurrency || 'allTrades', orders));
+    return orders;
 };
 
 export const getMyOpenOffers = (currency) => async (dispatch, getState) => {
@@ -263,7 +330,9 @@ export const getMyOpenOffers = (currency) => async (dispatch, getState) => {
         isAvailableForNow: true,
         orderType: 1,
         status: 0,
-        // hasFrozenMoney: true,
+        hasFrozenMoney: true,
+        sortBy: 'DB_ID',
+        sortOrder: 'DESC',
     };
     const paramsBuy = {
         pairCurrency: currencyTypes[currency],
@@ -271,7 +340,9 @@ export const getMyOpenOffers = (currency) => async (dispatch, getState) => {
         isAvailableForNow: true,
         orderType: 0,
         status: 0,
-        // hasFrozenMoney: true,
+        hasFrozenMoney: true,
+        sortBy: 'DB_ID',
+        sortOrder: 'DESC',
     };
     const sellOrders = await dispatch(getOpenOrders(paramsSell));
     const buyOrders = await dispatch(getOpenOrders(paramsBuy));
@@ -283,6 +354,8 @@ export const getMyOfferHistory = (options) => async (dispatch, getState) => {
     const {account} = getState().account;
     const params = {
         accountId: account,
+        sortBy: 'DB_ID',
+        sortOrder: 'DESC', 
         ...options
     };
     const orders = await dispatch(getOpenOrders(params));
@@ -313,6 +386,23 @@ export function getIdaxPair(requestParams) {
                     return res.ticker;
                 } else {
                     NotificationManager.error('IDAX not working now.', 'Error', 5000);
+                }
+            })
+            .catch(() => {
+
+            })
+    }
+}
+
+export function exportWallet(requestParams) {
+    return () => {
+        return handleFetch(`${config.api.server}/rest/keyStore/eth`, POST, requestParams, true)
+            .then(async (res) => {
+                if (!res.errorCode) {
+                    return res;
+                } else {
+                    NotificationManager.error(res.errorDescription, 'Error', 5000);
+                    return null;
                 }
             })
             .catch(() => {

@@ -32,6 +32,7 @@ class TradeApollo extends React.Component {
 
     render() {
         const {wallet, handleLoginModal, typeOfTrade} = this.props;
+        const ethMinTxFee = 0.002;
         return (
             <div className={'card card-light h-400'}>
                 <div className="card-title">
@@ -57,11 +58,13 @@ class TradeApollo extends React.Component {
                         <BuyForm
                             wallet={wallet}
                             handleLoginModal={handleLoginModal}
+                            ethFee={ethMinTxFee}
                         />
                     ) : (
                         <SellForm
                             wallet={wallet}
                             handleLoginModal={handleLoginModal}
+                            ethFee={ethMinTxFee}
                         />
                     )}
                 </div>

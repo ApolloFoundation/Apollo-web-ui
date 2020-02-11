@@ -5,7 +5,7 @@ import {NotificationManager} from 'react-notifications';
 import classNames from "classnames";
 import InputForm from '../../../../components/input-form';
 import CustomSelect from '../../../../components/select';
-import {currencyTypes, formatDivision, multiply} from '../../../../../helpers/format';
+import {currencyTypes, formatDivision, multiply, division} from '../../../../../helpers/format';
 import {createOffer} from '../../../../../actions/wallet';
 import {setBodyModalParamsAction, resetTrade, setSelectedOrderInfo} from '../../../../../modules/modals';
 import {ONE_APL, ONE_GWEI} from '../../../../../constants';
@@ -59,16 +59,18 @@ class SellForm extends React.PureComponent {
             }
             const { balanceAPL, dashboardAccoountInfo } = this.props;
             const { pairRate, offerAmount, total } = this.props.infoSelectedSellOrder;
-            const normalizeOfferAmount = offerAmount.replaceAll(',', '');
             const balance = (dashboardAccoountInfo && dashboardAccoountInfo.unconfirmedBalanceATM) ? dashboardAccoountInfo.unconfirmedBalanceATM : balanceAPL;
             const balanceFormat = balance ? (balance / ONE_APL) : 0;
             const { form, wallet } = this.state;
+            const normalizePairRate = !pairRate ? 0 : division(pairRate, ONE_GWEI, 9);
+            const normalizeOfferAmount = !offerAmount ? 0 : division(offerAmount, ONE_GWEI, 9);
+            const normalizeTotal = !total ? 0 : division(total, Math.pow(10, 18), 9);
             const rangeValue = (normalizeOfferAmount * 100 / balanceFormat).toFixed(0);
             form.setAllValues({
                 walletAddress: wallet && wallet[0],
-                pairRate: pairRate,
+                pairRate: normalizePairRate,
                 offerAmount: normalizeOfferAmount,
-                total: +total,
+                total: normalizeTotal,
                 range: numberTypes[rangeValue] || rangeValue,
             });
         }
@@ -88,6 +90,17 @@ class SellForm extends React.PureComponent {
                     }
                     if (values.offerAmount < 0.001) {
                         NotificationManager.error('You can sell more then 0.001 APL', 'Error', 5000);
+                        isError = true;
+                    }
+                    // if (!this.props.ethFee || +this.props.ethFee === 0) {
+                    //     NotificationManager.error('Can\'t get Gas fee. Something went wrong. Please, try again later', 'Error', 5000);
+                    //     isError = true;
+                    // }
+                    if (+this.props.ethFee > +values.walletAddress.balances.eth) {
+                        NotificationManager.error(`To sell APL you need to have at least ${this.props.ethFee.toLocaleString('en', {
+                            minimumFractionDigits: 0,
+                            maximumFractionDigits: 9
+                        })} ETH on your balance to confirm transaction`, 'Error', 5000);
                         isError = true;
                     }
                     if (isError) {

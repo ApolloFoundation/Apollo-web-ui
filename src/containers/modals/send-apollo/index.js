@@ -29,7 +29,7 @@ class SendApollo extends React.Component {
 			recipientStatus: false,
 			amountStatus: false,
 			feeStatus: false,
-			// alias: null,
+			alias: null,
 		};
 	}
 
@@ -50,9 +50,9 @@ class SendApollo extends React.Component {
 			values.phased = true;
 		}
 
-		// if (values.alias && this.state.alias && !values.recipient) {
-		// 	values.recipient = this.state.alias;
-		// }
+		if (values.alias) {
+			values.recipient = this.state.alias;
+		}
 
 		this.setState({
 			isPending: true
@@ -62,25 +62,27 @@ class SendApollo extends React.Component {
         // export const processForm = (values, requestType, successMesage, successCallback) => {
 
 		this.props.processForm(values, 'sendMoney', 'Transaction has been submitted!', (res) => {
-            if (res.broadcasted === false) {
-                this.props.setBodyModalParamsAction('RAW_TRANSACTION_DETAILS', {
-                    request: values,
-                    result: res
-                });
-            } else {
-                this.props.setBodyModalParamsAction(null, {});
-            }
+			if (res.broadcasted === false) {
+					this.props.setBodyModalParamsAction('RAW_TRANSACTION_DETAILS', {
+							request: values,
+							result: res
+					});
+			} else {
+					this.props.setBodyModalParamsAction(null, {});
+			}
 
-            if (dashboardForm) {
-                dashboardForm.resetAll();
-                dashboardForm.setValue('recipient', '');
-                dashboardForm.setValue('feeATM', '1');
-            }
-            NotificationManager.success('Transaction has been submitted!', null, 5000);
+			if (dashboardForm) {
+					dashboardForm.resetAll();
+					dashboardForm.setValue('recipient', '');
+					dashboardForm.setValue('feeATM', '1');
+			}
+			NotificationManager.success('Transaction has been submitted!', null, 5000);
 		});
 	}
 
-	// handelChangeAlias = ({value}) => {this.setState({alias: value})}
+	onChosenTransactionOnAlias = () => {this.setState({alias: null})}
+
+	handelChangeAlias = ({value}) => {this.setState({alias: value})}
 
 	render() {
 		return (
@@ -94,8 +96,7 @@ class SendApollo extends React.Component {
 				idGroup={'send-money-modal-'}
 			>
 
-				<SendApolloForm />
-				{/* <SendApolloForm onChangeAlias={this.handelChangeAlias} /> */}
+				<SendApolloForm onChangeAlias={this.handelChangeAlias} onChosenTransactionOnAlias={this.onChosenTransactionOnAlias} />
 
 			</ModalBody>
 			
@@ -103,12 +104,12 @@ class SendApollo extends React.Component {
 	}
 }
 
-const mapStateToProps = state => ({
-	modalData: state.modals.modalData,
-	account: state.account.account,
-	publicKey: state.account.publicKey,
-	modalsHistory: state.modals.modalsHistory,
-	dashboardForm: state.modals.dashboardForm
+const mapStateToProps = ({modals, account}) => ({
+	modalData: modals.modalData,
+	account: account.account,
+	publicKey: account.publicKey,
+	modalsHistory: modals.modalsHistory,
+	dashboardForm: modals.dashboardForm,
 });
 
 const mapDispatchToProps = dispatch => ({

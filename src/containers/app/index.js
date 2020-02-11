@@ -78,6 +78,7 @@ import Generators from "../account/generators"
 import Exchange from "../account/exchange/dashboard"
 import TradeHistoryExchange from "../account/exchange/trade-history"
 import OrderHistory from "../account/exchange/order-history"
+import OrderDetails from "../account/exchange/order-details"
 import ChooseWallet from "../account/exchange/choose-wallet"
 
 import './App.scss';
@@ -270,6 +271,7 @@ class App extends React.Component {
             <Route exact path="/generators" component={Generators}/>
             <Route exact path="/dex" component={Exchange}/>
             <Route exact path="/order-history" component={OrderHistory}/>
+            <Route exact path="/order/:id?" component={OrderDetails}/>
             <Route exact path="/choose-wallet" component={ChooseWallet}/>
             <Route exact path="/trade-history-exchange" component={TradeHistoryExchange}/>
 
@@ -350,7 +352,7 @@ class App extends React.Component {
                     {
                         !this.props.loading && !isLoginPage &&
                         <div className="site-footer">
-                            Copyright © 2017-2019 Apollo Foundation.&nbsp;
+                            Copyright © 2017-2020 Apollo Foundation.&nbsp;
                             <br className={'show-media hide-desktop'}/>
                             Apollo Version: {!!this.props.appState && this.props.appState.version}.
                             <span>{` UI Version: ${version}`} </span>
