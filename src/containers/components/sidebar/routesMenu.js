@@ -12,13 +12,14 @@ export const dashboardMenu = {
 };
 
 export const exchangeMenu = {
-	className: '/exchange',
-	to: '/exchange',
+	className: '/dex',
+	to: '/dex',
 	label: 'Exchange',
 	icon: 'zmdi-refresh',
 	children: [
 		{className: '/choose-wallet', to: '/choose-wallet', label: 'Choose wallet', icon: 'zmdi-case'},
 		{className: '/order-history', to: '/order-history', label: 'Order history', icon: 'zmdi-chart'},
+		{className: '/trade-history-exchange', to: '/trade-history-exchange', label: 'Trade history', icon: 'zmdi-chart'},
 	],
 };
 
@@ -113,7 +114,9 @@ export const messagesMenu = {
 export const aliasesMenu = {
 	className: '/aliases',
 	to: '/aliases',
-	label: 'Aliases',
+	label: 'Search Aliases',
 	icon: 'zmdi-accounts',
-	children: [],
+	children: [
+		{className: '/my-aliases', to: '/my-aliases', label: 'My Aliases', icon: 'zmdi-accounts'},
+	],
 };

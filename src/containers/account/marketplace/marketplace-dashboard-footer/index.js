@@ -37,7 +37,6 @@ class MarketplaceDashboardFooter extends Component {
 
         if (getDGSGoods) {
             this.setState({
-                ...this.state,
                 getDGSGoods: getDGSGoods.goods
             })
         }
@@ -109,15 +108,17 @@ class MarketplaceDashboardFooter extends Component {
                                 <div className="row marketplace-row">
                                     {(totalPurchasedProducts && !!totalPurchasedProducts.length) ? (
                                         totalPurchasedProducts.map((el, index) => {
-                                            return (
-                                                <div key={el.goods} className="marketplace-row-item col-xl-2 pr-0">
-                                                    <MarketplaceItem
-                                                        fullHeight
-                                                        relative={true}
-                                                        {...el}
-                                                    />
-                                                </div>
-                                            );
+                                            if (index < 6) {
+                                                return (
+                                                    <div key={el.goods} className="marketplace-row-item col-xl-2 pr-0">
+                                                        <MarketplaceItem
+                                                            fullHeight
+                                                            relative={true}
+                                                            {...el}
+                                                        />
+                                                    </div>
+                                                );
+                                            }
                                         })
                                     ) : (
                                         <InfoBox default className={'simple'}>

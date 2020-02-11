@@ -1,6 +1,4 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import {getBuyOpenOffers} from "../../../../../actions/wallet";
 import BuyOrders from "./BuyOrders";
 import SellOrders from "./SellOrders";
 
@@ -23,7 +21,7 @@ class Orderbook extends React.Component {
                 <div className="card-body">
                     <div className={'tabs-wrap tabs-primary mb-3'}>
                         <div
-                            className={`tab-item w-auto ${this.state.actionType === 0 ? 'active' : ''}`}
+                            className={`tab-item ${this.state.actionType === 0 ? 'active' : ''}`}
                             onClick={this.handleActionType.bind(this, 0)}
                         >
                             All
@@ -47,7 +45,7 @@ class Orderbook extends React.Component {
                             sellOrders={sellOrders}
                         />
                     )}
-                    {this.state.actionType === 0 && (
+                    {/* {this.state.actionType === 0 && (
                         <div className={'card card-price'}>
                             <div className={'card-body'}>
                                 <div className={'price-wrap'}>
@@ -60,7 +58,7 @@ class Orderbook extends React.Component {
                                 </div>
                             </div>
                         </div>
-                    )}
+                    )} */}
                     {(this.state.actionType === 0 || this.state.actionType === 1) && (
                         <BuyOrders
                             currentCurrency={currentCurrency}
@@ -73,8 +71,4 @@ class Orderbook extends React.Component {
     }
 }
 
-const mapDispatchToProps = dispatch => ({
-    getBuyOpenOffers: (currency, options) => dispatch(getBuyOpenOffers(currency, options)),
-});
-
-export default connect(null, mapDispatchToProps)(Orderbook);
+export default Orderbook;

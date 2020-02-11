@@ -9,7 +9,10 @@ export const SET_SELL_ORDERS = "SET_SELL_ORDERS";
 export const SET_PLOT_BUY_ORDERS = "SET_PLOT_BUY_ORDERS";
 export const SET_PLOT_SELL_ORDERS = "SET_PLOT_SELL_ORDERS";
 export const SET_MY_ORDERS = "SET_MY_ORDERS";
+export const SET_MY_TRADE_HISTORY = "SET_MY_TRADE_HISTORY";
 export const SET_MY_ORDER_HISTORY = "SET_MY_ORDER_HISTORY";
+export const SET_CONTRACT_STATUS = "SET_CONTRACT_STATUS";
+export const SET_ALL_CONTRACT_STATUS = "SET_ALL_CONTRACT_STATUS";
 
 const initState = {
     currencies: ['btc', 'eth', 'pax'],
@@ -21,20 +24,23 @@ const initState = {
     buyOrdersPagination: {
         page: 1,
         firstIndex: 0,
-        lastIndex: 14,
+        lastIndex: 15,
     },
 
     sellOrders: {},
     sellOrdersPagination: {
         page: 1,
         firstIndex: 0,
-        lastIndex: 14,
+        lastIndex: 15,
     },
 
     plotBuyOrders: {},
     plotSellOrders: {},
     myOrders: {},
     myOrderHistory: {},
+    myTradeHistory: {},
+    contractStatus: null,
+    allContractStatus: null,
 };
 
 export default (state = initState, {type, payload}) => {
@@ -98,6 +104,26 @@ export default (state = initState, {type, payload}) => {
             return {
                 ...state,
                 myOrderHistory: payload.orders,
+            };
+        case SET_MY_TRADE_HISTORY:
+            return {
+                ...state,
+                myTradeHistory: {
+                    ...state.myTradeHistory,
+                    [payload.currency]: payload.orders || [],
+                }
+            };
+
+        case SET_CONTRACT_STATUS:
+            return {
+                ...state,
+                contractStatus: payload.statusInfo,
+            };
+
+        case SET_ALL_CONTRACT_STATUS:
+            return {
+                ...state,
+                allContractStatus: payload.allStatusInfo,
             };
         default:
             return state;
@@ -168,6 +194,34 @@ export const setMyOrderHistoryAction = (orders) => dispatch => {
         type: SET_MY_ORDER_HISTORY,
         payload: {
             orders,
+        }
+    })
+};
+
+export const setMyTradeHistoryAction = (currency, orders) => dispatch => {
+    dispatch({
+        type: SET_MY_TRADE_HISTORY,
+        payload: {
+            currency,
+            orders,
+        }
+    })
+};
+
+export const setContractStatus = (statusInfo) => dispatch => {
+    dispatch({
+        type: SET_CONTRACT_STATUS,
+        payload: {
+            statusInfo,
+        }
+    })
+};
+
+export const setAllContractStatus = (allStatusInfo) => dispatch => {
+    dispatch({
+        type: SET_ALL_CONTRACT_STATUS,
+        payload: {
+            allStatusInfo,
         }
     })
 };

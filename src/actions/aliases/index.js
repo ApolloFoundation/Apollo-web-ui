@@ -6,8 +6,27 @@
 
 import config from '../../config';
 import axios from 'axios';
-import {login} from "../../modules/account";
 import {processElGamalEncryption} from "../crypto";
+
+export function searchAliases(reqParams) {
+    return dispatch => {
+        return axios.get(config.api.serverUrl, {
+            params: {
+                requestType: 'getAliasesLike',
+                ...reqParams,
+            }
+        })
+            .then((res) => {
+                if (!res.data.errorCode) {
+                    return res.data;
+                }
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+
+    }
+}
 
 export function getAliasesAction(reqParams) {
     return dispatch => {

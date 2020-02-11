@@ -53,7 +53,7 @@ const initialState = {
     modalsHistory: [],
     infoSelectedBuyOrder : null,
     infoSelectedSellOrder: null,
-    typeOfTrade: 'BUY'
+    typeOfTrade: 'BUY',
 };
 
 export default (state = initialState, action) => {

@@ -3,15 +3,20 @@ import {Link} from 'react-router-dom';
 import {connect} from "react-redux";
 import {NotificationManager} from "react-notifications";
 import {CopyToClipboard} from 'react-copy-to-clipboard';
-
 import {setBodyModalParamsAction} from '../../../../../modules/modals';
-import {formatCrypto} from '../../../../../helpers/format';
+import {exportWallet} from "../../../../../actions/wallet";
 
 class CurrencyDescriptionComponent extends Component {
     handleWithdrawModal = () => {
         this.props.setBodyModalParamsAction('WITHDRAW_CURRENCY', {
             balances: this.props.balances,
             address: this.props.address,
+        });
+    };
+
+    handleExport = async () => {
+        this.props.setBodyModalParamsAction('CONFIRM_EXPORT_WALLET', {
+            ethAddress: this.props.address
         });
     };
 
@@ -34,7 +39,7 @@ class CurrencyDescriptionComponent extends Component {
                 <td>
                     <div className="btn-box inline">
                         <Link
-                            to={'/exchange'}
+                            to={'/dex'}
                             className="btn primary bg-success"
                             onClick={() => handleCurrentCurrency(currency)}
                         >
@@ -45,7 +50,7 @@ class CurrencyDescriptionComponent extends Component {
                 <td>
                     <div className="btn-box inline">
                         <Link
-                            to={'/exchange'}
+                            to={'/dex'}
                             className="btn primary bg-danger"
                             onClick={() => handleCurrentCurrency(currency)}
                         >
@@ -65,6 +70,12 @@ class CurrencyDescriptionComponent extends Component {
                 </td>
                 <td className={'align-right'}>
                     <div className="btn-box inline pr-1">
+                        <a
+                            className="btn primary defaullt"
+                            onClick={this.handleExport}
+                        >
+                            Export
+                        </a>
                         <a
                             className="btn primary defaullt"
                             onClick={this.handleWithdrawModal}
@@ -90,8 +101,15 @@ class CurrencyDescriptionComponent extends Component {
     }
 }
 
-const mapDispatchToProps = dispatch => ({
-    setBodyModalParamsAction: (type, value) => dispatch(setBodyModalParamsAction(type, value)),
+const mapStateToProps = ({account}) => ({
+    account: account.account,
+    passPhrase: account.passPhrase,
+    is2FA: account.is2FA,
 });
 
-export default connect(null, mapDispatchToProps)(CurrencyDescriptionComponent);
+const mapDispatchToProps = dispatch => ({
+    setBodyModalParamsAction: (type, value) => dispatch(setBodyModalParamsAction(type, value)),
+    exportWallet: (params) => dispatch(exportWallet(params)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CurrencyDescriptionComponent);

@@ -150,7 +150,7 @@ class Peers extends React.Component {
                                 onConnectClick: this.connectPeer,
                                 onBlacklistClick: this.blacklistPeer,
                             }}
-                            className={'no-min-height'}
+                            className={'mb-3'}
                             emptyMessage={'No peers found.'}
                         />
                     </div>

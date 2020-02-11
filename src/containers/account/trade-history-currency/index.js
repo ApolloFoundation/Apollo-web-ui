@@ -48,7 +48,7 @@ class TradeHistoryCurrency extends React.Component {
         trades: null,
         page: 1,
         firstIndex: 0,
-        lastIndex: 14,
+        lastIndex: 15,
     };
 
     componentWillMount() {
@@ -108,7 +108,7 @@ class TradeHistoryCurrency extends React.Component {
             page: page,
             account: this.props.account,
             firstIndex: page * 15 - 15,
-            lastIndex:  page * 15 - 1
+            lastIndex:  page * 15
         };
 
         this.setState(reqParams, () => {
@@ -188,8 +188,9 @@ class TradeHistoryCurrency extends React.Component {
                         page={this.state.page}
                         previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
                         nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
-                        className={'no-min-height'}
+                        className={'mb-3'}
                         emptyMessage={'No exchange history found.'}
+                        itemsPerPage={15}
                     />  
                 </div>
             </div>

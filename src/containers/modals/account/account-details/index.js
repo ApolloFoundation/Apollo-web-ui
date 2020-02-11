@@ -190,7 +190,7 @@ class AccountDetails extends React.Component {
 
                     </TabContaier>
                     <TabContaier sectionName={'Account Leasing'}>
-                        <div className="transaction-table no-min-height transparent">
+                        <div className="transaction-table no-min-height transparent no-white-space">
                             <div className="transaction-table-body transparent padding-vertical-padding">
                                 <p>Your account effective balance is not leased out.</p>
                                 <a

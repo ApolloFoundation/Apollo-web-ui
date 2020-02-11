@@ -21,7 +21,7 @@ export default class ExchangeSwitch extends React.Component {
         return (
 
             <div className={'currency-switch-wrap'}>
-                <img src={EthIcon} alt="ETH"/>
+                {/* <img src={EthIcon} alt="ETH"/> */}
                 <p className={'title-lg'}>
                     APL/{currency.toUpperCase()}
                     <div

@@ -1,24 +1,54 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {setBodyModalParamsAction,} from '../../../modules/modals';
+import {searchAliases} from '../../../actions/aliases';
+import {setBodyModalParamsAction} from '../../../modules/modals';
 
 import {CheckboxFormInput} from '../../components/form-components/check-button-input';
 import CustomInputForm from '../../components/form-components/textual-input';
 import CustomTextArea from '../../components/form-components/text-area';
+import AutoComplete from '../../components/auto-complete';
 import AccountRSFormInput from '../../components/form-components/account-rs'
 import NummericInputForm from '../../components/form-components/numeric-input'
 
-const SendMoneyForm = ({values, setValue, modalData, setBodyModalParamsAction, idGroup}) => (
-    <>
-        <AccountRSFormInput
-            field={'recipient'}
-            defaultValue={(modalData && modalData.recipient) ? modalData.recipient : ''}
-            label={'Recipient'}
-            placeholder={'Recipient'}
+const SendMoneyForm = ({values, setValue, modalData, setBodyModalParamsAction, idGroup, searchAliases, onChangeAlias, onChosenTransactionOnAlias}) => 
+    (<>
+        {!values.alias &&
+            <AccountRSFormInput
+                field={'recipient'}
+                defaultValue={(modalData && modalData.recipient) ? modalData.recipient : ''}
+                label={'Recipient'}
+                placeholder={'Recipient'}
+                setValue={setValue}
+                idGroup={idGroup}
+                id={`${idGroup}recipient-field`}
+            />
+        }
+        {/* <CheckboxFormInput
             setValue={setValue}
             idGroup={idGroup}
-            id={`${idGroup}recipient-field`}
-        />
+            onChange={onChosenTransactionOnAlias}
+            checkboxes={[
+                {
+                    field: 'alias',
+                    label: 'Use alias?'
+                }
+            ]}
+        /> */}
+        {values.alias && 
+            <AutoComplete
+                placeholder={'Alias'}
+                label={'Alias'}
+                onChange={onChangeAlias}
+                loadOptions={(alias) => {
+                    return searchAliases({aliasPrefix: alias}).then(({aliases}) => {
+                        return aliases.filter(({aliasURI}) => /APL-[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{5}/.test(aliasURI)).map(({aliasName, aliasURI}) => ({
+                            value: aliasURI,
+                            label: `${aliasName} / ${aliasURI}`,
+                        }));
+                    });
+                }}
+            />
+        }
         <NummericInputForm
             field={'amountATM'}
             counterLabel={'APL'}
@@ -74,11 +104,12 @@ const SendMoneyForm = ({values, setValue, modalData, setBodyModalParamsAction, i
     </>
 );
 
-const mapStateToProps = state => ({
-    modalData: state.modals.modalData
+const mapStateToProps = ({modals}) => ({
+    modalData: modals.modalData,
 });
 
 const mapDispatchToProps = dispatch => ({
+    searchAliases: (requestParams) => dispatch(searchAliases(requestParams)),
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 });
 

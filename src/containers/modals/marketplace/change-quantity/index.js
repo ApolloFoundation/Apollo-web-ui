@@ -64,16 +64,15 @@ class MarketplaceChangeQuantity extends React.Component {
     };
 
     async handleFormSubmit(values) {
-        const publicKey = await crypto.getPublicKeyAPL(values.secretPhrase, false);
         this.setState({
             isPending: true
-        })
+        });
+
         values = {
             ...values,
             deltaQuantity: (values.quantity - this.state.goods.quantity),
             goods: this.state.goods.goods,
             recipient: this.props.account,
-            publicKey: publicKey
         };
 
         this.props.processForm(values, 'dgsQuantityChange', 'The marketplace item\'s quantity has been changed successfully!', () => {

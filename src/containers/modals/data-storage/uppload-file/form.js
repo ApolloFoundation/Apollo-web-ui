@@ -27,6 +27,8 @@ const UpploadFileForm = ({ setValue, dataTags = [], value, onChange }) => {
             label={'Tags'}
             options={dataTags}
             isClearable={false}
+            field="tags"
+            setValue={setValue}
             value={value}
             onChange={onChange}
             isClearable={false}

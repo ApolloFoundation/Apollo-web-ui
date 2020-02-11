@@ -107,6 +107,11 @@ class SendApolloPrivate extends React.Component {
                     } else {
                         NotificationManager.success('Private transaction has been submitted.', null, 5000);
                         this.props.setBodyModalParamsAction(null, {});
+                        if (this.props.dashboardForm) {
+                            this.props.dashboardForm.resetAll();
+                            this.props.dashboardForm.setValue('recipient', '');
+                            this.props.dashboardForm.setValue('feeATM', '1');
+                        }
                     }
                     this.setState({isPending: false});
                 });
@@ -143,6 +148,7 @@ class SendApolloPrivate extends React.Component {
                 {!this.state.isPrivateTransactionAlert && (
                     <InfoBox info>
                         Please note: Exchanges may not support private transactions, we recommend sending publically to exchanges.<br/>
+                        Private transactions currently protect down the the API level. Database level protection will start with Olympus 2.0<br/>
                         <button
                             type={'button'}
                             className={'btn btn-default mt-3'}
@@ -167,6 +173,7 @@ const mapStateToProps = state => ({
     modalData: state.modals.modalData,
     publicKey: state.account.publicKey,
     modalsHistory: state.modals.modalsHistory,
+    dashboardForm: state.modals.dashboardForm,
     accountPrefix: state.account.constants ? state.account.constants.accountPrefix : ''
 });
 
