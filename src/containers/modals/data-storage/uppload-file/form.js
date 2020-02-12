@@ -47,7 +47,7 @@ const UpploadFileForm = ({ setValue, dataTags = [], value, onChange }) => {
             label={'File'}
             maxSize={40000}
             setValue={setValue}
-            type={"*"}
+            accept={"*"}
         />
     </>
 )};
