@@ -198,7 +198,7 @@ class ImportAccount extends React.Component {
                                                     <label>
                                                         Your account secret file
                                                     </label>
-                                                    <InputUpload type="*" id="file"/>
+                                                    <InputUpload accept="*" id="file"/>
                                                 </div>
                                             </React.Fragment>
                                         )}
