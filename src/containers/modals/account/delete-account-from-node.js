@@ -21,6 +21,7 @@ import {removeAccountAction} from '../../../actions/account';
 import InfoBox from '../../components/info-box';
 import ModalBody from "../../components/modals/modal-body";
 import AccountRSFormInput from "../../components/form-components/account-rs";
+import util from "../../../helpers/util/utils";
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
@@ -53,14 +54,67 @@ class DeleteAccountFromWebNode extends React.Component {
         }
     };
 
-    componentDidCatch(error, info) {
-        this.setState({hasError: true});
-    }
+    checkPermissionCallback = (status) => {
+        if (!status.hasPermission) {
+            const errorCallback = () => {
+                console.warn('Storage permission is not turned on')
+            };
+            window.cordova.plugins.permissions.requestPermission(
+                window.cordova.plugins.permissions.WRITE_EXTERNAL_STORAGE,
+                (status) => {
+                    if (!status.hasPermission) {
+                        errorCallback();
+                    } else {
+                        this.writeFile();
+                    }
+                },
+                errorCallback
+            );
+        } else {
+            this.writeFile();
+        }
+    };
+
+    downloadFile = () => {
+        if (window.cordova && window.plugins) {
+            let permissions = window.cordova.plugins.permissions;
+            permissions.checkPermission(permissions.WRITE_EXTERNAL_STORAGE, this.checkPermissionCallback, null);
+        }
+        if (util.isDesktopApp() && window.java) {
+            window.java.downloadFile(this.props.modalData[1].value.file, `${this.props.modalData[0].value}.apl`);
+        }
+    };
+
+    writeFile = () => {
+        const filename = `${this.props.modalData[0].value}.apl`;
+        let base64 = `data:application/octet-stream;df:${filename};base64,${this.props.modalData[1].value.file}`;
+        let subject = null;
+        if (window.cordova.platformId === "android") {
+            base64 = `data:application/;base64,${this.props.modalData[1].value.file}`;
+            subject = filename;
+        }
+        const uri = encodeURI(base64);
+
+        const options = {
+            message: null,
+            subject,
+            files: [uri],
+            url: null,
+            chooserTitle: 'Export Account',
+        };
+
+        const onError = (msg) => {
+            console.log("Downloading failed with message: " + msg);
+            NotificationManager.error('Downloading Secret File failed', 'Error', 5000);
+        };
+
+        window.plugins.socialsharing.shareWithOptions(options, null, onError);
+    };
 
     render() {
         return (
             <ModalBody
-                modalTitle={'Delete Account from this Web Node'}
+                modalTitle="Delete Account from this Web Node"
                 closeModal={this.props.closeModal}
                 handleFormSubmit={(values) => this.handleFormSubmit(values)}
                 submitButtonName={'Delete'}
@@ -71,10 +125,11 @@ class DeleteAccountFromWebNode extends React.Component {
                     </p>
                     <a
                         href={this.props.modalData[1].value.href}
-                        download={this.props.modalData[0].value}
+                        download={`${this.props.modalData[0].value}.apl`}
                         className="btn btn-green"
                         target="_blank"
                         rel="noopener noreferrer"
+                        onClick={this.downloadFile}
                     >
                         Download Secret File
                     </a>
