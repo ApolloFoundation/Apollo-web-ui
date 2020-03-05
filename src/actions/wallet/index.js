@@ -46,7 +46,7 @@ export function getContractStatus(requestParams) {
             const {account} = getState().account;
             requestParams.accountId = account;
         }
-        return handleFetch(`${config.api.server}/rest/dex/contracts`, GET, requestParams)
+        return handleFetch(`${config.api.server}/rest/dex/contracts`, GET, requestParams, true)
             .then((res) => {
                 if (!res.errorCode) {
                     dispatch(setContractStatus(res));
@@ -67,7 +67,7 @@ export function getAllContractStatus(requestParams) {
             const {account} = getState().account;
             requestParams.accountId = account;
         }
-        return handleFetch(`${config.api.server}/rest/dex/all-contracts`, GET, requestParams)
+        return handleFetch(`${config.api.server}/rest/dex/all-contracts`, GET, requestParams, true)
             .then((res) => {
                 if (!res.errorCode) {
                     dispatch(setAllContractStatus(res));

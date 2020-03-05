@@ -163,7 +163,7 @@ class ImportAccount extends React.Component {
                                                     {this.state.format !== 'file' ? (
                                                         <span>Please note that after import of the secret key the usage of the same vault wallet on different nodes will cause creation of different ETH, PAX, BTC wallets for each node.</span>
                                                     ) : (
-                                                        <span>Please enter your account secret file.</span>
+                                                        <span>Please enter your account secret file. The file should have the .apl extension. If not,  add .apl to the file name manually please.</span>
                                                     )}
                                                 </li>
                                             </ul>
@@ -198,7 +198,7 @@ class ImportAccount extends React.Component {
                                                     <label>
                                                         Your account secret file
                                                     </label>
-                                                    <InputUpload id="file"/>
+                                                    <InputUpload accept=".apl" id="file"/>
                                                 </div>
                                             </React.Fragment>
                                         )}

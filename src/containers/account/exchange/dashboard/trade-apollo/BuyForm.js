@@ -6,7 +6,7 @@ import {NotificationManager} from 'react-notifications';
 import InputForm from '../../../../components/input-form';
 import CustomSelect from '../../../../components/select';
 import InputRange from "../../../../components/input-range";
-import {currencyTypes, multiply} from '../../../../../helpers/format';
+import {currencyTypes, multiply, division} from '../../../../../helpers/format';
 import {createOffer} from '../../../../../actions/wallet';
 import {setBodyModalParamsAction, resetTrade, setSelectedOrderInfo} from '../../../../../modules/modals';
 import {ONE_GWEI} from '../../../../../constants';
@@ -56,16 +56,18 @@ class BuyForm extends React.PureComponent {
     componentDidUpdate() {
         if(this.props.infoSelectedBuyOrder) {
             const { pairRate, offerAmount, total } = this.props.infoSelectedBuyOrder;
-            const normalizeOfferAmount = offerAmount.toString().replaceAll(',', '');
             const {currentCurrency: {currency}} = this.props;
             const { form, wallet } = this.state;
             const balance = wallet && wallet[0].balances[currency];
-            const rangeValue = ((pairRate * normalizeOfferAmount) * 100 / balance).toFixed(0);
+            const normalizePairRate = !pairRate ? 0 : division(pairRate, ONE_GWEI, 9);
+            const normalizeOfferAmount = !offerAmount ? 0 : division(offerAmount, ONE_GWEI, 9);
+            const normalizeTotal = !total ? 0 : division(total, Math.pow(10, 18), 9);
+            const rangeValue = ((normalizePairRate * normalizeOfferAmount) * 100 / balance).toFixed(0);
             form.setAllValues({
                 walletAddress: wallet && wallet[0],
-                pairRate: pairRate,
+                pairRate: normalizePairRate,
                 offerAmount: normalizeOfferAmount,
-                total: +total,
+                total: normalizeTotal,
                 range: rangeValue === 'NaN' ? 0 : rangeValue > 100 ? 100 : rangeValue,
             });
         }
@@ -96,10 +98,10 @@ class BuyForm extends React.PureComponent {
                         NotificationManager.error(`You need more ${currency.toUpperCase()}. Please check your wallet balance.`, 'Error', 5000);
                         isError = true;
                     }
-                    if (!this.props.ethFee || +this.props.ethFee === 0) {
-                        NotificationManager.error('Can\'t get Gas fee. Something went wrong. Please, try again later', 'Error', 5000);
-                        isError = true;
-                    }
+                    // if (!this.props.ethFee || +this.props.ethFee === 0) {
+                    //     NotificationManager.error('Can\'t get Gas fee. Something went wrong. Please, try again later', 'Error', 5000);
+                    //     isError = true;
+                    // }
                     if (+this.props.ethFee > +values.walletAddress.balances.eth) {
                         NotificationManager.error(`To buy APL you need to have at least ${this.props.ethFee.toLocaleString('en', {
                             minimumFractionDigits: 0,
@@ -199,7 +201,9 @@ class BuyForm extends React.PureComponent {
                 render={({
                              submitForm, setValue, values
                          }) => {
-                    const balance = values.walletAddress && values.walletAddress.balances[currency];
+                    let balance = values.walletAddress && values.walletAddress.balances[currency];
+                    balance = currency === 'eth' ? balance - this.props.ethFee : balance;
+                    balance = balance < 0 ? 0 : balance;
                     return (
                         <form
                             className="form-group-app d-flex flex-column justify-content-between h-100 mb-0"
@@ -303,12 +307,10 @@ class BuyForm extends React.PureComponent {
                                     max={100}
                                     disabled={!values.pairRate || values.pairRate === '0' || values.pairRate === ''}
                                     onChange={(amount) => {
-                                        const offerAmount = values.pairRate !== '0' ? ((amount * balance) / (100 * values.pairRate)) : 0;
-                                        let availableTotalValue = currency === 'eth' ? offerAmount - this.props.ethFee : offerAmount;
-                                        availableTotalValue = availableTotalValue < 0 ? 0 : availableTotalValue.toFixed(10);
-                                        const total = multiply(availableTotalValue, values.pairRate);
+                                        const offerAmount = values.pairRate !== '0' ? division((amount * balance), (100 * values.pairRate), 10) : 0;
+                                        const total = multiply(offerAmount, values.pairRate, 14);
 
-                                        setValue("offerAmount", availableTotalValue);
+                                        setValue("offerAmount", offerAmount);
                                         setValue("total", total);
                                     }}
                                 />

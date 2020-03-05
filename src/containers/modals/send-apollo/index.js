@@ -5,7 +5,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {setBodyModalParamsAction, setTransactionAlias} from '../../../modules/modals';
+import {setBodyModalParamsAction} from '../../../modules/modals';
 import submitForm from "../../../helpers/forms/forms";
 
 // Form components
@@ -50,7 +50,7 @@ class SendApollo extends React.Component {
 			values.phased = true;
 		}
 
-		if (values.alias && this.state.alias && !values.recipient) {
+		if (values.alias) {
 			values.recipient = this.state.alias;
 		}
 
@@ -62,28 +62,27 @@ class SendApollo extends React.Component {
         // export const processForm = (values, requestType, successMesage, successCallback) => {
 
 		this.props.processForm(values, 'sendMoney', 'Transaction has been submitted!', (res) => {
-            if (res.broadcasted === false) {
-                this.props.setBodyModalParamsAction('RAW_TRANSACTION_DETAILS', {
-                    request: values,
-                    result: res
-                });
-            } else {
-                this.props.setBodyModalParamsAction(null, {});
-            }
+			if (res.broadcasted === false) {
+					this.props.setBodyModalParamsAction('RAW_TRANSACTION_DETAILS', {
+							request: values,
+							result: res
+					});
+			} else {
+					this.props.setBodyModalParamsAction(null, {});
+			}
 
-            if (dashboardForm) {
-                dashboardForm.resetAll();
-                dashboardForm.setValue('recipient', '');
-                dashboardForm.setValue('feeATM', '1');
-            }
-            NotificationManager.success('Transaction has been submitted!', null, 5000);
+			if (dashboardForm) {
+					dashboardForm.resetAll();
+					dashboardForm.setValue('recipient', '');
+					dashboardForm.setValue('feeATM', '1');
+			}
+			NotificationManager.success('Transaction has been submitted!', null, 5000);
 		});
 	}
 
-	handelChangeAlias = ({value}) => {
-		this.props.setTransactionAlias(value)
-		this.setState({alias: value})
-	}
+	onChosenTransactionOnAlias = () => {this.setState({alias: null})}
+
+	handelChangeAlias = ({value}) => {this.setState({alias: value})}
 
 	render() {
 		return (
@@ -97,7 +96,7 @@ class SendApollo extends React.Component {
 				idGroup={'send-money-modal-'}
 			>
 
-				<SendApolloForm onChangeAlias={this.handelChangeAlias} />
+				<SendApolloForm onChangeAlias={this.handelChangeAlias} onChosenTransactionOnAlias={this.onChosenTransactionOnAlias} />
 
 			</ModalBody>
 			
@@ -118,7 +117,6 @@ const mapDispatchToProps = dispatch => ({
 	setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 	validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
 	getPublicKeyAPL: (passphrase) => dispatch(crypto.getPublicKeyAPL(passphrase)),
-	setTransactionAlias: (alias) => dispatch(setTransactionAlias(alias)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(SendApollo);

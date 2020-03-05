@@ -16,6 +16,7 @@ import {
 } from "../../../modules/modals";
 import crypto from '../../../helpers/crypto/crypto';
 import submitForm from "../../../helpers/forms/forms";
+import util from "../../../helpers/util/utils";
 import {getAccountDataAction} from "../../../actions/login";
 import {exportAccount} from '../../../actions/account';
 import InfoBox from '../../components/info-box';
@@ -60,7 +61,7 @@ class ExportAccount extends React.Component {
                         account: values.account,
                     }
                 }, async () => {
-                    const base64 = "data:application/octet-stream;base64," + accountKeySeedData.file;
+                    const base64 = `data:application/octet-stream;base64,${accountKeySeedData.file}`;
                     this.downloadSecretFile.current.href = encodeURI(base64);
                     this.setState({
                         accountKeySeedData: {
@@ -68,7 +69,11 @@ class ExportAccount extends React.Component {
                             href: this.downloadSecretFile.current.href
                         }
                     });
-                    this.downloadSecretFile.current.click();
+                    if (util.isDesktopApp() && window.java) {
+                        window.java.downloadFile(accountKeySeedData.file, `${values.account}.apl`);
+                    } else {
+                        this.downloadSecretFile.current.click();
+                    }
                 });
             } else {
                 NotificationManager.error(accountKeySeedData.errorDescription, 'Error', 5000);
@@ -102,10 +107,13 @@ class ExportAccount extends React.Component {
             let permissions = window.cordova.plugins.permissions;
             permissions.checkPermission(permissions.WRITE_EXTERNAL_STORAGE, this.checkPermissionCallback, null);
         }
+        if (util.isDesktopApp() && window.java) {
+            window.java.downloadFile(this.state.accountKeySeedData.file, `${this.state.accountKeySeedData.account}.apl`);
+        }
     };
 
     writeFile = () => {
-        const filename = this.state.accountKeySeedData.account;
+        const filename = `${this.state.accountKeySeedData.account}.apl`;
         let base64 = `data:application/octet-stream;df:${filename};base64,${this.state.accountKeySeedData.file}`;
         let subject = null;
         if (window.cordova.platformId === "android") {
@@ -180,7 +188,7 @@ class ExportAccount extends React.Component {
                             <a
                                 ref={this.downloadSecretFile}
                                 href={''}
-                                download={this.state.accountKeySeedData.account}
+                                download={`${this.state.accountKeySeedData.account}.apl`}
                                 className="btn btn-green"
                                 target="_blank"
                                 rel="noopener noreferrer"

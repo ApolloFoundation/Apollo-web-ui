@@ -4,7 +4,7 @@ import $ from 'jquery';
 import UploadImg from '../../../assets/upload-icon.png';
 import {NotificationManager} from "react-notifications";
 
-const InputUpload = ({id, maxSize, type, handleFileAccepted, handleFileRejected}) => {
+const InputUpload = ({id, maxSize, type, accept, handleFileAccepted, handleFileRejected}) => {
     const onDropAccepted = (files) => {
         $(`#${id}`).prop('files', files);
         if (handleFileAccepted) handleFileAccepted(files);
@@ -24,7 +24,7 @@ const InputUpload = ({id, maxSize, type, handleFileAccepted, handleFileRejected}
         >
             {({getRootProps, getInputProps, acceptedFiles, isDragActive}) => (
                 <div {...getRootProps()} className={`upload-block ${isDragActive ? 'upload-block-active' : ''}`}>
-                    <input {...getInputProps()} />
+                    <input {...getInputProps()} accept={accept} />
                     <div className={'d-none'} id={id}/>
                     <p>
                         {acceptedFiles.length > 0 ?

@@ -31,7 +31,7 @@ class FileInput extends React.Component {
     };
 
     render () {
-        const {label, type, maxSize, showPreview} = this.props;
+        const {label, type, accept, maxSize, showPreview} = this.props;
 
         return (
             <div className="form-group mb-15">
@@ -42,6 +42,7 @@ class FileInput extends React.Component {
                     <InputUpload
                         id="file"
                         type={type}
+                        accept={accept}
                         maxSize={maxSize}
                         handleFileAccepted={this.handleFileAccepted}
                         handleFileRejected={this.handleFileRejected}
