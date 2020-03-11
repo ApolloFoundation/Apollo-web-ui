@@ -38,12 +38,6 @@ const Settings = ({setBodyModalParamsAction, isLocalhost, isActive, closeMenu}) 
                     className="option">Generate token</a></li>
                 <li><a
                     onClick={() => {
-                        closeMenu();
-                        return setBodyModalParamsAction('GENERATE_HALLMARK');
-                    }}
-                    className="option">Generate hallmark</a></li>
-                <li><a
-                    onClick={() => {
                         closeMenu();                        
                         return setBodyModalParamsAction('CALCULATE_CACHE');
                     }}
@@ -91,6 +85,18 @@ const Settings = ({setBodyModalParamsAction, isLocalhost, isActive, closeMenu}) 
                         Export Secret File
                     </a>
                 </li>
+                <li><a
+                    onClick={() => {
+                        closeMenu();                        
+                        return setBodyModalParamsAction('SHARDING_INFO');
+                    }}
+                    className="option">Sharding info</a></li>
+                <li><a
+                    onClick={() => {
+                        closeMenu();                        
+                        return setBodyModalParamsAction('NODE_HEALTH_INFO');
+                    }}
+                    className="option">Node Health Info</a></li>
             </ul>
         </div>
     </div>
