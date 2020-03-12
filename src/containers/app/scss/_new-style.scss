@@ -273,6 +273,12 @@ $img-ratio-xl: 564/1140;
 					
 					&.fee {
 						text-align: right;
+
+						.price {
+							@media (max-width: 1360px) {
+								display: none;
+							}
+						}
 					}
 				}
 
