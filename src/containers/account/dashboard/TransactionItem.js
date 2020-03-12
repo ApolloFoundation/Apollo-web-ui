@@ -64,8 +64,9 @@ const TransactionItem = (props) => {
                     <div
                         className={classNamse({
                             'transaction-amount': true,
+                            'transaction-amount__right': true,
                             'success': (props.account !== props.sender) || (isDexOrder && props.attachment.offerCurrency !== 0),
-                            'danger': (props.account === props.sender) || (isDexOrder && props.attachment.offerCurrency === 0)
+                            'danger': (props.account === props.sender) || (isDexOrder && props.attachment.offerCurrency === 0),
                         })}>
                         {
                             isDexOrder ?

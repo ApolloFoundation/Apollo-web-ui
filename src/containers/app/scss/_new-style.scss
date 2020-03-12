@@ -286,6 +286,10 @@ $img-ratio-xl: 564/1140;
 					font-size: 12px;
 					letter-spacing: -0.04px;
 					white-space: nowrap;
+
+					&__right {
+						text-align: right;
+					}
 				}
 
 				.transaction-rs-wrap {
