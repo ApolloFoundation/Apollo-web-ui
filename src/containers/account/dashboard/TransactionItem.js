@@ -81,7 +81,9 @@ const TransactionItem = (props) => {
                         }
                         {marketplaceTypes.includes(transactionType) && 
                             <div className={'transaction-confirmation fee'}>
-                                <span className={'price'}>Price for listing:</span> {props.feeATM / ONE_APL}
+                                <span className={'price__lg'}>Price for </span>
+                                <span className={'price__md'}>Listing:</span>
+                                -{props.feeATM / ONE_APL}
                             </div>}
                     </div>
                 </div>
