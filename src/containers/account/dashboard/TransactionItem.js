@@ -64,8 +64,9 @@ const TransactionItem = (props) => {
                     <div
                         className={classNamse({
                             'transaction-amount': true,
+                            'transaction-amount__right': true,
                             'success': (props.account !== props.sender) || (isDexOrder && props.attachment.offerCurrency !== 0),
-                            'danger': (props.account === props.sender) || (isDexOrder && props.attachment.offerCurrency === 0)
+                            'danger': (props.account === props.sender) || (isDexOrder && props.attachment.offerCurrency === 0),
                         })}>
                         {
                             isDexOrder ?
@@ -78,7 +79,12 @@ const TransactionItem = (props) => {
                                 ) / ONE_APL
                             )}`
                         }
-                        {marketplaceTypes.includes(transactionType) && <div className={'transaction-confirmation fee'}>fee: {props.feeATM / ONE_APL}</div>}
+                        {marketplaceTypes.includes(transactionType) && 
+                            <div className={'transaction-confirmation fee'}>
+                                <span className={'price__lg'}>Price for </span>
+                                <span className={'price__md'}>Listing:</span>
+                                -{props.feeATM / ONE_APL}
+                            </div>}
                     </div>
                 </div>
                 <div className={'transaction-rs-wrap d-flex justify-content-between align-items-center'}>
