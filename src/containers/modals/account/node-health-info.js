@@ -48,7 +48,7 @@ class NodeHealthInfo extends React.Component {
                                         <td>{nodeHealthInfo.statusInfo.cpuLoad}</td>
                                     </tr>
                                     <tr>
-                                        <td>Appolo memory total:</td>
+                                        <td>Apollo memory total:</td>
                                         <td>{Math.round(nodeHealthInfo.statusInfo.memoryTotal / 1000000)} MB</td>
                                     </tr>
                                     <tr>
