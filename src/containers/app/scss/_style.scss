@@ -123,8 +123,8 @@ input {
           }
         }
       }
-      @media(max-width: 1000px) {
-        padding: 78px 12px 0 12px !important;
+      @media(max-width: 1440px) and (min-width: 760px){
+        padding: 48px 12px 0 12px !important;
       }
       @media(max-width: 760px) {
         padding: 0 12px !important;
