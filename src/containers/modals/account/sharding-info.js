@@ -35,7 +35,7 @@ class ShardingInfo extends React.Component {
 
         return (
             <ModalBody
-                modalTitle={'Sharnding info'}
+                modalTitle={'Sharding info'}
                 closeModal={this.props.closeModal}
                 isDisableFormFooter
                 isXWide
