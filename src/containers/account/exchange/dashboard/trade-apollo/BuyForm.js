@@ -6,7 +6,7 @@ import {NotificationManager} from 'react-notifications';
 import InputForm from '../../../../components/input-form';
 import CustomSelect from '../../../../components/select';
 import InputRange from "../../../../components/input-range";
-import {currencyTypes, multiply, division} from '../../../../../helpers/format';
+import {currencyTypes, multiply, division, formatDivision} from '../../../../../helpers/format';
 import {createOffer} from '../../../../../actions/wallet';
 import {setBodyModalParamsAction, resetTrade, setSelectedOrderInfo} from '../../../../../modules/modals';
 import {ONE_GWEI} from '../../../../../constants';
@@ -75,18 +75,26 @@ class BuyForm extends React.PureComponent {
 
     handleFormSubmit = (values) => {
         if (!this.state.isPending) {
-            this.props.setSelectedOrderInfo({pairRate: values.pairRate, offerAmount: values.offerAmount, total: values.total, type: 'BUY'});
+            const pairRateInfo = multiply(values.pairRate, ONE_GWEI);
+            const offerAmountInfo = multiply(values.offerAmount, ONE_GWEI);
+            const totalInfo = pairRateInfo * offerAmountInfo;
+            this.props.setSelectedOrderInfo({
+                pairRate: pairRateInfo,
+                offerAmount: offerAmountInfo,
+                total: totalInfo,
+                type: 'BUY',
+            });
             this.setPending();
             if (this.props.wallet) {
                 if (values.offerAmount > 0 && values.pairRate > 0) {
                     const {currentCurrency: {currency}} = this.props;
                     const balance = values.walletAddress && values.walletAddress.balances[currency];
                     let isError = false;
-                    if (values.pairRate < 0.000000001) {
+                    if (+values.pairRate < 0.000000001) {
                         NotificationManager.error(`Price must be more then 0.000000001 ${currency.toUpperCase()}`, 'Error', 5000);
                         isError = true;
                     }
-                    if (values.offerAmount < 0.001) {
+                    if (+values.offerAmount < 0.001) {
                         NotificationManager.error('You can buy more then 0.001 APL', 'Error', 5000);
                         isError = true;
                     }
@@ -94,7 +102,7 @@ class BuyForm extends React.PureComponent {
                         NotificationManager.error('Please select wallet address', 'Error', 5000);
                         isError = true;
                     }
-                    if (values.total > balance) {
+                    if (+values.total > +balance) {
                         NotificationManager.error(`You need more ${currency.toUpperCase()}. Please check your wallet balance.`, 'Error', 5000);
                         isError = true;
                     }
