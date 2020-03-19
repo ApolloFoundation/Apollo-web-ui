@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import config from "../../../../config";
 
 
 export default class TargetDataUpload extends Component {
@@ -64,7 +65,7 @@ export default class TargetDataUpload extends Component {
 		            <td>Link:</td>
 		            <td>
 			            <a
-                            href={`/apl?requestType=downloadTaggedData&amp;transaction=${this.props.transaction.transaction}&amp;retrieve=true`}
+                            href={`${config.api.serverUrl}requestType=downloadTaggedData&transaction=${this.props.transaction.transaction}&retrieve=true`}
                             className={"btn btn-green"}
                             target={'_blank'}
                             download={this.props.transaction.attachment.filename}
