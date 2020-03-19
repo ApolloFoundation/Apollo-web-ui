@@ -6,23 +6,21 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {Route, Switch, Redirect, withRouter} from 'react-router-dom';
+import {Redirect, Route, Switch, withRouter} from 'react-router-dom';
 import classNames from 'classnames';
-import {isLoggedIn, getConstantsAction} from '../../actions/login';
-import {setPageEvents, loadConstants} from '../../modules/account' ;
-import {setBodyModalType} from '../../modules/modals' ;
+import {getConstantsAction, isLoggedIn} from '../../actions/login';
+import {loadConstants, setPageEvents} from '../../modules/account';
+import {setBodyModalParamsAction, setBodyModalType} from '../../modules/modals';
 import PageLoader from '../components/page-loader/page-loader';
-import { version } from '../../../package.json';
-import {NotificationContainer, NotificationManager} from 'react-notifications';
+import {version} from '../../../package.json';
+import {NotificationContainer} from 'react-notifications';
 import ReactHintFactory from 'react-hint';
-
 // components
 import SideBar from '../components/sidebar';
 import ModalWindow from '../modals';
 import AlertBox from '../components/alert-box';
 import BlocksDownloader from '../components/blocks-downloader';
-import {getSavedAccountSettingsAction, saveAccountSettingsAction} from "../../modules/accountSettings";
-
+import {getSavedAccountSettingsAction} from "../../modules/accountSettings";
 // pages components
 import Dashboard from "../account/dashboard";
 import Login from "../account/login";
@@ -56,7 +54,6 @@ import MyAssets from '../account/my-assets'
 import OpenOrders from '../account/open-orders'
 import Peers from '../account/peers'
 import BackendStatus from '../account/backend-status'
-import Plugins from '../account/plugins'
 import ScheduledTransactions from '../account/scheduled-transactions'
 import Settings from '../account/settings'
 import TradeHistory from '../account/trade-history'
@@ -86,12 +83,9 @@ import './fonts.scss';
 
 import {getUpdateStatus} from '../../actions/login/index'
 import urlHelper from "../../helpers/util/urlParser";
-import {startBlockPullingAction} from '../../actions/blocks'
-import './window';
-import {setBodyModalParamsAction} from "../../modules/modals";
-
-import UnknownPage from '../account/404'
+import {startBlockPullingAction} from '../../actions/blocks';
 import {loginWithShareMessage} from "../../actions/account";
+import './window';
 
 const ReactHint = ReactHintFactory(React)
 
@@ -101,10 +95,10 @@ class App extends React.Component {
 
     componentDidMount() {
         const {
-                getSavedAccountSettings,
-                isLoggedIn,
-                getConstantsAction
-            } = this.props;
+            getSavedAccountSettings,
+            isLoggedIn,
+            getConstantsAction
+        } = this.props;
 
         getSavedAccountSettings();
         this.checkUrl();
@@ -117,10 +111,24 @@ class App extends React.Component {
             isMounted: true
         });
 
-
         // Hints settings
         window.ReactHint = ReactHint;
+
+        document.addEventListener('deviceready', this.onDeviceReady, false);
     }
+
+    onDeviceReady = () => {
+        if (window.cordova) {
+            window.open = window.cordova.InAppBrowser.open;
+            document.addEventListener('click', function (e) {
+                if (e.target.href &&
+                    e.target.href.match(/^https?:\/\//)) {
+                    e.preventDefault();
+                    window.open(e.target.href, '_system');
+                }
+            });
+        }
+    };
 
     componentDidUpdate(prevProps) {
         if (this.props.location.pathname !== prevProps.location.pathname &&
@@ -148,72 +156,72 @@ class App extends React.Component {
     onRenderContent = (target, content) => {
         let {catId} = target.dataset
         catId = JSON.parse(catId);
- 
+
         if (catId && catId.infoContent) {
-            return  <div className="custom-hint__content">
-                        <div
-                            className="phased-transaction"
-                        >
-                            <div className="phasing-box__phasing-description">
-                                {catId.infoContent}
-                                {catId.infoTitle && (
-                                    <div className="phasing-box__phasing-title">
-                                        {catId.infoTitle}
-                                    </div>
-                                )}
+            return <div className="custom-hint__content">
+                <div
+                    className="phased-transaction"
+                >
+                    <div className="phasing-box__phasing-description">
+                        {catId.infoContent}
+                        {catId.infoTitle && (
+                            <div className="phasing-box__phasing-title">
+                                {catId.infoTitle}
                             </div>
-                        </div>
-                    </div>
-
-        } else {
-            return  <div className="custom-hint__content">
-                    <div
-                        className="phased-transaction"
-                    >
-                        <div className="phasing-box__phasing-description">
-                            <table>
-                                <tbody>
-                                {
-                                    catId &&
-                                    <React.Fragment>
-                                        <tr>
-                                            <td>Accounts: </td>
-                                            <td>{catId.quorum}</td>
-
-                                        </tr>
-                                        <tr>
-                                            <td>Votes: </td>
-                                            <td>{catId.result}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Percentage: </td>
-                                            <td>
-                                                {
-                                                    (catId.result / catId.quorum) * 100
-                                                } %
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Finish Height</td>
-                                            <td>{catId.finishHeight}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Approved: </td>
-                                            <td>
-                                                {
-                                                    catId.approved ? 'Yes' : 'No'
-                                                }
-                                            </td>
-                                        </tr>
-                                    </React.Fragment>
-                                }
-                                </tbody>
-                            </table>
-                        </div>
+                        )}
                     </div>
                 </div>
+            </div>
+
+        } else {
+            return <div className="custom-hint__content">
+                <div
+                    className="phased-transaction"
+                >
+                    <div className="phasing-box__phasing-description">
+                        <table>
+                            <tbody>
+                            {
+                                catId &&
+                                <React.Fragment>
+                                    <tr>
+                                        <td>Accounts:</td>
+                                        <td>{catId.quorum}</td>
+
+                                    </tr>
+                                    <tr>
+                                        <td>Votes:</td>
+                                        <td>{catId.result}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Percentage:</td>
+                                        <td>
+                                            {
+                                                (catId.result / catId.quorum) * 100
+                                            } %
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Finish Height</td>
+                                        <td>{catId.finishHeight}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Approved:</td>
+                                        <td>
+                                            {
+                                                catId.approved ? 'Yes' : 'No'
+                                            }
+                                        </td>
+                                    </tr>
+                                </React.Fragment>
+                            }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         }
-        
+
     }
 
     routers = () => (
@@ -283,10 +291,10 @@ class App extends React.Component {
     render() {
         const {
             history: {
-                location: 
-                {
-                    pathname
-                }
+                location:
+                    {
+                        pathname
+                    }
             }
         } = this.props;
 
@@ -301,13 +309,13 @@ class App extends React.Component {
                 <NotificationContainer/>
                 <ModalWindow/>
                 <AlertBox/>
-                <ReactHint 
+                <ReactHint
                     persist
                     attribute="data-custom"
                     className="custom-hint"
                     events={{hover: true}}
                     onRenderContent={this.onRenderContent}
-                    ref={(ref) => this.instance = ref} 
+                    ref={(ref) => this.instance = ref}
                 />
                 <header>
                     {
@@ -324,14 +332,14 @@ class App extends React.Component {
                 <div ref="siteContent"
                      className={classNames({
                          'site-content': true,
-                         'login-page':  isLoginPage,
+                         'login-page': isLoginPage,
                          'hide-page-body': this.props.bodyModalType
                      })}
                 >
                     {this.props.blockchainStatus && (
                         <BlocksDownloader/>
                     )}
-                    
+
                     <Switch>
                         <Route exact path="/faucet" component={Faucet}/>
                         <Route exact path="/login" render={() => (
@@ -346,7 +354,7 @@ class App extends React.Component {
                         {(!!this.props.account && !this.props.loading) ? (
                             this.routers()
                         ) : (
-                            <PageLoader />
+                            <PageLoader/>
                         )}
                     </Switch>
                     {
@@ -386,7 +394,7 @@ const mapDispatchToProps = dispatch => ({
     getSavedAccountSettings: () => dispatch(getSavedAccountSettingsAction()),
     loginWithShareMessage: (account, transaction) => dispatch(loginWithShareMessage(account, transaction)),
     loadConstants: () => dispatch(loadConstants()),
-    
+
     //modals
     setBodyModalType: () => dispatch(setBodyModalType()),
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
