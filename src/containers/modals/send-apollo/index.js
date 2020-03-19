@@ -91,7 +91,7 @@ class SendApollo extends React.Component {
 				closeModal={this.props.closeModal}
 				handleFormSubmit={(values) => this.handleFormSubmit(values)}
 				isFee
-				isAdvanced				
+				isAdvanced
 				submitButtonName={'Send'}
 				idGroup={'send-money-modal-'}
 			>
