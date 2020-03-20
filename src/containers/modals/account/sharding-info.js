@@ -55,7 +55,7 @@ class ShardingInfo extends React.Component {
                                 name: 'Main Shard File Hash',
                                 alignRight: false
                             }, {
-                                name: 'Prubable Data Shard File',
+                                name: 'Prunable Data Shard File',
                                 alignRight: false
                             }
                         ]}
