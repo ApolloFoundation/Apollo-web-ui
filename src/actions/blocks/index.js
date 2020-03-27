@@ -135,19 +135,3 @@ export function getBackendStatus(requestParams) {
             })
     }
 }
-
-export function getNodeHealthInfo() {
-    return () => {
-        return handleFetch(`${config.api.server}/rest/control/health`, GET)
-            .then((res) => {
-                if (!res.errorCode) {
-                    return res;
-                } else {
-                    NotificationManager.error(res.errorDescription, 'Error', 5000);
-                }
-            })
-            .catch(() => {
-
-            })
-    }
-}
