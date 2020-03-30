@@ -8,9 +8,9 @@ import React from 'react';
 import SiteHeader from '../../components/site-header'
 import {connect} from 'react-redux';
 import {getPeerAction, getPeersAction, getPeersInfoAction} from "../../../actions/peers";
-import Peer from './peer'
 import {setBodyModalParamsAction} from "../../../modules/modals";
 
+import Peer from './peer'
 import CustomTable from '../../components/tables/table';
 import TopPageBlocks from '../../components/tob-page-blocks';
 

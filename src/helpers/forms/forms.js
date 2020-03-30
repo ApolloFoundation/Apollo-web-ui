@@ -768,7 +768,7 @@ function processAjaxRequest(requestType, data, callback, options) {
                     // console.log(e);
                 }
             }
-            if (!file && (requestType == "uploadTaggedData" || requestType === "importKeyViaFile")) {
+            if (!file && (requestType === "uploadTaggedData" || requestType === "importKeyViaFile")) {
                 return {
                     "errorCode": 3,
                     "errorDescription": i18n.t("error_no_file_chosen")

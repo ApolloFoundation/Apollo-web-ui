@@ -14,7 +14,7 @@ class TradingView extends React.PureComponent {
 		interval: 'D',
 		containerId: 'trading_view',
 		datafeedUrl: config.api.server,
-		libraryPath: '/tradingview/charting_library/',
+		libraryPath: `${process.env.PUBLIC_URL}/tradingview/charting_library/`,
 		fullscreen: false,
 		autosize: true,
 		studiesOverrides: {},
@@ -37,7 +37,7 @@ class TradingView extends React.PureComponent {
 		if (this.tvWidget !== null) {
 			this.tvWidget.remove();
 			this.tvWidget = null;
-		};
+		}
 	};
 
 	createTVChart = () => {
@@ -83,7 +83,7 @@ class TradingView extends React.PureComponent {
 		const widget = window.tvWidget = new window.TradingView.widget(widgetOptions);
 		widget.onChartReady(() => {});
 		this.tvWidget = widget;
-	}
+	};
 
 
 	render() {

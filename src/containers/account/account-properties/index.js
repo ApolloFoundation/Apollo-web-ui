@@ -98,7 +98,7 @@ class AccountProperties extends React.Component {
         }
     };
 
-    setProperty  = (el) => this.props.setBodyModalParamsAction("SET_ACCOUNT_PROPERTY", el);
+    setProperty  = () => this.props.setBodyModalParamsAction("SET_ACCOUNT_PROPERTY", {});
 
     onPaginate = (page) => {
         const pagination = {
