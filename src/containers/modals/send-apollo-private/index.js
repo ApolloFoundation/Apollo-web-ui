@@ -135,17 +135,19 @@ class SendApolloPrivate extends React.Component {
     };
 
     render() {
+        const {useMixer, mixerData, isPending, isPrivateTransactionAlert} = this.state;
         return (
             <ModalBody
                 modalTitle={'Send Private transaction'}
                 closeModal={this.props.closeModal}
                 handleFormSubmit={(values) => this.handleFormSubmit(values)}
                 isAdvanced
+                isPending={isPending}
                 submitButtonName={'Send'}
-                isDisabled={!this.state.isPrivateTransactionAlert}
+                isDisabled={!isPrivateTransactionAlert}
                 idGroup={'send-private-money-modal-'}
             >
-                {!this.state.isPrivateTransactionAlert && (
+                {!isPrivateTransactionAlert && (
                     <InfoBox info>
                         Please note: Exchanges may not support private transactions, we recommend sending publically to exchanges.<br/>
                         Private transactions currently protect down the the API level. Database level protection will start with Olympus 2.0<br/>
@@ -159,8 +161,8 @@ class SendApolloPrivate extends React.Component {
                     </InfoBox>
                 )}
                 <SendPrivateApolloForm
-                    useMixer={this.state.useMixer}
-                    mixerData={this.state.mixerData}
+                    useMixer={useMixer}
+                    mixerData={mixerData}
                     handleUseMixer={this.handleUseMixer}
                 />
             </ModalBody>
