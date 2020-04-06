@@ -220,14 +220,14 @@ export const setSelectedOrderInfo = (stateValues) => dispatch => {
     dispatch({
 		type: stateValues.type === 'BUY' ? SET_SELECTED_BUY_ORDER_INFO : SET_SELECTED_SELL_ORDER_INFO,
 		payload: stateValues
-        })
+    })
 };
 
 export const setTypeOfTrade = (stateValues) => dispatch => {
     dispatch({
 		type: SET_TYPE_OF_TRADE,
 		payload: stateValues
-        })
+    })
 };
 
 export const saveSendModalState = (stateValues) => dispatch => {

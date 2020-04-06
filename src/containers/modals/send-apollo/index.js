@@ -54,11 +54,6 @@ class SendApollo extends React.Component {
 			values.recipient = this.state.alias;
 		}
 
-		this.setState({
-			isPending: true
-		});
-
-
         // export const processForm = (values, requestType, successMesage, successCallback) => {
 
 		this.props.processForm(values, 'sendMoney', 'Transaction has been submitted!', (res) => {
@@ -91,7 +86,7 @@ class SendApollo extends React.Component {
 				closeModal={this.props.closeModal}
 				handleFormSubmit={(values) => this.handleFormSubmit(values)}
 				isFee
-				isAdvanced				
+				isAdvanced
 				submitButtonName={'Send'}
 				idGroup={'send-money-modal-'}
 			>

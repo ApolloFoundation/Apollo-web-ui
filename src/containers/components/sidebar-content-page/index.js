@@ -17,8 +17,9 @@ class SidebarContentPage extends PureComponent {
 
     render () {
         const {SidebarContent, PageContent, match: {params}, pageContentClassName, backButtonClassname, className} = this.props;
-        const isGoBack = !!Object.values(params).length;
-
+        // const isGoBack = !!Object.values(params).length;
+        const isGoBack = !!params.chat;
+        
         return (
             <div className={`page-body container-fluid followed-polls-container pl-0 sidebar-content-page ${className}`}>
                     <div className="row">

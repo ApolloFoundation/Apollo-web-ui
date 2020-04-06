@@ -57,10 +57,8 @@ class CreateShuffling extends React.Component {
             };
 
             this.props.processForm(reqParams, 'broadcastTransaction', 'Shuffling Created!', (broadcast) => {
-                setBodyModalParamsAction('START_SHUFFLING', {broadcast});
+                this.props.setBodyModalParamsAction('START_SHUFFLING', {broadcast});
             });
-
-            this.props.closeModal();
         })
     };
 

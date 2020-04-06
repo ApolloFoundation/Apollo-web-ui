@@ -41,10 +41,13 @@ class SendApolloPrivate extends React.Component {
     };
 
     handleGetMixerAccount = async () => {
-        const mixerData = await getMixerAccount();
+        const {accountPrefix, mixerUrl} = this.props;
+        if(!mixerUrl) return
+
+        const mixerData = await getMixerAccount(mixerUrl);
         if (mixerData && mixerData.rsId) {
             const mixerAccount = mixerData.rsId;
-            mixerData.rsId = mixerAccount.replace('APL-', `${this.props.accountPrefix}-`);
+            mixerData.rsId = mixerAccount.replace('APL-', `${accountPrefix}-`);
 
             this.setState({
                 mixerData,
@@ -135,17 +138,19 @@ class SendApolloPrivate extends React.Component {
     };
 
     render() {
+        const {useMixer, mixerData, isPending, isPrivateTransactionAlert} = this.state;
         return (
             <ModalBody
                 modalTitle={'Send Private transaction'}
                 closeModal={this.props.closeModal}
                 handleFormSubmit={(values) => this.handleFormSubmit(values)}
                 isAdvanced
+                isPending={isPending}
                 submitButtonName={'Send'}
-                isDisabled={!this.state.isPrivateTransactionAlert}
+                isDisabled={!isPrivateTransactionAlert}
                 idGroup={'send-private-money-modal-'}
             >
-                {!this.state.isPrivateTransactionAlert && (
+                {!isPrivateTransactionAlert && (
                     <InfoBox info>
                         Please note: Exchanges may not support private transactions, we recommend sending publically to exchanges.<br/>
                         Private transactions currently protect down the the API level. Database level protection will start with Olympus 2.0<br/>
@@ -159,8 +164,8 @@ class SendApolloPrivate extends React.Component {
                     </InfoBox>
                 )}
                 <SendPrivateApolloForm
-                    useMixer={this.state.useMixer}
-                    mixerData={this.state.mixerData}
+                    useMixer={useMixer}
+                    mixerData={mixerData}
                     handleUseMixer={this.handleUseMixer}
                 />
             </ModalBody>
@@ -174,7 +179,8 @@ const mapStateToProps = state => ({
     publicKey: state.account.publicKey,
     modalsHistory: state.modals.modalsHistory,
     dashboardForm: state.modals.dashboardForm,
-    accountPrefix: state.account.constants ? state.account.constants.accountPrefix : ''
+    accountPrefix: state.account.constants ? state.account.constants.accountPrefix : '',
+    mixerUrl: state.account.constants.mixerUrl,
 });
 
 const mapDispatchToProps = dispatch => ({

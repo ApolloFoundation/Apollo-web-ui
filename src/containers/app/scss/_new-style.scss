@@ -273,6 +273,20 @@ $img-ratio-xl: 564/1140;
 					
 					&.fee {
 						text-align: right;
+
+						.price {
+							&__lg {
+								@media (max-width: 1360px) and (min-width: 760px) {
+									display: none;
+								}
+							}
+							&__md {
+								text-transform: lowercase;
+								@media (max-width: 1360px) {
+									text-transform: capitalize;
+								}
+							}
+						}
 					}
 				}
 
@@ -280,6 +294,10 @@ $img-ratio-xl: 564/1140;
 					font-size: 12px;
 					letter-spacing: -0.04px;
 					white-space: nowrap;
+
+					&__right {
+						text-align: right;
+					}
 				}
 
 				.transaction-rs-wrap {
