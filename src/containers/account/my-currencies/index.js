@@ -30,12 +30,14 @@ const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 });
 
+const itemsPerPage = 15;
 class MyMadedCurrencies extends React.Component {
     state = {
         trades: null,
         page: 1,
         firstIndex: 0,
-        lastIndex: 15,
+        lastIndex: itemsPerPage,
+        perPage: itemsPerPage,
     };
 
     componentDidMount() {
@@ -47,17 +49,19 @@ class MyMadedCurrencies extends React.Component {
         });
     }
 
-    getExchanges = async (newState, index) => {
+    getExchanges = async (newState) => {
         const exchanges = (await this.props.getAccountCurrenciesAction({
             account: newState.accountRS,
-            firstIndex: index ? index.firstIndex : null,
-            lastIndex: index ? index.lastIndex : null
+            firstIndex: this.state.firstIndex,
+            lastIndex: this.state.lastIndex
         }));
 
         if (exchanges) {
             const accountCurrencies = exchanges.accountCurrencies.filter(el => el.code && el.name && el.type !== undefined);
+            const count =  accountCurrencies.length;
             this.setState({
-                executedExchanges: accountCurrencies
+                executedExchanges: accountCurrencies,
+                perPage: exchanges.accountCurrencies.length === (itemsPerPage + 1) ? count - 1 : itemsPerPage
             })
         }
     };
@@ -71,8 +75,8 @@ class MyMadedCurrencies extends React.Component {
             ...this.props,
             page: page,
             account: this.props.account,
-            firstIndex: page * 15 - 15,
-            lastIndex: page * 15
+            firstIndex: page * itemsPerPage - itemsPerPage,
+            lastIndex: page * itemsPerPage
         };
 
         this.setState(reqParams, () => {
@@ -140,7 +144,7 @@ class MyMadedCurrencies extends React.Component {
                         emptyMessage={'No currencies found.'}
                         previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
                         nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
-                        itemsPerPage={15}
+                        itemsPerPage={this.state.perPage}
                     />
                 </div>
             </div>
