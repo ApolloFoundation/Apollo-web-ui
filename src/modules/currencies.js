@@ -1,30 +1,31 @@
-const initState  = {
+const initState = {
     types: {
-        1:  {image: '<i class="zmdi zmdi-swap"></i>',                 name: 'Exchangeable'}   , // Exchangeable
-        2:  {image: '<i class="zmdi zmdi-lock"></i>',                 name: 'Controllable'}   , // Controllable
-        4:  {image: '<i class="zmdi zmdi-balance"></i>',              name: 'Reservable'}     , //Reservable
-        8:  {image: '<i class="zmdi zmdi-key"></i>',                  name: 'Claimable'}      , // Claimable
-        16: {image: '<i class="zmdi zmdi-toll"></i>',                 name: 'Mintable'}       , // Mintable
+        1: {image: '<i class="zmdi zmdi-swap"></i>', name: 'Exchangeable'}, // Exchangeable
+        2: {image: '<i class="zmdi zmdi-lock"></i>', name: 'Controllable'}, // Controllable
+        4: {image: '<i class="zmdi zmdi-balance"></i>', name: 'Reservable'}, //Reservable
+        8: {image: '<i class="zmdi zmdi-key"></i>', name: 'Claimable'}, // Claimable
+        16: {image: '<i class="zmdi zmdi-toll"></i>', name: 'Mintable'}, // Mintable
         32: {image: '<i class="zmdi zmdi-minus-circle-outline"></i>', name: 'Non-Shuffleable'}, //Non-Shuffleable 
     }
 }
 
-export default (state = initState, action)  => {
-    switch(action.type) {
-        default: return state;
+export default (state = initState, action) => {
+    switch (action.type) {
+        default:
+            return state;
     }
 }
 
 
 export const getCurrencyTypes = (value, isBasic) => {
-    var b = 1;
-    var res= [];
-    while(b<=value){
-        if(b & value)res.push(b);
+    let b = 1;
+    let res = [];
+    while (b <= value) {
+        if (b && value) res.push(b);
         b <<= 1;
     }
 
-    if (isBasic) 
+    if (isBasic)
         return res.map((el) => {
             return initState.types[el].name
         })
