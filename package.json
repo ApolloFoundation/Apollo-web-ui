@@ -5,7 +5,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "5.7.2",
     "autoprefixer": "7.2.6",
-    "axios": "0.18.0",
+    "axios": "0.18.1",
     "babel-loader": "7.1.5",
     "big-integer": "1.6.43",
     "bootstrap": "4.1.3",
