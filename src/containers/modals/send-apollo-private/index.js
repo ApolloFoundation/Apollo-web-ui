@@ -48,7 +48,6 @@ class SendApolloPrivate extends React.Component {
         if (mixerData && mixerData.rsId) {
             const mixerAccount = mixerData.rsId;
             mixerData.rsId = mixerAccount.replace('APL-', `${accountPrefix}-`);
-
             this.setState({
                 mixerData,
                 useMixer: true,
@@ -73,7 +72,7 @@ class SendApolloPrivate extends React.Component {
 
             if (this.state.useMixer) {
                 values.messageToEncrypt = JSON.stringify({
-                    name: "REQUEST_MIXING",
+                    type: "REQUEST_MIXING",
                     epicId: values.recipient,
                     approximateMixingDuration: values.duration  // Minutes
                 });
