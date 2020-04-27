@@ -98,14 +98,14 @@ class SendApolloPrivate extends React.Component {
                 delete values.mixerAccount;
             }
 
-
             this.setState({isPending: true});
 
-            this.props.dispatch(await this.props.submitForm(values, 'sendMoneyPrivate'))
+            const { duration, isMixer, mixerPublicKey, ...params } = values;
+
+            this.props.dispatch(await this.props.submitForm(params, 'sendMoneyPrivate'))
                 .done((privateTransaction) => {
                     if (privateTransaction && privateTransaction.errorCode) {
                         NotificationManager.error(privateTransaction.errorDescription, 'Error', 5000);
-
                     } else {
                         NotificationManager.success('Private transaction has been submitted.', null, 5000);
                         this.props.setBodyModalParamsAction(null, {});
