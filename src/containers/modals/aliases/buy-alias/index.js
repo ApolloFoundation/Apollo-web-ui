@@ -6,34 +6,47 @@
 
 import React     from 'react';
 import {connect} from 'react-redux';
-
-import {NotificationManager}      from 'react-notifications';
-import {setBodyModalParamsAction} from '../../../../modules/modals';
-import {getAliasAction}           from '../../../../actions/aliases/';
-import handleFormSubmit           from './handle-form-submit';
+import {NotificationManager} from "react-notifications";
 import {ONE_APL} from '../../../../constants';
-
+import {setBodyModalParamsAction} from '../../../../modules/modals';
+import {buyAliasAction} from '../../../../actions/aliases';
 import TextualInputComponent from '../../../components/form-components/textual-input';
-import NumericInputComponent from '../../../components/form-components/numeric-input';
 import ModalBody             from '../../../components/modals/modal-body';
 
 class GetAlias extends React.Component {
 
-    state = {
-        aliasInfo : {
-            aliasName : null,
-            priceATM : null
+    handleFormSubmit = async (values) => {
+        const {alias, aliasName, secretPhrase, priceATM, feeATM} = values;
+        let isError = false;
+        if (!feeATM) {
+            NotificationManager.error('Enter fee!', null, 5000);
+            isError = true;
         }
-    };
 
-    handleFormSubmit = (values) => {
-        this.props.handleFormSubmit(values)
+        if (!secretPhrase) {
+            NotificationManager.error('Enter secretPhrase!', null, 5000);
+            isError = true;
+        }
+
+        if (isError) return
+
+        const boughtAlias = {
+            alias,
+            aliasName,
+            secretPhrase,
+            amountATM: priceATM,
+            feeATM: feeATM,
+        }
+
+        this.props.processForm(boughtAlias, 'buyAlias', 'Alias has been bought!', () => {
+            this.props.setBodyModalParamsAction(null, {});
+            NotificationManager.success('Alias has been bought!', null, 5000);
+        });
     }
 
     render() {
-
-        const {priceATM, aliasName} = this.props.modalData;
-
+        console.log(this.props);
+        
         return (
             <ModalBody
                 modalTitle={'Buy Alias'}
@@ -45,20 +58,16 @@ class GetAlias extends React.Component {
             >
                 <TextualInputComponent
                     label={'Alias'}
-
                     disabled={true}
-                    defaultValue={aliasName}
                     field="aliasName"
                     placeholder="Alias"
                     type={"text"}
                 />
-                <NumericInputComponent
+                <TextualInputComponent
                     label={'Price'}
-
                     countLabel={'APL'}
                     disabled={true}
-                    defaultValue={priceATM / ONE_APL}
-                    field="amountAPL"
+                    field="priceATM"
                     placeholder="Amount"
                     type={"float"}
                 />
@@ -69,15 +78,11 @@ class GetAlias extends React.Component {
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
-    account: state.account.account,
-    publicKey: state.account.publicKey
 });
 
 const mapDispatchToProps = dispatch => ({
-    getAliasAction: (requestParams) => dispatch(getAliasAction(requestParams)),
     setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
-    validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
-    handleFormSubmit: (values) => dispatch(handleFormSubmit(values))
+    buyAliasAction: (data) => dispatch(buyAliasAction(data)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(GetAlias);

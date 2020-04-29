@@ -264,7 +264,7 @@ class InfoTransactionTable extends Component {
 							this.state.message &&
 							(!message || message === 'undefined') && (
 								<tr>
-									<td>Decrypted Messgae:</td>
+									<td>Decrypted Message:</td>
 									<td>{this.state.message.decryptedMessage}</td>
 								</tr>
 							)
