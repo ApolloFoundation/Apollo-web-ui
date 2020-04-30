@@ -41,19 +41,19 @@ const Alias = (props) => (
             !props.priceATM &&
             <td>REGISTERED</td>
         }
-        {(props.priceATM && props.priceATM !== '0' && !props.buyer)
-        || (props.buyer && props.account === props.buyer)
+        {((props.priceATM && props.priceATM !== '0' && !props.buyer)
+        || (props.buyer && props.account === props.buyer))
         && (<td className="align-right unset-text-overflow">
-                <div className="btn-box inline">
-                    <button
-                        type={'button'}
-                        onClick={() => props.setBodyModalParamsAction('BUY_ALIAS', {...props, priceATM: props.priceATM / ONE_APL})}
-                        className="btn btn-default"
-                    >
-                        Buy alias
-                    </button>
-                </div>
-            </td>)
+            <div className="btn-box inline">
+                <button
+                    type={'button'}
+                    onClick={() => props.setBodyModalParamsAction('BUY_ALIAS', {...props, priceATM: props.priceATM / ONE_APL})}
+                    className="btn btn-default"
+                >
+                    Buy alias
+                </button>
+            </div>
+        </td>)
         }
     </tr>
 );
