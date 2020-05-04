@@ -5,7 +5,7 @@
 
 
 import React from 'react';
-import uuid from "uuid";
+import { v4 as uuidv4 } from 'uuid';
 import classNames from "classnames";
 import SiteHeader from "../../components/site-header"
 import MessageItem from './message-item'
@@ -106,7 +106,7 @@ class MyMessages extends React.Component {
                     </button>
                 </SiteHeader>
                 <div className="page-body container-fluid">
-                    <CustomTable 
+                    <CustomTable
                         header={[
                             {
                                 name: 'Date',
