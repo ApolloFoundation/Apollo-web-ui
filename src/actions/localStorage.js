@@ -4,18 +4,18 @@
  ******************************************************************************/
 
 
-import {getSettings} from "../helpers/util/settings";
+import {secureStorage} from "../helpers/format";
 
 export function writeToLocalStorage(field, params){
-    localStorage.setItem(field, JSON.stringify(params));
+    secureStorage.setItem(field, JSON.stringify(params));
 }
 
 export function readFromLocalStorage(field){
-    return localStorage.getItem((field))
+    return secureStorage.getItem((field))
 }
 
 export function deleteFromLocalStorage(field) {
-    localStorage.removeItem(field)
+    secureStorage.removeItem(field)
 }
 
 export function getAccountJSONItem(key) {
@@ -26,7 +26,7 @@ export function getAccountJSONItem(key) {
 
 export function setJSONItem(key, data) {
     var jsonData = JSON.stringify(data);
-    localStorage.setItem(key, jsonData);
+    secureStorage.setItem(key, jsonData);
 }
 
 export function setAccountJSONItem (key, data) {
@@ -45,7 +45,7 @@ function getAccountKey(key) {
 }
 
 function getJSONItem(key) {
-    return JSON.parse(localStorage.getItem(key));
+    return JSON.parse(secureStorage.getItem(key));
 };
 
 

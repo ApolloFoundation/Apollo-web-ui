@@ -17,7 +17,6 @@ import { v4 as uuidv4 } from 'uuid';
 import InfoBox from '../../components/info-box';
 import {getTransactionAction} from "../../../actions/transactions";
 import {BlockUpdater} from "../../block-subscriber";
-import bigInteger from 'big-integer'
 
 import OffersToBuy from './offers-to-buy';
 import OffersToSell from './offers-to-sell';
@@ -28,6 +27,7 @@ import SellAsset from './sell-asset';
 import SidebatAsset from './sidebar-asset';
 import SidebarContent from '../../components/sidebar-list';
 
+const bigInteger = require('jsbn').BigInteger;
 const itemsPerPage = 5;
 
 class AssetExchange extends React.Component {
