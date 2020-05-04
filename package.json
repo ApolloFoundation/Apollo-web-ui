@@ -9,11 +9,9 @@
     "bootstrap": "4.4.1",
     "chart.js": "2.9.3",
     "classnames": "2.2.6",
-    "convert-string": "0.1.0",
     "core-js": "3.6.5",
     "crypto-js": "4.0.0",
     "express": "4.17.1",
-    "history": "4.10.1",
     "i18next": "19.4.4",
     "i18next-browser-languagedetector": "4.1.1",
     "i18next-xhr-backend": "3.2.2",
@@ -24,7 +22,6 @@
     "jspdf": "1.5.3",
     "loaders.css": "0.1.2",
     "material-design-iconic-font": "2.2.0",
-    "npm-run-all": "4.1.5",
     "pako": "1.0.11",
     "qrcode": "1.4.4",
     "qrcode.react": "1.0.0",
@@ -42,8 +39,8 @@
     "react-input-mask": "2.0.4",
     "react-notifications": "1.6.0",
     "react-redux": "7.2.0",
+    "react-router": "5.1.2",
     "react-router-dom": "5.1.2",
-    "react-router-redux": "5.0.0-alpha.9",
     "react-scripts": "3.4.1",
     "react-select": "3.1.0",
     "redux": "4.0.5",
@@ -54,15 +51,14 @@
   "homepage": "/",
   "main": "src/index.js",
   "scripts": {
-    "start-js": "react-scripts start",
-    "start": "npm-run-all -p start-js",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "react-start": "BROWSER=none react-scripts start",
     "pack": "build --dir",
     "dist": "npm run build && build"
   },
   "devDependencies": {
-    "node-sass": "4.12.0"
+    "node-sass": "4.14.0"
   },
   "build": {
     "directories": {
@@ -74,9 +70,6 @@
       "react-app"
     ]
   },
-  "plugins": [
-    "babel-plugin-transform-decorators"
-  ],
   "browserslist": [
     ">0.2%",
     "not dead",
