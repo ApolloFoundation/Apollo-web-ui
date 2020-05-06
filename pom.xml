@@ -7,6 +7,7 @@
   <name>apollo-web-ui</name>
   <version>2.7.5</version>
   <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <surefire-plugin.version>2.22.2</surefire-plugin.version>
     <compile-plugin.version>3.8.2</compile-plugin.version>
     <base-dist-dir>apollo-wallet</base-dist-dir>
@@ -57,6 +58,7 @@
       </plugin>             
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
+        <version>3.3.0</version>
         <executions>
           <execution>
             <id>html-assembly</id>
