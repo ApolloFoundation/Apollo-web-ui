@@ -43,7 +43,7 @@
               <goal>modify</goal>
             </goals>
             <configuration>
-              <file>${basedir}/apl-pkg.json</file>
+              <file>${basedir}/pkg-apollo-web-ui.json</file>
               <formatter>conventional</formatter>
               <modifications>
                 <modification>

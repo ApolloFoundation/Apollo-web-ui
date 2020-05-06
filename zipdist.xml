@@ -16,7 +16,7 @@
       <directory>${project.basedir}</directory>
       <outputDirectory>./</outputDirectory>
       <includes>
-        <include>apl-pkg.json</include>
+        <include>pkg-apollo-web-ui.json</include>
       </includes>
       <fileMode>0644</fileMode>
     </fileSet>    
