@@ -1,16 +1,24 @@
 <assembly xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.2 http://maven.apache.org/xsd/assembly-1.1.2.xsd">
-    <id>zipdist</id>
-    <includeBaseDirectory>false</includeBaseDirectory>
-    <formats>
-        <format>zip</format>
-    </formats>
-    <fileSets>
-        <fileSet>
-            <directory>build</directory>
-            <outputDirectory>build</outputDirectory>
-            <fileMode>0644</fileMode>
-        </fileSet>
-    </fileSets>
+  <id>zipdist</id>
+  <includeBaseDirectory>false</includeBaseDirectory>
+  <formats>
+    <format>zip</format>
+  </formats>
+  <fileSets>
+    <fileSet>
+      <directory>build</directory>
+      <outputDirectory>${base-dist-dir}/webui</outputDirectory>
+      <fileMode>0644</fileMode>
+    </fileSet>
+    <fileSet>
+      <directory>${project.basedir}</directory>
+      <outputDirectory>./</outputDirectory>
+      <includes>
+        <include>apl-pkg.json</include>
+      </includes>
+      <fileMode>0644</fileMode>
+    </fileSet>    
+  </fileSets>
 </assembly>
