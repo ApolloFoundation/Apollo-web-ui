@@ -5,13 +5,13 @@
   <groupId>com.apollocurrency</groupId>
   <artifactId>apollo-web-ui</artifactId>
   <name>apollo-web-ui</name>
-  <version>2.7.5</version>
+  <version>2.7.6</version>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <surefire-plugin.version>2.22.2</surefire-plugin.version>
     <compile-plugin.version>3.8.2</compile-plugin.version>
     <base-dist-dir>apollo-wallet</base-dist-dir>
-    <zip-file-name>apollo-web-ui</zip-file-name>    
+    <zip-file-name>apollo-web-ui</zip-file-name>
   </properties>
   <build>
     <plugins>
@@ -55,7 +55,7 @@
             </configuration>
           </execution>
         </executions>
-      </plugin>             
+      </plugin>
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <version>3.3.0</version>
