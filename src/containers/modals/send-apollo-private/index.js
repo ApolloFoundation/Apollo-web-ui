@@ -48,7 +48,6 @@ class SendApolloPrivate extends React.Component {
         if (mixerData && mixerData.rsId) {
             const mixerAccount = mixerData.rsId;
             mixerData.rsId = mixerAccount.replace('APL-', `${accountPrefix}-`);
-
             this.setState({
                 mixerData,
                 useMixer: true,
@@ -73,7 +72,7 @@ class SendApolloPrivate extends React.Component {
 
             if (this.state.useMixer) {
                 values.messageToEncrypt = JSON.stringify({
-                    name: "REQUEST_MIXING",
+                    type: "REQUEST_MIXING",
                     epicId: values.recipient,
                     approximateMixingDuration: values.duration  // Minutes
                 });
@@ -99,14 +98,14 @@ class SendApolloPrivate extends React.Component {
                 delete values.mixerAccount;
             }
 
-
             this.setState({isPending: true});
 
-            this.props.dispatch(await this.props.submitForm(values, 'sendMoneyPrivate'))
+            const { duration, isMixer, mixerPublicKey, ...params } = values;
+
+            this.props.dispatch(await this.props.submitForm(params, 'sendMoneyPrivate'))
                 .done((privateTransaction) => {
                     if (privateTransaction && privateTransaction.errorCode) {
                         NotificationManager.error(privateTransaction.errorDescription, 'Error', 5000);
-
                     } else {
                         NotificationManager.success('Private transaction has been submitted.', null, 5000);
                         this.props.setBodyModalParamsAction(null, {});

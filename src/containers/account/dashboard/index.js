@@ -20,8 +20,8 @@ import StayInTouch from "./StayInTouch";
 import ActivePolls from "./ActivePolls";
 import InfoStatistic from "./InfoStatistic";
 
-import TwitterBanner from "../../../assets/why-apollo.png";
-import InfoBanner from "../../../assets/new-vision-2020.png";
+import TwitterBanner from "../../../assets/banner-small.png";
+import InfoBanner from "../../../assets/banner-long.png";
 
 class Dashboard extends React.Component {
     state = {

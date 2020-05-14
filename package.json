@@ -1,6 +1,6 @@
 {
   "name": "apollo-web-wallet",
-  "version": "2.7.0",
+  "version": "2.7.7",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-free": "5.7.2",
@@ -83,13 +83,6 @@
     "test": "jasmine",
     "build-css": "node-sass-chokidar src -o src",
     "watch-css": "node-sass-chokidar src -o src --watch --recursive",
-    "create-desktop-mac": "electron-packager . apollo-web-wallet --platform=mas --ignore=node_modules --ignore=desktop-builds --out=desktop-builds --overwrite",
-    "create-desktop-win32": "electron-packager . apollo-web-wallet --overwrite --platform=win32 --arch=x64 --ignore=node_modules --ignore=desktop-builds --icon=public/favicon.ico --prune=true --out=desktop-builds --version-string.CompanyName=FB --version-string.FileDescription=\"Apollo Desktop\" --version-string.ProductName=\"Apollo Web Wallet\"",
-    "create-desktop-linux": "electron-packager . apollo-web-wallet --overwrite --platform=linux --arch=x64 --ignore=node_modules --ignore=desktop-builds --icon=public/favicon.ico --prune=true --out=desktop-builds",
-    "create-desktop": "npm run build && npm run create-desktop-mac && npm run create-desktop-win32 && npm run create-desktop-linux",
-    "start-electron-dev": "nf start -p 3000",
-    "electron": "electron .",
-    "electron-start": "node src/start-react",
     "react-start": "BROWSER=none react-scripts start",
     "pack": "build --dir",
     "dist": "npm run build && build"
