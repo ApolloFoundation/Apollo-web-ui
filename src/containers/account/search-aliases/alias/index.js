@@ -5,6 +5,9 @@
 
 
 import React from 'react';
+import {connect} from 'react-redux';
+import {ONE_APL} from '../../../../constants';
+import {setBodyModalParamsAction} from "../../../../modules/modals";
 
 const Alias = (props) => (
     <tr>
@@ -38,8 +41,29 @@ const Alias = (props) => (
             !props.priceATM &&
             <td>REGISTERED</td>
         }
-
+        {((props.priceATM && props.priceATM !== '0' && !props.buyer)
+        || (props.buyer && props.account === props.buyer))
+        && (<td className="align-right unset-text-overflow">
+            <div className="btn-box inline">
+                <button
+                    type={'button'}
+                    onClick={() => props.setBodyModalParamsAction('BUY_ALIAS', {...props, priceATM: props.priceATM / ONE_APL})}
+                    className="btn btn-default"
+                >
+                    Buy alias
+                </button>
+            </div>
+        </td>)
+        }
     </tr>
 );
 
-export default Alias;
+const mapStateToProps = state => ({
+    account: state.account.account
+});
+
+const mapDispatchToProps = dispatch => ({
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Alias);
