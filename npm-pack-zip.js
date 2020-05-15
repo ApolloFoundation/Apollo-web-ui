@@ -11,7 +11,7 @@ function zipFiles(files, filename, source, destination, info, verbose) {
         if (verbose) console.log(file);
         archive.file(file);
     });
-    archive.directory('./build', 'apollo-wallet/webui');
+    archive.directory('./build', 'ApolloWallet/webui');
     return archive.finalize();
 }
 
