@@ -40,7 +40,7 @@ class MandatoryApprovalModal extends React.Component {
         })
     };
 
-   
+
     onSubmit = (values) => {
         const {processForm, updateAccount, account} = this.props;
 
@@ -68,19 +68,19 @@ class MandatoryApprovalModal extends React.Component {
         const {activeForm} = this.state;
 
         switch (activeForm) {
-            case 0: 
+            case 0:
                 this.onSubmit({...values, ...this.state.noApproval});
                 break;
 
-            case 1: 
+            case 1:
                 this.onSubmit({...values, ...this.state.approveByAccountBody});
                 break;
 
-            case 2: 
+            case 2:
                 this.onSubmit({...values, ...this.state.approveByBalanceBody});
                 break;
 
-            case 3: 
+            case 3:
                 this.onSubmit({...values, ...this.state.approveWithAssetBody});
                 break;
 
@@ -88,7 +88,7 @@ class MandatoryApprovalModal extends React.Component {
                 this.onSubmit({...values, ...this.state.approveWithCurrencyBody});
                 break;
 
-            default : return; 
+            default : return;
         }
     }
 
@@ -114,15 +114,15 @@ class MandatoryApprovalModal extends React.Component {
                     onFocus={(i) => this.onFocus(i)}
 
                 >
-                    <TabContaier 
+                    <TabContaier
                         sectionName={<i className="zmdi zmdi-close-circle" />}
                     >
                         <NoApprovalBody
                             onChange={values => this.handleApproveby(values, 'noApproval')}
                         />
                     </TabContaier>
-            
-                    <TabContaier 
+
+                    <TabContaier
                         sectionName={<i className="zmdi zmdi-accounts" />}
                         onFocus={() => this.onFocus(1)}
                     >
@@ -130,8 +130,8 @@ class MandatoryApprovalModal extends React.Component {
                             onChange={(values) => this.handleApproveby(values, 'approveByAccountBody')}
                         />
                     </TabContaier>
-            
-                    <TabContaier 
+
+                    <TabContaier
                         sectionName={<i className="zmdi zmdi-money-box" />}
                         onFocus={() => this.onFocus(2)}
                     >
@@ -140,7 +140,7 @@ class MandatoryApprovalModal extends React.Component {
                         />
                     </TabContaier>
 
-                    <TabContaier 
+                    <TabContaier
                         sectionName={<i className="zmdi zmdi-chart" />}
                         onFocus={() => this.onFocus(3)}
                     >
@@ -149,7 +149,7 @@ class MandatoryApprovalModal extends React.Component {
                         />
                     </TabContaier>
 
-                    <TabContaier 
+                    <TabContaier
                         sectionName={<i className="zmdi zmdi-balance" />}
                         onFocus={() => this.onFocus(4)}
                     >
@@ -180,7 +180,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(MandatoryApprovalMod
 /*
 
  submitNoApproval = async toSend => {
-        
+
         console.log(this.state.noApproval)
 
         const mappedRequestBody = {
