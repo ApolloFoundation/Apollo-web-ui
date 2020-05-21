@@ -13,6 +13,7 @@ import {getDGSGoodsAction,
         getDGSGoodsCountAction,
         getDGSPurchasesAction} from '../../../actions/marketplace'
 import './MarketPLace.scss';
+import {setBodyModalParamsAction} from "../../../modules/modals";
 import {BlockUpdater} from "../../block-subscriber";
 import {getMarketplaceGeneralInfo} from '../../../modules/marketplace';
 
@@ -24,6 +25,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
     getMarketplaceGeneralInfo: () => dispatch(getMarketplaceGeneralInfo())
 })
 
@@ -36,6 +38,10 @@ class Marketplace extends React.Component {
             page: 1,
             isShowMore: false
         };
+    }
+
+    componentDidMount() {
+        this.props.setBodyModalParamsAction('MARKETPLACE_ACCEPT_INFO');
     }
 
     componentWillMount() {

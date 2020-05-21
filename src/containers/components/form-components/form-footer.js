@@ -10,17 +10,19 @@ const FormFooter = ({
     isDisabled, 
     setValue, 
     closeModal,
-    isMomalProcessing
+    isMomalProcessing,
+    isClosing,
 }) => (
     <div className="btn-box right-conner align-right form-footer">
-        <button
-            type={'button'}
-            id={`${idGroup}cancel-button`}
-            onClick={closeModal}
-            className="btn btn-default mr-3"
-        >
-            Cancel
-        </button>
+        {!isClosing &&
+            <button
+                type={'button'}
+                id={`${idGroup}cancel-button`}
+                onClick={closeModal}
+                className="btn btn-default mr-3"
+            >
+                Cancel
+            </button>}
         {
             submitButtonName &&
             <button
