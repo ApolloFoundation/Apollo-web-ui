@@ -1,6 +1,6 @@
 {
   "name": "apollo-web-wallet",
-  "version": "2.7.5",
+  "version": "2.8.1",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-free": "5.13.0",
@@ -55,10 +55,12 @@
     "build": "react-scripts build",
     "react-start": "BROWSER=none react-scripts start",
     "pack": "build --dir",
-    "dist": "npm run build && build"
+    "dist": "npm run build && build",
+    "prezip": "npm run build",
+    "zip": "mkdir -p target && node ./npm-pack-zip.js"
   },
   "devDependencies": {
-    "node-sass": "4.14.0"
+    "node-sass": "4.13.0"
   },
   "build": {
     "directories": {

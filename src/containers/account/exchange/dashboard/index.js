@@ -20,7 +20,7 @@ import {
 } from "../../../../actions/wallet";
 import Orderbook from "./orderbook";
 import TradeApollo from "./trade-apollo";
-import TwitterBanner from "../../../../assets/why-apollo.png";
+import TwitterBanner from "../../../../assets/banner-small.png";
 
 class Exchange extends React.Component {
     state = {
