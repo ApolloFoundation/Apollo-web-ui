@@ -10,7 +10,7 @@ import {connect} from "react-redux";
 import {getApprovesAction} from "../../../actions/approval-requests";
 import {BlockUpdater} from "../../block-subscriber";
 import Block from "../blocks/block";
-import uuid from "uuid";
+import { v4 as uuidv4 } from 'uuid';
 import classNames from "classnames";
 import Transaction from "./transaction/index";
 import ContentLoader from '../../components/content-loader'

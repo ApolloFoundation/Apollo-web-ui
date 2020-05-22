@@ -5,7 +5,7 @@
 
 
 import React, {Component} from 'react';
-import uuid from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import {Link} from 'react-router-dom';
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {connect} from 'react-redux';
@@ -19,7 +19,7 @@ class MyCurrencytemItem extends Component {
         const isClaimable = currencyTypes.includes('Claimable');
 
         return (
-            <tr key={uuid()}>
+            <tr key={uuidv4()}>
                 <td className="blue-link-text">
                     <a onClick={() => setBodyModalParamsAction('INFO_TRANSACTION', currency)}>
                         {code}

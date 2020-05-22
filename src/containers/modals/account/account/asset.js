@@ -5,7 +5,7 @@
 
 
 import React from 'react';
-import uuid from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import {setBodyModalParamsAction, setModalType} from "../../../../modules/modals";
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
@@ -82,7 +82,7 @@ class AssetItem extends React.Component {
         const {decimals, asset, name, unconfirmedQuantityATU, quantityATU} = this.props;
 
         return (
-            <tr key={uuid()}>
+            <tr key={uuidv4()}>
                 <td className="blue-link-text" >
                     <span
                         className={'cursor-pointer blue-link-text'}

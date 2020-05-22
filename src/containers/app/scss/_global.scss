@@ -1,10 +1,10 @@
 @font-face {
 	font-family: 'Roboto';
-	src: url('../../fonts/Roboto-Regular.eot');
-	src: url('../../fonts/Roboto-Regular.eot?#iefix') format('embedded-opentype'),
-	url('../../fonts/Roboto-Regular.woff2') format('woff2'),
-	url('../../fonts/Roboto-Regular.woff') format('woff'),
-	url('../../fonts/Roboto-Regular.ttf') format('truetype');
+	src: url('/fonts/Roboto-Regular.eot');
+	src: url('/fonts/Roboto-Regular.eot?#iefix') format('embedded-opentype'),
+	url('/fonts/Roboto-Regular.woff2') format('woff2'),
+	url('/fonts/Roboto-Regular.woff') format('woff'),
+	url('/fonts/Roboto-Regular.ttf') format('truetype');
 }
 
 
@@ -43,7 +43,7 @@ html, body {
 			transform: translateY(2px);
 		}
 		.input-group-append {
-			height: 32px; 
+			height: 32px;
 			transform: translateY(2px);
 		}
 	}
@@ -124,30 +124,30 @@ html, body {
 
 html {
 	height: 100%;
-	
+
 	body {
 		height: 100%;
-		
+
 		#root {
 			height: 100%;
 			overflow-y: auto;
-			
+
 			& > div {
 				height: 100%;
-				
+
 				.site-content {
 					//height: 100%;
-					
+
 					& > div {
 						height: 100%;
-						
+
 						&.site-footer {
 							height: auto;
 						}
-						
+
 						.page-content {
 							height: 100%;
-							
+
 							.page-body {
 								height: 100%;
 							}
@@ -183,7 +183,7 @@ span {
 		position: absolute !important;
 	}
 }
-  
+
 .position-sm-static {
 	@media(max-width: 768px) {
 		position: static !important;
@@ -214,13 +214,13 @@ input[type="checkbox"] {
 	border-radius: 3px;
 	padding: 0 !important;
 	position: relative;
-	
+
 	&.lighten {
 		&:after {
-			background-image: url(../../assets/checked-lighten.svg);
+			background-image: url(/assets/checked-lighten.svg);
 		}
 	}
-	
+
 	&:after {
 		content: '';
 		position: absolute;
@@ -228,7 +228,7 @@ input[type="checkbox"] {
 		bottom: 1px;
 		left: 1px;
 		right: 1px;
-		background-image: url(../../assets/checked.svg);
+		background-image: url(/assets/checked.svg);
 		background-repeat: no-repeat;
 		background-size: contain;
 		background-position: center;
@@ -258,7 +258,7 @@ input[type="radio"] {
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
 	-webkit-appearance: none;
-	background: url(../../assets/number-arrows.png) no-repeat center center;
+	background: url(/assets/number-arrows.png) no-repeat center center;
 	background-size: contain;
 	width: 9px;
 	margin-right: 6px;
@@ -278,7 +278,7 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .input-number-wrap {
 	-webkit-appearance: none;
-	background: url(../../assets/number-arrows.png) no-repeat center center;
+	background: url(/assets/number-arrows.png) no-repeat center center;
 	background-size: contain;
 	width: 9px;
 	margin-right: 6px;
@@ -346,7 +346,7 @@ textarea {
 input {
 	padding: 10px 20px;
 	font-size: 13px;
-	
+
 	&.not-active {
 		pointer-events: none;
 	}
@@ -373,7 +373,7 @@ input[type="file"] {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	white-space: pre;
-	
+
 	.input-file-name {
 		padding-left: 12px;
 		margin: auto 0;
@@ -398,7 +398,7 @@ input[type="file"] {
 	border: 1px solid #E5E5E5;
 	border-radius: 3px;
 	display: none;
-	
+
 	&.active {
 		opacity: 1;
 		transform: none;
@@ -406,17 +406,17 @@ input[type="file"] {
 		margin-top: -1px;
 		display: block;
 	}
-	
+
 	ul {
 		background-color: #ffffff;
 		box-shadow: 0 6px 10px 0 #e5e5e5;
-		
+
 		li {
 			border-bottom: 1px solid #E5E5E5;
 			&:hover {
 				background-color: #F5F7FC;
 			}
-			
+
 			&:last-child {
 				border-bottom: 0;
 			}
@@ -495,7 +495,7 @@ input[type="file"] {
 	border-radius: 3px;
 	background-color: #E5E5E5;
 	display: flex;
-	
+
 	i {
 		margin: auto;
 		font-size: 50px;
@@ -512,7 +512,7 @@ input[type="file"] {
 	right: 0;
 	background: #F5F5F5;
 	z-index: 1000000;
-	
+
 	.connection {
 		position: absolute;
 		top: 50%;
@@ -525,7 +525,7 @@ input[type="file"] {
 				font-size: 60px;
 				color: #e74c3c;
 				display: block;
-				
+
 			}
 		}
 	}
@@ -534,7 +534,7 @@ input[type="file"] {
 		top: 50%;
 		left: 50%;
 		transform: translate(0, -50px);
-		
+
 		div {
 			height: 80px;
 			width: 80px;
@@ -545,33 +545,33 @@ input[type="file"] {
 
 .chart-sprite {
 	position: relative;
-	
+
 	&.position-1 {
 		&:after {
 			background-position: 0% 100%;
 		}
 	}
-	
+
 	&.position-2 {
 		&:after {
 			background-position: 33.33% 100%;
 		}
 	}
-	
+
 	&.position-3 {
 		&:after {
 			background-position: 66.66% 100%;
 		}
 	}
-	
+
 	&.position-4 {
 		&:after {
 			background-position: 100% 100%;
 		}
 	}
-	
+
 	&:after {
-		background-image: url(../../assets/chart.png);
+		background-image: url(/assets/chart.png);
 		background-size: 400% 50%;
 		background-repeat: no-repeat;
 		content: '';
@@ -594,7 +594,7 @@ input[type="file"] {
 			opacity: 0.7;
 		}
 	}
-	
+
 	&.page-loader-image {
 		mask-image: url("https://apollowallet.org/apollo-logo.svg");
 		mask-repeat: no-repeat;
@@ -616,7 +616,7 @@ input[type="file"] {
 }
 
 .white-space {
-	white-space: pre;	
+	white-space: pre;
 }
 
 .itatic {
@@ -667,7 +667,7 @@ div.info-box {
 			content: '';
 			height: 10px;
 			width: 13px;
-			background: url(../../assets/check-icon.png) center no-repeat;
+			background: url(/assets/check-icon.png) center no-repeat;
 			background-size: contain;
 		}
 
@@ -676,7 +676,7 @@ div.info-box {
 			content: '';
 			height: 3px;
 			width: 13px;
-			background: url(../../assets/minus-icon.png) center no-repeat;
+			background: url(/assets/minus-icon.png) center no-repeat;
 			background-size: contain;
 		}
 
@@ -685,7 +685,7 @@ div.info-box {
 			content: '';
 			height: 11px;
 			width: 13px;
-			background: url(../../assets/danger-icon.png) center no-repeat;
+			background: url(/assets/danger-icon.png) center no-repeat;
 			background-size: contain;
 		}
 	}
@@ -860,11 +860,11 @@ div.info-box {
 .info-table {
 	display: table;
 	max-width: 400px;
-	
+
 	&.dlock {
 		.t-row {
 			display: block;
-			
+
 			.t-cell {
 				display: block;
 			}
@@ -872,11 +872,11 @@ div.info-box {
 	}
 	.t-row {
 		display: table-row;
-		
+
 		.t-cell {
 			display: table-cell;
 			padding-bottom: 15px;
-			
+
 			span {
 				padding-right: 15px;
 				font-size: 15px;
@@ -962,7 +962,7 @@ div.info-box {
 		position: static !important;
 		height: auto;
 		//margin-right: -15px;
-		
+
 		& > * {
 			display: inline;
 			margin-left: 15px;
@@ -991,7 +991,7 @@ div.info-box {
 	}
 	&.more-padding {
 		margin-right: -15px;
-		
+
 		& > * {
 			display: inline;
 			margin-right: 15px;
@@ -999,7 +999,7 @@ div.info-box {
 	}
 	&.absolute {
 		position: absolute;
-		
+
 		&.right-conner {
 			bottom: 0;
 			right: 0;
@@ -1022,7 +1022,7 @@ div.info-box {
 		}
 	}
 	& > * {
-		text-overflow: unset;		
+		text-overflow: unset;
 	}
 	.btn {
 		&.disabled {
@@ -1083,7 +1083,7 @@ div.info-box {
 	.ball-pulse {
 		transform: translateY(2px);
 		text-align: center;
-		
+
 		div {
 			display: inline-block;
 			height: 7px;
@@ -1148,7 +1148,7 @@ div.info-box {
 				width: 100%;
 			}
 		}
-		
+
 		&:after {
 			content: '';
 			position: absolute;
@@ -1176,12 +1176,12 @@ div.info-box {
 	&.icon-button {
 		border: 1px solid #101010;
 		padding: 3px 8px !important;
-		
+
 		i {
 			padding-top: 1px;
 			font-size: 20px;
 			color: #000;
-			
+
 		}
 	}
 	&.with-out-border {
@@ -1189,7 +1189,7 @@ div.info-box {
 	}
 	&.filters {
 		border: 1px solid transparent;
-		
+
 		&.active {
 			border: 1px solid #101010;
 			@media (max-width: 760px) {
@@ -1293,7 +1293,7 @@ div.info-box {
 		letter-spacing: -0.1px;
 		margin-top: 15px;
 		position: static;
-		
+
 		&.bigger {
 			padding: 11px 10px 9px 10px;
 		}
@@ -1310,7 +1310,7 @@ div.info-box {
 		letter-spacing: -0.1px;
 		margin-top: 15px;
 		position: static;
-		
+
 		&.bigger {
 			padding: 11px 10px 9px 10px;
 		}
@@ -1327,7 +1327,7 @@ div.info-box {
 		letter-spacing: -0.1px;
 		margin-top: 15px;
 		position: static;
-		
+
 		&.bigger {
 			padding: 11px 10px 9px 10px;
 		}
@@ -1393,7 +1393,7 @@ div.info-box {
 	}
 	&.round {
 		border-radius: 0;
-		
+
 		&.round-top-left {
 			border-top-left-radius: 6px;
 		}
@@ -1476,14 +1476,14 @@ div.info-box {
 		min-width: 100%;
 		padding: 0;
 	}
-	
+
 	.card {
 		//margin: 15px;
 		transition: 0.2s;
-		
+
 		&.card-tall {
 			min-height: 520px;
-			
+
 			@media (max-width: 760px) {
 				min-height: 360px;
 			}
@@ -1516,7 +1516,7 @@ div.info-box {
 			left: 50%;
 			transition: 0.2s;
 			border: 1px solid;
-			
+
 			margin-top: -3px;
 			transform: translate(-50%, -50%) rotate(45deg);
 			border-color: transparent #fff #fff transparent;
@@ -1554,17 +1554,17 @@ div.info-box {
 	position: absolute;
 	bottom: 5px;
 	right: 4px;
-	
+
 	span {
 		color: #bbb;
 		display: inline-block;
 		transform: translateY(2px);
 		padding-right: 15px;
 	}
-	
+
 	& > div {
 		display: inline-block;
-		
+
 		& > {
 			div {
 				height: 6px;
@@ -1727,7 +1727,7 @@ table {
 			padding: 20px 20px !important;
 		}
 	}
-	
+
 }
 
 .exchange-booth {
@@ -1740,15 +1740,15 @@ table {
 	padding-left: 16px;
 	&.single {
 		display: flex;
-		
+
 		input[type="checkbox"] {
 			margin: 0;
-			
+
 		}
 		.form-check-label::before,
 		.form-check-label::after {
 			display: none;
-			
+
 		}
 	}
 	.custom-control-input {
@@ -1758,7 +1758,7 @@ table {
 		margin-top: -1px;
 	}
 	.custom-control-input:checked ~ .custom-control-label::after {
-		background-image: url(../../assets/checked.svg);
+		background-image: url(/assets/checked.svg);
 		background-repeat: no-repeat;
 		background-size: 10px;
 		left: -14px;
@@ -1778,7 +1778,7 @@ table {
 		box-shadow: none;
 		cursor: pointer;
 	}
-	
+
 	label.custom-control-label {
 		padding-left: 10px;
 		color: #3D5A7E;
@@ -1792,7 +1792,7 @@ table {
 				padding-left: 120px;
 			}
 		}
-		
+
 		.col-sm-9 {
 			@media (max-width: 760px) {
 				padding-left: 120px;
@@ -1821,7 +1821,7 @@ table {
 	display: flex;
 	justify-content: space-between;
 	color: #8AA5C7;
-	
+
 	@media(max-width: 767px) {
 		text-align: center;
 		padding: 12px;
@@ -1870,8 +1870,8 @@ table {
 }
 
 .top-blocks {
-	margin-left: - 7.5px !important; 
-	margin-right: - 7.5px !important; 
+	margin-left: - 7.5px !important;
+	margin-right: - 7.5px !important;
 	width: auto !important;
 
 	& > * {

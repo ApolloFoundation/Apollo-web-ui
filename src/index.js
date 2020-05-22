@@ -7,39 +7,31 @@
 import "core-js/stable";
 import "regenerator-runtime/runtime";
 import React from 'react'
-import {render} from 'react-dom'
-import {Provider} from 'react-redux'
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
-import {ConnectedRouter} from 'react-router-redux';
-import store, {history} from './store';
-import App from './containers/app';
-import i18n from './i18n';
-// import axios from 'axios';
-import closest from './helpers/closest';
-
-// import './index.css'
-
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import {I18nextProvider} from 'react-i18next';
+import i18n from './i18n';
+import store from './store';
+import App from './containers/app';
 import BlockSubscriber from "./containers/block-subscriber";
 
 const target = document.querySelector('#root');
-//
+
 console.warn  = function(message){};
 console.error = function(message){};
 // console.log = function(message){};
 
-render(
+ReactDOM.render(
     <Provider store={store}>
         <BlockSubscriber>
-            <ConnectedRouter history={history}>
                 <I18nextProvider i18n={i18n}>
-                    <BrowserRouter>
+                    <Router>
                         <Switch>
-                            <Route path="/" component={App}/>
+                        <Route path="/" component={App}/>
                         </Switch>
-                    </BrowserRouter>
+                    </Router>
                 </I18nextProvider>
-            </ConnectedRouter>
         </BlockSubscriber>
     </Provider>,
     target

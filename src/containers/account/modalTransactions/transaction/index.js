@@ -5,7 +5,7 @@
 
 
 import React from 'react';
-import uuid from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import crypto from '../../../../helpers/crypto/crypto'
 import converters from '../../../../helpers/converters';
 import {setBodyModalParamsAction} from "../../../../modules/modals";
@@ -52,7 +52,7 @@ class Transaction extends React.Component {
         } = this.props;
         const transactionType = constants.transactionTypes && constants.transactionTypes[type];
         return (
-            <tr key={uuid()}>
+            <tr key={uuidv4()}>
                 {
                     transaction && constants &&
                     <React.Fragment>

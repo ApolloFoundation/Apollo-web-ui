@@ -5,7 +5,6 @@
 
 
 import { combineReducers } from 'redux'
-import { routerReducer } from 'react-router-redux'
 import account from './account'
 import modals from './modals'
 import fee from './fee'
@@ -21,7 +20,6 @@ import polls from './polls';
 import exchange from './exchange';
 
 export default combineReducers({
-	routing: routerReducer,
     account,
     assets,
     messages,

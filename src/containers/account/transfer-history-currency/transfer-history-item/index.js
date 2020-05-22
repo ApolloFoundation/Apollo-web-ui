@@ -5,7 +5,7 @@
 
 
 import React from 'react';
-import uuid from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import {Link} from 'react-router-dom';
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {connect} from 'react-redux';
@@ -17,9 +17,9 @@ class TransferHistoryItem extends React.Component {
         const {setBodyModalParamsAction, transfer, code, timestamp, formatTimestamp, units, decimals, recipient, recipientRS, sender, senderRS} = this.props;
 
         return (
-            <tr key={uuid()}>
+            <tr key={uuidv4()}>
                 <td className="blue-link-text">
-                    <a 
+                    <a
                         onClick={() => setBodyModalParamsAction('INFO_TRANSACTION', transfer)}
                     >
                         {transfer}

@@ -10,13 +10,12 @@ import crypto from '../crypto/crypto';
 import config from '../../config';
 import {ONE_APL} from '../../constants';
 import converters from '../converters'
-import BigInteger from 'big-integer';
 import AplAddress from '../util/apladres'
 import {processElGamalEncryption} from '../../actions/crypto';
-import store from '../../store';
 import {NotificationManager} from "react-notifications";
 import {SET_AMOUNT_WARNING, SET_ASSET_WARNING, SET_CURRENCY_WARNING, SET_FEE_WARNING} from "../../modules/modals";
 
+const BigInteger = require('jsbn').BigInteger;
 let forms = {};
 
 const configServer = config;
