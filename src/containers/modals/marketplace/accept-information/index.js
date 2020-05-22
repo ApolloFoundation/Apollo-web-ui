@@ -5,11 +5,16 @@ import ModalBody             from '../../../components/modals/modal-body';
 
 class AcceptInformation extends React.Component {
 
+    handleSubmit = () => {
+        sessionStorage.setItem('accept-info', true);
+        this.props.closeModal();
+    }
+
     render() {
         return (
             <ModalBody
                 modalTitle={'Welcome to the Marketplace'}
-                handleFormSubmit={this.props.closeModal}
+                handleFormSubmit={this.handleSubmit}
                 submitButtonName={'Accept'}
                 isDisableSecretPhrase
                 isClosingButton

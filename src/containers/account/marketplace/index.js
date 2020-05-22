@@ -41,7 +41,14 @@ class Marketplace extends React.Component {
     }
 
     componentDidMount() {
-        this.props.setBodyModalParamsAction('MARKETPLACE_ACCEPT_INFO');
+        this.handleCheckAcceptInfo();
+    }
+    
+    handleCheckAcceptInfo = () => {
+        const isAcceptInfo = sessionStorage.getItem('accept-info');
+        if (!isAcceptInfo) {
+            this.props.setBodyModalParamsAction('MARKETPLACE_ACCEPT_INFO');
+        }
     }
 
     componentWillMount() {
@@ -50,6 +57,9 @@ class Marketplace extends React.Component {
 
     componentWillUnmount() {
         BlockUpdater.removeListener("data", this.updateData)
+    }
+
+    handleAcceptInfo = () => {
     }
 
     updateData = () => {
