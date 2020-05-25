@@ -5,10 +5,7 @@
 
 import submitForm from '../../helpers/forms/forms';
 import store from '../../store';
-import {
-    setBodyModalParamsAction, 
-    IS_MODAL_PROCESSING
-} from '../../modules/modals';
+import {IS_MODAL_PROCESSING} from '../../modules/modals';
 import {NotificationManager} from "react-notifications";
 
 const {dispatch} = store;
