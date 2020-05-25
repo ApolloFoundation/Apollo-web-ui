@@ -78,7 +78,6 @@ import MarketplaceChangePrice from './marketplace/change-price/';
 import MarketplaceChangeQuantity from './marketplace/change-quantity/';
 import MarketplaceDelete from './marketplace/delete-goods/';
 import MarketplaceDeliver from './marketplace/deliver-goods/';
-import AcceptInformation from './marketplace/accept-information/';
 // Messenger
 import DecryptMessage from './messenger/decrypt-messages';
 import ComposeMessage from './messenger/compose-message/';
@@ -92,7 +91,8 @@ import RemoveMonitor from "./monitors/remove-monitor";
 import AddMonitoredAccount from "./monitors/add-monitored-account";
 import OrderCancel from "./order-cancellation/order-cancel";
 import ApproveTransaction from "./approve-transaction";
-
+// General
+import InfoPopup from './general/info-popup';
 
 import store from '../../store';
 //2fa
@@ -286,8 +286,9 @@ class ModalWindow extends React.Component {
                     {this.props.modalType === 'CHANGE_QUANTITY'             && <MarketplaceChangeQuantity closeModal={this.closeModal} nameModal={'CHANGE_QUANTITY'}/>}
                     {this.props.modalType === 'DELETE_GOODS'                && <MarketplaceDelete         closeModal={this.closeModal} nameModal={'DELETE_GOODS'}/>}
                     {this.props.modalType === 'MARKETPLACE_GOODS_DELIVER'   && <MarketplaceDeliver        closeModal={this.closeModal} nameModal={'MARKETPLACE_GOODS_DELIVER'}/>}
-                    {this.props.modalType === 'MARKETPLACE_ACCEPT_INFO'     && <AcceptInformation         closeModal={this.closeModal} nameModal={'MARKETPLACE_ACCEPT_INFO'}/>}
 
+                    {/* General */}
+                    {this.props.modalType === 'INFO-POPUP'                  && <InfoPopup                 closeModal={this.closeModal} nameModal={'INFO-POPUP'}/>}
 
                     {/*Peers*/}
                     {this.props.modalType === 'ABOUT_PEER_INFO'             && <AboutPeerInfo             closeModal={this.closeModal} nameModal={'ABOUT_PEER_INFO'}/>}

@@ -5,20 +5,16 @@
 
 
 import React from 'react';
-import SiteHeader from '../../components/site-header';
 import {connect} from 'react-redux';
-import {getDGSGoodsAction,
-        getDGSTagCountAction,
-        getDGSPurchaseCountAction,
-        getDGSGoodsCountAction,
-        getDGSPurchasesAction} from '../../../actions/marketplace'
-import './MarketPLace.scss';
-import {setBodyModalParamsAction} from "../../../modules/modals";
 import {BlockUpdater} from "../../block-subscriber";
+import {setBodyModalParamsAction} from "../../../modules/modals";
 import {getMarketplaceGeneralInfo} from '../../../modules/marketplace';
+import SiteHeader from '../../components/site-header';
 
 import MarketplaceDashboardHeader from './marketplace-dashboard-header';
 import MarketplaceDashboardFooter from './marketplace-dashboard-footer';
+
+import './MarketPLace.scss';
 
 const mapStateToProps = state => ({
     account: state.account.account
@@ -46,8 +42,18 @@ class Marketplace extends React.Component {
     
     handleCheckAcceptInfo = () => {
         const isAcceptInfo = sessionStorage.getItem('accept-info');
+        const modalParams = {
+            title: 'Welcome to the Marketplace',
+            modalText: [
+            'Here you may find various goods and services at your disposal. In order to find what you need, you can search through them or use the tags of interest.',
+            'You can further open a store to list your goods and services, receive feedback and give a discount. When using this functionality, please respect the privacy and dignity of other users.',
+            'The decentralized nature of the blockchain allows listing of any inappropriate material. Please, make sure to comply with local legislation when using the Marketplace.'
+            ],
+            submitButtonName: 'Accept',
+            onClick: () => sessionStorage.setItem('accept-info', true),
+    }
         if (!isAcceptInfo) {
-            this.props.setBodyModalParamsAction('MARKETPLACE_ACCEPT_INFO');
+            this.props.setBodyModalParamsAction('INFO-POPUP', modalParams);
         }
     }
 
