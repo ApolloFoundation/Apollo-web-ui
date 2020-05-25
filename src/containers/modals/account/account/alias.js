@@ -1,8 +1,8 @@
 import React from 'react';
-import uuid from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
 const Alias = ({aliasName, aliasURI}) => (
-    <tr key={uuid()}>
+    <tr key={uuidv4()}>
         <td>{aliasName}</td>
         <td>{aliasURI}</td>
     </tr>

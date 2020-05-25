@@ -9,8 +9,6 @@ import jsbn from 'jsbn';
 import AplAddress from './util/apladres';
 import curve25519 from './crypto/curve25519';
 import crypto from './crypto/crypto';
-import convertString from 'convert-string';
-import {login} from "../modules/account";
 
 const ACCOUNT_REGEX_STR = "^APL-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{5}";
 const BigInteger = jsbn.BigInteger;

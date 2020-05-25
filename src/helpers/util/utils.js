@@ -3,11 +3,7 @@
  *                                                                            *
  ******************************************************************************/
 
-
-import qrcode from '../qr-code/qr-code'
-import {getState} from "../../modules/account";
-import BigInteger from 'big-integer';
-
+const BigInteger = require('jsbn').BigInteger;
 
 function isNumericAccountImplAPL(account, regex) {
     return regex.test(account);

@@ -9,7 +9,7 @@ import {connect} from 'react-redux';
 import {openPrevModal, setBodyModalParamsAction} from '../../../modules/modals';
 import Transaction from '../../account/transactions/transaction';
 import classNames from 'classnames';
-import uuid from "uuid";
+import { v4 as uuidv4 } from 'uuid';
 import {getAccountAssetsAction, getSpecificAccountAssetsAction} from "../../../actions/assets";
 
 class AssetDistribution extends React.Component {

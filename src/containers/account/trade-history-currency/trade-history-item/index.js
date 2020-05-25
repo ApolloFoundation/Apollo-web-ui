@@ -5,7 +5,7 @@
 
 
 import React from 'react';
-import uuid from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import crypto from "../../../../helpers/crypto/crypto";
 import converters from "../../../../helpers/converters";
 import {setBodyModalParamsAction} from "../../../../modules/modals";
@@ -26,7 +26,7 @@ class TradeHistoryItem extends React.Component {
     render () {
         if (this.state.transfer) {
             return (
-                <tr key={uuid()}>
+                <tr key={uuidv4()}>
                     <td>{this.props.formatTimestamp(this.state.transfer.timestamp)}</td>
                     <td className="blue-link-text">
                         <a onClick={() => this.props.setBodyModalParamsAction('INFO_TRANSACTION', this.state.transfer.transaction)}>{this.state.transfer.transaction}</a>
@@ -68,7 +68,7 @@ class TradeHistoryItem extends React.Component {
             );
         } else {
             return (
-                <tr key={uuid()}/>
+                <tr key={uuidv4()}/>
             );
         }
     }
