@@ -1,5 +1,5 @@
 import React from 'react';
-import uuid from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import {connect} from 'react-redux';
 import {getLedgerEntryAction} from "../../../../actions/ledger";
 import {formatTimestamp}      from '../../../../helpers/util/time';
@@ -8,7 +8,7 @@ import {ONE_APL} from '../../../../constants';
 
 
 const Entry = ({formatTimestamp, event, eventType, timestamp, change, holdingType, holdingInfo, balance, ledgerId, setBodyModalParamsAction}) => (
-    <tr key={uuid()}>
+    <tr key={uuidv4()}>
         <td className="blue-link-text">
             <a
                 onClick={() => setBodyModalParamsAction('INFO_LEDGER_TRANSACTION', ledgerId)}

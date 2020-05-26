@@ -8,7 +8,7 @@ import React from 'react';
 import SiteHeader from '../../components/site-header'
 import TradeHistoryItem from './trade-history-item'
 import classNames from "classnames";
-import uuid from "uuid";
+import { v4 as uuidv4 } from 'uuid';
 import {connect} from 'react-redux'
 import InfoBox from '../../components/info-box';
 import ContentLoader from '../../components/content-loader'
@@ -147,7 +147,7 @@ class TradeHistoryCurrency extends React.Component {
                     pageTitle={'Exchange History'}
                 />
                 <div className="page-body container-fluid">
-                    <CustomTable 
+                    <CustomTable
                         header={[
                             {
                                 name: 'Date',
@@ -178,8 +178,8 @@ class TradeHistoryCurrency extends React.Component {
                                 alignRight: true
                             }
                         ]}
-                        TableRowComponent={(el) => 
-                            <TradeHistoryItem 
+                        TableRowComponent={(el) =>
+                            <TradeHistoryItem
                                 transfer={el}
                             />
                         }
@@ -191,7 +191,7 @@ class TradeHistoryCurrency extends React.Component {
                         className={'mb-3'}
                         emptyMessage={'No exchange history found.'}
                         itemsPerPage={15}
-                    />  
+                    />
                 </div>
             </div>
         );

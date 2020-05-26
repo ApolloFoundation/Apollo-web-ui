@@ -5,7 +5,7 @@
 
 
 import React from 'react';
-import uuid from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import CircularProgressbar from 'react-circular-progressbar';
 import './CircleFigure.scss';
 import classNames from "classnames";
@@ -14,7 +14,7 @@ class CircleFigure extends React.Component {
     constructor(props){
         super(props);
 
-        this._uid = uuid();
+        this._uid = uuidv4();
     }
 
     render (){

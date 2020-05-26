@@ -13,7 +13,7 @@ import {formatTimestamp} from "../../../../helpers/util/time";
 import utils from "../../../../helpers/util/utils";
 import {ONE_APL} from '../../../../constants';
 
-import uuid from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import config from '../../../../config';
 
 const mapDispatchToProps = dispatch => ({

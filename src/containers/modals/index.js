@@ -91,7 +91,8 @@ import RemoveMonitor from "./monitors/remove-monitor";
 import AddMonitoredAccount from "./monitors/add-monitored-account";
 import OrderCancel from "./order-cancellation/order-cancel";
 import ApproveTransaction from "./approve-transaction";
-
+// General
+import InfoPopup from './general/info-popup';
 
 import store from '../../store';
 //2fa
@@ -286,6 +287,8 @@ class ModalWindow extends React.Component {
                     {this.props.modalType === 'DELETE_GOODS'                && <MarketplaceDelete         closeModal={this.closeModal} nameModal={'DELETE_GOODS'}/>}
                     {this.props.modalType === 'MARKETPLACE_GOODS_DELIVER'   && <MarketplaceDeliver        closeModal={this.closeModal} nameModal={'MARKETPLACE_GOODS_DELIVER'}/>}
 
+                    {/* General */}
+                    {this.props.modalType === 'INFO-POPUP'                  && <InfoPopup                 closeModal={this.closeModal} nameModal={'INFO-POPUP'}/>}
 
                     {/*Peers*/}
                     {this.props.modalType === 'ABOUT_PEER_INFO'             && <AboutPeerInfo             closeModal={this.closeModal} nameModal={'ABOUT_PEER_INFO'}/>}

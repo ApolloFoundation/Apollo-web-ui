@@ -6,6 +6,8 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
+import {Form, Text} from 'react-form';
+import {NotificationManager} from "react-notifications";
 import SiteHeader from '../../components/site-header'
 import {
     getAccountBlockCountAction,
@@ -36,7 +38,7 @@ class Blocks extends React.Component {
             page: 1,
             firstIndex: 0,
             lastIndex: 15,
-
+            height: '',
             blocks: null,
 			blocksInfo: {
 				avgFee: 0,
@@ -72,16 +74,20 @@ class Blocks extends React.Component {
     };
 
     componentDidMount() {
+        this.startListenBlocks();
+    }
+    
+    componentWillUnmount() {
+        BlockUpdater.removeListener("data", this.listener)
+    }
+    
+    startListenBlocks = () => {
         this.getBlocks({
             account: this.props.account,
             firstIndex: this.state.firstIndex,
             lastIndex: this.state.lastIndex
         });
         BlockUpdater.on("data", this.listener)
-    }
-
-    componentWillUnmount() {
-        BlockUpdater.removeListener("data", this.listener)
     }
 
     getNextBlock = async () => {
@@ -166,15 +172,17 @@ class Blocks extends React.Component {
         });
     };
 
-    getBlock = async (type, blockHeight) => {
-        const requestParams = {
-            height: blockHeight
-        };
-
-        const block = await this.props.getBlockAction(requestParams);
-
+    getBlock = async ({height}) => {
+        if (!height) {
+            this.startListenBlocks();
+            return
+        }
+        const block = await this.props.getBlockAction({height});
         if (block) {
-            this.props.setBodyModalParamsAction('INFO_BLOCK', block)
+            BlockUpdater.removeListener("data", this.listener)
+            this.setState({blocks: [block]})
+        } else {
+            NotificationManager.error('Incorrect height', 'Error', 5000)
         }
     };
 
@@ -205,6 +213,34 @@ class Blocks extends React.Component {
                     pageTitle={'Blocks'}
                 />
                 <div className="page-body container-fluid mb-3">
+                    <div className="transactions-filters">
+                        <Form
+                            onSubmit={this.getBlock}
+                            render={({submitForm}) => {
+                                return (
+                                    <form
+                                        onSubmit={submitForm}
+                                        className="input-group-app search col-md-3 pl-0"
+                                    >
+                                        <div className="iconned-input-field block">
+                                            <Text
+                                                placeholder={'Block height'}
+                                                field={'height'}
+                                                type="text"
+                                            />
+                                            <button
+                                                type={'submit'}
+                                                className="input-icon"
+                                                style={{width: 41}}
+                                            >
+                                                <i className="zmdi zmdi-search"/>
+                                            </button>
+                                        </div>
+                                    </form>
+                                )
+                            }}
+                        />
+                    </div>
                     <div className="form-group-app transparent">
                         <TabulationBody
 							className={'p-0'}

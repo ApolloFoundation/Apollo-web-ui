@@ -8,7 +8,7 @@ import React from 'react';
 import SiteHeader from '../../components/site-header';
 import {connect} from 'react-redux';
 import classNames from "classnames";
-import uuid from "uuid";
+import { v4 as uuidv4 } from 'uuid';
 import MyAssetItem from './my-asset-item';
 import {getSpecificAccountAssetsAction} from "../../../actions/assets";
 import {BlockUpdater} from "../../block-subscriber/index";
@@ -107,7 +107,7 @@ class MyAssets extends React.Component {
                     pageTitle={'My assets'}
                 />
                 <div className="page-body container-fluid">
-                    <CustomTable 
+                    <CustomTable
                         header={[
                             {
                                 name: 'Asset',

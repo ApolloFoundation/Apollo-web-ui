@@ -1,6 +1,6 @@
 import React from 'react';
 import {Link, withRouter} from 'react-router-dom';
-import uuid from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import {connect} from 'react-redux';
 import {formatTimestamp} from '../../../../helpers/util/time';
 import {ONE_APL} from '../../../../constants';
@@ -13,7 +13,7 @@ const Trade = ({quantityATU, tradeType, timestamp, asset, decimals, priceATM, na
     };
 
     return (
-        <tr key={uuid()}>
+        <tr key={uuidv4()}>
             <td className={'blue-link-text'}>
                 <span
                     className={'cursor-pointer blue-link-text'}

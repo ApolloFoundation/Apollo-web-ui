@@ -5,7 +5,7 @@
 
 
 import React from "react";
-import uuid from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
 class Pie extends React.Component{
 
@@ -39,7 +39,7 @@ class Pie extends React.Component{
 
                     return <Slice
                         vote={this.props.votes[sliceIndex]}
-                        key={uuid()}
+                        key={uuidv4()}
                         value={ slice }
                         percent={ true }
                         percentValue={ percent.toFixed(1) }
@@ -121,7 +121,7 @@ class Slice extends React.Component {
     }
 
     render() {
-        const id = uuid();
+        const id = uuidv4();
         return (
             <g overflow="hidden">
                 <linearGradient id={id}>
