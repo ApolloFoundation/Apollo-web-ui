@@ -8,7 +8,7 @@ import React from 'react';
 import SiteHeader from '../../components/site-header'
 import TransferHistoryItem from './transfer-history-item'
 import classNames from "classnames";
-import uuid from "uuid";
+import { v4 as uuidv4 } from 'uuid';
 import {connect} from 'react-redux'
 import InfoBox from '../../components/info-box';
 import ContentHendler from '../../components/content-hendler'
@@ -123,7 +123,7 @@ class TransferHistoryCurrency extends React.Component {
                     pageTitle={'Transfer History'}
                 />
                 <div className="page-body container-fluid">
-                    <CustomTable 
+                    <CustomTable
                         header={[
                             {
                                 name: 'Transaction',

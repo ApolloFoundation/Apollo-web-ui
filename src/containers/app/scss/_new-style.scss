@@ -77,21 +77,21 @@ $img-ratio-xl: 564/1140;
 				font-size: 14px;
 				line-height: 14px;
 				font-weight: 300;
-				background: #2B23FF url(../../assets/card-message-bg.png) left -5px center no-repeat;
+				background: #2B23FF url(/assets/card-message-bg.png) left -5px center no-repeat;
 				background-size: 75%;
 
 				&:nth-child(2) {
-					background: #2B23FF url(../../assets/card-shuffling-bg.png) right -5px center no-repeat;
+					background: #2B23FF url(/assets/card-shuffling-bg.png) right -5px center no-repeat;
 					background-size: 75%;
 				}
 
 				&:nth-child(3) {
-					background: #2B23FF url(../../assets/card-alias-bg.png) left -5px center no-repeat;
+					background: #2B23FF url(/assets/card-alias-bg.png) left -5px center no-repeat;
 					background-size: 75%;
 				}
 
 				&:nth-child(4) {
-					background: #2B23FF url(../../assets/card-storage-bg.png) right -5px center no-repeat;
+					background: #2B23FF url(/assets/card-storage-bg.png) right -5px center no-repeat;
 					background-size: 75%;
 				}
 
@@ -107,7 +107,7 @@ $img-ratio-xl: 564/1140;
 		&.card-primary {
 			border-radius: 5px;
 			box-shadow: 0 10px 20px 0 rgba(0, 10, 204, 0.25);
-			background: #2B23FF url(../../assets/card-primary-background.png) right -8px bottom -18px no-repeat;
+			background: #2B23FF url(/assets/card-primary-background.png) right -8px bottom -18px no-repeat;
 			background-size: 190px;
 			color: #ffffff;
 
@@ -178,7 +178,7 @@ $img-ratio-xl: 564/1140;
 		}
 
 		&.triangle-bg {
-			background: #fff url(../../assets/triangle-icon.svg) center bottom -30px no-repeat;
+			background: #fff url(/assets/triangle-icon.svg) center bottom -30px no-repeat;
 			background-size: contain;
 		}
 
@@ -270,7 +270,7 @@ $img-ratio-xl: 564/1140;
 					color: #93A9C3;
 					font-size: 9px;
 					letter-spacing: -0.25px;
-					
+
 					&.fee {
 						text-align: right;
 

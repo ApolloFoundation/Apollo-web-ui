@@ -9,7 +9,7 @@ import {connect} from 'react-redux';
 import SiteHeader from '../../components/site-header'
 import {getMyPollsAction, getVoteAction} from '../../../actions/polls';
 import PoolItem from '../active-polls/pool-item';
-import uuid from "uuid";
+import { v4 as uuidv4 } from 'uuid';
 import {getTransactionAction} from "../../../actions/transactions";
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {BlockUpdater} from "../../block-subscriber/index";
@@ -97,7 +97,7 @@ class MyVotes extends React.Component {
                     </button>
                 </SiteHeader>
                 <div className="page-body container-fluid">
-                    <CustomTable 
+                    <CustomTable
                         header={[
                             {
                                 name: 'Title',

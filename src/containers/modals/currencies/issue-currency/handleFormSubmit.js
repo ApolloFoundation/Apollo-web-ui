@@ -1,9 +1,9 @@
 import {NotificationManager} from "react-notifications";
-import BigInteger from "big-integer";
 import {
     setBodyModalParamsAction,
     IS_MODAL_PROCESSING
 } from '../../../../modules/modals';
+const BigInteger = require('jsbn').BigInteger;
 
 // validatePassphrase
 const typeValues = {
@@ -25,14 +25,14 @@ export function handleFormSubmit (values) {
     }
 
     values.type = 0;
-    
+
     if (values.type1) values.type += typeValues[1];
     if (values.type2) values.type += typeValues[2];
     if (values.type3) values.type += typeValues[3];
     if (values.type4) values.type += typeValues[4];
     if (values.type5) values.type += typeValues[5];
     if (values.type6) values.type += typeValues[6];
-    
+
     values = {
         name: values.name,
         code: values.code,

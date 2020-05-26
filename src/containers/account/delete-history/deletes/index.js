@@ -5,7 +5,7 @@
 
 
 import React from 'react';
-import uuid from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import {setBodyModalParamsAction, setModalType} from "../../../../modules/modals";
 import {connect} from 'react-redux';
 import {formatTimestamp} from "../../../../helpers/util/time";
@@ -22,7 +22,7 @@ class DeleteItem extends React.Component {
 
     render() {
         return (
-            <tr key={uuid()}>
+            <tr key={uuidv4()}>
                 <td className="align-left blue-link-text">
                     <a onClick={async () => this.props.setBodyModalParamsAction('INFO_TRANSACTION', await this.getTransactionInfo(this.props.delete.assetDelete))}>
                         {this.props.delete.assetDelete}

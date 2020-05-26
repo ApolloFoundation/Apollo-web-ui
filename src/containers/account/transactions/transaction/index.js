@@ -5,7 +5,7 @@
 
 
 import React from 'react';
-import uuid from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import {connect} from 'react-redux'
 
 import {setBodyModalParamsAction} from "../../../../modules/modals";
@@ -88,7 +88,7 @@ class Transaction extends React.Component {
         const transactionType = constants.transactionTypes && constants.transactionTypes[type];
         const {phasing} = this.state;
         return (
-            <tr key={uuid()}>
+            <tr key={uuidv4()}>
                 {
                     constants &&
                     <>

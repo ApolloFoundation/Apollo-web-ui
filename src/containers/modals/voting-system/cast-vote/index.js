@@ -14,7 +14,7 @@ import submitForm from "../../../../helpers/forms/forms";
 import {getBlockAction} from "../../../../actions/blocks";
 import {NotificationManager} from "react-notifications";
 import {getpollAction} from "../../../../actions/polls";
-import uuid from "uuid";
+import { v4 as uuidv4 } from 'uuid';
 import crypto from "../../../../helpers/crypto/crypto";
 
 import {getAssetAction} from "../../../../actions/assets";
@@ -79,7 +79,7 @@ class CastPoll extends React.Component {
         if (asset && !asset.errorCode) {
             this.setState({
                 asset
-            }) 
+            })
         }
     }
 
@@ -89,7 +89,7 @@ class CastPoll extends React.Component {
         if (currency && !currency.errorCode) {
             this.setState({
                 asset: currency
-            }) 
+            })
         }
     }
 
@@ -158,11 +158,11 @@ class CastPoll extends React.Component {
                 closeModal={this.props.closeModal}
                 handleFormSubmit={(values) => this.handleFormSubmit(values)}
                 submitButtonName={'Cast vote'}
-                
+
                 isFee
                 nameModel={this.props.nameModal}
             >
-                <CastVoteForm 
+                <CastVoteForm
                     assetHint={assetHint}
                     currencyHint={currencyHint}
                     poll={poll}

@@ -52,7 +52,7 @@ class SearchAliases extends React.Component {
 
     handleSearchAlias = ({alias}) => {
         const {firstIndex, lastIndex} = this.state;
-        if(alias.length < 2) {
+        if(!alias || alias.length < 2) {
             NotificationManager.error('Alias name must be no less than 2 symbols.', 'Error', 5000);
             return
         }
