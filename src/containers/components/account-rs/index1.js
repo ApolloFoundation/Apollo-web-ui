@@ -19,9 +19,9 @@ export default function AccountRS(props) {
     onChange, exportAccountList, id, name,
     disabled, placeholder, noContactList,
   } = props;
-  const [field, meta, helpers] = useField(name);
-  const [contacts, setСontacts] = useState(JSON.parse(localStorage.getItem('APLContacts')));
+  const [field, , helpers] = useField(name);
   const [isContacts, setIsContacts] = useState(false);
+  const contacts = JSON.parse(localStorage.getItem('APLContacts'));
 
   const { setValue } = helpers;
 

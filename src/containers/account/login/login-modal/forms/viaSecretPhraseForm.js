@@ -3,10 +3,10 @@ import { useDispatch } from 'react-redux';
 import cn from 'classnames';
 import { Form, Formik } from 'formik';
 import { NotificationManager } from 'react-notifications';
-import { getAccountDataBySecretPhrasseAction } from '../../../../actions/login';
-import InfoBox from '../../../components/info-box';
-import Input from '../../../components/custom-input';
-import Button from '../../../components/button';
+import { getAccountDataBySecretPhrasseAction } from '../../../../../actions/login';
+import InfoBox from '../../../../components/info-box';
+import Input from '../../../../components/custom-input';
+import Button from '../../../../components/button';
 
 export default function SecretPhraseForm({ activeTab }) {
   const dispatch = useDispatch();
