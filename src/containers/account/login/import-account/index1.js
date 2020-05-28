@@ -95,10 +95,13 @@ export default function ImportAccount(props) {
     }
     return (
       <div className="dark-card">
-        <a onClick={this.props.handleClose} className="exit">
+        <a
+          onClick={handleClose}
+          className="exit"
+        >
           <i className="zmdi zmdi-close" />
         </a>
-        {!this.state.isValidating
+        {!isValidating
             && (
             <Form
               onSubmit={values => this.handleFormSubmit(values)}
@@ -114,7 +117,7 @@ export default function ImportAccount(props) {
                         onClick={e => this.handleTab(e, 'file')}
                         className={classNames({
                           'form-tab': true,
-                          active: this.state.format === 'file',
+                          active: format === 'file',
                         })}
                       >
                         <p>Secret file</p>
@@ -123,7 +126,7 @@ export default function ImportAccount(props) {
                         onClick={e => this.handleTab(e, 'text')}
                         className={classNames({
                           'form-tab': true,
-                          active: this.state.format === 'text',
+                          active: format === 'text',
                         })}
                       >
                         <p>Secret key</p>
@@ -132,13 +135,13 @@ export default function ImportAccount(props) {
                     <InfoBox className="dark-info">
                       <ul className="marked-list">
                         <li className="danger-icon">
-                          {this.state.format !== 'file'
+                          {format !== 'file'
                             ? (<span>Please note that after import of the secret key the usage of the same vault wallet on different nodes will cause creation of different ETH, PAX, BTC wallets for each node.</span>)
                             : (<span>Please enter your account secret file. The file should have the .apl extension. If not,  add .apl to the file name manually please.</span>)}
                         </li>
                       </ul>
                     </InfoBox>
-                    {this.state.format !== 'file' ? (
+                    {format !== 'file' ? (
                       <div className="form-group row form-group-grey mb-15">
                         <label>
                           Your account secret key

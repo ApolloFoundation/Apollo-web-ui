@@ -3,7 +3,7 @@
  *                                                                            *
  ***************************************************************************** */
 
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { getConstantsAction } from '../../../actions/login';
 import LoginModal from './login-modal';
@@ -19,6 +19,20 @@ export default function Login() {
   const [activeSection, setActiveSection] = useState('LOGIN');
 
   const handleModal = useCallback(section => setActiveSection(section), []);
+
+  const handleSelectModal = useMemo(() => {
+    if (activeSection === 'LOGIN') {
+      return <LoginModal handleModal={handleModal} />;
+    }
+    if (activeSection === 'IMPORT_ACCOUNT') {
+      return <ImportAccount handleClose={() => handleModal('LOGIN')} />;
+    }
+    if (activeSection === 'CREATE_USER') {
+      return <CreateUser handleClose={() => handleModal('LOGIN')} />;
+    }
+
+    return null;
+  }, [activeSection, handleModal]);
 
   useEffect(() => {
     dispatch(getConstantsAction());
@@ -41,12 +55,7 @@ export default function Login() {
               </div>
             </div>
             <div className="right-section">
-              {activeSection === 'LOGIN'
-                && (<LoginModal handleModal={handleModal} />)}
-              {activeSection === 'IMPORT_ACCOUNT'
-                && (<ImportAccount handleClose={() => handleModal('LOGIN')} />)}
-              {activeSection === 'CREATE_USER'
-                && (<CreateUser handleClose={() => handleModal('LOGIN')} />)}
+              {handleSelectModal}
             </div>
           </div>
         </div>
