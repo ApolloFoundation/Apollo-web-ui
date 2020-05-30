@@ -21,7 +21,7 @@ import InfoBox from '../../../components/info-box';
 import InputForm from '../../../components/input-form';
 import InputUpload from '../../../components/input-upload';
 import crypto from '../../../../helpers/crypto/crypto';
-import submitForm from '../../../../helpers/forms/forms';
+// import submitForm from '../../../../helpers/forms/forms';
 import {getAccountDataAction} from '../../../../actions/login';
 import {importAccountAction, importAccountActionViaFile} from '../../../../actions/account';
 
@@ -33,7 +33,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     setModalData: (data) => dispatch(setModalData(data)),
-    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
+    // submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
     setAlert: (type, message) => dispatch(setAlert(type, message)),
     validatePassphrase: (passPhrase) => dispatch(crypto.validatePassphrase(passPhrase)),
