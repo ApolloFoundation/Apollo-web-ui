@@ -1,7 +1,7 @@
-/* eslint-disable react/button-has-type */
 import React from 'react';
 import cn from 'classnames';
 
+import './style.scss';
 
 export default function ButtonTabs(props) {
   const {
@@ -9,7 +9,7 @@ export default function ButtonTabs(props) {
   } = props;
 
   return (
-    <>
+    <div className="form-tab-nav-box">
       {tabs.map(tab => (
         <button
           type="button"
@@ -19,6 +19,6 @@ export default function ButtonTabs(props) {
           <p>{tab.label}</p>
         </button>
       ))}
-    </>
+    </div>
   );
 }

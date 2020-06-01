@@ -1,0 +1,32 @@
+.input-text-wrap {
+	display: flex;
+	flex: 1;
+	position: relative;
+}
+
+.input-number-wrap {
+	-webkit-appearance: none;
+	background: url(/assets/number-arrows.png) no-repeat center center;
+	background-size: contain;
+	width: 9px;
+	margin-right: 6px;
+	opacity: 1;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	cursor: pointer;
+	display: flex;
+	flex: 2;
+	flex-direction: column;
+}
+
+.input-number-up {
+	display: flex;
+	flex: 1;
+}
+
+.input-number-down {
+	display: flex;
+	flex: 1;
+}

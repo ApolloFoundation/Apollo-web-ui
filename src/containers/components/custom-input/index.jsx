@@ -2,12 +2,14 @@ import React from 'react';
 import cn from 'classnames';
 import { useField } from 'formik';
 
+import './styles.scss';
+
 export default function CustomInput(props) {
   const {
     label, className, type, disableArrows, disabled, id,
     maxValue, minValue, step, isSpecialSymbols, name, placeholder,
   } = props;
-  const [field, meta, helpers] = useField(name);
+  const [field, , helpers] = useField(name);
   const { setValue } = helpers;
   const isNumberInput = (type === 'tel' || type === 'float') && !disabled && !disableArrows;
 

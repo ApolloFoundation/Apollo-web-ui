@@ -3,13 +3,11 @@
  *                                                                            *
  ***************************************************************************** */
 
-
 import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Form, Formik } from 'formik';
 import { NotificationManager } from 'react-notifications';
-import cn from 'classnames';
 import { saveSendModalState } from '../../../../modules/modals';
 import { importAccountAction, importAccountActionViaFile } from '../../../../actions/account';
 import CustomInput from '../../../components/custom-input';
@@ -19,6 +17,17 @@ import ButtonTabs from '../../../components/button-tabs';
 import ErrorWrapper from './error-wrapper';
 import Button from '../../../components/button';
 
+const tabs = [
+  {
+    label: 'Secret file',
+    id: 'file',
+  },
+  {
+    label: 'Secret key',
+    id: 'text',
+  },
+];
+
 export default function ImportAccount(props) {
   const dispatch = useDispatch();
 
@@ -27,23 +36,6 @@ export default function ImportAccount(props) {
   const [format, setFormat] = useState('file');
   const [isGenerated, setIsGenerated] = useState(false);
   const [importAccount, setImportAccount] = useState(false);
-
-  const tabs = [
-    {
-      label: 'Secret file',
-      id: 'file',
-    },
-    {
-      label: 'Secret key',
-      id: 'text',
-    },
-  ];
-
-  useEffect(() => {
-    if (account) {
-      handleClose();
-    }
-  }, [account, handleClose]);
 
   const handleFormSubmit = async values => {
     const {
@@ -81,6 +73,12 @@ export default function ImportAccount(props) {
     dispatch(saveSendModalState(values));
   };
 
+  useEffect(() => {
+    if (account) {
+      handleClose();
+    }
+  }, [account, handleClose]);
+
   return (
     <ErrorWrapper>
       <div className="dark-card">
@@ -98,13 +96,11 @@ export default function ImportAccount(props) {
             <Form onChange={() => handleChangeForm(values)}>
               <p className="title">Import Account</p>
               <div className="form-tabulator">
-                <div className="form-tab-nav-box">
-                  <ButtonTabs
-                    tabs={tabs}
-                    onClick={handleTab}
-                    isActive={format}
-                  />
-                </div>
+                <ButtonTabs
+                  tabs={tabs}
+                  onClick={handleTab}
+                  isActive={format}
+                />
                 <InfoBox className="dark-info">
                   <ul className="marked-list">
                     <li className="danger-icon">

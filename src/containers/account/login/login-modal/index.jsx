@@ -4,12 +4,22 @@
  ***************************************************************************** */
 
 import React, { useState, useCallback, useMemo } from 'react';
-import classNames from 'classnames';
-import Button from '../../../components/button';
+import ButtonTabs from '../../../components/button-tabs';
 import AccountIdForm from './forms/viaAccountIdForm';
 import SecretPhraseForm from './forms/viaSecretPhraseForm';
 
 import '../Login.css';
+
+const tabs = [
+  {
+    label: 'With Account ID',
+    id: 0,
+  },
+  {
+    label: 'With Secret Phrase',
+    id: 1,
+  },
+];
 
 export default function LoginModal({ handleModal }) {
   const [activeTab, setActiveTab] = useState(0);
@@ -34,28 +44,11 @@ export default function LoginModal({ handleModal }) {
       <div className="dark-card login-form">
         <p className="title">Log in</p>
         <div className="form-tabulator">
-          <div className="form-tab-nav-box">
-            <button
-              type="button"
-              onClick={() => handleTab(0)}
-              className={classNames({
-                'form-tab': true,
-                active: activeTab === 0,
-              })}
-            >
-              <p>With Account ID</p>
-            </button>
-            <button
-              type="button"
-              onClick={() => handleTab(1)}
-              className={classNames({
-                'form-tab': true,
-                active: activeTab === 1,
-              })}
-            >
-              <p>With Secret Phrase</p>
-            </button>
-          </div>
+          <ButtonTabs
+            tabs={tabs}
+            onClick={handleTab}
+            isActive={activeTab}
+          />
           {selectForm}
         </div>
       </div>
