@@ -3,11 +3,13 @@
  *                                                                            *
  ***************************************************************************** */
 
-import React, { useState, useCallback, useEffect, useMemo } from 'react';
+import React, {
+  useState, useCallback, useEffect, useMemo,
+} from 'react';
 import { useDispatch } from 'react-redux';
 import { getConstantsAction } from '../../../actions/login';
 import LoginModal from './login-modal';
-import ImportAccount from './import-account';
+import ImportAccount from './import-account/index1';
 import CreateUser from './create-user';
 
 import LogoImg from '../../../assets/logo.png';

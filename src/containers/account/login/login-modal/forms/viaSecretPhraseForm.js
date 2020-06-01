@@ -5,7 +5,7 @@ import { Form, Formik } from 'formik';
 import { NotificationManager } from 'react-notifications';
 import { getAccountDataBySecretPhrasseAction } from '../../../../../actions/login';
 import InfoBox from '../../../../components/info-box';
-import Input from '../../../../components/custom-input';
+import CustomInput from '../../../../components/custom-input';
 import Button from '../../../../components/button';
 
 export default function SecretPhraseForm({ activeTab }) {
@@ -35,7 +35,7 @@ export default function SecretPhraseForm({ activeTab }) {
           This option works only for standard wallets.
         </InfoBox>
         <div className="d-flex flex-column">
-          <Input
+          <CustomInput
             className="form-control"
             name="secretPhrase"
             label="Secret Phrase"

@@ -5,6 +5,7 @@
 
 import React, { useState, useCallback, useMemo } from 'react';
 import classNames from 'classnames';
+import Button from '../../../components/button';
 import AccountIdForm from './forms/viaAccountIdForm';
 import SecretPhraseForm from './forms/viaSecretPhraseForm';
 
@@ -13,9 +14,7 @@ import '../Login.css';
 export default function LoginModal({ handleModal }) {
   const [activeTab, setActiveTab] = useState(0);
 
-  const handleTab = useCallback((e, index) => {
-    e.preventDefault();
-
+  const handleTab = useCallback(index => {
     setActiveTab(index);
   }, []);
 
@@ -38,7 +37,7 @@ export default function LoginModal({ handleModal }) {
           <div className="form-tab-nav-box">
             <button
               type="button"
-              onClick={e => handleTab(e, 0)}
+              onClick={() => handleTab(0)}
               className={classNames({
                 'form-tab': true,
                 active: activeTab === 0,
@@ -48,7 +47,7 @@ export default function LoginModal({ handleModal }) {
             </button>
             <button
               type="button"
-              onClick={e => handleTab(e, 1)}
+              onClick={() => handleTab(1)}
               className={classNames({
                 'form-tab': true,
                 active: activeTab === 1,
