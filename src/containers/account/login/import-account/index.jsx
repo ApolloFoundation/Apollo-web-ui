@@ -3,7 +3,7 @@
  *                                                                            *
  ***************************************************************************** */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Form, Formik } from 'formik';
@@ -14,8 +14,8 @@ import CustomInput from '../../../components/custom-input';
 import InfoBox from '../../../components/info-box';
 import InputUpload from '../../../components/input-upload';
 import ButtonTabs from '../../../components/button-tabs';
-import ErrorWrapper from './error-wrapper';
 import Button from '../../../components/button';
+import ErrorWrapper from './error-wrapper';
 
 const tabs = [
   {
@@ -37,7 +37,7 @@ export default function ImportAccount(props) {
   const [isGenerated, setIsGenerated] = useState(false);
   const [importAccount, setImportAccount] = useState(false);
 
-  const handleFormSubmit = async values => {
+  const handleFormSubmit = useCallback(async values => {
     const {
       secretBytes, passPhrase, sender, deadline,
     } = values;
@@ -61,17 +61,17 @@ export default function ImportAccount(props) {
       NotificationManager.success('Your account imported successfully!', null, 5000);
       handleClose();
     }
-  };
+  }, [format, handleClose]);
 
-  const handleTab = currentTab => {
+  const handleTab = useCallback(currentTab => {
     setFormat(currentTab);
     setIsGenerated(false);
     setImportAccount(null);
-  };
+  }, []);
 
-  const handleChangeForm = values => {
+  const handleChangeForm = useCallback(values => {
     dispatch(saveSendModalState(values));
-  };
+  }, [dispatch]);
 
   useEffect(() => {
     if (account) {
