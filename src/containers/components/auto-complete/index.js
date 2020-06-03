@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import Select from 'react-select';
+import React from 'react';
+import AsyncSelect from 'react-select/async';
 
 const AutoComplete = ({loadOptions, placeholder, label, onChange}) => {
     return (
         <>
             <label className='form-group mb-15'>{label}</label>
-            <Select
+            <AsyncSelect
                 cacheOptions
                 loadOptions={loadOptions}
                 placeholder={placeholder}
