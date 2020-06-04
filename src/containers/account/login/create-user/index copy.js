@@ -3,39 +3,26 @@
  *                                                                            *
  ***************************************************************************** */
 
-import React, { useEffect, useCallback, useState } from 'react';
+import React, {
+  useEffect, useCallback, useState,
+} from 'react';
 import { useDispatch } from 'react-redux';
-import classNames from 'classnames';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { NotificationManager } from 'react-notifications';
+import classNames from 'classnames';
 import {
   Checkbox, Form, Text, TextArea,
 } from 'react-form';
+import {
+  createAccountAction, generateAccountAction, generatePDF,
+} from '../../../../actions/account';
+import { getAccountDataAction } from '../../../../actions/login';
 import InputForm from '../../../components/input-form';
 import InfoBox from '../../../components/info-box';
 import ContentLoader from '../../../components/content-loader';
-import { setAlert, setBodyModalParamsAction, setModalData } from '../../../../modules/modals';
-import submitForm from '../../../../helpers/forms/forms';
 import ButtonTabs from '../../../components/button-tabs';
 import crypto from '../../../../helpers/crypto/crypto';
 import store from '../../../../store';
-import { getAccountDataAction } from '../../../../actions/login';
-import { createAccountAction, generateAccountAction, generatePDF } from '../../../../actions/account';
-
-const mapStateToProps = state => ({
-  modalData: state.modals.modalData,
-  account: state.account.account,
-});
-
-const mapDispatchToProps = dispatch => ({
-  setModalData: data => dispatch(setModalData(data)),
-  submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
-  setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
-  setAlert: (type, message) => dispatch(setAlert(type, message)),
-  validatePassphrase: passPhrase => dispatch(crypto.validatePassphrase(passPhrase)),
-  getAccountIdAsyncApl: passPhrase => dispatch(crypto.getAccountIdAsyncApl(passPhrase)),
-  getAccountDataAction: reqParams => dispatch(getAccountDataAction(reqParams)),
-});
 
 const tabs = [
   {
@@ -425,7 +412,7 @@ export default function CreateUser(props) {
             )}
           />
           <Form
-            onSubmit={handleValidateToken}
+            // onSubmit={handleValidateToken}
             render={({ submitForm, getFormState }) => (
               <form
                 className={classNames({
