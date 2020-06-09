@@ -60,7 +60,10 @@
     "zip": "mkdir -p target && node ./npm-pack-zip.js"
   },
   "devDependencies": {
-    "node-sass": "4.13.0"
+    "node-sass": "4.13.0",
+    "archiver-promise": "1.0.0",
+    "path": "0.12.7",
+    "sanitize-filename": "1.6.3"
   },
   "build": {
     "directories": {
