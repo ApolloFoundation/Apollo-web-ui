@@ -17,11 +17,11 @@ function zipFiles(files, filename, source, destination, info, verbose) {
 
 function pack({destination, info, verbose, name, includes}) {
     const source = './build';
-    const files = ['./pkg-apollo-web-ui.json'];
+    const files = ['./packaging/pkg-apollo-web-ui.json'];
     name = name ? '.' + name : '';
     return zipFiles(
         files,
-        `apollo-web-ui-${sanitize(process.env.npm_package_version)}${name}.zip`,
+        `apollo-web-ui-NoOS-NoArch-${sanitize(process.env.npm_package_version)}${name}.zip`,
         source,
         destination,
         info,
