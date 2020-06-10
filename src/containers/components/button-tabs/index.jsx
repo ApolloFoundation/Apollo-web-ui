@@ -16,7 +16,10 @@ export default function ButtonTabs(props) {
           onClick={() => onClick(tab.id)}
           className={cn('form-tab', { active: isActive === tab.id }, className)}
         >
-          <p>{tab.label}</p>
+          <p>
+            {!!tab.icon && <i className={`zmdi zmdi-${tab.icon}`} />}
+            {tab.label}
+          </p>
         </button>
       ))}
     </div>

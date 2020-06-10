@@ -10,7 +10,7 @@ import { useDispatch } from 'react-redux';
 import { getConstantsAction } from '../../../actions/login';
 import LoginModal from './login-modal';
 import ImportAccount from './import-account';
-import CreateUser from './create-user';
+import CreateUser from './create-user/index1';
 
 import LogoImg from '../../../assets/logo.png';
 import './Login.scss';
