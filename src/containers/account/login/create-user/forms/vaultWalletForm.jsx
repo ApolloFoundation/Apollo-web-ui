@@ -21,8 +21,8 @@ export default function VaultWalletForm(props) {
   } = props;
 
   const [keySeed, setKeySeed] = useState(null);
-  const [isAccountLoaded, setIsAccountLoaded] = useState(false);
   const [isCustomPassphrase, setIsCustomPassphrase] = useState(true);
+  const [isAccountLoaded, setIsAccountLoaded] = useState(false);
 
   const generateAccount = useCallback(async getFormState => {
     const requestParams = {};

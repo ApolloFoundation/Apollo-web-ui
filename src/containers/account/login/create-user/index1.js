@@ -4,25 +4,15 @@
  ***************************************************************************** */
 
 import React, {
-  useEffect, useCallback, useState,
+  useEffect, useCallback, useState, useMemo,
 } from 'react';
 import { useDispatch } from 'react-redux';
-import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { NotificationManager } from 'react-notifications';
-import classNames from 'classnames';
-import {
-  Checkbox, Form, Text,
-} from 'react-form';
-import { generatePDF } from '../../../../actions/account';
 import { getAccountDataAction } from '../../../../actions/login';
-import crypto from '../../../../helpers/crypto/crypto';
-import store from '../../../../store';
-import InputForm from '../../../components/input-form';
-import InfoBox from '../../../components/info-box';
-import ContentLoader from '../../../components/content-loader';
 import ButtonTabs from '../../../components/button-tabs';
 import VaultWalletForm from './forms/vaultWalletForm';
 import StandartWalletForm from './forms/standardWalletForm';
+import CreateAccount from './forms/createAccountForm';
 
 const tabs = [
   {
@@ -80,13 +70,18 @@ export default function CreateUser(props) {
     }
   }, [account, closeModal]);
 
-  return (
-    <div className="dark-card">
-      <span onClick={handleClose} className="exit">
-        <i className="zmdi zmdi-close" />
-      </span>
-      <p className="title">Create New Wallet</p>
-      {!isValidating ? (
+  const content = useMemo(() => {
+    let form = null;
+
+    if (isValidating) {
+      form = (
+        <CreateAccount
+          onSubmit={handleFormSubmit}
+          isPending={isPending}
+        />
+      );
+    } else {
+      form = (
         <div className="form-tabulator no-padding">
           <ButtonTabs
             tabs={tabs}
@@ -117,49 +112,22 @@ export default function CreateUser(props) {
             isCustomPassphraseTextarea={isCustomPassphraseTextarea}
           />
         </div>
-      ) : (
-        <Form
-          onSubmit={handleFormSubmit}
-          render={({ submitForm, setValue }) => (
-            <form
-              className="active"
-              onSubmit={submitForm}
-            >
-              <div
-                className="form-group row form-group-white"
-              >
-                <label>
-                  Secret phrase
-                </label>
-                <InputForm
-                  isPlain
-                  className="form-control"
-                  type="password"
-                  field="secretPhrase"
-                  placeholder="Secret Phrase"
-                  setValue={setValue}
-                />
-              </div>
-              <button
-                type="submit"
-                name="closeModal"
-                className="btn"
-                disabled={!!isPending}
-              >
-                {isPending ? (
-                  <div className="ball-pulse">
-                    <div />
-                    <div />
-                    <div />
-                  </div>
-                ) : (
-                  <span>Create New Account</span>
-                )}
-              </button>
-            </form>
-          )}
-        />
-      )}
+      );
+    }
+
+    return form;
+  }, [
+    accountData, activeTab, generatedAccount, generatedPassphrase, handleClose,
+    handleFormSubmit, handleTab, isCustomPassphraseTextarea, isPending, isValidating,
+  ]);
+
+  return (
+    <div className="dark-card">
+      <span onClick={handleClose} className="exit">
+        <i className="zmdi zmdi-close" />
+      </span>
+      <p className="title">Create New Wallet</p>
+      {content}
     </div>
   );
 }
