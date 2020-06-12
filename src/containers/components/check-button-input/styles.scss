@@ -1,0 +1,31 @@
+.checkbox-group {
+  display: flex;
+
+  label {
+    text-transform: uppercase;
+    color: #25F459;
+    font-size: 11px;
+    line-height: 13px;
+  }
+
+  input[type="checkbox"] {
+    height: 15px;
+    width: 15px;
+    min-width: 15px;
+    border-radius: 3px;
+    background-color: #121417;
+    border: 1px solid #25F459;
+    padding: 2px !important;
+    margin-right: 7px;
+    cursor: pointer;
+    &:after {
+      top: 2px;
+      bottom: 2px;
+      left: 2px;
+      right: 2px;
+      border-radius: 1px;
+      background-color: #25F459;
+      background-image: none;
+    }
+  }
+}

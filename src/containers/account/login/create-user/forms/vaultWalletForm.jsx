@@ -1,7 +1,8 @@
 import React, { useCallback, useState } from 'react';
-import {
-  Checkbox, Form, Text, TextArea,
-} from 'react-form';
+// import {
+//   Checkbox, Form, Text, TextArea,
+// } from 'react-form';
+import { Form, Formik } from 'formik';
 import { NotificationManager } from 'react-notifications';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import cn from 'classnames';
@@ -10,6 +11,9 @@ import {
 } from '../../../../../actions/account';
 import ContentLoader from '../../../../components/content-loader';
 import InputForm from '../../../../components/input-form';
+import CheckboxFormInput from '../../../../components/check-button-input';
+import CustomInput from '../../../../components/custom-input';
+import Button from '../../../../components/button';
 import InfoBox from '../../../../components/info-box';
 
 export default function VaultWalletForm(props) {
@@ -24,10 +28,9 @@ export default function VaultWalletForm(props) {
   const [isCustomPassphrase, setIsCustomPassphrase] = useState(true);
   const [isAccountLoaded, setIsAccountLoaded] = useState(false);
 
-  const generateAccount = useCallback(async getFormState => {
+  const generateAccount = useCallback(async values => {
     const requestParams = {};
     if (isCustomPassphraseTextarea && activeTab === 1) {
-      const { values } = getFormState();
       requestParams.passphrase = values.newAccountpassphrse;
       if (!requestParams.passphrase) {
         NotificationManager.error('Secret Phrase not specified.');
@@ -49,16 +52,29 @@ export default function VaultWalletForm(props) {
     }
   }, [activeTab, isCustomPassphraseTextarea, setAccountData]);
 
+  const handleNext = useCallback(({ losePhrase }) => {
+    if (!losePhrase) {
+      NotificationManager.error('You have to verify that you stored your private data', 'Error', 7000);
+      return;
+    }
+    setIsValidating(true);
+    setSelectedOption(0);
+  }, [setIsValidating, setSelectedOption]);
+
   return (
-    <Form
+    <Formik
+      initialValues={{
+        option: 1,
+        losePhrase: false,
+      }}
       onSubmit={onSubmit}
-      render={({ submitForm, setValue, getFormState }) => (
-        <form
+    >
+      {({ values }) => (
+        <Form
           className={cn({
             'tab-body': true,
             active: activeTab === 1,
           })}
-          onSubmit={submitForm}
         >
           <InfoBox className="dark-info">
             <ul className="marked-list">
@@ -92,40 +108,27 @@ export default function VaultWalletForm(props) {
                   phrase or create an account with a
                   randomly generated secret phrase.
                 </InfoBox>
-                <div className="checkbox-group">
-                  <Checkbox
-                    className="lighten"
-                    field="isCustomPassphrase"
-                    onChange={e => setIsCustomPassphraseTextarea(e)}
-                  />
-                  <label>
-                    Use custom secret phrase
-                  </label>
-                </div>
+                <CheckboxFormInput
+                  className="lighten"
+                  name="isCustomPassphrase"
+                  onChange={e => setIsCustomPassphraseTextarea(e)}
+                />
                 {isCustomPassphraseTextarea && (
-                  <div className="form-group row form-group-grey mb-15">
-                    <label>
-                      Your account secret phrase
-                    </label>
-                    <TextArea
-                      field="newAccountpassphrse"
-                      placeholder="Secret Phrase"
-                    />
-                  </div>
+                  <CustomInput
+                    label="Your account secret phrase"
+                    name="newAccountpassphrse"
+                    placeholder="Secret Phrase"
+                  />
                 )}
-                <button
-                  type="button"
-                  onClick={() => generateAccount(getFormState)}
-                  className="btn"
-                >
-                  Create account
-                </button>
+                <Button
+                  onClick={() => generateAccount(values)}
+                  name="Create account"
+                />
               </div>
             ) : (
               <div>
                 {isAccountLoaded ? (
                   <>
-                    <Text field="option" type="hidden" defaultValue={0} />
                     <InfoBox className="dark-info">
                       <ul className="marked-list">
                         <li className="danger-icon">
@@ -186,13 +189,14 @@ export default function VaultWalletForm(props) {
                             NotificationManager.success('The account data has been copied to clipboard.');
                           }}
                         >
-                          <button type="button" className="btn btn-sm">
-                            Copy account data to clipboard
-                          </button>
+                          <Button
+                            name="Copy account data to clipboard"
+                            size="sm"
+                          />
                         </CopyToClipboard>
-                        <button
-                          type="button"
-                          className="btn btn-sm"
+                        <Button
+                          name="Print Wallet"
+                          size="sm"
                           onClick={() => generatePDF([
                             {
                               name: 'Account ID',
@@ -207,41 +211,27 @@ export default function VaultWalletForm(props) {
                               value: accountData.publicKey,
                             },
                           ])}
-                        >
-                          Print Wallet
-                        </button>
+                        />
                       </InfoBox>
                     )}
-                    <div className="checkbox-group">
-                      <Checkbox
-                        defaultValue={false}
-                        field="losePhrase"
-                      />
-                      <label>
-                        I wrote down my Account ID, Secret phrase. It is now stored
-                        in a secured place.
-                      </label>
-                    </div>
-                    <button
-                      type="submit"
-                      className="btn"
-                      onClick={() => {
-                        if (!getFormState().values.losePhrase) {
-                          NotificationManager.error('You have to verify that you stored your private data', 'Error', 7000);
-                          return;
-                        }
-                        setIsValidating(true);
-                        setSelectedOption(0);
-                      }}
-                    >
-                      Next
-                    </button>
+                    <CheckboxFormInput
+                      label="I wrote down my Account ID, Secret phrase. It is now stored
+                      in a secured place."
+                      name="losePhrase"
+                      onChange={e => setIsCustomPassphraseTextarea(e)}
+                    />
+                    <Button
+                      name="Next"
+                      size="sm"
+                      onClick={() => handleNext(values)}
+                    />
                   </>
                 ) : (
                   <ContentLoader />
                 )}
               </div>
             )}
+            {/* сneed to check */}
           {isValidating && (
             <div>
               <div className="form-title">
@@ -258,13 +248,12 @@ export default function VaultWalletForm(props) {
                   />
                 </label>
                 <div className="col-sm-9">
-                  <InputForm
-                    isPlain
+                  <CustomInput
                     className="form-control"
-                    type="password"
-                    field="secretPhrase"
+                    name="secretPhrase"
+                    label="Secret Phrase"
                     placeholder="Secret Phrase"
-                    setValue={setValue}
+                    type="password"
                   />
                 </div>
               </div>
@@ -282,27 +271,20 @@ export default function VaultWalletForm(props) {
                       </div>
                     </div>
                   ) : (
-                    <button
+                    <Button
                       type="submit"
-                      name="closeModal"
-                      className="btn"
-                    >
-                      Create New Account
-                    </button>
+                      name="Create New Account"
+                    />
                   )}
-                <button
-                  type="button"
-                  name="closeModal"
-                  className="btn"
+                <Button
+                  name="Back"
                   onClick={handleClose}
-                >
-                  Back
-                </button>
+                />
               </div>
             </div>
           )}
-        </form>
+        </Form>
       )}
-    />
+    </Formik>
   );
 }

@@ -1,8 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import {
-  Checkbox, Form, Text,
-} from 'react-form';
+import { Form, Formik } from 'formik';
 import cn from 'classnames';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { NotificationManager } from 'react-notifications';
@@ -10,7 +8,9 @@ import { generatePDF } from '../../../../../actions/account';
 import store from '../../../../../store';
 import crypto from '../../../../../helpers/crypto/crypto';
 import ContentLoader from '../../../../components/content-loader';
+import Button from '../../../../components/button';
 import InfoBox from '../../../../components/info-box';
+import CheckboxFormInput from '../../../../components/check-button-input';
 
 export default function StandardWalletForm(props) {
   const dispatch = useDispatch();
@@ -23,36 +23,40 @@ export default function StandardWalletForm(props) {
   const [isRSAccountLoaded, setIsRSAccountLoaded] = useState(false);
   const [isCustomPassphraseStandardWallet, setIsCustomPassphraseStandardWallet] = useState(false);
 
-  const generatePassphrase = useCallback(async getFormState => {
-    let passphrase;
-    if (isCustomPassphraseTextarea && activeTab === 1) {
-      const { values } = getFormState();
-      passphrase = values.newAccountpassphrse;
-      if (!passphrase) {
-        NotificationManager.error('Secret Phrase not specified.');
-        return;
-      }
-    }
-
-    const newGeneratedPassphrase = passphrase || crypto.generatePassPhraseAPL();
-    const params = passphrase || newGeneratedPassphrase.join(' ');
+  const generatePassphrase = useCallback(async () => {
+    const newGeneratedPassphrase = crypto.generatePassPhraseAPL();
+    const params = newGeneratedPassphrase.join(' ');
     const newGeneratedAccount = store.dispatch(await dispatch(crypto.getAccountIdAsyncApl(params)));
 
     setGeneratedPassphrase(params);
     setGeneratedAccount(newGeneratedAccount);
     setIsRSAccountLoaded(true);
     setIsCustomPassphraseStandardWallet(true);
-  }, [activeTab, dispatch, isCustomPassphraseTextarea, setGeneratedAccount, setGeneratedPassphrase]);
+  }, [dispatch, setGeneratedAccount, setGeneratedPassphrase]);
+
+  const handleSubmit = ({ losePhrase }) => {
+    if (!losePhrase) {
+      NotificationManager.error('You have to verify that you stored your private data.', 'Error', 7000);
+      return;
+    }
+    setIsValidating(true);
+    setSelectedOption(1);
+  };
 
   return (
-    <Form
-      render={({ submitForm, getFormState }) => (
-        <form
+    <Formik
+      initialValues={{
+        option: 1,
+        losePhrase: false,
+      }}
+      onSubmit={handleSubmit}
+    >
+      {({ values }) => (
+        <Form
           className={cn({
             'tab-body': true,
             active: activeTab === 0,
           })}
-          onSubmit={submitForm}
         >
           <InfoBox className="dark-info marked-list">
             <ul>
@@ -68,24 +72,14 @@ export default function StandardWalletForm(props) {
             </ul>
           </InfoBox>
           {!isCustomPassphraseStandardWallet ? (
-            <>
-              <button
-                type="button"
-                onClick={() => generatePassphrase(getFormState)}
-                className="btn"
-              >
-                Create account
-              </button>
-            </>
+            <Button
+              name="Create account"
+              onClick={() => generatePassphrase(values)}
+            />
           ) : (
             <div>
               {isRSAccountLoaded ? (
                 <>
-                  <Text
-                    field="option"
-                    type="hidden"
-                    defaultValue={1}
-                  />
                   <InfoBox className="dark-info">
                     <ul className="marked-list">
                       <li className="danger-icon">
@@ -140,13 +134,15 @@ export default function StandardWalletForm(props) {
                           NotificationManager.success('The account data has been copied to clipboard.');
                         }}
                       >
-                        <button type="button" className="btn btn-sm">
-                          Copy account data to clipboard
-                        </button>
+                        <Button
+                          name="Copy account data to clipboard"
+                          size="sm"
+                        />
                       </CopyToClipboard>
-                      <button
-                        type="button"
-                        className="btn btn-sm"
+                      <Button
+                        name="Print Wallet"
+                        className="btn"
+                        size="sm"
                         onClick={() => generatePDF([
                           {
                             name: 'Account ID',
@@ -157,44 +153,27 @@ export default function StandardWalletForm(props) {
                             value: generatedPassphrase,
                           },
                         ])}
-                      >
-                        Print Wallet
-                      </button>
+                      />
                     </InfoBox>
                   )}
-                  <div className="checkbox-group">
-                    <Checkbox
-                      defaultValue={false}
-                      field="losePhrase"
-                    />
-                    <label>
-                      I wrote down my secret phrase. It
+                  <CheckboxFormInput
+                    name="losePhrase"
+                    label="I wrote down my secret phrase. It
                       is now stored in a secured
-                      place.
-                    </label>
-                  </div>
-                  <button
+                      place."
+                  />
+                  <Button
+                    name="Next"
                     type="submit"
-                    className="btn"
-                    onClick={() => {
-                      if (!getFormState().values.losePhrase) {
-                        NotificationManager.error('You have to verify that you stored your private data.', 'Error', 7000);
-                        return;
-                      }
-                      setIsValidating(true);
-                      setSelectedOption(1);
-                    }}
-                  >
-                    Next
-                  </button>
+                  />
                 </>
               ) : (
                 <ContentLoader />
               )}
             </div>
           )}
-        </form>
+        </Form>
       )}
-    />
+    </Formik>
   );
 }
