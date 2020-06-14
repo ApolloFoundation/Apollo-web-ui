@@ -23,12 +23,13 @@ const CheckboxFormInput = props => {
       <input
         {...field}
         type="checkbox"
-        className="lighten"
+        className="checkbox"
         disabled={disabled}
         onChange={handleChange}
       />
       <label
         htmlFor={field.name}
+        className="checkbox-label"
       >
         {label}
       </label>

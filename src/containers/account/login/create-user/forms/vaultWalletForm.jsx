@@ -109,9 +109,9 @@ export default function VaultWalletForm(props) {
                   randomly generated secret phrase.
                 </InfoBox>
                 <CheckboxFormInput
-                  className="lighten"
                   name="isCustomPassphrase"
-                  onChange={e => setIsCustomPassphraseTextarea(e)}
+                  label="Use custom secret phrase"
+                  onChange={() => setIsCustomPassphraseTextarea(!isCustomPassphraseTextarea)}
                 />
                 {isCustomPassphraseTextarea && (
                   <CustomInput
@@ -218,11 +218,9 @@ export default function VaultWalletForm(props) {
                       label="I wrote down my Account ID, Secret phrase. It is now stored
                       in a secured place."
                       name="losePhrase"
-                      onChange={e => setIsCustomPassphraseTextarea(e)}
                     />
                     <Button
                       name="Next"
-                      size="sm"
                       onClick={() => handleNext(values)}
                     />
                   </>
@@ -231,7 +229,7 @@ export default function VaultWalletForm(props) {
                 )}
               </div>
             )}
-            {/* сneed to check */}
+          {/* сneed to check */}
           {isValidating && (
             <div>
               <div className="form-title">
