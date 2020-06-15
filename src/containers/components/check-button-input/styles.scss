@@ -1,14 +1,13 @@
 .checkbox-group {
   display: flex;
-  // align-items: center;
-  // text-align: center;
+  align-items: center;
 
   .checkbox-label {
     text-transform: uppercase;
     color: #25F459;
     font-size: 11px;
     line-height: 13px;
-    padding: 0px;
+    padding: 0px !important;
   }
 
   .checkbox {
@@ -19,7 +18,7 @@
     background-color: #121417;
     border: 1px solid #25F459;
     padding: 2px !important;
-    margin: 0 7px 0 0;
+    margin: 0 7px 0 0 !important;
     cursor: pointer;
     &:after {
       top: 2px;
