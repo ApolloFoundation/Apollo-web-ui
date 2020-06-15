@@ -1,7 +1,4 @@
 import React, { useCallback, useState } from 'react';
-// import {
-//   Checkbox, Form, Text, TextArea,
-// } from 'react-form';
 import { Form, Formik } from 'formik';
 import { NotificationManager } from 'react-notifications';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -10,7 +7,6 @@ import {
   createAccountAction, generateAccountAction, generatePDF,
 } from '../../../../../actions/account';
 import ContentLoader from '../../../../components/content-loader';
-import InputForm from '../../../../components/input-form';
 import CheckboxFormInput from '../../../../components/check-button-input';
 import CustomInput from '../../../../components/custom-input';
 import Button from '../../../../components/button';
@@ -229,7 +225,7 @@ export default function VaultWalletForm(props) {
                 )}
               </div>
             )}
-          {/* сneed to check */}
+          {/* TODO: need to check */}
           {isValidating && (
             <div>
               <div className="form-title">

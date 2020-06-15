@@ -1,7 +1,7 @@
 import React from 'react';
 import cn from 'classnames';
 
-import './style.scss';
+import styles from './style.module.scss';
 
 export default function ButtonTabs(props) {
   const {
@@ -9,16 +9,16 @@ export default function ButtonTabs(props) {
   } = props;
 
   return (
-    <div className="form-tab-nav-box">
+    <div className={styles['form-tab-nav-box']}>
       {tabs.map(tab => (
         <button
           type="button"
           onClick={() => onClick(tab.id)}
-          className={cn('form-tab', { active: isActive === tab.id }, className)}
+          className={cn(styles['form-tab'], { [styles.active]: isActive === tab.id }, styles[className])}
         >
-          <span className="button-content">
-            {!!tab.icon && <i className={cn(`zmdi zmdi-${tab.icon}`, 'icon')} />}
-            <p className="button-text">
+          <span className={styles['button-content']}>
+            {!!tab.icon && <i className={cn(`zmdi zmdi-${tab.icon}`, styles.icon)} />}
+            <p className={styles['button-text']}>
               {tab.label}
             </p>
           </span>
