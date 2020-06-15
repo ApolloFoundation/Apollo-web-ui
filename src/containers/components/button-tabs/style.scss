@@ -4,28 +4,41 @@
   padding-bottom: 15px;
 
   .form-tab {
+    height: 30px;
     border-radius: 3px;
     border: 1.5px solid #7E8691;
     padding: 6px 6px 7px;
     flex: 1;
-    p {
-      font-family: "BBRollerMonoProST", sans-serif;
-      text-transform: uppercase;
+    position: relative;
+
+    .button-content {
+      display: flex;
+      justify-content: center;
+      position: absolute;
       color: #7E8691;
-      font-size: 12px;
-      font-weight: 500;
-      line-height: 14px;
-      text-align: center;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      transform: translate(-50%, -50%);
+
+      .button-text {
+        font-family: "BBRollerMonoProST", sans-serif;
+        text-transform: uppercase;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 14px;
+        text-align: center;
+      }
     }
-    &:first-of-type {
-      margin-right: 8px;
+
+    .icon {
+      margin-right: 10px;
     }
-    &:last-of-type {
-      margin-left: 8px;
-    }
+
     &.active {
       border: 1.5px solid #25F459;
-      p {
+
+      .button-content {
         color: #25F459;
       }
     }
