@@ -95,28 +95,6 @@ export default function BlockchainStatus() {
     );
   }, [forgingStatus, handleSetForging]);
 
-  const blockInfo = useMemo(() => {
-    if (actualBlock && timestamp) {
-      return (
-        <>
-          <p className="label label-icon-left">
-            <ClockIcon />
-            Last updated:
-          </p>
-          <p>
-            Block
-            {actualBlock}
-          </p>
-          <p>{dispatch(formatTimestamp(timestamp))}</p>
-        </>
-      );
-    }
-
-    return (
-      <ContentLoader white noPaddingOnTheSides className="m-0" />
-    );
-  }, [actualBlock, dispatch, timestamp]);
-
   return (
     <div className="card card-success card-h-195">
       <div className="card-title">
@@ -131,7 +109,22 @@ export default function BlockchainStatus() {
       <div className="card-body">
         <div className="mb-3">
           <div className="ml-15">
-            {blockInfo}
+            {actualBlock && timestamp
+              ? (
+                <>
+                  <p className="label label-icon-left">
+                    <ClockIcon />
+                    Last updated:
+                  </p>
+                  <p>
+                    Block
+                    {actualBlock}
+                  </p>
+                  <p>{dispatch(formatTimestamp(timestamp))}</p>
+                </>
+              ) : (
+                <ContentLoader white noPaddingOnTheSides className="m-0" />
+              )}
             {!!(blockchainStatus && blockchainStatus.blockTime) && (
             <div>
               <span className="label">Transaction time:&nbsp;</span>
