@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-free": "5.13.0",
+    "apl-web-crypto": "^1.0.2",
     "axios": "0.19.2",
     "bootstrap": "4.4.1",
     "chart.js": "2.9.3",
@@ -60,8 +61,8 @@
     "zip": "mkdir -p target && node ./npm-pack-zip.js"
   },
   "devDependencies": {
-    "node-sass": "4.13.0",
     "archiver-promise": "1.0.0",
+    "node-sass": "4.13.0",
     "path": "0.12.7",
     "sanitize-filename": "1.6.3"
   },

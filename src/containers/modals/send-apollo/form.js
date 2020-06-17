@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {processAccountRStoID} from 'apl-web-crypto';
 import {searchAliases} from '../../../actions/aliases';
 import {setBodyModalParamsAction} from '../../../modules/modals';
 
@@ -14,9 +15,19 @@ const newAliasValidation = /APL-[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{
 const oldAliasValidation = /^acct:(APL-[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{5})@apl$/i
 
 const SendMoneyForm = ({values, setValue, modalData, setBodyModalParamsAction, idGroup, searchAliases, onChangeAlias, onChosenTransactionOnAlias}) => {
+    const getAliasOptions = aliases => {
+        return aliases.filter(({aliasName, aliasURI}) => {
+            const exchangeAlias = oldAliasValidation.test(aliasURI) ? aliasURI.match(oldAliasValidation)[1].toUpperCase() : aliasURI;
 
-    const aliasFilter = (aliases) => {
-        return aliases.filter(({aliasURI}) => newAliasValidation.test(aliasURI) || oldAliasValidation.test(aliasURI));
+            return (newAliasValidation.test(aliasURI) || oldAliasValidation.test(aliasURI)) && processAccountRStoID(exchangeAlias);
+        }).map(({aliasName, aliasURI}) => {
+            const exchangeAlias = oldAliasValidation.test(aliasURI) ? aliasURI.match(oldAliasValidation)[1].toUpperCase() : aliasURI;
+
+            return ({
+                value: exchangeAlias,
+                label: `${aliasName} / ${exchangeAlias}`,
+            })
+        })
     }
 
     return  (
@@ -50,13 +61,7 @@ const SendMoneyForm = ({values, setValue, modalData, setBodyModalParamsAction, i
                     onChange={onChangeAlias}
                     loadOptions={(alias) => {
                         return searchAliases({aliasPrefix: alias}).then(({aliases}) => {
-                            return aliasFilter(aliases).map(({aliasName, aliasURI}) => {
-                                const exchangeAlias = oldAliasValidation.test(aliasURI) ? aliasURI.match(oldAliasValidation)[1] : aliasURI;
-                                return ({
-                                    value: exchangeAlias,
-                                    label: `${aliasName} / ${exchangeAlias}`,
-                                })
-                            });
+                            return getAliasOptions(aliases);
                         });
                     }}
                 />
