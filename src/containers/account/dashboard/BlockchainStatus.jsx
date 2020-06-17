@@ -10,7 +10,6 @@ import { ReactComponent as ClockIcon } from '../../../assets/clock-icon.svg';
 import ContentLoader from '../../components/content-loader';
 import Button from '../../components/button';
 
-
 export default function BlockchainStatus() {
   const dispatch = useDispatch();
 

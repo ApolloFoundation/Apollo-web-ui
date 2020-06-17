@@ -16,7 +16,6 @@ import InfoStatistic from './InfoStatistic';
 import TwitterBanner from '../../../assets/banner-small.png';
 import InfoBanner from '../../../assets/banner-long.png';
 
-
 export default function Dashboard(props) {
   const dispatch = useDispatch();
 
