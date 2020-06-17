@@ -1,8 +1,9 @@
 /* eslint-disable jsx-a11y/anchor-has-content */
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import SiteHeader from '../../components/site-header';
 import { setBodyModalParamsAction } from '../../../modules/modals';
+import { getDashboardData } from '../../../actions/dashboard';
+import SiteHeader from '../../components/site-header';
 
 import TotalBalance from './TotalBalance';
 import MyTransactions from './MyTransactions';
@@ -26,6 +27,10 @@ export default function Dashboard(props) {
       setTimeout(() => dispatch(setBodyModalParamsAction('INFO_TRANSACTION', shareMessageTransaction), 500));
     }
   }, [dispatch, isShareMessage, shareMessageTransaction]);
+
+  useEffect(() => {
+    dispatch(getDashboardData());
+  }, [dispatch]);
 
   return (
     <div className="page-content">
