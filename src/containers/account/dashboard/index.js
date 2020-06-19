@@ -81,7 +81,7 @@ class Dashboard extends React.Component {
                                         </div>
                                         <div className={'wrap-card-square-xl'}>
                                             <a
-                                                href={'https://medium.com/@apollocurrency'}
+                                                href={'https://www.knoxvip.com/'}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 className={`card card-square card-xl`}
