@@ -3,7 +3,7 @@
  *                                                                            *
  ******************************************************************************/
 
-import React from 'react';
+import React, { useState } from 'react';
 import {connect} from 'react-redux';
 import {setBodyModalParamsAction} from '../../../modules/modals';
 import submitForm from "../../../helpers/forms/forms";
@@ -14,26 +14,16 @@ import {NotificationManager} from 'react-notifications';
 import ModalBody from '../../components/modals/modal-body';
 import SendApolloForm from './form';
 
-class SendApollo extends React.Component {
-	constructor(props) {
-		super(props);
+export default function SendApollo () {
+  const [activeTab, setActiveTab] = useState(0);
+  const [advancedState, setAdvancedState] = useState(false);
+  const [passphraseStatus, setPassphraseStatus] = useState(false);
+  const [recipientStatus, setRecipientStatus] = useState(false);
+  const [amountStatus, setAmountStatus] = useState(false);
+  const [feeStatus, setFeeStatus] = useState(false);
+  const [alias, setAlias] = useState(null);
 
-		this.handleFormSubmit = this.handleFormSubmit.bind(this);
-
-		this.state = {
-			activeTab: 0,
-			advancedState: false,
-
-			// submitting
-			passphraseStatus: false,
-			recipientStatus: false,
-			amountStatus: false,
-			feeStatus: false,
-			alias: null,
-		};
-	}
-
-	async handleFormSubmit(values) {
+	const handleFormSubmit = useCallback( async values => {
 		const {dashboardForm} = this.props;
 
 		if (!values.secretPhrase || values.secretPhrase.length === 0) {
@@ -73,7 +63,7 @@ class SendApollo extends React.Component {
 			}
 			NotificationManager.success('Transaction has been submitted!', null, 5000);
 		});
-	}
+	}, []);
 
 	onChosenTransactionOnAlias = () => {this.setState({alias: null})}
 
