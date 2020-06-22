@@ -22,7 +22,7 @@ function pack({destination, info, verbose, name, includes}) {
   const files = ['./packaging/pkg-apollo-web-ui.json'];
   return zipFiles(
     files,
-    `apollo-web-ui-NoOS-NoArch-${sanitize(process.env.npm_package_version)}.zip`,
+    `apollo-web-ui-${sanitize(process.env.npm_package_version)}-NoOS-NoArch.zip`,
     source,
     destination,
     info,
