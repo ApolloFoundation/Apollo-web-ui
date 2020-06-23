@@ -12,7 +12,6 @@ export default function CustomInput(props) {
   const [field, , helpers] = useField(name);
   const { setValue } = helpers;
   const isNumberInput = (type === 'tel' || type === 'float') && !disabled && !disableArrows;
-console.log(isNumberInput, (type === 'tel' || type === 'float'), disabled, disableArrows);
 
   const parseValue = value => {
     let currentValue = value;

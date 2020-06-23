@@ -1,43 +1,23 @@
-import React, { useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form } from 'formik';
 import classNames from 'classnames';
 import { ONE_APL } from '../../../constants';
 import { openPrevModal, saveSendModalState } from '../../../modules/modals';
 import FormFooter from '../form-components/form-footer';
-import ModalFooter from '../modal-footer';
+import ModalFooter from '../modal-footer/index1';
 import AdvancedSettings from '../advanced-transaction-settings';
-import BackForm from '../../modals/modal-form/modal-form-container';
+// import BackForm from '../../modals/modal-form/modal-form-container';
 import FeeInputForm from '../form-components/fee-input1';
 
 export default function ModalBody(props) {
   const dispatch = useDispatch();
 
-  const [newForm, setNewForm] = useState(null);
-
   const { modalData, modalsHistory } = useSelector(state => state.modals);
 
   const {
-    loadForm, handleFormSubmit,
-    onChange, isPour, isXWide, isWide,
+    handleFormSubmit, onChange, isPour, isXWide, isWide,
   } = props;
-
-  const loadValues = useCallback(values => {
-    if (values) {
-      newForm.setAllValues(values);
-    } else if (modalsHistory[modalsHistory.length - 1] && modalsHistory[modalsHistory.length - 1].value) {
-      newForm.setAllValues(modalsHistory[modalsHistory.length - 1].value);
-    }
-  }, [modalsHistory, newForm]);
-
-  const getForm = useCallback(form => {
-    if (loadForm) {
-      loadForm(form);
-    } else {
-      setNewForm();
-      loadValues();
-    }
-  }, [loadForm, loadValues]);
 
   const handleSubmit = useCallback(values => {
     if (handleFormSubmit) {
@@ -54,8 +34,8 @@ export default function ModalBody(props) {
     const {
       CustomFooter, isDisableFormFooter, marketplace, isDisabledBackArrow,
       isAdvancedWhite, isDisableSecretPhrase, isDisabe2FA, modalSubTitle,
-      idGroup, nameModel, children, modalTitle, isPending, isDisabled,
-      isFee, closeModal, className, submitButtonName, isClosingButton,
+      idGroup, children, modalTitle, isPending, isDisabled, isClosingButton,
+      isFee, closeModal, className, submitButtonName,
     } = props;
 
     const RightBar = marketplace
@@ -66,15 +46,11 @@ export default function ModalBody(props) {
     return (
       <Formik
         initialValues={{ feeATM: (modalData && modalData.feeATM) || '1' }}
-        getApi={value => getForm(value)}
         onChange={handleChange}
         onSubmit={values => handleSubmit(values)}
-        nameModel={nameModel}
       >
         {({ values, getFormState }) => (
-          <Form
-            className={`${isPour ? '' : 'modal-form modal-send-apollo'} ${className}`}
-          >
+          <Form className={`${isPour ? '' : 'modal-form modal-send-apollo'} ${className}`}>
             <div className="form-group-app">
               <RightBar>
                 {closeModal && !isPour && (
@@ -156,7 +132,7 @@ export default function ModalBody(props) {
                   <FeeInputForm
                     name="feeATM"
                     values={values}
-                    defaultValue={(modalData && modalData.feeATM) || '1'}
+                    // defaultValue={(modalData && modalData.feeATM) || '1'}
                   />
                 )}
                 {/** Rendering of secret phrase and 2fa fields */}

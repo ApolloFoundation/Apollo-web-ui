@@ -9,7 +9,7 @@ import { useField } from 'formik';
 import { NotificationManager } from 'react-notifications';
 import { setBodyModalParamsAction } from '../../../modules/modals';
 import submitForm from '../../../helpers/forms/forms';
-import ModalBody from '../../components/modals/modal-body';
+import ModalBody from '../../components/modals/modal-body1';
 import SendApolloForm from './form1';
 
 export default function SendApollo(props) {
@@ -28,10 +28,6 @@ export default function SendApollo(props) {
   const { account, publicKey } = useSelector(state => state.account);
   const { modalData, modalsHistory, dashboardForm } = useSelector(state => state.modals);
   console.log(dashboardForm);
-
-  const [field, , helpers] = useField();
-
-  const { setValue } = helpers;
 
   const handleFormSubmit = useCallback(async values => {
     const data = { ...values };

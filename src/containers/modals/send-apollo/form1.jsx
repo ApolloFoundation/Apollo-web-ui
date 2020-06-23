@@ -4,29 +4,36 @@ import { processAccountRStoID } from 'apl-web-crypto';
 import { searchAliases } from '../../../actions/aliases';
 import { setBodyModalParamsAction } from '../../../modules/modals';
 
-import { CheckboxFormInput } from '../../components/form-components/check-button-input';
+// import { CheckboxFormInput } from '../../components/form-components/check-button-input';
 import CustomInputForm from '../../components/form-components/textual-input';
 import CustomTextArea from '../../components/form-components/text-area';
 import AutoComplete from '../../components/auto-complete';
-import AccountRSFormInput from '../../components/form-components/account-rs';
+import CheckboxFormInput from '../../components/check-button-input';
+import AccountRSForm from '../../components/form-components/account-rs1';
 import NummericInputForm from '../../components/form-components/numeric-input';
+import CustomInput from '../../components/custom-input';
 
 const newAliasValidation = /APL-[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{5}/;
 const oldAliasValidation = /^acct:(APL-[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{5})@apl$/i;
 
 export default function SendMoneyForm({
-  values, setValue, modalData, idGroup, onChangeAlias, onChosenTransactionOnAlias,
+  values, setValue, idGroup, onChangeAlias, onChosenTransactionOnAlias,
 }) {
   const dispatch = useDispatch();
 
   const { modalData } = useSelector(state => state.modals);
 
-  const getAliasOptions = aliases => aliases.filter(({ aliasName, aliasURI }) => {
-    const exchangeAlias = oldAliasValidation.test(aliasURI) ? aliasURI.match(oldAliasValidation)[1].toUpperCase() : aliasURI;
+  const getAliasOptions = aliases => aliases.filter(({ aliasURI }) => {
+    const exchangeAlias = oldAliasValidation.test(aliasURI)
+      ? aliasURI.match(oldAliasValidation)[1].toUpperCase()
+      : aliasURI;
 
-    return (newAliasValidation.test(aliasURI) || oldAliasValidation.test(aliasURI)) && processAccountRStoID(exchangeAlias);
+    return (newAliasValidation.test(aliasURI) || oldAliasValidation.test(aliasURI))
+      && processAccountRStoID(exchangeAlias);
   }).map(({ aliasName, aliasURI }) => {
-    const exchangeAlias = oldAliasValidation.test(aliasURI) ? aliasURI.match(oldAliasValidation)[1].toUpperCase() : aliasURI;
+    const exchangeAlias = oldAliasValidation.test(aliasURI)
+      ? aliasURI.match(oldAliasValidation)[1].toUpperCase()
+      : aliasURI;
 
     return ({
       value: exchangeAlias,
@@ -42,26 +49,11 @@ export default function SendMoneyForm({
           label="Recipient"
           placeholder="Recipient"
         />
-        <AccountRSFormInput
-          field="recipient"
-          defaultValue={(modalData && modalData.recipient) ? modalData.recipient : ''}
-          label="Recipient"
-          placeholder="Recipient"
-          setValue={setValue}
-          idGroup={idGroup}
-          id={`${idGroup}recipient-field`}
-        />
       )}
       <CheckboxFormInput
-        setValue={setValue}
-        idGroup={idGroup}
         onChange={onChosenTransactionOnAlias}
-        checkboxes={[
-          {
-            field: 'alias',
-            label: 'Use alias?',
-          },
-        ]}
+        name="alias"
+        label="Use alias?"
       />
       {values.alias && (
         <AutoComplete
@@ -72,64 +64,41 @@ export default function SendMoneyForm({
             .then(({ aliases }) => getAliasOptions(aliases))}
         />
       )}
-      <NummericInputForm
-        field="amountATM"
-        counterLabel="APL"
+      <CustomInput
+        name="amountATM"
+        label="Amount APL"
         type="tel"
-        label="Amount"
-        setValue={setValue}
         placeholder="Amount"
-        idGroup={idGroup}
       />
       <CustomInputForm
-        hendler={() => setBodyModalParamsAction('SEND_APOLLO_PRIVATE', { ...values, feeATM: 5 })}
+        hendler={() => dispatch(setBodyModalParamsAction('SEND_APOLLO_PRIVATE', { ...values, feeATM: 5 }))}
         label="Private transaction"
         id="open-private-transaction-from-modal"
         type="button"
         idGroup={idGroup}
       />
       <CheckboxFormInput
-        setValue={setValue}
-        idGroup={idGroup}
-        checkboxes={[
-          {
-            field: 'add_message',
-            label: 'Add a message?',
-          },
-        ]}
+        name="add_message"
+        label="Add a message?"
       />
       {values.add_message && (
         <>
-          <CustomTextArea
-            setValue={setValue}
+          <CustomInput
+            name="message"
             label="Message"
+            type="textarea"
             placeholder="Message"
-            field="message"
-            idGroup={idGroup}
           />
           <CheckboxFormInput
-            setValue={setValue}
-            idGroup={idGroup}
-            checkboxes={[
-              {
-                field: 'encrypt_message',
-                label: 'Encrypt Message',
-                defaultValue: true,
-              }, {
-                field: 'permanent_message',
-                label: 'Message is Never Deleted',
-              },
-            ]}
+            name="encrypt_message"
+            label="Encrypt Message"
+          />
+          <CheckboxFormInput
+            name="permanent_message"
+            label="Message is Never Deleted"
           />
         </>
       )}
     </>
   );
 }
-
-const mapStateToProps = ({ modals }) => ({ modalData: modals.modalData });
-
-const mapDispatchToProps = dispatch => ({
-  searchAliases: requestParams => dispatch(searchAliases(requestParams)),
-  setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-});
