@@ -18,7 +18,6 @@ export default function SendApollo() {
   const dispatch = useDispatch();
 
   const [actionType, setActionType] = useState(0);
-  const [newForm, setNewForm] = useState(null);
 
   const { dashboardAccoountInfo } = useSelector(state => state.dashboard);
 
@@ -37,7 +36,6 @@ export default function SendApollo() {
   }, [dispatch]);
 
   const getApi = useCallback(form => {
-    setNewForm(form);
     dispatch(clearDashboardForm(form));
   }, [dispatch]);
 

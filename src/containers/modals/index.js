@@ -12,7 +12,7 @@ import ModalProvider from '../components/modals/modal-provider';
 import $ from 'jquery';
 // Modals
 import PrivateTransactions from "./private-transaction";
-import SendApollo from "./send-apollo";
+import SendApollo from "./send-apollo/index1";
 import SendApolloPrivate from "./send-apollo-private";
 import IssueAsset from "./issue/issue-asset"
 import InfoTransaction from './info-transaction/info-transaction';

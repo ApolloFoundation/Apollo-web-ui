@@ -2,7 +2,7 @@ import React from 'react';
 import cn from 'classnames';
 import { useField } from 'formik';
 
-import './styles.scss';
+// import './styles.scss';
 
 export default function CustomInput(props) {
   const {
@@ -12,6 +12,7 @@ export default function CustomInput(props) {
   const [field, , helpers] = useField(name);
   const { setValue } = helpers;
   const isNumberInput = (type === 'tel' || type === 'float') && !disabled && !disableArrows;
+console.log(isNumberInput, (type === 'tel' || type === 'float'), disabled, disableArrows);
 
   const parseValue = value => {
     let currentValue = value;

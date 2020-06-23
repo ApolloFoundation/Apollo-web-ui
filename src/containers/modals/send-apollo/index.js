@@ -67,6 +67,8 @@ class SendApollo extends React.Component {
 			}
 
 			if (dashboardForm) {
+          console.log(dashboardForm);
+
 					dashboardForm.resetAll();
 					dashboardForm.setValue('recipient', '');
 					dashboardForm.setValue('feeATM', '1');
