@@ -26,12 +26,15 @@ export function getActiveShfflings(reqParams) {
 }
 
 export function getFinishedShfflings(reqParams) {
-    return dispatch => {
+    return (dispatch, getState) => {
+        const { account } = getState();
+
         return axios.get(config.api.serverUrl, {
             params: {
                 'requestType': 'getAllShufflings',
                 'finishedOnly': true,
                 'includeHoldingInfo': true,
+                'account': account.account,
                 ...reqParams
             }
         })
