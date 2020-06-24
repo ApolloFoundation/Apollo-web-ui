@@ -45,7 +45,13 @@ export default function ModalBody(props) {
 
     return (
       <Formik
-        initialValues={{ feeATM: (modalData && modalData.feeATM) || '1' }}
+        initialValues={{
+          feeATM: (modalData && modalData.feeATM) || '1',
+          recipient: (modalData && modalData.recipient) || '',
+          amountATM: (modalData && modalData.amountATM) || '',
+          encrypt_message: true,
+        }}
+        enableReinitialize
         onChange={handleChange}
         onSubmit={values => handleSubmit(values)}
       >
@@ -132,7 +138,6 @@ export default function ModalBody(props) {
                   <FeeInputForm
                     name="feeATM"
                     values={values}
-                    // defaultValue={(modalData && modalData.feeATM) || '1'}
                   />
                 )}
                 {/** Rendering of secret phrase and 2fa fields */}

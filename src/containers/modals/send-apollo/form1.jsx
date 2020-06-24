@@ -6,7 +6,7 @@ import { setBodyModalParamsAction } from '../../../modules/modals';
 
 // import { CheckboxFormInput } from '../../components/form-components/check-button-input';
 import CustomInputForm from '../../components/form-components/textual-input';
-import CustomTextArea from '../../components/form-components/text-area';
+import CustomTextArea from '../../components/form-components/text-area1';
 import AutoComplete from '../../components/auto-complete';
 import CheckboxFormInput from '../../components/check-button-input';
 import AccountRSForm from '../../components/form-components/account-rs1';
@@ -83,10 +83,9 @@ export default function SendMoneyForm({
       />
       {values.add_message && (
         <>
-          <CustomInput
+          <CustomTextArea
             name="message"
             label="Message"
-            type="textarea"
             placeholder="Message"
           />
           <CheckboxFormInput
