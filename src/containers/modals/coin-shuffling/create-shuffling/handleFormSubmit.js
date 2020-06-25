@@ -1,7 +1,7 @@
 import {NotificationManager} from "react-notifications";
 
 import {
-    setBodyModalParamsAction, 
+    setBodyModalParamsAction,
     IS_MODAL_PROCESSING
 } from '../../../../modules/modals';
 

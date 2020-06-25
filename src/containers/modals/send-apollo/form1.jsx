@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { processAccountRStoID } from 'apl-web-crypto';
 import { searchAliases } from '../../../actions/aliases';
 import { setBodyModalParamsAction } from '../../../modules/modals';
@@ -10,18 +10,15 @@ import CustomTextArea from '../../components/form-components/text-area1';
 import AutoComplete from '../../components/auto-complete';
 import CheckboxFormInput from '../../components/check-button-input';
 import AccountRSForm from '../../components/form-components/account-rs1';
-import NummericInputForm from '../../components/form-components/numeric-input';
 import CustomInput from '../../components/custom-input';
 
 const newAliasValidation = /APL-[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{5}/;
 const oldAliasValidation = /^acct:(APL-[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{5})@apl$/i;
 
 export default function SendMoneyForm({
-  values, setValue, idGroup, onChangeAlias, onChosenTransactionOnAlias,
+  values, idGroup, onChangeAlias, onChosenTransactionOnAlias,
 }) {
   const dispatch = useDispatch();
-
-  const { modalData } = useSelector(state => state.modals);
 
   const getAliasOptions = aliases => aliases.filter(({ aliasURI }) => {
     const exchangeAlias = oldAliasValidation.test(aliasURI)

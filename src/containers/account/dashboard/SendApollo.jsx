@@ -4,11 +4,9 @@ import { Form, Formik } from 'formik';
 import { NotificationManager } from 'react-notifications';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import QRCode from 'qrcode.react';
-import { clearDashboardForm, setBodyModalParamsAction } from '../../../modules/modals';
-// import { ReactComponent as ArrowRight } from '../../../assets/arrow-right.svg';
+import { setBodyModalParamsAction } from '../../../modules/modals';
 import { ReactComponent as QrIcon } from '../../../assets/qr-icon.svg';
 import AccountRSForm from '../../components/form-components/account-rs1';
-// import NummericInputForm from '../../components/form-components/numeric-input1';
 import ContentLoader from '../../components/content-loader';
 import CustomInput from '../../components/custom-input';
 import Button from '../../components/button';
@@ -23,20 +21,18 @@ export default function SendApollo() {
 
   const submitForm = useCallback(({
     type, recipient, amountATM, feeATM,
-  }) => {
+  }, { resetForm }) => {
     if (type === 'private') {
       dispatch(setBodyModalParamsAction('SEND_APOLLO_PRIVATE', {
         recipient, amountATM, feeATM,
       }));
+      resetForm({});
     } else {
       dispatch(setBodyModalParamsAction('SEND_APOLLO', {
         recipient, amountATM, feeATM,
       }));
+      resetForm({});
     }
-  }, [dispatch]);
-
-  const getApi = useCallback(form => {
-    dispatch(clearDashboardForm(form));
   }, [dispatch]);
 
   return (
@@ -46,7 +42,6 @@ export default function SendApollo() {
       </div>
       <div className="card-body">
         <Formik
-          getApi={form => getApi(form)}
           initialValues={{
             amountATM: '',
             type: 'public',

@@ -53,7 +53,7 @@ export default function ModalBody(props) {
         }}
         enableReinitialize
         onChange={handleChange}
-        onSubmit={values => handleSubmit(values)}
+        onSubmit={handleSubmit}
       >
         {({ values, getFormState }) => (
           <Form className={`${isPour ? '' : 'modal-form modal-send-apollo'} ${className}`}>

@@ -5,10 +5,8 @@
 
 import React, { useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useField } from 'formik';
 import { NotificationManager } from 'react-notifications';
 import { setBodyModalParamsAction } from '../../../modules/modals';
-import submitForm from '../../../helpers/forms/forms';
 import ModalBody from '../../components/modals/modal-body1';
 import SendApolloForm from './form1';
 
@@ -17,17 +15,9 @@ export default function SendApollo(props) {
 
   const { closeModal, processForm } = props;
 
-  const [activeTab, setActiveTab] = useState(0);
-  const [advancedState, setAdvancedState] = useState(false);
-  const [passphraseStatus, setPassphraseStatus] = useState(false);
-  const [recipientStatus, setRecipientStatus] = useState(false);
-  const [amountStatus, setAmountStatus] = useState(false);
-  const [feeStatus, setFeeStatus] = useState(false);
   const [alias, setAlias] = useState(null);
 
-  const { account, publicKey } = useSelector(state => state.account);
-  const { modalData, modalsHistory, dashboardForm } = useSelector(state => state.modals);
-  console.log(dashboardForm);
+  const { account } = useSelector(state => state.account);
 
   const handleFormSubmit = useCallback(async values => {
     const data = { ...values };
@@ -61,11 +51,6 @@ export default function SendApollo(props) {
         dispatch(setBodyModalParamsAction(null, {}));
       }
 
-      // if (dashboardForm) {
-      //   dashboardForm.resetAll();
-      //   dashboardForm.setValue('recipient', '');
-      //   dashboardForm.setValue('feeATM', '1');
-      // }
       NotificationManager.success('Transaction has been submitted!', null, 5000);
     });
   }, [account, alias, dispatch, processForm]);
@@ -78,7 +63,7 @@ export default function SendApollo(props) {
     <ModalBody
       modalTitle="Create transaction"
       closeModal={closeModal}
-      handleFormSubmit={values => handleFormSubmit(values)}
+      handleFormSubmit={handleFormSubmit}
       isFee
       isAdvanced
       submitButtonName="Send"
