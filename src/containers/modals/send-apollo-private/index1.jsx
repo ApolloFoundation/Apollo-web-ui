@@ -1,151 +1,151 @@
-/******************************************************************************
+/** ****************************************************************************
  * Copyright © 2018 Apollo Foundation                                         *
  *                                                                            *
- ******************************************************************************/
+ ***************************************************************************** */
 
-
-import React, { useEffect } from 'react';
-import {connect} from 'react-redux';
-import {NotificationManager} from "react-notifications";
+import React, {
+  useEffect, useState, useCallback,
+} from 'react';
+import { useDispatch } from 'react-redux';
+import { NotificationManager } from 'react-notifications';
 import {
-    openPrevModal,
-    saveSendModalState,
-    setAlert,
-    setBodyModalParamsAction,
-    setModalData
+  openPrevModal,
+  saveSendModalState,
+  setAlert,
+  setBodyModalParamsAction,
+  setModalData,
 } from '../../../modules/modals';
-import {getMixerAccount} from '../../../actions/transactions';
+import { getMixerAccount } from '../../../actions/transactions';
 import crypto from '../../../helpers/crypto/crypto';
-import {calculateFeeAction} from "../../../actions/forms";
-import submitForm from "../../../helpers/forms/forms";
-import ModalBody from "../../components/modals/modal-body";
+import { calculateFeeAction } from '../../../actions/forms';
+import submitForm from '../../../helpers/forms/forms';
+import ModalBody from '../../components/modals/modal-body';
 import InfoBox from '../../components/info-box';
-import SendPrivateApolloForm from "./form";
+import SendPrivateApolloForm from './form';
 
 export default function SendApolloPrivate(props) {
-  const [advancedState, setAdvancedState] = useSatete(false);
-  const [isPrivateTransactionAlert, setIsPrivateTransactionAlert ]= useState(false);
-  const [useMixer, setUseMixer]= useState(false);
+  const dispatch = useDispatch();
+
+  const { closeModal } = props;
+
+  const [isPrivateTransactionAlert, setIsPrivateTransactionAlert] = useState(false);
+  const [useMixer, setUseMixer] = useState(false);
+  const [isPending, setIsPending] = useState(false);
   const [newMixerData, setNewMixerData] = useState(null);
 
-  useEffect(() => {
-    handleGetMixerAccount();
-  }, []);
-
   const handleGetMixerAccount = useCallback(async () => {
-    const {accountPrefix, mixerUrl} = props;
-    if(!mixerUrl) return
+    const { accountPrefix, mixerUrl } = props;
+    if (!mixerUrl) return;
 
     const mixerData = await getMixerAccount(mixerUrl);
     if (mixerData && mixerData.rsId) {
       const mixerAccount = mixerData.rsId;
       mixerData.rsId = mixerAccount.replace('APL-', `${accountPrefix}-`);
-      setNewMixerData(mixerData)
+      setNewMixerData(mixerData);
       setUseMixer(true);
     }
   }, []);
 
-  const handleFormSubmit = async (values) => {
-    if (!this.state.isPending) {
+  const handleFormSubmit = async values => {
+    if (!isPending) {
       if (!values.recipient) {
-          NotificationManager.error('Recipient not specified.', 'Error', 5000);
-          return;
+        NotificationManager.error('Recipient not specified.', 'Error', 5000);
+        return;
       }
       if (!values.amountATM) {
-          NotificationManager.error('Amount is required.', 'Error', 5000);
-          return;
+        NotificationManager.error('Amount is required.', 'Error', 5000);
+        return;
       }
       if (!values.feeATM) {
-          NotificationManager.error('Fee not specified.', 'Error', 5000);
+        NotificationManager.error('Fee not specified.', 'Error', 5000);
+        return;
+      }
+
+      if (useMixer) {
+        values.messageToEncrypt = JSON.stringify({
+          type: 'REQUEST_MIXING',
+          epicId: values.recipient,
+          approximateMixingDuration: values.duration, // Minutes
+        });
+
+        if (values.amountATM < 100) {
+          NotificationManager.error('To use mixer you should send at least 100 APL.', 'Error', 5000);
           return;
+        }
+
+        if (values.duration < 15) {
+          NotificationManager.error('The mixing time should be at least 15 minutes.', 'Error', 5000);
+          return;
+        }
+
+        if (values.duration > 11000) {
+          NotificationManager.error('The mixing time should not exceed 11000 minutes.', 'Error', 5000);
+          return;
+        }
+
+        values.recipient = values.mixerAccount;
+        values.recipientPublicKey = values.mixerPublicKey;
+
+        delete values.mixerAccount;
       }
 
-      if (this.state.useMixer) {
-          values.messageToEncrypt = JSON.stringify({
-              type: "REQUEST_MIXING",
-              epicId: values.recipient,
-              approximateMixingDuration: values.duration  // Minutes
-          });
+      setIsPending(true);
 
-          if (values.amountATM < 100) {
-              NotificationManager.error('To use mixer you should send at least 100 APL.', 'Error', 5000);
-              return;
+      const {
+        duration, isMixer, mixerPublicKey, ...params
+      } = values;
+
+      dispatch(await submitForm(params, 'sendMoneyPrivate'))
+        .done(privateTransaction => {
+          if (privateTransaction && privateTransaction.errorCode) {
+            NotificationManager.error(privateTransaction.errorDescription, 'Error', 5000);
+          } else {
+            NotificationManager.success('Private transaction has been submitted.', null, 5000);
+            props.setBodyModalParamsAction(null, {});
+            if (props.dashboardForm) {
+              props.dashboardForm.resetAll();
+              props.dashboardForm.setValue('recipient', '');
+              props.dashboardForm.setValue('feeATM', '1');
+            }
           }
-
-          if (values.duration < 15) {
-              NotificationManager.error('The mixing time should be at least 15 minutes.', 'Error', 5000);
-              return;
-          }
-
-          if (values.duration > 11000) {
-              NotificationManager.error('The mixing time should not exceed 11000 minutes.', 'Error', 5000);
-              return;
-          }
-
-          values.recipient = values.mixerAccount;
-          values.recipientPublicKey = values.mixerPublicKey;
-
-          delete values.mixerAccount;
-      }
-
-      this.setState({isPending: true});
-
-      const { duration, isMixer, mixerPublicKey, ...params } = values;
-
-      this.props.dispatch(await this.props.submitForm(params, 'sendMoneyPrivate'))
-          .done((privateTransaction) => {
-              if (privateTransaction && privateTransaction.errorCode) {
-                  NotificationManager.error(privateTransaction.errorDescription, 'Error', 5000);
-              } else {
-                  NotificationManager.success('Private transaction has been submitted.', null, 5000);
-                  this.props.setBodyModalParamsAction(null, {});
-                  if (this.props.dashboardForm) {
-                      this.props.dashboardForm.resetAll();
-                      this.props.dashboardForm.setValue('recipient', '');
-                      this.props.dashboardForm.setValue('feeATM', '1');
-                  }
-              }
-              this.setState({isPending: false});
-          });
-  }
-};
-  const handleAdvancedState = () => {
-    if (this.state.advancedState) {
-        this.setState({advancedState: false});
-    } else {
-        this.setState({advancedState: true});
+          setIsPending(false);
+        });
     }
   };
 
   const setConfirm = () => {
-    this.setState({isPrivateTransactionAlert: true});
+    setIsPrivateTransactionAlert(true);
   };
 
-  const handleUseMixer = (e) => {
-    this.setState({useMixer: e});
+  const handleUseMixer = e => {
+    setUseMixer(e);
   };
 
-  const {useMixer, mixerData, isPending, isPrivateTransactionAlert} = this.state;
+  useEffect(() => {
+    handleGetMixerAccount();
+  }, [handleGetMixerAccount]);
 
   return (
     <ModalBody
-      modalTitle={'Send Private transaction'}
-      closeModal={this.props.closeModal}
-      handleFormSubmit={(values) => this.handleFormSubmit(values)}
+      modalTitle="Send Private transaction"
+      closeModal={closeModal}
+      handleFormSubmit={values => this.handleFormSubmit(values)}
       isAdvanced
       isPending={isPending}
-      submitButtonName={'Send'}
+      submitButtonName="Send"
       isDisabled={!isPrivateTransactionAlert}
-      idGroup={'send-private-money-modal-'}
+      idGroup="send-private-money-modal-"
     >
       {!isPrivateTransactionAlert && (
         <InfoBox info>
-          Please note: Exchanges may not support private transactions, we recommend sending publically to exchanges.<br/>
-          Private transactions currently protect down the the API level. Database level protection will start with Olympus 2.0<br/>
+          Please note: Exchanges may not support private transactions, we recommend sending publically to exchanges.
+          <br />
+          Private transactions currently protect down the the API level. Database level protection will start with Olympus 2.0
+          <br />
           <button
-            type={'button'}
-            className={'btn btn-default mt-3'}
-            onClick={this.setConfirm}
+            type="button"
+            className="btn btn-default mt-3"
+            onClick={setConfirm}
           >
             I agree
           </button>
@@ -153,8 +153,8 @@ export default function SendApolloPrivate(props) {
       )}
       <SendPrivateApolloForm
         useMixer={useMixer}
-        mixerData={mixerData}
-        handleUseMixer={this.handleUseMixer}
+        mixerData={newMixerData}
+        handleUseMixer={handleUseMixer}
       />
     </ModalBody>
   );
