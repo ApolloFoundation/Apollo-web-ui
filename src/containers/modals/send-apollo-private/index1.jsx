@@ -8,19 +8,12 @@ import React, {
 } from 'react';
 import { useDispatch } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
-import {
-  openPrevModal,
-  saveSendModalState,
-  setAlert,
-  setBodyModalParamsAction,
-  setModalData,
-} from '../../../modules/modals';
+import { setBodyModalParamsAction } from '../../../modules/modals';
 import { getMixerAccount } from '../../../actions/transactions';
-import crypto from '../../../helpers/crypto/crypto';
-import { calculateFeeAction } from '../../../actions/forms';
 import submitForm from '../../../helpers/forms/forms';
-import ModalBody from '../../components/modals/modal-body';
+import ModalBody from '../../components/modals/modal-body1';
 import InfoBox from '../../components/info-box';
+import Button from '../../components/button';
 import SendPrivateApolloForm from './form';
 
 export default function SendApolloPrivate(props) {
@@ -44,9 +37,10 @@ export default function SendApolloPrivate(props) {
       setNewMixerData(mixerData);
       setUseMixer(true);
     }
-  }, []);
+  }, [props]);
 
   const handleFormSubmit = async values => {
+    debugger
     if (!isPending) {
       if (!values.recipient) {
         NotificationManager.error('Recipient not specified.', 'Error', 5000);
@@ -61,8 +55,10 @@ export default function SendApolloPrivate(props) {
         return;
       }
 
+      const newValues = values;
+
       if (useMixer) {
-        values.messageToEncrypt = JSON.stringify({
+        newValues.messageToEncrypt = JSON.stringify({
           type: 'REQUEST_MIXING',
           epicId: values.recipient,
           approximateMixingDuration: values.duration, // Minutes
@@ -83,17 +79,17 @@ export default function SendApolloPrivate(props) {
           return;
         }
 
-        values.recipient = values.mixerAccount;
-        values.recipientPublicKey = values.mixerPublicKey;
+        newValues.recipient = values.mixerAccount;
+        newValues.recipientPublicKey = values.mixerPublicKey;
 
-        delete values.mixerAccount;
+        delete newValues.mixerAccount;
       }
 
       setIsPending(true);
 
       const {
         duration, isMixer, mixerPublicKey, ...params
-      } = values;
+      } = newValues;
 
       dispatch(await submitForm(params, 'sendMoneyPrivate'))
         .done(privateTransaction => {
@@ -101,12 +97,12 @@ export default function SendApolloPrivate(props) {
             NotificationManager.error(privateTransaction.errorDescription, 'Error', 5000);
           } else {
             NotificationManager.success('Private transaction has been submitted.', null, 5000);
-            props.setBodyModalParamsAction(null, {});
-            if (props.dashboardForm) {
-              props.dashboardForm.resetAll();
-              props.dashboardForm.setValue('recipient', '');
-              props.dashboardForm.setValue('feeATM', '1');
-            }
+            dispatch(setBodyModalParamsAction(null, {}));
+            // if (props.dashboardForm) {
+            //   props.dashboardForm.resetAll();
+            //   props.dashboardForm.setValue('recipient', '');
+            //   props.dashboardForm.setValue('feeATM', '1');
+            // }
           }
           setIsPending(false);
         });
@@ -129,12 +125,18 @@ export default function SendApolloPrivate(props) {
     <ModalBody
       modalTitle="Send Private transaction"
       closeModal={closeModal}
-      handleFormSubmit={values => this.handleFormSubmit(values)}
+      handleFormSubmit={handleFormSubmit}
       isAdvanced
       isPending={isPending}
       submitButtonName="Send"
       isDisabled={!isPrivateTransactionAlert}
       idGroup="send-private-money-modal-"
+      initialValues={{
+        feeATM: (modalData && modalData.feeATM) || '1',
+        recipient: (modalData && modalData.recipient) || '',
+        amountATM: (modalData && modalData.amountATM) || '',
+        encrypt_message: true,
+      }}
     >
       {!isPrivateTransactionAlert && (
         <InfoBox info>
@@ -142,13 +144,11 @@ export default function SendApolloPrivate(props) {
           <br />
           Private transactions currently protect down the the API level. Database level protection will start with Olympus 2.0
           <br />
-          <button
-            type="button"
-            className="btn btn-default mt-3"
+          <Button
+            className="mt-3"
+            label="I agree"
             onClick={setConfirm}
-          >
-            I agree
-          </button>
+          />
         </InfoBox>
       )}
       <SendPrivateApolloForm

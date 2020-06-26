@@ -3,8 +3,6 @@ import { useDispatch } from 'react-redux';
 import { processAccountRStoID } from 'apl-web-crypto';
 import { searchAliases } from '../../../actions/aliases';
 import { setBodyModalParamsAction } from '../../../modules/modals';
-
-// import { CheckboxFormInput } from '../../components/form-components/check-button-input';
 import CustomInputForm from '../../components/form-components/textual-input';
 import CustomTextArea from '../../components/form-components/text-area1';
 import AutoComplete from '../../components/auto-complete';
