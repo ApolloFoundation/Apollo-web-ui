@@ -7,7 +7,6 @@ import { openPrevModal, saveSendModalState } from '../../../modules/modals';
 import FormFooter from '../form-components/form-footer';
 import ModalFooter from '../modal-footer/index1';
 import AdvancedSettings from '../advanced-transaction-settings';
-// import BackForm from '../../modals/modal-form/modal-form-container';
 import FeeInputForm from '../form-components/fee-input1';
 
 export default function ModalBody(props) {
@@ -16,7 +15,7 @@ export default function ModalBody(props) {
   const { modalData, modalsHistory } = useSelector(state => state.modals);
 
   const {
-    handleFormSubmit, onChange, isPour, isXWide, isWide,
+    handleFormSubmit, onChange, isPour, isXWide, isWide, newInitialValues,
   } = props;
 
   const handleSubmit = useCallback(values => {
@@ -47,9 +46,7 @@ export default function ModalBody(props) {
       <Formik
         initialValues={{
           feeATM: (modalData && modalData.feeATM) || '1',
-          recipient: (modalData && modalData.recipient) || '',
-          amountATM: (modalData && modalData.amountATM) || '',
-          encrypt_message: true,
+          ...newInitialValues,
         }}
         enableReinitialize
         onChange={handleChange}

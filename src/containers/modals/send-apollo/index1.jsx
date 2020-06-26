@@ -17,6 +17,8 @@ export default function SendApollo(props) {
 
   const [alias, setAlias] = useState(null);
 
+  const { modalData } = useSelector(state => state.modals);
+
   const { account } = useSelector(state => state.account);
 
   const handleFormSubmit = useCallback(async values => {
@@ -68,6 +70,11 @@ export default function SendApollo(props) {
       isAdvanced
       submitButtonName="Send"
       idGroup="send-money-modal-"
+      newInitialValues={{
+        recipient: (modalData && modalData.recipient) || '',
+        amountATM: (modalData && modalData.amountATM) || '',
+        encrypt_message: true,
+      }}
     >
       <SendApolloForm
         onChangeAlias={handelChangeAlias}

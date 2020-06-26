@@ -13,7 +13,7 @@ import $ from 'jquery';
 // Modals
 import PrivateTransactions from "./private-transaction";
 import SendApollo from "./send-apollo/index1";
-import SendApolloPrivate from "./send-apollo-private";
+import SendApolloPrivate from "./send-apollo-private/index1";
 import IssueAsset from "./issue/issue-asset"
 import InfoTransaction from './info-transaction/info-transaction';
 import InfoLedgerTransaction from './info-ledger-transaction';

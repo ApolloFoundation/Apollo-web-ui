@@ -6,7 +6,7 @@
 import React, {
   useEffect, useState, useCallback,
 } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
 import { setBodyModalParamsAction } from '../../../modules/modals';
 import { getMixerAccount } from '../../../actions/transactions';
@@ -14,12 +14,14 @@ import submitForm from '../../../helpers/forms/forms';
 import ModalBody from '../../components/modals/modal-body1';
 import InfoBox from '../../components/info-box';
 import Button from '../../components/button';
-import SendPrivateApolloForm from './form';
+import SendPrivateApolloForm from './form1';
 
 export default function SendApolloPrivate(props) {
   const dispatch = useDispatch();
 
   const { closeModal } = props;
+
+  const { modalData } = useSelector(state => state.modals);
 
   const [isPrivateTransactionAlert, setIsPrivateTransactionAlert] = useState(false);
   const [useMixer, setUseMixer] = useState(false);
@@ -98,11 +100,6 @@ export default function SendApolloPrivate(props) {
           } else {
             NotificationManager.success('Private transaction has been submitted.', null, 5000);
             dispatch(setBodyModalParamsAction(null, {}));
-            // if (props.dashboardForm) {
-            //   props.dashboardForm.resetAll();
-            //   props.dashboardForm.setValue('recipient', '');
-            //   props.dashboardForm.setValue('feeATM', '1');
-            // }
           }
           setIsPending(false);
         });
@@ -111,10 +108,6 @@ export default function SendApolloPrivate(props) {
 
   const setConfirm = () => {
     setIsPrivateTransactionAlert(true);
-  };
-
-  const handleUseMixer = e => {
-    setUseMixer(e);
   };
 
   useEffect(() => {
@@ -132,10 +125,13 @@ export default function SendApolloPrivate(props) {
       isDisabled={!isPrivateTransactionAlert}
       idGroup="send-private-money-modal-"
       initialValues={{
-        feeATM: (modalData && modalData.feeATM) || '1',
         recipient: (modalData && modalData.recipient) || '',
         amountATM: (modalData && modalData.amountATM) || '',
-        encrypt_message: true,
+        mixerAccount: useMixer && (newMixerData && newMixerData.rsId),
+        mixerPublicKey: useMixer && (newMixerData && newMixerData.publicKey),
+        duration: (modalData && modalData.duration) || '',
+        feeATM: (modalData && modalData.feeATM) || '5',
+        isMixer: useMixer,
       }}
     >
       {!isPrivateTransactionAlert && (
@@ -146,7 +142,7 @@ export default function SendApolloPrivate(props) {
           <br />
           <Button
             className="mt-3"
-            label="I agree"
+            name="I agree"
             onClick={setConfirm}
           />
         </InfoBox>
@@ -154,30 +150,7 @@ export default function SendApolloPrivate(props) {
       <SendPrivateApolloForm
         useMixer={useMixer}
         mixerData={newMixerData}
-        handleUseMixer={handleUseMixer}
       />
     </ModalBody>
   );
 }
-
-// const mapStateToProps = state => ({
-//     account: state.account.account,
-//     modalData: state.modals.modalData,
-//     publicKey: state.account.publicKey,
-//     modalsHistory: state.modals.modalsHistory,
-//     dashboardForm: state.modals.dashboardForm,
-//     accountPrefix: state.account.constants ? state.account.constants.accountPrefix : '',
-//     mixerUrl: state.account.constants.mixerUrl,
-// });
-
-// const mapDispatchToProps = dispatch => ({
-//     setAlert: (status, message) => dispatch(setAlert(status, message)),
-//     setModalData: (data) => dispatch(setModalData(data)),
-//     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-//     calculateFeeAction: (requestParams) => dispatch(calculateFeeAction(requestParams)),
-//     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
-//     openPrevModal: () => dispatch(openPrevModal()),
-//     saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
-//     submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
-//     dispatch: dispatch
-// });

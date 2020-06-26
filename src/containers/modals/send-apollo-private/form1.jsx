@@ -1,15 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Text } from 'react-form';
-import { CheckboxFormInput } from '../../components/form-components/check-button-input';
-import AccountRSFormInput from '../../components/form-components/account-rs';
+import CheckboxForm from '../../components/check-button-input';
 import AccountRS from '../../components/form-components/account-rs1';
-import NummericInputForm from '../../components/form-components/numeric-input';
+import NumericInput from '../../components/form-components/numeric-input1';
+import FeeInput from '../../components/form-components/fee-input1';
 import InfoBox from '../../components/info-box';
-import FeeInputForm from '../../components/form-components/fee-input';
 
 const SendPrivateMoneyForm = ({
-  values, setValue, modalData, idGroup, useMixer, mixerData, handleUseMixer,
+  values, idGroup, useMixer, mixerData,
 }) => (
   <>
     <AccountRS
@@ -18,20 +16,6 @@ const SendPrivateMoneyForm = ({
       placeholder="Recipient"
       id={`${idGroup}recipient-field`}
     />
-    {useMixer && (
-      <>
-        <Text
-          type="hidden"
-          field="mixerAccount"
-          defaultValue={mixerData && mixerData.rsId}
-        />
-        <Text
-          type="hidden"
-          field="mixerPublicKey"
-          defaultValue={mixerData && mixerData.publicKey}
-        />
-      </>
-    )}
     {useMixer && (
       <InfoBox info>
         Your money will be sent directly to mixer account and during estimated mixing
@@ -44,46 +28,34 @@ const SendPrivateMoneyForm = ({
         Each wallet passed through will incur a fee.
       </InfoBox>
     )}
-    <NummericInputForm
-      field="amountATM"
+    <NumericInput
+      name="amountATM"
       counterLabel="APL"
       type="tel"
       label="Amount"
-      setValue={setValue}
       placeholder="Amount"
       idGroup={idGroup}
-      defaultValue={(modalData && modalData.amountATM) ? modalData.amountATM : ''}
     />
     {mixerData && (
-      <CheckboxFormInput
-        checkboxes={[
-          {
-            field: 'isMixer',
-            label: 'Use Mixer',
-            defaultValue: useMixer,
-            handler: handleUseMixer,
-          },
-        ]}
+      <CheckboxForm
+        name="isMixer"
+        label="Use Mixer"
       />
     )}
     {useMixer && (
-      <NummericInputForm
-        field="duration"
+      <NumericInput
+        name="duration"
         counterLabel="Minutes"
         type="float"
         label="Mixing time"
-        setValue={setValue}
         placeholder="Duration"
         idGroup={idGroup}
-        defaultValue={(modalData && modalData.duration) ? modalData.duration : ''}
       />
     )}
-    <FeeInputForm
-      field="feeATM"
+    <FeeInput
+      name="feeATM"
       values={values}
-      setValue={setValue}
       idGroup={idGroup}
-      defaultValue={(modalData && modalData.feeATM) || '5'}
     />
   </>
 );
