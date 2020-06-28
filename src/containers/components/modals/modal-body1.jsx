@@ -15,7 +15,7 @@ export default function ModalBody(props) {
   const { modalData, modalsHistory } = useSelector(state => state.modals);
 
   const {
-    handleFormSubmit, onChange, isPour, isXWide, isWide, newInitialValues,
+    handleFormSubmit, onChange, isPour, isXWide, isWide, initialValues,
   } = props;
 
   const handleSubmit = useCallback(values => {
@@ -46,7 +46,7 @@ export default function ModalBody(props) {
       <Formik
         initialValues={{
           feeATM: (modalData && modalData.feeATM) || '1',
-          ...newInitialValues,
+          ...initialValues,
         }}
         enableReinitialize
         onChange={handleChange}

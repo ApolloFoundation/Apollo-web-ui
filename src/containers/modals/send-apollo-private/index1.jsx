@@ -22,6 +22,7 @@ export default function SendApolloPrivate(props) {
   const { closeModal } = props;
 
   const { modalData } = useSelector(state => state.modals);
+  const { mixerUrl } = useSelector(state => state.account.constants);
 
   const [isPrivateTransactionAlert, setIsPrivateTransactionAlert] = useState(false);
   const [useMixer, setUseMixer] = useState(false);
@@ -29,20 +30,20 @@ export default function SendApolloPrivate(props) {
   const [newMixerData, setNewMixerData] = useState(null);
 
   const handleGetMixerAccount = useCallback(async () => {
-    const { accountPrefix, mixerUrl } = props;
+    const { accountPrefix } = props;
     if (!mixerUrl) return;
 
     const mixerData = await getMixerAccount(mixerUrl);
+
     if (mixerData && mixerData.rsId) {
       const mixerAccount = mixerData.rsId;
       mixerData.rsId = mixerAccount.replace('APL-', `${accountPrefix}-`);
       setNewMixerData(mixerData);
       setUseMixer(true);
     }
-  }, [props]);
+  }, [mixerUrl, props]);
 
   const handleFormSubmit = async values => {
-    debugger
     if (!isPending) {
       if (!values.recipient) {
         NotificationManager.error('Recipient not specified.', 'Error', 5000);
@@ -59,7 +60,7 @@ export default function SendApolloPrivate(props) {
 
       const newValues = values;
 
-      if (useMixer) {
+      if (values.isMixer) {
         newValues.messageToEncrypt = JSON.stringify({
           type: 'REQUEST_MIXING',
           epicId: values.recipient,
@@ -148,7 +149,6 @@ export default function SendApolloPrivate(props) {
         </InfoBox>
       )}
       <SendPrivateApolloForm
-        useMixer={useMixer}
         mixerData={newMixerData}
       />
     </ModalBody>

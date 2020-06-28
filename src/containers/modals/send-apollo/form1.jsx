@@ -8,7 +8,7 @@ import CustomTextArea from '../../components/form-components/text-area1';
 import AutoComplete from '../../components/auto-complete';
 import CheckboxFormInput from '../../components/check-button-input';
 import AccountRSForm from '../../components/form-components/account-rs1';
-import CustomInput from '../../components/custom-input';
+import NumericInput from '../../components/form-components/numeric-input1';
 
 const newAliasValidation = /APL-[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{5}/;
 const oldAliasValidation = /^acct:(APL-[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{5})@apl$/i;
@@ -59,11 +59,13 @@ export default function SendMoneyForm({
             .then(({ aliases }) => getAliasOptions(aliases))}
         />
       )}
-      <CustomInput
+      <NumericInput
         name="amountATM"
         label="Amount APL"
+        counterLabel="APL"
         type="tel"
         placeholder="Amount"
+        idGroup={idGroup}
       />
       <CustomInputForm
         hendler={() => dispatch(setBodyModalParamsAction('SEND_APOLLO_PRIVATE', { ...values, feeATM: 5 }))}

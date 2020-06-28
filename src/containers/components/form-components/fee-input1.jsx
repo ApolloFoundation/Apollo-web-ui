@@ -40,14 +40,11 @@ const FeeInput = ({
         )}
       </div>
     </div>
-    {
-      inputHint
-      && (
-        <div className="form-group mb-15">
-          <div className="form-sub-title">{inputHint}</div>
-        </div>
-      )
-    }
+    {inputHint && (
+      <div className="form-group mb-15">
+        <div className="form-sub-title">{inputHint}</div>
+      </div>
+    )}
   </>
 );
 

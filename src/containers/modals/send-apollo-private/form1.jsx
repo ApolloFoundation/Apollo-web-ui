@@ -6,9 +6,7 @@ import NumericInput from '../../components/form-components/numeric-input1';
 import FeeInput from '../../components/form-components/fee-input1';
 import InfoBox from '../../components/info-box';
 
-const SendPrivateMoneyForm = ({
-  values, idGroup, useMixer, mixerData,
-}) => (
+const SendPrivateMoneyForm = ({ values, idGroup, mixerData }) => (
   <>
     <AccountRS
       name="recipient"
@@ -16,7 +14,7 @@ const SendPrivateMoneyForm = ({
       placeholder="Recipient"
       id={`${idGroup}recipient-field`}
     />
-    {useMixer && (
+    {values.isMixer && (
       <InfoBox info>
         Your money will be sent directly to mixer account and during estimated mixing
         time, money will be transferred to recipient's account.
@@ -33,7 +31,7 @@ const SendPrivateMoneyForm = ({
       counterLabel="APL"
       type="tel"
       label="Amount"
-      placeholder="Amount"
+      placeholder="Amount APL"
       idGroup={idGroup}
     />
     {mixerData && (
@@ -42,7 +40,7 @@ const SendPrivateMoneyForm = ({
         label="Use Mixer"
       />
     )}
-    {useMixer && (
+    {values.isMixer && (
       <NumericInput
         name="duration"
         counterLabel="Minutes"

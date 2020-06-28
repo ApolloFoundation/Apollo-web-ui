@@ -70,7 +70,7 @@ export default function SendApollo(props) {
       isAdvanced
       submitButtonName="Send"
       idGroup="send-money-modal-"
-      newInitialValues={{
+      initialValues={{
         recipient: (modalData && modalData.recipient) || '',
         amountATM: (modalData && modalData.amountATM) || '',
         encrypt_message: true,
