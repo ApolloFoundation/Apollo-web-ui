@@ -841,12 +841,22 @@ $img-ratio-xl: 564/1140;
 	}
 }
 
+.input-group {
+  .input-group-append {
+    margin: 0;
+    align-items: flex-end;
+    margin-bottom: 1rem;
+	}
+}
+
 .disabled-fee-wrap {
 	display: flex;
 	align-items: center;
 
 	.input-group-append {
-		margin: 0;
+    margin: 0;
+    align-items: flex-end;
+    margin-bottom: 1rem;
 	}
 
 	.disabled-fee-checkbox {

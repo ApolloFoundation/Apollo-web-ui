@@ -42,7 +42,7 @@ const SendPrivateMoneyForm = ({values, setValue, modalData, idGroup, useMixer, m
                 Disclaimer:
                 <br />
                 the fee does not include any fees deducted from the mixing process itself.
-                The amount that arrives at the destination is dependent on the amount of wallets used to mask this transaction. 
+                The amount that arrives at the destination is dependent on the amount of wallets used to mask this transaction.
                 Each wallet passed through will incur a fee.
             </InfoBox>
         }

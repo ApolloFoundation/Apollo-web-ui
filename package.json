@@ -4,10 +4,12 @@
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-free": "5.13.0",
+    "apl-web-crypto": "^1.0.2",
     "axios": "0.19.2",
     "bootstrap": "4.4.1",
     "chart.js": "2.9.3",
     "classnames": "2.2.6",
+    "formik": "2.1.4",
     "core-js": "3.6.5",
     "crypto-js": "4.0.0",
     "express": "4.17.1",
@@ -57,10 +59,18 @@
     "pack": "build --dir",
     "dist": "npm run build && build",
     "prezip": "npm run build",
-    "zip": "mkdir -p target && node ./npm-pack-zip.js"
+    "zip": "mkdir -p target && node ./npm-pack-zip.js",
+    "lint": "eslint ./src"
   },
   "devDependencies": {
-    "node-sass": "4.13.0"
+    "eslint": "6.8.0",
+    "eslint-config-airbnb": "18.1.0",
+    "eslint-plugin-react": "7.19.0",
+    "eslint-plugin-react-hooks": "^4.0.2",
+    "node-sass": "4.13.0",
+    "archiver-promise": "1.0.0",
+    "path": "0.12.7",
+    "sanitize-filename": "1.6.3"
   },
   "build": {
     "directories": {
