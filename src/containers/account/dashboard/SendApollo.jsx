@@ -108,16 +108,8 @@ export default function SendApollo() {
                     className="btn"
                     color="green"
                     size="lg"
+                    isArrow
                   />
-                  {/* <button
-                    type="submit"
-                    className="btn btn-green btn-lg"
-                  >
-                    <span>Send Apollo</span>
-                    <div className="btn-arrow">
-                      <ArrowRight />
-                    </div>
-                  </button> */}
                 </>
               ) : (
                 <div className="qr-code-wrap">

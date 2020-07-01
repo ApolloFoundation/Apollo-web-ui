@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { ReactComponent as ArrowRight } from '../../../assets/arrow-right.svg';
 import { setBodyModalParamsAction } from '../../../modules/modals';
+import Button from '../../components/button';
 import ContentLoader from '../../components/content-loader';
 
 export default function ActivePolls() {
@@ -44,16 +45,13 @@ export default function ActivePolls() {
       <div className="card-body">
         <div className="d-flex flex-column justify-content-between h-100">
           {activePollsContent}
-          <button
-            type="button"
-            className="btn btn-grey btn-lg"
+          <Button
+            size="lg"
+            color="grey"
             onClick={() => dispatch(setBodyModalParamsAction('ISSUE_POLL'))}
-          >
-            <span>Create poll</span>
-            <div className="btn-arrow">
-              <ArrowRight />
-            </div>
-          </button>
+            name="Create poll"
+            isArrow
+          />
         </div>
       </div>
     </div>

@@ -2,13 +2,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
+import { ReactComponent as ArrowRight } from '../../../assets/arrow-right.svg';
 
 import './styles.scss';
 
 export default function Button(props) {
   const {
     onClick, name, className, type, disabled,
-    color, size, isLoading,
+    color, size, isLoading, isArrow,
   } = props;
 
   return (
@@ -28,6 +29,11 @@ export default function Button(props) {
         </div>
       )}
       <span className="button-text">{name}</span>
+      {isArrow && (
+        <div className="btn-arrow">
+          <ArrowRight />
+        </div>
+      )}
     </button>
   );
 }
