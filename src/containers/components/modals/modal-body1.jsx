@@ -4,7 +4,7 @@ import { Formik, Form } from 'formik';
 import classNames from 'classnames';
 import { ONE_APL } from '../../../constants';
 import { openPrevModal, saveSendModalState } from '../../../modules/modals';
-import FormFooter from '../form-components/form-footer';
+import FormFooter from '../form-components/form-footer1';
 import ModalFooter from '../modal-footer/index1';
 import AdvancedSettings from '../advanced-transaction-settings';
 import FeeInputForm from '../form-components/fee-input1';
