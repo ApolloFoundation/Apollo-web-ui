@@ -22,7 +22,7 @@ export default function SendApolloPrivate(props) {
   const { closeModal } = props;
 
   const { modalData } = useSelector(state => state.modals);
-  const { mixerUrl } = useSelector(state => state.account.constants);
+  const { mixerUrl, accountPrefix } = useSelector(state => state.account.constants);
 
   const [isPrivateTransactionAlert, setIsPrivateTransactionAlert] = useState(false);
   const [useMixer, setUseMixer] = useState(false);
@@ -30,20 +30,19 @@ export default function SendApolloPrivate(props) {
   const [newMixerData, setNewMixerData] = useState(null);
 
   const handleGetMixerAccount = useCallback(async () => {
-    const { accountPrefix } = props;
     if (!mixerUrl) return;
 
     const mixerData = await getMixerAccount(mixerUrl);
 
     if (mixerData && mixerData.rsId) {
       const mixerAccount = mixerData.rsId;
-      mixerData.rsId = mixerAccount.replace('APL-', `${accountPrefix}-`);
+      mixerData.rsId = mixerAccount.replace('APL-', `${accountPrefix || ''}-`);
       setNewMixerData(mixerData);
       setUseMixer(true);
     }
-  }, [mixerUrl, props]);
+  }, [accountPrefix, mixerUrl]);
 
-  const handleFormSubmit = async values => {
+  const handleFormSubmit = useCallback(async values => {
     if (!isPending) {
       if (!values.recipient) {
         NotificationManager.error('Recipient not specified.', 'Error', 5000);
@@ -94,7 +93,7 @@ export default function SendApolloPrivate(props) {
         duration, isMixer, mixerPublicKey, ...params
       } = newValues;
 
-      dispatch(await submitForm(params, 'sendMoneyPrivate'))
+      dispatch(await dispatch(submitForm.submitForm(params, 'sendMoneyPrivate')))
         .done(privateTransaction => {
           if (privateTransaction && privateTransaction.errorCode) {
             NotificationManager.error(privateTransaction.errorDescription, 'Error', 5000);
@@ -105,7 +104,7 @@ export default function SendApolloPrivate(props) {
           setIsPending(false);
         });
     }
-  };
+  }, [dispatch, isPending]);
 
   const setConfirm = () => {
     setIsPrivateTransactionAlert(true);
@@ -131,7 +130,7 @@ export default function SendApolloPrivate(props) {
         mixerAccount: useMixer && (newMixerData && newMixerData.rsId),
         mixerPublicKey: useMixer && (newMixerData && newMixerData.publicKey),
         duration: (modalData && modalData.duration) || '',
-        feeATM: (modalData && modalData.feeATM) || '5',
+        feeATM: '5',
         isMixer: useMixer,
       }}
     >

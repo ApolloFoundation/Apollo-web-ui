@@ -305,7 +305,11 @@
 		&:hover {
 			background: #f5f7fc;
 		}
-	}
+  }
+  &.btn-transparent {
+    background: none;
+    box-shadow: none !important;
+  }
 	&.btn-grey {
 		color: #98B0CD;
 		background-color: rgba(152,176,205,0.15);

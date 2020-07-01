@@ -3,13 +3,13 @@ import { useField } from 'formik';
 // import { TextArea } from 'react-form';
 
 const CustomTextArea = ({
-  label, name, placeholder, note, className, idGroup, rows,
+  label, name, placeholder, note, className, idGroup, rows, cols, labelStyle,
 }) => {
   const [field, , helpers] = useField(name);
 
   return (
     <div className={`form-group mb-15 ${className}`}>
-      <label>
+      <label className={labelStyle}>
         {label}
       </label>
       <div>
@@ -17,7 +17,7 @@ const CustomTextArea = ({
           {...field}
           className="form-control"
           placeholder={placeholder}
-          cols="30"
+          cols={cols || '30'}
           rows={rows || '5'}
           id={`${idGroup}${name}-field`}
         />

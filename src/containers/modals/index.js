@@ -18,7 +18,7 @@ import IssueAsset from "./issue/issue-asset"
 import InfoTransaction from './info-transaction/info-transaction';
 import InfoLedgerTransaction from './info-ledger-transaction';
 import InfoBlock from './info-block';
-import RawTransactionDetails from './send-apollo/raw-transaction-details';
+import RawTransactionDetails from './send-apollo/raw-transaction-details1';
 // Account
 import InfoAccount from './account/account/';
 import CreateUser from './account/create-account';

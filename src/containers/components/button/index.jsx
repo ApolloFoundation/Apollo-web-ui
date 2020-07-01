@@ -34,7 +34,7 @@ export default function Button(props) {
 
 PropTypes.propTypes = {
   type: PropTypes.oneOf(['button', 'submit']),
-  color: PropTypes.oneOf(['default', 'green', 'grey']),
+  color: PropTypes.oneOf(['default', 'green', 'grey', 'transparent']),
   size: PropTypes.oneOf(['sm', 'lg']),
   className: PropTypes.string,
   name: PropTypes.string,
