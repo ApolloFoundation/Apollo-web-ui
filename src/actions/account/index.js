@@ -16,7 +16,7 @@ import {getTradesAction} from '../../actions/trade-history';
 import {getAccountCurrenciesAction} from '../../actions/currencies';
 import {getDGSGoodsAction} from '../../actions/marketplace';
 
-import {writeToLocalStorage} from "../localStorage";
+import {writeToLocalStorage, deleteFromLocalStorage} from "../localStorage";
 import {NotificationManager} from "react-notifications";
 import submitForm from '../../helpers/forms/forms'
 import store from '../../store'
@@ -76,6 +76,8 @@ export function switchAccountAction(account, history) {
         if (history) history.push('/dashboard');
 
         // Closing current modal window
+        deleteFromLocalStorage('secretPhrase');
+        writeToLocalStorage();
         dispatch(setBodyModalParamsAction())
     }
 }
