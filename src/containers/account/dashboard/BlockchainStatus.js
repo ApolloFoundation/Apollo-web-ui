@@ -5,6 +5,7 @@ import ContentLoader from '../../components/content-loader';
 import {formatTimestamp} from "../../../helpers/util/time";
 import {setBodyModalParamsAction} from '../../../modules/modals';
 import {getForging, setForging} from "../../../actions/login";
+import {readFromLocalStorage} from '../../../actions/localStorage';
 import {ReactComponent as ClockIcon} from "../../../assets/clock-icon.svg";
 
 class BlockchainStatus extends Component {
@@ -22,8 +23,10 @@ class BlockchainStatus extends Component {
             NotificationManager.error('Your effective balance must be greater than 1000 APL to forge.', 'Error', 5000);
             return;
         }
-        const passPhrase = JSON.parse(localStorage.getItem('secretPhrase')) || this.props.secretPhrase;
-        if (!passPhrase || this.props.is2FA) {
+        const prevAccountRS = JSON.parse(readFromLocalStorage('APLUserRS'));
+        const passPhrase = JSON.parse(readFromLocalStorage('secretPhrase')) || this.props.secretPhrase;
+
+        if (!passPhrase || this.props.is2FA || prevAccountRS !== this.props.account) {
             this.props.setBodyModalParamsAction('CONFIRM_FORGING', this.setForgingData(action))
         } else {
             const forging = await this.props.setForging({requestType: action});
@@ -119,6 +122,7 @@ class BlockchainStatus extends Component {
 }
 
 const mapStateToProps = state => ({
+    account: state.account.accountRS,
     actualBlock: state.account.actualBlock,
     timestamp: state.account.timestamp,
     blockchainStatus: state.account.blockchainStatus,
