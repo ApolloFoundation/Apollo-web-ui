@@ -76,6 +76,7 @@ export function switchAccountAction(account, history) {
         if (history) history.push('/dashboard');
         // Closing current modal window
         dispatch(setBodyModalParamsAction())
+        writeToLocalStorage('APLUserRS', account)
         deleteFromLocalStorage('secretPhrase');
     }
 }
