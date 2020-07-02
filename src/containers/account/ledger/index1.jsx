@@ -14,6 +14,7 @@ import { setModalCallback, setModalType } from '../../../modules/modals';
 import { BlockUpdater } from '../../block-subscriber';
 import SiteHeader from '../../components/site-header';
 import CustomTable from '../../components/tables/table';
+import Button from '../../components/button';
 import Entry from './entry/index1';
 
 export default function Ledger() {
@@ -103,19 +104,14 @@ export default function Ledger() {
   return (
     <Suspense fallback="loading">
       <div className="page-content">
-        <SiteHeader
-          pageTitle="Account ledger"
-        >
-          <button
-            type="button"
-            className={classNames({
-              'btn btn-green btn-sm': true,
-              disabled: isPrivate,
-            })}
+        <SiteHeader pageTitle="Account ledger">
+          <Button
+            size="sm"
+            color="green"
+            disabled={isPrivate}
             onClick={() => dispatch(setModalType('PrivateTransactions'))}
-          >
-            Show private transactions
-          </button>
+            name="Show private transactions"
+          />
         </SiteHeader>
         <div className="page-body container-fluid">
           <div>

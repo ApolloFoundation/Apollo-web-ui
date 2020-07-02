@@ -9,6 +9,8 @@ import { useDispatch } from 'react-redux';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
 import { formatTimestamp } from '../../../../helpers/util/time';
 import { ONE_APL } from '../../../../constants';
+import Button from '../../../components/button';
+
 
 export default function Entry(props) {
   const dispatch = useDispatch();
@@ -31,7 +33,8 @@ export default function Entry(props) {
       {ledgerId && (
         <tr>
           <td className="blue-link-text">
-            <button
+            <Button
+              color="blue-link"
               onClick={() => {
                 dispatch(setBodyModalParamsAction(
                   'INFO_LEDGER_TRANSACTION',
@@ -39,18 +42,17 @@ export default function Entry(props) {
                   eventType === 'PRIVATE_PAYMENT',
                 ));
               }}
-            >
-              {dispatch(formatTimestamp(timestamp))}
-            </button>
+              name={dispatch(formatTimestamp(timestamp))}
+            />
           </td>
           <td>
             {ledgerId && eventType && (
               i18n.t(eventType.toLowerCase())
             )}
                 &nbsp;&nbsp;
-            <a onClick={showInfo}>
+            <span onClick={showInfo}>
               <span className="zmdi zmdi-info" />
-            </a>
+            </span>
           </td>
           <td className="align-right">
             {holdingType === 'UNCONFIRMED_APL_BALANCE'
