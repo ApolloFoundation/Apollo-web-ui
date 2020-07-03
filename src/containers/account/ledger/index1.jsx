@@ -13,7 +13,7 @@ import { getAccountLedgerAction } from '../../../actions/ledger';
 import { setModalCallback, setModalType } from '../../../modules/modals';
 import { BlockUpdater } from '../../block-subscriber';
 import SiteHeader from '../../components/site-header';
-import CustomTable from '../../components/tables/table';
+import CustomTable from '../../components/tables/table1';
 import Button from '../../components/button';
 import Entry from './entry/index1';
 
