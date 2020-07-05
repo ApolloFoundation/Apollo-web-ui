@@ -6,6 +6,7 @@ import { NotificationManager } from 'react-notifications';
 import { formatTimestamp } from '../../../helpers/util/time';
 import { setBodyModalParamsAction } from '../../../modules/modals';
 import { getForging, setForging } from '../../../actions/login';
+import { readFromLocalStorage } from '../../../actions/localStorage';
 import { ReactComponent as ClockIcon } from '../../../assets/clock-icon.svg';
 import ContentLoader from '../../components/content-loader';
 import Button from '../../components/button';
@@ -16,8 +17,8 @@ export default function BlockchainStatus() {
   const [, setForgingStatus] = useState(null);
 
   const {
-    effectiveBalanceAPL, passPhrase: { secretPhrase }, is2FA, actualBlock,
-    timestamp, blockchainStatus, forgingStatus,
+    effectiveBalanceAPL, passPhrase: secretPhrase, is2FA, actualBlock,
+    timestamp, blockchainStatus, forgingStatus, accountRS,
   } = useSelector(state => state.account);
 
   const setForgingData = action => ({
@@ -32,8 +33,10 @@ export default function BlockchainStatus() {
       NotificationManager.error('Your effective balance must be greater than 1000 APL to forge.', 'Error', 5000);
       return;
     }
-    const passPhrase = JSON.parse(localStorage.getItem('secretPhrase')) || secretPhrase;
-    if (!passPhrase || is2FA) {
+
+    const prevAccountRS = JSON.parse(readFromLocalStorage('APLUserRS'));
+    const passPhrase = JSON.parse(readFromLocalStorage('secretPhrase')) || secretPhrase;
+    if (!passPhrase || is2FA || prevAccountRS !== accountRS) {
       dispatch(setBodyModalParamsAction('CONFIRM_FORGING', setForgingData(action)));
     } else {
       const forging = await dispatch(setForging({ requestType: action }));
@@ -52,7 +55,7 @@ export default function BlockchainStatus() {
         }
       }
     }
-  }, [dispatch, effectiveBalanceAPL, is2FA, secretPhrase]);
+  }, [accountRS, dispatch, effectiveBalanceAPL, is2FA, secretPhrase]);
 
   const currentForgingStatus = useMemo(() => {
     if (!forgingStatus) {
