@@ -1,19 +1,23 @@
-/******************************************************************************
+/** ****************************************************************************
  * Copyright © 2018 Apollo Foundation                                         *
  *                                                                            *
- ******************************************************************************/
+ ***************************************************************************** */
 
-
-import React, { useEffect, useCallback } from 'react';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import React, {
+  useEffect, useCallback, useMemo, useState,
+} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
-import SiteHeader from  '../../components/site-header'
-import Transaction from './transaction'
-import {getTransactionsAction, getTransactionAction, getPrivateTransactionAction} from "../../../actions/transactions";
-import {setModalCallback, setBodyModalParamsAction, setModalType} from "../../../modules/modals";
-import {BlockUpdater} from "../../block-subscriber/index";
-import {NotificationManager} from "react-notifications";
-
+import { NotificationManager } from 'react-notifications';
+import {
+  getTransactionsAction, getTransactionAction, getPrivateTransactionAction,
+} from '../../../actions/transactions';
+import {
+  setModalCallback, setBodyModalParamsAction, setModalType,
+} from '../../../modules/modals';
+import { BlockUpdater } from '../../block-subscriber/index';
+import SiteHeader from '../../components/site-header';
+import Transaction from './transaction';
 import CustomTable from '../../components/tables/table';
 
 export default function Transactions() {
@@ -30,520 +34,337 @@ export default function Transactions() {
   const [transactions, setTransactions] = useState(null);
   const [isUnconfirmed, setIsUnconfirmed] = useState(false);
   const [isAll, setIsAll] = useState(false);
+  const [isError, setIsError] = useState(null);
+  const [isPrivate, setIsPrivate] = useState(null);
+  const [isPhassing, setIsPhassing] = useState(null);
+  const [passphrase, setPassphrase] = useState(null);
 
-  const updateTransactionsData  = useCallback(newState  => {
-    // check
-    this.setState({
-        ...newState,
+  const getUnconfirmedTransactionsTransactions = useCallback(async requestParams => {
+    const params = requestParams;
+    if (isAll) {
+      delete params.account;
+    }
 
-    }, () => {
-        this.getPrivateTransactions({
-            ...this.state.passphrase
-        });
-    });
-  }, []);
+    const unconfirmedTransactions = await dispatch(getTransactionsAction(params));
+
+    if (unconfirmedTransactions) {
+      setIsUnconfirmed(true);
+      setTransactions(unconfirmedTransactions.unconfirmedTransactions);
+      // todo: need to check
+      setIsAll(!!isAll || false);
+    }
+  }, [dispatch, isAll]);
+
+  // ! not used
+  // const getTransaction = useCallback(async requestParams => {
+  //   const transaction = await dispatch(getTransactionAction(requestParams));
+  //   dispatch(setBodyModalParamsAction('INFO_TRANSACTION', transaction));
+  // }, [dispatch]);
+
+  // ! not used
+  // const setTransactionInfo = useCallback((modalType, data, isPrivate) => {
+  //   if (isPrivate) {
+  //     getTransaction({
+  //       account,
+  //       transaction: data,
+  //       passphrase: this.state.passphrase.passphrase || null,
+  //       secretPhrase: this.state.passphrase.secretPhrase || null,
+  //     });
+  //   } else {
+  //     getTransaction({
+  //       account,
+  //       transaction: data,
+  //     });
+  //   }
+  // }, []);
+
+  const getTransactions = useCallback(async (requestParams, all) => {
+    const params = requestParams;
+    delete params.requestType;
+
+    if (!isUnconfirmed && !isPhassing) {
+      const currTransactions = await dispatch(getTransactionsAction(params));
+
+      if (currTransactions) {
+        if (!currTransactions.errorCode) {
+          setTransactions(currTransactions.transactions);
+          setIsUnconfirmed(false);
+          setIsError(false);
+          if (currTransactions.serverPublicKey && !isPrivate) {
+            setIsPrivate(true);
+            // ! should be callBack
+            NotificationManager.success('You are watching private transactions.', null, 900000);
+          }
+        } else if (!isError) {
+          setIsError(true);
+          // ! should be callBack
+          NotificationManager.error(currTransactions.errorDescription, 'Error', 900000);
+        }
+      }
+    }
+
+    if (isUnconfirmed) {
+      params.requestType = requestType;
+      getUnconfirmedTransactionsTransactions(params, all);
+    }
+
+    if (isPhassing) {
+      params.requestType = requestType;
+
+      const newTransactions = await dispatch(getTransactionsAction(params));
+
+      if (newTransactions) {
+        setTransactions(newTransactions.transactions);
+      }
+    }
+  }, [
+    dispatch, getUnconfirmedTransactionsTransactions, isError,
+    isPhassing, isPrivate, isUnconfirmed, requestType,
+  ]);
 
   const getPrivateTransactions = useCallback(data => {
     let reqParams = {
-        type: type,
-        account: account,
-        firstIndex: firstIndex,
-        lastIndex: lastIndex,
-        requestType: requestType,
+      type,
+      account,
+      firstIndex,
+      lastIndex,
+      requestType,
     };
 
     if (data) {
-        if (Object.values(data)[0]) {
-            reqParams = {
-                ...reqParams,
-                ...data
-            }
-            this.setState({
-                ...this.state,
-                passphrase: data
-            }, () => {
-                this.getTransactions(reqParams);
-            });
-        }
-        else {
-            this.getTransactions(reqParams);
-        }
+      if (Object.values(data)[0]) {
+        reqParams = {
+          ...reqParams,
+          ...data,
+        };
+        setPassphrase(data);
+        // ! should be callBack
+        getTransactions(reqParams);
+      } else {
+        getTransactions(reqParams);
+      }
     }
-  }, []);
+  }, [account, firstIndex, getTransactions, lastIndex, requestType, type]);
 
-  const onPaginate = useCallback(page => {
-    let reqParams = {
-        type: type,
-        account: account,
-        page: page,
-        firstIndex: page * 15 - 15,
-        lastIndex: page * 15,
-        requestType: requestType,
-        ...this.state.passphrase
-    };
-
-
-    this.setState(reqParams, () => {
-        this.getTransactions(reqParams, this.state.isAll)
+  const updateTransactionsData = useCallback(newState => {
+    // todo: check
+    this.setState({ ...newState }, () => {
+      getPrivateTransactions({ ...passphrase });
     });
   }, []);
 
-const getTransactions = useCallback(async (requestParams, all) => {
-    let params = requestParams;
-    delete params.requestType;
+  const onPaginate = useCallback(newPage => {
+    const reqParams = {
+      type,
+      account,
+      page: newPage,
+      firstIndex: newPage * 15 - 15,
+      lastIndex: newPage * 15,
+      requestType,
+      ...passphrase,
+    };
 
-    if (!this.state.isUnconfirmed && !this.state.isPhassing) {
-        const transactions = await this.props.getTransactionsAction(params);
-
-        if (transactions) {
-            if (!transactions.errorCode) {
-                this.setState({
-                    transactions: transactions.transactions,
-                    isUnconfirmed: false,
-                    isError: false,
-                });
-                if (transactions.serverPublicKey && !this.state.isPrivate) {
-                    this.setState({
-                        isPrivate: true
-                    }, () => {
-                        NotificationManager.success('You are watching private transactions.', null, 900000);
-                    })
-                }
-            } else {
-                if (!this.state.isError) {
-                    this.setState({
-                        isError: true
-                    }, () => {
-                        NotificationManager.error(transactions.errorDescription, 'Error', 900000);
-                    })
-                }
-            }
-        }
-    }
-
-    if (this.state.isUnconfirmed) {
-        params.requestType = this.state.requestType;
-        this.getUnconfirmedTransactionsTransactions(params, all)
-    }
-
-    if (this.state.isPhassing) {
-        params.requestType = this.state.requestType;
-
-        const transactions = await this.props.getTransactionsAction(params);
-
-        if (transactions) {
-            this.setState({
-                transactions: transactions.transactions
-            });
-        }
-    }
+    this.setState(reqParams, () => {
+      getTransactions(reqParams, isAll);
+    });
   }, []);
 
-  const getUnconfirmedTransactionsTransactions  = useCallback(async (requestParams) => {
-    let params = requestParams;
-    if (this.state.isAll) {
-        delete params.account;
-    }
-    const unconfirmedTransactions = await this.props.getTransactionsAction(params);
-
-    if (unconfirmedTransactions) {
-        if (this.state.isAll) {
-            this.setState({
-                isAll: true,
-                isUnconfirmed: true,
-                transactions: unconfirmedTransactions.unconfirmedTransactions,
-            });
-        } else {
-            this.setState({
-                isAll: false,
-                isUnconfirmed: true,
-                transactions: unconfirmedTransactions.unconfirmedTransactions
-            });
-        }
-    }
-  }, []);
-
-  const getTransaction = useCallback(async (requestParams) => {
-    const transaction = await this.props.getTransactionAction(requestParams);
-    this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction)
-  }, []);
-
-  const setTransactionInfo = useCallback((modalType, data, isPrivate) => {
-    if (isPrivate) {
-        this.getTransaction({
-            account: account,
-            transaction: data,
-            passphrase:   this.state.passphrase.passphrase || null ,
-            secretPhrase: this.state.passphrase.secretPhrase || null
-        });
-    } else {
-        this.getTransaction({
-            account: account,
-            transaction: data,
-        });
-    }
-  }, []);
-
-  const handleTransactionFilters = useCallback((type, subtype, requestType, all) => {
-    if (requestType === 'getUnconfirmedTransactions') {
-        if (all) {
-            this.setState({
-                isAll: true,
-                isUnconfirmed: true,
-                isPhassing: false
-            }, () => {
-                next();
-
-            })
-        } else {
-            this.setState({
-                isAll: false,
-                isUnconfirmed: true,
-                isPhassing: false
-            }, () => {
-                next();
-
-            })
-        }
-
-    }
-    else if (requestType === 'getAccountPhasedTransactions') {
-        this.setState({
-            isPhassing: true,
-            isUnconfirmed: false,
-            type: null,
-            subtype: null
-        }, () => {
-            next();
-
-        })
-    }
-    else {
-        this.setState({
-            isUnconfirmed: false,
-            isPhassing: false
-        }, () => {
-            next();
-        })
-    }
-
+  const handleTransactionFilters = useCallback((currType, currSubtype, currRequestType, all) => {
     const next = () => {
-        this.setState({
-            type: type,
-            subtype: subtype,
-            page:       1,
-            firstIndex: 0,
-            lastIndex:  15,
-            requestType: requestType,
-            ...this.state.passphrase
+      setType(currType);
+      setSubtype(currSubtype);
+      setPage(1);
+      setFirstIndex(0);
+      setLastIndex(15);
+      setRequestType(currRequestType);
+      // ! should be callBack
+      getTransactions({
+        type,
+        account,
+        firstIndex: 0,
+        lastIndex: 15,
+        requestType,
+        ...passphrase,
+      }, all);
+      // });
+    };
 
-        }, () => {
-            this.getTransactions({
-                type: this.state.type,
-                account:    this.props.account,
-                firstIndex: 0,
-                lastIndex:  15,
-                requestType: requestType,
-                ...this.state.passphrase
-            }, all);
-        });
+    if (requestType === 'getUnconfirmedTransactions') {
+      setIsUnconfirmed(true);
+      setIsPhassing(false);
+      setIsAll(!!all || false);
+      // todo: need to check
+      next();
+    } else if (requestType === 'getAccountPhasedTransactions') {
+      setIsPhassing(true);
+      setIsUnconfirmed(false);
+      setType(null);
+      setSubtype(null);
+      // todo: need to check
+      next();
+    } else {
+      this.setState({
+        isUnconfirmed: false,
+        isPhassing: false,
+      }, () => {
+        next();
+      });
     }
   }, []);
+
+  const AboveTabeComponentItem = useMemo((label, handler, activeCondition) => (
+    <div
+      className={classNames({
+        btn: true,
+        filter: true,
+        active: activeCondition,
+      })}
+      onClick={() => handleTransactionFilters(handler, null)}
+    >
+      {label}
+    </div>
+  ), []);
+
+  const AboveTabeComponent = useMemo(() => (
+    <div className="transactions-filters">
+      <div className="top-bar">
+        {AboveTabeComponentItem('All types', null, type !== 0 && !type && !subtype && !isPhassing && !isUnconfirmed)}
+        {AboveTabeComponentItem(<i className="zmdi zmdi-card" />, 0, type === 0 && !subtype && !isPhassing)}
+        {AboveTabeComponentItem(<i className="zmdi zmdi-email" />, 1, type === 1 && !subtype)}
+        {AboveTabeComponentItem(<i className="zmdi zmdi-equalizer" />, 2, type === 2 && !subtype)}
+        {AboveTabeComponentItem(<i className="zmdi zmdi-shopping-cart" />, 3, type === 3 && !subtype)}
+        {AboveTabeComponentItem(<i className="zmdi zmdi-lock" />, 4, type === 4 && !subtype)}
+        {AboveTabeComponentItem(<i className="zmdi zmdi-balance" />, 5, type === 5 && !subtype)}
+        {AboveTabeComponentItem(<i className="zmdi zmdi-cloud" />, 6, type === 6 && !subtype)}
+        {AboveTabeComponentItem(<i className="zmdi zmdi-shuffle" />, 7, type === 7 && !subtype)}
+        {AboveTabeComponentItem(<i className="zmdi zmdi-help" />, 8, type === 8 && !subtype)}
+        <div
+          className={classNames({
+            btn: true,
+            filter: true,
+            active: isUnconfirmed && !isAll,
+          })}
+          onClick={() => {
+            handleTransactionFilters(null, null, 'getUnconfirmedTransactions', false);
+          }}
+        >
+          Unconfirmed (account)
+        </div>
+        <div
+          className={classNames({
+            btn: true,
+            filter: true,
+            active: isPhassing,
+          })}
+          onClick={() => handleTransactionFilters(null, null, 'getAccountPhasedTransactions')}
+        >
+          Phasing
+        </div>
+        <div
+          className={classNames({
+            btn: true,
+            filter: true,
+            active: isUnconfirmed && isAll,
+          })}
+          onClick={() => handleTransactionFilters(null, null, 'getUnconfirmedTransactions', true)}
+        >
+          All Unconfirmed
+        </div>
+
+      </div>
+    </div>
+  ), [AboveTabeComponentItem, handleTransactionFilters, isAll, isPhassing, isUnconfirmed, subtype, type]);
 
   useEffect(() => {
     getTransactions({
-      type: type,
-      account: account,
-      firstIndex: firstIndex,
-      lastIndex: lastIndex,
-      requestType: requestType
+      type,
+      account,
+      firstIndex,
+      lastIndex,
+      requestType,
     });
-    dispatch(setModalCallbackAction(this.getPrivateTransactions));
-    BlockUpdater.on("data", data => {
-        console.warn("height in dashboard", data);
-        console.warn("updating dashboard");
-        updateTransactionsData();
+    dispatch(setModalCallback(getPrivateTransactions));
+    BlockUpdater.on('data', data => {
+      console.warn('height in dashboard', data);
+      console.warn('updating dashboard');
+      updateTransactionsData();
     });
 
-    return BlockUpdater.removeAllListeners('data');
+    return () => {
+      BlockUpdater.removeAllListeners('data');
+    };
   }, []);
 
   useEffect(() => {
     updateTransactionsData(newState);
-  }, [])
-}
-class Transactions extends React.Component {
+  }, []);
 
-
-    getUnconfirmedTransactionsTransactions  = async (requestParams) => {
-        let params = requestParams;
-        if (this.state.isAll) {
-            delete params.account;
-        }
-        const unconfirmedTransactions = await this.props.getTransactionsAction(params);
-
-        if (unconfirmedTransactions) {
-            if (this.state.isAll) {
-                this.setState({
-                    isAll: true,
-                    isUnconfirmed: true,
-                    transactions: unconfirmedTransactions.unconfirmedTransactions,
-                });
-            } else {
-                this.setState({
-                    isAll: false,
-                    isUnconfirmed: true,
-                    transactions: unconfirmedTransactions.unconfirmedTransactions
-                });
-            }
-        }
-    };
-
-    getTransaction = async (requestParams) => {
-        const transaction = await this.props.getTransactionAction(requestParams);
-        this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction)
-    };
-
-    setTransactionInfo(modalType, data, isPrivate) {
-
-        if (isPrivate) {
-            this.getTransaction({
-                account: this.props.account,
-                transaction: data,
-                passphrase:   this.state.passphrase.passphrase || null ,
-                secretPhrase: this.state.passphrase.secretPhrase || null
-            });
-        } else {
-            this.getTransaction({
-                account: this.props.account,
-                transaction: data,
-            });
-        }
-    }
-
-    handleTransactionFilters = (type, subtype, requestType, all) => {
-        if (requestType === 'getUnconfirmedTransactions') {
-            if (all) {
-                this.setState({
-                    isAll: true,
-                    isUnconfirmed: true,
-                    isPhassing: false
-                }, () => {
-                    next();
-
-                })
-            } else {
-                this.setState({
-                    isAll: false,
-                    isUnconfirmed: true,
-                    isPhassing: false
-                }, () => {
-                    next();
-
-                })
-            }
-
-        }
-        else if (requestType === 'getAccountPhasedTransactions') {
-            this.setState({
-                isPhassing: true,
-                isUnconfirmed: false,
-                type: null,
-                subtype: null
-            }, () => {
-                next();
-
-            })
-        }
-        else {
-            this.setState({
-                isUnconfirmed: false,
-                isPhassing: false
-            }, () => {
-                next();
-            })
-        }
-
-        const next = () => {
-            this.setState({
-                type: type,
-                subtype: subtype,
-                page:       1,
-                firstIndex: 0,
-                lastIndex:  15,
-                requestType: requestType,
-                ...this.state.passphrase
-
-            }, () => {
-                this.getTransactions({
-                    type: this.state.type,
-                    account:    this.props.account,
-                    firstIndex: 0,
-                    lastIndex:  15,
-                    requestType: requestType,
-                    ...this.state.passphrase
-                }, all);
-            });
-        }
-    };
-
-    AboveTabeComponentItem = (label, handler, activeCondition) => (
-        <div
-            className={classNames({
-                "btn" : true,
-                "filter" : true,
-                "active": activeCondition
-            })}
-            onClick={() => this.handleTransactionFilters(handler, null)}
+  return (
+    <div className="page-content">
+      <SiteHeader
+        pageTitle="Transactions"
+      >
+        <button
+          type="button"
+          className={classNames({
+            'btn btn-green btn-sm': true,
+            disabled: isPrivate,
+          })}
+          onClick={() => {
+            dispatch(setModalType('PrivateTransactions'));
+          }}
         >
-            {label}
+          Show private transactions
+        </button>
+      </SiteHeader>
+      <div className="page-body container-fluid">
+        <div className="my-transactions">
+          {this.AboveTabeComponent()}
+          <CustomTable
+            header={[
+              {
+                name: 'Date',
+                alignRight: false,
+              }, {
+                name: 'Type',
+                alignRight: false,
+              }, {
+                name: 'Amount',
+                alignRight: true,
+              }, {
+                name: 'Fee',
+                alignRight: true,
+              }, {
+                name: 'Account',
+                alignRight: false,
+              }, {
+                name: 'Phasing',
+                alignRight: true,
+              }, {
+                name: 'Height',
+                alignRight: true,
+              }, {
+                name: 'Confirmations',
+                alignRight: true,
+              },
+            ]}
+            keyField="ledgerId"
+            className="no-min-height mb-3"
+            emptyMessage="No transactions found."
+            TableRowComponent={Transaction}
+            passProps={{
+              secretPhrase: this.state.secretPhrase || this.state.passphrase,
+              isUnconfirmed: this.state.isUnconfirmed,
+            }}
+            tableData={this.state.transactions}
+            isPaginate
+            page={this.state.page}
+            previousHendler={() => this.onPaginate(this.state.page - 1)}
+            nextHendler={() => this.onPaginate(this.state.page + 1)}
+            itemsPerPage={15}
+          />
         </div>
-    );
-
-    AboveTabeComponent = () => (
-        <div className="transactions-filters">
-            <div className="top-bar">
-                {this.AboveTabeComponentItem('All types', null, this.state.type !== 0 && !this.state.type && !this.state.subtype && !this.state.isPhassing && !this.state.isUnconfirmed)}
-
-                {this.AboveTabeComponentItem(<i className="zmdi zmdi-card" />          , 0   , this.state.type === 0 && !this.state.subtype && !this.state.isPhassing)}
-                {this.AboveTabeComponentItem(<i className="zmdi zmdi-email" />         , 1   , this.state.type === 1 && !this.state.subtype)}
-                {this.AboveTabeComponentItem(<i className="zmdi zmdi-equalizer" />     , 2   , this.state.type === 2 && !this.state.subtype)}
-                {this.AboveTabeComponentItem(<i className="zmdi zmdi-shopping-cart" /> , 3   , this.state.type === 3 && !this.state.subtype)}
-                {this.AboveTabeComponentItem(<i className="zmdi zmdi-lock" />          , 4   , this.state.type === 4 && !this.state.subtype)}
-                {this.AboveTabeComponentItem(<i className="zmdi zmdi-balance" />       , 5   , this.state.type === 5 && !this.state.subtype)}
-                {this.AboveTabeComponentItem(<i className="zmdi zmdi-cloud" />         , 6   , this.state.type === 6 && !this.state.subtype)}
-                {this.AboveTabeComponentItem(<i className="zmdi zmdi-shuffle" />       , 7   , this.state.type === 7 && !this.state.subtype)}
-                {this.AboveTabeComponentItem(<i className="zmdi zmdi-help" />          , 8   , this.state.type === 8 && !this.state.subtype)}
-
-                <div
-                    className={classNames({
-                        "btn" : true,
-                        "filter" : true,
-                        "active": this.state.isUnconfirmed && !this.state.isAll
-                    })}
-                    onClick={() => {
-                        this.handleTransactionFilters(null, null, 'getUnconfirmedTransactions', false)
-                    }}
-                >
-                    Unconfirmed (account)
-                </div>
-                <div
-                    className={classNames({
-                        "btn" : true,
-                        "filter" : true,
-                        "active": this.state.isPhassing
-                    })}
-                    onClick={() => this.handleTransactionFilters(null, null, 'getAccountPhasedTransactions')}
-                >
-                    Phasing
-                </div>
-                <div
-                    className={classNames({
-                        "btn" : true,
-                        "filter" : true,
-                        "active": this.state.isUnconfirmed && this.state.isAll
-                    })}
-                    onClick={() => this.handleTransactionFilters(null, null, 'getUnconfirmedTransactions', true)}
-                >
-                    All Unconfirmed
-                </div>
-
-            </div>
-        </div>
-    );
-
-    render () {
-
-        return (
-            <div className="page-content">
-                <SiteHeader
-                    pageTitle={'Transactions'}
-                >
-                    <button
-                        type={'button'}
-                        className={classNames({
-                            'btn btn-green btn-sm': true,
-                            'disabled' : this.state.isPrivate
-                        })}
-                        onClick={() => {
-                            this.props.setModalType('PrivateTransactions')
-                        }}
-                    >
-                        Show private transactions
-                    </button>
-                </SiteHeader>
-                <div className="page-body container-fluid">
-                    <div className={'my-transactions'}>
-                        {this.AboveTabeComponent()}
-                        <CustomTable
-                            header={[
-                                {
-                                    name: 'Date',
-                                    alignRight: false
-                                },{
-                                    name: 'Type',
-                                    alignRight: false
-                                },{
-                                    name: 'Amount',
-                                    alignRight: true
-                                },{
-                                    name: 'Fee',
-                                    alignRight: true
-                                },{
-                                    name: 'Account',
-                                    alignRight: false
-                                },{
-                                    name: 'Phasing',
-                                    alignRight: true
-                                },{
-                                    name: 'Height',
-                                    alignRight: true
-                                },{
-                                    name: 'Confirmations',
-                                    alignRight: true
-                                }
-                            ]}
-                            keyField={'ledgerId'}
-                            className={'no-min-height mb-3'}
-                            emptyMessage={'No transactions found.'}
-                            TableRowComponent={Transaction}
-                            passProps={{
-                                secretPhrase: this.state.secretPhrase || this.state.passphrase,
-                                isUnconfirmed: this.state.isUnconfirmed
-                            }}
-                            tableData={this.state.transactions}
-                            isPaginate
-                            page={this.state.page}
-                            previousHendler={() => this.onPaginate(this.state.page - 1)}
-                            nextHendler={() => this.onPaginate(this.state.page + 1)}
-                            itemsPerPage={15}
-                        />
-                    </div>
-                </div>
-            </div>
-        );
-    }
+      </div>
+    </div>
+  );
 }
-
-const mapStateToProps = state => ({
-    account: state.account.account,
-    publicKey: state.account.publicKey,
-    // modals
-    modalData: state.modals.modalData,
-    modalType: state.modals.modalType
-});
-
-const initMapDispatchToProps = dispatch => ({
-    setModalType: (prevent) => dispatch(setModalType(prevent)),
-    getTransactionsAction: (requestParams) => dispatch(getTransactionsAction(requestParams)),
-    setModalCallbackAction: (callback) => dispatch(setModalCallback(callback)),
-    getTransactionAction: (reqParams) => dispatch(getTransactionAction(reqParams)),
-    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-    getPrivateTransactionAction: (data) => dispatch(getPrivateTransactionAction(data)),
-
-});
-
-export default connect(
-    mapStateToProps,
-    initMapDispatchToProps
-)(Transactions);
