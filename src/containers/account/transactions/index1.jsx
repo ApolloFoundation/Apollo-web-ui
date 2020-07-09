@@ -19,6 +19,7 @@ import { BlockUpdater } from '../../block-subscriber/index';
 import SiteHeader from '../../components/site-header';
 import Transaction from './transaction';
 import CustomTable from '../../components/tables/table';
+import Button from '../../components/button';
 
 export default function Transactions() {
   const dispatch = useDispatch();
@@ -146,12 +147,12 @@ export default function Transactions() {
     }
   }, [account, firstIndex, getTransactions, lastIndex, requestType, type]);
 
-  const updateTransactionsData = useCallback(newState => {
+  const updateTransactionsData = useCallback(() => {
     // todo: check
-    this.setState({ ...newState }, () => {
-      getPrivateTransactions({ ...passphrase });
-    });
-  }, []);
+    // this.setState({ ...newState }, () => {
+    getPrivateTransactions({ ...passphrase });
+    // });
+  }, [getPrivateTransactions, passphrase]);
 
   const onPaginate = useCallback(newPage => {
     const reqParams = {
@@ -163,11 +164,12 @@ export default function Transactions() {
       requestType,
       ...passphrase,
     };
-
-    this.setState(reqParams, () => {
-      getTransactions(reqParams, isAll);
-    });
-  }, []);
+    setPage(newPage);
+    setFirstIndex(newPage * 15 - 15);
+    setLastIndex(newPage * 15);
+    // ! should be callBack
+    getTransactions(reqParams, isAll);
+  }, [account, getTransactions, isAll, passphrase, requestType, type]);
 
   const handleTransactionFilters = useCallback((currType, currSubtype, currRequestType, all) => {
     const next = () => {
@@ -179,40 +181,37 @@ export default function Transactions() {
       setRequestType(currRequestType);
       // ! should be callBack
       getTransactions({
-        type,
+        type: currType,
         account,
         firstIndex: 0,
         lastIndex: 15,
-        requestType,
+        requestType: currRequestType,
         ...passphrase,
       }, all);
-      // });
     };
 
     if (requestType === 'getUnconfirmedTransactions') {
       setIsUnconfirmed(true);
       setIsPhassing(false);
       setIsAll(!!all || false);
-      // todo: need to check
+      // ! should be callBack
       next();
     } else if (requestType === 'getAccountPhasedTransactions') {
       setIsPhassing(true);
       setIsUnconfirmed(false);
       setType(null);
       setSubtype(null);
-      // todo: need to check
+      // ! should be callBack
       next();
     } else {
-      this.setState({
-        isUnconfirmed: false,
-        isPhassing: false,
-      }, () => {
-        next();
-      });
+      setIsPhassing(false);
+      setIsUnconfirmed(false);
+      // ! should be callBack
+      next();
     }
-  }, []);
+  }, [account, getTransactions, passphrase, requestType]);
 
-  const AboveTabeComponentItem = useMemo((label, handler, activeCondition) => (
+  const AboveTabeComponentItem = useCallback((label, handler, activeCondition) => (
     <div
       className={classNames({
         btn: true,
@@ -223,9 +222,12 @@ export default function Transactions() {
     >
       {label}
     </div>
-  ), []);
+  ), [handleTransactionFilters]);
 
-  const AboveTabeComponent = useMemo(() => (
+  const AboveTabeComponent = useCallback(() => {
+    console.log(isUnconfirmed, isAll, isPhassing);
+
+    return(
     <div className="transactions-filters">
       <div className="top-bar">
         {AboveTabeComponentItem('All types', null, type !== 0 && !type && !subtype && !isPhassing && !isUnconfirmed)}
@@ -270,10 +272,12 @@ export default function Transactions() {
         >
           All Unconfirmed
         </div>
-
       </div>
     </div>
-  ), [AboveTabeComponentItem, handleTransactionFilters, isAll, isPhassing, isUnconfirmed, subtype, type]);
+     )}, [
+    AboveTabeComponentItem, handleTransactionFilters, isAll,
+    isPhassing, isUnconfirmed, subtype, type,
+  ]);
 
   useEffect(() => {
     getTransactions({
@@ -296,7 +300,7 @@ export default function Transactions() {
   }, []);
 
   useEffect(() => {
-    updateTransactionsData(newState);
+    updateTransactionsData();
   }, []);
 
   return (
@@ -304,22 +308,27 @@ export default function Transactions() {
       <SiteHeader
         pageTitle="Transactions"
       >
+        <Button
+          color="green"
+          size="sm"
+          disabled={isPrivate}
+          onClick={() => { dispatch(setModalType('PrivateTransactions')); }}
+          name="Show private transactions"
+        />
         <button
           type="button"
           className={classNames({
             'btn btn-green btn-sm': true,
             disabled: isPrivate,
           })}
-          onClick={() => {
-            dispatch(setModalType('PrivateTransactions'));
-          }}
+          onClick={() => { dispatch(setModalType('PrivateTransactions')); }}
         >
           Show private transactions
         </button>
       </SiteHeader>
       <div className="page-body container-fluid">
         <div className="my-transactions">
-          {this.AboveTabeComponent()}
+          {AboveTabeComponent()}
           <CustomTable
             header={[
               {
@@ -353,14 +362,14 @@ export default function Transactions() {
             emptyMessage="No transactions found."
             TableRowComponent={Transaction}
             passProps={{
-              secretPhrase: this.state.secretPhrase || this.state.passphrase,
-              isUnconfirmed: this.state.isUnconfirmed,
+              secretPhrase: passphrase,
+              isUnconfirmed,
             }}
-            tableData={this.state.transactions}
+            tableData={transactions}
             isPaginate
-            page={this.state.page}
-            previousHendler={() => this.onPaginate(this.state.page - 1)}
-            nextHendler={() => this.onPaginate(this.state.page + 1)}
+            page={page}
+            previousHendler={() => onPaginate(page - 1)}
+            nextHendler={() => onPaginate(page + 1)}
             itemsPerPage={15}
           />
         </div>
