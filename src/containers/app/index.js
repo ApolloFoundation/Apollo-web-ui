@@ -26,7 +26,7 @@ import Dashboard from "../account/dashboard";
 import Login from "../account/login";
 import Faucet from "../account/faucet";
 
-import Transactions from '../account/transactions/index1'
+import Transactions from '../account/transactions'
 import Ledger from '../account/ledger/index1'
 import Blocks from '../account/blocks'
 

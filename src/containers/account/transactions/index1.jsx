@@ -82,16 +82,20 @@ export default function Transactions() {
   const getTransactions = useCallback(async (requestParams, all) => {
     const params = requestParams;
     delete params.requestType;
+    console.log(isUnconfirmed, isPhassing);
 
     if (!isUnconfirmed && !isPhassing) {
       const currTransactions = await dispatch(getTransactionsAction(params));
+      console.log('4/4');
 
       if (currTransactions) {
-        if (!currTransactions.errorCode) {
+      console.log('4/4/4');
+      if (!currTransactions.errorCode) {
           setTransactions(currTransactions.transactions);
           setIsUnconfirmed(false);
           setIsError(false);
-          if (currTransactions.serverPublicKey && !isPrivate) {
+        console.log('4/4/1');
+      if (currTransactions.serverPublicKey && !isPrivate) {
             setIsPrivate(true);
             // ! should be callBack
             NotificationManager.success('You are watching private transactions.', null, 900000);
@@ -189,27 +193,30 @@ export default function Transactions() {
         ...passphrase,
       }, all);
     };
-
-    if (requestType === 'getUnconfirmedTransactions') {
+    debugger
+    if (currRequestType === 'getUnconfirmedTransactions') {
       setIsUnconfirmed(true);
       setIsPhassing(false);
       setIsAll(!!all || false);
       // ! should be callBack
-      next();
-    } else if (requestType === 'getAccountPhasedTransactions') {
+      console.log('1');
+    } else if (currRequestType === 'getAccountPhasedTransactions') {
       setIsPhassing(true);
       setIsUnconfirmed(false);
       setType(null);
       setSubtype(null);
       // ! should be callBack
-      next();
+      console.log('2');
+      // next();
     } else {
       setIsPhassing(false);
       setIsUnconfirmed(false);
       // ! should be callBack
-      next();
+      console.log('3');
+      // next();
     }
-  }, [account, getTransactions, passphrase, requestType]);
+    next();
+  }, [account, getTransactions, passphrase]);
 
   const AboveTabeComponentItem = useCallback((label, handler, activeCondition) => (
     <div
