@@ -1,6 +1,4 @@
-import React, {
-  useState, useMemo, useCallback,
-} from 'react';
+import React, { useMemo, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
 import { formatTimestamp } from '../../../helpers/util/time';
@@ -14,8 +12,6 @@ import Button from '../../components/button';
 export default function BlockchainStatus() {
   const dispatch = useDispatch();
 
-  const [, setForgingStatus] = useState(null);
-
   const {
     effectiveBalanceAPL, passPhrase: secretPhrase, is2FA, actualBlock,
     timestamp, blockchainStatus, forgingStatus, accountRS,
@@ -23,9 +19,7 @@ export default function BlockchainStatus() {
 
   const setForgingData = action => ({
     getStatus: action,
-    handleSuccess: res => {
-      setForgingStatus(res);
-    },
+    handleSuccess: res => {},
   });
 
   const handleSetForging = useCallback(async action => {
@@ -45,9 +39,7 @@ export default function BlockchainStatus() {
         if (!forging.errorCode) {
           const newForgingStatus = await dispatch(getForging());
 
-          if (!newForgingStatus.errorCode || newForgingStatus.errorCode === 5) {
-            setForgingStatus(newForgingStatus);
-          } else {
+          if (newForgingStatus.errorCode && newForgingStatus.errorCode !== 5) {
             NotificationManager.error('Something went wrong. Please, try again later', 'Error', 5000);
           }
         } else {
@@ -128,14 +120,14 @@ export default function BlockchainStatus() {
                 <ContentLoader white noPaddingOnTheSides className="m-0" />
               )}
             {!!(blockchainStatus && blockchainStatus.blockTime) && (
-            <div>
-              <span className="label">Transaction time:&nbsp;</span>
-              <span>
-                {blockchainStatus.blockTime}
-                {' '}
-                sec
-              </span>
-            </div>
+              <div>
+                <span className="label">Transaction time:&nbsp;</span>
+                <span>
+                  {blockchainStatus.blockTime}
+                  {' '}
+                  sec
+                </span>
+              </div>
             )}
           </div>
         </div>
