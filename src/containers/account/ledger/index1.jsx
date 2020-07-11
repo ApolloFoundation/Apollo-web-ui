@@ -7,7 +7,6 @@ import React, {
   useState, useCallback, useEffect, Suspense,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import classNames from 'classnames';
 import { NotificationManager } from 'react-notifications';
 import { getAccountLedgerAction } from '../../../actions/ledger';
 import { setModalCallback, setModalType } from '../../../modules/modals';
@@ -74,7 +73,7 @@ export default function Ledger() {
 
   const onPaginate = useCallback(currPage => {
     const reqParams = {
-      currPage,
+      page: currPage,
       account,
       firstIndex: currPage * 15 - 15,
       lastIndex: currPage * 15,

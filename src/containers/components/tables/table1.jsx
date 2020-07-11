@@ -2,6 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { v4 as uuidv4 } from 'uuid';
 import ContentHendler from '../content-hendler';
+import Button from '../button';
 
 const CustomTable = props => {
   const normalizeTableData = () => {
@@ -72,42 +73,29 @@ const CustomTable = props => {
               {/** Table paginator */}
               {page && newTableData && !!newTableData.length && isPaginate && (
                 <div className="btn-box pagination">
-                  <button
-                    type="button"
-                    className={classNames({
-                      'btn btn-default': true,
-                      disabled: page <= 1,
-                    })}
+                  <Button
+                    disabled={page <= 1}
                     onClick={previousHendler}
-                  >
-                    Previous
-                  </button>
+                    name="Previous"
+                  />
                   <div className="pagination-nav">
                     <span>{page * itemsPerPage - itemsPerPage + 1}</span>
                     <span> - </span>
                     <span>{(page * itemsPerPage - itemsPerPage) + newTableData.length}</span>
                   </div>
-                  <button
-                    type="button"
+                  <Button
+                    name="Next"
                     onClick={nextHendler}
-                    className={classNames({
-                      'btn btn-default': true,
-                      disabled: isNextDisabled(newTableData),
-                    })}
-                  >
-                    Next
-                  </button>
+                    disabled={isNextDisabled(newTableData)}
+                  />
                 </div>
               )}
               {actionButton && (
                 <div className="btn-box pagination">
-                  <button
-                    type="button"
+                  <Button
                     onClick={actionButton.handler}
-                    className="btn btn-default"
-                  >
-                    {actionButton.name}
-                  </button>
+                    name={actionButton.name}
+                  />
                 </div>
               )}
             </div>
