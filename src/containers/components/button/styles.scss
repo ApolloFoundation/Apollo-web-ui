@@ -344,21 +344,9 @@
 		color: #ffffff;
 		background: linear-gradient(79.43deg, #2B36FF 0%, #535BFF 100%);
 	}
-	&.btn-green-disabled {
-		opacity: 0.5;
-		cursor: default;
-		pointer-events: none;
-	}
 	&.blue {
 		background: #00C8FF;
 		color: #fff;
-	}
-	&.blue-disabled {
-		background: #00C8FF;
-		color: #fff;
-		opacity: 0.5;
-		cursor: default;
-		pointer-events: none;
 	}
 	&.gray-lighten {
 		background: #E5E5E5;
@@ -388,11 +376,6 @@
 	.arrow {
 		transform: translateY(1px);
 	}
-	&.disabled {
-		display: inline-block !important;
-		pointer-events: none;
-		opacity: 0.5
-	}
 	&.submit-button {
 		min-width: 80px;
 
@@ -407,5 +390,11 @@
 		left: 50%;
 		transform: translate(-50%, -50%);
 		visibility: hidden;
-	}
+  }
+
+  &:disabled {
+    display: inline-block !important;
+    pointer-events: none;
+    opacity: 0.5
+  }
 }

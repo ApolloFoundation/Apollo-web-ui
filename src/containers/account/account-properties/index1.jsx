@@ -11,7 +11,7 @@ import { getAccountPropertiesAction } from '../../../actions/account/index';
 import { setBodyModalParamsAction } from '../../../modules/modals';
 import AccountProperty from './acocunt-property/index1';
 import SiteHeader from '../../components/site-header';
-import CustomTable from '../../components/tables/table';
+import CustomTable from '../../components/tables/table1';
 import Button from '../../components/button';
 
 const initialPagination = {
@@ -20,7 +20,7 @@ const initialPagination = {
   lastIndex: 15,
 };
 
-export default function AccountProperties(props) {
+export default function AccountProperties() {
   const dispatch = useDispatch();
 
   const { account } = useSelector(state => state.account);
@@ -49,7 +49,7 @@ export default function AccountProperties(props) {
       setIncoming(true);
       setPagination({ ...newPagination });
     }
-  }, [dispatch, pagination, props]);
+  }, [account, dispatch, pagination]);
 
   const getAccountPropertiesOutgoing = useCallback(async (currAccount, currPagination) => {
     let newPagination = currPagination;
@@ -69,9 +69,9 @@ export default function AccountProperties(props) {
     if (newProperties) {
       setProperties(newProperties.properties);
       setIncoming(false);
-      setPagination(...newPagination);
+      setPagination({ ...newPagination });
     }
-  }, [dispatch, pagination, props]);
+  }, [account, dispatch, pagination]);
 
   const setProperty = useCallback(() => {
     dispatch(setBodyModalParamsAction('SET_ACCOUNT_PROPERTY', {}));
@@ -98,7 +98,7 @@ export default function AccountProperties(props) {
   return (
     <div className="page-content">
       <SiteHeader
-        pageTitle={'Account properties'}
+        pageTitle="Account properties"
       >
         <a
           className={`btn ${incoming ? 'outline-primary' : 'outline-transparent'} mr-1`}
@@ -124,21 +124,21 @@ export default function AccountProperties(props) {
           header={[
             {
               name: `${incoming ? 'Setter' : 'Recipient'}`,
-              alignRight: false
-            },{
+              alignRight: false,
+            }, {
               name: 'Property',
-              alignRight: false
-            },{
+              alignRight: false,
+            }, {
               name: 'Value',
-              alignRight: false
-            },{
+              alignRight: false,
+            }, {
               name: 'Actions',
-              alignRight: true
-            }
+              alignRight: true,
+            },
           ]}
-          className={'mb-3'}
-          emptyMessage={'No account properties found .'}
-          TableRowComponent={conponentProps => <AccountProperty incoming={incoming} {...conponentProps}/>}
+          className="mb-3"
+          emptyMessage="No account properties found ."
+          TableRowComponent={conponentProps => <AccountProperty incoming={incoming} {...conponentProps} />}
           tableData={properties}
           isPaginate
           page={pagination.page}
