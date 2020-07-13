@@ -15,7 +15,7 @@ import {
 import {
   setModalCallback, setBodyModalParamsAction, setModalType,
 } from '../../../modules/modals';
-import { BlockUpdater } from '../../block-subscriber/index';
+import { BlockUpdater } from '../../block-subscriber';
 import SiteHeader from '../../components/site-header';
 import Transaction from './transaction';
 import CustomTable from '../../components/tables/table';
@@ -79,12 +79,19 @@ export default function Transactions() {
   //   }
   // }, []);
 
-  const getTransactions = useCallback(async (requestParams, all) => {
+  const getTransactions = useCallback(async (
+    requestParams, all, newState = {},
+  ) => {
     const params = requestParams;
     delete params.requestType;
     console.log(isUnconfirmed, isPhassing);
 
-    if (!isUnconfirmed && !isPhassing) {
+    const { newIsUnconfirmed, newIsPhasing } = newState;
+
+    const currIsUnconfirmed = newIsUnconfirmed || isUnconfirmed;
+    const currIsPhasing = newIsPhasing || isPhassing;
+
+    if (!currIsUnconfirmed && !currIsPhasing) {
       const currTransactions = await dispatch(getTransactionsAction(params));
       console.log('4/4');
 
@@ -108,12 +115,13 @@ export default function Transactions() {
       }
     }
 
-    if (isUnconfirmed) {
+    if (currIsUnconfirmed) {
+      console.log("GOOD");
       params.requestType = requestType;
       getUnconfirmedTransactionsTransactions(params, all);
     }
 
-    if (isPhassing) {
+    if (currIsPhasing) {
       params.requestType = requestType;
 
       const newTransactions = await dispatch(getTransactionsAction(params));
@@ -176,7 +184,7 @@ export default function Transactions() {
   }, [account, getTransactions, isAll, passphrase, requestType, type]);
 
   const handleTransactionFilters = useCallback((currType, currSubtype, currRequestType, all) => {
-    const next = () => {
+    const next = currParams => {
       setType(currType);
       setSubtype(currSubtype);
       setPage(1);
@@ -191,31 +199,28 @@ export default function Transactions() {
         lastIndex: 15,
         requestType: currRequestType,
         ...passphrase,
-      }, all);
+      }, all, currParams);
     };
-    debugger
+
     if (currRequestType === 'getUnconfirmedTransactions') {
       setIsUnconfirmed(true);
       setIsPhassing(false);
       setIsAll(!!all || false);
       // ! should be callBack
-      console.log('1');
+      next({ newIsUnconfirmed: true, newIsPhasing: false });
     } else if (currRequestType === 'getAccountPhasedTransactions') {
       setIsPhassing(true);
       setIsUnconfirmed(false);
       setType(null);
       setSubtype(null);
       // ! should be callBack
-      console.log('2');
-      // next();
+      next({ newIsUnconfirmed: false, newIsPhasing: true });
     } else {
       setIsPhassing(false);
       setIsUnconfirmed(false);
       // ! should be callBack
-      console.log('3');
-      // next();
+      next({ newIsUnconfirmed: false, newIsPhasing: false });
     }
-    next();
   }, [account, getTransactions, passphrase]);
 
   const AboveTabeComponentItem = useCallback((label, handler, activeCondition) => (
