@@ -8,7 +8,7 @@ const FeeInput = ({
   inputHint, defaultValue, disabled, disableArrows, disabledFee = true,
 }) => (
   <>
-    <div className="form-group mb-15">
+    <div className="form-group">
       <div className={disabledFee ? 'disabled-fee-wrap' : ''}>
         <div className={cn({
           'input-group': countingTtile || counterLabel,

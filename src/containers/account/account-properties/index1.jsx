@@ -23,7 +23,7 @@ const initialPagination = {
 export default function AccountProperties() {
   const dispatch = useDispatch();
 
-  const { account } = useSelector(state => state.account);
+  const { actualBlock, account } = useSelector(state => state.account);
 
   const [properties, setProperties] = useState(null);
   const [incoming, setIncoming] = useState(true);
@@ -89,7 +89,7 @@ export default function AccountProperties() {
   useEffect(() => {
     if (incoming) getAccountPropertiesIncoming(account);
     else getAccountPropertiesOutgoing(account);
-  }, [incoming, account]);
+  }, [incoming, account, actualBlock]);
 
   useEffect(() => {
     getAccountPropertiesIncoming();

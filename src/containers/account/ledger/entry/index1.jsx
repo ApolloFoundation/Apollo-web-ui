@@ -11,7 +11,6 @@ import { formatTimestamp } from '../../../../helpers/util/time';
 import { ONE_APL } from '../../../../constants';
 import Button from '../../../components/button';
 
-
 export default function Entry(props) {
   const dispatch = useDispatch();
 
@@ -49,35 +48,35 @@ export default function Entry(props) {
             {ledgerId && eventType && (
               i18n.t(eventType.toLowerCase())
             )}
-                &nbsp;&nbsp;
+              &nbsp;&nbsp;
             <span onClick={showInfo}>
               <span className="zmdi zmdi-info" />
             </span>
           </td>
           <td className="align-right">
             {holdingType === 'UNCONFIRMED_APL_BALANCE'
-                && (change / ONE_APL).toFixed(1)}
+              && (change / ONE_APL).toFixed(1)}
           </td>
           <td className="align-right">
             {holdingType === 'UNCONFIRMED_APL_BALANCE' && balance > 0
-                && (balance / ONE_APL).toLocaleString('en')}
+              && (balance / ONE_APL).toLocaleString('en')}
           </td>
           <td className="align-right">
             {holdingInfo && holdingInfo.name}
           </td>
           <td className="align-right">
             {holdingType === 'UNCONFIRMED_CURRENCY_BALANCE'
-                && holdingInfo && holdingInfo.name
-                && (change / 1).toFixed(2)}
+              && holdingInfo && holdingInfo.name
+              && (change / 1).toFixed(2)}
             {holdingType === 'UNCONFIRMED_ASSET_BALANCE'
-                && (change / ONE_APL).toFixed(2)}
+              && (change / ONE_APL).toFixed(2)}
           </td>
           <td className="align-right">
             {holdingType === 'UNCONFIRMED_CURRENCY_BALANCE'
-                && holdingInfo && holdingInfo.name
-                && (balance / 1).toLocaleString('en')}
+              && holdingInfo && holdingInfo.name
+              && (balance / 1).toLocaleString('en')}
             {holdingType === 'UNCONFIRMED_ASSET_BALANCE'
-                && (balance / ONE_APL).toLocaleString('en')}
+              && (balance / ONE_APL).toLocaleString('en')}
           </td>
         </tr>
       )}

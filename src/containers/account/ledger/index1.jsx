@@ -98,7 +98,7 @@ export default function Ledger() {
     BlockUpdater.on('data', listener);
 
     return () => BlockUpdater.removeListener('data', listener);
-  }, [account, dispatch, firstIndex, getAccountLedger, getPrivateEntries, lastIndex, listener]);
+  }, [account, dispatch, listener]);
 
   return (
     <Suspense fallback="loading">
