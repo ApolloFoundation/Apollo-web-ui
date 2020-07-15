@@ -117,7 +117,7 @@ export default function Ledger() {
             {blockchainStatus && (
             <div className="info-box info">
               <span>
-                Only ledger entries created during the last
+                `Only ledger entries created during the last `
                 {blockchainStatus.ledgerTrimKeep}
                 {' '}
                 blocks are displayed

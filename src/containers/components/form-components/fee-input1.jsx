@@ -30,14 +30,14 @@ const FeeInput = ({
               <span className="input-group-text">{countingTtile || counterLabel}</span>
             </div>
           )}
+          {disabledFee && (
+            <CheckboxFormInput
+              className="disabled-fee-checkbox"
+              name="isCustomFee"
+              label="Custom fee"
+            />
+          )}
         </div>
-        {disabledFee && (
-          <CheckboxFormInput
-            className="disabled-fee-checkbox"
-            name="isCustomFee"
-            label="Custom fee"
-          />
-        )}
       </div>
     </div>
     {inputHint && (

@@ -111,7 +111,7 @@ export default function BlockchainStatus() {
                     Last updated:
                   </p>
                   <p>
-                    Block
+                    `Block `
                     {actualBlock}
                   </p>
                   <p>{dispatch(formatTimestamp(timestamp))}</p>
