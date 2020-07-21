@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-has-content */
 import React, { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setBodyModalParamsAction } from '../../../modules/modals';
 import { getDashboardData } from '../../../actions/dashboard';
 import SiteHeader from '../../components/site-header';
@@ -19,17 +19,19 @@ import InfoBanner from '../../../assets/banner-long.png';
 export default function Dashboard(props) {
   const dispatch = useDispatch();
 
+  const { actualBlock, account } = useSelector(state => state.account);
+
   const { isShareMessage, shareMessageTransaction } = props;
 
   useEffect(() => {
     if (isShareMessage) {
       setTimeout(() => dispatch(setBodyModalParamsAction('INFO_TRANSACTION', shareMessageTransaction), 500));
     }
-  }, [dispatch, isShareMessage, shareMessageTransaction]);
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(getDashboardData());
-  }, [dispatch]);
+  }, [dispatch, actualBlock, account]);
 
   return (
     <div className="page-content">

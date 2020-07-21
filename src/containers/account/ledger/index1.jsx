@@ -98,7 +98,7 @@ export default function Ledger() {
     BlockUpdater.on('data', listener);
 
     return () => BlockUpdater.removeListener('data', listener);
-  }, [account, dispatch, firstIndex, getAccountLedger, getPrivateEntries, lastIndex, listener]);
+  }, [account, dispatch, listener]);
 
   return (
     <Suspense fallback="loading">
@@ -117,7 +117,7 @@ export default function Ledger() {
             {blockchainStatus && (
             <div className="info-box info">
               <span>
-                Only ledger entries created during the last
+                `Only ledger entries created during the last `
                 {blockchainStatus.ledgerTrimKeep}
                 {' '}
                 blocks are displayed

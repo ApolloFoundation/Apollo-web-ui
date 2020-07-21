@@ -8,7 +8,7 @@ const AccountRSFormInput = props => {
   } = props;
 
   return (
-    <div className="form-group mb-15">
+    <div className="form-group">
       <label>
         {label}
       </label>

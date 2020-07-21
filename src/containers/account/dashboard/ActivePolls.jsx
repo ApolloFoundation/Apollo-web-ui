@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { ReactComponent as ArrowRight } from '../../../assets/arrow-right.svg';
 import { setBodyModalParamsAction } from '../../../modules/modals';
 import Button from '../../components/button';
 import ContentLoader from '../../components/content-loader';

@@ -8,7 +8,7 @@ const FeeInput = ({
   inputHint, defaultValue, disabled, disableArrows, disabledFee = true,
 }) => (
   <>
-    <div className="form-group mb-15">
+    <div className="form-group">
       <div className={disabledFee ? 'disabled-fee-wrap' : ''}>
         <div className={cn({
           'input-group': countingTtile || counterLabel,
@@ -30,14 +30,14 @@ const FeeInput = ({
               <span className="input-group-text">{countingTtile || counterLabel}</span>
             </div>
           )}
+          {disabledFee && (
+            <CheckboxFormInput
+              className="disabled-fee-checkbox"
+              name="isCustomFee"
+              label="Custom fee"
+            />
+          )}
         </div>
-        {disabledFee && (
-          <CheckboxFormInput
-            className="disabled-fee-checkbox"
-            name="isCustomFee"
-            label="Custom fee"
-          />
-        )}
       </div>
     </div>
     {inputHint && (
