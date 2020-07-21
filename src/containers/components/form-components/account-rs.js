@@ -22,7 +22,7 @@ const AccountRSFormInput = (props) => {
                         />
                         {
                             handleRemoveItem &&
-                            <div 
+                            <div
                                 className="input-icon remove-item"
                                 onClick={() => handleRemoveItem(index)}
                             >

@@ -27,7 +27,7 @@ import Login from "../account/login";
 import Faucet from "../account/faucet";
 
 import Transactions from '../account/transactions'
-import Ledger from '../account/ledger'
+import Ledger from '../account/ledger/index1'
 import Blocks from '../account/blocks'
 
 import ExchangeBooth from '../account/exchange-booth'
@@ -40,9 +40,9 @@ import MyPandingOrders from '../account/my-panding-orders'
 import PurchasdProucts from '../account/purchased-proucts'
 import MyCompletedOrders from '../account/my-completed-orders'
 import Activepolls from '../account/active-polls'
-import AccountProperties from '../account/account-properties'
+import AccountProperties from '../account/account-properties/index1'
 import Assets from '../account/assets'
-import ApprovalRequest from '../account/approval-request'
+import ApprovalRequest from '../account/approval-request/index1'
 import ApprovalRequestAssets from '../account/approval-request-assets'
 import AssetExchange from '../account/asset-exchange'
 import Aliases from '../account/aliases'
