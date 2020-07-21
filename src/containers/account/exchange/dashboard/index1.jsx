@@ -25,7 +25,7 @@ import Plot from './plot';
 export default function Exchange() {
   const dispatch = useDispatch();
 
-  const { wallets } = useSelector(state => state.wallets);
+  const { wallets } = useSelector(state => state);
   const {
     currencies, currentCurrency, buyOrders, sellOrders,
     plotBuyOrders, plotSellOrders, myOrders,
