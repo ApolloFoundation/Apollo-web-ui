@@ -10,6 +10,7 @@ import { setBodyModalParamsAction } from '../../../../modules/modals';
 import { formatTimestamp } from '../../../../helpers/util/time';
 import { ONE_APL } from '../../../../constants';
 import Button from '../../../components/button';
+import '../styles.scss';
 
 export default function Entry(props) {
   const dispatch = useDispatch();
@@ -49,9 +50,7 @@ export default function Entry(props) {
               i18n.t(eventType.toLowerCase())
             )}
               &nbsp;&nbsp;
-            <span onClick={showInfo}>
-              <span className="zmdi zmdi-info" />
-            </span>
+            <span className="zmdi zmdi-info pointer" onClick={showInfo} />
           </td>
           <td className="align-right">
             {holdingType === 'UNCONFIRMED_APL_BALANCE'
