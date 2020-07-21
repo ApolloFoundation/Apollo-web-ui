@@ -24,19 +24,20 @@ const FeeInput = ({
             id={`${idGroup}${name}-field`}
             disabled={disabled || (disabledFee && values && !values.isCustomFee)}
             disableArrows={disableArrows}
-          />
-          {(countingTtile || counterLabel) && (
-            <div className="input-group-append">
-              <span className="input-group-text">{countingTtile || counterLabel}</span>
-            </div>
-          )}
-          {disabledFee && (
-            <CheckboxFormInput
-              className="disabled-fee-checkbox"
-              name="isCustomFee"
-              label="Custom fee"
-            />
-          )}
+          >
+            {(countingTtile || counterLabel) && (
+              <div className="input-group-append">
+                <span className="input-group-text">{countingTtile || counterLabel}</span>
+              </div>
+            )}
+            {disabledFee && (
+              <CheckboxFormInput
+                className="disabled-fee-checkbox"
+                name="isCustomFee"
+                label="Custom fee"
+              />
+            )}
+          </CustomInput>
         </div>
       </div>
     </div>
