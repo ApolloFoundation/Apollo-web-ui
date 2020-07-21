@@ -6,7 +6,7 @@ import { useField } from 'formik';
 
 export default function CustomInput(props) {
   const {
-    label, className, type, disableArrows, disabled, id,
+    label, className, type, disableArrows, disabled, id, children,
     maxValue, minValue, step, isSpecialSymbols, name, placeholder,
   } = props;
   const [field, , helpers] = useField(name);
@@ -86,6 +86,7 @@ export default function CustomInput(props) {
             <div className="input-number-down" onClick={handleClickDown} />
           </div>
         )}
+        {children}
       </div>
     </div>
   );
