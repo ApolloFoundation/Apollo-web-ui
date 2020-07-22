@@ -45,8 +45,6 @@ class GetAlias extends React.Component {
     }
 
     render() {
-        console.log(this.props);
-        
         return (
             <ModalBody
                 modalTitle={'Buy Alias'}
