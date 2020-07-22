@@ -15,12 +15,12 @@ import {
 } from '../../../../actions/wallet';
 import TwitterBanner from '../../../../assets/banner-small.png';
 import SiteHeader from '../../../components/site-header';
-import TradeHistoryExchange from './trade-history';
 import InfoBox from '../../../components/info-box';
+import TradeHistoryExchange from './trade-history';
 import TradeApollo from './trade-apollo';
 import OpenOrders from './open-orders';
 import Orderbook from './orderbook';
-import Plot from './plot';
+import Plot from './plot/index1';
 
 export default function Exchange() {
   const dispatch = useDispatch();
