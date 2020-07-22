@@ -24,7 +24,7 @@ class BuyForm extends React.PureComponent {
     };
 
     static getDerivedStateFromProps(props, state) {
-        
+
         if (props.currentCurrency && (props.currentCurrency.currency !== state.currentCurrency || props.wallet !== state.wallet)) {
             if (state.form && state.form.values) {
                 state.form.setAllValues({
@@ -196,6 +196,7 @@ class BuyForm extends React.PureComponent {
     setPending = (value = true) => this.setState({isPending: value})
 
     getFormApi = (form) => {
+        debugger
         this.setState({form})
     };
 
