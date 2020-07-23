@@ -65,7 +65,7 @@ export default function CustomInput(props) {
   };
 
   return (
-    <div className="form-group">
+    <div className="form-group no-wrap">
       <label htmlFor={field.name}>
         {label}
       </label>

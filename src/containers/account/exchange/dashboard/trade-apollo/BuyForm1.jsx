@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  Formik, Form, useFormikContext,
+  Formik, Form, useFormik,
 } from 'formik';
 import cn from 'classnames';
 import { NotificationManager } from 'react-notifications';
@@ -26,12 +26,12 @@ const feeATM = 200000000;
 export default function BuyForm(props) {
   const dispatch = useDispatch();
 
-  const { setValues, values } = useFormikContext();
-
   const { currentCurrency } = useSelector(state => state.exchange);
   const { dashboardAccoountInfo } = useSelector(state => state.dashboard);
   const { infoSelectedBuyOrder } = useSelector(state => state.modals);
   const { unconfirmedBalanceATM: balanceAPL, account, passPhrase } = useSelector(state => state.account);
+
+  const { currency } = currentCurrency;
 
   const { wallet, handleLoginModal, ethFee } = props;
 
@@ -40,7 +40,16 @@ export default function BuyForm(props) {
   const [newWallet, setNewWallet] = useState(null);
   const [walletsList, setWalletsList] = useState(null);
 
-  const { currency } = currentCurrency;
+  const formik = useFormik({
+    initialValues: {
+      walletAddress: walletsList[0],
+      pairRate: 0,
+      offerAmount: 0,
+      total: 0,
+      range: 0,
+    },
+    onSubmit: handleFormSubmit,
+  });
 
   const setPending = useCallback((value = true) => { setIsPending(value); }, []);
 
@@ -125,23 +134,27 @@ export default function BuyForm(props) {
               setPending(false);
             });
             dispatch(resetTrade());
-            setValues({
+            // if (formikHelpers) {
+            formik.setValues({
               walletAddress: newValues.walletAddress,
               pairRate: '',
               offerAmount: '',
               total: '',
             });
+            // }
           } else {
             dispatch(setBodyModalParamsAction('CONFIRM_CREATE_OFFER', {
               params,
               resetForm: () => {
                 dispatch(resetTrade());
-                setValues({
+                // if (formikHelpers) {
+                formik.setValues({
                   walletAddress: newValues.walletAddress,
                   pairRate: '',
                   offerAmount: '',
                   total: '',
                 });
+                // }
               },
             }));
             setPending(false);
@@ -156,18 +169,20 @@ export default function BuyForm(props) {
       }
     }
   }, [
-    account, balanceAPL, dashboardAccoountInfo, dispatch, ethFee, handleLoginModal,
-    isPending, passPhrase, setPending, setValues, wallet, currency,
+    isPending, dispatch, setPending, wallet, currency, ethFee, dashboardAccoountInfo,
+    balanceAPL, account, passPhrase, formik, handleLoginModal,
   ]);
 
   useEffect(() => {
     if (currentCurrency && (currency !== newCurrentCurrency || wallet !== newWallet)) {
-      setValues({
-        walletAddress: values.walletAddress,
+      // if (formikHelpers) {
+      formik.setAllValues({
+        walletAddress: formik.values.walletAddress,
         pairRate: '',
         offerAmount: '',
         total: '',
       });
+      // }
     }
 
     let currentWalletsList = wallet || [];
@@ -181,10 +196,7 @@ export default function BuyForm(props) {
     setNewCurrentCurrency(currency);
     setNewWallet(wallet);
     setWalletsList(currentWalletsList);
-  }, [
-    currency, currentCurrency, newCurrentCurrency,
-    newWallet, setValues, values.walletAddress, wallet,
-  ]);
+  }, [currency, currentCurrency, formik, newCurrentCurrency, newWallet, wallet]);
 
   useEffect(() => {
     if (infoSelectedBuyOrder) {
@@ -194,20 +206,23 @@ export default function BuyForm(props) {
       const normalizeOfferAmount = !offerAmount ? 0 : division(offerAmount, ONE_GWEI, 9);
       const normalizeTotal = !total ? 0 : division(total, Math.pow(10, 18), 9);
       const rangeValue = ((normalizePairRate * normalizeOfferAmount) * 100 / balance).toFixed(0);
-      setValues({
+      // if (formikHelpers) {
+      formik.setValues({
         walletAddress: wallet && wallet[0],
         pairRate: normalizePairRate,
         offerAmount: normalizeOfferAmount,
         total: normalizeTotal,
         range: rangeValue === 'NaN' ? 0 : rangeValue > 100 ? 100 : rangeValue,
       });
+      // }
     }
-  }, [currency, infoSelectedBuyOrder, setValues, wallet]);
+  }, [currency, formik, infoSelectedBuyOrder, wallet]);
 
   const currencyName = currency.toUpperCase();
   return (
     <Formik
       onSubmit={handleFormSubmit}
+
     >
       {({ setValue, values }) => {
         let balance = values.walletAddress && values.walletAddress.balances[currency];

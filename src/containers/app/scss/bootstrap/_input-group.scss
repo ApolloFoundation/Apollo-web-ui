@@ -7,10 +7,13 @@
 .input-group {
   position: relative;
   display: flex;
-  // flex-wrap: wrap; // For form validation feedback
   align-items: stretch;
   width: 100%;
+  flex-wrap: wrap; // For form validation feedback
 
+  .no-wrap {
+    flex-wrap: nowrap;
+  }
   > .form-control,
   > .custom-select,
   > .custom-file {

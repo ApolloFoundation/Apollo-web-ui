@@ -11,7 +11,7 @@ const NumericInput = ({
     <div className="form-group mb-15">
       <div className={disabledFee ? 'disabled-fee-wrap' : ''}>
         <div className={cn({
-          'input-group': countingTtile || counterLabel,
+          'input-group no-wrap': countingTtile || counterLabel,
           'input-group-disabled': disabled || (disabledFee && values && !values.isCustomFee),
         })}
         >
@@ -24,12 +24,13 @@ const NumericInput = ({
             id={`${idGroup}${name}-field`}
             disabled={disabled || (disabledFee && values && !values.isCustomFee)}
             disableArrows={disableArrows}
-          />
-          {(countingTtile || counterLabel) && (
-            <div className="input-group-append">
-              <span className="input-group-text">{countingTtile || counterLabel}</span>
-            </div>
-          )}
+          >
+            {(countingTtile || counterLabel) && (
+              <div className="input-group-append">
+                <span className="input-group-text">{countingTtile || counterLabel}</span>
+              </div>
+            )}
+          </CustomInput>
         </div>
         {disabledFee && (
           <CheckboxFormInput
