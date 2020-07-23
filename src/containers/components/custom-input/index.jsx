@@ -2,7 +2,7 @@ import React from 'react';
 import cn from 'classnames';
 import { useField } from 'formik';
 
-// import './styles.scss';
+import styles from './styles.module.scss';
 
 export default function CustomInput(props) {
   const {
@@ -65,7 +65,7 @@ export default function CustomInput(props) {
   };
 
   return (
-    <div className="form-group">
+    <div className="form-group mb-0">
       <label htmlFor={field.name}>
         {label}
       </label>

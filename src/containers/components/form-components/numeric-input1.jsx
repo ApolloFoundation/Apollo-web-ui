@@ -8,10 +8,10 @@ const NumericInput = ({
   inputHint, defaultValue, disabled, disableArrows, disabledFee, idGroup,
 }) => (
   <>
-    <div className="form-group mb-15">
+    <div className="form-group">
       <div className={disabledFee ? 'disabled-fee-wrap' : ''}>
         <div className={cn({
-          'input-group': countingTtile || counterLabel,
+          'input-group mb-15': countingTtile || counterLabel,
           'input-group-disabled': disabled || (disabledFee && values && !values.isCustomFee),
         })}
         >
