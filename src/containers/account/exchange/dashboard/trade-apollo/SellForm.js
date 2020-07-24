@@ -115,7 +115,7 @@ class SellForm extends React.PureComponent {
                         this.props.resetTrade();
                         this.setPending(false);
                         return;
-                    }                    
+                    }
                     const pairRate = Math.round(multiply(values.pairRate, ONE_GWEI));
                     const offerAmount = multiply(values.offerAmount, ONE_GWEI);
                     const balanceAPL = (this.props.dashboardAccoountInfo && this.props.dashboardAccoountInfo.unconfirmedBalanceATM) ?
@@ -259,7 +259,7 @@ class SellForm extends React.PureComponent {
                             <label>
                                 I want to Sell
                             </label>
-                            <div className="input-group">
+                            <div className="input-group wrap">
                                 <InputForm
                                     field="offerAmount"
                                     type={"float"}
