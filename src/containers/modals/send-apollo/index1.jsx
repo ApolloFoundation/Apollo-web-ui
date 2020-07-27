@@ -51,11 +51,12 @@ export default function SendApollo(props) {
         }));
       } else {
         dispatch(setBodyModalParamsAction(null, {}));
+        closeModal();
       }
 
       NotificationManager.success('Transaction has been submitted!', null, 5000);
     });
-  }, [account, alias, dispatch, processForm]);
+  }, [account, alias, closeModal, dispatch, processForm]);
 
   const onChosenTransactionOnAlias = () => setAlias(null);
 
@@ -65,7 +66,7 @@ export default function SendApollo(props) {
     <ModalBody
       modalTitle="Create transaction"
       closeModal={closeModal}
-      handleFormSubmit={handleFormSubmit}
+      handleFormSubmit={value => handleFormSubmit(value)}
       isFee
       isAdvanced
       submitButtonName="Send"
