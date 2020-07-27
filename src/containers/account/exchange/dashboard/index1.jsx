@@ -17,7 +17,7 @@ import TwitterBanner from '../../../../assets/banner-small.png';
 import SiteHeader from '../../../components/site-header';
 import InfoBox from '../../../components/info-box';
 import TradeHistoryExchange from './trade-history';
-import TradeApollo from './trade-apollo';
+import TradeApollo from './trade-apollo/index1';
 import OpenOrders from './open-orders';
 import Orderbook from './orderbook';
 import Plot from './plot/index1';

@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { ONE_APL } from '../../../../../constants';
 import { getTransactionFee } from '../../../../../actions/wallet';
 import { setTypeOfTrade, resetTrade } from '../../../../../modules/modals';
-import BuyForm from './BuyForm';
+import BuyForm from './BuyForm1';
 import SellForm from './SellForm';
 
 const feeATM = 200000000;
