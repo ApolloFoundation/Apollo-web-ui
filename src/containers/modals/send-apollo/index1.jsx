@@ -66,7 +66,7 @@ export default function SendApollo(props) {
     <ModalBody
       modalTitle="Create transaction"
       closeModal={closeModal}
-      handleFormSubmit={value => handleFormSubmit(value)}
+      handleFormSubmit={handleFormSubmit}
       isFee
       isAdvanced
       submitButtonName="Send"
