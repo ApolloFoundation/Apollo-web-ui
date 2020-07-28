@@ -16,6 +16,7 @@ import {
 import { ReactComponent as ArrowRight } from '../../../../../../assets/arrow-right.svg';
 import { createOffer } from '../../../../../../actions/wallet';
 import { ONE_GWEI } from '../../../../../../constants';
+import BuyForm from './form';
 import InputForm from '../../../../../components/input-form';
 import CustomInput from '../../../../../components/custom-input';
 import Button from '../../../../../components/button';
@@ -26,40 +27,24 @@ import getFullNumber from '../../../../../../helpers/util/expancionalParser';
 
 const feeATM = 200000000;
 
-export default function BuyForm(props) {
+export default function BuyFormWrapper(props) {
   const dispatch = useDispatch();
   const { currentCurrency } = useSelector(state => state.exchange);
   const { dashboardAccoountInfo } = useSelector(state => state.dashboard);
-  const { infoSelectedBuyOrder } = useSelector(state => state.modals);
   const { unconfirmedBalanceATM: balanceAPL, account, passPhrase } = useSelector(state => state.account);
 
   const { currency } = currentCurrency;
 
-  const { wallet, handleLoginModal, ethFee, setValues, values, setFieldValue, initialValues } = props;
-  console.log(props);
+  const { wallet, handleLoginModal, ethFee } = props;
 
   const [isPending, setIsPending] = useState(false);
   const [newCurrentCurrency, setNewCurrentCurrency] = useState(null);
   const [newWallet, setNewWallet] = useState(null);
   const [walletsList, setWalletsList] = useState(null);
 
-  // const formik = useFormik({
-  //   initialValues: {
-  //     walletAddress: walletsList && walletsList[0],
-  //     pairRate: 0,
-  //     offerAmount: 0,
-  //     total: 0,
-  //     range: 0,
-  //   },
-  //   onSubmit: handleFormSubmit,
-  // });
-
-  // const { setValues, values, setFieldValue } = formik;
-
   const setPending = useCallback((value = true) => { setIsPending(value); }, []);
 
   const handleFormSubmit = useCallback(newValues => {
-    debugger
     if (!isPending) {
       const pairRateInfo = multiply(newValues.pairRate, ONE_GWEI);
       const offerAmountInfo = multiply(newValues.offerAmount, ONE_GWEI);
@@ -140,23 +125,11 @@ export default function BuyForm(props) {
               setPending(false);
             });
             dispatch(resetTrade());
-            setValues({
-              walletAddress: newValues.walletAddress,
-              pairRate: '',
-              offerAmount: '',
-              total: '',
-            });
           } else {
             dispatch(setBodyModalParamsAction('CONFIRM_CREATE_OFFER', {
               params,
               resetForm: () => {
                 dispatch(resetTrade());
-                setValues({
-                  walletAddress: newValues.walletAddress,
-                  pairRate: '',
-                  offerAmount: '',
-                  total: '',
-                });
               },
             }));
             setPending(false);
@@ -171,19 +144,20 @@ export default function BuyForm(props) {
       }
     }
   }, [
-    isPending, dispatch, setPending, wallet, currency, ethFee, dashboardAccoountInfo,
-    balanceAPL, account, passPhrase, setValues, handleLoginModal,
+    isPending, dispatch, setPending, wallet, currency, ethFee,
+    dashboardAccoountInfo, balanceAPL, account, passPhrase, handleLoginModal,
   ]);
 
   useEffect(() => {
-    if (currentCurrency && (currency !== newCurrentCurrency || wallet !== newWallet)) {
-      setValues({
-        walletAddress: values.walletAddress,
-        pairRate: '',
-        offerAmount: '',
-        total: '',
-      });
-    }
+    // !NEED to check
+    // if (currentCurrency && (currency !== newCurrentCurrency || wallet !== newWallet)) {
+    //   setValues({
+    //     walletAddress: values.walletAddress,
+    //     pairRate: '',
+    //     offerAmount: '',
+    //     total: '',
+    //   });
+    // }
 
     const currentWalletsList = (wallet || []).map(currWallet => (
       {
@@ -197,42 +171,23 @@ export default function BuyForm(props) {
     setWalletsList(currentWalletsList);
   }, [currency, currentCurrency, newCurrentCurrency, newWallet, wallet]);
 
-  useEffect(() => {
-    if (infoSelectedBuyOrder) {
-      const { pairRate, offerAmount, total } = infoSelectedBuyOrder;
-      const balance = wallet && wallet[0].balances[currency];
-      const normalizePairRate = !pairRate ? 0 : division(pairRate, ONE_GWEI, 9);
-      const normalizeOfferAmount = !offerAmount ? 0 : division(offerAmount, ONE_GWEI, 9);
-      const normalizeTotal = !total ? 0 : division(total, Math.pow(10, 18), 9);
-      const rangeValue = ((normalizePairRate * normalizeOfferAmount) * 100 / balance).toFixed(0);
-      setValues({
-        walletAddress: wallet && wallet[0],
-        pairRate: normalizePairRate,
-        offerAmount: normalizeOfferAmount,
-        total: normalizeTotal,
-        range: rangeValue === 'NaN' ? 0 : rangeValue > 100 ? 100 : rangeValue,
-      });
-    }
-  }, [currency, infoSelectedBuyOrder, setValues, wallet]);
-
-  const currencyName = currency.toUpperCase();
-  let balance = values.walletAddress && values.walletAddress.balances[currency];
-  balance = currency === 'eth' ? balance - ethFee : balance;
-  balance = balance < 0 ? 0 : balance;
-
-
   return (
     <Formik
       initialValues={{
         walletAddress: walletsList && walletsList[0],
-        pairRate: 0,
-        offerAmount: 0,
-        total: 0,
-        range: 0,
+        pairRate: '',
+        offerAmount: '',
+        total: '',
+        range: '',
       }}
       onSubmit={handleFormSubmit}
     >
-
+      <BuyForm
+        wallet={wallet}
+        ethFee={ethFee}
+        walletsList={walletsList}
+        isPending={isPending}
+      />
     </Formik>
   );
 }
