@@ -3,58 +3,47 @@ import React, {
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
-  Formik, Form, useFormik, withFormik, FormikContext, FormikProvider,
+  Formik, Form, useFormik, withFormik, useFormikContext,
 } from 'formik';
 import cn from 'classnames';
 import { NotificationManager } from 'react-notifications';
 import {
   currencyTypes, multiply, division,
-} from '../../../../../helpers/format';
+} from '../../../../../../../helpers/format';
 import {
   setBodyModalParamsAction, resetTrade, setSelectedOrderInfo,
-} from '../../../../../modules/modals';
-import { ReactComponent as ArrowRight } from '../../../../../assets/arrow-right.svg';
-import { createOffer } from '../../../../../actions/wallet';
-import { ONE_GWEI } from '../../../../../constants';
-import InputForm from '../../../../components/input-form';
-import CustomInput from '../../../../components/custom-input';
-import Button from '../../../../components/button';
-import CustomSelect from '../../../../components/select';
-import InputRange from '../../../../components/input-range';
-import NumericInput from '../../../../components/form-components/numeric-input1';
-import getFullNumber from '../../../../../helpers/util/expancionalParser';
+} from '../../../../../../../modules/modals';
+// import { ReactComponent as ArrowRight } from '../../../../../../assets/arrow-right.svg';
+import { createOffer } from '../../../../../../../actions/wallet';
+import { ONE_GWEI } from '../../../../../../../constants';
+import InputForm from '../../../../../../components/input-form';
+import CustomInput from '../../../../../../components/custom-input';
+import Button from '../../../../../../components/button';
+import CustomSelect from '../../../../../../components/select';
+import InputRange from '../../../../../../components/input-range';
+import NumericInput from '../../../../../../components/form-components/numeric-input1';
+import getFullNumber from '../../../../../../../helpers/util/expancionalParser';
 
 const feeATM = 200000000;
 
-function BuyForm(props) {
+export default function BuyForm(props) {
   const dispatch = useDispatch();
   const { currentCurrency } = useSelector(state => state.exchange);
   const { dashboardAccoountInfo } = useSelector(state => state.dashboard);
   const { infoSelectedBuyOrder } = useSelector(state => state.modals);
   const { unconfirmedBalanceATM: balanceAPL, account, passPhrase } = useSelector(state => state.account);
 
+  const { values, setFieldValue, setValues } = useFormikContext();
+
   const { currency } = currentCurrency;
 
-  const { wallet, handleLoginModal, ethFee, setValues, values, setFieldValue, initialValues } = props;
+  const { wallet, handleLoginModal, ethFee } = props;
   console.log(props);
 
   const [isPending, setIsPending] = useState(false);
   const [newCurrentCurrency, setNewCurrentCurrency] = useState(null);
   const [newWallet, setNewWallet] = useState(null);
   const [walletsList, setWalletsList] = useState(null);
-
-  // const formik = useFormik({
-  //   initialValues: {
-  //     walletAddress: walletsList && walletsList[0],
-  //     pairRate: 0,
-  //     offerAmount: 0,
-  //     total: 0,
-  //     range: 0,
-  //   },
-  //   onSubmit: handleFormSubmit,
-  // });
-
-  // const { setValues, values, setFieldValue } = formik;
 
   const setPending = useCallback((value = true) => { setIsPending(value); }, []);
 
@@ -222,20 +211,7 @@ function BuyForm(props) {
 
 
   return (
-    // <Formik
-    // initialValues={{
-    //   walletAddress: walletsList && walletsList[0],
-    //   pairRate: 0,
-    //   offerAmount: 0,
-    //   total: 0,
-    //   range: 0,
-    // }}
-    // onSubmit={handleFormSubmit}
-    // >
-    <form
-      onSubmit={handleFormSubmit}
-      className="form-group-app d-flex flex-column justify-content-between h-100 mb-0"
-    >
+    <Form className="form-group-app d-flex flex-column justify-content-between h-100 mb-0">
       {/* :In future Check */}
       {/* {walletsList && !!walletsList.length && (
         <div className="form-group mb-3">
@@ -367,37 +343,6 @@ function BuyForm(props) {
         name="Buy APL"
         isArrow
       />
-    </form>
-    // </Formik>
+    </Form>
   );
 }
-
-export default withFormik({
-  mapPropsToValues: () => ({
-    walletAddress: 0,
-    pairRate: 1,
-    offerAmount: 1,
-    total: 1,
-    range: 1,
-  }),
-
-  // // Custom sync validation
-  // validate: values => {
-  //   const errors = {};
-
-  //   if (!values.name) {
-  //     errors.name = 'Required';
-  //   }
-
-  //   return errors;
-  // },
-
-  // handleSubmit: (values, { setSubmitting }) => {
-  //   setTimeout(() => {
-  //     alert(JSON.stringify(values, null, 2));
-  //     setSubmitting(false);
-  //   }, 1000);
-  // },
-
-  // displayName: 'BasicForm',
-})(BuyForm);
