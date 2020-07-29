@@ -38,9 +38,6 @@ export default function BuyFormWrapper(props) {
   const { wallet, handleLoginModal, ethFee } = props;
 
   const [isPending, setIsPending] = useState(false);
-  const [newCurrentCurrency, setNewCurrentCurrency] = useState(null);
-  const [newWallet, setNewWallet] = useState(null);
-  const [walletsList, setWalletsList] = useState(null);
 
   const setPending = useCallback((value = true) => { setIsPending(value); }, []);
 
@@ -148,33 +145,9 @@ export default function BuyFormWrapper(props) {
     dashboardAccoountInfo, balanceAPL, account, passPhrase, handleLoginModal,
   ]);
 
-  useEffect(() => {
-    // !NEED to check
-    // if (currentCurrency && (currency !== newCurrentCurrency || wallet !== newWallet)) {
-    //   setValues({
-    //     walletAddress: values.walletAddress,
-    //     pairRate: '',
-    //     offerAmount: '',
-    //     total: '',
-    //   });
-    // }
-
-    const currentWalletsList = (wallet || []).map(currWallet => (
-      {
-        value: currWallet,
-        label: currWallet.address,
-      }
-    ));
-
-    setNewCurrentCurrency(currency);
-    setNewWallet(wallet);
-    setWalletsList(currentWalletsList);
-  }, [currency, currentCurrency, newCurrentCurrency, newWallet, wallet]);
-
   return (
     <Formik
       initialValues={{
-        walletAddress: walletsList && walletsList[0],
         pairRate: '',
         offerAmount: '',
         total: '',
@@ -185,7 +158,6 @@ export default function BuyFormWrapper(props) {
       <BuyForm
         wallet={wallet}
         ethFee={ethFee}
-        walletsList={walletsList}
         isPending={isPending}
       />
     </Formik>

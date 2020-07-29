@@ -13,6 +13,7 @@ import {
   getPlotSellOpenOffers,
   getSellOpenOffers,
 } from '../../../../actions/wallet';
+import { secureStorage } from '../../../../helpers/format';
 import TwitterBanner from '../../../../assets/banner-small.png';
 import SiteHeader from '../../../components/site-header';
 import InfoBox from '../../../components/info-box';
@@ -30,6 +31,8 @@ export default function Exchange() {
     currencies, currentCurrency, buyOrders, sellOrders,
     plotBuyOrders, plotSellOrders, myOrders,
   } = useSelector(state => state.exchange);
+
+  const { actualBlock } = useSelector(state => state.account);
 
   const [currWallets, setCurrWallets] = useState(null);
 
@@ -65,7 +68,7 @@ export default function Exchange() {
 
   useEffect(() => {
     NotificationManager.info('After creating an order, you should keep your node online, leaving enough funds on your account to cover the exchange fees (min 12 APL), until the exchange completes', null, 1000000);
-    const newWallets = localStorage.getItem('wallets');
+    const newWallets = secureStorage.getItem('wallets');
     if (!newWallets) {
       handleLoginModal();
     } else {
@@ -76,7 +79,7 @@ export default function Exchange() {
     dispatch(getPlotBuyOpenOffers());
     dispatch(getPlotSellOpenOffers());
     dispatch(getMyOpenOffers());
-  }, [dispatch, handleGetCurrencyBalance, handleLoginModal]);
+  }, [dispatch, handleGetCurrencyBalance, handleLoginModal, actualBlock]);
 
   useEffect(() => {
     if (!currWallets && wallets) {

@@ -1,58 +1,40 @@
-/******************************************************************************
+/** ****************************************************************************
  * Copyright © 2018 Apollo Foundation                                         *
  *                                                                            *
- ******************************************************************************/
-
+ ***************************************************************************** */
 
 import React from 'react';
+import { useField } from 'formik';
 import Select from 'react-select';
 
-import './Select.scss'
+import './Select.scss';
 
-class CustomSelect extends React.Component {
-    state = {
-        value: null,
-        defaultValue: null,
-    };
+export default function CustomSelect({
+  options, name, defaultValue, onChange,
+}) {
+  const [field, , helpers] = useField(name);
 
-    static getDerivedStateFromProps(props, state) {
-        if (props.defaultValue !== state.defaultValue) {
-            if (props.defaultValue) props.setValue(props.field, props.defaultValue.value);
-            return {
-                defaultValue: props.defaultValue,
-                value: props.defaultValue,
-            };
-        }
+  const handleChange = value => {
+    helpers.setValue(value);
+    if (onChange) onChange();
+  };
 
-        return null;
-    }
-
-    render() {
-        return (
-            <Select
-                className={'form-custom-select'}
-                classNamePrefix={'custom-select-box'}
-                options={this.props.options}
-                value={this.state.value}
-                defaultValue={this.props.defaultValue}
-                onChange={(selectedOption) => {
-                    this.setState({value: selectedOption});
-                    if (this.props.setValue) this.props.setValue(this.props.field, selectedOption.value);
-                    if (this.props.onChange) this.props.onChange(selectedOption.value);
-                    if (this.props.handler) this.props.handler(selectedOption);
-                }
-                }
-                theme={(theme) => ({
-                    ...theme,
-                    borderRadius: 0,
-                    colors: {
-                        ...theme.colors,
-                        primary: 'black',
-                    },
-                })}
-            />
-        );
-    }
+  return (
+    <Select
+      {...field}
+      className="form-custom-select"
+      classNamePrefix="custom-select-box"
+      options={options}
+      defaultValue={defaultValue}
+      onChange={handleChange}
+      theme={theme => ({
+        ...theme,
+        borderRadius: 0,
+        colors: {
+          ...theme.colors,
+          primary: 'black',
+        },
+      })}
+    />
+  );
 }
-
-export default CustomSelect;
