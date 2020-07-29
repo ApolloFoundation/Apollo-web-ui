@@ -4,7 +4,7 @@ import CustomInput from '../custom-input';
 import CheckboxFormInput from '../check-button-input';
 
 const NumericInput = ({
-  values, label, name, countingTtile, counterLabel, placeholder, type, onChange,
+  values, label, name, countingTtile, counterLabel, placeholder, type,
   inputHint, defaultValue, disabled, disableArrows, disabledFee, idGroup,
 }) => (
   <>
@@ -20,7 +20,6 @@ const NumericInput = ({
             placeholder={placeholder}
             label={label}
             type={type || 'float'}
-            onChange={onChange}
             defaultValue={defaultValue || ''}
             id={`${idGroup}${name}-field`}
             disabled={disabled || (disabledFee && values && !values.isCustomFee)}
