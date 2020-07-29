@@ -4,7 +4,7 @@ import AccountRS from '../account-rs/index1';
 const AccountRSFormInput = props => {
   const {
     noContactList, exportAccountList, label, idGroup,
-    name, defaultValue, handleRemoveItem, index,
+    name, handleRemoveItem, index,
   } = props;
 
   return (
@@ -16,7 +16,6 @@ const AccountRSFormInput = props => {
         <div className="input-group iconned-input-field">
           <AccountRS
             name={name}
-            defaultValue={defaultValue}
             exportAccountList={exportAccountList}
             noContactList={noContactList}
             id={`${idGroup}${name}-field`}

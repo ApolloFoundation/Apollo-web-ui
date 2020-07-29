@@ -57,7 +57,7 @@ export default function SendApolloPrivate(props) {
         return;
       }
 
-      const newValues = values;
+      const newValues = { ...values };
 
       if (values.isMixer) {
         newValues.messageToEncrypt = JSON.stringify({
@@ -99,12 +99,13 @@ export default function SendApolloPrivate(props) {
             NotificationManager.error(privateTransaction.errorDescription, 'Error', 5000);
           } else {
             NotificationManager.success('Private transaction has been submitted.', null, 5000);
+            closeModal();
             dispatch(setBodyModalParamsAction(null, {}));
           }
           setIsPending(false);
         });
     }
-  }, [dispatch, isPending]);
+  }, [closeModal, dispatch, isPending]);
 
   const setConfirm = () => {
     setIsPrivateTransactionAlert(true);

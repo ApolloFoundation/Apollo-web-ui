@@ -24,7 +24,6 @@ const FormFooter = ({
       <CustomButton
         type="submit"
         id={`${idGroup}cancel-button`}
-        onClick={closeModal}
         color="green"
         isLoading={isMomalProcessing || isPending}
         disabled={isDisabled || isMomalProcessing || isPending}
