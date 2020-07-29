@@ -8,6 +8,7 @@ export default function CustomInput(props) {
   const {
     label, className, type, disableArrows, disabled, id, children,
     maxValue, minValue, step, isSpecialSymbols, name, placeholder,
+    onChange,
   } = props;
   const [field, , helpers] = useField(name);
   const { setValue } = helpers;
@@ -23,6 +24,7 @@ export default function CustomInput(props) {
       currentValue = currentValue.replace(',', '.');
       if (currentValue === '.') currentValue = '0.';
       currentValue = currentValue.replace(/[^\d.]|\.(?=.*\.)/g, '');
+      if (!currentValue.includes('.') && currentValue.length <= 2) currentValue = Number(currentValue).toString();
     }
     if (type === 'password' && type === 'tel' && type === 'float' && !isSpecialSymbols) {
       currentValue = currentValue.replace(/[;`'"%!#&~<>@_=*+?^${}|[\]\\]/g, '');
@@ -61,7 +63,9 @@ export default function CustomInput(props) {
   };
 
   const handleChange = ({ target: { value } }) => {
-    setValue(parseValue(value));
+    const parsedValue = parseValue(value);
+    setValue(parsedValue);
+    if (onChange) onChange(parsedValue);
   };
 
   return (

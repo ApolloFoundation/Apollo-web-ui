@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import TransactionItem from './TransactionItem';
-import ContentLoader from '../../components/content-loader';
+import TransactionItem from './transaction-item';
+import ContentLoader from '../../../components/content-loader';
 
 const MyTransactions = () => {
   const { dashboardTransactions } = useSelector(state => state.dashboard);

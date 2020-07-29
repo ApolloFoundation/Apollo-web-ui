@@ -2,9 +2,9 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { setBodyModalParamsAction } from '../../../modules/modals';
-import { ONE_APL } from '../../../constants';
-import ContentLoader from '../../components/content-loader';
+import { setBodyModalParamsAction } from '../../../../modules/modals';
+import { ONE_APL } from '../../../../constants';
+import ContentLoader from '../../../components/content-loader';
 
 const TotalBalance = () => {
   const dispatch = useDispatch();
