@@ -196,7 +196,6 @@ class BuyForm extends React.PureComponent {
     setPending = (value = true) => this.setState({isPending: value})
 
     getFormApi = (form) => {
-        debugger
         this.setState({form})
     };
 

@@ -8,101 +8,82 @@ import { ONE_GWEI } from '../../../../../../constants';
 import {
   setBodyModalParamsAction, resetTrade, setSelectedOrderInfo,
 } from '../../../../../../modules/modals';
-import BuyForm from './form';
+import SellForm from './form';
 
 const feeATM = 200000000;
 
-export default function BuyFormWrapper(props) {
+export default function SellFormWrapper(props) {
   const dispatch = useDispatch();
-  const { currentCurrency } = useSelector(state => state.exchange);
-  const { dashboardAccoountInfo } = useSelector(state => state.dashboard);
-  const { unconfirmedBalanceATM: balanceAPL, account, passPhrase } = useSelector(state => state.account);
 
+  const { dashboardAccoountInfo } = useSelector(state => state.dashboard);
+  const { currentCurrency } = useSelector(state => state.exchange);
+  const { unconfirmedBalanceATM: balanceAPL, account, passPhrase } = useSelector(state => state.account);
   const { currency } = currentCurrency;
 
   const { wallet, handleLoginModal, ethFee } = props;
 
   const [isPending, setIsPending] = useState(false);
 
-  const setPending = useCallback((value = true) => { setIsPending(value); }, []);
+  const setPending = useCallback((value = true) => setIsPending(value), []);
 
-  const handleFormSubmit = useCallback(newValues => {
+  const handleFormSubmit = useCallback(values => {
     if (!isPending) {
-      const pairRateInfo = multiply(newValues.pairRate, ONE_GWEI);
-      const offerAmountInfo = multiply(newValues.offerAmount, ONE_GWEI);
+      const pairRateInfo = multiply(values.pairRate, ONE_GWEI);
+      const offerAmountInfo = multiply(values.offerAmount, ONE_GWEI);
       const totalInfo = pairRateInfo * offerAmountInfo;
       dispatch(setSelectedOrderInfo({
         pairRate: pairRateInfo,
         offerAmount: offerAmountInfo,
         total: totalInfo,
-        type: 'BUY',
+        type: 'SELL',
       }));
       setPending();
       if (wallet) {
-        if (newValues.offerAmount > 0 && newValues.pairRate > 0) {
-          const balance = newValues.walletAddress
-            && newValues.walletAddress.value.balances[currency];
+        if (values.offerAmount > 0 && values.pairRate > 0) {
           let isError = false;
-          if (+newValues.pairRate < 0.000000001) {
+          if (+values.pairRate < 0.000000001) {
             NotificationManager.error(`Price must be more then 0.000000001 ${currency.toUpperCase()}`, 'Error', 5000);
             isError = true;
           }
-          if (+newValues.offerAmount < 0.001) {
-            NotificationManager.error('You can buy more then 0.001 APL', 'Error', 5000);
+          if (+values.offerAmount < 0.001) {
+            NotificationManager.error('You can sell more then 0.001 APL', 'Error', 5000);
             isError = true;
           }
-          if (!newValues.walletAddress || !newValues.walletAddress.value.balances) {
-            NotificationManager.error('Please select wallet address', 'Error', 5000);
-            isError = true;
-          }
-          if (+newValues.total > +balance) {
-            NotificationManager.error(`You need more ${currency.toUpperCase()}. Please check your wallet balance.`, 'Error', 5000);
-            isError = true;
-          }
-          if (+ethFee > +newValues.walletAddress.value.balances.eth) {
-            NotificationManager.error(`To buy APL you need to have at least ${ethFee.toLocaleString('en', {
+          if (+ethFee > +values.walletAddress.value.balances.eth) {
+            NotificationManager.error(`To sell APL you need to have at least ${ethFee.toLocaleString('en', {
               minimumFractionDigits: 0,
               maximumFractionDigits: 9,
             })} ETH on your balance to confirm transaction`, 'Error', 5000);
             isError = true;
           }
           if (isError) {
+            dispatch(resetTrade());
             setPending(false);
             return;
           }
-          const pairRate = Math.round(multiply(newValues.pairRate, ONE_GWEI));
-          const offerAmount = multiply(newValues.offerAmount, ONE_GWEI);
-          const balanceETH = parseFloat(newValues.walletAddress.value.balances[currency]);
+          const pairRate = Math.round(multiply(values.pairRate, ONE_GWEI));
+          const offerAmount = multiply(values.offerAmount, ONE_GWEI);
           const currentBalanceAPL = (dashboardAccoountInfo && dashboardAccoountInfo.unconfirmedBalanceATM)
             ? parseFloat(dashboardAccoountInfo.unconfirmedBalanceATM)
             : parseFloat(balanceAPL);
-          const fixedOfferAmount = offerAmount.toFixed();
-          const checkFee = currency === 'eth' ? newValues.total + ethFee : ethFee;
-          if (checkFee > balanceETH) {
-            NotificationManager.error('Not enough founds on your ETH balance. You need to pay Gas fee', 'Error', 5000);
+
+          if (!balanceAPL || currentBalanceAPL === 0 || currentBalanceAPL < ((offerAmount + feeATM) / 10)) {
+            NotificationManager.error('Not enough funds on your APL balance.', 'Error', 5000);
             setPending(false);
             return;
           }
-          if (balanceETH === 0 || balanceETH < newValues.total) {
-            NotificationManager.error(`Not enough founds on your ${currency.toUpperCase()} balance.`, 'Error', 5000);
-            setPending(false);
-            return;
-          }
-          if (!balanceAPL || currentBalanceAPL === 0 || currentBalanceAPL < feeATM) {
-            NotificationManager.error('Not enough funds on your APL balance. You need to pay 2 APL fee.', 'Error', 5000);
-            setPending(false);
-            return;
-          }
+
           const params = {
-            offerType: 0, // BUY
+            offerType: 1, // SELL
             pairCurrency: currencyTypes[currency],
             pairRate,
-            offerAmount: fixedOfferAmount,
+            offerAmount,
             sender: account,
             passphrase: passPhrase,
             feeATM,
-            walletAddress: newValues.walletAddress.value.address,
+            walletAddress: values.walletAddress.value.address,
           };
+
           if (passPhrase) {
             dispatch(createOffer(params)).then(() => {
               setPending(false);
@@ -126,10 +107,7 @@ export default function BuyFormWrapper(props) {
         handleLoginModal();
       }
     }
-  }, [
-    isPending, dispatch, setPending, wallet, currency, ethFee,
-    dashboardAccoountInfo, balanceAPL, account, passPhrase, handleLoginModal,
-  ]);
+  }, [account, balanceAPL, currency, dashboardAccoountInfo, dispatch, ethFee, handleLoginModal, isPending, passPhrase, setPending, wallet]);
 
   return (
     <Formik
@@ -141,10 +119,13 @@ export default function BuyFormWrapper(props) {
       }}
       onSubmit={handleFormSubmit}
     >
-      <BuyForm
+      <SellForm
         wallet={wallet}
         ethFee={ethFee}
         isPending={isPending}
+        currency={currency}
+        dashboardAccoountInfo={dashboardAccoountInfo}
+        balanceAPL={balanceAPL}
       />
     </Formik>
   );

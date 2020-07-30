@@ -6,7 +6,7 @@ import { ONE_APL } from '../../../../../constants';
 import { getTransactionFee } from '../../../../../actions/wallet';
 import { setTypeOfTrade, resetTrade } from '../../../../../modules/modals';
 import BuyForm from './buy-form';
-import SellForm from './SellForm';
+import SellForm from './sell-form';
 
 const feeATM = 200000000;
 const ethMinTxFee = 0.002;
