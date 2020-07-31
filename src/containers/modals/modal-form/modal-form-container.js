@@ -12,7 +12,7 @@ class BackForm extends Component {
 		if(this.props.getApi){
 			this.props.getApi(form);
 		}
-		
+
 	};
 
 	componentWillReceiveProps = ({modalData}) => {
@@ -42,7 +42,7 @@ class BackForm extends Component {
     render() {
         return(
 	        <Form
-				onChange={this.props.onChange}
+				    onChange={this.props.onChange}
 		        nameModal={this.props.nameModal}
 		        onSubmit={(values) => this.props.onSubmit(values)}
 		        getApi={(value) => this.getForm(value)}
@@ -57,7 +57,7 @@ class BackForm extends Component {
 const mapStateToProps = state => ({
 	savedValues: state.modals.savedValues,
 	modalsHistory: state.modals.modalsHistory,
-	
+
 	modalData: state.modals.modalData
 });
 

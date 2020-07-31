@@ -54,7 +54,7 @@ const SendMoneyForm = ({values, setValue, modalData, setBodyModalParamsAction, i
                     }
                 ]}
             />
-            {values.alias && 
+            {values.alias &&
                 <AutoComplete
                     placeholder={'Alias'}
                     label={'Alias'}
