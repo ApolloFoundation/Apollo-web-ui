@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import BuyOrders from './BuyOrders';
-import SellOrders from './SellOrders';
+import BuyOrders from './BuyOrders.jsx';
+import SellOrders from './SellOrders.jsx';
 
 export default function Orderbook(props) {
   const { currentCurrency, buyOrders, sellOrders } = props;
@@ -16,19 +16,19 @@ export default function Orderbook(props) {
         <div className="tabs-wrap tabs-primary mb-3">
           <div
             className={`tab-item ${actionType === 0 ? 'active' : ''}`}
-            onClick={setActionType(0)}
+            onClick={() => setActionType(0)}
           >
             All
           </div>
           <div
             className={`tab-item ${actionType === 1 ? 'active' : ''}`}
-            onClick={setActionType(1)}
+            onClick={() => setActionType(1)}
           >
             Buy Orders
           </div>
           <div
             className={`tab-item ${actionType === 2 ? 'active' : ''}`}
-            onClick={setActionType(2)}
+            onClick={() => setActionType(2)}
           >
             Sell Orders
           </div>

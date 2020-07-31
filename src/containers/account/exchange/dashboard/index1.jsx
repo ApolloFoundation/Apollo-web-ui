@@ -20,7 +20,7 @@ import InfoBox from '../../../components/info-box';
 import TradeHistoryExchange from './trade-history';
 import TradeApollo from './trade-apollo/index1';
 import OpenOrders from './open-orders';
-import Orderbook from './orderbook';
+import Orderbook from './orderbook/index1';
 import Plot from './plot/index1';
 
 export default function Exchange() {

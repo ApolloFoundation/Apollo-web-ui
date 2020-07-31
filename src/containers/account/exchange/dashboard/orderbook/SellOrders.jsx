@@ -1,21 +1,21 @@
 import React, {
-  useEffect, useCallback, useState,
+  useEffect, useState, useCallback,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getBuyOpenOffers } from '../../../../../actions/wallet';
+import { getSellOpenOffers } from '../../../../../actions/wallet';
 import { setSelectedOrderInfo } from '../../../../../modules/modals';
 import { formatDivision } from '../../../../../helpers/format';
 import { ONE_GWEI } from '../../../../../constants';
 import CustomTable from '../../../../components/tables/table1';
 
-export default function BuyOrders(props) {
+export default function SellOrders(props) {
   const dispatch = useDispatch();
 
-  const { currentCurrency, buyOrders } = props;
+  const { sellOrdersPagination: ordersPagination } = useSelector(state => state.exchange);
+
+  const { currentCurrency, sellOrders } = props;
 
   const [currency, setCurrency] = useState(null);
-
-  const { buyOrdersPagination: ordersPagination } = useSelector(state => state.exchange);
 
   const onPaginate = useCallback(page => {
     const pagination = {
@@ -24,7 +24,7 @@ export default function BuyOrders(props) {
       lastIndex: page * 15,
     };
 
-    dispatch(getBuyOpenOffers(null, pagination));
+    dispatch(getSellOpenOffers(null, pagination));
   }, [dispatch]);
 
   useEffect(() => {
@@ -34,7 +34,7 @@ export default function BuyOrders(props) {
         firstIndex: 0,
         lastIndex: 15,
       };
-      dispatch(getBuyOpenOffers(null, pagination));
+      dispatch(getSellOpenOffers(null, pagination));
       setCurrency(currentCurrency);
     }
   }, [currency, currentCurrency, dispatch]);
@@ -55,21 +55,19 @@ export default function BuyOrders(props) {
       ]}
       className="table-sm orderbook"
       defaultRowCount={15}
-      tableData={buyOrders}
-      emptyMessage="No buy orders found."
+      tableData={sellOrders}
+      emptyMessage="No sell orders found."
       TableRowComponent={tableProps => {
         const pairRate = formatDivision(tableProps.pairRate, ONE_GWEI, 9);
         const offerAmount = formatDivision(tableProps.offerAmount, ONE_GWEI, 9);
         const total = tableProps.pairRate * tableProps.offerAmount;
         const totalFormat = formatDivision(total, 10 ** 18, 9);
         return (
-          <tr
-            onClick={() => dispatch(setSelectedOrderInfo({
-              pairRate: tableProps.pairRate, offerAmount: tableProps.offerAmount, total, type: 'SELL',
-            }))}
-            className="success"
+          <tr onClick={() => dispatch(setSelectedOrderInfo({
+            pairRate: tableProps.pairRate, offerAmount: tableProps.offerAmount, total, type: 'BUY',
+          }))}
           >
-            <td className="text-success">{pairRate}</td>
+            <td className="text-danger">{pairRate}</td>
             <td className="align-right">{offerAmount}</td>
             <td className="align-right">{totalFormat}</td>
           </tr>
