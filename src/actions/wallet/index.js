@@ -309,7 +309,7 @@ export const getMyTradeHistory = (currency, options) => async (dispatch, getStat
         accountId: account,
         status: 5,
         sortBy: 'DB_ID',
-        sortOrder: 'DESC', 
+        sortOrder: 'DESC',
         ...options
     };
 
@@ -355,7 +355,7 @@ export const getMyOfferHistory = (options) => async (dispatch, getState) => {
     const params = {
         accountId: account,
         sortBy: 'DB_ID',
-        sortOrder: 'DESC', 
+        sortOrder: 'DESC',
         ...options
     };
     const orders = await dispatch(getOpenOrders(params));

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useCallback } from 'react';
 import {connect} from 'react-redux';
 import {getBuyOpenOffers} from "../../../../../actions/wallet";
 import {setSelectedOrderInfo} from "../../../../../modules/modals";
@@ -6,11 +6,34 @@ import {formatDivision} from '../../../../../helpers/format';
 import {ONE_GWEI} from '../../../../../constants';
 import CustomTable from '../../../../components/tables/table';
 
-class BuyOrders extends React.Component {
-    state = {
-        currentCurrency: null,
+export default function BuyOrders(props) {
+  state = {
+    currentCurrency: null,
+  };
+
+  const onPaginate = useCallback((page) => {
+    const pagination = {
+      page: page,
+      firstIndex: page * 15 - 15,
+      lastIndex: page * 15
     };
 
+    this.props.getBuyOpenOffers(null, pagination);
+  }, []);
+
+  useEffect(() => {
+    if (props.currentCurrency !== state.currentCurrency) {
+      const pagination = {
+        page: 1,
+        firstIndex: 0,
+        lastIndex: 15,
+      };
+      props.getBuyOpenOffers(null, pagination);
+      return {
+        currentCurrency: props.currentCurrency,
+      };
+    }
+  }, [])
     static getDerivedStateFromProps(props, state) {
         if (props.currentCurrency !== state.currentCurrency) {
             const pagination = {
