@@ -17,7 +17,7 @@ import { secureStorage } from '../../../../helpers/format';
 import TwitterBanner from '../../../../assets/banner-small.png';
 import SiteHeader from '../../../components/site-header';
 import InfoBox from '../../../components/info-box';
-import TradeHistoryExchange from './trade-history';
+import TradeHistoryExchange from './trade-history/index1';
 import TradeApollo from './trade-apollo/index1';
 import OpenOrders from './open-orders';
 import Orderbook from './orderbook/index1';
