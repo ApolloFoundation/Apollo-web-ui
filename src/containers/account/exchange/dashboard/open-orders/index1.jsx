@@ -29,7 +29,7 @@ export default function OpenOrdersExchange(props) {
     <div className="wrap-card-square">
       <div className="card card-light card-square bg-white">
         <div className="card-body">
-          <div className="mb-0">
+          <div className="tabs-wrap tabs-primary mb-3">
             <div
               className={`tab-item ${actionType === 0 ? 'active' : ''}`}
               onClick={() => handleActionType(0)}
