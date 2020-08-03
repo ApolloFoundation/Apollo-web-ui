@@ -76,7 +76,7 @@ import Exchange from "../account/exchange/dashboard/index1"
 import TradeHistoryExchange from "../account/exchange/trade-history"
 import OrderHistory from "../account/exchange/order-history"
 import OrderDetails from "../account/exchange/order-details"
-import ChooseWallet from "../account/exchange/choose-wallet"
+import ChooseWallet from "../account/exchange/choose-wallet/index1"
 
 import './App.scss';
 import './fonts.scss';

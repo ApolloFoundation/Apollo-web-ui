@@ -79,7 +79,7 @@ export default function Exchange() {
     dispatch(getPlotBuyOpenOffers());
     dispatch(getPlotSellOpenOffers());
     dispatch(getMyOpenOffers());
-  }, [dispatch, handleGetCurrencyBalance, handleLoginModal, actualBlock]);
+  }, []);
 
   useEffect(() => {
     if (!currWallets && wallets) {
