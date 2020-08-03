@@ -19,7 +19,7 @@ import SiteHeader from '../../../components/site-header';
 import InfoBox from '../../../components/info-box';
 import TradeHistoryExchange from './trade-history/index1';
 import TradeApollo from './trade-apollo/index1';
-import OpenOrders from './open-orders';
+import OpenOrders from './open-orders/index1';
 import Orderbook from './orderbook/index1';
 import Plot from './plot/index1';
 
