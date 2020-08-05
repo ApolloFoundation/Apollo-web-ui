@@ -32,8 +32,6 @@ export default function Exchange() {
     plotBuyOrders, plotSellOrders, myOrders,
   } = useSelector(state => state.exchange);
 
-  const { actualBlock } = useSelector(state => state.account);
-
   const [currWallets, setCurrWallets] = useState(null);
 
   const handleGetCurrencyBalance = useCallback(async selectWallets => {

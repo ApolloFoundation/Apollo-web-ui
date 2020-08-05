@@ -2,21 +2,24 @@ import React, {
   useCallback, useState, useEffect,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import SiteHeader from '../../../components/site-header';
 import CustomTable from '../../../components/tables/table';
-import { setCurrentCurrencyAction } from '../../../../modules/exchange';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
-import { getMyOfferHistory, getContractStatus } from '../../../../actions/wallet';
-import { formatDivision, currencyTypes } from '../../../../helpers/format';
+import { getMyOfferHistory } from '../../../../actions/wallet';
+import {
+  formatDivision, currencyTypes, secureStorage,
+} from '../../../../helpers/format';
 import { ONE_GWEI } from '../../../../constants';
 import { BlockUpdater } from '../../../block-subscriber';
 import InfoBox from '../../../components/info-box';
 
 export default function OrderHistory() {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const { wallets } = useSelector(state => state.account);
-  const { currentCurrency, myOrderHistory, contractStatus } = useSelector(state => state.exchange);
+  const { myOrderHistory } = useSelector(state => state.exchange);
 
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(1);
@@ -31,25 +34,22 @@ export default function OrderHistory() {
   }, [dispatch, firstIndex, lastIndex]);
 
   const handleSelectOrder = useCallback((data, hasFrozenMoney, selectOrderId) => {
-    this.props.history.push({ pathname: `/order/${selectOrderId}` });
-  }, []);
+    history.push({ pathname: `/order/${selectOrderId}` });
+  }, [history]);
 
   const handleCancel = useCallback(data => {
-    this.props.setBodyModalParamsAction('CONFIRM_CANCEL_ORDER', data);
-  }, []);
+    dispatch(setBodyModalParamsAction('CONFIRM_CANCEL_ORDER', data));
+  }, [dispatch]);
 
-  const onPaginate = useCallback(page => {
-    this.setState({
-      page,
-      firstIndex: page * 15 - 15,
-      lastIndex: page * 15,
-    }, () => {
-      this.props.getMyOfferHistory({
-        firstIndex: this.state.firstIndex,
-        lastIndex: this.state.lastIndex,
-      });
-    });
-  }, []);
+  const onPaginate = useCallback(currPage => {
+    setPage(currPage);
+    setFirstIndex(currPage * 15 - 15);
+    setLastIndex(currPage * 15);
+    dispatch(getMyOfferHistory({
+      firstIndex: currPage * 15 - 15,
+      lastIndex: currPage * 15,
+    }));
+  }, [dispatch]);
 
   const statusOfOrder = useCallback(status => {
     const allStatuses = {
@@ -66,25 +66,25 @@ export default function OrderHistory() {
   }, []);
 
   useEffect(() => {
-    if (this.props.wallets && this.state.loading) {
-      this.props.getMyOfferHistory({
-        firstIndex: this.state.firstIndex,
-        lastIndex: this.state.lastIndex,
-      });
-      this.setState({ loading: false });
+    if (wallets && isLoading) {
+      dispatch(getMyOfferHistory({
+        firstIndex,
+        lastIndex,
+      }));
+      setIsLoading(false);
     }
-  }, []);
+  }, [dispatch, firstIndex, isLoading, lastIndex, wallets]);
 
   useEffect(() => {
-    const wallets = localStorage.getItem('wallets');
-    if (!wallets) {
-      this.props.setBodyModalParamsAction('LOGIN_EXCHANGE', {});
+    const localWallets = secureStorage.getItem('wallets');
+    if (!localWallets) {
+      dispatch(setBodyModalParamsAction('LOGIN_EXCHANGE', {}));
     } else {
-      this.props.getMyOfferHistory({
-        firstIndex: this.state.firstIndex,
-        lastIndex: this.state.lastIndex,
-      });
-      this.setState({ loading: false });
+      dispatch(getMyOfferHistory({
+        firstIndex,
+        lastIndex,
+      }));
+      setIsLoading(false);
     }
     BlockUpdater.on('data', listener);
 

@@ -74,7 +74,7 @@ import MarketplaceSearch from "../account/marketplace-search";
 import Generators from "../account/generators"
 import Exchange from "../account/exchange/dashboard/index1"
 import TradeHistoryExchange from "../account/exchange/trade-history"
-import OrderHistory from "../account/exchange/order-history"
+import OrderHistory from "../account/exchange/order-history/index1"
 import OrderDetails from "../account/exchange/order-details"
 import ChooseWallet from "../account/exchange/choose-wallet/index1"
 
