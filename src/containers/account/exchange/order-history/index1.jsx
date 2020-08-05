@@ -178,22 +178,22 @@ export default function OrderHistory() {
                     <td className={`${props.status ? 'red-text' : ''}`}>{statusName}</td>
                     <td className="align-right">
                       {props.status === 0 && (
-                      <button
-                        type="button"
-                        className="btn btn-sm"
-                        onClick={event => {
-                          event.stopPropagation();
-                          handleCancel({
-                            currency: type,
-                            pairRate,
-                            offerAmount,
-                            total,
-                            orderId: props.id,
-                          });
-                        }}
-                      >
-                        Cancel
-                      </button>
+                        <button
+                          type="button"
+                          className="btn btn-sm"
+                          onClick={event => {
+                            event.stopPropagation();
+                            handleCancel({
+                              currency: type,
+                              pairRate,
+                              offerAmount,
+                              total,
+                              orderId: props.id,
+                            });
+                          }}
+                        >
+                          Cancel
+                        </button>
                       )}
                     </td>
                   </tr>
