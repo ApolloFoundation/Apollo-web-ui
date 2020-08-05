@@ -73,7 +73,7 @@ export default function OrderHistory() {
       }));
       setIsLoading(false);
     }
-  }, [dispatch, firstIndex, isLoading, lastIndex, wallets]);
+  }, [dispatch, isLoading, wallets]);
 
   useEffect(() => {
     const localWallets = secureStorage.getItem('wallets');

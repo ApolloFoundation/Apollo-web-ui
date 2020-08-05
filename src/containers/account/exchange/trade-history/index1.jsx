@@ -190,8 +190,7 @@ export default function TradeHistory() {
                   nextHendler={() => onPaginate(page + 1)}
                   itemsPerPage={15}
                 />
-              )
-              : (
+              ) : (
                 <div className="align-items-center loader-box">
                   <div className="ball-pulse">
                     <div />
