@@ -3,8 +3,6 @@ import React, {
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import SiteHeader from '../../../components/site-header';
-import CustomTable from '../../../components/tables/table';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
 import { getMyOfferHistory } from '../../../../actions/wallet';
 import {
@@ -12,6 +10,8 @@ import {
 } from '../../../../helpers/format';
 import { ONE_GWEI } from '../../../../constants';
 import { BlockUpdater } from '../../../block-subscriber';
+import CustomTable from '../../../components/tables/table';
+import SiteHeader from '../../../components/site-header';
 import InfoBox from '../../../components/info-box';
 
 export default function OrderHistory() {

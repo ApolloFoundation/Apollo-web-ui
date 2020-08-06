@@ -28,15 +28,10 @@ export default function OrderDetails() {
   const [selectOrderId, setSelectOrderId] = useState(null);
   const [orderInfo, setOrderInfo] = useState(null);
 
-  //     account: account,
-  //     selectedContractStatus: exchange.contractStatus,
-  //     allContractStatus: exchange.allContractStatus,
-
   const match = useRouteMatch();
   const history = useHistory();
 
-  console.log(gg);
-  const statusOfOrder = useMemo(status => {
+  const statusOfOrder = useCallback(status => {
     const allStatuses = {
       0: 'Open',
       1: 'Pending',
@@ -50,7 +45,7 @@ export default function OrderDetails() {
     return allStatuses[status];
   }, []);
 
-  const renderMoreDetails = useMemo(type => {
+  const renderMoreDetails = useCallback(type => {
     if (type) {
       return (
         <ContractStatusItem isContractHistory account={account} contracts={allContractStatus} />
@@ -74,7 +69,7 @@ export default function OrderDetails() {
       NotificationManager.error('No contracts found.', 'Error', 5000);
       return;
     }
-    setIsShowingContractHistory(isShowingContractHistory);
+    setIsShowingContractHistory(!isShowingContractHistory);
   }, [allContractStatus, isShowingContractHistory]);
 
   const getOrder = useCallback(async orderId => {
@@ -119,9 +114,7 @@ export default function OrderDetails() {
 
   return (
     <div className="page-content">
-      <SiteHeader
-        pageTitle="Order Details"
-      />
+      <SiteHeader pageTitle="Order Details" />
       <div className="page-body container-fluid full-screen-block mb-3">
         {!isPending ? (
           <div className="account-settings">
@@ -140,13 +133,13 @@ export default function OrderDetails() {
                       Back to list
                     </button>
                     {orderInfo && (
-                    <button
-                      type="button"
-                      className={`btn btn-green ${allContractStatus && allContractStatus.length ? '' : 'btn-green-disabled'}`}
-                      onClick={handleOpenContractHistory}
-                    >
-                      {isShowingContractHistory ? 'Hide more details' : 'Show more details'}
-                    </button>
+                      <button
+                        type="button"
+                        className={`btn btn-green ${allContractStatus && allContractStatus.length ? '' : 'btn-green-disabled'}`}
+                        onClick={handleOpenContractHistory}
+                      >
+                        {isShowingContractHistory ? 'Hide more details' : 'Show more details'}
+                      </button>
                     )}
                   </div>
                 </div>

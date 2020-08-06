@@ -2,13 +2,15 @@ import React, {
   useEffect, useCallback, useState,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import SiteHeader from '../../../components/site-header';
-import CustomTable from '../../../components/tables/table';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
 import { getMyTradeHistory } from '../../../../actions/wallet';
-import { formatDivision, currencyTypes } from '../../../../helpers/format';
+import {
+  formatDivision, currencyTypes, secureStorage,
+} from '../../../../helpers/format';
 import { ONE_GWEI } from '../../../../constants';
 import { BlockUpdater } from '../../../block-subscriber';
+import CustomTable from '../../../components/tables/table';
+import SiteHeader from '../../../components/site-header';
 import InfoBox from '../../../components/info-box';
 
 export default function TradeHistory() {
@@ -72,7 +74,7 @@ export default function TradeHistory() {
   }, [dispatch, isLoading, wallets]);
 
   useEffect(() => {
-    const localWallets = localStorage.getItem('wallets');
+    const localWallets = secureStorage.getItem('wallets');
     if (!localWallets) {
       dispatch(setBodyModalParamsAction('LOGIN_EXCHANGE', {}));
     } else {
@@ -84,7 +86,7 @@ export default function TradeHistory() {
     }
     BlockUpdater.on('data', listener);
 
-    return BlockUpdater.removeListener('data', listener);
+    return () => BlockUpdater.removeListener('data', listener);
   }, []);
 
   return (
