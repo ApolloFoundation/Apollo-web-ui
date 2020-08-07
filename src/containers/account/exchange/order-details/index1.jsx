@@ -1,21 +1,21 @@
 import React, {
-  useState, useEffect, useCallback, useMemo,
+  useState, useEffect, useCallback,
 } from 'react';
 import { Form } from 'react-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouteMatch, useHistory } from 'react-router-dom';
 import { NotificationManager } from 'react-notifications';
+import { currencyTypes, formatDivision } from '../../../../helpers/format';
+import { ONE_GWEI } from '../../../../constants';
 import {
   getAllContractStatus, getContractStatus, getOrderById,
 } from '../../../../actions/wallet';
 import SiteHeader from '../../../components/site-header';
 import TextualInputComponent from '../../../components/form-components/textual-input';
 import SimpleProgressBar from '../../../components/simple-progress-bar/simple-progress-bar';
-import InfoBox from '../../../components/info-box';
 import ContentLoader from '../../../components/content-loader';
 import ContractStatusItem from './contract-status-item';
-import { currencyTypes, formatDivision } from '../../../../helpers/format';
-import { ONE_GWEI } from '../../../../constants';
+import InfoBox from '../../../components/info-box';
 
 export default function OrderDetails() {
   const dispatch = useDispatch();
