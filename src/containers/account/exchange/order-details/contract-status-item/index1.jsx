@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
 import { getBlockAction } from '../../../../../actions/blocks';
 import { setBodyModalParamsAction } from '../../../../../modules/modals';
+
 import './style.scss';
 
 const infoAboutStep = {
@@ -19,7 +20,7 @@ export default function ContractStatusItem(props) {
 
   const account = useSelector(state => state.account);
 
-  const getBlock = useCallback(async (type, blockHeight) => {
+  const getBlock = useCallback(async blockHeight => {
     const requestParams = { height: blockHeight };
 
     const block = await dispatch(getBlockAction(requestParams));
@@ -29,7 +30,7 @@ export default function ContractStatusItem(props) {
     } else {
       NotificationManager.error('Error', 'Error', 5000);
     }
-  }, []);
+  }, [dispatch]);
 
   const userType = useCallback(sender => account.accountRS === sender, [account.accountRS]);
 
@@ -48,10 +49,11 @@ export default function ContractStatusItem(props) {
         <td>{userType(sender) ? recipient : sender}</td>
       </tr>
     </>
-  ), []);
+  ), [userType]);
 
   const renderContractHistoryItem = useCallback(({
-    orderId, counterOrderId, recipient, contractStatus, sender, counterTransferTxId, height, id, transferTxId, encryptedSecret, secretHash,
+    orderId, counterOrderId, recipient, contractStatus, sender,
+    counterTransferTxId, height, id, transferTxId, encryptedSecret, secretHash,
   }) => (
     <>
       <tr>
@@ -61,7 +63,7 @@ export default function ContractStatusItem(props) {
       <tr>
         <td>Height:</td>
         <td>
-          <span className="blue-link-text" onClick={() => dispatch(getBlock('INFO_BLOCK', height))}>
+          <span className="blue-link-text" onClick={() => dispatch(getBlock(height))}>
             {height}
           </span>
         </td>
@@ -95,7 +97,7 @@ export default function ContractStatusItem(props) {
         </tr>
       )}
     </>
-  ), []);
+  ), [dispatch, getBlock, renderCommonInfo]);
 
   const renderBasicContractInfo = useCallback(({
     contractStatus, orderId, counterOrderId, sender, recipient, counterTransferTxId,
@@ -107,17 +109,17 @@ export default function ContractStatusItem(props) {
       </tr>
       {renderCommonInfo(sender, orderId, counterOrderId, recipient)}
       {(contractStatus === 1 || contractStatus === 2)
-                && (
-                <tr>
-                  <td>
-                    Partner transfer
-                    money transaction:
-                  </td>
-                  <td>{counterTransferTxId}</td>
-                </tr>
-                )}
+        && (
+          <tr>
+            <td>
+              Partner transfer
+              money transaction:
+            </td>
+            <td>{counterTransferTxId}</td>
+          </tr>
+        )}
     </>
-  ), []);
+  ), [renderCommonInfo]);
 
   return (
     <>
