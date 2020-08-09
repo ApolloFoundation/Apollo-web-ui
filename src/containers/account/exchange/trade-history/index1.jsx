@@ -87,7 +87,7 @@ export default function TradeHistory() {
     BlockUpdater.on('data', listener);
 
     return () => BlockUpdater.removeListener('data', listener);
-  }, []);
+  }, [listener]);
 
   return (
     <div className="page-content">
