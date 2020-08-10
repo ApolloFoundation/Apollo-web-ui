@@ -142,6 +142,7 @@ export default function BuyFormWrapper(props) {
       onSubmit={handleFormSubmit}
     >
       <BuyForm
+        passPhrase={passPhrase}
         wallet={wallet}
         ethFee={ethFee}
         isPending={isPending}

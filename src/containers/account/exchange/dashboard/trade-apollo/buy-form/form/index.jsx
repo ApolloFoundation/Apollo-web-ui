@@ -18,7 +18,9 @@ export default function BuyForm(props) {
 
   const { currency } = currentCurrency;
 
-  const { wallet, ethFee, isPending } = props;
+  const {
+    wallet, ethFee, isPending, passPhrase,
+  } = props;
 
   const [walletsList, setWalletsList] = useState(null);
 
@@ -51,7 +53,7 @@ export default function BuyForm(props) {
         range: rangeValue > 100 ? 100 : rangeValue,
       });
     }
-  }, [currency, infoSelectedBuyOrder, setValues, wallet, walletsList]);
+  }, [currency, infoSelectedBuyOrder, setValues, wallet, walletsList, passPhrase]);
 
   const currencyName = currency.toUpperCase();
   let balance = values.walletAddress && values.walletAddress.value.balances[currency];
