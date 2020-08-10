@@ -1,10 +1,9 @@
 import React, {
-  useCallback, useState, useEffect,
+  useEffect, useCallback, useState,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
-import { getMyOfferHistory } from '../../../../actions/wallet';
+import { getMyTradeHistory } from '../../../../actions/wallet';
 import {
   formatDivision, currencyTypes, secureStorage,
 } from '../../../../helpers/format';
@@ -13,14 +12,12 @@ import { BlockUpdater } from '../../../block-subscriber';
 import CustomTable from '../../../components/tables/table';
 import SiteHeader from '../../../components/site-header';
 import InfoBox from '../../../components/info-box';
-import Button from '../../../components/button';
 
-export default function OrderHistory() {
+export default function TradeHistory() {
   const dispatch = useDispatch();
-  const history = useHistory();
 
+  const { myTradeHistory } = useSelector(state => state.exchange);
   const { wallets } = useSelector(state => state.account);
-  const { myOrderHistory } = useSelector(state => state.exchange);
 
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(1);
@@ -29,17 +26,17 @@ export default function OrderHistory() {
     lastIndex: 15,
   });
 
-  const listener = useCallback(() => {
-    dispatch(getMyOfferHistory(requstIndex));
-  }, [dispatch, requstIndex]);
-
-  const handleSelectOrder = useCallback((data, hasFrozenMoney, selectOrderId) => {
-    history.push({ pathname: `/order/${selectOrderId}` });
-  }, [history]);
+  const handleSelectOrder = useCallback(data => {
+    dispatch(setBodyModalParamsAction('SELECT_ORDER', data));
+  }, [dispatch]);
 
   const handleCancel = useCallback(data => {
     dispatch(setBodyModalParamsAction('CONFIRM_CANCEL_ORDER', data));
   }, [dispatch]);
+
+  const listener = useCallback(() => {
+    dispatch(getMyTradeHistory(null, requstIndex));
+  }, [dispatch, requstIndex]);
 
   const onPaginate = useCallback(async currPage => {
     const params = {
@@ -47,8 +44,7 @@ export default function OrderHistory() {
       lastIndex: currPage * 15,
     };
 
-    await dispatch(getMyOfferHistory(params));
-
+    await dispatch(getMyTradeHistory(null, params));
     setPage(currPage);
     setRequstIndex(params);
   }, [dispatch]);
@@ -69,7 +65,7 @@ export default function OrderHistory() {
 
   useEffect(() => {
     if (wallets && isLoading) {
-      dispatch(getMyOfferHistory(requstIndex));
+      dispatch(getMyTradeHistory(null, requstIndex));
       setIsLoading(false);
     }
   }, [dispatch, isLoading, wallets]);
@@ -85,7 +81,7 @@ export default function OrderHistory() {
     if (!localWallets) {
       dispatch(setBodyModalParamsAction('LOGIN_EXCHANGE', {}));
     } else {
-      dispatch(getMyOfferHistory(requstIndex));
+      dispatch(getMyTradeHistory(null, requstIndex));
       setIsLoading(false);
     }
   }, [dispatch]);
@@ -93,15 +89,15 @@ export default function OrderHistory() {
   return (
     <div className="page-content">
       <SiteHeader
-        pageTitle="Order History"
+        pageTitle="Trade History"
       />
       <div className="exchange page-body container-fluid">
         {!isLoading ? (
           <div className="card-block primary form-group-app p-0 mb-3">
             <div className="form-title form-title-lg d-flex flex-column justify-content-between">
-              <p className="title-lg">My orders</p>
+              <p className="title-lg">My trades</p>
             </div>
-            {myOrderHistory
+            {myTradeHistory.allTrades
               ? (
                 <CustomTable
                   header={[
@@ -136,8 +132,8 @@ export default function OrderHistory() {
                   ]}
                   className="no-min-height transparent"
                   emptyMessage="No created orders."
-                  tableData={myOrderHistory}
                   defaultRowCount={15}
+                  tableData={myTradeHistory.allTrades}
                   TableRowComponent={props => {
                     const statusName = statusOfOrder(props.status);
                     const typeName = props.type ? 'SELL' : 'BUY';
@@ -145,26 +141,13 @@ export default function OrderHistory() {
                     const offerAmount = formatDivision(props.offerAmount, ONE_GWEI, 9);
                     const total = formatDivision(props.pairRate * props.offerAmount, 10 ** 18, 9);
                     const currency = props.pairCurrency;
-                    const type = Object.keys(currencyTypes).find(key => currencyTypes[key] === currency).toUpperCase();
-                    let trProps = '';
-                    if (!props.hasFrozenMoney && props.status === 0) {
-                      trProps = {
-                        'data-custom': true,
-                        'data-custom-at': 'top',
-                        'data-cat-id': JSON.stringify({ infoContent: 'Order cant be matched, your deposit doesnt allow to freeze funds' }),
-                      };
-                    }
+                    const type = Object.keys(currencyTypes).find(key => currencyTypes[key] === currency);
                     return (
                       <tr
-                        onClick={() => handleSelectOrder(
-                          {
-                            pairRate, offerAmount, total, currency, typeName, statusName, type,
-                          },
-                          props.hasFrozenMoney,
-                          props.id,
-                        )}
-                        {...trProps}
-                        className="history-order-active"
+                        style={{ cursor: 'pointer' }}
+                        onClick={() => handleSelectOrder({
+                          pairRate, offerAmount, total, currency, typeName, statusName,
+                        })}
                       >
                         <td>{props.id}</td>
                         <td>{props.height}</td>
@@ -172,16 +155,16 @@ export default function OrderHistory() {
                           APL/
                           {type.toUpperCase()}
                         </td>
-                        <td>{typeName}</td>
+                        <td>{props.type ? 'SELL' : 'BUY'}</td>
                         <td className={`${props.type ? 'red-text' : 'green-text'}`}>{pairRate}</td>
                         <td>{offerAmount}</td>
                         <td>{total}</td>
                         <td className={`${props.status ? 'red-text' : ''}`}>{statusName}</td>
                         <td className="align-right">
-                          {props.status === 0 && (
-                            <Button
-                              size="sm"
-                              name="Cancel"
+                          {!props.status && (
+                            <button
+                              type="button"
+                              className="btn btn-sm"
                               onClick={event => {
                                 event.stopPropagation();
                                 handleCancel({
@@ -192,7 +175,9 @@ export default function OrderHistory() {
                                   orderId: props.id,
                                 });
                               }}
-                            />
+                            >
+                              Cancel
+                            </button>
                           )}
                         </td>
                       </tr>
@@ -218,12 +203,7 @@ export default function OrderHistory() {
           <div>
             <InfoBox default>
               You have no Wallet at the moment.&nbsp;
-              <span
-                className="blue-link-text"
-                onClick={() => dispatch(setBodyModalParamsAction('LOGIN_EXCHANGE', {}))}
-              >
-                Log in
-              </span>
+              <span className="blue-link-text" onClick={() => dispatch(setBodyModalParamsAction('LOGIN_EXCHANGE', {}))}>Log in</span>
             </InfoBox>
           </div>
         )}

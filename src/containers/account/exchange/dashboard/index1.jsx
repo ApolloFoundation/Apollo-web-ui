@@ -21,12 +21,13 @@ import TradeHistoryExchange from './trade-history/index1';
 import TradeApollo from './trade-apollo/index1';
 import OpenOrders from './open-orders/index1';
 import Orderbook from './orderbook/index1';
-import Plot from './plot/index1';
+import Plot from './plot';
 
 export default function Exchange() {
   const dispatch = useDispatch();
 
-  const { wallets } = useSelector(state => state);
+  const { wallets } = useSelector(state => state.account);
+
   const {
     currencies, currentCurrency, buyOrders, sellOrders,
     plotBuyOrders, plotSellOrders, myOrders,
