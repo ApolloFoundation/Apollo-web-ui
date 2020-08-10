@@ -68,8 +68,6 @@ class Transactions extends React.Component {
     };
 
     componentWillReceiveProps(newState) {
-        console.log(newState);
-
         this.updateTransactionsData(newState);
     }
 
