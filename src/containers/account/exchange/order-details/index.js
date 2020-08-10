@@ -96,7 +96,6 @@ class OrderDetails extends React.Component {
         const currentContractOrder = selectedContractStatus && selectedContractStatus.reduce(
             (res, order) => res.contractStatus <= order.contractStatus ? order : res,
             {contractStatus: 0})
-        console.log(allContractStatus);
         return (
             <div className="page-content">
                 <SiteHeader
