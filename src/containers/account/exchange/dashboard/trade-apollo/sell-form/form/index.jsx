@@ -38,10 +38,6 @@ export default function SellForm(props) {
 
   useEffect(() => {
     if (infoSelectedSellOrder) {
-      const numberTypes = {
-        NaN: '0',
-        Infinity: 100,
-      };
       const { pairRate, offerAmount, total } = infoSelectedSellOrder;
       const normalizePairRate = !pairRate ? 0 : division(pairRate, ONE_GWEI, 9);
       const normalizeOfferAmount = !offerAmount ? 0 : division(offerAmount, ONE_GWEI, 9);
@@ -52,7 +48,7 @@ export default function SellForm(props) {
         pairRate: normalizePairRate,
         offerAmount: normalizeOfferAmount,
         total: normalizeTotal,
-        range: numberTypes[rangeValue] || rangeValue,
+        range: rangeValue > 100 ? 100 : rangeValue,
       });
     }
   }, [balanceFormat, infoSelectedSellOrder, setValues, wallet, walletsList]);

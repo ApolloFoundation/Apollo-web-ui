@@ -90,6 +90,7 @@ export default function BuyForm(props) {
             const amount = values.offerAmount || 0;
             let rangeValue = (((amount * price) * 100) / (balance || 1)).toFixed(0);
             if (rangeValue > 100) rangeValue = 100;
+
             setFieldValue('offerAmount', amount);
             setFieldValue('range', rangeValue);
             setFieldValue('total', multiply(amount, price));
@@ -108,6 +109,7 @@ export default function BuyForm(props) {
             const pairRate = values.pairRate || 0;
             let rangeValue = (((amount * pairRate) * 100) / balance).toFixed(0);
             if (rangeValue > 100) rangeValue = 100;
+
             setFieldValue('offerAmount', amount);
             setFieldValue('range', rangeValue === 'NaN' ? 0 : rangeValue);
             setFieldValue('total', multiply(amount, pairRate));

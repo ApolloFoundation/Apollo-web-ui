@@ -66,13 +66,11 @@ export default function SellFormWrapper(props) {
           const currentBalanceAPL = (dashboardAccoountInfo && dashboardAccoountInfo.unconfirmedBalanceATM)
             ? parseFloat(dashboardAccoountInfo.unconfirmedBalanceATM)
             : parseFloat(balanceAPL);
-
           if (!balanceAPL || currentBalanceAPL === 0 || currentBalanceAPL < ((offerAmount + feeATM) / 10)) {
             NotificationManager.error('Not enough funds on your APL balance.', 'Error', 5000);
             setPending(false);
             return;
           }
-
           const params = {
             offerType: 1, // SELL
             pairCurrency: currencyTypes[currency],
@@ -83,7 +81,6 @@ export default function SellFormWrapper(props) {
             feeATM,
             walletAddress: values.walletAddress.value.address,
           };
-
           if (passPhrase) {
             dispatch(createOffer(params)).then(() => {
               setPending(false);
@@ -107,7 +104,10 @@ export default function SellFormWrapper(props) {
         handleLoginModal();
       }
     }
-  }, [account, balanceAPL, currency, dashboardAccoountInfo, dispatch, ethFee, handleLoginModal, isPending, passPhrase, setPending, wallet]);
+  }, [
+    account, balanceAPL, currency, dashboardAccoountInfo, dispatch,
+    ethFee, handleLoginModal, isPending, passPhrase, setPending, wallet,
+  ]);
 
   return (
     <Formik
