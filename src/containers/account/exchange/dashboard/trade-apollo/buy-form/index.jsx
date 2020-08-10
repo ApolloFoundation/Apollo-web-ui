@@ -71,7 +71,7 @@ export default function BuyFormWrapper(props) {
             return;
           }
           const pairRate = Math.round(multiply(newValues.pairRate, ONE_GWEI));
-          const offerAmount = multiply(newValues.offerAmount, ONE_GWEI);
+          const offerAmount = +multiply(newValues.offerAmount, ONE_GWEI);
           const balanceETH = parseFloat(newValues.walletAddress.value.balances[currency]);
           const currentBalanceAPL = (dashboardAccoountInfo && dashboardAccoountInfo.unconfirmedBalanceATM)
             ? parseFloat(dashboardAccoountInfo.unconfirmedBalanceATM)

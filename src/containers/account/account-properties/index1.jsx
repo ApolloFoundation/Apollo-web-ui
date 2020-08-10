@@ -100,18 +100,20 @@ export default function AccountProperties() {
       <SiteHeader
         pageTitle="Account properties"
       >
-        <a
+        <button
+          type="button"
           className={`btn ${incoming ? 'outline-primary' : 'outline-transparent'} mr-1`}
           onClick={() => getAccountPropertiesIncoming(null, initialPagination)}
         >
           Incoming
-        </a>
-        <a
+        </button>
+        <button
+          type="button"
           className={`btn ${incoming ? 'outline-transparent' : 'outline-primary'} mr-1`}
           onClick={() => getAccountPropertiesOutgoing(null, initialPagination)}
         >
           Outgoing
-        </a>
+        </button>
         <Button
           color="green"
           size="sm"

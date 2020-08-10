@@ -14,6 +14,7 @@ import SiteHeader from '../../../components/site-header';
 import TextualInputComponent from '../../../components/form-components/textual-input';
 import SimpleProgressBar from '../../../components/simple-progress-bar/simple-progress-bar';
 import ContentLoader from '../../../components/content-loader';
+import Button from '../../../components/button';
 import ContractStatusItem from './contract-status-item';
 import InfoBox from '../../../components/info-box';
 
@@ -125,21 +126,18 @@ export default function OrderDetails() {
                   Order
                   {selectOrderId}
                   <div>
-                    <button
-                      type="button"
-                      className="btn btn-default mr-3"
+                    <Button
+                      className="mr-3"
                       onClick={handleBack}
-                    >
-                      Back to list
-                    </button>
+                      name="Back to list"
+                    />
                     {orderInfo && (
-                      <button
-                        type="button"
-                        className={`btn btn-green ${allContractStatus && allContractStatus.length ? '' : 'btn-green-disabled'}`}
+                      <Button
+                        name={isShowingContractHistory ? 'Hide more details' : 'Show more details'}
+                        color="green"
+                        disabled={!(allContractStatus && allContractStatus.length)}
                         onClick={handleOpenContractHistory}
-                      >
-                        {isShowingContractHistory ? 'Hide more details' : 'Show more details'}
-                      </button>
+                      />
                     )}
                   </div>
                 </div>

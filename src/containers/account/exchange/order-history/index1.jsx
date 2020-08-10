@@ -13,6 +13,7 @@ import { BlockUpdater } from '../../../block-subscriber';
 import CustomTable from '../../../components/tables/table';
 import SiteHeader from '../../../components/site-header';
 import InfoBox from '../../../components/info-box';
+import Button from '../../../components/button';
 
 export default function OrderHistory() {
   const dispatch = useDispatch();
@@ -23,15 +24,14 @@ export default function OrderHistory() {
 
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(1);
-  const [firstIndex, setFirstIndex] = useState(0);
-  const [lastIndex, setLastIndex] = useState(15);
+  const [requstIndex, setRequstIndex] = useState({
+    firstIndex: 0,
+    lastIndex: 15,
+  });
 
   const listener = useCallback(() => {
-    dispatch(getMyOfferHistory({
-      firstIndex,
-      lastIndex,
-    }));
-  }, [dispatch, firstIndex, lastIndex]);
+    dispatch(getMyOfferHistory(requstIndex));
+  }, [dispatch, requstIndex]);
 
   const handleSelectOrder = useCallback((data, hasFrozenMoney, selectOrderId) => {
     history.push({ pathname: `/order/${selectOrderId}` });
@@ -41,14 +41,16 @@ export default function OrderHistory() {
     dispatch(setBodyModalParamsAction('CONFIRM_CANCEL_ORDER', data));
   }, [dispatch]);
 
-  const onPaginate = useCallback(currPage => {
-    setPage(currPage);
-    setFirstIndex(currPage * 15 - 15);
-    setLastIndex(currPage * 15);
-    dispatch(getMyOfferHistory({
+  const onPaginate = useCallback(async currPage => {
+    const params = {
       firstIndex: currPage * 15 - 15,
       lastIndex: currPage * 15,
-    }));
+    };
+
+    await dispatch(getMyOfferHistory(params));
+
+    setPage(currPage);
+    setRequstIndex(params);
   }, [dispatch]);
 
   const statusOfOrder = useCallback(status => {
@@ -67,29 +69,26 @@ export default function OrderHistory() {
 
   useEffect(() => {
     if (wallets && isLoading) {
-      dispatch(getMyOfferHistory({
-        firstIndex,
-        lastIndex,
-      }));
+      dispatch(getMyOfferHistory(requstIndex));
       setIsLoading(false);
     }
   }, [dispatch, isLoading, wallets]);
+
+  useEffect(() => {
+    BlockUpdater.on('data', (listener));
+
+    return () => BlockUpdater.removeListener('data', listener);
+  }, [listener]);
 
   useEffect(() => {
     const localWallets = secureStorage.getItem('wallets');
     if (!localWallets) {
       dispatch(setBodyModalParamsAction('LOGIN_EXCHANGE', {}));
     } else {
-      dispatch(getMyOfferHistory({
-        firstIndex,
-        lastIndex,
-      }));
+      dispatch(getMyOfferHistory(requstIndex));
       setIsLoading(false);
     }
-    BlockUpdater.on('data', listener);
-
-    return () => BlockUpdater.removeListener('data', listener);
-  }, [listener]);
+  }, [dispatch]);
 
   return (
     <div className="page-content">
@@ -180,9 +179,9 @@ export default function OrderHistory() {
                         <td className={`${props.status ? 'red-text' : ''}`}>{statusName}</td>
                         <td className="align-right">
                           {props.status === 0 && (
-                            <button
-                              type="button"
-                              className="btn btn-sm"
+                            <Button
+                              size="sm"
+                              name="Cancel"
                               onClick={event => {
                                 event.stopPropagation();
                                 handleCancel({
@@ -193,9 +192,7 @@ export default function OrderHistory() {
                                   orderId: props.id,
                                 });
                               }}
-                            >
-                              Cancel
-                            </button>
+                            />
                           )}
                         </td>
                       </tr>

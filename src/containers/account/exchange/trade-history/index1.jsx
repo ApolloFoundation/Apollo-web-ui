@@ -21,8 +21,10 @@ export default function TradeHistory() {
 
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(1);
-  const [firstIndex, setFirstIndex] = useState(0);
-  const [lastIndex, setLastIndex] = useState(15);
+  const [requstIndex, setRequstIndex] = useState({
+    firstIndex: 0,
+    lastIndex: 15,
+  });
 
   const handleSelectOrder = useCallback(data => {
     dispatch(setBodyModalParamsAction('SELECT_ORDER', data));
@@ -33,20 +35,18 @@ export default function TradeHistory() {
   }, [dispatch]);
 
   const listener = useCallback(() => {
-    dispatch(getMyTradeHistory(null, {
-      firstIndex,
-      lastIndex,
-    }));
-  }, [dispatch, firstIndex, lastIndex]);
+    dispatch(getMyTradeHistory(null, requstIndex));
+  }, [dispatch, requstIndex]);
 
-  const onPaginate = useCallback(currPage => {
-    setPage(currPage);
-    setFirstIndex(currPage * 15 - 15);
-    setLastIndex(currPage * 15);
-    dispatch(getMyTradeHistory(null, {
+  const onPaginate = useCallback(async currPage => {
+    const params = {
       firstIndex: currPage * 15 - 15,
       lastIndex: currPage * 15,
-    }));
+    };
+
+    await dispatch(getMyTradeHistory(null, params));
+    setPage(currPage);
+    setRequstIndex(params);
   }, [dispatch]);
 
   const statusOfOrder = useCallback(status => {
@@ -65,29 +65,26 @@ export default function TradeHistory() {
 
   useEffect(() => {
     if (wallets && isLoading) {
-      dispatch(getMyTradeHistory(null, {
-        firstIndex,
-        lastIndex,
-      }));
+      dispatch(getMyTradeHistory(null, requstIndex));
       setIsLoading(false);
     }
   }, [dispatch, isLoading, wallets]);
+
+  useEffect(() => {
+    BlockUpdater.on('data', (listener));
+
+    return () => BlockUpdater.removeListener('data', listener);
+  }, [listener]);
 
   useEffect(() => {
     const localWallets = secureStorage.getItem('wallets');
     if (!localWallets) {
       dispatch(setBodyModalParamsAction('LOGIN_EXCHANGE', {}));
     } else {
-      dispatch(getMyTradeHistory(null, {
-        firstIndex,
-        lastIndex,
-      }));
+      dispatch(getMyTradeHistory(null, requstIndex));
       setIsLoading(false);
     }
-    BlockUpdater.on('data', listener);
-
-    return () => BlockUpdater.removeListener('data', listener);
-  }, [listener]);
+  }, [dispatch]);
 
   return (
     <div className="page-content">
