@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Button from '../button';
+import CustomButton from '../button';
 
 const FormFooter = ({
   idGroup,
@@ -13,7 +13,7 @@ const FormFooter = ({
 }) => (
   <div className="btn-box right-conner align-right form-footer">
     {!isClosing && (
-      <Button
+      <CustomButton
         id={`${idGroup}cancel-button`}
         onClick={closeModal}
         className="mr-3"
@@ -21,7 +21,7 @@ const FormFooter = ({
       />
     )}
     {submitButtonName && (
-      <Button
+      <CustomButton
         type="submit"
         id={`${idGroup}cancel-button`}
         color="green"

@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { setBodyModalParamsAction } from '../../../../modules/modals';
-import Button from '../../../components/button';
-import ContentLoader from '../../../components/content-loader';
+import { setBodyModalParamsAction } from '../../../modules/modals';
+import Button from '../../components/button';
+import ContentLoader from '../../components/content-loader';
 
 export default function ActivePolls() {
   const dispatch = useDispatch();

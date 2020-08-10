@@ -11,7 +11,7 @@ import {
   setBodyModalParamsAction, saveSendModalState, openPrevModal,
 } from '../../../modules/modals';
 import CustomInput from '../../components/custom-input';
-import Button from '../../components/button';
+import CustomButton from '../../components/button';
 import CustomTextArea from '../../components/form-components/text-area1';
 
 export default function RawTransactionDetails(props) {
@@ -138,14 +138,14 @@ export default function RawTransactionDetails(props) {
                     </div>
                   )}
                 <div className="btn-box align-buttons-inside absolute right-conner align-right">
-                  <Button
+                  <CustomButton
                     onClick={closeModal}
                     color="transparent"
                     className={`btn round round-top-left ${modalData.result.signatureHash ? 'round-bottom-right' : ''} bg-none`}
                     name="Close"
                   />
                   {!modalData.result.signatureHash && (
-                    <Button
+                    <CustomButton
                       type="submit"
                       className="btn btn-right blue round round-bottom-right bg-none"
                       name="Broadcast"

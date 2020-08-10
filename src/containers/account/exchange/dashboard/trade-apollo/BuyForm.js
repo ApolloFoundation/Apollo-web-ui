@@ -24,7 +24,7 @@ class BuyForm extends React.PureComponent {
     };
 
     static getDerivedStateFromProps(props, state) {
-
+        
         if (props.currentCurrency && (props.currentCurrency.currency !== state.currentCurrency || props.wallet !== state.wallet)) {
             if (state.form && state.form.values) {
                 state.form.setAllValues({

@@ -1,11 +1,11 @@
 import React, { useMemo, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import classNamse from 'classnames';
-import { formatTimestamp } from '../../../../../helpers/util/time';
-import { formatTransactionType } from '../../../../../actions/transactions';
-import { setBodyModalParamsAction } from '../../../../../modules/modals';
-import { ONE_APL } from '../../../../../constants';
-import { ReactComponent as ArrowIcon } from '../../../../../assets/arrow-right-long.svg';
+import { formatTimestamp } from '../../../helpers/util/time';
+import { formatTransactionType } from '../../../actions/transactions';
+import { setBodyModalParamsAction } from '../../../modules/modals';
+import { ONE_APL } from '../../../constants';
+import { ReactComponent as ArrowIcon } from '../../../assets/arrow-right-long.svg';
 
 export default function TransactionItem(props) {
   const dispatch = useDispatch();
