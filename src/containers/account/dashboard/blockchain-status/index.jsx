@@ -19,7 +19,7 @@ export default function BlockchainStatus() {
 
   const setForgingData = action => ({
     getStatus: action,
-    handleSuccess: res => {},
+    handleSuccess: () => {},
   });
 
   const handleSetForging = useCallback(async action => {
