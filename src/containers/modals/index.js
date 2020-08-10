@@ -107,7 +107,7 @@ import ScheaduleCurrency from '../modals/scheaduled-transactions/sceadule-curren
 import AssetDividendHistory from "./assets/view-asset-dividend-history";
 import PayDividends from "./assets/pay-dividends";
 //exchange
-import LoginToExchange from './exchange/login';
+import LoginToExchange from './exchange/login/index.jsx';
 import LogoutExchange from './exchange/logout';
 import WithdrawCurrency from './exchange/withdraw-currency';
 import ConfirmCreateOffer from './exchange/confirm-create-offer';

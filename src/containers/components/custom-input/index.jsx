@@ -6,7 +6,7 @@ import styles from './styles.module.scss';
 
 export default function CustomInput(props) {
   const {
-    label, className, type, disableArrows, disabled, id, children,
+    label, className, type, disableArrows, disabled, id, children, onChange,
     maxValue, minValue, step, isSpecialSymbols, name, placeholder,
   } = props;
   const [field, , helpers] = useField(name);
@@ -23,6 +23,15 @@ export default function CustomInput(props) {
       currentValue = currentValue.replace(',', '.');
       if (currentValue === '.') currentValue = '0.';
       currentValue = currentValue.replace(/[^\d.]|\.(?=.*\.)/g, '');
+      if (!currentValue.includes('.') && currentValue.length <= 2) currentValue = Number(currentValue).toString();
+      if (!value.target && currentValue.includes('.')) {
+        let fract = currentValue.substring(currentValue.indexOf('.'));
+        currentValue = currentValue.substring(0, currentValue.indexOf('.'));
+        if (fract.length > 10) {
+          fract = fract.substring(0, 10);
+        }
+        currentValue += fract;
+      }
     }
     if (type === 'password' && type === 'tel' && type === 'float' && !isSpecialSymbols) {
       currentValue = currentValue.replace(/[;`'"%!#&~<>@_=*+?^${}|[\]\\]/g, '');
@@ -61,7 +70,9 @@ export default function CustomInput(props) {
   };
 
   const handleChange = ({ target: { value } }) => {
-    setValue(parseValue(value));
+    const parsedValue = parseValue(value);
+    if (onChange) onChange(parsedValue);
+    setValue(parsedValue);
   };
 
   return (

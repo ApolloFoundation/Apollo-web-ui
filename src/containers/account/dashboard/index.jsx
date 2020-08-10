@@ -5,13 +5,13 @@ import { setBodyModalParamsAction } from '../../../modules/modals';
 import { getDashboardData } from '../../../actions/dashboard';
 import SiteHeader from '../../components/site-header';
 
-import TotalBalance from './TotalBalance';
-import MyTransactions from './MyTransactions';
-import BlockchainStatus from './BlockchainStatus';
-import SendApollo from './SendApollo';
-import StayInTouch from './StayInTouch';
-import ActivePolls from './ActivePolls';
-import InfoStatistic from './InfoStatistic';
+import TotalBalance from './total-balance';
+import MyTransactions from './my-transactions';
+import BlockchainStatus from './blockchain-status';
+import SendApollo from './send-apollo';
+import StayInTouch from './stay-in-touch';
+import ActivePolls from './active-polls';
+import InfoStatistic from './info-statistic';
 
 import TwitterBanner from '../../../assets/banner-small.png';
 import InfoBanner from '../../../assets/banner-long.png';
