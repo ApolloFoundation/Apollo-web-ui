@@ -6,7 +6,7 @@ import styles from './styles.module.scss';
 
 export default function CustomInput(props) {
   const {
-    label, className, type, disableArrows, disabled, id, children,
+    label, className, type, disableArrows, disabled, id, children, onChange,
     maxValue, minValue, step, isSpecialSymbols, name, placeholder,
   } = props;
   const [field, , helpers] = useField(name);
