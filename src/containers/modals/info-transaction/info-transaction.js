@@ -98,8 +98,7 @@ class InfoLedgerTransaction extends React.Component {
 
     render() {
         const {transaction, transactionId} = this.state;
-        const parsedSignatures = transaction
-          && (typeof transaction.signature === "string" ? [transaction.signature] : transaction.signature.signatures.map(i => i.signature));
+        const parsedSignatures = transaction && (typeof transaction.signature === "string" ? [transaction.signature] : transaction.signature.signatures.map(i => i.signature));
         const recipientRS = transaction
           && (this.props.accountRS === transaction.recipientRS ? transaction.senderRS : transaction.recipientRS);
         return (

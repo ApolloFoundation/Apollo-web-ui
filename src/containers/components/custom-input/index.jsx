@@ -8,7 +8,6 @@ export default function CustomInput(props) {
   const {
     label, className, type, disableArrows, disabled, id, children,
     maxValue, minValue, step, isSpecialSymbols, name, placeholder,
-    onChange,
   } = props;
   const [field, , helpers] = useField(name);
   const { setValue } = helpers;

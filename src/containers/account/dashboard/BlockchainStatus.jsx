@@ -1,13 +1,13 @@
 import React, { useMemo, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
-import { formatTimestamp } from '../../../../helpers/util/time';
-import { setBodyModalParamsAction } from '../../../../modules/modals';
-import { getForging, setForging } from '../../../../actions/login';
-import { readFromLocalStorage } from '../../../../actions/localStorage';
-import { ReactComponent as ClockIcon } from '../../../../assets/clock-icon.svg';
-import ContentLoader from '../../../components/content-loader';
-import Button from '../../../components/button';
+import { formatTimestamp } from '../../../helpers/util/time';
+import { setBodyModalParamsAction } from '../../../modules/modals';
+import { getForging, setForging } from '../../../actions/login';
+import { readFromLocalStorage } from '../../../actions/localStorage';
+import { ReactComponent as ClockIcon } from '../../../assets/clock-icon.svg';
+import ContentLoader from '../../components/content-loader';
+import Button from '../../components/button';
 
 export default function BlockchainStatus() {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ export default function BlockchainStatus() {
 
   const setForgingData = action => ({
     getStatus: action,
-    handleSuccess: () => {},
+    handleSuccess: res => {},
   });
 
   const handleSetForging = useCallback(async action => {

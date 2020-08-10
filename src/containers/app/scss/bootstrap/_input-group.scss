@@ -4,16 +4,11 @@
 // Base styles
 //
 
-.wrap {
-  flex-wrap: wrap;
-}
-
 .input-group {
   position: relative;
   display: flex;
   align-items: stretch;
   width: 100%;
-  // flex-wrap: wrap; // For form validation feedback
 
   > .form-control,
   > .custom-select,
