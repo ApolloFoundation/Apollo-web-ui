@@ -128,7 +128,7 @@ class BuyForm extends React.PureComponent {
                         parseFloat(this.props.dashboardAccoountInfo.unconfirmedBalanceATM)
                         :
                         parseFloat(this.props.balanceAPL);
-                    const fixedOfferAmount = offerAmount.toFixed();
+                    const fixedOfferAmount = +offerAmount.toFixed();
                     const checkFee = currency === 'eth' ? values.total + this.props.ethFee : this.props.ethFee;
                     if (checkFee > balanceETH) {
                         NotificationManager.error(`Not enough founds on your ETH balance. You need to pay Gas fee`, 'Error', 5000);

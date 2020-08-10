@@ -85,6 +85,7 @@ class Exchange extends React.Component {
         const sellOrdersCurrency = sellOrders[currentCurrency.currency];
         const plotBuyOrdersCurrency = plotBuyOrders[currentCurrency.currency];
         const plotSellOrdersCurrency = plotSellOrders[currentCurrency.currency];
+
         return (
             <div className="page-content">
                 <SiteHeader

@@ -15,7 +15,7 @@ export default function Button(props) {
   return (
     <button
       type={type}
-      className={cn('btn', `btn-${color} btn-${size}`, className)}
+      className={cn('btn', `btn-${color} btn-${size} ${isLoading && 'loading'}`, className)}
       disabled={disabled || isLoading}
       onClick={onClick}
     >
