@@ -103,7 +103,7 @@ class Currencies extends React.Component {
                     pageTitle={'Currencies'}
                 />
                 <div className="page-body container-fluid">
-                    <CustomTable 
+                    <CustomTable
                         header={[
                             {
                                 name: 'Code',
