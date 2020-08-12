@@ -19,9 +19,12 @@ export default function Currencies() {
 
   const { account } = useSelector(state => state.account);
 
-  const [page, setPage] = useState(1);
-  const [firstIndex, setFirstIndex] = useState(0);
-  const [lastIndex, setLastIndex] = useState(15);
+  const [pagination, setPagination] = useState({
+    page: 1,
+    firstIndex: 0,
+    lastIndex: 15,
+  });
+
   const [currencies, setCurrencies] = useState(null);
 
   const getCurrencie = useCallback(async reqParams => {
@@ -29,15 +32,15 @@ export default function Currencies() {
 
     if (allCurrencies) {
       setCurrencies(allCurrencies.currencies);
-      // ! there was setState({...reqParams})
+      setPagination({ ...pagination, ...reqParams });
     }
   }, []);
 
   const listener = useCallback(() => {
     getCurrencie({
       account,
-      firstIndex,
-      lastIndex,
+      firstIndex: pagination.firstIndex,
+      lastIndex: pagination.lastIndex,
     });
   }, []);
 
@@ -51,11 +54,11 @@ export default function Currencies() {
   }, []);
 
   useEffect(() => {
-    dispatch(getCurrencie({
+    getCurrencie({
       account,
-      firstIndex,
-      lastIndex,
-    }));
+      firstIndex: pagination.firstIndex,
+      lastIndex: pagination.lastIndex,
+    });
   }, []);
 
   useEffect(() => {
@@ -93,12 +96,12 @@ export default function Currencies() {
             },
           ]}
           className="mb-3"
-          page={page}
+          page={pagination.page}
           TableRowComponent={Currency}
           tableData={currencies}
           isPaginate
-          previousHendler={() => onPaginate(page - 1)}
-          nextHendler={() => onPaginate(page + 1)}
+          previousHendler={() => onPaginate(pagination.page - 1)}
+          nextHendler={() => onPaginate(pagination.page + 1)}
           emptyMessage="No currencies found."
           itemsPerPage={15}
         />
