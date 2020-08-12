@@ -20,8 +20,8 @@ export default function MyMadedCurrencies() {
 
   const { accountRS } = useSelector(state => state.account);
 
-  const [executedExchanges, setExecutedExchanges] = useState({});
-  const [perPage, setPerPage] = useState({});
+  const [executedExchanges, setExecutedExchanges] = useState(null);
+  const [perPage, setPerPage] = useState(null);
   const [pagination, setPagination] = useState({
     page: 1,
     firstIndex: 0,
