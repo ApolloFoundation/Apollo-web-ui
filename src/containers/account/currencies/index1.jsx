@@ -12,7 +12,7 @@ import { BlockUpdater } from '../../block-subscriber';
 import SiteHeader from '../../components/site-header';
 import Currency from './currency';
 
-import CustomTable from '../../components/tables/table';
+import CustomTable from '../../components/tables/table1';
 
 export default function Currencies() {
   const dispatch = useDispatch();
@@ -29,10 +29,10 @@ export default function Currencies() {
 
   const getCurrencie = useCallback(async reqParams => {
     const allCurrencies = await dispatch(getAllCurrenciesAction(reqParams));
-
     if (allCurrencies) {
+      const { account: _, ...newPagination } = { ...pagination, ...reqParams };
       setCurrencies(allCurrencies.currencies);
-      setPagination({ ...pagination, ...reqParams });
+      setPagination(newPagination);
     }
   }, []);
 
