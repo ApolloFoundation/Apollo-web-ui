@@ -10,9 +10,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllCurrenciesAction } from '../../../actions/currencies';
 import { BlockUpdater } from '../../block-subscriber';
 import SiteHeader from '../../components/site-header';
-import Currency from './currency';
-
 import CustomTable from '../../components/tables/table1';
+import Currency from './currency';
 
 export default function Currencies() {
   const dispatch = useDispatch();
@@ -28,34 +27,31 @@ export default function Currencies() {
   const [currencies, setCurrencies] = useState(null);
 
   const getCurrencie = useCallback(async reqParams => {
-    const allCurrencies = await dispatch(getAllCurrenciesAction(reqParams));
+    const allCurrencies = await dispatch(getAllCurrenciesAction({ account, ...reqParams }));
     if (allCurrencies) {
-      const { account: _, ...newPagination } = { ...pagination, ...reqParams };
+      const newPagination = { ...pagination, ...reqParams };
       setCurrencies(allCurrencies.currencies);
       setPagination(newPagination);
     }
-  }, []);
+  }, [account, dispatch, pagination]);
 
   const listener = useCallback(() => {
     getCurrencie({
-      account,
       firstIndex: pagination.firstIndex,
       lastIndex: pagination.lastIndex,
     });
-  }, []);
+  }, [getCurrencie, pagination.firstIndex, pagination.lastIndex]);
 
   const onPaginate = useCallback(currPage => {
     getCurrencie({
       page: currPage,
-      account,
       firstIndex: currPage * 15 - 15,
       lastIndex: currPage * 15,
     });
-  }, []);
+  }, [getCurrencie]);
 
   useEffect(() => {
     getCurrencie({
-      account,
       firstIndex: pagination.firstIndex,
       lastIndex: pagination.lastIndex,
     });
