@@ -31,8 +31,7 @@ export default function MyMadedCurrencies() {
   const getExchanges = useCallback(async currPagination => {
     const exchanges = (await dispatch(getAccountCurrenciesAction({
       account: accountRS,
-      firstIndex: currPagination.firstIndex,
-      lastIndex: currPagination.lastIndex,
+      ...currPagination,
     })));
 
     setPagination(currPagination);
