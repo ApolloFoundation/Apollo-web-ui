@@ -6,7 +6,7 @@
 
 import React from 'react';
 import SiteHeader from '../../components/site-header'
-import TradeHistoryItem from './trade-history-item'
+import TradeHistoryItem from './exchange-history-item'
 import classNames from "classnames";
 import { v4 as uuidv4 } from 'uuid';
 import {connect} from 'react-redux'

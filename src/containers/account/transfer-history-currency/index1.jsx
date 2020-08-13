@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getTransferHistory } from '../../../actions/currencies';
 import { BlockUpdater } from '../../block-subscriber';
 import SiteHeader from '../../components/site-header';
-import CustomTable from '../../components/tables/table';
+import CustomTable from '../../components/tables/table1';
 import TransferHistoryItem from './transfer-history-item/index1';
 
 export default function TransferHistoryCurrency() {
