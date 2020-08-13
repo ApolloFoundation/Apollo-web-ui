@@ -72,7 +72,7 @@ export default function TransferHistoryCurrency() {
 
   return (
     <div className="page-content">
-      <SiteHeader pageTitle="Transfer History1" />
+      <SiteHeader pageTitle="Transfer History" />
       <div className="page-body container-fluid">
         <CustomTable
           header={[
