@@ -35,7 +35,7 @@ export default function TradeHistoryCurrency() {
     if (exchanges) {
       setExecutedExchanges(exchanges.exchanges);
     }
-  });
+  }, [dispatch]);
 
   const onPaginate = useCallback(page => {
     const reqParams = {
@@ -58,7 +58,7 @@ export default function TradeHistoryCurrency() {
     if (newTrades) {
       setTrades(newTrades.trades);
     }
-  }, []);
+  }, [dispatch]);
 
   const getTransaction = useCallback(async data => {
     const reqParams = {
@@ -71,7 +71,7 @@ export default function TradeHistoryCurrency() {
     if (transaction) {
       dispatch(setBodyModalParamsAction('INFO_TRANSACTION', transaction));
     }
-  }, []);
+  }, [account, dispatch]);
 
   const listener = useCallback(data => {
     console.warn('height in dashboard', data);
@@ -81,7 +81,7 @@ export default function TradeHistoryCurrency() {
       lastIndex: pagination.lastIndex,
       account: accountRS,
     });
-  }, []);
+  }, [accountRS, getTradesHistory, pagination.firstIndex, pagination.lastIndex]);
 
   useEffect(() => {
     getTradesHistory({
@@ -100,8 +100,8 @@ export default function TradeHistoryCurrency() {
   useEffect(() => {
     BlockUpdater.on('data', data => listener(data));
 
-    return () => BlockUpdater.removeAllListeners('data');
-  }, []);
+    return () => BlockUpdater.removeAllListeners('data', listener);
+  }, [listener]);
 
   return (
     <div className="page-content">

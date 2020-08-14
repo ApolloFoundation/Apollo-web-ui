@@ -23,7 +23,6 @@ export default function TradeHistoryItem({ transfer }) {
             <span onClick={() => dispatch(setBodyModalParamsAction('INFO_TRANSACTION', transfer.transaction))}>
               {transfer.transaction}
             </span>
-
           </td>
           <td className="blue-link-text">
             <span onClick={() => dispatch(setBodyModalParamsAction('INFO_TRANSACTION', transfer.offer))}>
