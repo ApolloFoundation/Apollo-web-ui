@@ -3,13 +3,14 @@ import React, {
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { ALL_STATUSES } from '../../../../constants/statuses';
+import { ONE_GWEI } from '../../../../constants';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
 import { getMyOfferHistory } from '../../../../actions/wallet';
+import { BlockUpdater } from '../../../block-subscriber';
 import {
   formatDivision, currencyTypes, secureStorage,
 } from '../../../../helpers/format';
-import { ONE_GWEI } from '../../../../constants';
-import { BlockUpdater } from '../../../block-subscriber';
 import CustomTable from '../../../components/tables/table';
 import SiteHeader from '../../../components/site-header';
 import InfoBox from '../../../components/info-box';
@@ -52,20 +53,6 @@ export default function OrderHistory() {
     setPage(currPage);
     setRequstIndex(params);
   }, [dispatch]);
-
-  const statusOfOrder = useCallback(status => {
-    const allStatuses = {
-      0: 'Open',
-      1: 'Pending',
-      2: 'Expired',
-      3: 'Cancel',
-      4: 'Waiting approval',
-      5: 'Closed',
-      6: 'Accounting',
-    };
-
-    return allStatuses[status];
-  }, []);
 
   useEffect(() => {
     if (wallets && isLoading) {
@@ -139,7 +126,7 @@ export default function OrderHistory() {
                   tableData={myOrderHistory}
                   defaultRowCount={15}
                   TableRowComponent={props => {
-                    const statusName = statusOfOrder(props.status);
+                    const statusName = ALL_STATUSES[props.status];
                     const typeName = props.type ? 'SELL' : 'BUY';
                     const pairRate = formatDivision(props.pairRate, ONE_GWEI, 9);
                     const offerAmount = formatDivision(props.offerAmount, ONE_GWEI, 9);
