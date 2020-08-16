@@ -19,14 +19,14 @@ export default function TransactionItem(props) {
     constants, actualBlock, account, accountRS,
   } = useSelector(state => state.account);
 
-  const isDexOrder = !!constants.transactionTypes
-    && constants.transactionTypes[type].subtypes[subtype].name === 'DexOrder';
-  const isAliasSell = !!constants.transactionTypes
-    && constants.transactionTypes[type].subtypes[subtype].name === 'AliasSell';
+  const isConstants = !!(constants.transactionTypes
+    && constants.transactionTypes[type].subtypes[subtype]);
+  const isDexOrder = isConstants && constants.transactionTypes[type].subtypes[subtype].name === 'DexOrder';
+  const isAliasSell = isConstants && constants.transactionTypes[type].subtypes[subtype].name === 'AliasSell';
   const newSenderRS = (senderRS && senderRS === accountRS) ? 'You' : senderRS;
   const newRecipientRS = (recipientRS && recipientRS === accountRS) ? 'You' : recipientRS;
-  const transactionType = constants.transactionTypes
-    && formatTransactionType(constants.transactionTypes[type].subtypes[subtype].name);
+  const transactionType = isConstants && formatTransactionType(constants.transactionTypes[type].subtypes[subtype].name);
+
   const marketplaceTypes = [
     'DIGITAL GOODS DELISTING', 'DIGITAL GOODS PURCHASE', 'DIGITAL GOODS PRICE CHANGE',
     'DIGITAL GOODS LISTING', 'DIGITAL GOODS QUANTITY CHANGE',

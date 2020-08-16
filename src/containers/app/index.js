@@ -57,9 +57,9 @@ import BackendStatus from '../account/backend-status'
 import ScheduledTransactions from '../account/scheduled-transactions'
 import Settings from '../account/settings'
 import TradeHistory from '../account/trade-history'
-import TradeHistoryCurrency from '../account/currency-exchange-history/index1'
+import CurrencyExchangeHistory from '../account/currency-exchange-history/index1'
 import TransferHistory from '../account/transfer-history'
-import TransferHistoryCurrency from '../account/transfer-history-currency/index1'
+import TransferHistoryCurrency from '../account/currency-transfer-history/index1'
 import Currencies from '../account/currencies/index1'
 import MyCurrencies from '../account/my-shuffling'
 import MyMadedCurrencies from '../account/my-currencies/index1'
@@ -268,7 +268,7 @@ class App extends React.Component {
             <Route exact path="/scheduled-transactions" component={ScheduledTransactions}/>
             <Route exact path="/settings" component={Settings}/>
             <Route exact path="/trade-history" component={TradeHistory}/>
-            <Route exact path="/exchange-history-currency" component={TradeHistoryCurrency}/>
+            <Route exact path="/exchange-history-currency" component={CurrencyExchangeHistory}/>
             <Route exact path="/transfer-history" component={TransferHistory}/>
             <Route exact path="/transfer-history-currency" component={TransferHistoryCurrency}/>
             <Route exact path="/finished-polls" component={Finishedpolls}/>
