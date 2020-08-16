@@ -7,9 +7,9 @@ import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { setBodyModalParamsAction } from '../../../../modules/modals';
-import { formatTimestamp } from '../../../../helpers/util/time';
-import { ONE_APL } from '../../../../constants';
+import { setBodyModalParamsAction } from '../../../../../modules/modals';
+import { formatTimestamp } from '../../../../../helpers/util/time';
+import { ONE_APL } from '../../../../../constants';
 
 export default function TradeHistoryItem({ transfer }) {
   const dispatch = useDispatch();

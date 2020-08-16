@@ -22,8 +22,8 @@ export default function MyCurrencytemItem(props) {
 
   return (
     <tr key={uuidv4()}>
-      <td className="blue-link-text">
-        <span onClick={() => dispatch(setBodyModalParamsAction('INFO_TRANSACTION', currency))}>
+      <td>
+        <span className="blue-link-text" onClick={() => dispatch(setBodyModalParamsAction('INFO_TRANSACTION', currency))}>
           {code}
         </span>
       </td>

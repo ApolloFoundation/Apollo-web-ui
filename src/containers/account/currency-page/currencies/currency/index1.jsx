@@ -6,8 +6,8 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { setBodyModalParamsAction } from '../../../../modules/modals';
-import { getCurrencyTypes } from '../../../../modules/currencies';
+import { setBodyModalParamsAction } from '../../../../../modules/modals';
+import { getCurrencyTypes } from '../../../../../modules/currencies';
 
 export default function Currency(props) {
   const dispatch = useDispatch();

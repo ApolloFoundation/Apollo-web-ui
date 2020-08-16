@@ -7,8 +7,8 @@ import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { setBodyModalParamsAction } from '../../../../modules/modals';
-import { formatTimestamp } from '../../../../helpers/util/time';
+import { setBodyModalParamsAction } from '../../../../../modules/modals';
+import { formatTimestamp } from '../../../../../helpers/util/time';
 
 export default function TransferHistoryItem(props) {
   const dispatch = useDispatch();
