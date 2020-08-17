@@ -13,6 +13,7 @@ import {disable2FAActon, enable2FAActon, getAccountInfoAction} from '../../../ac
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {login} from '../../../modules/account';
 import SiteHeader from '../../../containers/components/site-header';
+import InfoBox from '../../components/info-box';
 import InputForm from '../../components/input-form';
 import ModalFooter from '../../components/modal-footer';
 import AccountRSFormInput from "../../components/form-components/account-rs";
@@ -182,23 +183,30 @@ class Settings extends React.Component {
                                             render={({submitForm, setValue, values, addValue, removeValue, getFormState}) => (
                                                 <form className="modal-form" onSubmit={submitForm}>
                                                     <div className="form-group-app">
-                                                        <div className="form-title">
-                                                            {
-                                                                !this.props.is2FA &&
-                                                                <div className="form-sub-title">
-                                                                    The 2FA is currently disabled on this account. You can
-                                                                    increase
-                                                                    your wallet security with this option.
+                                                        {this.props.is2FA
+                                                            ? (
+                                                              <>
+                                                                <div className="form-sub-title mb-3">
+                                                                  The 2FA is currently enabled on this account.
                                                                 </div>
-                                                            }
-                                                            {
-                                                                this.props.is2FA &&
-                                                                <div className="form-sub-title">
-                                                                    The 2FA is currently enabled on this account.
-                                                                </div>
-                                                            }
-                                                        </div>
-
+                                                                <InfoBox attentionLeft>
+                                                                  <p className="mb-3">
+                                                                    Please note:
+                                                                  </p>
+                                                                  <div className="form-sub-title">
+                                                                    2FA is a feature for Vault addresses only,
+                                                                    and will not add a second factor authentication to a standard address.
+                                                                  </div>
+                                                                </InfoBox>
+                                                              </>
+                                                            ) : (
+                                                              <div className="form-sub-title mb-3">
+                                                                  The 2FA is currently disabled on this account. You can
+                                                                  increase
+                                                                  your wallet security with this option.
+                                                              </div>
+                                                            )
+                                                        }
                                                         <AccountRSFormInput
                                                             setValue={setValue}
                                                             noContactList

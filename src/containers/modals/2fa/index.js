@@ -113,6 +113,13 @@ class Confirm2FA extends React.Component {
                                         }
                                     </div>
                                 </div>
+                                <InfoBox attentionLeft>
+                                  <p className="mb-3">
+                                    Please note:
+                                  </p>
+                                  2FA is a feature for Vault addresses only,
+                                  and will not add a second factor authentication to a standard address.
+                                </InfoBox>
                                 <div className="form-group mb-15">
                                     <label>Your generated secret word:</label>
                                     <div>
