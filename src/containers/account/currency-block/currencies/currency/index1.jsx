@@ -36,7 +36,7 @@ export default function Currency(props) {
           <Link to={`/exchange-booth/${code}`} className="btn btn-default">Exchange</Link>
           <button
             type="button"
-            onClick={() => setBodyModalParamsAction('RESERVE_CURRENCY', props)}
+            onClick={() => dispatch(setBodyModalParamsAction('RESERVE_CURRENCY', props))}
             className={`btn btn-default ${types.includes('RESERVABLE') ? '' : 'disabled'}`}
           >
             Reserve
@@ -45,4 +45,4 @@ export default function Currency(props) {
       </td>
     </tr>
   );
-};
+}

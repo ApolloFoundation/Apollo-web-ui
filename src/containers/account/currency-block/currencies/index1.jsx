@@ -11,7 +11,7 @@ import { getAllCurrenciesAction } from '../../../../actions/currencies';
 import { BlockUpdater } from '../../../block-subscriber';
 import SiteHeader from '../../../components/site-header';
 import CustomTable from '../../../components/tables/table1';
-import Currency from './currency';
+import Currency from './currency/index1';
 
 export default function Currencies() {
   const dispatch = useDispatch();
@@ -24,16 +24,16 @@ export default function Currencies() {
     lastIndex: 15,
   });
 
-  const [currencies, setCurrencies] = useState(null);
+  const [dataCurrencies, setDataCurrencies] = useState(null);
 
   const getCurrencie = useCallback(async reqParams => {
     const allCurrencies = await dispatch(getAllCurrenciesAction({ account, ...reqParams }));
     if (allCurrencies) {
       const newPagination = { ...pagination, ...reqParams };
-      setCurrencies(allCurrencies.currencies);
+      setDataCurrencies(allCurrencies.currencies);
       setPagination(newPagination);
     }
-  }, [account, dispatch, pagination]);
+  }, [dispatch]);
 
   const listener = useCallback(() => {
     getCurrencie({
@@ -65,9 +65,7 @@ export default function Currencies() {
 
   return (
     <div className="page-content">
-      <SiteHeader
-        pageTitle="Currencies"
-      />
+      <SiteHeader pageTitle="Currencies" />
       <div className="page-body container-fluid">
         <CustomTable
           header={[
@@ -94,7 +92,7 @@ export default function Currencies() {
           className="mb-3"
           page={pagination.page}
           TableRowComponent={Currency}
-          tableData={currencies}
+          tableData={dataCurrencies}
           isPaginate
           previousHendler={() => onPaginate(pagination.page - 1)}
           nextHendler={() => onPaginate(pagination.page + 1)}
