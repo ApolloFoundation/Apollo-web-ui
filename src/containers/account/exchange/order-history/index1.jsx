@@ -11,7 +11,7 @@ import { BlockUpdater } from '../../../block-subscriber';
 import {
   formatDivision, currencyTypes, secureStorage,
 } from '../../../../helpers/format';
-import CustomTable from '../../../components/tables/table';
+import CustomTable from '../../../components/tables/table1';
 import SiteHeader from '../../../components/site-header';
 import InfoBox from '../../../components/info-box';
 import Button from '../../../components/button';
