@@ -7,8 +7,8 @@ import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { setBodyModalParamsAction } from '../../../../modules/modals';
-import { formatTimestamp } from '../../../../helpers/util/time';
+import { setBodyModalParamsAction } from '../../../../../modules/modals';
+import { formatTimestamp } from '../../../../../helpers/util/time';
 
 export default function TransferHistoryItem(props) {
   const dispatch = useDispatch();
@@ -20,8 +20,9 @@ export default function TransferHistoryItem(props) {
 
   return (
     <tr key={uuidv4()}>
-      <td className="blue-link-text">
+      <td>
         <span
+          className="blue-link-text"
           onClick={() => dispatch(setBodyModalParamsAction('INFO_TRANSACTION', transfer))}
         >
           {transfer}
@@ -32,13 +33,19 @@ export default function TransferHistoryItem(props) {
       </td>
       <td className="">{formatTimestamp(timestamp)}</td>
       <td className="align-right">{units / (10 ** decimals)}</td>
-      <td className="blue-link-text">
-        <span onClick={() => dispatch(setBodyModalParamsAction('INFO_ACCOUNT', recipient))}>
+      <td>
+        <span
+          className="blue-link-text"
+          onClick={() => dispatch(setBodyModalParamsAction('INFO_ACCOUNT', recipient))}
+        >
           {recipientRS}
         </span>
       </td>
-      <td className="blue-link-text">
-        <span onClick={() => dispatch(setBodyModalParamsAction('INFO_ACCOUNT', sender))}>
+      <td>
+        <span
+          className="blue-link-text"
+          onClick={() => dispatch(setBodyModalParamsAction('INFO_ACCOUNT', sender))}
+        >
           {senderRS}
         </span>
       </td>

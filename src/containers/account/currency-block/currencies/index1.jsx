@@ -7,10 +7,10 @@ import React, {
   useEffect, useCallback, useState,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllCurrenciesAction } from '../../../actions/currencies';
-import { BlockUpdater } from '../../block-subscriber';
-import SiteHeader from '../../components/site-header';
-import CustomTable from '../../components/tables/table1';
+import { getAllCurrenciesAction } from '../../../../actions/currencies';
+import { BlockUpdater } from '../../../block-subscriber';
+import SiteHeader from '../../../components/site-header';
+import CustomTable from '../../../components/tables/table1';
 import Currency from './currency';
 
 export default function Currencies() {

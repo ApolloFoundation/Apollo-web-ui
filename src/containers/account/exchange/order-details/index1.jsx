@@ -7,6 +7,7 @@ import { useRouteMatch, useHistory } from 'react-router-dom';
 import { NotificationManager } from 'react-notifications';
 import { currencyTypes, formatDivision } from '../../../../helpers/format';
 import { ONE_GWEI } from '../../../../constants';
+import { ALL_STATUSES } from '../../../../constants/statuses';
 import {
   getAllContractStatus, getContractStatus, getOrderById,
 } from '../../../../actions/wallet';
@@ -31,20 +32,6 @@ export default function OrderDetails() {
 
   const match = useRouteMatch();
   const history = useHistory();
-
-  const statusOfOrder = useCallback(status => {
-    const allStatuses = {
-      0: 'Open',
-      1: 'Pending',
-      2: 'Expired',
-      3: 'Cancel',
-      4: 'Waiting approval',
-      5: 'Closed',
-      6: 'Accounting',
-    };
-
-    return allStatuses[status];
-  }, []);
 
   const renderMoreDetails = useCallback(type => {
     if (type) {
@@ -85,7 +72,7 @@ export default function OrderDetails() {
         currentOrderInfo.pairRate * currentOrderInfo.offerAmount, 10 ** 18, 9,
       );
       const currency = currentOrderInfo.pairCurrency;
-      const statusName = statusOfOrder(currentOrderInfo.status);
+      const statusName = ALL_STATUSES[currentOrderInfo.status];
       const typeName = currentOrderInfo.type ? 'SELL' : 'BUY';
       const type = Object.keys(currencyTypes)
         .find(key => currencyTypes[key] === currency).toUpperCase();
@@ -99,7 +86,7 @@ export default function OrderDetails() {
       setIsPending(false);
       setSelectOrderId(orderId);
     }
-  }, [dispatch, statusOfOrder]);
+  }, [dispatch]);
 
   useEffect(() => {
     if (match.params.id) {

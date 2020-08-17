@@ -6,8 +6,8 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { setBodyModalParamsAction } from '../../../../modules/modals';
-import { getCurrencyTypes } from '../../../../modules/currencies';
+import { setBodyModalParamsAction } from '../../../../../modules/modals';
+import { getCurrencyTypes } from '../../../../../modules/currencies';
 
 export default function Currency(props) {
   const dispatch = useDispatch();
@@ -19,13 +19,15 @@ export default function Currency(props) {
 
   return (
     <tr>
-      <td className="blue-link-text">
-        <span onClick={() => dispatch(setBodyModalParamsAction('INFO_TRANSACTION', currency))}>
+      <td>
+        <span
+          className="blue-link-text"
+          onClick={() => dispatch(setBodyModalParamsAction('INFO_TRANSACTION', currency))}
+        >
           {code}
         </span>
       </td>
       <td>{name}</td>
-
       <td className="" dangerouslySetInnerHTML={{ __html: currencyTypes }} />
       <td className="align-right">{currentSupply / 10 ** decimals}</td>
       <td className="align-right">{maxSupply / 10 ** decimals}</td>
