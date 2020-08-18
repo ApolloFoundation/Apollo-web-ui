@@ -42,7 +42,7 @@ export default function BuyForm(props) {
               ));
             } else {
               setValue('rateATM', Math.round(
-                ((minimumSellRate / ONE_APL) * (10 ** decimals)) * +.values.units,
+                ((minimumSellRate / ONE_APL) * (10 ** decimals)) * +values.units,
               ));
             }
           }}
@@ -83,8 +83,8 @@ export default function BuyForm(props) {
       <CustomButtom
         type="submit"
         size="lg"
-        name={`Buy (APL > ${this.state.code})`}
-        disabled={!(parseInt(values.rateATM))}
+        name={`Buy (APL > ${code})`}
+        disabled={!(+values.rateATM)}
       />
     </Form>
   );
