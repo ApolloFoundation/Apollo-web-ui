@@ -33,10 +33,6 @@ import OfferItem from './offer-item/'
 
 const itemsPerPage = 5;
 
-export default function ExchangeBooth() {
-
-}
-
 class ExchangeBooth extends React.Component {
     constructor(props) {
         super(props);
@@ -409,18 +405,24 @@ class ExchangeBooth extends React.Component {
                 <div className={`col-md-9 col-sm-8 p-0`}>
                     {(window.innerWidth > 767 || isGoBack) && (
                         <>
-                            {
-                                this.state.currency &&
+                            {this.state.currency &&
                                 <div className="row">
                                     <div className="col-xl-6 col-md-12 pr-0 mb-3">
                                         <div className={'card green'}>
-                                            <div
-                                                className="card-title card-title-lg">
+                                            <div className="card-title card-title-lg">
                                                 Buy {this.state.code}
-                                                <span>Balance: {balanceBuy.toLocaleString('en')} APL</span>
+                                                <span>
+                                                  Balance: {balanceBuy.toLocaleString('en')} APL
+                                                </span>
                                             </div>
                                             <div className="card-body">
-                                                <BackForm
+                                              <Formik
+                                                initialValues={{}}
+                                                onSubmit={this.handleMinimumBuyRate}
+                                              >
+                                                {/* buy form */}
+                                              </Formik>
+                                                {/* <BackForm
                                                     nameModal={this.props.nameModal}
                                                     onSubmit={(values) => this.handleMinimumBuyRate(values)}
                                                     render={({submitForm, values, addValue, removeValue, setValue, getFormState}) => {
@@ -504,7 +506,7 @@ class ExchangeBooth extends React.Component {
                                                             </form>
                                                         )
                                                     }}
-                                                />
+                                                /> */}
                                             </div>
                                         </div>
                                     </div>
