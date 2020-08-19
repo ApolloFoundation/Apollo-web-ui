@@ -4,9 +4,10 @@
  ******************************************************************************/
 
 
-import React from 'react';
-import {connect} from 'react-redux';
+import React, { useEffect, useCallback } from 'react';
+import {connect, useDispatch} from 'react-redux';
 import {Form} from 'react-form';
+import { useRouteMatch } from 'react-router-dom';
 import {NotificationManager} from "react-notifications";
 import classNames from "classnames";
 import {getAllCurrenciesAction, getCurrencyAction} from "../../../actions/currencies";
@@ -32,6 +33,46 @@ import SidebarCurrency from './sdiebar-item';
 import OfferItem from './offer-item/'
 
 const itemsPerPage = 5;
+
+export default function ExchangeBooth() {
+  const dispatch = useDispatch();
+
+  const { account } = useSelector(state => state.account);
+
+  const match = useRouteMatch();
+
+  const listener = useCallback(data => {
+    if (currency) {
+        getAccountCurrency(
+            {
+                requestType: 'getAccountCurrencies',
+                account: this.props.account,
+                includeCurrencyInfo: true,
+                currency: this.state.currency.currency
+            }
+        );
+    }
+    this.getCurrency({code: this.props.match.params.currency});
+    this.getCurrencies();
+  }, []);
+
+  useEffect(() => {
+    getAccountCurrency({
+      requestType: 'getAccountCurrencies',
+      account: account,
+      includeCurrencyInfo: true,
+      code: match.params.currency,
+    });
+    getCurrency({code: match.params.currency});
+    getCurrencies();
+  }, []);
+
+  useEffect(() => {
+    BlockUpdater.on("data", listener);
+
+    return () => BlockUpdater.removeListener("data", listener);
+  }, []);
+}
 
 class ExchangeBooth extends React.Component {
     constructor(props) {
