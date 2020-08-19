@@ -17,7 +17,7 @@ import InfoBox from "../../components/info-box";
 import ImportAccount from "./import-account";
 import CreateUser from "./create-user";
 
-import LogoImg from '../../../assets/logo.png';
+import LogoImg from '../../../assets/new_apl_icon_white.svg';
 import './Login.scss'
 
 class Login extends React.Component {

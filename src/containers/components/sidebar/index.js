@@ -11,7 +11,7 @@ import {Scrollbars} from 'react-custom-scrollbars';
 import classNames from 'classnames'
 import {setModalType} from '../../../modules/modals';
 import * as routes from './routesMenu';
-import ApolloLogo from '../../../assets/apollo-new-logo.jpg';
+import ApolloLogo from '../../../assets/new_apl_icon_black.svg';
 import './Sidebar.scss';
 
 const mapStateToProps = state => ({
