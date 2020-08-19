@@ -416,12 +416,7 @@ class ExchangeBooth extends React.Component {
                                                 </span>
                                             </div>
                                             <div className="card-body">
-                                              <Formik
-                                                initialValues={{}}
-                                                onSubmit={this.handleMinimumBuyRate}
-                                              >
-                                                {/* buy form */}
-                                              </Formik>
+                                              {/* buy form */}
                                                 {/* <BackForm
                                                     nameModal={this.props.nameModal}
                                                     onSubmit={(values) => this.handleMinimumBuyRate(values)}
@@ -517,7 +512,7 @@ class ExchangeBooth extends React.Component {
                                                 <span>Balance: {balanceSell.toLocaleString('en')} {this.state.code}</span>
                                             </div>
                                             <div className="card-body">
-                                                <Form
+                                                {/* <Form
                                                     onSubmit={(values) => this.handleMinimumSellRate(values)}
                                                     render={({submitForm, values, addValue, removeValue, setValue, getFormState}) => {
                                                         return (
@@ -598,7 +593,7 @@ class ExchangeBooth extends React.Component {
                                                             </form>
                                                         )
                                                     }}
-                                                />
+                                                /> */}
                                             </div>
                                         </div>
                                     </div>
@@ -608,17 +603,17 @@ class ExchangeBooth extends React.Component {
                     )}
                 </div>
             </div>
-                    <div className="row">
-                        <div className={`col-md-3 col-sm-4 p-0 mb-3`}>
-                            {(window.innerWidth > 767 || !isGoBack) && (
-                                <SidebarContent
-                                    element={'code'}
-                                    baseUrl={'/exchange-booth/'}
-                                    data={this.state.currencies}
-                                    emptyMessage={'No currencies found.'}
-                                    Component={SidebarCurrency}
-                                />
-                            )}
+              <div className="row">
+                <div className={`col-md-3 col-sm-4 p-0 mb-3`}>
+                  {(window.innerWidth > 767 || !isGoBack) && (
+                    <SidebarContent
+                      element={'code'}
+                      baseUrl={'/exchange-booth/'}
+                      data={this.state.currencies}
+                      emptyMessage={'No currencies found.'}
+                      Component={SidebarCurrency}
+                    />
+                  )}
                         </div>
                         <div className={`col-md-9 col-sm-8 p-0`}>
                             {(window.innerWidth > 767 || isGoBack) && (
@@ -628,42 +623,7 @@ class ExchangeBooth extends React.Component {
                                         <div className="row">
                                             <div className="col-md-12 p-0">
                                                 <div className="row">
-                                                    <div className="col-md-6 display-flex pr-0 mb-3">
-                                                        <div className={'card h-auto'}>
-                                                            <div className="card-title">
-                                                                Offers to sell {this.state.code}
-                                                            </div>
-                                                            <div className="card-body h-auto">
-                                                                <CustomTable
-                                                                    header={[
-                                                                        {
-                                                                            name: 'Account',
-                                                                            alignRight: false
-                                                                        }, {
-                                                                            name: 'Units',
-                                                                            alignRight: true
-                                                                        }, {
-                                                                            name: 'Limit',
-                                                                            alignRight: true
-                                                                        }, {
-                                                                            name: 'Rate',
-                                                                            alignRight: true
-                                                                        }
-                                                                    ]}
-                                                                    className={'p-0'}
-                                                                    emptyMessage={'No open sell offers. You cannot sell this currency now, but you can publish an exchange offer instead, and wait for others to fill it.'}
-                                                                    TableRowComponent={OfferItem}
-                                                                    tableData={this.state.sellOffers}
-                                                                    passProps={{decimals: this.state.currencyInfo.decimals}}
-                                                                    isPaginate
-                                                                    itemsPerPage={itemsPerPage}
-                                                                    page={this.state.pagination.sellOffers.page}
-                                                                    previousHendler={() => this.onPaginate('sellOffers', this.state.pagination.sellOffers.page - 1)}
-                                                                    nextHendler={() => this.onPaginate('sellOffers', this.state.pagination.sellOffers.page + 1)}
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                  {/* !! Sell table */}
                                                     <div className="col-md-6 display-flex pr-0 mb-3">
                                                         <div className={'card h-auto'}>
                                                             <div className="card-title">
