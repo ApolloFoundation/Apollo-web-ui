@@ -153,7 +153,7 @@ export default function SellForm(props) {
           min={0}
           max={100}
           onChange={amount => {
-            const offerAmount = values.pairRate !== '0' ? division((amount * balance), (100 * values.pairRate), 10) : 0;
+            const offerAmount = values.pairRate !== '0' ? ((amount * balanceFormat) / 100).toFixed(3) : 0;
             const total = multiply(offerAmount, values.pairRate, 14);
 
             setFieldValue('offerAmount', offerAmount);
