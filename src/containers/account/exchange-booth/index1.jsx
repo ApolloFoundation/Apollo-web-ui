@@ -22,6 +22,15 @@ import {
   getSellOffersAction
 } from "../../../actions/exchange-booth";
 import {getTransactionAction} from "../../../actions/transactions";
+// Forms
+import BuyForm from './buy-form';
+import SellForm from './sell-form';
+// Tables
+import OffersToBuyTable from './tables/offers-to-buy-table';
+import OffersToSellTable from './tables/offers-to-sell-table';
+import ExchangeRequestsTable from './tables/exchange-requests-table'
+import ExecutedExcahngeTable from './tables/executed-exchange-table'
+
 import BackForm from '../../modals/modal-form/modal-form-container';
 import SiteHeader from '../../components/site-header'
 import SidebarContent from '../../components/sidebar-list';
@@ -399,49 +408,12 @@ class ExchangeBooth extends React.Component {
         }
     };
 
-    getBlock = async (type, blockHeight) => {
-        const requestParams = {
-            height: blockHeight
-        };
-
-        const block = await this.props.getBlockAction(requestParams);
-
-        if (block) {
-            this.props.setBodyModalParamsAction('INFO_BLOCK', block)
-        }
-    };
-
-    getTransaction = async (requestParams) => {
-        const transaction = await this.props.getTransactionAction(requestParams);
-
-        if (transaction) {
-            this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction)
-        }
-    };
-
     goBack = () => {
         this.setState({
             asset: null
         }, () => {
             this.props.history.push('/currencies')
         });
-    };
-
-    onPaginate = (type, page) => {
-        const pagination = {
-            page: page,
-            firstIndex: page * itemsPerPage - itemsPerPage,
-            lastIndex: page * itemsPerPage
-        };
-        if (type === 'buyOffers') {
-            this.getBuyOffers(this.state.currency.currency, pagination);
-        } else if (type === 'sellOffers') {
-            this.getSellOffers(this.state.currency.currency, pagination);
-        } else if (type === 'exchangeRequest') {
-            this.getAccountExchanges(this.state.currency.currency, this.props.account, pagination);
-        } else if (type === 'executedExchanges') {
-            this.getExchanges(this.state.currency.currency, pagination);
-        }
     };
 
     render() {
@@ -486,200 +458,12 @@ class ExchangeBooth extends React.Component {
                 <div className={`col-md-9 col-sm-8 p-0`}>
                     {(window.innerWidth > 767 || isGoBack) && (
                         <>
-                            {this.state.currency &&
-                                <div className="row">
-                                    <div className="col-xl-6 col-md-12 pr-0 mb-3">
-                                        <div className={'card green'}>
-                                            <div className="card-title card-title-lg">
-                                                Buy {this.state.code}
-                                                <span>
-                                                  Balance: {balanceBuy.toLocaleString('en')} APL
-                                                </span>
-                                            </div>
-                                            <div className="card-body">
-                                              {/* buy form */}
-                                                {/* <BackForm
-                                                    nameModal={this.props.nameModal}
-                                                    onSubmit={(values) => this.handleMinimumBuyRate(values)}
-                                                    render={({submitForm, values, addValue, removeValue, setValue, getFormState}) => {
-                                                        return (
-                                                            <form onSubmit={submitForm}
-                                                                  onChange={() => this.props.saveSendModalState(values)}
-                                                                  className="form-group-app">
-                                                                <NummericInput
-                                                                    setValue={setValue}
-                                                                    label="Units"
-                                                                    field="units"
-                                                                    type={"float"}
-                                                                    placeholder="Units"
-                                                                    onChange={(e) => {
-                                                                        if (!e.target) {
-                                                                            setValue('rateATM', Math.round(((this.state.minimumSellRate / ONE_APL) * Math.pow(10, this.state.decimals)) * parseInt(e)))
-                                                                        } else {
-                                                                            setValue('rateATM', Math.round(((this.state.minimumSellRate / ONE_APL) * Math.pow(10, this.state.decimals)) * parseInt(getFormState().values.units)))
-                                                                        }
-                                                                    }}
-                                                                    counterLabel={this.state.code}
-                                                                />
-                                                                <div className="form-group mb-15">
-                                                                    <label>Maximum Rate</label>
-                                                                    <div className="input-group">
-                                                                        {
-                                                                            !!this.state.minimumSellRate &&
-                                                                            <input
-                                                                                value={Math.round((this.state.minimumSellRate / ONE_APL) * Math.pow(10, this.state.decimals))}
-                                                                                ref="buy_currency_rate"
-                                                                                placeholder='Quantity'
-                                                                                className={"form-control"}
-                                                                                readOnly
-                                                                                disabled
-                                                                            />
-                                                                        }
-
-                                                                        <div className="input-group-append">
-                                                                            <span className="input-group-text"
-                                                                                  id="amountText">APL/{this.state.code}</span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div className="form-group mb-15">
-                                                                    <label>Effective Rate</label>
-                                                                    <div className="input-group">
-                                                                        {
-                                                                            !!this.state.minimumSellRate &&
-                                                                            <input
-                                                                                value={Math.round((this.state.minimumSellRate / ONE_APL) * Math.pow(10, this.state.decimals))}
-                                                                                ref="buy_currency_rate"
-                                                                                placeholder='Quantity'
-                                                                                className={"form-control "}
-                                                                                readOnly
-                                                                                disabled
-                                                                            />
-                                                                        }
-                                                                        <div className="input-group-append">
-                                                                            <span className="input-group-text"
-                                                                                  id="amountText">APL/{this.state.code}</span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <NummericInput
-                                                                    setValue={setValue}
-                                                                    label="Total"
-                                                                    field="rateATM"
-                                                                    type={"tel"}
-                                                                    placeholder="Price"
-                                                                    counterLabel={'APL'}
-                                                                    disabled
-                                                                />
-                                                                <button
-                                                                    className={classNames({
-                                                                        "btn btn-lg btn-green submit-button": true,
-                                                                        'disabled': !(!!parseInt(getFormState().values.rateATM)),
-                                                                    })}
-                                                                >
-                                                                    Buy (APL > {this.state.code})
-                                                                </button>
-                                                            </form>
-                                                        )
-                                                    }}
-                                                /> */}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col-xl-6 col-md-12 pr-0 mb-3">
-                                        <div className={'card green'}>
-                                            <div className="card-title card-title-lg">
-                                                Sell {this.state.code}
-                                                <span>Balance: {balanceSell.toLocaleString('en')} {this.state.code}</span>
-                                            </div>
-                                            <div className="card-body">
-                                                {/* <Form
-                                                    onSubmit={(values) => this.handleMinimumSellRate(values)}
-                                                    render={({submitForm, values, addValue, removeValue, setValue, getFormState}) => {
-                                                        return (
-                                                            <form className="form-group-app"
-                                                                  onSubmit={submitForm}>
-                                                                <NummericInput
-                                                                    setValue={setValue}
-                                                                    label="Units"
-                                                                    field="units"
-                                                                    type={"float"}
-                                                                    placeholder="Units"
-                                                                    onChange={(e) => {
-                                                                        if (!e.target) {
-                                                                            setValue('rateATM', Math.round(((this.state.minimumBuyRate / ONE_APL) * Math.pow(10, this.state.decimals)) * parseInt(e)))
-                                                                        } else {
-                                                                            setValue('rateATM', Math.round(((this.state.minimumBuyRate / ONE_APL) * Math.pow(10, this.state.decimals)) * parseInt(getFormState().values.units)))
-                                                                        }
-                                                                    }}
-                                                                    counterLabel={this.state.code}
-                                                                />
-                                                                <div className="form-group mb-15">
-                                                                    <label>Maximum Rate</label>
-                                                                    <div className="input-group">
-                                                                        {
-                                                                            !!this.state.minimumBuyRate &&
-                                                                            <input
-                                                                                value={Math.round((this.state.minimumBuyRate / ONE_APL) * Math.pow(10, this.state.decimals))}
-                                                                                ref="buy_currency_rate"
-                                                                                placeholder='Quantity'
-                                                                                className={"form-control "}
-                                                                                readOnly
-                                                                                disabled
-                                                                            />
-                                                                        }
-                                                                        <div className="input-group-append">
-                                                                            <span className="input-group-text"
-                                                                                  id="amountText">APL/{this.state.code}</span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div className="form-group mb-15">
-                                                                    <label>Effective Rate</label>
-                                                                    <div className="input-group">
-                                                                        {
-                                                                            !!this.state.minimumBuyRate &&
-                                                                            <input
-                                                                                value={Math.round((this.state.minimumBuyRate / ONE_APL) * Math.pow(10, this.state.decimals))}
-                                                                                ref="buy_currency_rate"
-                                                                                placeholder='Quantity'
-                                                                                className={"form-control "}
-                                                                                readOnly
-                                                                                disabled
-                                                                            />
-                                                                        }
-                                                                        <div className="input-group-append">
-                                                                            <span className="input-group-text"
-                                                                                  id="amountText">APL/{this.state.code}</span>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <NummericInput
-                                                                    setValue={setValue}
-                                                                    label="Total"
-                                                                    field="rateATM"
-                                                                    type={"tel"}
-                                                                    placeholder="Price"
-                                                                    counterLabel={'APL'}
-                                                                    disabled
-                                                                />
-                                                                <button
-                                                                    className={classNames({
-                                                                        "btn btn-lg btn-green submit-button": true,
-                                                                        'disabled': !(!!parseInt(getFormState().values.rateATM)),
-                                                                    })}
-                                                                >
-                                                                    Buy ({this.state.code} > APL)
-                                                                </button>
-                                                            </form>
-                                                        )
-                                                    }}
-                                                /> */}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            }
+                            {this.state.currency && (
+                              <div className="row">
+                                <BuyForm />
+                                <BuyForm />
+                              </div>
+                            )}
                         </>
                     )}
                 </div>
@@ -699,139 +483,22 @@ class ExchangeBooth extends React.Component {
                         <div className={`col-md-9 col-sm-8 p-0`}>
                             {(window.innerWidth > 767 || isGoBack) && (
                                 <>
-                                    {
-                                        this.state.currency &&
+                                    {this.state.currency && (
                                         <div className="row">
                                             <div className="col-md-12 p-0">
                                                 <div className="row">
-                                                  {/* !! Sell table */}
-                                                  <div className="col-md-6 display-flex pr-0 mb-3">
-                                                        <div className={'card h-auto'}>
-                                                            <div className="card-title">
-                                                                Offers to buy {this.state.code}
-                                                            </div>
-                                                            <div className="card-body h-auto">
-                                                                <CustomTable
-                                                                    header={[
-                                                                        {
-                                                                            name: 'Account',
-                                                                            alignRight: false
-                                                                        }, {
-                                                                            name: 'Units',
-                                                                            alignRight: true
-                                                                        }, {
-                                                                            name: 'Limit',
-                                                                            alignRight: true
-                                                                        }, {
-                                                                            name: 'Rate',
-                                                                            alignRight: true
-                                                                        }
-                                                                    ]}
-                                                                    className={'p-0'}
-                                                                    emptyMessage={'No open buy offers. You cannot sell this currency now, but you can publish an exchange offer instead, and wait for others to fill it.'}
-                                                                    TableRowComponent={OfferItem}
-                                                                    tableData={this.state.buyOffers}
-                                                                    passProps={{decimals: this.state.currencyInfo.decimals}}
-                                                                    isPaginate
-                                                                    itemsPerPage={itemsPerPage}
-                                                                    page={this.state.pagination.buyOffers.page}
-                                                                    previousHendler={() => this.onPaginate('buyOffers', this.state.pagination.buyOffers.page - 1)}
-                                                                    nextHendler={() => this.onPaginate('buyOffers', this.state.pagination.buyOffers.page + 1)}
-                                                                />
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                  <OffersToBuyTable
+                                                    balanceBuy={balanceBuy}
+                                                  />
+                                                  <OffersToSellTable
+                                                    balanceSell={balanceSell}
+                                                  />
                                                 </div>
                                             </div>
-                                            <div className="col-md-12 pr-0 pb-3">
-                                                <div className={'card h-auto'}>
-                                                    <div className="card-title">
-                                                        Exchange requests
-                                                    </div>
-                                                    <div className="card-body h-auto">
-                                                        <CustomTable
-                                                            header={[
-                                                                {
-                                                                    name: 'Height',
-                                                                    alignRight: false
-                                                                }, {
-                                                                    name: 'Type',
-                                                                    alignRight: false
-                                                                }, {
-                                                                    name: 'Units',
-                                                                    alignRight: true
-                                                                }, {
-                                                                    name: 'Rate',
-                                                                    alignRight: true
-                                                                }, {
-                                                                    name: 'Total',
-                                                                    alignRight: true
-                                                                }
-                                                            ]}
-                                                            className={'p-0'}
-                                                            emptyMessage={'No exchange requests found.'}
-                                                            TableRowComponent={ExchangeItem}
-                                                            tableData={this.state.exchangeRequest}
-                                                            passProps={{
-                                                                decimals: this.state.currencyInfo.decimals,
-                                                                setBlockInfo: this.getBlock
-                                                            }}
-                                                            isPaginate
-                                                            itemsPerPage={itemsPerPage}
-                                                            page={this.state.pagination.exchangeRequest.page}
-                                                            previousHendler={() => this.onPaginate('exchangeRequest', this.state.pagination.exchangeRequest.page - 1)}
-                                                            nextHendler={() => this.onPaginate('exchangeRequest', this.state.pagination.exchangeRequest.page + 1)}
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div className="col-md-12 pr-0 pb-3">
-                                                <div className={'card h-auto'}>
-                                                    <div className="card-title">
-                                                        Executed exchanges
-                                                    </div>
-                                                    <div className="card-body h-auto">
-                                                        <CustomTable
-                                                            header={[
-                                                                {
-                                                                    name: 'Date',
-                                                                    alignRight: false
-                                                                }, {
-                                                                    name: 'Seller',
-                                                                    alignRight: false
-                                                                }, {
-                                                                    name: 'Buyer',
-                                                                    alignRight: false
-                                                                }, {
-                                                                    name: 'Units',
-                                                                    alignRight: true
-                                                                }, {
-                                                                    name: 'Rate',
-                                                                    alignRight: true
-                                                                }, {
-                                                                    name: 'Total',
-                                                                    alignRight: true
-                                                                }
-                                                            ]}
-                                                            className={'p-0'}
-                                                            emptyMessage={'No executed exchanges found.'}
-                                                            TableRowComponent={ExecutedItem}
-                                                            tableData={this.state.executedExchanges}
-                                                            passProps={{
-                                                                decimals: this.state.currencyInfo.decimals,
-                                                                setTransactionInfo: this.getTransaction
-                                                            }}
-                                                            isPaginate
-                                                            itemsPerPage={itemsPerPage}
-                                                            page={this.state.pagination.executedExchanges.page}
-                                                            previousHendler={() => this.onPaginate('executedExchanges', this.state.pagination.executedExchanges.page - 1)}
-                                                            nextHendler={() => this.onPaginate('executedExchanges', this.state.pagination.executedExchanges.page + 1)}
-                                                        />
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <ExchangeRequestsTable />
+                                            <ExecutedExcahngeTable />
                                         </div>
-                                    }
+                                    )}
                                 </>
                             )}
                         </div>
