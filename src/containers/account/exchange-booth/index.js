@@ -90,6 +90,7 @@ class ExchangeBooth extends React.Component {
 
     // requestType=getAccountCurrencies&account=APL-NZKH-MZRE-2CTT-98NPZ&currency=15796105555746164961&includeCurrencyInfo=true&random=0.9501498326661535
     componentDidMount() {
+      console.log(this.props.match.params.currency);
         this.getAccountCurrency(
             {
                 requestType: 'getAccountCurrencies',
@@ -138,7 +139,7 @@ class ExchangeBooth extends React.Component {
 
     getCurrency = async (reqParams) => {
         const currency = await this.props.getCurrencyAction(reqParams);
-
+        console.log(currency);
         if (currency) {
             this.setState({
                 ...currency,

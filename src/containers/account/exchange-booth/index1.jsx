@@ -39,21 +39,61 @@ export default function ExchangeBooth() {
 
   const { account } = useSelector(state => state.account);
 
+  const [dataCurrency, setDataCurrency] = useState(null);
+  const [dataCurrencies, setDataCurrencies] = useState(null);
+  const [dataAccountCurrency, setDataAccountCurrency] = useState(null);
+  const [currencyInfo, setCurrencyInfo] = useState(null);
+
   const match = useRouteMatch();
 
-  const listener = useCallback(data => {
-    if (currency) {
-        getAccountCurrency(
-            {
-                requestType: 'getAccountCurrencies',
-                account: this.props.account,
-                includeCurrencyInfo: true,
-                currency: this.state.currency.currency
-            }
-        );
+  const getCurrencies = useCallback(async reqParams => {
+    const allCurrencies = await dispatch(getAllCurrenciesAction(reqParams));
+
+    if (allCurrencies) {
+      setDataCurrencies(allCurrencies.currencies);
     }
-    this.getCurrency({code: this.props.match.params.currency});
-    this.getCurrencies();
+  }, []);
+
+  const getAccountCurrency = useCallback(async reqParams => {
+    let accountCurrency = await dispatch(getCurrencyAction(reqParams));
+
+    if (accountCurrency) {
+      const newAccountCurrency = accountCurrency.accountCurrencies.find((el) =>  el.code === match.params.currency);
+      setDataAccountCurrency(newAccountCurrency);
+    }
+  }, []);
+
+  const getCurrency = useCallback(async currentCode => {
+    const currency = await dispatch(getCurrencyAction(currentCode));
+
+    if (currency) {
+      // ! check if needed setState
+      // this.setState({
+      //   ...currency,
+      // });
+      setCurrencyInfo(currency);
+
+      const id = currency.currency;
+
+      getBuyOffers(id);
+      getSellOffers(id);
+      getAccountExchanges(id, account);
+      getExchanges(id);
+    }
+  }, []);
+
+  const listener = useCallback(data => {
+    if (dataCurrency) {
+      getAccountCurrency({
+        requestType: 'getAccountCurrencies',
+        account: account,
+        includeCurrencyInfo: true,
+        currency: dataCurrency.currency
+      });
+    }
+
+    getCurrency({code: match.params.currency});
+    getCurrencies();
   }, []);
 
   useEffect(() => {
@@ -665,7 +705,7 @@ class ExchangeBooth extends React.Component {
                                             <div className="col-md-12 p-0">
                                                 <div className="row">
                                                   {/* !! Sell table */}
-                                                    <div className="col-md-6 display-flex pr-0 mb-3">
+                                                  <div className="col-md-6 display-flex pr-0 mb-3">
                                                         <div className={'card h-auto'}>
                                                             <div className="card-title">
                                                                 Offers to buy {this.state.code}

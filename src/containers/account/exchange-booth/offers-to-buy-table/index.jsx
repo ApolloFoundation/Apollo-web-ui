@@ -10,38 +10,36 @@ export default function OffersToSellTable(props) {
 
   const { code, currencyInfo } = props;
 
-  const [sellOffers, setSellOffers] = useState(null);
+  const [buyOffers, setBuyOffers] = useState(null);
   const [dataCurrency, setDataCurrency] = useState(null);
-  const [minimumSellRate, setMinimumSellRate] = useState(0);
+  const [minimumBuyRate, setMinimumBuyRate] = useState(0);
   const [pagination, setPagination] = useState({
     page: 1,
     firstIndex: 0,
     lastIndex: itemsPerPage,
   });
 
-  const getSellOffers = useCallback(async (currency, currPagination) => {
+  const getBuyOffers = useCallback(async (currency, currPagination) => {
     let selectedCurrPagination = currPagination;
 
     if (!selectedCurrPagination) {
       selectedCurrPagination = pagination;
     }
-
-    const newSellOffers = await dispatch(getSellOffers({
+    const newBuyOffers = await dispatch(getBuyOffers({
       currency,
       ...selectedCurrPagination,
     }));
-
-    const { offers } = sellOffers;
+    const { offers } = newBuyOffers;
 
     const values = Math.min.apply(null, offers.map(el => el.rateATM));
 
-    setMinimumSellRate('0');
-    setPagination(newSellOffers);
-    setSellOffers(offers);
+    setBuyOffers(offers);
+    setMinimumBuyRate('0');
+    setPagination(selectedCurrPagination);
     if (offers.length) {
-      setMinimumSellRate(isFinite(values) ? values : 0);
+      setMinimumBuyRate(isFinite(values) ? values : 0);
     }
-  }, [dispatch, pagination, sellOffers]);
+  }, [dispatch, pagination]);
 
   const onPaginate = useCallback(page => {
     const currPagination = {
@@ -50,14 +48,14 @@ export default function OffersToSellTable(props) {
       lastIndex: page * itemsPerPage,
     };
 
-    getSellOffers(dataCurrency.currency, currPagination);
-  }, [dataCurrency.currency, getSellOffers]);
+    getBuyOffers(dataCurrency.currency, currPagination);
+  }, [dataCurrency.currency, getBuyOffers]);
 
   return (
     <div className="col-md-6 display-flex pr-0 mb-3">
       <div className="card h-auto">
         <div className="card-title">
-          Offers to sell
+          Offers to buy
           {' '}
           {code}
         </div>
@@ -79,15 +77,15 @@ export default function OffersToSellTable(props) {
               },
             ]}
             className="p-0"
-            emptyMessage="No open sell offers. You cannot sell this currency now, but you can publish an exchange offer instead, and wait for others to fill it."
+            emptyMessage="No open buy offers. You cannot sell this currency now, but you can publish an exchange offer instead, and wait for others to fill it."
             TableRowComponent={OfferItem}
-            tableData={sellOffers}
+            tableData={buyOffers}
             passProps={{ decimals: currencyInfo.decimals }}
             isPaginate
             itemsPerPage={itemsPerPage}
             page={pagination.page}
-            previousHendler={() => onPaginate('sellOffers', pagination.page - 1)}
-            nextHendler={() => onPaginate('sellOffers', pagination.page + 1)}
+            previousHendler={() => onPaginate('buyOffers', pagination.page - 1)}
+            nextHendler={() => onPaginate('buyOffers', pagination.page + 1)}
           />
         </div>
       </div>
