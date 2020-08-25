@@ -7,9 +7,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {
-    setBodyModalParamsAction, 
+    setBodyModalParamsAction,
 } from '../../../../modules/modals';
-import {handleFormSubmit} from './handleFormSubmit';
+import {handleFormSubmit} from './handle-form-submit';
 
 // Form components
 
@@ -78,7 +78,7 @@ class IssueCurrency extends React.Component {
         }
     }
 
-    
+
     render() {
 
         return (
@@ -94,7 +94,7 @@ class IssueCurrency extends React.Component {
             >
                 <IssueCurrencyForm />
             </ModalBody>
-            
+
         );
     }
 }

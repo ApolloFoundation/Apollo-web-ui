@@ -6,7 +6,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {handleFormSubmit} from './handleFormSubmit';
+import {handleFormSubmit} from './handle-form-submit';
 
 // Form components
 

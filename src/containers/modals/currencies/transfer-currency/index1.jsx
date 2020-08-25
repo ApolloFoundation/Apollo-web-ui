@@ -5,9 +5,7 @@
 
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { handleFormSubmit } from './handleFormSubmit';
-
-// Form components
+import { handleFormSubmit } from './handle-form-submit';
 
 import ModalBody from '../../../components/modals/modal-body1';
 import AccountRSFormInput from '../../../components/form-components/account-rs1';
@@ -21,7 +19,7 @@ export default function TransferCurrency(props) {
 
   const { closeModal } = props;
 
-  const formSubmit = useCallback(values => {
+  const handleSubmit = useCallback(values => {
     dispatch(handleFormSubmit(values));
   }, [dispatch]);
 
@@ -31,16 +29,18 @@ export default function TransferCurrency(props) {
       isAdvanced
       isFee
       closeModal={closeModal}
-      handleFormSubmit={values => formSubmit(values)}
+      handleFormSubmit={handleSubmit}
       submitButtonName="Transfer Currency"
+      initialValues={{
+        code: modalData.code,
+        recipient: modalData.recipient,
+      }}
     >
       <CurrencyInput
         name="code"
-        defaultValue={modalData.code}
         disabled={!modalData}
       />
       <AccountRSFormInput
-        defaultValue={modalData.recipient}
         name="recipient"
         label="Recipient"
       />

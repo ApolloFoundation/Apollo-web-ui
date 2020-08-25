@@ -4,12 +4,9 @@
  ***************************************************************************** */
 
 import React from 'react';
-import { handleFormSubmit } from './handleFormSubmit';
-
-// Form components
-
-import ModalBody from '../../../components/modals/modal-body';
-import IssueCurrencyForm from './form1';
+import { handleFormSubmit } from './handle-form-submit';
+import ModalBody from '../../../components/modals/modal-body1';
+import IssueCurrencyForm from './form/';
 
 export default function (props) {
   const { closeModal } = props;

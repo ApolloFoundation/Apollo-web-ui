@@ -11,7 +11,7 @@ import {setBodyModalParamsAction} from '../../../../modules/modals';
 import submitForm from "../../../../helpers/forms/forms";
 import {getAccountCurrenciesAction} from "../../../../actions/currencies";
 import {NotificationManager} from "react-notifications";
-import {handleFormSubmit} from './handleFormSubmit';
+import {handleFormSubmit} from './handle-form-submit';
 
 import ModalBody from '../../../components/modals/modal-body';
 import BlockHeightInput from '../../../components/form-components/block-height-input';

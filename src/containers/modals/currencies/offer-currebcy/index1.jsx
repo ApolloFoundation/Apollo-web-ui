@@ -9,7 +9,7 @@ import React, {
 import { useDispatch, useSelector } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
 import { getAccountCurrenciesAction } from '../../../../actions/currencies';
-import { handleFormSubmit } from './handleFormSubmit';
+import { handleFormSubmit } from './handle-form-submit';
 
 import ModalBody from '../../../components/modals/modal-body1';
 import NumericInput from '../../../components/form-components/numeric-input1';
@@ -27,16 +27,16 @@ export default function OfferCurrency(props) {
   const [currencyAvailable, setCurrencyAvailable] = useState(null);
   const [dataCurrency, setDataCurrency] = useState(null);
 
-  const formSubmit = useCallback(values => {
+  const handleSubmit = useCallback(values => {
     if (!dataCurrency) {
       NotificationManager.error('Impossible to create an offer with zero balance of currency.', 'Error', 5000);
       return;
     }
     const { currency, decimals } = dataCurrency;
-    handleFormSubmit({
+    dispatch(handleFormSubmit({
       ...values, currency, decimals,
-    });
-  }, [dataCurrency]);
+    }));
+  }, [dataCurrency, dispatch]);
 
   const getCurrency = useCallback(async () => {
     const currency = await dispatch(getAccountCurrenciesAction({
@@ -63,7 +63,7 @@ export default function OfferCurrency(props) {
       isAdvanced
       isFee
       closeModal={closeModal}
-      handleFormSubmit={values => formSubmit(values)}
+      handleFormSubmit={handleSubmit}
       submitButtonName="Offer Currency"
     >
       <TextualInputComponent
