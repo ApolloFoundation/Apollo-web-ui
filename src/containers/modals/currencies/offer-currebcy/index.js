@@ -86,7 +86,7 @@ class OfferCurrency extends React.Component {
                         ? `Currency units available ${(this.state.currencyAvailable)}`
                         : "None Available"}
                 />
-                
+
                 <NumericInput
                     label={'Buy units (Initial)'}
                     field={'initialBuySupply'}
@@ -102,7 +102,7 @@ class OfferCurrency extends React.Component {
                     type={'tel'}
                 />
                 <NumericInput
-                    label={'Buy Rate per unit'}
+                    label="Buy Rate per unit"
                     field={'buyRateATM'}
                     countingTtile={`${this.props.modalData.code} / APL`}
                     placeholder={'Amount'}
@@ -129,12 +129,12 @@ class OfferCurrency extends React.Component {
                     placeholder={'Amount'}
                     type={'tel'}
                 />
-                <BlockHeightInput 
+                <BlockHeightInput
                     label={'Finish height'}
                     field={'expirationHeight'}
                     placeholder={'Finish height'}
                 />
-                
+
             </ModalBody>
         );
     }

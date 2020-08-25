@@ -45,10 +45,10 @@ import BuyAssets from './assets/buy-asset';
 import SellAssets from './assets/sell-asset';
 import AssetDistribution from './assets/view-asset-distribution';
 // Currency System
-import TransferCurrency from './currencies/transfer-currency/'
-import OfferCurrency from './currencies/offer-currebcy/'
+import TransferCurrency from './currencies/transfer-currency/index'
+import OfferCurrency from './currencies/offer-currebcy/index1'
 import ReserveCurrency from './currencies/reserve-currency'
-import IssueCurrency from './currencies/issue-currency/';
+import IssueCurrency from './currencies/issue-currency/index1';
 import ClaimCurrency from './currencies/claim-currency/';
 import BuyCurrency from './currencies/confirm-buy-request/';
 import SellCurrency from './currencies/confirm-sell-request/';

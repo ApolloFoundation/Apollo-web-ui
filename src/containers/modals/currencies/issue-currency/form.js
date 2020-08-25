@@ -8,12 +8,12 @@ import BlockHeightInput from '../../../components/form-components/block-height-i
 
 const IssueCurrencyForm = (props) => {
     const {setValue, getFormState, idGroup} = props;
-    
+
     const {values : {type1, type2, type3, type4, type5, type6}} = getFormState()
 
     return (
         <>
-            <TextualInputComponent 
+            <TextualInputComponent
                 label={'Currency Name'}
                 disabled={false}
                 field="name"
@@ -23,7 +23,7 @@ const IssueCurrencyForm = (props) => {
                 idGroup={idGroup}
             />
 
-            <TextualInputComponent 
+            <TextualInputComponent
                 label={'Currency Code'}
                 disabled={false}
                 field="code"
@@ -31,21 +31,21 @@ const IssueCurrencyForm = (props) => {
                 type={"text"}
                 setValue={setValue}
                 idGroup={idGroup}
-    
+
             />
 
             <CustomTextArea
-                label={'Description'} 
-                field={'description'} 
+                label={'Description'}
+                field={'description'}
                 placeholder={'Description'}
                 setValue={setValue}
                 idGroup={idGroup}
 
             />
-            
+
             <CheckboxFormInput
                 setValue={setValue}
-                idGroup={idGroup}    
+                idGroup={idGroup}
                 label={'Type'}
                 checkboxes={[
                     {
@@ -81,7 +81,7 @@ const IssueCurrencyForm = (props) => {
                     },
                 ]}
             />
-        
+
             {
                 type3 &&
                 <>
@@ -94,7 +94,7 @@ const IssueCurrencyForm = (props) => {
                         type={'tel'}
                         idGroup={idGroup}
                     />
-            
+
                     <NumericInput
                         setValue={setValue}
                         label={'Reserve Supply'}
@@ -106,7 +106,7 @@ const IssueCurrencyForm = (props) => {
                     />
                 </>
             }
-            
+
             {
                 type5 &&
                 <>
@@ -119,8 +119,8 @@ const IssueCurrencyForm = (props) => {
                         type={'tel'}
                         idGroup={idGroup}
                     />
-                    
-            
+
+
                     <NumericInput
                         setValue={setValue}
                         label={'Maximum Difficulty'}
@@ -132,17 +132,17 @@ const IssueCurrencyForm = (props) => {
                     />
                 </>
             }
-    
+
             <NumericInput
                 setValue={setValue}
-                idGroup={idGroup}    
+                idGroup={idGroup}
                 label={'Initial Supply'}
                 field={'initialSupply'}
                 countingTtile={'APL'}
                 placeholder={'Initial Supply'}
                 type={'tel'}
             />
-            
+
             <NumericInput
                 setValue={setValue}
                 idGroup={idGroup}
@@ -152,7 +152,7 @@ const IssueCurrencyForm = (props) => {
                 placeholder={'Total Supply'}
                 type={'tel'}
             />
-    
+
             <NumericInput
                 setValue={setValue}
                 idGroup={idGroup}
@@ -161,8 +161,8 @@ const IssueCurrencyForm = (props) => {
                 placeholder={'Decimals'}
                 type={'tel'}
             />
-    
-            <BlockHeightInput 
+
+            <BlockHeightInput
                 setValue={setValue}
                 label={'Activation Height'}
                 field={'height'}
