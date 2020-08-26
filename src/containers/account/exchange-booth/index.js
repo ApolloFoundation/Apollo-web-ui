@@ -75,6 +75,7 @@ class ExchangeBooth extends React.Component {
 
     listener = data => {
         if (this.state.currency) {
+          console.log(this.state.currency);
             this.getAccountCurrency(
                 {
                     requestType: 'getAccountCurrencies',

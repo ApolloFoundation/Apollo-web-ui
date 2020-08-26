@@ -10,16 +10,16 @@ import NummericInput from '../../../components/form-components/numeric-input1';
 export default function BuyForm(props) {
   const dispatch = useDispatch();
 
-  const {
-    code, minimumSellRate, decimals, currency, currencyInfo,
-  } = props;
+  const { minimumSellRate, currency, currencyInfo } = props;
+
+  const { code, decimals } = currencyInfo;
 
   const handleMinimumBuyRate = useCallback(values => {
     const normalizedValues = {
       ...values,
       code,
       currency,
-      decimals: currencyInfo.decimals,
+      decimals,
     };
 
     if (!!parseInt(normalizedValues.rateATM) && !!parseInt(normalizedValues.units)) {
@@ -27,7 +27,7 @@ export default function BuyForm(props) {
     } else {
       NotificationManager.error('Please fill in number of units and rate.', null, 5000);
     }
-  }, [code, currency, currencyInfo.decimals, dispatch]);
+  }, [code, currency, decimals, dispatch]);
 
   return (
     <Formik
