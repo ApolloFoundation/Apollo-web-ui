@@ -22,7 +22,7 @@ export default function SendApolloPrivate(props) {
   const { closeModal } = props;
 
   const { modalData } = useSelector(state => state.modals);
-  const { mixerUrl, accountPrefix } = useSelector(state => state.account.constants);
+  const { constants: { mixerUrl, accountPrefix }, ticker } = useSelector(state => state.account);
 
   const [isPrivateTransactionAlert, setIsPrivateTransactionAlert] = useState(false);
   const [useMixer, setUseMixer] = useState(false);
@@ -122,6 +122,7 @@ export default function SendApolloPrivate(props) {
       handleFormSubmit={handleFormSubmit}
       isAdvanced
       isPending={isPending}
+      ticker={ticker}
       submitButtonName="Send"
       isDisabled={!isPrivateTransactionAlert}
       idGroup="send-private-money-modal-"
@@ -149,6 +150,7 @@ export default function SendApolloPrivate(props) {
         </InfoBox>
       )}
       <SendPrivateApolloForm
+        ticker={ticker}
         mixerData={newMixerData}
       />
     </ModalBody>

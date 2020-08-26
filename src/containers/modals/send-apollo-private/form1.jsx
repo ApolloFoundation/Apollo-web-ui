@@ -6,7 +6,7 @@ import NumericInput from '../../components/form-components/numeric-input1';
 import FeeInput from '../../components/form-components/fee-input1';
 import InfoBox from '../../components/info-box';
 
-const SendPrivateMoneyForm = ({ values, idGroup, mixerData }) => (
+const SendPrivateMoneyForm = ({ values, idGroup, mixerData, ticker }) => (
   <>
     <AccountRS
       name="recipient"
@@ -28,10 +28,10 @@ const SendPrivateMoneyForm = ({ values, idGroup, mixerData }) => (
     )}
     <NumericInput
       name="amountATM"
-      counterLabel="APL"
+      counterLabel={ticker}
       type="tel"
-      label="Amount"
-      placeholder="Amount APL"
+      label={`Amount ${ticker}`}
+      placeholder={`Amount ${ticker}`}
       idGroup={idGroup}
     />
     {mixerData && (

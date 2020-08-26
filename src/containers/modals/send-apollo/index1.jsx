@@ -19,7 +19,7 @@ export default function SendApollo(props) {
 
   const { modalData } = useSelector(state => state.modals);
 
-  const { account } = useSelector(state => state.account);
+  const { account, ticker } = useSelector(state => state.account);
 
   const handleFormSubmit = useCallback(async values => {
     const data = { ...values };
@@ -67,6 +67,7 @@ export default function SendApollo(props) {
       modalTitle="Create transaction"
       closeModal={closeModal}
       handleFormSubmit={handleFormSubmit}
+      ticker={ticker}
       isFee
       isAdvanced
       submitButtonName="Send"
@@ -80,6 +81,7 @@ export default function SendApollo(props) {
       <SendApolloForm
         onChangeAlias={handelChangeAlias}
         onChosenTransactionOnAlias={onChosenTransactionOnAlias}
+        ticker={ticker}
       />
     </ModalBody>
   );

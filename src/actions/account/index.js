@@ -8,7 +8,7 @@ import queryString from 'query-string';
 import QRCode from 'qrcode';
 import jsPDF from 'jspdf';
 import { NotificationManager } from 'react-notifications';
-import { login, setShareMessage } from '../../modules/account';
+import { login, setShareMessage, setTicker } from '../../modules/account';
 import { setBodyModalParamsAction } from '../../modules/modals';
 import { getTransactionsAction } from '../transactions';
 import { getAccountLedgerAction } from '../ledger';
@@ -19,6 +19,8 @@ import { getDGSGoodsAction } from '../marketplace';
 import { writeToLocalStorage, deleteFromLocalStorage } from '../localStorage';
 import { makeLoginReq } from '../login';
 import { processElGamalEncryption } from '../crypto';
+import { handleFetch } from '../../helpers/fetch';
+import utils from '../../helpers/util/utils';
 import submitForm from '../../helpers/forms/forms';
 import store from '../../store';
 import config from '../../config';
@@ -76,6 +78,18 @@ export function logOutAction() {
   return dispatch => {
     dispatch(writeToLocalStorage('APLUserRS', null));
     window.location.reload();
+  };
+}
+
+export function getCurrentTicker() {
+  return async dispatch => {
+    return handleFetch(`${config.api.server}/rest/v2/info/blockchain`, 'GET')
+      .then(res => {
+        dispatch(setTicker(utils.normalizeTicker(res && res.ticker)));
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 }
 

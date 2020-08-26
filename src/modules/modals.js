@@ -104,7 +104,6 @@ export default (state = initialState, action) => {
         ...state,
         bodyModalType: action.payload,
       };
-
     case SET_AMOUNT_WARNING:
       return {
         ...state,
@@ -246,7 +245,6 @@ export const clearGoBack = () => dispatch => {
 export const closeModal = () => dispatch => {
   dispatch({ type: CLOSE_MODAL });
 };
-
 
 export const setModalType = reqParams => dispatch => {
   if (reqParams) {
