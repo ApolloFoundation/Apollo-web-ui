@@ -1,6 +1,7 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { getTransactionAction } from '../../../../../actions/transactions';
+import { getExchangesAction } from '../../../../../actions/exchange-booth';
 import { setBodyModalParamsAction } from '../../../../../modules/modals';
 import CustomTable from '../../../../components/tables/table1';
 import ExecutedItem from './executed-item';
@@ -35,10 +36,12 @@ export default function ExecutedExcahngeTable(props) {
     if (!selectedCurrPagination) {
       selectedCurrPagination = pagination;
     }
-    const { exchanges } = await dispatch(getExchanges({
+    const dataExcahnge = await dispatch(getExchangesAction({
       currency,
       ...selectedCurrPagination,
     }));
+
+    const { exchanges } = dataExcahnge;
 
     setExecutedExchanges(exchanges);
     setPagination(selectedCurrPagination);
@@ -53,6 +56,10 @@ export default function ExecutedExcahngeTable(props) {
 
     getExchanges(currPagination);
   }, [getExchanges]);
+
+  useEffect(() => {
+    getExchanges();
+  }, [currencyInfo]);
 
   return (
     <div className="col-md-12 pr-0 pb-3">

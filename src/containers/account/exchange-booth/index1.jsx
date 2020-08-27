@@ -24,6 +24,7 @@ import ExecutedExcahngeTable from './tables/executed-exchange-table';
 import SiteHeader from '../../components/site-header';
 import SidebarContent from '../../components/sidebar-list';
 import SidebarCurrency from './sdiebar-item';
+import CurrencyInfoTable from './currency-info';
 
 export default function ExchangeBooth() {
   const dispatch = useDispatch();
@@ -152,6 +153,7 @@ export default function ExchangeBooth() {
       </SiteHeader>
       <div className="page-body container-fluid exchange-booth">
         <div className="row">
+          <CurrencyInfoTable {...currencyInfo} />
           <div className="col-md-9 col-sm-8 p-0">
             {(window.innerWidth > 767 || isGoBack) && (
               <>
@@ -160,10 +162,12 @@ export default function ExchangeBooth() {
                     <BuyForm
                       minimumSellRate={minimumSellRate}
                       currencyInfo={currencyInfo}
+                      balanceBuy={balanceBuy}
                     />
                     <SellForm
                       currencyInfo={currencyInfo}
                       minimumBuyRate={minimumBuyRate}
+                      balanceSell={balanceSell}
                     />
                   </div>
                 )}
@@ -193,12 +197,10 @@ export default function ExchangeBooth() {
                         <OffersToBuyTable
                           setMinimumBuyRate={setMinimumBuyRate}
                           currencyInfo={currencyInfo}
-                          balanceBuy={balanceBuy}
                         />
                         <OffersToSellTable
                           currencyInfo={currencyInfo}
                           setMinimumSellRate={setMinimumSellRate}
-                          balanceSell={balanceSell}
                         />
                       </div>
                     </div>

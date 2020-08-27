@@ -1,6 +1,7 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { getBlockAction } from '../../../../../actions/blocks';
+import { getAccountExchangeAction } from '../../../../../actions/exchange-booth';
 import { setBodyModalParamsAction } from '../../../../../modules/modals';
 import CustomTable from '../../../../components/tables/table1';
 import ExchangeItem from './exchange-item';
@@ -27,7 +28,7 @@ export default function ExchangeRequestsTable(props) {
     if (!selectedCurrPagination) {
       selectedCurrPagination = pagination;
     }
-    const accountExchanges = await dispatch(getAccountExchanges({
+    const accountExchanges = await dispatch(getAccountExchangeAction({
       currency,
       account,
       ...selectedCurrPagination,
@@ -56,6 +57,10 @@ export default function ExchangeRequestsTable(props) {
 
     getAccountExchanges(currPagination);
   }, [getAccountExchanges]);
+
+  useEffect(() => {
+    getAccountExchanges();
+  }, [currencyInfo]);
 
   return (
     <div className="col-md-12 pr-0 pb-3">
