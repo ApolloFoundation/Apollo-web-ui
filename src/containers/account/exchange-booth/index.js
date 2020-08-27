@@ -75,7 +75,6 @@ class ExchangeBooth extends React.Component {
 
     listener = data => {
         if (this.state.currency) {
-          console.log(this.state.currency);
             this.getAccountCurrency(
                 {
                     requestType: 'getAccountCurrencies',
@@ -126,7 +125,7 @@ class ExchangeBooth extends React.Component {
 
     getAccountCurrency = async (reqParams) => {
         let accountCurrency = await this.props.getCurrencyAction(reqParams);
-
+        console.log(accountCurrency);
         if (accountCurrency) {
             accountCurrency = accountCurrency.accountCurrencies.find((el) => {
                 return el.code === this.props.match.params.currency

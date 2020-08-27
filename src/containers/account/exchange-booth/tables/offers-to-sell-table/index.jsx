@@ -8,9 +8,9 @@ const itemsPerPage = 5;
 export default function OffersToSellTable(props) {
   const dispatch = useDispatch();
 
-  const {
-    code, currencyInfo, currency, setMinimumSellRate, balanceSell,
-  } = props;
+  const { currencyInfo, setMinimumSellRate, balanceSell } = props;
+
+  const { currency, code, decimals } = currencyInfo;
 
   const [sellOffers, setSellOffers] = useState(null);
   const [pagination, setPagination] = useState({
@@ -39,7 +39,7 @@ export default function OffersToSellTable(props) {
     setPagination(newSellOffers);
     setSellOffers(offers);
     if (offers.length) {
-      setMinimumSellRate(isFinite(values) ? values : 0);
+      setMinimumSellRate(Number.isFinite(values) ? values : 0);
     }
   }, [currency, dispatch, pagination, sellOffers, setMinimumSellRate]);
 
@@ -96,7 +96,7 @@ export default function OffersToSellTable(props) {
                   emptyMessage="No open sell offers. You cannot sell this currency now, but you can publish an exchange offer instead, and wait for others to fill it."
                   TableRowComponent={OfferItem}
                   tableData={sellOffers}
-                  passProps={{ decimals: currencyInfo.decimals }}
+                  passProps={{ decimals }}
                   isPaginate
                   itemsPerPage={itemsPerPage}
                   page={pagination.page}

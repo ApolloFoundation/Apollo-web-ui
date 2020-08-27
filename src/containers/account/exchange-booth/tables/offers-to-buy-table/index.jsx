@@ -8,9 +8,9 @@ const itemsPerPage = 5;
 export default function OffersToBuyTable(props) {
   const dispatch = useDispatch();
 
-  const {
-    code, currencyInfo, currency, setMinimumBuyRate, balanceBuy,
-  } = props;
+  const { currencyInfo, setMinimumBuyRate, balanceBuy } = props;
+
+  const { currency, code, decimals } = currencyInfo;
 
   const [buyOffers, setBuyOffers] = useState(null);
   const [pagination, setPagination] = useState({
@@ -26,7 +26,7 @@ export default function OffersToBuyTable(props) {
       selectedCurrPagination = pagination;
     }
     const newBuyOffers = await dispatch(getBuyOffers({
-      currency: currency.currency,
+      currency,
       ...selectedCurrPagination,
     }));
 
@@ -38,7 +38,7 @@ export default function OffersToBuyTable(props) {
     setMinimumBuyRate('0');
     setPagination(selectedCurrPagination);
     if (offers.length) {
-      setMinimumBuyRate(isFinite(values) ? values : 0);
+      setMinimumBuyRate(Number.isFinite(values) ? values : 0);
     }
   }, [currency, dispatch, pagination, setMinimumBuyRate]);
 
@@ -96,7 +96,7 @@ export default function OffersToBuyTable(props) {
                   emptyMessage="No open buy offers. You cannot sell this currency now, but you can publish an exchange offer instead, and wait for others to fill it."
                   TableRowComponent={OfferItem}
                   tableData={buyOffers}
-                  passProps={{ decimals: currencyInfo.decimals }}
+                  passProps={{ decimals }}
                   isPaginate
                   itemsPerPage={itemsPerPage}
                   page={pagination.page}

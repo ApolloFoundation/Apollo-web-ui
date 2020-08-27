@@ -33,7 +33,7 @@ import Transactions from '../account/transactions';
 import Ledger from '../account/ledger/index1';
 import Blocks from '../account/blocks';
 
-import ExchangeBooth from '../account/exchange-booth';
+import ExchangeBooth from '../account/exchange-booth/index1';
 import Followedpolls from '../account/followed-polls';
 import Messenger from '../account/messenger';
 import ResentMarketplaceListing from '../account/marketplace/recent-listing';

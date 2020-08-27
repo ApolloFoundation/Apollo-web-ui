@@ -10,9 +10,9 @@ import NummericInput from '../../../components/form-components/numeric-input1';
 export default function SellForm(props) {
   const dispatch = useDispatch();
 
-  const { minimumBuyRate, currency, currencyInfo } = props;
+  const { minimumBuyRate, currencyInfo } = props;
 
-  const { code, decimals } = currencyInfo;
+  const { code, decimals, currency } = currencyInfo;
 
   const handleMinimumSellRate = useCallback(values => {
     const normalizedValues = {
@@ -22,7 +22,7 @@ export default function SellForm(props) {
       decimals,
     };
 
-    if (!!parseInt(normalizedValues.rateATM) && !!parseInt(normalizedValues.units)) {
+    if (!!parseInt(normalizedValues.rateATM, 10) && !!parseInt(normalizedValues.units, 10)) {
       dispatch(setBodyModalParamsAction('SELL_CURRENCY', normalizedValues));
     } else {
       NotificationManager.error('Please fill in number of units and rate.', null, 5000);

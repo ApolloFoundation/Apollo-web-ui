@@ -10,7 +10,9 @@ const itemsPerPage = 5;
 export default function ExchangeRequestsTable(props) {
   const dispatch = useDispatch();
 
-  const { account, currencyInfo, currency } = props;
+  const { account, currencyInfo } = props;
+
+  const { decimals, currency } = currencyInfo;
 
   const [exchangeRequest, setExchangeRequest] = useState(null);
   const [pagination, setPagination] = useState({
@@ -86,7 +88,7 @@ export default function ExchangeRequestsTable(props) {
             TableRowComponent={ExchangeItem}
             tableData={exchangeRequest}
             passProps={{
-              decimals: currencyInfo.decimals,
+              decimals,
               setBlockInfo: getBlock,
             }}
             isPaginate

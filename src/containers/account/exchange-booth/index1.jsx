@@ -6,7 +6,7 @@
 import React, {
   useEffect, useCallback, useState,
 } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useRouteMatch, useHistory } from 'react-router-dom';
 import { getAllCurrenciesAction, getCurrencyAction } from '../../../actions/currencies';
 import { BlockUpdater } from '../../block-subscriber';
@@ -21,17 +21,9 @@ import OffersToSellTable from './tables/offers-to-sell-table';
 import ExchangeRequestsTable from './tables/exchange-requests-table';
 import ExecutedExcahngeTable from './tables/executed-exchange-table';
 
-import BackForm from '../../modals/modal-form/modal-form-container';
 import SiteHeader from '../../components/site-header';
 import SidebarContent from '../../components/sidebar-list';
-import NummericInput from '../../components/form-components/numeric-input';
-import CustomTable from '../../components/tables/table';
-import ExchangeItem from './exchange-item/ExchangeItem';
-import ExecutedItem from './executed-item/ExecutedItem';
 import SidebarCurrency from './sdiebar-item';
-import OfferItem from './offer-item';
-
-const itemsPerPage = 5;
 
 export default function ExchangeBooth() {
   const dispatch = useDispatch();
@@ -44,7 +36,7 @@ export default function ExchangeBooth() {
   const [dataAccountCurrency, setDataAccountCurrency] = useState(null);
   const [currencyInfo, setCurrencyInfo] = useState(null);
 
-  const currentCurrency = currencyInfo.currency;
+  const currentCurrency = currencyInfo && currencyInfo.currency;
 
   const match = useRouteMatch();
   const history = useHistory();
@@ -81,7 +73,7 @@ export default function ExchangeBooth() {
         requestType: 'getAccountCurrencies',
         account: accountRS,
         includeCurrencyInfo: true,
-        currency: currentCurrency,
+        // currency: currentCurrency,
       });
     }
 
@@ -107,10 +99,10 @@ export default function ExchangeBooth() {
   ]);
 
   const goBack = useCallback(() => {
-    this.setState({ asset: null }, () => {
-      history.push('/currencies');
-    });
-  }, []);
+    // ! need check, for what need setState
+    // this.setState({ asset: null }, () => {
+    history.push('/currencies');
+  }, [history]);
 
   useEffect(() => {
     BlockUpdater.on('data', listener);
@@ -131,14 +123,14 @@ export default function ExchangeBooth() {
           <>
             <button
               type="button"
-              onClick={() => dispatch(setBodyModalParamsAction('OFFER_CURRENCY', this.state.currencyInfo))}
+              onClick={() => dispatch(setBodyModalParamsAction('OFFER_CURRENCY', currencyInfo))}
               className="btn btn-green btn-sm"
             >
               Offer
             </button>
             <button
               type="button"
-              onClick={() => dispatch(setBodyModalParamsAction('TRANSFER_CURRENCY', this.state.currencyInfo))}
+              onClick={() => dispatch(setBodyModalParamsAction('TRANSFER_CURRENCY', currencyInfo))}
               style={{ marginLeft: 15 }}
               className="btn btn-green btn-sm"
             >
@@ -199,22 +191,23 @@ export default function ExchangeBooth() {
                     <div className="col-md-12 p-0">
                       <div className="row">
                         <OffersToBuyTable
-                          currency={currentCurrency}
+                          setMinimumBuyRate={setMinimumBuyRate}
+                          currencyInfo={currencyInfo}
                           balanceBuy={balanceBuy}
                         />
                         <OffersToSellTable
-                          currency={currentCurrency}
+                          currencyInfo={currencyInfo}
+                          setMinimumSellRate={setMinimumSellRate}
                           balanceSell={balanceSell}
                         />
                       </div>
                     </div>
                     <ExchangeRequestsTable
                       account={accountRS}
-                      currency={currentCurrency}
+                      currencyInfo={currencyInfo}
                     />
                     <ExecutedExcahngeTable
-                      account={accountRS}
-                      currency={currentCurrency}
+                      currencyInfo={currencyInfo}
                     />
                   </div>
                 )}

@@ -10,7 +10,9 @@ const itemsPerPage = 5;
 export default function ExecutedExcahngeTable(props) {
   const dispatch = useDispatch();
 
-  const { currencyInfo, currency } = props;
+  const { currencyInfo } = props;
+
+  const { decimals, currency } = currencyInfo;
 
   const [executedExchanges, setExecutedExchanges] = useState(null);
   const [pagination, setPagination] = useState({
@@ -86,7 +88,7 @@ export default function ExecutedExcahngeTable(props) {
             TableRowComponent={ExecutedItem}
             tableData={executedExchanges}
             passProps={{
-              decimals: currencyInfo.decimals,
+              decimals,
               setTransactionInfo: getTransaction,
             }}
             isPaginate
