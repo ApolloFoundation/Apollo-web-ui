@@ -6,7 +6,7 @@
 const { BigInteger } = require('jsbn');
 
 function normalizeTicker(ticker) {
-  return (ticker === 'Apollo' ? 'APL' : ticker.toUpperCase);
+  return (ticker === 'Apollo' ? 'APL' : ticker.toUpperCase());
 }
 
 function isNumericAccountImplAPL(account, regex) {
