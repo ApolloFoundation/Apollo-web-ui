@@ -14,7 +14,7 @@ const newAliasValidation = /APL-[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{
 const oldAliasValidation = /^acct:(APL-[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{5})@apl$/i;
 
 export default function SendMoneyForm({
-  values, idGroup, onChangeAlias, onChosenTransactionOnAlias,
+  values, idGroup, onChangeAlias, onChosenTransactionOnAlias, ticker,
 }) {
   const dispatch = useDispatch();
 
@@ -61,10 +61,10 @@ export default function SendMoneyForm({
       )}
       <NumericInput
         name="amountATM"
-        label="Amount APL"
-        counterLabel="APL"
+        label={`Amount ${ticker}`}
+        counterLabel={ticker}
         type="tel"
-        placeholder="Amount"
+        placeholder={`Amount ${ticker}`}
         idGroup={idGroup}
       />
       <CustomInputForm

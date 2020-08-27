@@ -9,6 +9,7 @@ import {connect} from 'react-redux';
 import {Redirect, Route, Switch, withRouter} from 'react-router-dom';
 import classNames from 'classnames';
 import {getConstantsAction, isLoggedIn} from '../../actions/login';
+import {getCurrentTicker} from '../../actions/account';
 import {loadConstants, setPageEvents} from '../../modules/account';
 import {setBodyModalParamsAction, setBodyModalType} from '../../modules/modals';
 import PageLoader from '../components/page-loader/page-loader';
@@ -97,8 +98,11 @@ class App extends React.Component {
         const {
             getSavedAccountSettings,
             isLoggedIn,
-            getConstantsAction
+            getConstantsAction,
+            getCurrentTicker,
         } = this.props;
+
+        getCurrentTicker();
 
         getSavedAccountSettings();
         this.checkUrl();
@@ -390,6 +394,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     isLoggedIn: (history) => dispatch(isLoggedIn(history)),
     setPageEvents: () => dispatch(setPageEvents()),
+    getCurrentTicker: () => dispatch(getCurrentTicker()),
     getConstantsAction: () => dispatch(getConstantsAction()),
     getSavedAccountSettings: () => dispatch(getSavedAccountSettingsAction()),
     loginWithShareMessage: (account, transaction) => dispatch(loginWithShareMessage(account, transaction)),

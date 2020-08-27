@@ -3,6 +3,7 @@ import React, {
 } from 'react';
 import { useDispatch } from 'react-redux';
 import { getConstantsAction } from '../../../actions/login';
+import { getCurrentTicker } from '../../../actions/account';
 import LoginModal from './login-modal';
 import ImportAccount from './import-account';
 import CreateUser from './create-user';
@@ -33,6 +34,7 @@ export default function Login() {
 
   useEffect(() => {
     dispatch(getConstantsAction());
+    dispatch(getCurrentTicker());
   }, [dispatch]);
 
   return (

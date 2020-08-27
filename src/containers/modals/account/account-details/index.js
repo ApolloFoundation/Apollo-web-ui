@@ -92,6 +92,7 @@ class AccountDetails extends React.Component {
 
     render() {
       const { phasingControl } = this.state;
+      const { ticker } = this.props;
 
       const isAccountControl = phasingControl && Object.values(phasingControl).length;
 
@@ -126,7 +127,7 @@ class AccountDetails extends React.Component {
                               <td>
                                 {this.state.account.balanceATM ? (this.state.account.balanceATM / ONE_APL).toFixed(2) : '0'}
                                 {' '}
-                                APL
+                                {ticker}
                               </td>
                             </tr>
                             <tr>
@@ -134,7 +135,7 @@ class AccountDetails extends React.Component {
                               <td>
                                 {this.state.account.unconfirmedBalanceATM ? (this.state.account.unconfirmedBalanceATM / ONE_APL).toFixed(2) : '0'}
                                 {' '}
-                                APL
+                                {ticker}
                               </td>
                             </tr>
                             <tr>
@@ -142,7 +143,7 @@ class AccountDetails extends React.Component {
                               <td>
                                 {this.state.account.guaranteedBalanceATM ? (this.state.account.guaranteedBalanceATM / ONE_APL).toFixed(2) : '0'}
                                 {' '}
-                                APL
+                                {ticker}
                               </td>
                             </tr>
                             <tr>
@@ -150,7 +151,7 @@ class AccountDetails extends React.Component {
                               <td>
                                 {this.state.account.effectiveBalanceAPL ? (this.state.account.effectiveBalanceAPL).toFixed(2) : '0'}
                                 {' '}
-                                APL
+                                {ticker}
                               </td>
                             </tr>
                             <tr>
@@ -158,7 +159,7 @@ class AccountDetails extends React.Component {
                               <td>
                                 {this.state.account.forgedBalanceATM ? (this.state.account.forgedBalanceATM / ONE_APL).toFixed(2) : '0'}
                                 {' '}
-                                APL
+                                {ticker}
                               </td>
                             </tr>
                             <tr>
@@ -252,6 +253,7 @@ class AccountDetails extends React.Component {
 const mapStateToProps = state => ({
   modalData: state.modals.modalData,
   account: state.account.account,
+  ticker: state.account.ticker,
   accountRS: state.account.accountRS,
   currentLessee: state.account.currentLessee,
   currentLeasingHeightFrom: state.account.currentLeasingHeightFrom,

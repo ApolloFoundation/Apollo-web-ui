@@ -6,10 +6,11 @@
 import React, {
   useState, useEffect, useRef, useCallback,
 } from 'react';
+import { useSelector } from 'react-redux';
 import { useField } from 'formik';
 import { NotificationManager } from 'react-notifications';
-import InputMask from 'react-input-mask';
 import classNames from 'classnames';
+import InputMask from 'react-input-mask';
 
 export default function AccountRS(props) {
   const refContactsList = useRef(null);
@@ -19,8 +20,13 @@ export default function AccountRS(props) {
     onChange, exportAccountList, id, name,
     disabled, placeholder, noContactList,
   } = props;
+
+  const { ticker } = useSelector(state => state.account);
+
   const [field, , helpers] = useField(name);
+
   const [isContacts, setIsContacts] = useState(false);
+
   const contacts = JSON.parse(localStorage.getItem('APLContacts'));
 
   const { setValue } = helpers;
@@ -68,7 +74,10 @@ export default function AccountRS(props) {
   const handleBeforeMaskedValueChange = (newState, oldState, userInput) => {
     let value = newState.value.toUpperCase();
     if (userInput) {
-      if (value.startsWith('APL-APL') && userInput.startsWith('APL-') && userInput.length === 24) {
+      if ((value.startsWith('APL-APL') || value.startsWith('USDS-USDS'))
+        && (userInput.startsWith('APL-') || userInput.startsWith('USDS-'))
+        && userInput.length === 24
+      ) {
         value = userInput;
       }
     }
@@ -77,6 +86,7 @@ export default function AccountRS(props) {
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
+
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
@@ -88,7 +98,7 @@ export default function AccountRS(props) {
         {...field}
         className="form-control"
         disabled={disabled}
-        mask="APL-****-****-****-*****"
+        mask={`${ticker}-****-****-****-*****`}
         placeholder={placeholder || 'Account ID'}
         onChange={handleChange}
         beforeMaskedValueChange={handleBeforeMaskedValueChange}

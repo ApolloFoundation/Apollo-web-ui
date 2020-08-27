@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -10,6 +10,7 @@ const TotalBalance = () => {
   const dispatch = useDispatch();
 
   const { dashboardAccoountInfo } = useSelector(state => state.dashboard);
+  const { ticker } = useSelector(state => state.account);
 
   const balanceAPL = (dashboardAccoountInfo && dashboardAccoountInfo.unconfirmedBalanceATM)
     ? (dashboardAccoountInfo.unconfirmedBalanceATM / ONE_APL).toLocaleString('en-GB', {
@@ -35,7 +36,7 @@ const TotalBalance = () => {
                 onClick={() => dispatch(setBodyModalParamsAction('ACCOUNT_DETAILS'))}
               >
                 <span className="balance">{balanceAPL}</span>
-                <span className="currency">APL</span>
+                <span className="currency">{ticker}</span>
               </div>
               <div className="wallet-info">
                 <span className="label">Active Wallet ID:</span>
