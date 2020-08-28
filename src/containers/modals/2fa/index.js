@@ -97,19 +97,20 @@ class Confirm2FA extends React.Component {
                 <div className="form-group-app">
                   <a onClick={() => this.props.closeModal()} className="exit">
                     <i
-                        className="zmdi zmdi-close"
-                      />
+                      className="zmdi zmdi-close"
+                    />
                   </a>
 
                   <div className="form-title">
-                    {this.props.modalsHistory.length > 1 && (
-                      <div
-                        className="backMy"
-                        onClick={() => {
-                          this.props.openPrevModal();
-                        }}
-                      />
-                    )}
+                    {this.props.modalsHistory.length > 1
+                      && (
+                        <div
+                          className="backMy"
+                          onClick={() => {
+                            this.props.openPrevModal();
+                          }}
+                        />
+                      )}
                     <p>Confirm 2FA enabling</p>
                   </div>
                   <div className="form-group mb-15">
