@@ -22,7 +22,7 @@ export default function SendApolloPrivate(props) {
   const { closeModal } = props;
 
   const { modalData } = useSelector(state => state.modals);
-  const { constants: { mixerUrl, accountPrefix }, ticker } = useSelector(state => state.account);
+  const { constants: { mixerUrl, accountPrefix }, ticker, decimals } = useSelector(state => state.account);
 
   const [isPrivateTransactionAlert, setIsPrivateTransactionAlert] = useState(false);
   const [useMixer, setUseMixer] = useState(false);
@@ -93,7 +93,7 @@ export default function SendApolloPrivate(props) {
         duration, isMixer, mixerPublicKey, ...params
       } = newValues;
 
-      dispatch(await dispatch(submitForm.submitForm(params, 'sendMoneyPrivate')))
+      dispatch(await dispatch(submitForm.submitForm(params, 'sendMoneyPrivate', decimals)))
         .done(privateTransaction => {
           if (privateTransaction && privateTransaction.errorCode) {
             NotificationManager.error(privateTransaction.errorDescription, 'Error', 5000);
@@ -105,7 +105,7 @@ export default function SendApolloPrivate(props) {
           setIsPending(false);
         });
     }
-  }, [closeModal, dispatch, isPending]);
+  }, [closeModal, decimals, dispatch, isPending]);
 
   const setConfirm = () => {
     setIsPrivateTransactionAlert(true);

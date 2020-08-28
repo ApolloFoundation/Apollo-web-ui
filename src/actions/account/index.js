@@ -85,7 +85,9 @@ export function getCurrentTicker() {
   return async dispatch => {
     return handleFetch(`${config.api.server}/rest/v2/info/blockchain`, 'GET')
       .then(res => {
-        dispatch(setTicker(utils.normalizeTicker(res && res.ticker)));
+        if (res) {
+          dispatch(setTicker({ticker: utils.normalizeTicker(res.ticker), decimals: 10 ** res.decimals}));
+        }
       })
       .catch(err => {
         console.log(err);

@@ -15,7 +15,6 @@ import {
 } from '../../../../actions/account';
 import { setModalData, setBodyModalParamsAction } from '../../../../modules/modals';
 import { getTransactionAction } from '../../../../actions/transactions';
-import { ONE_APL } from '../../../../constants';
 import ContentLoader from '../../../components/content-loader';
 import ModalBody from '../../../components/modals/modal-body';
 import TabulationBody from '../../../components/tabulator/tabuator-body';
@@ -92,7 +91,7 @@ class AccountDetails extends React.Component {
 
     render() {
       const { phasingControl } = this.state;
-      const { ticker } = this.props;
+      const { ticker, decimals } = this.props;
 
       const isAccountControl = phasingControl && Object.values(phasingControl).length;
 
@@ -125,7 +124,7 @@ class AccountDetails extends React.Component {
                             <tr>
                               <td className="no-brake">Balance:</td>
                               <td>
-                                {this.state.account.balanceATM ? (this.state.account.balanceATM / ONE_APL).toFixed(2) : '0'}
+                                {this.state.account.balanceATM ? (this.state.account.balanceATM / decimals).toFixed(2) : '0'}
                                 {' '}
                                 {ticker}
                               </td>
@@ -133,7 +132,7 @@ class AccountDetails extends React.Component {
                             <tr>
                               <td className="no-brake">Available Balance:</td>
                               <td>
-                                {this.state.account.unconfirmedBalanceATM ? (this.state.account.unconfirmedBalanceATM / ONE_APL).toFixed(2) : '0'}
+                                {this.state.account.unconfirmedBalanceATM ? (this.state.account.unconfirmedBalanceATM / decimals).toFixed(2) : '0'}
                                 {' '}
                                 {ticker}
                               </td>
@@ -141,7 +140,7 @@ class AccountDetails extends React.Component {
                             <tr>
                               <td className="no-brake">Guaranteed Balance:</td>
                               <td>
-                                {this.state.account.guaranteedBalanceATM ? (this.state.account.guaranteedBalanceATM / ONE_APL).toFixed(2) : '0'}
+                                {this.state.account.guaranteedBalanceATM ? (this.state.account.guaranteedBalanceATM / decimals).toFixed(2) : '0'}
                                 {' '}
                                 {ticker}
                               </td>
@@ -157,7 +156,7 @@ class AccountDetails extends React.Component {
                             <tr>
                               <td className="no-brake">Forged Balance:</td>
                               <td>
-                                {this.state.account.forgedBalanceATM ? (this.state.account.forgedBalanceATM / ONE_APL).toFixed(2) : '0'}
+                                {this.state.account.forgedBalanceATM ? (this.state.account.forgedBalanceATM / decimals).toFixed(2) : '0'}
                                 {' '}
                                 {ticker}
                               </td>
@@ -254,6 +253,7 @@ const mapStateToProps = state => ({
   modalData: state.modals.modalData,
   account: state.account.account,
   ticker: state.account.ticker,
+  decimals: state.account.decimals,
   accountRS: state.account.accountRS,
   currentLessee: state.account.currentLessee,
   currentLeasingHeightFrom: state.account.currentLeasingHeightFrom,

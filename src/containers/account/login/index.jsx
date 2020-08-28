@@ -3,12 +3,10 @@ import React, {
 } from 'react';
 import { useDispatch } from 'react-redux';
 import { getConstantsAction } from '../../../actions/login';
-import { getCurrentTicker } from '../../../actions/account';
+import LogoImg from '../../../assets/logo.png';
 import LoginModal from './login-modal';
 import ImportAccount from './import-account';
 import CreateUser from './create-user';
-
-import LogoImg from '../../../assets/logo.png';
 import './Login.scss';
 
 export default function Login() {
@@ -34,7 +32,6 @@ export default function Login() {
 
   useEffect(() => {
     dispatch(getConstantsAction());
-    dispatch(getCurrentTicker());
   }, [dispatch]);
 
   return (

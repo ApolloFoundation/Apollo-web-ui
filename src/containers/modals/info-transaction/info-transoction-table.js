@@ -129,7 +129,7 @@ class InfoTransactionTable extends Component {
 
 	render() {
 		const modalTypeName = formatTransactionType(this.props.constants.transactionTypes[this.props.transaction.type].subtypes[this.props.transaction.subtype].name);
-		const {secretPhrase, transaction: {attachment: {message, encryptedMessage}}, passPhrase} = this.props;
+		const {secretPhrase, transaction: {attachment: {message, encryptedMessage}}, passPhrase, decimals} = this.props;
 		const transactionType = this.props.transaction && this.props.constants.transactionTypes && this.props.constants.transactionTypes[this.props.transaction.type];
 		return (
 			<div className="transaction-table-body transparent wrap-collumns">
@@ -151,7 +151,7 @@ class InfoTransactionTable extends Component {
 						</tr>
 
 						{modalTypeName === "CURRENCY ISSUANCE" &&
-						<CurrencyIssuance transaction={this.props.transaction}/>}
+						<CurrencyIssuance transaction={this.props.transaction} decimals={decimals} />}
 
 						{modalTypeName === "EXCHANGE BUY" && <BuyCurrency transaction={this.props.transaction}/>}
 
@@ -164,7 +164,7 @@ class InfoTransactionTable extends Component {
 						<CurrencyExchangeOffer transaction={this.props.transaction}/>}
 
 						{modalTypeName === "SHUFFLING CREATION" &&
-						<ShufflingCreation transaction={this.props.transaction}/>}
+						<ShufflingCreation transaction={this.props.transaction} decimals={decimals} />}
 
 						{modalTypeName === "SHUFFLING REGISTRATION" &&
 						<ShufflingRegistarion transaction={this.props.transaction}/>}
@@ -179,9 +179,10 @@ class InfoTransactionTable extends Component {
 						<ShufflingRecipients transaction={this.props.transaction}/>}
 
 						{modalTypeName === "ORDINARY PAYMENT" &&
-						<OrdinaryPayment transaction={this.props.transaction}/>}
+						<OrdinaryPayment transaction={this.props.transaction} decimals={decimals} />}
 
-						{modalTypeName === "PRIVATE PAYMENT" && <PrivatePayment transaction={this.props.transaction}/>}
+						{modalTypeName === "PRIVATE PAYMENT" &&
+            <PrivatePayment transaction={this.props.transaction} decimals={decimals} />}
 
 						{modalTypeName === "TAGGED DATA UPLOAD" &&
 						<TargetDataUpload transaction={this.props.transaction}/>}
@@ -209,7 +210,7 @@ class InfoTransactionTable extends Component {
 
 						{modalTypeName === "POLL CREATION" && <PollCreation transaction={this.props.transaction}/>}
 
-						{modalTypeName === "ALIAS SELL" && <AliasSell transaction={this.props.transaction}/>}
+						{modalTypeName === "ALIAS SELL" && <AliasSell transaction={this.props.transaction} decimals={decimals} />}
 
 						{modalTypeName === "PHASING VOTE CASTING" &&
 						<PhasingVoteCasting transaction={this.props.transaction}/>}
@@ -221,25 +222,25 @@ class InfoTransactionTable extends Component {
 						<DigitalGoodsPurchase transaction={this.props.transaction}/>}
 
 						{modalTypeName === "DIGITAL GOODS PRICE CHANGE" &&
-						<DigitalGoodsPriceChange transaction={this.props.transaction}/>}
+						<DigitalGoodsPriceChange transaction={this.props.transaction} decimals={decimals} />}
 
 						{modalTypeName === "DIGITAL GOODS LISTING" &&
-						<DigitalGoodsListing transaction={this.props.transaction}/>}
+						<DigitalGoodsListing transaction={this.props.transaction} decimals={decimals} />}
 
 						{modalTypeName === "DIGITAL GOODS QUANTITY CHANGE" &&
 						<DigitalGoodsQuantityChange transaction={this.props.transaction}/>}
 
-						{modalTypeName === "ASSET DELETE" && <AssetDelete transaction={this.props.transaction}/>}
+						{modalTypeName === "ASSET DELETE" && <AssetDelete transaction={this.props.transaction} decimals={decimals} />}
 
-						{modalTypeName === "ASSET TRANSFER" && <AssetTransfer transaction={this.props.transaction}/>}
+						{modalTypeName === "ASSET TRANSFER" && <AssetTransfer transaction={this.props.transaction} decimals={decimals} />}
 
-						{modalTypeName === "ASSET ISSUANCE" && <AssetIssuance transaction={this.props.transaction}/>}
+						{modalTypeName === "ASSET ISSUANCE" && <AssetIssuance transaction={this.props.transaction} decimals={decimals} />}
 
 						{modalTypeName === "BID ORDER PLACEMENT" &&
-						<BigOrderPlacement transaction={this.props.transaction}/>}
+						<BigOrderPlacement transaction={this.props.transaction} decimals={decimals} />}
 
 						{modalTypeName === "ASK ORDER PLACEMENT" &&
-						<AskOrderPlacement transaction={this.props.transaction}/>}
+						<AskOrderPlacement transaction={this.props.transaction} decimals={decimals} />}
 
 
 						{modalTypeName === "CRITICAL UPDATE" && <CriticalUpdate transaction={this.props.transaction}/>}
@@ -293,6 +294,7 @@ class InfoTransactionTable extends Component {
 const mapStateToProps = state => ({
 	secretPhrase: state.account.passPhrase,
 	account: state.account.account,
+	decimals: state.account.decimals,
 });
 
 const mapDispatchToProps = dispatch => ({

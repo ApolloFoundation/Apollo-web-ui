@@ -1,19 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
-import { ONE_APL } from '../../../../constants';
 import ContentLoader from '../../../components/content-loader';
 
-const TotalBalance = () => {
+const TotalBalance = props => {
   const dispatch = useDispatch();
 
+  const { decimals, ticker } = props;
+
   const { dashboardAccoountInfo } = useSelector(state => state.dashboard);
-  const { ticker } = useSelector(state => state.account);
 
   const balanceAPL = (dashboardAccoountInfo && dashboardAccoountInfo.unconfirmedBalanceATM)
-    ? (dashboardAccoountInfo.unconfirmedBalanceATM / ONE_APL).toLocaleString('en-GB', {
+    ? (dashboardAccoountInfo.unconfirmedBalanceATM / decimals).toLocaleString('en-GB', {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     })
