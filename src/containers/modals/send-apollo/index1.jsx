@@ -19,7 +19,7 @@ export default function SendApollo(props) {
 
   const { modalData } = useSelector(state => state.modals);
 
-  const { account, ticker } = useSelector(state => state.account);
+  const { account, ticker, decimals } = useSelector(state => state.account);
 
   const handleFormSubmit = useCallback(async values => {
     const data = { ...values };
@@ -43,7 +43,7 @@ export default function SendApollo(props) {
 
     // export const processForm = (values, requestType, successMesage, successCallback) => {
 
-    processForm(data, 'sendMoney', 'Transaction has been submitted!', res => {
+    processForm({ decimals, ...data }, 'sendMoney', 'Transaction has been submitted!', res => {
       if (res.broadcasted === false) {
         dispatch(setBodyModalParamsAction('RAW_TRANSACTION_DETAILS', {
           request: data,
@@ -56,7 +56,7 @@ export default function SendApollo(props) {
 
       NotificationManager.success('Transaction has been submitted!', null, 5000);
     });
-  }, [account, alias, closeModal, dispatch, processForm]);
+  }, [account, alias, closeModal, decimals, dispatch, processForm]);
 
   const onChosenTransactionOnAlias = () => setAlias(null);
 

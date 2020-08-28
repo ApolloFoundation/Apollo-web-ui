@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
 import submitForm from "../../../../helpers/forms/forms";
-import {ONE_APL} from '../../../../constants';
 
 class DigitalGoodsPriceChange extends Component {
 
@@ -19,7 +18,7 @@ class DigitalGoodsPriceChange extends Component {
         this.setState({
             goodsName: info.name,
             seller: info.sellerRS,
-            price: info.priceATM / ONE_APL,
+            price: info.priceATM / this.props.decimals,
         })
     }
 

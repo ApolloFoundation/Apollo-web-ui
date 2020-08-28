@@ -19,7 +19,7 @@ export const SET_CURRENT_BLOCK = 'SET_CURRENT_BLOCK';
 export const SET_ADMIN_PASSWORD = 'SET_ADMIN_PASSWORD';
 export const SET_SHARE_MESSAGE = 'SET_SHARE_MESSAGE';
 export const SET_WALLETS = 'SET_WALLETS';
-export const SET_TICKER = 'SET_TICKER';
+export const SET_BLOCKCHAIN_SETTINGS = 'SET_BLOCKCHAIN_SETTINGS';
 
 const initialState = {
   settings: null,
@@ -54,6 +54,7 @@ const initialState = {
   },
   wallets: null,
   ticker: 'APL',
+  decimals: 100000000,
 };
 
 export default (state = initialState, action) => {
@@ -68,6 +69,8 @@ export default (state = initialState, action) => {
       return {
         ...state,
         ...initialState,
+        ticker: state.ticker,
+        decimals: state.decimals,
       };
     case SET_CONSTANTS:
       return {
@@ -117,10 +120,11 @@ export default (state = initialState, action) => {
         ...state,
         forgingStatus: action.payload,
       };
-    case SET_TICKER:
+    case SET_BLOCKCHAIN_SETTINGS:
       return {
         ...state,
-        ticker: action.payload,
+        ticker: action.payload.ticker,
+        decimals: action.payload.decimals,
       };
     case SET_CURRENT_BLOCK:
       return {
@@ -167,7 +171,7 @@ export default (state = initialState, action) => {
 
 export const setTicker = reqParams => dispatch => {
   dispatch({
-    type: SET_TICKER,
+    type: SET_BLOCKCHAIN_SETTINGS,
     payload: reqParams,
   });
 };

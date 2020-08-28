@@ -4,7 +4,6 @@ import classNamse from 'classnames';
 import { formatTimestamp } from '../../../../../helpers/util/time';
 import { formatTransactionType } from '../../../../../actions/transactions';
 import { setBodyModalParamsAction } from '../../../../../modules/modals';
-import { ONE_APL } from '../../../../../constants';
 import { ReactComponent as ArrowIcon } from '../../../../../assets/arrow-right-long.svg';
 
 export default function TransactionItem(props) {
@@ -16,7 +15,7 @@ export default function TransactionItem(props) {
   } = props;
 
   const {
-    constants, actualBlock, account, accountRS,
+    constants, actualBlock, account, accountRS, decimals,
   } = useSelector(state => state.account);
 
   const hasSubtype = !!constants.transactionTypes
@@ -106,19 +105,19 @@ export default function TransactionItem(props) {
             })}
           >
             {isDexOrder
-              ? `${attachment.offerCurrency === 0 ? '-' : ''}${attachment.offerAmount / ONE_APL}`
+              ? `${attachment.offerCurrency === 0 ? '-' : ''}${attachment.offerAmount / decimals}`
               : `${account === sender ? '-' : ''}${(
                 ((amountATM === '0' && attachment.priceATM && attachment.priceATM !== '0')
                   ? attachment.priceATM
                   : amountATM
-                ) / ONE_APL
+                ) / decimals
               )}`}
             {marketplaceTypes.includes(transactionType) && (
               <div className="transaction-confirmation fee">
                 <span className="price__lg">Price for </span>
                 <span className="price__md">Listing:</span>
                 -
-                {feeATM / ONE_APL}
+                {feeATM / decimals}
               </div>
             )}
           </div>

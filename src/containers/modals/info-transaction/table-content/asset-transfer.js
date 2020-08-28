@@ -3,7 +3,6 @@ import {connect} from "react-redux";
 import {getAssetAction} from "../../../../actions/assets";
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {getTransactionAction} from "../../../../actions/transactions";
-import {ONE_APL} from '../../../../constants';
 
 // this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction)
 class AssetTransfer extends Component {
@@ -59,7 +58,7 @@ class AssetTransfer extends Component {
 	            {this.props.transaction.attachment.hasOwnProperty("quantityQNT") &&
 	            <tr>
 		            <td>Quantity:</td>
-		            <td>{this.props.transaction.attachment.quantityQNT / ONE_APL}</td>
+		            <td>{this.props.transaction.attachment.quantityQNT / this.props.decimals}</td>
 	            </tr>
 	            }
 	            {this.props.transaction.senderRS &&
