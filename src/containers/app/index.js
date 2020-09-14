@@ -8,17 +8,16 @@ import { connect } from 'react-redux';
 import {
   Redirect, Route, Switch, withRouter,
 } from 'react-router-dom';
+import {NotificationContainer} from 'react-notifications';
 import classNames from 'classnames';
-import { NotificationContainer } from 'react-notifications';
 import ReactHintFactory from 'react-hint';
-import {
-  getConstantsAction, isLoggedIn, getUpdateStatus,
-} from '../../actions/login';
+import { getConstantsAction, isLoggedIn, getUpdateStatus } from '../../actions/login';
+import { getCurrentTicker } from '../../actions/account';
 import { loadConstants, setPageEvents } from '../../modules/account';
 import { setBodyModalParamsAction, setBodyModalType } from '../../modules/modals';
-import PageLoader from '../components/page-loader/page-loader';
 import { version } from '../../../package.json';
 // components
+import PageLoader from '../components/page-loader/page-loader';
 import SideBar from '../components/sidebar';
 import ModalWindow from '../modals';
 import AlertBox from '../components/alert-box';
@@ -28,11 +27,9 @@ import { getSavedAccountSettingsAction } from '../../modules/accountSettings';
 import Dashboard from '../account/dashboard';
 import Login from '../account/login';
 import Faucet from '../account/faucet';
-
 import Transactions from '../account/transactions';
 import Ledger from '../account/ledger/index1';
 import Blocks from '../account/blocks';
-
 import ExchangeBooth from '../account/exchange-booth/index1';
 import Followedpolls from '../account/followed-polls';
 import Messenger from '../account/messenger';
@@ -61,13 +58,11 @@ import ScheduledTransactions from '../account/scheduled-transactions';
 import Settings from '../account/settings';
 import TradeHistory from '../account/trade-history';
 import TransferHistory from '../account/transfer-history';
-
 // Currencies
 import Currencies from '../account/currency-block/currencies/index1';
 import CurrencyExchangeHistory from '../account/currency-block/currency-exchange-history/index1';
 import TransferHistoryCurrency from '../account/currency-block/currency-transfer-history/index1';
 import MyMadedCurrencies from '../account/currency-block/my-currencies/index1';
-
 import MyCurrencies from '../account/my-shuffling';
 import Finishedpolls from '../account/finished-polls';
 import MyVotes from '../account/my-votes';
@@ -78,7 +73,6 @@ import FinishedShufflings from '../account/finished-shufflings';
 import MyMessages from '../account/my-messages';
 import MarketplaceSearch from '../account/marketplace-search';
 import Generators from '../account/generators';
-
 // Excahnge
 import Exchange from '../account/exchange/dashboard/index1';
 import TradeHistoryExchange from '../account/exchange/trade-history/index1';
@@ -104,16 +98,21 @@ class App extends React.Component {
         getSavedAccountSettings,
         isLoggedIn,
         getConstantsAction,
+        getCurrentTicker,
       } = this.props;
+
+      getCurrentTicker();
 
       getSavedAccountSettings();
       this.checkUrl();
       getUpdateStatus();
       if (!this.shareMessage) {
-        isLoggedIn(this.props.history);
+          isLoggedIn(this.props.history);
       }
       getConstantsAction();
-      this.setState({ isMounted: true });
+      this.setState({
+          isMounted: true
+      });
 
       // Hints settings
       window.ReactHint = ReactHint;
@@ -404,17 +403,18 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  isLoggedIn: history => dispatch(isLoggedIn(history)),
-  setPageEvents: () => dispatch(setPageEvents()),
-  getConstantsAction: () => dispatch(getConstantsAction()),
-  getSavedAccountSettings: () => dispatch(getSavedAccountSettingsAction()),
-  loginWithShareMessage: (account, transaction) => dispatch(loginWithShareMessage(account, transaction)),
-  loadConstants: () => dispatch(loadConstants()),
+    isLoggedIn: (history) => dispatch(isLoggedIn(history)),
+    setPageEvents: () => dispatch(setPageEvents()),
+    getCurrentTicker: () => dispatch(getCurrentTicker()),
+    getConstantsAction: () => dispatch(getConstantsAction()),
+    getSavedAccountSettings: () => dispatch(getSavedAccountSettingsAction()),
+    loginWithShareMessage: (account, transaction) => dispatch(loginWithShareMessage(account, transaction)),
+    loadConstants: () => dispatch(loadConstants()),
 
-  // modals
-  setBodyModalType: () => dispatch(setBodyModalType()),
-  setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-  startBlockPullingAction: () => dispatch(startBlockPullingAction()),
+    //modals
+    setBodyModalType: () => dispatch(setBodyModalType()),
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
+    startBlockPullingAction: () => dispatch(startBlockPullingAction())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(App));

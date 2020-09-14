@@ -11,7 +11,6 @@ import {getTransactionAction} from "../../../actions/transactions";
 import {formatTimestamp} from "../../../helpers/util/time";
 import InfoTransactionTable from "./info-transoction-table"
 import {getAccountInfoAction} from "../../../actions/account";
-import {ONE_APL} from '../../../constants';
 import TabulationBody from '../../components/tabulator/tabuator-body';
 import TabContaier from '../../components/tabulator/tab-container';
 import ModalBody from "../../components/modals/modal-body";
@@ -98,6 +97,7 @@ class InfoLedgerTransaction extends React.Component {
 
     render() {
         const {transaction, transactionId} = this.state;
+        const { decimals } = this.props;
         const parsedSignatures = transaction && (typeof transaction.signature === "string" ? [transaction.signature] : transaction.signature.signatures.map(i => i.signature));
         const recipientRS = transaction
           && (this.props.accountRS === transaction.recipientRS ? transaction.senderRS : transaction.recipientRS);
@@ -178,7 +178,7 @@ class InfoLedgerTransaction extends React.Component {
                                             </tr>
                                             <tr>
                                                 <td>Fee ATM:</td>
-                                                <td>{this.state.transaction.feeATM / ONE_APL}</td>
+                                                <td>{this.state.transaction.feeATM / decimals}</td>
                                             </tr>
                                             <tr>
                                                 <td>Transaction index:</td>
@@ -237,9 +237,9 @@ class InfoLedgerTransaction extends React.Component {
                                                     <td>
                                                         {
                                                             (this.state.transaction.amountATM === "0" && this.state.transaction.attachment.priceATM) ?
-                                                                this.state.transaction.attachment.priceATM / ONE_APL
+                                                                this.state.transaction.attachment.priceATM / decimals
                                                                 :
-                                                                this.state.transaction.amountATM / ONE_APL
+                                                                this.state.transaction.amountATM / decimals
                                                         }
                                                     </td>
                                                 </tr>
@@ -391,6 +391,7 @@ class InfoLedgerTransaction extends React.Component {
 
 const mapStateToProps = state => ({
     accountRS: state.account.accountRS,
+    decimals: state.account.decimals,
     modalType: state.modals.modalType,
     modalData: state.modals.modalData,
     modalsHistory: state.modals.modalsHistory,

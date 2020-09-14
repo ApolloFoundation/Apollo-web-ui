@@ -164,63 +164,63 @@ class Settings extends React.Component {
                           submitForm, setValue, values, addValue, removeValue, getFormState,
                         }) => (
                           <form className="modal-form" onSubmit={submitForm}>
-                            <div className="form-group-app">
-                              {!this.props.is2FA
-                                ? (
-                                  <>
-                                    <div className="form-sub-title mb-3">
-                                      The 2FA is currently enabled on this account.
-                                    </div>
-                                    <InfoBox attentionLeft>
-                                      <p className="mb-3">
-                                        Please note:
-                                      </p>
-                                      <div className="form-sub-title">
-                                        2FA is a feature for Vault addresses only,
-                                        and will not add a second factor authentication to a standard address.
+                              <div className="form-group-app">
+                                {this.props.is2FA
+                                  ? (
+                                    <>
+                                      <div className="form-sub-title mb-3">
+                                        The 2FA is currently enabled on this account.
                                       </div>
-
-                                    </InfoBox>
-                                  </>
-                                ) : (
-                                  <div className="form-sub-title">
-                                    The 2FA is currently disabled on this account. You can
-                                    increase
-                                    your wallet security with this option.
-                                  </div>
-                                )}
-                              <AccountRSFormInput
-                                setValue={setValue}
-                                noContactList
-                                field="account"
-                                label="Account ID"
-                                placeholder="Account ID"
-                              />
-                              <ModalFooter setValue={setValue} />
-                              {this.state.account && (
+                                      <InfoBox attentionLeft>
+                                        <p className="mb-3">
+                                          Please note:
+                                        </p>
+                                        <div className="form-sub-title">
+                                          2FA is a feature for Vault addresses only,
+                                          and will not add a second factor authentication to a standard address.
+                                        </div>
+                                      </InfoBox>
+                                    </>
+                                  ) : (
+                                    <div className="form-sub-title mb-3">
+                                      The 2FA is currently disabled on this account. You can
+                                      increase
+                                      your wallet security with this option.
+                                    </div>
+                                  )}
+                                <AccountRSFormInput
+                                  setValue={setValue}
+                                  noContactList
+                                  field="account"
+                                  label="Account ID"
+                                  placeholder="Account ID"
+                                />
+                                <ModalFooter
+                                  setValue={setValue}
+                                />
+                                {this.state.account && (
                                 <div>
-                                  {!this.state.account.is2FA
-                                    ? (
-                                      <button
-                                        type="button"
-                                        className="btn btn-green"
-                                        onClick={() => this.getQRCode(getFormState)}
-                                      >
-                                        Get Qr code
-                                      </button>
-                                    ) : (
-                                      <button
-                                        type="button"
-                                        className="btn btn-green"
-                                        onClick={() => this.disable2fa(getFormState)}
-                                      >
+                                  {!this.state.account.is2FA ? (
+                                    <button
+                                      type="button"
+                                      className="btn btn-green"
+                                      onClick={() => this.getQRCode(getFormState)}
+                                    >
+                                      Get Qr code
+                                    </button>
+                                  ) : (
+                                    <button
+                                      type="button"
+                                      className="btn btn-green"
+                                      onClick={() => this.disable2fa(getFormState)}
+                                    >
                                         Confirm disable
-                                      </button>
-                                    )}
+                                    </button>
+                                  )}
                                 </div>
-                              )}
-                            </div>
-                          </form>
+                                )}
+                              </div>
+                            </form>
                         )}
                       />
                     </div>

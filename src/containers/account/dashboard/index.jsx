@@ -19,7 +19,9 @@ import InfoBanner from '../../../assets/banner-long.png';
 export default function Dashboard(props) {
   const dispatch = useDispatch();
 
-  const { actualBlock, account } = useSelector(state => state.account);
+  const {
+    actualBlock, account, decimals, ticker,
+  } = useSelector(state => state.account);
 
   const { isShareMessage, shareMessageTransaction } = props;
 
@@ -44,7 +46,10 @@ export default function Dashboard(props) {
           <div className="cards-wrap row">
             <div className="col-lg-3 col-md-4 col-sm-12 p-0">
               <div className="d-flex flex-column">
-                <TotalBalance />
+                <TotalBalance
+                  decimals={decimals}
+                  ticker={ticker}
+                />
                 <MyTransactions />
               </div>
             </div>

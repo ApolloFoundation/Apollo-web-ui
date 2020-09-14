@@ -34,7 +34,7 @@ function checkRequestType(requestType, data) {
     }
 }
 
-function submitForm(data, requestType) {
+function submitForm(data, requestType, decimals = ONE_APL) {
     return async (dispatch, getState) => {
         const {account, accountSettings, modals, fee} = getState();
         if (requestType !== 'generateAccount') {
@@ -145,15 +145,15 @@ function submitForm(data, requestType) {
         }
 
         if (data.feeATM && $.isNumeric(data.feeATM)) {
-            data.feeATM = data.feeATM * ONE_APL
+            data.feeATM = data.feeATM * decimals
         }
 
         if (data.amountATM && $.isNumeric(data.amountATM)) {
-            data.amountATM = data.amountATM * ONE_APL
+            data.amountATM = data.amountATM * decimals
         }
 
         if (data.priceATM && $.isNumeric(data.priceATM)) {
-            data.priceATM = data.priceATM * ONE_APL
+            data.priceATM = data.priceATM * decimals
         }
 
         if (data.priceOrder) {
@@ -181,7 +181,7 @@ function submitForm(data, requestType) {
         }
 
         if ((data.feeAPL             > fee.minFeeAmount ||
-             data.feeATM / ONE_APL > fee.minFeeAmount
+             data.feeATM / decimals > fee.minFeeAmount
         ) && !fee.isFeeAlert) {
             NotificationManager.warning(`You are trying to send the transaction with fee that exceeds ${fee.minFeeAmount} APL`, 'Attention', 10000);
 

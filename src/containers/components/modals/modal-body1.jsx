@@ -15,7 +15,7 @@ export default function ModalBody(props) {
   const { modalData, modalsHistory } = useSelector(state => state.modals);
 
   const {
-    handleFormSubmit, onChange, isPour, isXWide, isWide, initialValues,
+    handleFormSubmit, onChange, isPour, isXWide, isWide, initialValues, ticker,
   } = props;
 
   const handleSubmit = useCallback(values => {
@@ -134,6 +134,7 @@ export default function ModalBody(props) {
                 {isFee && (
                   <FeeInputForm
                     name="feeATM"
+                    counterLabel={ticker}
                     values={values}
                   />
                 )}
