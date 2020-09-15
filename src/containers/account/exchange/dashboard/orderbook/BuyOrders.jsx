@@ -11,7 +11,7 @@ import CustomTable from '../../../../components/tables/table1';
 export default function BuyOrders(props) {
   const dispatch = useDispatch();
 
-  const { currentCurrency, buyOrders } = props;
+  const { currentCurrency, buyOrders, ticker } = props;
 
   const [currency, setCurrency] = useState(null);
 
@@ -46,7 +46,7 @@ export default function BuyOrders(props) {
           name: `Price ${currentCurrency.currency.toUpperCase()}`,
           alignRight: false,
         }, {
-          name: 'Amount APL',
+          name: `Amount ${ticker}`,
           alignRight: true,
         }, {
           name: `Total ${currentCurrency.currency.toUpperCase()}`,

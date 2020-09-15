@@ -17,7 +17,7 @@ export default function TradeHistory() {
   const dispatch = useDispatch();
 
   const { myTradeHistory } = useSelector(state => state.exchange);
-  const { wallets } = useSelector(state => state.account);
+  const { wallets, ticker } = useSelector(state => state.account);
 
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(1);
@@ -152,7 +152,8 @@ export default function TradeHistory() {
                         <td>{props.id}</td>
                         <td>{props.height}</td>
                         <td>
-                          APL/
+                          {ticker}
+                          /
                           {type.toUpperCase()}
                         </td>
                         <td>{props.type ? 'SELL' : 'BUY'}</td>

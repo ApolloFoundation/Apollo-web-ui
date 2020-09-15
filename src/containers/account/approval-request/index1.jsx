@@ -9,9 +9,9 @@ import React, {
 import { useSelector, useDispatch } from 'react-redux';
 import { getApprovesAction } from '../../../actions/approval-requests';
 import { BlockUpdater } from '../../block-subscriber';
-import TransactionComponent from './transaction/index';
 import CustomTable from '../../components/tables/table';
 import SiteHeader from '../../components/site-header';
+import TransactionComponent from './transaction/index';
 
 export default function ApprovalRequest() {
   const dispatch = useDispatch();
@@ -39,9 +39,7 @@ export default function ApprovalRequest() {
 
   return (
     <div className="page-content">
-      <SiteHeader
-        pageTitle="Approval requests (account)"
-      />
+      <SiteHeader pageTitle="Approval requests (account)" />
       <div className="page-body container-fluid">
         <CustomTable
           header={[
