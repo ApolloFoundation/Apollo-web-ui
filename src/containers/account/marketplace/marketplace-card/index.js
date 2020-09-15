@@ -11,14 +11,18 @@ import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {connect} from 'react-redux';
 import {formatTimestamp} from "../../../../helpers/util/time";
 import utils from "../../../../helpers/util/utils";
-import {ONE_APL} from '../../../../constants';
 
 import { v4 as uuidv4 } from 'uuid';
 import config from '../../../../config';
 
+const mapStateToProps = state => ({
+  decimals: state.account.decimals,
+  ticker: state.account.ticker,
+});
+
 const mapDispatchToProps = dispatch => ({
-    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-    formatTimestamp: (timestamp, date_only, isAbsoluteTime) => dispatch(formatTimestamp(timestamp, date_only, isAbsoluteTime)),
+  setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
+  formatTimestamp: (timestamp, date_only, isAbsoluteTime) => dispatch(formatTimestamp(timestamp, date_only, isAbsoluteTime)),
 });
 
 const MarketplaceItem = (props, history) => {
@@ -66,8 +70,8 @@ const MarketplaceItem = (props, history) => {
                             />
                             <div className="price-box">
                                 <div className='price-amount mb-3'>
-                                    <span className="amount">{props.priceATM / ONE_APL}</span>
-                                    <span className="currency">APL</span>
+                                    <span className="amount">{props.priceATM / props.decimals}</span>
+                                    <span className="currency">{props.ticker}</span>
                                 </div>
                                 <div className="user mb-3">
                                     {props.description}
@@ -113,8 +117,8 @@ const MarketplaceItem = (props, history) => {
                                 />
                                 <div className="price-box">
                                     <div className='price-amount mb-3'>
-                                        <span className="amount">{props.priceATM / ONE_APL}</span>
-                                        <span className="currency">APL</span>
+                                        <span className="amount">{props.priceATM / props.decimals}</span>
+                                        <span className="currency">{props.ticker}</span>
                                     </div>
                                     {props.fluid && (
                                         <div className="mb-3">
@@ -275,4 +279,4 @@ const MarketplaceItem = (props, history) => {
     );
 };
 
-export default connect(null, mapDispatchToProps)(MarketplaceItem);
+export default connect(mapStateToProps, mapDispatchToProps)(MarketplaceItem);

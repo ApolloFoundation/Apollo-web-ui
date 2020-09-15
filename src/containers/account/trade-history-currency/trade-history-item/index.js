@@ -12,7 +12,6 @@ import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';
 import {formatTimestamp} from "../../../../helpers/util/time";
-import {ONE_APL} from '../../../../constants';
 
 class TradeHistoryItem extends React.Component {
     constructor(props) {
@@ -59,7 +58,7 @@ class TradeHistoryItem extends React.Component {
                         {parseFloat(this.state.transfer.rateATM).toLocaleString('en')}
                         </td>
                     <td className="align-right">
-                        {(this.state.transfer.units * this.state.transfer.rateATM / ONE_APL).toLocaleString('ru', {
+                        {(this.state.transfer.units * this.state.transfer.rateATM / this.props.decimals).toLocaleString('ru', {
                             minimumFractionDigits: 2,
                             maximumFractionDigits: 2
                         })}
@@ -74,10 +73,14 @@ class TradeHistoryItem extends React.Component {
     }
 }
 
+const mapStateToProps = state => ({
+  decimals: state.account.decimals,
+});
+
 const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
     formatTimestamp: (time) => dispatch(formatTimestamp(time)),
 
 });
 
-export default connect(null, mapDispatchToProps)(TradeHistoryItem);
+export default connect(mapStateToProps, mapDispatchToProps)(TradeHistoryItem);

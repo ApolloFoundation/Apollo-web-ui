@@ -6,7 +6,6 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {ONE_APL} from '../../../../constants';
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 
 const Alias = (props) => (
@@ -47,7 +46,7 @@ const Alias = (props) => (
             <div className="btn-box inline">
                 <button
                     type={'button'}
-                    onClick={() => props.setBodyModalParamsAction('BUY_ALIAS', {...props, priceATM: props.priceATM / ONE_APL})}
+                    onClick={() => props.setBodyModalParamsAction('BUY_ALIAS', {...props, priceATM: props.priceATM / props.decimals})}
                     className="btn btn-default"
                 >
                     Buy alias
@@ -59,7 +58,8 @@ const Alias = (props) => (
 );
 
 const mapStateToProps = state => ({
-    account: state.account.account
+    account: state.account.account,
+    decimals: state.account.decimals,
 });
 
 const mapDispatchToProps = dispatch => ({
