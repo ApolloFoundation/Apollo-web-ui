@@ -113,7 +113,7 @@ class RemoveMonitor extends React.Component {
                                             type={"float"}
                                             setValue={setValue}/>
                                         <div className="input-group-append">
-                                            <span className="input-group-text">APL</span>
+                                            <span className="input-group-text">{this.props.ticker}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -158,6 +158,7 @@ class RemoveMonitor extends React.Component {
 const mapStateToProps = state => ({
     modalsHistory: state.modals.modalsHistory,
     modalData: state.modals.modalData,
+    ticker: state.account.ticker,
 });
 
 const mapDispatchToProps = dispatch => ({

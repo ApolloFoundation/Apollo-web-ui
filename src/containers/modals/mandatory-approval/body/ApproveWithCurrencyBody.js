@@ -45,10 +45,10 @@ export default class ApproveWithCurrencyBody extends React.Component {
                     field={'controlHoldingCurrencyCode'}
                 />
 
-                <InputAccounts 
+                <InputAccounts
                     field={'controlWhitelisted'}
                 />
- 
+
                 <CustomFormSelect
                     defaultValue={minBalanceType[0]}
                     options={minBalanceType}
@@ -75,7 +75,7 @@ export default class ApproveWithCurrencyBody extends React.Component {
                     field="maxFees"
                     placeholder="Max fees"
                     type={"number"}
-                    countingTtile={'APL'}
+                    countingTtile={this.props.ticker}
                 />
             </ModalBody>
         );

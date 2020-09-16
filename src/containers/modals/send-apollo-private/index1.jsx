@@ -36,7 +36,7 @@ export default function SendApolloPrivate(props) {
 
     if (mixerData && mixerData.rsId) {
       const mixerAccount = mixerData.rsId;
-      mixerData.rsId = mixerAccount.replace('APL-', `${accountPrefix || ''}-`);
+      mixerData.rsId = mixerAccount.replace(`${ticker}-`, `${accountPrefix || ''}-`);
       setNewMixerData(mixerData);
       setUseMixer(true);
     }
@@ -67,7 +67,7 @@ export default function SendApolloPrivate(props) {
         });
 
         if (values.amountATM < 100) {
-          NotificationManager.error('To use mixer you should send at least 100 APL.', 'Error', 5000);
+          NotificationManager.error(`To use mixer you should send at least 100 ${ticker}.`, 'Error', 5000);
           return;
         }
 
@@ -122,7 +122,6 @@ export default function SendApolloPrivate(props) {
       handleFormSubmit={handleFormSubmit}
       isAdvanced
       isPending={isPending}
-      ticker={ticker}
       submitButtonName="Send"
       isDisabled={!isPrivateTransactionAlert}
       idGroup="send-private-money-modal-"
