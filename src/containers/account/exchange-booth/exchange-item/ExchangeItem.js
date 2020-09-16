@@ -29,7 +29,7 @@ class ExchangeItem extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  decimals: state.account.decimals,
+  currentCoinDecimals: state.account.decimals,
 });
 
 const mapDispatchToProps = dispatch => ({});
