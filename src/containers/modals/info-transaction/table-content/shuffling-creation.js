@@ -58,7 +58,7 @@ class ShufflingCreation extends Component {
 	            {this.props.transaction.attachment.hasOwnProperty("amount") &&
 	            <tr>
 		            <td>Amount:</td>
-		            <td>{this.props.transaction.attachment.amount / this.props.decimals} APL</td>
+		            <td>{this.props.transaction.attachment.amount / this.props.decimals} {this.props.ticker}</td>
 	            </tr>
 	            }
 	            {this.props.transaction.attachment.hasOwnProperty("holding") &&

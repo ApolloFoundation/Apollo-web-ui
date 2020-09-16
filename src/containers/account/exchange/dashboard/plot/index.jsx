@@ -4,7 +4,7 @@ import ExchangeSwitch from './ExchangeSwitch';
 
 export default function Plot(props) {
   const {
-    currentCurrency: { currency }, currencies, switchCurrency, wallet, handleLoginModal,
+    currentCurrency: { currency }, currencies, switchCurrency, wallet, handleLoginModal, ticker,
   } = props;
 
   return (
@@ -14,6 +14,7 @@ export default function Plot(props) {
           <div className="d-flex align-items-center mr-2">
             <ExchangeSwitch
               currency={currency}
+              ticker={ticker}
               currencies={currencies}
               switchCurrency={switchCurrency}
               wallet={wallet}

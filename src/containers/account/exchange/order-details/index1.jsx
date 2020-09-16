@@ -167,7 +167,7 @@ export default function OrderDetails() {
                                     <TextualInputComponent
                                       field="current"
                                       label="Pair Name"
-                                      defaultValue={`APL/${orderInfo.type.toUpperCase()}`}
+                                      defaultValue={`${account.ticker}/${orderInfo.type.toUpperCase()}`}
                                       disabled
                                       placeholder="Pair Name"
                                     />

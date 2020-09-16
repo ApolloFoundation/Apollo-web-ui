@@ -1,6 +1,5 @@
 import React from 'react';
 import BackForm from "../modal-form/modal-form-container";
-import {Text} from "react-form";
 import InputForm from "../../components/input-form";
 import {getCurrencyAction} from "../../../actions/currencies";
 import {saveSendModalState, setBodyModalParamsAction} from "../../../modules/modals";
@@ -13,7 +12,8 @@ import {NotificationManager} from "react-notifications";
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
     modalsHistory: state.modals.modalsHistory,
-    adminPassword: state.account.adminPassword
+    adminPassword: state.account.adminPassword,
+    ticker: state.account.ticker,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -108,7 +108,7 @@ class ScheaduleCurrency extends React.Component {
                                             type={"float"}
                                             setValue={setValue}/>
                                         <div className="input-group-append">
-                                            <span className="input-group-text">APL</span>
+                                            <span className="input-group-text">{this.props.ticker}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -158,7 +158,7 @@ class ScheaduleCurrency extends React.Component {
                                             type={"float"}
                                             setValue={setValue}/>
                                         <div className="input-group-append">
-                                            <span className="input-group-text">APL</span>
+                                            <span className="input-group-text">{this.props.ticker}</span>
                                         </div>
                                     </div>
                                 </div>

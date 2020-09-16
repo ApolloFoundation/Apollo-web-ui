@@ -16,7 +16,7 @@ const itemsPerPage = 15;
 export default function TradeHistoryExchange(props) {
   const dispatch = useDispatch();
 
-  const { currentCurrency } = props;
+  const { currentCurrency, ticker } = props;
 
   const { myTradeHistory } = useSelector(state => state.exchange);
 
@@ -80,7 +80,7 @@ export default function TradeHistoryExchange(props) {
                     name: 'Price',
                     alignRight: false,
                   }, {
-                    name: 'Amount APL',
+                    name: `Amount ${ticker}`,
                     alignRight: false,
                   }, {
                     name: 'Total',

@@ -7,13 +7,13 @@ import CustomTextArea from '../../../components/form-components/text-area';
 import BlockHeightInput from '../../../components/form-components/block-height-input';
 
 const IssueCurrencyForm = (props) => {
-    const {setValue, getFormState, idGroup} = props;
-    
+    const {setValue, getFormState, idGroup, ticker} = props;
+
     const {values : {type1, type2, type3, type4, type5, type6}} = getFormState()
 
     return (
         <>
-            <TextualInputComponent 
+            <TextualInputComponent
                 label={'Currency Name'}
                 disabled={false}
                 field="name"
@@ -23,7 +23,7 @@ const IssueCurrencyForm = (props) => {
                 idGroup={idGroup}
             />
 
-            <TextualInputComponent 
+            <TextualInputComponent
                 label={'Currency Code'}
                 disabled={false}
                 field="code"
@@ -31,21 +31,21 @@ const IssueCurrencyForm = (props) => {
                 type={"text"}
                 setValue={setValue}
                 idGroup={idGroup}
-    
+
             />
 
             <CustomTextArea
-                label={'Description'} 
-                field={'description'} 
+                label={'Description'}
+                field={'description'}
                 placeholder={'Description'}
                 setValue={setValue}
                 idGroup={idGroup}
 
             />
-            
+
             <CheckboxFormInput
                 setValue={setValue}
-                idGroup={idGroup}    
+                idGroup={idGroup}
                 label={'Type'}
                 checkboxes={[
                     {
@@ -81,7 +81,7 @@ const IssueCurrencyForm = (props) => {
                     },
                 ]}
             />
-        
+
             {
                 type3 &&
                 <>
@@ -89,24 +89,24 @@ const IssueCurrencyForm = (props) => {
                         setValue={setValue}
                         label={'Minimum Amount to Reserve Per Unit'}
                         field={'minReservePerUnitATM'}
-                        countingTtile={'APL'}
+                        countingTtile={ticker}
                         placeholder={'Minimum Amount Per Unit'}
                         type={'tel'}
                         idGroup={idGroup}
                     />
-            
+
                     <NumericInput
                         setValue={setValue}
                         label={'Reserve Supply'}
                         field={'reserveSupply'}
-                        countingTtile={'APL'}
+                        countingTtile={ticker}
                         placeholder={'Number of Units'}
                         type={'tel'}
                         idGroup={idGroup}
                     />
                 </>
             }
-            
+
             {
                 type5 &&
                 <>
@@ -114,45 +114,45 @@ const IssueCurrencyForm = (props) => {
                         setValue={setValue}
                         label={'Minimum Difficulty'}
                         field={'minDifficulty'}
-                        countingTtile={'APL'}
+                        countingTtile={ticker}
                         placeholder={'Minimum Difficulty'}
                         type={'tel'}
                         idGroup={idGroup}
                     />
-                    
-            
+
+
                     <NumericInput
                         setValue={setValue}
                         label={'Maximum Difficulty'}
                         field={'maxDifficulty'}
-                        countingTtile={'APL'}
+                        countingTtile={ticker}
                         placeholder={'Maximum Difficulty'}
                         type={'tel'}
                         idGroup={idGroup}
                     />
                 </>
             }
-    
+
             <NumericInput
                 setValue={setValue}
-                idGroup={idGroup}    
+                idGroup={idGroup}
                 label={'Initial Supply'}
                 field={'initialSupply'}
-                countingTtile={'APL'}
+                countingTtile={ticker}
                 placeholder={'Initial Supply'}
                 type={'tel'}
             />
-            
+
             <NumericInput
                 setValue={setValue}
                 idGroup={idGroup}
                 label={'Total Supply'}
                 field={'maxSupply'}
-                countingTtile={'APL'}
+                countingTtile={ticker}
                 placeholder={'Total Supply'}
                 type={'tel'}
             />
-    
+
             <NumericInput
                 setValue={setValue}
                 idGroup={idGroup}
@@ -161,8 +161,8 @@ const IssueCurrencyForm = (props) => {
                 placeholder={'Decimals'}
                 type={'tel'}
             />
-    
-            <BlockHeightInput 
+
+            <BlockHeightInput
                 setValue={setValue}
                 label={'Activation Height'}
                 field={'height'}

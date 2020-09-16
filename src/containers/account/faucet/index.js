@@ -12,7 +12,6 @@ import AccountRS from '../../components/account-rs';
 import InfoBox from '../../components/info-box';
 import LogoImg from '../../../assets/logo.png';
 import {getCoins, getFaucetAccountInfoAction} from '../../../actions/faucet';
-import {ONE_APL} from "../../../constants";
 import config from "../../../config";
 import './style.scss'
 
@@ -76,7 +75,7 @@ class Faucet extends React.Component {
                                         <p className={'sub-title'}>
                                             {account.accountRS}<br/>
                                             Balance: {account.unconfirmedBalanceATM ? (
-                                                Math.round(account.unconfirmedBalanceATM / ONE_APL).toLocaleString('en')
+                                                Math.round(account.unconfirmedBalanceATM / this.props.decimals).toLocaleString('en')
                                             ) : (
                                                 '0'
                                             )} APL
@@ -160,9 +159,13 @@ class Faucet extends React.Component {
     }
 }
 
+const mapStateToProps = state => ({
+  decimals: state.account.decimals,
+});
+
 const mapDipatchToProps = dispatch => ({
     getCoins: (requestParams) => dispatch(getCoins(requestParams)),
     getFaucetAccountInfoAction: (account) => dispatch(getFaucetAccountInfoAction(account)),
 });
 
-export default connect(null, mapDipatchToProps)(Faucet);
+export default connect(mapStateToProps, mapDipatchToProps)(Faucet);

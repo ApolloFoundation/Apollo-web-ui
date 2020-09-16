@@ -18,9 +18,12 @@ export default function SellFormWrapper(props) {
   const { dashboardAccoountInfo } = useSelector(state => state.dashboard);
   const { currentCurrency } = useSelector(state => state.exchange);
   const { unconfirmedBalanceATM: balanceAPL, account, passPhrase } = useSelector(state => state.account);
+
   const { currency } = currentCurrency;
 
-  const { wallet, handleLoginModal, ethFee } = props;
+  const {
+    wallet, handleLoginModal, ethFee, ticker, decimals,
+  } = props;
 
   const [isPending, setIsPending] = useState(false);
 
@@ -46,11 +49,11 @@ export default function SellFormWrapper(props) {
             isError = true;
           }
           if (+values.offerAmount < 0.001) {
-            NotificationManager.error('You can sell more then 0.001 APL', 'Error', 5000);
+            NotificationManager.error(`You can sell more then 0.001 ${ticker}`, 'Error', 5000);
             isError = true;
           }
           if (+ethFee > +values.walletAddress.value.balances.eth) {
-            NotificationManager.error(`To sell APL you need to have at least ${ethFee.toLocaleString('en', {
+            NotificationManager.error(`To sell ${ticker} you need to have at least ${ethFee.toLocaleString('en', {
               minimumFractionDigits: 0,
               maximumFractionDigits: 9,
             })} ETH on your balance to confirm transaction`, 'Error', 5000);
@@ -67,7 +70,7 @@ export default function SellFormWrapper(props) {
             ? parseFloat(dashboardAccoountInfo.unconfirmedBalanceATM)
             : parseFloat(balanceAPL);
           if (!balanceAPL || currentBalanceAPL === 0 || currentBalanceAPL < ((offerAmount + feeATM) / 10)) {
-            NotificationManager.error('Not enough funds on your APL balance.', 'Error', 5000);
+            NotificationManager.error(`Not enough funds on your ${ticker} balance.`, 'Error', 5000);
             setPending(false);
             return;
           }
@@ -105,7 +108,7 @@ export default function SellFormWrapper(props) {
       }
     }
   }, [
-    account, balanceAPL, currency, dashboardAccoountInfo, dispatch,
+    account, balanceAPL, currency, dashboardAccoountInfo, dispatch, ticker,
     ethFee, handleLoginModal, isPending, passPhrase, setPending, wallet,
   ]);
 
@@ -121,9 +124,11 @@ export default function SellFormWrapper(props) {
     >
       <SellForm
         wallet={wallet}
+        ticker={ticker}
         ethFee={ethFee}
         isPending={isPending}
         currency={currency}
+        decimals={decimals}
         dashboardAccoountInfo={dashboardAccoountInfo}
         balanceAPL={balanceAPL}
       />

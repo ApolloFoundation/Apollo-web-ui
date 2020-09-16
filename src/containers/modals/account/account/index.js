@@ -231,7 +231,7 @@ class InfoAccount extends React.PureComponent {
                                 {
                                     this.state.account &&
                                     <div className={"account-balance-text"}>Account has a balance
-                                        of <strong>{Math.round(this.state.account.unconfirmedBalanceATM / Math.pow(10, 8))} APL</strong>
+                                        of <strong>{Math.round(this.state.account.unconfirmedBalanceATM / Math.pow(10, 8))} {this.props.ticker}</strong>
                                     </div>
                                 }
 
@@ -524,6 +524,7 @@ const mapStateToProps = state => ({
     modalData: state.modals.modalData,
     modalsHistory: state.modals.modalsHistory,
     account: state.account.account,
+    ticker: state.account.ticker,
     accountRS: state.account.accountRS
 });
 

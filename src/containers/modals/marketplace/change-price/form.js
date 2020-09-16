@@ -1,12 +1,9 @@
 import React from 'react';
-
-import {ONE_APL} from '../../../../constants';
-
 import NummericInput from '../../../components/form-components/numeric-input';
 import TextualInput from '../../../components/form-components/textual-input';
 
 
-const Form = ({setValue, goods, formatTimestamp}) => (
+const Form = ({setValue, goods, formatTimestamp, decimals, ticker}) => (
     <>
         {
             goods &&
@@ -29,7 +26,7 @@ const Form = ({setValue, goods, formatTimestamp}) => (
                 <TextualInput
                     setValue={setValue}
                     label="Current price:"
-                    text={`${(goods.priceATM / ONE_APL).toLocaleString('en')} APL`}
+                    text={`${(goods.priceATM / decimals).toLocaleString('en')} ${ticker}`}
                 />
                 <NummericInput
                     setValue={setValue}
@@ -37,7 +34,7 @@ const Form = ({setValue, goods, formatTimestamp}) => (
                     field="priceATM"
                     placeholder="New price"
                     defaultValue={1}
-                    countingTtile={'APL'}
+                    countingTtile={ticker}
                 />
             </>
         }

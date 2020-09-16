@@ -12,19 +12,19 @@ import CustomTextArea from '../../../components/form-components/text-area';
 
 const SellToAccountForm = (props) => {
 
-    const {alias, setValue, getFormState, idGroup} = props;
+    const {alias, setValue, getFormState, idGroup, ticker} = props;
     const {values: {add_message}} = getFormState();
-    
+
     return (
         <>
             {
-                alias && 
+                alias &&
                 <TextualInputComponent
                     label={'Alias'}
                     text={alias.aliasName}
                 />
             }
-            
+
 
             <AccountRSFormInput
                 field={'recipient'}
@@ -36,7 +36,7 @@ const SellToAccountForm = (props) => {
                 label={'Price'}
                 field={'priceATM'}
                 placeholder={'Price'}
-                countingTtile={'APL'}
+                countingTtile={ticker}
                 setValue={setValue}
                 idGroup={idGroup}
             />
@@ -50,7 +50,7 @@ const SellToAccountForm = (props) => {
                 ]}
             />
             {
-                add_message && 
+                add_message &&
                 <>
                     <CustomTextArea
                         setValue={setValue}
@@ -60,7 +60,7 @@ const SellToAccountForm = (props) => {
                     />
                     <CheckboxFormInput
                             setValue={setValue}
-                
+
                             label={''}
                             checkboxes={[
                                 {
@@ -75,7 +75,7 @@ const SellToAccountForm = (props) => {
                         />
                 </>
             }
-            
+
         </>
     )
 }
