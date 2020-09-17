@@ -8,7 +8,6 @@ import i18n from 'i18next';
 import util from '../../helpers/util/utils';
 import crypto from '../crypto/crypto';
 import config from '../../config';
-import {ONE_APL} from '../../constants';
 import converters from '../converters'
 import AplAddress from '../util/apladres'
 import {processElGamalEncryption} from '../../actions/crypto';
@@ -34,9 +33,10 @@ function checkRequestType(requestType, data) {
     }
 }
 
-function submitForm(data, requestType, decimals = ONE_APL) {
+function submitForm(data, requestType, ) {
     return async (dispatch, getState) => {
         const {account, accountSettings, modals, fee} = getState();
+        const { decimals } = account;
         if (requestType !== 'generateAccount') {
             if (data.secretPhrase) {
                 let isPassphrase = dispatch(await dispatch(crypto.getAccountIdAsyncApl(data.secretPhrase)));

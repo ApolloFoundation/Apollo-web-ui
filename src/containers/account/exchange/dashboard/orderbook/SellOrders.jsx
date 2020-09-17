@@ -13,7 +13,7 @@ export default function SellOrders(props) {
 
   const { sellOrdersPagination: ordersPagination } = useSelector(state => state.exchange);
 
-  const { currentCurrency, sellOrders } = props;
+  const { currentCurrency, sellOrders, ticker } = props;
 
   const [currency, setCurrency] = useState(null);
 
@@ -46,7 +46,7 @@ export default function SellOrders(props) {
           name: `Price ${currentCurrency.currency.toUpperCase()}`,
           alignRight: false,
         }, {
-          name: 'Amount APL',
+          name: `Amount ${ticker}`,
           alignRight: true,
         }, {
           name: `Total ${currentCurrency.currency.toUpperCase()}`,

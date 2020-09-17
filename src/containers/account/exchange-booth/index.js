@@ -10,7 +10,6 @@ import {connect} from 'react-redux';
 import {getAllCurrenciesAction, getCurrencyAction} from "../../../actions/currencies";
 import classNames from "classnames";
 import {BlockUpdater} from "../../block-subscriber";
-import {ONE_APL} from '../../../constants';
 import {openPrevModal, saveSendModalState, setBodyModalParamsAction} from "../../../modules/modals";
 import {
     getAccountExchangeAction,
@@ -368,7 +367,7 @@ class ExchangeBooth extends React.Component {
 
     render() {
         const isGoBack = !!Object.values(this.props.match.params).length;
-        const balanceBuy = Math.round(this.props.balanceATM / ONE_APL);
+        const balanceBuy = Math.round(this.props.balanceATM / this.props.decimals);
         const balanceSell = !!this.state.accountCurrency && !!this.state.accountCurrency.unconfirmedUnits ? (this.state.accountCurrency.unconfirmedUnits / Math.pow(10, this.state.accountCurrency.decimals)) : 0;
         return (
             <div className="page-content">
@@ -478,7 +477,7 @@ class ExchangeBooth extends React.Component {
                                                     <div
                                                         className="card-title card-title-lg">
                                                         Buy {this.state.code}
-                                                        <span>Balance: {balanceBuy.toLocaleString('en')} APL</span>
+                                                        <span>Balance: {balanceBuy.toLocaleString('en')} {this.props.ticker}</span>
                                                     </div>
                                                     <div className="card-body">
                                                         <BackForm
@@ -497,9 +496,9 @@ class ExchangeBooth extends React.Component {
                                                                             placeholder="Units"
                                                                             onChange={(e) => {
                                                                                 if (!e.target) {
-                                                                                    setValue('rateATM', Math.round(((this.state.minimumSellRate / ONE_APL) * Math.pow(10, this.state.decimals)) * parseInt(e)))
+                                                                                    setValue('rateATM', Math.round(((this.state.minimumSellRate / this.props.decimals) * Math.pow(10, this.state.decimals)) * parseInt(e)))
                                                                                 } else {
-                                                                                    setValue('rateATM', Math.round(((this.state.minimumSellRate / ONE_APL) * Math.pow(10, this.state.decimals)) * parseInt(getFormState().values.units)))
+                                                                                    setValue('rateATM', Math.round(((this.state.minimumSellRate / this.props.decimals) * Math.pow(10, this.state.decimals)) * parseInt(getFormState().values.units)))
                                                                                 }
                                                                             }}
                                                                             counterLabel={this.state.code}
@@ -510,7 +509,7 @@ class ExchangeBooth extends React.Component {
                                                                                 {
                                                                                     !!this.state.minimumSellRate &&
                                                                                     <input
-                                                                                        value={Math.round((this.state.minimumSellRate / ONE_APL) * Math.pow(10, this.state.decimals))}
+                                                                                        value={Math.round((this.state.minimumSellRate / this.props.decimals) * Math.pow(10, this.state.decimals))}
                                                                                         ref="buy_currency_rate"
                                                                                         placeholder='Quantity'
                                                                                         className={"form-control"}
@@ -521,7 +520,7 @@ class ExchangeBooth extends React.Component {
 
                                                                                 <div className="input-group-append">
                                                                                     <span className="input-group-text"
-                                                                                          id="amountText">APL/{this.state.code}</span>
+                                                                                          id="amountText">{this.props.ticker}/{this.state.code}</span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -531,7 +530,7 @@ class ExchangeBooth extends React.Component {
                                                                                 {
                                                                                     !!this.state.minimumSellRate &&
                                                                                     <input
-                                                                                        value={Math.round((this.state.minimumSellRate / ONE_APL) * Math.pow(10, this.state.decimals))}
+                                                                                        value={Math.round((this.state.minimumSellRate / this.props.decimals) * Math.pow(10, this.state.decimals))}
                                                                                         ref="buy_currency_rate"
                                                                                         placeholder='Quantity'
                                                                                         className={"form-control "}
@@ -541,7 +540,7 @@ class ExchangeBooth extends React.Component {
                                                                                 }
                                                                                 <div className="input-group-append">
                                                                                     <span className="input-group-text"
-                                                                                          id="amountText">APL/{this.state.code}</span>
+                                                                                          id="amountText">{this.props.ticker}/{this.state.code}</span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -551,7 +550,7 @@ class ExchangeBooth extends React.Component {
                                                                             field="rateATM"
                                                                             type={"tel"}
                                                                             placeholder="Price"
-                                                                            counterLabel={'APL'}
+                                                                            counterLabel={this.props.ticker}
                                                                             disabled
                                                                         />
                                                                         <button
@@ -560,7 +559,7 @@ class ExchangeBooth extends React.Component {
                                                                                 'disabled': !(!!parseInt(getFormState().values.rateATM)),
                                                                             })}
                                                                         >
-                                                                            Buy (APL > {this.state.code})
+                                                                            Buy ({this.props.ticker} > {this.state.code})
                                                                         </button>
                                                                     </form>
                                                                 )
@@ -590,9 +589,9 @@ class ExchangeBooth extends React.Component {
                                                                             placeholder="Units"
                                                                             onChange={(e) => {
                                                                                 if (!e.target) {
-                                                                                    setValue('rateATM', Math.round(((this.state.minimumBuyRate / ONE_APL) * Math.pow(10, this.state.decimals)) * parseInt(e)))
+                                                                                    setValue('rateATM', Math.round(((this.state.minimumBuyRate / this.props.decimals) * Math.pow(10, this.state.decimals)) * parseInt(e)))
                                                                                 } else {
-                                                                                    setValue('rateATM', Math.round(((this.state.minimumBuyRate / ONE_APL) * Math.pow(10, this.state.decimals)) * parseInt(getFormState().values.units)))
+                                                                                    setValue('rateATM', Math.round(((this.state.minimumBuyRate / this.props.decimals) * Math.pow(10, this.state.decimals)) * parseInt(getFormState().values.units)))
                                                                                 }
                                                                             }}
                                                                             counterLabel={this.state.code}
@@ -603,7 +602,7 @@ class ExchangeBooth extends React.Component {
                                                                                 {
                                                                                     !!this.state.minimumBuyRate &&
                                                                                     <input
-                                                                                        value={Math.round((this.state.minimumBuyRate / ONE_APL) * Math.pow(10, this.state.decimals))}
+                                                                                        value={Math.round((this.state.minimumBuyRate / this.props.decimals) * Math.pow(10, this.state.decimals))}
                                                                                         ref="buy_currency_rate"
                                                                                         placeholder='Quantity'
                                                                                         className={"form-control "}
@@ -613,7 +612,7 @@ class ExchangeBooth extends React.Component {
                                                                                 }
                                                                                 <div className="input-group-append">
                                                                                     <span className="input-group-text"
-                                                                                          id="amountText">APL/{this.state.code}</span>
+                                                                                          id="amountText">{this.props.ticker}/{this.state.code}</span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -623,7 +622,7 @@ class ExchangeBooth extends React.Component {
                                                                                 {
                                                                                     !!this.state.minimumBuyRate &&
                                                                                     <input
-                                                                                        value={Math.round((this.state.minimumBuyRate / ONE_APL) * Math.pow(10, this.state.decimals))}
+                                                                                        value={Math.round((this.state.minimumBuyRate / this.props.decimals) * Math.pow(10, this.state.decimals))}
                                                                                         ref="buy_currency_rate"
                                                                                         placeholder='Quantity'
                                                                                         className={"form-control "}
@@ -633,7 +632,7 @@ class ExchangeBooth extends React.Component {
                                                                                 }
                                                                                 <div className="input-group-append">
                                                                                     <span className="input-group-text"
-                                                                                          id="amountText">APL/{this.state.code}</span>
+                                                                                          id="amountText">{this.props.ticker}/{this.state.code}</span>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -643,7 +642,7 @@ class ExchangeBooth extends React.Component {
                                                                             field="rateATM"
                                                                             type={"tel"}
                                                                             placeholder="Price"
-                                                                            counterLabel={'APL'}
+                                                                            counterLabel={this.props.ticker}
                                                                             disabled
                                                                         />
                                                                         <button
@@ -652,7 +651,7 @@ class ExchangeBooth extends React.Component {
                                                                                 'disabled': !(!!parseInt(getFormState().values.rateATM)),
                                                                             })}
                                                                         >
-                                                                            Buy ({this.state.code} > APL)
+                                                                            Buy ({this.state.code} > {this.props.ticker})
                                                                         </button>
                                                                     </form>
                                                                 )
@@ -862,6 +861,8 @@ class ExchangeBooth extends React.Component {
 
 const mapStateToProps = state => ({
     account: state.account.accountRS,
+    ticker: state.account.ticker,
+    decimals: state.account.decimals,
     balanceATM: state.account.balanceATM,
     modalsHistory: state.modals.modalsHistory,
 });

@@ -9,7 +9,7 @@ const currencyIcons = {
 };
 
 export default function ExchangeSwitch({
-  currency, currencies, switchCurrency, wallet, handleLoginModal,
+  currency, currencies, switchCurrency, wallet, handleLoginModal, ticker,
 }) {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -20,7 +20,8 @@ export default function ExchangeSwitch({
   return (
     <div className="currency-switch-wrap">
       <p className="title-lg">
-        APL/
+        {ticker}
+        /
         {currency.toUpperCase()}
         <div
           className="currency-switch"

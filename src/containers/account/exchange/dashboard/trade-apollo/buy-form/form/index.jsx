@@ -19,7 +19,7 @@ export default function BuyForm(props) {
   const { currency } = currentCurrency;
 
   const {
-    wallet, ethFee, isPending, passPhrase,
+    wallet, ethFee, isPending, passPhrase, ticker,
   } = props;
 
   const [walletsList, setWalletsList] = useState(null);
@@ -81,11 +81,11 @@ export default function BuyForm(props) {
       <div className="form-group mb-0">
         <NumericInput
           name="pairRate"
-          label="Price for 1 APL"
+          label={`Price for 1 ${ticker}`}
           counterLabel={currencyName}
           disableArrows
           type="float"
-          placeholder="Price for 1 APL"
+          placeholder={`Price for 1 ${ticker}`}
           onChange={price => {
             const amount = values.offerAmount || 0;
             let rangeValue = (((amount * price) * 100) / (balance || 1)).toFixed(0);
@@ -101,7 +101,7 @@ export default function BuyForm(props) {
         <NumericInput
           name="offerAmount"
           label="I want to Buy"
-          counterLabel="APL"
+          counterLabel={ticker}
           disableArrows
           type="float"
           placeholder="I want to Buy"
@@ -172,7 +172,7 @@ export default function BuyForm(props) {
         color="green"
         size="lg"
         isLoading={isPending}
-        name="Buy APL"
+        name={`Buy ${ticker}`}
         isArrow
       />
     </Form>

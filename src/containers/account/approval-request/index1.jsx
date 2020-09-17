@@ -9,9 +9,9 @@ import React, {
 import { useSelector, useDispatch } from 'react-redux';
 import { getApprovesAction } from '../../../actions/approval-requests';
 import { BlockUpdater } from '../../block-subscriber';
-import TransactionComponent from './transaction/index';
 import CustomTable from '../../components/tables/table';
 import SiteHeader from '../../components/site-header';
+import TransactionComponent from './transaction/index1';
 
 export default function ApprovalRequest() {
   const dispatch = useDispatch();
@@ -19,11 +19,6 @@ export default function ApprovalRequest() {
   const { account } = useSelector(state => state.account);
 
   const [transactions, setTransactions] = useState([]);
-
-  //  ? need to check
-  // const listener = data => {
-  //   this.getApproves(this.props.account);
-  // };
 
   const getApproves = useCallback(async () => {
     const approves = await dispatch(getApprovesAction(account) || {});
@@ -35,13 +30,11 @@ export default function ApprovalRequest() {
     BlockUpdater.on('data', getApproves);
 
     return () => BlockUpdater.removeListener('data', getApproves);
-  }, []);
+  }, [getApproves]);
 
   return (
     <div className="page-content">
-      <SiteHeader
-        pageTitle="Approval requests (account)"
-      />
+      <SiteHeader pageTitle="Approval requests (account)" />
       <div className="page-body container-fluid">
         <CustomTable
           header={[

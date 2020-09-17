@@ -3,40 +3,43 @@
  *                                                                            *
  ***************************************************************************** */
 
-import React from 'react';
-import { connect, useDispatch } from 'react-redux';
+import React, { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
-import CryptoJS from 'crypto-js';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
 import { formatTimestamp } from '../../../../helpers/util/time';
 import { getTransactionAction } from '../../../../actions/transactions';
-import { ONE_APL } from '../../../../constants';
 
 export default function Transaction(props) {
   const dispatch = useDispatch();
+
+  const { decimals } = useSelector(state => state.account);
 
   const {
     transaction, timestamp, amountATM, confirmations,
     feeATM, senderRS, attachment, height,
   } = props;
 
-  const getTransactionInfo = useCallback(async transaction => await dispatch(getTransactionAction({
-    transaction,
-    random: Math.random(),
-  })), [dispatch]);
+  const getTransactionInfo = useCallback(async currTransaction => {
+    const transactionActions = await dispatch(getTransactionAction({
+      currTransaction,
+      random: Math.random(),
+    }));
+    return transactionActions;
+  }, [dispatch]);
 
   return (
     <tr key={uuidv4()}>
       <td className="blue-link-text">
-        <a onClick={async () => dispatch(setBodyModalParamsAction('INFO_TRANSACTION', await this.getTransactionInfo(transaction)))}>
+        <a onClick={async () => dispatch(setBodyModalParamsAction('INFO_TRANSACTION', await getTransactionInfo(transaction)))}>
           {dispatch(formatTimestamp(timestamp))}
         </a>
       </td>
       <td className="align-right">Ordinary Payment</td>
-      <td className="align-right">{amountATM / ONE_APL}</td>
-      <td>{feeATM / ONE_APL}</td>
+      <td className="align-right">{amountATM / decimals}</td>
+      <td>{feeATM / decimals}</td>
       <td className="blue-link-text align-right">
-        <a onClick={dispatch(setBodyModalParamsAction('INFO_ACCOUNT', senderRS))}>
+        <a onClick={() => dispatch(setBodyModalParamsAction('INFO_ACCOUNT', senderRS))}>
           {senderRS}
         </a>
       </td>
@@ -54,7 +57,7 @@ export default function Transaction(props) {
           <button
             type="button"
             onClick={() => {
-              setBodyModalParamsAction('APPROVE_TRANSACTION', { transaction: this.props });
+              setBodyModalParamsAction('APPROVE_TRANSACTION', { transaction: props });
             }}
             className="btn btn-default"
           >

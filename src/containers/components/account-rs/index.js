@@ -104,7 +104,10 @@ class AccountRS extends React.Component {
     handleBeforeMaskedValueChange = (newState, oldState, userInput) => {
       let value = newState.value.toUpperCase();
       if (userInput) {
-        if (value.startsWith('APL-APL') && userInput.startsWith('APL-') && userInput.length === 24) {
+        if ((value.startsWith('APL-APL') || value.startsWith('USDS-USDS'))
+          && (userInput.startsWith('APL-') || userInput.startsWith('USDS-'))
+          && userInput.length === 24
+        ) {
           value = userInput;
         }
       }
@@ -117,7 +120,7 @@ class AccountRS extends React.Component {
           <InputMask
             className="form-control"
             disabled={this.props.disabled}
-            mask="APL-****-****-****-*****"
+            mask={`${this.props.ticker}-****-****-****-*****`}
             placeholder={this.props.placeholder || 'Account ID'}
             ref="input"
             value={this.state.value}
@@ -158,6 +161,9 @@ class AccountRS extends React.Component {
     }
 }
 
-const mapStateToProps = state => ({ constants: state.account.constants });
+const mapStateToProps = state => ({
+  constants: state.account.constants,
+  ticker: state.account.ticker,
+});
 
 export default connect(mapStateToProps)(AccountRS);

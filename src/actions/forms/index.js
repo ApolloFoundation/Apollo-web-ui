@@ -13,13 +13,13 @@ const { dispatch } = store;
 export const calculateFeeAction = (requestParams, requestType) => dispatch(submitForm.submitForm(requestParams, requestType));
 
 export const processForm = async (params, requestType, successMesage, successCallback, errorCallback) => {
-  const { decimals, ...values } = params;
+  const { ...values } = params;
   dispatch({
     type: IS_MODAL_PROCESSING,
     payload: true,
   });
 
-  const res = await dispatch(submitForm.submitForm(values, requestType, decimals));
+  const res = await dispatch(submitForm.submitForm(values, requestType));
 
   if (res) {
     if (res.errorCode) {

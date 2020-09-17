@@ -26,7 +26,7 @@ import Plot from './plot';
 export default function Exchange() {
   const dispatch = useDispatch();
 
-  const { wallets } = useSelector(state => state.account);
+  const { wallets, ticker } = useSelector(state => state.account);
 
   const {
     currencies, currentCurrency, buyOrders, sellOrders,
@@ -111,6 +111,7 @@ export default function Exchange() {
               <div className="row">
                 <div className="col-md-8 col-sm-12 p-0 tv-chart">
                   <Plot
+                    ticker={ticker}
                     currentCurrency={currentCurrency}
                     buyOrders={plotBuyOrdersCurrency}
                     sellOrders={plotSellOrdersCurrency}
@@ -122,6 +123,7 @@ export default function Exchange() {
                 </div>
                 <div className="col-md-4 col-sm-12 p-0 trade">
                   <TradeApollo
+                    ticker={ticker}
                     currentCurrency={currentCurrency}
                     wallet={currWallet}
                     handleLoginModal={handleLoginModal}
@@ -130,6 +132,7 @@ export default function Exchange() {
                 <div className="col-md-3 col-sm-5 p-0 order-book">
                   <div className="d-flex flex-column h-100">
                     <Orderbook
+                      ticker={ticker}
                       currentCurrency={currentCurrency}
                       buyOrders={buyOrdersCurrency}
                       sellOrders={sellOrdersCurrency}
@@ -140,6 +143,7 @@ export default function Exchange() {
               <div className="row bottom">
                 <div className="col-md-4 col-sm-12 p-0">
                   <TradeHistoryExchange
+                    ticker={ticker}
                     currentCurrency={currentCurrency}
                     wallet={currWallet}
                     handleLoginModal={handleLoginModal}
@@ -147,6 +151,7 @@ export default function Exchange() {
                 </div>
                 <div className="col-md-4 col-sm-6 p-0">
                   <OpenOrders
+                    ticker={ticker}
                     currentCurrency={currentCurrency}
                     handleLoginModal={handleLoginModal}
                     myOrders={myOrders[currentCurrency.currency]}

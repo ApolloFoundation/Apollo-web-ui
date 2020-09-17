@@ -129,7 +129,7 @@ class InfoTransactionTable extends Component {
 
 	render() {
 		const modalTypeName = formatTransactionType(this.props.constants.transactionTypes[this.props.transaction.type].subtypes[this.props.transaction.subtype].name);
-		const {secretPhrase, transaction: {attachment: {message, encryptedMessage}}, passPhrase, decimals} = this.props;
+		const {secretPhrase, transaction: {attachment: {message, encryptedMessage}}, passPhrase, decimals, ticker} = this.props;
 		const transactionType = this.props.transaction && this.props.constants.transactionTypes && this.props.constants.transactionTypes[this.props.transaction.type];
 		return (
 			<div className="transaction-table-body transparent wrap-collumns">
@@ -151,7 +151,7 @@ class InfoTransactionTable extends Component {
 						</tr>
 
 						{modalTypeName === "CURRENCY ISSUANCE" &&
-						<CurrencyIssuance transaction={this.props.transaction} decimals={decimals} />}
+						<CurrencyIssuance transaction={this.props.transaction} decimals={decimals} ticker={ticker} />}
 
 						{modalTypeName === "EXCHANGE BUY" && <BuyCurrency transaction={this.props.transaction}/>}
 
@@ -161,10 +161,10 @@ class InfoTransactionTable extends Component {
 						<CurrencyTransfer transaction={this.props.transaction}/>}
 
 						{modalTypeName === "PUBLISH EXCHANGE OFFER" &&
-						<CurrencyExchangeOffer transaction={this.props.transaction}/>}
+						<CurrencyExchangeOffer transaction={this.props.transaction} ticker={ticker} />}
 
 						{modalTypeName === "SHUFFLING CREATION" &&
-						<ShufflingCreation transaction={this.props.transaction} decimals={decimals} />}
+						<ShufflingCreation transaction={this.props.transaction} decimals={decimals} ticker={ticker} />}
 
 						{modalTypeName === "SHUFFLING REGISTRATION" &&
 						<ShufflingRegistarion transaction={this.props.transaction}/>}
@@ -295,6 +295,7 @@ const mapStateToProps = state => ({
 	secretPhrase: state.account.passPhrase,
 	account: state.account.account,
 	decimals: state.account.decimals,
+	ticker: state.account.ticker,
 });
 
 const mapDispatchToProps = dispatch => ({

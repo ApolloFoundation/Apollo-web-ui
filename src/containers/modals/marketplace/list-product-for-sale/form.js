@@ -5,7 +5,7 @@ import NumericInputComponent from '../../../components/form-components/numeric-i
 import FileInput from '../../../components/form-components/file-input';
 
 
-const ListProductForSaleFrom = ({setValue}) => (
+const ListProductForSaleFrom = ({setValue, ticker}) => (
     <>
         <TextualInputComponent
             label={'Name'}
@@ -31,7 +31,7 @@ const ListProductForSaleFrom = ({setValue}) => (
         />
 
         <NumericInputComponent
-            countLabel={'APL'}
+            countLabel={ticker}
             label={'Price'}
             field={'priceATM'}
             placeholder={'Price'}

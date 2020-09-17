@@ -104,7 +104,7 @@ class OfferCurrency extends React.Component {
                 <NumericInput
                     label="Buy Rate per unit"
                     field={'buyRateATM'}
-                    countingTtile={`${this.props.modalData.code} / APL`}
+                    countingTtile={`${this.props.modalData.code} / ${this.props.ticker}`}
                     placeholder={'Amount'}
                     type={'tel'}
                 />
@@ -125,7 +125,7 @@ class OfferCurrency extends React.Component {
                 <NumericInput
                     label={'Sell Rate per unit'}
                     field={'sellRateATM'}
-                    countingTtile={`${this.props.modalData.code} / APL`}
+                    countingTtile={`${this.props.modalData.code} / ${this.props.ticker}`}
                     placeholder={'Amount'}
                     type={'tel'}
                 />
@@ -143,6 +143,7 @@ class OfferCurrency extends React.Component {
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
     account: state.account.account,
+    ticker: state.account.ticker,
     modalsHistory: state.modals.modalsHistory,
 });
 

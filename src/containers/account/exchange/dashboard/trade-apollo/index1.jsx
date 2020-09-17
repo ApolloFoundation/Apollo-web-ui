@@ -2,7 +2,6 @@ import React, {
   useState, useCallback, useEffect,
 } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { ONE_APL } from '../../../../../constants';
 import { getTransactionFee } from '../../../../../actions/wallet';
 import { setTypeOfTrade, resetTrade } from '../../../../../modules/modals';
 import BuyForm from './buy-form';
@@ -15,8 +14,9 @@ export default function TradeApollo(props) {
   const dispatch = useDispatch();
 
   const { typeOfTrade } = useSelector(state => state.modals);
+  const { decimals } = useSelector(state => state.account);
 
-  const { wallet, handleLoginModal } = props;
+  const { wallet, handleLoginModal, ticker } = props;
 
   const [maxFee, setMaxFee] = useState();
 
@@ -43,9 +43,9 @@ export default function TradeApollo(props) {
         <div className="title">Trade Apollo</div>
         <span className="sub-title">
           Fee:
-          {feeATM / ONE_APL}
+          {feeATM / decimals}
           {' '}
-          APL
+          {ticker}
         </span>
       </div>
       <div className="card-body">
@@ -54,23 +54,30 @@ export default function TradeApollo(props) {
             className={`tab-item ${typeOfTrade === 'BUY' ? 'active' : ''}`}
             onClick={() => changeTabOfTrade('BUY')}
           >
-            Buy APL
+            Buy
+            {' '}
+            {ticker}
           </div>
           <div
             className={`tab-item ${typeOfTrade === 'SELL' ? 'active' : ''}`}
             onClick={() => changeTabOfTrade('SELL')}
           >
-            Sell APL
+            Sell
+            {' '}
+            {ticker}
           </div>
         </div>
         {typeOfTrade === 'BUY' ? (
           <BuyForm
+            ticker={ticker}
             wallet={wallet}
             handleLoginModal={handleLoginModal}
             ethFee={ethMinTxFee}
           />
         ) : (
           <SellForm
+            ticker={ticker}
+            decimals={decimals}
             wallet={wallet}
             handleLoginModal={handleLoginModal}
             ethFee={ethMinTxFee}

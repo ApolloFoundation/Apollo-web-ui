@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Form, useFormikContext } from 'formik';
-import { ONE_APL, ONE_GWEI } from '../../../../../../../constants';
+import { ONE_GWEI } from '../../../../../../../constants';
 import { multiply, division } from '../../../../../../../helpers/format';
 import Button from '../../../../../../components/button';
 import NumericInput from '../../../../../../components/form-components/numeric-input1';
@@ -15,13 +15,13 @@ export default function SellForm(props) {
   const { infoSelectedSellOrder } = useSelector(state => state.modals);
 
   const {
-    wallet, isPending, currency, dashboardAccoountInfo, balanceAPL,
+    wallet, isPending, currency, dashboardAccoountInfo, balanceAPL, decimals, ticker,
   } = props;
 
   const balance = (dashboardAccoountInfo && dashboardAccoountInfo.unconfirmedBalanceATM)
     ? dashboardAccoountInfo.unconfirmedBalanceATM
     : balanceAPL;
-  const balanceFormat = balance ? (balance / ONE_APL) : 0;
+  const balanceFormat = balance ? (balance / decimals) : 0;
 
   const [walletsList, setWalletsList] = useState(null);
 
@@ -77,11 +77,11 @@ export default function SellForm(props) {
       <div className="form-group mb-0">
         <NumericInput
           name="pairRate"
-          label="Price for 1 APL"
+          label={`Price for 1 ${ticker}`}
           counterLabel={currencyName}
           disableArrows
           type="float"
-          placeholder="Price for 1 APL"
+          placeholder={`Price for 1 ${ticker}`}
           onChange={price => {
             let amount = values.offerAmount || 0;
             if (balanceFormat) {
@@ -129,7 +129,7 @@ export default function SellForm(props) {
                     &nbsp;
                   </span>
                 )}
-                APL
+                {ticker}
               </span>
             </div>
           </CustomInput>
@@ -166,7 +166,7 @@ export default function SellForm(props) {
         color="green"
         size="lg"
         isLoading={isPending}
-        name="Sell APL"
+        name={`Sell ${ticker}`}
         isArrow
       />
     </Form>

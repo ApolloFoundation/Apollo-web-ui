@@ -1,22 +1,29 @@
 import React from 'react';
-import {setBodyModalParamsAction} from '../../../../modules/modals';
-import {connect} from 'react-redux';
-import {ONE_APL} from '../../../../constants';
+import { useDispatch, useSelector } from 'react-redux';
+import { setBodyModalParamsAction } from '../../../../modules/modals';
 
-const Goods = ({name, goods, quantity, priceATM, setBodyModalParamsAction}) => (
-    <tr className={"marketplace-tab-item"}>
-        <td className={'blue-link-text'}>
-            <a onClick={() => setBodyModalParamsAction('MARKETPLACE_PURCHASE', goods)}>
-                {name}
-            </a>
-        </td>
-        <td>{priceATM / ONE_APL} APL</td>
-        <td>{quantity}</td>
+const Goods = ({
+  name, goods, quantity, priceATM,
+}) => {
+  const dispatch = useDispatch();
+
+  const { decimals, ticker } = useSelector(state => state.account);
+
+  return (
+    <tr className="marketplace-tab-item">
+      <td className="blue-link-text">
+        <a onClick={() => dispatch(setBodyModalParamsAction('MARKETPLACE_PURCHASE', goods))}>
+          {name}
+        </a>
+      </td>
+      <td>
+        {priceATM / decimals}
+        {' '}
+        {ticker}
+      </td>
+      <td>{quantity}</td>
     </tr>
-);
+  );
+};
 
-const mapDispatchToProps = dispatch => ({
-    setBodyModalParamsAction: (type, value) => dispatch(setBodyModalParamsAction(type, value))
-});
-
-export default connect(null, mapDispatchToProps)(Goods);
+export default Goods;

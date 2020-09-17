@@ -7,7 +7,7 @@ import CustomTextArea from '../../../components/form-components/text-area';
 import BlockHeightInput from '../../../components/form-components/block-height-input';
 
 const IssueCurrencyForm = (props) => {
-    const {setValue, getFormState, idGroup} = props;
+    const {setValue, getFormState, idGroup, ticker} = props;
 
     const {values : {type1, type2, type3, type4, type5, type6}} = getFormState()
 
@@ -89,7 +89,7 @@ const IssueCurrencyForm = (props) => {
                         setValue={setValue}
                         label={'Minimum Amount to Reserve Per Unit'}
                         field={'minReservePerUnitATM'}
-                        countingTtile={'APL'}
+                        countingTtile={ticker}
                         placeholder={'Minimum Amount Per Unit'}
                         type={'tel'}
                         idGroup={idGroup}
@@ -99,7 +99,7 @@ const IssueCurrencyForm = (props) => {
                         setValue={setValue}
                         label={'Reserve Supply'}
                         field={'reserveSupply'}
-                        countingTtile={'APL'}
+                        countingTtile={ticker}
                         placeholder={'Number of Units'}
                         type={'tel'}
                         idGroup={idGroup}
@@ -114,7 +114,7 @@ const IssueCurrencyForm = (props) => {
                         setValue={setValue}
                         label={'Minimum Difficulty'}
                         field={'minDifficulty'}
-                        countingTtile={'APL'}
+                        countingTtile={ticker}
                         placeholder={'Minimum Difficulty'}
                         type={'tel'}
                         idGroup={idGroup}
@@ -125,7 +125,7 @@ const IssueCurrencyForm = (props) => {
                         setValue={setValue}
                         label={'Maximum Difficulty'}
                         field={'maxDifficulty'}
-                        countingTtile={'APL'}
+                        countingTtile={ticker}
                         placeholder={'Maximum Difficulty'}
                         type={'tel'}
                         idGroup={idGroup}
@@ -138,7 +138,7 @@ const IssueCurrencyForm = (props) => {
                 idGroup={idGroup}
                 label={'Initial Supply'}
                 field={'initialSupply'}
-                countingTtile={'APL'}
+                countingTtile={ticker}
                 placeholder={'Initial Supply'}
                 type={'tel'}
             />
@@ -148,7 +148,7 @@ const IssueCurrencyForm = (props) => {
                 idGroup={idGroup}
                 label={'Total Supply'}
                 field={'maxSupply'}
-                countingTtile={'APL'}
+                countingTtile={ticker}
                 placeholder={'Total Supply'}
                 type={'tel'}
             />

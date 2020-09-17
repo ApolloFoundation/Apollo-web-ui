@@ -92,7 +92,7 @@ class IssueCurrency extends React.Component {
                 submitButtonName={'Issue Currency'}
 				idGroup={'issue-currency-modal-'}
             >
-                <IssueCurrencyForm />
+                <IssueCurrencyForm ticker={this.props.ticker} />
             </ModalBody>
 
         );
@@ -102,7 +102,8 @@ class IssueCurrency extends React.Component {
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
     modalsHistory: state.modals.modalsHistory,
-    publicKey: state.account.publicKey
+    publicKey: state.account.publicKey,
+    ticker: state.account.ticker,
 });
 
 const mapDispatchToProps = dispatch => ({

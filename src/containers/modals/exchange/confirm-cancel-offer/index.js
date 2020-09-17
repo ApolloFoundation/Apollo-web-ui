@@ -6,7 +6,6 @@ import {cancelOffer} from "../../../../actions/wallet";
 import ModalBody from '../../../components/modals/modal-body';
 import TextualInputComponent from '../../../components/form-components/textual-input';
 import InfoBox from "../../../components/info-box";
-import {ONE_APL} from '../../../../constants';
 
 class ConfirmCancelOffer extends React.Component {
 
@@ -23,10 +22,10 @@ class ConfirmCancelOffer extends React.Component {
                 this.setState({isPending: false});
                 return;
             }
-    
+
             const params = {
                 orderId: this.props.modalData.orderId,
-                feeATM: ONE_APL,
+                feeATM: this.props.decimals,
                 sender: this.props.account,
                 passphrase
             };
@@ -60,7 +59,7 @@ class ConfirmCancelOffer extends React.Component {
                     Price {currency.toUpperCase()}: <span>{pairRate}</span>
                 </p>
                 <p>
-                    Amount APL: <span>{offerAmount}</span>
+                    Amount {this.props.ticker}: <span>{offerAmount}</span>
                 </p>
                 <p>
                     Total {currency.toUpperCase()}: <span>{total}</span>
@@ -79,6 +78,8 @@ class ConfirmCancelOffer extends React.Component {
 
 const mapStateToProps = state => ({
     account: state.account.account,
+    ticker: state.account.ticker,
+    decimals: state.account.decimals,
     modalData: state.modals.modalData,
 });
 

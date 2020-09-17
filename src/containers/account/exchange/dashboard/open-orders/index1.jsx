@@ -9,7 +9,7 @@ import CustomTable from '../../../../components/tables/table1';
 export default function OpenOrdersExchange(props) {
   const dispatch = useDispatch();
 
-  const { currentCurrency: { currency }, myOrders } = props;
+  const { currentCurrency: { currency }, myOrders, ticker } = props;
 
   const [actionType, setActionType] = useState(0);
 
@@ -49,7 +49,7 @@ export default function OpenOrdersExchange(props) {
                 name: `Price ${currency.toUpperCase()}`,
                 alignRight: false,
               }, {
-                name: 'Amount APL',
+                name: `Amount ${ticker}`,
                 alignRight: false,
               }, {
                 name: `Total ${currency.toUpperCase()}`,

@@ -20,7 +20,6 @@ import {getTime} from '../../../actions/login';
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {BlockUpdater} from "../../block-subscriber";
 import {formatTimestamp} from "../../../helpers/util/time";
-import {ONE_APL} from '../../../constants';
 import Block from './block';
 import './Blocks.scss';
 
