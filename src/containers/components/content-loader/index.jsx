@@ -3,12 +3,12 @@ import classNames from 'classnames';
 import InfoBox from '../info-box';
 
 const ContentLoader = ({
-  noPaddingOnTheSides, onPaddingTop, className,
+  noPaddingOnTheSides, noPaddingTop, className,
   pr, pt, pb, white,
 }) => (
   <InfoBox
     noPaddingOnTheSides={noPaddingOnTheSides}
-    onPaddingTop={onPaddingTop}
+    noPaddingTop={noPaddingTop}
     className={className}
   >
     <div
