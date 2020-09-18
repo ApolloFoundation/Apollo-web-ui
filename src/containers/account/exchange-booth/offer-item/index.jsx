@@ -4,12 +4,13 @@
  ***************************************************************************** */
 
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
-import { ONE_APL } from '../../../../constants';
 
 export default function OfferItem(props) {
   const dispatch = useDispatch();
+
+  const { decimals: currentCoinDecimals } = useSelector(state => state.account);
 
   const {
     decimals, accountRS, supply, limit, rateATM,
@@ -22,7 +23,7 @@ export default function OfferItem(props) {
       </td>
       <td className="align-right">{supply / (10 ** decimals)}</td>
       <td className="align-right">{limit / (10 ** decimals)}</td>
-      <td className="align-right">{((rateATM * (10 ** decimals)) / ONE_APL)}</td>
+      <td className="align-right">{((rateATM * (10 ** decimals)) / currentCoinDecimals)}</td>
     </tr>
   );
 }

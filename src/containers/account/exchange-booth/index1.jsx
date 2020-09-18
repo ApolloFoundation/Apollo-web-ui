@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRouteMatch, useHistory } from 'react-router-dom';
 import { getAllCurrenciesAction, getCurrencyAction } from '../../../actions/currencies';
 import { BlockUpdater } from '../../block-subscriber';
-import { ONE_APL } from '../../../constants';
 import { setBodyModalParamsAction } from '../../../modules/modals';
 // Forms
 import BuyForm from './buy-form';
@@ -29,7 +28,9 @@ import CurrencyInfoTable from './currency-info';
 export default function ExchangeBooth() {
   const dispatch = useDispatch();
 
-  const { balanceATM, accountRS } = useSelector(state => state.account);
+  const {
+    balanceATM, accountRS, decimals, ticker,
+  } = useSelector(state => state.account);
 
   const [minimumBuyRate, setMinimumBuyRate] = useState(null);
   const [minimumSellRate, setMinimumSellRate] = useState(null);
@@ -112,7 +113,7 @@ export default function ExchangeBooth() {
   }, [listener]);
 
   const isGoBack = !!Object.values(match.params).length;
-  const balanceBuy = Math.round(balanceATM / ONE_APL);
+  const balanceBuy = Math.round(balanceATM / decimals);
   const balanceSell = (!!dataAccountCurrency && !!dataAccountCurrency.unconfirmedUnits)
     ? (dataAccountCurrency.unconfirmedUnits / (10 ** dataAccountCurrency.decimals))
     : 0;
@@ -160,11 +161,15 @@ export default function ExchangeBooth() {
                 {dataCurrencies && (
                   <div className="row">
                     <BuyForm
+                      ticker={ticker}
+                      currentCoinDecimals={decimals}
                       minimumSellRate={minimumSellRate}
                       currencyInfo={currencyInfo}
                       balanceBuy={balanceBuy}
                     />
                     <SellForm
+                      ticker={ticker}
+                      currentCoinDecimals={decimals}
                       currencyInfo={currencyInfo}
                       minimumBuyRate={minimumBuyRate}
                       balanceSell={balanceSell}
