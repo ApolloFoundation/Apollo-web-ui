@@ -20,7 +20,7 @@ export default function OrderHistory() {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const { wallets } = useSelector(state => state.account);
+  const { wallets, ticker } = useSelector(state => state.account);
   const { myOrderHistory } = useSelector(state => state.exchange);
 
   const [isLoading, setIsLoading] = useState(true);
@@ -156,7 +156,8 @@ export default function OrderHistory() {
                         <td>{props.id}</td>
                         <td>{props.height}</td>
                         <td>
-                          APL/
+                          {ticker}
+                          /
                           {type.toUpperCase()}
                         </td>
                         <td>{typeName}</td>

@@ -20,11 +20,11 @@ import submitForm from "../../../helpers/forms/forms";
 class ClaimCurrency extends React.Component {
 
     state = {};
-    
+
     getCurrency = async (currency) => {
         const currencyInfo    = await this.props.getAccountCurrenciesAction({currency, account: this.props.account});
         const accountCurrecny = await this.props.getCurrencyAction({currency});
-        
+
         if (currency && accountCurrecny) {
             this.setState({
                 currency: currencyInfo,
@@ -100,15 +100,15 @@ class ClaimCurrency extends React.Component {
                                     </div>
 
                                     {
-                                        this.state.accountCurrecny && 
+                                        this.state.accountCurrecny &&
                                         this.state.currency &&
                                         <FormRowText
-                                            text={`Number of units to claim ${this.state.accountCurrecny.currentSupply / Math.pow(10, this.state.accountCurrecny.decimals)} Claim rate ${this.state.accountCurrecny.currentReservePerUnitATM / Math.pow(10, this.state.accountCurrecny.decimals)} [APL/${this.state.currency.code}]`}
+                                            text={`Number of units to claim ${this.state.accountCurrecny.currentSupply / Math.pow(10, this.state.accountCurrecny.decimals)} Claim rate ${this.state.accountCurrecny.currentReservePerUnitATM / Math.pow(10, this.state.accountCurrecny.decimals)} [${ticker}/${this.state.currency.code}]`}
                                         />
                                     }
 
-                                    
-                                    <CustomInputForm 
+
+                                    <CustomInputForm
                                         label={'Number of units to claim'}
                                         setValue={setValue}
                                         placeholder={'Number of units'}
@@ -116,7 +116,7 @@ class ClaimCurrency extends React.Component {
                                         type={'tel'}
                                         code={this.state.currency ? this.state.currency.code : '' }
                                     />
-                                    
+
                                     <FeeCalc
                                         setValue={setValue}
                                         values={getFormState().values}
@@ -135,7 +135,7 @@ class ClaimCurrency extends React.Component {
                                         advancedState={this.state.advancedState}
                                     />
 
-                    
+
 
                                     <div className="btn-box align-buttons-inside absolute right-conner">
 
@@ -161,7 +161,8 @@ class ClaimCurrency extends React.Component {
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
-    account: state.account.account
+    account: state.account.account,
+    ticker: state.account.ticker,
 });
 
 const mapDispatchToProps = dispatch => ({

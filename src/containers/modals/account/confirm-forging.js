@@ -11,7 +11,6 @@ import {setBodyModalParamsAction, setModalData, setModalType} from '../../../mod
 import {getForging} from '../../../actions/login';
 import {CheckboxFormInput} from '../../components/form-components/check-button-input';
 import {setAccountPassphrase} from "../../../modules/account";
-import {ONE_APL} from '../../../constants';
 import TextualInputComponent from '../../components/form-components/textual-input';
 import ModalBody from '../../components/modals/modal-body';
 import submitForm from '../../../helpers/forms/forms'
@@ -26,7 +25,7 @@ class ConfirmForging extends React.Component {
     };
 
     handleFormSubmit = async (params) => {
-        if (!this.props.balanceATM || (this.props.balanceATM / ONE_APL) < 1000) {
+        if (!this.props.balanceATM || (this.props.balanceATM / this.props.decimals) < 1000) {
             NotificationManager.error('Your effective balance must be greater than 1000 APL to forge.', 'Error', 5000);
             return;
         }
@@ -123,6 +122,7 @@ class ConfirmForging extends React.Component {
 const mapStateToProps = state => ({
     action: state.modals.modalData,
     passphrase: state.account.passPhrase,
+    decimals: state.account.decimals,
     account: state.account.account,
     is2FA: state.account.is2FA,
     balanceATM: state.account.balanceATM,

@@ -9,15 +9,14 @@ import {
   Redirect, Route, Switch, withRouter,
 } from 'react-router-dom';
 import classNames from 'classnames';
-import { NotificationContainer } from 'react-notifications';
-import ReactHintFactory from 'react-hint';
-import {
-  getConstantsAction, isLoggedIn, getUpdateStatus,
-} from '../../actions/login';
-import { loadConstants, setPageEvents } from '../../modules/account';
-import { setBodyModalParamsAction, setBodyModalType } from '../../modules/modals';
+import {getConstantsAction, isLoggedIn} from '../../actions/login';
+import {getCurrentTicker} from '../../actions/account';
+import {loadConstants, setPageEvents} from '../../modules/account';
+import {setBodyModalParamsAction, setBodyModalType} from '../../modules/modals';
 import PageLoader from '../components/page-loader/page-loader';
-import { version } from '../../../package.json';
+import {version} from '../../../package.json';
+import {NotificationContainer} from 'react-notifications';
+import ReactHintFactory from 'react-hint';
 // components
 import SideBar from '../components/sidebar';
 import ModalWindow from '../modals';
@@ -100,25 +99,30 @@ class App extends React.Component {
     shareMessage = false;
 
     componentDidMount() {
-      const {
-        getSavedAccountSettings,
-        isLoggedIn,
-        getConstantsAction,
-      } = this.props;
+        const {
+            getSavedAccountSettings,
+            isLoggedIn,
+            getConstantsAction,
+            getCurrentTicker,
+        } = this.props;
 
-      getSavedAccountSettings();
-      this.checkUrl();
-      getUpdateStatus();
-      if (!this.shareMessage) {
-        isLoggedIn(this.props.history);
-      }
-      getConstantsAction();
-      this.setState({ isMounted: true });
+        getCurrentTicker();
 
-      // Hints settings
-      window.ReactHint = ReactHint;
+        getSavedAccountSettings();
+        this.checkUrl();
+        getUpdateStatus();
+        if (!this.shareMessage) {
+            isLoggedIn(this.props.history);
+        }
+        getConstantsAction();
+        this.setState({
+            isMounted: true
+        });
 
-      document.addEventListener('deviceready', this.onDeviceReady, false);
+        // Hints settings
+        window.ReactHint = ReactHint;
+
+        document.addEventListener('deviceready', this.onDeviceReady, false);
     }
 
     onDeviceReady = () => {
@@ -404,17 +408,18 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  isLoggedIn: history => dispatch(isLoggedIn(history)),
-  setPageEvents: () => dispatch(setPageEvents()),
-  getConstantsAction: () => dispatch(getConstantsAction()),
-  getSavedAccountSettings: () => dispatch(getSavedAccountSettingsAction()),
-  loginWithShareMessage: (account, transaction) => dispatch(loginWithShareMessage(account, transaction)),
-  loadConstants: () => dispatch(loadConstants()),
+    isLoggedIn: (history) => dispatch(isLoggedIn(history)),
+    setPageEvents: () => dispatch(setPageEvents()),
+    getCurrentTicker: () => dispatch(getCurrentTicker()),
+    getConstantsAction: () => dispatch(getConstantsAction()),
+    getSavedAccountSettings: () => dispatch(getSavedAccountSettingsAction()),
+    loginWithShareMessage: (account, transaction) => dispatch(loginWithShareMessage(account, transaction)),
+    loadConstants: () => dispatch(loadConstants()),
 
-  // modals
-  setBodyModalType: () => dispatch(setBodyModalType()),
-  setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-  startBlockPullingAction: () => dispatch(startBlockPullingAction()),
+    //modals
+    setBodyModalType: () => dispatch(setBodyModalType()),
+    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
+    startBlockPullingAction: () => dispatch(startBlockPullingAction())
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(App));

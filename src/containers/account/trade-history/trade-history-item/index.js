@@ -6,13 +6,10 @@
 
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import crypto from "../../../../helpers/crypto/crypto";
-import converters from "../../../../helpers/converters";
-import {setBodyModalParamsAction} from "../../../../modules/modals";
-import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';
+import {connect} from 'react-redux';
+import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {formatTimestamp} from "../../../../helpers/util/time";
-import {ONE_APL} from '../../../../constants';
 
 class TradeHistoryItem extends React.Component {
     constructor(props) {
@@ -36,8 +33,8 @@ class TradeHistoryItem extends React.Component {
                     </td>
                     <td className="">{this.state.transfer.tradeType}</td>
                     <td className="align-right">{this.state.transfer.quantityATU/ Math.pow(10, this.state.transfer.decimals)}</td>
-                    <td className="align-right">{(this.state.transfer.priceATM / ONE_APL) * Math.pow(10, this.state.transfer.decimals)}</td>
-                    <td className="align-right" >{((this.state.transfer.quantityATU )/ this.state.transfer.decimals) * ((this.state.transfer.priceATM / ONE_APL) * this.state.transfer.decimals)}</td>
+                    <td className="align-right">{(this.state.transfer.priceATM / this.props.decimals) * Math.pow(10, this.state.transfer.decimals)}</td>
+                    <td className="align-right" >{((this.state.transfer.quantityATU )/ this.state.transfer.decimals) * ((this.state.transfer.priceATM / this.props.decimals) * this.state.transfer.decimals)}</td>
                     <td className="blue-link-text">
                         <a onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', this.state.transfer.buyer)}>{this.state.transfer.buyerRS}</a>
                     </td>
@@ -54,9 +51,13 @@ class TradeHistoryItem extends React.Component {
     }
 }
 
-const mapDispatchToProps = dispatch => ({
-    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-    formatTimestamp: (timestamp, date_only, isAbsoluteTime) => dispatch(formatTimestamp(timestamp, date_only, isAbsoluteTime)),
+const mapStateToProps = state => ({
+  decimals: state.account.decimals,
 });
 
-export default connect(null, mapDispatchToProps)(TradeHistoryItem);
+const mapDispatchToProps = dispatch => ({
+  setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
+  formatTimestamp: (timestamp, date_only, isAbsoluteTime) => dispatch(formatTimestamp(timestamp, date_only, isAbsoluteTime)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(TradeHistoryItem);

@@ -44,13 +44,6 @@ export default function TradeHistory() {
   }, [account, dispatch]);
 
   const onPaginate = useCallback(currPage => {
-    // const reqParams = {
-    //   currPage,
-    //   account,
-    //   firstIndex: currPage * 15 - 15,
-    //   lastIndex: currPage * 15,
-    // };
-
     setPage(currPage);
     setFirstIndex(currPage * 15 - 15);
     setLastIndex(currPage * 15);

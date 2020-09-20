@@ -42,7 +42,7 @@ export default class ApproveWithAssetBody extends React.Component {
                     placeholder={'Asset Quantity'}
                 />
 
-                <AssetInput 
+                <AssetInput
                     field={'controlHolding'}
                 />
 
@@ -74,7 +74,7 @@ export default class ApproveWithAssetBody extends React.Component {
                     field="maxFees"
                     placeholder="Max fees"
                     type={"number"}
-                    countingTtile={'APL'}
+                    countingTtile={this.props.ticker}
                 />
             </ModalBody>
         );

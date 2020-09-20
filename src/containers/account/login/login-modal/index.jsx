@@ -3,7 +3,9 @@
  *                                                                            *
  ***************************************************************************** */
 
-import React, { useState, useCallback, useMemo } from 'react';
+import React, {
+  useState, useCallback, useMemo,
+} from 'react';
 import ButtonTabs from '../../../components/button-tabs';
 import AccountIdForm from './forms/viaAccountIdForm';
 import SecretPhraseForm from './forms/viaSecretPhraseForm';

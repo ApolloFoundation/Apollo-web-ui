@@ -3,7 +3,9 @@ import BuyOrders from './BuyOrders.jsx';
 import SellOrders from './SellOrders.jsx';
 
 export default function Orderbook(props) {
-  const { currentCurrency, buyOrders, sellOrders } = props;
+  const {
+    currentCurrency, buyOrders, sellOrders, ticker,
+  } = props;
 
   const [actionType, setActionType] = useState(0);
 
@@ -37,12 +39,14 @@ export default function Orderbook(props) {
         <SellOrders
           currentCurrency={currentCurrency}
           sellOrders={sellOrders}
+          ticker={ticker}
         />
         )}
         {(actionType === 0 || actionType === 1) && (
           <BuyOrders
             currentCurrency={currentCurrency}
             buyOrders={buyOrders}
+            ticker={ticker}
           />
         )}
       </div>

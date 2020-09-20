@@ -378,6 +378,8 @@ class AssetExchange extends React.Component {
                                     <div className={'row'}>
                                         <div className="col-xl-6 col-md-12 pr-0 pb-3">
                                             <BuyAsset
+                                                decimals={this.props.decimals}
+                                                ticker={this.props.ticker}
                                                 asset={this.state.asset}
                                                 balanceATU={this.state.asset.balanceATU}
                                                 handleTotalValue={this.handleTotalValue}
@@ -388,6 +390,7 @@ class AssetExchange extends React.Component {
                                         <div className="col-xl-6 col-md-12 pr-0 pb-3">
                                             <SellAsset
                                                 asset={this.state.asset}
+                                                ticker={this.props.ticker}
                                                 accountAsset={this.state.accountAsset}
                                                 handleTotalValue={this.handleTotalValue}
                                                 handleSellOrders={this.handleSellOrders}
@@ -489,6 +492,8 @@ class AssetExchange extends React.Component {
 const mapStateToProps = state => ({
     amountATM: state.account.balanceATM,
     account: state.account.account,
+    decimals: state.account.decimals,
+    ticker: state.account.ticker,
     assetBalances: state.account.assetBalances
 });
 

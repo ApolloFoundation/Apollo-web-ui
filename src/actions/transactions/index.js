@@ -10,7 +10,6 @@ import config from '../../config';
 import queryString from 'query-string';
 import {NotificationManager} from "react-notifications";
 import {processElGamalEncryption} from "../crypto";
-import {ONE_APL} from '../../constants';
 
 export function getTransactionsAction(requestParams) {
     return async (dispatch) => {
@@ -148,13 +147,14 @@ export function getPrivateTransactionAction(requestParams) {
     }
 }
 export function sendTransactionAction(requestParams) {
-    return async () => {
+    return async (getState) => {
+        const { account } = getState();
         let data = {
             ...requestParams,
             requestType: 'sendMoney',
             deadline: '1440',
-            amountATM: requestParams.amountATM * ONE_APL,
-            feeATM: requestParams.feeATM * ONE_APL,
+            amountATM: requestParams.amountATM * account.decimals,
+            feeATM: requestParams.feeATM * account.decimals,
         };
         if (data.passphrase) data.passphrase = await processElGamalEncryption(data.passphrase);
         else if (data.secretPhrase) data.secretPhrase = await processElGamalEncryption(data.secretPhrase);
@@ -177,13 +177,14 @@ export function sendTransactionAction(requestParams) {
 }
 
 export function sendPrivateTransaction(requestParams) {
-    return async () => {
+    return async (getState) => {
+        const { account } = getState();
         let data = {
             ...requestParams,
             requestType: 'sendMoneyPrivate',
             deadline: '1440',
-            amountATM: requestParams.amountATM * ONE_APL,
-            feeATM: requestParams.feeATM * ONE_APL,
+            amountATM: requestParams.amountATM * account.decimals,
+            feeATM: requestParams.feeATM * account.decimals,
         };
         if (data.passphrase) data.passphrase = await processElGamalEncryption(data.passphrase);
         else if (data.secretPhrase) data.secretPhrase = await processElGamalEncryption(data.secretPhrase);

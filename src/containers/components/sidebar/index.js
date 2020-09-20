@@ -7,11 +7,11 @@
 import React from 'react';
 import { NavLink, Link} from 'react-router-dom';
 import {connect} from 'react-redux';
-import classNames from 'classnames'
 import {Scrollbars} from 'react-custom-scrollbars';
-import * as routes from './routesMenu';
+import classNames from 'classnames'
 import {setModalType} from '../../../modules/modals';
-import ApolloLogo from '../../../assets/apollo-icon.png';
+import * as routes from './routesMenu';
+import ApolloLogo from '../../../assets/new_apl_icon_black.svg';
 import './Sidebar.scss';
 
 const mapStateToProps = state => ({
@@ -137,7 +137,7 @@ class Sidebar extends React.Component {
 							className="site-logo"
 							to="/"
 						>
-							<img src={ApolloLogo} alt={''} />
+							<img src={ApolloLogo} atl='' />
 						</Link>
 						<nav
 							className={"header-nav"}

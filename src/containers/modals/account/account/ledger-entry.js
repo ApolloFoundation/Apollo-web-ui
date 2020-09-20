@@ -1,65 +1,58 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import {connect} from 'react-redux';
-import {getLedgerEntryAction} from "../../../../actions/ledger";
-import {formatTimestamp}      from '../../../../helpers/util/time';
-import {setBodyModalParamsAction} from '../../../../modules/modals';
-import {ONE_APL} from '../../../../constants';
+import { useDispatch, useSelector } from 'react-redux';
+import { formatTimestamp } from '../../../../helpers/util/time';
+import { setBodyModalParamsAction } from '../../../../modules/modals';
 
+const Entry = ({
+  event, eventType, timestamp, change, holdingType,
+  holdingInfo, balance, ledgerId,
+}) => {
+  const dispatch = useDispatch();
 
-const Entry = ({formatTimestamp, event, eventType, timestamp, change, holdingType, holdingInfo, balance, ledgerId, setBodyModalParamsAction}) => (
+  const { decimals } = useSelector(state => state.account);
+
+  return (
     <tr key={uuidv4()}>
-        <td className="blue-link-text">
-            <a
-                onClick={() => setBodyModalParamsAction('INFO_LEDGER_TRANSACTION', ledgerId)}
-            >
-                {formatTimestamp(timestamp)}
-            </a>
-        </td>
-        <td>
-            <a
-                onClick={() => setBodyModalParamsAction('INFO_TRANSACTION', event)}
-            >
-                {eventType}
-                &nbsp;&nbsp;
-                <span
-                    className="zmdi zmdi-info"
-                />
-            </a>
-        </td>
-        <td className="align-right">
-            {holdingType === "UNCONFIRMED_APL_BALANCE" &&
-            (change / ONE_APL).toFixed(1)}
-        </td>
-        <td className="align-right">
-            {holdingType === "UNCONFIRMED_APL_BALANCE" && balance > 0 &&
-            (balance / ONE_APL).toLocaleString('en')}
-        </td>
-        <td className="align-right">
-            {holdingInfo && holdingInfo.name}
-        </td>
-        <td className="align-right">
-            {holdingType === "UNCONFIRMED_CURRENCY_BALANCE" &&
-            holdingInfo && holdingInfo.name &&
-            (change / 1).toFixed(2)}
-            {holdingType === "UNCONFIRMED_ASSET_BALANCE" &&
-            (change / ONE_APL).toFixed(2)}
-        </td>
-        <td className="align-right">
-            {holdingType === "UNCONFIRMED_CURRENCY_BALANCE" &&
-            holdingInfo && holdingInfo.name &&
-            (balance / 1).toLocaleString('en')}
-            {holdingType === "UNCONFIRMED_ASSET_BALANCE" &&
-            (balance / ONE_APL).toLocaleString('en')}
-        </td>
+      <td className="blue-link-text">
+        <a onClick={() => dispatch(setBodyModalParamsAction('INFO_LEDGER_TRANSACTION', ledgerId))}>
+          {dispatch(formatTimestamp(timestamp))}
+        </a>
+      </td>
+      <td>
+        <a onClick={() => dispatch(setBodyModalParamsAction('INFO_TRANSACTION', event))}>
+          {eventType}
+        &nbsp;&nbsp;
+          <span className="zmdi zmdi-info" />
+        </a>
+      </td>
+      <td className="align-right">
+        {holdingType === 'UNCONFIRMED_APL_BALANCE'
+        && (change / decimals).toFixed(1)}
+      </td>
+      <td className="align-right">
+        {holdingType === 'UNCONFIRMED_APL_BALANCE' && balance > 0
+        && (balance / decimals).toLocaleString('en')}
+      </td>
+      <td className="align-right">
+        {holdingInfo && holdingInfo.name}
+      </td>
+      <td className="align-right">
+        {holdingType === 'UNCONFIRMED_CURRENCY_BALANCE'
+        && holdingInfo && holdingInfo.name
+        && (change / 1).toFixed(2)}
+        {holdingType === 'UNCONFIRMED_ASSET_BALANCE'
+        && (change / decimals).toFixed(2)}
+      </td>
+      <td className="align-right">
+        {holdingType === 'UNCONFIRMED_CURRENCY_BALANCE'
+        && holdingInfo && holdingInfo.name
+        && (balance / 1).toLocaleString('en')}
+        {holdingType === 'UNCONFIRMED_ASSET_BALANCE'
+        && (balance / decimals).toLocaleString('en')}
+      </td>
     </tr>
-)
+  );
+};
 
-const mapDispatchToProps = dispatch => ({
-    getLedgerEntryAction: (data) => getLedgerEntryAction(data),
-    formatTimestamp: (time) => dispatch(formatTimestamp(time)),
-	setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-
-})
-
-export default connect(null, mapDispatchToProps)(Entry);
+export default Entry;

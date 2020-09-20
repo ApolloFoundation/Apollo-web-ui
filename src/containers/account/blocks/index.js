@@ -20,7 +20,6 @@ import {getTime} from '../../../actions/login';
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {BlockUpdater} from "../../block-subscriber";
 import {formatTimestamp} from "../../../helpers/util/time";
-import {ONE_APL} from '../../../constants';
 import Block from './block';
 import './Blocks.scss';
 
@@ -76,11 +75,11 @@ class Blocks extends React.Component {
     componentDidMount() {
         this.startListenBlocks();
     }
-    
+
     componentWillUnmount() {
         BlockUpdater.removeListener("data", this.listener)
     }
-    
+
     startListenBlocks = () => {
         this.getBlocks({
             account: this.props.account,
@@ -118,8 +117,8 @@ class Blocks extends React.Component {
         }
 
         if (blocks.length) {
-            avgFee = (totalFee / ONE_APL / blocks.length).toFixed(2);
-            avgAmount = (totalAmount / ONE_APL / blocks.length).toFixed(2);
+            avgFee = (totalFee / this.props.decimals / blocks.length).toFixed(2);
+            avgAmount = (totalAmount / this.props.decimals / blocks.length).toFixed(2);
         }
 
         this.setState({
@@ -141,7 +140,7 @@ class Blocks extends React.Component {
         let forgedBlocks = 0;
         if (blockCount.numberOfBlocks && blockCount.numberOfBlocks > 0) {
             forgedBlocks = blockCount.numberOfBlocks;
-            avgFee = (this.props.forgedBalanceATM / blockCount.numberOfBlocks / ONE_APL).toFixed(2);
+            avgFee = (this.props.forgedBalanceATM / blockCount.numberOfBlocks / this.props.decimals).toFixed(2);
         }
 
         let totalFee = 0;
@@ -156,7 +155,7 @@ class Blocks extends React.Component {
         });
 
         if (blocks.length) {
-            avgAmount = (totalAmount / ONE_APL / blocks.length).toFixed(2);
+            avgAmount = (totalAmount / this.props.decimals / blocks.length).toFixed(2);
         }
 
         this.setState({
@@ -166,7 +165,7 @@ class Blocks extends React.Component {
 				avgFee,
 				avgAmount,
 				transactionPerHour: Math.floor(transactions / 15),
-                forgedFees: this.props.forgedBalanceATM / ONE_APL,
+                forgedFees: this.props.forgedBalanceATM / this.props.decimals,
                 forgedBlocks,
 			}
         });
@@ -388,6 +387,7 @@ class Blocks extends React.Component {
 
 const mapStateToProps = state => ({
     account: state.account.account,
+    decimals: state.account.decimals,
     forgedBalanceATM: state.account.forgedBalanceATM,
     blockTime: state.account.blockchainStatus ? state.account.blockchainStatus.blockTime : null
 });

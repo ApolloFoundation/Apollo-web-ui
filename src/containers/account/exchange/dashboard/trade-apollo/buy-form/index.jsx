@@ -20,7 +20,9 @@ export default function BuyFormWrapper(props) {
 
   const { currency } = currentCurrency;
 
-  const { wallet, handleLoginModal, ethFee } = props;
+  const {
+    wallet, handleLoginModal, ethFee, ticker,
+  } = props;
 
   const [isPending, setIsPending] = useState(false);
 
@@ -48,7 +50,7 @@ export default function BuyFormWrapper(props) {
             isError = true;
           }
           if (+newValues.offerAmount < 0.001) {
-            NotificationManager.error('You can buy more then 0.001 APL', 'Error', 5000);
+            NotificationManager.error(`You can buy more then 0.001 ${ticker}`, 'Error', 5000);
             isError = true;
           }
           if (!newValues.walletAddress || !newValues.walletAddress.value.balances) {
@@ -60,7 +62,7 @@ export default function BuyFormWrapper(props) {
             isError = true;
           }
           if (+ethFee > +newValues.walletAddress.value.balances.eth) {
-            NotificationManager.error(`To buy APL you need to have at least ${ethFee.toLocaleString('en', {
+            NotificationManager.error(`To buy ${ticker} you need to have at least ${ethFee.toLocaleString('en', {
               minimumFractionDigits: 0,
               maximumFractionDigits: 9,
             })} ETH on your balance to confirm transaction`, 'Error', 5000);
@@ -89,7 +91,7 @@ export default function BuyFormWrapper(props) {
             return;
           }
           if (!balanceAPL || currentBalanceAPL === 0 || currentBalanceAPL < feeATM) {
-            NotificationManager.error('Not enough funds on your APL balance. You need to pay 2 APL fee.', 'Error', 5000);
+            NotificationManager.error(`Not enough funds on your ${ticker} balance. You need to pay 2 ${ticker} fee.`, 'Error', 5000);
             setPending(false);
             return;
           }
@@ -127,7 +129,7 @@ export default function BuyFormWrapper(props) {
       }
     }
   }, [
-    isPending, dispatch, setPending, wallet, currency, ethFee,
+    isPending, dispatch, setPending, wallet, currency, ethFee, ticker,
     dashboardAccoountInfo, balanceAPL, account, passPhrase, handleLoginModal,
   ]);
 
@@ -144,6 +146,7 @@ export default function BuyFormWrapper(props) {
       <BuyForm
         passPhrase={passPhrase}
         wallet={wallet}
+        ticker={ticker}
         ethFee={ethFee}
         isPending={isPending}
       />

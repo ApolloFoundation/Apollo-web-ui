@@ -2,7 +2,6 @@ import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik, Form } from 'formik';
 import classNames from 'classnames';
-import { ONE_APL } from '../../../constants';
 import { openPrevModal, saveSendModalState } from '../../../modules/modals';
 import FormFooter from '../form-components/form-footer1';
 import ModalFooter from '../modal-footer/index1';
@@ -13,6 +12,7 @@ export default function ModalBody(props) {
   const dispatch = useDispatch();
 
   const { modalData, modalsHistory } = useSelector(state => state.modals);
+  const { decimals, ticker } = useSelector(state => state.account);
 
   const {
     handleFormSubmit, onChange, isPour, isXWide, isWide, initialValues,
@@ -108,9 +108,9 @@ export default function ModalBody(props) {
                         Price:
                       </label>
                       <div className="price">
-                        {marketplace.priceATM / ONE_APL}
+                        {marketplace.priceATM / decimals}
                         {' '}
-                        APL
+                        {ticker}
                       </div>
                     </div>
                     {marketplace.description && (
@@ -134,6 +134,7 @@ export default function ModalBody(props) {
                 {isFee && (
                   <FeeInputForm
                     name="feeATM"
+                    counterLabel={ticker}
                     values={values}
                   />
                 )}

@@ -47,7 +47,7 @@ class BuyCurrency extends React.Component {
     };
 
     render() {
-        const {nameModal} = this.props;
+        const {nameModal, ticker} = this.props;
 
         return (
             <ModalBody
@@ -64,11 +64,11 @@ class BuyCurrency extends React.Component {
                     <React.Fragment>
                         <TextualInputComponent
                             label={"Order Description"}
-                            text={`Buy ${this.props.modalData.units} ${this.props.modalData.code} currencies at ${this.props.modalData.rateATM / this.props.modalData.units} APL each.`}
+                            text={`Buy ${this.props.modalData.units} ${this.props.modalData.code} currencies at ${this.props.modalData.rateATM / this.props.modalData.units} ${ticker} each.`}
                         />
                         <TextualInputComponent
                             label={"Total"}
-                            text={`${this.props.modalData.rateATM} APL`}
+                            text={`${this.props.modalData.rateATM} ${ticker}`}
                         />
                     </React.Fragment>
                 )}
@@ -78,6 +78,7 @@ class BuyCurrency extends React.Component {
 }
 
 const mapStateToProps = state => ({
+    ticker: state.account.ticker,
     modalData: state.modals.modalData,
 });
 
