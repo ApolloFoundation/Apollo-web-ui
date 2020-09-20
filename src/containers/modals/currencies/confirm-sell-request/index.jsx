@@ -7,15 +7,17 @@ import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
-import ModalBody from '../../../components/modals/modal-body1';
 import TextualInputComponent from '../../../components/form-components/textual-input1';
+import ModalBody from '../../../components/modals/modal-body1';
 
-export default function BuyCurrency(props) {
+export default function SellCurrency(props) {
   const dispatch = useDispatch();
 
   const { processForm, closeModal, nameModal } = props;
 
   const { modalData } = useSelector(state => state.modals);
+
+  const { ticker } = useSelector(state => state.account);
 
   const handleFormSubmit = useCallback(async values => {
     const data = {
@@ -25,33 +27,33 @@ export default function BuyCurrency(props) {
       units: modalData.units * (10 ** modalData.decimals),
     };
 
-    processForm(data, 'currencyBuy', 'The buy order has been submitted!', () => {
+    processForm(data, 'currencySell', 'The sell order has been submitted!', () => {
       dispatch(setBodyModalParamsAction(null, {}));
-      NotificationManager.success('The buy order has been submitted!', null, 5000);
+      NotificationManager.success('The sell order has been submitted!', null, 5000);
     });
   }, [dispatch, modalData, processForm]);
 
   return (
     <ModalBody
-      modalTitle="Buy Currency"
+      modalTitle="Sell Currency"
       isAdvanced
       isFee
       closeModal={closeModal}
       handleFormSubmit={handleFormSubmit}
-      submitButtonName="Buy"
+      submitButtonName="Sell"
       nameModel={nameModal}
     >
       {modalData && (
-      <>
-        <TextualInputComponent
-          label="Order Description"
-          text={`Buy ${modalData.units} ${modalData.code} currencies at ${modalData.rateATM / modalData.units} APL each.`}
-        />
-        <TextualInputComponent
-          label="Total"
-          text={`${modalData.rateATM} APL`}
-        />
-      </>
+        <>
+          <TextualInputComponent
+            label="Order Description"
+            text={`Sell ${modalData.units} ${modalData.code} currencies at ${modalData.rateATM / modalData.units} ${ticker} each.`}
+          />
+          <TextualInputComponent
+            label="Total"
+            text={`${modalData.rateATM} ${ticker}`}
+          />
+        </>
       )}
     </ModalBody>
   );

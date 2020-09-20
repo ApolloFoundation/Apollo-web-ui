@@ -2,20 +2,20 @@ import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { Formik, Form } from 'formik';
 import { NotificationManager } from 'react-notifications';
-import { setBodyModalParamsAction } from '../../../../modules/modals';
-import Button from '../../../components/button';
-import NumericInput from '../../../components/form-components/numeric-input1';
+import { setBodyModalParamsAction } from '../../../../../modules/modals';
+import Button from '../../../../components/button';
+import NummericInput from '../../../../components/form-components/numeric-input1';
 
-export default function BuyForm(props) {
+export default function SellForm(props) {
   const dispatch = useDispatch();
 
   const {
-    minimumSellRate, currencyInfo, balanceBuy, currentCoinDecimals, ticker,
+    minimumBuyRate, currencyInfo, balanceSell, ticker, currentCoinDecimals,
   } = props;
 
   const { code, decimals, currency } = currencyInfo;
 
-  const handleMinimumBuyRate = useCallback(values => {
+  const handleMinimumSellRate = useCallback(values => {
     const normalizedValues = {
       ...values,
       code,
@@ -24,7 +24,7 @@ export default function BuyForm(props) {
     };
 
     if (!!parseInt(normalizedValues.rateATM, 10) && !!parseInt(normalizedValues.units, 10)) {
-      dispatch(setBodyModalParamsAction('BUY_CURRENCY', normalizedValues));
+      dispatch(setBodyModalParamsAction('SELL_CURRENCY', normalizedValues));
     } else {
       NotificationManager.error('Please fill in number of units and rate.', null, 5000);
     }
@@ -34,30 +34,29 @@ export default function BuyForm(props) {
     <div className="col-xl-6 col-md-12 pr-0 mb-3">
       <div className="card green">
         <div className="card-title card-title-lg">
-          Buy
+          Sell
           {' '}
           {code}
           <span>
             Balance:
+            {balanceSell.toLocaleString('en')}
             {' '}
-            {balanceBuy.toLocaleString('en')}
-            {' '}
-            {ticker}
+            {code}
           </span>
         </div>
         <div className="card-body">
           <Formik
             initialValues={{
-              maximumRate: Math.round((minimumSellRate / currentCoinDecimals) * (10 ** decimals)),
-              effectiveRate: Math.round((minimumSellRate / currentCoinDecimals) * (10 ** decimals)),
+              maximumRate: Math.round((minimumBuyRate / currentCoinDecimals) * (10 ** decimals)),
+              effectiveRate: Math.round((minimumBuyRate / currentCoinDecimals) * (10 ** decimals)),
               units: 0,
               rateATM: '',
             }}
-            onSubmit={handleMinimumBuyRate}
+            onSubmit={handleMinimumSellRate}
           >
             {({ values, setFieldValue }) => (
               <Form className="form-group-app">
-                <NumericInput
+                <NummericInput
                   label="Units"
                   name="units"
                   type="float"
@@ -65,16 +64,16 @@ export default function BuyForm(props) {
                   onChange={e => {
                     if (!e.target) {
                       setFieldValue('rateATM', Math.round(
-                        ((minimumSellRate / currentCoinDecimals) * (10 ** decimals)) * +e,
+                        ((minimumBuyRate / currentCoinDecimals) * (10 ** decimals)) * +e,
                       ));
                     } else {
-                      setFieldValue('rateATM', Math.round(((minimumSellRate / currentCoinDecimals) * (10 ** decimals)) * +values.units));
+                      setFieldValue('rateATM', Math.round(((minimumBuyRate / currentCoinDecimals) * (10 ** decimals)) * +values.units));
                     }
                   }}
                   counterLabel={code}
                 />
-                {!!minimumSellRate && (
-                  <NumericInput
+                {!!minimumBuyRate && (
+                  <NummericInput
                     label="Maximum Rate"
                     name="maximumRate"
                     type="float"
@@ -84,21 +83,21 @@ export default function BuyForm(props) {
                     onChange={e => {
                       if (!e.target) {
                         setFieldValue('rateATM', Math.round(
-                          ((minimumSellRate / currentCoinDecimals) * (10 ** decimals)) * +e,
+                          ((minimumBuyRate / currentCoinDecimals) * (10 ** decimals)) * +e,
                         ));
                       } else {
                         setFieldValue('rateATM', Math.round(
-                          ((minimumSellRate / currentCoinDecimals) * (10 ** decimals)) * +values.units,
+                          ((minimumBuyRate / currentCoinDecimals) * (10 ** decimals)) * +values.units,
                         ));
                       }
                     }}
                     counterLabel={`${ticker}/${code}`}
                   />
                 )}
-                {!!minimumSellRate && (
-                  <NumericInput
+                {!!minimumBuyRate && (
+                  <NummericInput
                     label="Effective Rate"
-                    name="effectiveRate"
+                    name="maximumRate"
                     type="float"
                     placeholder="Quantity"
                     disableArrows
@@ -106,18 +105,18 @@ export default function BuyForm(props) {
                     onChange={e => {
                       if (!e.target) {
                         setFieldValue('rateATM', Math.round(
-                          ((minimumSellRate / currentCoinDecimals) * (10 ** decimals)) * +e,
+                          ((minimumBuyRate / currentCoinDecimals) * (10 ** decimals)) * +e,
                         ));
                       } else {
                         setFieldValue('rateATM', Math.round(
-                          ((minimumSellRate / currentCoinDecimals) * (10 ** decimals)) * +values.units,
+                          ((minimumBuyRate / currentCoinDecimals) * (10 ** decimals)) * +values.units,
                         ));
                       }
                     }}
                     counterLabel={`${ticker}/${code}`}
                   />
                 )}
-                <NumericInput
+                <NummericInput
                   label="Total"
                   name="rateATM"
                   type="tel"
@@ -128,9 +127,9 @@ export default function BuyForm(props) {
                 <Button
                   type="submit"
                   size="lg"
-                  color="green"
-                  name={`Buy (${ticker} > ${code})`}
+                  name={`Buy (${code} > ${ticker})`}
                   disabled={!(+values.rateATM)}
+                  color="green"
                 />
               </Form>
             )}

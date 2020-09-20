@@ -34,14 +34,17 @@ export default function TransferCurrency(props) {
       initialValues={{
         code: modalData.code,
         recipient: modalData.recipient,
+        units: '',
       }}
     >
       <CurrencyInput
         name="code"
+        placeholder="Code"
         disabled={!modalData}
       />
       <AccountRSFormInput
         name="recipient"
+        placeholder="Recipient"
         label="Recipient"
       />
       <NumericInput

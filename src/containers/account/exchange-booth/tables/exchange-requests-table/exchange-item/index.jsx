@@ -4,12 +4,14 @@
  ***************************************************************************** */
 
 import React from 'react';
-import { ONE_APL } from '../../../../../../constants';
+import { useSelector } from 'react-redux';
 
 export default function ExchangeItem(props) {
   const {
     setBlockInfo, decimals, height, subtype, rateATM, units,
   } = props;
+
+  const { decimals: currentCoinDecimals } = useSelector(state => state.account);
 
   return (
     <tr>
@@ -25,11 +27,11 @@ export default function ExchangeItem(props) {
         {(parseInt(units) / (10 ** decimals)).toFixed(8)}
       </td>
       <td className="align-right">
-        {((rateATM / ONE_APL) * (10 ** decimals)).toFixed(2)}
+        {((rateATM / currentCoinDecimals) * (10 ** decimals)).toFixed(2)}
       </td>
       <td className="align-right">
         {(
-          ((parseInt(units) / (10 ** decimals))) * ((rateATM / ONE_APL)) * (10 ** decimals)
+          ((parseInt(units) / (10 ** decimals))) * ((rateATM / currentCoinDecimals)) * (10 ** decimals)
         ).toFixed(2)}
       </td>
     </tr>

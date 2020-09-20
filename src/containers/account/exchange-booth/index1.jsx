@@ -12,8 +12,8 @@ import { getAllCurrenciesAction, getCurrencyAction } from '../../../actions/curr
 import { BlockUpdater } from '../../block-subscriber';
 import { setBodyModalParamsAction } from '../../../modules/modals';
 // Forms
-import BuyForm from './buy-form';
-import SellForm from './sell-form';
+import BuyForm from './forms/buy-form';
+import SellForm from './forms/sell-form';
 // Tables
 import OffersToBuyTable from './tables/offers-to-buy-table';
 import OffersToSellTable from './tables/offers-to-sell-table';

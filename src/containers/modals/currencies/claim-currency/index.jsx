@@ -20,7 +20,7 @@ export default function ClaimCurrency(props) {
   const { nameModal, closeModal, processForm } = props;
 
   const { modalData } = useSelector(state => state.modals);
-  const { account } = useSelector(state => state.account);
+  const { account, ticker } = useSelector(state => state.account);
 
   const [dataCurrency, setDataCurrency] = useState(null);
   const [dataAccountCurrecny, setDataAccountCurrecny] = useState(null);
@@ -54,6 +54,7 @@ export default function ClaimCurrency(props) {
       closeModal={closeModal}
       handleFormSubmit={handleFormSubmit}
       submitButtonName="Claim Currency"
+      initialValues={{ units: '' }}
       nameModel={nameModal}
     >
       {dataAccountCurrecny && dataCurrency && (
@@ -62,7 +63,7 @@ export default function ClaimCurrency(props) {
             ${dataAccountCurrecny.currentSupply / (10 ** dataAccountCurrecny.decimals)}
             Claim rate
             ${dataAccountCurrecny.currentReservePerUnitATM / (10 ** dataAccountCurrecny.decimals)}
-            [APL/${dataCurrency.code}]`}
+            [${ticker}/${dataCurrency.code}]`}
         />
       )}
       <TextualInputComponent

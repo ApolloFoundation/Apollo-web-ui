@@ -41,7 +41,6 @@ const IssueCurrencyForm = () => {
     <>
       <TextualInputComponent
         label="Currency Name"
-        // disabled={false}
         name="name"
         placeholder="Currency Name"
         type="text"
@@ -49,7 +48,6 @@ const IssueCurrencyForm = () => {
 
       <TextualInputComponent
         label="Currency Code"
-        // disabled={false}
         name="code"
         placeholder="Currency Code"
         type="text"
@@ -59,10 +57,10 @@ const IssueCurrencyForm = () => {
         name="description"
         placeholder="Description"
       />
-      {checkboxes.map(checkBox => (
+      {checkboxes.map(({ label, name }) => (
         <CheckboxFormInput
-          labelGroup={checkBox.label}
-          name={checkBox.name}
+          label={label}
+          name={name}
         />
       ))}
       {values.type3 && (

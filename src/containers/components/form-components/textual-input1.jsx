@@ -25,15 +25,13 @@ const TextualInputComponent = ({
       ) : (
         <>
           <div className={`form-group mb-15 ${className}`}>
-            <label>
-              {label}
-            </label>
             <div className={code && 'input-group'}>
               {!text
                 ? (
                   <>
                     <CustomInput
                       disabled={disabled}
+                      label={label}
                       type={type}
                       name={name}
                       placeholder={placeholder}

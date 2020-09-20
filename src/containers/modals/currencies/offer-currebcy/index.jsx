@@ -20,7 +20,7 @@ export default function OfferCurrency(props) {
   const dispatch = useDispatch();
 
   const { modalData } = useSelector(state => state.modals);
-  const { account } = useSelector(state => state.account);
+  const { account, ticker } = useSelector(state => state.account);
 
   const { closeModal } = props;
 
@@ -59,11 +59,20 @@ export default function OfferCurrency(props) {
 
   return (
     <ModalBody
-      modalTitle="Offer Currencyy"
+      modalTitle="Offer Currency"
       isAdvanced
       isFee
       closeModal={closeModal}
       handleFormSubmit={handleSubmit}
+      initialValues={{
+        initialBuySupply: '',
+        totalBuyLimit: '',
+        buyRateATM: '',
+        initialSellSupply: '',
+        totalSellLimit: '',
+        sellRateATM: '',
+        expirationHeight: '',
+      }}
       submitButtonName="Offer Currency"
     >
       <TextualInputComponent
@@ -89,7 +98,7 @@ export default function OfferCurrency(props) {
       <NumericInput
         label="Buy Rate per unit"
         name="buyRateATM"
-        countingTtile={`${modalData.code} / APL`}
+        countingTtile={`${modalData.code} / ${ticker}`}
         placeholder="Amount"
         type="tel"
       />
@@ -110,7 +119,7 @@ export default function OfferCurrency(props) {
       <NumericInput
         label="Sell Rate per unit"
         name="sellRateATM"
-        countingTtile={`${modalData.code} / APL`}
+        countingTtile={`${modalData.code} / ${ticker}`}
         placeholder="Amount"
         type="tel"
       />

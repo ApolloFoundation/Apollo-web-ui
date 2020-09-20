@@ -290,7 +290,7 @@ function amountToPrecision(amount, decimals) {
 }
 
 function resolverReservePerUnit(decimals, reserveSupply, amount) {
-  const resSupply = parseInt(convertToATUf(reserveSupply, decimals));
+  const resSupply = parseInt(convertToATUf(reserveSupply, decimals)).toString();
   const amountATM = convertToATM(amount);
   let unitAmountATM = new BigInteger(amountATM);
   if (resSupply) {

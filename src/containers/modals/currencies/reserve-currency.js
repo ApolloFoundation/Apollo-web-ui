@@ -31,6 +31,7 @@ class ReserveCurrency extends React.Component {
 
             if (!values.secretPhrase || values.secretPhrase.length === 0) {
                 NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
+                this.setState({isPending: false});
                 return;
             }
 
