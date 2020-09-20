@@ -12,13 +12,13 @@ import ModalProvider from '../components/modals/modal-provider';
 import $ from 'jquery';
 // Modals
 import PrivateTransactions from "./private-transaction";
-import SendApollo from "./send-apollo/index1";
-import SendApolloPrivate from "./send-apollo-private/index1";
+import SendApollo from "./send-apollo";
+import SendApolloPrivate from "./send-apollo-private";
 import IssueAsset from "./issue/issue-asset"
 import InfoTransaction from './info-transaction/info-transaction';
 import InfoLedgerTransaction from './info-ledger-transaction';
 import InfoBlock from './info-block';
-import RawTransactionDetails from './send-apollo/raw-transaction-details1';
+import RawTransactionDetails from './send-apollo/raw-transaction-details';
 // Account
 import InfoAccount from './account/account/';
 import CreateUser from './account/create-account';

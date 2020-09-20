@@ -22,7 +22,7 @@ export default function SecretPhraseForm({ activeTab }) {
 
   return (
     <Formik
-      initialValues={{}}
+      initialValues={{ secretPhrase: '' }}
       onSubmit={enterAccountByPassphrase}
     >
       <Form

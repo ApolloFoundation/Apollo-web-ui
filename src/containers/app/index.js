@@ -25,12 +25,11 @@ import BlocksDownloader from '../components/blocks-downloader';
 import { getSavedAccountSettingsAction } from '../../modules/accountSettings';
 // pages components
 import Dashboard from '../account/dashboard';
+import Ledger from '../account/ledger';
 import Login from '../account/login';
 import Faucet from '../account/faucet';
 import Transactions from '../account/transactions';
-import Ledger from '../account/ledger/index1';
 import Blocks from '../account/blocks';
-import ExchangeBooth from '../account/exchange-booth/index1';
 import Followedpolls from '../account/followed-polls';
 import Messenger from '../account/messenger';
 import ResentMarketplaceListing from '../account/marketplace/recent-listing';
@@ -59,10 +58,12 @@ import Settings from '../account/settings';
 import TradeHistory from '../account/trade-history';
 import TransferHistory from '../account/transfer-history';
 // Currencies
-import Currencies from '../account/currency-block/currencies/index1';
-import CurrencyExchangeHistory from '../account/currency-block/currency-exchange-history/index1';
-import TransferHistoryCurrency from '../account/currency-block/currency-transfer-history/index1';
-import MyMadedCurrencies from '../account/currency-block/my-currencies/index1';
+import Currencies from '../account/currency-block/currencies';
+import CurrencyExchangeHistory from '../account/currency-block/currency-exchange-history';
+import TransferHistoryCurrency from '../account/currency-block/currency-transfer-history';
+import MyMadedCurrencies from '../account/currency-block/my-currencies';
+import ExchangeBooth from '../account/currency-block/exchange-booth';
+
 import MyCurrencies from '../account/my-shuffling';
 import Finishedpolls from '../account/finished-polls';
 import MyVotes from '../account/my-votes';
@@ -74,11 +75,11 @@ import MyMessages from '../account/my-messages';
 import MarketplaceSearch from '../account/marketplace-search';
 import Generators from '../account/generators';
 // Excahnge
-import Exchange from '../account/exchange/dashboard/index1';
-import TradeHistoryExchange from '../account/exchange/trade-history/index1';
-import OrderHistory from '../account/exchange/order-history/index1';
-import OrderDetails from '../account/exchange/order-details/index1';
-import ChooseWallet from '../account/exchange/choose-wallet/index1';
+import Exchange from '../account/exchange/dashboard';
+import TradeHistoryExchange from '../account/exchange/trade-history';
+import OrderHistory from '../account/exchange/order-history';
+import OrderDetails from '../account/exchange/order-details';
+import ChooseWallet from '../account/exchange/choose-wallet';
 
 import './App.scss';
 import './fonts.scss';

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { useFormikContext } from 'formik';
 
 import NumericInput from '../../../../components/form-components/numeric-input1';
@@ -9,6 +10,8 @@ import BlockHeightInput from '../../../../components/form-components/block-heigh
 
 const IssueCurrencyForm = () => {
   const { values } = useFormikContext();
+
+  const { ticker } = useSelector(state => state.account);
 
   const checkboxes = [
     {
@@ -68,7 +71,7 @@ const IssueCurrencyForm = () => {
           <NumericInput
             label="Minimum Amount to Reserve Per Unit"
             name="minReservePerUnitATM"
-            countingTtile="APL"
+            countingTtile={ticker}
             placeholder="Minimum Amount Per Unit"
             type="tel"
           />
@@ -76,7 +79,7 @@ const IssueCurrencyForm = () => {
           <NumericInput
             label="Reserve Supply"
             name="reserveSupply"
-            countingTtile="APL"
+            countingTtile={ticker}
             placeholder="Number of Units"
             type="tel"
           />
@@ -87,7 +90,7 @@ const IssueCurrencyForm = () => {
           <NumericInput
             label="Minimum Difficulty"
             name="minDifficulty"
-            countingTtile="APL"
+            countingTtile={ticker}
             placeholder="Minimum Difficulty"
             type="tel"
           />
@@ -95,7 +98,7 @@ const IssueCurrencyForm = () => {
           <NumericInput
             label="Maximum Difficulty"
             name="maxDifficulty"
-            countingTtile="APL"
+            countingTtile={ticker}
             placeholder="Maximum Difficulty"
             type="tel"
           />
@@ -104,14 +107,14 @@ const IssueCurrencyForm = () => {
       <NumericInput
         label="Initial Supply"
         name="initialSupply"
-        countingTtile="APL"
+        countingTtile={ticker}
         placeholder="Initial Supply"
         type="tel"
       />
       <NumericInput
         label="Total Supply"
         name="maxSupply"
-        countingTtile="APL"
+        countingTtile={ticker}
         placeholder="Total Supply"
         type="tel"
       />
