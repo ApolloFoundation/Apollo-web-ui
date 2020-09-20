@@ -9,7 +9,7 @@ import {
   Redirect, Route, Switch, withRouter,
 } from 'react-router-dom';
 import classNames from 'classnames';
-import {getConstantsAction, isLoggedIn} from '../../actions/login';
+import {getConstantsAction, isLoggedIn, getUpdateStatus} from '../../actions/login';
 import {getCurrentTicker} from '../../actions/account';
 import {loadConstants, setPageEvents} from '../../modules/account';
 import {setBodyModalParamsAction, setBodyModalType} from '../../modules/modals';
