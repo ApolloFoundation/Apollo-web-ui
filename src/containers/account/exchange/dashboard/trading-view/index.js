@@ -41,9 +41,12 @@ class TradingView extends React.PureComponent {
 	};
 
 	createTVChart = () => {
-		const {datafeedUrl, interval, libraryPath, containerId, fullscreen, studiesOverrides, autosize, currency} = this.props;
+    const {
+      datafeedUrl, interval, libraryPath, containerId, fullscreen,
+      studiesOverrides, autosize, currency, ticker,
+    } = this.props;
 		const widgetOptions = {
-			symbol: `APL_${currency.toUpperCase()}`,
+			symbol: `${ticker}_${currency.toUpperCase()}`,
 			datafeed: new window.Datafeeds.UDFCompatibleDatafeed(datafeedUrl),
 			interval: interval,
 			container_id: containerId,
@@ -96,8 +99,9 @@ class TradingView extends React.PureComponent {
 	}
 }
 
-const mapStateToProps = ({exchange}) => ({
+const mapStateToProps = ({exchange, account}) => ({
     currency: exchange.currentCurrency.currency,
+    ticker: account.ticker,
 });
 
 export default connect(mapStateToProps, null)(TradingView)

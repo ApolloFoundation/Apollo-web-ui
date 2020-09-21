@@ -8,7 +8,7 @@ import cn from 'classnames';
 
 const InfoBox = ({
   attentionLeft, nowrap, warning: isWarning, children,
-  danger, info, default: defaultValue, mt, onPaddingTop,
+  danger, info, default: defaultValue, mt, noPaddingTop,
   noPaddingOnTheSides, className,
 }) => (
   <div
@@ -16,7 +16,7 @@ const InfoBox = ({
       'attention-left': attentionLeft,
       'info-box': true,
       'blue-info': info,
-      'no-padding-top': onPaddingTop,
+      'no-padding-top': noPaddingTop,
       'no-padding-on-the-sides': noPaddingOnTheSides,
       nowrap,
       danger,

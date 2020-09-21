@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Form, useFormikContext } from 'formik';
-import { multiply, division } from '../../../../../../../helpers/format'
+import { multiply, division } from '../../../../../../../helpers/format';
 import { ONE_GWEI } from '../../../../../../../constants';
 import CustomInput from '../../../../../../components/custom-input';
 import Button from '../../../../../../components/button';

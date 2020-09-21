@@ -4,9 +4,14 @@ import { v4 as uuidv4 } from 'uuid';
 import ContentHendler from '../content-hendler';
 import Button from '../button';
 
-const CustomTable = props => {
+export default function CustomTable(props) {
+  const {
+    AboveTabeComponent, actionButton, passProps, hintClassName, className,
+    tableName, emptyMessage, header, TableRowComponent, isPaginate,
+    previousHendler, nextHendler, page, itemsPerPage = 15, tableData,
+  } = props;
+
   const normalizeTableData = () => {
-    const { tableData, itemsPerPage } = props;
     let newTableData = [];
     if (itemsPerPage && tableData && tableData.length > itemsPerPage) {
       newTableData = tableData.slice(0, itemsPerPage);
@@ -15,16 +20,8 @@ const CustomTable = props => {
     return tableData;
   };
 
-  const isNextDisabled = () => {
-    const { tableData, itemsPerPage = 15 } = props;
-    return tableData.length <= itemsPerPage;
-  };
+  const isNextDisabled = () => tableData.length <= itemsPerPage;
 
-  const {
-    AboveTabeComponent, actionButton, passProps, hintClassName, className,
-    tableName, emptyMessage, header, TableRowComponent, isPaginate,
-    previousHendler, nextHendler, page, itemsPerPage = 15,
-  } = props;
   const newTableData = normalizeTableData();
 
   return (
@@ -103,6 +100,4 @@ const CustomTable = props => {
         )}
     </ContentHendler>
   );
-};
-
-export default CustomTable;
+}
