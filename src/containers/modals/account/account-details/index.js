@@ -16,9 +16,12 @@ import {
 import { setModalData, setBodyModalParamsAction } from '../../../../modules/modals';
 import { getTransactionAction } from '../../../../actions/transactions';
 import ContentLoader from '../../../components/content-loader';
+import Button from '../../../components/button';
 import ModalBody from '../../../components/modals/modal-body';
 import TabulationBody from '../../../components/tabulator/tabuator-body';
 import TabContaier from '../../../components/tabulator/tab-container';
+
+import './styles.scss';
 
 class AccountDetails extends React.Component {
   constructor(props) {
@@ -91,12 +94,13 @@ class AccountDetails extends React.Component {
 
     render() {
       const { phasingControl } = this.state;
-      const { ticker, decimals } = this.props;
-
+      const {
+        ticker, decimals, currentLeasingHeightFrom,
+        currentLeasingHeightTo, actualBlock, currentLessee,
+      } = this.props;
       const isAccountControl = phasingControl && Object.values(phasingControl).length;
-
+      const remainingBlocks = currentLeasingHeightTo - currentLeasingHeightFrom;
       const votingModel = isAccountControl ? this.formatControlType(phasingControl.votingModel) : null;
-
       return (
         <ModalBody
           modalTitle="Account details"
@@ -209,24 +213,36 @@ class AccountDetails extends React.Component {
               }
             </TabContaier>
             <TabContaier sectionName="Account Leasing">
-              <div className="transaction-table no-min-height transparent">
-                <div className="transaction-table-body transparent">
-                  {this.props.currentLessee
+              <div className="transaction-table no-min-height">
+                <div className="transaction-table-body">
+                  {currentLessee
                     ? (
                       <table>
                         <tbody className="with-padding">
                           <tr>
                             <td className="no-brake">Account Leasing:</td>
-                            <td>{processAccountIDtoRS(this.props.currentLessee)}</td>
+                            <td>{processAccountIDtoRS(currentLessee)}</td>
                           </tr>
                           <tr>
                             <td className="no-brake">Leasing is active from:</td>
-                            <td>{this.props.currentLeasingHeightFrom}</td>
+                            <td>{currentLeasingHeightFrom}</td>
                           </tr>
                           <tr>
                             <td className="no-brake">Leasing is active to:</td>
-                            <td>{this.props.currentLeasingHeightTo}</td>
+                            <td>{currentLeasingHeightTo}</td>
                           </tr>
+                          <tr>
+                            <td className="no-brake">Remaining Blocks:</td>
+                            <td>{remainingBlocks}</td>
+                          </tr>
+                          {actualBlock ? (
+                            <tr>
+                              <td className="no-brake">Current Block:</td>
+                              <td>{actualBlock}</td>
+                            </tr>
+                          ) : (
+                            <ContentLoader noPaddingOnTheSides noPaddingTop className="m-0" />
+                          )}
                         </tbody>
                       </table>
                     ) : (
@@ -234,12 +250,21 @@ class AccountDetails extends React.Component {
                         <p>Your account effective balance is not leased out.</p>
                       </>
                     )}
-                  <a
-                    onClick={() => this.props.setBodyModalParamsAction('LEASE_BALANCE')}
-                    className="blue-link-text"
-                  >
-                    Lease your balance to another account.
-                  </a>
+                  <div className="button-wrapper">
+                    <Button
+                      name={currentLessee ? 'Stack my leasing' : 'Lease your balance to another account.'}
+                      color="green"
+                      className="mt-2"
+                      onClick={() => this.props.setBodyModalParamsAction('LEASE_BALANCE')}
+                    />
+                    <Button
+                      name={'Lease your balance to another account.'}
+                      disabled={currentLessee}
+                      color="green"
+                      className="mt-2"
+                      onClick={() => this.props.setBodyModalParamsAction('LEASE_BALANCE')}
+                    />
+                  </div>
                 </div>
               </div>
             </TabContaier>
@@ -255,6 +280,7 @@ const mapStateToProps = state => ({
   ticker: state.account.ticker,
   decimals: state.account.decimals,
   accountRS: state.account.accountRS,
+  actualBlock: state.account.actualBlock,
   currentLessee: state.account.currentLessee,
   currentLeasingHeightFrom: state.account.currentLeasingHeightFrom,
   currentLeasingHeightTo: state.account.currentLeasingHeightTo,
