@@ -257,13 +257,6 @@ class AccountDetails extends React.Component {
                       className="mt-2"
                       onClick={() => this.props.setBodyModalParamsAction('LEASE_BALANCE')}
                     />
-                    <Button
-                      name={'Lease your balance to another account.'}
-                      disabled={currentLessee}
-                      color="green"
-                      className="mt-2"
-                      onClick={() => this.props.setBodyModalParamsAction('LEASE_BALANCE')}
-                    />
                   </div>
                 </div>
               </div>
