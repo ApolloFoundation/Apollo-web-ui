@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
+import { useField } from 'formik';
 import { useSelector } from 'react-redux';
 import CustomInput from '../custom-input';
 
@@ -6,7 +7,7 @@ export default function BlockHeightInput(props) {
   const { actualBlock } = useSelector(state => state.account);
 
   const {
-    setValue, label, name, isSubtitle,
+    label, name, isSubtitle,
     placeholder, className, idGroup,
   } = props;
 

@@ -8,7 +8,7 @@ export default function CreateAccount(props) {
 
   return (
     <Formik
-      initialValues={{}}
+      initialValues={{ secretPhrase: '' }}
       onSubmit={onSubmit}
     >
       <Form className="active">

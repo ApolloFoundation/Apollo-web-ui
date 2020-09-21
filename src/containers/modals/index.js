@@ -12,13 +12,13 @@ import ModalProvider from '../components/modals/modal-provider';
 import $ from 'jquery';
 // Modals
 import PrivateTransactions from "./private-transaction";
-import SendApollo from "./send-apollo/index1";
-import SendApolloPrivate from "./send-apollo-private/index1";
+import SendApollo from "./send-apollo";
+import SendApolloPrivate from "./send-apollo-private";
 import IssueAsset from "./issue/issue-asset"
 import InfoTransaction from './info-transaction/info-transaction';
 import InfoLedgerTransaction from './info-ledger-transaction';
 import InfoBlock from './info-block';
-import RawTransactionDetails from './send-apollo/raw-transaction-details1';
+import RawTransactionDetails from './send-apollo/raw-transaction-details';
 // Account
 import InfoAccount from './account/account/';
 import CreateUser from './account/create-account';
@@ -45,13 +45,13 @@ import BuyAssets from './assets/buy-asset';
 import SellAssets from './assets/sell-asset';
 import AssetDistribution from './assets/view-asset-distribution';
 // Currency System
-import TransferCurrency from './currencies/transfer-currency/'
-import OfferCurrency from './currencies/offer-currebcy/'
-import ReserveCurrency from './currencies/reserve-currency'
-import IssueCurrency from './currencies/issue-currency/';
+import TransferCurrency from './currencies/transfer-currency';
+import OfferCurrency from './currencies/offer-currebcy';
+import ReserveCurrency from './currencies/reserve-currency';
+import IssueCurrency from './currencies/issue-currency';
 import ClaimCurrency from './currencies/claim-currency/';
-import BuyCurrency from './currencies/confirm-buy-request/';
-import SellCurrency from './currencies/confirm-sell-request/';
+import BuyCurrency from './currencies/confirm-buy-request';
+import SellCurrency from './currencies/confirm-sell-request';
 // Voting system
 import CreatePoll from './voting-system/create-poll/';
 import CastVote from './voting-system/cast-vote/';
