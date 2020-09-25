@@ -6,62 +6,70 @@
 import React, {
   useCallback, useState, useEffect,
 } from 'react';
-import { useDispatch } from 'react-redux';
-import { getpollsAction } from '../../../../actions/polls';
-import { BlockUpdater } from '../../../block-subscriber';
+import { useDispatch, useSelector } from 'react-redux';
+import { setBodyModalParamsAction } from '../../../../modules/modals';
+import { BlockUpdater } from '../../../block-subscriber/index';
+import { getMyPollsAction } from '../../../../actions/polls';
 import SiteHeader from '../../../components/site-header';
 import CustomTable from '../../../components/tables/table1';
-import FinishedpollsItem from './finished-pools-item';
+import PoolItem from '../active-polls/pool-item';
 
-export default function Finishedpolls() {
+export default function MyPolls() {
   const dispatch = useDispatch();
 
-  const [dataFinishedpolls, setDataFinishedpolls] = useState(null);
+  const { account } = useSelector(state => state.account);
+
+  const [myPolls, setMyPolls] = useState(null);
   const [currentPaggination, setCurrentPaggination] = useState({
     page: 1,
     firstIndex: 0,
-    lastIndex: 15,
+    lastIndex: 9,
   });
 
-  const getFinishedpolls = useCallback(async params => {
-    const reqParams = {
-      ...params,
-      finishedOnly: true,
-    };
+  const getMyPolls = useCallback(async params => {
+    const reqParams = params || currentPaggination;
+    const currMyPolls = await dispatch(getMyPollsAction({
+      ...reqParams,
+      account,
+      includeFinished: true,
+    }));
 
-    const finishedpolls = await dispatch(getpollsAction(reqParams));
-
-    if (finishedpolls) {
-      setDataFinishedpolls(finishedpolls.polls);
+    if (currMyPolls) {
+      setMyPolls(currMyPolls.polls);
+      setCurrentPaggination(reqParams);
     }
-  }, [dispatch]);
-
-  const listener = useCallback(() => {
-    getFinishedpolls(currentPaggination);
-  }, [currentPaggination, getFinishedpolls]);
+  }, [account, currentPaggination, dispatch]);
 
   const onPaginate = useCallback(page => {
-    const pagination = {
+    getMyPolls({
       page,
       firstIndex: page * 15 - 15,
       lastIndex: page * 15,
-    };
+    });
+  }, [getMyPolls]);
 
-    setCurrentPaggination(pagination);
-
-    getFinishedpolls(pagination);
-  }, [getFinishedpolls]);
+  const listener = useCallback(() => {
+    getMyPolls();
+  }, [getMyPolls, currentPaggination]);
 
   useEffect(() => {
-    getFinishedpolls();
     BlockUpdater.on('data', listener);
 
-    return () => BlockUpdater.removeListener('data', listener);
-  }, [getFinishedpolls, listener]);
+    return () => BlockUpdater.removeAllListeners('data');
+  }, [listener]);
 
   return (
     <div className="page-content">
-      <SiteHeader pageTitle="Finished Polls" />
+      <SiteHeader pageTitle="My Polls">
+        <button
+          type="button"
+          className="btn btn-green btn-sm"
+          style={{ marginLeft: 15 }}
+          onClick={() => dispatch(setBodyModalParamsAction('ISSUE_POLL', {}))}
+        >
+          Create Poll
+        </button>
+      </SiteHeader>
       <div className="page-body container-fluid">
         <CustomTable
           header={[
@@ -78,17 +86,19 @@ export default function Finishedpolls() {
               name: 'Start date',
               alignRight: false,
             }, {
+              name: 'Blocks left',
+              alignRight: false,
+            }, {
               name: 'Actions',
               alignRight: true,
             },
           ]}
           className="no-min-height mb-3"
-          emptyMessage="No finished polls."
-          TableRowComponent={el => <FinishedpollsItem {...el} activepolls />}
-          tableData={dataFinishedpolls}
-          hintClassName="mt-4"
-          isPaginate
+          emptyMessage="No polls found."
           page={currentPaggination.page}
+          TableRowComponent={PoolItem}
+          tableData={myPolls}
+          isPaginate
           previousHendler={() => onPaginate(currentPaggination.page - 1)}
           nextHendler={() => onPaginate(currentPaggination.page + 1)}
           itemsPerPage={15}
