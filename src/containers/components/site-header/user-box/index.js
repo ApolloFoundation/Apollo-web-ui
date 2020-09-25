@@ -14,7 +14,7 @@ import {CopyToClipboard} from 'react-copy-to-clipboard';
 import {getTransactionAction} from "../../../../actions/transactions";
 import {getBlockAction} from "../../../../actions/blocks";
 import {getAccountInfoAction} from "../../../../actions/account";
-import ApolloLogo from "../../../../assets/apollo-icon.png";
+import ApolloLogo from "../../../../assets/new_apl_icon_black.svg";
 
 class UserBox extends Component {
     refSearchInput = React.createRef();
