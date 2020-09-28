@@ -1,16 +1,21 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import Pie from '../pie-diagram';
+import { useDispatch, useSelector } from 'react-redux';
+import { setBodyModalParamsAction } from '../../../../../modules/modals';
+import Button from '../../../../components/button';
 
-import { setBodyModalParamsAction } from '../../../../modules/modals';
+import Pie from './pie-diagram';
 
-const PollDescription = ({
-  colors, poll, pollResults, setBodyModalParamsAction, balanceAPL, decimals,
-}) => {
+const PollDescription = ({ colors, poll, pollResults }) => {
+  const dispatch = useDispatch();
+
+  const { decimals, unconfirmedBalanceATM: balanceAPL } = useSelector(state => state.account);
+
   let checkAction = false;
+
   if (poll.minBalanceModel === 1 && parseFloat(poll.minBalance) >= (balanceAPL / decimals)) {
     checkAction = true;
   }
+
   return (
     <div className="d-flex mb-3">
       <div className="card">
@@ -46,13 +51,12 @@ const PollDescription = ({
               </div>
             </div>
             {!poll.finished && (
-            <button
-              type="button"
-              onClick={() => setBodyModalParamsAction('CAST_VOTE', poll.poll)}
-              className={`btn btn-default btn-lg ${checkAction ? 'disabled' : ''}`}
-            >
-              Vote in poll
-            </button>
+              <Button
+                name="Vote in poll"
+                size="lg"
+                disabled={checkAction}
+                onClick={() => dispatch(setBodyModalParamsAction('CAST_VOTE', poll.poll))}
+              />
             )}
           </div>
         </div>
@@ -78,11 +82,4 @@ const PollDescription = ({
   );
 };
 
-const mapStateToProps = state => ({
-  decimals: state.account.decimals,
-  balanceAPL: state.account.unconfirmedBalanceATM,
-});
-
-const mapDispatchToProps = dispatch => ({ setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)) });
-
-export default connect(mapStateToProps, mapDispatchToProps)(PollDescription);
+export default PollDescription;

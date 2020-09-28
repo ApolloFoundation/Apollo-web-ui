@@ -43,7 +43,7 @@ export default function MyVotes() {
     if (currMyVotes && currMyVotes.transactions) {
       const polls = Promise.all(currMyVotes.transactions.map(async (el, index) => await getVote({ poll: el.attachment.poll })))
         .then(data => {
-          setCurrentPaggination(reqParams);
+          setCurrentPaggination(params);
           setMyVotes(data);
         });
     }

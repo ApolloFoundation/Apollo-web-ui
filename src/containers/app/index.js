@@ -30,7 +30,6 @@ import Login from '../account/login';
 import Faucet from '../account/faucet';
 import Transactions from '../account/transactions';
 import Blocks from '../account/blocks';
-import Followedpolls from '../account/followed-polls';
 import Messenger from '../account/messenger';
 import ResentMarketplaceListing from '../account/marketplace/recent-listing';
 import Marketplace from '../account/marketplace';
@@ -38,7 +37,13 @@ import MyProductsForSale from '../account/my-products-for-sale';
 import MyPandingOrders from '../account/my-panding-orders';
 import PurchasdProucts from '../account/purchased-proucts';
 import MyCompletedOrders from '../account/my-completed-orders';
-import Activepolls from '../account/active-polls';
+// Active polls
+import ActivePolls from '../account/active-polls-block/active-polls';
+import FollowedPolls from '../account/active-polls-block/followed-polls';
+import FinishedPolls from '../account/active-polls-block/finished-polls';
+import MyVotes from '../account/active-polls-block/my-votes';
+import MyPolls from '../account/active-polls-block/my-polls';
+
 import AccountProperties from '../account/account-properties/index1';
 import Assets from '../account/assets';
 import ApprovalRequest from '../account/approval-request/index1';
@@ -65,9 +70,6 @@ import MyMadedCurrencies from '../account/currency-block/my-currencies';
 import ExchangeBooth from '../account/currency-block/exchange-booth';
 
 import MyCurrencies from '../account/my-shuffling';
-import Finishedpolls from '../account/finished-polls';
-import MyVotes from '../account/my-votes';
-import MyPolls from '../account/my-polls';
 import DataStorage from '../account/datastorage';
 import ActiveShufflings from '../account/active-shufflings';
 import FinishedShufflings from '../account/finished-shufflings';
@@ -238,10 +240,14 @@ class App extends React.Component {
         <Route exact path="/transactions" component={Transactions} />
         <Route exact path="/ledger" component={Ledger} />
         <Route exact path="/blocks" component={Blocks} />
-        <Route exact path="/followed-polls/:poll" component={Followedpolls} />
-        <Route exact path="/followed-polls" component={Followedpolls} />
+        {/* Active Polls */}
+        <Route exact path="/active-polls" component={ActivePolls} />
+        <Route exact path="/followed-polls/:poll" component={FollowedPolls} />
+        <Route exact path="/followed-polls" component={FollowedPolls} />
+        <Route exact path="/finished-polls" component={FinishedPolls} />
         <Route exact path="/my-votes" component={MyVotes} />
         <Route exact path="/my-polls" component={MyPolls} />
+
         <Route exact path="/messenger/:chat?" component={Messenger} />
         <Route exact path="/recent-listing" component={ResentMarketplaceListing} />
         <Route exact path="/currencies" component={Currencies} />
@@ -250,7 +256,6 @@ class App extends React.Component {
         <Route exact path="/my-pending-orders" component={MyPandingOrders} />
         <Route exact path="/my-completed-orders" component={MyCompletedOrders} />
         <Route exact path="/marketplace/:tag" component={MarketplaceSearch} />
-        <Route exact path="/active-polls" component={Activepolls} />
         <Route exact path="/active-shuffling" component={ActiveShufflings} />
         <Route exact path="/exchange-booth/:currency" component={ExchangeBooth} />
         <Route exact path="/my-shuffling" component={MyCurrencies} />
@@ -278,7 +283,6 @@ class App extends React.Component {
         <Route exact path="/exchange-history-currency" component={CurrencyExchangeHistory} />
         <Route exact path="/transfer-history" component={TransferHistory} />
         <Route exact path="/transfer-history-currency" component={TransferHistoryCurrency} />
-        <Route exact path="/finished-polls" component={Finishedpolls} />
         <Route exact path="/data-storage" component={DataStorage} />
         <Route exact path="/data-storage/:query" component={DataStorage} />
         <Route exact path="/finished-shuffling" component={FinishedShufflings} />
