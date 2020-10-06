@@ -26,7 +26,7 @@ export default function StandardWalletForm(props) {
   const generatePassphrase = useCallback(async () => {
     const newGeneratedPassphrase = crypto.generatePassPhraseAPL();
     const params = newGeneratedPassphrase.join(' ');
-    const newGeneratedAccount = store.dispatch(await dispatch(crypto.getAccountIdAsyncApl(params)));
+    const newGeneratedAccount = store.dispatch(await dispatch(crypto.getAccountIdAsyncApl(params, 'USDS')));
 
     setGeneratedPassphrase(params);
     setGeneratedAccount(newGeneratedAccount);

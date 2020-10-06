@@ -397,13 +397,13 @@ function isRsAccImpAPL(accountId, regularExpression) {
     return regularExpression.test(accountId);
 }
 
-function convertNumericToRSAccountFormatAPL(accIdAPL) {
+function convertNumericToRSAccountFormatAPL(accIdAPL, prefix) {
     return (dispatch) => {
         const checkRsAccount = dispatch(isRsAccountAPL(accIdAPL));
         if (checkRsAccount) {
             return accIdAPL;
         } else {
-            var address = new AplAddress();
+            var address = new AplAddress(prefix);
 
             if (address.set(accIdAPL)) {
                 return address.toString();
