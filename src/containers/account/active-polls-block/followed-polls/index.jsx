@@ -9,10 +9,10 @@ import React, {
 import { NotificationManager } from 'react-notifications';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouteMatch } from 'react-router-dom';
-import { BlockUpdater } from '../../../block-subscriber';
 import {
   getpollAction, getPollResultAction, getPollVotesAction,
 } from '../../../../actions/polls';
+import { BlockUpdater } from '../../../block-subscriber';
 import { getFollowedPolls } from '../../../../modules/polls';
 import colorGenerator from '../../../../helpers/colorGenerator';
 import SiteHeader from '../../../components/site-header';

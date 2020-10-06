@@ -12,6 +12,7 @@ import { BlockUpdater } from '../../../block-subscriber/index';
 import { getMyPollsAction } from '../../../../actions/polls';
 import SiteHeader from '../../../components/site-header';
 import CustomTable from '../../../components/tables/table1';
+import Button from '../../../components/button';
 import PoolItem from '../active-polls/pool-item';
 
 export default function MyPolls() {
@@ -61,14 +62,12 @@ export default function MyPolls() {
   return (
     <div className="page-content">
       <SiteHeader pageTitle="My Polls">
-        <button
-          type="button"
-          className="btn btn-green btn-sm"
-          style={{ marginLeft: 15 }}
+        <Button
+          size="sm"
+          color="green"
           onClick={() => dispatch(setBodyModalParamsAction('ISSUE_POLL', {}))}
-        >
-          Create Poll
-        </button>
+          name="Create Poll"
+        />
       </SiteHeader>
       <div className="page-body container-fluid">
         <CustomTable

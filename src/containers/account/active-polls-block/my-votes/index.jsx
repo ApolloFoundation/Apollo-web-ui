@@ -78,6 +78,7 @@ export default function MyVotes() {
           size="sm"
           onClick={() => dispatch(setBodyModalParamsAction('ISSUE_POLL', {}))}
           name="Create Poll"
+          color="green"
         />
       </SiteHeader>
       <div className="page-body container-fluid">
