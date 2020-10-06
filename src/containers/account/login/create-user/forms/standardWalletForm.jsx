@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Form, Formik } from 'formik';
 import cn from 'classnames';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -20,19 +20,20 @@ export default function StandardWalletForm(props) {
     activeTab, generatedPassphrase, generatedAccount, setIsValidating, setSelectedOption,
   } = props;
 
+  const { ticker } = useSelector(state => state.account);
   const [isRSAccountLoaded, setIsRSAccountLoaded] = useState(false);
   const [isCustomPassphraseStandardWallet, setIsCustomPassphraseStandardWallet] = useState(false);
 
   const generatePassphrase = useCallback(async () => {
     const newGeneratedPassphrase = crypto.generatePassPhraseAPL();
     const params = newGeneratedPassphrase.join(' ');
-    const newGeneratedAccount = store.dispatch(await dispatch(crypto.getAccountIdAsyncApl(params)));
+    const newGeneratedAccount = store.dispatch(await dispatch(crypto.getAccountIdAsyncApl(params, ticker)));
 
     setGeneratedPassphrase(params);
     setGeneratedAccount(newGeneratedAccount);
     setIsRSAccountLoaded(true);
     setIsCustomPassphraseStandardWallet(true);
-  }, [dispatch, setGeneratedAccount, setGeneratedPassphrase]);
+  }, [dispatch, setGeneratedAccount, setGeneratedPassphrase, ticker]);
 
   const handleSubmit = ({ losePhrase }) => {
     if (!losePhrase) {
