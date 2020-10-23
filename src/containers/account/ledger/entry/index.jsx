@@ -14,7 +14,6 @@ export default function Entry(props) {
   const dispatch = useDispatch();
 
   const { decimals } = useSelector(state => state.account);
-
   const {
     eventType, height, event, ledgerId, timestamp,
     holdingType, holdingInfo, change, balance,
@@ -66,16 +65,16 @@ export default function Entry(props) {
           <td className="align-right">
             {holdingType === 'UNCONFIRMED_CURRENCY_BALANCE'
               && holdingInfo && holdingInfo.name
-              && (change / 1).toFixed(2)}
+              && (change / (10 ** holdingInfo.decimals)).toFixed(2)}
             {holdingType === 'UNCONFIRMED_ASSET_BALANCE'
               && (change / decimals).toFixed(2)}
           </td>
           <td className="align-right">
             {holdingType === 'UNCONFIRMED_CURRENCY_BALANCE'
               && holdingInfo && holdingInfo.name
-              && (balance / 1).toLocaleString('en')}
+              && (balance / (10 ** holdingInfo.decimals)).toFixed(2)}
             {holdingType === 'UNCONFIRMED_ASSET_BALANCE'
-              && (balance / decimals).toLocaleString('en')}
+              && (balance / decimals).toFixed(2)}
           </td>
         </tr>
       )}
