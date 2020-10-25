@@ -53,11 +53,17 @@ export default function Entry(props) {
           </td>
           <td className="align-right">
             {holdingType === 'UNCONFIRMED_APL_BALANCE'
-              && (change / decimals).toFixed(1)}
+              && (change / decimals).toLocaleString('en', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 8,
+              })}
           </td>
           <td className="align-right">
             {holdingType === 'UNCONFIRMED_APL_BALANCE' && balance > 0
-              && (balance / decimals).toLocaleString('en')}
+              && (balance / decimals).toLocaleString('en', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 8,
+              })}
           </td>
           <td className="align-right">
             {holdingInfo && holdingInfo.name}
@@ -65,16 +71,28 @@ export default function Entry(props) {
           <td className="align-right">
             {holdingType === 'UNCONFIRMED_CURRENCY_BALANCE'
               && holdingInfo && holdingInfo.name
-              && (change / (10 ** holdingInfo.decimals)).toFixed(2)}
+              && (change / (10 ** holdingInfo.decimals)).toLocaleString('en', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 8,
+              })}
             {holdingType === 'UNCONFIRMED_ASSET_BALANCE'
-              && (change / decimals).toFixed(2)}
+              && (change / decimals).toLocaleString('en', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 8,
+              })}
           </td>
           <td className="align-right">
             {holdingType === 'UNCONFIRMED_CURRENCY_BALANCE'
               && holdingInfo && holdingInfo.name
-              && (balance / (10 ** holdingInfo.decimals)).toFixed(2)}
+              && (balance / (10 ** holdingInfo.decimals)).toLocaleString('en', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 8,
+              })}
             {holdingType === 'UNCONFIRMED_ASSET_BALANCE'
-              && (balance / decimals).toFixed(2)}
+              && (balance / decimals).toLocaleString('en', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 8,
+              })}
           </td>
         </tr>
       )}
