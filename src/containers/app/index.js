@@ -121,6 +121,7 @@ class App extends React.Component {
         if (window.cordova) {
             window.open = window.cordova.InAppBrowser.open;
             document.addEventListener('click', function (e) {
+              console.log('---addEventListener---', e.target)
                 if (e.target.href &&
                     e.target.href.match(/^https?:\/\//)) {
                     e.preventDefault();

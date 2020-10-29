@@ -49,10 +49,10 @@
 		z-index: 2;
 		max-width: 235px;
 		background-color: #FFF;
-		box-shadow: 5px 0 6px 0 rgba(117,120,138,0.1);
 
 		& > div {
 			position: relative;
+			box-shadow: 5px 0 6px 0 rgba(117, 120, 138, 0.1);
 		}
 		@media (max-width: 760px) {
 			width: 100%;
@@ -61,6 +61,13 @@
 			max-width: 100%;
 			display: flex;
 			flex-wrap: wrap;
+		}
+		@media (max-width: 1000px) {
+			&.collapsed {
+				nav ul li .text .zmdi.left {
+					 left: 18px;
+				 }
+			}
 		}
 		.site-logo {
 			height: 74px;
