@@ -25,46 +25,45 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class Sidebar extends React.Component {
-	submenuRef = React.createRef();
-	menuRef = React.createRef();
+	// submenuRef = React.createRef();
+	// menuRef = React.createRef();
 	state = {
 		isHover: false,
 		isMenuCollapsed: false,
 		activeMenu: null,
 	};
 
-	componentDidMount() {
-		document.addEventListener('touchstart', this.handleMenuTouchOut);
-	}
+	// componentDidMount() {
+	// 	document.addEventListener('touchstart', this.handleMenuTouchOut);
+	// }
+	//
+	// componentWillUnmount() {
+	// 	document.removeEventListener('touchstart', this.handleMenuTouchOut);
+	// }
 
-	componentWillUnmount() {
-		document.removeEventListener('touchstart', this.handleMenuTouchOut);
-	}
-
-	handleMenuMouseOver = () => {
-		this.setState({
-			isHover: true
-		});
-	};
-
-	handleMenuMouseOut = (event) => {
-		this.setState({
-			isHover: false
-		});
-	};
-
-	handleMenuTouchOut = (event) => {
-		if (this.menuRef && this.menuRef.contains && !this.menuRef.contains(event.target) &&
-			this.submenuRef && !this.submenuRef.contains(event.target)) {
-			this.setState({
-				isHover: false
-			});
-		}
-	};
+	// handleMenuMouseOver = () => {
+	// 	this.setState({
+	// 		isHover: true
+	// 	});
+	// };
+	//
+	// handleMenuMouseOut = (event) => {
+	// 	this.setState({
+	// 		isHover: false
+	// 	});
+	// };
+	//
+	// handleMenuTouchOut = (event) => {
+	// 	if (this.menuRef && this.menuRef.contains && !this.menuRef.contains(event.target) &&
+	// 		this.submenuRef && !this.submenuRef.contains(event.target)) {
+	// 		this.setState({
+	// 			isHover: false
+	// 		});
+	// 	}
+	// };
 
 	handleMenuCollapse = () => {
 		this.setState({
-			...this.state,
 			isMenuCollapsed: !this.state.isMenuCollapsed
 		})
 	};
@@ -81,16 +80,15 @@ class Sidebar extends React.Component {
 	createItemMenu = ({to, className, icon, label}) => {
 		return this.state.activeMenu === to
 		? (this.createNav({to, className, icon, label}))
-		: (<div onClick={() => this.hanldeActive(to)} className={`text ${this.getNavLinkClass(className)}`}>
+		: (<a className={`text ${this.getNavLinkClass(className)}`} onClick={() => this.hanldeActive(to)}>
 			{label}<i className={`zmdi ${icon} left`}/>
-		</div>)
+			</a>)
 	}
 
 	createAdditionalNav = ({id, modalType, label}) => {
-		return <li className={`text`}>
-			<a id={id} onClick={this.props.setModalType.bind(this, modalType)}>{label}</a>
-			<i className="zmdi zmdi-case left"/>
-		</li>
+		return <a className={`text`} onClick={() => this.props.setModalType(modalType)}>
+				{label}<i className="zmdi zmdi-case left"/>
+		</a>
 	};
 
 	createMenu = menu => {
@@ -127,7 +125,10 @@ class Sidebar extends React.Component {
 				})}
 			>
 				<div
-					className="menu-bar-container"
+					className={classNames({
+						"menu-bar-container": true,
+						"collapsed": !this.state.isMenuCollapsed,
+					})}
 					id={'sidebar-menu'}
 				>
 					<div>
