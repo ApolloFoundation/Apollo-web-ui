@@ -148,9 +148,7 @@ class Settings extends React.Component {
     render() {
       return (
         <div className="page-content">
-          <SiteHeader
-            pageTitle="Settings"
-          />
+          <SiteHeader pageTitle="Settings" />
           <div className="page-body container-fluid full-screen-block">
             <div className="account-settings">
               <div className="row">
@@ -171,15 +169,6 @@ class Settings extends React.Component {
                                       <div className="form-sub-title mb-3">
                                         The 2FA is currently enabled on this account.
                                       </div>
-                                      <InfoBox attentionLeft>
-                                        <p className="mb-3">
-                                          Please note:
-                                        </p>
-                                        <div className="form-sub-title">
-                                          2FA is a feature for Vault addresses only,
-                                          and will not add a second factor authentication to a standard address.
-                                        </div>
-                                      </InfoBox>
                                     </>
                                   ) : (
                                     <div className="form-sub-title mb-3">
@@ -188,6 +177,15 @@ class Settings extends React.Component {
                                       your wallet security with this option.
                                     </div>
                                   )}
+                                <InfoBox attentionLeft>
+                                  <p className="mb-3">
+                                    Please note:
+                                  </p>
+                                  <div className="form-sub-title">
+                                    2FA is a feature for Vault addresses only,
+                                    and will not add a second factor authentication to a standard address.
+                                  </div>
+                                </InfoBox>
                                 <AccountRSFormInput
                                   setValue={setValue}
                                   noContactList

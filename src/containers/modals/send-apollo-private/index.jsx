@@ -139,7 +139,7 @@ export default function SendApolloPrivate(props) {
         <InfoBox info>
           Please note: Exchanges may not support private transactions, we recommend sending publically to exchanges.
           <br />
-          Private transactions currently protect down the the API level. Database level protection will start with Olympus 2.0
+          Private transactions currently protect down the API level. Database level protection will start with Olympus 2.0
           <br />
           <Button
             className="mt-3"
