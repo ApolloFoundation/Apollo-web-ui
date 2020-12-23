@@ -20,9 +20,10 @@ function zipFiles(files, filename, source, destination, info, verbose) {
 function pack({destination, info, verbose, name, includes}) {
   const source = './build';
   const files = ['./packaging/pkg-apollo-web-ui.json'];
+  const fileName = `apollo-web-ui-${sanitize(process.env.npm_package_version)}-NoOS-NoArch.zip`;
   return zipFiles(
     files,
-    `apollo-web-ui-NoOS-NoArch-${sanitize(process.env.npm_package_version)}.zip`,
+    fileName,
     source,
     destination,
     info,
@@ -36,7 +37,7 @@ pack({
   name: false,
   info: true
 }).then(() => {
-  const fileName = `apollo-web-ui-NoOS-NoArch-${sanitize(process.env.npm_package_version)}.zip`;
+  const fileName = `apollo-web-ui-${sanitize(process.env.npm_package_version)}-NoOS-NoArch.zip`;
   const fileBuffer = fs.readFileSync(`target/${fileName}`);
   const sum = crypto.createHash('sha256');
   sum.update(fileBuffer);
