@@ -5,13 +5,12 @@
 
 
 import React from 'react';
-import uuid from 'uuid';
-import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom'
+import { v4 as uuidv4 } from 'uuid';
+import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {getTransactionAction} from "../../../../actions/transactions";
 import {getOrderInfoAction} from "../../../../actions/open-orders";
-import {Link} from 'react-router-dom'
-import {ONE_APL} from '../../../../constants';
 
 class OrderItem extends React.Component {
 
@@ -41,7 +40,7 @@ class OrderItem extends React.Component {
     render() {
         const {orderInfo} = this.state;
         return (
-            <tr key={uuid()}>
+            <tr key={uuidv4()}>
                 <td
                     className="align-left blue-link-text"
                 >
@@ -56,9 +55,9 @@ class OrderItem extends React.Component {
                 >
                     {this.props.quantityATU / Math.pow(10, this.props.decimals)}
                 </td>
-                <td>{((this.props.quantityATU * this.props.priceATM) /  ONE_APL) / (this.props.quantityATU / Math.pow(10, this.props.decimals))}</td>
+                <td>{((this.props.quantityATU * this.props.priceATM) /  this.props.currentCoinDecimals) / (this.props.quantityATU / Math.pow(10, this.props.decimals))}</td>
 
-                <td>{(this.props.quantityATU * this.props.priceATM) /  ONE_APL}</td>
+                <td>{(this.props.quantityATU * this.props.priceATM) /  this.props.currentCoinDecimals}</td>
                 <td className="align-right">
                     <div className="btn-box inline">
                         <button
@@ -76,10 +75,14 @@ class OrderItem extends React.Component {
     }
 }
 
+const mapStateToProps = state => ({
+  currentCoinDecimals: state.account.decimals,
+});
+
 const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
     getTransactionAction: (reqParams) => dispatch(getTransactionAction(reqParams)),
     getOrderInfo: order => dispatch(getOrderInfoAction(order)),
 });
 
-export default connect(null, mapDispatchToProps)(OrderItem);
+export default connect(mapStateToProps, mapDispatchToProps)(OrderItem);

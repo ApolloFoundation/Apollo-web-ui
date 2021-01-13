@@ -109,7 +109,7 @@
 		top: 35px;
 		right: 35px;
     	padding: 10px;
-		
+
 		&.current-account {
 			display: none;
 			top: 9px;
@@ -135,7 +135,7 @@
 		&.no-image {
 			width: 100%;
 			background-size: 30% !important;
-			background-image: url(../../assets/no-photo.svg) !important;
+			background-image: url(/assets/no-photo.svg) !important;
 			background-color: #eee !important;
 		}
 	}
@@ -145,7 +145,7 @@
 		background-repeat: no-repeat;
 		background-size: contain;
 		background-position: center;
-		background-image: url(../../assets/new_apl_icon_black.svg) !important;
+		background-image: url(../../../../assets/new_apl_icon_black.svg) !important;
 		margin-right: 12px;
 	}
 	.form-title {
@@ -157,7 +157,7 @@
 			background-repeat: no-repeat;
 			background-size: contain;
 			background-position: left;
-			background-image: url(../../assets/left-arrow1.svg);
+			background-image: url(/assets/left-arrow1.svg);
 			margin-right: 8px;
 			cursor: pointer;
 			display: inline-block;
@@ -373,7 +373,8 @@
 		}
 	}
 	.form-group {
-		position: relative;
+    position: relative;
+    width: 100%;
 		.text-note {
 			position: absolute;
 			top: 42px;

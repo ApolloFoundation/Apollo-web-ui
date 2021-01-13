@@ -11,7 +11,6 @@ import {getTransactionAction} from "../../../actions/transactions";
 import {formatTimestamp} from "../../../helpers/util/time";
 import InfoTransactionTable from "./info-transoction-table"
 import {getAccountInfoAction} from "../../../actions/account";
-import {ONE_APL} from '../../../constants';
 import TabulationBody from '../../components/tabulator/tabuator-body';
 import TabContaier from '../../components/tabulator/tab-container';
 import ModalBody from "../../components/modals/modal-body";
@@ -98,7 +97,10 @@ class InfoLedgerTransaction extends React.Component {
 
     render() {
         const {transaction, transactionId} = this.state;
-        const recipientRS = transaction && (this.props.accountRS === transaction.recipientRS ? transaction.senderRS : transaction.recipientRS);
+        const { decimals } = this.props;
+        const parsedSignatures = transaction && (typeof transaction.signature === "string" ? [transaction.signature] : transaction.signature.signatures.map(i => i.signature));
+        const recipientRS = transaction
+          && (this.props.accountRS === transaction.recipientRS ? transaction.senderRS : transaction.recipientRS);
         return (
             <ModalBody
                 modalTitle={`Transaction ${transactionId || ''} Info`}
@@ -109,13 +111,12 @@ class InfoLedgerTransaction extends React.Component {
             >
                 {!this.state.isPending ? (
                     transaction && this.props.constants.transactionTypes && this.props.constants.transactionTypes[transaction.type] ? (
-                        <TabulationBody>
-                            <TabContaier sectionName={'Info'}>
-                                <div className="transaction-table no-min-height transparent">
-                                    <InfoTransactionTable transaction={transaction}
-                                                          constants={this.props.constants}/>
-                                </div>
-                            </TabContaier>
+                      <TabulationBody>
+                        <TabContaier sectionName={'Info'}>
+                          <div className="transaction-table no-min-height transparent">
+                            <InfoTransactionTable transaction={transaction} constants={this.props.constants}/>
+                          </div>
+                        </TabContaier>
 
                             <TabContaier sectionName={'Actions'}>
                                 {
@@ -164,14 +165,20 @@ class InfoLedgerTransaction extends React.Component {
                                                 <td>{this.state.transaction.senderPublicKey}</td>
                                             </tr>
                                             <tr>
-                                                <td>Signature:</td>
-                                                <td className={'no-white-space'}><span
-                                                    className={'break-word'}>{this.state.transaction.signature}</span>
-                                                </td>
+                                              <td>Signature:</td>
+                                              <td className={'no-white-space'}>
+                                                {parsedSignatures &&
+                                                  parsedSignatures.map(signature => (
+                                                  <>
+                                                    <span className={'break-word'}>{signature}</span>
+                                                    <br /><br />
+                                                  </>
+                                                ))}
+                                              </td>
                                             </tr>
                                             <tr>
                                                 <td>Fee ATM:</td>
-                                                <td>{this.state.transaction.feeATM / ONE_APL}</td>
+                                                <td>{this.state.transaction.feeATM / decimals}</td>
                                             </tr>
                                             <tr>
                                                 <td>Transaction index:</td>
@@ -207,8 +214,8 @@ class InfoLedgerTransaction extends React.Component {
                                             </tr>
                                             <tr>
                                                 <td>Signature hash:</td>
-                                                <td className={'no-white-space'}><span
-                                                    className={'break-word'}>{this.state.transaction.signatureHash}</span>
+                                                <td className={'no-white-space'}>
+                                                  <span className={'break-word'}>{this.state.transaction.signatureHash}</span>
                                                 </td>
                                             </tr>
 
@@ -230,9 +237,9 @@ class InfoLedgerTransaction extends React.Component {
                                                     <td>
                                                         {
                                                             (this.state.transaction.amountATM === "0" && this.state.transaction.attachment.priceATM) ?
-                                                                this.state.transaction.attachment.priceATM / ONE_APL
+                                                                this.state.transaction.attachment.priceATM / decimals
                                                                 :
-                                                                this.state.transaction.amountATM / ONE_APL
+                                                                this.state.transaction.amountATM / decimals
                                                         }
                                                     </td>
                                                 </tr>
@@ -384,6 +391,7 @@ class InfoLedgerTransaction extends React.Component {
 
 const mapStateToProps = state => ({
     accountRS: state.account.accountRS,
+    decimals: state.account.decimals,
     modalType: state.modals.modalType,
     modalData: state.modals.modalData,
     modalsHistory: state.modals.modalsHistory,

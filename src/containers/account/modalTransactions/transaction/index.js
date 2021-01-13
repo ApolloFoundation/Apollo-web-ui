@@ -5,18 +5,16 @@
 
 
 import React from 'react';
-import uuid from 'uuid';
-import crypto from '../../../../helpers/crypto/crypto'
-import converters from '../../../../helpers/converters';
+import { v4 as uuidv4 } from 'uuid';
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {connect} from 'react-redux'
 import {formatTimestamp} from "../../../../helpers/util/time";
 import {formatTransactionType} from "../../../../actions/transactions";
 import {getBlockAction} from "../../../../actions/blocks";
-import {ONE_APL} from '../../../../constants';
 
 const mapStateToProps = state => ({
-    constants: state.account.constants
+    constants: state.account.constants,
+    decimals: state.account.decimals,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -48,11 +46,12 @@ class Transaction extends React.Component {
             height,
             isUnconfirmed,
             setBodyModalParamsAction,
-            attachment
+            attachment,
+            decimals,
         } = this.props;
         const transactionType = constants.transactionTypes && constants.transactionTypes[type];
         return (
-            <tr key={uuid()}>
+            <tr key={uuidv4()}>
                 {
                     transaction && constants &&
                     <React.Fragment>
@@ -70,10 +69,10 @@ class Transaction extends React.Component {
                             )}
                         </td>
                         <td className="align-right">
-                            {amountATM / ONE_APL}
+                            {amountATM / decimals}
                         </td>
                         <td className="align-right">
-                            {feeATM / ONE_APL}
+                            {feeATM / decimals}
                         </td>
                         <td className="blue-link-text">
                             <a onClick={setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', sender)}>{senderRS}</a>

@@ -43,14 +43,14 @@ function getPrivateKeyAPL(sp) {
     return conv.shortArrayToHexString(curve25519_clampAPL(conv.byteArrayToShortArray(bts)));
 }
 
-function getAccountIdFromPublicKeyAPL(pk, isRsFt) {
+function getAccountIdFromPublicKeyAPL(pk, isRsFt, prefix) {
     var hex = conv.hexStringToByteArray(pk);
     var account = simpleHashAPL(hex);
     account = conv.byteArrayToHexString(account);
     var slice = (conv.hexStringToByteArray(account)).slice(0, 8);
     var accountId = conv.byteArrayToBigIntegerAPL(slice).toString();
     if (isRsFt) {
-        return conv.convertNumericToRSAccountFormatAPL(accountId);
+        return conv.convertNumericToRSAccountFormatAPL(accountId, prefix);
     } else {
         return accountId;
     }
@@ -97,18 +97,18 @@ function getAccountIdAPL(sp, isRsFt) {
             accountRS = accountRS.replace('APL-', '');
             accountRS = `${account.constants.accountPrefix}-${accountRS}`;
             return accountRS;
-        }   
+        }
 
         return await dispatch(getAccountIdFromPublicKeyAPL(publicKey, isRsFt));
     }
 };
 
 
-function getAccountIdAsyncApl(sp, isRsFt) {
+function getAccountIdAsyncApl(sp, prefix) {
     return async (dispatch, getStore) => {
         const pk = await getPublicKeyAPL(conv.stringToHexStringAPL(sp));
 
-        return getAccountIdFromPublicKeyAPL(pk, true);
+        return getAccountIdFromPublicKeyAPL(pk, true, prefix);
     }
 };
 
@@ -117,7 +117,7 @@ const validatePassphrase = (passphrase) => (dispatch, getStore) => new Promise(a
         const accountRS = getStore().account.accountRS;
 
         const isAccount = await dispatch(getAccountIdAPL(passphrase, true));
-    
+
         resolve(accountRS === isAccount);
     });
 

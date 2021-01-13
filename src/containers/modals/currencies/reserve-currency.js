@@ -31,6 +31,7 @@ class ReserveCurrency extends React.Component {
 
             if (!values.secretPhrase || values.secretPhrase.length === 0) {
                 NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
+                this.setState({isPending: false});
                 return;
             }
 
@@ -126,7 +127,7 @@ class ReserveCurrency extends React.Component {
                                             }}
                                             setValue={setValue}/>
                                         <div className="input-group-append">
-                                            <span className="input-group-text">APL</span>
+                                            <span className="input-group-text">{this.props.ticker}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -181,7 +182,8 @@ class ReserveCurrency extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    modalData: state.modals.modalData
+    ticker: state.account.ticker,
+    modalData: state.modals.modalData,
 });
 
 const mapDispatchToProps = dispatch => ({

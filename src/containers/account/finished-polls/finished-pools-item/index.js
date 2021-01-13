@@ -6,7 +6,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux'
-import uuid from "uuid";
+import { v4 as uuidv4 } from 'uuid';
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {Link} from 'react-router-dom';
 import {formatTimestamp} from "../../../../helpers/util/time";
@@ -18,18 +18,18 @@ const mapDispatchToProps = dispatch => ({
 
 
 const FinishedpollsItem = props => (
-    <tr key={uuid()}>
-        <td  key={uuid()} className="blue-link-text">
+    <tr key={uuidv4()}>
+        <td  key={uuidv4()} className="blue-link-text">
             <a onClick={() => props.setBodyModalParamsAction('INFO_TRANSACTION', props.poll)}>{props.name}</a>
         </td>
-        <td key={uuid()} className={""}> { (props.description.length > 100) ? props.description.slice(0, 100) + '...' : props.description} </td>
-        <td key={uuid()} className="blue-link-text">
+        <td key={uuidv4()} className={""}> { (props.description.length > 100) ? props.description.slice(0, 100) + '...' : props.description} </td>
+        <td key={uuidv4()} className="blue-link-text">
             <a onClick={() => props.setBodyModalParamsAction('INFO_ACCOUNT', props.account)}> {props.accountRS} </a>
         </td>
-        <td key={uuid()} className={""}>
+        <td key={uuidv4()} className={""}>
             {props.formatTimestamp(props.timestamp)}
         </td>
-        <td key={uuid()} className={"align-right"}>
+        <td key={uuidv4()} className={"align-right"}>
             <div className="btn-box inline">
                 <button
                     type={'button'}

@@ -165,14 +165,14 @@
     .form-group-app .marketplace-image.no-image {
       width: 100%;
       background-size: 30% !important;
-      background-image: url(../../assets/no-photo.svg) !important;
+      background-image: url(/assets/no-photo.svg) !important;
       background-color: #eee !important; }
   .form-group-app .about-image {
     height: 155px;
     background-repeat: no-repeat;
     background-size: contain;
     background-position: left;
-    background-image: url(../../assets/brand-logo.png) !important; }
+    background-image: url(/assets/brand-logo.png) !important; }
   .form-group-app .form-title {
     padding-bottom: 23px; }
     .form-group-app .form-title .backMy {
@@ -181,7 +181,7 @@
       background-repeat: no-repeat;
       background-size: contain;
       background-position: left;
-      background-image: url(../../assets/left-arrow1.svg);
+      background-image: url(/assets/left-arrow1.svg);
       margin-right: 8px;
       cursor: pointer;
       display: inline-block;

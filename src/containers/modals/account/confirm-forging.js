@@ -7,17 +7,16 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {NotificationManager} from 'react-notifications';
-import submitForm from '../../../helpers/forms/forms'
 import {setBodyModalParamsAction, setModalData, setModalType} from '../../../modules/modals';
-import store from '../../../store'
-import crypto from '../../../helpers/crypto/crypto';
 import {getForging} from '../../../actions/login';
-import InfoBox from '../../components/info-box';
-import ModalBody from '../../components/modals/modal-body';
-import TextualInputComponent from '../../components/form-components/textual-input';
 import {CheckboxFormInput} from '../../components/form-components/check-button-input';
 import {setAccountPassphrase} from "../../../modules/account";
-import {ONE_APL} from '../../../constants';
+import TextualInputComponent from '../../components/form-components/textual-input';
+import ModalBody from '../../components/modals/modal-body';
+import submitForm from '../../../helpers/forms/forms'
+import crypto from '../../../helpers/crypto/crypto';
+import InfoBox from '../../components/info-box';
+import store from '../../../store'
 
 class ConfirmForging extends React.Component {
 
@@ -26,7 +25,7 @@ class ConfirmForging extends React.Component {
     };
 
     handleFormSubmit = async (params) => {
-        if (!this.props.balanceATM || (this.props.balanceATM / ONE_APL) < 1000) {
+        if (!this.props.balanceATM || (this.props.balanceATM / this.props.decimals) < 1000) {
             NotificationManager.error('Your effective balance must be greater than 1000 APL to forge.', 'Error', 5000);
             return;
         }
@@ -123,6 +122,7 @@ class ConfirmForging extends React.Component {
 const mapStateToProps = state => ({
     action: state.modals.modalData,
     passphrase: state.account.passPhrase,
+    decimals: state.account.decimals,
     account: state.account.account,
     is2FA: state.account.is2FA,
     balanceATM: state.account.balanceATM,

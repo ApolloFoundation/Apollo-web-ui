@@ -8,7 +8,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {setModalData, openPrevModal} from '../../../modules/modals';
 import {getLedgerEntryAction} from '../../../actions/ledger/';
-import {ONE_APL} from '../../../constants';
 import ModalBody from "../../components/modals/modal-body";
 
 class InfoTransactions extends React.Component {
@@ -77,57 +76,57 @@ class InfoTransactions extends React.Component {
                 isDisableSecretPhrase
                 isWide
             >
-                            <div className="transaction-table no-min-height">
-                                <div className="transaction-table-body transparent">
-                                    <table>
-                                        {
-                                            this.state.entry &&
-                                            <tbody>
-                                                <tr>
-                                                    <td>Event Type:	</td>
-                                                    <td>{this.state.entry.eventType}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Ledger Id:</td>
-                                                    <td>{this.state.entry.ledgerId}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Holding Type:</td>
-                                                    <td>{this.state.entry.holdingType}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Account ID:	</td>
-                                                    <td>{this.state.entry.accountRS}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Account ID:</td>
-                                                    <td>{this.state.entry.account}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Timestamp:</td>
-                                                    <td>{this.state.entry.timestamp}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Height:</td>
-                                                    <td>{this.state.entry.height}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Transaction:</td>
-                                                    <td>{this.state.entry.event}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Change:</td>
-                                                    <td>{this.state.entry.change / ONE_APL}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Balance:</td>
-                                                    <td>{Math.round(this.state.entry.balance / ONE_APL)}</td>
-                                                </tr>
-                                            </tbody>
-                                        }
-                                    </table>
-                                </div>
-                            </div>
+              <div className="transaction-table no-min-height">
+                  <div className="transaction-table-body transparent">
+                      <table>
+                          {
+                              this.state.entry &&
+                              <tbody>
+                                  <tr>
+                                      <td>Event Type:	</td>
+                                      <td>{this.state.entry.eventType}</td>
+                                  </tr>
+                                  <tr>
+                                      <td>Ledger Id:</td>
+                                      <td>{this.state.entry.ledgerId}</td>
+                                  </tr>
+                                  <tr>
+                                      <td>Holding Type:</td>
+                                      <td>{this.state.entry.holdingType}</td>
+                                  </tr>
+                                  <tr>
+                                      <td>Account ID:	</td>
+                                      <td>{this.state.entry.accountRS}</td>
+                                  </tr>
+                                  <tr>
+                                      <td>Account ID:</td>
+                                      <td>{this.state.entry.account}</td>
+                                  </tr>
+                                  <tr>
+                                      <td>Timestamp:</td>
+                                      <td>{this.state.entry.timestamp}</td>
+                                  </tr>
+                                  <tr>
+                                      <td>Height:</td>
+                                      <td>{this.state.entry.height}</td>
+                                  </tr>
+                                  <tr>
+                                      <td>Transaction:</td>
+                                      <td>{this.state.entry.event}</td>
+                                  </tr>
+                                  <tr>
+                                      <td>Change:</td>
+                                      <td>{this.state.entry.change / this.props.decimals}</td>
+                                  </tr>
+                                  <tr>
+                                      <td>Balance:</td>
+                                      <td>{Math.round(this.state.entry.balance / this.props.decimals)}</td>
+                                  </tr>
+                              </tbody>
+                          }
+                      </table>
+                  </div>
+              </div>
             </ModalBody>
         );
     }
@@ -135,6 +134,7 @@ class InfoTransactions extends React.Component {
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
+    decimals: state.account.decimals,
     modalsHistory: state.modals.modalsHistory,
 });
 

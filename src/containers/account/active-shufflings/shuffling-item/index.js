@@ -8,7 +8,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { setBodyModalParamsAction } from "../../../../modules/modals";
 import { connect } from "react-redux";
-import { ONE_APL } from '../../../../constants';
+
+const mapStateToProps = state => ({
+  decimals: state.account.decimals,
+  ticker: state.account.ticker,
+});
 
 const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
@@ -43,7 +47,7 @@ const ShufflingItem = (props) => {
             <td className={'blue-link-text'}>
                 {
                     props.holdingType === 0 &&
-                    'APL'
+                    props.ticker
                 }
                 {
                     props.holdingType === 1 &&
@@ -63,7 +67,7 @@ const ShufflingItem = (props) => {
                 }
 
             </td>
-            <td>{props.amount / ONE_APL}</td>
+            <td>{props.amount / props.decimals}</td>
             {
                 props.blocksRemaining ?
                     <td>{props.blocksRemaining}</td> : null
@@ -96,4 +100,4 @@ const ShufflingItem = (props) => {
     )
 };
 
-export default connect(null, mapDispatchToProps)(ShufflingItem)
+export default connect(mapStateToProps, mapDispatchToProps)(ShufflingItem)

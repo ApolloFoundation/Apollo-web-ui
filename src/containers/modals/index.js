@@ -45,13 +45,13 @@ import BuyAssets from './assets/buy-asset';
 import SellAssets from './assets/sell-asset';
 import AssetDistribution from './assets/view-asset-distribution';
 // Currency System
-import TransferCurrency from './currencies/transfer-currency/'
-import OfferCurrency from './currencies/offer-currebcy/'
-import ReserveCurrency from './currencies/reserve-currency'
-import IssueCurrency from './currencies/issue-currency/';
+import TransferCurrency from './currencies/transfer-currency';
+import OfferCurrency from './currencies/offer-currebcy';
+import ReserveCurrency from './currencies/reserve-currency';
+import IssueCurrency from './currencies/issue-currency';
 import ClaimCurrency from './currencies/claim-currency/';
-import BuyCurrency from './currencies/confirm-buy-request/';
-import SellCurrency from './currencies/confirm-sell-request/';
+import BuyCurrency from './currencies/confirm-buy-request';
+import SellCurrency from './currencies/confirm-sell-request';
 // Voting system
 import CreatePoll from './voting-system/create-poll/';
 import CastVote from './voting-system/cast-vote/';
@@ -91,7 +91,8 @@ import RemoveMonitor from "./monitors/remove-monitor";
 import AddMonitoredAccount from "./monitors/add-monitored-account";
 import OrderCancel from "./order-cancellation/order-cancel";
 import ApproveTransaction from "./approve-transaction";
-
+// General
+import InfoPopup from './general/info-popup';
 
 import store from '../../store';
 //2fa
@@ -106,7 +107,7 @@ import ScheaduleCurrency from '../modals/scheaduled-transactions/sceadule-curren
 import AssetDividendHistory from "./assets/view-asset-dividend-history";
 import PayDividends from "./assets/pay-dividends";
 //exchange
-import LoginToExchange from './exchange/login';
+import LoginToExchange from './exchange/login/index.jsx';
 import LogoutExchange from './exchange/logout';
 import WithdrawCurrency from './exchange/withdraw-currency';
 import ConfirmCreateOffer from './exchange/confirm-create-offer';
@@ -286,6 +287,8 @@ class ModalWindow extends React.Component {
                     {this.props.modalType === 'DELETE_GOODS'                && <MarketplaceDelete         closeModal={this.closeModal} nameModal={'DELETE_GOODS'}/>}
                     {this.props.modalType === 'MARKETPLACE_GOODS_DELIVER'   && <MarketplaceDeliver        closeModal={this.closeModal} nameModal={'MARKETPLACE_GOODS_DELIVER'}/>}
 
+                    {/* General */}
+                    {this.props.modalType === 'INFO-POPUP'                  && <InfoPopup                 closeModal={this.closeModal} nameModal={'INFO-POPUP'}/>}
 
                     {/*Peers*/}
                     {this.props.modalType === 'ABOUT_PEER_INFO'             && <AboutPeerInfo             closeModal={this.closeModal} nameModal={'ABOUT_PEER_INFO'}/>}

@@ -6,7 +6,7 @@
 
 import React from 'react';
 import SiteHeader from '../../components/site-header'
-import uuid from "uuid";
+import { v4 as uuidv4 } from 'uuid';
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {connect} from "react-redux";
 import ContentLoader from '../../components/content-loader'
@@ -128,7 +128,7 @@ class FundingMonitors extends React.Component {
                                 <div className="transaction-table">
                                     <div className="transaction-table-body">
                                         <table>
-                                            <thead key={uuid()}>
+                                            <thead key={uuidv4()}>
                                             <tr>
                                                 <td>Account</td>
                                                 <td>Property</td>

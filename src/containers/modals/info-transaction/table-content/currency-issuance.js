@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import {ONE_APL} from '../../../../constants';
 
 
 function hashAlgorithm (value) {
@@ -72,7 +71,7 @@ export default class CurrencyIssuance extends Component {
 	            {this.props.transaction.attachment.hasOwnProperty("minReservePerUnitATM") &&
 	            <tr>
 		            <td>Minimum Reserve Per Unit:</td>
-		            <td>{this.props.transaction.attachment.minReservePerUnitATM / ONE_APL} APL</td>
+		            <td>{this.props.transaction.attachment.minReservePerUnitATM / this.props.decimals} {this.props.ticker}</td>
 	            </tr>
 	            }
 	            {this.props.transaction.attachment.hasOwnProperty("minDifficulty") &&

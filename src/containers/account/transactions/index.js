@@ -197,13 +197,13 @@ class Transactions extends React.Component {
     };
 
     setTransactionInfo(modalType, data, isPrivate) {
-        
+
         if (isPrivate) {
             this.getTransaction({
                 account: this.props.account,
                 transaction: data,
                 passphrase:   this.state.passphrase.passphrase || null ,
-                secretPhrase: this.state.passphrase.secretPhrase || null 
+                secretPhrase: this.state.passphrase.secretPhrase || null
             });
         } else {
             this.getTransaction({
@@ -296,7 +296,7 @@ class Transactions extends React.Component {
         <div className="transactions-filters">
             <div className="top-bar">
                 {this.AboveTabeComponentItem('All types', null, this.state.type !== 0 && !this.state.type && !this.state.subtype && !this.state.isPhassing && !this.state.isUnconfirmed)}
-                
+
                 {this.AboveTabeComponentItem(<i className="zmdi zmdi-card" />          , 0   , this.state.type === 0 && !this.state.subtype && !this.state.isPhassing)}
                 {this.AboveTabeComponentItem(<i className="zmdi zmdi-email" />         , 1   , this.state.type === 1 && !this.state.subtype)}
                 {this.AboveTabeComponentItem(<i className="zmdi zmdi-equalizer" />     , 2   , this.state.type === 2 && !this.state.subtype)}
@@ -306,7 +306,7 @@ class Transactions extends React.Component {
                 {this.AboveTabeComponentItem(<i className="zmdi zmdi-cloud" />         , 6   , this.state.type === 6 && !this.state.subtype)}
                 {this.AboveTabeComponentItem(<i className="zmdi zmdi-shuffle" />       , 7   , this.state.type === 7 && !this.state.subtype)}
                 {this.AboveTabeComponentItem(<i className="zmdi zmdi-help" />          , 8   , this.state.type === 8 && !this.state.subtype)}
-              
+
                 <div
                     className={classNames({
                         "btn" : true,
@@ -366,7 +366,7 @@ class Transactions extends React.Component {
                 </SiteHeader>
                 <div className="page-body container-fluid">
                     <div className={'my-transactions'}>
-                        {this.AboveTabeComponent()}   
+                        {this.AboveTabeComponent()}
                         <CustomTable
                             header={[
                                 {
