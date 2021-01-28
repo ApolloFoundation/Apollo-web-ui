@@ -52,7 +52,7 @@ export default function ModalBody(props) {
         onChange={handleChange}
         onSubmit={handleSubmit}
       >
-        {({ values, getFormState }) => (
+        {({ values, getFormState, setFieldValue }) => (
           <Form className={`${isPour ? '' : 'modal-form modal-send-apollo'} ${className}`}>
             <div className="form-group-app">
               <RightBar>
@@ -128,7 +128,7 @@ export default function ModalBody(props) {
                 {/** Passing props to each form component */}
                 {React.Children.map(children, child => {
                   if (child) {
-                    return React.cloneElement(child, { values });
+                    return React.cloneElement(child, { values, setFieldValue });
                   }
                 })}
                 {isFee && (

@@ -5,27 +5,27 @@ import { useDispatch } from 'react-redux';
 import { getCurrencyAction } from '../../../actions/currencies';
 import CustomInput from '../custom-input';
 
-export default function CurrencyInput(props) {
+const CurrencyInput = ({setFieldValue, name, disabled, values}) => {
   const dispatch = useDispatch();
 
   const [currency, setCurrency] = useState('-');
-
-  const { setValue, name, disabled } = props;
 
   const getCurrency = useCallback(async reqParams => {
     const result = await dispatch(getCurrencyAction(reqParams));
 
     if (result) {
       setCurrency(result.currency);
-      setValue('decimals', result.decimals);
-      setValue('currency', result.currency);
+      if (setFieldValue) {
+        setFieldValue('decimals', result.decimals);
+        setFieldValue('currency', result.currency);
+      }
     } else {
       setCurrency('-');
     }
-  }, [setValue, dispatch]);
+  }, [setFieldValue, dispatch]);
 
   useEffect(() => {
-    const defaultValue = props;
+    const defaultValue = values.code;
     if (defaultValue) {
       getCurrency({ code: defaultValue });
     }
@@ -41,7 +41,6 @@ export default function CurrencyInput(props) {
           name={name}
           placeholder="Code"
           onChange={code => getCurrency({ code })}
-          setValue={setValue}
           disabled={disabled}
         />
         <div className="input-group-append">
@@ -54,3 +53,5 @@ export default function CurrencyInput(props) {
     </div>
   );
 }
+
+export default CurrencyInput
