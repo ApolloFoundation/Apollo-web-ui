@@ -6,6 +6,10 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
+import {processAccountIDtoRS} from 'apl-web-crypto';
+import QR from 'qrcode';
+import QRCode from 'qrcode.react';
+import jsPDF from "jspdf";
 import {setModalData, setBodyModalParamsAction} from '../../../../modules/modals';
 import {getAccountAction} from "../../../../actions/account";
 import {getTransactionAction} from "../../../../actions/transactions";
@@ -13,17 +17,12 @@ import {switchAccountAction} from "../../../../actions/account";
 import {getAccountInfoAction} from "../../../../actions/account";
 import {withRouter} from 'react-router-dom';
 import {getPhasingOnlyControl} from '../../../../actions/account/';
-
-import QR from 'qrcode';
-
-import QRCode from 'qrcode.react';
-import jsPDF from "jspdf";
-
 import {ONE_APL} from '../../../../constants';
 import ContentLoader from '../../../components/content-loader'
 import ModalBody from '../../../components/modals/modal-body';
 import TabulationBody from '../../../components/tabulator/tabuator-body';
 import TabContaier from '../../../components/tabulator/tab-container';
+import './styles.scss';
 
 class AccountDetails extends React.Component {
     constructor(props) {
@@ -96,9 +95,11 @@ class AccountDetails extends React.Component {
 
     render() {
         const {phasingControl} = this.state;
-
+        const {
+            currentLeasingHeightFrom, currentLeasingHeightTo, actualBlock, currentLessee,
+        } = this.props;
         const isAccountControl = phasingControl && Object.values(phasingControl).length;
-
+        const remainingBlocks = currentLeasingHeightTo - currentLeasingHeightFrom;
         const votingModel = isAccountControl ? this.formatControlType(phasingControl.votingModel) : null
 
         return (
@@ -189,16 +190,53 @@ class AccountDetails extends React.Component {
                         }
 
                     </TabContaier>
-                    <TabContaier sectionName={'Account Leasing'}>
-                        <div className="transaction-table no-min-height transparent no-white-space">
-                            <div className="transaction-table-body transparent padding-vertical-padding">
-                                <p>Your account effective balance is not leased out.</p>
-                                <a
+                    <TabContaier sectionName="Account Leasing">
+                        <div className="transaction-table no-min-height">
+                            <div className="transaction-table-body">
+                            {currentLessee
+                                ? (
+                                <table>
+                                    <tbody className="with-padding">
+                                    <tr>
+                                        <td className="no-brake">Account Leasing:</td>
+                                        <td>{processAccountIDtoRS(currentLessee)}</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="no-brake">Leasing is active from:</td>
+                                        <td>{currentLeasingHeightFrom}</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="no-brake">Leasing is active to:</td>
+                                        <td>{currentLeasingHeightTo}</td>
+                                    </tr>
+                                    <tr>
+                                        <td className="no-brake">Remaining Blocks:</td>
+                                        <td>{remainingBlocks}</td>
+                                    </tr>
+                                    {actualBlock ? (
+                                        <tr>
+                                        <td className="no-brake">Current Block:</td>
+                                        <td>{actualBlock}</td>
+                                        </tr>
+                                    ) : (
+                                        <ContentLoader noPaddingOnTheSides noPaddingTop className="m-0" />
+                                    )}
+                                    </tbody>
+                                </table>
+                                ) : (
+                                <>
+                                    <p>Your account effective balance is not leased out.</p>
+                                </>
+                                )}
+                            <div className="button-wrapper">
+                                <button
+                                    type={'button'}
                                     onClick={() => this.props.setBodyModalParamsAction('LEASE_BALANCE')}
-                                    className={'blue-link-text'}
+                                    className="btn btn-green block"
                                 >
-                                    Lease your balance to another account.
-                                </a>
+                                    {currentLessee ? 'Stack my leasing' : 'Lease your balance to another account.'}
+                                </button>
+                            </div>
                             </div>
                         </div>
                     </TabContaier>
@@ -209,9 +247,12 @@ class AccountDetails extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    modalData: state.modals.modalData,
     account: state.account.account,
-    accountRS: state.account.accountRS
+    accountRS: state.account.accountRS,
+    actualBlock: state.account.actualBlock,
+    currentLessee: state.account.currentLessee,
+    currentLeasingHeightFrom: state.account.currentLeasingHeightFrom,
+    currentLeasingHeightTo: state.account.currentLeasingHeightTo,
 });
 
 const mapDispatchToProps = dispatch => ({
