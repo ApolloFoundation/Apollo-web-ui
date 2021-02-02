@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-free": "5.7.2",
+    "apl-web-crypto": "^1.0.18",
     "autoprefixer": "7.2.6",
     "axios": "0.18.0",
     "babel-loader": "7.1.5",
