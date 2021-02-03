@@ -34,30 +34,6 @@ There are no specific requirements to run production build of Apollo-Web-ui. Apo
 
 
 
-### Node Version Manager usage
-
-In the root of the project:
-
- * Verify your NVM installation: (Windows: `nvm v`, Linux: `nvm -v` in console). Output example: 
- 
-```
-1.1.7
-```
-* Install the Nodejs of the required version: 
-
-```nvm install 12.16.1```
-
-* Check versions of node: `node -v` (must be a list with versions of NodeJS which was installed). Output example:
-
-```
-node -v
-12.16.1
-```
-
-* For use the version you want, if you have multiple versions installed: 
-
-```nvm use 12.16.1```
-
 ## Preparation steps ##
 
 In `src/config.js` you need to set server URL. For example:
