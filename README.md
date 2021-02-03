@@ -32,26 +32,6 @@ If you use Windows OS, please consider trying [Node Version Manager (nvm) for Wi
 There is no specific requirements to run production build of Apollo-Web-ui. Apollo-blockchain module detects that Apollo-Web-ui is installed and runs it automatically. To access UI, open your browser with URL: http://localhost:7876
 
 
-## Simple usage NVM (Node Version Manager)
-In root project:
-1. Verify your NVM installation: (Windows: `nvm v`, Linux: `nvm -v` in console):
-```
-Output example: 1.1.7
-```
-2. Install the Nodejs of the required version: `nvm install 12.16.1`.
-3. Check versions list: `nvm list` (must be a list with versions of node js which was installed):
-```
-Output example:
-```
-```
-...
-
-12.16.1
-
-...
-```
-4. For use the version you want: `nvm use 12.16.1`
-
 ## Preparation steps ##
 
 In `src/config.js` you need to set server URL. For example:
