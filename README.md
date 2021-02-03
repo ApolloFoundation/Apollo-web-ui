@@ -1,14 +1,14 @@
 # Apollo Web UI
 
-## Disclaimer
-Apollo team is actively working on modularity of Apollo blockchain so build scripts and source structure is subject of changes. Apollo project consists of several modules written in different programming languages. If you are not an expert in Java and Maven, JavaScript, NodeJs, npm, yarn, C/C++ and Cmakle please use our release builds at [Apollo Releases page](https://github.com/ApolloFoundation/Apollo/releases).
-
-If you feel like an expert, please use build instructions below. But also please note that instructions may be slightly outdated, especially in "development" branches of the Apollo project repositories.
-
-
 Apollo is being developed by the Apollo Foundation and supporting members of the community.
 
 This repository contains web wallet UI that is served by Apollo blockchain node and can be accessed by browser at http://localhost:7876.
+
+## Disclaimer
+Apollo team is actively working on modularity of Apollo blockchain so build scripts and source structure is subject of changes. Apollo project consists of several modules written in different programming languages. If you are not an expert in Java and Maven, JavaScript, NodeJs, npm, yarn, please use our release builds at [Apollo Releases page](https://github.com/ApolloFoundation/Apollo/releases).
+
+If you feel like an expert, please use build instructions below. But also please note that instructions may be slightly outdated, especially in "development" branches of the Apollo project repositories.
+
 
 ## Apollo components
 There are other components that are parts of Apollo:
@@ -20,37 +20,42 @@ There are other components that are parts of Apollo:
 
 
 ## Requirements
-Is required to have Nodejs v12.16.1 for develop and build Apollo Web UI.
+
+It is required to have Nodejs v12.16.x installed to develop and build Apollo Web UI.
 It could be downloaded from [NodeJS official site](https://nodejs.org/dist/v12.16.1/).
 
 For developers (Linux, OS X)[Node Version Manager](https://github.com/nvm-sh/nvm) is highly recommended.
 
 If you use Windows OS, please consider trying [Node Version Manager (nvm) for Windows](https://github.com/coreybutler/nvm-windows).
 
-NOTE: Before as install NVM(Node Version Manager) for Windows, Firstly delete Nodejs from your PC (NVM can destroy your settings, may conflicts).
+NOTE: Before install of NVM(Node Version Manager) for Windows or Linux, firstly please delete NodeJs from your PC (NVM can overwrite your settings, may conflict with installed NodeJS).
 
-There is no specific requirements to run production build of Apollo-Web-ui. Apollo-blockchain module detects that Apollo-Web-ui is installed and runs it automatically. To access UI, open your browser with URL: http://localhost:7876
+There are no specific requirements to run production build of Apollo-Web-ui. Apollo-blockchain module detects that Apollo-Web-ui is installed and runs it automatically. To access UI, open your browser with URL: http://localhost:7876
 
 
-## Simple usage NVM (Node Version Manager)
-In root project:
-1. Verify your NVM installation: (Windows: `nvm v`, Linux: `nvm -v` in console):
-```
-Output example: 1.1.7
-```
-2. Install the Nodejs of the required version: `nvm install 12.16.1`.
-3. Check versions list: `nvm list` (must be a list with versions of node js which was installed):
-```
-Output example:
-```
-```
-...
+### Node Version Manager usage
 
+In the root of the project:
+
+ * Verify your NVM installation: (Windows: `nvm v`, Linux: `nvm -v` in console). Output example: 
+ 
+```
+1.1.7
+```
+* Install the Nodejs of the required version: 
+
+```nvm install 12.16.1```
+
+* Check versions of node: `node -v` (must be a list with versions of NodeJS which was installed). Output example:
+
+```
+node -v
 12.16.1
-
-...
 ```
-4. For use the version you want: `nvm use 12.16.1`
+
+* For use the version you want, if you have multiple versions installed: 
+
+```nvm use 12.16.1```
 
 ## Preparation steps ##
 
@@ -58,7 +63,7 @@ In `src/config.js` you need to set server URL. For example:
 ```
 server: 'http://localhost:7876',
 ```
-Note, that you need Apollo-blockchain running locally to Apollo-Web-ui. Please refer to [Apollo](https://github.com/ApolloFoundation/Apollo) sub-project for build and installation instructions.
+Note, that you need Apollo-blockchain running locally to Apollo-Web-ui. Please refer to [Apollo](https://github.com/ApolloFoundation/Apollo) sub-project for build and installation instructions of blockchain backend.
 
 
 ## Development builds
