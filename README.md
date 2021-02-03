@@ -28,9 +28,10 @@ For developers (Linux, OS X)[Node Version Manager](https://github.com/nvm-sh/nvm
 
 If you use Windows OS, please consider trying [Node Version Manager (nvm) for Windows](https://github.com/coreybutler/nvm-windows).
 
-NOTE: Before install of NVM(Node Version Manager) for Windows or Linux, firstly please delete NodeJs from your PC (NVM can overwrite your settings, may conflict with installed NodeJS).
+**NOTE**: Before install of NVM(Node Version Manager) for Windows or Linux, firstly please delete NodeJs from your PC (NVM can overwrite your settings, may conflict with installed NodeJS).
 
 There are no specific requirements to run production build of Apollo-Web-ui. Apollo-blockchain module detects that Apollo-Web-ui is installed and runs it automatically. To access UI, open your browser with URL: http://localhost:7876
+
 
 
 ### Node Version Manager usage
