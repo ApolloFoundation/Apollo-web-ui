@@ -9,17 +9,14 @@ function zipFiles(files, filename, source, destination, info, verbose) {
   if (info) console.log(`Archive: ${target}`);
 
   let archive = archiver(target);
-  files.forEach(file => {
-    if (verbose) console.log(file);
-    archive.directory(file, 'ApolloWallet');
-  });
-  archive.directory('./build', 'ApolloWallet/apollo-web-ui');
+  archive.directory(source, 'ApolloWallet/apollo-web-ui');
+  archive.directory(files, 'ApolloWallet');
   return archive.finalize();
 }
 
 function pack({destination, info, verbose, name, includes}) {
   const source = './build';
-  const files = ['./packaging/pkg-apollo-web-ui.json'];
+  const files = './packaging/';
   const fileName = `apollo-web-ui-${sanitize(process.env.npm_package_version)}-NoOS-NoArch.zip`;
   return zipFiles(
     files,
