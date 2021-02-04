@@ -10,13 +10,13 @@ function zipFiles(files, filename, source, destination, info, verbose) {
 
   let archive = archiver(target);
   archive.directory(source, 'ApolloWallet/apollo-web-ui');
-  archive.directory(files, 'ApolloWallet');
+  archive.directory(files, 'ApolloWallet/packaging');
   return archive.finalize();
 }
 
 function pack({destination, info, verbose, name, includes}) {
   const source = './build';
-  const files = './packaging/';
+  const files = './packaging';
   const fileName = `apollo-web-ui-${sanitize(process.env.npm_package_version)}-NoOS-NoArch.zip`;
   return zipFiles(
     files,
