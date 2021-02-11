@@ -63,15 +63,6 @@ npm run build
 ```
 Final installation artefact is zip file in "target" directory.
 
-### Create IOS & Android builds
-
-1. Set `PUBLIC_URL=./` in .env file
-2. Install node modules - `yarn install`
-3. Create production build - `yarn build`
-4. Copy all from `build` directory to `www/` directory from Cordova project (from archive)
-5. In Cordova project run `cordova build android` || `cordova build ios`
-6.  - For Android `.apk` will be in `/platforms/android/app/build/outputs/apk/debug/app-debug.apk`
-    - For IOS - open in Xcode project
 
 ## GIT branches
 
