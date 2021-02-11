@@ -7,7 +7,6 @@
 import React     from 'react';
 import {connect} from 'react-redux';
 import {NotificationManager} from "react-notifications";
-import {ONE_APL} from '../../../../constants';
 import {setBodyModalParamsAction} from '../../../../modules/modals';
 import {buyAliasAction} from '../../../../actions/aliases';
 import TextualInputComponent from '../../../components/form-components/textual-input';
@@ -45,8 +44,6 @@ class GetAlias extends React.Component {
     }
 
     render() {
-        console.log(this.props);
-        
         return (
             <ModalBody
                 modalTitle={'Buy Alias'}
