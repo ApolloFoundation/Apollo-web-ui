@@ -28,8 +28,8 @@ export function getWallets(requestParams) {
   return dispatch => handleFetch(`${config.api.server}/rest/keyStore/accountInfo`, POST, requestParams, true)
     .then(async res => {
       if (!res.errorCode) {
-        dispatch(setWallets(res.currencies));
-        writeToLocalStorage('wallets', res.currencies);
+        dispatch(setWallets(res));
+        writeToLocalStorage('wallets', res);
         return res;
       }
       NotificationManager.error(res.errorDescription, 'Error', 5000);
@@ -85,11 +85,10 @@ export function logout(requestParams) {
       if (res.errorCode) {
         NotificationManager.error(res.errorDescription, 'Error', 5000);
       }
+
       return res;
     })
-    .catch(() => {
-
-    });
+    .catch(() => {});
 }
 
 export function getCurrencyBalance(requestParams) {
@@ -98,11 +97,10 @@ export function getCurrencyBalance(requestParams) {
       if (!res.errorCode) {
         return res;
       }
+
       NotificationManager.error(res.errorDescription, 'Error', 5000);
     })
-    .catch(() => {
-
-    });
+    .catch(() => {});
 }
 
 export function walletWithdraw(requestParams) {
@@ -111,11 +109,10 @@ export function walletWithdraw(requestParams) {
       if (!res.errorCode) {
         return res;
       }
+
       NotificationManager.error(res.errorDescription, 'Error', 5000);
     })
-    .catch(() => {
-
-    });
+    .catch(() => {});
 }
 
 export const updateOfferInfo = params => async dispatch => {

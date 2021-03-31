@@ -22,16 +22,14 @@ export default function ChooseWallet() {
 
   const handleGetCurrencyBalance = useCallback(async currWallets => {
     setIsLoading(true);
-    const params = {};
-    currWallets.map(wallet => {
-      params[wallet.currency] = [];
-      wallet.wallets.map(walletItem => {
-        params[wallet.currency].push(walletItem.address);
-        return walletItem;
-      });
-      return wallet;
+    const params = {eth: []};
+
+    currWallets.eth.map(wallet => {
+      params.eth.push(wallet.address);
     });
+
     const walletsBalances = await dispatch(getCurrencyBalance(params));
+
     if (walletsBalances) {
       setDataWallets(walletsBalances);
       setIsLoading(false);
@@ -43,6 +41,23 @@ export default function ChooseWallet() {
   const handleCurrentCurrency = useCallback(currency => {
     dispatch(setCurrentCurrencyAction(currency));
   }, [dispatch]);
+
+
+  useEffect(() => {
+    const localWallets = secureStorage.getItem('wallets');
+
+    if (!localWallets) {
+      setBodyModalParamsAction('LOGIN_EXCHANGE', {});
+    } else {
+      handleGetCurrencyBalance(JSON.parse(localWallets));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!dataWallets && wallets && !isLoading) {
+      handleGetCurrencyBalance(wallets);
+    }
+  }, [dataWallets, handleGetCurrencyBalance, isLoading, wallets]);
 
   const renderContent = useMemo(() => {
     if (dataWallets) {
@@ -107,21 +122,6 @@ export default function ChooseWallet() {
       </div>
     );
   }, [dataWallets, dispatch, handleCurrentCurrency]);
-
-  useEffect(() => {
-    const localWallets = secureStorage.getItem('wallets');
-    if (!localWallets) {
-      setBodyModalParamsAction('LOGIN_EXCHANGE', {});
-    } else {
-      handleGetCurrencyBalance(JSON.parse(localWallets));
-    }
-  }, []);
-
-  useEffect(() => {
-    if (!dataWallets && wallets && !isLoading) {
-      handleGetCurrencyBalance(wallets);
-    }
-  }, [dataWallets, handleGetCurrencyBalance, isLoading, wallets]);
 
   return (
     <div className="page-content">
