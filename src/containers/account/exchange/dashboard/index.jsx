@@ -36,16 +36,14 @@ export default function Exchange() {
   const [currWallets, setCurrWallets] = useState(null);
 
   const handleGetCurrencyBalance = useCallback(async selectWallets => {
-    const params = {};
-    selectWallets.map(wallet => {
-      params[wallet.currency] = [];
-      wallet.wallets.map(walletItem => {
-        params[wallet.currency].push(walletItem.address);
-        return walletItem;
-      });
-      return wallet;
+    const params = {eth: []};
+
+    selectWallets.eth.map(wallet => {
+      params.eth.push(wallet.address);
     });
+
     const walletsBalances = await dispatch(getCurrencyBalance(params));
+
     if (walletsBalances) {
       setCurrWallets(walletsBalances);
     }
