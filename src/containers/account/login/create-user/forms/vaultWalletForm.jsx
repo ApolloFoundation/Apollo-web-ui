@@ -15,7 +15,7 @@ import InfoBox from '../../../../components/info-box';
 export default function VaultWalletForm(props) {
   const {
     onSubmit, activeTab, isCustomPassphraseTextarea,
-    setIsCustomPassphraseTextarea, setAccountData,
+    setIsCustomPassphraseTextarea, setAccountData, currPassphrase,
     accountData, setSelectedOption, setIsValidating,
     handleClose, isPending, isValidating, setCurrPassphrase,
   } = props;
@@ -139,10 +139,7 @@ export default function VaultWalletForm(props) {
                         </li>
                       </ul>
                     </InfoBox>
-                    {keySeed
-                    && accountData
-                    && keySeed.secretBytes
-                    && (
+                    {accountData && (
                       <InfoBox attentionLeft className="dark-info">
                         <p className="mb-3">
                           Account ID:
@@ -165,7 +162,7 @@ export default function VaultWalletForm(props) {
                           <span
                             className="itatic notranslate"
                           >
-                            {accountData.passphrase}
+                            {currPassphrase}
                           </span>
                         </p>
                         <p className="mb-3">

@@ -91,6 +91,7 @@ export default function CreateUser(props) {
           />
           <VaultWalletForm
             setCurrPassphrase={setCurrPassphrase}
+            currPassphrase={currPassphrase}
             onSubmit={handleFormSubmit}
             activeTab={activeTab}
             accountData={accountData}
