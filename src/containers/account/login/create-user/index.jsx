@@ -39,6 +39,7 @@ export default function CreateUser(props) {
   const [generatedAccount, setGeneratedAccount] = useState(null);
   const [accountData, setAccountData] = useState(null);
   const [isCustomPassphraseTextarea, setIsCustomPassphraseTextarea] = useState(null);
+  const [currPassphrase, setCurrPassphrase] = useState(null);
 
 
   const handleTab = useCallback(selectTab => {
@@ -47,7 +48,7 @@ export default function CreateUser(props) {
 
   const handleFormSubmit = useCallback(async values => {
     if (selectedOption === 0) {
-      if (values.secretPhrase === accountData.passphrase) {
+      if (values.secretPhrase === currPassphrase) {
         setIsPending(true);
         dispatch(getAccountDataAction({ account: accountData.accountRS }));
       } else {
@@ -89,6 +90,8 @@ export default function CreateUser(props) {
             isActive={activeTab}
           />
           <VaultWalletForm
+            setCurrPassphrase={setCurrPassphrase}
+            currPassphrase={currPassphrase}
             onSubmit={handleFormSubmit}
             activeTab={activeTab}
             accountData={accountData}
