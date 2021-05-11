@@ -1,4 +1,4 @@
-import fetch from 'isomorphic-fetch';
+// import fetch from 'isomorphic-fetch';
 import qs from 'query-string';
 import { processElGamalEncryption } from '../actions/crypto';
 
@@ -10,7 +10,7 @@ export const handleFetch = async (url, method, value = null, typeOfRequest) => {
   let queryPath = url;
   const options = {
     method,
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8' },
+    headers: { 'Content-Type': 'application/json' },
   };
   if (value !== null) {
     const data = { ...value };
@@ -24,7 +24,7 @@ export const handleFetch = async (url, method, value = null, typeOfRequest) => {
     if (method === GET) {
       queryPath += `?${qs.stringify(data)}`;
     } else {
-      options.body = Object.keys(data).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`).join('&');
+      options.body = JSON.stringify(data);
     }
   }
   return fetch(queryPath, options).then(res => res.json());

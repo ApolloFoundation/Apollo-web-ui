@@ -126,7 +126,7 @@ export const getDashboardData = () => (dispatch, getState, subscribe) => {
             });
             dispatch({
                 type: 'SET_DASHBOARD_MESSAGES_COUNT',
-                payload: messages.transactions.length
+                payload: messages?.transactions.length
             });
             dispatch({
                 type: 'SET_DASHBOARD_TAGGEDDATA',
