@@ -1,17 +1,21 @@
-import React from 'react';
-import AccountRS from '../account-rs/index1';
+import React from "react";
+import AccountRS from "../account-rs/index1";
 
-const AccountRSFormInput = props => {
+const AccountRSFormInput = (props) => {
   const {
-    noContactList, exportAccountList, label, idGroup,
-    name, handleRemoveItem, index,
+    noContactList,
+    exportAccountList,
+    label,
+    idGroup,
+    name,
+    handleRemoveItem,
+    index,
+    disabled,
   } = props;
 
   return (
     <div className="form-group">
-      <label>
-        {label}
-      </label>
+      <label>{label}</label>
       <div>
         <div className="input-group iconned-input-field">
           <AccountRS
@@ -19,10 +23,9 @@ const AccountRSFormInput = props => {
             exportAccountList={exportAccountList}
             noContactList={noContactList}
             id={`${idGroup}${name}-field`}
+            disabled={disabled}
           />
-          {
-            handleRemoveItem
-            && (
+          {handleRemoveItem && (
             <div
               className="input-icon remove-item"
               onClick={() => handleRemoveItem(index)}
@@ -31,8 +34,7 @@ const AccountRSFormInput = props => {
                 <i className="zmdi zmdi-minus-circle" />
               </span>
             </div>
-            )
-          }
+          )}
         </div>
       </div>
     </div>

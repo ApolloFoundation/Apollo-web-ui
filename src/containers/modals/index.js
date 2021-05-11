@@ -52,6 +52,8 @@ import IssueCurrency from './currencies/issue-currency';
 import ClaimCurrency from './currencies/claim-currency/';
 import BuyCurrency from './currencies/confirm-buy-request';
 import SellCurrency from './currencies/confirm-sell-request';
+//Smart Contracts
+import MessageExecution from './smart-contracts';
 // Voting system
 import CreatePoll from './voting-system/create-poll/';
 import CastVote from './voting-system/cast-vote/';
@@ -114,6 +116,7 @@ import ConfirmCreateOffer from './exchange/confirm-create-offer';
 import ConfirmCancelOrder from './exchange/confirm-cancel-offer';
 import SelectOrder from './exchange/select-order';
 import ConfirmExportWallet from "./exchange/confirm-export-wallet";
+import SmartContracts from '../account/smart-contracts/index';
 
 class ModalWindow extends React.Component {
     componentDidMount() {
@@ -226,10 +229,15 @@ class ModalWindow extends React.Component {
                     {this.props.modalType === 'CLAIM_CURRENCY'              && <ClaimCurrency             closeModal={this.closeModal} nameModal={'CLAIM_CURRENCY'}/>}
 
 
+                    {/* Smart Contracts */}
+                    {this.props.modalType === 'CREATE_SMC_EXECUTION'        && <MessageExecution   closeModal={this.closeModal} nameModal={'CREATE_SMC_EXECUTION'}/>}
+
+
                     {/* Voting */}
                     {this.props.modalType === 'ISSUE_POLL'                  && <CreatePoll                closeModal={this.closeModal} nameModal={'ISSUE_POLL'}/>}
                     {this.props.modalType === 'CAST_VOTE'                   && <CastVote                  closeModal={this.closeModal} nameModal={'CAST_VOTE'}/>}
                     {this.props.modalType === 'POLL_RESULTS'                && <PollResults               closeModal={this.closeModal} nameModal={'CAST_VOTE'}/>}
+
 
                     {/* Data Storage */}
                     {this.props.modalType === 'ISSUE_FILE_UPLOAD'           && <UploadFile                closeModal={this.closeModal} nameModal={'ISSUE_FILE_UPLOAD'}/>}
