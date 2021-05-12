@@ -49,6 +49,11 @@
       .modal-form {
         display: flex;
 
+        & .info-box-error {
+          padding: 20px;
+          justify-content: center;
+        }
+
         & > div {
           -webkit-box-flex: 1;
           -webkit-flex: 1;
