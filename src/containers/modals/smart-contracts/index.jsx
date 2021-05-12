@@ -13,23 +13,21 @@ import {
   exportContractSubmit,
 } from "../../../../src/actions/contracts";
 
+const INITIAL_FORM_DATA = {
+  address: "",
+  name: "",
+  params: "",
+  value: 0,
+  fuelLimit: 0,
+  fuelPrice: 0,
+};
+
 export default function ({ closeModal }) {
   const dispatch = useDispatch();
   const formData = useSelector((state) => state.modals.modalData);
   const { accountRS, passPhrase: secretPhrase } = useSelector(
     (state) => state.account
   );
-
-  const [initialFormData] = useState({
-    sender: accountRS,
-    secret: secretPhrase,
-    address: "",
-    name: "",
-    params: "",
-    value: 0,
-    fuelLimit: 0,
-    fuelPrice: 0,
-  });
 
   const isEmptyData = !Object.keys(formData).length;
 
@@ -67,13 +65,13 @@ export default function ({ closeModal }) {
       isFee={false}
       isDisableSecretPhrase={true}
       initialValues={{
-        ...initialFormData,
+        ...INITIAL_FORM_DATA,
         sender: accountRS,
         address: formData.address,
+        secret: secretPhrase,
       }}
     >
       <MessageExecutionForm isDisabled={!isEmptyData} />
     </ModalBody>
   );
 }
-

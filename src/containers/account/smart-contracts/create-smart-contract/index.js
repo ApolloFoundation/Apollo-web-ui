@@ -16,6 +16,14 @@ import {
 } from "../../../../../src/actions/contracts";
 import CreateSmartContractForm from "./form";
 
+const INITIAL_FORM_DATA = {
+  source: "",
+  name: "",
+  params: "",
+  value: 0,
+  fuelPrice: 0,
+  fuelLimit: 0,
+};
 export default function SmartContracts() {
   const dispatch = useDispatch();
   const { accountRS, passPhrase: secretPhrase } = useSelector(
@@ -24,16 +32,6 @@ export default function SmartContracts() {
   const [isPending, setIsPending] = useState({
     test: false,
     publish: false,
-  });
-  const [initialFormData] = useState({
-    sender: accountRS,
-    secret: secretPhrase,
-    source: "",
-    name: "",
-    params: "",
-    value: 0,
-    fuelPrice: 0,
-    fuelLimit: 0,
   });
   const [txCode, setTxCode] = useState(null);
   const [contractData, setContractData] = useState(null);
@@ -92,7 +90,11 @@ export default function SmartContracts() {
           <div className="col-md-12 col-lg-10 col-xl-6 p-0 mb-3 h-100 ">
             <div className="card card-light w-100 h-auto p-3">
               <Formik
-                initialValues={initialFormData}
+                initialValues={{
+                  ...INITIAL_FORM_DATA,
+                  sender: accountRS,
+                  secret: secretPhrase,
+                }}
                 onSubmit={handleValidationFormSubmit}
               >
                 <Form className="form-group-app d-flex flex-column  mb-0">

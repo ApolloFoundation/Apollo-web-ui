@@ -8,7 +8,7 @@ import FileInput from "../../../../components/form-components/file-input";
 const CreateSmartContractForm = ({ setValue }) => {
   return (
     <>
-      <FileInput showPreview />
+      <FileInput showPreview name="source"/>
       <CustomTextArea
         label="Contract"
         placeholder="Contract source"

@@ -12,10 +12,10 @@ export function validationForm(values) {
     NotificationManager.error("Call method is required.", "Error", 5000);
     return (error = true);
   }  else if (!values.fuelPrice || values.fuelPrice.length === 0) {
-    NotificationManager.error("Fuel Price source is required.", "Error", 5000);
+    NotificationManager.error("Fuel Price is required.", "Error", 5000);
     return (error = true);
   } else if (!values.fuelLimit || values.fuelLimit.length === 0) {
-    NotificationManager.error("Fuel Price source is required.", "Error", 5000);
+    NotificationManager.error("Fuel Limit is required.", "Error", 5000);
     return (error = true);
   }
   return error;
