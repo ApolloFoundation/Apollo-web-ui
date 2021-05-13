@@ -3,9 +3,9 @@ import { useDispatch } from 'react-redux';
 import cn from 'classnames';
 import { Form, Formik } from 'formik';
 import { NotificationManager } from 'react-notifications';
-import { getAccountDataAction } from '../../../../../actions/login';
-import AccountRS from '../../../../components/account-rs/index1';
-import Button from '../../../../components/button';
+import { getAccountDataAction } from 'actions/login';
+import AccountRS from 'containers/components/account-rs/index';
+import Button from 'containers/components/button';
 
 export default function AccountIdForm({ activeTab }) {
   const dispatch = useDispatch();

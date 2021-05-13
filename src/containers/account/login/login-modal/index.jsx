@@ -6,7 +6,7 @@
 import React, {
   useState, useCallback, useMemo,
 } from 'react';
-import ButtonTabs from '../../../components/button-tabs';
+import ButtonTabs from 'containers/components/button-tabs';
 import AccountIdForm from './forms/viaAccountIdForm';
 import SecretPhraseForm from './forms/viaSecretPhraseForm';
 
@@ -14,11 +14,11 @@ import '../Login.css';
 
 const tabs = [
   {
-    label: 'With Account ID',
+    label: 'Vault Wallet',
     id: 0,
   },
   {
-    label: 'With Secret Phrase',
+    label: 'Standart Wallet',
     id: 1,
   },
 ];
