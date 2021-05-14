@@ -44,11 +44,25 @@ export default function SecretPhraseForm({ activeTab }) {
           This option works only for standard wallets.
         </InfoBox>
         <div className="d-flex flex-column">
-          <InputMask
-            className="form-control"
-            mask={`APL-****-****-****-*****`}
-            placeholder='Account ID'
-          />
+          {showPhrase ? (
+            <CustomInput
+              className="form-control"
+              name="secretPhrase"
+              label="Secret Phrase"
+              placeholder="Secret Phrase"
+              type="password"
+            />
+          ) :(
+            <>
+              <label htmlFor="Account_id">Enter your ID</label>
+              <InputMask
+                className="form-control"
+                mask={`APL-****-****-****-*****`}
+                placeholder='Account ID'
+                id="Account_id"
+              />
+            </>
+          )}
         </div>
         <div className="d-flex flex-column">
           <CheckboxFormInput
@@ -58,23 +72,6 @@ export default function SecretPhraseForm({ activeTab }) {
             id="show-phrase"
           />
         </div>
-        
-        <div 
-          className={
-            cn( "d-flex flex-column standart-form__phraze",
-              {"standart-form__phraze--hidden" : !showPhrase }
-            )
-          }
-        >
-          <CustomInput
-            className="form-control"
-            name="secretPhrase"
-            label="Secret Phrase"
-            placeholder="Secret Phrase"
-            type="password"
-          />
-        </div>
-      
         <Button
           type="submit"
           name="Initiate"
