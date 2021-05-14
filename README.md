@@ -36,12 +36,12 @@ There are no specific requirements to run production build of Apollo-Web-ui. Apo
 
 ## Preparation steps ##
 
-In `src/config.js` you need to set server URL. For example:
+Please, duplicate `.env.skel` to `.env` file.
+Here you can find `REACT_APP_PROXY_HOST` option, where you can change backend server.
+For example:
 ```
-server: 'http://localhost:7876',
+REACT_APP_PROXY_HOST=http://51.15.102.159:7876
 ```
-Note, that you need Apollo-blockchain running locally to Apollo-Web-ui. Please refer to [Apollo](https://github.com/ApolloFoundation/Apollo) sub-project for build and installation instructions of blockchain backend.
-
 
 ## Development builds
 
