@@ -6,7 +6,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import SiteHeader from "../../components/site-header";
-import PoolItem from "./pool-item";
+import { ContractTableItem } from "./contract-table-item";
 import { getContracts } from "../../../actions/contracts";
 import { BlockUpdater } from "../../block-subscriber/index";
 
@@ -46,7 +46,6 @@ class SmartContracts extends React.Component {
   }
 
   getMyContracts = async (reqParams) => {
-    console.log(reqParams);
     const myContracts = await this.props.getContracts(reqParams);
 
     if (myContracts) {
@@ -135,7 +134,7 @@ class SmartContracts extends React.Component {
             className={"no-min-height mb-3"}
             emptyMessage={"No Smart Contracts found."}
             page={this.state.page}
-            TableRowComponent={PoolItem}
+            TableRowComponent={ContractTableItem}
             tableData={this.state.contracts}
             isPaginate
             previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
