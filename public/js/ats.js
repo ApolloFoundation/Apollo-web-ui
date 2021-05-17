@@ -227,7 +227,7 @@ var ATS = (function(ATS, $, undefined) {
             alert('API not available, check if Apl Server is running!');
         });
         if ($(form).has('.uri-link').length > 0) { 
-            var uri = '/api?' + jQuery.param(params, true);
+            var uri = '/apl?' + jQuery.param(params, true);
             form.getElementsByClassName("uri-link")[0].innerHTML = '<a href="' + uri + '" target="_blank" style="font-size:12px;font-weight:normal;">Open GET URL</a>';
         }
         return false;
