@@ -6,10 +6,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import SiteHeader from "../../components/site-header";
-import { getMyPollsAction, getVoteAction } from "../../../actions/polls";
 import PoolItem from "./pool-item";
-import { getTransactionAction } from "../../../actions/transactions";
-import { setBodyModalParamsAction } from "../../../modules/modals";
+import { getContracts } from "../../../actions/contracts";
 import { BlockUpdater } from "../../block-subscriber/index";
 
 import CustomTable from "../../components/tables/table";
@@ -17,16 +15,11 @@ import { Link } from "react-router-dom";
 
 const mapStateToProps = (state) => ({
   account: state.account.account,
-  accountRS : state.account.accountRS
+  accountRS: state.account.accountRS,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getMyPollsAction: (reqParams) => dispatch(getMyPollsAction(reqParams)),
-  getTransactionAction: (requestParams) =>
-    dispatch(getTransactionAction(requestParams)),
-  getVoteAction: (requestParams) => dispatch(getVoteAction(requestParams)),
-  setBodyModalParamsAction: (type, data, valueForModal) =>
-    dispatch(setBodyModalParamsAction(type, data, valueForModal)),
+  getContracts: (requestParams) => dispatch(getContracts(requestParams)),
 });
 
 class SmartContracts extends React.Component {
@@ -37,20 +30,14 @@ class SmartContracts extends React.Component {
       firstIndex: 0,
       lastIndex: 15,
       page: 1,
-      myPolls: null,
+      contracts: [],
     };
   }
 
   componentDidMount() {
-    this.getMyPolls({
-      account: this.props.account,
-      includeFinished: true,
-    });
+    this.getMyContracts(this.props.account);
     BlockUpdater.on("data", (data) => {
-      this.getMyPolls({
-        account: this.props.account,
-        includeFinished: true,
-      });
+      this.getMyContracts(this.props.account);
     });
   }
 
@@ -58,13 +45,14 @@ class SmartContracts extends React.Component {
     BlockUpdater.removeAllListeners("data");
   }
 
-  getMyPolls = async (reqParams) => {
-    const myPolls = await this.props.getMyPollsAction(reqParams);
+  getMyContracts = async (reqParams) => {
+    console.log(reqParams);
+    const myContracts = await this.props.getContracts(reqParams);
 
-    if (myPolls) {
+    if (myContracts) {
       this.setState({
         ...this.props,
-        myPolls: myPolls.polls,
+        contracts: myContracts.contracts,
       });
     }
   };
@@ -78,9 +66,8 @@ class SmartContracts extends React.Component {
     });
   };
 
-
   render() {
-    console.log(this.props.accountRS)
+    console.log(this.state.contracts);
     return (
       <div className="page-content">
         <SiteHeader pageTitle={"Smart Contracts"}>
@@ -110,11 +97,31 @@ class SmartContracts extends React.Component {
                 alignRight: false,
               },
               {
+                name: "Name",
+                alignRight: false,
+              },
+              {
+                name: "Args",
+                alignRight: false,
+              },
+              {
+                name: "Fuels limit/price",
+                alignRight: false,
+              },
+              {
+                name: "Transaction id",
+                alignRight: false,
+              },
+              {
+                name: "Amount",
+                alignRight: false,
+              },
+              {
                 name: "Short Hash",
                 alignRight: false,
               },
               {
-                name: "Created",
+                name: "Published",
                 alignRight: false,
               },
               {
@@ -130,7 +137,7 @@ class SmartContracts extends React.Component {
             emptyMessage={"No Smart Contracts found."}
             page={this.state.page}
             TableRowComponent={PoolItem}
-            tableData={this.state.myPolls}
+            tableData={this.state.contracts}
             isPaginate
             previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
             nextHendler={this.onPaginate.bind(this, this.state.page + 1)}

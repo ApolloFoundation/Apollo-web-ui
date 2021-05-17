@@ -8,9 +8,8 @@ import { connect } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import { Link } from "react-router-dom";
 import { setBodyModalParamsAction } from "../../../../modules/modals";
-import { formatTimestamp } from "../../../../helpers/util/time";
 import { getTransactionAction } from "../../../../actions/transactions";
-
+import { formatTimestamp } from "../../../../helpers/util/time";
 const mapStateToProps = (state) => ({
   actualBlock: state.account.actualBlock,
   decimals: state.account.decimals,
@@ -25,52 +24,41 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const PoolItem = (props) => {
-  const blocksLeft = parseInt(props.finishHeight) - parseInt(props.actualBlock);
-  let checkAction = false;
-  if (
-    props.minBalanceModel === 1 &&
-    parseFloat(props.minBalance) >= props.balanceAPL / props.decimals
-  ) {
-    checkAction = true;
-  }
+  const {
+    address,
+    name,
+    params,
+    timestamp,
+    fuelLimit,
+    fuelPrice,
+    transaction,
+    amount,
+    signature,
+    status,
+  } = props;
+
+  const currentDate = props.formatTimestamp(new Date(timestamp));
+  const currentParams = params.length > 0 ? params.join() : "-";
+
   return (
     <tr key={uuidv4()}>
-      <td key={uuidv4()} className="blue-link-text">
-        <a
-          onClick={() =>
-            props.setBodyModalParamsAction("INFO_TRANSACTION", props.poll)
-          }
-        >
-          {props.name}
-        </a>
+      <td key={uuidv4()}>{address}</td>
+      <td key={uuidv4()}>{name}</td>
+      <td key={uuidv4()}>{currentParams}</td>
+      <td key={uuidv4()}>
+        {fuelLimit} / {fuelPrice}
       </td>
-      <td key={uuidv4()} className="">
-        {" "}
-        {props.description.length > 100
-          ? `${props.description.slice(0, 100)}...`
-          : props.description}{" "}
-      </td>
-      <td key={uuidv4()} className="blue-link-text">
-        <a
-          onClick={() =>
-            props.setBodyModalParamsAction("INFO_ACCOUNT", props.account)
-          }
-        >
-          {" "}
-          {props.accountRS}{" "}
-        </a>
-      </td>
-      <td key={uuidv4()} className="">
-        {props.formatTimestamp(props.timestamp)}
-      </td>
+      <td key={uuidv4()}>{transaction}</td>
+      <td key={uuidv4()}>{amount}</td>
+      <td key={uuidv4()}>{signature.substring(0, 12)}</td>
+      <td key={uuidv4()}>{currentDate}</td>
+      <td key={uuidv4()}>{status}</td>
       <td key={uuidv4()} className="align-right">
         <div className="btn-box inline">
           <button
             type={"button"}
-            onClick={() =>
-              props.setBodyModalParamsAction("CAST_VOTE", props.poll)
-            }
-            className={`btn btn-green btn-sm ${checkAction ? "disabled" : ""}`}
+            onClick={() => props.setBodyModalParamsAction("CAST_VOTE", {})}
+            className={`btn btn-green btn-sm`}
           >
             Send message
           </button>
