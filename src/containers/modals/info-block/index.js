@@ -66,7 +66,6 @@ class InfoBlock extends React.Component {
 
     getBlock = async block => {
       const blockInfo = await this.props.getBlockAction(block);
-      console.log("🚀 ~ file: index.js ~ line 68 ~ InfoBlock ~ blockInfo", blockInfo)
       this.setState({ blockInfo });
     };
 
