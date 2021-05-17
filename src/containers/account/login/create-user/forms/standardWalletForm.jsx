@@ -4,6 +4,7 @@ import { Form, Formik } from 'formik';
 import cn from 'classnames';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { NotificationManager } from 'react-notifications';
+import { useLoginModal } from '../../../../../hooks/useLoginModal';
 import { generatePDF } from '../../../../../actions/account';
 import store from '../../../../../store';
 import crypto from '../../../../../helpers/crypto/crypto';
@@ -35,11 +36,22 @@ export default function StandardWalletForm(props) {
     setIsCustomPassphraseStandardWallet(true);
   }, [dispatch, setGeneratedAccount, setGeneratedPassphrase, ticker]);
 
-  const handleSubmit = ({ losePhrase }) => {
-    if (!losePhrase) {
-      NotificationManager.error('You have to verify that you stored your private data.', 'Error', 7000);
-      return;
-    }
+  const handleGeneratePDF = useCallback(() => {
+    generatePDF([
+      {
+        name: 'Account ID',
+        value: generatedAccount,
+      },
+      {
+        name: 'Secret Phrase',
+        value: generatedPassphrase,
+      },
+    ]);
+  }, [generatePDF, generatedPassphrase, generatedAccount]);
+
+  const { loginModalButton } = useLoginModal(handleGeneratePDF);
+
+  const handleSubmit = () => {
     setIsValidating(true);
     setSelectedOption(1);
   };
@@ -51,8 +63,10 @@ export default function StandardWalletForm(props) {
         losePhrase: false,
       }}
       onSubmit={handleSubmit}
+      validateOnMount
+      validateOnChange
     >
-      {({ values }) => (
+      {({ values, handleSubmit }) => (
         <Form
           className={cn({
             'tab-body': true,
@@ -144,16 +158,7 @@ export default function StandardWalletForm(props) {
                         name="Print Wallet"
                         className="btn"
                         size="sm"
-                        onClick={() => generatePDF([
-                          {
-                            name: 'Account ID',
-                            value: generatedAccount,
-                          },
-                          {
-                            name: 'Secret Phrase',
-                            value: generatedPassphrase,
-                          },
-                        ])}
+                        onClick={handleGeneratePDF}
                       />
                     </InfoBox>
                   )}
@@ -163,10 +168,7 @@ export default function StandardWalletForm(props) {
                       is now stored in a secured
                       place."
                   />
-                  <Button
-                    name="Next"
-                    type="submit"
-                  />
+                  {loginModalButton(handleSubmit, values)}
                 </>
               ) : (
                 <ContentLoader />
