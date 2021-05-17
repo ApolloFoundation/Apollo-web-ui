@@ -6,9 +6,9 @@
 import React, {
   useState, useCallback, useMemo,
 } from 'react';
-import ButtonTabs from 'containers/components/button-tabs';
 import AccountIdForm from './forms/viaAccountIdForm';
 import SecretPhraseForm from './forms/viaSecretPhraseForm';
+import ButtonTabs from '../../../components/button-tabs';
 
 import '../Login.css';
 

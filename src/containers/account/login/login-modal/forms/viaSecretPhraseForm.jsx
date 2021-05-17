@@ -4,11 +4,11 @@ import cn from 'classnames';
 import { Form, Formik } from 'formik';
 import { NotificationManager } from 'react-notifications';
 import InputMask from 'react-input-mask';
-import CheckboxFormInput from 'containers/components/check-button-input';
-import { getAccountDataBySecretPhrasseAction } from 'actions/login';
-import InfoBox from 'containers/components/info-box';
-import CustomInput from 'containers/components/custom-input';
-import Button from 'containers/components/button';
+import CheckboxFormInput from '../../../../components/check-button-input';
+import { getAccountDataBySecretPhrasseAction } from '../../../../../actions/login';
+import InfoBox from '../../../../components/info-box';
+import CustomInput from '../../../../components/custom-input';
+import Button from '../../../../components/button';
 import './standartForm.scss';
 
 export default function SecretPhraseForm({ activeTab }) {
