@@ -67,7 +67,6 @@ class SmartContracts extends React.Component {
   };
 
   render() {
-    console.log(this.state.contracts);
     return (
       <div className="page-content">
         <SiteHeader pageTitle={"Smart Contracts"}>
