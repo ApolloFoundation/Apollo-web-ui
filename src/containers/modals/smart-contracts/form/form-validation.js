@@ -11,9 +11,6 @@ export function validationForm(values) {
   } else if (!values.name || values.name.length === 0) {
     NotificationManager.error("Call method is required.", "Error", 5000);
     return (error = true);
-  } else if (!values.value || values.value.length === 0) {
-    NotificationManager.error("Amount is required.", "Error", 5000);
-    return (error = true);
   } else if (!values.fuelPrice || values.fuelPrice.length === 0) {
     NotificationManager.error("Fuel Price source is required.", "Error", 5000);
     return (error = true);

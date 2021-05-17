@@ -27,13 +27,12 @@ export const ContractTableItem = (props) => {
   } = props;
 
   const currentDate = dispatch(formatTimestamp(new Date(timestamp)));
-  const currentParams = !params && params.length > 0 ? params.join() : "-";
 
   return (
     <tr key={uuidv4()}>
       <td>{address}</td>
       <td>{name}</td>
-      <td>{currentParams}</td>
+      <td>{params}</td>
       <td>
         {fuelLimit} / {fuelPrice}
       </td>

@@ -26,9 +26,11 @@ const INITIAL_FORM_DATA = {
 };
 export default function SmartContracts() {
   const dispatch = useDispatch();
-  const { accountRS, passPhrase: secretPhrase } = useSelector(
-    (state) => state.account
-  );
+  const {
+    accountRS,
+    passPhrase: secretPhrase,
+    ticker,
+  } = useSelector((state) => state.account);
   const [isPending, setIsPending] = useState({
     test: false,
     publish: false,
@@ -40,19 +42,25 @@ export default function SmartContracts() {
 
   const handleValidationFormSubmit = async (values, { resetForm }) => {
     const isValidForm = validationForm(values);
+
     if (!isValidForm) {
-      const data = { ...values, params: values.params.split(",") };
+      const data = {
+        ...values,
+        value: Number(values.value) * Math.pow(10, 8),
+        params: values.params.split(","),
+      };
       setContractData(data);
       setIsPending({ ...isPending, test: true });
       const result = await dispatch(exportTestContract(data));
       setIsPending({ ...isPending, test: false });
       if (result.errorCode) {
         setError(result);
-        return;
+      } else {
+        setTxCode(result.tx);
       }
-      setTxCode(result.tx);
     }
   };
+
   const handlePublickFormSubmit = async () => {
     setIsPending({ ...isPending, publish: true });
     const result = await dispatch(exportContractSubmit({ tx: txCode }));
@@ -61,14 +69,14 @@ export default function SmartContracts() {
     if (result.errorCode) {
       setError(result);
       setTxCode(null);
-      return;
+    } else {
+      dispatch(
+        setBodyModalParamsAction("CREATE_SMC_EXECUTION", {
+          ...contractData,
+          address: result.recipient,
+        })
+      );
     }
-    dispatch(
-      setBodyModalParamsAction("CREATE_SMC_EXECUTION", {
-        ...contractData,
-        address: result.recipient,
-      })
-    );
   };
 
   return (
@@ -87,7 +95,7 @@ export default function SmartContracts() {
       </SiteHeader>
       <div className="page-body container-fluid">
         <div className="row ">
-          <div className="col-md-12 col-lg-10 col-xl-6 p-0 mb-3 h-100 ">
+          <div className="col-md-12 col-xl-6 mb-3 h-100 ">
             <div className="card card-light w-100 h-auto p-3">
               <Formik
                 initialValues={{
@@ -98,7 +106,7 @@ export default function SmartContracts() {
                 onSubmit={handleValidationFormSubmit}
               >
                 <Form className="form-group-app d-flex flex-column  mb-0">
-                  <CreateSmartContractForm />
+                  <CreateSmartContractForm ticker={ticker} />
                   <div className="row justify-content-md-between">
                     <div className="col-md-auto mb-2 p-0">
                       <Button
@@ -127,7 +135,7 @@ export default function SmartContracts() {
               </Formik>
             </div>
           </div>
-          <div className="col-md-12 col-lg-10 col-xl-6  mb-3 h-auto">
+          <div className="col-md-12 col-xl-6 mb-3 h-auto">
             <div className="card card-light w-100 h-100 py-5 px-3 justify-content-start">
               <div className="mb-5">
                 <h1 className="title mb-3">

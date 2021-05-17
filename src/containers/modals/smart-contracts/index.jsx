@@ -25,9 +25,11 @@ const INITIAL_FORM_DATA = {
 export default function ({ closeModal }) {
   const dispatch = useDispatch();
   const formData = useSelector((state) => state.modals.modalData);
-  const { accountRS, passPhrase: secretPhrase } = useSelector(
-    (state) => state.account
-  );
+  const {
+    accountRS,
+    passPhrase: secretPhrase,
+    ticker,
+  } = useSelector((state) => state.account);
 
   const isEmptyData = !Object.keys(formData).length;
 
@@ -38,12 +40,11 @@ export default function ({ closeModal }) {
     const isValidForm = validationForm(values);
 
     if (!isValidForm) {
-      let data = { ...values };
+      let data = { ...values, value: Number(values.value) * Math.pow(10, 8) };
 
       if (isEmptyData) {
-        data = { ...values, params: values.params.split(",") };
+        data = { ...data, params: values.params.split(",") };
       }
-
       const test = await dispatch(exportTestExperationMessage(data));
 
       if (!test.errorCode) {
@@ -71,7 +72,7 @@ export default function ({ closeModal }) {
         secret: secretPhrase,
       }}
     >
-      <MessageExecutionForm isDisabled={!isEmptyData} />
+      <MessageExecutionForm isDisabled={!isEmptyData} ticker={ticker} />
     </ModalBody>
   );
 }

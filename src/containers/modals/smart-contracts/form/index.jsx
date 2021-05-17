@@ -4,7 +4,7 @@ import NumericInput from "../../../components/form-components/numeric-input1";
 import TextualInputComponent from "../../../components/form-components/textual-input1";
 import AccountRSForm from "../../../components/form-components/account-rs1";
 
-const MessageExecutionForm = ({ isDisabled }) => {
+const MessageExecutionForm = ({ isDisabled, ticker }) => {
   return (
     <>
       <AccountRSForm
@@ -26,34 +26,22 @@ const MessageExecutionForm = ({ isDisabled }) => {
         name="name"
         placeholder="Contract method name"
         type="text"
-
       />
       <NumericInput
-        label="Amount"
+        label="Amount APL"
         name="value"
         placeholder="Amount"
-        type="tel"
-
+        type="float"
+        counterLabel={ticker}
       />
       <TextualInputComponent
         label="Arguments"
         name="params"
         placeholder="Some comma-separated values"
         type="text"
-
       />
-      <NumericInput
-        label="Fuel price"
-        name="fuelPrice"
-        type="tel"
-
-      />
-      <NumericInput
-        label="Fuel limit"
-        name="fuelLimit"
-        type="tel"
-
-      />
+      <NumericInput label="Fuel price" name="fuelPrice" type="tel" />
+      <NumericInput label="Fuel limit" name="fuelLimit" type="tel" />
       <TextualInputComponent
         label="Secret phrase"
         type="password"
