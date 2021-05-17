@@ -17,6 +17,7 @@ import Transaction from '../../account/transactions/transaction';
 import CustomTable from '../../components/tables/table';
 import TabulationBody from '../../components/tabulator/tabuator-body';
 import TabContaier from '../../components/tabulator/tab-container';
+import './index.scss';
 
 class InfoBlock extends React.Component {
     state = {
@@ -124,8 +125,15 @@ class InfoBlock extends React.Component {
 
       return (
         <div className="modal-box x-wide">
+          {!blockInfo && (
+            <div className="modal-form">
+              <div className="form-group-app media-tab">
+                <div className="info-box-error">Data load error</div>
+              </div>
+            </div>
+          )}
           {
-            this.props.modalData
+            (this.props.modalData && blockInfo)
             && (
             <div className="modal-form">
               <div className="form-group-app media-tab">
