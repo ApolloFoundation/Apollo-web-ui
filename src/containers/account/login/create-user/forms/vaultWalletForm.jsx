@@ -3,7 +3,7 @@ import { Form, Formik } from 'formik';
 import { NotificationManager } from 'react-notifications';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import cn from 'classnames';
-import { useLoginModal } from 'helpers/hooks/useLoginModal';
+import { useLoginModal } from '../../../../../hooks/useLoginModal';
 import {
   createAccountAction, generateAccountAction, generatePDF,
 } from '../../../../../actions/account';

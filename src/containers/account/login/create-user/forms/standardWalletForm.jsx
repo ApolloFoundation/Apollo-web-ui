@@ -4,7 +4,7 @@ import { Form, Formik } from 'formik';
 import cn from 'classnames';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { NotificationManager } from 'react-notifications';
-import { useLoginModal } from 'helpers/hooks/useLoginModal';
+import { useLoginModal } from '../../../../../hooks/useLoginModal';
 import { generatePDF } from '../../../../../actions/account';
 import store from '../../../../../store';
 import crypto from '../../../../../helpers/crypto/crypto';

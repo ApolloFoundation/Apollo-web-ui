@@ -6,8 +6,8 @@
 
 import React from 'react';
 import { useSelector } from 'react-redux';
-import Button from 'containers/components/button';
-import { PureModal } from 'containers/components/modals/pure-modal/pure-modal';
+import Button from '../../components/button';
+import { PureModal } from '../../components/modals/pure-modal/pure-modal';
 
 
 export const LoginSaveData = () => {
