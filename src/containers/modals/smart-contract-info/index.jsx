@@ -13,10 +13,10 @@ export default function ({ closeModal }) {
   const formData = useSelector((state) => state.modals.modalData);
   const [smartContract, setSmartContract] = useState(null);
 
-  const { userRS } = formData;
+  const { address } = formData;
 
   useEffect(() => {
-    dispatch(getState(userRS)).then((res) => setSmartContract(res));
+    dispatch(getState(address)).then((res) => setSmartContract(res));
   }, [dispatch]);
 
   return (
@@ -25,9 +25,9 @@ export default function ({ closeModal }) {
       modalTitle="Contract Info"
       closeModal={closeModal}
     >
-      {formData.userRS && (
+      {address && (
         <div className={"mb-2"}>
-          <b>Address:</b> {formData.userRS}
+          <b>Address:</b> {address}
         </div>
       )}
       {smartContract && (
