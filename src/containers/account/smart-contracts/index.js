@@ -9,7 +9,7 @@ import SiteHeader from "../../components/site-header";
 import { ContractTableItem } from "./contract-table-item";
 import { getContracts } from "../../../actions/contracts";
 import { BlockUpdater } from "../../block-subscriber/index";
-
+import { setBodyModalParamsAction } from "../../../modules/modals";
 import CustomTable from "../../components/tables/table";
 import { Link } from "react-router-dom";
 
@@ -20,6 +20,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   getContracts: (requestParams) => dispatch(getContracts(requestParams)),
+  setBodyModalParamsAction: (type, data, valueForModal) =>
+    dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 });
 
 class SmartContracts extends React.Component {
@@ -81,7 +83,7 @@ class SmartContracts extends React.Component {
             className="btn btn-green btn-sm"
             style={{ marginLeft: 15 }}
             onClick={() =>
-              this.props.setBodyModalParamsAction("CREATE_SMC_EXECUTION", {})
+              this.props.setBodyModalParamsAction("SMC_CREATE", {})
             }
           >
             Send message

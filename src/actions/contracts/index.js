@@ -71,3 +71,15 @@ export function getContracts(requestParams) {
       })
       .catch((err) => console.log(err));
 }
+export function getState(requestParams) {
+  return () =>
+    handleFetch(`/rest/v2/smc/state/${requestParams}`)
+      .then((res) => {
+        if (res.errorCode) {
+          NotificationManager.error(res.errorDescription, "Error", 10000);
+          return null;
+        }
+        return res;
+      })
+      .catch((err) => console.log(err));
+}

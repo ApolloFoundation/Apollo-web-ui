@@ -38,9 +38,10 @@ export default function SmartContracts() {
   const [txCode, setTxCode] = useState(null);
   const [contractData, setContractData] = useState(null);
   const [publickData, setPublickData] = useState(null);
+  const [isPublish, setIsPublish] = useState(false);
   const [error, setError] = useState(null);
 
-  const handleValidationFormSubmit = async (values, { resetForm }) => {
+  const handleValidationFormSubmit = async (values) => {
     const isValidForm = validationForm(values);
 
     if (!isValidForm) {
@@ -70,8 +71,9 @@ export default function SmartContracts() {
       setError(result);
       setTxCode(null);
     } else {
+      setIsPublish(true);
       dispatch(
-        setBodyModalParamsAction("CREATE_SMC_EXECUTION", {
+        setBodyModalParamsAction("SMC_CREATE", {
           ...contractData,
           address: result.recipient,
         })
@@ -87,7 +89,7 @@ export default function SmartContracts() {
           className="btn btn-green btn-sm"
           style={{ marginLeft: 15 }}
           onClick={() =>
-            dispatch(setBodyModalParamsAction("CREATE_SMC_EXECUTION", {}))
+            dispatch(setBodyModalParamsAction("SMC_CREATE", {}))
           }
         >
           Send message
@@ -105,33 +107,37 @@ export default function SmartContracts() {
                 }}
                 onSubmit={handleValidationFormSubmit}
               >
-                <Form className="form-group-app d-flex flex-column  mb-0">
-                  <CreateSmartContractForm ticker={ticker} />
-                  <div className="row justify-content-md-between">
-                    <div className="col-md-auto mb-2 p-0">
-                      <Button
-                        name="Publish"
-                        className="btn"
-                        color="green"
-                        size="lg"
-                        disabled={!txCode}
-                        isLoading={isPending.publish}
-                        onClick={handlePublickFormSubmit}
-                      />
+                {({ resetForm }) => (
+                  <Form className="form-group-app d-flex flex-column  mb-0">
+                    <CreateSmartContractForm ticker={ticker} />
+                    <div className="row justify-content-md-between">
+                      <div className="col-md-auto mb-2 p-0">
+                        <Button
+                          name={isPublish ? "Reset form" : "Publish"}
+                          className="btn"
+                          color="green"
+                          size="lg"
+                          disabled={!txCode}
+                          isLoading={isPending.publish}
+                          onClick={
+                            isPublish ? resetForm : handlePublickFormSubmit
+                          }
+                        />
+                      </div>
+                      <div className="col-md-auto mb-2 p-0">
+                        <Button
+                          name="Validate"
+                          className="btn"
+                          color="green"
+                          size="lg"
+                          disabled={txCode}
+                          isLoading={isPending.test}
+                          type="submit"
+                        />
+                      </div>
                     </div>
-                    <div className="col-md-auto mb-2 p-0">
-                      <Button
-                        name="Validate"
-                        className="btn"
-                        color="green"
-                        size="lg"
-                        disabled={txCode}
-                        isLoading={isPending.test}
-                        type="submit"
-                      />
-                    </div>
-                  </div>
-                </Form>
+                  </Form>
+                )}
               </Formik>
             </div>
           </div>
