@@ -6,7 +6,7 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
 import { setBodyModalParamsAction } from "../../../../modules/modals";
-
+import { getState } from "../../../../../src/actions/contracts";
 import { formatTimestamp } from "../../../../helpers/util/time";
 import { useDispatch } from "react-redux";
 
@@ -28,9 +28,14 @@ export const ContractTableItem = (props) => {
 
   const currentDate = dispatch(formatTimestamp(new Date(timestamp)));
 
+  const showInfo = async (userRS) => {
+    dispatch(
+      setBodyModalParamsAction("SMC_INFO", { userRS })
+    );
+  };
   return (
     <tr key={uuidv4()}>
-      <td>{address}</td>
+      <td onClick={() => showInfo(address)}>{address}</td>
       <td>{name}</td>
       <td>{params}</td>
       <td>
@@ -45,7 +50,9 @@ export const ContractTableItem = (props) => {
         <div className="btn-box inline">
           <button
             type={"button"}
-            onClick={() => dispatch(setBodyModalParamsAction("CREATE_SMC_EXECUTION", {}))}
+            onClick={() =>
+              dispatch(setBodyModalParamsAction("CREATE_SMC_EXECUTION", {}))
+            }
             className={`btn btn-green btn-sm`}
           >
             Send message
