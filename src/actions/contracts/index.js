@@ -44,7 +44,7 @@ export function exportContractSubmit(requestParams) {
 
 export function exportTestExperationMessage(requestParams) {
   return () =>
-    handleFetch(`/rest/v2/smc/call/test`, POST, requestParams)
+    handleFetch(`/rest/v2/smc/call/test`, POST, requestParams, false, true)
       .then((res) => {
         if (!res.errorCode) {
           NotificationManager.success(
