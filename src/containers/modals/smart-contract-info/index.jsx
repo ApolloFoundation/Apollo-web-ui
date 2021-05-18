@@ -17,7 +17,7 @@ export default function ({ closeModal }) {
 
   useEffect(() => {
     dispatch(getState(userRS)).then((res) => setSmartContract(res));
-  }, []);
+  }, [dispatch]);
 
   return (
     <ModalBody

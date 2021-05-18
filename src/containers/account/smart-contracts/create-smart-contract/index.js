@@ -73,7 +73,7 @@ export default function SmartContracts() {
     } else {
       setIsPublish(true);
       dispatch(
-        setBodyModalParamsAction("CREATE_SMC_EXECUTION", {
+        setBodyModalParamsAction("SMC_CREATE", {
           ...contractData,
           address: result.recipient,
         })
@@ -89,7 +89,7 @@ export default function SmartContracts() {
           className="btn btn-green btn-sm"
           style={{ marginLeft: 15 }}
           onClick={() =>
-            dispatch(setBodyModalParamsAction("CREATE_SMC_EXECUTION", {}))
+            dispatch(setBodyModalParamsAction("SMC_CREATE", {}))
           }
         >
           Send message

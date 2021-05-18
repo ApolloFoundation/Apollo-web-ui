@@ -231,7 +231,7 @@ class ModalWindow extends React.Component {
 
 
                     {/* Smart Contracts */}
-                    {this.props.modalType === 'CREATE_SMC_EXECUTION'        && <MessageExecution   closeModal={this.closeModal} nameModal={'CREATE_SMC_EXECUTION'}/>}
+                    {this.props.modalType === 'SMC_CREATE'        && <MessageExecution   closeModal={this.closeModal} nameModal={"SMC_CREATE"}/>}
                     {this.props.modalType === 'SMC_INFO'                    && <SmartContractsInfo   closeModal={this.closeModal} nameModal={'SMC_INFO'}/>}
 
                     {/* Voting */}

@@ -83,7 +83,7 @@ class SmartContracts extends React.Component {
             className="btn btn-green btn-sm"
             style={{ marginLeft: 15 }}
             onClick={() =>
-              this.props.setBodyModalParamsAction("CREATE_SMC_EXECUTION", {})
+              this.props.setBodyModalParamsAction("SMC_CREATE", {})
             }
           >
             Send message
