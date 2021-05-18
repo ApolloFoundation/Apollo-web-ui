@@ -29,9 +29,7 @@ export const ContractTableItem = (props) => {
   const currentDate = dispatch(formatTimestamp(new Date(timestamp)));
 
   const showInfo = async (userRS) => {
-    dispatch(
-      setBodyModalParamsAction("SMC_INFO", { userRS })
-    );
+    dispatch(setBodyModalParamsAction("SMC_INFO", { userRS }));
   };
   return (
     <tr key={uuidv4()}>
@@ -51,7 +49,9 @@ export const ContractTableItem = (props) => {
           <button
             type={"button"}
             onClick={() =>
-              dispatch(setBodyModalParamsAction("CREATE_SMC_EXECUTION", {}))
+              dispatch(
+                setBodyModalParamsAction("CREATE_SMC_EXECUTION", { address })
+              )
             }
             className={`btn btn-green btn-sm`}
           >
