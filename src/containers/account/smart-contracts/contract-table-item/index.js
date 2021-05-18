@@ -8,6 +8,7 @@ import { v4 as uuidv4 } from "uuid";
 import { setBodyModalParamsAction } from "../../../../modules/modals";
 import { formatTimestamp } from "../../../../helpers/util/time";
 import { useDispatch } from "react-redux";
+import Button from "../../../components/button";
 
 export const ContractTableItem = (props) => {
   const dispatch = useDispatch();
@@ -27,12 +28,16 @@ export const ContractTableItem = (props) => {
 
   const currentDate = dispatch(formatTimestamp(new Date(timestamp)));
 
-  const handleContractInfo = () => dispatch(setBodyModalParamsAction("SMC_INFO", { address }));
-  const handleSendMessage = () => dispatch(setBodyModalParamsAction("SMC_CREATE", { address }))
-  
+  const handleContractInfo = () =>
+    dispatch(setBodyModalParamsAction("SMC_INFO", { address }));
+  const handleSendMessage = () =>
+    dispatch(setBodyModalParamsAction("SMC_CREATE", { address }));
+
   return (
     <tr key={uuidv4()}>
-      <td onClick={handleContractInfo}>{address}</td>
+      <td className="blue-link-text">
+        <Button color="blue-link" onClick={handleContractInfo} name={address} />
+      </td>
       <td>{name}</td>
       <td>{params}</td>
       <td>
