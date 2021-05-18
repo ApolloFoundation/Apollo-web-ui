@@ -114,7 +114,7 @@ export const getNextBlockGeneratorsAction = (reqParams) => axios.get(config.api.
 
 export function getBackendStatus(requestParams) {
     return (dispatch, getState) => {
-        const {blockchainStatus} = getState().account;
+        const { blockchainStatus } = getState().account;
         return handleFetch(`${config.api.server}/rest/control/status`, GET, requestParams)
             .then((res) => {
                 if (!res.errorCode) {

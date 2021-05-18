@@ -8,9 +8,11 @@ const CheckboxFormInput = props => {
   const {
     label, name, id, className, disabled, onChange,
   } = props;
+
   const [field, , helpers] = useField({
     name, id, type: 'checkbox', disabled,
   });
+  
   const { setValue } = helpers;
 
   const handleChange = useCallback(({ target: { checked } }) => {
@@ -26,9 +28,10 @@ const CheckboxFormInput = props => {
         className="checkbox"
         disabled={disabled}
         onChange={handleChange}
+        id={id}
       />
       <label
-        htmlFor={field.name}
+        htmlFor={id}
         className="checkbox-label"
       >
         {label}

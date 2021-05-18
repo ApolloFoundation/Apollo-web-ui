@@ -3,6 +3,7 @@ import { Form, Formik } from 'formik';
 import { NotificationManager } from 'react-notifications';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import cn from 'classnames';
+import { useLoginModal } from '../../../../../hooks/useLoginModal';
 import {
   createAccountAction, generateAccountAction, generatePDF,
 } from '../../../../../actions/account';
@@ -23,6 +24,24 @@ export default function VaultWalletForm(props) {
   const [keySeed, setKeySeed] = useState(null);
   const [isCustomPassphrase, setIsCustomPassphrase] = useState(true);
   const [isAccountLoaded, setIsAccountLoaded] = useState(false);
+  
+  const handleGeneratePDF = () => 
+    generatePDF([
+      {
+        name: 'Account ID',
+        value: accountData.accountRS,
+      },
+      {
+        name: 'Secret Phrase',
+        value: accountData.passphrase,
+      },
+      {
+        name: 'Public Key',
+        value: accountData.publicKey,
+      },
+    ]);
+  
+  const { loginModalButton } = useLoginModal(handleGeneratePDF);
 
   const generateAccount = useCallback(async values => {
     const requestParams = {};
@@ -49,11 +68,7 @@ export default function VaultWalletForm(props) {
     }
   }, [activeTab, isCustomPassphraseTextarea, setAccountData]);
 
-  const handleNext = useCallback(({ losePhrase }) => {
-    if (!losePhrase) {
-      NotificationManager.error('You have to verify that you stored your private data', 'Error', 7000);
-      return;
-    }
+  const handleNext = useCallback(() => {
     setIsValidating(true);
     setSelectedOption(0);
   }, [setIsValidating, setSelectedOption]);
@@ -191,20 +206,7 @@ export default function VaultWalletForm(props) {
                         <Button
                           name="Print Wallet"
                           size="sm"
-                          onClick={() => generatePDF([
-                            {
-                              name: 'Account ID',
-                              value: accountData.accountRS,
-                            },
-                            {
-                              name: 'Secret Phrase',
-                              value: accountData.passphrase,
-                            },
-                            {
-                              name: 'Public Key',
-                              value: accountData.publicKey,
-                            },
-                          ])}
+                          onClick={handleGeneratePDF}
                         />
                       </InfoBox>
                     )}
@@ -213,10 +215,7 @@ export default function VaultWalletForm(props) {
                       in a secured place."
                       name="losePhrase"
                     />
-                    <Button
-                      name="Next"
-                      onClick={() => handleNext(values)}
-                    />
+                    {loginModalButton(handleNext, values)}
                   </>
                 ) : (
                   <ContentLoader />
