@@ -45,7 +45,7 @@ export const ContractTableItem = (props) => {
         <div className="btn-box inline">
           <button
             type={"button"}
-            onClick={() => dispatch(setBodyModalParamsAction("CAST_VOTE", {}))}
+            onClick={() => dispatch(setBodyModalParamsAction("CREATE_SMC_EXECUTION", {}))}
             className={`btn btn-green btn-sm`}
           >
             Send message
