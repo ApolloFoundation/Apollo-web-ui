@@ -19,6 +19,7 @@ import InfoTransaction from './info-transaction/info-transaction';
 import InfoLedgerTransaction from './info-ledger-transaction';
 import InfoBlock from './info-block';
 import RawTransactionDetails from './send-apollo/raw-transaction-details';
+import { LoginSaveData } from './login-save-data';
 // Account
 import InfoAccount from './account/account/';
 import CreateUser from './account/create-account';
@@ -199,6 +200,7 @@ class ModalWindow extends React.Component {
                 id="modal-window-container"
             >
                 <ModalProvider>
+                    {this.props.modalType === 'SAVE_CREDENTIALS'            && <LoginSaveData             closeModal={this.closeModal} nameModal={'SAVE_CREDENTIALS'}/>}
                     {this.props.modalType === 'INFO_TRANSACTION'            && <InfoTransaction           closeModal={this.closeModal} nameModal={'INFO_TRANSACTION'}/>}
                     {this.props.modalType === 'INFO_LEDGER_TRANSACTION'     && <InfoLedgerTransaction     closeModal={this.closeModal} nameModal={'INFO_LEDGER_TRANSACTION'}/>}
                     {this.props.modalType === 'INFO_BLOCK'                  && <InfoBlock                 closeModal={this.closeModal} nameModal={'INFO_BLOCK'}/>}
