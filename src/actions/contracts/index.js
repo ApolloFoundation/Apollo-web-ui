@@ -8,7 +8,7 @@ import { handleFetch, POST } from "../../helpers/fetch";
 
 export function exportTestContract(requestParams) {
   return () =>
-    handleFetch(`/rest/v2/smc/publish/test`, POST, requestParams)
+    handleFetch(`/rest/v2/smc/publish/test`, POST, requestParams, false, true)
       .then((res) => {
         if (!res.errorCode) {
           NotificationManager.success(
@@ -26,7 +26,7 @@ export function exportTestContract(requestParams) {
 
 export function exportContractSubmit(requestParams) {
   return () =>
-    handleFetch(`/rest/v2/transaction`, POST, requestParams)
+    handleFetch(`/rest/v2/transaction`, POST, requestParams, false, true)
       .then((res) => {
         if (!res.errorCode) {
           NotificationManager.success(
