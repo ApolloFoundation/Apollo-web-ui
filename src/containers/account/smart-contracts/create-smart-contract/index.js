@@ -88,9 +88,7 @@ export default function SmartContracts() {
           type={"button"}
           className="btn btn-green btn-sm"
           style={{ marginLeft: 15 }}
-          onClick={() =>
-            dispatch(setBodyModalParamsAction("SMC_CREATE", {}))
-          }
+          onClick={() => dispatch(setBodyModalParamsAction("SMC_CREATE", {}))}
         >
           Send message
         </button>

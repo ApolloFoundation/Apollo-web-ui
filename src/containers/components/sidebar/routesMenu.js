@@ -143,13 +143,19 @@ export const smartСontracts = {
   className: "/smart-contracts",
   to: "/smart-contracts",
   label: "Smart contracts",
-  icon: "zmdi-money",
+  icon: "zmdi-collection-text",
+  additionalChildren: {
+    id: "open-create-poll",
+    label: "Send Message",
+    modalType: "SMC_CREATE",
+    icon: "zmdi-comments",
+  },
   children: [
     {
       className: "/create-smart-contracts",
       to: "/smart-contracts/create",
       label: "Create smart contract",
-      icon: "zmdi-money",
+      icon: "zmdi-collection-text",
     },
   ],
 };
@@ -161,7 +167,7 @@ export const votingSystemMenu = {
   icon: "zmdi-star",
   additionalChildren: {
     id: "open-create-poll",
-    label: "Create poll",
+    label: "Send Message",
     modalType: "ISSUE_POLL",
   },
   children: [
