@@ -3,12 +3,12 @@ import { useDispatch } from 'react-redux';
 import cn from 'classnames';
 import { Form, Formik } from 'formik';
 import { NotificationManager } from 'react-notifications';
-import InputMask from 'react-input-mask';
 import CheckboxFormInput from '../../../../components/check-button-input';
-import { getAccountDataBySecretPhrasseAction } from '../../../../../actions/login';
+import { getAccountDataBySecretPhrasseAction, getAccountDataAction } from '../../../../../actions/login';
 import InfoBox from '../../../../components/info-box';
 import CustomInput from '../../../../components/custom-input';
 import Button from '../../../../components/button';
+import AccountRS from '../../../../components/account-rs/index1';
 import './standartForm.scss';
 
 export default function SecretPhraseForm({ activeTab }) {
@@ -16,22 +16,42 @@ export default function SecretPhraseForm({ activeTab }) {
   
   const [showPhrase, setShowPhraze] = useState(false);
   
-  const enterAccountByPassphrase = useCallback(({ secretPhrase }) => {
-    if (!secretPhrase || !secretPhrase.length) {
-      NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
+  const handeError = (name) => {
+    NotificationManager.error(`${name} is required.`, 'Error', 5000);
+  }
+
+  const enterAccountByPassphrase = useCallback(({ secretPhrase, accountRS }) => {
+    const isNoSecretPhrase = !secretPhrase || !secretPhrase.length;
+    const isNoAccountRS = !accountRS || !accountRS.length;
+
+    if (isNoSecretPhrase && showPhrase) {
+      handeError('Secret Phrase');
       return;
     }
 
-    dispatch(getAccountDataBySecretPhrasseAction({ secretPhrase }));
-  }, [dispatch]);
+    if (isNoAccountRS && !showPhrase) {
+      handeError('Account ID');
+      return;
+    }
+
+    if (!showPhrase) {
+      dispatch(getAccountDataAction({ account: accountRS }));
+    } else {
+      dispatch(getAccountDataBySecretPhrasseAction({ secretPhrase }));
+    }
+  }, [dispatch, showPhrase]);
 
   const handleShowPhaze = useCallback(
-    () => setShowPhraze(state => !state
-  ), [setShowPhraze]);
+    () => setShowPhraze(state => !state),
+    [setShowPhraze]
+  );
 
   return (
     <Formik
-      initialValues={{ secretPhrase: '' }}
+      initialValues={{ 
+        secretPhrase: '',
+        accountRS: '',
+      }}
       onSubmit={enterAccountByPassphrase}
     >
       <Form
@@ -53,15 +73,14 @@ export default function SecretPhraseForm({ activeTab }) {
               type="password"
             />
           ) :(
-            <>
-              <label htmlFor="Account_id">Enter your ID</label>
-              <InputMask
-                className="form-control"
-                mask={`APL-****-****-****-*****`}
-                placeholder='Account ID'
+            <div className="input-group-app user">
+              <label htmlFor="Account_id">Enter your ID or choose from saved</label>
+              <AccountRS
+                name="accountRS"
+                placeholder="Account ID"
                 id="Account_id"
               />
-            </>
+            </div>
           )}
         </div>
         <div className="d-flex flex-column">
