@@ -39,23 +39,25 @@ const CreateSmartContractForm = ({ setValue, ticker }) => {
             type="float"
             counterLabel={ticker}
             setValue={setValue}
+            defaultValue={0}
           />
         </div>
-
         <div className={"col-md-4 p-sm-0 pr-md-2"}>
           <NumericInput
             label="Fuel price"
             name="fuelPrice"
-            type="tel"
+            type="float"
             setValue={setValue}
+            defaultValue={0}
           />
         </div>
         <div className={"col-md-4 p-sm-0"}>
           <NumericInput
             label="Fuel limit"
             name="fuelLimit"
-            type="tel"
+            type="float"
             setValue={setValue}
+            defaultValue={0}
           />
         </div>
       </div>

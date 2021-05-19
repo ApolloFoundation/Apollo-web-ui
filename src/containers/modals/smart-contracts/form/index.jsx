@@ -30,9 +30,9 @@ const MessageExecutionForm = ({ isDisabled, ticker }) => {
       <NumericInput
         label="Amount APL"
         name="value"
-        placeholder="Amount"
         type="float"
         counterLabel={ticker}
+        defaultValue={0}
       />
       <TextualInputComponent
         label="Arguments"
@@ -40,8 +40,18 @@ const MessageExecutionForm = ({ isDisabled, ticker }) => {
         placeholder="Some comma-separated values"
         type="text"
       />
-      <NumericInput label="Fuel price" name="fuelPrice" type="tel" />
-      <NumericInput label="Fuel limit" name="fuelLimit" type="tel" />
+      <NumericInput
+        label="Fuel price"
+        name="fuelPrice"
+        type="float"
+        defaultValue={0}
+      />
+      <NumericInput
+        label="Fuel limit"
+        name="fuelLimit"
+        type="float"
+        defaultValue={0}
+      />
       <TextualInputComponent
         label="Secret phrase"
         type="password"
