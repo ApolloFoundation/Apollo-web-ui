@@ -4,7 +4,7 @@ import cn from 'classnames';
 import { Form, Formik } from 'formik';
 import { NotificationManager } from 'react-notifications';
 import { getAccountDataAction } from '../../../../../actions/login';
-import AccountRS from '../../../../components/account-rs/index';
+import AccountRS from '../../../../components/account-rs/index1';
 import Button from '../../../../components/button';
 
 export default function AccountIdForm({ activeTab }) {
@@ -36,13 +36,12 @@ export default function AccountIdForm({ activeTab }) {
               Enter your ID or choose from saved
             </label>
             <div>
-              <div className="iconned-input-field">
-                <AccountRS
-                  name="accountRS"
-                  placeholder="Account ID"
-                />
-              </div>
-            </div>
+              <AccountRS
+                name="accountRS"
+                placeholder="Account ID"
+                id="recipient"
+              />
+          </div>
           </div>
         </div>
         <Button
