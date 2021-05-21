@@ -3,21 +3,28 @@
  *                                                                            *
  ***************************************************************************** */
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import ModalBody from "../../components/modals/modal-body1";
 import { getState } from "../../../actions/contracts";
 
 export default function ({ closeModal }) {
   const dispatch = useDispatch();
-  const formData = useSelector((state) => state.modals.modalData);
   const [smartContract, setSmartContract] = useState(null);
+  const modalData = useSelector((state) => state.modals.modalData);
 
-  const { address } = formData;
+  const { address } = modalData;
+
+  const getStateContract = useCallback(async address => {
+      const state = await dispatch(getState(address));
+      if (state) {
+        setSmartContract(state);
+      }
+    },[address, dispatch]);
 
   useEffect(() => {
-    dispatch(getState(address)).then((res) => setSmartContract(res));
-  }, [dispatch]);
+    getStateContract(address);
+  }, []);
 
   return (
     <ModalBody

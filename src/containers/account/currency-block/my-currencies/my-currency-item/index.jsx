@@ -36,8 +36,7 @@ export default function MyCurrencytemItem(props) {
           <button
             type="button"
             onClick={() => dispatch(setBodyModalParamsAction('TRANSFER_CURRENCY', { code, currency }))}
-            style={{ marginLeft: 15 }}
-            className="btn btn-default"
+            className="btn btn-default ml-3"
           >
             Transfer
           </button>
