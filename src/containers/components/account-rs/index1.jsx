@@ -93,7 +93,7 @@ export default function AccountRS(props) {
   }, [handleClickOutside]);
 
   return (
-    <>
+    <div className="iconned-input-field">
       <InputMask
         {...field}
         className="form-control"
@@ -132,6 +132,6 @@ export default function AccountRS(props) {
           </ul>
         </div>
       )}
-    </>
+    </div>
   );
 }
