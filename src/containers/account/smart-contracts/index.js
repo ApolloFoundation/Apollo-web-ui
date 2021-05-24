@@ -31,7 +31,7 @@
      if (myContracts) {
        setContractList(myContracts.contracts);
      }
-   }, [dispatch]);
+   }, [dispatch, account]);
  
    const formatData = () => {
      const indexOfLastPost = pagination.page * perPage;
@@ -61,7 +61,7 @@
      dispatch(setBodyModalParamsAction("SMC_CREATE", {}));
    };
    const handleSearchByAccount = (values) => console.log(values);
-   const handleSearchByQuery = (values) => console.log(values);
+   const handleSearchByName = (values) => console.log(values);
    return (
      <div className="page-content">
        <SiteHeader pageTitle={"Smart Contracts"}>
@@ -85,8 +85,8 @@
              <div className="transactions-filters p-0">
                <div className="search-bar row">
                  <Form
-                   onSubmit={(values) => handleSearchByAccount(values)}
-                   render={({ submitForm, setAllValues, setValue }) => {
+                   onSubmit={handleSearchByAccount}
+                   render={({ submitForm }) => {
                      return (
                        <form
                          onSubmit={submitForm}
@@ -108,8 +108,8 @@
                    }}
                  />
                  <Form
-                   onSubmit={(values) => handleSearchByQuery(values)}
-                   render={({ submitForm, setAllValues, setValue }) => {
+                   onSubmit={handleSearchByName}
+                   render={({ submitForm }) => {
                      return (
                        <form
                          onSubmit={submitForm}
