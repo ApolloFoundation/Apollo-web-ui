@@ -15,16 +15,19 @@ export default function ({ closeModal }) {
 
   const { address } = modalData;
 
-  const getStateContract = useCallback(async address => {
+  const getStateContract = useCallback(
+    async (address) => {
       const state = await dispatch(getState(address));
       if (state) {
         setSmartContract(state);
       }
-    },[address, dispatch]);
+    },
+    [dispatch]
+  );
 
   useEffect(() => {
     getStateContract(address);
-  }, []);
+  }, [address]);
 
   return (
     <ModalBody

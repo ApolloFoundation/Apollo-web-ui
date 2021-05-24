@@ -45,13 +45,17 @@ const SmartContracts = () => {
     getMyContracts();
   }, []);
 
-  const onPaginate = (currPage) => {
+  const onPaginate = (currentPage) => {
     setPagination((prevState) => ({
       ...prevState,
-      page: currPage,
+      page: currentPage,
     }));
     formatData();
   };
+
+  const prevPaginate = () => onPaginate(pagination.page - 1);
+
+  const nextPaginate = () => onPaginate(pagination.page + 1);
 
   const handleSendMessage = () => {
     dispatch(setBodyModalParamsAction("SMC_CREATE", {}));
@@ -124,8 +128,8 @@ const SmartContracts = () => {
           TableRowComponent={ContractTableItem}
           tableData={contractList}
           isPaginate
-          previousHendler={() => onPaginate(pagination.page - 1)}
-          nextHendler={() => onPaginate(pagination.page + 1)}
+          previousHendler={prevPaginate}
+          nextHendler={nextPaginate}
           itemsPerPage={15}
         />
       </div>
