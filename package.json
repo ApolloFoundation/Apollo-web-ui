@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-free": "5.13.0",
+    "ace-builds": "^1.4.12",
     "apl-web-crypto": "^1.0.2",
     "axios": "0.19.2",
     "bootstrap": "4.4.1",
@@ -30,6 +31,7 @@
     "query-string": "6.12.1",
     "react": "16.13.1",
     "react-accessible-accordion": "3.0.1",
+    "react-ace": "^9.4.0",
     "react-circular-progressbar": "2.0.3",
     "react-copy-to-clipboard": "5.0.2",
     "react-custom-scrollbars": "4.2.1",

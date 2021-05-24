@@ -3,150 +3,138 @@
  *                                                                            *
  ******************************************************************************/
 
-import React from "react";
-import { connect } from "react-redux";
+import React, { useState, useCallback, useEffect } from "react";
 import SiteHeader from "../../components/site-header";
 import { ContractTableItem } from "./contract-table-item";
+import { useSelector, useDispatch } from "react-redux";
 import { getContracts } from "../../../actions/contracts";
 import { BlockUpdater } from "../../block-subscriber/index";
 import { setBodyModalParamsAction } from "../../../modules/modals";
 import CustomTable from "../../components/tables/table";
 import { Link } from "react-router-dom";
 
-const mapStateToProps = (state) => ({
-  account: state.account.account,
-  accountRS: state.account.accountRS,
-});
+const SmartContracts = () => {
+  const dispatch = useDispatch();
 
-const mapDispatchToProps = (dispatch) => ({
-  getContracts: (requestParams) => dispatch(getContracts(requestParams)),
-  setBodyModalParamsAction: (type, data, valueForModal) =>
-    dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-});
+  const { account } = useSelector((state) => state.account);
 
-class SmartContracts extends React.Component {
-  constructor(props) {
-    super(props);
+  const [contractList, setContractList] = useState(null);
+  const [perPage, setPerPage] = useState(1);
+  const [pagination, setPagination] = useState({
+    page: 1,
+    firstIndex: 0,
+    lastIndex: 15,
+  });
 
-    this.state = {
-      firstIndex: 0,
-      lastIndex: 15,
-      page: 1,
-      contracts: [],
-    };
-  }
-
-  componentDidMount() {
-    this.getMyContracts(this.props.account);
-    BlockUpdater.on("data", (data) => {
-      this.getMyContracts(this.props.account);
-    });
-  }
-
-  componentWillUnmount() {
-    BlockUpdater.removeAllListeners("data");
-  }
-
-  getMyContracts = async (reqParams) => {
-    const myContracts = await this.props.getContracts(reqParams);
-
+  const getMyContracts = useCallback(async () => {
+    const myContracts = await dispatch(getContracts(account));
     if (myContracts) {
-      this.setState({
-        ...this.props,
-        contracts: myContracts.contracts,
-      });
+      setContractList(myContracts.contracts);
     }
+  }, [dispatch]);
+
+  const formatData = () => {
+    const indexOfLastPost = pagination.page * perPage;
+    const indexOfFirstPage = indexOfLastPost - perPage;
+
+    const currentPosts = contractList.slice(indexOfFirstPage, indexOfLastPost);
+    setContractList(currentPosts);
   };
 
-  onPaginate = (page) => {
-    this.setState({
-      page: page,
-      account: this.props.account,
-      firstIndex: page * 15 - 15,
-      lastIndex: page * 15,
-    });
+  useEffect(() => {
+    getMyContracts();
+  }, []);
+
+  const onPaginate = (currentPage) => {
+    setPagination((prevState) => ({
+      ...prevState,
+      page: currentPage,
+    }));
+    formatData();
   };
 
-  render() {
-    return (
-      <div className="page-content">
-        <SiteHeader pageTitle={"Smart Contracts"}>
-          <Link
-            to={"/smart-contracts/create"}
-            className="btn btn-green btn-sm"
-            style={{ marginLeft: 15 }}
-          >
-            Create New Contract
-          </Link>
-          <button
-            type={"button"}
-            className="btn btn-green btn-sm"
-            style={{ marginLeft: 15 }}
-            onClick={() =>
-              this.props.setBodyModalParamsAction("SMC_CREATE", {})
-            }
-          >
-            Send message
-          </button>
-        </SiteHeader>
-        <div className="page-body container-fluid">
-          <CustomTable
-            header={[
-              {
-                name: "Adress",
-                alignRight: false,
-              },
-              {
-                name: "Name",
-                alignRight: false,
-              },
-              {
-                name: "Args",
-                alignRight: false,
-              },
-              {
-                name: "Fuels limit/price",
-                alignRight: false,
-              },
-              {
-                name: "Transaction id",
-                alignRight: false,
-              },
-              {
-                name: "Amount",
-                alignRight: false,
-              },
-              {
-                name: "Short Hash",
-                alignRight: false,
-              },
-              {
-                name: "Published",
-                alignRight: false,
-              },
-              {
-                name: "Status",
-                alignRight: false,
-              },
-              {
-                name: "Action",
-                alignRight: true,
-              },
-            ]}
-            className={"no-min-height mb-3"}
-            emptyMessage={"No Smart Contracts found."}
-            page={this.state.page}
-            TableRowComponent={ContractTableItem}
-            tableData={this.state.contracts}
-            isPaginate
-            previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
-            nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
-            itemsPerPage={15}
-          />
-        </div>
+  const prevPaginate = () => onPaginate(pagination.page - 1);
+
+  const nextPaginate = () => onPaginate(pagination.page + 1);
+
+  const handleSendMessage = () => {
+    dispatch(setBodyModalParamsAction("SMC_CREATE", {}));
+  };
+
+  return (
+    <div className="page-content">
+      <SiteHeader pageTitle={"Smart Contracts"}>
+        <Link
+          to={"/smart-contracts/create"}
+          className="btn btn-green btn-sm ml-3"
+        >
+          Create New Contract
+        </Link>
+        <button
+          type={"button"}
+          className="btn btn-green btn-sm ml-3"
+          onClick={handleSendMessage}
+        >
+          Send message
+        </button>
+      </SiteHeader>
+      <div className="page-body container-fluid">
+        <CustomTable
+          header={[
+            {
+              name: "Adress",
+              alignRight: false,
+            },
+            {
+              name: "Name",
+              alignRight: false,
+            },
+            {
+              name: "Args",
+              alignRight: false,
+            },
+            {
+              name: "Fuels limit/price",
+              alignRight: false,
+            },
+            {
+              name: "Transaction id",
+              alignRight: false,
+            },
+            {
+              name: "Amount",
+              alignRight: false,
+            },
+            {
+              name: "Short Hash",
+              alignRight: false,
+            },
+            {
+              name: "Published",
+              alignRight: false,
+            },
+            {
+              name: "Status",
+              alignRight: false,
+            },
+            {
+              name: "Action",
+              alignRight: true,
+            },
+          ]}
+          className={"no-min-height mb-3"}
+          emptyMessage={"No Smart Contracts found."}
+          page={pagination.page}
+          TableRowComponent={ContractTableItem}
+          tableData={contractList}
+          isPaginate
+          previousHendler={prevPaginate}
+          nextHendler={nextPaginate}
+          itemsPerPage={15}
+        />
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
-export default connect(mapStateToProps, mapDispatchToProps)(SmartContracts);
+export default SmartContracts;
