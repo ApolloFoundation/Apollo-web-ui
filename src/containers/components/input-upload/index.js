@@ -61,7 +61,7 @@ const InputUpload = ({
           {isDownload && file ? (
             <button
               className="btn btn-sm ml-2 d-flex"
-              onClick={(e) => handleUploadTextFile(e)}
+              onClick={handleUploadTextFile}
               title={"download"}
             >
               <img src={DownloadImg} alt={""} />
