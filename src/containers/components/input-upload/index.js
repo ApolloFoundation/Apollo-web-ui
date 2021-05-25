@@ -1,45 +1,78 @@
-import React from 'react';
-import Dropzone from 'react-dropzone';
-import $ from 'jquery';
-import UploadImg from '../../../assets/upload-icon.png';
-import {NotificationManager} from "react-notifications";
+import React from "react";
+import Dropzone from "react-dropzone";
+import $ from "jquery";
+import UploadImg from "../../../assets/upload-icon.png";
+import DownloadImg from "../../../assets/down-arrow.png";
+import { NotificationManager } from "react-notifications";
 
-const InputUpload = ({id, maxSize, type, accept, handleFileAccepted, handleFileRejected}) => {
-    const onDropAccepted = (files) => {
-        $(`#${id}`).prop('files', files);
-        if (handleFileAccepted) handleFileAccepted(files);
-    };
-    const onDropRejected = () => {
-        NotificationManager.error('Please select another file.', 'Error', 5000);
-        if (handleFileRejected) handleFileRejected();
-    };
+const InputUpload = ({
+  id,
+  maxSize,
+  type,
+  accept,
+  handleFileAccepted,
+  handleFileRejected,
+  file,
+  isDownload,
+}) => {
+  const onDropAccepted = (files) => {
+    $(`#${id}`).prop("files", files);
+    if (handleFileAccepted) handleFileAccepted(files);
+  };
+  const onDropRejected = () => {
+    NotificationManager.error("Please select another file.", "Error", 5000);
+    if (handleFileRejected) handleFileRejected();
+  };
+  const handleUploadTextFile = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
 
-    return (
-        <Dropzone
-            onDropAccepted={onDropAccepted}
-            onDropRejected={onDropRejected}
-            multiple={false}
-            maxSize={maxSize}
-            accept={type}
+    const atag = document.createElement("a");
+    const data = new Blob([file.content], {
+      type: "text/plain",
+    });
+    atag.href = URL.createObjectURL(data);
+    atag.download = file.hasOwnProperty("path") ? file.path : "file.txt";
+    atag.click();
+  };
+  return (
+    <Dropzone
+      onDropAccepted={onDropAccepted}
+      onDropRejected={onDropRejected}
+      multiple={false}
+      maxSize={maxSize}
+      accept={type}
+    >
+      {({ getRootProps, getInputProps, acceptedFiles, isDragActive }) => (
+        <div
+          {...getRootProps()}
+          className={`upload-block ${
+            isDragActive ? "upload-block-active" : ""
+          }`}
         >
-            {({getRootProps, getInputProps, acceptedFiles, isDragActive}) => (
-                <div {...getRootProps()} className={`upload-block ${isDragActive ? 'upload-block-active' : ''}`}>
-                    <input {...getInputProps()} accept={accept} />
-                    <div className={'d-none'} id={id}/>
-                    <p>
-                        {acceptedFiles.length > 0 ?
-                            acceptedFiles.map(acceptedFile => (
-                                acceptedFile.name
-                            )) : (
-                                'Click or drag file to upload'
-                            )
-                        }
-                    </p>
-                    <img src={UploadImg} alt={''}/>
-                </div>
-            )}
-        </Dropzone>
-    )
+          <input {...getInputProps()} accept={accept} />
+          <div className={"d-none"} id={id} />
+          <p className="flex-grow-1">
+            {acceptedFiles.length > 0
+              ? acceptedFiles.map((acceptedFile) => acceptedFile.name)
+              : "Click or drag file to upload"}
+          </p>
+          <img src={UploadImg} alt={""} />
+          {isDownload && file ? (
+            <button
+              className="btn btn-sm ml-2 d-flex"
+              onClick={handleUploadTextFile}
+              title={"download"}
+            >
+              <img src={DownloadImg} alt={""} />
+            </button>
+          ) : (
+            ""
+          )}
+        </div>
+      )}
+    </Dropzone>
+  );
 };
 
 export default InputUpload;
