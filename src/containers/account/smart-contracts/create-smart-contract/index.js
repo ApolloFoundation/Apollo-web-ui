@@ -3,7 +3,7 @@
  *                                                                            *
  ******************************************************************************/
 
-import React, { useState, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Form, Formik, Field } from "formik";
 import { validationForm } from "./form/form-validation";
@@ -45,6 +45,7 @@ export default function SmartContracts() {
   const [isPublish, setIsPublish] = useState(false);
   const [txCode, setTxCode] = useState(null);
   const [error, setError] = useState(null);
+  const [fileData, setFileData] = useState(null);
   const [isPending, setIsPending] = useState({
     test: false,
     publish: false,
@@ -105,9 +106,17 @@ export default function SmartContracts() {
   const handleUploadFile = async ([file], setFieldValue) => {
     const uploadedTextFile = await parseTextFile(file);
     setFieldValue("source", uploadedTextFile);
+    setFileData({
+      ...file,
+      content: uploadedTextFile,
+    });
   };
 
   const handleUploadEditor = (value, setFieldValue) => {
+    setFileData({
+      ...fileData,
+      content: value,
+    });
     setFieldValue("source", value);
   };
 
@@ -143,6 +152,8 @@ export default function SmartContracts() {
                           <InputUpload
                             id="file"
                             accept={"*"}
+                            isDownload={true}
+                            file={fileData}
                             handleFileAccepted={(value) =>
                               handleUploadFile(value, setFieldValue)
                             }
