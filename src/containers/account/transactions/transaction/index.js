@@ -81,7 +81,7 @@ class Transaction extends React.Component {
       const {
         isUnconfirmed, timestamp, confirmations, amountATM,
         feeATM, sender, senderRS, recipient, recipientRS,
-        height, formatTimestamp, transaction, type, constants,
+        height, formatTimestamp, type, constants,
         setBodyModalParamsAction, subtype, attachment, decimals,
       } = this.props;
       const transactionType = constants.transactionTypes && constants.transactionTypes[type];
@@ -90,10 +90,10 @@ class Transaction extends React.Component {
         <tr key={uuidv4()}>
           {constants && (
             <>
-              <td className="blue-link-text">
-                <a onClick={() => setBodyModalParamsAction('INFO_TRANSACTION', this.props, (type === 0 && subtype === 1))}>
+              <td >
+                <button className="blue-link-text" onClick={() => setBodyModalParamsAction('INFO_TRANSACTION', this.props, (type === 0 && subtype === 1))}>
                   {formatTimestamp(timestamp)}
-                </a>
+                </button>
               </td>
               <td>
                 {!!transactionType && (
@@ -112,18 +112,18 @@ class Transaction extends React.Component {
               <td className="align-right">
                 {feeATM / decimals}
               </td>
-              <td className="blue-link-text">
-                <a onClick={() => setBodyModalParamsAction('INFO_ACCOUNT', sender)}>
+              <td>
+                <button className="blue-link-text" onClick={() => setBodyModalParamsAction('INFO_ACCOUNT', sender)}>
                   {senderRS}
-                </a>
+                </button>
                 &nbsp;
                 &nbsp;
                 <i className="zmdi zmdi-long-arrow-right" />
                 &nbsp;
                 &nbsp;
-                <a onClick={() => setBodyModalParamsAction('INFO_ACCOUNT', recipient)}>
+                <button className="blue-link-text" onClick={() => setBodyModalParamsAction('INFO_ACCOUNT', recipient)}>
                   {recipientRS}
-                </a>
+                </button>
               </td>
               <td className="align-right phasing">
 
@@ -151,9 +151,9 @@ class Transaction extends React.Component {
 
               <td className="align-right blue-link-text">
                 {!isUnconfirmed ? (
-                  <a onClick={this.getBlock.bind(this, 'INFO_BLOCK', height)}>
+                  <button className="blue-link-text" onClick={this.getBlock.bind(this, 'INFO_BLOCK', height)}>
                     {height}
-                  </a>
+                  </button>
                 ) : (
                   <span>---</span>
                 )}
