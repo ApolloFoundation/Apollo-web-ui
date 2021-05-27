@@ -75,9 +75,6 @@ export function getContracts(requestParams) {
       .then((res) => {
         if (res.errorCode) {
           NotificationManager.error(res.errorDescription, "Error", 10000);
-          return {
-            contracts: [],
-          };
         }
         return res;
       })

@@ -40,7 +40,9 @@ export default function SmartContracts() {
         searchQuery,
       })
     );
-    if (myContracts) {
+    if (myContracts.errorCode) {
+      setContractList([]);
+    } else {
       setContractList(myContracts.contracts);
     }
   }, [dispatch, pagination, searchQuery]);
