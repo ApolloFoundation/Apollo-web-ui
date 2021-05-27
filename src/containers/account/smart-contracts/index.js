@@ -37,7 +37,7 @@ export default function SmartContracts() {
       getContracts({
         firstIndex: pagination.firstIndex,
         lastIndex: pagination.lastIndex,
-        searchQuery,
+        ...searchQuery,
       })
     );
     if (myContracts.errorCode) {
@@ -68,7 +68,7 @@ export default function SmartContracts() {
   };
 
   const handleSearch = (values) => {
-    setSearchQuery({ ...values, ...searchQuery });
+    setSearchQuery({ ...searchQuery, ...values });
   };
 
   const handleChangeStatus = (value) => {

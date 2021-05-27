@@ -1,8 +1,12 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React from "react";
 import TextualInputComponent from "./textual-input1";
 
-export default function SearchFiledComponent(props) {
-  const { setValue, name, field, placeholder } = props;
+const SearchFiledComponent = ({
+  setValue,
+  name,
+  field,
+  placeholder,
+}) => {
   return (
     <div className="input-group-search-field">
       <TextualInputComponent
@@ -16,4 +20,5 @@ export default function SearchFiledComponent(props) {
       </button>
     </div>
   );
-}
+};
+export default SearchFiledComponent

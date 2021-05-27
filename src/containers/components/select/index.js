@@ -26,6 +26,13 @@ class CustomSelect extends React.Component {
 
     return null;
   }
+  handleChange = (selectedOption) => {
+    this.setState({ value: selectedOption });
+    if (this.props.setValue)
+      this.props.setValue(this.props.field, selectedOption.value);
+    if (this.props.onChange) this.props.onChange(selectedOption.value);
+    if (this.props.handler) this.props.handler(selectedOption);
+  };
 
   render() {
     return (
@@ -35,13 +42,7 @@ class CustomSelect extends React.Component {
         options={this.props.options}
         value={this.state.value}
         defaultValue={this.props.defaultValue}
-        onChange={(selectedOption) => {
-          this.setState({ value: selectedOption });
-          if (this.props.setValue)
-            this.props.setValue(this.props.field, selectedOption.value);
-          if (this.props.onChange) this.props.onChange(selectedOption.value);
-          if (this.props.handler) this.props.handler(selectedOption);
-        }}
+        onChange={this.handleChange}
         placeholder={this.props.placeholder}
         theme={(theme) => ({
           ...theme,

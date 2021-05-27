@@ -31,7 +31,7 @@ const SmartContracts = () => {
     if (myContracts) {
       setContractList(myContracts.contracts);
     }
-  }, [dispatch]);
+  }, [dispatch, account]);
 
   const formatData = () => {
     const indexOfLastPost = pagination.page * perPage;

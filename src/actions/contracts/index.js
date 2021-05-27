@@ -61,16 +61,9 @@ export function exportTestExperationMessage(requestParams) {
 }
 
 export function getContracts(requestParams) {
-  const { firstIndex, lastIndex, searchQuery } = requestParams;
-  let searchParams = "";
-  if (searchQuery) {
-    searchParams = Object.keys(searchQuery)
-      .map((key) => `${key}=${searchQuery[key]}&`)
-      .join("");
-  }
   return () =>
     handleFetch(
-      `/rest/v2/smc?${searchParams}firstIndex=${firstIndex}&lastIndex=${lastIndex}`
+      `/rest/v2/smc`, "GET", requestParams, false, true
     )
       .then((res) => {
         if (res.errorCode) {
