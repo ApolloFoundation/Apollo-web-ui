@@ -45,7 +45,7 @@ export const ContractTableItem = (props) => {
       </td>
       <td>{transaction}</td>
       <td>{amount}</td>
-      <td>{signature.substring(0, 12)}</td>
+      <td>{signature.substring(-12)}</td>
       <td>{currentDate}</td>
       <td>{status}</td>
       <td className="align-right">

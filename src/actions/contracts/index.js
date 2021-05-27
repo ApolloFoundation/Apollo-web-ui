@@ -61,6 +61,30 @@ export function exportTestExperationMessage(requestParams) {
 }
 
 export function getContracts(requestParams) {
+  const { firstIndex, lastIndex, searchQuery } = requestParams;
+  let searchParams = "";
+  if (searchQuery) {
+    searchParams = Object.keys(searchQuery)
+      .map((key) => `${key}=${searchQuery[key]}&`)
+      .join("");
+  }
+  return () =>
+    handleFetch(
+      `/rest/v2/smc?${searchParams}firstIndex=${firstIndex}&lastIndex=${lastIndex}`
+    )
+      .then((res) => {
+        if (res.errorCode) {
+          NotificationManager.error(res.errorDescription, "Error", 10000);
+          return {
+            contracts: [],
+          };
+        }
+        return res;
+      })
+      .catch((err) => console.log(err));
+}
+
+export function getMyContracts(requestParams) {
   return () =>
     handleFetch(`/rest/v2/smc/owner/${requestParams}`)
       .then((res) => {
@@ -71,6 +95,7 @@ export function getContracts(requestParams) {
       })
       .catch((err) => console.log(err));
 }
+
 export function getState(requestParams) {
   return () =>
     handleFetch(`/rest/v2/smc/state/${requestParams}`)

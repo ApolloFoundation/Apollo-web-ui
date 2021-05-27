@@ -2,7 +2,7 @@ import React from 'react';
 import CustomSelect from '../../components/select';
 
 const CustomFormSelect = (props) => {
-    const {defaultValue, setValue, options, label, field, onChange} = props;
+    const {defaultValue, placeholder, setValue, options, label, field, onChange} = props;
 
     return (
         <div className="form-group mb-15">
@@ -16,6 +16,7 @@ const CustomFormSelect = (props) => {
                         field={field}
                         defaultValue={defaultValue}
                         setValue={setValue}
+                        placeholder={placeholder}
                         options={options}
                         onChange={(e) => {
                                 if (onChange) {
