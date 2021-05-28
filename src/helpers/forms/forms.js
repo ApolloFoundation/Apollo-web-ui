@@ -34,7 +34,6 @@ function checkRequestType(requestType, data) {
 }
 
 function submitForm(data, requestType, ) {
-    console.log("submitForm", data, requestType);
     return async (dispatch, getState) => {
         const {account, accountSettings, modals, fee} = getState();
         const { decimals } = account;
