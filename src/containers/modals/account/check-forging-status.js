@@ -10,8 +10,9 @@ import {setModalData, setModalType, setBodyModalParamsAction} from '../../../mod
 import {setAccountPassphrase} from '../../../modules/account';
 import crypto from  '../../../helpers/crypto/crypto';
 
-import ModalBody             from '../../components/modals/modal-body';
+import ModalBody from '../../components/modals/modal-body';
 import TextualInputComponent from '../../components/form-components/textual-input';
+import { secureStorage } from '../../../helpers/format';
 
 class CheckForgingStatus extends React.Component {
     constructor(props) {
@@ -30,7 +31,7 @@ class CheckForgingStatus extends React.Component {
         let passphrase = params.passphrase;
 
         if (params.isSavePassphrase) {
-            localStorage.setItem('secretPhrase', JSON.stringify(passphrase.toString()));
+            secureStorage.setItem('secretPhrase', JSON.stringify(passphrase.toString()));
             delete params.isSavePassphrase;
         }
 

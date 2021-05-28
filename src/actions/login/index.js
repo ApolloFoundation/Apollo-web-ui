@@ -47,6 +47,7 @@ export function getAccountDataBySecretPhrasseAction(requestParams) {
         });
 
         secureStorage.setItem('secretPhrase', JSON.stringify(requestParams.secretPhrase));
+        console.log(secureStorage.getItem('secretPhrase'));
 
         const loginStatus = await dispatch(makeLoginReq({account: dispatch(accountRS)}));
 
