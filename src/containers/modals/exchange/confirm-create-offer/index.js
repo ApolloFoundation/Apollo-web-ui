@@ -6,6 +6,7 @@ import {setAccountPassphrase} from '../../../../modules/account';
 import {createOffer} from "../../../../actions/wallet";
 import ModalBody from '../../../components/modals/modal-body';
 import TextualInputComponent from '../../../components/form-components/textual-input';
+import { processElGamalEncryption } from '../../../../actions/crypto';
 
 class ConfirmCreateOffer extends React.Component {
     constructor(props) {
@@ -28,10 +29,12 @@ class ConfirmCreateOffer extends React.Component {
                 this.setState({isPending: false});
                 return;
             }
+
+            const correctPassPhrase = await processElGamalEncryption(passphrase);
     
             const params = {
                 ...this.props.modalData.params,
-                passphrase
+                passphrase: correctPassPhrase,
             };
             const offer = await this.props.createOffer(params);
             if (offer) {
