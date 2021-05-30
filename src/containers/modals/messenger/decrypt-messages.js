@@ -11,7 +11,7 @@ import {setAccountPassphrase} from '../../../modules/account';
 import crypto from  '../../../helpers/crypto/crypto';
 
 import ModalBody from '../../components/modals/modal-body';
-import { secureStorage } from '../../../helpers/format';
+import { writeToLocalStorage } from '../../../actions/localStorage';
 
 const mapStateToProps = state => ({
     publicKey: state.account.publicKey,
@@ -40,7 +40,7 @@ class DecryptMessage extends React.Component {
     handleFormSubmit = async (params) => {
         let passphrase = params.passphrase || params.secretPhrase;
         if (params.isRememberPassphrase) {
-            secureStorage.setItem('secretPhrase', JSON.stringify(passphrase))
+            writeToLocalStorage('secretPhrase',passphrase);
         }
         this.props.setAccountPassphrase(passphrase);
         this.closeModal();
