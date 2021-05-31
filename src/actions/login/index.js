@@ -229,7 +229,6 @@ export function setForging(requestType) {
         //     payload: passpPhrase
         // });
 
-        // вопрос от Ромы
         return Promise.resolve(forgingStatus)
             .then((isPassphrase) => {
                 dispatch({
