@@ -18,7 +18,7 @@ import submitForm from "../../helpers/forms/forms";
 import store from '../../store'
 import {setBodyModalParamsAction} from "../../modules/modals";
 import {setAccountPassphrase} from '../../modules/account';
-import {secureStorage} from "../../helpers/format";
+import { secureStorage } from '../../helpers/format'
 
 export function getAccountDataAction(requestParams) {
     return async dispatch => {
@@ -221,14 +221,15 @@ export function getForging() {
 export function setForging(requestType) {
     return (dispatch, getState) => {
         const account = getState().account;
-        const passpPhrase = JSON.parse(secureStorage.getItem('secretPhrase')) || account.passPhrase;
+        const passpPhrase = JSON.parse(readFromLocalStorage('secretPhrase')) || account.passPhrase;
+        const forgingStatus = dispatch(crypto.validatePassphrase(passpPhrase));
+        
         // dispatch({
         //     type: 'SET_PASSPHRASE',
         //     payload: passpPhrase
         // });
 
-        const forgingStatus = dispatch(crypto.validatePassphrase(passpPhrase));
-
+        // вопрос от Ромы
         return Promise.resolve(forgingStatus)
             .then((isPassphrase) => {
                 dispatch({

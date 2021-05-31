@@ -31,7 +31,7 @@ class ConfirmCreateOffer extends React.Component {
             }
 
             const correctPassPhrase = await processElGamalEncryption(passphrase);
-    
+
             const params = {
                 ...this.props.modalData.params,
                 passphrase: correctPassPhrase,

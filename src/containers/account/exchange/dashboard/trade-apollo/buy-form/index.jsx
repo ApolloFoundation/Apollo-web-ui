@@ -8,6 +8,7 @@ import { ONE_GWEI } from '../../../../../../constants';
 import {
   setBodyModalParamsAction, resetTrade, setSelectedOrderInfo,
 } from '../../../../../../modules/modals';
+import { processElGamalEncryption } from '../../../../../../actions/crypto';
 import BuyForm from './form';
 
 const feeATM = 200000000;
@@ -28,7 +29,7 @@ export default function BuyFormWrapper(props) {
 
   const setPending = useCallback((value = true) => { setIsPending(value); }, []);
 
-  const handleFormSubmit = useCallback(newValues => {
+  const handleFormSubmit = useCallback( async (newValues) => {
     if (!isPending) {
       const pairRateInfo = multiply(newValues.pairRate, ONE_GWEI);
       const offerAmountInfo = multiply(newValues.offerAmount, ONE_GWEI);
@@ -95,13 +96,16 @@ export default function BuyFormWrapper(props) {
             setPending(false);
             return;
           }
+
+          const passphrase = await processElGamalEncryption(passPhrase);
+
           const params = {
             offerType: 0, // BUY
             pairCurrency: currencyTypes[currency],
             pairRate,
             offerAmount: fixedOfferAmount,
             sender: account,
-            passphrase: passPhrase,
+            passphrase,
             feeATM,
             walletAddress: newValues.walletAddress.value.address,
           };
