@@ -1,15 +1,15 @@
-.tab {
+.accordion {
   padding: 16px;
   background: #252A31;
   opacity: 0.8;
   border-radius: 6px;
 }
 
-.tabActive {
+.accordionActive {
   border: 0.5px solid #25F459;
 }
 
-.tabHeader {
+.accordionHeader {
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -17,11 +17,11 @@
   cursor: pointer;
 }
 
-.tabInfo {
+.accordionInfo {
   text-transform: uppercase;
 }
 
-.tabIcon {
+.accordionIcon {
   position: relative;
   display: inline-block;
 
@@ -38,18 +38,18 @@
   }
 }
 
-.tabIconOpen {
+.accordionIconOpen {
   &::after {
     transform: translate(-50%, -50%) rotate(135deg);
   }
 }
 
-.tabContent {
+.accordionContent {
   height: 0;
   margin-top: 18px;
   overflow: hidden;
 }
 
-.tabContentOpen {
+.accordionContentOpen {
   height: auto;
 }
