@@ -43,10 +43,9 @@ class AddMonitoredAccount extends React.Component {
           }) => (
             <form className="modal-form" onSubmit={submitForm}>
               <div className="form-group-app">
-                <a onClick={() => this.props.closeModal()} className="exit">
+                <button type="button" onClick={() => this.props.closeModal()} className="exit">
                   <i className="zmdi zmdi-close" />
-                </a>
-
+                </button>
                 <div className="form-title">
                   {this.props.modalsHistory &&
                     this.props.modalsHistory.length > 1 && (

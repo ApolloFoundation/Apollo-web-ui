@@ -6,7 +6,9 @@ export default class Modal extends React.Component {
       <div className="modal-box">
         <form className="modal-form">
           <div className="form-group-app">
-            <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
+            <button type="button" onClick={() => this.props.closeModal()} className="exit">
+              <i className="zmdi zmdi-close" />
+            </button>
             <div className="form-title inline">
               <p>{this.props.title}</p>
 

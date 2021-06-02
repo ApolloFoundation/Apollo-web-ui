@@ -97,9 +97,9 @@ class ScheaduleCurrency extends React.Component {
               onSubmit={submitForm}
             >
               <div className="form-group-app">
-                <a onClick={this.handleCloseModal} className="exit">
+                <button  type="button" onClick={this.handleCloseModal} className="exit">
                   <i className="zmdi zmdi-close" />
-                </a>
+                </button>
 
                 <div className="form-title">
                   {this.props.modalsHistory.length > 1 && (

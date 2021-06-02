@@ -8,7 +8,6 @@ import { connect } from "react-redux";
 import { setModalData } from "../../../../modules/modals";
 import { getDGSGoodAction } from "../../../../actions/marketplace";
 import { setBodyModalParamsAction } from "../../../../modules/modals";
-import { formatTimestamp } from "../../../../helpers/util/time";
 import config from "../../../../config";
 
 import Form from "./form";

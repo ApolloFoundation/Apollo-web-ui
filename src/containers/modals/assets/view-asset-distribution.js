@@ -13,6 +13,7 @@ import {
   getAccountAssetsAction,
   getSpecificAccountAssetsAction,
 } from "../../../actions/assets";
+import Button from '../../components/button';
 
 class AssetDistribution extends React.Component {
   constructor(props) {
@@ -53,9 +54,9 @@ class AssetDistribution extends React.Component {
       <div className="modal-box">
         <div className="modal-form">
           <div className="form-group-app">
-            <a onClick={() => this.props.closeModal()} className="exit">
+            <button type="button" onClick={() => this.props.closeModal()} className="exit">
               <i className="zmdi zmdi-close" />
-            </a>
+            </button>
 
             <div className="form-title">
               <p>Asset Distribution</p>
@@ -77,18 +78,17 @@ class AssetDistribution extends React.Component {
                       this.state.assets.map((el, index) => {
                         return (
                           <tr>
-                            <td className={"blue-link-text"}>
-                              <a
-                                className={"blue-link-text"}
+                            <td>
+                              <Button
+                                color="blue-link"
                                 onClick={() =>
                                   this.props.setBodyModalParamsAction(
                                     "INFO_ACCOUNT",
                                     el.account
                                   )
                                 }
-                              >
-                                {el.accountRS}
-                              </a>
+                                name={el.accountRS}
+                              />
                             </td>
 
                             <td>

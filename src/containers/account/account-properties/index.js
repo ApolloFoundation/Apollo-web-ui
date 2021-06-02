@@ -7,12 +7,8 @@
 import React from 'react';
 import SiteHeader from '../../components/site-header';
 import {connect} from 'react-redux';
-import { v4 as uuidv4 } from 'uuid';
 import {getAccountPropertiesAction} from '../../../actions/account/index';
-import InfoBox from '../../components/info-box';
 import {setBodyModalParamsAction} from "../../../modules/modals";
-import ContentLoader from '../../components/content-loader'
-import ContentHendler from '../../components/content-hendler'
 
 import AccountProperty from './acocunt-property';
 import CustomTable from '../../components/tables/table';

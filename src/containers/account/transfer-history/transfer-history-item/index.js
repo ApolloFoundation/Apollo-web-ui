@@ -7,6 +7,7 @@ import React from "react";
 import { setBodyModalParamsAction } from "../../../../modules/modals";
 import { connect } from "react-redux";
 import { formatTimestamp } from "../../../../helpers/util/time";
+import Button from "../../../components/button";
 
 class TransferHistoryItem extends React.Component {
   constructor(props) {
@@ -33,23 +34,18 @@ class TransferHistoryItem extends React.Component {
 
     return (
       <tr key={assetTransfer}>
-        <td className="blue-link-text">
-          <a
+        <td>
+          <Button
+            color="blue-link"
             onClick={setBodyModalParamsAction.bind(
               this,
               "INFO_TRANSACTION",
               assetTransfer
             )}
-          >
-            {assetTransfer}
-          </a>
+            name={assetTransfer}
+          />
         </td>
-        <td>
-          {name}
-          <a>
-            <span className="info" />
-          </a>
-        </td>
+        <td>{name}</td>
         <td className="">{this.props.formatTimestamp(timestamp)}</td>
         <td className="align-right">
           {(quantityATU / Math.pow(10, decimals)).toLocaleString("en", {
@@ -57,27 +53,27 @@ class TransferHistoryItem extends React.Component {
             maximumFractionDigits: decimals,
           })}
         </td>
-        <td className="blue-link-text">
-          <a
+        <td>
+          <Button
+            color="blue-link"
             onClick={setBodyModalParamsAction.bind(
               this,
               "INFO_ACCOUNT",
               recipient
             )}
-          >
-            {recipientRS}
-          </a>
+            name={recipientRS}
+          />
         </td>
-        <td className="blue-link-text">
-          <a
+        <td>
+          <Button
+            color="blue-link"
             onClick={setBodyModalParamsAction.bind(
               this,
               "INFO_ACCOUNT",
               sender
             )}
-          >
-            {senderRS}
-          </a>
+            name={senderRS}
+          />
         </td>
       </tr>
     );

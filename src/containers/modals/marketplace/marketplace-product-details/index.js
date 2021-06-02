@@ -59,8 +59,9 @@ class MarketplaceProductDetails extends React.Component {
             <div className="modal-box">
                 <div className="modal-form">
                     <div className="form-group-app">
-                        <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close"/></a>
-
+                        <button type="button" onClick={() => this.props.closeModal()} className="exit">
+                            <i className="zmdi zmdi-close" />
+                        </button>
                         {this.state.goods && (
                             <div className="right-bar">
                                 <div className="form-title">

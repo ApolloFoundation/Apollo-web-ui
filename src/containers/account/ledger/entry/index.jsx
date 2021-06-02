@@ -31,7 +31,7 @@ export default function Entry(props) {
     <>
       {ledgerId && (
         <tr>
-          <td className="blue-link-text">
+          <td>
             <Button
               color="blue-link"
               onClick={() => {

@@ -9,12 +9,7 @@ import SiteHeader from '../../components/site-header'
 import {connect} from "react-redux";
 import {getApprovesAction} from "../../../actions/approval-requests";
 import {BlockUpdater} from "../../block-subscriber";
-import Block from "../blocks/block";
-import { v4 as uuidv4 } from 'uuid';
-import classNames from "classnames";
 import Transaction from "./transaction/index";
-import ContentLoader from '../../components/content-loader'
-import ContentHendler from '../../components/content-hendler'
 
 import CustomTable from '../../components/tables/table';
 

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { getShufflingAction } from "../../../../actions/shuffling";
 import { connect } from "react-redux";
 import { setBodyModalParamsAction } from "../../../../modules/modals";
+import Button from "../../../components/button";
 
 function Stage(number) {
   if (number === "0") {
@@ -96,16 +97,15 @@ class ShufflingCreation extends Component {
           <tr>
             <td>Issuer:</td>
             <td>
-              <button
-                className={"blue-link-text"}
+              <Button
+                color="blue-link"
                 onClick={this.props.setBodyModalParamsAction.bind(
                   this,
                   "INFO_ACCOUNT",
                   this.props.transaction.sender
                 )}
-              >
-                {this.props.transaction.senderRS}
-              </button>
+                name={this.props.transaction.senderRS}
+              />
             </td>
           </tr>
         )}

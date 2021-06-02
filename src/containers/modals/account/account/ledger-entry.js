@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { useDispatch, useSelector } from 'react-redux';
 import { formatTimestamp } from '../../../../helpers/util/time';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
+import Button from '../../../components/button';
 
 const Entry = ({
   event, eventType, timestamp, change, holdingType,
@@ -14,17 +15,17 @@ const Entry = ({
 
   return (
     <tr key={uuidv4()}>
-      <td className="blue-link-text">
-        <a onClick={() => dispatch(setBodyModalParamsAction('INFO_LEDGER_TRANSACTION', ledgerId))}>
-          {dispatch(formatTimestamp(timestamp))}
-        </a>
+      <td>
+        <Button
+          color="blue-link"
+          onClick={() => dispatch(setBodyModalParamsAction('INFO_LEDGER_TRANSACTION', ledgerId))}
+          name={dispatch(formatTimestamp(timestamp))}
+        />
       </td>
       <td>
-        <a onClick={() => dispatch(setBodyModalParamsAction('INFO_TRANSACTION', event))}>
           {eventType}
-        &nbsp;&nbsp;
-          <span className="zmdi zmdi-info" />
-        </a>
+          &nbsp;&nbsp;
+          <span className="zmdi zmdi-info pointer" onClick={() => dispatch(setBodyModalParamsAction('INFO_TRANSACTION', event))}/>
       </td>
       <td className="align-right">
         {holdingType === 'UNCONFIRMED_APL_BALANCE'

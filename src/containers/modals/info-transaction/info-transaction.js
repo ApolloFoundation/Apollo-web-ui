@@ -16,6 +16,7 @@ import TabContaier from '../../components/tabulator/tab-container';
 import ModalBody from "../../components/modals/modal-body";
 import ContentLoader from "../../components/content-loader";
 import InfoBox from "../../components/info-box";
+import Button from '../../components/button';
 
 class InfoLedgerTransaction extends React.Component {
     constructor(props) {
@@ -342,12 +343,12 @@ class InfoLedgerTransaction extends React.Component {
                                                                         this.state.whitelist.map((el) => {
                                                                             return (
                                                                                 <tr>
-                                                                                    <td className={'blue-link-text'}>
-                                                                                        <a
+                                                                                    <td>
+                                                                                        <Button
+                                                                                            color="blue-link"
                                                                                             onClick={() => this.props.setBodyModalParamsAction('INFO_ACCOUNT', el.account)}
-                                                                                        >
-                                                                                            {el.accountRS}
-                                                                                        </a>
+                                                                                            name={el.accountRS}
+                                                                                            />
                                                                                     </td>
                                                                                 </tr>
                                                                             );

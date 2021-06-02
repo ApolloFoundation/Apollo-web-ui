@@ -132,8 +132,9 @@ class ImportAccount extends React.Component {
                                       onSubmit={submitForm}>
 
                                     <div className="form-group-app">
-                                        <a onClick={() => this.props.closeModal()} className="exit"><i
-                                            className="zmdi zmdi-close"/></a>
+                                    <button type="button" onClick={() => this.props.closeModal()} className="exit">
+                                        <i className="zmdi zmdi-close" />
+                                    </button>
 
                                         <div className="form-title">
                                             {this.props.modalsHistory.length > 1 &&
@@ -264,13 +265,14 @@ class ImportAccount extends React.Component {
                                             }
                                             {
                                                 this.state.isGenerated &&
-                                                <a
+                                                <button
+                                                    type="button"
                                                     onClick={() => this.props.closeModal()}
                                                     name={'closeModal'}
                                                     className="btn absolute btn-right default round round-top-left round-bottom-right"
                                                 >
                                                     Close
-                                                </a>
+                                                </button>
                                             }
 
                                         </div>

@@ -83,9 +83,9 @@ class PayDividends extends React.Component {
             >
               {this.props.modalData && (
                 <div className="form-group-app">
-                  <a onClick={() => this.props.closeModal()} className="exit">
+                  <button  type="button" onClick={() => this.props.closeModal()} className="exit">
                     <i className="zmdi zmdi-close" />
-                  </a>
+                  </button>
 
                   <div className="form-title">
                     {this.props.modalsHistory.length > 1 && (

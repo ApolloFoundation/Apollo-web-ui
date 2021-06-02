@@ -1,12 +1,6 @@
 import React from "react";
-import InputForm from "../../../components/input-form";
-import {Checkbox, TextArea, Form} from "react-form";
-import {NotificationManager} from "react-notifications";
-import ModalFooter from "../../../components/modal-footer";
 
 import ModalBody from '../../../components/modals/modal-body';
-import TabulationBody from '../../../components/tabulator/tabuator-body';
-import TabContaier from '../../../components/tabulator/tab-container';
 import NummericFormInput from '../../../components/form-components/numeric-input';
 
 export default class NoApprovalBody extends React.Component {
