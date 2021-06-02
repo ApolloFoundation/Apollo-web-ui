@@ -10,6 +10,7 @@ import CustomInput from '../../../../components/custom-input';
 import Button from '../../../../components/button';
 import AccountRS from '../../../../components/account-rs/index1';
 import './standartForm.scss';
+import { Switcher } from 'containers/components/form-components/switcher/switcher';
 
 export default function SecretPhraseForm({ activeTab }) {
   const dispatch = useDispatch();
@@ -57,7 +58,7 @@ export default function SecretPhraseForm({ activeTab }) {
       <Form
         className={cn({
           'tab-body': true,
-          active: !!activeTab,
+          active: true,
         })}
       >
         <InfoBox className="green-text" transparent>
@@ -84,9 +85,9 @@ export default function SecretPhraseForm({ activeTab }) {
           )}
         </div>
         <div className="d-flex flex-column">
-          <CheckboxFormInput
+          <Switcher
             name="isCustomPassphrase"
-            label="Use custom secret phrase"
+            label="Switch to the ID input field"
             onChange={handleShowPhaze}
             id="show-phrase"
           />

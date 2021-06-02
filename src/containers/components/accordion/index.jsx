@@ -1,13 +1,17 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import styles from './index.module.scss';
 
-export const Accordion = ({ header, defaultInstance = false, children }) => {
+export const Accordion = ({ header, defaultInstance = false, currentState, children }) => {
   const [isOpen, setIsOpen] = useState(defaultInstance);
 
-  const handleAccordionOpen = () => {
+  useEffect(() => {
+    if (currentState) handleAccordionOpen(currentState);
+  }, [currentState, handleAccordionOpen]);
+
+  const handleAccordionOpen = useCallback(() => {
     setIsOpen(state => !state);
-  }
+  }, [setIsOpen]);
 
   return (
     <div className={classNames(styles.accordion, { [styles.accordionActive]: isOpen })}>

@@ -60,7 +60,7 @@ export default function StandardWalletForm(props) {
     <Formik
       initialValues={{
         option: 1,
-        losePhrase: false,
+        // losePhrase: false,
       }}
       onSubmit={handleSubmit}
       validateOnMount
@@ -150,24 +150,24 @@ export default function StandardWalletForm(props) {
                         }}
                       >
                         <Button
-                          name="Copy account data to clipboard"
+                          name="Copy account to clipboard"
                           size="sm"
                         />
                       </CopyToClipboard>
-                      <Button
+                      {/* <Button
                         name="Print Wallet"
                         className="btn"
                         size="sm"
                         onClick={handleGeneratePDF}
-                      />
+                      /> */}
                     </InfoBox>
                   )}
-                  <CheckboxFormInput
+                  {/* <CheckboxFormInput
                     name="losePhrase"
                     label="I wrote down my secret phrase. It
                       is now stored in a secured
                       place."
-                  />
+                  /> */}
                   {loginModalButton(handleSubmit, values)}
                 </>
               ) : (

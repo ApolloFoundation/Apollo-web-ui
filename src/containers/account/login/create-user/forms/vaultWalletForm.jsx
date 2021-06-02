@@ -203,11 +203,11 @@ export default function VaultWalletForm(props) {
                             size="sm"
                           />
                         </CopyToClipboard>
-                        <Button
+                        {/* <Button
                           name="Print Wallet"
                           size="sm"
                           onClick={handleGeneratePDF}
-                        />
+                        /> */}
                       </InfoBox>
                     )}
                     <CheckboxFormInput

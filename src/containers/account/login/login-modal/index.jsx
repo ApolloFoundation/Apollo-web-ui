@@ -9,8 +9,14 @@ import React, {
 import AccountIdForm from './forms/viaAccountIdForm';
 import SecretPhraseForm from './forms/viaSecretPhraseForm';
 import ButtonTabs from '../../../components/button-tabs';
+import ShieldIcon from '../../../../assets/shield-check.svg';
 
 import '../Login.css';
+import { Accordion } from 'containers/components/accordion';
+import { Tooltip } from 'containers/components/tooltip';
+import { VaultAccordion } from './login-accordions/vault-wallet/vault';
+import { StandartWallet } from './login-accordions/standart-wallet';
+import styles from './index.module.scss';
 
 const tabs = [
   {
@@ -45,15 +51,18 @@ export default function LoginModal({ handleModal }) {
     <div>
       <div className="dark-card login-form">
         <p className="title">Log in</p>
-        <div className="form-tabulator">
+        {/* <div className="form-tabulator">
           <ButtonTabs
             tabs={tabs}
             onClick={handleTab}
             isActive={activeTab}
           />
           {selectForm}
-        </div>
+        </div> */}
+        <VaultAccordion />
+        <StandartWallet />
       </div>
+      <div className={styles.line}>Or</div>
       <div
         className="button-block"
         onClick={() => handleModal('IMPORT_ACCOUNT')}

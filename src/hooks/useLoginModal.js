@@ -7,9 +7,9 @@ import Button from '../containers/components/button';
 export const useLoginModal = (onGeneratePDF) => {
   const dispatch = useDispatch();
 
-  const handleLosePhraseError = () => {
-    NotificationManager.error('You have to verify that you stored your private data.', 'Error', 7000); 
-  }
+  // const handleLosePhraseError = () => {
+  //   NotificationManager.error('You have to verify that you stored your private data.', 'Error', 7000); 
+  // }
   
   const handleModalActions = (onSubmit) => (isOk) => {
     isOk && onGeneratePDF();
@@ -18,17 +18,13 @@ export const useLoginModal = (onGeneratePDF) => {
   }
 
   const handleNextStep = (onSubmit, { losePhrase }) => () => {
-    if (losePhrase) {
       dispatch(setModalType('SAVE_CREDENTIALS'));
       dispatch(setModalCallback(handleModalActions(onSubmit)));
-    } else {
-      handleLosePhraseError();
-    }
   }
 
   const button = (handleSubmit, values) => (
     <Button
-      name="Next"
+      name="Create account and get account info"
       type="button"
       onClick={handleNextStep(handleSubmit, values)}
     />

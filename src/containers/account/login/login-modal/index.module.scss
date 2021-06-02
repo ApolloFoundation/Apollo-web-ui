@@ -1,0 +1,28 @@
+.line {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  font-size: 18px;
+  
+  &::after,
+  &::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 1px;
+    background: #7E8691;
+  }
+
+  &::after {
+    left: 55%;
+    right: 0;
+  }
+
+  &::before {
+    left: 0;
+    right: 55%;
+  }
+}
