@@ -91,7 +91,7 @@ export default function SellForm(props) {
               const rangeValue = ((amount * 100) / balanceFormat).toFixed(0);
               setFieldValue('range', numberTypes[rangeValue] || rangeValue);
             }
-            setFieldValue('total', multiply(amount, price, 0, 0));
+            setFieldValue('total', multiply(amount, price));
           }}
         />
       </div>
@@ -113,7 +113,7 @@ export default function SellForm(props) {
                 const rangeValue = ((newAmount * 100) / balanceFormat).toFixed(0);
                 setFieldValue('range', numberTypes[rangeValue] || rangeValue);
               }
-              setFieldValue('total', multiply(newAmount, pairRate, 0, 0));
+              setFieldValue('total', multiply(newAmount, pairRate));
             }}
           >
             <div className="input-group-append">

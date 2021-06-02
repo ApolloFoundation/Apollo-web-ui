@@ -93,7 +93,7 @@ export default function BuyForm(props) {
 
             setFieldValue('offerAmount', amount);
             setFieldValue('range', rangeValue);
-            setFieldValue('total', multiply(amount, price, 0, 0));
+            setFieldValue('total', multiply(amount, price));
           }}
         />
       </div>
@@ -112,7 +112,7 @@ export default function BuyForm(props) {
 
             setFieldValue('offerAmount', amount);
             setFieldValue('range', rangeValue === 'NaN' ? 0 : rangeValue);
-            setFieldValue('total', multiply(amount, pairRate, 0, 0));
+            setFieldValue('total', multiply(amount, pairRate));
           }}
         />
       </div>

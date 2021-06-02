@@ -76,7 +76,7 @@ const numberToString = x => {
   return x;
 };
 
-export const multiply = (val1, val2, digitsMax = 10, digitsMin = 10) => numberToString((val1 * val2).toLocaleString('en', {
+export const multiply = (val1, val2, digitsMax = 10, digitsMin = 0) => numberToString((val1 * val2).toLocaleString('en', {
   minimumFractionDigits: digitsMin,
   maximumFractionDigits: digitsMax,
   useGrouping: false,
