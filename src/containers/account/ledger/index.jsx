@@ -39,7 +39,7 @@ export default function Ledger() {
         setIsError(true);
       } else {
         if (!isPrivate && !!accLedger.serverPublicKey) {
-          setIsPrivate(isPrivate);
+          setIsPrivate(true);
           NotificationManager.success('You are watching private entries.', null, 900000);
         }
         setLedger(accLedger.entries);
