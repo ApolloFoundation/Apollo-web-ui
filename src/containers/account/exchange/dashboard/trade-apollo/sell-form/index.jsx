@@ -70,7 +70,7 @@ export default function SellFormWrapper(props) {
           const currentBalanceAPL = (dashboardAccoountInfo && dashboardAccoountInfo.unconfirmedBalanceATM)
             ? parseFloat(dashboardAccoountInfo.unconfirmedBalanceATM)
             : parseFloat(balanceAPL);
-          if (!balanceAPL || currentBalanceAPL === 0 || currentBalanceAPL < ((offerAmount + feeATM) / 10)) {
+          if (Number.isNaN(currentBalanceAPL) || currentBalanceAPL === 0 || currentBalanceAPL < ((offerAmount + feeATM) / 10)) {
             NotificationManager.error(`Not enough funds on your ${ticker} balance.`, 'Error', 5000);
             setPending(false);
             return;
