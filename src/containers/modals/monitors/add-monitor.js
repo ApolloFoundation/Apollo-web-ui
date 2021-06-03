@@ -16,9 +16,6 @@ import submitForm from "../../../helpers/forms/forms";
 import BackForm from "../modal-form/modal-form-container";
 
 class AddMonitor extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   handleFormSubmit = async (values) => {
     if (!values.phrase) {

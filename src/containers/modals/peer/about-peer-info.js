@@ -9,10 +9,6 @@ import {connect} from 'react-redux';
 import {setModalData} from '../../../modules/modals';
 
 class AboutPeerInfo extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     formDate = date => {
         if (!date) return "";
         const lastUpdDate = new Date(Date.now() - date);

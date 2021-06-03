@@ -217,7 +217,8 @@ class InfoAccount extends React.PureComponent {
                                         <p>Account {this.state.account.accountRS} info</p>
                                         {
                                             this.props.account !== this.state.account.account &&
-                                            <a
+                                            <button
+                                                type="button"
                                                 onClick={() => this.props.switchAccountAction(this.state.account.accountRS, this.props.history)}
                                                 className="btn btn-green btn-sm"
                                                 style={{
@@ -225,7 +226,7 @@ class InfoAccount extends React.PureComponent {
                                                 }}
                                             >
                                                 Switch Account
-                                            </a>
+                                            </button>
                                         }
                                     </React.Fragment>
                                 }
@@ -461,7 +462,8 @@ class InfoAccount extends React.PureComponent {
                                 </TabContaier>
                                 <TabContaier sectionName="Actions">
                                     <div className="flexible-grid">
-                                        <a
+                                        <button
+                                            type="button"
                                             onClick={() => this.props.setBodyModalParamsAction('SEND_APOLLO', {recipient}, {recipient})}
                                             className={classNames({
                                                 "btn btn-green": true,
@@ -469,8 +471,9 @@ class InfoAccount extends React.PureComponent {
                                             })}
                                         >
                                             Send Apollo
-                                        </a>
-                                        <a
+                                        </button>
+                                        <button
+                                            type="button"
                                             onClick={() => this.props.setBodyModalParamsAction('TRANSFER_CURRENCY', {recipient}, {recipient})}
                                             className={classNames({
                                                 "btn btn-green": true,
@@ -478,8 +481,9 @@ class InfoAccount extends React.PureComponent {
                                             })}
                                         >
                                             Send currency
-                                        </a>
-                                        <a
+                                        </button>
+                                        <button
+                                            type="button"
                                             onClick={() => this.props.setBodyModalParamsAction('COMPOSE_MESSAGE', {recipient}, {recipient})}
                                             className={classNames({
                                                 "btn btn-green": true,
@@ -487,8 +491,9 @@ class InfoAccount extends React.PureComponent {
                                             })}
                                         >
                                             Send a message
-                                        </a>
-                                        <a
+                                        </button>
+                                        <button
+                                            type="button"
                                             onClick={() => this.props.setBodyModalParamsAction('SAVE_ACCOUNT', {recipient}, {recipient})}
                                             className={classNames({
                                                 "btn btn-green": true,
@@ -496,7 +501,7 @@ class InfoAccount extends React.PureComponent {
                                             })}
                                         >
                                             Add as contact
-                                        </a>
+                                        </button>
                                     </div>
                                 </TabContaier>
                             </TabulationBody>

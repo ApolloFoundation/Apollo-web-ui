@@ -22,7 +22,6 @@ import {NotificationManager} from "react-notifications";
 import PageTitleBox from './page-title-box';
 
 import UserBox from './user-box';
-import UserBottomBox from './user-bottom-box';
 
 import CurrentAccount from './current-account';
 import Settings from './settings';
@@ -75,16 +74,6 @@ class SiteHeader extends React.Component {
             this.setState({searching: false});
         }, 4000);
     }
-
-    // componentWillReceiveProps = (newState) => {
-    //     this.setState({forgingStatus: newState.forgingStatus});
-    // }
-
-    // componentDidUpdate = () => {
-    //     if (!this.state.forgingStatus && this.props.account) {
-    //         this.getForging();
-    //     }
-    // }
 
     getForging = async () => {
         const forgingStatus = await this.props.getForging();
@@ -163,7 +152,6 @@ class SiteHeader extends React.Component {
         const {
             setBodyModalParamsAction,
             switchAccountAction,
-            settings,
             pageTitle,
             children,
             dashboardPage,

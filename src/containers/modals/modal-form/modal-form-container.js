@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Form, Text} from 'react-form';
+import {Form } from 'react-form';
 import {connect} from "react-redux";
 
 class BackForm extends Component {

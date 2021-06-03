@@ -181,20 +181,21 @@ class CreateUser extends React.Component {
 
                                     <div className="form-tabulator active no-padding">
                                         <div className="form-tab-nav-box justify-left">
-                                            <a onClick={(e) => this.handleTab(e, 0)} className={classNames({
+                                            <button type="button" onClick={(e) => this.handleTab(e, 0)} className={classNames({
                                                 "form-tab": true,
                                                 "active": this.state.activeTab === 0
                                             })}>
                                                 <p>Standard wallet</p>
-                                            </a>
-                                            <a
+                                            </button>
+                                            <button
+                                                type="button"
                                                 onClick={(e) => this.handleTab(e, 1)} className={classNames({
                                                 "form-tab": true,
                                                 "active": this.state.activeTab === 1
                                             })}
                                             >
                                                 <p>Vault Wallet</p>
-                                            </a>
+                                            </button>
                                         </div>
 
                                         <Form
@@ -287,13 +288,6 @@ class CreateUser extends React.Component {
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
-                                                                                {/*<a*/}
-                                                                                {/*style={{marginTop: 18}}*/}
-                                                                                {/*className={'btn lighten static'}*/}
-                                                                                {/*onClick={() => this.generateAccount({})}*/}
-                                                                                {/*>*/}
-                                                                                {/*Generate account*/}
-                                                                                {/*</a>*/}
                                                                             </InfoBox>
                                                                         </div>
                                                                     </div>
@@ -702,13 +696,7 @@ class CreateUser extends React.Component {
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
-                                                                                {/*<a*/}
-                                                                                {/*style={{marginTop: 18}}*/}
-                                                                                {/*className={'btn lighten static'}*/}
-                                                                                {/*onClick={() => this.generateAccount({})}*/}
-                                                                                {/*>*/}
-                                                                                {/*Generate account*/}
-                                                                                {/*</a>*/}
+
                                                                             </InfoBox>
                                                                         </div>
                                                                     </div>
@@ -740,7 +728,8 @@ class CreateUser extends React.Component {
 
                                                                 {
                                                                     this.state.isCustomPassphraseTextarea &&
-                                                                    <a
+                                                                    <button
+                                                                        type="button"
                                                                         onClick={() => {
                                                                             const {values} = getFormState();
 
@@ -754,16 +743,17 @@ class CreateUser extends React.Component {
                                                                         className="btn absolute btn-right blue round round-top-left round-bottom-right"
                                                                     >
                                                                         Create account
-                                                                    </a>
+                                                                    </button>
                                                                 }
                                                                 {
                                                                     !this.state.isCustomPassphraseTextarea &&
-                                                                    <a
+                                                                    <button
+                                                                        type="button"
                                                                         onClick={() => this.generatePassphrase()}
                                                                         className="btn absolute btn-right blue round round-top-left round-bottom-right"
                                                                     >
                                                                         Create account
-                                                                    </a>
+                                                                    </button>
                                                                 }
                                                             </div>
                                                         </React.Fragment>
@@ -870,7 +860,8 @@ class CreateUser extends React.Component {
                                                                                             </CopyToClipboard>
                                                                                             <br/>
                                                                                             <br/>
-                                                                                            <a
+                                                                                            <button
+                                                                                                type="button"
                                                                                                 className="btn blue static hide-media"
                                                                                                 onClick={() => generatePDF([
                                                                                                     {
@@ -884,7 +875,7 @@ class CreateUser extends React.Component {
                                                                                                 ])}
                                                                                             >
                                                                                                 Print Wallet
-                                                                                            </a>
+                                                                                            </button>
                                                                                         </InfoBox>
                                                                                     }
 
@@ -908,7 +899,7 @@ class CreateUser extends React.Component {
 
                                                                     <div
                                                                         className="btn-box align-buttons-inside absolute right-conner">
-                                                                        <a
+                                                                        <button
                                                                             onClick={() => {
                                                                                 if (!getFormState().values.losePhrase) {
                                                                                     NotificationManager.error('You have to verify that you stored your private data.', 'Error', 7000);
@@ -925,7 +916,7 @@ class CreateUser extends React.Component {
                                                                             className="btn absolute btn-right blue round round-top-left round-bottom-right"
                                                                         >
                                                                             Next
-                                                                        </a>
+                                                                        </button>
 
                                                                     </div>
                                                                 </React.Fragment>

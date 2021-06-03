@@ -6,9 +6,6 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {
-    setBodyModalParamsAction, 
-} from '../../../../modules/modals';
 import {handleFormSubmit} from './handleFormSubmit';
 
 // Form components

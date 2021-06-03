@@ -12,6 +12,7 @@ import {setBodyModalParamsAction} from "../../../modules/modals";
 
 import AccountProperty from './acocunt-property';
 import CustomTable from '../../components/tables/table';
+import Button from '../../components/button';
 
 const mapStateToProps = state => ({
     account: state.account.account
@@ -111,19 +112,19 @@ class AccountProperties extends React.Component {
                 <SiteHeader
                     pageTitle={'Account properties'}
                 >
-                    <a className={`btn ${this.state.incoming ? 'outline-primary' : 'outline-transparent'} mr-1`}
+                    <button type="button" className={`btn ${this.state.incoming ? 'outline-primary' : 'outline-transparent'} mr-1`}
                        onClick={() => this.getAccountPropertiesIncoming(null, initialPagination)}>
                         Incoming
-                    </a>
-                    <a className={`btn ${this.state.incoming ? 'outline-transparent' : 'outline-primary'} mr-1`}
+                    </button>
+                    <button type="button" className={`btn ${this.state.incoming ? 'outline-transparent' : 'outline-primary'} mr-1`}
                        onClick={() => this.getAccountPropertiesOutgoing(null, initialPagination)}>
                         Outgoing
-                    </a>
+                    </button>
                     <button
                         type={'button'}
                         className={'btn btn-green btn-sm'}
                         onClick={this.setProperty}>
-                        Set
+                        Setasdas
                     </button>
                 </SiteHeader>
                 <div className="page-body container-fluid">

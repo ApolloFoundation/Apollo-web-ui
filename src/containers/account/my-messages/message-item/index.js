@@ -65,15 +65,12 @@ class MessageItem extends React.Component {
     const {
       publicMessage,
       decryptedMessage,
-      messageIsPrunable,
-      transaction,
       recipient,
       sender,
       recipientRS,
       senderRS,
       timestamp,
       isDescrypted,
-      attachment,
 
       formatTimestamp,
       setBodyModalParamsAction,

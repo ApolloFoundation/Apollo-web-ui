@@ -148,9 +148,9 @@ class AccountRS extends React.Component {
               <ul>
                 {this.state.contacts.map((el, index) => (
                   <li key={index}>
-                    <a onClick={() => this.handleFillForm(el.accountRS)}>
+                    <button type="button" onClick={() => this.handleFillForm(el.accountRS)}>
                       {el.name}
-                    </a>
+                    </button>
                   </li>
                 ))}
               </ul>

@@ -5,7 +5,6 @@ import {
     IS_MODAL_PROCESSING
 } from '../../../../modules/modals';
 
-import submitForm from '../../../../helpers/forms/forms';
 
 export const handleFormSubmit = function (values) {
     

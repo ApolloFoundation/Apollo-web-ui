@@ -7,7 +7,6 @@ import CryptoJS from "crypto-js";
 import conv from "../converters";
 import AplAddress from "../util/apladres";
 import curve25519 from "./curve25519";
-import jsbn from "jsbn";
 import inflate from "pako/lib/inflate";
 import pako from "pako";
 import axios from "axios";
@@ -16,7 +15,6 @@ import curve25519_ from "./curve25519_";
 
 import { words } from "./random-words";
 
-const BigInteger = jsbn.BigInteger;
 
 function simpleHashAPL(stage1, stage2) {
   let sha256 = CryptoJS.algo.SHA256.create();

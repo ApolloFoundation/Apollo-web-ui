@@ -13,7 +13,7 @@ import '../messenger/Messenger.scss';
 import './FollowedPools.css';
 import {getpollAction, getPollResultAction, getPollVotesAction} from '../../../actions/polls';
 import {setBodyModalParamsAction} from "../../../modules/modals";
-import {getBlockAction, startBlockPullingAction} from "../../../actions/blocks";
+import {getBlockAction} from "../../../actions/blocks";
 import colorGenerator from "../../../helpers/colorGenerator";
 import {getFollowedPolls} from '../../../modules/polls';
 import SidebarContent from '../../components/sidebar-list/';

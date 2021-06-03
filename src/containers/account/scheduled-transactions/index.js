@@ -15,6 +15,7 @@ import classNames from "classnames";
 import TransactionItem from "../transactions/transaction";
 import submitForm from "../../../helpers/forms/forms";
 import { NotificationManager } from "react-notifications";
+import Button from '../../components/button';
 
 const mapStateToProps = (state) => ({
   adminPassword: state.account.adminPassword,
@@ -116,21 +117,21 @@ class ScheduledTransactions extends React.Component {
     return (
       <div className="page-content">
         <SiteHeader pageTitle={"Scheduled transactions"}>
-          <a
+          <Button             
             className={classNames({
               btn: true,
               primary: true,
               disabled: this.state.isPrivate,
             })}
+            color=""
+            name={" Schedule currency"}
             onClick={() =>
               this.props.setBodyModalParamsAction(
                 "SCHEDULE_CURRENCY",
                 this.reloadSceduledTransactions
               )
             }
-          >
-            Schedule currency
-          </a>
+          />
         </SiteHeader>
 
         <div className="page-body container-fluid">

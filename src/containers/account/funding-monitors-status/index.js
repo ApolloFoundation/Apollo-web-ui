@@ -24,9 +24,6 @@ const mapDisatchToProps = dispatch => ({
 })
 
 class FundingMonitorsStatus extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     state = {
         properties: null,
@@ -91,7 +88,8 @@ class FundingMonitorsStatus extends React.Component {
                     >
                         Funding monitors
                     </Link>
-                    <a
+                    <button
+                        type="button"
                         className={classNames({
                             'btn': true,
                             'primary': true,
@@ -105,7 +103,7 @@ class FundingMonitorsStatus extends React.Component {
                         }}
                     >
                         Add Monitored Account
-                    </a>
+                    </button>
                 </SiteHeader>
                 <div className="page-body container-fluid">
 

@@ -16,9 +16,6 @@ import BackForm from "../modal-form/modal-form-container";
 import InputForm from "../../components/input-form";
 
 class RemoveMonitor extends React.Component {
-  constructor(props) {
-    super(props);
-  }
 
   handleFormSubmit = async (values) => {
     console.warn("values", values);
