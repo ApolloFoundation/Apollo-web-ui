@@ -4,5 +4,13 @@
 }
 
 .vaultIcon {
-  display: block;
+  display: inline-block;
+  vertical-align: top;
+  margin-right: 16px;
+  margin-left: 12px;
+}
+
+.vaultIconWrapper {
+  margin: 0;
+  padding: 0;
 }
