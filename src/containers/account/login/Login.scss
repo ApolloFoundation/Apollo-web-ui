@@ -144,10 +144,10 @@
 
           .dark-card {
             border-radius: 5px;
-            background-color: transparent;
-            border: none;
+            background-color: rgba(37, 42, 49, 0.7);
+            border: 1px solid rgba(37, 244, 89, 0.5);
             box-shadow: 0 10px 20px 0 rgba(0,0,0,0.26);
-            padding: 0;
+            padding: 12px;
             width: 400px;
             margin-bottom: 15px;
             position: relative;
@@ -464,6 +464,13 @@
               }
             }
           }
+
+          .login-form {
+            padding: 0;
+            background: transparent;
+            border: none;
+          }
+
 
           .button-block {
             position: relative;
