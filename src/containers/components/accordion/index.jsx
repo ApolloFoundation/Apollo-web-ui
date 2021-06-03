@@ -8,7 +8,8 @@ export const Accordion = ({
   currentState,
   children,
   id,
-  onSelectItem
+  onSelectItem,
+  className
 }) => {
   const [isOpen, setIsOpen] = useState(defaultInstance);
 
@@ -26,7 +27,7 @@ export const Accordion = ({
 
 
   return (
-    <div className={classNames(styles.accordion, { [styles.accordionActive]: isOpen })}>
+    <div className={classNames(styles.accordion, className, { [styles.accordionActive]: isOpen })}>
       <div className={styles.accordionHeader} onClick={handleAccordionOpen}>
         <div className={styles.accordionInfo}>{header}</div>
         <span className={classNames(styles.accordionIcon, {[styles.accordionIconOpen]: isOpen})} />

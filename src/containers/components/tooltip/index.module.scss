@@ -21,10 +21,10 @@
   box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.25);
   border-radius: 6px;
   display: none;
-  top: 30px;
+  top: 35px;
   right: -16px;
   width: 400px;
-  z-index: 10;
+  z-index: 2;
 
   &::after {
     content: "";

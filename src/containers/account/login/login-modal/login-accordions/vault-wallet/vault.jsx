@@ -3,10 +3,27 @@ import { Accordion } from 'containers/components/accordion';
 import { Tooltip } from 'containers/components/tooltip';
 import ShieldIcon from '../../../../../../assets/shield-check.svg';
 import AccountIdForm from '../../forms/viaAccountIdForm';
+import { TooltipWrapper } from '../tooltipWrapper';
 
 import styles from './index.module.scss';
 
 export const VaultAccordion = ({ active, onChange, id }) => {
+
+  const tooltips = [
+    {
+      iconChecked: true,
+      text: 'The most secure Apollo Wallet',
+    },
+    {
+      iconChecked: true,
+      text: 'You can log in using your Account ID',
+    },
+    {
+      iconChecked: false,
+      text: '2FA is available only on the device where it was enabled',
+    },
+  ];
+
   return (
     <Accordion
       id={id}
@@ -19,7 +36,7 @@ export const VaultAccordion = ({ active, onChange, id }) => {
             <img className={styles.vaultIcon} src={ShieldIcon} alt='shield' />
           </figure>
           <Tooltip>
-
+            <TooltipWrapper list={tooltips} />
           </Tooltip>
         </div>
       )}
