@@ -19,7 +19,7 @@ import InfoTransaction from './info-transaction/info-transaction';
 import InfoLedgerTransaction from './info-ledger-transaction';
 import InfoBlock from './info-block';
 import RawTransactionDetails from './send-apollo/raw-transaction-details';
-import { LoginSaveData } from './login-save-data';
+import { LoginSaveData } from './login-save-data/index';
 // Account
 import InfoAccount from './account/account/';
 import CreateUser from './account/create-account';
