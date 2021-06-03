@@ -17,9 +17,10 @@ export const Accordion = ({
   }, [currentState, setIsOpen]);
 
   const handleAccordionOpen = useCallback(() => {
-    setIsOpen(state => !state);
     if (id && onSelectItem) {
       onSelectItem(id);
+    } else {
+      setIsOpen(state => !state);
     }
   }, [setIsOpen, onSelectItem]);
 
