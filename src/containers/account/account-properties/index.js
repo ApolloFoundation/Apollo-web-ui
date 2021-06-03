@@ -12,7 +12,6 @@ import {setBodyModalParamsAction} from "../../../modules/modals";
 
 import AccountProperty from './acocunt-property';
 import CustomTable from '../../components/tables/table';
-import Button from '../../components/button';
 
 const mapStateToProps = state => ({
     account: state.account.account
@@ -124,7 +123,7 @@ class AccountProperties extends React.Component {
                         type={'button'}
                         className={'btn btn-green btn-sm'}
                         onClick={this.setProperty}>
-                        Setasdas
+                        Set
                     </button>
                 </SiteHeader>
                 <div className="page-body container-fluid">
