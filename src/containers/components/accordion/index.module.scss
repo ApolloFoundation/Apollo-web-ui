@@ -32,10 +32,10 @@
     content: "";
     position: absolute;
     top: 50%;
-    left: 50%;
+    right: 10px;
     width: 9px;
     height: 9px;
-    transform: translate(-50%, -50%) rotate(-45deg);
+    transform: translateY(-50%) rotate(-45deg);
     border-left: 2px solid #FFFFFF;
     border-bottom: 2px solid #FFFFFF;
   }

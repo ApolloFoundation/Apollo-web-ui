@@ -19,7 +19,6 @@ export const useLoginModal = (onGeneratePDF) => {
 
   const handleNextStep = (onSubmit, { losePhrase }) => () => {
       dispatch(setModalType('SAVE_CREDENTIALS'));
-      dispatch(setModalCallback(handleModalActions(onSubmit)));
   }
 
   const button = (handleSubmit, values) => (

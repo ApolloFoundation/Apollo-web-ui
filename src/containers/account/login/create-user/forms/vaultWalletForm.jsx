@@ -25,7 +25,10 @@ export default function VaultWalletForm(props) {
   const [isCustomPassphrase, setIsCustomPassphrase] = useState(true);
   const [isAccountLoaded, setIsAccountLoaded] = useState(false);
   
-  const handleGeneratePDF = () => 
+  const handleGeneratePDF = () =>
+  
+    
+
     generatePDF([
       {
         name: 'Account ID',
