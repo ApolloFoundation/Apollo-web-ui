@@ -12,6 +12,7 @@ import CheckboxFormInput from '../../../../components/check-button-input';
 import CustomInput from '../../../../components/custom-input';
 import Button from '../../../../components/button';
 import InfoBox from '../../../../components/info-box';
+import { processElGamalEncryption } from 'actions/crypto';
 
 export default function VaultWalletForm(props) {
   const {
@@ -25,10 +26,7 @@ export default function VaultWalletForm(props) {
   const [isCustomPassphrase, setIsCustomPassphrase] = useState(true);
   const [isAccountLoaded, setIsAccountLoaded] = useState(false);
   
-  const handleGeneratePDF = () =>
-  
-    
-
+  const handleGeneratePDF = () => {
     generatePDF([
       {
         name: 'Account ID',
@@ -42,7 +40,12 @@ export default function VaultWalletForm(props) {
         name: 'Public Key',
         value: accountData.publicKey,
       },
+      {
+        name: 'Secret Key',
+        value: keySeed.secretBytes
+      }
     ]);
+  }
   
   const { loginModalButton } = useLoginModal(handleGeneratePDF);
 
@@ -80,7 +83,6 @@ export default function VaultWalletForm(props) {
     <Formik
       initialValues={{
         option: 1,
-        losePhrase: false,
       }}
       onSubmit={onSubmit}
     >
@@ -213,11 +215,6 @@ export default function VaultWalletForm(props) {
                         /> */}
                       </InfoBox>
                     )}
-                    <CheckboxFormInput
-                      label="I wrote down my Account ID, Secret phrase. It is now stored
-                      in a secured place."
-                      name="losePhrase"
-                    />
                     {loginModalButton(handleNext, values)}
                   </>
                 ) : (

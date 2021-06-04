@@ -316,6 +316,11 @@
                 bottom: 0;
                 margin: auto;
               }
+              &.btn-without {
+                &::after {
+                  background: none;
+                }
+              }
               &.btn-sm {
                 width: auto;
                 font-size: 12px;
@@ -470,7 +475,6 @@
             background: transparent;
             border: none;
           }
-
 
           .button-block {
             position: relative;

@@ -217,7 +217,7 @@ export default function ImportAccount(props) {
                     ) : (
                       <Button
                         type="submit"
-                        className="btn"
+                        className="btn btn-without"
                         name="Restore account"
                       />
                     )}

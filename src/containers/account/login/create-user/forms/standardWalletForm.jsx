@@ -11,7 +11,6 @@ import crypto from '../../../../../helpers/crypto/crypto';
 import ContentLoader from '../../../../components/content-loader';
 import Button from '../../../../components/button';
 import InfoBox from '../../../../components/info-box';
-import CheckboxFormInput from '../../../../components/check-button-input';
 
 export default function StandardWalletForm(props) {
   const dispatch = useDispatch();
@@ -60,7 +59,6 @@ export default function StandardWalletForm(props) {
     <Formik
       initialValues={{
         option: 1,
-        // losePhrase: false,
       }}
       onSubmit={handleSubmit}
       validateOnMount
@@ -154,20 +152,8 @@ export default function StandardWalletForm(props) {
                           size="sm"
                         />
                       </CopyToClipboard>
-                      {/* <Button
-                        name="Print Wallet"
-                        className="btn"
-                        size="sm"
-                        onClick={handleGeneratePDF}
-                      /> */}
                     </InfoBox>
                   )}
-                  {/* <CheckboxFormInput
-                    name="losePhrase"
-                    label="I wrote down my secret phrase. It
-                      is now stored in a secured
-                      place."
-                  /> */}
                   {loginModalButton(handleSubmit, values)}
                 </>
               ) : (
