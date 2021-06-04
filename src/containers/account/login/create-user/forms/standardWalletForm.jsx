@@ -86,6 +86,7 @@ export default function StandardWalletForm(props) {
           </InfoBox>
           {!isCustomPassphraseStandardWallet ? (
             <Button
+              className="btn-without"
               name="Create account"
               onClick={() => generatePassphrase(values)}
             />

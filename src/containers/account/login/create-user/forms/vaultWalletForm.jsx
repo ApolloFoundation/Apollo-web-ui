@@ -137,6 +137,7 @@ export default function VaultWalletForm(props) {
                   />
                 )}
                 <Button
+                  className="btn-without"
                   onClick={() => generateAccount(values)}
                   name="Create account"
                 />
@@ -255,6 +256,7 @@ export default function VaultWalletForm(props) {
                     </div>
                   ) : (
                     <Button
+                      className="btn-without"
                       type="submit"
                       name="Create New Account"
                     />
