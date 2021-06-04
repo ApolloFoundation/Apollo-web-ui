@@ -42,6 +42,7 @@ import AssetTransfer from "./table-content/asset-transfer";
 import AssetIssuance from "./table-content/asset-issuance";
 import AskOrderPlacement from "./table-content/ask-order-placement";
 import BigOrderPlacement from "./table-content/big-order-placement";
+import SmcInfo from "./table-content/smc-info";
 
 import CriticalUpdate from "./table-content/critical-update";
 
@@ -132,6 +133,7 @@ class InfoTransactionTable extends Component {
 		const {secretPhrase, transaction: {attachment: {message, encryptedMessage}}, passPhrase, decimals, ticker} = this.props;
 		const transactionType = this.props.transaction && this.props.constants.transactionTypes && this.props.constants.transactionTypes[this.props.transaction.type];
 		return (
+			
 			<div className="transaction-table-body transparent wrap-collumns">
 				{
 					this.props.transaction && this.props.constants.transactionTypes &&
@@ -249,6 +251,9 @@ class InfoTransactionTable extends Component {
 
 						{modalTypeName === "MINOR UPDATE" && <CriticalUpdate transaction={this.props.transaction}/>}
 
+						{modalTypeName === "SMC CALL METHOD" && <SmcInfo transaction={this.props.transaction} decimals={decimals} />}
+						
+						{modalTypeName === "SMC PUBLISH" && <SmcInfo transaction={this.props.transaction} decimals={decimals} />}
 						{
 							modalTypeName !== "DIGITAL GOODS LISTING" &&
 							message &&
