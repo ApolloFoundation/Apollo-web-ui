@@ -120,6 +120,11 @@ export default function SmartContracts() {
     setFieldValue("source", value);
   };
 
+  const handleReset = (setFieldValue) => {
+    setFileData(null);
+    setFieldValue("source", "");
+  };
+
   return (
     <div className="page-content">
       <SiteHeader pageTitle={"Create New Contract"}>
@@ -153,10 +158,12 @@ export default function SmartContracts() {
                             id="file"
                             accept={"*"}
                             isDownload={true}
+                            isReset={true}
                             file={fileData}
                             handleFileAccepted={(value) =>
                               handleUploadFile(value, setFieldValue)
                             }
+                            handleFileReset={() => handleReset(setFieldValue)}
                           />
                         </div>
                         <div className="form-group mb-15 h-100">

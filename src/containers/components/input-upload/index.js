@@ -12,19 +12,22 @@ const InputUpload = ({
   accept,
   handleFileAccepted,
   handleFileRejected,
+  handleFileReset,
   file,
   isDownload,
+  isReset,
 }) => {
   const onDropAccepted = (files) => {
     $(`#${id}`).prop("files", files);
     if (handleFileAccepted) handleFileAccepted(files);
   };
+
   const onDropRejected = () => {
     NotificationManager.error("Please select another file.", "Error", 5000);
     if (handleFileRejected) handleFileRejected();
   };
+
   const handleUploadTextFile = (e) => {
-    e.preventDefault();
     e.stopPropagation();
 
     const atag = document.createElement("a");
@@ -35,6 +38,15 @@ const InputUpload = ({
     atag.download = file.hasOwnProperty("path") ? file.path : "file.txt";
     atag.click();
   };
+
+  const handleReset = (e, acceptedFiles) => {
+    e.stopPropagation();
+    if (handleFileReset) {
+      handleFileReset();
+    }
+    acceptedFiles.splice(file, 1);
+  };
+
   return (
     <Dropzone
       onDropAccepted={onDropAccepted}
@@ -57,9 +69,22 @@ const InputUpload = ({
               ? acceptedFiles.map((acceptedFile) => acceptedFile.name)
               : "Click or drag file to upload"}
           </p>
+          {isReset && file ? (
+            <button
+              type="button"
+              className="btn btn-sm ml-2 d-flex"
+              onClick={(e) => handleReset(e, acceptedFiles)}
+              title={"reset"}
+            >
+              <i class="zmdi zmdi-close"></i>
+            </button>
+          ) : (
+            ""
+          )}
           <img src={UploadImg} alt={""} />
           {isDownload && file ? (
             <button
+              type="button"
               className="btn btn-sm ml-2 d-flex"
               onClick={handleUploadTextFile}
               title={"download"}
