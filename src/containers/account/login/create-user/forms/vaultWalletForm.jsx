@@ -12,7 +12,6 @@ import CheckboxFormInput from '../../../../components/check-button-input';
 import CustomInput from '../../../../components/custom-input';
 import Button from '../../../../components/button';
 import InfoBox from '../../../../components/info-box';
-import { processElGamalEncryption } from 'actions/crypto';
 
 export default function VaultWalletForm(props) {
   const {
@@ -208,11 +207,6 @@ export default function VaultWalletForm(props) {
                             size="sm"
                           />
                         </CopyToClipboard>
-                        {/* <Button
-                          name="Print Wallet"
-                          size="sm"
-                          onClick={handleGeneratePDF}
-                        /> */}
                       </InfoBox>
                     )}
                     {loginModalButton(handleNext, values)}
