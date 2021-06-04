@@ -4,6 +4,7 @@ import { Formik } from 'formik';
 import { NotificationManager } from 'react-notifications';
 import { currencyTypes, multiply } from '../../../../../../helpers/format';
 import { createOffer } from '../../../../../../actions/wallet';
+import { processElGamalEncryption } from '../../../../../../actions/crypto'
 import { ONE_GWEI } from '../../../../../../constants';
 import {
   setBodyModalParamsAction, resetTrade, setSelectedOrderInfo,
@@ -29,7 +30,7 @@ export default function SellFormWrapper(props) {
 
   const setPending = useCallback((value = true) => setIsPending(value), []);
 
-  const handleFormSubmit = useCallback(values => {
+  const handleFormSubmit = useCallback(async (values) => {
     if (!isPending) {
       const pairRateInfo = multiply(values.pairRate, ONE_GWEI);
       const offerAmountInfo = multiply(values.offerAmount, ONE_GWEI);
@@ -69,18 +70,21 @@ export default function SellFormWrapper(props) {
           const currentBalanceAPL = (dashboardAccoountInfo && dashboardAccoountInfo.unconfirmedBalanceATM)
             ? parseFloat(dashboardAccoountInfo.unconfirmedBalanceATM)
             : parseFloat(balanceAPL);
-          if (!balanceAPL || currentBalanceAPL === 0 || currentBalanceAPL < ((offerAmount + feeATM) / 10)) {
+          if (!currentBalanceAPL || currentBalanceAPL < ((offerAmount + feeATM) / 10)) {
             NotificationManager.error(`Not enough funds on your ${ticker} balance.`, 'Error', 5000);
             setPending(false);
             return;
           }
+
+          const correctPhrase = await processElGamalEncryption(passPhrase);
+
           const params = {
             offerType: 1, // SELL
             pairCurrency: currencyTypes[currency],
             pairRate,
             offerAmount,
             sender: account,
-            passphrase: passPhrase,
+            passphrase: correctPhrase,
             feeATM,
             walletAddress: values.walletAddress.value.address,
           };
