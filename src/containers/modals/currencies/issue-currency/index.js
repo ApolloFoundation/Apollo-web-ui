@@ -56,15 +56,28 @@ class IssueCurrency extends React.Component {
 
     }
 
-    handleFormSubmit = values => {
+    handleCheckIsOk = (list) => {
         let errorWord = null;
-        const allOk = values.name.split(" ").every(item => {
+        
+        const isOk = list.split(" ").every(item => {
             if (badWords.indexOf(item.trim().toUpperCase()) === -1) return true
             errorWord = item;
             return false;
         });
-        if (allOk) handleFormSubmit.call(this.props, values);
-        else NotificationManager.error(`You can't create a currency with "${errorWord}" word`);
+
+        return {
+            errorWord,
+            isOk,
+        }
+    }
+
+    handleFormSubmit = values => {
+        const nameCheck = this.handleCheckIsOk(values.name);
+        const codeCheck = this.handleCheckIsOk(values.code);
+        
+        const error = nameCheck.errorWord || codeCheck.errorWord; 
+        if (nameCheck.isOk && codeCheck.isOk) handleFormSubmit.call(this.props, values);
+        else NotificationManager.error(`You can't create a currency with "${error}" word`);
     };
 
     handleClaimableValue = (value, setValue) => {
