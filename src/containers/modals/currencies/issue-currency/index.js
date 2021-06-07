@@ -36,7 +36,7 @@ const algorithmData = [
     }
 ];
 
-const badWords = ['GSX', 'GSXX', 'GSXI', 'GSXII', 'GSXIII', 'GSXB'];
+const badWords = ['GSX', 'GSXX', 'GSXI', 'GSXII', 'GSXIII', 'GSXB', 'GXB'];
 
 class IssueCurrency extends React.Component {
     constructor(props) {
