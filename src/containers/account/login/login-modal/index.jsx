@@ -6,11 +6,11 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import '../Login.css';
+import { useSingleAccordionItem } from '../../../../hooks/useSingleAccordionItem';
 import { VaultAccordion } from './login-accordions/vault-wallet/vault';
 import { StandartWallet } from './login-accordions/standart-wallet';
 import styles from './index.module.scss';
-import { useSingleAccordionItem } from 'hooks/useSingleAccordionItem';
+import '../Login.css';
 
 export default function LoginModal({ handleModal }) {
   const { active, onChange } = useSingleAccordionItem();
