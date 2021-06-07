@@ -14,7 +14,6 @@ import {
 } from "../../../../src/actions/contracts";
 
 const INITIAL_FORM_DATA = {
-  address: "",
   name: "",
   params: "",
   value: 0,
@@ -24,14 +23,14 @@ const INITIAL_FORM_DATA = {
 
 export default function ({ closeModal }) {
   const dispatch = useDispatch();
-  const formData = useSelector((state) => state.modals.modalData);
+  const modalData = useSelector((state) => state.modals.modalData);
   const {
     accountRS,
     passPhrase: secretPhrase,
     ticker,
   } = useSelector((state) => state.account);
 
-  const isEmptyData = !Object.keys(formData).length;
+  const isEmptyData = modalData;
 
   const formSubmit = async (values) => {
     delete values.feeATM;
@@ -40,11 +39,12 @@ export default function ({ closeModal }) {
     const isValidForm = validationForm(values);
 
     if (!isValidForm) {
-      let data = { ...values, value: Number(values.value) * Math.pow(10, 8) };
+      let data = {
+        ...values,
+        value: Number(values.value) * Math.pow(10, 8),
+        params: values.params.split(","),
+      };
 
-      if (isEmptyData) {
-        data = { ...data, params: values.params.split(",") };
-      }
       const test = await dispatch(exportTestExperationMessage(data));
 
       if (!test.errorCode) {
@@ -68,11 +68,11 @@ export default function ({ closeModal }) {
       initialValues={{
         ...INITIAL_FORM_DATA,
         sender: accountRS,
-        address: formData.address,
+        address: (isEmptyData && modalData.address) || "",
         secret: secretPhrase,
       }}
     >
-      <MessageExecutionForm isDisabled={!isEmptyData} ticker={ticker} />
+      <MessageExecutionForm isDisabled={isEmptyData} ticker={ticker} />
     </ModalBody>
   );
 }
