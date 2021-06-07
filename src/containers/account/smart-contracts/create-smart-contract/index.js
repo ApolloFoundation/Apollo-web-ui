@@ -100,7 +100,7 @@ export default function SmartContracts() {
   };
 
   const handleSendMessage = () => {
-    dispatch(setBodyModalParamsAction("SMC_CREATE", {}));
+    dispatch(setBodyModalParamsAction("SMC_CREATE", null));
   };
 
   const handleUploadFile = async ([file], setFieldValue) => {
