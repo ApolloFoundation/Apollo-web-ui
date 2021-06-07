@@ -64,7 +64,7 @@ export default function SmartContracts() {
   const nextPaginate = () => onPaginate(pagination.page + 1);
 
   const handleSendMessage = () => {
-    dispatch(setBodyModalParamsAction("SMC_CREATE", {}));
+    dispatch(setBodyModalParamsAction("SMC_CREATE", null));
   };
 
   const handleSearch = (values) => {
