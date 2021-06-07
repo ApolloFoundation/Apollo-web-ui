@@ -6,6 +6,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
+import {NotificationManager} from "react-notifications";
 import {
     setBodyModalParamsAction, 
 } from '../../../../modules/modals';
@@ -35,6 +36,8 @@ const algorithmData = [
     }
 ];
 
+const badWords = ['GSX', 'GSXX', 'GSXI', 'GSXII', 'GSXIII', 'GSXB'];
+
 class IssueCurrency extends React.Component {
     constructor(props) {
         super(props);
@@ -53,7 +56,16 @@ class IssueCurrency extends React.Component {
 
     }
 
-    handleFormSubmit = values => handleFormSubmit.call(this.props, values);
+    handleFormSubmit = values => {
+        let errorWord = null;
+        const allOk = values.name.split(" ").every(item => {
+            if (badWords.indexOf(item.trim().toUpperCase()) === -1) return true
+            errorWord = item;
+            return false;
+        });
+        if (allOk) handleFormSubmit.call(this.props, values);
+        else NotificationManager.error(`You can't create a currency with "${errorWord}" word`);
+    };
 
     handleClaimableValue = (value, setValue) => {
         if (value) {
