@@ -23,7 +23,7 @@ export const Accordion = ({
     } else {
       setIsOpen(state => !state);
     }
-  }, [setIsOpen, onSelectItem]);
+  }, [setIsOpen, onSelectItem, id]);
 
 
   return (

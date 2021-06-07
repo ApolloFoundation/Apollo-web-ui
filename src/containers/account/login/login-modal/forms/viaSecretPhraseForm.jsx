@@ -3,14 +3,13 @@ import { useDispatch } from 'react-redux';
 import cn from 'classnames';
 import { Form, Formik } from 'formik';
 import { NotificationManager } from 'react-notifications';
-import CheckboxFormInput from '../../../../components/check-button-input';
 import { getAccountDataBySecretPhrasseAction, getAccountDataAction } from '../../../../../actions/login';
 import InfoBox from '../../../../components/info-box';
 import CustomInput from '../../../../components/custom-input';
 import Button from '../../../../components/button';
 import AccountRS from '../../../../components/account-rs/index1';
+import { Switcher } from '../../../../components/form-components/switcher/switcher';
 import './standartForm.scss';
-import { Switcher } from 'containers/components/form-components/switcher/switcher';
 
 export default function SecretPhraseForm({ activeTab }) {
   const dispatch = useDispatch();
