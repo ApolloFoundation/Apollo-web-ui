@@ -1,0 +1,31 @@
+.button {
+  position: relative;
+  width: 100%;
+  padding: 14px 11px !important;
+  border-radius: 3px;
+  background-color: #25F459 !important;
+  box-shadow: 0 3px 12px 0 rgba(37,244,89,0.3);
+  color: #089B2D !important;
+  font-size: 15px;
+  font-weight: 600 !important;
+  letter-spacing: 0.54px;
+  line-height: 18px;
+  text-align: center;
+  text-transform: uppercase;
+  font-family: "BBRollerMonoProST", sans-serif;
+}
+
+.loginSaveDataTitle {
+  font-size: 24px;
+  line-height: 1.3;
+  text-transform: uppercase;
+  color: #F8F9FA;
+  font-family: "BBRollerMonoProST", sans-serif;
+}
+
+.loginSaveDataText {
+  margin: 16px 0 24px;
+  font-size: 14px;
+  line-height: 1.3;
+  color: #F8F9FA;
+}

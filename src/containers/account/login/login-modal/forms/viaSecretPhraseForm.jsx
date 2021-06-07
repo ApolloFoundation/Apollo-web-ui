@@ -3,12 +3,12 @@ import { useDispatch } from 'react-redux';
 import cn from 'classnames';
 import { Form, Formik } from 'formik';
 import { NotificationManager } from 'react-notifications';
-import CheckboxFormInput from '../../../../components/check-button-input';
 import { getAccountDataBySecretPhrasseAction, getAccountDataAction } from '../../../../../actions/login';
 import InfoBox from '../../../../components/info-box';
 import CustomInput from '../../../../components/custom-input';
 import Button from '../../../../components/button';
 import AccountRS from '../../../../components/account-rs/index1';
+import { Switcher } from '../../../../components/form-components/switcher/switcher';
 import './standartForm.scss';
 
 export default function SecretPhraseForm({ activeTab }) {
@@ -57,7 +57,7 @@ export default function SecretPhraseForm({ activeTab }) {
       <Form
         className={cn({
           'tab-body': true,
-          active: !!activeTab,
+          active: true,
         })}
       >
         <InfoBox className="green-text" transparent>
@@ -84,9 +84,9 @@ export default function SecretPhraseForm({ activeTab }) {
           )}
         </div>
         <div className="d-flex flex-column">
-          <CheckboxFormInput
+          <Switcher
             name="isCustomPassphrase"
-            label="Use custom secret phrase"
+            label="Switch to the ID input field"
             onChange={handleShowPhaze}
             id="show-phrase"
           />

@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Form, Formik } from 'formik';
 import { NotificationManager } from 'react-notifications';
+import classNames from 'classnames';
 import { saveSendModalState } from '../../../../modules/modals';
 import { importAccountAction, importAccountActionViaFile } from '../../../../actions/account';
 import CustomInput from '../../../components/custom-input';
@@ -16,15 +17,22 @@ import InputUpload from '../../../components/input-upload';
 import ButtonTabs from '../../../components/button-tabs';
 import Button from '../../../components/button';
 import ErrorWrapper from './error-wrapper';
+import RedTriangle from '../../../../assets/red-triangle.svg';
+import styles from './index.module.scss';
+
+const formats = {
+  file: 'file',
+  text: 'text'
+}
 
 const tabs = [
   {
     label: 'Secret file',
-    id: 'file',
+    id: formats.file,
   },
   {
     label: 'Secret key',
-    id: 'text',
+    id: formats.text,
   },
 ];
 
@@ -36,17 +44,18 @@ export default function ImportAccount(props) {
   const [format, setFormat] = useState('file');
   const [isGenerated, setIsGenerated] = useState(false);
   const [importAccount, setImportAccount] = useState(false);
+  const [isError, setIsError] = useState(false); 
 
   const handleFormSubmit = useCallback(async values => {
     const {
       secretBytes, passPhrase, sender, deadline,
     } = values;
     let newImportAccount = null;
-    if (format === 'text') {
+    if (format === formats.text) {
       newImportAccount = await importAccountAction({
         secretBytes, sender, deadline,
       });
-    } else if (format === 'file') {
+    } else if (format === formats.file) {
       newImportAccount = await importAccountActionViaFile({
         passPhrase, sender, deadline,
       });
@@ -54,11 +63,14 @@ export default function ImportAccount(props) {
 
     if (newImportAccount && newImportAccount.errorCode) {
       NotificationManager.error(newImportAccount.errorDescription, 'Error', 5000);
-    } else if (format === 'text') {
+      setIsError(true);
+    } else if (format === formats.text) {
       setIsGenerated(true);
       setImportAccount(newImportAccount);
+      setIsError(false);
     } else {
       NotificationManager.success('Your account imported successfully!', null, 5000);
+      setIsError(false);
       handleClose();
     }
   }, [format, handleClose]);
@@ -81,7 +93,7 @@ export default function ImportAccount(props) {
 
   return (
     <ErrorWrapper>
-      <div className="dark-card">
+      <div className={classNames("dark-card", styles.importAccountWrapper)}>
         <span
           onClick={handleClose}
           className="exit"
@@ -110,7 +122,7 @@ export default function ImportAccount(props) {
                     </li>
                   </ul>
                 </InfoBox>
-                {format !== 'file' ? (
+                {format !== formats.file ? (
                   <div className="form-group row form-group-grey mb-15">
                     <CustomInput
                       type="textarea"
@@ -186,7 +198,15 @@ export default function ImportAccount(props) {
                     </ul>
                   </InfoBox>
                 )}
-                <div className="btn-box">
+                {(format === formats.file && isError) && (
+                  <div className={styles.importAccountError}>
+                    <img src={RedTriangle} alt='attention' className={styles.importAccountErrorIcon}/>
+                    <p className={styles.importAccountErrorText}>
+                      Please attach the secret file before proceeding.
+                    </p>
+                  </div>
+                )}
+                <div>
                   {isGenerated
                     ? (
                       <Button
@@ -197,7 +217,7 @@ export default function ImportAccount(props) {
                     ) : (
                       <Button
                         type="submit"
-                        className="btn"
+                        className="btn btn-without"
                         name="Restore account"
                       />
                     )}

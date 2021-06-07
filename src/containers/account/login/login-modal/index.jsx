@@ -3,59 +3,28 @@
  *                                                                            *
  ***************************************************************************** */
 
-import React, {
-  useState, useCallback, useMemo,
-} from 'react';
-import AccountIdForm from './forms/viaAccountIdForm';
-import SecretPhraseForm from './forms/viaSecretPhraseForm';
-import ButtonTabs from '../../../components/button-tabs';
+import React from 'react';
+import classNames from 'classnames';
 
+import { useSingleAccordionItem } from '../../../../hooks/useSingleAccordionItem';
+import { VaultAccordion } from './login-accordions/vault-wallet/vault';
+import { StandartWallet } from './login-accordions/standart-wallet';
+import styles from './index.module.scss';
 import '../Login.css';
 
-const tabs = [
-  {
-    label: 'Vault Wallet',
-    id: 0,
-  },
-  {
-    label: 'Standart Wallet',
-    id: 1,
-  },
-];
-
 export default function LoginModal({ handleModal }) {
-  const [activeTab, setActiveTab] = useState(0);
-
-  const handleTab = useCallback(index => {
-    setActiveTab(index);
-  }, []);
-
-  const selectForm = useMemo(() => {
-    if (activeTab === 0) {
-      return <AccountIdForm activeTab={activeTab} />;
-    }
-    if (activeTab === 1) {
-      return <SecretPhraseForm activeTab={activeTab} />;
-    }
-
-    return null;
-  }, [activeTab]);
+  const { active, onChange } = useSingleAccordionItem();
 
   return (
     <div>
       <div className="dark-card login-form">
         <p className="title">Log in</p>
-        <div className="form-tabulator">
-          <ButtonTabs
-            tabs={tabs}
-            onClick={handleTab}
-            isActive={activeTab}
-          />
-          {selectForm}
-        </div>
+        <VaultAccordion id={1} onChange={onChange} active={active} />
+        <StandartWallet id={2} onChange={onChange} active={active} />
       </div>
+      <div className={styles.line}>Or</div>
       <div
-        className="button-block"
+        className={classNames("button-block", styles.buttonIcon)}
         onClick={() => handleModal('IMPORT_ACCOUNT')}
       >
         <span className="title">Advanced user?</span>
