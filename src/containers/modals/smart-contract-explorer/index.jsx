@@ -1,5 +1,5 @@
 /** ****************************************************************************
- * Copyright © 2018 Apollo Foundation                                         *
+ * Copyright © 2021 Apollo Foundation                                         *
  *                                                                            *
  ***************************************************************************** */
 
@@ -16,7 +16,7 @@ import {
 } from "react-accessible-accordion";
 import TextualInputComponent from "../../components/form-components/textual-input1";
 import Button from "../../components/button";
-import { Form, Formik} from "formik";
+import { Form, Formik } from "formik";
 
 const SmartContractsExplorer = ({ closeModal }) => {
   return (
