@@ -56,6 +56,7 @@ import SellCurrency from './currencies/confirm-sell-request';
 //Smart Contracts
 import MessageExecution from './smart-contracts';
 import SmartContractsInfo from './smart-contract-info';
+import SmartContractsExplorer from './smart-contract-explorer';
 // Voting system
 import CreatePoll from './voting-system/create-poll/';
 import CastVote from './voting-system/cast-vote/';
@@ -118,7 +119,6 @@ import ConfirmCreateOffer from './exchange/confirm-create-offer';
 import ConfirmCancelOrder from './exchange/confirm-cancel-offer';
 import SelectOrder from './exchange/select-order';
 import ConfirmExportWallet from "./exchange/confirm-export-wallet";
-import SmartContracts from '../account/smart-contracts/index';
 
 class ModalWindow extends React.Component {
     componentDidMount() {
@@ -235,6 +235,7 @@ class ModalWindow extends React.Component {
                     {/* Smart Contracts */}
                     {this.props.modalType === 'SMC_CREATE'                  && <MessageExecution          closeModal={this.closeModal} nameModal={"SMC_CREATE"}/>}
                     {this.props.modalType === 'SMC_INFO'                    && <SmartContractsInfo        closeModal={this.closeModal} nameModal={'SMC_INFO'}/>}
+                    {this.props.modalType === 'SMC_EXPLORER'                && <SmartContractsExplorer      closeModal={this.closeModal} nameModal={'SMC_EXPLORER'}/>}
 
                     {/* Voting */}
                     {this.props.modalType === 'ISSUE_POLL'                  && <CreatePoll                closeModal={this.closeModal} nameModal={'ISSUE_POLL'}/>}
