@@ -1,0 +1,57 @@
+.switcherWrapper {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.switcherContent {
+  display: flex;
+  align-items: center;
+}
+
+.switcherInput {
+  position: absolute;
+  opacity: 0;
+  width: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+}
+
+.switcherField {
+  position: relative;
+  width: 40px;
+  height: 20px;
+  background: black;
+  padding: 3px;
+  border-radius: 3px;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 17px;
+    height: 14px;
+    background: #7E8691;
+    border-radius: 2px;
+    opacity: 0.6;
+  }
+}
+
+.switcherFieldActive {
+  &::after {
+    left: auto;
+    right: 3px;
+    background: #294FF0;
+  }
+}
+
+.switcherLabel {
+  display: inline-block;
+  margin-left: 8px;
+  font-size: 11px;
+  line-height: 22px;
+  font-weight: 600;
+  color: #7E8691;
+}

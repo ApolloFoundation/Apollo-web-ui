@@ -1,0 +1,28 @@
+.importAccountWrapper {
+  padding: 16px;
+}
+
+.importAccountError {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+  margin-bottom: 24px;
+  padding: 10px;
+  padding-left: 16px;
+  border: 0.5px solid #FF0A0A;
+  color: #ffffff;
+  border-radius: 3px;
+}
+
+.importAccountErrorIcon {
+  display: block;
+  width: 21px;
+  height: 18px;
+  margin-right: 18px;
+}
+
+.importAccountErrorText {
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: #ffffff;
+}

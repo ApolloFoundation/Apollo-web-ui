@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 import { Formik } from 'formik';
 import { NotificationManager } from 'react-notifications';
 import { currencyTypes, multiply } from '../../../../../../helpers/format';
@@ -10,20 +10,18 @@ import {
 } from '../../../../../../modules/modals';
 import { processElGamalEncryption } from '../../../../../../actions/crypto';
 import BuyForm from './form';
+import store from '../../../../../../store';
 
 const feeATM = 200000000;
 
-export default function BuyFormWrapper(props) {
-  const dispatch = useDispatch();
-  const { currentCurrency } = useSelector(state => state.exchange);
-  const { dashboardAccoountInfo } = useSelector(state => state.dashboard);
-  const { unconfirmedBalanceATM: balanceAPL, account, passPhrase } = useSelector(state => state.account);
-
-  const { currency } = currentCurrency;
+function BuyFormWrapper(props) {
+  const { dispatch } = store;
 
   const {
-    wallet, handleLoginModal, ethFee, ticker,
+    wallet, handleLoginModal, ethFee, ticker = "APL", currency, dashboardAccoountInfo, accountInfo,
   } = props;
+
+  const { unconfirmedBalanceATM: balanceAPL, account, passPhrase } = accountInfo;
 
   const [isPending, setIsPending] = useState(false);
 
@@ -157,3 +155,11 @@ export default function BuyFormWrapper(props) {
     </Formik>
   );
 }
+
+const mapStateToProps = (state) =>({
+  currency: state.exchange.currentCurrency.currency,
+  dashboardAccoountInfo: state.dashboard.dashboardAccoountInfo,
+  accountInfo: state.account,
+});
+
+export default connect(mapStateToProps)(BuyFormWrapper);
