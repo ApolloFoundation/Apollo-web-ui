@@ -18,6 +18,7 @@ import TextualInputComponent from '../../components/form-components/textual-inpu
 import {CheckboxFormInput} from '../../components/form-components/check-button-input';
 import {setAccountPassphrase} from "../../../modules/account";
 import {ONE_APL} from '../../../constants';
+import { writeToLocalStorage } from '../../../actions/localStorage';
 
 class ConfirmForging extends React.Component {
 
@@ -49,7 +50,7 @@ class ConfirmForging extends React.Component {
                 }
 
                 if (params.isSavePassphrase) {
-                    localStorage.setItem('secretPhrase', JSON.stringify(passphrase.toString()));
+                    writeToLocalStorage('secretPhrase', passphrase.toString());
                 }
 
                 this.props.setAccountPassphrase(passphrase);

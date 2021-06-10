@@ -12,6 +12,7 @@ import crypto from  '../../../helpers/crypto/crypto';
 
 import ModalBody             from '../../components/modals/modal-body';
 import TextualInputComponent from '../../components/form-components/textual-input';
+import { writeToLocalStorage } from '../../../actions/localStorage';
 
 class CheckForgingStatus extends React.Component {
     constructor(props) {
@@ -30,7 +31,7 @@ class CheckForgingStatus extends React.Component {
         let passphrase = params.passphrase;
 
         if (params.isSavePassphrase) {
-            localStorage.setItem('secretPhrase', JSON.stringify(passphrase.toString()));
+            writeToLocalStorage('secretPhrase', passphrase.toString());
             delete params.isSavePassphrase;
         }
 
