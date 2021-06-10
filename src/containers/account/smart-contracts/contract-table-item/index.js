@@ -29,7 +29,7 @@ export const ContractTableItem = (props) => {
   const currentDate = dispatch(formatTimestamp(new Date(timestamp)));
 
   const handleContractInfo = () => {
-    const modalType = name === "Deal3" ? "SMC_EXPLORER" : "SMC_INFO";
+    const modalType = name === "APL20Buyable" ? "SMC_EXPLORER" : "SMC_INFO";
     dispatch(setBodyModalParamsAction(modalType, { address }));
   };
 
