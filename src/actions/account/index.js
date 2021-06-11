@@ -154,12 +154,30 @@ export function loginWithShareMessage(account, transaction) {
     }
 }
 
-export const getPhasingOnlyControl = (reqParams) => {
-    return axios.get(config.api.serverUrl, {
-        params: {
-            requestType: 'getPhasingOnlyControl',
-            ...reqParams,
-        }
+export const getPhasingOnlyControl = reqParams => axios.get(config.api.serverUrl, {
+  params: {
+    requestType: 'getPhasingOnlyControl',
+    ...reqParams,
+  },
+})
+  .then(res => res.data)
+  .catch(err => {
+    console.log(err);
+  });
+
+export function exportAccount(requestParams) {
+  return async () => {
+    const data = requestParams;
+    if (data.passPhrase) data.passPhrase = await processElGamalEncryption(data.passPhrase);
+    else if (data.secretPhrase) data.secretPhrase = await processElGamalEncryption(data.secretPhrase);
+
+    const body = Object.keys(data)
+      .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`)
+      .join('&');
+    return fetch(`${config.api.server}/rest/keyStore/download`, {
+      method: 'POST',
+      body,
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
     })
         .then((res) => {
             return res.data;
@@ -167,28 +185,6 @@ export const getPhasingOnlyControl = (reqParams) => {
         .catch((err) => {
             console.log(err);
         })
-}
-
-export function exportAccount(requestParams) {
-    return async () => {
-        let data = requestParams;
-        if (data.passphrase) data.passphrase = await processElGamalEncryption(data.passphrase);
-        else if (data.secretPhrase) data.secretPhrase = await processElGamalEncryption(data.secretPhrase);
-
-        const body = Object.keys(data).map((key) => {
-            return encodeURIComponent(key) + '=' + encodeURIComponent(data[key]);
-        }).join('&');
-        return fetch(`${config.api.server}/rest/keyStore/download`, {
-            method: 'POST',
-            body,
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-            }
-        })
-            .then(res => res.json())
-            .catch(() => {
-
-            })
     }
 }
 
