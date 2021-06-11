@@ -59,10 +59,13 @@ export default function VaultWalletForm(props) {
     }
 
     const geneatedAccount = await generateAccountAction(requestParams);
+
+    const passphrase = (isCustomPassphraseTextarea && activeTab === 1) ? values.newAccountpassphrse : geneatedAccount.passphrase
+    
     if (geneatedAccount) {
       const newKeySeed = await createAccountAction({
         account: geneatedAccount.accountRS,
-        passphrase: geneatedAccount.passphrase,
+        passphrase,
       });
 
       setCurrPassphrase(values.newAccountpassphrse);
