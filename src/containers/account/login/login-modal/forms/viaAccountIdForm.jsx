@@ -1,0 +1,61 @@
+import React, { useCallback } from 'react';
+import { connect } from 'react-redux';
+import cn from 'classnames';
+import { Form, Formik } from 'formik';
+import { NotificationManager } from 'react-notifications';
+import { getAccountDataAction } from '../../../../../actions/login';
+import AccountRS from '../../../../components/account-rs/index1';
+import Button from '../../../../components/button';
+
+function AccountIdForm({ activeTab, getAccountDataAction }) {
+
+  const enterAccount = useCallback(({ accountRS }) => {
+    if (!accountRS || !accountRS.length) {
+      NotificationManager.error('Account ID is required.', 'Error', 5000);
+      return;
+    }
+
+    getAccountDataAction({ account: accountRS });
+  }, [getAccountDataAction]);
+
+  return (
+    <Formik
+      initialValues={{ accountRS: '' }}
+      onSubmit={enterAccount}
+    >
+      <Form
+        className={cn({
+          'tab-body mt-4': true,
+          active: !activeTab,
+        })}
+      >
+        <div className="input-group-app user">
+          <div>
+            <label htmlFor="recipient">
+              Enter your ID or choose from saved
+            </label>
+            <div>
+              <AccountRS
+                name="accountRS"
+                placeholder="Account ID"
+                id="recipient"
+              />
+          </div>
+          </div>
+        </div>
+        <Button
+          type="submit"
+          name="Initiate"
+          className="btn"
+        />
+      </Form>
+    </Formik>
+  );
+}
+
+const mapDispatchToProps = {
+  getAccountDataAction,
+};
+
+
+export default connect(null, mapDispatchToProps)(AccountIdForm);
