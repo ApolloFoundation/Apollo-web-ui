@@ -6,7 +6,7 @@
 import React, {
   useState, useCallback, useEffect, Suspense,
 } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { connect } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
 import { getAccountLedgerAction } from '../../../actions/ledger';
 import { setModalCallback, setModalType } from '../../../modules/modals';
@@ -15,11 +15,12 @@ import SiteHeader from '../../components/site-header';
 import CustomTable from '../../components/tables/table1';
 import Button from '../../components/button';
 import Entry from './entry';
+import store from '../../../store';
 
-export default function Ledger() {
-  const dispatch = useDispatch();
+function Ledger({ accountInfo }) {
+  const { dispatch } = store;
 
-  const { account, blockchainStatus } = useSelector(state => state.account);
+  const { account, blockchainStatus } = accountInfo;
 
   const [page, setPage] = useState(1);
   const [firstIndex, setFirstIndex] = useState(0);
@@ -166,3 +167,9 @@ export default function Ledger() {
     </Suspense>
   );
 }
+
+const mapStateToProps = (state) => ({
+  accountInfo: state.account
+});
+
+export default connect(mapStateToProps)(Ledger);
