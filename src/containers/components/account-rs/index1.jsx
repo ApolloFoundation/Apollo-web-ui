@@ -3,23 +3,25 @@
  *                                                                            *
  ***************************************************************************** */
 
-import React, {
+ import React, {
   useState, useEffect, useRef, useCallback,
 } from 'react';
+import { connect } from 'react-redux';
 import { useField } from 'formik';
 import { NotificationManager } from 'react-notifications';
 import classNames from 'classnames';
 import InputMask from 'react-input-mask';
 
-export default function AccountRS(props) {
+function AccountRS(props) {
   const refContactsList = useRef(null);
   const refContactsIcon = useRef(null);
 
   const {
     onChange, exportAccountList, id, name,
-    disabled, placeholder, noContactList, ticker = "APL",
+    disabled, placeholder, noContactList, accountInfo,
   } = props;
 
+  const { ticker } = accountInfo;
 
   const [field, , helpers] = useField(name);
 
@@ -71,7 +73,6 @@ export default function AccountRS(props) {
 
   const handleBeforeMaskedValueChange = (newState, oldState, userInput) => {
     let value = newState.value.toUpperCase();
-
     if (userInput) {
       if ((value.startsWith('APL-APL') || value.startsWith('USDS-USDS'))
         && (userInput.startsWith('APL-') || userInput.startsWith('USDS-'))
@@ -80,7 +81,6 @@ export default function AccountRS(props) {
         value = userInput;
       }
     }
-
     return { value, selection: newState.selection };
   };
 
@@ -135,3 +135,9 @@ export default function AccountRS(props) {
     </div>
   );
 }
+
+const mapStateToProps = (state) => ({
+  accountInfo: state.account,
+});
+
+export default connect(mapStateToProps)(AccountRS);
