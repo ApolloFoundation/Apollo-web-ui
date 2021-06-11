@@ -14,7 +14,7 @@ import {getDashboardData} from '../../../actions/dashboard';
 
 import TotalBalance from "./TotalBalance";
 import BlockchainStatus from "./BlockchainStatus";
-import SendApollo from "./send-apollo/index";
+import SendApollo from "./send-apollo";
 import MyTransactions from "./MyTransactions";
 import StayInTouch from "./StayInTouch";
 import ActivePolls from "./ActivePolls";
