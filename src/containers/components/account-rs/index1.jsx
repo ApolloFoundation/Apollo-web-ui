@@ -21,7 +21,7 @@ function AccountRS(props) {
     disabled, placeholder, noContactList, accountInfo,
   } = props;
 
-  const { ticker } = accountInfo;
+  const { ticker = "APL" } = accountInfo;
 
   const [field, , helpers] = useField(name);
 
