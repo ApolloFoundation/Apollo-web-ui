@@ -5,7 +5,7 @@ import submitForm from '../../../../../helpers/forms/forms';
 export const handleFormSubmit = values => async dispatch => {
   const data = {
     ...values,
-    units: values.units * (10 ** values.decimals),
+    units: values.units * (10 ** (values.decimals || 0)),
   };
 
   delete data.decimals;
