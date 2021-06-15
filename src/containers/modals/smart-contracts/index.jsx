@@ -30,7 +30,7 @@ export default function ({ closeModal }) {
     ticker,
   } = useSelector((state) => state.account);
 
-  const isEmptyData = modalData;
+  const isEmptyData = modalData && modalData.hasOwnProperty("address");
 
   const formSubmit = async (values) => {
     delete values.feeATM;
@@ -68,7 +68,7 @@ export default function ({ closeModal }) {
       initialValues={{
         ...INITIAL_FORM_DATA,
         sender: accountRS,
-        address: (isEmptyData && modalData.address) || "",
+        address: isEmptyData ? modalData.address : "",
         secret: secretPhrase,
       }}
     >
