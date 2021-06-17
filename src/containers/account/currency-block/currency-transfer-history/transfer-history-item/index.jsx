@@ -15,7 +15,7 @@ export default function TransferHistoryItem(props) {
 
   const {
     transfer, code, timestamp, senderRS, sender,
-    units, decimals, recipient, recipientRS,
+    units, decimals = 0, recipient, recipientRS,
   } = props;
 
   return (

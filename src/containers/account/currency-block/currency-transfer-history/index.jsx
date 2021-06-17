@@ -19,6 +19,7 @@ export default function TransferHistoryCurrency() {
   const { accountRS } = useSelector(state => state.account);
 
   const [transfers, setTransfers] = useState(null);
+  console.log("🚀 ~ file: index.jsx ~ line 22 ~ TransferHistoryCurrency ~ transfers", transfers)
   const [pagination, setPagination] = useState({
     page: 1,
     firstIndex: 0,
