@@ -11,7 +11,7 @@ const ChainProps = (props) => (
 
             <div className="modal-form">
                 <div className="form-group-app">
-                    <a onClick={() => props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
+                    <button onClick={() => props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></button>
 
                     <div className="form-title">
                         <p>Chain properties</p>

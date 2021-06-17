@@ -61,9 +61,9 @@ export default function ReserveCurrency(props) {
     <div className="modal-box">
       <form className="modal-form">
         <div className="form-group-app">
-          <span onClick={() => closeModal()} className="exit">
+          <button onClick={() => closeModal()} className="exit">
             <i className="zmdi zmdi-close" />
-          </span>
+          </button>
           <div className="form-title">
             <p>
               Reserve Currency -
