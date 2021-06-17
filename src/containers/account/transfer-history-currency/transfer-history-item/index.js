@@ -14,7 +14,7 @@ import {formatTimestamp} from "../../../../helpers/util/time";
 class TransferHistoryItem extends React.Component {
 
     render () {
-        const {setBodyModalParamsAction, transfer, code, timestamp, formatTimestamp, units, decimals, recipient, recipientRS, sender, senderRS} = this.props;
+        const {setBodyModalParamsAction, transfer, code, timestamp, formatTimestamp, units, decimals = 0, recipient, recipientRS, sender, senderRS} = this.props;
 
         return (
             <tr key={uuid()}>
