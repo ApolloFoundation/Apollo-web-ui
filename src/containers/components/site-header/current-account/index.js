@@ -1,4 +1,4 @@
-import React ,{useState} from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 import classNames from 'classnames';
@@ -55,7 +55,7 @@ class CurrentAccount extends React.Component {
     };
 
     render() {
-        const {accountRS, account, publicKey, isActive, setBodyModalParamsAction, history, switchAccountAction, forgingStatus, closeMenu} = this.props;
+        const {accountRS, account, publicKey, isActive, setBodyModalParamsAction, history, switchAccountAction, forgingStatus} = this.props;
 
         return (
             <div
@@ -70,9 +70,9 @@ class CurrentAccount extends React.Component {
                 })}>
                 <div className="form-group-app">
                     <div className="form-title">
-                        <a onClick={() => this.props.closeMenu()} className="exit current-account">
+                        <button onClick={() => this.props.closeMenu()} className="exit current-account">
                             <i className="zmdi zmdi-close"/>
-                        </a>
+                        </button>
                         <p>Current account</p>
                     </div>
                     {
@@ -85,11 +85,12 @@ class CurrentAccount extends React.Component {
                                     NotificationManager.success('The account has been copied to clipboard.')
                                 }}
                             >
-                                <a
+                                <button
+                                    type="button"
                                     className="user-account-rs blue-text d-block"
                                 >
                                     {accountRS}
-                                </a>
+                                </button>
                             </CopyToClipboard>
                         </div>
                     }
@@ -103,11 +104,12 @@ class CurrentAccount extends React.Component {
                                     NotificationManager.success('The account has been copied to clipboard.')
                                 }}
                             >
-                                <a
-                                    className="user-account-rs blue-text"
+                                <button
+                                    type="button"
+                                    className="user-account-rs blue-text pointer"
                                 >
                                     {accountRS}
-                                </a>
+                                </button>
                             </CopyToClipboard>
                         </div>
                     }
@@ -115,12 +117,13 @@ class CurrentAccount extends React.Component {
                         <div className="input-section">
                             <div className="row" style={{position: 'relative'}}>
                                 <div className="col-xc-12 col-md-6">
-                                    <a
+                                    <button
+                                        type={'button'}
                                         onClick={() => setBodyModalParamsAction('SET_ACCOUNT_INFO', {})}
                                         className="btn btn-green block"
                                     >
                                         Set account info
-                                    </a>
+                                    </button>
                                 </div>
                                 <div className="col-xc-12 col-md-6">
                                     <button
@@ -151,11 +154,12 @@ class CurrentAccount extends React.Component {
                                             this.state.contacts.map((el, index) => {
                                                 return (
                                                     <li>
-                                                        <a
+                                                        <button
+                                                            type="button"
                                                             onClick={() => switchAccountAction(el.accountRS, history)}
                                                         >
                                                             {el.name}
-                                                        </a>
+                                                        </button>
                                                     </li>
                                                 )
                                             })
@@ -166,7 +170,7 @@ class CurrentAccount extends React.Component {
                             </div>
                         </div>
                         <div className="input-section">
-                            <a
+                            <button
                                 style={{
                                     display: 'block'
                                 }}
@@ -175,7 +179,7 @@ class CurrentAccount extends React.Component {
                             >
                                 <i className="zmdi zmdi-account"/>
                                 <label style={{cursor: 'pointer'}}>Details</label>
-                            </a>
+                            </button>
                             <NavLink
                                 activeClassName={'active'}
                                 to="/messenger"

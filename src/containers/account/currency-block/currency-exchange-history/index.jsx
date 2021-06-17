@@ -33,7 +33,7 @@ export default function TradeHistoryCurrency() {
     if (exchanges) {
       setExecutedExchanges(exchanges.exchanges);
     }
-  }, [dispatch]);
+  }, [dispatch, accountRS]);
 
   const onPaginate = useCallback(page => {
     const reqParams = {

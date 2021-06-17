@@ -9,8 +9,6 @@ import BlockHeightInput from '../../../components/form-components/block-height-i
 
 const holdingTypeData = [
     { value: 0, label: 'Apollo' },
-    // { value: 1, label: 'Asset' },
-    // { value: 2, label: 'Currency' },
 ];
 
 const CreateShufflngForm = (props) => {

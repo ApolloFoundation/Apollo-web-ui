@@ -9,7 +9,7 @@ import {connect} from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {formatTimestamp} from "../../../../helpers/util/time";
-import CryptoJS from 'crypto-js'
+import Button from '../../../components/button';
 
 const mapStateToProps = state => ({
   decimals: state.account.decimals,
@@ -43,12 +43,12 @@ class Block extends React.Component {
 
         return (
             <tr key={uuidv4()}>
-                <td className="blue-link-text">
-                    <a
+                <td>
+                    <Button
+                        color="blue-link"
                         onClick={() => setBodyModalParamsAction('INFO_BLOCK', height)}
-                    >
-                        {height}
-                    </a>
+                        name={height}
+                    />
                 </td>
                 <td className="align-right">
                     <p>{formatTimestamp(timestamp)}</p>
@@ -58,8 +58,12 @@ class Block extends React.Component {
                 <td className="align-right">
                     {numberOfTransactions}
                 </td>
-                <td className="blue-link-text">
-                    <a onClick={() => setBodyModalParamsAction('INFO_ACCOUNT', generator)}>{generatorRS}</a>
+                <td>
+                    <Button
+                        color="blue-link"
+                        onClick={() => setBodyModalParamsAction('INFO_ACCOUNT', generator)}
+                        name={generatorRS}
+                    />
                 </td>
                 <td className="align-right">
                     <p>{payloadLength} B</p>

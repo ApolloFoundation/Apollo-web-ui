@@ -2,7 +2,6 @@ import React from 'react';
 
 
 import CustomFormSelect from '../../../components/form-components/custom-form-select';
-import NumericInputComponent from '../../../components/form-components/numeric-input';
 import TextualInputComponent from '../../../components/form-components/textual-input';
 import AccountRSFormInput from '../../../components/form-components/account-rs';
 

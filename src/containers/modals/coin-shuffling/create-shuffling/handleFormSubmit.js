@@ -2,10 +2,7 @@ import {NotificationManager} from "react-notifications";
 
 import {
     setBodyModalParamsAction,
-    IS_MODAL_PROCESSING
 } from '../../../../modules/modals';
-
-import submitForm from '../../../../helpers/forms/forms';
 
 export const handleFormSubmit = (values) => {
     const {dispatch} = this.store;

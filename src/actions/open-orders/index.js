@@ -6,7 +6,6 @@
 
 import axios from "axios";
 import config from "../../config";
-import Marketplace from "../../containers/account/marketplace";
 import store from '../../store'
 import {getAssetAction} from "../assets";
 

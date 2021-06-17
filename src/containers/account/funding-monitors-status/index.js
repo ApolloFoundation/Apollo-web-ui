@@ -7,11 +7,8 @@
 import React from 'react';
 import SiteHeader from '../../components/site-header';
 import {connect} from 'react-redux';
-import { v4 as uuidv4 } from 'uuid';
 import {getAccountPropertiesAction} from '../../../actions/account/index';
-import InfoBox from '../../components/info-box';
 import {setBodyModalParamsAction} from "../../../modules/modals";
-import ContentLoader from '../../components/content-loader'
 import ContentHendler from '../../components/content-hendler'
 import classNames from "classnames";
 import FundingMonitorItem from "./funding-monitor-status-item";
@@ -27,9 +24,6 @@ const mapDisatchToProps = dispatch => ({
 })
 
 class FundingMonitorsStatus extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     state = {
         properties: null,
@@ -94,7 +88,8 @@ class FundingMonitorsStatus extends React.Component {
                     >
                         Funding monitors
                     </Link>
-                    <a
+                    <button
+                        type="button"
                         className={classNames({
                             'btn': true,
                             'primary': true,
@@ -108,7 +103,7 @@ class FundingMonitorsStatus extends React.Component {
                         }}
                     >
                         Add Monitored Account
-                    </a>
+                    </button>
                 </SiteHeader>
                 <div className="page-body container-fluid">
 

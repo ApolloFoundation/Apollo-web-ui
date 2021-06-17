@@ -12,7 +12,6 @@ import {connect} from 'react-redux';
 import {formatTimestamp} from "../../../../helpers/util/time";
 import utils from "../../../../helpers/util/utils";
 
-import { v4 as uuidv4 } from 'uuid';
 import config from '../../../../config';
 
 const mapStateToProps = state => ({

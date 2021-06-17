@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
+import Button from '../../../components/button';
 
 const Goods = ({
   name, goods, quantity, priceATM,
@@ -11,10 +12,12 @@ const Goods = ({
 
   return (
     <tr className="marketplace-tab-item">
-      <td className="blue-link-text">
-        <a onClick={() => dispatch(setBodyModalParamsAction('MARKETPLACE_PURCHASE', goods))}>
-          {name}
-        </a>
+      <td>
+          <Button
+              color="blue-link"
+              onClick={() => dispatch(setBodyModalParamsAction('MARKETPLACE_PURCHASE', goods))}
+              name={name}
+            />
       </td>
       <td>
         {priceATM / decimals}

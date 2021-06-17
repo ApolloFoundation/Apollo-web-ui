@@ -420,11 +420,12 @@ input[type="file"] {
 			&:last-child {
 				border-bottom: 0;
 			}
-			a {
+			button {
 				padding: 10px 15px;
 				display: block;
 				width: 100%;
 				color: #3D5A7E;
+				cursor: pointer;
 			}
 		}
 	}

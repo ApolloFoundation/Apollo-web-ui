@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {getAssetAction} from "../../../../actions/assets";
 import {setBodyModalParamsAction} from "../../../../modules/modals";
-
+import Button from '../../../components/button';
 
 class AssetIssuance extends Component {
 	componentDidMount = () => {
@@ -58,7 +58,13 @@ class AssetIssuance extends Component {
 				{this.props.transaction.senderRS &&
 				<tr>
 					<td>Sender:</td>
-					<td className="blue-link-text"><a onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', this.props.transaction.sender)}>{this.props.transaction.senderRS}</a></td>
+					<td>
+						<Button
+							color="blue-link"
+							onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', this.props.transaction.sender)}
+							name={this.props.transaction.senderRS}
+						/>
+					</td>
 				</tr>
 				}
 

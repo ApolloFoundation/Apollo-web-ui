@@ -3,6 +3,7 @@ import {connect} from "react-redux";
 import {getAssetAction} from "../../../../actions/assets";
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {getTransactionAction} from "../../../../actions/transactions";
+import Button from '../../../components/button';
 
 class AssetDelete extends Component {
 	componentDidMount = () => {
@@ -42,7 +43,13 @@ class AssetDelete extends Component {
 	            {this.props.transaction.attachment.hasOwnProperty("asset") &&
 	            <tr>
 		            <td>Asset:</td>
-		            <td className="blue-link-text"><a onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_TRANSACTION', this.state.transactionAsset)}>{this.props.transaction.attachment.asset}</a></td>
+		            <td>
+						<Button
+							color="blue-link"
+							onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_TRANSACTION', this.state.transactionAsset)}
+							name={this.props.transaction.attachment.asset}
+						/>
+					</td>
 	            </tr>
 	            }
 	            {this.state.asset &&
@@ -60,7 +67,13 @@ class AssetDelete extends Component {
 	            {this.props.transaction.senderRS &&
 	            <tr>
 		            <td>Sender:</td>
-		            <td className="blue-link-text"><a onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', this.props.transaction.sender)}>{this.props.transaction.senderRS}</a></td>
+		            <td>
+						<Button
+							color="blue-link"
+							onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', this.props.transaction.sender)}
+							name={this.props.transaction.senderRS}
+						/>
+					</td>
 	            </tr>
 	            }
             </React.Fragment>

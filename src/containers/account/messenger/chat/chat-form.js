@@ -1,5 +1,5 @@
 import React from 'react';
-import {Checkbox, Form, Text, TextArea} from 'react-form';
+import {Form, Text, TextArea} from 'react-form';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {handleSendMessageFormSubmit} from './handleFormSubmit';

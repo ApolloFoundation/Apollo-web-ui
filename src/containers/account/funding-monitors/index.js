@@ -9,7 +9,6 @@ import SiteHeader from '../../components/site-header'
 import { v4 as uuidv4 } from 'uuid';
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {connect} from "react-redux";
-import ContentLoader from '../../components/content-loader'
 import ContentHendler from '../../components/content-hendler'
 import {getFundingMonitorsAction} from '../../../actions/monitors'
 import InfoBox from '../../components/info-box'
@@ -77,18 +76,13 @@ class FundingMonitors extends React.Component {
                 <SiteHeader
                     pageTitle={'Funding monitors'}
                 >
-                    <a className="btn btn-green btn-sm"
+                    <button type="button" className="btn btn-green btn-sm"
                        onClick={() => this.props.setBodyModalParamsAction("ADD_MONITOR", this.reloadFundingMonitors)}>
                         Add monitor
-                    </a>
+                    </button>
                 </SiteHeader>
                 <div className="page-body container-fluid">
                     <div className="funding-monitors">
-                        {/*<div className="info-box danger">*/}
-                            {/*<p>Incorrect &quot;adminPassword&quot; (locked for 1 hour, too many incorrect password*/}
-                                {/*attempts)</p>*/}
-                        {/*</div>*/}
-
                         {
                             this.state.monitors &&
                             this.state.monitors.errorCode &&

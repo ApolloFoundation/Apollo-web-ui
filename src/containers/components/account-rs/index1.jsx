@@ -124,9 +124,9 @@ export default function AccountRS(props) {
           <ul>
             {contacts.map((el, index) => (
               <li key={index}>
-                <a onClick={() => handleFillForm(el.accountRS)}>
+                <button type="button" o onClick={() => handleFillForm(el.accountRS)}>
                   {el.name}
-                </a>
+                </button>
               </li>
             ))}
           </ul>

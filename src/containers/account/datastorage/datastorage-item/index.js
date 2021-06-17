@@ -8,6 +8,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import config from '../../../../config';
+import Button from "../../../components/button";
 
 const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
@@ -15,13 +16,19 @@ const mapDispatchToProps = dispatch => ({
 
 const DataStorageItem  = props => (
     <tr>
-        <td className="blue-link-text">
-            <a onClick={() => props.setBodyModalParamsAction('INFO_TRANSACTION', props.transaction)}>
-                {props.name}
-            </a>
+        <td>
+            <Button
+              color="blue-link"
+              onClick={() => props.setBodyModalParamsAction('INFO_TRANSACTION', props.transaction)}
+              name={props.name}
+            />
         </td>
-        <td className="blue-link-text">
-            <a onClick={() => props.setBodyModalParamsAction('INFO_ACCOUNT', props.account)}>{props.accountRS}</a>
+        <td>
+            <Button
+              color="blue-link"
+              onClick={() => props.setBodyModalParamsAction('INFO_ACCOUNT', props.account)}
+              name={props.accountRS}
+            />
         </td>
         <td>{props.type}</td>
         <td>{props.channel}</td>

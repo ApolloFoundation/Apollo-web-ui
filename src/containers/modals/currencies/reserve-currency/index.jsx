@@ -4,18 +4,8 @@
  ***************************************************************************** */
 
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
-import { Form } from 'react-form';
 import { NotificationManager } from 'react-notifications';
-import classNames from 'classnames';
-import { setBodyModalParamsAction, setModalData } from '../../../../modules/modals';
-import InputForm from '../../../components/input-form';
-import ModalFooter from '../../../components/modal-footer';
-import ButtonWrapper from '../../mandatory-approval/components/ModalFooter';
-import utils from '../../../../helpers/util/utils';
-import CancelButton from '../../mandatory-approval/components/CancelButton';
-import submitForm from '../../../../helpers/forms/forms';
-import FeeCalc from '../../../components/form-components/fee-calc';
+import { setBodyModalParamsAction } from '../../../../modules/modals';
 import ModalBody from '../../../components/modals/modal-body1';
 import ReserveCurrencyForm from './form';
 

@@ -16,7 +16,7 @@ export default function Assets() {
 
   useEffect(() => {
     dispatch(getAssets());
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="page-content">

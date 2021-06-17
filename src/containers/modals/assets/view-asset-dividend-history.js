@@ -9,6 +9,7 @@ import {connect} from 'react-redux';
 import {openPrevModal, setBodyModalParamsAction} from '../../../modules/modals';
 import {getDividendsHistory} from "../../../actions/assets";
 import {formatTimestamp} from "../../../helpers/util/time";
+import Button from '../../components/button';
 
 class AssetDividendHistory extends React.Component {
     state = {
@@ -44,8 +45,9 @@ class AssetDividendHistory extends React.Component {
             <div className="modal-box x-wide">
                 <div className="modal-form">
                     <div className="form-group-app">
-                        <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close"/></a>
-
+                        <button type="button" onClick={() => this.props.closeModal()} className="exit">
+                            <i className="zmdi zmdi-close" />
+                        </button>
                         <div className="form-title">
                             <p>Asset Dividend History</p>
                         </div>
@@ -70,13 +72,12 @@ class AssetDividendHistory extends React.Component {
 
                                                 return (
                                                     <tr>
-                                                        <td
-                                                            className={'blue-link-text'}>
-                                                            <a
-                                                                className={'blue-link-text'}
-                                                                onClick={() => this.props.setBodyModalParamsAction('INFO_TRANSACTION', el.assetDividend)}>
-                                                                {this.props.formatTimestamp(el.timestamp)}
-                                                            </a>
+                                                        <td>
+                                                            <Button
+                                                                color="blue-link"
+                                                                onClick={() => this.props.setBodyModalParamsAction('INFO_TRANSACTION', el.assetDividend)}
+                                                                name={this.props.formatTimestamp(el.timestamp)}
+                                                            />
                                                         </td>
 
                                                         <td className="align-right">{el.dividendHeight}</td>

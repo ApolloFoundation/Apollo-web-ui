@@ -7,12 +7,8 @@
 import React from 'react';
 import SiteHeader from '../../components/site-header';
 import {connect} from 'react-redux';
-import { v4 as uuidv4 } from 'uuid';
 import {getAccountPropertiesAction} from '../../../actions/account/index';
-import InfoBox from '../../components/info-box';
 import {setBodyModalParamsAction} from "../../../modules/modals";
-import ContentLoader from '../../components/content-loader'
-import ContentHendler from '../../components/content-hendler'
 
 import AccountProperty from './acocunt-property';
 import CustomTable from '../../components/tables/table';
@@ -115,14 +111,14 @@ class AccountProperties extends React.Component {
                 <SiteHeader
                     pageTitle={'Account properties'}
                 >
-                    <a className={`btn ${this.state.incoming ? 'outline-primary' : 'outline-transparent'} mr-1`}
+                    <button type="button" className={`btn ${this.state.incoming ? 'outline-primary' : 'outline-transparent'} mr-1`}
                        onClick={() => this.getAccountPropertiesIncoming(null, initialPagination)}>
                         Incoming
-                    </a>
-                    <a className={`btn ${this.state.incoming ? 'outline-transparent' : 'outline-primary'} mr-1`}
+                    </button>
+                    <button type="button" className={`btn ${this.state.incoming ? 'outline-transparent' : 'outline-primary'} mr-1`}
                        onClick={() => this.getAccountPropertiesOutgoing(null, initialPagination)}>
                         Outgoing
-                    </a>
+                    </button>
                     <button
                         type={'button'}
                         className={'btn btn-green btn-sm'}

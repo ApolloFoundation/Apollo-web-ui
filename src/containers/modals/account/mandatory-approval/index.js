@@ -55,7 +55,9 @@ class MandatoryApproval extends React.Component {
             <div className="modal-box">
                     <form className="modal-form">
                         <div className="form-group-app">
-                            <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></a>
+                            <button type="button" onClick={() => this.props.closeModal()} className="exit">
+                                <i className="zmdi zmdi-close" />
+                            </button>
 
                             <div className="form-title">
                                 <p>Mandatory Approval</p>
@@ -293,15 +295,6 @@ class MandatoryApproval extends React.Component {
                                 </button>
 
                             </div>
-                            {/*<div className="btn-box align-buttons-inside absolute left-conner">*/}
-                                {/*<a*/}
-                                    {/*onClick={this.handleAdvancedState}*/}
-                                    {/*className="btn btn-right round round-bottom-left round-top-right absolute"*/}
-                                    {/*style={{left : 0, right: 'auto'}}*/}
-                                {/*>*/}
-                                    {/*{this.state.advancedState ? "Basic" : "Advanced"}*/}
-                                {/*</a>*/}
-                            {/*</div>*/}
                         </div>
                     </form>
             </div>

@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {stopMonitor} from "../../../../actions/monitors";
 import {NotificationManager} from 'react-notifications'
+import Button from "../../../components/button";
 
 const mapStateToProps  = state => ({
     adminPassword: state.account.adminPassword,
@@ -33,12 +34,11 @@ const stopMonitorAction = (props) => {
 const MonitorItem = (props) => (
     <tr>
         <td>
-            <a
-                className={'blue-link-text'}
+            <Button
+                color="blue-link"
                 onClick={() => props.setBodyModalParamsAction('INFO_ACCOUNT', props.accountRS)}
-            >
-                {props.accountRS}
-            </a>
+                name={props.accountRS}
+            />
         </td>
         <td
             className={'align-left'}
@@ -65,13 +65,11 @@ const MonitorItem = (props) => (
             >
                 Status
             </Link>
-            <button
-                type={'button'}
-                className={'btn btn-default'}
+            
+            <Button
                 onClick={() => stopMonitorAction(props)}
-            >
-                Stop
-            </button>
+                name={"Stop"}
+            />
         </td>
     </tr>
 )

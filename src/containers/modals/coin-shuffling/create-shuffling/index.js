@@ -9,7 +9,6 @@ import {connect} from 'react-redux';
 import {
     setBodyModalParamsAction,
 } from '../../../../modules/modals';
-import {handleFormSubmit} from './handleFormSubmit';
 
 // Form components
 
@@ -17,11 +16,6 @@ import ModalBody from '../../../components/modals/modal-body';
 import CreateShufflngForm from './form';
 import {NotificationManager} from "react-notifications";
 
-const holdingTypeData = [
-    { value: 0, label: 'Apollo' },
-    { value: 1, label: 'Asset' },
-    { value: 2, label: 'Currency' },
-];
 
 class CreateShuffling extends React.Component {
     constructor(props) {

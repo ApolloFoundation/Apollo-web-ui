@@ -53,7 +53,6 @@ class ModalBody extends React.Component {
             submitButtonName, modalData, isClosingButton,
         } = this.props;
 
-        const LeftBar = marketplace ? (p) => <div className="left-bar">{p.children}</div> : React.Fragment;
         const RightBar = marketplace ? (p) => <div className="right-bar">{p.children}</div> : React.Fragment;
         const isAdvanced = false;
 
@@ -74,7 +73,7 @@ class ModalBody extends React.Component {
                             <RightBar>
                                 {
                                     closeModal && !isPour &&
-                                    <a onClick={closeModal} className="exit"><i className="zmdi zmdi-close"/></a>
+                                    <button type="button" onClick={closeModal} className="exit"><i className="zmdi zmdi-close"/></button>
                                 }
 
                                 {

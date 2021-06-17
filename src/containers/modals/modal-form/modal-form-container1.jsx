@@ -2,7 +2,7 @@ import React, {
   useState, useCallback, useEffect,
 } from 'react';
 import { useSelector } from 'react-redux';
-import { Form, Text } from 'react-form';
+import { Form } from 'react-form';
 
 export default function BackForm(props) {
   const {

@@ -88,7 +88,7 @@ class MarketplaceDeliver extends React.Component {
 
     render() {
 
-        const {formatTimestamp, decimals, ticker} = this.props;
+        const {decimals, ticker} = this.props;
         const {goods} = this.state;
 
         return (

@@ -1,14 +1,11 @@
 import React from 'react';
 import { Form } from 'react-form';
-import { NotificationManager } from 'react-notifications';
 import classNames from 'classnames';
-import { setBodyModalParamsAction, setModalData } from '../../../../modules/modals';
 import InputForm from '../../../components/input-form';
 import ModalFooter from '../../../components/modal-footer';
 import ButtonWrapper from '../../mandatory-approval/components/ModalFooter';
 import utils from '../../../../helpers/util/utils';
 import CancelButton from '../../mandatory-approval/components/CancelButton';
-import submitForm from '../../../../helpers/forms/forms';
 import FeeCalc from '../../../../components/form-components/fee-calc';
 
 export default function ReserveCurrencyForm() {

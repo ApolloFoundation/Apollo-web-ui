@@ -4,11 +4,8 @@
  ******************************************************************************/
 
 
-import axios from 'axios';
-import config from '../../config'
 import {getLocale} from "../internationalisation";
 
-const EPOCH_BEGINNING = 1385294400000;
 
 export function toEpochTime(currentTime, epochB) {
     if (currentTime === undefined) {
