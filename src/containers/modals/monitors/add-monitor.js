@@ -63,7 +63,7 @@ class AddMonitor extends React.Component {
                              }) => (
                         <form className="modal-form" onChange={() => this.props.saveSendModalState(values)} onSubmit={submitForm}>
                             <div className="form-group-app">
-                                <button onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></button>
+                                <button onClick={() => this.props.closeModal()} type="button" className="exit"><i className="zmdi zmdi-close" /></button>
 
                                 <div className="form-title">
 	                                {this.props.modalsHistory.length > 1 &&

@@ -168,7 +168,7 @@ class CreateUser extends React.Component {
                         <div className="modal-box">
                             <div className="modal-form">
                                 <div className="form-group-app">
-                                    <button onClick={() => this.props.closeModal()} className="exit"><i
+                                    <button onClick={() => this.props.closeModal()} type="button" className="exit"><i
                                         className="zmdi zmdi-close"/></button>
 
                                     <div className="form-title">

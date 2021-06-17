@@ -67,7 +67,7 @@ class AccountInfo extends React.Component {
                             {
                                 this.props.modalData &&
                                 <div className="form-group-app">
-                                    <button onClick={() => this.props.closeModal()} className="exit"><i
+                                    <button onClick={() => this.props.closeModal()} type="button" className="exit"><i
                                         className="zmdi zmdi-close"/></button>
 
                                     <div className="form-title">

@@ -74,7 +74,7 @@ class ModalBody extends React.Component {
                             <RightBar>
                                 {
                                     closeModal && !isPour &&
-                                    <button onClick={closeModal} className="exit"><i className="zmdi zmdi-close"/></button>
+                                    <button onClick={closeModal} type="button" className="exit"><i className="zmdi zmdi-close"/></button>
                                 }
 
                                 {

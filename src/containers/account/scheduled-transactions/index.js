@@ -6,7 +6,6 @@
 
 import React from 'react';
 import SiteHeader from '../../components/site-header'
-import ContentLoader from '../../components/content-loader'
 import InfoBox from "../../components/info-box";
 import {Link} from "react-router-dom";
 import {connect} from 'react-redux'
@@ -17,6 +16,7 @@ import classNames from "classnames";
 import TransactionItem from '../transactions/transaction';
 import submitForm from "../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
+import Button from '../../components/button';
 
 const mapStateToProps = state => ({
     adminPassword: state.account.adminPassword,
@@ -103,16 +103,14 @@ class ScheduledTransactions extends React.Component {
                 <SiteHeader
                     pageTitle={'Scheduled transactions'}
                 >
-                    <a
-                        className={classNames({
-                            'btn': true,
-                            'primary': true,
-                            'disabled' : this.state.isPrivate
-                        })}
+                    <Button
+                        className={'primary'}
+                        size="sm"
+                        color={""}
                         onClick={() => this.props.setBodyModalParamsAction('SCHEDULE_CURRENCY', this.reloadSceduledTransactions)}
-                    >
-                        Schedule currency
-                    </a>
+                        name="Schedule currency"
+                        disabled={this.state.isPrivate}
+                    />
                 </SiteHeader>
 
                 <div className="page-body container-fluid">
