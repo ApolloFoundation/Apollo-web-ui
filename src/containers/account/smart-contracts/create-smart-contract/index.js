@@ -3,14 +3,15 @@
  *                                                                            *
  ******************************************************************************/
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Form, Formik, Field } from "formik";
+import { Form, Formik } from "formik";
 import { validationForm } from "./form/form-validation";
 import { parseTextFile } from "../../../../helpers/parseFile";
 import {
   exportTestContract,
   exportContractSubmit,
+  exportConfirmationOnBoard,
 } from "../../../../../src/actions/contracts";
 import { setBodyModalParamsAction } from "../../../../modules/modals";
 
@@ -40,10 +41,9 @@ export default function SmartContracts() {
     ticker,
   } = useSelector((state) => state.account);
 
-  const [testData, setTestData] = useState(null);
-  const [publishData, setPublishData] = useState(null);
+  const [formContarctData, setFormContractData] = useState(null);
   const [isPublish, setIsPublish] = useState(false);
-  const [txCode, setTxCode] = useState(null);
+  const [isValidated, setIsValidated] = useState(false);
   const [error, setError] = useState(null);
   const [fileData, setFileData] = useState(null);
   const [isPending, setIsPending] = useState({
@@ -60,42 +60,48 @@ export default function SmartContracts() {
         value: Number(values.value) * Math.pow(10, 8),
         params: values.params.split(","),
       };
-      setTestData(data);
       setIsPending({ ...isPending, test: true });
-      const result = await dispatch(exportTestContract(data));
+      const testContract = await dispatch(exportTestContract(data));
       setIsPending({ ...isPending, test: false });
-      if (result.errorCode) {
-        setError(result);
+      if (testContract.errorCode) {
+        setError(testContract);
       } else {
-        setTxCode(result.tx);
+        setIsValidated(true);
+        setFormContractData(data);
+        setError(null);
       }
     }
   };
 
-  const handlePublickFormSubmit = async (resetForm) => {
+  const handlePublickFormSubmit = async (value, { resetForm }) => {
     if (!isPublish) {
       setIsPending({ ...isPending, publish: true });
-      const result = await dispatch(exportContractSubmit({ tx: txCode }));
-      setIsPending({ ...isPending, publish: false });
-      setPublishData(result);
-      if (result.errorCode) {
-        setError(result);
-        setTxCode(null);
+      const publishContract = await dispatch(
+        exportContractSubmit(formContarctData)
+      );
+      if (publishContract.errorCode) {
+        setError(publishContract);
+        setIsPending({ ...isPending, publish: false });
       } else {
-        setIsPublish(true);
-        dispatch(
-          setBodyModalParamsAction("SMC_CREATE", {
-            ...testData,
-            address: result.recipient,
-          })
+        const boadContarct = await dispatch(
+          exportConfirmationOnBoard({ tx: publishContract.tx })
         );
+        if (boadContarct.errorCode) {
+          setError(boadContarct);
+        } else {
+          setIsPublish(true);
+          dispatch(
+            setBodyModalParamsAction("SMC_CREATE", {
+              address: boadContarct.recipient,
+            })
+          );
+        }
       }
+      setIsPending({ ...isPending, publish: false });
     } else {
       resetForm({});
       setError(null);
-      setTxCode(null);
-      setPublishData(null);
-      setTestData(null);
+      formContarctData(null);
     }
   };
 
@@ -146,7 +152,7 @@ export default function SmartContracts() {
             }}
             onSubmit={handlePublickFormSubmit}
           >
-            {({ values, setFieldValue }) => {
+            {({ values, setFieldValue, resetForm }) => {
               return (
                 <Form className="form-group-app transparent mb-0">
                   <div className="row ">
@@ -242,7 +248,7 @@ export default function SmartContracts() {
                               className="btn"
                               color="green"
                               size="lg"
-                              disabled={!txCode}
+                              disabled={!isValidated}
                               isLoading={isPending.publish}
                               type="submit"
                             />
@@ -253,7 +259,7 @@ export default function SmartContracts() {
                               className="btn"
                               color="green"
                               size="lg"
-                              disabled={txCode}
+                              disabled={isValidated}
                               isLoading={isPending.test}
                               onClick={() => handleValidationFormSubmit(values)}
                             />
@@ -265,19 +271,9 @@ export default function SmartContracts() {
                           <h1 className="title mb-3">
                             <b>Contract Data</b>
                           </h1>
-                          {testData ? JSON.stringify(testData) : "Empty"}
-                        </div>
-                        <div className="mb-5">
-                          <h1 className="title mb-3">
-                            <b>Success code</b>
-                          </h1>
-                          {txCode ? JSON.stringify(txCode) : "Empty"}
-                        </div>
-                        <div className="mb-5">
-                          <h1 className="title mb-3">
-                            <b>Send request</b>
-                          </h1>
-                          {publishData ? JSON.stringify(publishData) : "Empty"}
+                          {formContarctData
+                            ? JSON.stringify(formContarctData)
+                            : "Empty"}
                         </div>
                         <div className="mb-5">
                           <h1 className="title mb-3">

@@ -8,11 +8,11 @@ import { handleFetch, POST } from "../../helpers/fetch";
 
 export function exportTestContract(requestParams) {
   return () =>
-    handleFetch(`/rest/v2/smc/validate`, POST, requestParams, false, true)
+    handleFetch(`/rest/v2/smc/validate`, "POST", requestParams, false, true)
       .then((res) => {
         if (!res.errorCode) {
           NotificationManager.success(
-            "Validation request has been submitted!",
+            "Validation request has been validated!",
             null,
             10000
           );
@@ -26,11 +26,11 @@ export function exportTestContract(requestParams) {
 
 export function exportContractSubmit(requestParams) {
   return () =>
-    handleFetch(`/rest/v2/publish`, POST, requestParams, false, true)
+    handleFetch(`/rest/v2/smc/publish`, "POST", requestParams, false, true)
       .then((res) => {
         if (!res.errorCode) {
           NotificationManager.success(
-            "Contract request has been submitted!",
+            "Contract request has been submited!",
             null,
             10000
           );
@@ -41,8 +41,6 @@ export function exportContractSubmit(requestParams) {
       })
       .catch((err) => console.log(err));
 }
-
-
 
 export function exportTestExperationMessage(requestParams) {
   return () =>
@@ -56,7 +54,25 @@ export function exportTestExperationMessage(requestParams) {
       .then((res) => {
         if (!res.errorCode) {
           NotificationManager.success(
-            "Experation Message has been submitted!",
+            "Experation Message has been validated!",
+            null,
+            10000
+          );
+        } else {
+          NotificationManager.error(res.errorDescription, "Error", 10000);
+        }
+        return res;
+      })
+      .catch((err) => console.log(err));
+}
+
+export function exportConfirmationOnBoard(requestParams) {
+  return () =>
+    handleFetch(`/rest/v2/transaction`, "POST", requestParams, false, true)
+      .then((res) => {
+        if (!res.errorCode) {
+          NotificationManager.success(
+            "Contract request has been published!",
             null,
             10000
           );
@@ -70,7 +86,7 @@ export function exportTestExperationMessage(requestParams) {
 
 export function exportExperationMessageSubmit(requestParams) {
   return () =>
-    handleFetch(`/rest/v2/method/call`, POST, requestParams, false, true)
+    handleFetch(`/rest/v2/method/call`, "POST", requestParams, false, true)
       .then((res) => {
         if (!res.errorCode) {
           NotificationManager.success(
