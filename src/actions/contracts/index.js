@@ -12,7 +12,7 @@ export function exportTestContract(requestParams) {
       .then((res) => {
         if (!res.errorCode) {
           NotificationManager.success(
-            "Validation request has been validated!",
+            "Validation request has been submitted",
             null,
             10000
           );
@@ -30,7 +30,7 @@ export function exportContractSubmit(requestParams) {
       .then((res) => {
         if (!res.errorCode) {
           NotificationManager.success(
-            "Contract request has been submited!",
+            "Contract has been published!",
             null,
             10000
           );
@@ -54,7 +54,7 @@ export function exportTestExperationMessage(requestParams) {
       .then((res) => {
         if (!res.errorCode) {
           NotificationManager.success(
-            "Experation Message has been validated!",
+            "Contract has been validated",
             null,
             10000
           );
@@ -72,7 +72,7 @@ export function exportConfirmationOnBoard(requestParams) {
       .then((res) => {
         if (!res.errorCode) {
           NotificationManager.success(
-            "Contract request has been published!",
+            "Publishing request has been submitted",
             null,
             10000
           );
