@@ -12,7 +12,7 @@ export function exportTestContract(requestParams) {
       .then((res) => {
         if (!res.errorCode) {
           NotificationManager.success(
-            "Validation request has been submitted",
+            "Contract has been validated",
             null,
             10000
           );
