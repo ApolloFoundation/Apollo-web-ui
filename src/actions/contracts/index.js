@@ -4,11 +4,11 @@
  ***************************************************************************** */
 
 import { NotificationManager } from "react-notifications";
-import { handleFetch, POST } from "../../helpers/fetch";
+import { handleFetch, POST, GET } from "../../helpers/fetch";
 
 export function exportTestContract(requestParams) {
   return () =>
-    handleFetch(`/rest/v2/smc/validate`, "POST", requestParams, false, true)
+    handleFetch(`/rest/v2/smc/validate`, POST, requestParams, false, true)
       .then((res) => {
         if (!res.errorCode) {
           NotificationManager.success(
@@ -26,7 +26,7 @@ export function exportTestContract(requestParams) {
 
 export function exportContractSubmit(requestParams) {
   return () =>
-    handleFetch(`/rest/v2/smc/publish`, "POST", requestParams, false, true)
+    handleFetch(`/rest/v2/smc/publish`, POST, requestParams, false, true)
       .then((res) => {
         if (!res.errorCode) {
           NotificationManager.success(
@@ -68,7 +68,7 @@ export function exportTestExperationMessage(requestParams) {
 
 export function exportConfirmationOnBoard(requestParams) {
   return () =>
-    handleFetch(`/rest/v2/transaction`, "POST", requestParams, false, true)
+    handleFetch(`/rest/v2/transaction`, POST, requestParams, false, true)
       .then((res) => {
         if (!res.errorCode) {
           NotificationManager.success(
@@ -86,7 +86,7 @@ export function exportConfirmationOnBoard(requestParams) {
 
 export function exportExperationMessageSubmit(requestParams) {
   return () =>
-    handleFetch(`/rest/v2/method/call`, "POST", requestParams, false, true)
+    handleFetch(`/rest/v2/method/call`, POST, requestParams, false, true)
       .then((res) => {
         if (!res.errorCode) {
           NotificationManager.success(
@@ -104,7 +104,7 @@ export function exportExperationMessageSubmit(requestParams) {
 
 export function getContracts(requestParams) {
   return () =>
-    handleFetch(`/rest/v2/smc`, "GET", requestParams, false, true)
+    handleFetch(`/rest/v2/smc`, GET, requestParams, false, true)
       .then((res) => {
         if (res.errorCode) {
           NotificationManager.error(res.errorDescription, "Error", 10000);
