@@ -11,6 +11,7 @@ import MessageExecutionForm from "./form";
 import {
   exportTestExperationMessage,
   exportContractSubmit,
+  exportConfirmationOnBoard,
 } from "../../../../src/actions/contracts";
 
 const INITIAL_FORM_DATA = {
@@ -45,12 +46,19 @@ export default function ({ closeModal }) {
         params: values.params.split(","),
       };
 
-      const test = await dispatch(exportTestExperationMessage(data));
+      const testMessage = await dispatch(exportTestExperationMessage(data));
 
-      if (!test.errorCode) {
-        const publish = await dispatch(exportContractSubmit({ tx: test.tx }));
-        if (!publish.errorCode) {
-          closeModal();
+      if (!testMessage.errorCode) {
+        const publishMessage = await dispatch(
+          exportContractSubmit({ tx: testMessage.tx })
+        );
+        if (!publishMessage.errorCode) {
+          const boardMessage = await dispatch(
+            exportConfirmationOnBoard({ tx: publishMessage.tx })
+          );
+          if (!boardMessage.errorCode) {
+            closeModal();
+          }
         }
       }
     }
