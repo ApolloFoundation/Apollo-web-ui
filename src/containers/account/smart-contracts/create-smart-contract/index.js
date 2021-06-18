@@ -101,7 +101,9 @@ export default function SmartContracts() {
     } else {
       resetForm({});
       setError(null);
-      formContarctData(null);
+      setFormContractData(null);
+      setIsValidated(false)
+      setIsPublish(false)
     }
   };
 
