@@ -44,6 +44,8 @@ function SecretPhraseForm({ getAccountDataAction, getAccountDataBySecretPhrasseA
     [setShowPhraze]
   );
 
+  const label = showPhrase ? 'Switch to the ID input field' : 'Switch to the secret phrase input field';
+
   return (
     <Formik
       initialValues={{ 
@@ -84,7 +86,7 @@ function SecretPhraseForm({ getAccountDataAction, getAccountDataBySecretPhrasseA
         <div className="d-flex flex-column">
           <Switcher
             name="isCustomPassphrase"
-            label="Switch to the ID input field"
+            label={label}
             onChange={handleShowPhaze}
             id="show-phrase"
           />
