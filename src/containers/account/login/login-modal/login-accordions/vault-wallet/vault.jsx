@@ -12,15 +12,27 @@ export const VaultAccordion = ({ active, onChange, id }) => {
   const tooltips = [
     {
       iconChecked: true,
-      text: 'The most secure Apollo Wallet',
-    },
-    {
-      iconChecked: true,
       text: 'You can log in using your Account ID',
     },
     {
+      iconChecked: true,
+      text: 'Available to use from any device',
+    },
+    {
+      iconChecked: true,
+      text: 'The wallet is encrypted (via Secret File) on one device.',
+    },
+    {
+      iconChecked: true,
+      text: 'You can export/import your Secret File to use on other devices.',
+    },
+    {
+      iconChecked: true,
+      text: '2FA works from any device when you use your Vault.',
+    },
+    {
       iconChecked: false,
-      text: '2FA is available only on the device where it was enabled',
+      text: 'If you lose your device or uninstall the wallet before exporting your secret file, you will lose access to your account.',
     },
   ];
 

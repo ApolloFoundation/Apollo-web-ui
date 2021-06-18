@@ -46,6 +46,8 @@ export default function SecretPhraseForm({ activeTab }) {
     [setShowPhraze]
   );
 
+  const label = showPhrase ? 'Switch to the ID input field' : 'Switch to the secret phrase input field';
+
   return (
     <Formik
       initialValues={{ 
@@ -86,7 +88,7 @@ export default function SecretPhraseForm({ activeTab }) {
         <div className="d-flex flex-column">
           <Switcher
             name="isCustomPassphrase"
-            label="Switch to the ID input field"
+            label={label}
             onChange={handleShowPhaze}
             id="show-phrase"
           />
