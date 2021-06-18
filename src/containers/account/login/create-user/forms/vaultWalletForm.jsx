@@ -68,7 +68,7 @@ export default function VaultWalletForm(props) {
         passphrase,
       });
 
-      setCurrPassphrase(values.newAccountpassphrse);
+      setCurrPassphrase(passphrase);
       setIsAccountLoaded(true);
       setAccountData(geneatedAccount);
       setKeySeed(newKeySeed);
