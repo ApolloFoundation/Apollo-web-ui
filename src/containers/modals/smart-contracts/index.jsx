@@ -50,7 +50,7 @@ export default function ({ closeModal }) {
 
       if (!testMessage.errorCode) {
         const publishMessage = await dispatch(
-          exportContractSubmit({ tx: test.tx })
+          exportContractSubmit({ tx: testMessage.tx })
         );
         if (!publishMessage.errorCode) {
           const boardMessage = await dispatch(
