@@ -5,9 +5,11 @@
 
 
 import axios from 'axios';
-import config from '../../config';
+import QRCode from 'qrcode';
+import jsPDF from 'jspdf';
 import queryString from 'query-string';
 
+import config from '../../config';
 import {getTransactionsAction} from '../../actions/transactions/';
 import {getAccountLedgerAction} from '../../actions/ledger/';
 import {getAliasesAction} from '../../actions/currencies/';
@@ -21,13 +23,11 @@ import {NotificationManager} from "react-notifications";
 import submitForm from '../../helpers/forms/forms'
 import store from '../../store'
 import {makeLoginReq} from "../login";
-import {login, setShareMessage} from "../../modules/account";
+import {login, setShareMessage,  setTicker} from "../../modules/account";
 import { setBodyModalParamsAction } from '../../modules/modals';
-
-import QRCode from 'qrcode';
-
-import jsPDF from 'jspdf';
+import { handleFetch } from '../../helpers/fetch';
 import {processElGamalEncryption} from "../crypto";
+import utils from '../../helpers/util/utils';
 
 export function getAccountAction(reqParams) {
     return dispatch => {
@@ -85,6 +85,20 @@ export function logOutAction(account) {
         dispatch(writeToLocalStorage('APLUserRS', null));
         window.location.reload();
     }
+}
+
+export function getCurrentTicker() {
+    return async dispatch => {
+        return handleFetch(`${config.api.server}/rest/v2/info/blockchain`, 'GET')
+        .then(res => {
+            if (res) {
+            dispatch(setTicker({ticker: utils.normalizeTicker(res.ticker), decimals: 10 ** res.decimals}));
+            }
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    };
 }
 
 export function sendLeaseBalance(reqParams) {

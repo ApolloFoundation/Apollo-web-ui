@@ -8,6 +8,9 @@ import qrcode from '../qr-code/qr-code'
 import {getState} from "../../modules/account";
 import BigInteger from 'big-integer';
 
+function normalizeTicker(ticker) {
+    return (ticker === 'Apollo' ? 'APL' : ticker.toUpperCase());
+}
 
 function isNumericAccountImplAPL(account, regex) {
     return regex.test(account);
@@ -335,5 +338,6 @@ export default {
     resolverReservePerUnit,
     isRequireBlockchain,
     isDesktopApp,
-    parseStringBySpace
+    parseStringBySpace,
+    normalizeTicker,
 }
