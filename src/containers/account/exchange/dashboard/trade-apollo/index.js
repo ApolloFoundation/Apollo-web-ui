@@ -89,6 +89,7 @@ function TradeApollo(props) {
 const mapStateToProps = (state) => ({
   typeOfTrade: state.modals.typeOfTrade,
   decimals: state.account.decimals,
+  ticker: state.account.ticker,
 });
 
 export default connect(mapStateToProps)(TradeApollo);
