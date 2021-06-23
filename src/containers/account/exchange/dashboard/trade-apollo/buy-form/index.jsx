@@ -96,19 +96,21 @@ function BuyFormWrapper(props) {
             return;
           }
 
-          const passphrase = await processElGamalEncryption(passPhrase);
-
           const params = {
             offerType: 0, // BUY
             pairCurrency: currencyTypes[currency],
             pairRate,
             offerAmount: fixedOfferAmount,
             sender: account,
-            passphrase,
             feeATM,
             walletAddress: newValues.walletAddress.value.address,
           };
+
           if (passPhrase) {
+            const passphrase = await processElGamalEncryption(passPhrase);
+
+            params.passphrase = passphrase;
+
             dispatch(createOffer(params)).then(() => {
               setPending(false);
             });
