@@ -74,19 +74,20 @@ function SellFormWrapper(props) {
             return;
           }
 
-          const correctPhrase = await processElGamalEncryption(passPhrase);
-
           const params = {
             offerType: 1, // SELL
             pairCurrency: currencyTypes[currency],
             pairRate,
             offerAmount,
             sender: account,
-            passphrase: correctPhrase,
             feeATM,
             walletAddress: values.walletAddress.value.address,
           };
+
           if (passPhrase) {
+            const correctPhrase = await processElGamalEncryption(passPhrase);
+            params.passphrase = correctPhrase;
+
             dispatch(createOffer(params)).then(() => {
               setPending(false);
             });
