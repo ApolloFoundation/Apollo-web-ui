@@ -19,8 +19,8 @@ export default function LoginModal({ handleModal }) {
     <div>
       <div className="dark-card login-form">
         <p className="title">Log in</p>
-        <VaultAccordion id={1} onChange={onChange} active={active} />
         <StandartWallet id={2} onChange={onChange} active={active} />
+        <VaultAccordion id={1} onChange={onChange} active={active} />
       </div>
       <div className={styles.line}>Or</div>
       <div
