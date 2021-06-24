@@ -22,6 +22,15 @@ export function handleFormSubmit(values) {
     return;
   }
 
+  if (values.type3 && +values.reserveSupply > +values.maxSupply) {
+    NotificationManager.error(
+        'Incorrect "reserve supply" value should be less or equal to "total supply"',
+        'Error',
+        5000
+    );
+    return;
+  }
+
   const dataValues = values;
 
   dataValues.type = 0;
