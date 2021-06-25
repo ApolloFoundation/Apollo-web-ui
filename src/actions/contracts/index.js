@@ -66,6 +66,24 @@ export function exportTestExperationMessage(requestParams) {
       .catch((err) => console.log(err));
 }
 
+export function exportExperationMessageSubmit(requestParams) {
+  return () =>
+    handleFetch(`/rest/v2/smc/method/call`, POST, requestParams, false, true)
+      .then((res) => {
+        if (!res.errorCode) {
+          NotificationManager.success(
+            "Contract request has been submitted!",
+            null,
+            10000
+          );
+        } else {
+          NotificationManager.error(res.errorDescription, "Error", 10000);
+        }
+        return res;
+      })
+      .catch((err) => console.log(err));
+}
+
 export function exportConfirmationOnBoard(requestParams) {
   return () =>
     handleFetch(`/rest/v2/transaction`, POST, requestParams, false, true)
@@ -83,25 +101,6 @@ export function exportConfirmationOnBoard(requestParams) {
       })
       .catch((err) => console.log(err));
 }
-
-export function exportExperationMessageSubmit(requestParams) {
-  return () =>
-    handleFetch(`/rest/v2/method/call`, POST, requestParams, false, true)
-      .then((res) => {
-        if (!res.errorCode) {
-          NotificationManager.success(
-            "Contract request has been submitted!",
-            null,
-            10000
-          );
-        } else {
-          NotificationManager.error(res.errorDescription, "Error", 10000);
-        }
-        return res;
-      })
-      .catch((err) => console.log(err));
-}
-
 export function getContracts(requestParams) {
   return () =>
     handleFetch(`/rest/v2/smc`, GET, requestParams, false, true)
