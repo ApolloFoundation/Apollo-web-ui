@@ -10,7 +10,7 @@ import ModalBody from "../../components/modals/modal-body1";
 import MessageExecutionForm from "./form";
 import {
   exportTestExperationMessage,
-  exportContractSubmit,
+  exportExperationMessageSubmit,
   exportConfirmationOnBoard,
 } from "../../../../src/actions/contracts";
 
@@ -40,6 +40,8 @@ export default function ({ closeModal }) {
     initialValues = {
       ...initialValues,
       ...modalData,
+      fuelLimit: 30000000,
+      fuelPrice: 100,
     };
   }
 
@@ -60,7 +62,7 @@ export default function ({ closeModal }) {
 
       if (!testMessage.errorCode) {
         const publishMessage = await dispatch(
-          exportContractSubmit({ tx: testMessage.tx })
+          exportExperationMessageSubmit(data)
         );
         if (!publishMessage.errorCode) {
           const boardMessage = await dispatch(
