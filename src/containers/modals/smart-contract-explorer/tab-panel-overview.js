@@ -12,7 +12,7 @@ const TabPanelOverview = ({ overview }) => {
                 <td>{item.name}</td>
                 <td>
                   {!item.type === "url" ? (
-                    <a target="_blanck" href={item.value}>
+                    <a target="_blank" href={item.value}>
                       {item.value}
                     </a>
                   ) : (
