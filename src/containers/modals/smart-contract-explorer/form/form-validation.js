@@ -14,11 +14,3 @@ const fieldValidate = (value, type) => {
 };
 
 export default fieldValidate ;
-
-// const regExp = /[0-9]+/i;
-// let zeroSwitcher = false;
-// (!rsRegExp.test(value) && !hexaRegExp.test(value) && !regExp.test(value))
-
-// } else if ( zeroSwitcher && value === "0" || "0x0" ){
-//   error = "Zero address not allowed";
-// }
