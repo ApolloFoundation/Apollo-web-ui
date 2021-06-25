@@ -9,7 +9,7 @@ export const handleFormSubmit = ({decimals = 0, ...rest}) => {
     return async dispatch => {
         const values = {
             ...rest,
-            units: values.units * Math.pow(10, decimals)
+            units: rest.units * Math.pow(10, decimals)
         };
 
         dispatch({
