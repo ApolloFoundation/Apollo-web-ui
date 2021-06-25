@@ -31,6 +31,7 @@ class ReserveCurrency extends React.Component {
 
             if (!values.secretPhrase || values.secretPhrase.length === 0) {
                 NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
+                this.setState({isPending: false});
                 return;
             }
 
@@ -43,6 +44,8 @@ class ReserveCurrency extends React.Component {
                 phasingHashedSecretAlgorithm: 2,
                 secretPhrase: values.secretPhrase,
                 feeATM: values.feeATM,
+                broadcast: false,
+                validate: true
             };
 
             await this.props.processForm(toSend, 'currencyReserveIncrease', 'Reserve has been increased!', (res) => {
@@ -55,6 +58,7 @@ class ReserveCurrency extends React.Component {
 
     render() {
         const modalData = this.props.modalData;
+        console.log("🚀 ~ file: reserve-currency.js ~ line 58 ~ ReserveCurrency ~ render ~ modalData", modalData)
 
         return (
             <div className="modal-box">
@@ -181,7 +185,7 @@ class ReserveCurrency extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    modalData: state.modals.modalData
+    modalData: state.modals.modalData,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -7,13 +7,17 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
+import classNames from 'classnames';
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {getCurrencyTypes} from "../../../../modules/currencies";
 
 const Currency = (props) =>  {
-    const {currency, code, type, types, decimals, setBodyModalParamsAction, currentSupply, maxSupply, name} = props;
+    const {currency, code, type, types, decimals, setBodyModalParamsAction, currentSupply, maxSupply, name, actualBlock, issuanceHeight} = props;
     const currencyTypes = getCurrencyTypes(type);
 
+    const isReserveDisable = actualBlock >= issuanceHeight;
+    const isDisable = !types.includes('RESERVABLE') || !actualBlock || types.includes('RESERVABLE') && isReserveDisable;
+    
     return (
         <tr>
             <td className="blue-link-text">
@@ -24,7 +28,7 @@ const Currency = (props) =>  {
             <td>{name}</td>
             
             <td className="" dangerouslySetInnerHTML={{__html: currencyTypes}} />
-            <td className="align-right">{currentSupply / Math.pow(10, decimals)}</td>
+            <td className="align-right">{currentSupply / Math.pow(10, decimals)} ;;;;;;</td>
             <td className="align-right">{maxSupply / Math.pow(10, decimals)}</td>
             <td className="align-right">
                 <div className="btn-box inline">
@@ -32,7 +36,9 @@ const Currency = (props) =>  {
                     <button
                         type={'button'}
                         onClick={() => setBodyModalParamsAction('RESERVE_CURRENCY', props)}
-                        className={`btn btn-default ${types.includes('RESERVABLE') ? '' : 'disabled'}`}
+                        className={classNames('btn btn-default', {
+                            'disabled': isDisable,
+                        })}
                     >
                         Reserve
                     </button>
@@ -42,9 +48,12 @@ const Currency = (props) =>  {
     )
 }
 
+const mapStateToProps = (state) => ({
+    actualBlock: state.account.actualBlock,
+}) 
 
 const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 });
 
-export default connect(null, mapDispatchToProps)(Currency);
+export default connect(mapStateToProps, mapDispatchToProps)(Currency);

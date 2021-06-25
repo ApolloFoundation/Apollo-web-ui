@@ -275,9 +275,8 @@ function convertToAPL(a, isObject) {
             "amount": a,
             "mantissa": mantissares
         };
-    } else {
-        return negativeres + a + mantissares;
     }
+    return negativeres + a + mantissares;
 };
 
 function amountToPrecision(amount, decimals) {
@@ -308,8 +307,9 @@ function resolverReservePerUnit(decimals, reserveSupply, amount) {
         unitAmountATM = unitAmountATM.divide(new BigInteger(resSupply));
     }
     const roundUnitAmountATM = convertToATM(amountToPrecision(convertToAPL(unitAmountATM), decimals));
-    const reserveCurrencyTotal = convertToAPL(roundUnitAmountATM);
+    const reserveCurrencyTotal = convertToAPL(unitAmountATM);
     const reserveCurrencyAmount = convertToAPL(new BigInteger(roundUnitAmountATM).multiply(new BigInteger(resSupply)).toString());
+
     return {
         total: reserveCurrencyTotal,
         amount: reserveCurrencyAmount
@@ -340,4 +340,5 @@ export default {
     isDesktopApp,
     parseStringBySpace,
     normalizeTicker,
+    convertToAPL,
 }

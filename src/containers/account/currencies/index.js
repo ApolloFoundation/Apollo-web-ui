@@ -8,7 +8,7 @@ import React from 'react';
 import SiteHeader from '../../components/site-header'
 import {connect} from 'react-redux';
 import {getBlocksAction} from "../../../actions/blocks";
-import {getAllCurrenciesAction} from "../../../actions/currencies";
+import {getAllCurrenciesAction, getCurrencyAction} from "../../../actions/currencies";
 import {getTransactionAction} from "../../../actions/transactions";
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import Currency from './currency';
@@ -27,6 +27,7 @@ const mapDispatchToProps = dispatch => ({
     getAllCurrenciesAction: (reqParams) => dispatch(getAllCurrenciesAction(reqParams)),
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
     getExchanges: currency => dispatch(getExchangesAction(currency)),
+    getCurrency: (reqParams) => dispatch(getCurrencyAction(reqParams)),
 });
 
 class Currencies extends React.Component {
@@ -48,6 +49,10 @@ class Currencies extends React.Component {
             firstIndex: this.state.firstIndex,
             lastIndex: this.state.lastIndex
         });
+        // this.props.getCurrency({
+        //     account: this.props.account,
+        //     currency: 3687749427858350969,
+        // });
     }
 
     listener = data => {
@@ -86,12 +91,15 @@ class Currencies extends React.Component {
     };
 
     getCurrencie = async (reqParams) => {
-        const allCurrencies = await this.props.getAllCurrenciesAction(reqParams);
-
+        // const allCurrencies = await this.props.getAllCurrenciesAction(reqParams);
+        const allCurrencies = await this.props.getCurrency({
+            currency: "16047711050579055968",
+        });
         if (allCurrencies) {
             this.setState({
                 ...reqParams,
-                currencies: allCurrencies.currencies
+                currencies: [allCurrencies]
+                // currencies: allCurrencies.currencies
             })
         }
     };
