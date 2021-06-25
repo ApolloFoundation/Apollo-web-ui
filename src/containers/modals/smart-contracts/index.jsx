@@ -14,14 +14,6 @@ import {
   exportConfirmationOnBoard,
 } from "../../../../src/actions/contracts";
 
-const INITIAL_FORM_DATA = {
-  name: "",
-  params: "",
-  value: 0,
-  fuelLimit: 0,
-  fuelPrice: 0,
-};
-
 export default function ({ closeModal }) {
   const dispatch = useDispatch();
   const modalData = useSelector((state) => state.modals.modalData);
@@ -32,6 +24,24 @@ export default function ({ closeModal }) {
   } = useSelector((state) => state.account);
 
   const isEmptyData = modalData && modalData.hasOwnProperty("address");
+  const isExplorerData = modalData && modalData.hasOwnProperty("params");
+
+  let initialValues = {
+    name: "",
+    params: "",
+    value: 0,
+    fuelLimit: 0,
+    fuelPrice: 0,
+    sender: accountRS,
+    address: isEmptyData ? modalData.address : "",
+    secret: secretPhrase,
+  };
+  if (isExplorerData) {
+    initialValues = {
+      ...initialValues,
+      ...modalData,
+    };
+  }
 
   const formSubmit = async (values) => {
     delete values.feeATM;
@@ -66,21 +76,22 @@ export default function ({ closeModal }) {
 
   return (
     <ModalBody
-      modalTitle="Send message"
+      modalTitle={
+        !isExplorerData ? "Send message" : `Call method: ${modalData.name}`
+      }
       closeModal={closeModal}
       handleFormSubmit={(values) => formSubmit(values)}
       submitButtonName="Execute"
       idGroup="issue-currency-modal-"
       isFee={false}
       isDisableSecretPhrase={true}
-      initialValues={{
-        ...INITIAL_FORM_DATA,
-        sender: accountRS,
-        address: isEmptyData ? modalData.address : "",
-        secret: secretPhrase,
-      }}
+      initialValues={initialValues}
     >
-      <MessageExecutionForm isDisabled={isEmptyData} ticker={ticker} />
+      <MessageExecutionForm
+        isExplorerDisabled={isExplorerData}
+        isDisabled={isEmptyData}
+        ticker={ticker}
+      />
     </ModalBody>
   );
 }
