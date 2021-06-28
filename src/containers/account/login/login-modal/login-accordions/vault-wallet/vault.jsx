@@ -1,6 +1,6 @@
 import React from 'react';
 import { Accordion } from '../../../../../components/accordion';
-import { Tooltip } from '../../../../../components/tooltip';
+import { TooltipLogin } from '../../../../../components/tooltip-login';
 import ShieldIcon from '../../../../../../assets/shield-check.svg';
 import AccountIdForm from '../../forms/viaAccountIdForm';
 import { TooltipWrapper } from '../tooltipWrapper';
@@ -47,9 +47,9 @@ export const VaultAccordion = ({ active, onChange, id }) => {
           <figure className={styles.vaultIconWrapper}>
             <img className={styles.vaultIcon} src={ShieldIcon} alt='shield' />
           </figure>
-          <Tooltip>
+          <TooltipLogin>
             <TooltipWrapper list={tooltips} />
-          </Tooltip>
+          </TooltipLogin>
         </div>
       )}
     >
