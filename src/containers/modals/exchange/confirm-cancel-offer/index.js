@@ -23,12 +23,12 @@ class ConfirmCancelOffer extends React.Component {
                 this.setState({isPending: false});
                 return;
             }
-    
+
             const params = {
                 orderId: this.props.modalData.orderId,
                 feeATM: ONE_APL,
                 sender: this.props.account,
-                passphrase
+                passphrase,
             };
             const offer = await this.props.cancelOffer(params);
             if (offer) {

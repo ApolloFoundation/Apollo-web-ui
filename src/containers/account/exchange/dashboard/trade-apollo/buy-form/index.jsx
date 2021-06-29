@@ -8,7 +8,6 @@ import { ONE_GWEI } from '../../../../../../constants';
 import {
   setBodyModalParamsAction, resetTrade, setSelectedOrderInfo,
 } from '../../../../../../modules/modals';
-import { processElGamalEncryption } from '../../../../../../actions/crypto';
 import BuyForm from './form';
 import store from '../../../../../../store';
 
@@ -104,13 +103,10 @@ function BuyFormWrapper(props) {
             sender: account,
             feeATM,
             walletAddress: newValues.walletAddress.value.address,
+            passphrase: passPhrase,
           };
 
           if (passPhrase) {
-            const passphrase = await processElGamalEncryption(passPhrase);
-
-            params.passphrase = passphrase;
-
             dispatch(createOffer(params)).then(() => {
               setPending(false);
             });

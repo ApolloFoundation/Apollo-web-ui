@@ -24,8 +24,8 @@ import {currencyTypes} from "../../helpers/format";
 
 export function getWallets(requestParams) {
     return dispatch => {
-        return handleFetch(`${config.api.server}/rest/keyStore/accountInfo`, POST, requestParams, true)
-            .then(async (res) => {
+        return handleFetch(`${config.api.server}/rest/keyStore/accountInfo`, POST, requestParams, true) 
+            .then((res) => {
                 if (!res.errorCode) {
                     dispatch(setWallets(res.currencies));
                     writeToLocalStorage('wallets', res.currencies);
@@ -83,8 +83,8 @@ export function getAllContractStatus(requestParams) {
 }
 
 export function logout(requestParams) {
-    return () => {
-        return handleFetch(`${config.api.server}/rest/dex/flush`, GET, requestParams, true)
+    return () => 
+        handleFetch(`${config.api.server}/rest/dex/flush`, GET, requestParams, true)
             .then((res) => {
                 if (res.errorCode) {
                     NotificationManager.error(res.errorDescription, 'Error', 5000);
@@ -94,7 +94,7 @@ export function logout(requestParams) {
             .catch(() => {
 
             })
-    }
+    
 }
 
 export function getCurrencyBalance(requestParams) {
@@ -114,8 +114,8 @@ export function getCurrencyBalance(requestParams) {
 }
 
 export function walletWithdraw(requestParams) {
-    return () => {
-        return handleFetch(`${config.api.server}/rest/dex/withdraw`, POST, requestParams, true)
+    return () =>
+        handleFetch(`${config.api.server}/rest/dex/withdraw`, POST, requestParams, true)
             .then(async (res) => {
                 if (!res.errorCode) {
                     return res;
@@ -126,7 +126,7 @@ export function walletWithdraw(requestParams) {
             .catch(() => {
 
             })
-    }
+    
 }
 
 export const updateOfferInfo = (params) => async (dispatch) => {
@@ -147,8 +147,8 @@ export function createOffer(requestParams) {
         ...requestParams,
         amountOfTime: 86400,
     };
-    return dispatch => {
-        return handleFetch(`${config.api.server}/rest/dex/offer`, POST, params, true)
+    return dispatch => 
+        handleFetch(`${config.api.server}/rest/dex/offer`, POST, params, true) 
             .then(async (res) => {
                 if (!res.errorCode) {
                     NotificationManager.success('Your offer has been created!', null, 5000);
@@ -164,13 +164,13 @@ export function createOffer(requestParams) {
             .catch(() => {
 
             })
-    }
+    
 }
 
 export function cancelOffer(requestParams) {
     return dispatch => {
         return handleFetch(`${config.api.server}/rest/dex/offer/cancel`, POST, requestParams, true)
-            .then(async (res) => {
+            .then((res) => {
                 if (!res.errorCode) {
                     NotificationManager.success('Your offer has been canceled!', null, 5000);
                     setTimeout(() => {
@@ -180,9 +180,6 @@ export function cancelOffer(requestParams) {
                 } else {
                     NotificationManager.error(res.errorDescription, 'Error', 5000);
                 }
-            })
-            .catch(() => {
-
             })
     }
 }
@@ -395,8 +392,8 @@ export function getIdaxPair(requestParams) {
 }
 
 export function exportWallet(requestParams) {
-    return () => {
-        return handleFetch(`${config.api.server}/rest/keyStore/eth`, POST, requestParams, true)
+    return () =>  
+        handleFetch(`${config.api.server}/rest/keyStore/eth`, POST, requestParams, true)
             .then(async (res) => {
                 if (!res.errorCode) {
                     return res;
@@ -408,5 +405,4 @@ export function exportWallet(requestParams) {
             .catch(() => {
 
             })
-    }
 }
