@@ -103,7 +103,9 @@ class ScheduledTransactions extends React.Component {
         }
     }
 
+
     render () {
+        console.log(222)
         return (
             <div className="page-content">
                 <SiteHeader

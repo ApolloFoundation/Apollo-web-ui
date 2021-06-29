@@ -1,6 +1,6 @@
 import React from 'react';
 import { Accordion } from '../../../../../components/accordion';
-import { Tooltip } from '../../../../../components/tooltip';
+import { Tooltip } from '../../../../../components/tooltip-login';
 import ShieldIcon from '../../../../../../assets/shield-check.svg';
 import AccountIdForm from '../../forms/viaAccountIdForm';
 import { TooltipWrapper } from '../tooltipWrapper';
