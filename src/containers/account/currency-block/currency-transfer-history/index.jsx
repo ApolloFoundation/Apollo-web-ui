@@ -70,8 +70,6 @@ export default function TransferHistoryCurrency() {
     return () => BlockUpdater.removeAllListeners('data', listener);
   }, [listener]);
 
-  console.log('444')
-
   return (
     <div className="page-content">
       <SiteHeader pageTitle="Transfer History" />

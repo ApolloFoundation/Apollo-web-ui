@@ -7,18 +7,13 @@
 import React from 'react';
 import SiteHeader from '../../components/site-header'
 import TransferHistoryItem from './transfer-history-item'
-import classNames from "classnames";
-import { v4 as uuidv4 } from 'uuid';
 import {connect} from 'react-redux'
-import InfoBox from '../../components/info-box';
 
 import {getTransferHistory} from "../../../actions/assets";
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {getTransactionAction} from "../../../actions/transactions";
 import {BlockUpdater} from "../../block-subscriber";
 import {formatTimestamp} from "../../../helpers/util/time";
-import ContentLoader from '../../components/content-loader'
-import ContentHendler from '../../components/content-hendler'
 import CustomTable from '../../components/tables/table';
 
 
@@ -105,7 +100,6 @@ class ScheduledTransactions extends React.Component {
 
 
     render () {
-        console.log(222)
         return (
             <div className="page-content">
                 <SiteHeader

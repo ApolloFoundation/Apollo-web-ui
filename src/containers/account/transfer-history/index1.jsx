@@ -70,8 +70,6 @@ export default function ScheduledTransactions() {
     return () => BlockUpdater.removeAllListeners('data', listener);
   }, [listener]);
 
-  console.log(333)
-
   return (
     <div className="page-content">
       <SiteHeader pageTitle="Transfer History1" />
