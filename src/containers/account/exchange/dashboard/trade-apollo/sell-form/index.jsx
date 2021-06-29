@@ -4,7 +4,6 @@ import { Formik } from 'formik';
 import { NotificationManager } from 'react-notifications';
 import { currencyTypes, multiply } from '../../../../../../helpers/format';
 import { createOffer } from '../../../../../../actions/wallet';
-import { processElGamalEncryption } from '../../../../../../actions/crypto'
 import { ONE_GWEI } from '../../../../../../constants';
 import {
   setBodyModalParamsAction, resetTrade, setSelectedOrderInfo,
@@ -82,12 +81,10 @@ function SellFormWrapper(props) {
             sender: account,
             feeATM,
             walletAddress: values.walletAddress.value.address,
+            passphrase: passPhrase,
           };
 
           if (passPhrase) {
-            const correctPhrase = await processElGamalEncryption(passPhrase);
-            params.passphrase = correctPhrase;
-
             dispatch(createOffer(params)).then(() => {
               setPending(false);
             });

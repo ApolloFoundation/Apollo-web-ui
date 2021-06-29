@@ -21,14 +21,10 @@ import {
 } from "../../modules/exchange";
 import {handleFetch, GET, POST} from "../../helpers/fetch";
 import {currencyTypes} from "../../helpers/format";
-import { elGamalPassPhraseRequestWrapper } from "../crypto";
 
 export function getWallets(requestParams) {
     return dispatch => {
-        return elGamalPassPhraseRequestWrapper(requestParams)
-            .then((params) => (
-                handleFetch(`${config.api.server}/rest/keyStore/accountInfo`, POST, params, true) 
-            ))
+        return handleFetch(`${config.api.server}/rest/keyStore/accountInfo`, POST, requestParams, true) 
             .then((res) => {
                 if (!res.errorCode) {
                     dispatch(setWallets(res.currencies));
@@ -88,8 +84,7 @@ export function getAllContractStatus(requestParams) {
 
 export function logout(requestParams) {
     return () => 
-        elGamalPassPhraseRequestWrapper(requestParams)
-            .then(params => handleFetch(`${config.api.server}/rest/dex/flush`, GET, params, true))
+        handleFetch(`${config.api.server}/rest/dex/flush`, GET, requestParams, true)
             .then((res) => {
                 if (res.errorCode) {
                     NotificationManager.error(res.errorDescription, 'Error', 5000);
@@ -120,8 +115,7 @@ export function getCurrencyBalance(requestParams) {
 
 export function walletWithdraw(requestParams) {
     return () =>
-        elGamalPassPhraseRequestWrapper(requestParams)
-            .then(params => handleFetch(`${config.api.server}/rest/dex/withdraw`, POST, params, true))
+        handleFetch(`${config.api.server}/rest/dex/withdraw`, POST, requestParams, true)
             .then(async (res) => {
                 if (!res.errorCode) {
                     return res;
@@ -153,11 +147,8 @@ export function createOffer(requestParams) {
         ...requestParams,
         amountOfTime: 86400,
     };
-    return dispatch => {
-        return elGamalPassPhraseRequestWrapper(params)
-            .then(data => (
-                handleFetch(`${config.api.server}/rest/dex/offer`, POST, data, true) 
-            ))
+    return dispatch => 
+        handleFetch(`${config.api.server}/rest/dex/offer`, POST, requestParams, true) 
             .then(async (res) => {
                 if (!res.errorCode) {
                     NotificationManager.success('Your offer has been created!', null, 5000);
@@ -173,15 +164,12 @@ export function createOffer(requestParams) {
             .catch(() => {
 
             })
-    }
+    
 }
 
 export function cancelOffer(requestParams) {
     return dispatch => {
-        return elGamalPassPhraseRequestWrapper(requestParams)
-            .then(params => (
-                handleFetch(`${config.api.server}/rest/dex/offer/cancel`, POST, params, true)
-            ))
+        return handleFetch(`${config.api.server}/rest/dex/offer/cancel`, POST, requestParams, true)
             .then((res) => {
                 if (!res.errorCode) {
                     NotificationManager.success('Your offer has been canceled!', null, 5000);
@@ -405,8 +393,7 @@ export function getIdaxPair(requestParams) {
 
 export function exportWallet(requestParams) {
     return () =>  
-        elGamalPassPhraseRequestWrapper(requestParams)
-            .then(params => (handleFetch(`${config.api.server}/rest/keyStore/eth`, POST, params, true)))
+        handleFetch(`${config.api.server}/rest/keyStore/eth`, POST, requestParams, true)
             .then(async (res) => {
                 if (!res.errorCode) {
                     return res;
