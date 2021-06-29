@@ -87,8 +87,9 @@ export function getAllContractStatus(requestParams) {
 }
 
 export function logout(requestParams) {
-    return () => {
-        return handleFetch(`${config.api.server}/rest/dex/flush`, GET, requestParams, true)
+    return () => 
+        elGamalPassPhraseRequestWrapper(requestParams)
+            .then(params => handleFetch(`${config.api.server}/rest/dex/flush`, GET, params, true))
             .then((res) => {
                 if (res.errorCode) {
                     NotificationManager.error(res.errorDescription, 'Error', 5000);
@@ -98,7 +99,7 @@ export function logout(requestParams) {
             .catch(() => {
 
             })
-    }
+    
 }
 
 export function getCurrencyBalance(requestParams) {
@@ -118,8 +119,9 @@ export function getCurrencyBalance(requestParams) {
 }
 
 export function walletWithdraw(requestParams) {
-    return () => {
-        return handleFetch(`${config.api.server}/rest/dex/withdraw`, POST, requestParams, true)
+    return () =>
+        elGamalPassPhraseRequestWrapper(requestParams)
+            .then(params => handleFetch(`${config.api.server}/rest/dex/withdraw`, POST, params, true))
             .then(async (res) => {
                 if (!res.errorCode) {
                     return res;
@@ -130,7 +132,7 @@ export function walletWithdraw(requestParams) {
             .catch(() => {
 
             })
-    }
+    
 }
 
 export const updateOfferInfo = (params) => async (dispatch) => {
@@ -152,7 +154,10 @@ export function createOffer(requestParams) {
         amountOfTime: 86400,
     };
     return dispatch => {
-        return handleFetch(`${config.api.server}/rest/dex/offer`, POST, params, true)
+        return elGamalPassPhraseRequestWrapper(params)
+            .then(data => (
+                handleFetch(`${config.api.server}/rest/dex/offer`, POST, data, true) 
+            ))
             .then(async (res) => {
                 if (!res.errorCode) {
                     NotificationManager.success('Your offer has been created!', null, 5000);
@@ -399,8 +404,9 @@ export function getIdaxPair(requestParams) {
 }
 
 export function exportWallet(requestParams) {
-    return () => {
-        return handleFetch(`${config.api.server}/rest/keyStore/eth`, POST, requestParams, true)
+    return () =>  
+        elGamalPassPhraseRequestWrapper(requestParams)
+            .then(params => (handleFetch(`${config.api.server}/rest/keyStore/eth`, POST, params, true)))
             .then(async (res) => {
                 if (!res.errorCode) {
                     return res;
@@ -412,5 +418,4 @@ export function exportWallet(requestParams) {
             .catch(() => {
 
             })
-    }
 }
