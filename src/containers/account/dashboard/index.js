@@ -20,8 +20,8 @@ import StayInTouch from "./StayInTouch";
 import ActivePolls from "./ActivePolls";
 import InfoStatistic from "./InfoStatistic";
 
-import TwitterBanner from "../../../assets/banner-small.png";
-import InfoBanner from "../../../assets/banner-long.png";
+import TwitterBanner from "../../../assets/dashboard-safe.jpeg";
+import InfoBanner from "../../../assets/dashboard-knox.jpeg";
 
 class Dashboard extends React.Component {
     state = {
@@ -81,10 +81,10 @@ class Dashboard extends React.Component {
                                         </div>
                                         <div className={'wrap-card-square-xl'}>
                                             <a
-                                                href={'https://www.knoxvip.com/'}
+                                                href='https://www.knox.exchange'
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className={`card card-square card-xl`}
+                                                className='card card-square card-xl'
                                                 style={{backgroundImage: `url(${InfoBanner})`}}
                                             />
                                         </div>
