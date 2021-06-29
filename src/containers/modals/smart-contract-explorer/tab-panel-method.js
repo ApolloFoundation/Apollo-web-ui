@@ -9,7 +9,7 @@ import {
 } from "react-accessible-accordion";
 import ExplorerForm from "./form";
 
-const TabMethodPanel = ({ item, address }) => {
+const TabMethodPanel = ({ item, address, type }) => {
   const { name, inputs, value, outputs } = item;
   return (
     <Accordion allowZeroExpanded={true}>
@@ -21,7 +21,12 @@ const TabMethodPanel = ({ item, address }) => {
         </AccordionItemHeading>
         <AccordionItemPanel>
           {inputs ? (
-            <ExplorerForm methodName={name} address={address} fields={inputs} />
+            <ExplorerForm
+              methodName={name}
+              type={type}
+              address={address}
+              fields={inputs}
+            />
           ) : (
             <>
               <span>{value}</span>{" "}
