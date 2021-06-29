@@ -31,6 +31,7 @@ class ReserveCurrency extends React.Component {
 
             if (!values.secretPhrase || values.secretPhrase.length === 0) {
                 NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
+                this.setState({isPending: false});
                 return;
             }
 
@@ -43,6 +44,8 @@ class ReserveCurrency extends React.Component {
                 phasingHashedSecretAlgorithm: 2,
                 secretPhrase: values.secretPhrase,
                 feeATM: values.feeATM,
+                broadcast: false,
+                validate: true
             };
 
             await this.props.processForm(toSend, 'currencyReserveIncrease', 'Reserve has been increased!', (res) => {
@@ -54,13 +57,13 @@ class ReserveCurrency extends React.Component {
     };
 
     render() {
-        const modalData = this.props.modalData;
+        const { modalData } = this.props;
 
         return (
             <div className="modal-box">
                 <form className="modal-form">
                     <div className="form-group-app">
-                        <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close"/></a>
+                        <a onClick={this.props.closeModal} className="exit"><i className="zmdi zmdi-close"/></a>
 
                         <div className="form-title">
                             <p>Reserve Currency - {modalData.code}</p>
@@ -181,7 +184,7 @@ class ReserveCurrency extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    modalData: state.modals.modalData
+    modalData: state.modals.modalData,
 });
 
 const mapDispatchToProps = dispatch => ({

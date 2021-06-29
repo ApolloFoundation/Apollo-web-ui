@@ -99,7 +99,6 @@ const IssueCurrencyForm = (props) => {
                         setValue={setValue}
                         label={'Reserve Supply'}
                         field={'reserveSupply'}
-                        countingTtile={'APL'}
                         placeholder={'Number of Units'}
                         type={'tel'}
                         idGroup={idGroup}
@@ -138,7 +137,6 @@ const IssueCurrencyForm = (props) => {
                 idGroup={idGroup}    
                 label={'Initial Supply'}
                 field={'initialSupply'}
-                countingTtile={'APL'}
                 placeholder={'Initial Supply'}
                 type={'tel'}
             />
@@ -148,7 +146,6 @@ const IssueCurrencyForm = (props) => {
                 idGroup={idGroup}
                 label={'Total Supply'}
                 field={'maxSupply'}
-                countingTtile={'APL'}
                 placeholder={'Total Supply'}
                 type={'tel'}
             />
