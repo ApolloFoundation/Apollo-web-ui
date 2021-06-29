@@ -148,7 +148,7 @@ export function createOffer(requestParams) {
         amountOfTime: 86400,
     };
     return dispatch => 
-        handleFetch(`${config.api.server}/rest/dex/offer`, POST, requestParams, true) 
+        handleFetch(`${config.api.server}/rest/dex/offer`, POST, params, true) 
             .then(async (res) => {
                 if (!res.errorCode) {
                     NotificationManager.success('Your offer has been created!', null, 5000);
