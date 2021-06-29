@@ -1,16 +1,18 @@
 import React, { useState } from "react";
-import TextualInputComponent from "../../../components/form-components/textual-input1";
-import Button from "../../../components/button";
-import { Form, Formik, Field } from "formik";
-import fieldValidate from "./form-validation";
 import { setBodyModalParamsAction } from "../../../../modules/modals";
 import { useDispatch } from "react-redux";
 import { exportReadMethod } from "../../../../actions/contracts";
+import { v4 as uuidv4 } from "uuid";
+import { Form, Formik, Field } from "formik";
+
+import fieldValidate from "./form-validation";
+import TextualInputComponent from "../../../components/form-components/textual-input1";
+import Button from "../../../components/button";
 
 const ExplorerForm = ({ fields, address, methodName: name, type }) => {
   const dispatch = useDispatch();
 
-  const [readMetods, setReadMetods] = useState([]);
+  const [readMethods, setReadMethods] = useState([]);
   const [error, setError] = useState(null);
 
   const getInitialValues = (fields) => {
@@ -47,11 +49,11 @@ const ExplorerForm = ({ fields, address, methodName: name, type }) => {
     };
 
     const responceReadMethod = await dispatch(exportReadMethod(data));
-    
+
     if (responceReadMethod.errorCode) {
       setError(responceReadMethod.errorDescription);
     } else {
-      setReadMetods(responceReadMethod.results);
+      setReadMethods(responceReadMethod.results);
     }
   };
 
@@ -100,10 +102,12 @@ const ExplorerForm = ({ fields, address, methodName: name, type }) => {
           }}
         </Formik>
       </div>
-      {error && !readMetods && <div className={"text-danger"}>{error}</div>}
-      {readMetods.length > 0
-        ? readMetods.map((item) => (
-            <div className="mb-2">
+      {error && readMethods.length == 0 && (
+        <div className={"text-danger"}>{error}</div>
+      )}
+      {readMethods.length > 0
+        ? readMethods.map((item) => (
+            <div key={uuidv4()} className="mb-2">
               {item.method && <div className="mb-1">Method: {item.method}</div>}
 
               {item.signature && item.output && (

@@ -18,7 +18,7 @@ const SmartContractsExplorer = ({ closeModal }) => {
   const { address } = modalData;
 
   const getTabPanel = (type) =>  members.map((item) => item.stateMutability === type && (
-      <TabMethodPanel address={address} item={item} />
+      <TabMethodPanel address={address} item={item} type={type}/>
     )
   );
 
