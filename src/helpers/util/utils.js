@@ -307,7 +307,7 @@ function resolverReservePerUnit(decimals, reserveSupply, amount) {
         unitAmountATM = unitAmountATM.divide(new BigInteger(resSupply));
     }
     const roundUnitAmountATM = convertToATM(amountToPrecision(convertToAPL(unitAmountATM), decimals));
-    const reserveCurrencyTotal = convertToAPL(unitAmountATM);
+    const reserveCurrencyTotal = convertToAPL(roundUnitAmountATM);
     const reserveCurrencyAmount = convertToAPL(new BigInteger(roundUnitAmountATM).multiply(new BigInteger(resSupply)).toString());
 
     return {
@@ -340,5 +340,4 @@ export default {
     isDesktopApp,
     parseStringBySpace,
     normalizeTicker,
-    convertToAPL,
 }
