@@ -57,14 +57,13 @@ class ReserveCurrency extends React.Component {
     };
 
     render() {
-        const modalData = this.props.modalData;
-        console.log("🚀 ~ file: reserve-currency.js ~ line 58 ~ ReserveCurrency ~ render ~ modalData", modalData)
+        const { modalData } = this.props;
 
         return (
             <div className="modal-box">
                 <form className="modal-form">
                     <div className="form-group-app">
-                        <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close"/></a>
+                        <a onClick={this.props.closeModal} className="exit"><i className="zmdi zmdi-close"/></a>
 
                         <div className="form-title">
                             <p>Reserve Currency - {modalData.code}</p>

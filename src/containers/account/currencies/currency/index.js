@@ -28,7 +28,7 @@ const Currency = (props) =>  {
             <td>{name}</td>
             
             <td className="" dangerouslySetInnerHTML={{__html: currencyTypes}} />
-            <td className="align-right">{currentSupply / Math.pow(10, decimals)} ;;;;;;</td>
+            <td className="align-right">{currentSupply / Math.pow(10, decimals)}</td>
             <td className="align-right">{maxSupply / Math.pow(10, decimals)}</td>
             <td className="align-right">
                 <div className="btn-box inline">

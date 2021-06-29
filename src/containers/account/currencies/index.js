@@ -8,7 +8,7 @@ import React from 'react';
 import SiteHeader from '../../components/site-header'
 import {connect} from 'react-redux';
 import {getBlocksAction} from "../../../actions/blocks";
-import {getAllCurrenciesAction, getCurrencyAction} from "../../../actions/currencies";
+import {getAllCurrenciesAction} from "../../../actions/currencies";
 import {getTransactionAction} from "../../../actions/transactions";
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import Currency from './currency';
@@ -21,14 +21,13 @@ const mapStateToProps = state => ({
     account: state.account.account
 });
 
-const mapDispatchToProps = dispatch => ({
-    getBlocksAction : (requestParams) => dispatch(getBlocksAction(requestParams)),
-    getTransactionAction : (type, data) => dispatch(getTransactionAction(type, data)),
-    getAllCurrenciesAction: (reqParams) => dispatch(getAllCurrenciesAction(reqParams)),
-    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-    getExchanges: currency => dispatch(getExchangesAction(currency)),
-    getCurrency: (reqParams) => dispatch(getCurrencyAction(reqParams)),
-});
+const mapDispatchToProps = {
+    getBlocksAction,
+    getTransactionAction,
+    getAllCurrenciesAction,
+    setBodyModalParamsAction,
+    getExchangesAction,
+};
 
 class Currencies extends React.Component {
     constructor(props) {
@@ -44,19 +43,15 @@ class Currencies extends React.Component {
 
     componentWillMount() {
         // getCurrencyTypes(33)
-        this.getCurrencie({
+        this.getCurrencies({
             account: this.props.account,
             firstIndex: this.state.firstIndex,
             lastIndex: this.state.lastIndex
         });
-        // this.props.getCurrency({
-        //     account: this.props.account,
-        //     currency: 3687749427858350969,
-        // });
     }
 
     listener = data => {
-        this.getCurrencie({
+        this.getCurrencies({
             account: this.props.account,
             firstIndex: this.state.firstIndex,
             lastIndex: this.state.lastIndex
@@ -64,7 +59,7 @@ class Currencies extends React.Component {
     };
 
     getExchanges = async currency => {
-        const exchanges = (await this.props.getExchanges(currency)).exchanges;
+        const exchanges = (await this.props.getExchangesAction(currency)).exchanges;
 
         if (exchanges) {
             this.setState({
@@ -82,7 +77,7 @@ class Currencies extends React.Component {
     }
 
     onPaginate = (page) => {
-        this.getCurrencie({
+        this.getCurrencies({
             page: page,
             account: this.props.account,
             firstIndex: page * 15 - 15,
@@ -90,16 +85,13 @@ class Currencies extends React.Component {
         });
     };
 
-    getCurrencie = async (reqParams) => {
-        // const allCurrencies = await this.props.getAllCurrenciesAction(reqParams);
-        const allCurrencies = await this.props.getCurrency({
-            currency: "16047711050579055968",
-        });
+    getCurrencies = async (reqParams) => {
+        const allCurrencies = await this.props.getAllCurrenciesAction(reqParams);
+
         if (allCurrencies) {
             this.setState({
                 ...reqParams,
-                currencies: [allCurrencies]
-                // currencies: allCurrencies.currencies
+                currencies: allCurrencies.currencies,
             })
         }
     };
