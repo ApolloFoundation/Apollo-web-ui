@@ -5,8 +5,6 @@ import { setAccountPassphrase } from '../../../../modules/account';
 import { getWallets } from '../../../../actions/wallet';
 import ModalBody from '../../../components/modals/modal-body';
 import TextualInputComponent from '../../../components/form-components/textual-input';
-import crypto from '../../../../helpers/crypto/crypto';
-import { processElGamalEncryption } from '../../../../actions/crypto';
 
 export default function LoginToExchange(props) {
   const dispatch = useDispatch();
@@ -22,11 +20,9 @@ export default function LoginToExchange(props) {
       return;
     }
 
-    const correctPhrase = await processElGamalEncryption(passphrase);
-
     const params = {
       account: accountRS,
-      passphrase: correctPhrase,
+      passphrase,
     };
     const wallets = await dispatch(getWallets(params));
     if (wallets) {
