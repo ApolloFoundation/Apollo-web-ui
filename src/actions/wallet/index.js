@@ -21,11 +21,15 @@ import {
 } from "../../modules/exchange";
 import {handleFetch, GET, POST} from "../../helpers/fetch";
 import {currencyTypes} from "../../helpers/format";
+import { elGamalPassPhraseRequestWrapper } from "../crypto";
 
 export function getWallets(requestParams) {
     return dispatch => {
-        return handleFetch(`${config.api.server}/rest/keyStore/accountInfo`, POST, requestParams, true)
-            .then(async (res) => {
+        return elGamalPassPhraseRequestWrapper(requestParams)
+            .then((params) => (
+                handleFetch(`${config.api.server}/rest/keyStore/accountInfo`, POST, params, true) 
+            ))
+            .then((res) => {
                 if (!res.errorCode) {
                     dispatch(setWallets(res.currencies));
                     writeToLocalStorage('wallets', res.currencies);
@@ -169,8 +173,11 @@ export function createOffer(requestParams) {
 
 export function cancelOffer(requestParams) {
     return dispatch => {
-        return handleFetch(`${config.api.server}/rest/dex/offer/cancel`, POST, requestParams, true)
-            .then(async (res) => {
+        return elGamalPassPhraseRequestWrapper(requestParams)
+            .then(params => (
+                handleFetch(`${config.api.server}/rest/dex/offer/cancel`, POST, params, true)
+            ))
+            .then((res) => {
                 if (!res.errorCode) {
                     NotificationManager.success('Your offer has been canceled!', null, 5000);
                     setTimeout(() => {
@@ -180,9 +187,6 @@ export function cancelOffer(requestParams) {
                 } else {
                     NotificationManager.error(res.errorDescription, 'Error', 5000);
                 }
-            })
-            .catch(() => {
-
             })
     }
 }

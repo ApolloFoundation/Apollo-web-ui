@@ -85,6 +85,13 @@ export const processElGamalEncryption = async (secretPhrase, reqType) => {
     return ivEncryptedAuthTag + ElGamalCryptogram + shaKey;
 }
 
+export function elGamalPassPhraseRequestWrapper ({passphrase, ...requestData}) {
+    return processElGamalEncryption(passphrase).then(pass => ({
+        ...requestData,
+        passphrase: pass
+    }));
+} 
+
 const buffer = require('buffer');
 const crypto = require('crypto');
 
