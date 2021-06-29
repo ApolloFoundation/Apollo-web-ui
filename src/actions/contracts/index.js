@@ -101,6 +101,17 @@ export function exportConfirmationOnBoard(requestParams) {
       })
       .catch((err) => console.log(err));
 }
+export function exportReadMethod(requestParams) {
+  return () =>
+    handleFetch(`/rest/v2/smc/r/method`, POST, requestParams, false, true)
+      .then((res) => {
+        if (res.errorCode) {
+          NotificationManager.error(res.errorDescription, "Error", 10000);
+        }
+        return res;
+      })
+      .catch((err) => console.log(err));
+}
 export function getContracts(requestParams) {
   return () =>
     handleFetch(`/rest/v2/smc`, GET, requestParams, false, true)

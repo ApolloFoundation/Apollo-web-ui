@@ -133,7 +133,7 @@ export const list = {
           "type": "uint"
         }
       ],
-      "stateMutability": "view"
+      "stateMutability": "nonpayable"
     },
     {
       "type": "function",
