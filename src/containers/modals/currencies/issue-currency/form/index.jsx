@@ -79,7 +79,6 @@ const IssueCurrencyForm = () => {
           <NumericInput
             label="Reserve Supply"
             name="reserveSupply"
-            countingTtile={ticker}
             placeholder="Number of Units"
             type="tel"
           />
@@ -107,14 +106,12 @@ const IssueCurrencyForm = () => {
       <NumericInput
         label="Initial Supply"
         name="initialSupply"
-        countingTtile={ticker}
         placeholder="Initial Supply"
         type="tel"
       />
       <NumericInput
         label="Total Supply"
         name="maxSupply"
-        countingTtile={ticker}
         placeholder="Total Supply"
         type="tel"
       />

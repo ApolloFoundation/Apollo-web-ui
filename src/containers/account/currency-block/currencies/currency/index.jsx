@@ -4,18 +4,24 @@
  ***************************************************************************** */
 
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import classNames from 'classnames';
 import { setBodyModalParamsAction } from '../../../../../modules/modals';
 import { getCurrencyTypes } from '../../../../../modules/currencies';
 
 export default function Currency(props) {
   const dispatch = useDispatch();
+  const actualBlock = useSelector(state => state.account.actualBlock);
+
   const {
     currency, code, type, types, decimals,
-    currentSupply, maxSupply, name,
+    currentSupply, maxSupply, name, issuanceHeight
   } = props;
   const currencyTypes = getCurrencyTypes(type);
+
+  const isReserveDisable = actualBlock >= issuanceHeight;
+  const isDisable = !types.includes('RESERVABLE') || !actualBlock || types.includes('RESERVABLE') && isReserveDisable;
 
   return (
     <tr>
@@ -37,7 +43,9 @@ export default function Currency(props) {
           <button
             type="button"
             onClick={() => dispatch(setBodyModalParamsAction('RESERVE_CURRENCY', props))}
-            className={`btn btn-default ${types.includes('RESERVABLE') ? '' : 'disabled'}`}
+            className={classNames('btn btn-default', {
+              'disabled': isDisable,
+            })}
           >
             Reserve
           </button>
