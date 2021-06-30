@@ -20,7 +20,7 @@ const TabMethodPanel = ({ item, address, type }) => {
           </AccordionItemButton>
         </AccordionItemHeading>
         <AccordionItemPanel>
-          {type == "nonpayable" || inputs.length > 0 ? (
+          {type !== "view" || inputs.length > 0 ? (
             <ExplorerForm
               methodName={name}
               type={type}
