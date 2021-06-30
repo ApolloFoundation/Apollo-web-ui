@@ -12,7 +12,7 @@ export default function TransferHistoryItem(props) {
   const dispatch = useDispatch();
 
   const {
-    assetTransfer, timestamp, name, recipientRS,
+    assetTransfer, timestamp, recipientRS,
     decimals, quantityATU, recipient, sender, senderRS,
   } = props;
 
