@@ -148,3 +148,16 @@ export function getState(requestParams) {
       })
       .catch((err) => console.log(err));
 }
+
+export function getSmcSpecification(requestParams) {
+  return () =>
+    handleFetch(`/rest/v2/smc/r/spec/${requestParams}`)
+      .then((res) => {
+        if (res.errorCode) {
+          NotificationManager.error(res.errorDescription, "Error", 10000);
+          return null;
+        }
+        return res;
+      })
+      .catch((err) => console.log(err));
+}
