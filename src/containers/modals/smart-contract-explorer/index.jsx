@@ -3,24 +3,42 @@
  *                                                                            *
  ***************************************************************************** */
 
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState, useCallback } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import TabulationBody from "../../components/tabulator/tabuator-body";
 import TabContaier from "../../components/tabulator/tab-container";
 import TabPanelOverview from "./tab-panel-overview";
 import TabMethodPanel from "./tab-panel-method";
-
-import { list } from "./list";
+import { getSmcSpecification } from "../../../actions/contracts";
 
 const SmartContractsExplorer = ({ closeModal }) => {
-  const { members, overview } = list;
+  const dispatch = useDispatch();
   const modalData = useSelector((state) => state.modals.modalData);
-  const { address } = modalData;
 
-  const getTabPanel = (type) =>  members.map((item) => item.stateMutability === type && (
-      <TabMethodPanel address={address} item={item} type={type}/>
-    )
+  const [specificationsList, setSpecificationsList] = useState([]);
+  const [overviewInfo, setOverviewInfo] = useState([]);
+  const { address } = modalData;
+  
+  useEffect(() => {
+    getContractSpecification(address);
+  }, [address]);
+
+  const getContractSpecification = useCallback(
+    async (address) => {
+      const specifications = await dispatch(getSmcSpecification(address));
+      if (specifications) {
+        setSpecificationsList(specifications.members);
+        setOverviewInfo(specifications.overview);
+      }
+    },
+    [dispatch]
   );
+
+  const getTabPanel = (type) =>
+    specificationsList.map((item) => item.stateMutability === type && (
+        <TabMethodPanel address={address} item={item} type={type} />
+      )
+    );
 
   return (
     <div className="modal-box x-wide">
@@ -32,7 +50,7 @@ const SmartContractsExplorer = ({ closeModal }) => {
             </button>
             <TabulationBody>
               <TabContaier sectionName={"Overview"}>
-                <TabPanelOverview overview={overview} />
+                <TabPanelOverview overview={overviewInfo} />
               </TabContaier>
               <TabContaier sectionName={"Read method"}>
                 {getTabPanel("view")}
