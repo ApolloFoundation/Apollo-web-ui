@@ -27,9 +27,10 @@ export const handleFetch = async (url, method, value = null, typeOfRequest, isJs
     if (method === GET) {
       queryPath += `?${qs.stringify(data)}`;
     } else if (!isJson){
-      options.body = Object.keys(value).map((key) => {
-          return encodeURIComponent(key) + '=' + encodeURIComponent(value[key]);
-      }).join('&');
+      options.body = Object
+        .keys(data)
+        .map((key) => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+        .join('&');
     } else {
       options.body = JSON.stringify(data);
     }

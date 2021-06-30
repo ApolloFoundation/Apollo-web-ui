@@ -8,7 +8,6 @@ import { ONE_GWEI } from '../../../../../../constants';
 import {
   setBodyModalParamsAction, resetTrade, setSelectedOrderInfo,
 } from '../../../../../../modules/modals';
-import { processElGamalEncryption } from '../../../../../../actions/crypto';
 import BuyForm from './form';
 
 const feeATM = 200000000;
@@ -97,15 +96,13 @@ export default function BuyFormWrapper(props) {
             return;
           }
 
-          const passphrase = await processElGamalEncryption(passPhrase);
-
           const params = {
             offerType: 0, // BUY
             pairCurrency: currencyTypes[currency],
             pairRate,
             offerAmount: fixedOfferAmount,
             sender: account,
-            passphrase,
+            passphrase: passPhrase,
             feeATM,
             walletAddress: newValues.walletAddress.value.address,
           };
