@@ -18,7 +18,7 @@ const SmartContractsExplorer = ({ closeModal }) => {
   const [specificationsList, setSpecificationsList] = useState([]);
   const [overviewInfo, setOverviewInfo] = useState([]);
   const { address } = modalData;
-  
+
   useEffect(() => {
     getContractSpecification(address);
   }, [address]);
@@ -34,11 +34,19 @@ const SmartContractsExplorer = ({ closeModal }) => {
     [dispatch]
   );
 
-  const getTabPanel = (type) =>
-    specificationsList.map((item) => item.stateMutability === type && (
-        <TabMethodPanel address={address} item={item} type={type} />
-      )
-    );
+  const getTabPanelRead = (type) =>
+    specificationsList.map((item) => {
+      if (item.stateMutability === "view") {
+        return <TabMethodPanel address={address} item={item} type={"view"} />;
+      }
+    });
+    
+  const getTabPanelWrite = (type) =>
+    specificationsList.map((item) => {
+      if (item.stateMutability !== "view") {
+        return <TabMethodPanel address={address} item={item} type={"write"} />;
+      }
+    });
 
   return (
     <div className="modal-box x-wide">
@@ -53,10 +61,10 @@ const SmartContractsExplorer = ({ closeModal }) => {
                 <TabPanelOverview overview={overviewInfo} />
               </TabContaier>
               <TabContaier sectionName={"Read method"}>
-                {getTabPanel("view")}
+                {getTabPanelRead()}
               </TabContaier>
               <TabContaier sectionName={"Write method"}>
-                {getTabPanel("nonpayable")}
+                {getTabPanelWrite()}
               </TabContaier>
             </TabulationBody>
           </div>
