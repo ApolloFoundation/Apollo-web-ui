@@ -35,6 +35,7 @@ export default function ReserveCurrency(props) {
 
       if (!values.secretPhrase || values.secretPhrase.length === 0) {
         NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
+        setIsPending(false);
         return;
       }
 
