@@ -29,7 +29,7 @@ export default function TransferHistoryItem(props) {
     })).then(({ attachment }) => {
       setCurrency(attachment);
     })
-  }, []);
+  }, [dispatch, transfer]);
 
   const name = code ? (
     <Link to={"/exchange-booth/" + code}>{code}</Link>
