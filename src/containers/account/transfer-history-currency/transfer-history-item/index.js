@@ -21,14 +21,26 @@ class TransferHistoryItem extends React.Component {
     }
 
     componentDidMount() {
-        const { getTransactionAction, code, transfer } = this.props;
-        if (!code) {
-            getTransactionAction({
-                transaction: transfer,
-            }).then(({ attachment }) => {
-                this.setState({ currency: attachment });
-            })
+        if (!this.props.code) {
+           this.getTransaction();
         }
+    }
+
+    componentDidUpdate(prevProps) {
+        const { code, transfer } = this.props;
+        
+        if(!code && prevProps.transfer !== transfer) {
+           this.getTransaction();
+        }
+    }
+
+    getTransaction = () => {
+        const { getTransactionAction, transfer } = this.props;
+        getTransactionAction({
+            transaction: transfer,
+        }).then(({ attachment }) => {
+            this.setState({ currency: attachment });
+        })
     }
 
     render () {
