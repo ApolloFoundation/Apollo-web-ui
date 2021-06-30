@@ -44,8 +44,6 @@ class ReserveCurrency extends React.Component {
                 phasingHashedSecretAlgorithm: 2,
                 secretPhrase: values.secretPhrase,
                 feeATM: values.feeATM,
-                broadcast: false,
-                validate: true
             };
 
             await this.props.processForm(toSend, 'currencyReserveIncrease', 'Reserve has been increased!', (res) => {
