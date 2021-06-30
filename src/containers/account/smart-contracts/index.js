@@ -101,7 +101,7 @@ export default function SmartContracts() {
                   {({ values, setValue }) => {
                     return (
                       <Form className="form-group-app input-group-app transparent mb-0 row">
-                        <div className="col-md-6 col-lg p-0 pr-lg-3">
+                        <div className="col-md-6 col-lg p-0 pr-md-3">
                           <SearchField
                             name={"address"}
                             field="address"
@@ -117,7 +117,7 @@ export default function SmartContracts() {
                             setValue={setValue}
                           />
                         </div>
-                        <div className="col-md-6 col-lg p-0 pr-lg-3">
+                        <div className="col-md-6 col-lg p-0 pr-md-3">
                           <SearchField
                             name={"name"}
                             field="name"
