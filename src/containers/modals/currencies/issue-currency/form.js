@@ -89,7 +89,6 @@ const IssueCurrencyForm = (props) => {
                         setValue={setValue}
                         label={'Minimum Amount to Reserve Per Unit'}
                         field={'minReservePerUnitATM'}
-                        countingTtile={'APL'}
                         placeholder={'Minimum Amount Per Unit'}
                         type={'tel'}
                         idGroup={idGroup}

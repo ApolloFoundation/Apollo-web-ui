@@ -194,7 +194,7 @@ export function exportAccount(requestParams) {
       headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' },
     })
         .then((res) => {
-            return res.data;
+            return res.json();
         })
         .catch((err) => {
             console.log(err);
