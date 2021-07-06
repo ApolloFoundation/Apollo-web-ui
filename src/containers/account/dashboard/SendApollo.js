@@ -7,7 +7,7 @@ import QRCode from "qrcode.react";
 import {clearDashboardForm, setBodyModalParamsAction} from '../../../modules/modals';
 import {ReactComponent as ArrowRight} from "../../../assets/arrow-right.svg";
 import {ReactComponent as QrIcon} from "../../../assets/qr-icon.svg";
-import AccountRSFormInput from "../../components/form-components/account-rs";
+import AccountRSFormInput from "../../components/form-components/account-rs1";
 import NummericInputForm from "../../components/form-components/numeric-input";
 import ContentLoader from "../../components/content-loader";
 import FeeInputForm from "../../components/form-components/fee-input";

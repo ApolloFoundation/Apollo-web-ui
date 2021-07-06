@@ -1,86 +1,95 @@
-import React from 'react';
-import {connect} from "react-redux";
-import {ONE_APL} from '../../../../../constants';
-import {getTransactionFee} from "../../../../../actions/wallet";
-import {setTypeOfTrade, resetTrade} from "../../../../../modules/modals";
-import BuyForm from "./BuyForm";
-import SellForm from "./SellForm";
-import {formatGweiToEth} from "../../../../../helpers/format";
+import React, {
+    useState, useCallback, useEffect,
+  } from 'react';
+import { connect } from 'react-redux';
+import { getTransactionFee } from '../../../../../actions/wallet';
+import { setTypeOfTrade, resetTrade } from '../../../../../modules/modals';
+import BuyForm from './buy-form';
+import SellForm from './sell-form';
+import store from '../../../../../store';
 
-class TradeApollo extends React.Component {
-    feeATM = 200000000;
-    state = {
-        maxFee: null,
-    };
+const feeATM = 200000000;
+const ethMinTxFee = 0.002;
 
-    componentDidMount() {
-        this.getTransactionFee();
-        this.props.resetTrade();
-    };
+function TradeApollo(props) {
+  const { dispatch } = store;
 
-    getTransactionFee = async () => {
-        const transactionFee = await this.props.getTransactionFee();
-        if (transactionFee) {
-            this.setState({maxFee: transactionFee.fast});
-        }
-    };
+  const { wallet, handleLoginModal, ticker, typeOfTrade, decimals } = props;
 
-    changeTabOfTrade = typeOfTrade => {
-        this.props.setTypeOfTrade(typeOfTrade);
-        this.props.resetTrade();
-    };
+  const [maxFee, setMaxFee] = useState();
 
-    render() {
-        const {wallet, handleLoginModal, typeOfTrade} = this.props;
-        const ethMinTxFee = 0.002;
-        return (
-            <div className={'card card-light h-400'}>
-                <div className="card-title">
-                    <div className={'title'}>Trade Apollo</div>
-                    <span className={'sub-title'}>Fee: {this.feeATM / ONE_APL} APL</span>
-                </div>
-                <div className="card-body">
-                    <div className={'tabs-wrap mb-3'}>
-                        <div
-                            className={`tab-item ${typeOfTrade === 'BUY' ? 'active' : ''}`}
-                            onClick={() => this.changeTabOfTrade('BUY')}
-                        >
-                            Buy APL
-                        </div>
-                        <div
-                            className={`tab-item ${typeOfTrade === 'SELL' ? 'active' : ''}`}
-                            onClick={() => this.changeTabOfTrade('SELL')}
-                        >
-                            Sell APL
-                        </div>
-                    </div>
-                    {typeOfTrade === 'BUY' ? (
-                        <BuyForm
-                            wallet={wallet}
-                            handleLoginModal={handleLoginModal}
-                            ethFee={ethMinTxFee}
-                        />
-                    ) : (
-                        <SellForm
-                            wallet={wallet}
-                            handleLoginModal={handleLoginModal}
-                            ethFee={ethMinTxFee}
-                        />
-                    )}
-                </div>
-            </div>
-        )
+  const handleGetTransactionFee = useCallback(async () => {
+    const transactionFee = await dispatch(getTransactionFee());
+    if (transactionFee) {
+      setMaxFee(transactionFee.fast);
     }
+  }, [dispatch]);
+
+  const changeTabOfTrade = useCallback(currTypeOfTrade => {
+    dispatch(setTypeOfTrade(currTypeOfTrade));
+    dispatch(resetTrade());
+  }, [dispatch]);
+
+  useEffect(() => {
+    handleGetTransactionFee();
+    dispatch(resetTrade());
+  }, [dispatch, handleGetTransactionFee]);
+
+  return (
+    <div className="card card-light h-400">
+      <div className="card-title">
+        <div className="title">Trade Apollo</div>
+        <span className="sub-title">
+          Fee:
+          {feeATM / decimals}
+          {' '}
+          {ticker}
+        </span>
+      </div>
+      <div className="card-body">
+        <div className="tabs-wrap mb-3">
+          <div
+            className={`tab-item ${typeOfTrade === 'BUY' ? 'active' : ''}`}
+            onClick={() => changeTabOfTrade('BUY')}
+          >
+            Buy
+            {' '}
+            {ticker}
+          </div>
+          <div
+            className={`tab-item ${typeOfTrade === 'SELL' ? 'active' : ''}`}
+            onClick={() => changeTabOfTrade('SELL')}
+          >
+            Sell
+            {' '}
+            {ticker}
+          </div>
+        </div>
+        {typeOfTrade === 'BUY' ? (
+          <BuyForm
+            ticker={ticker}
+            wallet={wallet}
+            handleLoginModal={handleLoginModal}
+            ethFee={ethMinTxFee}
+          />
+        ) : (
+          <SellForm
+            ticker={ticker}
+            decimals={decimals}
+            wallet={wallet}
+            handleLoginModal={handleLoginModal}
+            ethFee={ethMinTxFee}
+          />
+        )}
+      </div>
+    </div>
+  );
 }
 
-const mapStateToProps = state => ({
-    typeOfTrade: state.modals.typeOfTrade,
+const mapStateToProps = (state) => ({
+  typeOfTrade: state.modals.typeOfTrade,
+  decimals: state.account.decimals,
+  ticker: state.account.ticker,
 });
 
-const mapDispatchToProps = dispatch => ({
-    resetTrade: () => dispatch(resetTrade()),
-    getTransactionFee: () => dispatch(getTransactionFee()),
-    setTypeOfTrade: (params) => dispatch(setTypeOfTrade(params)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(TradeApollo);
+export default connect(mapStateToProps)(TradeApollo);

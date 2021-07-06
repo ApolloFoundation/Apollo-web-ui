@@ -1,0 +1,56 @@
+.form-tab-nav-box {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 15px;
+
+  .form-tab {
+    height: 30px;
+    border-radius: 3px;
+    border: 1.5px solid #7E8691;
+    padding: 6px 6px 7px;
+    flex: 1;
+    position: relative;
+    margin-right: 8px;
+
+    .button-content {
+      display: flex;
+      justify-content: center;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      color: #7E8691;
+      width: 100%;
+      transform: translate(-50%, -50%);
+
+      .button-text {
+        font-family: "BBRollerMonoProST", sans-serif;
+        text-transform: uppercase;
+        font-size: 12px;
+        font-weight: 500;
+        color: #7E8691;
+        line-height: 14px;
+        text-align: center;
+      }
+    }
+
+    .icon {
+      margin-right: 10px;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &.active {
+      border: 1.5px solid #25F459;
+
+      .button-content {
+        color: #25F459;
+      }
+
+      .button-text {
+        color: #25F459;
+      }
+    }
+  }
+}

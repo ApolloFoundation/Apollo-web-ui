@@ -8,6 +8,9 @@ import qrcode from '../qr-code/qr-code'
 import {getState} from "../../modules/account";
 import BigInteger from 'big-integer';
 
+function normalizeTicker(ticker) {
+    return (ticker === 'Apollo' ? 'APL' : ticker.toUpperCase());
+}
 
 function isNumericAccountImplAPL(account, regex) {
     return regex.test(account);
@@ -272,9 +275,8 @@ function convertToAPL(a, isObject) {
             "amount": a,
             "mantissa": mantissares
         };
-    } else {
-        return negativeres + a + mantissares;
     }
+    return negativeres + a + mantissares;
 };
 
 function amountToPrecision(amount, decimals) {
@@ -307,6 +309,7 @@ function resolverReservePerUnit(decimals, reserveSupply, amount) {
     const roundUnitAmountATM = convertToATM(amountToPrecision(convertToAPL(unitAmountATM), decimals));
     const reserveCurrencyTotal = convertToAPL(roundUnitAmountATM);
     const reserveCurrencyAmount = convertToAPL(new BigInteger(roundUnitAmountATM).multiply(new BigInteger(resSupply)).toString());
+
     return {
         total: reserveCurrencyTotal,
         amount: reserveCurrencyAmount
@@ -335,5 +338,6 @@ export default {
     resolverReservePerUnit,
     isRequireBlockchain,
     isDesktopApp,
-    parseStringBySpace
+    parseStringBySpace,
+    normalizeTicker,
 }

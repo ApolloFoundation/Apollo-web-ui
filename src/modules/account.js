@@ -19,6 +19,7 @@ export const SET_CURRENT_BLOCK = 'SET_CURRENT_BLOCK';
 export const SET_ADMIN_PASSWORD = 'SET_ADMIN_PASSWORD';
 export const SET_SHARE_MESSAGE = "SET_SHARE_MESSAGE";
 export const SET_WALLETS = "SET_WALLETS";
+export const SET_BLOCKCHAIN_SETTINGS = 'SET_BLOCKCHAIN_SETTINGS';
 
 const initialState = {
     settings: null,
@@ -52,6 +53,8 @@ const initialState = {
         bootstrap_nodes_count: 5
     },
     wallets: null,
+    ticker: 'APL',
+    decimals: 100000000,
 };
 
 export default (state = initialState, action) => {
@@ -65,7 +68,9 @@ export default (state = initialState, action) => {
         case RESET_ACCOUNT:
             return {
                 ...state,
-                ...initialState
+                ...initialState,
+                ticker: state.ticker,
+                decimals: state.decimals,
             };
         case SET_CONSTANTS:
             return {
@@ -121,6 +126,13 @@ export default (state = initialState, action) => {
                 currentBlock: action.payload
             };
 
+        case SET_BLOCKCHAIN_SETTINGS:
+            return {
+                ...state,
+                ticker: action.payload.ticker,
+                decimals: action.payload.decimals,
+            };
+
         case SET_ADMIN_PASSWORD:
             const adminPassword = localStorage.getItem('adminPassword');
 
@@ -161,6 +173,13 @@ export default (state = initialState, action) => {
             return state
     }
 }
+
+export const setTicker = reqParams => dispatch => {
+    dispatch({
+      type: SET_BLOCKCHAIN_SETTINGS,
+      payload: reqParams,
+    });
+  };
 
 
 export const login = (reqParams) => {

@@ -21,13 +21,13 @@ const mapStateToProps = state => ({
     account: state.account.account
 });
 
-const mapDispatchToProps = dispatch => ({
-    getBlocksAction : (requestParams) => dispatch(getBlocksAction(requestParams)),
-    getTransactionAction : (type, data) => dispatch(getTransactionAction(type, data)),
-    getAllCurrenciesAction: (reqParams) => dispatch(getAllCurrenciesAction(reqParams)),
-    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-    getExchanges: currency => dispatch(getExchangesAction(currency)),
-});
+const mapDispatchToProps = {
+    getBlocksAction,
+    getTransactionAction,
+    getAllCurrenciesAction,
+    setBodyModalParamsAction,
+    getExchangesAction,
+};
 
 class Currencies extends React.Component {
     constructor(props) {
@@ -43,7 +43,7 @@ class Currencies extends React.Component {
 
     componentWillMount() {
         // getCurrencyTypes(33)
-        this.getCurrencie({
+        this.getCurrencies({
             account: this.props.account,
             firstIndex: this.state.firstIndex,
             lastIndex: this.state.lastIndex
@@ -51,7 +51,7 @@ class Currencies extends React.Component {
     }
 
     listener = data => {
-        this.getCurrencie({
+        this.getCurrencies({
             account: this.props.account,
             firstIndex: this.state.firstIndex,
             lastIndex: this.state.lastIndex
@@ -59,7 +59,7 @@ class Currencies extends React.Component {
     };
 
     getExchanges = async currency => {
-        const exchanges = (await this.props.getExchanges(currency)).exchanges;
+        const exchanges = (await this.props.getExchangesAction(currency)).exchanges;
 
         if (exchanges) {
             this.setState({
@@ -77,7 +77,7 @@ class Currencies extends React.Component {
     }
 
     onPaginate = (page) => {
-        this.getCurrencie({
+        this.getCurrencies({
             page: page,
             account: this.props.account,
             firstIndex: page * 15 - 15,
@@ -85,13 +85,13 @@ class Currencies extends React.Component {
         });
     };
 
-    getCurrencie = async (reqParams) => {
+    getCurrencies = async (reqParams) => {
         const allCurrencies = await this.props.getAllCurrenciesAction(reqParams);
 
         if (allCurrencies) {
             this.setState({
                 ...reqParams,
-                currencies: allCurrencies.currencies
+                currencies: allCurrencies.currencies,
             })
         }
     };

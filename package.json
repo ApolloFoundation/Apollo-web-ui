@@ -1,6 +1,6 @@
 {
   "name": "apollo-web-wallet",
-  "version": "2.8.0",
+  "version": "2.8.9",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-free": "5.7.2",
@@ -23,6 +23,7 @@
     "express": "4.16.4",
     "fetch": "1.1.0",
     "file-loader": "1.1.11",
+    "formik": "^2.2.9",
     "history": "4.9.0",
     "html-webpack-plugin": "2.30.1",
     "i18next": "11.10.2",

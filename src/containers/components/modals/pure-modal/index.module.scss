@@ -1,0 +1,25 @@
+.pureModal {
+  background: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  background: rgba(37, 42, 49, 0.9);
+  border: 0.5px solid #25F459;
+  color: #F8F9FA;
+}
+
+.pureModalClose {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: -16px;
+  right: -16px;
+  width: 32px;
+  height: 32px;
+  background: #252A31;
+  color: #25F459;
+  border-radius: 50%;
+  border: 2px solid #353C46;
+  font-size: 30px;
+  cursor: pointer;
+}
