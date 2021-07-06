@@ -260,6 +260,10 @@ export const generatePDF = (args) => {
         window.pdf.fromData(`<html><h2>Apollo Paper Wallet</h2><p>${yyyy}/${mm}/${dd}</p>${arrText}</html>`, options)
             .then((stats) => console.log('status', stats))
             .catch((err) => console.err(err))
+    } else if (utils.isDesktopApp() && window.java) {
+        const data = JSON.stringify(args);
+        let objJsonB64 = Buffer.from(data).toString("base64");
+        window.java.downloadFile(objJsonB64, `apollo-wallet-${args[0].value}`);
     } else {
         let doc = new jsPDF();
 
