@@ -15,7 +15,7 @@ const SmartContractsExplorer = ({ closeModal }) => {
   const dispatch = useDispatch();
   const modalData = useSelector((state) => state.modals.modalData);
 
-  const [specificationsList, setSpecificationsList] = useState([]);
+  const [specificationsList, setSpecificationsList] = useState({});
   const [overviewInfo, setOverviewInfo] = useState([]);
   const { address } = modalData;
 
@@ -27,33 +27,33 @@ const SmartContractsExplorer = ({ closeModal }) => {
     async (address) => {
       const specifications = await dispatch(getSmcSpecification(address));
       if (specifications) {
-        setSpecificationsList(specifications.members);
-        setOverviewInfo(specifications.overview);
+        const { members, overview } = specifications;
+
+        const mambersList = members.reduce(
+          (acc, item) => {
+            if (item.stateMutability === "view") {
+              acc.readList.push(item);
+            } else {
+              acc.writeList.push(item);
+            }
+            return acc;
+          },
+          { readList: [], writeList: [] }
+        );
+
+        setSpecificationsList(mambersList);
+        setOverviewInfo(overview);
       }
     },
     [dispatch]
   );
-
-  const getTabPanelRead = (type) =>
-    specificationsList.map((item) => {
-      if (item.stateMutability === "view") {
-        return <TabMethodPanel address={address} item={item} type={"view"} />;
-      }
-    });
-    
-  const getTabPanelWrite = (type) =>
-    specificationsList.map((item) => {
-      if (item.stateMutability !== "view") {
-        return <TabMethodPanel address={address} item={item} type={"write"} />;
-      }
-    });
 
   return (
     <div className="modal-box x-wide">
       <div className="form-group-app media-tab">
         <div className="modal-form">
           <div className="form-group-app media-tab">
-            <button onClick={closeModal} className="exit pointer">
+            <button type="button" onClick={closeModal} className="exit pointer">
               <i className="zmdi zmdi-close" />
             </button>
             <TabulationBody>
@@ -61,10 +61,18 @@ const SmartContractsExplorer = ({ closeModal }) => {
                 <TabPanelOverview overview={overviewInfo} />
               </TabContaier>
               <TabContaier sectionName={"Read method"}>
-                {getTabPanelRead()}
+                <TabMethodPanel
+                  items={specificationsList.readList || []}
+                  type={"view"}
+                  address={address}
+                />
               </TabContaier>
               <TabContaier sectionName={"Write method"}>
-                {getTabPanelWrite()}
+                <TabMethodPanel
+                  items={specificationsList.writeList || []}
+                  type={"write"}
+                  address={address}
+                />
               </TabContaier>
             </TabulationBody>
           </div>
