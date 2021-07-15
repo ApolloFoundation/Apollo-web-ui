@@ -1,0 +1,29 @@
+.collapsible {
+    &-heading {
+        background-color: #f4f4f4;
+        color: #444;
+        cursor: pointer;
+        padding: 10px 15px;
+        width: 100%;
+        text-align: left;
+        display: flex;
+        align-items: center;
+        &:hover {
+            cursor: pointer;
+            background-color: #ddd
+        }
+    }
+    &-icon {
+        margin-right: 5px;
+        & > i {
+            font-size: 25px
+        }
+    }
+    &-content{
+        padding: 15px;
+        -webkit-animation: fadein 0.35s ease-in;
+        animation: fadein 0.35s ease-in;
+    }
+}
+
+
