@@ -1,15 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import classNames from "classnames";
 import "./collapsible.sass";
 
 const Collapsible = ({ title, expand, children, className }) => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     if (expand) {
       setOpen(false);
     }
   }, [expand]);
+
+  const handleToggleCollapsible = () => {
+    setOpen(!open)
+  }
 
   return (
     <div
@@ -18,8 +22,8 @@ const Collapsible = ({ title, expand, children, className }) => {
         [`${className}`]: className,
       })}
     >
-      <div className={"collapsible-heading"} onClick={() => setOpen(!open)}>
-        <div className={"collapsible-icon"}>
+      <div className="collapsible-heading" onClick={handleToggleCollapsible}>
+        <div className="collapsible-icon">
           <i
             className={classNames({
               zmdi: true,
@@ -28,16 +32,14 @@ const Collapsible = ({ title, expand, children, className }) => {
             })}
           />
         </div>
-        <div className={"collapsible-text"}>{title}</div>
+        <div className="collapsible-text">{title}</div>
       </div>
-      <div
-        className={classNames({
-          "collapsible-content": true,
-          show: expand || open,
-        })}
-      >
-        {children}
-      </div>
+      {expand || open ?
+        <div className="collapsible-content">
+          {children}
+        </div> : ''
+      }
+
     </div>
   );
 };
