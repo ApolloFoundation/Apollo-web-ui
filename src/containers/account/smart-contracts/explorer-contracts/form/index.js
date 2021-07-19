@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { setBodyModalParamsAction } from "../../../../../modules/modals";
 import { useDispatch } from "react-redux";
-import { exportReadMethod } from "../../../../../actions/contracts";
 import { v4 as uuidv4 } from "uuid";
 import { Form, Formik, Field } from "formik";
 import { processAccountRStoID } from "apl-web-crypto"
-import fieldValidate from "./form-validation";
+import { exportReadMethod } from "../../../../../actions/contracts";
+import { setBodyModalParamsAction } from "../../../../../modules/modals";
 import TextualInputComponent from "../../../../components/form-components/textual-input1";
 import Button from "../../../../components/button";
+import fieldValidate from "./form-validation";
 
 const ExplorerForm = ({ fields, address, methodName: name, type }) => {
   const dispatch = useDispatch();
