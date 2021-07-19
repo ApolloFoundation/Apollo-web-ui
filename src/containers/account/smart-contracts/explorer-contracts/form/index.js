@@ -42,7 +42,6 @@ const ExplorerForm = ({ fields, address, methodName: name, type }) => {
 
     Object.keys(values).map((key) => {
       if (regAPL.test(values[key])) {
-        console.log(typeof(values[key]))
         const parseRStoHex = `0x${Number(processAccountRStoID(values[key])).toString(16)}`
         return fieldValues.push(parseRStoHex)
       }
