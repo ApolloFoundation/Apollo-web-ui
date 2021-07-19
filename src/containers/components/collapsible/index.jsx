@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from "react";
 import classNames from "classnames";
-import "./collapsible.sass";
+import "./collapsible.scss";
 
-const Collapsible = ({ title, expand, children, className }) => {
+const Collapsible = ({ title, expand , children, className }) => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    if (expand) {
-      setOpen(false);
-    }
+    setOpen(expand);
   }, [expand]);
 
   const handleToggleCollapsible = () => {
@@ -27,14 +25,14 @@ const Collapsible = ({ title, expand, children, className }) => {
           <i
             className={classNames({
               zmdi: true,
-              "zmdi zmdi-chevron-down": expand || open,
-              "zmdi zmdi-chevron-right": !(expand || open),
+              "zmdi zmdi-chevron-down": open,
+              "zmdi zmdi-chevron-right": !open,
             })}
           />
         </div>
         <div className="collapsible-text">{title}</div>
       </div>
-      {expand || open ?
+      {open ?
         <div className="collapsible-content">
           {children}
         </div> : ''

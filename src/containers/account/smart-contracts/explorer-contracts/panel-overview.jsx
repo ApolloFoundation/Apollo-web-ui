@@ -1,10 +1,10 @@
 import React from "react";
 
-const TabPanelOverview = ({ overview }) => {
+const PanelOverview = ({ overview }) => {
   return (
     <div className="transaction-table no-min-height transparent">
       <div className="transaction-table-body transparent">
-        <div className="title text-dark mb-3">Overview</div>
+        <div className="heading mb-3">Overview</div>
         <table className="w-100">
           <tbody>
             {overview.map((item) => (
@@ -31,4 +31,4 @@ const TabPanelOverview = ({ overview }) => {
   );
 };
 
-export default TabPanelOverview;
+export default PanelOverview;

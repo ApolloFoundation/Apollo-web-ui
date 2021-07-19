@@ -89,6 +89,7 @@ import ChooseWallet from "../account/exchange/choose-wallet";
 import SmartContracts from "../account/smart-contracts";
 import CreateSmartContract from "../account/smart-contracts/create-smart-contract";
 import MySmartContract from "../account/smart-contracts/my-smart-contracts";
+import ExplorerContracts from "../account/smart-contracts/explorer-contracts";
 
 import "./App.scss";
 import "./fonts.scss";
@@ -319,6 +320,7 @@ class App extends React.Component {
         path="/smart-contracts/my-contracts"
         component={MySmartContract}
       />
+      <Route exact path="/smart-contracts/explorer/:id?" component={ExplorerContracts} />
       <Route
         exact
         path="/index.html"
