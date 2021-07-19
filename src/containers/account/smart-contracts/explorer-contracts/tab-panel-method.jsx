@@ -1,9 +1,9 @@
-import React, { useState }from "react";
-import Collapsible from "../../components/collapsible";
+import React, { useState } from "react";
+import Collapsible from "../../../components/collapsible";
 import Button from "containers/components/button";
 import ExplorerForm from "./form";
 
-const TabMethodPanel = ({ items, address, type }) => {
+const TabMethodPanel = ({ items, address, type, title }) => {
   const [expanded, setExpanded] = useState(false);
 
   const handleExpandAll = () => {
@@ -13,12 +13,20 @@ const TabMethodPanel = ({ items, address, type }) => {
   return (
     <div>
       <div className={"mb-3 text-align-right"}>
-        <Button
-          size={"xs"}
-          type="button"
-          onClick={handleExpandAll}
-          name="Show all / Expand all"
-        />
+        <div className="d-flex w-100 justify-content-between mb-3 pt-3 ">
+          <div className="heading mb-2">
+            {title}
+          </div>
+          <div className="title mb-2">
+            <Button
+              size={"xs"}
+              type="button"
+              onClick={handleExpandAll}
+              name="Show all / Expand all"
+            />
+          </div>
+        </div>
+
       </div>
       {items.length > 0 ? (
         items.map((item) => (
@@ -51,4 +59,3 @@ const TabMethodPanel = ({ items, address, type }) => {
 };
 
 export default TabMethodPanel;
-  

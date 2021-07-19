@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import { setBodyModalParamsAction } from "../../../../modules/modals";
+import { setBodyModalParamsAction } from "../../../../../modules/modals";
 import { useDispatch } from "react-redux";
-import { exportReadMethod } from "../../../../actions/contracts";
+import { exportReadMethod } from "../../../../../actions/contracts";
 import { v4 as uuidv4 } from "uuid";
 import { Form, Formik, Field } from "formik";
-
+import { processAccountRStoID } from "apl-web-crypto"
 import fieldValidate from "./form-validation";
-import TextualInputComponent from "../../../components/form-components/textual-input1";
-import Button from "../../../components/button";
+import TextualInputComponent from "../../../../components/form-components/textual-input1";
+import Button from "../../../../components/button";
 
 const ExplorerForm = ({ fields, address, methodName: name, type }) => {
   const dispatch = useDispatch();
@@ -38,7 +38,16 @@ const ExplorerForm = ({ fields, address, methodName: name, type }) => {
   const onSubmitView = async (values) => {
     const fieldValues = [];
 
-    Object.keys(values).map((key) => fieldValues.push(values[key]));
+    const regAPL = /^APL/;
+
+    Object.keys(values).map((key) => {
+      if (regAPL.test(values[key])) {
+        console.log(typeof(values[key]))
+        const parseRStoHex = `0x${Number(processAccountRStoID(values[key])).toString(16)}`
+        return fieldValues.push(parseRStoHex)
+      }
+      return fieldValues.push(values[key])
+    })
 
     const data = {
       address,

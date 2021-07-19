@@ -30,8 +30,9 @@ export const ContractTableItem = (props) => {
 
   const handleContractInfo = () => {
     const regAPL = /^APL20/;
-    const modalType = regAPL.test(name) ? "SMC_EXPLORER" : "SMC_INFO";
-    dispatch(setBodyModalParamsAction(modalType, { address }));
+    regAPL.test(name)
+      ? window.open(`/smart-contracts/explorer/${address}`, "_blank")
+      : dispatch(setBodyModalParamsAction("SMC_INFO", { address }))
   };
 
   const handleSendMessage = () =>
