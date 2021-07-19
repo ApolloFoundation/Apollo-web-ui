@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Collapsible from "../../../components/collapsible";
-import Button from "containers/components/button";
+import Button from "../../../components/button";
 import ExplorerForm from "./form";
 
 const TabMethodPanel = ({ items, address, type, title }) => {
