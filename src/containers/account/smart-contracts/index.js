@@ -4,14 +4,14 @@
  ******************************************************************************/
 
 import React, { useState, useCallback, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { Form, Formik } from "formik";
+import { useDispatch } from "react-redux";
 import SiteHeader from "../../components/site-header";
 import { ContractTableItem } from "./contract-table-item";
-import { useDispatch } from "react-redux";
 import { getContracts } from "../../../actions/contracts";
 import { setBodyModalParamsAction } from "../../../modules/modals";
 import CustomTable from "../../components/tables/table";
-import { Link } from "react-router-dom";
-import { Form, Formik } from "formik";
 import CustomFormSelect from "../../components/form-components/custom-form-select";
 import SearchField from "../../components/form-components/search-field";
 
