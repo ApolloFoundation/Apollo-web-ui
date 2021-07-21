@@ -9,8 +9,9 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { setBodyModalParamsAction } from "../../../../modules/modals";
 import { formatTimestamp } from "../../../../helpers/util/time";
-import Button from "../../../components/button";
 import { getTransactionAction } from "../../../../actions/transactions";
+import Button from "../../../components/button";
+
 
 export const ContractTableItem = ({
   address,
