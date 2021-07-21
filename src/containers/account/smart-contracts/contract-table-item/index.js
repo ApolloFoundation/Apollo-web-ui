@@ -8,9 +8,11 @@ import { v4 as uuidv4 } from "uuid";
 import { setBodyModalParamsAction } from "../../../../modules/modals";
 import { formatTimestamp } from "../../../../helpers/util/time";
 import { useDispatch } from "react-redux";
+import { useHistory } from 'react-router-dom';
 import Button from "../../../components/button";
 
 export const ContractTableItem = (props) => {
+  const history = useHistory();
   const dispatch = useDispatch();
 
   const {
@@ -31,7 +33,7 @@ export const ContractTableItem = (props) => {
   const handleContractInfo = () => {
     const regAPL = /^APL20/;
     regAPL.test(name)
-      ? window.open(`/smart-contracts/explorer/${address}`, "_blank")
+      ? history.push(`/smart-contracts/explorer/${address}`)
       : dispatch(setBodyModalParamsAction("SMC_INFO", { address }))
   };
 

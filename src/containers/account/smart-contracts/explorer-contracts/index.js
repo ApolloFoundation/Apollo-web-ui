@@ -82,7 +82,7 @@ const ExplorerContracts = (props) => {
                             <div className="w-100 card card-light justify-content-start h-100 p-3 form-tabulator active">
                                 <div className="form-group-app">
                                     <TabulationBody>
-                                        <TabContaier sectionName={"Read method"}>
+                                        <TabContaier sectionName={"Read smart contract"}>
                                             <TabMethodPanel
                                                 title={"Read Contract Information"}
                                                 items={specificationsList.readList || []}
@@ -90,7 +90,7 @@ const ExplorerContracts = (props) => {
                                                 address={id}
                                             />
                                         </TabContaier>
-                                        <TabContaier sectionName={"Write method"}>
+                                        <TabContaier sectionName={"Write smart contract"}>
                                             <TabMethodPanel
                                                 title={"Write Contract Information"}
                                                 items={specificationsList.writeList || []}
