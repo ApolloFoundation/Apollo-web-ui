@@ -22,7 +22,7 @@ const TabMethodPanel = ({ items, address, type, title }) => {
               size={"xs"}
               type="button"
               onClick={handleExpandAll}
-              name="Show all / Expand all"
+              name="Collaps all / Expand all"
             />
           </div>
         </div>
@@ -36,7 +36,7 @@ const TabMethodPanel = ({ items, address, type, title }) => {
             key={item.id}
             className={"mb-3"}
           >
-            {item.type !== "view" || item.inputs.length > 0 ? (
+            {item.type !== "view" && item.inputs.length > 0 ? (
               <ExplorerForm
                 methodName={item.name}
                 type={type}
