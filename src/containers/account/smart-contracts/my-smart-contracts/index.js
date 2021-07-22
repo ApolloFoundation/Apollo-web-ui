@@ -4,14 +4,13 @@
  ******************************************************************************/
 
 import React, { useState, useCallback, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import SiteHeader from "../../../components/site-header";
 import { ContractTableItem } from "../contract-table-item";
-import { useSelector, useDispatch } from "react-redux";
 import { getMyContracts } from "../../../../actions/contracts";
-import { BlockUpdater } from "../../../block-subscriber/index";
 import { setBodyModalParamsAction } from "../../../../modules/modals";
 import CustomTable from "../../../components/tables/table";
-import { Link } from "react-router-dom";
 
 const SmartContracts = () => {
   const dispatch = useDispatch();
