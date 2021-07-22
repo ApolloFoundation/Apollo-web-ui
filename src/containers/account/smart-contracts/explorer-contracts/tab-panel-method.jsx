@@ -14,9 +14,7 @@ const TabMethodPanel = ({ items, address, type, title }) => {
     <div>
       <div className={"mb-3 text-align-right"}>
         <div className="d-flex w-100 justify-content-between mb-3 pt-3 ">
-          <div className="heading mb-2">
-            {title}
-          </div>
+          <div className="heading mb-2">{title}</div>
           <div className="title mb-2">
             <Button
               size={"xs"}
@@ -26,7 +24,6 @@ const TabMethodPanel = ({ items, address, type, title }) => {
             />
           </div>
         </div>
-
       </div>
       {items.length > 0 ? (
         items.map((item) => (
@@ -36,7 +33,7 @@ const TabMethodPanel = ({ items, address, type, title }) => {
             key={item.id}
             className={"mb-3"}
           >
-            {item.type !== "view" && item.inputs.length > 0 ? (
+            {type === "write" || (type === "view" && item.inputs.length > 0) ? (
               <ExplorerForm
                 methodName={item.name}
                 type={type}
