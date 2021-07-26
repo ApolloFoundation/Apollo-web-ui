@@ -7,10 +7,10 @@ import React, { useState, useCallback, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Form, Formik } from "formik";
 import { useDispatch } from "react-redux";
-import SiteHeader from "../../components/site-header";
 import { ContractTableItem } from "./contract-table-item";
 import { getContracts } from "../../../actions/contracts";
 import { setBodyModalParamsAction } from "../../../modules/modals";
+import SiteHeader from "../../components/site-header";
 import CustomTable from "../../components/tables/table";
 import CustomFormSelect from "../../components/form-components/custom-form-select";
 import SearchField from "../../components/form-components/search-field";
@@ -28,7 +28,7 @@ export default function SmartContracts() {
   const [searchQuery, setSearchQuery] = useState(null);
   const [pagination, setPagination] = useState({
     page: 1,
-    firstIndex: 0,
+    firstIndex: 0,  
     lastIndex: 15,
   });
 
@@ -60,7 +60,6 @@ export default function SmartContracts() {
   };
 
   const prevPaginate = () => onPaginate(pagination.page - 1);
-
   const nextPaginate = () => onPaginate(pagination.page + 1);
 
   const handleSendMessage = () => {
@@ -150,14 +149,6 @@ export default function SmartContracts() {
               },
               {
                 name: "Name",
-                alignRight: false,
-              },
-              {
-                name: "Args",
-                alignRight: false,
-              },
-              {
-                name: "Fuels limit/price",
                 alignRight: false,
               },
               {
