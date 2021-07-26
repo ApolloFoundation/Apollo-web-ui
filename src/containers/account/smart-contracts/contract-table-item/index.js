@@ -57,7 +57,7 @@ export const ContractTableItem = ({
         (ac, { ["name"]: x, ...rest }) => ((ac[x] = rest.value), ac),
         {}
       );
-      dispatch(setBodyModalParamsAction("SMC_BAY", { address, smcInfo }));
+      dispatch(setBodyModalParamsAction("SMC_BUY", { address, smcInfo }));
     }
   };
 
@@ -80,7 +80,7 @@ export const ContractTableItem = ({
       <td>{status}</td>
       <td className="align-right">
         <div className="btn-box inline">
-          {isStatusAPL20 ? (
+          {isStatusAPL20 && (
             <button
               type={"button"}
               onClick={handleByMethod}
@@ -88,7 +88,7 @@ export const ContractTableItem = ({
             >
               Buy
             </button>
-          ) : null}
+          )}
           <button
             type={"button"}
             onClick={handleSendMessage}

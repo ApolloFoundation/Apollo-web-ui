@@ -56,7 +56,7 @@ import SellCurrency from './currencies/confirm-sell-request';
 //Smart Contracts
 import MessageExecution from './smart-contracts';
 import SmartContractsInfo from './smart-contract-info';
-import SmartContractsBay from './smart-contracts-bay';
+import SmartContractsBuy from './smart-contracts-buy';
 // Voting system
 import CreatePoll from './voting-system/create-poll/';
 import CastVote from './voting-system/cast-vote/';
@@ -235,7 +235,7 @@ class ModalWindow extends React.Component {
                     {/* Smart Contracts */}
                     {this.props.modalType === 'SMC_CREATE'                  && <MessageExecution          closeModal={this.closeModal} nameModal={"SMC_CREATE"}/>}
                     {this.props.modalType === 'SMC_INFO'                    && <SmartContractsInfo        closeModal={this.closeModal} nameModal={'SMC_INFO'}/>}
-                    {this.props.modalType === 'SMC_BAY'                     && <SmartContractsBay         closeModal={this.closeModal} nameModal={'SMC_BAY'}/>}
+                    {this.props.modalType === 'SMC_BUY'                     && <SmartContractsBuy         closeModal={this.closeModal} nameModal={'SMC_BUY'}/>}
 
 
                     {/* Voting */}

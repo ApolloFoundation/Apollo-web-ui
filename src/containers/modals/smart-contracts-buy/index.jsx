@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setBodyModalParamsAction } from "../../../modules/modals";
 import { validationForm } from "./form/form-validation";
 import ModalBody from "../../components/modals/modal-body1";
-import MessageExecutionForm from "./form";
+import ByForm from "./form";
 
 export default function ({ closeModal }) {
   const dispatch = useDispatch();
@@ -21,12 +21,12 @@ export default function ({ closeModal }) {
     setFuelSwitcher(!fuelSwitcher);
   };
 
-  const handleChangeAmount = (values, setFieldValue) => {
-    const convertedValue = (values * 100000000) / smcInfo.rate;
+  const handleChangeAmount = (setFieldValue) => (value) => {
+    const convertedValue = (value * 100000000) / smcInfo.rate;
     setFieldValue("token", convertedValue);
   };
 
-  const formSubmit = async (values) => {
+  const formSubmit = (values) => {
     const isValidForm = validationForm(values);
 
     if (!isValidForm) {
@@ -40,7 +40,7 @@ export default function ({ closeModal }) {
       modalTitle={`Buy token ${smcInfo?.name}`}
       closeModal={closeModal}
       isDisableSecretPhrase={true}
-      handleFormSubmit={(values) => formSubmit(values)}
+      handleFormSubmit={formSubmit}
       submitButtonName="Execute"
       initialValues={{
         name: "buy",
@@ -53,7 +53,7 @@ export default function ({ closeModal }) {
         params: "",
       }}
     >
-      <MessageExecutionForm
+      <ByForm
         onChangeSwither={handleChanegeFuelSwitcher}
         onChangeAmount={handleChangeAmount}
         switcher={fuelSwitcher}

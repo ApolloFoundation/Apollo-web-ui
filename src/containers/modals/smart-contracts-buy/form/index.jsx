@@ -5,7 +5,7 @@ import NumericInput from "../../../components/form-components/numeric-input1";
 import AccountRSForm from "../../../components/form-components/account-rs1";
 import CheckboxFormInput from "../../../components/check-button-input";
 
-const MessageExecutionForm = ({
+const ByForm = ({
   switcher,
   ticker,
   onChangeSwither,
@@ -37,7 +37,7 @@ const MessageExecutionForm = ({
               type="float"
               counterLabel={ticker}
               defaultValue={0}
-              onChange={(value) => onChangeAmount(value, setFieldValue)}
+              onChange={onChangeAmount(setFieldValue)}
             />
           </div>
           <div className="col-auto">
@@ -86,4 +86,4 @@ const MessageExecutionForm = ({
   );
 };
 
-export default MessageExecutionForm;
+export default ByForm;
