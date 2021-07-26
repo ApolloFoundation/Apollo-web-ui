@@ -46,6 +46,7 @@ export default function ({ closeModal }) {
   }
 
   const formSubmit = async (values) => {
+    console.log(values)
     delete values.feeATM;
     delete values.source;
 
