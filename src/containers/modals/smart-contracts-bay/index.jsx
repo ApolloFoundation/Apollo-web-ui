@@ -43,7 +43,7 @@ export default function ({ closeModal }) {
       handleFormSubmit={(values) => formSubmit(values)}
       submitButtonName="Execute"
       initialValues={{
-        name: "bay()",
+        name: "buy",
         sender,
         address,
         value: 0,
