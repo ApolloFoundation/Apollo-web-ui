@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import Collapsible from "../../../components/collapsible";
-import Button from "../../../components/button";
-import ExplorerForm from "./form";
+import Collapsible from "../../../../components/collapsible";
+import Button from "../../../../components/button";
+import ExplorerForm from "../form";
 
-const TabMethodPanel = ({ items, address, type, title }) => {
+const PanelMethod = ({ items, address, type, title }) => {
   const [expanded, setExpanded] = useState(false);
 
   const handleExpandAll = () => {
@@ -55,4 +55,4 @@ const TabMethodPanel = ({ items, address, type, title }) => {
   );
 };
 
-export default TabMethodPanel;
+export default PanelMethod;
