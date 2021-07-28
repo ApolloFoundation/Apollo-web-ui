@@ -6,27 +6,29 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { getSmcSpecification } from "../../../../actions/contracts";
 import { setBodyModalParamsAction } from "../../../../modules/modals";
+import {
+  getSmcSpecification,
+  getSmcSourceInfo,
+} from "../../../../actions/contracts";
 import SiteHeader from "../../../components/site-header";
 import TabulationBody from "../../../components/tabulator/tabuator-body";
 import TabContaier from "../../../components/tabulator/tab-container";
-import PanelOverview from "./panel-overview";
-import TabMethodPanel from "./tab-panel-method";
+import PanelMethod from "./panels/panel-method";
+import PanelOverview from "./panels/panel-overview";
+import PanelSource from "./panels/panel-source";
 
 const ExplorerContracts = (props) => {
   const dispatch = useDispatch();
   const { id } = props.match.params;
 
-  const handleSendMessage = () => {
-    dispatch(setBodyModalParamsAction("SMC_CREATE", null));
-  };
-
   const [specificationsList, setSpecificationsList] = useState({});
   const [overviewInfo, setOverviewInfo] = useState([]);
+  const [sourceInfo, setSourceInfo] = useState({});
 
   useEffect(() => {
     getContractSpecification(id);
+    getSourceSpecification(id);
   }, [id]);
 
   const getContractSpecification = useCallback(
@@ -53,6 +55,21 @@ const ExplorerContracts = (props) => {
     },
     [dispatch]
   );
+
+  const getSourceSpecification = useCallback(
+    async (id) => {
+      const source = await dispatch(getSmcSourceInfo(id));
+      if (source) {
+        setSourceInfo(source.contracts[0]);
+      }
+    },
+    [dispatch]
+  );
+
+  const handleSendMessage = () => {
+    dispatch(setBodyModalParamsAction("SMC_CREATE", null));
+  };
+
   return (
     <div className="page-content">
       <SiteHeader pageTitle={"Smart Contracts"}>
@@ -82,8 +99,14 @@ const ExplorerContracts = (props) => {
               <div className="w-100 card card-light justify-content-start h-100 p-3 form-tabulator active">
                 <div className="form-group-app">
                   <TabulationBody>
-                    <TabContaier sectionName={"Read smart contract"}>
-                      <TabMethodPanel
+                    <TabContaier sectionName={"Code"}>
+                      <PanelSource
+                        title={"Read Contract Information"}
+                        source={sourceInfo}
+                      />
+                    </TabContaier>
+                    <TabContaier sectionName={"Read contract"}>
+                      <PanelMethod
                         title={"Read Information"}
                         items={specificationsList.readList || []}
                         type={"view"}
@@ -91,8 +114,8 @@ const ExplorerContracts = (props) => {
                       />
                     </TabContaier>
                     <TabContaier sectionName={"Write contract"}>
-                      <TabMethodPanel
-                        title={"Write Contract Information"}
+                      <PanelMethod
+                        title={"Write Information"}
                         items={specificationsList.writeList || []}
                         type={"write"}
                         address={id}
