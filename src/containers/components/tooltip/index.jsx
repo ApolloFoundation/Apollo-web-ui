@@ -22,7 +22,7 @@ export const Tooltip = ({ icon = Icon, children, className }) => {
     tooltip.current.style.left = `${left}px`;
     tooltip.current.style.top = `${top}px`;
     tooltip.current.style.visibility = 'visible';
-    tooltip.current.style.zIndex = 1;
+    tooltip.current.style.zIndex = 2;
   },[tooltip.current]);
 
   const handleMouseOut = useCallback(() => {

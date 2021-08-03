@@ -37,7 +37,7 @@ export default function ActivePolls() {
   }, [dashboardActivePolls]);
 
   return (
-    <div className="card card-light card-h-255">
+    <div className="card card-light card-h-255 dashboard-tooltip-card">
       <div className="card-title">
         <div className="title">Active Poll</div>
       </div>

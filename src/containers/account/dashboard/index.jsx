@@ -72,7 +72,7 @@ export default function Dashboard(props) {
                       href="https://www.knox.exchange"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="card card-square card-xl"
+                      className="card card-square card-xl dashboard-tooltip-card"
                       style={{ backgroundImage: `url(${InfoBanner})` }}
                     />
                   </div>
