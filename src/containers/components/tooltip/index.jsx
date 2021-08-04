@@ -7,19 +7,15 @@ export const Tooltip = ({ icon = Icon, children, className }) => {
 
   const tooltip = useRef(null);
 
-  const handleHover = useCallback(({ target }) => {
-    const coords = target.getBoundingClientRect();
-
-    let left = coords.left + (target.offsetWidth - tooltip.current.offsetWidth) / 2;
-    if (left < 0) left = 0;
-
-    let top = coords.top - tooltip.current.offsetHeight - 5;
-
-    if (top < 70) {
-      // 70 for the table case because if less we will not see a tooltip content
-      top = coords.top + tooltip.current.offsetHeight -5;
-    }
-
+  const handleHover = useCallback(() => {
+    // const coords = target.getBoundingClientRect();
+    // let left = coords.left + (target.offsetWidth - tooltip.current.offsetWidth) / 2;
+    // if (left < 0) left = 0;
+    // let top = coords.top - tooltip.current.offsetHeight - 5;
+    // if (top < 70) {
+    //   // 70 for the table case because if less we will not see a tooltip content
+    //   top = coords.top + tooltip.current.offsetHeight -5;
+    // }
     // tooltip.current.style.left = `${left}px`;
     // tooltip.current.style.top = `${top}px`;
     tooltip.current.style.visibility = 'visible';
