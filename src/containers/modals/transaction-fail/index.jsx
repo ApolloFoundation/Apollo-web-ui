@@ -4,7 +4,6 @@ import ModalBody from "../../components/modals/modal-body";
 
 export const TransactionFail = ({ closeModal }) => {
   const transaction = useSelector(state =>  state.modals.modalData)
-  console.log("🚀 ~ file: index.jsx ~ line 7 ~ TransactionFail ~ transaction", transaction)
   return (
     <ModalBody
       modalTitle={`Transaction fail info`}
