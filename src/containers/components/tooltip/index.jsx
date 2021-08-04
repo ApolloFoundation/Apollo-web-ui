@@ -8,7 +8,8 @@ export const Tooltip = ({ icon = Icon, children, className }) => {
   const tooltip = useRef(null);
 
   const handleHover = useCallback(({ target }) => {
-    const coords = target.getBoundingClientRect()
+    const coords = target.getBoundingClientRect();
+
     let left = coords.left + (target.offsetWidth - tooltip.current.offsetWidth) / 2;
     if (left < 0) left = 0;
 
@@ -19,15 +20,15 @@ export const Tooltip = ({ icon = Icon, children, className }) => {
       top = coords.top + tooltip.current.offsetHeight -5;
     }
 
-    tooltip.current.style.left = `${left}px`;
-    tooltip.current.style.top = `${top}px`;
+    // tooltip.current.style.left = `${left}px`;
+    // tooltip.current.style.top = `${top}px`;
     tooltip.current.style.visibility = 'visible';
     tooltip.current.style.zIndex = 2;
   },[tooltip.current]);
 
   const handleMouseOut = useCallback(() => {
-    tooltip.current.style.left = '';
-    tooltip.current.style.top = '';
+    // tooltip.current.style.left = '';
+    // tooltip.current.style.top = '';
     tooltip.current.style.visibility = 'hidden';
     tooltip.current.style.zIndex = -1;
   }, [tooltip.current]);
@@ -37,8 +38,10 @@ export const Tooltip = ({ icon = Icon, children, className }) => {
       <figure className={styles.tooltipIconWrapper}>
         <img className={styles.tooltipIcon} src={icon} alt='tooltip' />
       </figure>
-      <div ref={tooltip} className={classNames(styles.tooltipContent, className)}>
-        {children}
+      <div className={styles.tooltipContentWrapper}>
+        <div ref={tooltip} className={classNames(styles.tooltipContent, className)}>
+          {children}
+        </div>
       </div>
     </div>
   )

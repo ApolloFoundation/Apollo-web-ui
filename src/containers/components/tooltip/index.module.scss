@@ -12,6 +12,12 @@
   cursor: pointer;
 }
 
+.tooltipContentWrapper {
+  position: absolute;
+  bottom: 250%;
+  left: -200%;
+}
+
 .tooltipContent {
   position: fixed;
   padding: 12px;
