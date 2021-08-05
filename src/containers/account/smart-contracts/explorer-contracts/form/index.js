@@ -36,16 +36,14 @@ const ExplorerForm = ({ fields, address, methodName: name, type }) => {
   };
 
   const onSubmitView = async (values) => {
-    const fieldValues = [];
-
     const regAPL = /^APL/;
 
-    Object.keys(values).map((key) => {
+    const fieldValues = Object.keys(values).map((key) => {
       if (regAPL.test(values[key])) {
         const parseRStoHex = processAccountRStoHex(values[key], true);
-        return fieldValues.push(`'${parseRStoHex}'`);
+        return `'${parseRStoHex}'`;
       }
-      return fieldValues.push(values[key]);
+      return values[key];
     });
 
     const data = {
@@ -117,22 +115,22 @@ const ExplorerForm = ({ fields, address, methodName: name, type }) => {
       )}
       {readMethods.length > 0
         ? readMethods.map((item) => (
-            <div key={uuidv4()} className="mb-2">
-              {item.method && <div className="mb-1">Method: {item.method}</div>}
+          <div key={uuidv4()} className="mb-2">
+            {item.method && <div className="mb-1">Method: {item.method}</div>}
 
-              {item.signature && item.output && (
-                <div className="mb-1">
-                  Signature: {item.signature} {"->"}{" "}
-                  <span className="text-info">{item.output[0]}</span>
-                </div>
-              )}
-              {item.errorDescription && (
-                <div className="mb-1 text-danger">
-                  Error description: {item.errorDescription}
-                </div>
-              )}
-            </div>
-          ))
+            {item.signature && item.output && (
+              <div className="mb-1">
+                Signature: {item.signature} {"-> "}
+                <span className="text-info">{item.output[0]}</span>
+              </div>
+            )}
+            {item.errorDescription && (
+              <div className="mb-1 text-danger">
+                Error description: {item.errorDescription}
+              </div>
+            )}
+          </div>
+        ))
         : null}
     </div>
   );

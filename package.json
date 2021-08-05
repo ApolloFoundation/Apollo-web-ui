@@ -31,7 +31,7 @@
     "query-string": "6.12.1",
     "react": "16.13.1",
     "react-accessible-accordion": "3.0.1",
-    "react-ace": "^9.4.0",
+    "react-ace": "9.4.0",
     "react-circular-progressbar": "2.0.3",
     "react-copy-to-clipboard": "5.0.2",
     "react-custom-scrollbars": "4.2.1",

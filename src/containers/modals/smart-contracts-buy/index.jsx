@@ -39,9 +39,9 @@ export default function ({ closeModal }) {
     <ModalBody
       modalTitle={`Buy token ${smcInfo?.name}`}
       closeModal={closeModal}
-      isDisableSecretPhrase={true}
       handleFormSubmit={formSubmit}
       submitButtonName="Execute"
+      isDisableSecretPhrase
       initialValues={{
         name: "buy",
         sender,

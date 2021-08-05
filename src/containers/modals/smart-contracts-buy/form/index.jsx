@@ -19,13 +19,13 @@ const ByForm = ({
         name="sender"
         placeholder="Currency Sender"
         type="text"
-        disabled={true}
+        disabled
       />
       <AccountRSForm
         name="address"
         label="Contract Address"
         placeholder="Contract Address"
-        disabled={true}
+        disabled
       />
 
       <div className="w-100">
@@ -49,7 +49,7 @@ const ByForm = ({
               type="float"
               name="token"
               defaultValue={0}
-              disabled={true}
+              disabled
             />
           </div>
         </div>

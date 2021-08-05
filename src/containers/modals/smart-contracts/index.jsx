@@ -23,8 +23,8 @@ export default function ({ closeModal }) {
     ticker,
   } = useSelector((state) => state.account);
 
-  const isEmptyData = modalData && modalData.hasOwnProperty("address");
-  const isExplorerData = modalData && modalData.hasOwnProperty("params");
+  const isEmptyData = modalData?.address
+  const isExplorerData = modalData?.params
 
   let initialValues = {
     name: "",
@@ -45,9 +45,7 @@ export default function ({ closeModal }) {
     };
   }
 
-  const formSubmit = async (values) => {
-    delete values.feeATM;
-    delete values.source;
+  const formSubmit = async ({ feeATM, source, ...values }) => {
 
     const isValidForm = validationForm(values);
 

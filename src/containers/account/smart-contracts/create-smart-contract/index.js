@@ -46,7 +46,7 @@ export default function SmartContracts() {
   const [isValidated, setIsValidated] = useState(false);
   const [error, setError] = useState(null);
   const [fileData, setFileData] = useState(null);
-  const [isPending, setIsPending] = useState({
+  const [pending, setPending] = useState({
     test: false,
     publish: false,
   });
@@ -60,9 +60,9 @@ export default function SmartContracts() {
         value: Number(values.value) * Math.pow(10, 8),
         params: values.params.split(","),
       };
-      setIsPending({ ...isPending, test: true });
+      setPending((state) => ({ ...state, test: true }));
       const testContract = await dispatch(exportTestContract(data));
-      setIsPending({ ...isPending, test: false });
+      setPending((state) => ({ ...state, test: false }));
       if (testContract.errorCode) {
         setError(testContract);
       } else {
@@ -75,13 +75,13 @@ export default function SmartContracts() {
 
   const handlePublickFormSubmit = async (value, { resetForm }) => {
     if (!isPublish) {
-      setIsPending({ ...isPending, publish: true });
+      setPending((state) => ({ ...state, publish: true }));
       const publishContract = await dispatch(
         exportContractSubmit(formContarctData)
       );
       if (publishContract.errorCode) {
         setError(publishContract);
-        setIsPending({ ...isPending, publish: false });
+        setPending((state) => ({ ...state, publish: false }));
       } else {
         const boadContarct = await dispatch(
           exportConfirmationOnBoard({ tx: publishContract.tx })
@@ -97,13 +97,13 @@ export default function SmartContracts() {
           );
         }
       }
-      setIsPending({ ...isPending, publish: false });
+      setPending((state) => ({ ...state, publish: false }));
     } else {
       resetForm({});
       setError(null);
       setFormContractData(null);
-      setIsValidated(false)
-      setIsPublish(false)
+      setIsValidated(false);
+      setIsPublish(false);
     }
   };
 
@@ -251,7 +251,7 @@ export default function SmartContracts() {
                               color="green"
                               size="lg"
                               disabled={!isValidated}
-                              isLoading={isPending.publish}
+                              isLoading={pending.publish}
                               type="submit"
                             />
                           </div>
@@ -262,7 +262,7 @@ export default function SmartContracts() {
                               color="green"
                               size="lg"
                               disabled={isValidated}
-                              isLoading={isPending.test}
+                              isLoading={pending.test}
                               onClick={() => handleValidationFormSubmit(values)}
                             />
                           </div>

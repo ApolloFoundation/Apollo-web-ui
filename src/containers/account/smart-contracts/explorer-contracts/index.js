@@ -37,7 +37,7 @@ const ExplorerContracts = (props) => {
       if (specifications) {
         const { members, overview } = specifications;
 
-        const mambersList = members.reduce(
+        const membersList = members.reduce(
           (acc, item) => {
             if (item.stateMutability === "view") {
               acc.readList.push(item);
@@ -49,7 +49,7 @@ const ExplorerContracts = (props) => {
           { readList: [], writeList: [] }
         );
 
-        setSpecificationsList(mambersList);
+        setSpecificationsList(membersList);
         setOverviewInfo(overview);
       }
     },
@@ -63,7 +63,7 @@ const ExplorerContracts = (props) => {
         setSourceInfo(source.contracts[0]);
       }
     },
-    [dispatch]
+    [dispatch, setSourceInfo]
   );
 
   const handleSendMessage = () => {

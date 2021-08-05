@@ -1,6 +1,5 @@
 import React from "react";
 import Dropzone from "react-dropzone";
-import $ from "jquery";
 import UploadImg from "../../../assets/upload-icon.png";
 import DownloadImg from "../../../assets/down-arrow.png";
 import { NotificationManager } from "react-notifications";
@@ -18,7 +17,6 @@ const InputUpload = ({
   isReset,
 }) => {
   const onDropAccepted = (files) => {
-    $(`#${id}`).prop("files", files);
     if (handleFileAccepted) handleFileAccepted(files);
   };
 
@@ -69,7 +67,7 @@ const InputUpload = ({
               ? acceptedFiles.map((acceptedFile) => acceptedFile.name)
               : "Click or drag file to upload"}
           </p>
-          {isReset && file ? (
+          {isReset && file && (
             <button
               type="button"
               className="btn btn-sm ml-2 d-flex"
@@ -78,11 +76,9 @@ const InputUpload = ({
             >
               <i class="zmdi zmdi-close"></i>
             </button>
-          ) : (
-            ""
           )}
           <img src={UploadImg} alt={""} />
-          {isDownload && file ? (
+          {isDownload && file && (
             <button
               type="button"
               className="btn btn-sm ml-2 d-flex"
@@ -91,8 +87,6 @@ const InputUpload = ({
             >
               <img src={DownloadImg} alt={""} />
             </button>
-          ) : (
-            ""
           )}
         </div>
       )}
