@@ -97,7 +97,7 @@ export default function SmartContracts() {
           );
         }
       }
-      pending((state) => ({ ...state, publish: false }));
+      setPending((state) => ({ ...state, publish: false }));
     } else {
       resetForm({});
       setError(null);
