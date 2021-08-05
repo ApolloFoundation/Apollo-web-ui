@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import classNames from "classnames";
 import "./collapsible.scss";
 
-const Collapsible = ({ title, expand , children, className }) => {
+const Collapsible = ({ title, expand, children, className }) => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -10,16 +10,11 @@ const Collapsible = ({ title, expand , children, className }) => {
   }, [expand]);
 
   const handleToggleCollapsible = () => {
-    setOpen(!open)
-  }
+    setOpen(!open);
+  };
 
   return (
-    <div
-      className={classNames({
-        collapsible: true,
-        [`${className}`]: className,
-      })}
-    >
+    <div className={classNames("collapsible", className)}>
       <div className="collapsible-heading" onClick={handleToggleCollapsible}>
         <div className="collapsible-icon">
           <i
@@ -32,12 +27,7 @@ const Collapsible = ({ title, expand , children, className }) => {
         </div>
         <div className="collapsible-text">{title}</div>
       </div>
-      {open ?
-        <div className="collapsible-content">
-          {children}
-        </div> : ''
-      }
-
+      {open && <div className="collapsible-content">{children}</div>}
     </div>
   );
 };

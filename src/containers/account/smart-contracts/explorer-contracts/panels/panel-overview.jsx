@@ -1,4 +1,5 @@
 import React from "react";
+import { v4 as uuidv4 } from 'uuid';
 
 const PanelOverview = ({ overview }) => {
   return (
@@ -8,7 +9,7 @@ const PanelOverview = ({ overview }) => {
         <table className="w-100">
           <tbody>
             {overview.map((item) => (
-              <tr>
+              <tr key={uuidv4()}>
                 <td>{item.name}</td>
                 <td>
                   {!item.type === "url" ? (

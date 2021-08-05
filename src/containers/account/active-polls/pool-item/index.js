@@ -6,6 +6,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
+import classNames from "classnames";
 import { Link } from "react-router-dom";
 import { setBodyModalParamsAction } from "../../../../modules/modals";
 import { formatTimestamp } from "../../../../helpers/util/time";
@@ -67,7 +68,10 @@ const PoolItem = (props) => {
             onClick={() =>
               props.setBodyModalParamsAction("CAST_VOTE", props.poll)
             }
-            className={`btn btn-default ${checkAction ? "disabled" : ""}`}
+            className={classNames({
+              "btn btn-default": true,
+              disabled: checkAction,
+            })}
           >
             Vote
           </button>

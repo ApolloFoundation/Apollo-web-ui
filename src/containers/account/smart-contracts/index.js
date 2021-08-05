@@ -28,7 +28,7 @@ export default function SmartContracts() {
   const [searchQuery, setSearchQuery] = useState(null);
   const [pagination, setPagination] = useState({
     page: 1,
-    firstIndex: 0,  
+    firstIndex: 0,
     lastIndex: 15,
   });
 
@@ -67,11 +67,11 @@ export default function SmartContracts() {
   };
 
   const handleSearch = (values) => {
-    setSearchQuery({ ...searchQuery, ...values });
+    setSearchQuery((state) => ({ ...state, ...values }));
   };
 
   const handleChangeStatus = (value) => {
-    handleSearch({ ...searchQuery, status: value });
+    setSearchQuery((state) => ({ ...state, status: value }));
   };
 
   return (
