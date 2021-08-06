@@ -29,7 +29,7 @@ export default function ({ closeModal }) {
     setFieldValue("token", convertedValue);
   };
 
-  const formSubmit = ({ token, advance, ...values }) => {
+  const formSubmit = ({ token, advance,feeATM, ...values }) => {
     const isValidForm = validationForm(values);
 
     if (!isValidForm) {
@@ -43,7 +43,6 @@ export default function ({ closeModal }) {
       closeModal={closeModal}
       handleFormSubmit={formSubmit}
       submitButtonName="Execute"
-      isFee
       isDisableSecretPhrase
       initialValues={{
         address: modalData?.address,
