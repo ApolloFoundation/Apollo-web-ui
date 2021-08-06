@@ -23,8 +23,8 @@ export default function ({ closeModal }) {
     ticker,
   } = useSelector((state) => state.account);
 
-  const isEmptyData = modalData && modalData.hasOwnProperty("address");
-  const isExplorerData = modalData && modalData.hasOwnProperty("params");
+  const isEmptyData = modalData?.hasOwnProperty("address");
+  const isExplorerData  = modalData?.hasOwnProperty("params");
 
   let initialValues = {
     name: "",
