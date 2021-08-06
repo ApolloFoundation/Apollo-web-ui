@@ -89,14 +89,6 @@ const SmartContracts = () => {
               alignRight: false,
             },
             {
-              name: "Args",
-              alignRight: false,
-            },
-            {
-              name: "Fuels limit/price",
-              alignRight: false,
-            },
-            {
               name: "Transaction id",
               alignRight: false,
             },
