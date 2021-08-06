@@ -43,7 +43,7 @@ export default function ({ closeModal }) {
       closeModal={closeModal}
       handleFormSubmit={formSubmit}
       submitButtonName="Execute"
-      isFee
+      isFee={false}
       isDisableSecretPhrase
       initialValues={{
         address: modalData?.address,
