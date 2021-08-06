@@ -1,6 +1,7 @@
 import React from "react";
 import Tab from "./tab";
 import classNames from "classnames";
+import { v4 as uuidv4 } from "uuid";
 
 class TabulationBody extends React.Component {
   state = { activeTab: 0 };
@@ -30,6 +31,7 @@ class TabulationBody extends React.Component {
               <>
                 {child && (
                   <Tab
+                    key={uuidv4()}
                     handleTab={this.handleTab}
                     sectionName={child.props.sectionName}
                     activeTab={this.state.activeTab}
@@ -44,6 +46,7 @@ class TabulationBody extends React.Component {
           {/** Render tabulator body */}
           {React.Children.map(children, (child, index) => (
             <div
+              key={uuidv4()}
               className={classNames({
                 "tab-body": true,
                 active: this.state.activeTab === index,
