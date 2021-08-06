@@ -81,6 +81,7 @@ const ByForm = ({
         type="password"
         placeholder="Secret Phrase"
         name="secret"
+        disabled
       />
     </>
   );
