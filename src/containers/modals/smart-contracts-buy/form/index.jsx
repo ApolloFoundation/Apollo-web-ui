@@ -2,7 +2,6 @@ import React from "react";
 import { useFormikContext } from "formik";
 import TextualInputComponent from "../../../components/form-components/textual-input1";
 import NumericInput from "../../../components/form-components/numeric-input1";
-import AccountRSForm from "../../../components/form-components/account-rs1";
 import CheckboxFormInput from "../../../components/check-button-input";
 
 const ByForm = ({
@@ -21,7 +20,7 @@ const ByForm = ({
         type="text"
         disabled
       />
-      <AccountRSForm
+      <TextualInputComponent
         name="address"
         label="Contract Address"
         placeholder="Contract Address"

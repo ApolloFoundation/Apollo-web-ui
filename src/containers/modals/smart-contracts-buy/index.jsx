@@ -5,7 +5,11 @@
 
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setBodyModalParamsAction } from "../../../modules/modals";
+import {
+  exportTestExperationMessage,
+  exportExperationMessageSubmit,
+  exportConfirmationOnBoard,
+} from "../../../../src/actions/contracts";
 import { validationForm } from "./form/form-validation";
 import ModalBody from "../../components/modals/modal-body1";
 import ByForm from "./form";
@@ -29,11 +33,29 @@ export default function ({ closeModal }) {
     setFieldValue("token", convertedValue);
   };
 
-  const formSubmit = ({ token, advance,feeATM, ...values }) => {
+  const formSubmit = async ({ token, advance, feeATM, ...values }) => {
     const isValidForm = validationForm(values);
 
     if (!isValidForm) {
-      dispatch(setBodyModalParamsAction("SMC_CREATE", values));
+      let formData = {
+        ...values,
+        value: Number(values.value) * Math.pow(10, 8),
+        params: values.params.split(","),
+      };
+      const testMessage = await dispatch(exportTestExperationMessage(formData));
+      if (!testMessage.errorCode) {
+        const publishMessage = await dispatch(
+          exportExperationMessageSubmit(formData)
+        );
+        if (!publishMessage.errorCode) {
+          const boardMessage = await dispatch(
+            exportConfirmationOnBoard({ tx: publishMessage.tx })
+          );
+          if (!boardMessage.errorCode) {
+            closeModal();
+          }
+        }
+      }
     }
   };
 
