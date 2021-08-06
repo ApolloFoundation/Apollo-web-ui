@@ -83,7 +83,7 @@ export default function ({ closeModal }) {
       handleFormSubmit={(values) => formSubmit(values)}
       submitButtonName="Execute"
       idGroup="issue-currency-modal-"
-      isFee
+      isFee={false}
       isDisableSecretPhrase
       initialValues={initialValues}
     >
