@@ -98,7 +98,7 @@ const ExplorerContracts = (props) => {
             <div className="col-md-12 mb-3 h-100 w-100 h-auto p-3">
               <div className="w-100 card card-light justify-content-start h-100 p-3 form-tabulator active">
                 <div className="form-group-app">
-                  <TabulationBody>
+                  <TabulationBody active={1}>
                     <TabContaier sectionName={"Code"}>
                       <PanelSource
                         title={"Read Contract Information"}

@@ -84,7 +84,7 @@ export default function ({ closeModal }) {
       submitButtonName="Execute"
       idGroup="issue-currency-modal-"
       isFee={false}
-      isDisableSecretPhrase={true}
+      isDisableSecretPhrase
       initialValues={initialValues}
     >
       <MessageExecutionForm
