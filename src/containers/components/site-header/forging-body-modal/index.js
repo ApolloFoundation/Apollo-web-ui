@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import classNames from 'classnames';
 import {connect} from 'react-redux';
+import {NotificationManager} from "react-notifications";
 import {setBodyModalParamsAction} from '../../../../modules/modals';
 import {setForging, getForging} from '../../../../actions/login';
-import {NotificationManager} from "react-notifications";
-
+import { readFromLocalStorage } from '../../../../actions/localStorage';
 
 class ForgingBodyModalWindow extends Component {
 
@@ -22,7 +22,7 @@ class ForgingBodyModalWindow extends Component {
             NotificationManager.error('Your effective balance must be greater than 1000 APL to forge.', 'Error', 5000);
             return;
         }
-        const passPhrase = JSON.parse(localStorage.getItem('secretPhrase')) || this.props.secretPhrase;
+        const passPhrase = JSON.parse(readFromLocalStorage('secretPhrase')) || this.props.secretPhrase;
         if (!passPhrase || this.props.is2FA) {
             this.props.setBodyModalParamsAction('CONFIRM_FORGING', this.setForgingData(action.requestType))
         } else {

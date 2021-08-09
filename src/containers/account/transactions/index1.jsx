@@ -252,6 +252,8 @@ export default function Transactions() {
         {AboveTabeComponentItem(<i className="zmdi zmdi-cloud" />, 6, type === 6 && !subtype)}
         {AboveTabeComponentItem(<i className="zmdi zmdi-shuffle" />, 7, type === 7 && !subtype)}
         {AboveTabeComponentItem(<i className="zmdi zmdi-help" />, 8, type === 8 && !subtype)}
+        {AboveTabeComponentItem(<i className="zmdi zmdi-help" />, 9, type === 9 && !subtype)}
+
         <div
           className={classNames({
             btn: true,

@@ -57,9 +57,9 @@ export default function ModalBody(props) {
             <div className="form-group-app">
               <RightBar>
                 {closeModal && !isPour && (
-                  <span onClick={closeModal} className="exit">
+                  <button onClick={closeModal} className="exit">
                     <i className="zmdi zmdi-close" />
-                  </span>
+                  </button>
                 )}
                 {modalTitle && (
                   <div className="form-title">

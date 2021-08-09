@@ -17,6 +17,7 @@ import submitForm from '../../../helpers/forms/forms'
 import crypto from '../../../helpers/crypto/crypto';
 import InfoBox from '../../components/info-box';
 import store from '../../../store'
+import { writeToLocalStorage } from '../../../actions/localStorage';
 
 class ConfirmForging extends React.Component {
 
@@ -48,7 +49,7 @@ class ConfirmForging extends React.Component {
                 }
 
                 if (params.isSavePassphrase) {
-                    localStorage.setItem('secretPhrase', JSON.stringify(passphrase.toString()));
+                    writeToLocalStorage('secretPhrase', passphrase.toString());
                 }
 
                 this.props.setAccountPassphrase(passphrase);

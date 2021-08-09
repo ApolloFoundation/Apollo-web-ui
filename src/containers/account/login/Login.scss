@@ -144,11 +144,11 @@
 
           .dark-card {
             border-radius: 5px;
-            background-color: rgba(37,42,49,0.7);
-            border: 1px solid rgba(37,244,89,0.5);
+            background-color: rgba(37, 42, 49, 0.7);
+            border: 1px solid rgba(37, 244, 89, 0.5);
             box-shadow: 0 10px 20px 0 rgba(0,0,0,0.26);
             padding: 12px;
-            width: 345px;
+            width: 400px;
             margin-bottom: 15px;
             position: relative;
             @media(max-width: 425px) {
@@ -251,6 +251,10 @@
               line-height: 22px;
               padding: 11px 15px;
               width: 100%;
+
+              &::placeholder {
+                color: #7E8691 !important;
+              }
             }
 
             textarea {
@@ -311,6 +315,11 @@
                 top: 0;
                 bottom: 0;
                 margin: auto;
+              }
+              &.btn-without {
+                &::after {
+                  background: none;
+                }
               }
               &.btn-sm {
                 width: auto;
@@ -461,25 +470,30 @@
             }
           }
 
+          .login-form {
+            padding: 0;
+            background: transparent;
+            border: none;
+          }
+
           .button-block {
+            position: relative;
             padding: 12px;
-            border-radius: 5px;
+            margin-bottom: 30px;
             background-color: rgba(37,42,49,0.58);
             box-shadow: 0 10px 20px 0 rgba(0,0,0,0.26);
-            margin-bottom: 30px;
             cursor: pointer;
-            position: relative;
+            border-radius: 5px;
             &:after {
               content: '';
-              background: url(../../../assets/arrow-right-black.png) center no-repeat;
-              background-size: contain;
-              height: 30px;
-              width: 20px;
               position: absolute;
-              right: 15px;
               top: 0;
-              bottom: 0;
-              margin: auto;
+              right: 25px;
+              height: 12px;
+              width: 12px;
+              transform: rotate(-45deg);
+              border-right: 2px solid #fff;
+              border-bottom: 2px solid #fff;
             }
             .title {
               color: #FFF;

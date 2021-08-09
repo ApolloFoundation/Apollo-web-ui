@@ -167,7 +167,7 @@ export const getPhasingOnlyControl = reqParams => axios.get(config.api.serverUrl
 export function exportAccount(requestParams) {
   return async () => {
     const data = requestParams;
-    if (data.passphrase) data.passphrase = await processElGamalEncryption(data.passphrase);
+    if (data.passPhrase) data.passPhrase = await processElGamalEncryption(data.passPhrase);
     else if (data.secretPhrase) data.secretPhrase = await processElGamalEncryption(data.secretPhrase);
 
     const body = Object.keys(data)

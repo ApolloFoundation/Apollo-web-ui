@@ -20,6 +20,7 @@ export default function CreateAccount(props) {
           type="password"
         />
         <Button
+          className="btn-without"
           type="submit"
           name="Create New Account"
           isLoading={isPending}

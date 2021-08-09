@@ -37,6 +37,7 @@ export default function Currencies() {
 
   const listener = useCallback(() => {
     getCurrencie({
+      page: pagination.page,
       firstIndex: pagination.firstIndex,
       lastIndex: pagination.lastIndex,
     });

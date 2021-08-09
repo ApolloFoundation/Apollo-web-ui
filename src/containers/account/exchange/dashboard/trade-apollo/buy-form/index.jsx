@@ -28,7 +28,7 @@ export default function BuyFormWrapper(props) {
 
   const setPending = useCallback((value = true) => { setIsPending(value); }, []);
 
-  const handleFormSubmit = useCallback(newValues => {
+  const handleFormSubmit = useCallback( async (newValues) => {
     if (!isPending) {
       const pairRateInfo = multiply(newValues.pairRate, ONE_GWEI);
       const offerAmountInfo = multiply(newValues.offerAmount, ONE_GWEI);
@@ -95,6 +95,7 @@ export default function BuyFormWrapper(props) {
             setPending(false);
             return;
           }
+
           const params = {
             offerType: 0, // BUY
             pairCurrency: currencyTypes[currency],

@@ -4,14 +4,16 @@ import classNamse from 'classnames';
 import { formatTimestamp } from '../../../../../helpers/util/time';
 import { formatTransactionType } from '../../../../../actions/transactions';
 import { setBodyModalParamsAction } from '../../../../../modules/modals';
+import { Tooltip } from '../../../../components/tooltip';
 import { ReactComponent as ArrowIcon } from '../../../../../assets/arrow-right-long.svg';
+import IconRed from '../../../../../assets/red-triangle.svg';
 
 export default function TransactionItem(props) {
   const dispatch = useDispatch();
   const {
     amountATM, attachment, senderRS, recipientRS,
     type, subtype, sender, confirmations, timestamp,
-    height, feeATM,
+    height, feeATM, errorMessage
   } = props;
 
   const {
@@ -63,6 +65,11 @@ export default function TransactionItem(props) {
     return dispatch(formatTimestamp(timestamp));
   }, [dispatch, timestamp]);
 
+  const handleFailModalOpen = useCallback((e) => {
+    dispatch(setBodyModalParamsAction('TRANSACTION_FAIL', props));
+    e.stopPropagation();
+  }, [dispatch, props]);
+
   return (
     <div
       className="transaction-item cursor-pointer"
@@ -96,31 +103,42 @@ export default function TransactionItem(props) {
               )}
             </div>
           </div>
-          <div
-            className={classNamse({
-              'transaction-amount': true,
-              'transaction-amount__right': true,
-              success: (account !== sender) || (isDexOrder && attachment.offerCurrency !== 0),
-              danger: (account === sender) || (isDexOrder && attachment.offerCurrency === 0),
-            })}
-          >
-            {isDexOrder
-              ? `${attachment.offerCurrency === 0 ? '-' : ''}${attachment.offerAmount / decimals}`
-              : `${account === sender ? '-' : ''}${(
-                ((amountATM === '0' && attachment.priceATM && attachment.priceATM !== '0')
-                  ? attachment.priceATM
-                  : amountATM
-                ) / decimals
-              )}`}
-            {marketplaceTypes.includes(transactionType) && (
-              <div className="transaction-confirmation fee">
-                <span className="price__lg">Price for </span>
-                <span className="price__md">Listing:</span>
-                -
-                {feeATM / decimals}
-              </div>
-            )}
-          </div>
+          {errorMessage && (
+            <div role="button" onClick={handleFailModalOpen}>
+              <Tooltip icon={IconRed}>
+                <div>
+                  Transaction fail
+                </div>
+              </Tooltip>
+            </div>
+          )}
+          {!errorMessage && (
+            <div
+              className={classNamse({
+                'transaction-amount': true,
+                'transaction-amount__right': true,
+                success: (account !== sender) || (isDexOrder && attachment.offerCurrency !== 0),
+                danger: (account === sender) || (isDexOrder && attachment.offerCurrency === 0),
+              })}
+            >
+              {isDexOrder
+                ? `${attachment.offerCurrency === 0 ? '-' : ''}${attachment.offerAmount / decimals}`
+                : `${account === sender ? '-' : ''}${(
+                  ((amountATM === '0' && attachment.priceATM && attachment.priceATM !== '0')
+                    ? attachment.priceATM
+                    : amountATM
+                  ) / decimals
+                )}`}
+              {marketplaceTypes.includes(transactionType) && (
+                <div className="transaction-confirmation fee">
+                  <span className="price__lg">Price for </span>
+                  <span className="price__md">Listing:</span>
+                  -
+                  {feeATM / decimals}
+                </div>
+              )}
+            </div>
+          )}
         </div>
         <div className="transaction-rs-wrap d-flex justify-content-between align-items-center">
           <div className={newSenderRS === 'You' ? 'transaction-you mr-2' : 'transaction-rs text-ellipsis mr-2'}>

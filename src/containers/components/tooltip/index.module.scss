@@ -1,0 +1,30 @@
+.tooltip {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+  &:hover .tooltipContent {
+    display: block;
+  }
+}
+.tooltipIconWrapper {
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.tooltipContentWrapper {
+  position: absolute;
+  bottom: 250%;
+  left: -200%;
+}
+
+.tooltipContent {
+  position: fixed;
+  padding: 12px;
+  background: #2B23FF;
+  color: #fff;
+  box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.25);
+  border-radius: 6px;
+  visibility: hidden;
+  z-index: -1;
+}

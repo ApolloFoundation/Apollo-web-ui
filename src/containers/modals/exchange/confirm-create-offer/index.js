@@ -28,10 +28,10 @@ class ConfirmCreateOffer extends React.Component {
                 this.setState({isPending: false});
                 return;
             }
-    
+
             const params = {
                 ...this.props.modalData.params,
-                passphrase
+                passphrase,
             };
             const offer = await this.props.createOffer(params);
             if (offer) {

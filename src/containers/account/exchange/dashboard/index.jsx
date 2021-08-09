@@ -37,7 +37,7 @@ export default function Exchange() {
 
   const handleGetCurrencyBalance = useCallback(async selectWallets => {
     const params = {eth: []};
-
+    
     selectWallets.eth.map(wallet => {
       params.eth.push(wallet.address);
     });

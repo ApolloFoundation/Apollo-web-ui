@@ -29,7 +29,7 @@ export default function SellFormWrapper(props) {
 
   const setPending = useCallback((value = true) => setIsPending(value), []);
 
-  const handleFormSubmit = useCallback(values => {
+  const handleFormSubmit = useCallback(async (values) => {
     if (!isPending) {
       const pairRateInfo = multiply(values.pairRate, ONE_GWEI);
       const offerAmountInfo = multiply(values.offerAmount, ONE_GWEI);
@@ -69,11 +69,12 @@ export default function SellFormWrapper(props) {
           const currentBalanceAPL = (dashboardAccoountInfo && dashboardAccoountInfo.unconfirmedBalanceATM)
             ? parseFloat(dashboardAccoountInfo.unconfirmedBalanceATM)
             : parseFloat(balanceAPL);
-          if (!balanceAPL || currentBalanceAPL === 0 || currentBalanceAPL < ((offerAmount + feeATM) / 10)) {
+          if (!currentBalanceAPL || currentBalanceAPL < ((offerAmount + feeATM) / 10)) {
             NotificationManager.error(`Not enough funds on your ${ticker} balance.`, 'Error', 5000);
             setPending(false);
             return;
           }
+
           const params = {
             offerType: 1, // SELL
             pairCurrency: currencyTypes[currency],

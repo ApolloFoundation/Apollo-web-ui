@@ -95,11 +95,11 @@ class Confirm2FA extends React.Component {
                 onSubmit={submitForm}
               >
                 <div className="form-group-app">
-                  <a onClick={() => this.props.closeModal()} className="exit">
+                  <button onClick={() => this.props.closeModal()} className="exit">
                     <i
                       className="zmdi zmdi-close"
                     />
-                  </a>
+                  </button>
 
                   <div className="form-title">
                     {this.props.modalsHistory.length > 1

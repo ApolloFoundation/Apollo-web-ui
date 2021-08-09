@@ -29,7 +29,7 @@ export default function MyCurrencytemItem(props) {
       </td>
       <td>{name}</td>
       <td className="" dangerouslySetInnerHTML={{ __html: currencyTypes }} />
-      <td className="align-right">{(unconfirmedUnits / (10 ** decimals)).toFixed(2)}</td>
+      <td className="align-right">{unconfirmedUnits / (10 ** decimals)}</td>
       <td className="align-right">
         <div className="btn-box inline">
           <Link to={`/exchange-booth/${code}`} className="btn btn-default">Exchange</Link>

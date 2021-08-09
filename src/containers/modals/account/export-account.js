@@ -167,7 +167,7 @@ class ExportAccount extends React.Component {
                 />
                 <TextualInputComponent
                     label={'Secret phrase'}
-                    field="passphrase"
+                    field="passPhrase"
                     placeholder="Secret phrase"
                     type={"password"}
                 />
