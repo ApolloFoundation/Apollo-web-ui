@@ -6,11 +6,16 @@
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { connect } from 'react-redux';
+import classNames from 'classnames';
 
 import { setBodyModalParamsAction } from '../../../../modules/modals';
 import { formatTimestamp } from '../../../../helpers/util/time';
 import { formatTransactionType, getPhasingTransactionVoters } from '../../../../actions/transactions';
 import { getBlockAction } from '../../../../actions/blocks';
+import { Tooltip } from '../../../../containers/components/tooltip';
+import IconRed from '../../../../assets/red-triangle.svg';
+import styles from './index.module.scss';
+
 
 const mapStateToProps = state => ({
   constants: state.account.constants,
@@ -82,7 +87,7 @@ class Transaction extends React.Component {
         isUnconfirmed, timestamp, confirmations, amountATM,
         feeATM, sender, senderRS, recipient, recipientRS,
         height, formatTimestamp, transaction, type, constants,
-        setBodyModalParamsAction, subtype, attachment, decimals,
+        setBodyModalParamsAction, subtype, attachment, decimals, errorMessage,
       } = this.props;
       const transactionType = constants.transactionTypes && constants.transactionTypes[type];
       const { phasing } = this.state;
@@ -90,10 +95,22 @@ class Transaction extends React.Component {
         <tr key={uuidv4()}>
           {constants && (
             <>
-              <td className="blue-link-text">
-                <a onClick={() => setBodyModalParamsAction('INFO_TRANSACTION', this.props, (type === 0 && subtype === 1))}>
+              <td className={classNames("blue-link-text", styles.transactionDate)}>
+                <a
+                  className={styles.transactionDateLink}
+                  onClick={() => setBodyModalParamsAction('INFO_TRANSACTION', this.props, (type === 0 && subtype === 1))}
+                >
                   {formatTimestamp(timestamp)}
                 </a>
+                {errorMessage && (
+                  <div onClick={() =>  this.props.setBodyModalParamsAction('TRANSACTION_FAIL', this.props)}>
+                    <Tooltip icon={IconRed}>
+                      <div>
+                        Transaction FAIL
+                      </div> 
+                    </Tooltip>
+                  </div>
+                )}
               </td>
               <td>
                 {!!transactionType && (

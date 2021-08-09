@@ -35,6 +35,7 @@ export default function ReserveCurrency(props) {
 
       if (!values.secretPhrase || values.secretPhrase.length === 0) {
         NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
+        setIsPending(false);
         return;
       }
 
@@ -61,9 +62,9 @@ export default function ReserveCurrency(props) {
     <div className="modal-box">
       <form className="modal-form">
         <div className="form-group-app">
-          <span onClick={() => closeModal()} className="exit">
+          <button onClick={() => closeModal()} className="exit">
             <i className="zmdi zmdi-close" />
-          </span>
+          </button>
           <div className="form-title">
             <p>
               Reserve Currency -

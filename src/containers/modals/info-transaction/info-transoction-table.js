@@ -140,6 +140,10 @@ class InfoTransactionTable extends Component {
 					<table>
 						<tbody>
 						<tr>
+							<td>Status:</td>
+							<td>{this.props.transaction.errorMessage ? 'FAIL' : 'SUCCESS'}</td>
+						</tr>
+						<tr>
 							<td>Type:</td>
 							<td>
 								{

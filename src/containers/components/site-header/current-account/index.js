@@ -70,9 +70,9 @@ class CurrentAccount extends React.Component {
                 })}>
                 <div className="form-group-app">
                     <div className="form-title">
-                        <a onClick={() => this.props.closeMenu()} className="exit current-account">
+                        <button onClick={() => this.props.closeMenu()} className="exit current-account">
                             <i className="zmdi zmdi-close"/>
-                        </a>
+                        </button>
                         <p>Current account</p>
                     </div>
                     {

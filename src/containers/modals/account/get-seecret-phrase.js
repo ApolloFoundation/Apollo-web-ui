@@ -16,6 +16,7 @@ import InfoBox from '../../components/info-box';
 import ModalBody from '../../components/modals/modal-body';
 import TextualInputComponent from '../../components/form-components/textual-input';
 import { CheckboxFormInput } from '../../components/form-components/check-button-input';
+import { writeToLocalStorage } from '../../../actions/localStorage';
 
 class PrivateTransactions extends React.Component {
   constructor(props) {
@@ -32,7 +33,7 @@ class PrivateTransactions extends React.Component {
       const { passphrase } = params;
 
       if (params.isSavePassphrase) {
-        localStorage.setItem('secretPhrase', JSON.stringify(passphrase.toString()));
+        writeToLocalStorage('secretPhrase', passphrase.toString());
         delete params.isSavePassphrase;
       }
 

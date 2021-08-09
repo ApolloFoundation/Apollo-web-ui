@@ -25,7 +25,7 @@ export default function VaultWalletForm(props) {
   const [isCustomPassphrase, setIsCustomPassphrase] = useState(true);
   const [isAccountLoaded, setIsAccountLoaded] = useState(false);
   
-  const handleGeneratePDF = () => 
+  const handleGeneratePDF = () => {
     generatePDF([
       {
         name: 'Account ID',
@@ -39,7 +39,12 @@ export default function VaultWalletForm(props) {
         name: 'Public Key',
         value: accountData.publicKey,
       },
+      {
+        name: 'Secret Key',
+        value: keySeed.secretBytes
+      }
     ]);
+  }
   
   const { loginModalButton } = useLoginModal(handleGeneratePDF);
 
@@ -54,13 +59,16 @@ export default function VaultWalletForm(props) {
     }
 
     const geneatedAccount = await generateAccountAction(requestParams);
+
+    const passphrase = (isCustomPassphraseTextarea && activeTab === 1) ? values.newAccountpassphrse : geneatedAccount.passphrase
+
     if (geneatedAccount) {
       const newKeySeed = await createAccountAction({
         account: geneatedAccount.accountRS,
-        passphrase: geneatedAccount.passphrase,
+        passphrase,
       });
 
-      setCurrPassphrase(values.newAccountpassphrse);
+      setCurrPassphrase(passphrase);
       setIsAccountLoaded(true);
       setAccountData(geneatedAccount);
       setKeySeed(newKeySeed);
@@ -77,7 +85,6 @@ export default function VaultWalletForm(props) {
     <Formik
       initialValues={{
         option: 1,
-        losePhrase: false,
       }}
       onSubmit={onSubmit}
     >
@@ -133,6 +140,7 @@ export default function VaultWalletForm(props) {
                   />
                 )}
                 <Button
+                  className="btn-without"
                   onClick={() => generateAccount(values)}
                   name="Create account"
                 />
@@ -203,18 +211,8 @@ export default function VaultWalletForm(props) {
                             size="sm"
                           />
                         </CopyToClipboard>
-                        <Button
-                          name="Print Wallet"
-                          size="sm"
-                          onClick={handleGeneratePDF}
-                        />
                       </InfoBox>
                     )}
-                    <CheckboxFormInput
-                      label="I wrote down my Account ID, Secret phrase. It is now stored
-                      in a secured place."
-                      name="losePhrase"
-                    />
                     {loginModalButton(handleNext, values)}
                   </>
                 ) : (
@@ -261,6 +259,7 @@ export default function VaultWalletForm(props) {
                     </div>
                   ) : (
                     <Button
+                      className="btn-without"
                       type="submit"
                       name="Create New Account"
                     />

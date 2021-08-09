@@ -131,8 +131,8 @@ class WithdrawCurrency extends React.Component {
                     render={({submitForm, setValue}) => (
                         <form className="modal-form" onSubmit={submitForm}>
                             <div className="form-group-app">
-                                <a onClick={() => this.props.closeModal()} className="exit"><i
-                                    className="zmdi zmdi-close"/></a>
+                                <button onClick={() => this.props.closeModal()} className="exit"><i
+                                    className="zmdi zmdi-close"/></button>
                                 <div className="form-title">
                                     <p>Withdraw</p>
                                 </div>
