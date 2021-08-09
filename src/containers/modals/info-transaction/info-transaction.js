@@ -160,6 +160,21 @@ class InfoLedgerTransaction extends React.Component {
                                     <div className="transaction-table-body transparent full-info">
                                         <table>
                                             <tbody>
+                                            {(this.state.transaction && this.state.transaction.errorMessage) && (
+                                                <tr>
+                                                    <td>
+                                                        Error message:
+                                                    </td>
+                                                    <td>
+                                                        {this.state.transaction.errorMessage || 'some error message'}
+                                                    </td>
+                                                </tr>
+                                            )}
+                                            <tr>
+                                                <td>
+
+                                                </td>
+                                            </tr>
                                             <tr>
                                                 <td>Sender public key:</td>
                                                 <td>{this.state.transaction.senderPublicKey}</td>

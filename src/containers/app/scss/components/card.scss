@@ -9,6 +9,10 @@
 	width: 100%;
 	box-shadow: 0 0 10px 0 #E6EAEE, 0 10px 20px 0 rgba(30,30,30,0.05);
 
+	&.dashboard-tooltip-card {
+		z-index: 1;
+	}
+
 	&.scroll {
 		overflow-y: auto;
 	}

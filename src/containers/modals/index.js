@@ -16,6 +16,7 @@ import SendApollo from "./send-apollo";
 import SendApolloPrivate from "./send-apollo-private";
 import IssueAsset from "./issue/issue-asset"
 import InfoTransaction from './info-transaction/info-transaction';
+import { TransactionFail } from './transaction-fail';
 import InfoLedgerTransaction from './info-ledger-transaction';
 import InfoBlock from './info-block';
 import RawTransactionDetails from './send-apollo/raw-transaction-details';
@@ -205,7 +206,7 @@ class ModalWindow extends React.Component {
                     {this.props.modalType === 'SEND_APOLLO_PRIVATE'         && <SendApolloPrivate         closeModal={this.closeModal} nameModal={'SEND_APOLLO_PRIVATE'}/>}
                     {this.props.modalType === 'APPROVE_TRANSACTION'         && <ApproveTransaction        closeModal={this.closeModal} nameModal={'APPROVE_TRANSACTION'}/>}
                     {this.props.modalType === 'RAW_TRANSACTION_DETAILS'     && <RawTransactionDetails     closeModal={this.closeModal} nameModal={'RAW_TRANSACTION_DETAILS'}/>}
-
+                    {this.props.modalType === 'TRANSACTION_FAIL'            && <TransactionFail closeModal={this.closeModal} nameModal={'TRANSACTION_FAIL'} />}
 
                     {/* Assets */}
                     {this.props.modalType === 'TRANSFER_ASSET'              && <TransferAsset             closeModal={this.closeModal} nameModal={'TRANSFER_ASSET'}/>}
