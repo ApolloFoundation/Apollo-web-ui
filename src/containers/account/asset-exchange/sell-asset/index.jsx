@@ -62,18 +62,12 @@ const SellAsset = ({
                   disabled
                 />
                 <button
-                  type="button"
                   className={classNames({
                     'btn btn-lg btn-green submit-button': true,
                     disabled: !values.total,
                   })}
                 >
-                  Sell (
-                  {asset.name}
-                  {' '}
-                  >
-                  {ticker}
-                  )
+                  {`Sell (${asset.name} > ${ticker})`}
                 </button>
               </div>
             </form>
