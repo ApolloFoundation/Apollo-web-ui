@@ -241,18 +241,15 @@ class AssetExchange extends React.Component {
     handleTotalValue = (setValue, v1, v2) => {
 
         if (v1 && v2) {
-            let result = (bigInteger(v1).multiply(bigInteger(v2)));
-
+            let result = (new bigInteger(v1).multiply(new bigInteger(v2)));
 
             if (result && Array.isArray(result.value)) {
                 result = result.value.reverse().reduce((a, b) => {
                     return a.toString() + b.toString()
-                })
-            } else {
-                result = result.value;
-            }
+                });
+            } 
 
-            setValue('total', (result).toString());
+            setValue('total', result.toString());
         } else {
             setValue('total', 0);
         }
