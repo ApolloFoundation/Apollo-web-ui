@@ -103,7 +103,7 @@ export function exportConfirmationOnBoard(requestParams) {
 }
 export function exportReadMethod(requestParams) {
   return () =>
-    handleFetch(`/rest/v2/smc/r/method`, POST, requestParams, false, true)
+    handleFetch(`/rest/v2/smc/method/read`, POST, requestParams, false, true)
       .then((res) => {
         if (res.errorCode) {
           NotificationManager.error(res.errorDescription, "Error", 10000);
@@ -138,7 +138,7 @@ export function getMyContracts(requestParams) {
 
 export function getState(requestParams) {
   return () =>
-    handleFetch(`/rest/v2/smc/state/${requestParams}`)
+    handleFetch(`/rest/v2/smc/${requestParams}/state`)
       .then((res) => {
         if (res.errorCode) {
           NotificationManager.error(res.errorDescription, "Error", 10000);
@@ -151,7 +151,7 @@ export function getState(requestParams) {
 
 export function getSmcSpecification(requestParams) {
   return () =>
-    handleFetch(`/rest/v2/smc/r/spec/${requestParams}`)
+    handleFetch(`/rest/v2/smc/${requestParams}/spec`)
       .then((res) => {
         if (res.errorCode) {
           NotificationManager.error(res.errorDescription, "Error", 10000);
@@ -165,6 +165,32 @@ export function getSmcSpecification(requestParams) {
 export function getSmcSourceInfo(requestParams) {
   return () =>
     handleFetch(`/rest/v2/smc/${requestParams}`)
+      .then((res) => {
+        if (res.errorCode) {
+          NotificationManager.error(res.errorDescription, "Error", 10000);
+          return null;
+        }
+        return res;
+      })
+      .catch((err) => console.log(err));
+}
+
+export function getTokenList(requestParams) {
+  return () =>
+    handleFetch(`/rest/v2/smc/asr`)
+      .then((res) => {
+        if (res.errorCode) {
+          NotificationManager.error(res.errorDescription, "Error", 10000);
+          return null;
+        }
+        return res;
+      })
+      .catch((err) => console.log(err));
+}
+
+export function getTokensForm(requestParams) {
+  return () =>
+    handleFetch(` /rest/v2/smc/asr/${requestParams}/init/`)
       .then((res) => {
         if (res.errorCode) {
           NotificationManager.error(res.errorDescription, "Error", 10000);
