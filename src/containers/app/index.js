@@ -370,7 +370,7 @@ class App extends React.Component {
                         !this.props.loading && !isLoginPage
                         && (
                         <div className="site-footer">
-                          Copyright © 2017-2020 Apollo Foundation.&nbsp;
+                          Copyright © 2017-2021 Apollo Foundation.&nbsp;
                           <br className="show-media hide-desktop" />
                           Apollo Version:
                           {' '}
