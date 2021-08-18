@@ -3,10 +3,11 @@
  *                                                                            *
  ***************************************************************************** */
 
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Form, Formik } from "formik";
 import AceEditor from "react-ace";
+import { v4 as uuidv4 } from "uuid";
 import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-tomorrow";
 import {
@@ -40,28 +41,31 @@ export default function ({ closeModal }) {
     }`;
   };
 
-  const submitForm = async ({ advance, ...values }) => {
-    let data = {
-      name: `My${modalData.token}`,
-      sender: accountRS,
-      params: [],
-      value: 0,
-      ...values,
-    };
+  const submitForm = useCallback(
+    async ({ advance, ...values }) => {
+      let data = {
+        name: `My${modalData.token}`,
+        sender: accountRS,
+        params: [],
+        value: 0,
+        ...values,
+      };
 
-    const testToken = await dispatch(exportTestContract(data));
-    if (!testToken.errorCode) {
-      const publishToken = await dispatch(exportContractSubmit(data));
-      if (!publishToken.errorCode) {
-        const boardToken = await dispatch(
-          exportConfirmationOnBoard({ tx: publishToken.tx })
-        );
-        if (!boardToken.errorCode) {
-          closeModal();
+      const testToken = await dispatch(exportTestContract(data));
+      if (!testToken.errorCode) {
+        const publishToken = await dispatch(exportContractSubmit(data));
+        if (!publishToken.errorCode) {
+          const boardToken = await dispatch(
+            exportConfirmationOnBoard({ tx: publishToken.tx })
+          );
+          if (!boardToken.errorCode) {
+            closeModal();
+          }
         }
       }
-    }
-  };
+    },
+    [dispatch]
+  );
 
   return (
     <div className="modal-box">
@@ -80,7 +84,7 @@ export default function ({ closeModal }) {
               <Form>
                 <div className="modal-form ">
                   <div className="form-group-app">
-                    <a onClick={() => closeModal()} className="exit">
+                    <a onClick={closeModal} className="exit">
                       <i className="zmdi zmdi-close" />
                     </a>
                     <div className="form-title">
@@ -94,7 +98,7 @@ export default function ({ closeModal }) {
                             {modalData &&
                               Object.entries(modalData.params).map(
                                 ([key, value]) => (
-                                  <tr>
+                                  <tr key={uuidv4()}>
                                     <td className="text-capitalize">{key}</td>
                                     <td>{value}</td>
                                   </tr>
@@ -112,7 +116,7 @@ export default function ({ closeModal }) {
                         onChange={handleChanegeFuelSwitcher}
                       />
                     </div>
-                    {fuelSwitcher ? (
+                    {fuelSwitcher && (
                       <div className="mb-2">
                         <NumericInput
                           label="Fuel price"
@@ -140,7 +144,7 @@ export default function ({ closeModal }) {
                           onChange={(value) => setFieldValue("source", value)}
                         />
                       </div>
-                    ) : null}
+                    )}
                     <TextualInputComponent
                       label="Secret phrase"
                       type="password"

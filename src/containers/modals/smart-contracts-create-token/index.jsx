@@ -6,6 +6,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Form, Formik, Field } from "formik";
+import { v4 as uuidv4 } from "uuid";
 import { getTokenList, getTokensForm } from "../../../actions/contracts";
 import { setBodyModalParamsAction } from "../../../modules/modals";
 import TextualInputComponent from "../../components/form-components/textual-input1";
@@ -52,17 +53,20 @@ export default function ({ closeModal }) {
     return initialValues;
   };
 
-  const submitForm = (values) => {
-    const isValidForm = fieldValidate(values);
-    if (!isValidForm) {
-      dispatch(
-        setBodyModalParamsAction("SMC_APROVE_TOKEN", {
-          params: values,
-          token: currentToken,
-        })
-      );
-    }
-  };
+  const submitForm = useCallback(
+    (values) => {
+      const isValidForm = fieldValidate(values);
+      if (!isValidForm) {
+        dispatch(
+          setBodyModalParamsAction("SMC_APROVE_TOKEN", {
+            params: values,
+            token: currentToken,
+          })
+        );
+      }
+    },
+    [dispatch]
+  );
 
   const handleChangeToken = (e) => {
     setCurrentToken(e.target.value);
@@ -80,7 +84,7 @@ export default function ({ closeModal }) {
               <Form>
                 <div className="modal-form">
                   <div className="form-group-app">
-                    <a onClick={() => closeModal()} className="exit">
+                    <a onClick={closeModal} className="exit">
                       <i className="zmdi zmdi-close" />
                     </a>
                     <div className="form-title">
@@ -89,7 +93,10 @@ export default function ({ closeModal }) {
                     <div className="mb-3">
                       <div className="d-flex">
                         {tokenList.map((item) => (
-                          <div className="d-flex align-items-center">
+                          <div
+                            key={uuidv4()}
+                            className="d-flex align-items-center"
+                          >
                             <label
                               htmlFor="text"
                               className="mr-2 mb-0 d-flex align-items-center"
