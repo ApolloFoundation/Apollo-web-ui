@@ -3,7 +3,7 @@ import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-tomorrow";
 import TabulationBody from "../../../../components/tabulator/tabuator-body";
-import TabContaier from "../../../../components/tabulator/tab-container";
+import TabContainer from "../../../../components/tabulator/tab-container";
 import PanelContract from "../panels/panel-code";
 
 const PanelSource = ({ source, contarcts }) => {
@@ -35,7 +35,7 @@ const PanelSource = ({ source, contarcts }) => {
       </div>
       <div>
         <TabulationBody>
-          <TabContaier sectionName={"Code"}>
+          <TabContainer sectionName={"Code"}>
             <AceEditor
               setOptions={{ useWorker: false }}
               mode="javascript"
@@ -47,13 +47,13 @@ const PanelSource = ({ source, contarcts }) => {
               readOnly={true}
               value={src}
             />
-          </TabContaier>
+          </TabContainer>
 
           {contarcts.length > 0 &&
             contarcts.map((contract) => (
-              <TabContaier key={contract} sectionName={contract}>
+              <TabContainer key={contract} sectionName={contract}>
                 <PanelContract contract={contract} />
-              </TabContaier>
+              </TabContainer>
             ))}
         </TabulationBody>
       </div>

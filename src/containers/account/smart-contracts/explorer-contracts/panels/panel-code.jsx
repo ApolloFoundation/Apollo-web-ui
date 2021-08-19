@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch } from "react-redux";
-import { getContractCode } from "../../../../../actions/contracts";
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-tomorrow";
+import { getContractCode } from "../../../../../actions/contracts";
 
 const PanelCode = ({ contract }) => {
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ const PanelCode = ({ contract }) => {
         setContractCode(code.content);
       }
     },
-    [dispatch, contract]
+    [dispatch]
   );
 
   useEffect(() => {

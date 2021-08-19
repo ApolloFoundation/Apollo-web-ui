@@ -203,7 +203,7 @@ export function getTokensForm(requestParams) {
 
 export function getContractCode(requestParams) {
   return () =>
-    handleFetch(` /rest/v2/smc/asr/${requestParams}/src`)
+    handleFetch(`/rest/v2/smc/asr/${requestParams}/src`)
       .then((res) => {
         if (res.errorCode) {
           NotificationManager.error(res.errorDescription, "Error", 10000);
