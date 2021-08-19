@@ -213,3 +213,16 @@ export function getContractCode(requestParams) {
       })
       .catch((err) => console.log(err));
 }
+
+export function getContractExtraInfo(requestParams) {
+  return () =>
+    handleFetch(`/rest/v2/state/tx/${requestParams}`)
+      .then((res) => {
+        if (res.errorCode) {
+          NotificationManager.error(res.errorDescription, "Error", 10000);
+          return null;
+        }
+        return res;
+      })
+      .catch((err) => console.log(err));
+}
