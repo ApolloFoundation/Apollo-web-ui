@@ -54,6 +54,18 @@ export default function SmcInfo({ transaction: info, decimals }) {
 					<td>{fullHash}</td>
 				</tr>
 			)}
+			{fuelPrice && (
+				<tr>
+					<td>FuelPrice:</td>
+					<td>{fuelPrice}</td>
+				</tr>
+			)}
+			{fuelLimit && (
+				<tr>
+					<td>FuelLimit:</td>
+					<td>{fuelLimit}</td>
+				</tr>
+			)}
 			{name && (
 				<tr>
 					<td>Name:</td>
@@ -78,18 +90,7 @@ export default function SmcInfo({ transaction: info, decimals }) {
 					<td>{params}</td>
 				</tr>
 			)}
-			{fuelPrice && (
-				<tr>
-					<td>FuelPrice:</td>
-					<td>{fuelPrice}</td>
-				</tr>
-			)}
-			{fuelLimit && (
-				<tr>
-					<td>FuelLimit:</td>
-					<td>{fuelLimit}</td>
-				</tr>
-			)}
+
 			{source && (
 				<>
 					<tr>
