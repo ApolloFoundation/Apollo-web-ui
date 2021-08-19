@@ -104,7 +104,7 @@ const ExplorerContracts = (props) => {
                       <PanelSource
                         title={"Read Contract Information"}
                         source={sourceInfo}
-                        contarcts={contarctList}
+                        contracts={contarctList}
                       />
                     </TabContaier>
                     <TabContaier sectionName={"Read contract"}>

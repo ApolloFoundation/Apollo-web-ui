@@ -6,7 +6,7 @@ import TabulationBody from "../../../../components/tabulator/tabuator-body";
 import TabContainer from "../../../../components/tabulator/tab-container";
 import PanelContract from "../panels/panel-code";
 
-const PanelSource = ({ source, contarcts }) => {
+const PanelSource = ({ source, contracts }) => {
   const { name, fuelPrice, fuelLimit, params, src } = source;
   return (
     <div className="transaction-table no-min-height transparent">
@@ -49,8 +49,8 @@ const PanelSource = ({ source, contarcts }) => {
             />
           </TabContainer>
 
-          {contarcts.length > 0 &&
-            contarcts.map((contract) => (
+          {contracts.length > 0 &&
+            contracts.map((contract) => (
               <TabContainer key={contract} sectionName={contract}>
                 <PanelContract contract={contract} />
               </TabContainer>
