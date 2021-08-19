@@ -9,7 +9,7 @@ export default function SmcInfo({ transaction: info, decimals }) {
 	const dispatch = useDispatch();
 	const [extraInfo, setExtraInfo] = useState({});
 	const { transaction, amountATM, feeATM, senderRS, recipientRS, fullHash } = info;
-	const { language, name, params, source, contractMethod } = extraInfo;
+	const { language, name, params, source, contractMethod, fuelPrice, fuelLimit } = extraInfo;
 
 	useEffect(() => {
 		getContractInfo(transaction);
@@ -24,18 +24,6 @@ export default function SmcInfo({ transaction: info, decimals }) {
 
 	return (
 		<React.Fragment>
-			{name && (
-				<tr>
-					<td>Name:</td>
-					<td>{name}</td>
-				</tr>
-			)}
-			{contractMethod && (
-				<tr>
-					<td>Contract Method:</td>
-					<td>{contractMethod}</td>
-				</tr>
-			)}
 			{amountATM && (
 				<tr>
 					<td>Amount:</td>
@@ -66,6 +54,18 @@ export default function SmcInfo({ transaction: info, decimals }) {
 					<td>{fullHash}</td>
 				</tr>
 			)}
+			{name && (
+				<tr>
+					<td>Name:</td>
+					<td>{name}</td>
+				</tr>
+			)}
+			{contractMethod && (
+				<tr>
+					<td>Contract Method:</td>
+					<td>{contractMethod}</td>
+				</tr>
+			)}
 			{language && (
 				<tr>
 					<td>Language:</td>
@@ -76,6 +76,18 @@ export default function SmcInfo({ transaction: info, decimals }) {
 				<tr>
 					<td>Params:</td>
 					<td>{params}</td>
+				</tr>
+			)}
+			{fuelPrice && (
+				<tr>
+					<td>FuelPrice:</td>
+					<td>{fuelPrice}</td>
+				</tr>
+			)}
+			{fuelLimit && (
+				<tr>
+					<td>FuelLimit:</td>
+					<td>{fuelLimit}</td>
 				</tr>
 			)}
 			{source && (
