@@ -23,7 +23,7 @@ const ExplorerContracts = (props) => {
   const { id } = props.match.params;
 
   const [specificationsList, setSpecificationsList] = useState({});
-  const [contarctList, setContractList] = useState([]);
+  const [contractsList, setContractsList] = useState([]);
   const [overviewInfo, setOverviewInfo] = useState([]);
   const [sourceInfo, setSourceInfo] = useState({});
 
@@ -51,7 +51,7 @@ const ExplorerContracts = (props) => {
         );
         setSpecificationsList(membersList);
         setOverviewInfo(overview);
-        setContractList(inheritedContracts);
+        setContractsList(inheritedContracts);
       }
     },
     [dispatch]
@@ -104,7 +104,7 @@ const ExplorerContracts = (props) => {
                       <PanelSource
                         title={"Read Contract Information"}
                         source={sourceInfo}
-                        contracts={contarctList}
+                        contracts={contractsList}
                       />
                     </TabContaier>
                     <TabContaier sectionName={"Read contract"}>
