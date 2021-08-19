@@ -14,6 +14,7 @@ const ExplorerForm = ({ fields, address, methodName: name, type }) => {
 
   const [readMethods, setReadMethods] = useState([]);
   const [error, setError] = useState(null);
+  const regAPL = /^APL/;
 
   const getInitialValues = (fields) => {
     const initialValues = {};
@@ -22,6 +23,14 @@ const ExplorerForm = ({ fields, address, methodName: name, type }) => {
   };
 
   const onSubmitNonpayable = (values) => {
+    Object.keys(values).map((key) => {
+      if (regAPL.test(values[key])) {
+        const parseRStoHex = processAccountRStoHex(values[key], true);
+        return (values[key] = `'${parseRStoHex}'`);
+      }
+      return values[key];
+    });
+
     const params = Object.keys(values)
       .map((key) => values[key])
       .join(",");
@@ -36,8 +45,6 @@ const ExplorerForm = ({ fields, address, methodName: name, type }) => {
   };
 
   const onSubmitView = async (values) => {
-    const regAPL = /^APL/;
-
     const fieldValues = Object.keys(values).map((key) => {
       if (regAPL.test(values[key])) {
         const parseRStoHex = processAccountRStoHex(values[key], true);
