@@ -23,6 +23,7 @@ const ExplorerContracts = (props) => {
   const { id } = props.match.params;
 
   const [specificationsList, setSpecificationsList] = useState({});
+  const [contractsList, setContractsList] = useState([]);
   const [overviewInfo, setOverviewInfo] = useState([]);
   const [sourceInfo, setSourceInfo] = useState({});
 
@@ -35,7 +36,7 @@ const ExplorerContracts = (props) => {
     async (id) => {
       const specifications = await dispatch(getSmcSpecification(id));
       if (specifications) {
-        const { members, overview } = specifications;
+        const { members, overview, inheritedContracts } = specifications;
 
         const membersList = members.reduce(
           (acc, item) => {
@@ -48,9 +49,9 @@ const ExplorerContracts = (props) => {
           },
           { readList: [], writeList: [] }
         );
-
         setSpecificationsList(membersList);
         setOverviewInfo(overview);
+        setContractsList(inheritedContracts);
       }
     },
     [dispatch]
@@ -103,6 +104,7 @@ const ExplorerContracts = (props) => {
                       <PanelSource
                         title={"Read Contract Information"}
                         source={sourceInfo}
+                        contracts={contractsList}
                       />
                     </TabContaier>
                     <TabContaier sectionName={"Read contract"}>

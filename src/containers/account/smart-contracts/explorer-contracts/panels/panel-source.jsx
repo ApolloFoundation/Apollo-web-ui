@@ -2,8 +2,11 @@ import React from "react";
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-tomorrow";
+import TabulationBody from "../../../../components/tabulator/tabuator-body";
+import TabContainer from "../../../../components/tabulator/tab-container";
+import PanelContract from "../panels/panel-code";
 
-const PanelSource = ({ source }) => {
+const PanelSource = ({ source, contracts }) => {
   const { name, fuelPrice, fuelLimit, params, src } = source;
   return (
     <div className="transaction-table no-min-height transparent">
@@ -31,18 +34,28 @@ const PanelSource = ({ source }) => {
         </table>
       </div>
       <div>
-        <div className="heading mb-3">Code</div>
-        <AceEditor
-          setOptions={{ useWorker: false }}
-          mode="javascript"
-          theme="tomorrow"
-          fontSize={14}
-          tabSize={2}
-          width="100%"
-          height="300px"
-          readOnly={true}
-          value={src}
-        />
+        <TabulationBody>
+          <TabContainer sectionName={"Code"}>
+            <AceEditor
+              setOptions={{ useWorker: false }}
+              mode="javascript"
+              theme="tomorrow"
+              fontSize={14}
+              tabSize={2}
+              width="100%"
+              height="300px"
+              readOnly={true}
+              value={src}
+            />
+          </TabContainer>
+
+          {contracts.length > 0 &&
+            contracts.map((contract) => (
+              <TabContainer key={contract} sectionName={contract}>
+                <PanelContract contract={contract} />
+              </TabContainer>
+            ))}
+        </TabulationBody>
       </div>
     </div>
   );

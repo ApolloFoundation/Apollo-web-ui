@@ -18,8 +18,8 @@ export const ContractTableItem = ({
   name,
   timestamp,
   transaction,
-  amount,
   signature,
+  baseContract,
   status,
 }) => {
   const history = useHistory();
@@ -27,7 +27,7 @@ export const ContractTableItem = ({
 
   const currentDate = dispatch(formatTimestamp(new Date(timestamp)));
 
-  const isStatusAPL20 = !!/^APL20/.test(name);
+  const isStatusAPL20 = !!/^APL20/.test(baseContract);
 
   const handleContractInfo = () => {
     isStatusAPL20
@@ -74,7 +74,6 @@ export const ContractTableItem = ({
           name={transaction}
         />
       </td>
-      <td>{amount}</td>
       <td>{signature.substr(-12)}</td>
       <td>{currentDate}</td>
       <td>{status}</td>

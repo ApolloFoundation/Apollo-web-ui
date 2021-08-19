@@ -156,10 +156,6 @@ export default function SmartContracts() {
                 alignRight: false,
               },
               {
-                name: "Amount",
-                alignRight: false,
-              },
-              {
                 name: "Short Hash",
                 alignRight: false,
               },

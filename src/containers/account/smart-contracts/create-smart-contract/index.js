@@ -3,7 +3,7 @@
  *                                                                            *
  ******************************************************************************/
 
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Form, Formik } from "formik";
 import { validationForm } from "./form/form-validation";
@@ -107,13 +107,13 @@ export default function SmartContracts() {
     }
   };
 
-  const handleSendMessage = () => {
+  const handleSendMessage = useCallback(() => {
     dispatch(setBodyModalParamsAction("SMC_CREATE", null));
-  };
+  }, [dispatch]);
 
-  const handleCrateToken = () => {
+  const handleCrateToken = useCallback(() => {
     dispatch(setBodyModalParamsAction("SMC_CREATE_TOKEN", null));
-  };
+  }, [dispatch]);
 
   const handleUploadFile = async ([file], setFieldValue) => {
     const uploadedTextFile = await parseTextFile(file);
