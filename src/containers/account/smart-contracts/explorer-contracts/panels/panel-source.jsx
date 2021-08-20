@@ -9,33 +9,50 @@ import PanelContract from "../panels/panel-code";
 const PanelSource = ({ source, contracts }) => {
   const { name, fuelPrice, fuelLimit, params, src } = source;
   return (
-    <div className="transaction-table no-min-height transparent">
-      <div className="transaction-table-body transparent mb-2">
-        <div className="heading mb-3 pt-3">Source Information</div>
-        <table className="w-100">
-          <tbody>
-            <tr>
-              <td>Name</td>
-              <td>{name}</td>
-            </tr>
-            <tr>
-              <td>Fuel price</td>
-              <td>{fuelPrice}</td>
-            </tr>
-            <tr>
-              <td>Fuel limit</td>
-              <td>{fuelLimit}</td>
-            </tr>
-            <tr>
-              <td>Params</td>
-              <td>{params}</td>
-            </tr>
-          </tbody>
-        </table>
+    <>
+      <div className="heading mb-3 pt-3">Source Information</div>
+      <div className="row mb-3">
+        <div className="col-md-6">
+          <div className="transaction-table no-min-height transparent">
+            <div className="transaction-table-body transparent mb-2">
+              <table className="w-100">
+                <tbody>
+                  <tr>
+                    <td>Name</td>
+                    <td>{name}</td>
+                  </tr>
+                  <tr>
+                    <td>Params</td>
+                    <td>{params}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div></div>
+          </div>
+        </div>
+        <div className="col-md-6">
+          <div className="transaction-table no-min-height transparent">
+            <div className="transaction-table-body transparent mb-2">
+              <table className="w-100">
+                <tbody>
+                  <tr>
+                    <td>Fuel price</td>
+                    <td>{fuelPrice}</td>
+                  </tr>
+                  <tr>
+                    <td>Fuel limit</td>
+                    <td>{fuelLimit}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
       </div>
-      <div>
-        <TabulationBody>
-          <TabContainer sectionName={"Code"}>
+      <TabulationBody>
+        <TabContainer sectionName={"Code"}>
+          {src && (
             <AceEditor
               setOptions={{ useWorker: false }}
               mode="javascript"
@@ -47,17 +64,17 @@ const PanelSource = ({ source, contracts }) => {
               readOnly={true}
               value={src}
             />
-          </TabContainer>
+          )}
+        </TabContainer>
 
-          {contracts.length > 0 &&
-            contracts.map((contract) => (
-              <TabContainer key={contract} sectionName={contract}>
-                <PanelContract contract={contract} />
-              </TabContainer>
-            ))}
-        </TabulationBody>
-      </div>
-    </div>
+        {contracts.length > 0 &&
+          contracts.map((contract) => (
+            <TabContainer key={contract} sectionName={contract}>
+              <PanelContract contract={contract} />
+            </TabContainer>
+          ))}
+      </TabulationBody>
+    </>
   );
 };
 
