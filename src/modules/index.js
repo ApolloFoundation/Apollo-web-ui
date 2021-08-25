@@ -18,6 +18,7 @@ import assets from "./assets";
 import marketplace from './marketplace';
 import polls from './polls';
 import exchange from './exchange';
+import smartContract from './smartContract';
 
 export default combineReducers({
     account,
@@ -32,5 +33,6 @@ export default combineReducers({
     ledger,
     accountSettings,
     polls,
-    exchange
+    exchange,
+    smartContract
 })

@@ -13,6 +13,7 @@ import {
   exportExperationMessageSubmit,
   exportConfirmationOnBoard,
 } from "../../../../src/actions/contracts";
+import { setTransaction } from "../../../modules/smartContract";
 
 export default function ({ closeModal }) {
   const dispatch = useDispatch();
@@ -24,7 +25,7 @@ export default function ({ closeModal }) {
   } = useSelector((state) => state.account);
 
   const isEmptyData = modalData?.hasOwnProperty("address");
-  const isExplorerData  = modalData?.hasOwnProperty("params");
+  const isExplorerData = modalData?.hasOwnProperty("params");
 
   let initialValues = {
     name: "",
@@ -45,9 +46,8 @@ export default function ({ closeModal }) {
     };
   }
 
-  const formSubmit = async ({ feeATM, source, ...values }) => {
+  const formSubmit = async ({ feeATM, source, formIndex, ...values }) => {
     const isValidForm = validationForm(values);
-
     if (!isValidForm) {
       let data = {
         ...values,
@@ -66,6 +66,7 @@ export default function ({ closeModal }) {
             exportConfirmationOnBoard({ tx: publishMessage.tx })
           );
           if (!boardMessage.errorCode) {
+            dispatch(setTransaction(formIndex, boardMessage.transaction));
             closeModal();
           }
         }

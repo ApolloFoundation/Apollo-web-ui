@@ -1,13 +1,21 @@
 import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Collapsible from "../../../../components/collapsible";
 import Button from "../../../../components/button";
 import ExplorerForm from "../form";
+import { setBodyModalParamsAction } from "../../../../../modules/modals";
 
 const PanelMethod = ({ items, address, type, title }) => {
+  const dispatch = useDispatch();
+  const { transactions } = useSelector((state) => state.smartContract);
   const [expanded, setExpanded] = useState(false);
 
   const handleExpandAll = () => {
     setExpanded(!expanded);
+  };
+
+  const handleTransactionInfo = (transaction) => {
+    dispatch(setBodyModalParamsAction("INFO_TRANSACTION", transaction));
   };
 
   return (
@@ -26,7 +34,7 @@ const PanelMethod = ({ items, address, type, title }) => {
         </div>
       </div>
       {items.length > 0 ? (
-        items.map((item) => (
+        items.map((item, index) => (
           <Collapsible
             title={item.name}
             expand={expanded}
@@ -39,12 +47,23 @@ const PanelMethod = ({ items, address, type, title }) => {
                 type={type}
                 address={address}
                 fields={item.inputs}
+                formIndex={index}
               />
             ) : (
               <>
-                <span>{item.value}</span>{" "}
+                <span>{item.value} </span>
                 <span className="text-info">{item.outputs[0].type} </span>
               </>
+            )}
+            {type === "write" && transactions[index] && (
+              <div>
+                transaction id:
+                <Button
+                  color="blue-link"
+                  onClick={() => handleTransactionInfo(transactions[index])}
+                  name={transactions[index]}
+                />
+              </div>
             )}
           </Collapsible>
         ))
