@@ -132,7 +132,7 @@ class InfoTransactionTable extends Component {
 		const modalTypeName = formatTransactionType(this.props.constants.transactionTypes[this.props.transaction.type].subtypes[this.props.transaction.subtype].name);
 		const {secretPhrase, transaction: {attachment: {message, encryptedMessage}}, passPhrase, decimals, ticker} = this.props;
 		const transactionType = this.props.transaction && this.props.constants.transactionTypes && this.props.constants.transactionTypes[this.props.transaction.type];
-		console.log(modalTypeName, 'modalTypeName')
+
 		return (
 			
 			<div className="transaction-table-body transparent wrap-collumns">
@@ -189,7 +189,7 @@ class InfoTransactionTable extends Component {
 						<OrdinaryPayment transaction={this.props.transaction} decimals={decimals} />}
 
 						{modalTypeName === "PRIVATE PAYMENT" &&
-            <PrivatePayment transaction={this.props.transaction} ledger={this.props.ledgerId} decimals={decimals} />}
+            <PrivatePayment transaction={this.props.transaction} decimals={decimals} />}
 
 						{modalTypeName === "TAGGED DATA UPLOAD" &&
 						<TargetDataUpload transaction={this.props.transaction}/>}
