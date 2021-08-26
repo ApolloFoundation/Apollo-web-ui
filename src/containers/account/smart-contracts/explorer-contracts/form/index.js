@@ -9,7 +9,7 @@ import TextualInputComponent from "../../../../components/form-components/textua
 import Button from "../../../../components/button";
 import fieldValidate from "./form-validation";
 
-const ExplorerForm = ({ fields, address, methodName: name, type }) => {
+const ExplorerForm = ({ fields, address, methodName: name, type, formIndex }) => {
   const dispatch = useDispatch();
 
   const [readMethods, setReadMethods] = useState([]);
@@ -40,6 +40,7 @@ const ExplorerForm = ({ fields, address, methodName: name, type }) => {
         address,
         name,
         params,
+        formIndex
       })
     );
   };
