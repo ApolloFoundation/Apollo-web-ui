@@ -7,12 +7,13 @@ const initialState = {
 export default (state = initialState, action) => {
   switch (action.type) {
     case SET_TRANSACTION:
-      return Object.assign({}, state, {
+      return {
+        ...state,
         transactions: {
           ...state.transactions,
           [action.payload.key]: action.payload.value,
         },
-      });
+      };
     default:
       return state;
   }

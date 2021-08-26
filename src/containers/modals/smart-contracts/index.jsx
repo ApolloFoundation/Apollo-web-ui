@@ -3,7 +3,7 @@
  *                                                                            *
  ***************************************************************************** */
 
-import React, { useState } from "react";
+import React, { useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { validationForm } from "./form/form-validation";
 import ModalBody from "../../components/modals/modal-body1";
@@ -24,8 +24,8 @@ export default function ({ closeModal }) {
     ticker,
   } = useSelector((state) => state.account);
 
-  const isEmptyData = modalData?.hasOwnProperty("address");
-  const isExplorerData = modalData?.hasOwnProperty("params");
+  const isEmptyData = modalData?.address
+  const isExplorerData = modalData?.params
 
   let initialValues = {
     name: "",
@@ -46,33 +46,36 @@ export default function ({ closeModal }) {
     };
   }
 
-  const formSubmit = async ({ feeATM, source, formIndex, ...values }) => {
-    const isValidForm = validationForm(values);
-    if (!isValidForm) {
-      let data = {
-        ...values,
-        value: Number(values.value) * Math.pow(10, 8),
-        params: values.params.split(","),
-      };
+  const formSubmit = useCallback(
+    async ({ feeATM, source, formIndex, ...values }) => {
+      const isValidForm = validationForm(values);
+      if (!isValidForm) {
+        let data = {
+          ...values,
+          value: Number(values.value) * Math.pow(10, 8),
+          params: values.params.split(","),
+        };
 
-      const testMessage = await dispatch(exportTestExperationMessage(data));
+        const testMessage = await dispatch(exportTestExperationMessage(data));
 
-      if (!testMessage.errorCode) {
-        const publishMessage = await dispatch(
-          exportExperationMessageSubmit(data)
-        );
-        if (!publishMessage.errorCode) {
-          const boardMessage = await dispatch(
-            exportConfirmationOnBoard({ tx: publishMessage.tx })
+        if (!testMessage.errorCode) {
+          const publishMessage = await dispatch(
+            exportExperationMessageSubmit(data)
           );
-          if (!boardMessage.errorCode) {
-            dispatch(setTransaction(formIndex, boardMessage.transaction));
-            closeModal();
+          if (!publishMessage.errorCode) {
+            const boardMessage = await dispatch(
+              exportConfirmationOnBoard({ tx: publishMessage.tx })
+            );
+            if (!boardMessage.errorCode) {
+              dispatch(setTransaction(formIndex, boardMessage.transaction));
+              closeModal();
+            }
           }
         }
       }
-    }
-  };
+    },
+    [dispatch, closeModal]
+  );
 
   return (
     <ModalBody
@@ -80,7 +83,7 @@ export default function ({ closeModal }) {
         !isExplorerData ? "Send message" : `Call method: ${modalData.name}`
       }
       closeModal={closeModal}
-      handleFormSubmit={(values) => formSubmit(values)}
+      handleFormSubmit={formSubmit}
       submitButtonName="Execute"
       idGroup="issue-currency-modal-"
       isFee={false}

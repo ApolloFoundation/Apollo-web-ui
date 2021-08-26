@@ -11,7 +11,7 @@ const PanelMethod = ({ items, address, type, title }) => {
   const [expanded, setExpanded] = useState(false);
 
   const handleExpandAll = () => {
-    setExpanded(!expanded);
+    setExpanded((state) => !state);
   };
 
   const handleTransactionInfo = (transaction) => {
