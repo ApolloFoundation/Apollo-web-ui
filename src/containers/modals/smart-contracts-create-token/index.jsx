@@ -39,7 +39,7 @@ export default function ({ closeModal }) {
 
   useEffect(() => {
     getStateTokenList();
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (currentToken) {
