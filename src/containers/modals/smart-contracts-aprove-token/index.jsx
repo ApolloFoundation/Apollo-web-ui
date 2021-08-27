@@ -33,7 +33,6 @@ export default function ({ closeModal }) {
   };
 
   const sourceValue = (token, params) => {
-
     const convertedParams = Object.values(params).map((item) => `'${item}'`);
     return `class My${token} extends ${token} {
       constructor(){
@@ -65,7 +64,7 @@ export default function ({ closeModal }) {
         }
       }
     },
-    [dispatch]
+    [dispatch, modalData]
   );
 
   return (
