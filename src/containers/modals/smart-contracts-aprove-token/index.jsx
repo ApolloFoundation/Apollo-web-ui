@@ -31,7 +31,7 @@ export default function ({ closeModal }) {
   const handleChanegeFuelSwitcher = () => {
     setFuelSwitcher(!fuelSwitcher);
   };
-  console.log(modalData)
+
   const sourceValue = (token, params) => {
 
     const convertedParams = Object.values(params).map((item) => `'${item}'`);
