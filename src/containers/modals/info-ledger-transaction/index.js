@@ -62,11 +62,10 @@ class InfoTransactions extends React.Component {
   // TODO: migrate timesamp, migrate account to RS
 
   render() {
+    const modalTitle = `Ledger ${this.state.entry ? this.state.entry.ledgerId : ""} info`;
     return (
       <ModalBody
-        modalTitle={`Ledger ${
-          this.state.entry ? this.state.entry.ledgerId : ""
-        } info`}
+        modalTitle={modalTitle}
         closeModal={this.props.closeModal}
         isDisableFormFooter
         isDisableSecretPhrase

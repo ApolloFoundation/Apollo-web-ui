@@ -74,6 +74,10 @@ export default function SmartContracts() {
     setSearchQuery((state) => ({ ...state, status: value }));
   };
 
+  const handleCrateToken = useCallback(() => {
+    dispatch(setBodyModalParamsAction("SMC_CREATE_TOKEN", null));
+  }, [dispatch]);
+  
   return (
     <div className="page-content">
       <SiteHeader pageTitle={"Smart Contracts"}>
@@ -89,6 +93,13 @@ export default function SmartContracts() {
           onClick={handleSendMessage}
         >
           Send message
+        </button>
+        <button
+          type={"button"}
+          className="btn btn-green btn-sm ml-3"
+          onClick={handleCrateToken}
+        >
+          Create token
         </button>
       </SiteHeader>
       <div className="page-body container-fluid">

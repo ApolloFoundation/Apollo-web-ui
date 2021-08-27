@@ -105,8 +105,6 @@ export default function TransactionItem(props) {
     [dispatch, props]
   );
 
-  console.log(isSmcTransaction, "isSmcTransaction");
-  console.log(transactionType);
   return (
     <div
       className="transaction-item cursor-pointer"

@@ -13,7 +13,8 @@ export default function SmcInfo({ transaction: info, decimals }) {
 
   const [extraInfo, setExtraInfo] = useState({});
   const [changeFee, setChangeFee] = useState(null);
-  const { transaction, amountATM, feeATM, senderRS, recipientRS, fullHash } = info;
+  const { transaction, amountATM, feeATM, senderRS, recipientRS, fullHash } =
+    info;
   const {
     language,
     name,
@@ -26,7 +27,7 @@ export default function SmcInfo({ transaction: info, decimals }) {
 
   useEffect(() => {
     getContractInfo(transaction);
-  }, []);
+  }, [transaction, getContractInfo]);
 
   useEffect(() => {
     if (ledgerId) {
@@ -35,7 +36,7 @@ export default function SmcInfo({ transaction: info, decimals }) {
         dispatch(setLedgerTransactions(null));
       };
     }
-  }, []);
+  }, [ledgerId]);
 
   const getLedgerInfo = useCallback(
     async (ledgerId) => {

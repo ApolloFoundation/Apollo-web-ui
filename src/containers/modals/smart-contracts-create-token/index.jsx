@@ -39,7 +39,7 @@ export default function ({ closeModal }) {
 
   useEffect(() => {
     getStateTokenList();
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     if (currentToken) {
@@ -65,7 +65,7 @@ export default function ({ closeModal }) {
         );
       }
     },
-    [dispatch]
+    [dispatch, currentToken]
   );
 
   const handleChangeToken = (e) => {
