@@ -7,6 +7,7 @@ import React, { useState, useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Form, Formik, Field } from "formik";
 import { v4 as uuidv4 } from "uuid";
+import { processAccountRStoHex } from "apl-web-crypto";
 import { getTokenList, getTokensForm } from "../../../actions/contracts";
 import { setBodyModalParamsAction } from "../../../modules/modals";
 import TextualInputComponent from "../../components/form-components/textual-input1";
@@ -57,6 +58,13 @@ export default function ({ closeModal }) {
     (values) => {
       const isValidForm = fieldValidate(values);
       if (!isValidForm) {
+        Object.keys(values).map((key) => {
+          if (/^APL/.test(values[key])) {
+            const parseRStoHex = processAccountRStoHex(values[key], true);
+            return (values[key] = `${parseRStoHex}`);
+          }
+          return values[key];
+        });
         dispatch(
           setBodyModalParamsAction("SMC_APROVE_TOKEN", {
             params: values,
