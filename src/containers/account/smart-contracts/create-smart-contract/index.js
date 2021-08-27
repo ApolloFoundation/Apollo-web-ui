@@ -111,10 +111,6 @@ export default function SmartContracts() {
     dispatch(setBodyModalParamsAction("SMC_CREATE", null));
   }, [dispatch]);
 
-  const handleCrateToken = useCallback(() => {
-    dispatch(setBodyModalParamsAction("SMC_CREATE_TOKEN", null));
-  }, [dispatch]);
-
   const handleUploadFile = async ([file], setFieldValue) => {
     const uploadedTextFile = await parseTextFile(file);
     setFieldValue("source", uploadedTextFile);
@@ -146,13 +142,6 @@ export default function SmartContracts() {
           onClick={handleSendMessage}
         >
           Send message
-        </button>
-        <button
-          type={"button"}
-          className="btn btn-green btn-sm ml-3"
-          onClick={handleCrateToken}
-        >
-          Create token
         </button>
       </SiteHeader>
       <div className="page-body container-fluid">

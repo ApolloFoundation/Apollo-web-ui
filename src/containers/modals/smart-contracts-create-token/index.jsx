@@ -65,7 +65,7 @@ export default function ({ closeModal }) {
         );
       }
     },
-    [dispatch]
+    [dispatch, currentToken]
   );
 
   const handleChangeToken = (e) => {

@@ -132,6 +132,7 @@ class InfoTransactionTable extends Component {
 		const modalTypeName = formatTransactionType(this.props.constants.transactionTypes[this.props.transaction.type].subtypes[this.props.transaction.subtype].name);
 		const {secretPhrase, transaction: {attachment: {message, encryptedMessage}}, passPhrase, decimals, ticker} = this.props;
 		const transactionType = this.props.transaction && this.props.constants.transactionTypes && this.props.constants.transactionTypes[this.props.transaction.type];
+
 		return (
 			
 			<div className="transaction-table-body transparent wrap-collumns">

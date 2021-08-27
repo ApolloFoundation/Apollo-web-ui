@@ -64,7 +64,7 @@ export default function ({ closeModal }) {
         }
       }
     },
-    [dispatch]
+    [dispatch, modalData]
   );
 
   return (
