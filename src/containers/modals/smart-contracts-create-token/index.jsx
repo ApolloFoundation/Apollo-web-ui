@@ -84,6 +84,7 @@ export default function ({ closeModal }) {
     <div className="modal-box wide">
       {formFieldsList.length > 0 ? (
         <Formik
+          enableReinitialize
           onSubmit={submitForm}
           initialValues={getInitialValues(formFieldsList)}
         >
