@@ -12,6 +12,7 @@ import {
   getSmcSourceInfo,
 } from "../../../../actions/contracts";
 import SiteHeader from "../../../components/site-header";
+import ContentLoader from "../../../components/content-loader";
 import TabulationBody from "../../../components/tabulator/tabuator-body";
 import TabContaier from "../../../components/tabulator/tab-container";
 import PanelMethod from "./panels/panel-method";
@@ -26,6 +27,8 @@ const ExplorerContracts = (props) => {
   const [contractsList, setContractsList] = useState([]);
   const [overviewInfo, setOverviewInfo] = useState([]);
   const [sourceInfo, setSourceInfo] = useState({});
+  const [isLoadingPanels, setIsLoadingPanels] = useState(false);
+  const [isLoadingInfo, setIsLoadingInfo] = useState(false);
 
   useEffect(() => {
     getContractSpecification(id);
@@ -34,6 +37,7 @@ const ExplorerContracts = (props) => {
 
   const getContractSpecification = useCallback(
     async (id) => {
+      setIsLoadingPanels(true);
       const specifications = await dispatch(getSmcSpecification(id));
       if (specifications) {
         const { members, overview, inheritedContracts } = specifications;
@@ -52,6 +56,7 @@ const ExplorerContracts = (props) => {
         setSpecificationsList(membersList);
         setOverviewInfo(overview);
         setContractsList(inheritedContracts);
+        setIsLoadingPanels(false);
       }
     },
     [dispatch]
@@ -59,9 +64,11 @@ const ExplorerContracts = (props) => {
 
   const getSourceSpecification = useCallback(
     async (id) => {
+      setIsLoadingInfo(true);
       const source = await dispatch(getSmcSourceInfo(id));
       if (source) {
         setSourceInfo(source.contracts[0]);
+        setIsLoadingInfo(false);
       }
     },
     [dispatch, setSourceInfo]
@@ -93,37 +100,45 @@ const ExplorerContracts = (props) => {
           <div className="row ">
             <div className="col-md-12 mb-3 h-100 w-100 h-auto p-3">
               <div className="w-100 card card-light justify-content-start h-100 p-3">
-                <PanelOverview overview={overviewInfo} />
+                {isLoadingInfo ? (
+                  <ContentLoader />
+                ) : (
+                  <PanelOverview overview={overviewInfo} />
+                )}
               </div>
             </div>
             <div className="col-md-12 mb-3 h-100 w-100 h-auto p-3">
               <div className="w-100 card card-light justify-content-start h-100 p-3 form-tabulator active">
                 <div className="form-group-app">
-                  <TabulationBody active={1}>
-                    <TabContaier sectionName={"Code"}>
-                      <PanelSource
-                        title={"Read Contract Information"}
-                        source={sourceInfo}
-                        contracts={contractsList}
-                      />
-                    </TabContaier>
-                    <TabContaier sectionName={"Read contract"}>
-                      <PanelMethod
-                        title={"Read Information"}
-                        items={specificationsList.readList || []}
-                        type={"view"}
-                        address={id}
-                      />
-                    </TabContaier>
-                    <TabContaier sectionName={"Write contract"}>
-                      <PanelMethod
-                        title={"Write Information"}
-                        items={specificationsList.writeList || []}
-                        type={"write"}
-                        address={id}
-                      />
-                    </TabContaier>
-                  </TabulationBody>
+                  {isLoadingPanels ? (
+                    <ContentLoader />
+                  ) : (
+                    <TabulationBody active={1}>
+                      <TabContaier sectionName={"Code"}>
+                        <PanelSource
+                          title={"Read Contract Information"}
+                          source={sourceInfo}
+                          contracts={contractsList}
+                        />
+                      </TabContaier>
+                      <TabContaier sectionName={"Read contract"}>
+                        <PanelMethod
+                          title={"Read Information"}
+                          items={specificationsList.readList || []}
+                          type={"view"}
+                          address={id}
+                        />
+                      </TabContaier>
+                      <TabContaier sectionName={"Write contract"}>
+                        <PanelMethod
+                          title={"Write Information"}
+                          items={specificationsList.writeList || []}
+                          type={"write"}
+                          address={id}
+                        />
+                      </TabContaier>
+                    </TabulationBody>
+                  )}
                 </div>
               </div>
             </div>
