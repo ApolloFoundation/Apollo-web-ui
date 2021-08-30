@@ -37,7 +37,7 @@ const ExplorerContracts = (props) => {
 
   const getContractSpecification = useCallback(
     async (id) => {
-      setIsLoadingPanels((state) => !state);
+      setIsLoadingPanels(true);
       const specifications = await dispatch(getSmcSpecification(id));
       if (specifications) {
         const { members, overview, inheritedContracts } = specifications;
@@ -56,7 +56,7 @@ const ExplorerContracts = (props) => {
         setSpecificationsList(membersList);
         setOverviewInfo(overview);
         setContractsList(inheritedContracts);
-        setIsLoadingPanels((state) => !state);
+        setIsLoadingPanels(false);
       }
     },
     [dispatch]
@@ -64,11 +64,11 @@ const ExplorerContracts = (props) => {
 
   const getSourceSpecification = useCallback(
     async (id) => {
-      setIsLoadingInfo((state) => !state);
+      setIsLoadingInfo(true);
       const source = await dispatch(getSmcSourceInfo(id));
       if (source) {
         setSourceInfo(source.contracts[0]);
-        setIsLoadingInfo((state) => !state);
+        setIsLoadingInfo(false);
       }
     },
     [dispatch, setSourceInfo]
