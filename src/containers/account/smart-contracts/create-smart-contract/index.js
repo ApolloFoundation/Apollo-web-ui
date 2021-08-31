@@ -137,15 +137,7 @@ export default function SmartContracts() {
 
   return (
     <div className="page-content">
-      <SiteHeader pageTitle={"Create New Contract"}>
-        <button
-          type={"button"}
-          className="btn btn-green btn-sm ml-3"
-          onClick={handleSendMessage}
-        >
-          Send message
-        </button>
-      </SiteHeader>
+      <SiteHeader pageTitle={"Create New Contract"}/>
       <div className="page-body container-fluid">
         <div className="w-100 h-auto ">
           <Formik

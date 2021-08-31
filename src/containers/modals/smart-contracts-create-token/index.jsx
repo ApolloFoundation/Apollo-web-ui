@@ -7,6 +7,7 @@ import React, { useState, useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Form, Formik, Field } from "formik";
 import { v4 as uuidv4 } from "uuid";
+import moment from 'moment';
 import { processAccountRStoHex } from "apl-web-crypto";
 import { getTokenList, getTokensForm } from "../../../actions/contracts";
 import { setBodyModalParamsAction } from "../../../modules/modals";
@@ -81,7 +82,7 @@ export default function ({ closeModal }) {
   const handleChangeToken = (e) => {
     setCurrentToken(e.target.value);
   };
-
+  
   return (
     <div className="modal-box wide">
       {formFieldsList.length > 0 ? (
@@ -135,12 +136,13 @@ export default function ({ closeModal }) {
                             {item.type === "timestamp" ? (
                               <>
                                 <InputDate
-                                  label={item.name}
+                                  label={name}
                                   selected={startDate}
                                   onChange={(date) => {
                                     setStartDate(date);
-                                    setFieldValue(date);
+                                    setFieldValue(name, moment(date).toISOString());
                                   }}
+                                  name={name}
                                   showTimeSelect
                                   timeFormat="HH:mm:ss"
                                   timeCaption="time"
