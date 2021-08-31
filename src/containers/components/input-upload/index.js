@@ -15,6 +15,7 @@ const InputUpload = ({
   file,
   isDownload,
   isReset,
+  defaultFileName
 }) => {
   const onDropAccepted = (files) => {
     if (handleFileAccepted) handleFileAccepted(files);

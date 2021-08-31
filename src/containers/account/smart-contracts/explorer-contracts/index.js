@@ -26,9 +26,9 @@ const ExplorerContracts = (props) => {
   const [specificationsList, setSpecificationsList] = useState({});
   const [contractsList, setContractsList] = useState([]);
   const [overviewInfo, setOverviewInfo] = useState([]);
-  const [sourceInfo, setSourceInfo] = useState({});
-  const [isLoadingPanels, setIsLoadingPanels] = useState(false);
-  const [isLoadingInfo, setIsLoadingInfo] = useState(false);
+  const [sourceInfo, setSourceInfo] = useState(null);
+  const [isLoadingPanels, setIsLoadingPanels] = useState(true);
+  const [isLoadingInfo, setIsLoadingInfo] = useState(true);
 
   useEffect(() => {
     getContractSpecification(id);
@@ -37,7 +37,7 @@ const ExplorerContracts = (props) => {
 
   const getContractSpecification = useCallback(
     async (id) => {
-      setIsLoadingPanels(true);
+
       const specifications = await dispatch(getSmcSpecification(id));
       if (specifications) {
         const { members, overview, inheritedContracts } = specifications;
@@ -53,10 +53,11 @@ const ExplorerContracts = (props) => {
           },
           { readList: [], writeList: [] }
         );
+        setIsLoadingPanels(false);
         setSpecificationsList(membersList);
         setOverviewInfo(overview);
         setContractsList(inheritedContracts);
-        setIsLoadingPanels(false);
+
       }
     },
     [dispatch]
@@ -64,11 +65,11 @@ const ExplorerContracts = (props) => {
 
   const getSourceSpecification = useCallback(
     async (id) => {
-      setIsLoadingInfo(true);
       const source = await dispatch(getSmcSourceInfo(id));
       if (source) {
-        setSourceInfo(source.contracts[0]);
         setIsLoadingInfo(false);
+        setSourceInfo(source.contracts[0]);
+
       }
     },
     [dispatch, setSourceInfo]
@@ -78,6 +79,7 @@ const ExplorerContracts = (props) => {
     dispatch(setBodyModalParamsAction("SMC_CREATE", null));
   };
 
+  console.log(isLoadingPanels || isLoadingInfo, "load");
   return (
     <div className="page-content">
       <SiteHeader pageTitle={"Smart Contracts"}>
@@ -100,7 +102,7 @@ const ExplorerContracts = (props) => {
           <div className="row ">
             <div className="col-md-12 mb-3 h-100 w-100 h-auto p-3">
               <div className="w-100 card card-light justify-content-start h-100 p-3">
-                {isLoadingInfo ? (
+                {isLoadingPanels ? (
                   <ContentLoader />
                 ) : (
                   <PanelOverview overview={overviewInfo} />
@@ -110,7 +112,7 @@ const ExplorerContracts = (props) => {
             <div className="col-md-12 mb-3 h-100 w-100 h-auto p-3">
               <div className="w-100 card card-light justify-content-start h-100 p-3 form-tabulator active">
                 <div className="form-group-app">
-                  {isLoadingPanels ? (
+                  {isLoadingPanels || isLoadingInfo ? (
                     <ContentLoader />
                   ) : (
                     <TabulationBody active={1}>

@@ -11,11 +11,13 @@ import { processAccountRStoHex } from "apl-web-crypto";
 import { getTokenList, getTokensForm } from "../../../actions/contracts";
 import { setBodyModalParamsAction } from "../../../modules/modals";
 import TextualInputComponent from "../../components/form-components/textual-input1";
+import InputDate from "../../components/input-date";
 import Button from "../../components/button";
 import fieldValidate from "./form/form-validation";
 
 export default function ({ closeModal }) {
   const dispatch = useDispatch();
+  const [startDate, setStartDate] = useState(null);
   const [tokenList, setTokenList] = useState([]);
   const [currentToken, setCurrentToken] = useState(null);
   const [formFieldsList, setFormFieldsList] = useState([]);
@@ -80,6 +82,7 @@ export default function ({ closeModal }) {
     setCurrentToken(e.target.value);
   };
 
+  console.log(startDate, "startDate");
   return (
     <div className="modal-box wide">
       {formFieldsList.length > 0 ? (
@@ -88,7 +91,7 @@ export default function ({ closeModal }) {
           onSubmit={submitForm}
           initialValues={getInitialValues(formFieldsList)}
         >
-          {({ errors, touched }) => {
+          {({ errors, touched, setFieldValue }) => {
             return (
               <Form>
                 <div className="modal-form">
@@ -130,13 +133,30 @@ export default function ({ closeModal }) {
                         validate={(value) => fieldValidate(value, item.type)}
                         render={({ field: { name } }) => (
                           <div className="mb-3">
-                            <TextualInputComponent
-                              className={"text-capitalize"}
-                              label={name}
-                              name={name}
-                              placeholder={name}
-                              type={item.type === "uin" ? "float" : "text"}
-                            />
+                            {item.type === "timestamp" ? (
+                              <>
+                                <InputDate
+                                  label={item.name}
+                                  selected={startDate}
+                                  onChange={(date) => {
+                                    setStartDate(date);
+                                    setFieldValue(date);
+                                  }}
+                                  showTimeSelect
+                                  timeFormat="HH:mm:ss"
+                                  timeCaption="time"
+                                  dateFormat="MMMM d, yyyy h:mm:ss aa"
+                                />
+                              </>
+                            ) : (
+                              <TextualInputComponent
+                                className={"text-capitalize"}
+                                label={name}
+                                name={name}
+                                placeholder={name}
+                                type={item.type === "uint" ? "float" : "text"}
+                              />
+                            )}
                             {errors[name] && touched[name] ? (
                               <div className={"text-danger"}>
                                 {errors[item.name]}

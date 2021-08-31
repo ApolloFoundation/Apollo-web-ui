@@ -7,11 +7,11 @@ import TabContainer from "../../../../components/tabulator/tab-container";
 import PanelContract from "../panels/panel-code";
 
 const PanelSource = ({ source, contracts }) => {
-  const { name, fuelPrice, fuelLimit, params, src } = source;
+
   return (
     <>
       <div className="heading mb-3 pt-3">Source Information</div>
-      <div className="row mb-3">
+      {/* <div className="row mb-3">
         <div className="col-md-6">
           <div className="transaction-table no-min-height transparent">
             <div className="transaction-table-body transparent mb-2">
@@ -49,10 +49,11 @@ const PanelSource = ({ source, contracts }) => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
       <TabulationBody>
-        <TabContainer sectionName={"Code"}>
-          {src && (
+
+          {source && source?.src && (
+                    <TabContainer sectionName={"Code"}>
             <AceEditor
               setOptions={{ useWorker: false }}
               mode="javascript"
@@ -62,10 +63,11 @@ const PanelSource = ({ source, contracts }) => {
               width="100%"
               height="300px"
               readOnly={true}
-              value={src}
+              value={source.src}
             />
+                    </TabContainer>
           )}
-        </TabContainer>
+
 
         {contracts.length > 0 &&
           contracts.map((contract) => (

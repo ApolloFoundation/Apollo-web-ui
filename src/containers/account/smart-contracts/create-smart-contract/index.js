@@ -168,6 +168,7 @@ export default function SmartContracts() {
                             isDownload={true}
                             isReset={true}
                             file={fileData}
+                            defaultFileName="source.txt"
                             handleFileAccepted={(value) =>
                               handleUploadFile(value, setFieldValue)
                             }
