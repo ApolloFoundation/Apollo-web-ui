@@ -59,7 +59,6 @@ export default function SmartContracts() {
     });
   };
 
-  console.log(new Date("2021-08-30T17:35:26.000Z"), "date")
   const prevPaginate = () => onPaginate(pagination.page - 1);
   const nextPaginate = () => onPaginate(pagination.page + 1);
 

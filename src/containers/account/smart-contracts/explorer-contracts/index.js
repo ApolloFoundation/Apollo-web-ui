@@ -79,7 +79,6 @@ const ExplorerContracts = (props) => {
     dispatch(setBodyModalParamsAction("SMC_CREATE", null));
   };
 
-  console.log(isLoadingPanels || isLoadingInfo, "load");
   return (
     <div className="page-content">
       <SiteHeader pageTitle={"Smart Contracts"}>
