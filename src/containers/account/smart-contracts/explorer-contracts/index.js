@@ -7,10 +7,7 @@ import React, { useState, useCallback, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setBodyModalParamsAction } from "../../../../modules/modals";
-import {
-  getSmcSpecification,
-  getSmcSourceInfo,
-} from "../../../../actions/contracts";
+import { getSmcSpecification } from "../../../../actions/contracts";
 import SiteHeader from "../../../components/site-header";
 import ContentLoader from "../../../components/content-loader";
 import TabulationBody from "../../../components/tabulator/tabuator-body";
@@ -26,22 +23,18 @@ const ExplorerContracts = (props) => {
   const [specificationsList, setSpecificationsList] = useState({});
   const [contractsList, setContractsList] = useState([]);
   const [overviewInfo, setOverviewInfo] = useState([]);
-  const [sourceInfo, setSourceInfo] = useState(null);
+
   const [isLoadingPanels, setIsLoadingPanels] = useState(true);
-  const [isLoadingInfo, setIsLoadingInfo] = useState(true);
 
   useEffect(() => {
     getContractSpecification(id);
-    getSourceSpecification(id);
   }, [id]);
 
   const getContractSpecification = useCallback(
     async (id) => {
-
       const specifications = await dispatch(getSmcSpecification(id));
       if (specifications) {
         const { members, overview, inheritedContracts } = specifications;
-
         const membersList = members.reduce(
           (acc, item) => {
             if (item.stateMutability === "view") {
@@ -57,22 +50,9 @@ const ExplorerContracts = (props) => {
         setSpecificationsList(membersList);
         setOverviewInfo(overview);
         setContractsList(inheritedContracts);
-
       }
     },
     [dispatch]
-  );
-
-  const getSourceSpecification = useCallback(
-    async (id) => {
-      const source = await dispatch(getSmcSourceInfo(id));
-      if (source) {
-        setIsLoadingInfo(false);
-        setSourceInfo(source.contracts[0]);
-
-      }
-    },
-    [dispatch, setSourceInfo]
   );
 
   const handleSendMessage = () => {
@@ -111,14 +91,14 @@ const ExplorerContracts = (props) => {
             <div className="col-md-12 mb-3 h-100 w-100 h-auto p-3">
               <div className="w-100 card card-light justify-content-start h-100 p-3 form-tabulator active">
                 <div className="form-group-app">
-                  {isLoadingPanels || isLoadingInfo ? (
+                  {isLoadingPanels ? (
                     <ContentLoader />
                   ) : (
                     <TabulationBody active={1}>
                       <TabContaier sectionName={"Code"}>
                         <PanelSource
                           title={"Read Contract Information"}
-                          source={sourceInfo}
+                          address={id}
                           contracts={contractsList}
                         />
                       </TabContaier>

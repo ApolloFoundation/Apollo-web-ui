@@ -82,7 +82,6 @@ export default function ({ closeModal }) {
     setCurrentToken(e.target.value);
   };
 
-  console.log(startDate, "startDate");
   return (
     <div className="modal-box wide">
       {formFieldsList.length > 0 ? (
