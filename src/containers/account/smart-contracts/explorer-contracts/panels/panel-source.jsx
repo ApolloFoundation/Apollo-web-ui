@@ -1,13 +1,32 @@
-import React from "react";
+import React, { useState, useCallback, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-tomorrow";
 import TabulationBody from "../../../../components/tabulator/tabuator-body";
 import TabContainer from "../../../../components/tabulator/tab-container";
 import PanelContract from "../panels/panel-code";
+import { getSmcSourceInfo } from "../../../../../actions/contracts";
 
-const PanelSource = ({ source, contracts }) => {
-  const { name, fuelPrice, fuelLimit, params, src } = source;
+const PanelSource = ({ contracts, address }) => {
+  const dispatch = useDispatch();
+
+  const [sourceInfo, setSourceInfo] = useState({});
+
+  useEffect(() => {
+    getSourceSpecification(address);
+  }, [address]);
+
+  const getSourceSpecification = useCallback(
+    async (address) => {
+      const source = await dispatch(getSmcSourceInfo(address));
+      if (source) {
+        setSourceInfo(source.contracts[0]);
+      }
+    },
+    [dispatch, setSourceInfo]
+  );
+
   return (
     <>
       <div className="heading mb-3 pt-3">Source Information</div>
@@ -19,11 +38,11 @@ const PanelSource = ({ source, contracts }) => {
                 <tbody>
                   <tr>
                     <td>Name</td>
-                    <td>{name}</td>
+                    <td>{sourceInfo.name}</td>
                   </tr>
                   <tr>
                     <td>Params</td>
-                    <td>{params}</td>
+                    <td>{sourceInfo.params}</td>
                   </tr>
                 </tbody>
               </table>
@@ -38,11 +57,11 @@ const PanelSource = ({ source, contracts }) => {
                 <tbody>
                   <tr>
                     <td>Fuel price</td>
-                    <td>{fuelPrice}</td>
+                    <td>{sourceInfo.fuelPrice}</td>
                   </tr>
                   <tr>
                     <td>Fuel limit</td>
-                    <td>{fuelLimit}</td>
+                    <td>{sourceInfo.fuelLimit}</td>
                   </tr>
                 </tbody>
               </table>
@@ -52,7 +71,7 @@ const PanelSource = ({ source, contracts }) => {
       </div>
       <TabulationBody>
         <TabContainer sectionName={"Code"}>
-          {src && (
+          {sourceInfo?.src && (
             <AceEditor
               setOptions={{ useWorker: false }}
               mode="javascript"
@@ -62,7 +81,7 @@ const PanelSource = ({ source, contracts }) => {
               width="100%"
               height="300px"
               readOnly={true}
-              value={src}
+              value={sourceInfo.src}
             />
           )}
         </TabContainer>

@@ -123,7 +123,9 @@ export default function SmartContracts() {
   const handleUploadEditor = (value, setFieldValue) => {
     setFileData({
       ...fileData,
+      name: 'file.txt',
       content: value,
+
     });
     setFieldValue("source", value);
   };

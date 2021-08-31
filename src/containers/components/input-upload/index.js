@@ -63,9 +63,7 @@ const InputUpload = ({
           <input {...getInputProps()} accept={accept} />
           <div className={"d-none"} id={id} />
           <p className="flex-grow-1">
-            {acceptedFiles.length > 0
-              ? acceptedFiles.map((acceptedFile) => acceptedFile.name)
-              : "Click or drag file to upload"}
+            {file ? file.name || file.path : "Click or drag file to upload"}
           </p>
           {isReset && file && (
             <button

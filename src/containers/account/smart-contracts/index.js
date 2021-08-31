@@ -159,7 +159,7 @@ export default function SmartContracts() {
                 alignRight: false,
               },
               {
-                name: "Name",
+                name: "Contract",
                 alignRight: false,
               },
               {

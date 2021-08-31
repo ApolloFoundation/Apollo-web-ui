@@ -7,10 +7,7 @@ import React, { useState, useCallback, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setBodyModalParamsAction } from "../../../../modules/modals";
-import {
-  getSmcSpecification,
-  getSmcSourceInfo,
-} from "../../../../actions/contracts";
+import { getSmcSpecification } from "../../../../actions/contracts";
 import SiteHeader from "../../../components/site-header";
 import ContentLoader from "../../../components/content-loader";
 import TabulationBody from "../../../components/tabulator/tabuator-body";
@@ -26,22 +23,18 @@ const ExplorerContracts = (props) => {
   const [specificationsList, setSpecificationsList] = useState({});
   const [contractsList, setContractsList] = useState([]);
   const [overviewInfo, setOverviewInfo] = useState([]);
-  const [sourceInfo, setSourceInfo] = useState({});
-  const [isLoadingPanels, setIsLoadingPanels] = useState(false);
-  const [isLoadingInfo, setIsLoadingInfo] = useState(false);
+
+  const [isLoadingPanels, setIsLoadingPanels] = useState(true);
 
   useEffect(() => {
     getContractSpecification(id);
-    getSourceSpecification(id);
   }, [id]);
 
   const getContractSpecification = useCallback(
     async (id) => {
-      setIsLoadingPanels(true);
       const specifications = await dispatch(getSmcSpecification(id));
       if (specifications) {
         const { members, overview, inheritedContracts } = specifications;
-
         const membersList = members.reduce(
           (acc, item) => {
             if (item.stateMutability === "view") {
@@ -53,25 +46,13 @@ const ExplorerContracts = (props) => {
           },
           { readList: [], writeList: [] }
         );
+        setIsLoadingPanels(false);
         setSpecificationsList(membersList);
         setOverviewInfo(overview);
         setContractsList(inheritedContracts);
-        setIsLoadingPanels(false);
       }
     },
     [dispatch]
-  );
-
-  const getSourceSpecification = useCallback(
-    async (id) => {
-      setIsLoadingInfo(true);
-      const source = await dispatch(getSmcSourceInfo(id));
-      if (source) {
-        setSourceInfo(source.contracts[0]);
-        setIsLoadingInfo(false);
-      }
-    },
-    [dispatch, setSourceInfo]
   );
 
   const handleSendMessage = () => {
@@ -100,7 +81,7 @@ const ExplorerContracts = (props) => {
           <div className="row ">
             <div className="col-md-12 mb-3 h-100 w-100 h-auto p-3">
               <div className="w-100 card card-light justify-content-start h-100 p-3">
-                {isLoadingInfo ? (
+                {isLoadingPanels ? (
                   <ContentLoader />
                 ) : (
                   <PanelOverview overview={overviewInfo} />
@@ -117,7 +98,7 @@ const ExplorerContracts = (props) => {
                       <TabContaier sectionName={"Code"}>
                         <PanelSource
                           title={"Read Contract Information"}
-                          source={sourceInfo}
+                          address={id}
                           contracts={contractsList}
                         />
                       </TabContaier>
