@@ -62,21 +62,7 @@ const SmartContracts = () => {
 
   return (
     <div className="page-content">
-      <SiteHeader pageTitle={"Smart Contracts"}>
-        <Link
-          to={"/smart-contracts/create"}
-          className="btn btn-green btn-sm ml-3"
-        >
-          Create New Contract
-        </Link>
-        <button
-          type={"button"}
-          className="btn btn-green btn-sm ml-3"
-          onClick={handleSendMessage}
-        >
-          Send message
-        </button>
-      </SiteHeader>
+      <SiteHeader pageTitle={"Smart Contracts"}/>
       <div className="page-body container-fluid">
         <CustomTable
           header={[
