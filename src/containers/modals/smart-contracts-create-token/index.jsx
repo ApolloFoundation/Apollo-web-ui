@@ -66,7 +66,7 @@ export default function ({ closeModal }) {
             const parseRStoHex = processAccountRStoHex(values[key], true);
             return (values[key] = parseRStoHex);
           } else if (/^\d+$/.test(values[key])) {
-            const parseNumToATM = Number(values[key]) * Math.pow(10, 8)
+            const parseNumToATM = Number(values[key]) * Math.pow(10, 8);
             return (values[key] = parseNumToATM);
           }
           return values[key];
