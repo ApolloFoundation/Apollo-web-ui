@@ -5,11 +5,9 @@
 
 import React, { useState, useCallback, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
 import SiteHeader from "../../../components/site-header";
 import { ContractTableItem } from "../contract-table-item";
 import { getMyContracts } from "../../../../actions/contracts";
-import { setBodyModalParamsAction } from "../../../../modules/modals";
 import CustomTable from "../../../components/tables/table";
 
 const SmartContracts = () => {
@@ -53,33 +51,24 @@ const SmartContracts = () => {
   };
 
   const prevPaginate = () => onPaginate(pagination.page - 1);
-
   const nextPaginate = () => onPaginate(pagination.page + 1);
-
-  const handleSendMessage = () => {
-    dispatch(setBodyModalParamsAction("SMC_CREATE", null));
-  };
 
   return (
     <div className="page-content">
-      <SiteHeader pageTitle={"Smart Contracts"}/>
+      <SiteHeader pageTitle={"Smart Contracts"} />
       <div className="page-body container-fluid">
         <CustomTable
           header={[
             {
-              name: "Adress",
+              name: "Address",
               alignRight: false,
             },
             {
-              name: "Name",
+              name: "Contract",
               alignRight: false,
             },
             {
               name: "Transaction id",
-              alignRight: false,
-            },
-            {
-              name: "Amount",
               alignRight: false,
             },
             {

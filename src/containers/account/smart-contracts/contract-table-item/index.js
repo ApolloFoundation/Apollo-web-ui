@@ -88,13 +88,6 @@ export const ContractTableItem = ({
               Buy
             </button>
           )}
-          <button
-            type={"button"}
-            onClick={handleSendMessage}
-            className={`btn btn-green btn-sm`}
-          >
-            Send message
-          </button>
         </div>
       </td>
     </tr>
