@@ -58,11 +58,11 @@ const PanelMethod = ({ items, address, type, title, token }) => {
                     <>
                       <div className="mb-1">
                         ATM:
-                        <span className="text-info"> {item.value / Math.pow(10, 8)}</span>
+                        <span className="text-info"> {item.value}</span>
                       </div>
                       <div className="mb-1">
                         {token.value}:
-                        <span className="text-info"> {item.value} </span>
+                        <span className="text-info"> {item.value / Math.pow(10, 8)}</span>
                       </div>
                     </>
                   ) : (
