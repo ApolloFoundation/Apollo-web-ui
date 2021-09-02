@@ -7,7 +7,7 @@ import React, { useState, useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Form, Formik, Field } from "formik";
 import { v4 as uuidv4 } from "uuid";
-import moment from 'moment';
+import moment from "moment";
 import { processAccountRStoHex } from "apl-web-crypto";
 import { getTokenList, getTokensForm } from "../../../actions/contracts";
 import { setBodyModalParamsAction } from "../../../modules/modals";
@@ -64,7 +64,10 @@ export default function ({ closeModal }) {
         Object.keys(values).map((key) => {
           if (/^APL/.test(values[key])) {
             const parseRStoHex = processAccountRStoHex(values[key], true);
-            return (values[key] = `${parseRStoHex}`);
+            return (values[key] = parseRStoHex);
+          } else if (/^\d+$/.test(values[key])) {
+            const parseNumToATM = Number(values[key]) * Math.pow(10, 8)
+            return (values[key] = parseNumToATM);
           }
           return values[key];
         });
@@ -82,7 +85,7 @@ export default function ({ closeModal }) {
   const handleChangeToken = (e) => {
     setCurrentToken(e.target.value);
   };
-  
+
   return (
     <div className="modal-box wide">
       {formFieldsList.length > 0 ? (
@@ -140,10 +143,14 @@ export default function ({ closeModal }) {
                                   selected={startDate}
                                   onChange={(date) => {
                                     setStartDate(date);
-                                    setFieldValue(name, moment(date).toISOString());
+                                    setFieldValue(
+                                      name,
+                                      moment(date).toISOString()
+                                    );
                                   }}
                                   name={name}
                                   showTimeSelect
+                                  timeIntervals={1}
                                   timeFormat="HH:mm:ss"
                                   timeCaption="time"
                                   dateFormat="MMMM d, yyyy h:mm:ss aa"

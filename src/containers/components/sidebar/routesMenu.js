@@ -144,12 +144,6 @@ export const smartСontracts = {
   to: "/smart-contracts",
   label: "Smart contracts",
   icon: "zmdi-collection-text",
-  additionalChildren: {
-    id: "open-create-poll",
-    label: "Send Message",
-    modalType: "SMC_CREATE",
-    icon: "zmdi-comments",
-  },
   children: [
     {
       className: "/my-smart-contracts",

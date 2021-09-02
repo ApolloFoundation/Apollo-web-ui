@@ -9,12 +9,21 @@ import TextualInputComponent from "../../../../components/form-components/textua
 import Button from "../../../../components/button";
 import fieldValidate from "./form-validation";
 
-const ExplorerForm = ({ fields, address, methodName: name, type, formIndex }) => {
+const ExplorerForm = ({
+  fields,
+  address,
+  methodName: name,
+  type,
+  formIndex,
+  token,
+}) => {
   const dispatch = useDispatch();
 
   const [readMethods, setReadMethods] = useState([]);
   const [error, setError] = useState(null);
+
   const regAPL = /^APL/;
+  const regAmount = /^amount/;
 
   const getInitialValues = (fields) => {
     const initialValues = {};
@@ -27,6 +36,8 @@ const ExplorerForm = ({ fields, address, methodName: name, type, formIndex }) =>
       if (regAPL.test(values[key])) {
         const parseRStoHex = processAccountRStoHex(values[key], true);
         return (values[key] = `'${parseRStoHex}'`);
+      } else if (regAmount.test(key)) {
+        return (values[key] = Number(values[key]) * Math.pow(10, 8));
       }
       return values[key];
     });
@@ -40,7 +51,7 @@ const ExplorerForm = ({ fields, address, methodName: name, type, formIndex }) =>
         address,
         name,
         params,
-        formIndex
+        formIndex,
       })
     );
   };
@@ -125,13 +136,19 @@ const ExplorerForm = ({ fields, address, methodName: name, type, formIndex }) =>
       {readMethods.length > 0
         ? readMethods.map((item) => (
             <div key={uuidv4()} className="mb-2">
-              {item.method && <div className="mb-1">Method: {item.method}</div>}
-
+              <div className="mb-1">Method: {item.method}</div>
               {item.signature && item.output && (
-                <div className="mb-1">
-                  Signature: {item.signature} {"-> "}
-                  <span className="text-info">{item.output[0]}</span>
-                </div>
+                <>
+                  <div className="mb-1">Signature: {item.signature}</div>
+                  <div className="mb-1">
+                    ATM:
+                    <span className="text-info"> {Number(item.output[0]) / Math.pow(10, 8)}</span>
+                  </div>
+                  <div className="mb-1">
+                    {token.value}:
+                    <span className="text-info"> {item.output[0]} </span>
+                  </div>
+                </>
               )}
               {item.errorDescription && (
                 <div className="mb-1 text-danger">

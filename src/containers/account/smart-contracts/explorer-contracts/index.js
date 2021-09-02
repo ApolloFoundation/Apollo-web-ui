@@ -4,9 +4,7 @@
  ******************************************************************************/
 
 import React, { useState, useCallback, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setBodyModalParamsAction } from "../../../../modules/modals";
 import { getSmcSpecification } from "../../../../actions/contracts";
 import SiteHeader from "../../../components/site-header";
 import ContentLoader from "../../../components/content-loader";
@@ -23,7 +21,7 @@ const ExplorerContracts = (props) => {
   const [specificationsList, setSpecificationsList] = useState({});
   const [contractsList, setContractsList] = useState([]);
   const [overviewInfo, setOverviewInfo] = useState([]);
-
+  const [currentToken, setCurrentToken] = useState(null);
   const [isLoadingPanels, setIsLoadingPanels] = useState(true);
 
   useEffect(() => {
@@ -35,6 +33,7 @@ const ExplorerContracts = (props) => {
       const specifications = await dispatch(getSmcSpecification(id));
       if (specifications) {
         const { members, overview, inheritedContracts } = specifications;
+        const token = overview.find((item) => item.name === "symbol");
         const membersList = members.reduce(
           (acc, item) => {
             if (item.stateMutability === "view") {
@@ -46,7 +45,9 @@ const ExplorerContracts = (props) => {
           },
           { readList: [], writeList: [] }
         );
+
         setIsLoadingPanels(false);
+        setCurrentToken(token);
         setSpecificationsList(membersList);
         setOverviewInfo(overview);
         setContractsList(inheritedContracts);
@@ -55,27 +56,9 @@ const ExplorerContracts = (props) => {
     [dispatch]
   );
 
-  const handleSendMessage = () => {
-    dispatch(setBodyModalParamsAction("SMC_CREATE", null));
-  };
-
   return (
     <div className="page-content">
-      <SiteHeader pageTitle={"Smart Contracts"}>
-        <Link
-          to={"/smart-contracts/create"}
-          className="btn btn-green btn-sm ml-3"
-        >
-          Create New Contract
-        </Link>
-        <button
-          type={"button"}
-          className="btn btn-green btn-sm ml-3"
-          onClick={handleSendMessage}
-        >
-          Send message
-        </button>
-      </SiteHeader>
+      <SiteHeader pageTitle={"Smart Contracts"} />
       <div className="page-body container-fluid">
         <div className="w-100 h-auto">
           <div className="row ">
@@ -84,7 +67,7 @@ const ExplorerContracts = (props) => {
                 {isLoadingPanels ? (
                   <ContentLoader />
                 ) : (
-                  <PanelOverview overview={overviewInfo} />
+                  <PanelOverview overview={overviewInfo} token={currentToken} />
                 )}
               </div>
             </div>
@@ -108,6 +91,7 @@ const ExplorerContracts = (props) => {
                           items={specificationsList.readList || []}
                           type={"view"}
                           address={id}
+                          token={currentToken}
                         />
                       </TabContaier>
                       <TabContaier sectionName={"Write contract"}>

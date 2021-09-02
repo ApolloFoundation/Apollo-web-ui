@@ -1,7 +1,7 @@
 import React from "react";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
-const PanelOverview = ({ overview }) => {
+const PanelOverview = ({ overview, token }) => {
   return (
     <div className="transaction-table no-min-height transparent">
       <div className="transaction-table-body transparent">
@@ -18,8 +18,26 @@ const PanelOverview = ({ overview }) => {
                     </a>
                   ) : (
                     <>
-                      <span>{item.value}</span>
-                      <span className="text-info"> {item.type}</span>
+                      <span>
+                        {item.type === "uint" &&
+                        !(
+                          item.name === "releaseTime" ||
+                          item.name === "decimals"
+                        ) ? (
+                          <>
+                            ATM:
+                            <span className="text-info"> {Number(item.value) / Math.pow(10, 8)}</span>
+                            <span> | </span>
+                            {token.value}:
+                            <span className="text-info"> {item.value}</span>
+                          </>
+                        ) : (
+                          <>
+                            {item.value}
+                            <span className="text-info"> {item.type}</span>
+                          </>
+                        )}
+                      </span>
                     </>
                   )}
                 </td>

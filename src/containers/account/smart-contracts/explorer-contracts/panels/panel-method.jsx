@@ -5,7 +5,7 @@ import Button from "../../../../components/button";
 import ExplorerForm from "../form";
 import { setBodyModalParamsAction } from "../../../../../modules/modals";
 
-const PanelMethod = ({ items, address, type, title }) => {
+const PanelMethod = ({ items, address, type, title, token }) => {
   const dispatch = useDispatch();
   const { transactions } = useSelector((state) => state.smartContract);
   const [expanded, setExpanded] = useState(false);
@@ -48,11 +48,30 @@ const PanelMethod = ({ items, address, type, title }) => {
                 address={address}
                 fields={item.inputs}
                 formIndex={index}
+                token={token}
               />
             ) : (
               <>
-                <span>{item.value} </span>
-                <span className="text-info">{item.outputs[0].type} </span>
+                <span>
+                  {item.outputs[0].type === "uint" &&
+                  !(item.name === "releaseTime" || item.name === "decimals") ? (
+                    <>
+                      <div className="mb-1">
+                        ATM:
+                        <span className="text-info"> {item.value / Math.pow(10, 8)}</span>
+                      </div>
+                      <div className="mb-1">
+                        {token.value}:
+                        <span className="text-info"> {item.value} </span>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      {item.value}
+                      <span className="text-info"> {item.outputs[0].type}</span>
+                    </>
+                  )}
+                </span>
               </>
             )}
             {type === "write" && transactions[index] && (
