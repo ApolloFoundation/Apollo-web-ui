@@ -29,7 +29,7 @@ export default function ({ closeModal }) {
   };
 
   const handleChangeAmount = (setFieldValue) => (value) => {
-    const convertedValue = (value * 100000000) / modalData.smcInfo?.rate;
+    const convertedValue = value * modalData.smcInfo?.rate / Math.pow(10, 8) 
     setFieldValue("token", convertedValue);
   };
 
