@@ -157,7 +157,7 @@ export default function SmartContracts() {
                         <div className="form-group mb-15">
                           <label for="source">Contract source</label>
                           <InputUpload
-                            id="file"
+                            id="smart-contracts-file"
                             accept={"*"}
                             isDownload={true}
                             isReset={true}
