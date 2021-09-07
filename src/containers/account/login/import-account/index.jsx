@@ -150,7 +150,7 @@ export default function ImportAccount(props) {
                       <label htmlFor="import-account-file">
                         Your account secret file
                       </label>
-                      <InputUpload accept=".apl" id="import-account-file" />
+                      <InputUpload accept=".apl" id="import_account_file" />
                     </div>
                   </>
                 )}
