@@ -147,7 +147,7 @@ export default function ImportAccount(props) {
                       />
                     </div>
                     <div className="form-group row form-group-grey mb-15">
-                      <label htmlFor="import-account-file">
+                      <label htmlFor="import_account_file">
                         Your account secret file
                       </label>
                       <InputUpload accept=".apl" id="import_account_file" />
