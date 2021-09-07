@@ -44,7 +44,7 @@ export default function ImportAccount(props) {
   const [format, setFormat] = useState('file');
   const [isGenerated, setIsGenerated] = useState(false);
   const [importAccount, setImportAccount] = useState(false);
-  const [isError, setIsError] = useState(false); 
+  const [isError, setIsError] = useState(false);
 
   const handleFormSubmit = useCallback(async values => {
     const {
@@ -97,6 +97,7 @@ export default function ImportAccount(props) {
         <span
           onClick={handleClose}
           className="exit"
+          id="closeBtn_advancedUser"
         >
           <i className="zmdi zmdi-close" />
         </span>
@@ -130,6 +131,7 @@ export default function ImportAccount(props) {
                       className="form-control"
                       name="secretBytes"
                       placeholder="Secret Key"
+                      id="input_secretBytes_importAccount"
                     />
                   </div>
                 ) : (
@@ -141,6 +143,7 @@ export default function ImportAccount(props) {
                         className="form-control"
                         name="passPhrase"
                         placeholder="Secret Phrase"
+                        id="input_passPhrase_importAccount"
                       />
                     </div>
                     <div className="form-group row form-group-grey mb-15">
@@ -219,6 +222,7 @@ export default function ImportAccount(props) {
                         type="submit"
                         className="btn btn-without"
                         name="Restore account"
+                        id="submit_importAccount"
                       />
                     )}
                 </div>

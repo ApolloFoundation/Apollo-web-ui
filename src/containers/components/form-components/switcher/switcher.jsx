@@ -6,7 +6,8 @@ export const Switcher = ({
   name,
   value,
   onChange,
-  label
+  label,
+  id
 }) => {
   const [localValue, setLocalValue] = useState(value);
 
@@ -29,15 +30,15 @@ export const Switcher = ({
         checked={localValue}
         onChange={handleChange}
       />
-      <div className={styles.switcherContent}>
-        <div 
+      <div id="switcher_standardWallet" className={styles.switcherContent}>
+        <div
           className={
             classNames(
-              styles.switcherField, 
+              styles.switcherField,
               {
                 [styles.switcherFieldActive]: localValue,
               }
-            )} 
+            )}
           />
         <span className={styles.switcherLabel}>{label}</span>
       </div>

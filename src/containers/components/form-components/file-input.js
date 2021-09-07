@@ -41,6 +41,7 @@ class FileInput extends React.Component {
                 <div>
                     <InputUpload
                         id="file"
+                        idForTest=""
                         type={type}
                         accept={accept}
                         maxSize={maxSize}
