@@ -97,7 +97,7 @@ export default function ImportAccount(props) {
         <span
           onClick={handleClose}
           className="exit"
-          id="closeBtn_advancedUser"
+          id="button-close-advanced-user"
         >
           <i className="zmdi zmdi-close" />
         </span>
@@ -131,7 +131,7 @@ export default function ImportAccount(props) {
                       className="form-control"
                       name="secretBytes"
                       placeholder="Secret Key"
-                      id="input_secretBytes_importAccount"
+                      id="input-secret-bytes-import-account"
                     />
                   </div>
                 ) : (
@@ -143,14 +143,14 @@ export default function ImportAccount(props) {
                         className="form-control"
                         name="passPhrase"
                         placeholder="Secret Phrase"
-                        id="input_passPhrase_importAccount"
+                        id="input-password-phrase-import-account"
                       />
                     </div>
                     <div className="form-group row form-group-grey mb-15">
-                      <label htmlFor="import_account_file">
+                      <label htmlFor="import-account-file">
                         Your account secret file
                       </label>
-                      <InputUpload accept=".apl" id="import_account_file" />
+                      <InputUpload accept=".apl" id="import-account-file" />
                     </div>
                   </>
                 )}
@@ -222,7 +222,7 @@ export default function ImportAccount(props) {
                         type="submit"
                         className="btn btn-without"
                         name="Restore account"
-                        id="submit_importAccount"
+                        id="submit-import-account"
                       />
                     )}
                 </div>

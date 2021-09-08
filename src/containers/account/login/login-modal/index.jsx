@@ -24,7 +24,7 @@ export default function LoginModal({ handleModal }) {
       </div>
       <div className={styles.line}>Or</div>
       <div
-        id="buttonBlock_advancedUser"
+        id="button-block-advanced-user"
         className={classNames("button-block", styles.buttonIcon)}
         onClick={() => handleModal('IMPORT_ACCOUNT')}
       >
@@ -32,7 +32,7 @@ export default function LoginModal({ handleModal }) {
         <span className="sub-title">Import Vault Wallet</span>
       </div>
       <div
-        id="buttonBlock_newUser"
+        id="button-block-new-user"
         className="button-block"
         onClick={() => handleModal('CREATE_USER')}
       >

@@ -128,7 +128,7 @@ export default function VaultWalletForm(props) {
                   randomly generated secret phrase.
                 </InfoBox>
                 <CheckboxFormInput
-                  id="checkBox_vaultWallet_createNewWallet"
+                  id="check-box-vault-wallet-create-new-wallet"
                   name="isCustomPassphrase"
                   label="Use custom secret phrase"
                   onChange={() => setIsCustomPassphraseTextarea(!isCustomPassphraseTextarea)}
@@ -138,14 +138,14 @@ export default function VaultWalletForm(props) {
                     label="Your account secret phrase"
                     name="newAccountpassphrse"
                     placeholder="Secret Phrase"
-                    id="input_secretPhrase_vaultWallet"
+                    id="input-secret-phrase-vault-wallet"
                   />
                 )}
                 <Button
                   className="btn-without"
                   onClick={() => generateAccount(values)}
                   name="Create account"
-                  id="submit_secretPhrase_vaultWallet"
+                  id="button-secret-phrase-vault-wallet"
                 />
               </div>
             ) : (

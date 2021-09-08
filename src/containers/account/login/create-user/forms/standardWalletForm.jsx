@@ -89,7 +89,7 @@ export default function StandardWalletForm(props) {
               className="btn-without"
               name="Create account"
               onClick={() => generatePassphrase(values)}
-              id="submit_newUser"
+              id="button-new-user"
             />
           ) : (
             <div>

@@ -73,15 +73,15 @@ export default function SecretPhraseForm({ activeTab }) {
               label="Secret Phrase"
               placeholder="Secret Phrase"
               type="password"
-              id="input_secret_phrase"
+              id="input-secret-phrase"
             />
           ) :(
             <div className="input-group-app user">
-              <label htmlFor="Account_id">Enter your ID or choose from saved</label>
+              <label htmlFor="account-id">Enter your ID or choose from saved</label>
               <AccountRS
                 name="accountRS"
                 placeholder="Account ID"
-                id="Account_id"
+                id="account-id"
               />
             </div>
           )}
@@ -98,7 +98,7 @@ export default function SecretPhraseForm({ activeTab }) {
           type="submit"
           name="Initiate"
           className="btn"
-          id="submit_standard_wallet"
+          id="button-standard-wallet"
         />
       </Form>
     </Formik>

@@ -15,7 +15,7 @@ export default function ButtonTabs(props) {
           type="button"
           onClick={() => onClick(tab.id)}
           className={cn(styles['form-tab'], { [styles.active]: isActive === tab.id }, styles[className])}
-          id={`buttonTabs_importAccount_${tab.id}`}
+          id={`button-tabs-import-account_${tab.id}`}
           key={`${tab.id}`}
         >
           <span className={styles['button-content']}>

@@ -126,7 +126,7 @@ export default function CreateUser(props) {
 
   return (
     <div className="dark-card">
-      <span onClick={handleClose} className="exit" id="closeButton_createNewWallet">
+      <span onClick={handleClose} className="exit" id="button-close-create-new-wallet">
         <i className="zmdi zmdi-close" />
       </span>
       <p className="title">Create New Wallet</p>

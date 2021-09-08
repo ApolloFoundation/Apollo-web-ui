@@ -30,7 +30,7 @@ export const Switcher = ({
         checked={localValue}
         onChange={handleChange}
       />
-      <div id="switcher_standardWallet" className={styles.switcherContent}>
+      <div id="switcher-standard-wallet" className={styles.switcherContent}>
         <div
           className={
             classNames(
