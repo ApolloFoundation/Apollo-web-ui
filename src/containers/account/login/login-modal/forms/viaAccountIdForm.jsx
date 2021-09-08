@@ -48,6 +48,7 @@ export default function AccountIdForm({ activeTab }) {
           type="submit"
           name="Initiate"
           className="btn"
+          id="button-vault-wallet"
         />
       </Form>
     </Formik>

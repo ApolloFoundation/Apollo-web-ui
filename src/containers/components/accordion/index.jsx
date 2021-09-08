@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import styles from './index.module.scss';
 
-export const Accordion = ({ 
+export const Accordion = ({
   header,
   defaultInstance = false,
   currentState,
@@ -28,7 +28,7 @@ export const Accordion = ({
 
   return (
     <div className={classNames(styles.accordion, className, { [styles.accordionActive]: isOpen })}>
-      <div className={styles.accordionHeader} onClick={handleAccordionOpen}>
+      <div id={id} className={styles.accordionHeader} onClick={handleAccordionOpen}>
         <div className={styles.accordionInfo}>{header}</div>
         <span className={classNames(styles.accordionIcon, {[styles.accordionIconOpen]: isOpen})} />
       </div>

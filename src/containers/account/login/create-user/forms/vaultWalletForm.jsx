@@ -24,7 +24,7 @@ export default function VaultWalletForm(props) {
   const [keySeed, setKeySeed] = useState(null);
   const [isCustomPassphrase, setIsCustomPassphrase] = useState(true);
   const [isAccountLoaded, setIsAccountLoaded] = useState(false);
-  
+
   const handleGeneratePDF = () => {
     generatePDF([
       {
@@ -45,7 +45,7 @@ export default function VaultWalletForm(props) {
       }
     ]);
   }
-  
+
   const { loginModalButton } = useLoginModal(handleGeneratePDF);
 
   const generateAccount = useCallback(async values => {
@@ -128,6 +128,7 @@ export default function VaultWalletForm(props) {
                   randomly generated secret phrase.
                 </InfoBox>
                 <CheckboxFormInput
+                  id="check-box-vault-wallet-create-new-wallet"
                   name="isCustomPassphrase"
                   label="Use custom secret phrase"
                   onChange={() => setIsCustomPassphraseTextarea(!isCustomPassphraseTextarea)}
@@ -137,12 +138,14 @@ export default function VaultWalletForm(props) {
                     label="Your account secret phrase"
                     name="newAccountpassphrse"
                     placeholder="Secret Phrase"
+                    id="input-secret-phrase-vault-wallet"
                   />
                 )}
                 <Button
                   className="btn-without"
                   onClick={() => generateAccount(values)}
                   name="Create account"
+                  id="button-secret-phrase-vault-wallet"
                 />
               </div>
             ) : (

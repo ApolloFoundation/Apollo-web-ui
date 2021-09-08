@@ -37,7 +37,7 @@ export const StandartWallet = ({ active, onChange, id }) => {
         </div>
       }
     >
-      <SecretPhraseForm /> 
+      <SecretPhraseForm />
     </Accordion>
   );
 }

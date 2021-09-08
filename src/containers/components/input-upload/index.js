@@ -60,7 +60,7 @@ const InputUpload = ({
             isDragActive ? "upload-block-active" : ""
           }`}
         >
-          <input {...getInputProps()} accept={accept} />
+          <input {...getInputProps()} accept={accept} id={`input-${id}`}/>
           <div className={"d-none"} id={id} />
           <p className="flex-grow-1">
             {file ? file.name || file.path : "Click or drag file to upload"}

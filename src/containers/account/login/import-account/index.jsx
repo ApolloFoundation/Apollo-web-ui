@@ -44,7 +44,7 @@ export default function ImportAccount(props) {
   const [format, setFormat] = useState('file');
   const [isGenerated, setIsGenerated] = useState(false);
   const [importAccount, setImportAccount] = useState(false);
-  const [isError, setIsError] = useState(false); 
+  const [isError, setIsError] = useState(false);
 
   const handleFormSubmit = useCallback(async values => {
     const {
@@ -97,6 +97,7 @@ export default function ImportAccount(props) {
         <span
           onClick={handleClose}
           className="exit"
+          id="button-close-advanced-user"
         >
           <i className="zmdi zmdi-close" />
         </span>
@@ -130,6 +131,7 @@ export default function ImportAccount(props) {
                       className="form-control"
                       name="secretBytes"
                       placeholder="Secret Key"
+                      id="input-secret-bytes-import-account"
                     />
                   </div>
                 ) : (
@@ -141,13 +143,14 @@ export default function ImportAccount(props) {
                         className="form-control"
                         name="passPhrase"
                         placeholder="Secret Phrase"
+                        id="input-password-phrase-import-account"
                       />
                     </div>
                     <div className="form-group row form-group-grey mb-15">
-                      <label htmlFor="file">
+                      <label htmlFor="import-account-file">
                         Your account secret file
                       </label>
-                      <InputUpload accept=".apl" id="file" />
+                      <InputUpload accept=".apl" id="import-account-file" />
                     </div>
                   </>
                 )}
@@ -219,6 +222,7 @@ export default function ImportAccount(props) {
                         type="submit"
                         className="btn btn-without"
                         name="Restore account"
+                        id="submit-import-account"
                       />
                     )}
                 </div>
