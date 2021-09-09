@@ -141,10 +141,12 @@ export default function ({ closeModal }) {
                     {formFieldsList.map((item) => {
                       if (item.name === "rate") {
                         return (
-                          <div key={uuidv4()} className="row w-100 m-0 justify-content-between align-items-center mb-3">
+                          <div
+                            key={uuidv4()}
+                            className="row w-100 m-0 justify-content-between align-items-center mb-3"
+                          >
                             <div className="col-5 p-0">
                               <Field
-
                                 name="atm"
                                 validate={(value) =>
                                   fieldValidate(value, item.type)
@@ -185,55 +187,49 @@ export default function ({ closeModal }) {
                         );
                       }
                       return (
-                        <>
-                          <Field
-                            key={uuidv4()}
-                            name={item.name}
-                            validate={(value) =>
-                              fieldValidate(value, item.type)
-                            }
-                            render={({ field: { name } }) => (
-                              <div className="mb-3">
-                                {item.type === "timestamp" ? (
-                                  <>
-                                    <InputDate
-                                      label={name}
-                                      selected={startDate}
-                                      onChange={(date) => {
-                                        setStartDate(date);
-                                        setFieldValue(
-                                          name,
-                                          moment(date).toISOString()
-                                        );
-                                      }}
-                                      name={name}
-                                      showTimeSelect
-                                      timeIntervals={1}
-                                      timeFormat="HH:mm:ss"
-                                      timeCaption="time"
-                                      dateFormat="MMMM d, yyyy h:mm:ss aa"
-                                    />
-                                  </>
-                                ) : (
-                                  <TextualInputComponent
-                                    className={"text-capitalize"}
+                        <Field
+                          key={uuidv4()}
+                          name={item.name}
+                          validate={(value) => fieldValidate(value, item.type)}
+                          render={({ field: { name } }) => (
+                            <div className="mb-3">
+                              {item.type === "timestamp" ? (
+                                <>
+                                  <InputDate
                                     label={name}
+                                    selected={startDate}
+                                    onChange={(date) => {
+                                      setStartDate(date);
+                                      setFieldValue(
+                                        name,
+                                        moment(date).toISOString()
+                                      );
+                                    }}
                                     name={name}
-                                    placeholder={name}
-                                    type={
-                                      item.type === "uint" ? "float" : "text"
-                                    }
+                                    showTimeSelect
+                                    timeIntervals={1}
+                                    timeFormat="HH:mm:ss"
+                                    timeCaption="time"
+                                    dateFormat="MMMM d, yyyy h:mm:ss aa"
                                   />
-                                )}
-                                {errors[name] && touched[name] ? (
-                                  <div className={"text-danger"}>
-                                    {errors[item.name]}
-                                  </div>
-                                ) : null}
-                              </div>
-                            )}
-                          />
-                        </>
+                                </>
+                              ) : (
+                                <TextualInputComponent
+                                  className={"text-capitalize"}
+                                  label={name}
+                                  name={name}
+                                  placeholder={name}
+                                  type={item.type === "uint" ? "float" : "text"}
+                                />
+                              )}
+                              {errors[name] && touched[name] ? (
+                                <div className={"text-danger"}>
+                                  {errors[item.name]}
+                                </div>
+                              ) : null}
+                            </div>
+                          )}
+                        />
                       );
                     })}
                     <Button
