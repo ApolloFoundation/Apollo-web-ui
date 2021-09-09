@@ -5,6 +5,8 @@
 
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { convertToAPL, convertToToken } from "../../../helpers/converters";
+
 import {
   exportTestExperationMessage,
   exportExperationMessageSubmit,
@@ -14,6 +16,7 @@ import { validationForm } from "./form/form-validation";
 import ModalBody from "../../components/modals/modal-body1";
 import ByForm from "./form";
 
+import jsbn from "jsbn";
 export default function ({ closeModal }) {
   const dispatch = useDispatch();
   const {
@@ -29,7 +32,7 @@ export default function ({ closeModal }) {
   };
 
   const handleChangeAmount = (setFieldValue) => (value) => {
-    const convertedValue = value * modalData.smcInfo?.rate / Math.pow(10, 8) 
+    const convertedValue = convertToToken(value * modalData.smcInfo?.rate);
     setFieldValue("token", convertedValue);
   };
 
@@ -37,9 +40,10 @@ export default function ({ closeModal }) {
     const isValidForm = validationForm(values);
 
     if (!isValidForm) {
+      const convertedValue = convertToAPL(values.value);
       let formData = {
         ...values,
-        value: Number(values.value) * Math.pow(10, 8),
+        value: convertedValue,
         params: values.params.split(","),
       };
       const testMessage = await dispatch(exportTestExperationMessage(formData));

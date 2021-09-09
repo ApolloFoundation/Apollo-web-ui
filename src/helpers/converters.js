@@ -549,6 +549,18 @@ function generateTokenAPL(messageToGenerate, sp) {
     }
 };
 
+export function convertToToken(value, decimal = 8, isGruping = false) {
+    return (value / Math.pow(10, decimal)).toLocaleString('en', { 
+        useGrouping: isGruping
+    })
+};
+
+export function convertToAPL(value, decimal = 8, isGruping = false) {
+    return (value * Math.pow(10, decimal)).toLocaleString('en', { 
+        useGrouping: isGruping
+    })
+};
+
 export default {
     stringToByteArray,
     wordArrayToByteArrayImplAPL: wordArrayToByteArrayImplAPL,

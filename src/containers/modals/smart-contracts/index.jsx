@@ -13,6 +13,7 @@ import {
   exportExperationMessageSubmit,
   exportConfirmationOnBoard,
 } from "../../../../src/actions/contracts";
+import { convertToAPL } from "../../../helpers/converters";
 import { setTransaction } from "../../../modules/smartContract";
 
 export default function ({ closeModal }) {
@@ -52,7 +53,7 @@ export default function ({ closeModal }) {
       if (!isValidForm) {
         let data = {
           ...values,
-          value: Number(values.value) * Math.pow(10, 8),
+          value: convertToAPL(values.value),
           params: values.params.split(","),
         };
 
