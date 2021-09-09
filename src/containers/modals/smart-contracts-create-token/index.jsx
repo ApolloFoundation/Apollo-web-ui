@@ -26,7 +26,7 @@ export default function ({ closeModal }) {
   const [formFieldsList, setFormFieldsList] = useState([]);
 
   const handleChangeAmount = (setFieldValue) => (value) => {
-    const convertedValue = convertToAPL(value);
+    const convertedValue = convertToAPL(value, 8, true);
     setFieldValue("rate", convertedValue);
     setFieldValue("token", convertedValue);
   };
@@ -141,14 +141,32 @@ export default function ({ closeModal }) {
                     {formFieldsList.map((item) => {
                       if (item.name === "rate") {
                         return (
-                          <div className="row w-100 m-0 justify-content-between align-items-center">
+                          <div key={item.name} className="row w-100 m-0 justify-content-between align-items-center mb-3">
                             <div className="col-5 p-0">
-                              <NumericInput
-                                label="Amount APL"
-                                type="float"
+                              <Field
+
                                 name="atm"
-                                defaultValue={0}
-                                onChange={handleChangeAmount(setFieldValue)}
+                                validate={(value) =>
+                                  fieldValidate(value, item.type)
+                                }
+                                render={() => (
+                                  <>
+                                    <NumericInput
+                                      label="Amount APL"
+                                      type="float"
+                                      name="atm"
+                                      defaultValue={0}
+                                      onChange={handleChangeAmount(
+                                        setFieldValue
+                                      )}
+                                    />
+                                    {errors["atm"] && touched["atm"] ? (
+                                      <div className={"text-danger"}>
+                                        {errors["atm"]}
+                                      </div>
+                                    ) : null}
+                                  </>
+                                )}
                               />
                             </div>
                             <div className="col-auto">
@@ -169,6 +187,7 @@ export default function ({ closeModal }) {
                       return (
                         <>
                           <Field
+                            key={item.name}
                             name={item.name}
                             validate={(value) =>
                               fieldValidate(value, item.type)
