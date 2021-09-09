@@ -549,15 +549,15 @@ function generateTokenAPL(messageToGenerate, sp) {
     }
 };
 
-export function convertToToken(value, decimal = 8, isGrouping = false) {
+export function convertToToken(value, decimal = 8, useGrouping = false) {
     return (value / Math.pow(10, decimal)).toLocaleString('en', {
-        useGrouping: isGrouping
+        useGrouping
     })
 };
 
-export function convertToAPL(value, decimal = 8, isGrouping = false) {
+export function convertToAPL(value, decimal = 8, useGrouping = false) {
     return (value * Math.pow(10, decimal)).toLocaleString('en', {
-        useGrouping: isGrouping
+        useGrouping
     })
 };
 
