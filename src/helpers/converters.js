@@ -551,14 +551,12 @@ function generateTokenAPL(messageToGenerate, sp) {
 
 export function convertToToken(value, decimal = 8, isGrouping = false) {
     return (value / Math.pow(10, decimal)).toLocaleString('en', {
-        maximumFractionDigits: 8,
         useGrouping: isGrouping
     })
 };
 
 export function convertToAPL(value, decimal = 8, isGrouping = false) {
     return (value * Math.pow(10, decimal)).toLocaleString('en', {
-        maximumFractionDigits: 8,
         useGrouping: isGrouping
     })
 };

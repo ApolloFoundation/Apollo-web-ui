@@ -32,7 +32,7 @@ const PanelOverview = ({ overview, token }) => {
                             <span className="text-info"> {item.value}</span>
                             <span> | </span>
                             {token.value}:
-                            <span className="text-info"> {convertToToken(item.value, 8, true)}</span>
+                            <span className="text-info"> {convertToToken(item.value)}</span>
                           </>
                         ) : (
                           <>

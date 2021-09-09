@@ -26,7 +26,7 @@ export default function ({ closeModal }) {
   const [formFieldsList, setFormFieldsList] = useState([]);
 
   const handleChangeAmount = (setFieldValue) => (value) => {
-    const convertedValue = convertToAPL(value, 8, true);
+    const convertedValue = convertToAPL(value);
     setFieldValue("rate", convertedValue);
     setFieldValue("token", convertedValue);
   };
@@ -141,7 +141,7 @@ export default function ({ closeModal }) {
                     {formFieldsList.map((item) => {
                       if (item.name === "rate") {
                         return (
-                          <div key={item.name} className="row w-100 m-0 justify-content-between align-items-center mb-3">
+                          <div key={uuidv4()} className="row w-100 m-0 justify-content-between align-items-center mb-3">
                             <div className="col-5 p-0">
                               <Field
 
@@ -187,7 +187,7 @@ export default function ({ closeModal }) {
                       return (
                         <>
                           <Field
-                            key={item.name}
+                            key={uuidv4()}
                             name={item.name}
                             validate={(value) =>
                               fieldValidate(value, item.type)
