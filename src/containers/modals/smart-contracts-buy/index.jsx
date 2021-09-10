@@ -64,6 +64,7 @@ export default function ({ closeModal }) {
 
   return (
     <ModalBody
+      id="modal-buy-token"
       modalTitle={`Buy token ${modalData?.smcInfo?.name}`}
       closeModal={closeModal}
       handleFormSubmit={formSubmit}

@@ -94,8 +94,8 @@ export default function CustomInput(props) {
           />
           {isNumberInput && (
             <div className="input-number-wrap">
-              <div className="input-number-up" onClick={handleClickUp} />
-              <div className="input-number-down" onClick={handleClickDown} />
+              <div id={`button-up-${id}`} className="input-number-up" onClick={handleClickUp} />
+              <div id={`button-down-${id}`} className="input-number-down" onClick={handleClickDown} />
             </div>
           )}
         </div>

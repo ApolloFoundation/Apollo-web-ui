@@ -9,7 +9,6 @@ import { Form, Formik, Field } from "formik";
 import { v4 as uuidv4 } from "uuid";
 import moment from "moment";
 import { processAccountRStoHex } from "apl-web-crypto";
-import { convertToAPL } from "../../../helpers/converters";
 import { getTokenList, getTokensForm } from "../../../actions/contracts";
 import { setBodyModalParamsAction } from "../../../modules/modals";
 import TextualInputComponent from "../../components/form-components/textual-input1";
@@ -17,6 +16,7 @@ import NumericInput from "../../components/form-components/numeric-input1";
 import InputDate from "../../components/input-date";
 import Button from "../../components/button";
 import fieldValidate from "./form/form-validation";
+import { convertToAPL } from "../../../helpers/converters";
 
 export default function ({ closeModal }) {
   const dispatch = useDispatch();
@@ -107,7 +107,7 @@ export default function ({ closeModal }) {
               <Form>
                 <div className="modal-form">
                   <div className="form-group-app">
-                    <a onClick={closeModal} className="exit">
+                    <a id="button-close-modal-create-token" onClick={closeModal} className="exit">
                       <i className="zmdi zmdi-close" />
                     </a>
                     <div className="form-title">
@@ -115,7 +115,7 @@ export default function ({ closeModal }) {
                     </div>
                     <div className="mb-3">
                       <div className="d-flex">
-                        {tokenList.map((item) => (
+                        {tokenList.map((item, index) => (
                           <div
                             key={uuidv4()}
                             className="d-flex align-items-center"
@@ -127,6 +127,7 @@ export default function ({ closeModal }) {
                               {item}
                             </label>
                             <Field
+                              id={`check-box-${index}-create-token`}
                               type="radio"
                               name="token"
                               value={item}
@@ -233,6 +234,7 @@ export default function ({ closeModal }) {
                       );
                     })}
                     <Button
+                      id="button-create-token"
                       type="submit"
                       size="lg"
                       color="green"

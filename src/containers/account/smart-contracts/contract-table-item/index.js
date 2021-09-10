@@ -21,6 +21,7 @@ export const ContractTableItem = ({
   signature,
   baseContract,
   status,
+  id,
 }) => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -84,6 +85,7 @@ export const ContractTableItem = ({
               type={"button"}
               onClick={handleByMethod}
               className={`btn btn-green btn-sm`}
+              id={`button-buy-${id}`}
             >
               Buy
             </button>

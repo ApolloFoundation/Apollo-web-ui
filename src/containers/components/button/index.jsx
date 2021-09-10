@@ -14,6 +14,7 @@ export default function Button(props) {
 
   return (
     <button
+      id={id}
       type={type}
       className={cn('btn', `btn-${color} btn-${size} ${isLoading && 'loading'}`, className)}
       disabled={disabled || isLoading}

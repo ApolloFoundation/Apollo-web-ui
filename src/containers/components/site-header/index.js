@@ -167,7 +167,8 @@ class SiteHeader extends React.Component {
             pageTitle,
             children,
             dashboardPage,
-            history
+            history,
+            id,
         } = this.props;
         const {
             menuShow,
@@ -183,6 +184,7 @@ class SiteHeader extends React.Component {
                     onClick={this.handleModal}
                 >
                     <PageTitleBox
+                        id={id}
                         pageTitle={pageTitle}
                         children={children}
                         dashboardPage={dashboardPage}

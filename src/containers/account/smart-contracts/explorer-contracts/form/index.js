@@ -20,6 +20,7 @@ const ExplorerForm = ({
   type,
   formIndex,
   token,
+  id,
 }) => {
   const dispatch = useDispatch();
 
@@ -107,6 +108,7 @@ const ExplorerForm = ({
                       render={({ field: { name } }) => (
                         <div className="mb-3">
                           <TextualInputComponent
+                            id={`input-${id}`}
                             label={name}
                             name={name}
                             placeholder={name}
@@ -123,6 +125,7 @@ const ExplorerForm = ({
                   ))}
 
                   <Button
+                    id={`button-${id}`}
                     name="Submit"
                     className="w-25"
                     color="green"

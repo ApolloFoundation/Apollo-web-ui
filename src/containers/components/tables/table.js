@@ -21,7 +21,7 @@ const CustomTable = (props) => {
         return tableData.length <= itemsPerPage
     };
 
-    const {AboveTabeComponent, actionButton, passProps, hintClassName, className, tableName, emptyMessage, header, TableRowComponent, tableData, isPaginate, previousHendler, nextHendler, page, itemsPerPage = 15} = props;
+    const {AboveTabeComponent, id, actionButton, passProps, hintClassName, className, tableName, emptyMessage, header, TableRowComponent, tableData, isPaginate, previousHendler, nextHendler, page, itemsPerPage = 15} = props;
     const newTableData = normalizeTableData();
 
     return (
@@ -74,6 +74,7 @@ const CustomTable = (props) => {
                                         newTableData.map((el, index) => {
                                             return (
                                                 <TableRowComponent
+                                                    id={`${index}-${id}`}
                                                     key={index}
                                                     {...el}
                                                     {...passProps}

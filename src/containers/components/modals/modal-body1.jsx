@@ -15,7 +15,7 @@ export default function ModalBody(props) {
   const { decimals, ticker } = useSelector(state => state.account);
 
   const {
-    handleFormSubmit, onChange, isPour, isXWide, isWide, initialValues,
+    handleFormSubmit, onChange, isPour, isXWide, isWide, initialValues, id,
   } = props;
 
   const handleSubmit = useCallback(values => {
@@ -57,7 +57,7 @@ export default function ModalBody(props) {
             <div className="form-group-app">
               <RightBar>
                 {closeModal && !isPour && (
-                  <button type="button" onClick={closeModal} className="exit">
+                  <button id={`button-close-${id}`} type="button" onClick={closeModal} className="exit">
                     <i className="zmdi zmdi-close" />
                   </button>
                 )}
