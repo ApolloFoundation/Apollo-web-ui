@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import { Form, Formik, Field } from "formik";
+import {
+  convertToAPL,
+  convertToToken,
+} from "../../../../../helpers/converters";
 import { processAccountRStoHex } from "apl-web-crypto";
 import { exportReadMethod } from "../../../../../actions/contracts";
 import { setBodyModalParamsAction } from "../../../../../modules/modals";
@@ -38,7 +42,7 @@ const ExplorerForm = ({
         const parseRStoHex = processAccountRStoHex(values[key], true);
         return (values[key] = `'${parseRStoHex}'`);
       } else if (regAmount.test(key)) {
-        return (values[key] = Number(values[key]) * Math.pow(10, 8));
+        return values[key] = convertToAPL(values[key]);
       }
       return values[key];
     });
@@ -149,7 +153,7 @@ const ExplorerForm = ({
                   </div>
                   <div className="mb-1">
                     {token.value}:
-                    <span className="text-info"> {Number(item.output[0]) / Math.pow(10, 8)}</span>
+                    <span className="text-info"> {convertToToken(item.output[0])}</span>
                   </div>
                 </>
               )}

@@ -157,7 +157,7 @@ export default function SmartContracts() {
                         <div className="form-group mb-15">
                           <label for="source">Contract source</label>
                           <InputUpload
-                            id="drop-zone-create-new-contract"
+                            id="smart-contracts-file"
                             accept={"*"}
                             isDownload={true}
                             isReset={true}
@@ -173,9 +173,6 @@ export default function SmartContracts() {
                           <div className="form-group h-100 mb-15 border">
                             <AceEditor
                               setOptions={{ useWorker: false }}
-                              onLoad={(editor) => {
-                                editor.container.children[0].setAttribute('id', 'ace-editor-create-new-contract')
-                              }}
                               mode="javascript"
                               theme="tomorrow"
                               name="source"
@@ -196,14 +193,12 @@ export default function SmartContracts() {
                     <div className="col-md-12 col-xl-6 mb-3 h-100  w-100 h-auto p-3">
                       <div className="w-100 card card-light h-auto p-3 mb-15">
                         <TextualInputComponent
-                          id="input-contract-name-create-smart-contract"
                           label="Contract name"
                           name="name"
                           placeholder="Contract class name"
                           type="text"
                         />
                         <TextualInputComponent
-                          id="input-arguments-create-smart-contract"
                           label="Arguments"
                           name="params"
                           placeholder="Some comma-separated values"
@@ -212,7 +207,6 @@ export default function SmartContracts() {
                         <div className={"row"}>
                           <div className={"col-md-4 p-sm-0 pr-md-2"}>
                             <NumericInput
-                              id="input-amount-create-smart-contract"
                               label="Amount APL"
                               name="value"
                               type="float"
@@ -222,7 +216,6 @@ export default function SmartContracts() {
                           </div>
                           <div className={"col-md-4 p-sm-0 pr-md-2"}>
                             <NumericInput
-                              id="input-fuel-price-create-smart-contract"
                               label="Fuel price"
                               name="fuelPrice"
                               type="float"
@@ -231,7 +224,6 @@ export default function SmartContracts() {
                           </div>
                           <div className={"col-md-4 p-sm-0"}>
                             <NumericInput
-                              id="input-fuel-limit-create-smart-contract"
                               label="Fuel limit"
                               name="fuelLimit"
                               type="float"
@@ -240,7 +232,6 @@ export default function SmartContracts() {
                           </div>
                         </div>
                         <TextualInputComponent
-                          id="input-secret-phrase-create-smart-contract"
                           label="Secret phrase"
                           type="password"
                           placeholder="Secret Phrase"
@@ -249,7 +240,6 @@ export default function SmartContracts() {
                         <div className="row justify-content-md-between">
                           <div className="col-md-auto mb-2 p-0">
                             <Button
-                              id="button-publish-create-smart-contract"
                               name={isPublish ? "Reset form" : "Publish"}
                               className="btn"
                               color="green"
@@ -261,7 +251,6 @@ export default function SmartContracts() {
                           </div>
                           <div className="col-md-auto mb-2 p-0">
                             <Button
-                              id="button-validate-create-smart-contract"
                               name="Validate"
                               className="btn"
                               color="green"

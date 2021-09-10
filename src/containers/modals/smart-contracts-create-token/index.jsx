@@ -9,9 +9,11 @@ import { Form, Formik, Field } from "formik";
 import { v4 as uuidv4 } from "uuid";
 import moment from "moment";
 import { processAccountRStoHex } from "apl-web-crypto";
+import { convertToAPL } from "../../../helpers/converters";
 import { getTokenList, getTokensForm } from "../../../actions/contracts";
 import { setBodyModalParamsAction } from "../../../modules/modals";
 import TextualInputComponent from "../../components/form-components/textual-input1";
+import NumericInput from "../../components/form-components/numeric-input1";
 import InputDate from "../../components/input-date";
 import Button from "../../components/button";
 import fieldValidate from "./form/form-validation";
@@ -22,6 +24,12 @@ export default function ({ closeModal }) {
   const [tokenList, setTokenList] = useState([]);
   const [currentToken, setCurrentToken] = useState(null);
   const [formFieldsList, setFormFieldsList] = useState([]);
+
+  const handleChangeAmount = (setFieldValue) => (value) => {
+    const convertedValue = convertToAPL(value);
+    setFieldValue("rate", convertedValue);
+    setFieldValue("token", convertedValue);
+  };
 
   const getStateTokenList = useCallback(async () => {
     const tokenList = await dispatch(getTokenList());
@@ -58,7 +66,7 @@ export default function ({ closeModal }) {
   };
 
   const submitForm = useCallback(
-    (values) => {
+    ({ atm, token, ...values }) => {
       const isValidForm = fieldValidate(values);
       if (!isValidForm) {
         Object.keys(values).map((key) => {
@@ -66,7 +74,7 @@ export default function ({ closeModal }) {
             const parseRStoHex = processAccountRStoHex(values[key], true);
             return (values[key] = parseRStoHex);
           } else if (/^\d+(?:[\.,]\d+)?$/.test(values[key])) {
-            const parseNumToATM = Number(values[key]) * Math.pow(10, 8);
+            const parseNumToATM = convertToAPL(values[key]);
             return (values[key] = parseNumToATM);
           }
           return values[key];
@@ -117,63 +125,113 @@ export default function ({ closeModal }) {
                               className="mr-2 mb-0 d-flex align-items-center"
                             >
                               {item}
-                              <Field
-                                type="radio"
-                                name="token"
-                                value={item}
-                                checked={item === currentToken}
-                                onChange={handleChangeToken}
-                                className="mr-3 d-inline-block"
-                              />
                             </label>
+                            <Field
+                              type="radio"
+                              name="token"
+                              value={item}
+                              checked={item === currentToken}
+                              onChange={handleChangeToken}
+                              className="mr-3 d-inline-block"
+                            />
                           </div>
                         ))}
                       </div>
                     </div>
-                    {formFieldsList.map((item) => (
-                      <Field
-                        name={item.name}
-                        validate={(value) => fieldValidate(value, item.type)}
-                        render={({ field: { name } }) => (
-                          <div className="mb-3">
-                            {item.type === "timestamp" ? (
-                              <>
-                                <InputDate
-                                  label={name}
-                                  selected={startDate}
-                                  onChange={(date) => {
-                                    setStartDate(date);
-                                    setFieldValue(
-                                      name,
-                                      moment(date).toISOString()
-                                    );
-                                  }}
-                                  name={name}
-                                  showTimeSelect
-                                  timeIntervals={1}
-                                  timeFormat="HH:mm:ss"
-                                  timeCaption="time"
-                                  dateFormat="MMMM d, yyyy h:mm:ss aa"
-                                />
-                              </>
-                            ) : (
-                              <TextualInputComponent
-                                className={"text-capitalize"}
-                                label={name}
-                                name={name}
-                                placeholder={name}
-                                type={item.type === "uint" ? "float" : "text"}
+                    {formFieldsList.map((item) => {
+                      if (item.name === "rate") {
+                        return (
+                          <div
+                            key={uuidv4()}
+                            className="row w-100 m-0 justify-content-between align-items-center mb-3"
+                          >
+                            <div className="col-5 p-0">
+                              <Field
+                                name="atm"
+                                validate={(value) =>
+                                  fieldValidate(value, item.type)
+                                }
+                                render={() => (
+                                  <>
+                                    <NumericInput
+                                      label="Amount APL"
+                                      type="float"
+                                      name="atm"
+                                      defaultValue={0}
+                                      onChange={handleChangeAmount(
+                                        setFieldValue
+                                      )}
+                                    />
+                                    {errors["atm"] && touched["atm"] ? (
+                                      <div className={"text-danger"}>
+                                        {errors["atm"]}
+                                      </div>
+                                    ) : null}
+                                  </>
+                                )}
                               />
-                            )}
-                            {errors[name] && touched[name] ? (
-                              <div className={"text-danger"}>
-                                {errors[item.name]}
-                              </div>
-                            ) : null}
+                            </div>
+                            <div className="col-auto">
+                              <i class="zmdi zmdi-swap zmdi-hc-2x"></i>
+                            </div>
+                            <div className="col-5 p-0">
+                              <NumericInput
+                                label="Amount Token"
+                                type="float"
+                                name="token"
+                                defaultValue={0}
+                                disabled
+                              />
+                            </div>
                           </div>
-                        )}
-                      />
-                    ))}
+                        );
+                      }
+                      return (
+                        <Field
+                          key={uuidv4()}
+                          name={item.name}
+                          validate={(value) => fieldValidate(value, item.type)}
+                          render={({ field: { name } }) => (
+                            <div className="mb-3">
+                              {item.type === "timestamp" ? (
+                                <>
+                                  <InputDate
+                                    label={name}
+                                    selected={startDate}
+                                    onChange={(date) => {
+                                      setStartDate(date);
+                                      setFieldValue(
+                                        name,
+                                        moment(date).toISOString()
+                                      );
+                                    }}
+                                    name={name}
+                                    showTimeSelect
+                                    timeIntervals={1}
+                                    timeFormat="HH:mm:ss"
+                                    timeCaption="time"
+                                    dateFormat="MMMM d, yyyy h:mm:ss aa"
+                                  />
+                                </>
+                              ) : (
+                                <TextualInputComponent
+                                  className={"text-capitalize"}
+                                  label={name}
+                                  name={name}
+                                  placeholder={name}
+                                  type={item.type === "uint" ? "float" : "text"}
+                                />
+                              )}
+                              {errors[name] && touched[name] ? (
+                                <div className={"text-danger"}>
+                                  {errors[item.name]}
+                                </div>
+                              ) : null}
+                            </div>
+                          )}
+                        />
+                      );
+                    })}
                     <Button
                       type="submit"
                       size="lg"

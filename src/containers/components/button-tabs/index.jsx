@@ -10,11 +10,13 @@ export default function ButtonTabs(props) {
 
   return (
     <div className={styles['form-tab-nav-box']}>
-      {tabs.map(tab => (
+      {tabs.map((tab) => (
         <button
           type="button"
           onClick={() => onClick(tab.id)}
           className={cn(styles['form-tab'], { [styles.active]: isActive === tab.id }, styles[className])}
+          id={`button-tabs-import-account_${tab.id}`}
+          key={`${tab.id}`}
         >
           <span className={styles['button-content']}>
             {!!tab.icon && <i className={cn(`zmdi zmdi-${tab.icon}`, styles.icon)} />}

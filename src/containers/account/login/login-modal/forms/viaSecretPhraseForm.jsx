@@ -13,9 +13,9 @@ import './standartForm.scss';
 
 export default function SecretPhraseForm({ activeTab }) {
   const dispatch = useDispatch();
-  
+
   const [showPhrase, setShowPhraze] = useState(false);
-  
+
   const handeError = (name) => {
     NotificationManager.error(`${name} is required.`, 'Error', 5000);
   }
@@ -50,7 +50,7 @@ export default function SecretPhraseForm({ activeTab }) {
 
   return (
     <Formik
-      initialValues={{ 
+      initialValues={{
         secretPhrase: '',
         accountRS: '',
       }}
@@ -73,14 +73,15 @@ export default function SecretPhraseForm({ activeTab }) {
               label="Secret Phrase"
               placeholder="Secret Phrase"
               type="password"
+              id="input-secret-phrase"
             />
           ) :(
             <div className="input-group-app user">
-              <label htmlFor="Account_id">Enter your ID or choose from saved</label>
+              <label htmlFor="account-id">Enter your ID or choose from saved</label>
               <AccountRS
                 name="accountRS"
                 placeholder="Account ID"
-                id="Account_id"
+                id="account-id"
               />
             </div>
           )}
@@ -97,6 +98,7 @@ export default function SecretPhraseForm({ activeTab }) {
           type="submit"
           name="Initiate"
           className="btn"
+          id="button-standard-wallet"
         />
       </Form>
     </Formik>

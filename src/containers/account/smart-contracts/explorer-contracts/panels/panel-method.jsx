@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import {
+  convertToToken,
+} from "../../../../../helpers/converters";
 import Collapsible from "../../../../components/collapsible";
 import Button from "../../../../components/button";
 import ExplorerForm from "../form";
@@ -65,7 +68,7 @@ const PanelMethod = ({ items, address, type, title, token }) => {
                       </div>
                       <div className="mb-1">
                         {token.value}:
-                        <span className="text-info"> {item.value / Math.pow(10, 8)}</span>
+                        <span className="text-info"> {convertToToken(item.value)}</span>
                       </div>
                     </>
                   ) : (

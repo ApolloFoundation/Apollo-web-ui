@@ -1,5 +1,8 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
+import {
+  convertToToken,
+} from "../../../../../helpers/converters";
 
 const PanelOverview = ({ overview, token }) => {
   return (
@@ -29,7 +32,7 @@ const PanelOverview = ({ overview, token }) => {
                             <span className="text-info"> {item.value}</span>
                             <span> | </span>
                             {token.value}:
-                            <span className="text-info"> {Number(item.value) / Math.pow(10, 8)}</span>
+                            <span className="text-info"> {convertToToken(item.value)}</span>
                           </>
                         ) : (
                           <>

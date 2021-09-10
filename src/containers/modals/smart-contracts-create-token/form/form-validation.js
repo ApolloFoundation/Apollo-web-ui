@@ -4,7 +4,6 @@ const fieldValidate = (value, type) => {
   const rsRegExp = /APL-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{5}/i;
 
   let error;
-  
   if (!value) {
     error = "Required";
   } else if (type === "address" && !rsRegExp.test(value) && !hexaRegExp.test(value)) {
