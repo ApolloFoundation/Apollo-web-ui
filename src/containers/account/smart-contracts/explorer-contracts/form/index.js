@@ -149,11 +149,11 @@ const ExplorerForm = ({
                   <div className="mb-1">Signature: {item.signature}</div>
                   <div className="mb-1">
                     ATM:
-                    <span className="text-info"> {item.output[0]}</span>
+                    <span className="text-info"> {Number(item.output[0]).toLocaleString( 'en', {useGrouping: true})}</span>
                   </div>
                   <div className="mb-1">
                     {token.value}:
-                    <span className="text-info"> {convertToToken(item.output[0])}</span>
+                    <span className="text-info"> {convertToToken(item.output[0], 8, true)}</span>
                   </div>
                 </>
               )}

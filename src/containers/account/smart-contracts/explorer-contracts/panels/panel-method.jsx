@@ -64,17 +64,19 @@ const PanelMethod = ({ items, address, type, title, token }) => {
                     <>
                       <div className="mb-1">
                         ATM:
-                        <span className="text-info"> {item.value}</span>
+                        <span className="text-info"> {Number(item.value).toLocaleString('en', { useGrouping: true })}</span>
                       </div>
                       <div className="mb-1">
                         {token.value}:
-                        <span className="text-info"> {convertToToken(item.value)}</span>
+                        <span className="text-info"> {convertToToken(item.value, 8, true)}</span>
                       </div>
                     </>
                   ) : (
                     <>
                       {item.value}
-                      <span className="text-info"> {item.outputs[0].type}</span>
+                      <span className="text-info"> {item.outputs[0].type.toLocaleString('en', {
+                        useGrouping: true
+                      })}</span>
                     </>
                   )}
                 </span>
