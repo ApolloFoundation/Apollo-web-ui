@@ -74,9 +74,7 @@ const PanelMethod = ({ items, address, type, title, token }) => {
                   ) : (
                     <>
                       {item.value}
-                      <span className="text-info"> {item.outputs[0].type.toLocaleString('en', {
-                        useGrouping: true
-                      })}</span>
+                      <span className="text-info"> {item.outputs[0].type.toLocaleString('en', {useGrouping: true})}</span>
                     </>
                   )}
                 </span>
