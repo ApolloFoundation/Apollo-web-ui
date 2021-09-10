@@ -85,7 +85,7 @@ const ExplorerContracts = (props) => {
                           contracts={contractsList}
                         />
                       </TabContaier>
-                      <TabContaier sectionName={"Read contract"}>
+                      <TabContaier id="form-tab-read-smart-contracts-explorer" sectionName={"Read contract"}>
                         <PanelMethod
                           title={"Read Information"}
                           items={specificationsList.readList || []}
@@ -94,7 +94,7 @@ const ExplorerContracts = (props) => {
                           token={currentToken}
                         />
                       </TabContaier>
-                      <TabContaier sectionName={"Write contract"}>
+                      <TabContaier id="form-tab-write-smart-contracts-explorer" sectionName={"Write contract"}>
                         <PanelMethod
                           title={"Write Information"}
                           items={specificationsList.writeList || []}

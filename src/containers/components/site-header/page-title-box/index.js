@@ -20,7 +20,7 @@ const PageTitleBox = ({setBodyModalType, children, dashboardPage, pageTitle}) =>
                                     'mr-3': true,
                                     'd-inline' : true
                                 }),
-                                style: {}
+                                style: {},
                             })
                         }
                     }
@@ -28,7 +28,7 @@ const PageTitleBox = ({setBodyModalType, children, dashboardPage, pageTitle}) =>
                 }
             </div>
         )}
-        
+
     </div>
 )
 

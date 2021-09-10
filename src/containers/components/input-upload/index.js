@@ -60,13 +60,14 @@ const InputUpload = ({
             isDragActive ? "upload-block-active" : ""
           }`}
         >
-          <input {...getInputProps()} accept={accept} />
+          <input id={`input-${id}`} {...getInputProps()} accept={accept} />
           <div className={"d-none"} id={id} />
           <p className="flex-grow-1">
             {file ? file.name || file.path : "Click or drag file to upload"}
           </p>
           {isReset && file && (
             <button
+              id={`button-close-${id}`}
               type="button"
               className="btn btn-sm ml-2 d-flex"
               onClick={(e) => handleReset(e, acceptedFiles)}
@@ -75,9 +76,10 @@ const InputUpload = ({
               <i class="zmdi zmdi-close"></i>
             </button>
           )}
-          <img src={UploadImg} alt={""} />
+          <img id={`button-upload-${id}`} src={UploadImg} alt={""} />
           {isDownload && file && (
             <button
+              id={`button-download-${id}`}
               type="button"
               className="btn btn-sm ml-2 d-flex"
               onClick={handleUploadTextFile}

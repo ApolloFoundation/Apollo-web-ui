@@ -9,11 +9,12 @@ import './styles.scss';
 export default function Button(props) {
   const {
     onClick, name, className, type, disabled,
-    color, size, isLoading, isArrow,
+    color, size, isLoading, isArrow, id
   } = props;
 
   return (
     <button
+      id={id}
       type={type}
       className={cn('btn', `btn-${color} btn-${size} ${isLoading && 'loading'}`, className)}
       disabled={disabled || isLoading}

@@ -25,6 +25,7 @@ const PanelMethod = ({ items, address, type, title, token }) => {
           <div className="heading mb-2">{title}</div>
           <div className="title mb-2">
             <Button
+              id="button-expand-method-explorer-smart-contracts"
               size={"xs"}
               type="button"
               onClick={handleExpandAll}
@@ -36,6 +37,7 @@ const PanelMethod = ({ items, address, type, title, token }) => {
       {items.length > 0 ? (
         items.map((item, index) => (
           <Collapsible
+            id={`${item.name}-${index}-explorer-smart-contracts`}
             title={item.name}
             expand={expanded}
             key={item.id}
@@ -43,6 +45,7 @@ const PanelMethod = ({ items, address, type, title, token }) => {
           >
             {type === "write" || (type === "view" && item.inputs.length > 0) ? (
               <ExplorerForm
+                id={`${item.name}-${index}-explorer-smart-contracts`}
                 methodName={item.name}
                 type={type}
                 address={address}

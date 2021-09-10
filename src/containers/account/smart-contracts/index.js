@@ -58,6 +58,7 @@ export default function SmartContracts() {
     <div className="page-content">
       <SiteHeader pageTitle={"Smart Contracts"}>
         <button
+          id={'button-smart-contracts-cteate-token'}
           type={"button"}
           className="btn btn-green btn-sm ml-3"
           onClick={handleCrateToken}
@@ -67,6 +68,7 @@ export default function SmartContracts() {
       </SiteHeader>
       <div className="page-body container-fluid">
         <CustomTable
+          id={"smart-contracts"}
           header={[
             {
               name: "Address",

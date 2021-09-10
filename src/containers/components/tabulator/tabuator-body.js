@@ -31,6 +31,7 @@ class TabulationBody extends React.Component {
               <>
                 {child && (
                   <Tab
+                    id={child.props.id}
                     key={index}
                     handleTab={this.handleTab}
                     sectionName={child.props.sectionName}

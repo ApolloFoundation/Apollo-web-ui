@@ -14,6 +14,7 @@ const ByForm = ({
   return (
     <>
       <TextualInputComponent
+        id="input-sender-buy-token"
         label="Sender"
         name="sender"
         placeholder="Currency Sender"
@@ -21,6 +22,7 @@ const ByForm = ({
         disabled
       />
       <TextualInputComponent
+        id="input-address-buy-token"
         name="address"
         label="Contract Address"
         placeholder="Contract Address"
@@ -31,6 +33,7 @@ const ByForm = ({
         <div className="row w-100 m-0 justify-content-between align-items-center">
           <div className="col-5 p-0">
             <NumericInput
+              id="input-amount-value-buy-token"
               label="Amount APL"
               name="value"
               type="float"
@@ -44,6 +47,7 @@ const ByForm = ({
           </div>
           <div className="col-5 p-0">
             <NumericInput
+              id="input-amount-token-buy-token"
               label="Amount Token"
               type="float"
               name="token"
@@ -54,6 +58,7 @@ const ByForm = ({
         </div>
       </div>
       <CheckboxFormInput
+        id="check-box-advanced-settings-buy-token"
         name="advance"
         label="Advanced settings"
         setValue={switcher}
@@ -62,12 +67,14 @@ const ByForm = ({
       {switcher ? (
         <>
           <NumericInput
+            id="input-fuel-price-buy-token"
             label="Fuel price"
             name="fuelPrice"
             type="float"
             defaultValue={0}
           />
           <NumericInput
+            id="input-fuel-limit-buy-token"
             label="Fuel limit"
             name="fuelLimit"
             type="float"
@@ -76,6 +83,7 @@ const ByForm = ({
         </>
       ) : null}
       <TextualInputComponent
+        id="input-secret-phrase-buy-token"
         label="Secret phrase"
         type="password"
         placeholder="Secret Phrase"

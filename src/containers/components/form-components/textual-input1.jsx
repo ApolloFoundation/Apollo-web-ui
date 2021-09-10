@@ -3,7 +3,7 @@ import CustomInput from '../custom-input';
 
 const TextualInputComponent = ({
   disabled, hendler, placeholder, name, type,
-  label, code, text, className, idGroup, inputHint,
+  label, code, text, className, idGroup, inputHint, id
 }) => (
   <>
     {type === 'button'
@@ -13,7 +13,7 @@ const TextualInputComponent = ({
             <div>
               <button
                 type="button"
-                id={idGroup}
+                id={idGroup ?? id}
                 onClick={hendler}
                 className="no-margin btn btn-green"
               >
@@ -35,7 +35,7 @@ const TextualInputComponent = ({
                       type={type}
                       name={name}
                       placeholder={placeholder}
-                      id={`${idGroup}${name}-field`}
+                      id={idGroup ?? id}
                     />
                     {code && (
                       <div className="input-group-append">

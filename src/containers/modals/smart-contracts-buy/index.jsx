@@ -29,7 +29,7 @@ export default function ({ closeModal }) {
   };
 
   const handleChangeAmount = (setFieldValue) => (value) => {
-    const convertedValue = value * modalData.smcInfo?.rate / Math.pow(10, 8) 
+    const convertedValue = value * modalData.smcInfo?.rate / Math.pow(10, 8)
     setFieldValue("token", convertedValue);
   };
 
@@ -61,6 +61,7 @@ export default function ({ closeModal }) {
 
   return (
     <ModalBody
+      id="modal-buy-token"
       modalTitle={`Buy token ${modalData?.smcInfo?.name}`}
       closeModal={closeModal}
       handleFormSubmit={formSubmit}
