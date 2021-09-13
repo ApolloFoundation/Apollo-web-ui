@@ -6,17 +6,16 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Form, Formik, Field } from "formik";
-import { v4 as uuidv4 } from "uuid";
 import moment from "moment";
 import { processAccountRStoHex } from "apl-web-crypto";
 import { getTokenList, getTokensForm } from "../../../actions/contracts";
 import { setBodyModalParamsAction } from "../../../modules/modals";
+import { convertToAPL } from "../../../helpers/converters";
 import TextualInputComponent from "../../components/form-components/textual-input1";
 import NumericInput from "../../components/form-components/numeric-input1";
 import InputDate from "../../components/input-date";
 import Button from "../../components/button";
 import fieldValidate from "./form/form-validation";
-import { convertToAPL } from "../../../helpers/converters";
 
 export default function ({ closeModal }) {
   const dispatch = useDispatch();
@@ -107,7 +106,11 @@ export default function ({ closeModal }) {
               <Form>
                 <div className="modal-form">
                   <div className="form-group-app">
-                    <a id="button-close-modal-create-token" onClick={closeModal} className="exit">
+                    <a
+                      id="button-close-modal-create-token"
+                      onClick={closeModal}
+                      className="exit"
+                    >
                       <i className="zmdi zmdi-close" />
                     </a>
                     <div className="form-title">
@@ -117,7 +120,7 @@ export default function ({ closeModal }) {
                       <div className="d-flex">
                         {tokenList.map((item, index) => (
                           <div
-                            key={uuidv4()}
+                            key={item + index}
                             className="d-flex align-items-center"
                           >
                             <label
@@ -139,11 +142,11 @@ export default function ({ closeModal }) {
                         ))}
                       </div>
                     </div>
-                    {formFieldsList.map((item) => {
+                    {formFieldsList.map((item, index) => {
                       if (item.name === "rate") {
                         return (
                           <div
-                            key={uuidv4()}
+                            key={item + index}
                             className="row w-100 m-0 justify-content-between align-items-center mb-3"
                           >
                             <div className="col-5 p-0">
@@ -189,7 +192,7 @@ export default function ({ closeModal }) {
                       }
                       return (
                         <Field
-                          key={uuidv4()}
+                        key={item + index}
                           name={item.name}
                           validate={(value) => fieldValidate(value, item.type)}
                           render={({ field: { name } }) => (
