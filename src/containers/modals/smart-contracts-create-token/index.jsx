@@ -146,7 +146,7 @@ export default function ({ closeModal }) {
                       if (item.name === "rate") {
                         return (
                           <div
-                            key={item + index}
+                            key={item.name + index}
                             className="row w-100 m-0 justify-content-between align-items-center mb-3"
                           >
                             <div className="col-5 p-0">
@@ -192,7 +192,7 @@ export default function ({ closeModal }) {
                       }
                       return (
                         <Field
-                          key={item + index}
+                          key={item.name + index}
                           name={item.name}
                           validate={(value) => fieldValidate(value, item.type)}
                           render={({ field: { name } }) => (
