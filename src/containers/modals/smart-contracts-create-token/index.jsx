@@ -192,7 +192,7 @@ export default function ({ closeModal }) {
                       }
                       return (
                         <Field
-                        key={item + index}
+                          key={item + index}
                           name={item.name}
                           validate={(value) => fieldValidate(value, item.type)}
                           render={({ field: { name } }) => (
