@@ -58,6 +58,7 @@ const SmartContracts = () => {
       <SiteHeader pageTitle={"Smart Contracts"} />
       <div className="page-body container-fluid">
         <CustomTable
+          id={"my-smart-contracts"}
           header={[
             {
               name: "Address",
