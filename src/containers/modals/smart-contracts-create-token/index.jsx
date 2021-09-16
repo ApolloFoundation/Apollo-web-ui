@@ -91,12 +91,12 @@ export default function ({ closeModal }) {
   const handleChangeAPL = useCallback((setFieldValue, value) => {
     setApl(value);
     setFieldValue("rate", convertToAPL(token) / convertToAPL(value));
-  },[apl]);
+  },[token]);
 
   const handleChangeToken = useCallback((setFieldValue, value) => {
     setToken(value);
     setFieldValue("rate", convertToAPL(value) / convertToAPL(apl));
-  },[token]);
+  },[apl]);
 
   const handleChangeTokenType = (e) => {
     setCurrentToken(e.target.value);
