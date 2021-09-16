@@ -13,14 +13,12 @@ import CustomTable from "../../components/tables/table";
 
 export default function SmartContracts() {
   const dispatch = useDispatch();
-
   const [contractList, setContractList] = useState([]);
   const [pagination, setPagination] = useState({
     page: 1,
     firstIndex: 0,
     lastIndex: 15,
   });
-
   const getContractsList = useCallback(async () => {
     const myContracts = await dispatch(
       getContracts({
@@ -58,7 +56,7 @@ export default function SmartContracts() {
     <div className="page-content">
       <SiteHeader pageTitle={"Smart Contracts"}>
         <button
-          id={'button-smart-contracts-cteate-token'}
+          id={"button-smart-contracts-cteate-token"}
           type={"button"}
           className="btn btn-green btn-sm ml-3"
           onClick={handleCrateToken}

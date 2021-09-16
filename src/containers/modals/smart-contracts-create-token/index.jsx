@@ -23,12 +23,8 @@ export default function ({ closeModal }) {
   const [tokenList, setTokenList] = useState([]);
   const [currentToken, setCurrentToken] = useState(null);
   const [formFieldsList, setFormFieldsList] = useState([]);
-
-  const handleChangeAmount = (setFieldValue) => (value) => {
-    const convertedValue = convertToAPL(value);
-    setFieldValue("rate", convertedValue);
-    setFieldValue("token", convertedValue);
-  };
+  const [token, setToken] = useState(1);
+  const [apl, setApl] = useState(1);
 
   const getStateTokenList = useCallback(async () => {
     const tokenList = await dispatch(getTokenList());
@@ -59,7 +55,10 @@ export default function ({ closeModal }) {
   }, [dispatch, currentToken]);
 
   const getInitialValues = (fields) => {
-    const initialValues = {};
+    const initialValues = {
+      atm: 1,
+      token: 1,
+    };
     fields.forEach((field) => (initialValues[field.name] = ""));
     return initialValues;
   };
@@ -89,7 +88,17 @@ export default function ({ closeModal }) {
     [dispatch, currentToken]
   );
 
-  const handleChangeToken = (e) => {
+  const handleChangeAPL = useCallback((setFieldValue, value) => {
+    setApl(value);
+    setFieldValue("rate", convertToAPL(token) / convertToAPL(value));
+  },[token]);
+
+  const handleChangeToken = useCallback((setFieldValue, value) => {
+    setToken(value);
+    setFieldValue("rate", convertToAPL(value) / convertToAPL(apl));
+  },[apl]);
+
+  const handleChangeTokenType = (e) => {
     setCurrentToken(e.target.value);
   };
 
@@ -135,7 +144,7 @@ export default function ({ closeModal }) {
                               name="token"
                               value={item}
                               checked={item === currentToken}
-                              onChange={handleChangeToken}
+                              onChange={handleChangeTokenType}
                               className="mr-3 d-inline-block"
                             />
                           </div>
@@ -145,49 +154,72 @@ export default function ({ closeModal }) {
                     {formFieldsList.map((item, index) => {
                       if (item.name === "rate") {
                         return (
-                          <div
-                            key={item + index}
-                            className="row w-100 m-0 justify-content-between align-items-center mb-3"
-                          >
-                            <div className="col-5 p-0">
-                              <Field
-                                name="atm"
-                                validate={(value) =>
-                                  fieldValidate(value, item.type)
-                                }
-                                render={() => (
-                                  <>
+                          <>
+                            <div
+                              key={item + index}
+                              className="row w-100 m-0 justify-content-between align-items-center mb-3"
+                            >
+                              <div className="col-5 p-0">
+                                <Field
+                                  key={"atm" + index}
+                                  name="atm"
+                                  render={() => (
                                     <NumericInput
                                       label="Amount APL"
                                       type="float"
                                       name="atm"
-                                      defaultValue={0}
-                                      onChange={handleChangeAmount(
-                                        setFieldValue
-                                      )}
+                                      onChange={(value) =>
+                                        handleChangeAPL(setFieldValue, value)
+                                      }
                                     />
-                                    {errors["atm"] && touched["atm"] ? (
-                                      <div className={"text-danger"}>
-                                        {errors["atm"]}
-                                      </div>
-                                    ) : null}
-                                  </>
-                                )}
-                              />
+                                  )}
+                                />
+                              </div>
+                              <div className="col-auto">
+                                <i class="zmdi zmdi-swap zmdi-hc-2x"></i>
+                              </div>
+                              <div className="col-5 p-0">
+                                <Field
+                                  key={"token" + index}
+                                  name="token"
+                                  render={() => (
+                                    <NumericInput
+                                      label="Amount Token"
+                                      type="float"
+                                      name="token"
+                                      onChange={(value) =>
+                                        handleChangeToken(setFieldValue, value)
+                                      }
+                                    />
+                                  )}
+                                />
+                              </div>
                             </div>
-                            <div className="col-auto">
-                              <i class="zmdi zmdi-swap zmdi-hc-2x"></i>
-                            </div>
-                            <div className="col-5 p-0">
-                              <NumericInput
-                                label="Amount Token"
-                                type="float"
-                                name="token"
-                                defaultValue={0}
-                                disabled
-                              />
-                            </div>
-                          </div>
+                            <Field
+                              key={item + index}
+                              name={item.name}
+                              validate={(value) =>
+                                fieldValidate(value, item.type)
+                              }
+                              render={({ field: { name } }) => (
+                                <div className="mb-3">
+                                  <TextualInputComponent
+                                    className={"text-capitalize"}
+                                    label={name}
+                                    name={name}
+                                    placeholder={name}
+                                    type="float"
+                                    disabled
+                                  />
+                                  {errors[name] && touched[name] && (
+                                    <div className={"text-danger"}>
+                                      {errors[item.name]}
+                                    </div>
+                                  )}
+                                </div>
+                              )}
+                            />
+                          </>
                         );
                       }
                       return (
@@ -226,11 +258,11 @@ export default function ({ closeModal }) {
                                   type={item.type === "uint" ? "float" : "text"}
                                 />
                               )}
-                              {errors[name] && touched[name] ? (
+                              {(errors[name] && touched[name]) && (
                                 <div className={"text-danger"}>
                                   {errors[item.name]}
                                 </div>
-                              ) : null}
+                              )}
                             </div>
                           )}
                         />
