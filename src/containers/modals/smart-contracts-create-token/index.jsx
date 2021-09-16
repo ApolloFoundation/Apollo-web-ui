@@ -181,8 +181,8 @@ export default function ({ closeModal }) {
                               </div>
                               <div className="col-5 p-0">
                                 <Field
-                                  key={"atm" + index}
-                                  name="atm"
+                                  key={"token" + index}
+                                  name="token"
                                   render={() => (
                                     <NumericInput
                                       label="Amount Token"
