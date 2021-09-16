@@ -26,16 +26,6 @@ export default function ({ closeModal }) {
   const [token, setToken] = useState(1);
   const [apl, setApl] = useState(1);
 
-  const handleChangeAPL = (setFieldValue, value) => {
-    setApl(value);
-    setFieldValue("rate", convertToAPL(token) / convertToAPL(value));
-  };
-
-  const handleChangeToken = (setFieldValue, value) => {
-    setToken(value);
-    setFieldValue("rate", convertToAPL(value) / convertToAPL(apl));
-  };
-
   const getStateTokenList = useCallback(async () => {
     const tokenList = await dispatch(getTokenList());
     if (tokenList) {
@@ -98,11 +88,20 @@ export default function ({ closeModal }) {
     [dispatch, currentToken]
   );
 
+  const handleChangeAPL = useCallback((setFieldValue, value) => {
+    setApl(value);
+    setFieldValue("rate", convertToAPL(token) / convertToAPL(value));
+  },[apl]);
+
+  const handleChangeToken = useCallback((setFieldValue, value) => {
+    setToken(value);
+    setFieldValue("rate", convertToAPL(value) / convertToAPL(apl));
+  },[token]);
+
   const handleChangeTokenType = (e) => {
     setCurrentToken(e.target.value);
   };
 
-  console.log(token, "token");
   return (
     <div className="modal-box wide">
       {formFieldsList.length > 0 ? (
@@ -259,7 +258,7 @@ export default function ({ closeModal }) {
                                   type={item.type === "uint" ? "float" : "text"}
                                 />
                               )}
-                              {errors[name] && touched[name] && (
+                              {(errors[name] && touched[name]) && (
                                 <div className={"text-danger"}>
                                   {errors[item.name]}
                                 </div>
