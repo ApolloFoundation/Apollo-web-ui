@@ -18,6 +18,7 @@ const ExplorerContracts = (props) => {
   const dispatch = useDispatch();
   const { id } = props.match.params;
 
+  const [activeTab, setActiveTab] = useState(1);
   const [specificationsList, setSpecificationsList] = useState({});
   const [contractsList, setContractsList] = useState([]);
   const [overviewInfo, setOverviewInfo] = useState([]);
@@ -56,6 +57,10 @@ const ExplorerContracts = (props) => {
     [dispatch]
   );
 
+  const changeActiveTab = (e, index)=>{
+    setActiveTab(index)
+  }
+  
   return (
     <div className="page-content">
       <SiteHeader pageTitle={"Smart Contracts"} />
@@ -77,7 +82,7 @@ const ExplorerContracts = (props) => {
                   {isLoadingPanels ? (
                     <ContentLoader />
                   ) : (
-                    <TabulationBody active={1}>
+                    <TabulationBody active={activeTab} onChange={changeActiveTab}>
                       <TabContaier sectionName={"Code"}>
                         <PanelSource
                           title={"Read Contract Information"}
@@ -87,6 +92,7 @@ const ExplorerContracts = (props) => {
                       </TabContaier>
                       <TabContaier id="form-tab-read-smart-contracts-explorer" sectionName={"Read contract"}>
                         <PanelMethod
+                          activeTab={activeTab}
                           title={"Read Information"}
                           items={specificationsList.readList || []}
                           type={"view"}
@@ -96,6 +102,7 @@ const ExplorerContracts = (props) => {
                       </TabContaier>
                       <TabContaier id="form-tab-write-smart-contracts-explorer" sectionName={"Write contract"}>
                         <PanelMethod
+                          activeTab={activeTab}
                           title={"Write Information"}
                           items={specificationsList.writeList || []}
                           type={"write"}

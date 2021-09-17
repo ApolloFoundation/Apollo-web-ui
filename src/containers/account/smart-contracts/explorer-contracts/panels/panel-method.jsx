@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   convertToToken,
@@ -8,15 +8,21 @@ import Button from "../../../../components/button";
 import ExplorerForm from "../form";
 import { setBodyModalParamsAction } from "../../../../../modules/modals";
 
-const PanelMethod = ({ items, address, type, title, token }) => {
+const PanelMethod = ({ items, address, type, title, token, activeTab }) => {
+
   const dispatch = useDispatch();
   const { transactions } = useSelector((state) => state.smartContract);
   const [expanded, setExpanded] = useState(false);
+  const [currentTab, setCurrentTab] = useState(null)
+
+
+useEffect(() => {
+  setExpanded(false)
+},[activeTab]);
 
   const handleExpandAll = () => {
     setExpanded((state) => !state);
   };
-
   const handleTransactionInfo = (transaction) => {
     dispatch(setBodyModalParamsAction("INFO_TRANSACTION", transaction));
   };
