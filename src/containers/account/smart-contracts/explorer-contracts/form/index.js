@@ -42,7 +42,7 @@ const ExplorerForm = ({
         const parseRStoHex = processAccountRStoHex(values[key], true);
         return (values[key] = `'${parseRStoHex}'`);
       } else if (regAmount.test(key)) {
-        return values[key] = convertToAPL(values[key]);
+        return (values[key] = convertToAPL(values[key]));
       }
       return values[key];
     });
@@ -148,12 +148,12 @@ const ExplorerForm = ({
                 <>
                   <div className="mb-1">Signature: {item.signature}</div>
                   <div className="mb-1">
-                    ATM:
-                    <span className="text-info"> {Number(item.output[0]).toLocaleString( 'en', {useGrouping: true})}</span>
-                  </div>
-                  <div className="mb-1">
-                    {token.value}:
-                    <span className="text-info"> {convertToToken(item.output[0], 8, true)}</span>
+                    <span className="text-info"> {Number(item.output[0]).toLocaleString("en", {useGrouping: true})} </span>
+                    {token.value} (
+                    <span className="text-info">
+                      {convertToToken(item.output[0], 8, true)}
+                    </span>
+                    )
                   </div>
                 </>
               )}
