@@ -1,6 +1,5 @@
 import React from "react";
 import classNames from "classnames";
-import { v4 as uuidv4 } from "uuid";
 import Tab from "./tab";
 
 class TabulationBody extends React.Component {
@@ -45,17 +44,21 @@ class TabulationBody extends React.Component {
           </div>
 
           {/** Render tabulator body */}
-          {React.Children.map(children, (child, index) => (
-            <div
-              key={index}
-              className={classNames({
-                "tab-body": true,
-                active: this.state.activeTab === index,
-              })}
-            >
-              {child}
-            </div>
-          ))}
+          {React.Children.map(children, (child, index) => {
+            if (this.state.activeTab === index) {
+              return (
+                <div
+                  key={index}
+                  className={classNames({
+                    "tab-body": true,
+                    active: true,
+                  })}
+                >
+                  {child}
+                </div>
+              );
+            }
+          })}
         </div>
       </>
     );
