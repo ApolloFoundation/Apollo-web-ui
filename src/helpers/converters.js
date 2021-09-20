@@ -550,13 +550,17 @@ function generateTokenAPL(messageToGenerate, sp) {
 };
 
 export function convertToToken(value, decimal = 8, useGrouping = false) {
-    return (value / Math.pow(10, decimal)).toLocaleString('en', {
+    const valueBN = new BigInteger(value.toString());
+    const pointsBN = new BigInteger(Math.pow(10, decimal).toString());
+    return  (Number(valueBN.divide(pointsBN))).toLocaleString('en', {
         useGrouping
     })
-};
+}
 
 export function convertToAPL(value, decimal = 8, useGrouping = false) {
-    return (value * Math.pow(10, decimal)).toLocaleString('en', {
+    const valueBN = new BigInteger(value.toString());
+    const pointsBN = new BigInteger(Math.pow(10, decimal).toString());
+    return  (Number(valueBN.multiply(pointsBN))).toLocaleString('en', {
         useGrouping
     })
 };

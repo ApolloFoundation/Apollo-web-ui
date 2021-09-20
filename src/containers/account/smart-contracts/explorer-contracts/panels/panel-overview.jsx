@@ -1,8 +1,7 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
-import {
-  convertToToken,
-} from "../../../../../helpers/converters";
+
+import { convertToToken } from "../../../../../helpers/converters";
 
 const PanelOverview = ({ overview, token }) => {
   return (
@@ -28,11 +27,12 @@ const PanelOverview = ({ overview, token }) => {
                           item.name === "decimals"
                         ) ? (
                           <>
-                            ATM:
-                            <span className="text-info"> {Number(item.value).toLocaleString( 'en', {useGrouping: true})}</span>
-                            <span> | </span>
-                            {token.value}:
-                            <span className="text-info"> {convertToToken(item.value, 8, true)}</span>
+                            <span className="text-info"> {Number(item.value).toLocaleString("en", {useGrouping: true})} </span>
+                            {token.value} (
+                            <span className="text-info">
+                              {convertToToken(item.value, 8, true)}
+                            </span>
+                            )
                           </>
                         ) : (
                           <>
