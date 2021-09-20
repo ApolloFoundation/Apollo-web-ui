@@ -49,10 +49,7 @@ class TabulationBody extends React.Component {
               return (
                 <div
                   key={index}
-                  className={classNames({
-                    "tab-body": true,
-                    active: true,
-                  })}
+                  className={"tab-body active"}
                 >
                   {child}
                 </div>

@@ -37,19 +37,15 @@ const ExplorerForm = ({
   };
 
   const onSubmitNonpayable = (values) => {
-    Object.keys(values).map((key) => {
+    const params = Object.keys(values).map((key) => {
       if (regAPL.test(values[key])) {
         const parseRStoHex = processAccountRStoHex(values[key], true);
-        return (values[key] = `'${parseRStoHex}'`);
+        return `'${parseRStoHex}'`;
       } else if (regAmount.test(key)) {
-        return (values[key] = convertToAPL(values[key]));
+        return convertToAPL(values[key]);
       }
       return values[key];
-    });
-
-    const params = Object.keys(values)
-      .map((key) => values[key])
-      .join(",");
+    }).join(",");
 
     dispatch(
       setBodyModalParamsAction("SMC_CREATE", {
