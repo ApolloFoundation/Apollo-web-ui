@@ -27,12 +27,7 @@ const PanelOverview = ({ overview, token }) => {
                           item.name === "decimals"
                         ) ? (
                           <>
-                            <span className="text-info">
-                              {Number(item.value).toLocaleString("en", {
-                                useGrouping: true,
-                              })}
-                            </span>
-                            {' '}
+                            <span className="text-info"> {Number(item.value).toLocaleString("en", {useGrouping: true})} </span>
                             {token.value} (
                             <span className="text-info">
                               {convertToToken(item.value, 8, true)}
