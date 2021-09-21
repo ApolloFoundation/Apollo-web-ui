@@ -144,10 +144,10 @@ const ExplorerForm = ({
                 <>
                   <div className="mb-1">Signature: {item.signature}</div>
                   <div className="mb-1">
-                    <span className="text-info"> {Number(item.output[0]).toLocaleString("en", {useGrouping: true})} </span>
+                    <span className="text-info"> {convertToToken(item.output[0], 8, true)} </span>
                     {token.value} (
                     <span className="text-info">
-                      {convertToToken(item.output[0], 8, true)}
+                      {Number(item.output[0]).toLocaleString("en", {useGrouping: true})}
                     </span>
                     )
                   </div>

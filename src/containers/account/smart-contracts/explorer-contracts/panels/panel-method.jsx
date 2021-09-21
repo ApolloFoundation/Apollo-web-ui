@@ -63,10 +63,10 @@ const PanelMethod = ({ items, address, type, title, token }) => {
                   !(item.name === "releaseTime" || item.name === "decimals") ? (
                     <>
                       <div className="mb-1">
-                        <span className="text-info"> {Number(item.value).toLocaleString('en', { useGrouping: true })} </span>
+                        <span className="text-info">{convertToToken(item.value, 8, true)} </span>
                         {token.value} (
                           <span className="text-info"> 
-                          {convertToToken(item.value, 8, true)}
+                          {Number(item.value).toLocaleString('en', { useGrouping: true })}
                           </span>
                         )
                       </div>
