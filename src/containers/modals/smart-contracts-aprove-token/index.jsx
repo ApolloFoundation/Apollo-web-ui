@@ -74,7 +74,7 @@ export default function ({ closeModal }) {
           onSubmit={submitForm}
           initialValues={{
             fuelPrice: 100,
-            fuelLimit: 30000000,
+            fuelLimit: 300000000,
             source: sourceValue(modalData.token, modalData.params),
             secret: secretPhrase,
           }}

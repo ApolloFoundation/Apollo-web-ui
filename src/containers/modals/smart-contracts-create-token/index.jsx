@@ -59,7 +59,12 @@ export default function ({ closeModal }) {
       atm: 1,
       token: 1,
     };
-    fields.forEach((field) => (initialValues[field.name] = ""));
+    fields.forEach((field) => {
+      if (field.name === "rate") {
+        return (initialValues[field.name] = 1);
+      }
+      return (initialValues[field.name] = "");
+    });
     return initialValues;
   };
 
@@ -88,15 +93,29 @@ export default function ({ closeModal }) {
     [dispatch, currentToken]
   );
 
-  const handleChangeAPL = useCallback((setFieldValue, value) => {
-    setApl(value);
-    setFieldValue("rate", convertToAPL(token) / convertToAPL(value));
-  },[token]);
+  const handleChangeAPL = useCallback(
+    (setFieldValue, value) => {
+      setApl(value);
+      if (value != 0 && token != 0) {
+        setFieldValue("rate", convertToAPL(token) / convertToAPL(value));
+      } else {
+        setFieldValue("rate", 0);
+      }
+    },
+    [token]
+  );
 
-  const handleChangeToken = useCallback((setFieldValue, value) => {
-    setToken(value);
-    setFieldValue("rate", convertToAPL(value) / convertToAPL(apl));
-  },[apl]);
+  const handleChangeToken = useCallback(
+    (setFieldValue, value) => {
+      setToken(value);
+      if (value != 0 && apl != 0) {
+        setFieldValue("rate", convertToAPL(value) / convertToAPL(apl));
+      } else {
+        setFieldValue("rate", 0);
+      }
+    },
+    [apl]
+  );
 
   const handleChangeTokenType = (e) => {
     setCurrentToken(e.target.value);
@@ -258,7 +277,7 @@ export default function ({ closeModal }) {
                                   type={item.type === "uint" ? "float" : "text"}
                                 />
                               )}
-                              {(errors[name] && touched[name]) && (
+                              {errors[name] && touched[name] && (
                                 <div className={"text-danger"}>
                                   {errors[item.name]}
                                 </div>

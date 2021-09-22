@@ -76,7 +76,7 @@ export default function ({ closeModal }) {
         sender,
         value: 0,
         token: 0,
-        fuelLimit: 30000000,
+        fuelLimit: 300000000,
         fuelPrice: 100,
         params: "",
         secret,

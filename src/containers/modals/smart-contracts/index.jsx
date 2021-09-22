@@ -42,7 +42,7 @@ export default function ({ closeModal }) {
     initialValues = {
       ...initialValues,
       ...modalData,
-      fuelLimit: 30000000,
+      fuelLimit: 300000000,
       fuelPrice: 100,
     };
   }
