@@ -54,13 +54,18 @@ export default function ({ closeModal }) {
     }
   }, [dispatch, currentToken]);
 
-  const getInitialValues = (fields) => {
-    const initialValues = {
-      atm: 1,
-      token: 1,
-    };
-    fields.forEach((field) => (initialValues[field.name] = ""));
-    return initialValues;
+  const setInitialValues = (fields) => {
+    return fields.reduce(
+      (acc, field) => {
+        if (field.name === "rate") {
+          acc[field.name] = 1;
+        } else {
+          acc[field.name] = "";
+        }
+        return acc;
+      },
+      { atm: 1, token: 1 }
+    );
   };
 
   const submitForm = useCallback(
@@ -88,15 +93,29 @@ export default function ({ closeModal }) {
     [dispatch, currentToken]
   );
 
-  const handleChangeAPL = useCallback((setFieldValue, value) => {
-    setApl(value);
-    setFieldValue("rate", convertToAPL(token) / convertToAPL(value));
-  },[token]);
+  const handleChangeAPL = useCallback(
+    (setFieldValue, value) => {
+      setApl(value);
+      if (value != 0 && token != 0) {
+        setFieldValue("rate", convertToAPL(token) / convertToAPL(value));
+      } else {
+        setFieldValue("rate", 0);
+      }
+    },
+    [token]
+  );
 
-  const handleChangeToken = useCallback((setFieldValue, value) => {
-    setToken(value);
-    setFieldValue("rate", convertToAPL(value) / convertToAPL(apl));
-  },[apl]);
+  const handleChangeToken = useCallback(
+    (setFieldValue, value) => {
+      setToken(value);
+      if (value != 0 && apl != 0) {
+        setFieldValue("rate", convertToAPL(value) / convertToAPL(apl));
+      } else {
+        setFieldValue("rate", 0);
+      }
+    },
+    [apl]
+  );
 
   const handleChangeTokenType = (e) => {
     setCurrentToken(e.target.value);
@@ -108,7 +127,7 @@ export default function ({ closeModal }) {
         <Formik
           enableReinitialize
           onSubmit={submitForm}
-          initialValues={getInitialValues(formFieldsList)}
+          initialValues={setInitialValues(formFieldsList)}
         >
           {({ errors, touched, setFieldValue }) => {
             return (
@@ -211,7 +230,7 @@ export default function ({ closeModal }) {
                                     type="float"
                                     disabled
                                   />
-                                  {errors[name] && touched[name] && (
+                                  {(errors[name] && touched[name]) && (
                                     <div className={"text-danger"}>
                                       {errors[item.name]}
                                     </div>
