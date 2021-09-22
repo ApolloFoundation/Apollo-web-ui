@@ -54,18 +54,18 @@ export default function ({ closeModal }) {
     }
   }, [dispatch, currentToken]);
 
-  const getInitialValues = (fields) => {
-    const initialValues = {
-      atm: 1,
-      token: 1,
-    };
-    fields.forEach((field) => {
-      if (field.name === "rate") {
-        return (initialValues[field.name] = 1);
-      }
-      return (initialValues[field.name] = "");
-    });
-    return initialValues;
+  const setInitialValues = (fields) => {
+    return fields.reduce(
+      (acc, field) => {
+        if (field.name === "rate") {
+          acc[field.name] = 1;
+        } else {
+          acc[field.name] = "";
+        }
+        return acc;
+      },
+      { atm: 1, token: 1 }
+    );
   };
 
   const submitForm = useCallback(
@@ -127,7 +127,7 @@ export default function ({ closeModal }) {
         <Formik
           enableReinitialize
           onSubmit={submitForm}
-          initialValues={getInitialValues(formFieldsList)}
+          initialValues={setInitialValues(formFieldsList)}
         >
           {({ errors, touched, setFieldValue }) => {
             return (
