@@ -230,7 +230,7 @@ export default function ({ closeModal }) {
                                     type="float"
                                     disabled
                                   />
-                                  {errors[name] && touched[name] && (
+                                  {(errors[name] && touched[name]) && (
                                     <div className={"text-danger"}>
                                       {errors[item.name]}
                                     </div>
@@ -277,7 +277,7 @@ export default function ({ closeModal }) {
                                   type={item.type === "uint" ? "float" : "text"}
                                 />
                               )}
-                              {errors[name] && touched[name] && (
+                              {(errors[name] && touched[name]) && (
                                 <div className={"text-danger"}>
                                   {errors[item.name]}
                                 </div>
