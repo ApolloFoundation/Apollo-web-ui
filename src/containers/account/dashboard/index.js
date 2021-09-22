@@ -95,7 +95,7 @@ class Dashboard extends React.Component {
                                             <StayInTouch/>
                                             <div className={'wrap-card-square'}>
                                                 <a
-                                                    href={'https://twitter.com/ApolloCurrency'}
+                                                    href='https://twitter.com/aplfintech'
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                     className={`card card-square`}
