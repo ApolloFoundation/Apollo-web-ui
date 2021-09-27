@@ -4,17 +4,20 @@ import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-tomorrow";
 import { getContractCode } from "../../../../../actions/contracts";
+import ContentLoader from "../../../../components/content-loader";
 
 const PanelCode = ({ contract }) => {
   const dispatch = useDispatch();
 
   const [contractCode, setContractCode] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   const getSourceSpecification = useCallback(
     async (contract) => {
       const code = await dispatch(getContractCode(contract));
       if (code) {
         setContractCode(code.content);
+        setIsLoading(false);
       }
     },
     [dispatch]
@@ -26,7 +29,9 @@ const PanelCode = ({ contract }) => {
 
   return (
     <div>
-      {contractCode && (
+      {isLoading ? (
+        <ContentLoader />
+      ) : (
         <AceEditor
           setOptions={{ useWorker: false }}
           mode="javascript"

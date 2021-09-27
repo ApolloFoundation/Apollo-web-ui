@@ -64,7 +64,7 @@ export default function ({ closeModal }) {
         }
         return acc;
       },
-      { atm: 1, token: 1 }
+      { atm: '', token: '' }
     );
   };
 
@@ -186,6 +186,7 @@ export default function ({ closeModal }) {
                                     <NumericInput
                                       label="Amount APL"
                                       type="float"
+                                      placeholder="1"
                                       name="atm"
                                       onChange={(value) =>
                                         handleChangeAPL(setFieldValue, value)
@@ -206,6 +207,7 @@ export default function ({ closeModal }) {
                                       label="Amount Token"
                                       type="float"
                                       name="token"
+                                      placeholder="1"
                                       onChange={(value) =>
                                         handleChangeToken(setFieldValue, value)
                                       }
