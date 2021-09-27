@@ -4,16 +4,16 @@
  ***************************************************************************** */
 
 import React, {
-  useEffect, useCallback, useMemo, useState,
+  useEffect, useCallback, useState,
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 import { NotificationManager } from 'react-notifications';
 import {
-  getTransactionsAction, getTransactionAction, getPrivateTransactionAction,
+  getTransactionsAction,
 } from '../../../actions/transactions';
 import {
-  setModalCallback, setBodyModalParamsAction, setModalType,
+  setModalCallback, setModalType,
 } from '../../../modules/modals';
 import { BlockUpdater } from '../../block-subscriber';
 import SiteHeader from '../../components/site-header';

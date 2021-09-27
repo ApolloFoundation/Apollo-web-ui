@@ -6,7 +6,6 @@
 
 import React from 'react';
 import SiteHeader from '../../components/site-header'
-import ContentLoader from '../../components/content-loader'
 import InfoBox from "../../components/info-box";
 import {Link} from "react-router-dom";
 import {connect} from 'react-redux'

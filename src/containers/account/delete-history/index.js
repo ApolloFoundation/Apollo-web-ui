@@ -8,11 +8,8 @@ import React from 'react';
 import { connect } from "react-redux";
 import { getDeleteHistory } from "../../../actions/delete-history";
 import { BlockUpdater } from "../../block-subscriber";
-import classNames from 'classnames';
-import { v4 as uuidv4 } from 'uuid';
 import DeleteItem from "./deletes";
 import SiteHeader from '../../components/site-header'
-import ContentHendler from '../../components/content-hendler'
 
 import CustomTable from '../../components/tables/table';
 

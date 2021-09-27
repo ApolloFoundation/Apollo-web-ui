@@ -6,11 +6,10 @@
 
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import {closeModal, setBodyModalParamsAction, setModalType} from "../../../../modules/modals";
+import {setBodyModalParamsAction, setModalType} from "../../../../modules/modals";
 import {connect} from 'react-redux';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import {getAskOrders, getBidOrders} from "../../../../actions/marketplace";
-import store from '../../../../store';
 
 class MyAssetItem extends React.Component {
 
