@@ -6,7 +6,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {setModalData} from '../../../../../modules/modals';
+import {setModalData} from '../../../../modules/modals';
 import classNames from 'classnames';
 
 class MandatoryApproval extends React.Component {
