@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import {connect} from 'react-redux';
 import {getCurrencyAction} from "../../../../actions/currencies";
-import {formatTimestamp} from "../../../../helpers/util/time";
 
 
 class CurrencyTransfer extends Component {

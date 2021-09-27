@@ -1,8 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-
 import {getAliasAction} from "../../../../actions/aliases";
-
 import CustomFormSelect from '../../../components/form-components/custom-form-select';
 import TextualInputComponent from '../../../components/form-components/textual-input';
 import AccountRSFormInput from '../../../components/form-components/account-rs';

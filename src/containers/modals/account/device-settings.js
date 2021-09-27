@@ -7,9 +7,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {setBodyModalParamsAction, setModalData} from '../../../modules/modals';
-import classNames from 'classnames';
 
-import {Form, Text, TextArea, Checkbox} from 'react-form';
+import {Form, Checkbox} from 'react-form';
 import InputForm from '../../components/input-form';
 import crypto from "../../../helpers/crypto/crypto";
 import submitForm from "../../../helpers/forms/forms";

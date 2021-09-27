@@ -8,7 +8,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {setBodyModalParamsAction, setModalData, saveSendModalState, openPrevModal} from '../../../modules/modals';
 import InputForm from '../../components/input-form';
-import {Checkbox, Form, Text, TextArea} from 'react-form';
+import {Checkbox, TextArea} from 'react-form';
 import AdvancedSettings from '../../components/advanced-transaction-settings';
 import submitForm from "../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";

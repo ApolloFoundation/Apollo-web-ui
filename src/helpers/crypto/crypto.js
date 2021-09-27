@@ -4,10 +4,8 @@
  ******************************************************************************/
 
 import CryptoJS from 'crypto-js';
-import i18n from 'i18next';
 import conv from '../converters';
 import AplAddress from '../util/apladres';
-import account from '../../modules/modals';
 import curve25519 from './curve25519';
 import jsbn from "jsbn";
 import inflate from 'pako/lib/inflate'

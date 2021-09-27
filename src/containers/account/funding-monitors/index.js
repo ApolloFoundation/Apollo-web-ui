@@ -9,7 +9,6 @@ import SiteHeader from '../../components/site-header'
 import { v4 as uuidv4 } from 'uuid';
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {connect} from "react-redux";
-import ContentLoader from '../../components/content-loader'
 import ContentHendler from '../../components/content-hendler'
 import {getFundingMonitorsAction} from '../../../actions/monitors'
 import InfoBox from '../../components/info-box'

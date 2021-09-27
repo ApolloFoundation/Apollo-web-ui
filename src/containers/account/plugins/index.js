@@ -9,8 +9,6 @@ import {connect} from 'react-redux';
 import {getPluginsAction} from '../../../actions/plugins';
 import SiteHeader from '../../components/site-header'
 import {BlockUpdater} from "../../block-subscriber";
-import ContentLoader from '../../components/content-loader'
-import ContentHendler from '../../components/content-hendler'
 
 class Plugins extends React.Component {
     constructor(props) {

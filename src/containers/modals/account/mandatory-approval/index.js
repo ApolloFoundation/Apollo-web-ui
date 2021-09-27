@@ -9,10 +9,6 @@ import {connect} from 'react-redux';
 import {setModalData} from '../../../../modules/modals';
 import classNames from 'classnames';
 
-import ModalBody from '../../../components/modals/modal-body';
-import TabulationBody from '../../../components/tabulator/tabuator-body';
-import TabContaier from '../../../components/tabulator/tab-container';
-
 class MandatoryApproval extends React.Component {
     constructor(props) {
         super(props);

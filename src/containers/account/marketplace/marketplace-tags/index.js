@@ -1,14 +1,12 @@
 import React, {Component} from 'react';
 import classNames from 'classnames';
 import {Form, Text} from 'react-form';
-import InputMask from 'react-input-mask'
 import {connect} from 'react-redux';
 import {getDGSTagsAction,} from '../../../../actions/marketplace'
 import { v4 as uuidv4 } from 'uuid';
 import {Link, withRouter} from 'react-router-dom';
 import AccountRS from "../../../components/account-rs";
 import {NotificationManager} from "react-notifications";
-import { thisExpression } from '@babel/types';
 
 class MarketplaceTags extends Component {
     state = {

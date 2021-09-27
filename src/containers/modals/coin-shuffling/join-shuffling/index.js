@@ -7,24 +7,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {setBodyModalParamsAction, setModalData, saveSendModalState, openPrevModal} from '../../../../modules/modals';
-import AdvancedSettings from '../../../components/advanced-transaction-settings';
-import InputForm from '../../../components/input-form';
-import {Checkbox, Form, Text} from 'react-form';
 import {getBlockAction} from "../../../../actions/blocks";
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../../helpers/forms/forms";
 import {getShufflingAction} from "../../../../actions/shuffling/";
-
 import store from '../../../../store'
 import crypto from "../../../../helpers/crypto/crypto";
-import ModalFooter from '../../../components/modal-footer'
-
-import BackForm from '../../modal-form/modal-form-container';
-import InfoBox from "../../../components/info-box";
-import {CopyToClipboard} from "react-copy-to-clipboard";
 import {generateAccountAction} from "../../../../actions/account";
-import NummericInputForm from "../../../components/form-components/numeric-input";
-import {CheckboxFormInput} from "../../../components/form-components/check-button-input";
 import ModalBody from "../../../components/modals/modal-body";
 import JoinShufflingForm from "./form";
 

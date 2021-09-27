@@ -14,7 +14,6 @@ import submitForm from "../../../helpers/forms/forms";
 import crypto from "../../../helpers/crypto/crypto";
 import ModalFooter from '../../components/modal-footer';
 import BackForm from '../modal-form/modal-form-container';
-import NummericInputForm from "../../components/form-components/numeric-input";
 import FeeInputForm from "../../components/form-components/fee-input";
 
 class AccountInfo extends React.Component {

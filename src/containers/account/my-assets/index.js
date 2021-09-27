@@ -7,14 +7,9 @@
 import React from 'react';
 import SiteHeader from '../../components/site-header';
 import {connect} from 'react-redux';
-import classNames from "classnames";
-import { v4 as uuidv4 } from 'uuid';
 import MyAssetItem from './my-asset-item';
 import {getSpecificAccountAssetsAction} from "../../../actions/assets";
 import {BlockUpdater} from "../../block-subscriber/index";
-import InfoBox from '../../components/info-box';
-import ContentLoader from '../../components/content-loader'
-import ContentHendler from '../../components/content-hendler'
 
 import CustomTable from '../../components/tables/table';
 

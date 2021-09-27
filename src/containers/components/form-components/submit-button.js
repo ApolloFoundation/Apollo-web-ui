@@ -3,8 +3,6 @@ import React from 'react';
 
 export const SubmitFormButton = (props) => {
 
-    const {loading, text} = props;
-
     return (
         <button
             type="submit"

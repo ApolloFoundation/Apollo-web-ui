@@ -7,22 +7,15 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {setBodyModalParamsAction, setModalData, saveSendModalState, openPrevModal} from '../../../../modules/modals';
-import InputForm from '../../../components/input-form';
-import AdvancedSettings from '../../../components/advanced-transaction-settings';
-import {Form, Text, Number, Checkbox} from 'react-form';
 import submitForm from "../../../../helpers/forms/forms";
 import {getBlockAction} from "../../../../actions/blocks";
 import {NotificationManager} from "react-notifications";
 import {getpollAction} from "../../../../actions/polls";
-import { v4 as uuidv4 } from 'uuid';
 import crypto from "../../../../helpers/crypto/crypto";
-
 import {getAssetAction} from "../../../../actions/assets";
 import {getCurrencyAction} from "../../../../actions/currencies";
-
 import ModalBody from '../../../components/modals/modal-body';
 import CastVoteForm   from './form';
-import $ from 'jquery';
 
 class CastPoll extends React.Component {
     constructor(props) {

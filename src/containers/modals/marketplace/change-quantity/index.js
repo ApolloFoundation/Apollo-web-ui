@@ -9,19 +9,12 @@ import {connect} from 'react-redux';
 import {setModalData} from '../../../../modules/modals';
 import  {getDGSGoodAction} from "../../../../actions/marketplace";
 import {setBodyModalParamsAction} from "../../../../modules/modals";
-import classNames from 'classnames';
 import {formatTimestamp} from '../../../../helpers/util/time'
 import config from '../../../../config';
-
-
 import Form from './form';
 import ModalBody    from '../../../components/modals/modal-body';
-
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../../helpers/forms/forms";
-import crypto from "../../../../helpers/crypto/crypto";
-
-
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,

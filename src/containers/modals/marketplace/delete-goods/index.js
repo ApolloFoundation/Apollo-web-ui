@@ -6,7 +6,6 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import classNames from 'classnames';
 import {setModalData} from '../../../../modules/modals';
 import {getDGSGoodAction} from "../../../../actions/marketplace";
 import {setBodyModalParamsAction} from "../../../../modules/modals";

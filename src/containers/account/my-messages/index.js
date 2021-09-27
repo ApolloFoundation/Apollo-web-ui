@@ -5,16 +5,11 @@
 
 
 import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import classNames from "classnames";
 import SiteHeader from "../../components/site-header"
 import MessageItem from './message-item'
 import {connect} from 'react-redux';
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {BlockUpdater} from "../../block-subscriber/index";
-import InfoBox from "../../components/info-box";
-import ContentLoader from '../../components/content-loader'
-import ContentHendler from '../../components/content-hendler'
 
 import CustomTable from '../../components/tables/table';
 import {getMessagesPerpage} from '../../../actions/messager'

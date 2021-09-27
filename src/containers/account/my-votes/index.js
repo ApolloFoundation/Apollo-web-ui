@@ -9,7 +9,6 @@ import {connect} from 'react-redux';
 import SiteHeader from '../../components/site-header'
 import {getMyVotesAction, getVoteAction} from '../../../actions/polls';
 import PoolItem from '../active-polls/pool-item';
-import { v4 as uuidv4 } from 'uuid';
 import {getTransactionAction} from "../../../actions/transactions";
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {BlockUpdater} from "../../block-subscriber/index";

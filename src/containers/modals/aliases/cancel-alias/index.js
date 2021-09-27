@@ -7,14 +7,9 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {setBodyModalParamsAction, setModalData, saveSendModalState, openPrevModal} from '../../../../modules/modals';
-
-import { Form, Text } from 'react-form';
-import InputForm from '../../../components/input-form';
-import CustomSelect from '../../../components/select';
 import {getAliasAction} from '../../../../actions/aliases/';
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../../helpers/forms/forms";
-
 import ModalBody from '../../../components/modals/modal-body';
 import CancelSaleForm from './form';
 

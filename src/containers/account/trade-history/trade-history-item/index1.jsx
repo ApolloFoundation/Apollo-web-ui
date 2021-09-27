@@ -6,8 +6,6 @@
 
 import React from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import crypto from "../../../../helpers/crypto/crypto";
-import converters from "../../../../helpers/converters";
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';

@@ -1,5 +1,4 @@
 import React from 'react';
-import { useField } from 'formik';
 import { useSelector } from 'react-redux';
 import CustomInput from '../custom-input';
 
@@ -10,10 +9,6 @@ export default function BlockHeightInput(props) {
     label, name, isSubtitle,
     placeholder, className, idGroup,
   } = props;
-
-  // useEffect(() => {
-  //   setValue(field, actualBlock);
-  // }, [actualBlock, field, setValue]);
 
   return (
     <div className={`form-group mb-15 ${className}`}>

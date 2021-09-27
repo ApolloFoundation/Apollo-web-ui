@@ -6,16 +6,9 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {setModalData, setBodyModalParamsAction, setAlert, saveSendModalState, openPrevModal} from '../../../modules/modals';
-import {sendTransactionAction} from '../../../actions/transactions';
-import {calculateFeeAction} from "../../../actions/forms";
-import AdvancedSettings from '../../components/advanced-transaction-settings';
-import classNames from 'classnames';
+import {saveSendModalState, openPrevModal} from '../../../modules/modals';
 import crypto from  '../../../helpers/crypto/crypto';
-import InputMask from 'react-input-mask';
-import AccountRS from '../../components/account-rs';
-
-import {Form, Text, TextArea, Checkbox} from 'react-form';
+import {Text} from 'react-form';
 import InfoBox from '../../components/info-box';
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../helpers/forms/forms";
