@@ -1,6 +1,5 @@
 import React from 'react';
 import { useField } from 'formik';
-// import { TextArea } from 'react-form';
 
 const CustomTextArea = ({
   label, name, placeholder, note, className, idGroup, rows, cols, labelStyle,

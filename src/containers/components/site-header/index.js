@@ -22,7 +22,6 @@ import {NotificationManager} from "react-notifications";
 import PageTitleBox from './page-title-box';
 
 import UserBox from './user-box';
-import UserBottomBox from './user-bottom-box';
 
 import CurrentAccount from './current-account';
 import Settings from './settings';

@@ -5,16 +5,12 @@
 
 
 import React from 'react';
-import { Form, Text, Radio, RadioGroup, TextArea, Checkbox } from "react-form";
+import {Text} from "react-form";
 import converters from '../../../helpers/converters';
 import {connect} from 'react-redux';
 import {setModalData, setModalType, setBodyModalParamsAction, saveSendModalState, openPrevModal} from '../../../modules/modals';
-
-import curve25519 from '../../../helpers/crypto/curve25519'
 import crypto from  '../../../helpers/crypto/crypto';
-
 import InfoBox from '../../components/info-box';
-
 import BackForm from '../modal-form/modal-form-container';
 
 class EnterAdminPassword extends React.Component {

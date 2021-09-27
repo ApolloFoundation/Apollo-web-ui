@@ -9,7 +9,7 @@ import {connect} from 'react-redux';
 import {setBodyModalParamsAction, setModalData, saveSendModalState, openPrevModal} from '../../../modules/modals';
 import InputForm from '../../components/input-form';
 import AccountRS from '../../components/account-rs';
-import {Form, Text, TextArea} from 'react-form';
+import {Text, TextArea} from 'react-form';
 
 import submitForm from "../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";

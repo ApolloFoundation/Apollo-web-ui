@@ -2,7 +2,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import ModalBody from '../../../components/modals/modal-body';
-import EditAliasForm from './form';
 import TabulationBody from '../../../components/tabulator/tabuator-body';
 import TabContaier from '../../../components/tabulator/tab-container';
 import {getAliasAction} from "../../../../actions/aliases";

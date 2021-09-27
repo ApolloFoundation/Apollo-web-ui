@@ -15,8 +15,7 @@ import crypto from  '../../../helpers/crypto/crypto';
 import AccountRS from '../../components/account-rs';
 import ModalFooter from '../../components/modal-footer'
 
-import {Form, Text, TextArea, Checkbox} from 'react-form';
-import InfoBox from '../../components/info-box';
+import {Form, TextArea, Checkbox} from 'react-form';
 import submitForm from "../../../helpers/forms/forms";
 import FeeCalc from '../../components/form-components/fee-calc';
 

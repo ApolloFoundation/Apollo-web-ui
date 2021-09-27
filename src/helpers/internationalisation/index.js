@@ -5,8 +5,6 @@
 
 
 import React from 'react';
-
-import {LANGUAGES_DATA} from './languages-data'
 import {LOCALE_DATA} from './locale-data'
 
 var CURRENT_LOCALE = {};

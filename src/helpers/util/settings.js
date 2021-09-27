@@ -5,8 +5,6 @@
 
 
 import {readFromLocalStorage} from "../../actions/localStorage";
-import {getLocale} from "../internationalisation";
-import {setSetings} from "../../modules/account";
 import {storageSelect} from '../../actions/localStorage'
 import {storageInsert} from '../../actions/localStorage'
 import async from './async'

@@ -7,10 +7,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {setBodyModalParamsAction, setModalData} from '../../../modules/modals';
-import AdvancedSettings from '../../components/advanced-transaction-settings'
-import InfoBox from '../../components/info-box'
 import {NotificationManager} from "react-notifications";
-import {Form, Text} from 'react-form';
+import {Text} from 'react-form';
 import submitForm from "../../../helpers/forms/forms";
 
 import ModalBody from '../../components/modals/modal-body';

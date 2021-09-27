@@ -6,7 +6,6 @@ const ContentHendler = ({
   items, children, className, emptyMessage,
 }) => (
   <>
-    {/* {props.items.length === 0 && props.children} */}
     {
       items
       && items.length > 0

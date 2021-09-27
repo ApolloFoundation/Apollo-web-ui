@@ -1,5 +1,4 @@
 import React from "react";
-import classNames from "classnames";
 import Tab from "./tab";
 
 class TabulationBody extends React.Component {
