@@ -63,7 +63,7 @@ export default function RawTransactionDetails(props) {
           >
             {modalData && modalData.request && (
               <div className="form-group-app">
-                <button onClick={closeModal} className="exit">
+                <button type="button" onClick={closeModal} className="exit">
                   <i className="zmdi zmdi-close" />
                 </button>
                 <div className="form-title">

@@ -85,6 +85,7 @@ export default function TransactionItem(props) {
       <div className="transaction-type text-ellipsis">{transactionType}</div>
     );
   }, [
+    isSmcTransaction,
     attachment.offerCurrency,
     isDexOrder,
     newRecipientRS,

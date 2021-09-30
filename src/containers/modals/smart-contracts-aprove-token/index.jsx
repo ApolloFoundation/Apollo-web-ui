@@ -84,9 +84,9 @@ export default function ({ closeModal }) {
               <Form>
                 <div className="modal-form ">
                   <div className="form-group-app">
-                    <a onClick={closeModal} className="exit">
+                    <button type="button" onClick={closeModal} className="exit">
                       <i className="zmdi zmdi-close" />
-                    </a>
+                    </button>
                     <div className="form-title">
                       <p>Token cretion preview</p>
                       <p>Token type: {modalData.token}</p>

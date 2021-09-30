@@ -83,7 +83,6 @@ class MarketplaceDelete extends React.Component {
     }
 
     render() {
-        const {formatTimestamp} = this.props;
         const {goods} = this.state;
 
         return (
