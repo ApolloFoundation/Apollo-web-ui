@@ -49,7 +49,7 @@ class AssetDistribution extends React.Component {
             <div className="modal-box">
                 <div className="modal-form">
                     <div className="form-group-app">
-                        <button onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close"/></button>
+                        <button type="button" onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close"/></button>
 
                         <div className="form-title">
                             <p>Asset Distribution</p>
@@ -73,17 +73,15 @@ class AssetDistribution extends React.Component {
                                         this.state.assets.map((el, index) => {
 
                                             return (
-                                                <tr>
-                                                    <td
-                                                        className={'blue-link-text'}
-                                                    >
-                                                        <a
+                                                <tr key={index}>
+                                                    <td>
+                                                        <button 
+                                                            type="button"
                                                             className={'blue-link-text'}
                                                             onClick={() => this.props.setBodyModalParamsAction('INFO_ACCOUNT', el.account)}>
                                                             {el.accountRS}
-                                                        </a>
+                                                        </button>
                                                     </td>
-
                                                     <td>{el.quantityATU / Math.pow(10, this.props.modalData.decimals)}</td>
                                                     <td className="align-right">{(el.quantityATU / this.props.modalData.totalAvailable) * 100} %</td>
                                                 </tr>

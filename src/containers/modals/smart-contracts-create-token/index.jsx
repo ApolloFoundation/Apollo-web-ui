@@ -134,13 +134,14 @@ export default function ({ closeModal }) {
               <Form>
                 <div className="modal-form">
                   <div className="form-group-app">
-                    <a
+                    <button
+                      type="button"
                       id="button-close-modal-create-token"
                       onClick={closeModal}
                       className="exit"
                     >
                       <i className="zmdi zmdi-close" />
-                    </a>
+                    </button>
                     <div className="form-title">
                       <p>Create token</p>
                     </div>
