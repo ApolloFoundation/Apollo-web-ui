@@ -44,7 +44,6 @@ export default function ChooseWallet() {
 
   useEffect(() => {
     const localWallets = secureStorage.getItem('wallets');
-    console.log("🚀 ~ file: index.jsx ~ line 48 ~ useEffect ~ localWallets", JSON.parse(localWallets))
 
     if (!localWallets) {
       setBodyModalParamsAction('LOGIN_EXCHANGE', {});
