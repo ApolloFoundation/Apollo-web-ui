@@ -17,6 +17,7 @@ import { secureStorage } from '../../../../helpers/format';
 import TwitterBanner from '../../../../assets/banner-small.png';
 import SiteHeader from '../../../components/site-header';
 import InfoBox from '../../../components/info-box';
+import { useExchangeWalletConverts } from '../../../../hooks/useExchangeWalletConverts';
 import TradeHistoryExchange from './trade-history';
 import TradeApollo from './trade-apollo';
 import OpenOrders from './open-orders';
@@ -25,6 +26,7 @@ import Plot from './plot';
 
 export default function Exchange() {
   const dispatch = useDispatch();
+  const { converWallets } = useExchangeWalletConverts();
 
   const { wallets, ticker } = useSelector(state => state.account);
 
@@ -36,18 +38,14 @@ export default function Exchange() {
   const [currWallets, setCurrWallets] = useState(null);
 
   const handleGetCurrencyBalance = useCallback(async selectWallets => {
-    const params = {eth: []};
-    
-    selectWallets.eth.map(wallet => {
-      params.eth.push(wallet.address);
-    });
+    const params = converWallets(selectWallets);
 
     const walletsBalances = await dispatch(getCurrencyBalance(params));
 
     if (walletsBalances) {
       setCurrWallets(walletsBalances);
     }
-  }, [dispatch]);
+  }, [dispatch, converWallets]);
 
   const handleLoginModal = useCallback(() => {
     dispatch(setBodyModalParamsAction('LOGIN_EXCHANGE', {}));
