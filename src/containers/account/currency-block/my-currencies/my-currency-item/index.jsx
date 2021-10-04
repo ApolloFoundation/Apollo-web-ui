@@ -3,7 +3,7 @@
  *                                                                            *
  ***************************************************************************** */
 
-import React from 'react';
+import React, { useCallback } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -14,11 +14,22 @@ export default function MyCurrencytemItem(props) {
   const dispatch = useDispatch();
   const {
     code, type, name, unconfirmedUnits,
-    decimals, currency,
+    decimals, currency, accountRS
   } = props;
 
   const currencyTypes = getCurrencyTypes(type);
   const isClaimable = currencyTypes.includes('Claimable');
+
+  const handleTransfer = useCallback(() => {
+    dispatch(setBodyModalParamsAction(
+      'TRANSFER_CURRENCY', 
+      { 
+        code,
+        currency,
+        recipient: accountRS,
+      })
+    );
+  }, [dispatch, code, currency, accountRS]);
 
   return (
     <tr key={uuidv4()}>
@@ -35,7 +46,7 @@ export default function MyCurrencytemItem(props) {
           <Link to={`/exchange-booth/${code}`} className="btn btn-default">Exchange</Link>
           <button
             type="button"
-            onClick={() => dispatch(setBodyModalParamsAction('TRANSFER_CURRENCY', { code, currency }))}
+            onClick={handleTransfer}
             style={{ marginLeft: 15 }}
             className="btn btn-default"
           >

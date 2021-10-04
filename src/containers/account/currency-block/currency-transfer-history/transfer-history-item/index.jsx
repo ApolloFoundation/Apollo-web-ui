@@ -3,7 +3,7 @@
  *                                                                            *
  ***************************************************************************** */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
@@ -30,6 +30,13 @@ export default function TransferHistoryItem(props) {
       setCurrency(attachment);
     })
   }, [dispatch, transfer]);
+
+  const unitsHandler = useCallback(() => {
+    const result = units / (10 ** decimals);
+    if(result > 1e-7) return result;
+    
+    return result.toFixed(decimals);
+  }, [units, decimals]);
 
   const name = code ? (
     <Link to={"/exchange-booth/" + code}>{code}</Link>
@@ -66,7 +73,7 @@ export default function TransferHistoryItem(props) {
         {name}
       </td>
       <td className="">{formatTimestamp(timestamp)}</td>
-      <td className="align-right">{units / (10 ** decimals)} {unitsTooltip}</td>
+      <td className="align-right">{unitsHandler()} {unitsTooltip}</td>
       <td>
         <span
           className="blue-link-text"
