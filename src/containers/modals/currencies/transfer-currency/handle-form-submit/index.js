@@ -2,13 +2,11 @@ import { NotificationManager } from 'react-notifications';
 import { setBodyModalParamsAction, IS_MODAL_PROCESSING } from '../../../../../modules/modals';
 import submitForm from '../../../../../helpers/forms/forms';
 
-export const handleFormSubmit = values => async dispatch => {
+export const handleFormSubmit = ({decimals, ...values}) => async dispatch => {
   const data = {
     ...values,
-    units: values.units * (10 ** (values.decimals || 0)),
+    units: values.units * (10 ** (decimals || 0)),
   };
-
-  delete data.decimals;
 
   dispatch({
     type: IS_MODAL_PROCESSING,
