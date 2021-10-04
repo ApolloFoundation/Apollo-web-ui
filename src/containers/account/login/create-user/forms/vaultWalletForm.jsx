@@ -34,7 +34,8 @@ export default function VaultWalletForm(props) {
       },
       {
         name: 'Secret Phrase',
-        value: accountData.passphrase,
+        value: (isCustomPassphraseTextarea && activeTab === 1) 
+          ? currPassphrase : accountData.passphrase,
       },
       {
         name: 'Public Key',
