@@ -4,7 +4,7 @@ import { useField } from 'formik';
 const CustomTextArea = ({
   label, name, placeholder, note, className, idGroup, rows, cols, labelStyle,
 }) => {
-  const [field, , helpers] = useField(name);
+  const [field, , ] = useField(name);
 
   return (
     <div className={`form-group mb-15 ${className}`}>

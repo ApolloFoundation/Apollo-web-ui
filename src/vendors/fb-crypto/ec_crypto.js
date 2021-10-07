@@ -1,4 +1,4 @@
-// var BigInteger  = require('big-integer');
+/* eslint-disable */
 
 var BigInteger = require('jsbn').BigInteger;
 

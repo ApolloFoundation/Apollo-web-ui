@@ -20,7 +20,6 @@ const target = document.querySelector('#root');
 
 console.warn  = function(message){};
 console.error = function(message){};
-// console.log = function(message){};
 
 ReactDOM.render(
     <Provider store={store}>

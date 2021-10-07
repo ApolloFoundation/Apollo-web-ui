@@ -32,6 +32,7 @@
 // The original curve25519 library was released into the public domain
 // by Daniel J. Bernstein
 
+/* eslint-disable */
 
 let curve25519_zero = function() {
     return [0,0,0,0, 0,0,0,0, 0,0,0,0, 0,0,0,0];

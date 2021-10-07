@@ -2,6 +2,7 @@
  * Copyright © 2018 Apollo Foundation                                         *
  *                                                                            *
  ******************************************************************************/
+/* eslint-disable */
 
 import CryptoJS from 'crypto-js';
 import conv from '../converters';

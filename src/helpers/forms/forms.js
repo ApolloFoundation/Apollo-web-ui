@@ -12,7 +12,8 @@ import converters from '../converters'
 import AplAddress from '../util/apladres'
 import {processElGamalEncryption} from '../../actions/crypto';
 import {NotificationManager} from "react-notifications";
-import {SET_AMOUNT_WARNING, SET_ASSET_WARNING, SET_CURRENCY_WARNING, SET_FEE_WARNING} from "../../modules/modals";
+
+/* eslint-disable */
 
 const BigInteger = require('jsbn').BigInteger;
 let forms = {};

@@ -1,4 +1,5 @@
-"use strict";
+/* eslint-disable */
+
 
 // Basic Javascript Elliptic Curve implementation
 // Ported loosely from BouncyCastle's Java EC code

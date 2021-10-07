@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 var BigInteger = require('jsbn').BigInteger;
 
 const {ECCurveFp} = require('./ec');

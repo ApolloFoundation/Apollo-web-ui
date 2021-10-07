@@ -16,6 +16,7 @@
  * Based on work by Daniel J Bernstein, http://cr.yp.to/ecdh.html
  */
 
+/* eslint-disable */
 const bigInt = require('jsbn').BigInteger;
 
 //region Constants

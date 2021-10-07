@@ -107,10 +107,6 @@ export default function SmartContracts() {
     }
   };
 
-  const handleSendMessage = useCallback(() => {
-    dispatch(setBodyModalParamsAction("SMC_CREATE", null));
-  }, [dispatch]);
-
   const handleUploadFile = async ([file], setFieldValue) => {
     const uploadedTextFile = await parseTextFile(file);
     setFieldValue("source", uploadedTextFile);

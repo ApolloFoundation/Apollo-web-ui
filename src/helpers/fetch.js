@@ -1,4 +1,3 @@
-// import fetch from 'isomorphic-fetch';
 import qs from 'query-string';
 import { processElGamalEncryption } from '../actions/crypto';
 
