@@ -195,14 +195,15 @@ class AccountDetails extends React.Component {
                             <tr>
                               <td className="no-brake">Paper Wallet:</td>
                               <td>
-                                <a
+                                <button
+                                  type="button"
                                   className="btn btn-default"
                                   onClick={() => this.generatePDFStandard([
                                     { name: 'Account ID', value: this.state.account.accountRS },
                                   ])}
                                 >
                                   Print
-                                </a>
+                                </button>
                               </td>
                             </tr>
                           </tbody>

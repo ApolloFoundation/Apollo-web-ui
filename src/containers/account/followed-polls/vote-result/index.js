@@ -8,11 +8,11 @@ const VoteResult = ({
 }) => (
   <tr key={uuidv4()}>
     <td className="blue-link-text">
-      <a onClick={() => setBodyModalParamsAction('INFO_ACCOUNT', voter)}>
+      <button type="button" className="btn blue-link" onClick={() => setBodyModalParamsAction('INFO_ACCOUNT', voter)}>
         {' '}
         {voterRS}
         {' '}
-      </a>
+      </button>
     </td>
     {votes && votes.map((subEl, subIndex) => {
       if (subEl.length) {

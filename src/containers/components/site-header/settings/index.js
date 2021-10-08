@@ -1,11 +1,11 @@
 import React from 'react';
 import classNames from 'classnames';
-import {connect} from 'react-redux';
-import {NavLink} from 'react-router-dom';
-import {setBodyModalParamsAction} from '../../../../modules/modals';
+import { connect } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+import { setBodyModalParamsAction } from '../../../../modules/modals';
 import util from '../../../../helpers/util/utils';
 
-const Settings = ({setBodyModalParamsAction, isLocalhost, isActive, closeMenu}) => (
+const Settings = ({ setBodyModalParamsAction, isLocalhost, isActive, closeMenu }) => (
     <div className={classNames({
         "account-body-modal": true,
         "active": isActive,
@@ -30,24 +30,27 @@ const Settings = ({setBodyModalParamsAction, isLocalhost, isActive, closeMenu}) 
         </div>
         <div className="options-col">
             <ul>
-                <li><a
+                <li><button
+                    type="button"
                     onClick={() => {
                         closeMenu();
                         return setBodyModalParamsAction('TOKEN_GENERATION_VALIDATION');
                     }}
-                    className="option">Generate token</a></li>
-                <li><a
+                    className="option">Generate token</button></li>
+                <li><button
+                    type="button"
                     onClick={() => {
                         closeMenu();
                         return setBodyModalParamsAction('CALCULATE_CACHE');
                     }}
-                    className="option">Calculate hash</a></li>
-                {<li><a
+                    className="option">Calculate hash</button></li>
+                {<li><button
+                    type="button"
                     onClick={() => {
                         closeMenu();
                         return setBodyModalParamsAction('TRANSACTIONS_OPERATIONS');
                     }}
-                    className="option">Transaction operations</a>
+                    className="option">Transaction operations</button>
                 </li>}
             </ul>
 

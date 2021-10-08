@@ -2,13 +2,14 @@
  * Copyright © 2018 Apollo Foundation                                         *
  *                                                                            *
  ******************************************************************************/
-
+/* eslint-disable */
 
 import CryptoJS from 'crypto-js';
 import jsbn from 'jsbn';
 import AplAddress from './util/apladres';
 import curve25519 from './crypto/curve25519';
 import crypto from './crypto/crypto';
+
 
 const ACCOUNT_REGEX_STR = "^APL-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{5}";
 const BigInteger = jsbn.BigInteger;

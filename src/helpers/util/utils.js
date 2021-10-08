@@ -3,6 +3,8 @@
  *                                                                            *
  ***************************************************************************** */
 
+/* eslint-disable */
+
 const { BigInteger } = require('jsbn');
 
 function normalizeTicker(ticker) {

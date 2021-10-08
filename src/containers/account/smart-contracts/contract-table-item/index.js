@@ -28,16 +28,12 @@ export const ContractTableItem = ({
 
   const currentDate = dispatch(formatTimestamp(new Date(timestamp)));
 
-  const isStatusAPL20 = !!/^APL20BUY/.test(baseContract) || !!/^APL20LOCK/.test(baseContract);
+  const isStatusAPL20 = (/^APL20BUY/).test(baseContract) || (/^APL20LOCK/).test(baseContract);
 
   const handleContractInfo = () => {
     isStatusAPL20
       ? history.push(`/smart-contracts/explorer/${address}`)
       : dispatch(setBodyModalParamsAction("SMC_INFO", { address }));
-  };
-
-  const handleSendMessage = () => {
-    dispatch(setBodyModalParamsAction("SMC_CREATE", { address }));
   };
 
   const handleTransactionInfo = async () => {

@@ -667,7 +667,7 @@
     transition: 0.2s; }
   .mobile-nav-item .item-dropdown {
     display: block; }
-    .mobile-nav-item .item-dropdown a {
+    .mobile-nav-item .item-dropdown a, button {
       display: block;
       padding: 0 40px;
       color: #787878;

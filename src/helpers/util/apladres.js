@@ -2,7 +2,7 @@
  * Copyright © 2018 Apollo Foundation                                         *
  *                                                                            *
  ******************************************************************************/
-
+/* eslint-disable */
 
 const DEFAULT_PREFIX = "APL";
 

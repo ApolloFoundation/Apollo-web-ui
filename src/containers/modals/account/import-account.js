@@ -230,11 +230,12 @@ class ImportAccount extends React.Component {
                                                         NotificationManager.success('The account data has been copied to clipboard.')
                                                     }}
                                                 >
-                                                    <a
+                                                    <button
+                                                        type="button"
                                                         className="btn blue static"
                                                     >
                                                         Copy account data to clipboard.
-                                                    </a>
+                                                    </button>
                                                 </CopyToClipboard>
                                             </InfoBox>
                                         }
@@ -264,13 +265,14 @@ class ImportAccount extends React.Component {
                                             }
                                             {
                                                 this.state.isGenerated &&
-                                                <a
+                                                <button
+                                                    type="button"
                                                     onClick={() => this.props.closeModal()}
                                                     name={'closeModal'}
                                                     className="btn absolute btn-right default round round-top-left round-bottom-right"
                                                 >
                                                     Close
-                                                </a>
+                                                </button>
                                             }
 
                                         </div>
