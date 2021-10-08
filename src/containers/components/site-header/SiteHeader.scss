@@ -414,9 +414,15 @@
 		li {
 			padding: 6px 12px;
 			color: #3D5A7E;
-			a {
+			a, button {
+				color: #3D5A7E;
+				font-family: "BBRollerMonoProST", sans-serif;
+				padding: 0px;
 				font-size: 12px;
 				line-height: 14px;
+				&:hover{
+					cursor: pointer;
+				}
 			}
 
 			&:first-of-type {
@@ -864,11 +870,14 @@
 	.item-dropdown {
 		display: block;
 		
-		a {
+		a, button {
 			display: block;
 			padding: 0 40px;
 			color: #8AA5C7;
 			margin-top: 12px;
+			font-family: "BBRollerMonoProST", sans-serif;
+			width: 100%;
+			text-align: left;
 			&.active {
 				color: #2547F4;
 			}

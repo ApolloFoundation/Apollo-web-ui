@@ -2,6 +2,9 @@
  * Copyright © 2018 Apollo Foundation                                         *
  *                                                                            *
  ******************************************************************************/
+
+/* eslint-disable */
+
 import config from '../../config';
 import axios from 'axios';
 import { getSECCurveByName } from '../../vendors/fb-crypto/sec';

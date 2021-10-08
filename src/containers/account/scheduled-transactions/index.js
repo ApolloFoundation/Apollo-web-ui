@@ -102,7 +102,8 @@ class ScheduledTransactions extends React.Component {
                 <SiteHeader
                     pageTitle={'Scheduled transactions'}
                 >
-                    <a
+                    <button
+                        type="button"
                         className={classNames({
                             'btn': true,
                             'primary': true,
@@ -111,7 +112,7 @@ class ScheduledTransactions extends React.Component {
                         onClick={() => this.props.setBodyModalParamsAction('SCHEDULE_CURRENCY', this.reloadSceduledTransactions)}
                     >
                         Schedule currency
-                    </a>
+                    </button>
                 </SiteHeader>
 
                 <div className="page-body container-fluid">

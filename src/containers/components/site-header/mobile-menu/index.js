@@ -109,15 +109,14 @@ const MobileMenu = ({setBodyModalParamsAction, closeMenu}) => (
                                      to="/delete-history">Delete history</NavLink>
                             <NavLink exact={true} activeClassName="active"
                                      to="/open-orders">Open orders</NavLink>
-                            {/* <NavLink exact={true} activeClassName="active"
-                                        to="approval-request">Approval request</NavLink> */}
 
-                            <a
+                            <button
+                                type="button"
                                 id='open-issue-asset-mobile'
                                 onClick={() => setBodyModalParamsAction('ISSUE_ASSET')}
                             >
                                 Issue assets
-                            </a>
+                            </button>
                         </div>
                     </AccordionItemPanel>
                 </div>
@@ -142,12 +141,13 @@ const MobileMenu = ({setBodyModalParamsAction, closeMenu}) => (
                             <NavLink to="/my-currencies">My Currencies</NavLink>
                             <NavLink to="/exchange-history-currency">Exchange history</NavLink>
                             <NavLink to="/transfer-history-currency">Transfer history</NavLink>
-                            <a
+                            <button
+                                type="button"
                                 id='open-issue-currency-mobile'
                                 onClick={() => setBodyModalParamsAction('ISSUE_CURRENCIES')}
                             >
                                 Issue Currencies
-                            </a>
+                            </button>
                         </div>
                     </AccordionItemPanel>
                 </div>
@@ -173,13 +173,13 @@ const MobileMenu = ({setBodyModalParamsAction, closeMenu}) => (
                             <NavLink to="/followed-polls">Followed polls</NavLink>
                             <NavLink to="/my-votes">My votes</NavLink>
                             <NavLink to="/my-polls">My polls</NavLink>
-
-                            <a
+                            <button
+                                type="button"
                                 id='open-create-poll-mobile'
                                 onClick={() => setBodyModalParamsAction('ISSUE_POLL')}
                             >
                                 Create poll
-                            </a>
+                            </button>
                         </div>
                     </AccordionItemPanel>
                 </div>
@@ -196,13 +196,13 @@ const MobileMenu = ({setBodyModalParamsAction, closeMenu}) => (
                     <AccordionItemPanel>
                         <div className="item-dropdown">
                             <NavLink to="/data-storage">Search</NavLink>
-
-                            <a
+                            <button
+                                type="button"
                                 id='open-file-upload-mobile'
                                 onClick={() => setBodyModalParamsAction('ISSUE_FILE_UPLOAD')}
                             >
                                 File upload
-                            </a>
+                            </button>
                         </div>
                     </AccordionItemPanel>
                 </div>
@@ -227,12 +227,13 @@ const MobileMenu = ({setBodyModalParamsAction, closeMenu}) => (
                             <NavLink to="/my-products-for-sale">My products for sale</NavLink>
                             <NavLink to="/my-pending-orders">My pending orders</NavLink>
                             <NavLink to="/my-completed-orders">My completed orders</NavLink>
-                            <a
+                            <button
+                                type="button"
                                 id='open-list-product-for-sale-mobile'
                                 onClick={() => setBodyModalParamsAction('LIST_PRODUCT_FOR_SALE')}
                             >
                                 List product for sale
-                            </a>
+                            </button>
                         </div>
                     </AccordionItemPanel>
                 </div>
@@ -255,12 +256,13 @@ const MobileMenu = ({setBodyModalParamsAction, closeMenu}) => (
                             <NavLink to="/active-shuffling">Active shuffling</NavLink>
                             <NavLink to="/finished-shuffling">Finished shuffling</NavLink>
                             <NavLink to="/my-shuffling">My shuffling</NavLink>
-                            <a
+                            <button
+                                type="button"
                                 id='open-create-shuffling-mobile'
                                 onClick={() => setBodyModalParamsAction('ISSUE_CREATE_SHUFFLING')}
                             >
                                 Create shuffling
-                            </a>
+                            </button>
                         </div>
                     </AccordionItemPanel>
                 </div>
