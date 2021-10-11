@@ -19,7 +19,6 @@ export default function Button(props) {
       className={cn('btn', `btn-${color} btn-${size} ${isLoading && 'loading'}`, className)}
       disabled={disabled || isLoading}
       onClick={onClick}
-      id={id}
     >
       {isLoading && (
         <div className="button-loader">

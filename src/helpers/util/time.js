@@ -3,6 +3,7 @@
  *                                                                            *
  ******************************************************************************/
 
+/* eslint-disable */
 
 import {getLocale} from "../internationalisation";
 

@@ -2,21 +2,17 @@ import {getBlockAction} from "../../actions/blocks";
 import {getTransactionsAction} from "../../actions/transactions";
 import {getAccountCurrenciesAction} from "../../actions/currencies";
 import {
-	getDGSGoodsCountAction,
-	getDGSPurchaseCountAction,
     getDGSPurchasesAction,
     getDGSGoodsAction,
 	getDGSPendingPurchases
 } from "../../actions/marketplace";
-import {getAccountAssetsAction, getAssetAction, getSpecificAccountAssetsAction} from '../../actions/assets'
+import {getAccountAssetsAction, getAssetAction} from '../../actions/assets'
 import {getAliasesCountAction} from '../../actions/aliases'
 import {getMessages} from "../../actions/messager";
-// import {BlockUpdater} from "../../block-subscriber/index";
 import {getAllTaggedDataAction} from "../../actions/datastorage";
 import {getActiveShfflings, getShufflingAction} from "../../actions/shuffling";
 import {getpollsAction} from "../../actions/polls";
 import {getAccountInfoAction} from "../../actions/account";
-import {LOAD_ACCOUNT} from "../../modules/account";
 
 export const getDashboardData = () => (dispatch, getState, subscribe) => {
 

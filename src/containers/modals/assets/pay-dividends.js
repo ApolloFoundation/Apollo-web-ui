@@ -38,16 +38,6 @@ class PayDividends extends React.Component {
     }
 
     handleFormSubmit = async (values) => {
-        const toSend = {
-            height: values.height,
-            deadline: 1440,
-            phased: false,
-            asset: this.props.modalData.asset,
-            amountATMPerATU: values.shareAmount * Math.pow(10, 7),
-            secretPhrase: values.secretPhrase,
-            feeATM: values.feeATM,
-        };
-
         this.props.processForm(values, 'dividendPayment', 'Dividends paid!', () => {
             this.props.setBodyModalParamsAction(null, {});
             NotificationManager.success('Dividends paid!', null, 5000);

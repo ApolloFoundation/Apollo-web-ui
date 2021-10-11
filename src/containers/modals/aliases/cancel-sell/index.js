@@ -12,12 +12,6 @@ import submitForm from "../../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
 import ModalBody from "../../../components/modals/modal-body";
 
-const aliasTypeData = [
-    { value: 'uri',     label: 'URI' },
-    { value: 'account', label: 'Account' },
-    { value: 'general', label: 'Other' },
-];
-
 class CancelSell extends React.Component {
     state = {
         alias: {},
