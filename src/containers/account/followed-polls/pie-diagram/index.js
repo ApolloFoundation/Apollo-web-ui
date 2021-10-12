@@ -10,13 +10,10 @@ import { v4 as uuidv4 } from 'uuid';
 class Pie extends React.Component{
 
     render () {
-        var colors = this.props.colors,
-            colorsLength = colors.length,
-            labels = this.props.labels,
-            hole = this.props.hole,
+        var hole = this.props.hole,
             radius = this.props.radius,
             diameter = radius * 2,
-            sum, startAngle, d = null;
+            sum, startAngle;
 
         sum = this.props.data.reduce(function (carry, current) { return carry + current }, 0);
         startAngle = 0;
@@ -154,10 +151,6 @@ function getAnglePoint(startAngle, endAngle, radius, x, y) {
     y2 = y + radius * Math.sin(Math.PI * endAngle / 180);
 
     return { x1, y1, x2, y2 };
-}
-
-function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min)) + min;
 }
 
 export default Pie;

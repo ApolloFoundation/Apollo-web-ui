@@ -15,7 +15,7 @@ class CurrencyInput extends React.Component {
     }
 
     getCurrency = async (reqParams) => {
-        const {setValue, field} = this.props;
+        const {setValue} = this.props;
 
         const result = await this.props.getCurrencyAction(reqParams);
 

@@ -106,14 +106,12 @@ class ImportAccount extends React.Component {
             isPending: true
         })
 
-        const account = this.props.getAccountDataAction({account: values.account});
+        this.props.getAccountDataAction({account: values.account});
     }
 
 
     componentDidCatch(error, info) {
-        // Display fallback UI
         this.setState({hasError: true});
-        // You can also log the error to an error reporting service
     }
 
     render() {

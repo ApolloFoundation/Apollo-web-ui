@@ -11,7 +11,7 @@ class BlockHeightInput extends Component {
     }
     
     render () {
-        const {setValue, label, actualBlock, field, placeholder, deafultPlus, className, idGroup, isSubtitle} = this.props;
+        const {setValue, label, actualBlock, field, placeholder, className, idGroup, isSubtitle} = this.props;
         
         return  (
             <div className={`form-group mb-15 ${className}`}>

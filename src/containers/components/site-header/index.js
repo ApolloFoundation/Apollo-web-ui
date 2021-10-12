@@ -75,16 +75,6 @@ class SiteHeader extends React.Component {
         }, 4000);
     }
 
-    // componentWillReceiveProps = (newState) => {
-    //     this.setState({forgingStatus: newState.forgingStatus});
-    // }
-
-    // componentDidUpdate = () => {
-    //     if (!this.state.forgingStatus && this.props.account) {
-    //         this.getForging();
-    //     }
-    // }
-
     getForging = async () => {
         const forgingStatus = await this.props.getForging();
 
@@ -162,7 +152,6 @@ class SiteHeader extends React.Component {
         const {
             setBodyModalParamsAction,
             switchAccountAction,
-            settings,
             pageTitle,
             children,
             dashboardPage,
@@ -201,8 +190,6 @@ class SiteHeader extends React.Component {
                 <div
                     className={`overflow-menu ${bodyModalType ? '' : 'hidden'}`}
                     onClick={this.handleModal}
-
-                    //  onClick={() => this.setState({bodyModalType: null})}
                 >
                     <CurrentAccount
                         setBodyModalParamsAction={setBodyModalParamsAction}
@@ -230,7 +217,6 @@ const mapStateToProps = state => ({
     modalData: state.modals.modalData,
     bodyModalType: state.modals.bodyModalType,
     secretPhrase: state.account.passPhrase,
-    settings: state.accountSettings,
     appState: state.account.blockchainStatus,
     isLocalhost: state.account.isLocalhost,
     is2FA: state.account.is2FA,

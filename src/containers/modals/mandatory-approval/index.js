@@ -13,15 +13,6 @@ import ModalBody from '../../components/modals/modal-body';
 import TabulationBody from '../../components/tabulator/tabuator-body';
 import TabContaier from '../../components/tabulator/tab-container';
 
-// TODO: extract to constants
-const tabs = [
-  'No approval',
-  'Approve by account',
-  'Approve by balance',
-  'Approve with asset',
-  'Approve with currency',
-];
-
 class MandatoryApprovalModal extends React.Component {
     state = {
       activeForm: 0,
