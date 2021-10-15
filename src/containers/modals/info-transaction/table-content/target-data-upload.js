@@ -68,6 +68,7 @@ export default class TargetDataUpload extends Component {
                             href={`${config.api.serverUrl}requestType=downloadTaggedData&transaction=${this.props.transaction.transaction}&retrieve=true`}
                             className={"btn btn-green"}
                             target={'_blank'}
+							rel="noopener noreferrer"
                             download={this.props.transaction.attachment.filename}
                         >
                             Download

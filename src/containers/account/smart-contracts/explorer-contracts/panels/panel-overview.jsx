@@ -15,6 +15,7 @@ const PanelOverview = ({ overview, token }) => {
                 <td>{item.name}</td>
                 <td>
                   {!item.type === "url" ? (
+                    /* eslint-disable-next-line react/jsx-no-target-blank */
                     <a target="_blank" href={item.value}>
                       {item.value}
                     </a>

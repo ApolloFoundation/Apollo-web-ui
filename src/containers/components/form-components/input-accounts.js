@@ -8,10 +8,9 @@ class InputAccounts extends Component {
   };
 
   addAccount = () => {
-    this.setState({
-      accounts: [...this.state.accounts, ""],
-    });
-  };
+    this.setState((prevsState) => ({ accounts: [...prevsState.accounts, ""] }));
+  }
+
 
   setListValue = (i, setValue) => {
     return (value) => {
@@ -61,6 +60,7 @@ class InputAccounts extends Component {
           this.state.accounts.map((el, index) => {
             return (
               <AccountRSFormInput
+                key={index}
                 setValue={setValue}
                 defaultValue={this.state.accounts[index]}
                 exportAccountList={this.setListValue(index)}

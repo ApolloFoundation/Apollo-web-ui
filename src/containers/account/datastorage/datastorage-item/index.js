@@ -48,6 +48,7 @@ const DataStorageItem = (props) => (
           }
           className="btn btn-default"
           target={"_blank"}
+          rel="noopener noreferrer"
           download={props.filename}
         >
           Download

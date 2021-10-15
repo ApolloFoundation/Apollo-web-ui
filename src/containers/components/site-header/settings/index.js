@@ -156,9 +156,8 @@ const Settings = ({
   </div>
 );
 
-const mapStateToProps = (dispatch) => ({
-  setBodyModalParamsAction: (type, value) =>
-    dispatch(setBodyModalParamsAction(type, value)),
+const mapDispatchToProps = (dispatch) => ({
+  setBodyModalParamsAction: (type, value) => dispatch(setBodyModalParamsAction(type, value)),
 });
 
-export default connect(null, mapStateToProps)(Settings);
+export default connect(null, mapDispatchToProps)(Settings);
