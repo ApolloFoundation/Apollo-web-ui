@@ -56,7 +56,7 @@ const StayInTouch = () => (
       <div className="social-wrap">
         <div className="row h-100">
           {SOCIAL_DATA.map((item) => (
-            <div key={uuidv4()} className="social-item col-4 text-center">
+            <div key={item.path} className="social-item col-4 text-center">
               <a
                 className="social-item"
                 href={item.path}
