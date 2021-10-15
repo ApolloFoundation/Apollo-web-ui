@@ -20,7 +20,7 @@ export default class AliasAssignment extends Component {
                 {this.props.transaction.senderRS &&
                 <tr>
                     <td>Data:</td>
-                    <td><a href={this.props.transaction.attachment.uri} target={"_blank"}>{this.props.transaction.attachment.uri}</a></td>
+                    <td><a href={this.props.transaction.attachment.uri} target={"_blank"} rel="noopener noreferrer" >{this.props.transaction.attachment.uri}</a></td>
                 </tr>
                 }
             </React.Fragment>

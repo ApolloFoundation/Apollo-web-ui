@@ -1,25 +1,38 @@
 /* eslint-disable react/button-has-type */
-import React from 'react';
-import PropTypes from 'prop-types';
-import cn from 'classnames';
-import { ReactComponent as ArrowRight } from '../../../assets/arrow-right.svg';
+import React from "react";
+import PropTypes from "prop-types";
+import cn from "classnames";
+import { ReactComponent as ArrowRight } from "../../../assets/arrow-right.svg";
 
-import './styles.scss';
+import "./styles.scss";
 
 export default function Button(props) {
   const {
-    onClick, name, className, type, disabled,
-    color, size, isLoading, isArrow, id
+    onClick,
+    name,
+    className,
+    type,
+    disabled,
+    color,
+    size,
+    isLoading,
+    isArrow,
+    id,
+    startIcon,
+    endIcon,
   } = props;
 
   return (
     <button
       id={id}
       type={type}
-      className={cn('btn', `btn-${color} btn-${size} ${isLoading && 'loading'}`, className)}
+      className={cn(
+        "btn",
+        `btn-${color} btn-${size} ${isLoading && "loading"}`,
+        className
+      )}
       disabled={disabled || isLoading}
       onClick={onClick}
-      id={id}
     >
       {isLoading && (
         <div className="button-loader">
@@ -30,7 +43,9 @@ export default function Button(props) {
           </div>
         </div>
       )}
+      {startIcon && <span className="mr-1">{startIcon}</span>}
       <span className="button-text">{name}</span>
+      {endIcon && <span className="ml-1">{endIcon}</span>}
       {isArrow && (
         <div className="btn-arrow">
           <ArrowRight />
@@ -41,9 +56,15 @@ export default function Button(props) {
 }
 
 PropTypes.propTypes = {
-  type: PropTypes.oneOf(['button', 'submit']),
-  color: PropTypes.oneOf(['default', 'green', 'grey', 'transparent', 'blue-link']),
-  size: PropTypes.oneOf(['sm', 'lg']),
+  type: PropTypes.oneOf(["button", "submit"]),
+  color: PropTypes.oneOf([
+    "default",
+    "green",
+    "grey",
+    "transparent",
+    "blue-link",
+  ]),
+  size: PropTypes.oneOf(["sm", "lg"]),
   className: PropTypes.string,
   name: PropTypes.string,
   disabled: PropTypes.bool,
@@ -51,8 +72,8 @@ PropTypes.propTypes = {
 };
 
 Button.defaultProps = {
-  type: 'button',
-  color: 'default',
+  type: "button",
+  color: "default",
   disabled: false,
   isLoading: false,
 };

@@ -25,42 +25,11 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class Sidebar extends React.Component {
-	// submenuRef = React.createRef();
-	// menuRef = React.createRef();
 	state = {
 		isHover: false,
 		isMenuCollapsed: false,
 		activeMenu: null,
 	};
-
-	// componentDidMount() {
-	// 	document.addEventListener('touchstart', this.handleMenuTouchOut);
-	// }
-	//
-	// componentWillUnmount() {
-	// 	document.removeEventListener('touchstart', this.handleMenuTouchOut);
-	// }
-
-	// handleMenuMouseOver = () => {
-	// 	this.setState({
-	// 		isHover: true
-	// 	});
-	// };
-	//
-	// handleMenuMouseOut = (event) => {
-	// 	this.setState({
-	// 		isHover: false
-	// 	});
-	// };
-	//
-	// handleMenuTouchOut = (event) => {
-	// 	if (this.menuRef && this.menuRef.contains && !this.menuRef.contains(event.target) &&
-	// 		this.submenuRef && !this.submenuRef.contains(event.target)) {
-	// 		this.setState({
-	// 			isHover: false
-	// 		});
-	// 	}
-	// };
 
 	handleMenuCollapse = () => {
 		this.setState({
@@ -138,7 +107,7 @@ class Sidebar extends React.Component {
 							className="site-logo"
 							to="/"
 						>
-							<img src={ApolloLogo} atl='' />
+							<img src={ApolloLogo} alt='appollo-logo' />
 						</Link>
 						<nav
 							className={"header-nav"}
@@ -149,7 +118,8 @@ class Sidebar extends React.Component {
 								{Object.keys(routes).map(rout => this.createMenu(routes[rout]))}
 							</ul>
 						</nav>
-						<a
+						<button
+							type="button"
 							className={classNames({
 								"collapse-button": true,
 								"active": this.state.isMenuCollapsed
@@ -157,7 +127,7 @@ class Sidebar extends React.Component {
 							onClick={this.handleMenuCollapse}
 						>
 							<i className="zmdi zmdi-chevron-right left"/>
-						</a>
+						</button>
 					</div>
 				</div>
 			</Scrollbars>

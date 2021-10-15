@@ -139,7 +139,7 @@ export default (state = initialState, action) => {
           ...state,
           adminPassword: JSON.parse(adminPassword),
         };
-      }
+      };
     case LOAD_BLOCKCHAIN_STATUS:
       return {
         ...state,

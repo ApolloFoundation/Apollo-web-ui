@@ -11,12 +11,6 @@ import ModalBody from '../../../components/modals/modal-body';
 import CreateShufflngForm from './form';
 import {NotificationManager} from "react-notifications";
 
-const holdingTypeData = [
-    { value: 0, label: 'Apollo' },
-    { value: 1, label: 'Asset' },
-    { value: 2, label: 'Currency' },
-];
-
 class CreateShuffling extends React.Component {
     constructor(props) {
         super(props);
@@ -24,8 +18,6 @@ class CreateShuffling extends React.Component {
         this.state = {
             activeTab: 0,
             advancedState: false,
-
-            // submitting
             passphraseStatus: false,
             recipientStatus: false,
             amountStatus: false,
