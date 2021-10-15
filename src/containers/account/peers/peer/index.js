@@ -43,23 +43,22 @@ const Peer = (props) => (
         props.services.map((el, index) => {
           if (index !== 0) {
             return ", " + el;
-          } else {
-            return el;
           }
+          return el;
         })}
     </td>
     <td className="align-right">
       {props.isLocalhost && (
         <>
           <button
-            type={"button"}
+            type="button"
             className="btn btn-default mt-0"
             onClick={() => props.onConnectClick(props.address)}
           >
             Connect
           </button>
           <button
-            type={"button"}
+            type="button"
             onClick={() => props.onBlacklistClick(props.address)}
             className="btn btn-default mt-0 ml-3"
           >
