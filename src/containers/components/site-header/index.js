@@ -15,7 +15,6 @@ import {getForging, setForging} from '../../../actions/login';
 import {getTransactionAction} from "../../../actions/transactions";
 import {getBlockAction} from "../../../actions/blocks";
 import crypto from '../../../helpers/crypto/crypto';
-// Demo styles, see 'Styles' section below for some notes on use.
 import 'react-accessible-accordion/dist/fancy-example.css';
 import {NotificationManager} from "react-notifications";
 

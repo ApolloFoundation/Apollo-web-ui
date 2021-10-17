@@ -11,6 +11,7 @@ import { Link } from "react-router-dom";
 import { setBodyModalParamsAction } from "../../../../modules/modals";
 import { formatTimestamp } from "../../../../helpers/util/time";
 import { getTransactionAction } from "../../../../actions/transactions";
+import Button from "../../../components/button";
 
 const mapStateToProps = (state) => ({
   actualBlock: state.account.actualBlock,
@@ -37,13 +38,13 @@ const PoolItem = (props) => {
   return (
     <tr key={uuidv4()}>
       <td className="blue-link-text">
-        <a
+        <Button
+          color="blue-link"
           onClick={() =>
             props.setBodyModalParamsAction("INFO_TRANSACTION", props.poll)
           }
-        >
-          {props.name}
-        </a>
+          name={props.name}
+        />
       </td>
       <td>
         {props.description.length > 100
@@ -51,13 +52,13 @@ const PoolItem = (props) => {
           : props.description}{" "}
       </td>
       <td className="blue-link-text">
-        <a
+        <Button
+          color="blue-link"
           onClick={() =>
             props.setBodyModalParamsAction("INFO_ACCOUNT", props.account)
           }
-        >
-          {props.accountRS}{" "}
-        </a>
+          name={props.accountRS}
+        />
       </td>
       <td>{props.formatTimestamp(props.timestamp)}</td>
       <td>{blocksLeft || ""}</td>

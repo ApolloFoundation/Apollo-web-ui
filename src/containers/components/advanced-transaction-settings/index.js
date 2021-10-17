@@ -10,9 +10,6 @@ import {connect} from 'react-redux';
 import {getBlockAction} from "../../../actions/blocks";
 import {getCurrencyAction} from "../../../actions/currencies";
 import {getAssetAction} from "../../../actions/assets";
-
-
-// Form components
 import BlockHeightInput from '../form-components/block-height-input';
 import {CheckboxFormInput} from '../form-components/check-button-input';
 import CustomInputForm from '../form-components/textual-input';
@@ -33,16 +30,10 @@ const phasingMinBalanceModel = [
     { value: '0', label: 'No min balance necessary' },
     { value: '1', label: 'Min balance required' },
 ];
-const phasingMinAssetModel = [
-    { value: '0', label: 'No min balance necessary' },
-    { value: '1', label: 'Min balance of asset quantity required' },
-];
 const phasingMinCurrencyModel = [
     { value: '0', label: 'No min balance necessary' },
     { value: '1', label: 'Min balance of currency units required' },
 ];
-
-
 const hashAlgorithm = [
     { value: '2', label: 'SHA256' },
     { value: '6', label: 'RIPEMD160' },

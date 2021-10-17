@@ -47,7 +47,6 @@ export function getAccountJSONItem(key) {
 
 export function storageSelect(table, query, callback) {
   return (dispatch, getState) => {
-    const { account } = getState();
 
     const items = dispatch(getAccountJSONItem(table));
 

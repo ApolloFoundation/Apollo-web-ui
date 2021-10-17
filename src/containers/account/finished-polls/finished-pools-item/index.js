@@ -10,6 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {Link} from 'react-router-dom';
 import {formatTimestamp} from "../../../../helpers/util/time";
+import Button from "../../../components/button";
 
 const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
@@ -20,7 +21,7 @@ const mapDispatchToProps = dispatch => ({
 const FinishedpollsItem = props => (
     <tr key={uuidv4()}>
         <td  key={uuidv4()} className="blue-link-text">
-            <a onClick={() => props.setBodyModalParamsAction('INFO_TRANSACTION', props.poll)}>{props.name}</a>
+            <Button color="blue-link" onClick={() => props.setBodyModalParamsAction('INFO_TRANSACTION', props.poll)}>{props.name}</Button>
         </td>
         <td key={uuidv4()} className={""}> { (props.description.length > 100) ? props.description.slice(0, 100) + '...' : props.description} </td>
         <td key={uuidv4()} className="blue-link-text">
