@@ -7,6 +7,7 @@
 import config from '../../config';
 import axios from 'axios';
 import {processElGamalEncryption} from "../crypto";
+import { cancelAxiosSource } from '../../helpers/cancelToken';
 
 export function searchAliases(reqParams) {
     return dispatch => {
@@ -55,7 +56,8 @@ export function getAliasesCountAction(requestParams) {
             params: {
                 requestType: 'getAliasCount',
                 ...requestParams
-            }
+            },
+            cancelToken: cancelAxiosSource,
         })
             .then((res) => {
                 if (!res.data.errorCode) {

@@ -9,6 +9,7 @@ import { NotificationManager } from "react-notifications";
 
 import { logOutAction } from "../../../../actions/login";
 import { setBodyModalParamsAction } from '../../../../modules/modals';
+import { getDashboardData } from '../../../../actions/dashboard'
 
 class CurrentAccount extends React.Component {
     refContactsList = React.createRef();
@@ -55,7 +56,7 @@ class CurrentAccount extends React.Component {
     };
 
     render() {
-        const {accountRS, account, publicKey, isActive, setBodyModalParamsAction, history, switchAccountAction, forgingStatus, closeMenu} = this.props;
+        const {accountRS, account, publicKey, isActive, setBodyModalParamsAction, history, switchAccountAction, forgingStatus, closeMenu, getDashboardData} = this.props;
 
         return (
             <div
@@ -214,7 +215,10 @@ class CurrentAccount extends React.Component {
                                 </div>
                             )}
                             <div
-                                onClick={() => logOutAction('logoutClearUserData', history)}
+                                onClick={() => {
+                                    getDashboardData();
+                                    logOutAction('logoutClearUserData', history)}
+                                }
                                 className="image-button"
                             >
                                 <i className="zmdi zmdi-close-circle"/>
@@ -236,8 +240,9 @@ const mapStateToProps = state => ({
     forgingStatus: state.account.forgingStatus,
 });
 
-const mapDispatchToProps = dispatch => ({
-    setBodyModalParamsAction: (type, values) => dispatch(setBodyModalParamsAction(type, values))
-});
+const mapDispatchToProps = {
+    setBodyModalParamsAction,
+    getDashboardData,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CurrentAccount));
