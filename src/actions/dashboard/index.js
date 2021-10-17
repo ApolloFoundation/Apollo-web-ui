@@ -93,8 +93,8 @@ export const getDashboardData = () => (dispatch, getState) => {
         .then(async (resolved) => {
             const [block, transactions, currencies, accountAssets, aliaseesCount, messages, dgsGoods, taggetData, activeShuffling, finishedShuffling, activePolls, accountInfo] = resolved;
             const [numberOfGoods, numberOfPurchases, totalPurchases] = dgsGoods;
-            const accountAssetsData = await dispatch(calculateAssets(accountAssets.accountAssets))
-            const accountInfoData = await accountInfo
+            const accountAssetsData = await dispatch(calculateAssets(accountAssets.accountAssets));
+            const accountInfoData = await accountInfo;
             batch(() => {
                 if (transactions)
                 dispatch({

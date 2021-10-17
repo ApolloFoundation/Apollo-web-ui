@@ -261,6 +261,7 @@ export function setForging(requestType) {
 export async function logOutAction(action, history) {
     const {dispatch} = store;
 
+    // cancel request from getDashboardData if it was trigger before we logout
     cancelAxiosSource.cancel();
 
     switch (action) {
