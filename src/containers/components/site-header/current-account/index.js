@@ -216,8 +216,9 @@ class CurrentAccount extends React.Component {
                                 className="image-button"
                             >
                                 <i className="zmdi zmdi-close-circle"/>
-                                <label style={{cursor: 'pointer'}}>Logout and clear user
-                                    data</label>
+                                <label style={{cursor: 'pointer'}}>
+                                    Logout and clear userdata
+                                </label>
                             </div>
                         </div>
                     </div>
