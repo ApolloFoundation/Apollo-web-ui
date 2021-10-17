@@ -1,15 +1,12 @@
-import React ,{useState} from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-
 import classNames from 'classnames';
-
 import { NavLink, withRouter } from 'react-router-dom'
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { NotificationManager } from "react-notifications";
 
 import { logOutAction } from "../../../../actions/login";
 import { setBodyModalParamsAction } from '../../../../modules/modals';
-import { getDashboardData } from '../../../../actions/dashboard'
 
 class CurrentAccount extends React.Component {
     refContactsList = React.createRef();
@@ -215,10 +212,7 @@ class CurrentAccount extends React.Component {
                                 </div>
                             )}
                             <div
-                                onClick={() => {
-                                    getDashboardData();
-                                    logOutAction('logoutClearUserData', history)}
-                                }
+                                onClick={() => logOutAction('logoutClearUserData', history)}
                                 className="image-button"
                             >
                                 <i className="zmdi zmdi-close-circle"/>
@@ -242,7 +236,6 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
     setBodyModalParamsAction,
-    getDashboardData,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CurrentAccount));
