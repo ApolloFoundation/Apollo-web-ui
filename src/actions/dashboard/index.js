@@ -94,11 +94,12 @@ export const getDashboardData = () => (dispatch, getState) => {
             const [block, transactions, currencies, accountAssets, aliaseesCount, messages, dgsGoods, taggetData, activeShuffling, finishedShuffling, activePolls, accountInfo] = resolved;
             const [numberOfGoods, numberOfPurchases, totalPurchases] = dgsGoods;
             batch(() => {
-                if (transactions)
-                dispatch({
-                    type: 'SET_DASHBOARD_TRANSACTIONS',
-                    payload: transactions.transactions
-                });
+                if (transactions) {
+                    dispatch({
+                        type: 'SET_DASHBOARD_TRANSACTIONS',
+                        payload: transactions.transactions
+                    });
+                }
                 dispatch({
                     type: 'SET_DASHBOARD_CURRENCIES',
                     payload: calculateCurrencies(currencies.accountCurrencies)
