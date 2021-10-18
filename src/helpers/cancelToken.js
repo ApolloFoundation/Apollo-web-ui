@@ -1,8 +1,5 @@
 import axios from 'axios';
 
-// const CancelToken = axios.CancelToken;
-// const cancelAxiosSource = CancelToken.source();
-
 class CancelRequest {
   token = null;
   source = null;
