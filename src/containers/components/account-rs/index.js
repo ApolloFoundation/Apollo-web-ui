@@ -9,6 +9,7 @@ import InputMask from 'react-input-mask';
 import classNames from 'classnames';
 import { NotificationManager } from 'react-notifications';
 import { connect } from 'react-redux';
+import { secureStorage } from '../../../helpers/format'
 
 class AccountRS extends React.Component {
   refContactsList = React.createRef();
@@ -19,7 +20,7 @@ class AccountRS extends React.Component {
     super(props);
     this.state = {
       prefix: 'APL',
-      contacts: JSON.parse(localStorage.getItem('APLContacts')),
+      contacts: JSON.parse(secureStorage.getItem('APLContacts')),
       value: this.props.defaultValue || '',
       isContacts: false,
       isUpdate: false,

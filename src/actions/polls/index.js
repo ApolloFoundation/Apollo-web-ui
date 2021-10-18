@@ -6,7 +6,7 @@
 
 import axios from 'axios';
 import config from '../../config';
-import { cancelAxiosSource } from '../../helpers/cancelToken';
+import cancelAxiosRequest from '../../helpers/cancelToken';
 
 export function getpollsAction (reqParams) {
     return dispatch => {
@@ -15,7 +15,7 @@ export function getpollsAction (reqParams) {
                 requestType: 'getPolls',
                 ...reqParams
             },
-            cancelToken: cancelAxiosSource.token,
+            cancelToken: cancelAxiosRequest.token,
         })
             .then((res) => {
                 if (!res.data.errorMessage) {

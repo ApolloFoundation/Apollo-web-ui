@@ -7,12 +7,13 @@ import { NotificationManager } from "react-notifications";
 
 import { logOutAction } from "../../../../actions/login";
 import { setBodyModalParamsAction } from '../../../../modules/modals';
+import { secureStorage } from '../../../../helpers/format';
 
 class CurrentAccount extends React.Component {
     refContactsList = React.createRef();
     refContactsButton = React.createRef();
     state = {
-        contacts: JSON.parse(localStorage.getItem('APLContacts')),
+        contacts: JSON.parse(secureStorage.getItem('APLContacts')),
         isContacts: false,
     };
 
@@ -53,7 +54,7 @@ class CurrentAccount extends React.Component {
     };
 
     render() {
-        const {accountRS, account, publicKey, isActive, setBodyModalParamsAction, history, switchAccountAction, forgingStatus, closeMenu, getDashboardData} = this.props;
+        const {accountRS, account, publicKey, isActive, setBodyModalParamsAction, history, switchAccountAction, forgingStatus, closeMenu} = this.props;
 
         return (
             <div
@@ -68,7 +69,7 @@ class CurrentAccount extends React.Component {
                 })}>
                 <div className="form-group-app">
                     <div className="form-title">
-                        <button onClick={() => this.props.closeMenu()} className="exit current-account">
+                        <button onClick={closeMenu} className="exit current-account">
                             <i className="zmdi zmdi-close"/>
                         </button>
                         <p>Current account</p>

@@ -7,7 +7,7 @@
 import config from '../../config';
 import axios from 'axios';
 import {processElGamalEncryption} from "../crypto";
-import { cancelAxiosSource } from '../../helpers/cancelToken';
+import cancelAxiosRequest from '../../helpers/cancelToken';
 
 export function getAssetsAction(reqParams) {
     return dispatch => {
@@ -174,7 +174,7 @@ export function getAccountAssetsAction(reqParams) {
                 includeAssetInfo: true,
                 ...reqParams
             },
-            cancelToken: cancelAxiosSource.token,
+            cancelToken: cancelAxiosRequest.token,
         })
             .then((res) => {
                 if (!res.data.errorCode) {
