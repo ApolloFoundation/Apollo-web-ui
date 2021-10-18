@@ -16,7 +16,7 @@ export function getActiveShfflings(reqParams) {
                 'includeHoldingInfo': true,
                 ...reqParams
             },
-            cancelToken: cancelAxiosSource,
+            cancelToken: cancelAxiosSource.token,
         })
             .then((res) => {
                 if (!res.data.errorCode) {
@@ -51,7 +51,7 @@ export function getShufflingAction(reqParams) {
                 'requestType': 'getShuffling',
                 ...reqParams
             },
-            cancelToken: cancelAxiosSource,
+            cancelToken: cancelAxiosSource.token,
         })
             .then((res) => {
                 if (!res.data.errorCode) {

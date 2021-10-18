@@ -29,7 +29,7 @@ export function getTransactionsAction(requestParams) {
                 requestType: requestType,
                 ...params
             },
-            cancelToken: cancelAxiosSource,
+            cancelToken: cancelAxiosSource.token,
         }).then((res) => {
             return res.data
         }).catch(() => {

@@ -18,7 +18,7 @@ export function getDGSGoodsAction(reqParams) {
                 requestType: 'getDGSGoods',
                 ...reqParams
             },
-            cancelToken: cancelAxiosSource,
+            cancelToken: cancelAxiosSource.token,
         })
             .then((res) => {
                 if (!res.data.errorCode) {
@@ -139,7 +139,7 @@ export function getDGSPurchasesAction(reqParams) {
                 requestType: 'getDGSPurchases',
                 ...reqParams
             },
-            cancelToken: cancelAxiosSource,
+            cancelToken: cancelAxiosSource.token,
         })
             .then((res) => {
                 if (!res.data.errorCode) {
@@ -200,7 +200,7 @@ export function getDGSPendingPurchases(reqParams) {
                 requestType: 'getDGSPendingPurchases',
                 ...reqParams
             },
-            cancelToken: cancelAxiosSource
+            cancelToken: cancelAxiosSource.token,
         })
             .then((res) => {
                 if (!res.data.errorCode) {

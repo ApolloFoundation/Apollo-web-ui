@@ -49,7 +49,7 @@ export function getAccountCurrenciesAction(reqParams) {
       includeCurrencyInfo: true,
       ...reqParams,
     },
-    cancelToken: cancelAxiosSource,
+    cancelToken: cancelAxiosSource.token,
   })
     .then(res => {
       if (!res.data.errorCode) {

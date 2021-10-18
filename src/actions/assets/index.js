@@ -174,7 +174,7 @@ export function getAccountAssetsAction(reqParams) {
                 includeAssetInfo: true,
                 ...reqParams
             },
-            cancelToken: cancelAxiosSource,
+            cancelToken: cancelAxiosSource.token,
         })
             .then((res) => {
                 if (!res.data.errorCode) {

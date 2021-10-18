@@ -76,7 +76,7 @@ export function getBlockAction(requestParams) {
                 includeExecutedPhased: true,
                 ...requestParams
             },
-            cancelToken: cancelAxiosSource,
+            cancelToken: cancelAxiosSource.token,
         })
             .then((res) => {
                 if (!res.data.errorCode) {

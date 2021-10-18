@@ -90,21 +90,14 @@ export const getDashboardData = () => (dispatch, getState) => {
         activePolls,
         accountInfo
     ])
-        .then(async (resolved) => {
+        .then((resolved) => {
             const [block, transactions, currencies, accountAssets, aliaseesCount, messages, dgsGoods, taggetData, activeShuffling, finishedShuffling, activePolls, accountInfo] = resolved;
             const [numberOfGoods, numberOfPurchases, totalPurchases] = dgsGoods;
-            const accountAssetsData = await dispatch(calculateAssets(accountAssets.accountAssets));
-            const accountInfoData = await accountInfo;
             batch(() => {
                 if (transactions)
                 dispatch({
                     type: 'SET_DASHBOARD_TRANSACTIONS',
                     payload: transactions.transactions
-                });
-
-                dispatch({
-                    type: 'SET_DASHBOARD_ASSETS',
-                    payload: accountAssetsData
                 });
                 dispatch({
                     type: 'SET_DASHBOARD_CURRENCIES',
@@ -140,14 +133,22 @@ export const getDashboardData = () => (dispatch, getState) => {
                 });
                 dispatch({
                     type: 'SET_DASHBOARD_ACCOUNT_INFO',
-                    payload: accountInfoData,
+                    payload: accountInfo,
                 });
                 dispatch({
                     type: 'LOAD_ACCOUNT',
-                    payload: accountInfoData,
+                    payload: accountInfo,
                 });
-            })
+            });
+
+            return dispatch(calculateAssets(accountAssets.accountAssets));
         })
+        .then((accountAssetsData) => {
+            dispatch({
+                type: 'SET_DASHBOARD_ASSETS',
+                payload: accountAssetsData
+            });
+        });
 };
 
 var calculateCurrencies = (currencies) => {

@@ -15,7 +15,7 @@ export function getpollsAction (reqParams) {
                 requestType: 'getPolls',
                 ...reqParams
             },
-            cancelToken: cancelAxiosSource,
+            cancelToken: cancelAxiosSource.token,
         })
             .then((res) => {
                 if (!res.data.errorMessage) {

@@ -36,7 +36,7 @@ export function getAccountInfoAction(currAccount) {
       includeEffectiveBalance: true,
       ...currAccount,
     },
-    cancelToken: cancelAxiosSource,
+    cancelToken: cancelAxiosSource.token,
   })
     .then(res => {
       if (res.data && (!res.data.errorCode || res.data.errorCode === 5)) {

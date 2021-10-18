@@ -57,7 +57,7 @@ export function getAliasesCountAction(requestParams) {
                 requestType: 'getAliasCount',
                 ...requestParams
             },
-            cancelToken: cancelAxiosSource,
+            cancelToken: cancelAxiosSource.token,
         })
             .then((res) => {
                 if (!res.data.errorCode) {
