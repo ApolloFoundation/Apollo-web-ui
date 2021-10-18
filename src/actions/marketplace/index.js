@@ -9,6 +9,7 @@ import axios from 'axios';
 import store from "../../store";
 import {getAssetAction} from "../assets";
 import {processElGamalEncryption} from "../crypto";
+import { cancelAxiosSource } from '../../helpers/cancelToken';
 
 export function getDGSGoodsAction(reqParams) {
     return dispatch => {
@@ -16,7 +17,8 @@ export function getDGSGoodsAction(reqParams) {
             params: {
                 requestType: 'getDGSGoods',
                 ...reqParams
-            }
+            },
+            cancelToken: cancelAxiosSource.token,
         })
             .then((res) => {
                 if (!res.data.errorCode) {
@@ -136,7 +138,8 @@ export function getDGSPurchasesAction(reqParams) {
             params: {
                 requestType: 'getDGSPurchases',
                 ...reqParams
-            }
+            },
+            cancelToken: cancelAxiosSource.token,
         })
             .then((res) => {
                 if (!res.data.errorCode) {
@@ -196,7 +199,8 @@ export function getDGSPendingPurchases(reqParams) {
             params: {
                 requestType: 'getDGSPendingPurchases',
                 ...reqParams
-            }
+            },
+            cancelToken: cancelAxiosSource.token,
         })
             .then((res) => {
                 if (!res.data.errorCode) {

@@ -1,8 +1,6 @@
-import React ,{useState} from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-
 import classNames from 'classnames';
-
 import { NavLink, withRouter } from 'react-router-dom'
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { NotificationManager } from "react-notifications";
@@ -55,7 +53,7 @@ class CurrentAccount extends React.Component {
     };
 
     render() {
-        const {accountRS, account, publicKey, isActive, setBodyModalParamsAction, history, switchAccountAction, forgingStatus, closeMenu} = this.props;
+        const {accountRS, account, publicKey, isActive, setBodyModalParamsAction, history, switchAccountAction, forgingStatus, closeMenu, getDashboardData} = this.props;
 
         return (
             <div
@@ -218,8 +216,9 @@ class CurrentAccount extends React.Component {
                                 className="image-button"
                             >
                                 <i className="zmdi zmdi-close-circle"/>
-                                <label style={{cursor: 'pointer'}}>Logout and clear user
-                                    data</label>
+                                <label style={{cursor: 'pointer'}}>
+                                    Logout and clear userdata
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -236,8 +235,8 @@ const mapStateToProps = state => ({
     forgingStatus: state.account.forgingStatus,
 });
 
-const mapDispatchToProps = dispatch => ({
-    setBodyModalParamsAction: (type, values) => dispatch(setBodyModalParamsAction(type, values))
-});
+const mapDispatchToProps = {
+    setBodyModalParamsAction,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CurrentAccount));

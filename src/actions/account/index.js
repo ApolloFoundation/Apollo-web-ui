@@ -24,6 +24,7 @@ import utils from '../../helpers/util/utils';
 import submitForm from '../../helpers/forms/forms';
 import store from '../../store';
 import config from '../../config';
+import { cancelAxiosSource } from '../../helpers/cancelToken';
 
 export function getAccountInfoAction(currAccount) {
   return (dispatch, getStore) => axios.get(config.api.serverUrl, {
@@ -35,6 +36,7 @@ export function getAccountInfoAction(currAccount) {
       includeEffectiveBalance: true,
       ...currAccount,
     },
+    cancelToken: cancelAxiosSource.token,
   })
     .then(res => {
       if (res.data && (!res.data.errorCode || res.data.errorCode === 5)) {

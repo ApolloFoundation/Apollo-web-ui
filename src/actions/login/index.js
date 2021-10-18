@@ -18,7 +18,9 @@ import submitForm from "../../helpers/forms/forms";
 import store from '../../store'
 import {setBodyModalParamsAction} from "../../modules/modals";
 import {setAccountPassphrase} from '../../modules/account';
-import { secureStorage } from '../../helpers/format'
+import { secureStorage } from '../../helpers/format';
+import { cancelAxiosSource } from '../../helpers/cancelToken';
+
 
 export function getAccountDataAction(requestParams) {
     return async dispatch => {
@@ -258,6 +260,9 @@ export function setForging(requestType) {
 
 export async function logOutAction(action, history) {
     const {dispatch} = store;
+
+    // cancel request from getDashboardData if it was trigger before we logout
+    cancelAxiosSource.cancel();
 
     switch (action) {
         case('simpleLogOut'):

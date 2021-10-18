@@ -10,6 +10,7 @@ import config from '../../config';
 import queryString from 'query-string';
 import {NotificationManager} from "react-notifications";
 import {processElGamalEncryption} from "../crypto";
+import { cancelAxiosSource } from '../../helpers/cancelToken';
 
 export function getTransactionsAction(requestParams) {
     return async (dispatch) => {
@@ -27,7 +28,8 @@ export function getTransactionsAction(requestParams) {
             params : {
                 requestType: requestType,
                 ...params
-            }
+            },
+            cancelToken: cancelAxiosSource.token,
         }).then((res) => {
             return res.data
         }).catch(() => {
