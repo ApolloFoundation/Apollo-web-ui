@@ -10,7 +10,7 @@ import converters from '../../helpers/converters';
 import submitForm from '../../helpers/forms/forms'
 import state from '../../store'
 import {processElGamalEncryption} from "../crypto";
-import { cancelAxiosSource } from '../../helpers/cancelToken';
+import cancelAxiosRequest from '../../helpers/cancelToken';
 
 export function getMessages (reqParams) {
     return dispatch => {
@@ -21,7 +21,7 @@ export function getMessages (reqParams) {
                 subtype: 0,
                 ...reqParams
             },
-            cancelToken: cancelAxiosSource.token,
+            cancelToken: cancelAxiosRequest.token,
         })
             .then((res) => {
                 if(!res.data.errorCode) {

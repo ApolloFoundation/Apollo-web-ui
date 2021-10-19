@@ -22,10 +22,10 @@ import {NotificationManager} from "react-notifications";
 import PageTitleBox from './page-title-box';
 
 import UserBox from './user-box';
-import UserBottomBox from './user-bottom-box';
 
 import CurrentAccount from './current-account';
 import Settings from './settings';
+import { secureStorage } from '../../../helpers/format';
 
 import './SiteHeader.scss';
 import './BodyModals.scss';
@@ -39,7 +39,7 @@ class SiteHeader extends React.Component {
             menuShow: false,
             isContacts: false,
             showTitleForginMenu: false,
-            contacts: JSON.parse(localStorage.getItem('APLContacts')),
+            contacts: JSON.parse(secureStorage.getItem('APLContacts')),
         };
 
     }

@@ -19,7 +19,7 @@ import store from '../../store'
 import {setBodyModalParamsAction} from "../../modules/modals";
 import {setAccountPassphrase} from '../../modules/account';
 import { secureStorage } from '../../helpers/format';
-import { cancelAxiosSource } from '../../helpers/cancelToken';
+import cancelAxiosRequest from '../../helpers/cancelToken';
 
 
 export function getAccountDataAction(requestParams) {
@@ -262,7 +262,7 @@ export async function logOutAction(action, history) {
     const {dispatch} = store;
 
     // cancel request from getDashboardData if it was trigger before we logout
-    cancelAxiosSource.cancel();
+    cancelAxiosRequest.cancelRequests();
 
     switch (action) {
         case('simpleLogOut'):

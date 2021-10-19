@@ -5,7 +5,7 @@
 
 import axios from 'axios';
 import config from '../../config';
-import { cancelAxiosSource } from '../../helpers/cancelToken'; 
+import cancelAxiosRequest from '../../helpers/cancelToken'; 
 
 export function getAliasesAction(reqParams) {
   return () => axios.get(config.api.serverUrl, {
@@ -49,7 +49,7 @@ export function getAccountCurrenciesAction(reqParams) {
       includeCurrencyInfo: true,
       ...reqParams,
     },
-    cancelToken: cancelAxiosSource.token,
+    cancelToken: cancelAxiosRequest.token,
   })
     .then(res => {
       if (!res.data.errorCode) {

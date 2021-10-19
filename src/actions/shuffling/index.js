@@ -6,7 +6,7 @@
 
 import axios from 'axios';
 import config from '../../config';
-import { cancelAxiosSource } from '../../helpers/cancelToken';
+import cancelAxiosRequest from '../../helpers/cancelToken';
 
 export function getActiveShfflings(reqParams) {
     return dispatch => {
@@ -16,7 +16,7 @@ export function getActiveShfflings(reqParams) {
                 'includeHoldingInfo': true,
                 ...reqParams
             },
-            cancelToken: cancelAxiosSource.token,
+            cancelToken: cancelAxiosRequest.token,
         })
             .then((res) => {
                 if (!res.data.errorCode) {
@@ -51,7 +51,7 @@ export function getShufflingAction(reqParams) {
                 'requestType': 'getShuffling',
                 ...reqParams
             },
-            cancelToken: cancelAxiosSource.token,
+            cancelToken: cancelAxiosRequest.token,
         })
             .then((res) => {
                 if (!res.data.errorCode) {
