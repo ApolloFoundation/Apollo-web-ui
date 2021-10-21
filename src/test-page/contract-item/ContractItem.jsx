@@ -41,7 +41,6 @@ export const ContractItem = ({ contractId, contractInstanse }) => {
     if(filter.trim().length > 0) {
       data.filter = JSON.parse(filter);
     }
-    console.log("🚀 ~ file: ContractItem.jsx ~ line 43 ~ prepareData ~ data", data, filter.trim())
 
     return data;
   } 
