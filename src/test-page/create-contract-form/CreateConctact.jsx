@@ -20,8 +20,11 @@ export const CreateContractForm = () => {
       socketPath: 'ws://51.15.250.32:7876/smc/event/'
     }, contract, {
       onContractConnectionClose: () => {
-        if(contractData[contract]) {
+        if(contractData && contractData[contract]) {
           smartContract.createConnection();
+          console.log('do reconnect', contract);
+        } else {
+          console.log('connection close for', contract);
         }
       }
     });
