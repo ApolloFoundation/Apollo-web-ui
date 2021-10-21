@@ -304,3 +304,12 @@ export const aliasesMenu = {
     },
   ],
 };
+
+export const events = {
+  className: "/events",
+  to: "/events",
+  label: "Events",
+  icon: "zmdi-accounts",
+  children: [
+  ],
+}
