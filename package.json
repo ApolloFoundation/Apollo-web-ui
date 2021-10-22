@@ -12,6 +12,7 @@
     "classnames": "2.2.6",
     "core-js": "3.6.5",
     "crypto-js": "4.0.0",
+    "dfs-client-lib": "git+ssh://git@gitlab.com:apollo-fintech-master/apollo/dfs/dfs_client_lib.git#develop",
     "express": "4.17.1",
     "formik": "2.1.4",
     "http-proxy-middleware": "1.3.0",
