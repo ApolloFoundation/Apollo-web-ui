@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { Form, Formik, Field } from 'formik';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useStore, useSelector } from 'react-redux';
 import { Contract } from 'aplsmcjs';
 import Button from "../../containers/components/button";
 import { addContractAction } from '../../actions/smart-contracts';
@@ -12,7 +12,7 @@ const initialState = {
 
 export const CreateContractForm = () => {
   const dispatch = useDispatch();
-  const contractData = useSelector(state => state.smartContract.contractData);
+  const store = useStore();
 
   const handleSubmit = useCallback(({ contract }) => {
     const smartContract = new Contract({
@@ -20,6 +20,7 @@ export const CreateContractForm = () => {
       socketPath: 'ws://51.15.250.32:7876/smc/event/'
     }, contract, {
       onContractConnectionClose: () => {
+        const contractData = store.getState().smartContract.contractsData;
         if(contractData && contractData[contract]) {
           smartContract.createConnection();
           console.log('do reconnect', contract);
@@ -29,7 +30,7 @@ export const CreateContractForm = () => {
       }
     });
     dispatch(addContractAction(contract, smartContract));
-  }, [dispatch, contractData]);
+  }, [dispatch, store]);
 
   return (
     <Formik
