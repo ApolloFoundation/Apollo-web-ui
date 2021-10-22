@@ -29,7 +29,7 @@ export const CreateContractForm = () => {
       }
     });
     dispatch(addContractAction(contract, smartContract));
-  }, [dispatch]);
+  }, [dispatch, contractData]);
 
   return (
     <Formik

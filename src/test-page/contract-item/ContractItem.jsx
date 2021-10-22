@@ -66,7 +66,7 @@ export const ContractItem = ({ contractId, contractInstanse }) => {
   const handleClose = useCallback(() => {
     dispatch(removeContractAction(contractId));
     contractInstanse.closeEventConnection();
-  }, [dispatch, contractId])
+  }, [dispatch, contractId, contractInstanse]);
 
   return (
     <div className={styles.contractItem}>
