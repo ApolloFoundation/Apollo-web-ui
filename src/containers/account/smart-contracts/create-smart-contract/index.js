@@ -140,7 +140,7 @@ export default function SmartContracts() {
             initialValues={{
               ...INITIAL_FORM_DATA,
               sender: accountRS,
-              secret: secretPhrase,
+              secretPhrase,
             }}
             onSubmit={handlePublickFormSubmit}
           >
@@ -231,7 +231,7 @@ export default function SmartContracts() {
                           label="Secret phrase"
                           type="password"
                           placeholder="Secret Phrase"
-                          name="secret"
+                          name="secretPhrase"
                         />
                         <div className="row justify-content-md-between">
                           <div className="col-md-auto mb-2 p-0">

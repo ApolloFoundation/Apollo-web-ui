@@ -76,7 +76,7 @@ export default function ({ closeModal }) {
             fuelPrice: 100,
             fuelLimit: 300000000,
             source: sourceValue(modalData.token, modalData.params),
-            secret: secretPhrase,
+            secretPhrase,
           }}
         >
           {({ values, setFieldValue }) => {
@@ -149,7 +149,7 @@ export default function ({ closeModal }) {
                       label="Secret phrase"
                       type="password"
                       placeholder="Secret Phrase"
-                      name="secret"
+                      name="secretPhrase"
                       disabled
                     />
                     <Button
