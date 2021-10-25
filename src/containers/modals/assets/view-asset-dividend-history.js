@@ -74,7 +74,7 @@ class AssetDividendHistory extends React.Component {
                     <tbody>
                       {this.state.dividends.map((el, index) => {
                         return (
-                          <tr>
+                          <tr key={index}>
                             <td>
                               <Button
                                 color="blue-link"

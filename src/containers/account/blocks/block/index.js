@@ -54,7 +54,7 @@ class Block extends React.Component {
     } = this.props;
 
     return (
-      <tr key={uuidv4()}>
+      <tr>
         <td>
           <Button
             color="blue-link"

@@ -5,7 +5,6 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import { v4 as uuidv4 } from "uuid";
 import { setBodyModalParamsAction } from "../../../modules/modals";
 import { formatTimestamp } from "../../../helpers/util/time";
 import { toEpochTime } from "../../../helpers/util/time";
@@ -53,7 +52,7 @@ class Generator extends React.Component {
       deadline,
     } = this.props;
     return (
-      <tr key={uuidv4()}>
+      <tr>
         <td className="align-left">
           <Button
             color="blue-link"

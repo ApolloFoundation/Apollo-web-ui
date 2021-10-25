@@ -145,8 +145,8 @@ class FundingMonitorsStatus extends React.Component {
                     <tbody>
                       {this.state.properties &&
                         this.state.properties.length &&
-                        this.state.properties.map((el) => {
-                          return <FundingMonitorItem {...el} />;
+                        this.state.properties.map((el, index) => {
+                          return <FundingMonitorItem key={index} {...el} />;
                         })}
                     </tbody>
                   </table>

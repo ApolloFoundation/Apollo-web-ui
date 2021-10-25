@@ -19,6 +19,42 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 });
 
+const getStage = (stage) => {
+  switch (stage) {
+    case 0:
+      return "Registration";
+    case 1:
+      return "Processing";
+    case 4:
+      return "Expired";
+    case 5:
+      return "Done";
+    default:
+      return "";
+  }
+};
+
+const getHoldingType = (props) => {
+  switch (props.holdingType) {
+    case 0:
+      return props.ticker;
+    case 1:
+      return (
+        <Link to={"/asset-exchange/" + props.holding}>
+          {props.holding} (Asset)
+        </Link>
+      );
+    case 2:
+      return (
+        <Link to={"/exchange-booth/" + props.holdingInfo.name}>
+          {props.holding} (Currency)
+        </Link>
+      );
+    default:
+      return "";
+  }
+};
+
 const ShufflingItem = (props) => {
   return (
     <tr>
@@ -29,24 +65,9 @@ const ShufflingItem = (props) => {
           name={props.shuffling}
         />
       </td>
-      <td>
-        {props.stage === 0 && "Registration"}
-        {props.stage === 1 && "Processing"}
-        {props.stage === 4 && "Expired"}
-        {props.stage === 5 && "Done"}
-      </td>
+      <td>{getStage(props.stage)}</td>
       <td className={"blue-link-text"}>
-        {props.holdingType === 0 && props.ticker}
-        {props.holdingType === 1 && (
-          <Link to={"/asset-exchange/" + props.holding}>
-            {props.holding} (Asset)
-          </Link>
-        )}
-        {props.holdingType === 2 && (
-          <Link to={"/exchange-booth/" + props.holdingInfo.name}>
-            {props.holding} (Currency)
-          </Link>
-        )}
+        {getHoldingType(props.holdingType, props.holding, props.ticker)}
       </td>
       <td>{props.amount / props.decimals}</td>
       <td>{props.blocksRemaining || ""}</td>

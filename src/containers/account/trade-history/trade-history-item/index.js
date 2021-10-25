@@ -21,31 +21,31 @@ class TradeHistoryItem extends React.Component {
   }
 
   render() {
-    if (this.state.transfer) {
+    if (this.props.transfer) {
       return (
-        <tr key={uuidv4()}>
+        <tr>
           <td className="blue-link-text">
-            <Link to={"/asset-exchange/" + this.state.transfer.asset}>
-              {this.state.transfer.name}
+            <Link to={"/asset-exchange/" + this.props.transfer.asset}>
+              {this.props.transfer.name}
             </Link>
           </td>
           <td>
-            {this.props.formatTimestamp(this.state.transfer.timestamp)}
+            {this.props.formatTimestamp(this.props.transfer.timestamp)}
             <span className="info pointer" />
           </td>
-          <td className="">{this.state.transfer.tradeType}</td>
+          <td className="">{this.props.transfer.tradeType}</td>
           <td className="align-right">
-            {this.state.transfer.quantityATU /
-              Math.pow(10, this.state.transfer.decimals)}
+            {this.props.transfer.quantityATU /
+              Math.pow(10, this.props.transfer.decimals)}
           </td>
           <td className="align-right">
-            {(this.state.transfer.priceATM / this.props.decimals) *
-              Math.pow(10, this.state.transfer.decimals)}
+            {(this.props.transfer.priceATM / this.props.decimals) *
+              Math.pow(10, this.props.transfer.decimals)}
           </td>
           <td className="align-right">
-            {(this.state.transfer.quantityATU / this.state.transfer.decimals) *
-              ((this.state.transfer.priceATM / this.props.decimals) *
-                this.state.transfer.decimals)}
+            {(this.props.transfer.quantityATU / this.props.transfer.decimals) *
+              ((this.props.transfer.priceATM / this.props.decimals) *
+                this.props.transfer.decimals)}
           </td>
           <td>
             <Button
@@ -53,9 +53,9 @@ class TradeHistoryItem extends React.Component {
               onClick={this.props.setBodyModalParamsAction.bind(
                 this,
                 "INFO_ACCOUNT",
-                this.state.transfer.buyer
+                this.props.transfer.buyer
               )}
-              name={this.state.transfer.buyerRS}
+              name={this.props.transfer.buyerRS}
             />
           </td>
           <td>
@@ -64,9 +64,9 @@ class TradeHistoryItem extends React.Component {
               onClick={this.props.setBodyModalParamsAction.bind(
                 this,
                 "INFO_ACCOUNT",
-                this.state.transfer.seller
+                this.props.transfer.seller
               )}
-              name={this.state.transfer.sellerRS}
+              name={this.props.transfer.sellerRS}
             />
           </td>
         </tr>

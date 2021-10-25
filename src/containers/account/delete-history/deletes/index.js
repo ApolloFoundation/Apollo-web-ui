@@ -4,7 +4,6 @@
  ******************************************************************************/
 
 import React from "react";
-import { v4 as uuidv4 } from "uuid";
 import {
   setBodyModalParamsAction,
   setModalType,
@@ -24,7 +23,7 @@ class DeleteItem extends React.Component {
 
   render() {
     return (
-      <tr key={uuidv4()}>
+      <tr>
         <td className="align-left">
           <Button
             color="blue-link"
