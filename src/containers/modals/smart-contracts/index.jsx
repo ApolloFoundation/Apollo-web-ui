@@ -36,7 +36,7 @@ export default function ({ closeModal }) {
     fuelPrice: 0,
     sender: accountRS,
     address: isEmptyData ? modalData.address : "",
-    secret: secretPhrase,
+    secretPhrase,
   };
   if (isExplorerData) {
     initialValues = {
