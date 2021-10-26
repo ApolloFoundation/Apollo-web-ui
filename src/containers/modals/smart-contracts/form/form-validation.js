@@ -2,7 +2,7 @@ import { NotificationManager } from "react-notifications";
 
 export function validationForm(values) {
   let error = false;
-  if (!values.secret || values.secret.length === 0) {
+  if (!values.secretPhrase || values.secretPhrase.length === 0) {
     NotificationManager.error("Secret Phrase is required.", "Error", 5000);
     return (error = true);
   } else if (!values.address || values.address.length === 0) {

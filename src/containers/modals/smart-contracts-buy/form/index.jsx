@@ -87,7 +87,7 @@ const ByForm = ({
         label="Secret phrase"
         type="password"
         placeholder="Secret Phrase"
-        name="secret"
+        name="secretPhrase"
         disabled
       />
     </>

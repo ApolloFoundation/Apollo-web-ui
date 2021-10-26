@@ -8,7 +8,7 @@ export function validationForm(values) {
   } else if (!values.fuelLimit || values.fuelLimit.length === 0) {
     NotificationManager.error("Fuel Price is required.", "Error", 5000);
     return (error = true);
-  } else if (!values.secret || values.secret.length === 0) {
+  } else if (!values.secretPhrase || values.secretPhrase.length === 0) {
     NotificationManager.error("Secret phrase is required.", "Error", 5000);
     return (error = true);
   }
