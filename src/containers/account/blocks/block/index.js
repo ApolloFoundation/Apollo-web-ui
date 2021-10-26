@@ -5,7 +5,6 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import { v4 as uuidv4 } from "uuid";
 import { setBodyModalParamsAction } from "../../../../modules/modals";
 import { formatTimestamp } from "../../../../helpers/util/time";
 import Button from "../../../components/button";

@@ -1,90 +1,91 @@
-/******************************************************************************
- * Copyright © 2018 Apollo Foundation                                         *
- *                                                                            *
- ******************************************************************************/
-
 import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { setBodyModalParamsAction } from "../../../../modules/modals";
-import { connect } from "react-redux";
 import Button from "../../../components/button";
 
-const mapStateToProps = (state) => ({
-  decimals: state.account.decimals,
-  ticker: state.account.ticker,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  setBodyModalParamsAction: (type, data, valueForModal) =>
-    dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-});
-
-const getStage = (stage) => {
-  switch (stage) {
-    case 0:
-      return "Registration";
-    case 1:
-      return "Processing";
-    case 4:
-      return "Expired";
-    case 5:
-      return "Done";
-    default:
-      return "";
-  }
-};
-
-const getHoldingType = (props) => {
-  switch (props.holdingType) {
-    case 0:
-      return props.ticker;
-    case 1:
-      return (
-        <Link to={"/asset-exchange/" + props.holding}>
-          {props.holding} (Asset)
-        </Link>
-      );
-    case 2:
-      return (
-        <Link to={"/exchange-booth/" + props.holdingInfo.name}>
-          {props.holding} (Currency)
-        </Link>
-      );
-    default:
-      return "";
-  }
-};
-
 const ShufflingItem = (props) => {
+  const dispatch = useDispatch();
+  const { decimals, ticker } = useSelector((state) => state.account);
+
+  const {
+    getTransaction,
+    shuffling,
+    stage,
+    holdingType,
+    holding,
+    holdingInfo,
+    blocksRemaining,
+    registrantCount,
+    participantCount,
+    issuer,
+    issuerRS,
+    amount,
+  } = props;
+
+  const getStage = (stage) => {
+    switch (stage) {
+      case 0:
+        return "Registration";
+      case 1:
+        return "Processing";
+      case 4:
+        return "Expired";
+      case 5:
+        return "Done";
+      default:
+        return "";
+    }
+  };
+
+  const getHoldingType = (holdingType) => {
+    switch (holdingType) {
+      case 0:
+        return ticker;
+      case 1:
+        return <Link to={"/asset-exchange/" + holding}>{holding} (Asset)</Link>;
+      case 2:
+        return (
+          <Link to={"/exchange-booth/" + holdingInfo.name}>
+            {holding} (Currency)
+          </Link>
+        );
+      default:
+        return "";
+    }
+  };
+
+  const handleInfoAccountModal = () => {
+    dispatch(setBodyModalParamsAction("INFO_ACCOUNT", issuer));
+  };
+
+  const handleGetTransaction = () => getTransaction(shuffling);
+
   return (
     <tr>
       <td>
         <Button
+          name={shuffling}
           color="blue-link"
-          onClick={() => props.getTransaction(props.shuffling)}
-          name={props.shuffling}
+          onClick={handleGetTransaction}
         />
       </td>
-      <td>{getStage(props.stage)}</td>
-      <td className={"blue-link-text"}>
-        {getHoldingType(props.holdingType, props.holding, props.ticker)}
-      </td>
-      <td>{props.amount / props.decimals}</td>
-      <td>{props.blocksRemaining || ""}</td>
+      <td>{getStage(stage)}</td>
+      <td className={"blue-link-text"}>{getHoldingType(holdingType)}</td>
+      <td>{amount / decimals}</td>
+      <td>{blocksRemaining || ""}</td>
       <td className="align-right">
-        {props.registrantCount} / {props.participantCount}
+        {registrantCount} / {participantCount}
       </td>
       <td className="align-right">
         <Button
+          name={issuerRS}
           color="blue-link"
-          onClick={() =>
-            props.setBodyModalParamsAction("INFO_ACCOUNT", props.issuer)
-          }
-          name={props.issuerRS}
+          onClick={handleInfoAccountModal}
         />
       </td>
     </tr>
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ShufflingItem);
+export default ShufflingItem;

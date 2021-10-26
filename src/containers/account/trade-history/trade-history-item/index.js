@@ -12,13 +12,6 @@ import { formatTimestamp } from "../../../../helpers/util/time";
 import Button from "../../../components/button";
 
 class TradeHistoryItem extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      transfer: this.props.transfer,
-    };
-  }
 
   render() {
     if (this.props.transfer) {
@@ -72,7 +65,7 @@ class TradeHistoryItem extends React.Component {
         </tr>
       );
     }
-    return <tr key={uuidv4()}></tr>;
+    return <tr></tr>;
   }
 }
 

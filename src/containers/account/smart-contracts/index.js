@@ -10,6 +10,7 @@ import { getContracts } from "../../../actions/contracts";
 import { setBodyModalParamsAction } from "../../../modules/modals";
 import SiteHeader from "../../components/site-header";
 import CustomTable from "../../components/tables/table";
+import Button from "../../components/button";
 
 export default function SmartContracts() {
   const dispatch = useDispatch();
@@ -55,14 +56,13 @@ export default function SmartContracts() {
   return (
     <div className="page-content">
       <SiteHeader pageTitle={"Smart Contracts"}>
-        <button
+        <Button
           id={"button-smart-contracts-cteate-token"}
-          type={"button"}
-          className="btn btn-green btn-sm ml-3"
+          name="Create token"
+          color="green"
+          size="sm"
           onClick={handleCrateToken}
-        >
-          Create token
-        </button>
+        />
       </SiteHeader>
       <div className="page-body container-fluid">
         <CustomTable
