@@ -5,7 +5,7 @@ import cn from 'classnames';
 import ContentLoader from '../content-loader';
 
 const SidebarContent = ({
-  emptyMessage, baseUrl, data, element, location, Component, currentItem, isLoading
+  emptyMessage, baseUrl, data, element, location, Component, currentItem, isLoading,
 }) => (
   <>
     <div className="card scroll justify-content-start absolute h-100 sidebar-content">
