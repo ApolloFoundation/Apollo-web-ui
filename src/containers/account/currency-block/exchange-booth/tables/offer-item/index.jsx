@@ -18,7 +18,7 @@ export default function OfferItem(props) {
 
   const handleClick = useCallback(() => {
     dispatch(setBodyModalParamsAction('INFO_ACCOUNT', accountRS))
-  }, [dispatch, accountRS])
+  }, [dispatch, accountRS]);
 
   return (
     <tr>

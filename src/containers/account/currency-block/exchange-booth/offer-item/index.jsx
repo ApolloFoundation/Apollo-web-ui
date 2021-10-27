@@ -3,7 +3,7 @@
  *                                                                            *
  ***************************************************************************** */
 
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setBodyModalParamsAction } from '../../../../../modules/modals';
 
@@ -16,9 +16,13 @@ export default function OfferItem(props) {
     decimals, accountRS, supply, limit, rateATM,
   } = props;
 
+  const handleClick = useCallback(() => {
+    dispatch(setBodyModalParamsAction('INFO_ACCOUNT', accountRS))
+  }, [dispatch, accountRS]);
+
   return (
     <tr>
-      <td onClick={() => dispatch(setBodyModalParamsAction('INFO_ACCOUNT', accountRS))}>
+      <td onClick={handleClick}>
         <span className="blue-link-text">{accountRS}</span>
       </td>
       <td className="align-right">{supply / (10 ** decimals)}</td>
