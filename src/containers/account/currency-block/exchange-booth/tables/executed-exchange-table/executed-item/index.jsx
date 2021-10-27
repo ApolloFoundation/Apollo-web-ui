@@ -16,17 +16,21 @@ export default function ExecutedItem(props) {
     decimals, account, units, rateATM,
   } = props;
 
+  const setModal = (data) => () => {
+    dispatch(setBodyModalParamsAction('INFO_ACCOUNT', data))
+  }
+
   return (
     <tr>
       <td>
         <span className="blue-link-text" onClick={() => dispatch(setBodyModalParamsAction('INFO_TRANSACTION', transaction))}>
-          {dispatch(formatTimestamp(timestamp))}
+          {formatTimestamp(timestamp)}
         </span>
       </td>
-      <td onClick={setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', sellerRS)}>
+      <td onClick={setModal(sellerRS)}>
         <span className="blue-link-text">{sellerRS}</span>
       </td>
-      <td onClick={setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', buyerRS)}>
+      <td onClick={setModal(buyerRS)}>
         <span className="blue-link-text">
           {buyerRS === account ? 'You' : buyerRS}
         </span>

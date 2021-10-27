@@ -174,6 +174,7 @@ class ModalWindow extends React.Component {
         });
 
         setTimeout(() => {
+            console.log('close');
             this.props.setModalType(null);
             store.dispatch({
                 type: SET_MODAL_DATA,

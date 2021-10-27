@@ -5,7 +5,6 @@
 
 
 import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {connect} from 'react-redux'
 import {formatTimestamp} from "../../../../helpers/util/time";
@@ -51,7 +50,7 @@ class Transaction extends React.Component {
         } = this.props;
         const transactionType = constants.transactionTypes && constants.transactionTypes[type];
         return (
-            <tr key={uuidv4()}>
+            <tr>
                 {
                     transaction && constants &&
                     <React.Fragment>

@@ -18,7 +18,7 @@ export default function OfferItem(props) {
 
   return (
     <tr>
-      <td onClick={dispatch(setBodyModalParamsAction('INFO_ACCOUNT', accountRS))}>
+      <td onClick={() => dispatch(setBodyModalParamsAction('INFO_ACCOUNT', accountRS))}>
         <span className="blue-link-text">{accountRS}</span>
       </td>
       <td className="align-right">{supply / (10 ** decimals)}</td>

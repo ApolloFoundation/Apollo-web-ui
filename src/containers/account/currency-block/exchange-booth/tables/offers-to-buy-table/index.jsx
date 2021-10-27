@@ -14,6 +14,7 @@ export default function OffersToBuyTable(props) {
   const { currencyInfo, setMinimumBuyRate } = props;
 
   const { currency, code, decimals } = currencyInfo;
+  console.log("🚀 ~ file: index.jsx ~ line 17 ~ OffersToBuyTable ~ currency", currency)
 
   const [buyOffers, setBuyOffers] = useState(null);
   const [pagination, setPagination] = useState({

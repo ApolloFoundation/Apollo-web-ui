@@ -137,7 +137,7 @@ class InfoBlock extends React.Component {
             && (
             <div className="modal-form">
               <div className="form-group-app media-tab">
-                <button onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close" /></button>
+                <button type="button" onClick={this.props.closeModal} className="exit"><i className="zmdi zmdi-close" /></button>
                 <div className="form-title">
                   {this.props.modalsHistory.length > 1
                         && (
