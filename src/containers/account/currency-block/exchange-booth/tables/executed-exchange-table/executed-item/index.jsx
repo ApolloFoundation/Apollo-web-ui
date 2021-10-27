@@ -24,7 +24,7 @@ export default function ExecutedItem(props) {
     <tr>
       <td>
         <span className="blue-link-text" onClick={() => dispatch(setBodyModalParamsAction('INFO_TRANSACTION', transaction))}>
-          {formatTimestamp(timestamp)}
+          {dispatch(formatTimestamp(timestamp))}
         </span>
       </td>
       <td onClick={setModal(sellerRS)}>
