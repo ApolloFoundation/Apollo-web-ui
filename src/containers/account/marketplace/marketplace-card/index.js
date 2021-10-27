@@ -27,6 +27,17 @@ const mapDispatchToProps = dispatch => ({
 
 const MarketplaceItem = (props, history) => {
     const tagsArr = utils.parseStringBySpace(props.tags);
+
+    const handlePrice = () => {
+        const result = props.priceATM / props.decimals;
+        if(result > 1e-7) return result;
+
+        const resultString = result.toFixed(`${props.decimals}`.length);
+        const stringMatch = resultString.match(/0+$/)
+
+        return resultString.slice(0, stringMatch.index);
+    }
+
     return (
         <div className={`w-100 h-100`}>
             <div
@@ -117,7 +128,7 @@ const MarketplaceItem = (props, history) => {
                                 />
                                 <div className="price-box">
                                     <div className='price-amount mb-3'>
-                                        <span className="amount">{props.priceATM / props.decimals}</span>
+                                        <span className="amount">{handlePrice()}</span>
                                         <span className="currency">{props.ticker}</span>
                                     </div>
                                     {props.fluid && (
