@@ -30,12 +30,11 @@ const MarketplaceItem = (props, history) => {
 
     const handlePrice = () => {
         const result = props.priceATM / props.decimals;
-        if(result > 1e-7) return result;
-
-        const resultString = result.toFixed(`${props.decimals}`.length);
-        const stringMatch = resultString.match(/0+$/)
-
-        return resultString.slice(0, stringMatch.index);
+        return result.toLocaleString('en', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 20,
+            useGrouping: false,
+        });
     }
 
     return (
@@ -81,7 +80,7 @@ const MarketplaceItem = (props, history) => {
                             />
                             <div className="price-box">
                                 <div className='price-amount mb-3'>
-                                    <span className="amount">{props.priceATM / props.decimals}</span>
+                                    <span className="amount">{handlePrice()}</span>
                                     <span className="currency">{props.ticker}</span>
                                 </div>
                                 <div className="user mb-3">
