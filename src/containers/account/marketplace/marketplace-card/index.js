@@ -27,6 +27,16 @@ const mapDispatchToProps = dispatch => ({
 
 const MarketplaceItem = (props, history) => {
     const tagsArr = utils.parseStringBySpace(props.tags);
+
+    const handlePrice = () => {
+        const result = props.priceATM / props.decimals;
+        return result.toLocaleString('en', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 20,
+            useGrouping: false,
+        });
+    }
+
     return (
         <div className={`w-100 h-100`}>
             <div
@@ -70,7 +80,7 @@ const MarketplaceItem = (props, history) => {
                             />
                             <div className="price-box">
                                 <div className='price-amount mb-3'>
-                                    <span className="amount">{props.priceATM / props.decimals}</span>
+                                    <span className="amount">{handlePrice()}</span>
                                     <span className="currency">{props.ticker}</span>
                                 </div>
                                 <div className="user mb-3">
@@ -117,7 +127,7 @@ const MarketplaceItem = (props, history) => {
                                 />
                                 <div className="price-box">
                                     <div className='price-amount mb-3'>
-                                        <span className="amount">{props.priceATM / props.decimals}</span>
+                                        <span className="amount">{handlePrice()}</span>
                                         <span className="currency">{props.ticker}</span>
                                     </div>
                                     {props.fluid && (
