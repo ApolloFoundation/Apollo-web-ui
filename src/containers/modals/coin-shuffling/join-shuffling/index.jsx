@@ -45,8 +45,6 @@ class JoinShuffling extends React.Component {
         };
 
         if (values.isVaultWallet) {
-            data.recipientAccount = this.state.vaultWallet.accountRS;
-            data.recipientPassphrase = await processElGamalEncryption(this.state.vaultWallet.passphrase);
             data.recipientPublicKey = this.state.vaultWallet.publicKey;
         } else {
             data.recipientSecretPhrase = await processElGamalEncryption(values.recipientSecretPhrase);
@@ -109,7 +107,7 @@ class JoinShuffling extends React.Component {
                     vaultWallet: {
                         accountRS: vaultWallet.currencies[0].wallets[0].address,
                         passphrase: vaultWallet.passphrase,
-                        publicKey: await crypto.getPublicKeyAPL(vaultWallet.passphrase, false),
+                        publicKey: vaultWallet.currencies[0].wallets[0].publicKey,
                     }
                 })
             }
