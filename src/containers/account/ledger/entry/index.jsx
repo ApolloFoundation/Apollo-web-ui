@@ -37,8 +37,10 @@ export default function Entry(props) {
               onClick={() => {
                 dispatch(setBodyModalParamsAction(
                   'INFO_LEDGER_TRANSACTION',
-                  ledgerId,
-                  eventType === 'PRIVATE_PAYMENT',
+                  {
+                    ledgerId,
+                    eventType,  
+                  },
                 ));
               }}
               name={dispatch(formatTimestamp(timestamp))}

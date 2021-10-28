@@ -17,7 +17,7 @@ import SendApolloPrivate from "./send-apollo-private";
 import IssueAsset from "./issue/issue-asset"
 import InfoTransaction from './info-transaction/info-transaction';
 import { TransactionFail } from './transaction-fail';
-import InfoLedgerTransaction from './info-ledger-transaction';
+import InfoLedgerTransaction from './info-ledger-transaction/index';
 import InfoBlock from './info-block';
 import RawTransactionDetails from './send-apollo/raw-transaction-details';
 import { LoginSaveData } from './login-save-data/index';
