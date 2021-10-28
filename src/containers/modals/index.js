@@ -62,7 +62,7 @@ import PollResults from './voting-system/poll-results/';
 import UploadFile from './data-storage/uppload-file/';
 // Coin shuffling
 import CreateShuffling from './coin-shuffling/create-shuffling/';
-import JoinShuffling from './coin-shuffling/join-shuffling/';
+import JoinShuffling from './coin-shuffling/join-shuffling/index.jsx';
 // Aliases
 import EditAlias from './aliases/edit-alias';
 import SellAlias from './aliases/sell-alias';
