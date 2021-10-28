@@ -7,7 +7,12 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import submitForm from "../../../../helpers/forms/forms";
-import {setBodyModalParamsAction, setModalData, saveSendModalState, openPrevModal} from '../../../../modules/modals';
+import {
+    setBodyModalParamsAction,
+    setModalData,
+    saveSendModalState,
+    openPrevModal
+} from '../../../../modules/modals';
 import {getBlockAction} from "../../../../actions/blocks";
 import {NotificationManager} from "react-notifications";
 import {getShufflingAction} from "../../../../actions/shuffling";
@@ -126,7 +131,7 @@ class JoinShuffling extends React.Component {
                     handleVaultWalletCondition={this.handleVaultWalletCondition}
                     shuffling={this.state.shuffling}
                     vaultWallet={this.state.vaultWallet}
-            />
+                />
             </ModalBody>
         );
     }
