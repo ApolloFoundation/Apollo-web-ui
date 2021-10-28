@@ -19,6 +19,7 @@ import {getShufflingAction} from "../../../../actions/shuffling";
 import store from '../../../../store'
 import crypto from "../../../../helpers/crypto/crypto";
 import {generateAccountAction} from "../../../../actions/account";
+import {processElGamalEncryption} from "../../../../actions/crypto";
 import ModalBody from "../../../components/modals/modal-body";
 import JoinShufflingForm from "./form.jsx";
 
@@ -45,10 +46,10 @@ class JoinShuffling extends React.Component {
 
         if (values.isVaultWallet) {
             data.recipientAccount = this.state.vaultWallet.accountRS;
-            data.recipientPassphrase = this.state.vaultWallet.passphrase;
+            data.recipientPassphrase = await processElGamalEncryption(this.state.vaultWallet.passphrase);
             data.recipientPublicKey = this.state.vaultWallet.publicKey;
         } else {
-            data.recipientSecretPhrase = values.recipientSecretPhrase;
+            data.recipientSecretPhrase = await processElGamalEncryption(values.recipientSecretPhrase);
             data.recipientPublicKey = await crypto.getPublicKeyAPL(values.recipientSecretPhrase, false);
         }
 
