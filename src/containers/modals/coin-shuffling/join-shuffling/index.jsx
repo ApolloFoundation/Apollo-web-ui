@@ -10,24 +10,15 @@ import submitForm from "../../../../helpers/forms/forms";
 import {setBodyModalParamsAction, setModalData, saveSendModalState, openPrevModal} from '../../../../modules/modals';
 import {getBlockAction} from "../../../../actions/blocks";
 import {NotificationManager} from "react-notifications";
-import {getShufflingAction} from "../../../../actions/shuffling/";
+import {getShufflingAction} from "../../../../actions/shuffling";
 import store from '../../../../store'
 import crypto from "../../../../helpers/crypto/crypto";
 import {generateAccountAction} from "../../../../actions/account";
 import ModalBody from "../../../components/modals/modal-body";
-import JoinShufflingForm from "./form";
+import JoinShufflingForm from "./form.jsx";
 
 class JoinShuffling extends React.Component {
-    state = {
-        activeTab: 0,
-        advancedState: false,
-
-        // submitting
-        passphraseStatus: false,
-        recipientStatus: false,
-        amountStatus: false,
-        feeStatus: false
-    }
+    state = {};
 
     componentDidMount = () => {
         this.setRegisterUntil();
@@ -76,12 +67,12 @@ class JoinShuffling extends React.Component {
 
     getShuffling = async () => {
         const shuffling = await this.props.getShufflingAction({
-            shuffling: this.props.modalData
+            shuffling: this.props.modalData,
         });
 
         if (shuffling) {
             this.setState({
-                shuffling
+                shuffling,
             });
         }
     };
@@ -91,7 +82,7 @@ class JoinShuffling extends React.Component {
 
         if (block) {
             this.setState({
-                block
+                block,
             });
         }
     };
@@ -120,16 +111,15 @@ class JoinShuffling extends React.Component {
         }
     };
 
-
     render() {
         return (
             <ModalBody
-                modalTitle={'Start shuffling'}
+                modalTitle='Start shuffling'
                 closeModal={this.props.closeModal}
-                handleFormSubmit={(values) => this.handleFormSubmit(values)}
+                handleFormSubmit={this.handleFormSubmit}
                 isFee
-                submitButtonName={'Start Shuffling'}
-                idGroup={'send-money-modal-'}
+                submitButtonName='Start Shuffling'
+                idGroup='send-money-modal-'
             >
                 <JoinShufflingForm
                     setAccount={this.setAccount}
