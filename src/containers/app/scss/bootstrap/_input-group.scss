@@ -7,7 +7,6 @@
 .input-group {
   position: relative;
   display: flex;
-  flex-wrap: wrap; // For form validation feedback
   align-items: stretch;
   width: 100%;
 
@@ -51,6 +50,9 @@
   }
 }
 
+.wrap {
+  flex-wrap: wrap;
+}
 
 // Prepend and append
 //
@@ -65,7 +67,7 @@
   // Ensure buttons are always above inputs for more visually pleasing borders.
   // This isn't needed for `.input-group-text` since it shares the same border-color
   // as our inputs.
-  
+
   .btn {
     position: relative;
     z-index: 2;
@@ -105,7 +107,7 @@
   @include border-radius($input-border-radius);
   height: 34px;
 	margin: auto;
-  
+
   // Nuke default margins from checkboxes and radios to vertically center within.
   input[type="radio"],
   input[type="checkbox"] {

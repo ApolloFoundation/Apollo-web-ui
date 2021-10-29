@@ -3,13 +3,13 @@ import classNames from 'classnames';
 import Icon from '../../../assets/objection-mark.svg';
 import styles from './index.module.scss';
 
-export const TooltipLogin = ({ icon = Icon, children, className }) => {
+export const Tooltip = ({ icon = Icon, children, className }) => {
   return (
-    <div className={styles.tooltipLogin}>
-      <figure className={styles.tooltipLoginIconWrapper}>
-        <img className={styles.tooltipLoginIcon} src={icon} alt='tooltip' />
+    <div className={styles.tooltip}>
+      <figure className={styles.tooltipIconWrapper}>
+        <img className={styles.tooltipIcon} src={icon} alt='tooltip' />
       </figure>
-      <div className={classNames(styles.tooltipLoginContent, className)}>
+      <div className={classNames(styles.tooltipContent, className)}>
         {children}
       </div>
     </div>

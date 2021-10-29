@@ -5,9 +5,9 @@
 
 
 import utils from './utils';
-const DEFAULT_PREFIX = "APL-";
+const DEFAULT_PREFIX = "APL";
 
-function AplAddress() {
+function AplAddress(prefix = DEFAULT_PREFIX) {
     var c = [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     var sy = [0, 0, 0, 0, 0];
 
@@ -258,7 +258,8 @@ function AplAddress() {
         return true;
     } //__________________________
 
-    this.toString = function(out = DEFAULT_PREFIX) {
+    this.toString = function(out = prefix) {
+        out += '-';
         for (var i = 0; i < 17; i++) {
             out += alp[c[cwp[i]]];
 

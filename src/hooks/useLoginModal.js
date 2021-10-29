@@ -1,17 +1,18 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { setModalType } from '../modules/modals';
 import Button from '../containers/components/button';
-import store from '../store';
 
 export const useLoginModal = (onGeneratePDF) => {
-  
+  const dispatch = useDispatch();
+
   const handleModalActions = (onSubmit) => {
     onGeneratePDF();
     onSubmit();
   }
 
   const handleNextStep = (onSubmit) => () => {
-      store.dispatch(setModalType('SAVE_CREDENTIALS'));
+      dispatch(setModalType('SAVE_CREDENTIALS'));
       handleModalActions(onSubmit);
   }
 

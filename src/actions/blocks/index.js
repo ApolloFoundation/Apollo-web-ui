@@ -8,6 +8,7 @@ import axios from 'axios/index';
 import {NotificationManager} from "react-notifications";
 import config from '../../config';
 import {GET, handleFetch} from "../../helpers/fetch";
+import cancelAxiosRequest from '../../helpers/cancelToken';
 
 export function getBlocksAction(requestParams) {
     return dispatch => {
@@ -74,7 +75,8 @@ export function getBlockAction(requestParams) {
                 includeTransactions: true,
                 includeExecutedPhased: true,
                 ...requestParams
-            }
+            },
+            cancelToken: cancelAxiosRequest.token,
         })
             .then((res) => {
                 if (!res.data.errorCode) {
@@ -114,7 +116,7 @@ export const getNextBlockGeneratorsAction = (reqParams) => axios.get(config.api.
 
 export function getBackendStatus(requestParams) {
     return (dispatch, getState) => {
-        const {blockchainStatus} = getState().account;
+        const { blockchainStatus } = getState().account;
         return handleFetch(`${config.api.server}/rest/control/status`, GET, requestParams)
             .then((res) => {
                 if (!res.errorCode) {

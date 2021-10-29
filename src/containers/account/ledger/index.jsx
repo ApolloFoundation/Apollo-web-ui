@@ -6,7 +6,7 @@
 import React, {
   useState, useCallback, useEffect, Suspense,
 } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
 import { getAccountLedgerAction } from '../../../actions/ledger';
 import { setModalCallback, setModalType } from '../../../modules/modals';
@@ -15,11 +15,11 @@ import SiteHeader from '../../components/site-header';
 import CustomTable from '../../components/tables/table1';
 import Button from '../../components/button';
 import Entry from './entry';
-import store from '../../../store'
 
-export default function Ledger({ account }) {
-  const { dispatch } = store;
-  const { account, blockchainStatus } = account;
+export default function Ledger() {
+  const dispatch = useDispatch();
+
+  const { account, blockchainStatus } = useSelector(state => state.account);
 
   const [page, setPage] = useState(1);
   const [firstIndex, setFirstIndex] = useState(0);
@@ -39,7 +39,7 @@ export default function Ledger({ account }) {
         setIsError(true);
       } else {
         if (!isPrivate && !!accLedger.serverPublicKey) {
-          setIsPrivate(isPrivate);
+          setIsPrivate(true);
           NotificationManager.success('You are watching private entries.', null, 900000);
         }
         setLedger(accLedger.entries);
@@ -166,9 +166,3 @@ export default function Ledger({ account }) {
     </Suspense>
   );
 }
-
-const mapStateToProps = (state) => ({
-  acoount: state.account,
-});
-
-export default connect(mapStateToProps)(getAccountLedger);

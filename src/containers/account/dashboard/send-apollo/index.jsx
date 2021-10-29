@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { Form, Formik } from 'formik';
 import { NotificationManager } from 'react-notifications';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -12,24 +12,28 @@ import CustomInput from '../../../components/custom-input';
 import Button from '../../../components/button';
 import FeeInputForm from '../../../components/form-components/fee-input1';
 
-function SendApollo({ dashboardAccoountInfo, setBodyModalParamsAction }) {
+export default function SendApollo() {
+  const dispatch = useDispatch();
+
   const [actionType, setActionType] = useState(0);
+
+  const { dashboardAccoountInfo } = useSelector(state => state.dashboard);
 
   const submitForm = useCallback(({
     type, recipient, amountATM, feeATM,
   }, { resetForm }) => {
     if (type === 'private') {
-      setBodyModalParamsAction('SEND_APOLLO_PRIVATE', {
+      dispatch(setBodyModalParamsAction('SEND_APOLLO_PRIVATE', {
         recipient, amountATM, feeATM,
-      });
+      }));
       resetForm({});
     } else {
-      setBodyModalParamsAction('SEND_APOLLO', {
+      dispatch(setBodyModalParamsAction('SEND_APOLLO', {
         recipient, amountATM, feeATM,
-      });
+      }));
       resetForm({});
     }
-  }, [setBodyModalParamsAction]);
+  }, [dispatch]);
 
   return (
     <div className="card card-light w-100">
@@ -139,13 +143,3 @@ function SendApollo({ dashboardAccoountInfo, setBodyModalParamsAction }) {
     </div>
   );
 }
-
-const mapStateToProps = (state) => ({
-  dashboardAccoountInfo: state.dashboard.dashboardAccoountInfo,
-});
-
-const mapDispatchToProps = {
-  setBodyModalParamsAction,
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(SendApollo);

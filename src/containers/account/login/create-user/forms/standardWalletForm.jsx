@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Form, Formik } from 'formik';
 import cn from 'classnames';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -9,23 +10,23 @@ import crypto from '../../../../../helpers/crypto/crypto';
 import ContentLoader from '../../../../components/content-loader';
 import Button from '../../../../components/button';
 import InfoBox from '../../../../components/info-box';
-import store from '../../../../../store';
 
 export default function StandardWalletForm(props) {
-  const { dispatch } = store;
+  const dispatch = useDispatch();
+
   const {
     setGeneratedPassphrase, setGeneratedAccount, isCustomPassphraseTextarea,
-    activeTab, generatedPassphrase, generatedAccount, setIsValidating, setSelectedOption, ticker = "APL"
+    activeTab, generatedPassphrase, generatedAccount, setIsValidating, setSelectedOption,
   } = props;
 
-  // const { ticker } = useSelector(state => state.account);
+  const { ticker } = useSelector(state => state.account);
   const [isRSAccountLoaded, setIsRSAccountLoaded] = useState(false);
   const [isCustomPassphraseStandardWallet, setIsCustomPassphraseStandardWallet] = useState(false);
 
   const generatePassphrase = useCallback(async () => {
     const newGeneratedPassphrase = crypto.generatePassPhraseAPL();
     const params = newGeneratedPassphrase.join(' ');
-    const newGeneratedAccount = dispatch(await dispatch(crypto.getAccountIdAsyncApl(params, ticker)));
+    const newGeneratedAccount = await dispatch(crypto.getAccountIdAsyncApl(params, ticker));
 
     setGeneratedPassphrase(params);
     setGeneratedAccount(newGeneratedAccount);

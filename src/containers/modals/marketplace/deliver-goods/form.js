@@ -1,14 +1,13 @@
 import React from 'react';
+import {connect} from 'react-redux';
 
 import {formatTimestamp} from '../../../../helpers/util/time'
-import {connect} from 'react-redux';
-import {ONE_APL} from '../../../../constants';
 
 import TextualInput from '../../../components/form-components/textual-input';
 import NumericInput from '../../../components/form-components/numeric-input';
 import TextArea from '../../../components/form-components/text-area';
 
-const Form = ({setValue, goods, formatTimestamp}) => (
+const Form = ({setValue, goods, formatTimestamp, decimals, ticker}) => (
     <>
         {
             goods &&
@@ -31,7 +30,7 @@ const Form = ({setValue, goods, formatTimestamp}) => (
                 <TextualInput
                     setValue={setValue}
                     label="Current price:"
-                    text={`${(goods.priceATM / ONE_APL).toLocaleString('en')} APL`}
+                    text={`${(goods.priceATM / decimals).toLocaleString('en')} ${ticker}`}
                 />
                 <TextArea
                     setValue={setValue}

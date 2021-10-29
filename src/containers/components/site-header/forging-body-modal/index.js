@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
 import classNames from 'classnames';
 import {connect} from 'react-redux';
+import {NotificationManager} from "react-notifications";
 import {setBodyModalParamsAction} from '../../../../modules/modals';
 import {setForging, getForging} from '../../../../actions/login';
-import {NotificationManager} from "react-notifications";
-import {ONE_APL} from '../../../../constants';
-
+import { readFromLocalStorage } from '../../../../actions/localStorage';
 
 class ForgingBodyModalWindow extends Component {
 
@@ -23,7 +22,7 @@ class ForgingBodyModalWindow extends Component {
             NotificationManager.error('Your effective balance must be greater than 1000 APL to forge.', 'Error', 5000);
             return;
         }
-        const passPhrase = JSON.parse(localStorage.getItem('secretPhrase')) || this.props.secretPhrase;
+        const passPhrase = JSON.parse(readFromLocalStorage('secretPhrase')) || this.props.secretPhrase;
         if (!passPhrase || this.props.is2FA) {
             this.props.setBodyModalParamsAction('CONFIRM_FORGING', this.setForgingData(action.requestType))
         } else {
@@ -46,7 +45,7 @@ class ForgingBodyModalWindow extends Component {
     };
 
     render() {
-        const {forgingStatus, forgedBalanceATM, isActive, actualBlock, closeMenu} = this.props;
+        const {forgingStatus, forgedBalanceATM, isActive, actualBlock, closeMenu, decimals} = this.props;
 
         return (
             <div className={classNames({
@@ -112,7 +111,7 @@ class ForgingBodyModalWindow extends Component {
                             <p>
                                 {
                                     forgedBalanceATM &&
-                                    <label>Forged balance: {(forgedBalanceATM / ONE_APL).toLocaleString('en')}&nbsp;APL</label>
+                                    <label>Forged balance: {(forgedBalanceATM / decimals).toLocaleString('en')}&nbsp;APL</label>
                                 }
                             </p>
                             <div className="btn-block text-center d-sm-block d-md-none mt-2">
@@ -139,6 +138,7 @@ const mapStateToProps = state => ({
     secretPhrase: state.account.passPhrase,
     is2FA: state.account.is2FA,
     effectiveBalanceAPL: state.account.effectiveBalanceAPL,
+    decimals: state.account.decimals,
 });
 
 const mapDispatchToProps = dispatch =>({

@@ -29,15 +29,18 @@ export default function VaultWalletForm(props) {
     generatePDF([
       {
         name: 'Account ID',
-        value: accountData.accountRS,
+        // path to our address after change api response
+        value: accountData.currencies[0].wallets[0].address,
       },
       {
         name: 'Secret Phrase',
-        value: accountData.passphrase,
+        value: (isCustomPassphraseTextarea && activeTab === 1) 
+          ? currPassphrase : accountData.passphrase,
       },
       {
         name: 'Public Key',
-        value: accountData.publicKey,
+        // path to our public key after change api response
+        value: accountData.currencies[0].wallets[0].publicKey,
       },
       {
         name: 'Secret Key',
@@ -61,10 +64,10 @@ export default function VaultWalletForm(props) {
     const geneatedAccount = await generateAccountAction(requestParams);
 
     const passphrase = (isCustomPassphraseTextarea && activeTab === 1) ? values.newAccountpassphrse : geneatedAccount.passphrase
-    
+
     if (geneatedAccount) {
       const newKeySeed = await createAccountAction({
-        account: geneatedAccount.accountRS,
+        account: geneatedAccount.currencies[0].wallets[0].address,
         passphrase,
       });
 

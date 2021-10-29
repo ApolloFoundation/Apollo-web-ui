@@ -30,7 +30,7 @@ class SellAliasForm extends React.Component {
 
 
     render () {
-        const {setValue, handleSellAlias, closeModal, alias, onFocus} = this.props;
+        const {setValue, handleSellAlias, closeModal, alias, onFocus, ticker} = this.props;
 
         return (
             <>
@@ -38,7 +38,7 @@ class SellAliasForm extends React.Component {
                     className={'p-0'}
                     onFocus={(i) => onFocus(i)}
                 >
-                    <TabContaier 
+                    <TabContaier
                         sectionName={'Sell alias to Specific Account'}
                     >
                         <ModalBody
@@ -51,14 +51,15 @@ class SellAliasForm extends React.Component {
                             isPour
                             idGroup={'sell-alias-account-modal-'}
                         >
-                            <SellToAccountForm 
+                            <SellToAccountForm
+                                ticker={ticker}
                                 setValue={setValue}
                                 alias={alias}
                             />
                         </ModalBody>
                     </TabContaier>
-            
-                    <TabContaier 
+
+                    <TabContaier
                         sectionName={'Sell to Anyone'}
                     >
                         <ModalBody
@@ -71,13 +72,13 @@ class SellAliasForm extends React.Component {
                             isPour
                             idGroup={'sell-alias-anyone-modal-'}
                         >
-                            <SellToAllForm 
+                            <SellToAllForm
                                 setValue={setValue}
                                 alias={alias}
                             />
                         </ModalBody>
                     </TabContaier>
-            
+
                 </TabulationBody>
             </>
         )
@@ -85,7 +86,8 @@ class SellAliasForm extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    modalData: state.modals.modalData
+    modalData: state.modals.modalData,
+    ticker: state.account.ticker,
 });
 
 const mapDispatchToProps = dispatch => ({

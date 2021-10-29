@@ -6,10 +6,10 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {setModalData} from '../../../../modules/modals';
-import  {getDGSGoodAction} from "../../../../actions/marketplace";
-import {setBodyModalParamsAction} from "../../../../modules/modals";
 import classNames from 'classnames';
+import {setModalData} from '../../../../modules/modals';
+import {getDGSGoodAction} from "../../../../actions/marketplace";
+import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {formatTimestamp} from '../../../../helpers/util/time'
 import config from '../../../../config';
 
@@ -24,7 +24,7 @@ import crypto from "../../../../helpers/crypto/crypto";
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
-    account: state.account.accountRS
+    account: state.account.accountRS,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -86,7 +86,7 @@ class MarketplaceDelete extends React.Component {
     render() {
         const {formatTimestamp} = this.props;
         const {goods} = this.state;
-        
+
         return (
             <ModalBody
                 handleFormSubmit={(values) => this.handleFormSubmit(values)}

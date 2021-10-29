@@ -2,12 +2,12 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {setBodyModalParamsAction} from "../../../../modules/modals";
-import {startMonitor, stopMonitor} from "../../../../actions/monitors";
+import {stopMonitor} from "../../../../actions/monitors";
 import {NotificationManager} from 'react-notifications'
-import {ONE_APL} from '../../../../constants';
 
 const mapStateToProps  = state => ({
-    adminPassword: state.account.adminPassword
+    adminPassword: state.account.adminPassword,
+    decimals: state.account.decimals,
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -48,10 +48,10 @@ const MonitorItem = (props) => (
         <td
             className={'align-right'}
         >
-            {props.amount ? props.amount/ONE_APL : '?'}
+            {props.amount ? props.amount/props.decimals : '?'}
         </td>
         <td>
-            {props.threshold ? props.threshold/ONE_APL : '?'}
+            {props.threshold ? props.threshold/props.decimals : '?'}
         </td>
         <td>
             {props.interval ? props.interval : '?'}

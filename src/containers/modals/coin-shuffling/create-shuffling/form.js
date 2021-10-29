@@ -31,7 +31,7 @@ const CreateShufflngForm = (props) => {
                 setValue={setValue}
                 label={'Amount'}
                 field={'amount'}
-                countingTtile={'APL'}
+                countingTtile={props.ticker}
                 placeholder={'Amount'}
                 type={'tel'}
             />
@@ -45,7 +45,7 @@ const CreateShufflngForm = (props) => {
             }
             {
                 holdingType === 2 &&
-                <CurrencyInput 
+                <CurrencyInput
                     field={'holding'}
                     setValue={setValue}
                 />
@@ -61,7 +61,7 @@ const CreateShufflngForm = (props) => {
                     type={'tel'}
                 />
             }
-            <BlockHeightInput 
+            <BlockHeightInput
                 setValue={setValue}
                 label={'Register Until'}
                 field={'registrationPeriod'}

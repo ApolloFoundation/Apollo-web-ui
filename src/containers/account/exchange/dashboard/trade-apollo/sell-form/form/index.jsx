@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Form, useFormikContext } from 'formik';
 import { ONE_GWEI } from '../../../../../../../constants';
 import { multiply, division } from '../../../../../../../helpers/format';
 import Button from '../../../../../../components/button';
-import NumericInput from '../../../../../../components/form-components/numeric-input/numeric-input1';
+import NumericInput from '../../../../../../components/form-components/numeric-input1';
 import CustomInput from '../../../../../../components/custom-input';
 import InputRange from '../../../../../../components/input-range/index1';
 import CustomSelect from '../../../../../../components/select/index1';
 
-function SellForm(props) {
+export default function SellForm(props) {
   const { values, setFieldValue, setValues } = useFormikContext();
 
+  const { infoSelectedSellOrder } = useSelector(state => state.modals);
+
   const {
-    wallet, isPending, currency, dashboardAccoountInfo, balanceAPL, decimals, ticker, infoSelectedSellOrder
+    wallet, isPending, currency, dashboardAccoountInfo, balanceAPL, decimals, ticker,
   } = props;
 
   const balance = (dashboardAccoountInfo && dashboardAccoountInfo.unconfirmedBalanceATM)
@@ -170,9 +172,3 @@ function SellForm(props) {
     </Form>
   );
 }
-
-const mapStateToProps = (state) => ({
-  infoSelectedSellOrder: state.modals.infoSelectedSellOrder
-});
-
-export default connect(mapStateToProps)(SellForm);

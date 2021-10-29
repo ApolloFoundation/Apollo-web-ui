@@ -1,133 +1,129 @@
-/******************************************************************************
+/** ****************************************************************************
  * Copyright © 2018 Apollo Foundation                                         *
  *                                                                            *
- ******************************************************************************/
+ ***************************************************************************** */
 
+import { secureStorage } from '../helpers/format';
 
-import {getSettings} from "../helpers/util/settings";
-
-export function writeToLocalStorage(field, params){
-    localStorage.setItem(field, JSON.stringify(params));
+export function writeToLocalStorage(field, params) {
+  secureStorage.setItem(field, JSON.stringify(params));
 }
 
-export function readFromLocalStorage(field){
-    return localStorage.getItem((field))
+export function readFromLocalStorage(field) {
+  return secureStorage.getItem((field));
 }
 
 export function deleteFromLocalStorage(field) {
-    localStorage.removeItem(field)
-}
-
-export function getAccountJSONItem(key) {
-    return (dispatch) => {
-        return dispatch(getJSONItem(getAccountKey(key)));
-    };
+  secureStorage.removeItem(field);
 }
 
 export function setJSONItem(key, data) {
-    var jsonData = JSON.stringify(data);
-    localStorage.setItem(key, jsonData);
-}
-
-export function setAccountJSONItem (key, data) {
-    setJSONItem(getAccountKey(key), data)
+  const jsonData = JSON.stringify(data);
+  secureStorage.setItem(key, jsonData);
 }
 
 function getAccountKey(key) {
-    return (dispatch, getState) => {
-        const {account} = getState();
+  return (dispatch, getState) => {
+    const { account } = getState();
 
-        if (account.account === "") {
-            return key;
-        }
-        return key + "." + account.account;
+    if (account.account === '') {
+      return key;
     }
+    return `${key}.${account.account}`;
+  };
+}
+
+export function setAccountJSONItem(key, data) {
+  setJSONItem(getAccountKey(key), data);
 }
 
 function getJSONItem(key) {
-    return JSON.parse(localStorage.getItem(key));
-};
+  return JSON.parse(secureStorage.getItem(key));
+}
 
+export function getAccountJSONItem(key) {
+  return dispatch => dispatch(getJSONItem(getAccountKey(key)));
+}
 
 export function storageSelect(table, query, callback) {
-    return (dispatch, getState) => {
-        const {account} = getState();
+  return (dispatch, getState) => {
+    const { account } = getState();
 
-        var items = dispatch(getAccountJSONItem(table));
+    const items = dispatch(getAccountJSONItem(table));
 
-        if (!items) {
-            if (callback) {
-                callback("No items to select", []);
-            }
-            return;
-        }
-        var response = [];
-        for (var i=0; i<items.length; i++) {
-            if (!query || query.length === 0) {
-                response.push(items[i]);
-                continue;
-            }
-            for (var j=0; j<query.length; j++) {
-
-                Object.keys(query[j]).forEach(function(key) {
-                    if (items[i][key] === query[j][key]) {
-                        response.push(items[i]);
-                    }
-                })
-            }
-        }
-        if (callback) {
-            callback(null, response);
-        }
+    if (!items) {
+      if (callback) {
+        callback('No items to select', []);
+      }
+      return;
     }
-};
+    const response = [];
+    for (let i = 0; i < items.length; i++) {
+      if (!query || query.length === 0) {
+        response.push(items[i]);
+        continue;
+      }
+      for (let j = 0; j < query.length; j++) {
+        Object.keys(query[j]).forEach(key => {
+          if (items[i][key] === query[j][key]) {
+            response.push(items[i]);
+          }
+        });
+      }
+    }
+    if (callback) {
+      callback(null, response);
+    }
+  };
+}
 
 export function storageInsert(table, key, data, callback, isAutoIncrement) {
-    return (dispatch, getState) => {
-        var items = dispatch(getAccountJSONItem(table));
-        if (!items) {
-            items = [];
-        }
-        for (var i=0; i<items.length; i++) {
-            for (var j=0; j<data.length; j++) {
-                if (items[i][key] === data[j][key]) {
-                    if (callback) {
-                        callback("Key already exists: " + items[i][key], []);
-                    }
-                    return;
-                }
-            }
-        }
-
-        if (Array.isArray(data)) {
-            for (i = 0; i < data.length; i++) {
-                insertItem(data[i]);
-            }
-        } else {
-            insertItem(data);
-        }
-        setAccountJSONItem(table, items);
-        if (callback) {
-            callback(null, items);
-        }
-
-        function insertItem(item) {
-            if (!isAutoIncrement) {
-                items.push(item);
-                return;
-            }
-            if (item.id) {
-                if (callback) {
-                    callback("Cannot use auto increment id since data already contains id value", []);
-                }
-                return;
-            }
-            if (items.length == 0) {
-                item.id = 1;
-            } else {
-                item.id = items[items.length - 1].id + 1;
-            }
-            items.push(item);
-        }
+  return dispatch => {
+    let items = dispatch(getAccountJSONItem(table));
+    if (!items) {
+      items = [];
     }
-};
+    for (let i = 0; i < items.length; i++) {
+      for (let j = 0; j < data.length; j++) {
+        if (items[i][key] === data[j][key]) {
+          if (callback) {
+            callback(`Key already exists: ${items[i][key]}`, []);
+          }
+          return;
+        }
+      }
+    }
+
+    function insertItem(item) {
+      const currentItem = item;
+      if (!isAutoIncrement) {
+        items.push(currentItem);
+        return;
+      }
+      if (currentItem.id) {
+        if (callback) {
+          callback('Cannot use auto increment id since data already contains id value', []);
+        }
+        return;
+      }
+      if (items.length === 0) {
+        currentItem.id = 1;
+      } else {
+        currentItem.id = items[items.length - 1].id + 1;
+      }
+      items.push(currentItem);
+    }
+
+    if (Array.isArray(data)) {
+      for (let i = 0; i < data.length; i++) {
+        insertItem(data[i]);
+      }
+    } else {
+      insertItem(data);
+    }
+    setAccountJSONItem(table, items);
+    if (callback) {
+      callback(null, items);
+    }
+  };
+}
