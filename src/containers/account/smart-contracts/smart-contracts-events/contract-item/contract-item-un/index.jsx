@@ -1,9 +1,9 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { removeEventAction } from "../../../actions/smart-contracts";
-import Button from "../../../containers/components/button";
+import { removeEventAction } from "../../../../../../actions/smart-contracts";
+import Button from "../../../../../components/button";
 
-const ContractItemUn = ({ contractInstanse, contractId, ...event }) => {
+const ContractItemUn = ({ contractInstanse, contractId, id, description, ...event }) => {
   const dispatch = useDispatch();
 
   const handleUnsubscribe = (event) => () => {
@@ -18,7 +18,7 @@ const ContractItemUn = ({ contractInstanse, contractId, ...event }) => {
     <>
       <tr>
         <td>{event.name || "-"}</td>
-        <td>{event.description}</td>
+        <td>{description}</td>
         <td>{event.fromBlock}</td>
         <td className="align-right">
           <div className="btn-box inline">

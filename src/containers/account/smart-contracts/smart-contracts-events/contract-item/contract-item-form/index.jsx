@@ -5,9 +5,9 @@ import {
   addContractEventDataAction,
   addContractEventInfoAction,
   addEventAction,
-} from "../../../actions/smart-contracts";
-import TextualInputComponent from "../../../containers/components/form-components/textual-input1";
-import Button from "../../../containers/components/button";
+} from "../../../../../../actions/smart-contracts";
+import TextualInputComponent from "../../../../../components/form-components/textual-input1";
+import Button from "../../../../../components/button";
 import validationShema from "./validationShema";
 
 const initialState = {

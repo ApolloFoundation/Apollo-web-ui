@@ -1,8 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import CustomTable from "../../containers/components/tables/table";
+import CustomTable from "../../../../components/tables/table1";
 import ContractItemUn from "./contract-item-un";
-import ContractItemSub from "./contract-item-sub";
+import ContractItemData from "./contract-item-data";
 import ContractItemForm from "./contract-item-form";
 
 const ContractItem = ({ contractId, contractInstanse }) => {
@@ -79,25 +79,21 @@ const ContractItem = ({ contractId, contractInstanse }) => {
                   alignRight: false,
                 },
                 {
-                  name: "Transaction hash",
-                  alignRight: true,
-                },
-                {
-                  name: "Block hash",
-                  alignRight: true,
+                  name: "Transaction",
+                  alignRight: false,
                 },
                 {
                   name: "Block number",
-                  alignRight: true,
+                  alignRight: false,
                 },
                 {
                   name: "Address",
-                  alignRight: true,
+                  alignRight: false,
                 },
               ]}
               className="no-min-height"
               emptyMessage="Events list is empty."
-              TableRowComponent={ContractItemSub}
+              TableRowComponent={ContractItemData}
               tableData={contractEventsData || []}
             />
           </div>

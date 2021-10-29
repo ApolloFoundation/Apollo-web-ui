@@ -1,14 +1,14 @@
 import React, { useCallback, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setBodyModalParamsAction } from "../modules/modals";
-import { removeContractAction } from "../actions/smart-contracts";
-import SiteHeader from "../containers/components/site-header";
-import TabContaier from "../containers/components/tabulator/tab-container";
-import TabulationBody from "../containers/components/tabulator/tabuator-body";
-import Button from "../containers/components/button";
+import { setBodyModalParamsAction } from "../../../../modules/modals";
+import { removeContractAction } from "../../../../actions/smart-contracts";
+import SiteHeader from "../../../components/site-header";
+import TabContaier from "../../../components/tabulator/tab-container";
+import TabulationBody from "../../../components/tabulator/tabuator-body";
+import Button from "../../../components/button";
 import ContractItem from "./contract-item";
 
-export const EventsPage = () => {
+export const SmartContractsEvents = () => {
   const dispatch = useDispatch();
   const contractsData = useSelector(
     (state) => state.smartContract.contractsData

@@ -31,7 +31,7 @@ const EventAddContract = ({ closeModal }) => {
         const smartContract = new Contract(
           {
             apiPath: `/rest/v2/smc/${contract}/event`,
-            socketPath: "ws://51.15.250.32:7876/smc/event/",
+            socketPath: `${process.env.REACT_APP_SMART_CONTRACT_SOCKET}smc/event/`,
           },
           contract,
           {
@@ -78,7 +78,7 @@ const EventAddContract = ({ closeModal }) => {
                   </div>
                   <Field
                     name="contract"
-                    validate={(value) => fieldValidate(value)}
+                    validate={fieldValidate}
                     render={() => (
                       <div className="mb-3">
                         <TextualInputComponent
