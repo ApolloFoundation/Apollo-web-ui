@@ -9,7 +9,7 @@ import {connect} from 'react-redux';
 import {openPrevModal, setBodyModalParamsAction} from '../../../modules/modals';
 import Transaction from '../../account/transactions/transaction';
 import classNames from 'classnames';
-import uuid from "uuid";
+import { v4 as uuidv4 } from 'uuid';
 import {getAccountAssetsAction, getSpecificAccountAssetsAction} from "../../../actions/assets";
 
 class AssetDistribution extends React.Component {
@@ -52,7 +52,7 @@ class AssetDistribution extends React.Component {
             <div className="modal-box">
                 <div className="modal-form">
                     <div className="form-group-app">
-                        <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close"/></a>
+                        <button onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close"/></button>
 
                         <div className="form-title">
                             <p>Asset Distribution</p>

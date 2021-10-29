@@ -6,7 +6,7 @@
 
 import React from 'react';
 import Button from '../../components/button';
-import PureModal from '../../components/modals/pure-modal/pure-modal';
+import { PureModal } from '../../components/modals/pure-modal/pure-modal';
 import styles from './index.module.scss';
 
 export const LoginSaveData = ({ closeModal }) => {

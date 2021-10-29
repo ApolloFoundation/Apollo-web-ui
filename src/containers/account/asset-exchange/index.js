@@ -13,11 +13,10 @@ import crypto from '../../../helpers/crypto/crypto'
 import {setAlert, setBodyModalParamsAction} from "../../../modules/modals";
 import classNames from "classnames";
 import {getAskOrders, getBidOrders} from "../../../actions/marketplace";
-import uuid from "uuid";
+import { v4 as uuidv4 } from 'uuid';
 import InfoBox from '../../components/info-box';
 import {getTransactionAction} from "../../../actions/transactions";
 import {BlockUpdater} from "../../block-subscriber";
-import bigInteger from 'big-integer'
 
 import OffersToBuy from './offers-to-buy';
 import OffersToSell from './offers-to-sell';
@@ -26,8 +25,9 @@ import BuyAsset from './buy-asset';
 import SellAsset from './sell-asset';
 
 import SidebatAsset from './sidebar-asset';
-import SidebarContent from '../../components/sidebar-list';
+import SidebarList from '../../components/sidebar-list';
 
+const bigInteger = require('jsbn').BigInteger;
 const itemsPerPage = 5;
 
 class AssetExchange extends React.Component {
@@ -241,18 +241,15 @@ class AssetExchange extends React.Component {
     handleTotalValue = (setValue, v1, v2) => {
 
         if (v1 && v2) {
-            let result = (bigInteger(v1).multiply(bigInteger(v2)));
-
+            let result = (new bigInteger(v1).multiply(new bigInteger(v2)));
 
             if (result && Array.isArray(result.value)) {
                 result = result.value.reverse().reduce((a, b) => {
                     return a.toString() + b.toString()
-                })
-            } else {
-                result = result.value;
-            }
+                });
+            } 
 
-            setValue('total', (result).toString());
+            setValue('total', result.toString());
         } else {
             setValue('total', 0);
         }
@@ -378,6 +375,8 @@ class AssetExchange extends React.Component {
                                     <div className={'row'}>
                                         <div className="col-xl-6 col-md-12 pr-0 pb-3">
                                             <BuyAsset
+                                                decimals={this.props.decimals}
+                                                ticker={this.props.ticker}
                                                 asset={this.state.asset}
                                                 balanceATU={this.state.asset.balanceATU}
                                                 handleTotalValue={this.handleTotalValue}
@@ -388,6 +387,7 @@ class AssetExchange extends React.Component {
                                         <div className="col-xl-6 col-md-12 pr-0 pb-3">
                                             <SellAsset
                                                 asset={this.state.asset}
+                                                ticker={this.props.ticker}
                                                 accountAsset={this.state.accountAsset}
                                                 handleTotalValue={this.handleTotalValue}
                                                 handleSellOrders={this.handleSellOrders}
@@ -402,7 +402,7 @@ class AssetExchange extends React.Component {
                         <div className="row">
                             {window.innerWidth > 767 && (
                                 <div className="col-md-3 p-0 mb-3">
-                                    <SidebarContent
+                                    <SidebarList
                                         element={'asset'}
                                         baseUrl={'/asset-exchange/'}
                                         data={this.state.accountAssets}
@@ -451,7 +451,7 @@ class AssetExchange extends React.Component {
                                         this.state.accountAssets.map((el, index) => {
                                             return (
                                                 <Link
-                                                    key={uuid()}
+                                                    key={uuidv4()}
                                                     style={{display: 'block'}}
                                                     to={"/asset-exchange/" + (el ? el.asset : "")}
                                                     className={classNames({
@@ -489,6 +489,8 @@ class AssetExchange extends React.Component {
 const mapStateToProps = state => ({
     amountATM: state.account.balanceATM,
     account: state.account.account,
+    decimals: state.account.decimals,
+    ticker: state.account.ticker,
     assetBalances: state.account.assetBalances
 });
 

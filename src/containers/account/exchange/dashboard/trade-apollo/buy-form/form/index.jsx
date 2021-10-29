@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Form, useFormikContext } from 'formik';
 import { multiply, division } from '../../../../../../../helpers/format';
 import { ONE_GWEI } from '../../../../../../../constants';
@@ -7,14 +7,19 @@ import CustomInput from '../../../../../../components/custom-input';
 import Button from '../../../../../../components/button';
 import CustomSelect from '../../../../../../components/select/index1';
 import InputRange from '../../../../../../components/input-range/index1';
-import NumericInput from '../../../../../../components/form-components/numeric-input/numeric-input1';
+import NumericInput from '../../../../../../components/form-components/numeric-input1';
 import getFullNumber from '../../../../../../../helpers/util/expancionalParser';
 
-function BuyForm(props) {
+export default function BuyForm(props) {
+  const { currentCurrency } = useSelector(state => state.exchange);
+  const { infoSelectedBuyOrder } = useSelector(state => state.modals);
+
   const { values, setFieldValue, setValues } = useFormikContext();
 
+  const { currency } = currentCurrency;
+
   const {
-    wallet, ethFee, isPending, passPhrase, ticker, currency, infoSelectedBuyOrder,
+    wallet, ethFee, isPending, passPhrase, ticker,
   } = props;
 
   const [walletsList, setWalletsList] = useState(null);
@@ -173,10 +178,3 @@ function BuyForm(props) {
     </Form>
   );
 }
-
-const mapStateToProps = (state) =>({
-  currency: state.exchange.currentCurrency.currency,
-  infoSelectedBuyOrder: state.modals.infoSelectedBuyOrder,
-});
-
-export default connect(mapStateToProps)(BuyForm);

@@ -6,11 +6,14 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import uuid from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {formatTimestamp} from "../../../../helpers/util/time";
 import CryptoJS from 'crypto-js'
-import {ONE_APL} from '../../../../constants';
+
+const mapStateToProps = state => ({
+  decimals: state.account.decimals,
+});
 
 const mapDispatchToProps = dispatch => ({
     formatTimestamp: (timestamp, date_only, isAbsoluteTime) => dispatch(formatTimestamp(timestamp, date_only, isAbsoluteTime)),
@@ -36,10 +39,10 @@ class Block extends React.Component {
     render () {
 
         const {height, totalAmountATM, timestamp, totalFeeATM, numberOfTransactions, formatTimestamp,
-            setBodyModalParamsAction, generator, generatorRS, payloadLength, baseTarget} = this.props;
+            setBodyModalParamsAction, generator, generatorRS, payloadLength, baseTarget, decimals} = this.props;
 
         return (
-            <tr key={uuid}>
+            <tr key={uuidv4()}>
                 <td className="blue-link-text">
                     <a
                         onClick={() => setBodyModalParamsAction('INFO_BLOCK', height)}
@@ -50,8 +53,8 @@ class Block extends React.Component {
                 <td className="align-right">
                     <p>{formatTimestamp(timestamp)}</p>
                 </td>
-                <td className="align-right">{totalAmountATM / ONE_APL}</td>
-                <td className="align-right">{totalFeeATM    / ONE_APL}</td>
+                <td className="align-right">{totalAmountATM / decimals}</td>
+                <td className="align-right">{totalFeeATM    / decimals}</td>
                 <td className="align-right">
                     {numberOfTransactions}
                 </td>
@@ -69,4 +72,4 @@ class Block extends React.Component {
     }
 }
 
-export default connect(null, mapDispatchToProps)(Block);
+export default connect(mapStateToProps, mapDispatchToProps)(Block);

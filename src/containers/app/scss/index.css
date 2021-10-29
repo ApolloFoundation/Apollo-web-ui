@@ -100,7 +100,7 @@ input[type="checkbox"] {
   padding: 0 !important;
   position: relative; }
   input[type="checkbox"].lighten:after {
-    background-image: url(../../assets/checked-lighten.svg); }
+    background-image: url(/assets/checked-lighten.svg); }
   input[type="checkbox"]:after {
     content: '';
     position: absolute;
@@ -108,7 +108,7 @@ input[type="checkbox"] {
     bottom: 1px;
     left: 1px;
     right: 1px;
-    background-image: url(../../assets/checked.svg);
+    background-image: url(/assets/checked.svg);
     background-repeat: no-repeat;
     background-size: contain;
     background-position: center;
@@ -137,7 +137,7 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .input-number-wrap {
   -webkit-appearance: none;
-  background: url(../../assets/number-arrows.png) no-repeat center center;
+  background: url(/assets/number-arrows.png) no-repeat center center;
   background-size: contain;
   width: 9px;
   margin-right: 6px;
@@ -327,7 +327,7 @@ input {
   .chart-sprite.position-4:after {
     background-position: 100% 100%; }
   .chart-sprite:after {
-    background-image: url(../../assets/chart.png);
+    background-image: url(/assets/chart.png);
     background-size: 400% 50%;
     background-repeat: no-repeat;
     content: '';
@@ -595,14 +595,14 @@ input {
     background-position: center; }
     .form-group-app .marketplace-image.no-image {
       background-size: 30% !important;
-      background-image: url(../../assets/no-photo.svg) !important;
+      background-image: url(/assets/no-photo.svg) !important;
       background-color: #eee !important; }
   .form-group-app .about-image {
     height: 155px;
     background-repeat: no-repeat;
     background-size: contain;
     background-position: left;
-    background-image: url(../../assets/brand-logo.png) !important; }
+    background-image: url(/assets/brand-logo.png) !important; }
   .form-group-app .form-title {
     padding-bottom: 23px; }
     .form-group-app .form-title.inline > * {
@@ -1762,7 +1762,7 @@ table td .btn, table th .btn {
     margin-left: -15px;
     margin-top: -1px; }
   .custom-checkbox .custom-control-input:checked ~ .custom-control-label::after {
-    background-image: url(../../assets/checked.svg);
+    background-image: url(/assets/checked.svg);
     background-repeat: no-repeat;
     background-size: 10px;
     left: -14px;

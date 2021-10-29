@@ -9,29 +9,20 @@ import {connect} from 'react-redux';
 import {setModalData} from '../../../../modules/modals';
 import {getDGSPurchaseAction, getDGSGoodAction} from "../../../../actions/marketplace";
 import {setBodyModalParamsAction} from "../../../../modules/modals";
-import classNames from 'classnames';
 import {formatTimestamp} from '../../../../helpers/util/time'
 import config from '../../../../config';
-import {ONE_APL} from '../../../../constants';
-
-import TextualInput from '../../../components/form-components/textual-input';
-import NumericInput from '../../../components/form-components/numeric-input';
 import ModalBody from '../../../components/modals/modal-body';
-
-import Form from './form';
-
-import AdvancedSettings from '../../../components/advanced-transaction-settings'
-import InputForm from '../../../components/input-form';
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../../helpers/forms/forms";
 import crypto from "../../../../helpers/crypto/crypto";
-import ModalFooter from '../../../components/modal-footer'
-import FeeCalc from '../../../components/form-components/fee-calc';
+import Form from './form';
 
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
-    account: state.account.accountRS
+    account: state.account.accountRS,
+    decimals: state.account.decimals,
+    ticker: state.account.ticker,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -94,7 +85,7 @@ class MarketplacePurchase extends React.Component {
 
         values = {
             ...values,
-            priceATM: parseInt(this.state.goods.priceATM) / ONE_APL,
+            priceATM: parseInt(this.state.goods.priceATM) / this.props.decimals,
             goods: this.state.goods.goods,
             recipient: this.props.account,
             secretPhrase: values.secretPhrase
@@ -107,7 +98,6 @@ class MarketplacePurchase extends React.Component {
     }
 
     render() {
-        const {formatTimestamp} = this.props;
         const {goods} = this.state;
 
         return (
@@ -125,12 +115,14 @@ class MarketplacePurchase extends React.Component {
                 }}
                 submitButtonName="Purchase"
             >
-                <Form goods={this.state.goods}/>
+                <Form
+                  goods={this.state.goods}
+                  ticker={this.props.ticker}
+                  decimals={this.props.decimals}
+                />
             </ModalBody>
         );
     }
 }
-
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(MarketplacePurchase);

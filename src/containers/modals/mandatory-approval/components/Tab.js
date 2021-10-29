@@ -1,20 +1,19 @@
-import React from "react";
-import {Form} from "react-form";
-import classNames from "classnames";
+import React from 'react';
+import classNames from 'classnames';
 
 export default class Tab extends React.Component {
-    render() {
-        return (
-            <div
-                className={classNames({
-                    "tab-body": true,
-                    "active": this.props.active,
-                })}
-            >
-                <div className="form-tab">
-                    {this.props.children}
-                </div>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div
+        className={classNames({
+          'tab-body': true,
+          active: this.props.active,
+        })}
+      >
+        <div className="form-tab">
+          {this.props.children}
+        </div>
+      </div>
+    );
+  }
 }

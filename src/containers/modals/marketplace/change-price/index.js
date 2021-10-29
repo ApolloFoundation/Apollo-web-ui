@@ -22,7 +22,9 @@ import crypto from "../../../../helpers/crypto/crypto";
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
-    account: state.account.accountRS
+    account: state.account.accountRS,
+    decimals: state.account.decimals,
+    ticker: state.account.ticker,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -76,7 +78,7 @@ class MarketplaceChangePrice extends React.Component {
 
     render() {
 
-        const {formatTimestamp} = this.props;
+        const {formatTimestamp, ticker, decimals} = this.props;
         const {goods} = this.state;
 
         return (
@@ -94,7 +96,12 @@ class MarketplaceChangePrice extends React.Component {
                 }}
                 submitButtonName="Change price"
             >
-                <Form goods={this.state.goods} formatTimestamp={formatTimestamp}/>
+                <Form
+                  goods={this.state.goods}
+                  formatTimestamp={formatTimestamp}
+                  ticker={ticker}
+                  decimals={decimals}
+                />
             </ModalBody>
         );
     }

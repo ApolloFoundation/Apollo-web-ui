@@ -80,8 +80,8 @@ class PayDividends extends React.Component {
                             {
                                 this.props.modalData &&
                                 <div className="form-group-app">
-                                    <a onClick={() => this.props.closeModal()} className="exit"><i
-                                        className="zmdi zmdi-close"/></a>
+                                    <button onClick={() => this.props.closeModal()} className="exit"><i
+                                        className="zmdi zmdi-close"/></button>
 
                                     <div className="form-title">
                                         {this.props.modalsHistory.length > 1 &&
@@ -102,7 +102,7 @@ class PayDividends extends React.Component {
                                                 type={"tel"}
                                                 setValue={setValue}/>
                                             <div className="input-group-append">
-                                                <span className="input-group-text">APL</span>
+                                                <span className="input-group-text">{this.props.ticker}</span>
                                             </div>
                                         </div>
                                     </div>
@@ -142,7 +142,7 @@ class PayDividends extends React.Component {
                                             </div>
                                         </div>
                                     }
-                                    
+
                                     <FeeCalc
                                         values={getFormState().values}
                                         setValue={setValue}
@@ -193,6 +193,7 @@ class PayDividends extends React.Component {
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
+	  ticker: state.account.ticker,
     modalsHistory: state.modals.modalsHistory,
 });
 

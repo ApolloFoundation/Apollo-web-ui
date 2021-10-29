@@ -1,14 +1,15 @@
 import React, { useCallback } from 'react';
 import classNames from 'classnames';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setModalType } from '../../../../modules/modals';
 import styles from './index.module.scss';
 
-export const PureModal = ({ children, withCloseButton, setModalType }) => {
+export const PureModal = ({ children, withCloseButton }) => {
+  const dispatch = useDispatch();
 
   const handleClose = useCallback(() => {
-    setModalType();
-  }, [setModalType]);
+    dispatch(setModalType())
+  }, [dispatch, setModalType]);
 
   return (
     <div className={classNames(styles.pureModal, 'modal-box dark-card')}>
@@ -19,9 +20,3 @@ export const PureModal = ({ children, withCloseButton, setModalType }) => {
     </div>
   );
 }
-
-const mapDispatchToProps = {
-  setModalType,
-}
-
-export default connect(null, mapDispatchToProps)(PureModal);

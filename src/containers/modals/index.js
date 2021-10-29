@@ -16,7 +16,8 @@ import SendApollo from "./send-apollo";
 import SendApolloPrivate from "./send-apollo-private";
 import IssueAsset from "./issue/issue-asset"
 import InfoTransaction from './info-transaction/info-transaction';
-import InfoLedgerTransaction from './info-ledger-transaction';
+import { TransactionFail } from './transaction-fail';
+import InfoLedgerTransaction from './info-ledger-transaction/index';
 import InfoBlock from './info-block';
 import RawTransactionDetails from './send-apollo/raw-transaction-details';
 import { LoginSaveData } from './login-save-data/index';
@@ -46,13 +47,13 @@ import BuyAssets from './assets/buy-asset';
 import SellAssets from './assets/sell-asset';
 import AssetDistribution from './assets/view-asset-distribution';
 // Currency System
-import TransferCurrency from './currencies/transfer-currency/'
-import OfferCurrency from './currencies/offer-currebcy/'
-import ReserveCurrency from './currencies/reserve-currency'
-import IssueCurrency from './currencies/issue-currency/';
+import TransferCurrency from './currencies/transfer-currency';
+import OfferCurrency from './currencies/offer-currebcy';
+import ReserveCurrency from './currencies/reserve-currency';
+import IssueCurrency from './currencies/issue-currency';
 import ClaimCurrency from './currencies/claim-currency/';
-import BuyCurrency from './currencies/confirm-buy-request/';
-import SellCurrency from './currencies/confirm-sell-request/';
+import BuyCurrency from './currencies/confirm-buy-request';
+import SellCurrency from './currencies/confirm-sell-request';
 // Voting system
 import CreatePoll from './voting-system/create-poll/';
 import CastVote from './voting-system/cast-vote/';
@@ -61,7 +62,7 @@ import PollResults from './voting-system/poll-results/';
 import UploadFile from './data-storage/uppload-file/';
 // Coin shuffling
 import CreateShuffling from './coin-shuffling/create-shuffling/';
-import JoinShuffling from './coin-shuffling/join-shuffling/';
+import JoinShuffling from './coin-shuffling/join-shuffling/index.jsx';
 // Aliases
 import EditAlias from './aliases/edit-alias';
 import SellAlias from './aliases/sell-alias';
@@ -92,7 +93,8 @@ import RemoveMonitor from "./monitors/remove-monitor";
 import AddMonitoredAccount from "./monitors/add-monitored-account";
 import OrderCancel from "./order-cancellation/order-cancel";
 import ApproveTransaction from "./approve-transaction";
-
+// General
+import InfoPopup from './general/info-popup';
 
 import store from '../../store';
 //2fa
@@ -107,7 +109,7 @@ import ScheaduleCurrency from '../modals/scheaduled-transactions/sceadule-curren
 import AssetDividendHistory from "./assets/view-asset-dividend-history";
 import PayDividends from "./assets/pay-dividends";
 //exchange
-import LoginToExchange from './exchange/login';
+import LoginToExchange from './exchange/login/index.jsx';
 import LogoutExchange from './exchange/logout';
 import WithdrawCurrency from './exchange/withdraw-currency';
 import ConfirmCreateOffer from './exchange/confirm-create-offer';
@@ -204,7 +206,7 @@ class ModalWindow extends React.Component {
                     {this.props.modalType === 'SEND_APOLLO_PRIVATE'         && <SendApolloPrivate         closeModal={this.closeModal} nameModal={'SEND_APOLLO_PRIVATE'}/>}
                     {this.props.modalType === 'APPROVE_TRANSACTION'         && <ApproveTransaction        closeModal={this.closeModal} nameModal={'APPROVE_TRANSACTION'}/>}
                     {this.props.modalType === 'RAW_TRANSACTION_DETAILS'     && <RawTransactionDetails     closeModal={this.closeModal} nameModal={'RAW_TRANSACTION_DETAILS'}/>}
-
+                    {this.props.modalType === 'TRANSACTION_FAIL'            && <TransactionFail closeModal={this.closeModal} nameModal={'TRANSACTION_FAIL'} />}
 
                     {/* Assets */}
                     {this.props.modalType === 'TRANSFER_ASSET'              && <TransferAsset             closeModal={this.closeModal} nameModal={'TRANSFER_ASSET'}/>}
@@ -288,6 +290,8 @@ class ModalWindow extends React.Component {
                     {this.props.modalType === 'DELETE_GOODS'                && <MarketplaceDelete         closeModal={this.closeModal} nameModal={'DELETE_GOODS'}/>}
                     {this.props.modalType === 'MARKETPLACE_GOODS_DELIVER'   && <MarketplaceDeliver        closeModal={this.closeModal} nameModal={'MARKETPLACE_GOODS_DELIVER'}/>}
 
+                    {/* General */}
+                    {this.props.modalType === 'INFO-POPUP'                  && <InfoPopup                 closeModal={this.closeModal} nameModal={'INFO-POPUP'}/>}
 
                     {/*Peers*/}
                     {this.props.modalType === 'ABOUT_PEER_INFO'             && <AboutPeerInfo             closeModal={this.closeModal} nameModal={'ABOUT_PEER_INFO'}/>}

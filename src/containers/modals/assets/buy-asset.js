@@ -8,7 +8,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {setBodyModalParamsAction} from '../../../modules/modals';
 import {Text} from 'react-form';
-import {ONE_APL} from '../../../constants';
 
 import {NotificationManager} from "react-notifications";
 
@@ -37,7 +36,7 @@ class BuyAsset extends React.Component {
         values = {
             ...values,
             asset: this.props.modalData.assetInfo.asset,
-            priceOrder: this.props.modalData.priceATM * (ONE_APL / Math.pow(10, this.props.modalData.assetInfo.decimals)),
+            priceOrder: this.props.modalData.priceATM * (this.props.decimals / Math.pow(10, this.props.modalData.assetInfo.decimals)),
             quantityOrder: (this.props.modalData.quantityATU * Math.pow(10, this.props.modalData.assetInfo.decimals))
         };
 
@@ -54,7 +53,7 @@ class BuyAsset extends React.Component {
     };
 
     render() {
-        const {nameModal, modalData, closeModal} = this.props;
+        const {nameModal, modalData, closeModal, ticker} = this.props;
 
         const name        = modalData && modalData.assetInfo ? modalData.assetInfo.name : '';
         const assetID     = modalData && modalData.assetInfo ? modalData.assetInfo.assetID : '';
@@ -78,12 +77,12 @@ class BuyAsset extends React.Component {
 
                 <TextualInputComponent
                     label={'Order Description'}
-                    text={`Buy ${quantityATU} ${name} assets at ${total / quantityATU} APL each.`}
+                    text={`Buy ${quantityATU} ${name} assets at ${total / quantityATU} ${ticker} each.`}
                 />
 
                 <TextualInputComponent
                     label={'Total'}
-                    text={`${total} APL`}
+                    text={`${total} ${ticker}`}
                 />
             </ModalBody>
         );
@@ -92,7 +91,9 @@ class BuyAsset extends React.Component {
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
-	modalsHistory: state.modals.modalsHistory
+	  modalsHistory: state.modals.modalsHistory,
+	  decimals: state.account.decimals,
+	  ticker: state.account.ticker,
 });
 
 const mapDispatchToProps = dispatch => ({

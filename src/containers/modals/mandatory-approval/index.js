@@ -1,186 +1,176 @@
-import React from "react";
-import NoApprovalBody from "./body/NoApprovalBody";
-import ApproveByAccountBody from "./body/ApproveByAccountBody";
-import ApproveByBalanceBody from "./body/ApproveByBalanceBody";
-import ApproveWithAssetBody from "./body/ApproveWithAssetBody";
-import ApproveWithCurrencyBody from "./body/ApproveWithCurrencyBody";
-import {NotificationManager} from "react-notifications";
-import {connect} from "react-redux";
-import submitForm from "../../../helpers/forms/forms";
-import {updateAccount} from '../../../actions/login/index'
+import React from 'react';
+import { NotificationManager } from 'react-notifications';
+import { connect } from 'react-redux';
+import NoApprovalBody from './body/NoApprovalBody';
+import ApproveByAccountBody from './body/ApproveByAccountBody';
+import ApproveByBalanceBody from './body/ApproveByBalanceBody';
+import ApproveWithAssetBody from './body/ApproveWithAssetBody';
+import ApproveWithCurrencyBody from './body/ApproveWithCurrencyBody';
+import submitForm from '../../../helpers/forms/forms';
+import { updateAccount } from '../../../actions/login/index';
 
 import ModalBody from '../../components/modals/modal-body';
 import TabulationBody from '../../components/tabulator/tabuator-body';
 import TabContaier from '../../components/tabulator/tab-container';
 
-
-//TODO: extract to constants
+// TODO: extract to constants
 const tabs = [
-    "No approval",
-    "Approve by account",
-    "Approve by balance",
-    "Approve with asset",
-    "Approve with currency",
+  'No approval',
+  'Approve by account',
+  'Approve by balance',
+  'Approve with asset',
+  'Approve with currency',
 ];
 
 class MandatoryApprovalModal extends React.Component {
-
     state = {
-        activeForm: 0,
-        noApproval: null,
-        approveByAcc: null,
-        approveByBalance: null,
-        approveWithAsset: null,
-        approveWithCurrency: null,
+      activeForm: 0,
+      noApproval: null,
+      approveByAcc: null,
+      approveByBalance: null,
+      approveWithAsset: null,
+      approveWithCurrency: null,
     };
 
     tabSelected = tabIndex => {
-        this.setState({
-            activeTab: tabIndex
-        })
+      this.setState({ activeTab: tabIndex });
     };
 
-   
-    onSubmit = (values) => {
-        const {processForm, updateAccount, account} = this.props;
+    onSubmit = values => {
+      const { processForm, updateAccount, account } = this.props;
 
-        values = {
-            controlVotingModel: this.state.activeForm - 1,
-            phasingHashedSecretAlgorithm: 2,
-            ...values,
-        }
+      values = {
+        controlVotingModel: this.state.activeForm - 1,
+        phasingHashedSecretAlgorithm: 2,
+        ...values,
+      };
 
-        processForm(values, 'setPhasingOnlyControl', null, (res) => {
-            NotificationManager.success('Control has been setup!', null, 5000);
-            setTimeout(() => {
-                updateAccount({account});
-            }, 1000);
-        });
+      processForm(values, 'setPhasingOnlyControl', null, res => {
+        NotificationManager.success('Control has been setup!', null, 5000);
+        setTimeout(() => {
+          updateAccount({ account });
+        }, 1000);
+      });
     }
 
-    onFocus = (activeForm) => {
-        this.setState({
-            activeForm
-        })
+    onFocus = activeForm => {
+      this.setState({ activeForm });
     }
 
-    handleFormSubmit = (values) => {
-        const {activeForm} = this.state;
+    handleFormSubmit = values => {
+      const { activeForm } = this.state;
 
-        switch (activeForm) {
-            case 0: 
-                this.onSubmit({...values, ...this.state.noApproval});
-                break;
+      switch (activeForm) {
+        case 0:
+          this.onSubmit({ ...values, ...this.state.noApproval });
+          break;
 
-            case 1: 
-                this.onSubmit({...values, ...this.state.approveByAccountBody});
-                break;
+        case 1:
+          this.onSubmit({ ...values, ...this.state.approveByAccountBody });
+          break;
 
-            case 2: 
-                this.onSubmit({...values, ...this.state.approveByBalanceBody});
-                break;
+        case 2:
+          this.onSubmit({ ...values, ...this.state.approveByBalanceBody });
+          break;
 
-            case 3: 
-                this.onSubmit({...values, ...this.state.approveWithAssetBody});
-                break;
+        case 3:
+          this.onSubmit({ ...values, ...this.state.approveWithAssetBody });
+          break;
 
-            case 4:
-                this.onSubmit({...values, ...this.state.approveWithCurrencyBody});
-                break;
+        case 4:
+          this.onSubmit({ ...values, ...this.state.approveWithCurrencyBody });
+          break;
 
-            default : return; 
-        }
+        default:
+      }
     }
 
-    handleApproveby = ({values}, field) => {
-        this.setState({
-            [field]: values
-        });
+    handleApproveby = ({ values }, field) => {
+      this.setState({ [field]: values });
     }
 
     render() {
-        return (
-            <ModalBody
-                handleFormSubmit={(values) => this.handleFormSubmit(values)}
-                modalTitle={'Mandatory Approval'}
-                isAdvanced={true}
-                modalSubTitle={'All subsequent transactions will be mandatory approved (phased) according to whatever is set below. Once set, this account control can only be removed with the approval of the accounts/stake holders set below.'}
-                submitButtonName={'Submit'}
-                isAdvancedWhite
-                isDisableSecretPhrase
+      return (
+        <ModalBody
+          handleFormSubmit={values => this.handleFormSubmit(values)}
+          modalTitle="Mandatory Approval"
+          isAdvanced
+          modalSubTitle="All subsequent transactions will be mandatory approved (phased) according to whatever is set below. Once set, this account control can only be removed with the approval of the accounts/stake holders set below."
+          submitButtonName="Submit"
+          isAdvancedWhite
+          isDisableSecretPhrase
+        >
+          <TabulationBody
+            className="p-0 gray-form"
+            onFocus={i => this.onFocus(i)}
+          >
+            <TabContaier
+              sectionName={<i className="zmdi zmdi-close-circle" />}
             >
-                <TabulationBody
-                    className={'p-0 gray-form'}
-                    onFocus={(i) => this.onFocus(i)}
-
-                >
-                    <TabContaier 
-                        sectionName={<i className="zmdi zmdi-close-circle" />}
-                    >
-                        <NoApprovalBody
-                            onChange={values => this.handleApproveby(values, 'noApproval')}
-                        />
-                    </TabContaier>
-            
-                    <TabContaier 
-                        sectionName={<i className="zmdi zmdi-accounts" />}
-                        onFocus={() => this.onFocus(1)}
-                    >
-                        <ApproveByAccountBody
-                            onChange={(values) => this.handleApproveby(values, 'approveByAccountBody')}
-                        />
-                    </TabContaier>
-            
-                    <TabContaier 
-                        sectionName={<i className="zmdi zmdi-money-box" />}
-                        onFocus={() => this.onFocus(2)}
-                    >
-                        <ApproveByBalanceBody
-                            onChange={(values) => this.handleApproveby(values, 'approveByBalanceBody')}
-                        />
-                    </TabContaier>
-
-                    <TabContaier 
-                        sectionName={<i className="zmdi zmdi-chart" />}
-                        onFocus={() => this.onFocus(3)}
-                    >
-                        <ApproveWithAssetBody
-                            onChange={(values) => this.handleApproveby(values, 'approveWithAssetBody')}
-                        />
-                    </TabContaier>
-
-                    <TabContaier 
-                        sectionName={<i className="zmdi zmdi-balance" />}
-                        onFocus={() => this.onFocus(4)}
-                    >
-                        <ApproveWithCurrencyBody
-                            onChange={(values) => this.handleApproveby(values, 'approveWithCurrencyBody')}
-                        />
-                    </TabContaier>
-                </TabulationBody>
-            </ModalBody>
-        )
+              <NoApprovalBody
+                onChange={values => this.handleApproveby(values, 'noApproval')}
+                ticker={this.props.ticker}
+              />
+            </TabContaier>
+            <TabContaier
+              sectionName={<i className="zmdi zmdi-accounts" />}
+              onFocus={() => this.onFocus(1)}
+            >
+              <ApproveByAccountBody
+                onChange={values => this.handleApproveby(values, 'approveByAccountBody')}
+                ticker={this.props.ticker}
+              />
+            </TabContaier>
+            <TabContaier
+              sectionName={<i className="zmdi zmdi-money-box" />}
+              onFocus={() => this.onFocus(2)}
+            >
+              <ApproveByBalanceBody
+                onChange={values => this.handleApproveby(values, 'approveByBalanceBody')}
+                ticker={this.props.ticker}
+              />
+            </TabContaier>
+            <TabContaier
+              sectionName={<i className="zmdi zmdi-chart" />}
+              onFocus={() => this.onFocus(3)}
+            >
+              <ApproveWithAssetBody
+                onChange={values => this.handleApproveby(values, 'approveWithAssetBody')}
+                ticker={this.props.ticker}
+              />
+            </TabContaier>
+            <TabContaier
+              sectionName={<i className="zmdi zmdi-balance" />}
+              onFocus={() => this.onFocus(4)}
+            >
+              <ApproveWithCurrencyBody
+                onChange={values => this.handleApproveby(values, 'approveWithCurrencyBody')}
+                ticker={this.props.ticker}
+              />
+            </TabContaier>
+          </TabulationBody>
+        </ModalBody>
+      );
     }
 }
 
 const mapStateToProps = state => ({
-    publicKey: state.account.publicKey,
-
-    account: state.account.account
+  publicKey: state.account.publicKey,
+  account: state.account.account,
+  ticker: state.account.ticker,
 });
 
 const mapDispatchToProps = dispatch => ({
-    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
-    updateAccount: (account) => dispatch(updateAccount(account))
+  submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
+  updateAccount: account => dispatch(updateAccount(account)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(MandatoryApprovalModal)
-
+export default connect(mapStateToProps, mapDispatchToProps)(MandatoryApprovalModal);
 
 /*
 
  submitNoApproval = async toSend => {
-        
+
         console.log(this.state.noApproval)
 
         const mappedRequestBody = {

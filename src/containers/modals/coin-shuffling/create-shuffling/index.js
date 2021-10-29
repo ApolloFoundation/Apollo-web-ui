@@ -73,15 +73,19 @@ class CreateShuffling extends React.Component {
                 handleFormSubmit={(values) => this.handleFormSubmit(values)}
                 submitButtonName={'Create shuffling'}
             >
-                <CreateShufflngForm />
+                <CreateShufflngForm ticker={this.props.ticker} />
             </ModalBody>
 
         );
     }
 }
 
+const mapStateToProps = state => ({
+  ticker: state.account.ticker,
+});
+
 const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 });
 
-export default connect(null, mapDispatchToProps)(CreateShuffling);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateShuffling);

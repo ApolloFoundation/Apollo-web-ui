@@ -6,6 +6,8 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
+import {Form, Text} from 'react-form';
+import {NotificationManager} from "react-notifications";
 import SiteHeader from '../../components/site-header'
 import {
     getAccountBlockCountAction,
@@ -18,7 +20,6 @@ import {getTime} from '../../../actions/login';
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {BlockUpdater} from "../../block-subscriber";
 import {formatTimestamp} from "../../../helpers/util/time";
-import {ONE_APL} from '../../../constants';
 import Block from './block';
 import './Blocks.scss';
 
@@ -36,7 +37,7 @@ class Blocks extends React.Component {
             page: 1,
             firstIndex: 0,
             lastIndex: 15,
-
+            height: '',
             blocks: null,
 			blocksInfo: {
 				avgFee: 0,
@@ -72,16 +73,20 @@ class Blocks extends React.Component {
     };
 
     componentDidMount() {
+        this.startListenBlocks();
+    }
+
+    componentWillUnmount() {
+        BlockUpdater.removeListener("data", this.listener)
+    }
+
+    startListenBlocks = () => {
         this.getBlocks({
             account: this.props.account,
             firstIndex: this.state.firstIndex,
             lastIndex: this.state.lastIndex
         });
         BlockUpdater.on("data", this.listener)
-    }
-
-    componentWillUnmount() {
-        BlockUpdater.removeListener("data", this.listener)
     }
 
     getNextBlock = async () => {
@@ -112,8 +117,8 @@ class Blocks extends React.Component {
         }
 
         if (blocks.length) {
-            avgFee = (totalFee / ONE_APL / blocks.length).toFixed(2);
-            avgAmount = (totalAmount / ONE_APL / blocks.length).toFixed(2);
+            avgFee = (totalFee / this.props.decimals / blocks.length).toFixed(2);
+            avgAmount = (totalAmount / this.props.decimals / blocks.length).toFixed(2);
         }
 
         this.setState({
@@ -135,7 +140,7 @@ class Blocks extends React.Component {
         let forgedBlocks = 0;
         if (blockCount.numberOfBlocks && blockCount.numberOfBlocks > 0) {
             forgedBlocks = blockCount.numberOfBlocks;
-            avgFee = (this.props.forgedBalanceATM / blockCount.numberOfBlocks / ONE_APL).toFixed(2);
+            avgFee = (this.props.forgedBalanceATM / blockCount.numberOfBlocks / this.props.decimals).toFixed(2);
         }
 
         let totalFee = 0;
@@ -150,7 +155,7 @@ class Blocks extends React.Component {
         });
 
         if (blocks.length) {
-            avgAmount = (totalAmount / ONE_APL / blocks.length).toFixed(2);
+            avgAmount = (totalAmount / this.props.decimals / blocks.length).toFixed(2);
         }
 
         this.setState({
@@ -160,21 +165,23 @@ class Blocks extends React.Component {
 				avgFee,
 				avgAmount,
 				transactionPerHour: Math.floor(transactions / 15),
-                forgedFees: this.props.forgedBalanceATM / ONE_APL,
+                forgedFees: this.props.forgedBalanceATM / this.props.decimals,
                 forgedBlocks,
 			}
         });
     };
 
-    getBlock = async (type, blockHeight) => {
-        const requestParams = {
-            height: blockHeight
-        };
-
-        const block = await this.props.getBlockAction(requestParams);
-
+    getBlock = async ({height}) => {
+        if (!height) {
+            this.startListenBlocks();
+            return
+        }
+        const block = await this.props.getBlockAction({height});
         if (block) {
-            this.props.setBodyModalParamsAction('INFO_BLOCK', block)
+            BlockUpdater.removeListener("data", this.listener)
+            this.setState({blocks: [block]})
+        } else {
+            NotificationManager.error('Incorrect height', 'Error', 5000)
         }
     };
 
@@ -205,6 +212,34 @@ class Blocks extends React.Component {
                     pageTitle={'Blocks'}
                 />
                 <div className="page-body container-fluid mb-3">
+                    <div className="transactions-filters">
+                        <Form
+                            onSubmit={this.getBlock}
+                            render={({submitForm}) => {
+                                return (
+                                    <form
+                                        onSubmit={submitForm}
+                                        className="input-group-app search col-md-3 pl-0"
+                                    >
+                                        <div className="iconned-input-field block">
+                                            <Text
+                                                placeholder={'Block height'}
+                                                field={'height'}
+                                                type="text"
+                                            />
+                                            <button
+                                                type={'submit'}
+                                                className="input-icon"
+                                                style={{width: 41}}
+                                            >
+                                                <i className="zmdi zmdi-search"/>
+                                            </button>
+                                        </div>
+                                    </form>
+                                )
+                            }}
+                        />
+                    </div>
                     <div className="form-group-app transparent">
                         <TabulationBody
 							className={'p-0'}
@@ -352,6 +387,7 @@ class Blocks extends React.Component {
 
 const mapStateToProps = state => ({
     account: state.account.account,
+    decimals: state.account.decimals,
     forgedBalanceATM: state.account.forgedBalanceATM,
     blockTime: state.account.blockchainStatus ? state.account.blockchainStatus.blockTime : null
 });

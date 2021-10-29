@@ -11,12 +11,13 @@ import {getDGSGoodAction} from "../../../../actions/marketplace";
 import classNames from 'classnames';
 import {formatTimestamp} from '../../../../helpers/util/time'
 import config from '../../../../config';
-import {ONE_APL} from '../../../../constants';
 import TextualInput from "../../../components/form-components/textual-input";
 
 
 const mapStateToProps = state => ({
-    modalData: state.modals.modalData
+    modalData: state.modals.modalData,
+    decimals: state.account.decimals,
+    ticker: state.account.ticker,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -58,7 +59,7 @@ class MarketplaceProductDetails extends React.Component {
             <div className="modal-box">
                 <div className="modal-form">
                     <div className="form-group-app">
-                        <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close"/></a>
+                        <button onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close"/></button>
 
                         {this.state.goods && (
                             <div className="right-bar">
@@ -83,7 +84,7 @@ class MarketplaceProductDetails extends React.Component {
                                         Price:
                                     </label>
                                     <div className="price">
-                                        {this.state.goods.priceATM / ONE_APL} APL
+                                        {this.state.goods.priceATM / this.props.decimals} {this.props.ticker}
                                     </div>
                                 </div>
                                 {this.state.goods.description && (

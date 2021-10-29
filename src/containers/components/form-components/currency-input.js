@@ -3,7 +3,6 @@ import InputForm from '../../components/input-form';
 import {getCurrencyAction} from "../../../actions/currencies";
 import {connect} from 'react-redux';
 
-
 class CurrencyInput extends React.Component {
 
     state = {}

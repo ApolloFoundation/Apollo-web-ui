@@ -38,7 +38,7 @@ const Settings = ({setBodyModalParamsAction, isLocalhost, isActive, closeMenu}) 
                     className="option">Generate token</a></li>
                 <li><a
                     onClick={() => {
-                        closeMenu();                        
+                        closeMenu();
                         return setBodyModalParamsAction('CALCULATE_CACHE');
                     }}
                     className="option">Calculate hash</a></li>
@@ -64,7 +64,7 @@ const Settings = ({setBodyModalParamsAction, isLocalhost, isActive, closeMenu}) 
                         </a>
                     </li>
                 )}
-                
+
                 <li>
                     <NavLink
                         activeClass={'active'}
@@ -87,7 +87,7 @@ const Settings = ({setBodyModalParamsAction, isLocalhost, isActive, closeMenu}) 
                 </li>
                 <li><a
                     onClick={() => {
-                        closeMenu();                        
+                        closeMenu();
                         return setBodyModalParamsAction('SHARDING_INFO');
                     }}
                     className="option">Sharding info</a></li>

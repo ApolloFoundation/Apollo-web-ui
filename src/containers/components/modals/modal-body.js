@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 import FormFooter from '../form-components/form-footer';
 import ModalFooter from '../modal-footer';
 import classNames from 'classnames';
-import {ONE_APL} from '../../../constants';
 
 import AdvancedSettings from '../advanced-transaction-settings';
 import {openPrevModal, saveSendModalState} from "../../../modules/modals";
@@ -51,7 +50,7 @@ class ModalBody extends React.Component {
             CustomFooter, isDisableFormFooter, marketplace, onChange, isDisabledBackArrow, isAdvancedWhite,
             isDisableSecretPhrase, isDisabe2FA, modalSubTitle, className, idGroup, isPour, openPrevModal, modalsHistory,
             saveSendModalState, nameModel, children, handleFormSubmit, modalTitle, isPending, isDisabled, isFee, closeModal,
-            submitButtonName, modalData
+            submitButtonName, modalData, isClosingButton,
         } = this.props;
 
         const LeftBar = marketplace ? (p) => <div className="left-bar">{p.children}</div> : React.Fragment;
@@ -75,7 +74,7 @@ class ModalBody extends React.Component {
                             <RightBar>
                                 {
                                     closeModal && !isPour &&
-                                    <a onClick={closeModal} className="exit"><i className="zmdi zmdi-close"/></a>
+                                    <button type="button" onClick={closeModal} className="exit"><i className="zmdi zmdi-close"/></button>
                                 }
 
                                 {
@@ -128,7 +127,7 @@ class ModalBody extends React.Component {
                                                 Price:
                                             </label>
                                             <div className="price">
-                                                {marketplace.priceATM / ONE_APL} APL
+                                                {marketplace.priceATM / this.props.decimals} {this.props.ticker}
                                             </div>
                                         </div>
 
@@ -207,6 +206,7 @@ class ModalBody extends React.Component {
                                         isDisabled={isDisabled}
                                         setValue={setValue}
                                         closeModal={closeModal}
+                                        isClosing={isClosingButton}
                                         idGroup={idGroup}
                                     />
                                 }
@@ -240,7 +240,9 @@ class ModalBody extends React.Component {
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
-    modalsHistory: state.modals.modalsHistory
+    modalsHistory: state.modals.modalsHistory,
+    decimals: state.account.decimals,
+    ticker: state.account.ticker,
 });
 
 const mapDispatchToProps = dispatch => ({

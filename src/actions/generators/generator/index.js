@@ -6,7 +6,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import uuid from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {formatTimestamp} from "../../../helpers/util/time";
 import {toEpochTime} from "../../../helpers/util/time"
@@ -41,7 +41,7 @@ class Generator extends React.Component {
     render() {
         const {setBodyModalParamsAction, account, accountRS, effectiveBalanceAPL, hitTime, deadline} = this.props;
         return (
-            <tr key={uuid}>
+            <tr key={uuidv4()}>
                 <td className="blue-link-text align-left">
                     <a onClick={() => setBodyModalParamsAction('INFO_ACCOUNT', account)}>{accountRS}</a>
                 </td>

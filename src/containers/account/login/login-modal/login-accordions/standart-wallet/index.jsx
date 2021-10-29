@@ -1,6 +1,6 @@
 import React from 'react';
 import { Accordion } from '../../../../../components/accordion';
-import { TooltipLogin } from '../../../../../components/tooltip-login';
+import { Tooltip } from '../../../../../components/tooltip-login';
 import SecretPhraseForm from '../../forms/viaSecretPhraseForm';
 import { TooltipWrapper } from '../tooltipWrapper';
 
@@ -31,9 +31,9 @@ export const StandartWallet = ({ active, onChange, id }) => {
       header={
         <div>
           <span className={styles.standartWalletText}>standard wallet</span>
-          <TooltipLogin>
+          <Tooltip>
             <TooltipWrapper list={tooltips} />
-          </TooltipLogin>
+          </Tooltip>
         </div>
       }
     >
