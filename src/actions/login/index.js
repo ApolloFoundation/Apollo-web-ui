@@ -21,7 +21,6 @@ import {setAccountPassphrase} from '../../modules/account';
 import { secureStorage } from '../../helpers/format';
 import cancelAxiosRequest from '../../helpers/cancelToken';
 
-
 export function getAccountDataAction(requestParams) {
     return async dispatch => {
         dispatch({
