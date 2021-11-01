@@ -14,11 +14,8 @@ import {getAllTaggedDataAction} from "../../actions/datastorage";
 import {getActiveShfflings, getShufflingAction} from "../../actions/shuffling";
 import {getpollsAction} from "../../actions/polls";
 import {getAccountInfoAction} from "../../actions/account";
-import cancelAxiosRequest from '../../helpers/cancelToken';
 
 export const getDashboardData = () => (dispatch, getState) => {
-    cancelAxiosRequest.update();
-
     const {account: {account}} = getState();
 
     const rquestParams = {
