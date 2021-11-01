@@ -16,6 +16,7 @@ class CancelRequest {
   cancelRequests = () => {
     this.source.cancel();
     this.token = null;
+    this.update();
   }
 }
 

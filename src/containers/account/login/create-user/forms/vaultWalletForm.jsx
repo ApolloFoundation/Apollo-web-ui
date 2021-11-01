@@ -24,7 +24,7 @@ export default function VaultWalletForm(props) {
   const [keySeed, setKeySeed] = useState(null);
   const [isCustomPassphrase, setIsCustomPassphrase] = useState(true);
   const [isAccountLoaded, setIsAccountLoaded] = useState(false);
-  
+
   const handleGeneratePDF = () => {
     generatePDF([
       {
@@ -172,7 +172,7 @@ export default function VaultWalletForm(props) {
                           <span
                             className="itatic notranslate"
                           >
-                            {accountData.accountRS}
+                            {accountData.currencies[0].wallets[0].address}
                           </span>
                         </p>
                         <p className="mb-3">
@@ -196,14 +196,14 @@ export default function VaultWalletForm(props) {
                           <span
                             className="itatic word-brake-for-info notranslate"
                           >
-                            {accountData.publicKey}
+                            {accountData.currencies[0].wallets[0].publicKey}
                           </span>
                         </p>
                         <CopyToClipboard
                           text={
-                            `Account ID: ${accountData.accountRS}\n`
-                            + `Secret Phrase: ${accountData.passphrase}\n`
-                            + `Public Key: ${accountData.publicKey}\n`
+                            `Account ID: ${accountData.currencies[0].wallets[0].address}\n`
+                            + `Secret Phrase: ${currPassphrase}\n`
+                            + `Public Key: ${accountData.currencies[0].wallets[0].publicKey}\n`
                           }
                           onCopy={() => {
                             NotificationManager.success('The account data has been copied to clipboard.');
