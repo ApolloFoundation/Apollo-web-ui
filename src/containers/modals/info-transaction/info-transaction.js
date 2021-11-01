@@ -244,9 +244,9 @@ class InfoLedgerTransaction extends React.Component {
                           <td>Signature:</td>
                           <td className={"no-white-space"}>
                             {parsedSignatures &&
-                              parsedSignatures.map((signature) => (
+                              parsedSignatures.map((signature, index) => (
                                 <>
-                                  <span className={"break-word"}>
+                                  <span  key={index} className={"break-word"}>
                                     {signature}
                                   </span>
                                   <br />
@@ -456,9 +456,9 @@ class InfoLedgerTransaction extends React.Component {
                                       </thead>
                                       <tbody>
                                         {this.state.whitelist &&
-                                          this.state.whitelist.map((el) => {
+                                          this.state.whitelist.map((el, index) => {
                                             return (
-                                              <tr>
+                                              <tr key={index}>
                                                 <td
                                                   className={"blue-link-text"}
                                                 >

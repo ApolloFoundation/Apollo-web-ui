@@ -5,7 +5,6 @@
 
 import React from "react";
 import { connect } from "react-redux";
-import { v4 as uuidv4 } from "uuid";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
 import { setBodyModalParamsAction } from "../../../../modules/modals";
@@ -36,7 +35,7 @@ const PoolItem = (props) => {
     checkAction = true;
   }
   return (
-    <tr key={uuidv4()}>
+    <tr>
       <td className="blue-link-text">
         <Button
           color="blue-link"
