@@ -1,5 +1,4 @@
 import React from "react";
-import { v4 as uuidv4 } from "uuid";
 import { ReactComponent as TwitterImg } from "../../../../assets/social-icons/twitter.svg";
 import { ReactComponent as MediumImg } from "../../../../assets/social-icons/medium.svg";
 import { ReactComponent as GithubImg } from "../../../../assets/social-icons/github.svg";

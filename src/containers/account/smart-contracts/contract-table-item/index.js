@@ -25,11 +25,8 @@ export const ContractTableItem = ({
 }) => {
   const history = useHistory();
   const dispatch = useDispatch();
-
   const currentDate = dispatch(formatTimestamp(new Date(timestamp)));
-
-  const isStatusAPL20 = (/^APL20BUY/).test(baseContract) || (/^APL20LOCK/).test(baseContract);
-
+  const isStatusAPL20 = /^APL20BUY/.test(baseContract) || /^APL20LOCK/.test(baseContract);
   const handleContractInfo = () => {
     isStatusAPL20
       ? history.push(`/smart-contracts/explorer/${address}`)
@@ -77,14 +74,13 @@ export const ContractTableItem = ({
       <td className="align-right">
         <div className="btn-box inline">
           {isStatusAPL20 && (
-            <button
-              type={"button"}
+            <Button
               onClick={handleByMethod}
-              className={`btn btn-green btn-sm`}
+              color="green"
+              size="sm"
               id={`button-buy-${id}`}
-            >
-              Buy
-            </button>
+              name="Buy"
+            />
           )}
         </div>
       </td>

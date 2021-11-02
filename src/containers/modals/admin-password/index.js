@@ -34,9 +34,7 @@ class EnterAdminPassword extends React.Component {
         const privateKey = crypto.getPrivateKeyAPL(passphrase);
         const publicKey  = this.props.publicKey;
 
-        var sharedKey;
-
-        sharedKey = crypto.getSharedSecretJava(
+        var sharedKey = crypto.getSharedSecretJava(
             converters.hexStringToByteArray(crypto.getPrivateKeyAPL(passphrase)),
             converters.hexStringToByteArray(this.props.publicKey)
         );

@@ -3,52 +3,69 @@
  *                                                                            *
  ******************************************************************************/
 
+import React from "react";
+import { useDispatch } from "react-redux";
+import { setBodyModalParamsAction } from "../../../../modules/modals";
+import { formatTimestamp } from "../../../../helpers/util/time";
+import Button from "../../../components/button";
 
-import React from 'react';
-import {setBodyModalParamsAction} from "../../../../modules/modals";
-import {connect} from 'react-redux';
-import {formatTimestamp} from "../../../../helpers/util/time";
+const TransferHistoryItem = (props) => {
+  const dispatch = useDispatch();
 
-class TransferHistoryItem extends React.Component {
-    constructor(props) {
-        super(props);
+  const {
+    assetTransfer,
+    timestamp,
+    name,
+    decimals,
+    quantityATU,
+    recipient,
+    sender,
+    senderRS,
+    recipientRS,
+  } = this.props;
 
-        this.state = {
-            transfer: this.props.transfer
-        }
-    }
+  const handleInfoTransactionModal = () =>
+    dispatch(setBodyModalParamsAction("INFO_TRANSACTION", assetTransfer));
 
-    render () {
-        const {setBodyModalParamsAction, assetTransfer, timestamp, name, decimals, quantityATU, recipient, sender, senderRS, recipientRS} = this.props;
+  const handleInfoAccountModal = (props) =>
+    dispatch(setBodyModalParamsAction("INFO_TRANSACTION", props));
 
-        return (
-            <tr key={assetTransfer}>
-                <td className="blue-link-text">
-                    <a onClick={setBodyModalParamsAction.bind(this, 'INFO_TRANSACTION', assetTransfer)}>{assetTransfer}</a>
-                </td>
-                <td>
-                    {name}
-                    <a><span className="info"/></a>
-                </td>
-                <td className="">{this.props.formatTimestamp(timestamp)}</td>
-                <td className="align-right" >{(quantityATU / Math.pow(10, decimals)).toLocaleString('en', {
-                    minimumFractionDigits: decimals,
-                    maximumFractionDigits: decimals
-                })}</td>
-                <td className="blue-link-text">
-                    <a onClick={setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', recipient)}>{recipientRS}</a>
-                </td>
-                <td className="blue-link-text">
-                    <a onClick={setBodyModalParamsAction.bind(this, 'INFO_ACCOUNT', sender)}>{senderRS}</a>
-                </td>
-            </tr>
-        )
-    }
-}
+  return (
+    <tr>
+      <td>
+        <Button
+          color="blue-link"
+          onClick={handleInfoTransactionModal}
+          name={assetTransfer}
+        />
+      </td>
+      <td>
+        {name}
+        <span className="info pointer" />
+      </td>
+      <td>{formatTimestamp(timestamp)}</td>
+      <td className="align-right">
+        {(quantityATU / Math.pow(10, decimals)).toLocaleString("en", {
+          minimumFractionDigits: decimals,
+          maximumFractionDigits: decimals,
+        })}
+      </td>
+      <td>
+        <Button
+          name={recipientRS}
+          color="blue-link"
+          onClick={() => handleInfoAccountModal(recipient)}
+        />
+      </td>
+      <td>
+        <Button
+          name={senderRS}
+          color="blue-link"
+          onClick={() => handleInfoAccountModal(sender)}
+        />
+      </td>
+    </tr>
+  );
+};
 
-const mapDispatchToProps = dispatch => ({
-    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-    formatTimestamp: (timestamp, date_only, isAbsoluteTime) => dispatch(formatTimestamp(timestamp, date_only, isAbsoluteTime)),
-});
-
-export default connect(null, mapDispatchToProps)(TransferHistoryItem);
+export default TransferHistoryItem;

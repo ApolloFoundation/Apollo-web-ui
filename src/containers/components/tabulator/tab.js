@@ -25,6 +25,7 @@ const Tab = ({
     actveTab={activeTab}
   >
     <p className="pre">{sectionName}</p>
+
     {handleClose && (
       <span
         className="pl-4"

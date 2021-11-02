@@ -10,6 +10,7 @@ import {connect} from 'react-redux';
 import crypto from '../../../../helpers/crypto/crypto'
 import {formatTimestamp} from "../../../../helpers/util/time";
 import submitForm from "../../../../helpers/forms/forms";
+import Button from "../../../components/button";
 
 const mapStateToProps = state => ({
     account: state.account
@@ -74,11 +75,11 @@ class MessageItem extends React.Component {
             <tr>
                 <></>
                 <td className="blue-link-text">{formatTimestamp(timestamp)}</td>
-                <td className="blue-link-text">
-                    <a onClick={() => setBodyModalParamsAction('INFO_ACCOUNT', sender)}>{senderRS}</a>
+                <td>
+                    <Button color="blue-link" onClick={() => setBodyModalParamsAction('INFO_ACCOUNT', sender)} name={senderRS}/>
                 </td>
-                <td className="blue-link-text">
-                    <a onClick={() => setBodyModalParamsAction('INFO_ACCOUNT', recipient)}>{recipientRS}</a>
+                <td>
+                    <Button color="blue-link" onClick={() => setBodyModalParamsAction('INFO_ACCOUNT', recipient)} name={recipientRS}/>
                 </td>
                <td>
                     {
