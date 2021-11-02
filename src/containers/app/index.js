@@ -91,6 +91,8 @@ import CreateSmartContract from "../account/smart-contracts/create-smart-contrac
 import MySmartContract from "../account/smart-contracts/my-smart-contracts";
 import ExplorerContracts from "../account/smart-contracts/explorer-contracts";
 
+import { SmartContractsEvents } from '../account/smart-contracts/smart-contracts-events/Events';
+
 import "./App.scss";
 import "./fonts.scss";
 
@@ -319,6 +321,11 @@ class App extends React.Component {
         exact
         path="/smart-contracts/my-contracts"
         component={MySmartContract}
+      />
+      <Route 
+        exact
+        path="/smart-contracts/events"
+        component={SmartContractsEvents}
       />
       <Route exact path="/smart-contracts/explorer/:id?" component={ExplorerContracts} />
       <Route

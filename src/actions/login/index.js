@@ -18,7 +18,8 @@ import submitForm from "../../helpers/forms/forms";
 import store from '../../store'
 import {setBodyModalParamsAction} from "../../modules/modals";
 import {setAccountPassphrase} from '../../modules/account';
-import { secureStorage } from '../../helpers/format'
+import { secureStorage } from '../../helpers/format';
+import { clearAllSmartContractsEventsAction } from '../smart-contracts';
 
 export function getAccountDataAction(requestParams) {
     return async dispatch => {
@@ -257,6 +258,8 @@ export function setForging(requestType) {
 
 export async function logOutAction(action, history) {
     const {dispatch} = store;
+    // reset all events from smart contracts
+    dispatch(clearAllSmartContractsEventsAction());
 
     switch (action) {
         case('simpleLogOut'):

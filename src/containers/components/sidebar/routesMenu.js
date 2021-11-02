@@ -157,6 +157,12 @@ export const smartСontracts = {
       label: "Create smart contract",
       icon: "zmdi-collection-text",
     },
+    {
+      className: "/smart-contracts/events",
+      to: "/smart-contracts/events",
+      label: "Events",
+      icon: "zmdi-collection-text",
+    }
   ],
 };
 

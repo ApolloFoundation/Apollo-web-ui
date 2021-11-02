@@ -1,8 +1,16 @@
 import React from "react";
 import classNames from "classnames";
 
-const Tab = ({ handleTab, activeTab, onFocus, sectionName, id, index }) => (
-  <button
+const Tab = ({
+  handleClose,
+  handleTab,
+  activeTab,
+  onFocus,
+  sectionName,
+  id,
+  index,
+}) => (
+  <a
     id={id}
     onClick={(e) => {
       if (onFocus) {
@@ -17,7 +25,19 @@ const Tab = ({ handleTab, activeTab, onFocus, sectionName, id, index }) => (
     actveTab={activeTab}
   >
     <p className="pre">{sectionName}</p>
-  </button>
+
+    {handleClose && (
+      <span
+        className="pl-4"
+        onClick={(e) => {
+          e.stopPropagation();
+          handleClose(index);
+        }}
+      >
+        <i className="zmdi zmdi-close" />
+      </span>
+    )}
+  </a>
 );
 
 export default Tab;

@@ -122,6 +122,7 @@ import ConfirmCreateOffer from './exchange/confirm-create-offer';
 import ConfirmCancelOrder from './exchange/confirm-cancel-offer';
 import SelectOrder from './exchange/select-order';
 import ConfirmExportWallet from "./exchange/confirm-export-wallet";
+import EventAddContract from "./event-add-contract";
 
 class ModalWindow extends React.Component {
     componentDidMount() {
@@ -334,6 +335,7 @@ class ModalWindow extends React.Component {
                     {this.props.modalType === 'CONFIRM_EXPORT_WALLET'       && <ConfirmExportWallet       closeModal={this.closeModal}/>}
                     {this.props.modalType === 'SELECT_ORDER'                && <SelectOrder               closeModal={this.closeModal}/>}
                     {this.props.modalType === 'LOGOUT_EXCHANGE'             && <LogoutExchange            closeModal={this.closeModal}/>}
+                    {this.props.modalType === 'EVENT_ADD_CONRACT'           && <EventAddContract          closeModal={this.closeModal}/>}
                 </ModalProvider>
             </div>
         );

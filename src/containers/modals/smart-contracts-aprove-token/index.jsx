@@ -27,6 +27,7 @@ export default function ({ closeModal }) {
     (state) => state.account
   );
   const [fuelSwitcher, setFuelSwitcher] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
   const handleChanegeFuelSwitcher = () => {
     setFuelSwitcher(!fuelSwitcher);
@@ -50,8 +51,8 @@ export default function ({ closeModal }) {
         value: 0,
         ...values,
       };
-
       const testToken = await dispatch(exportTestContract(data));
+      setLoading(true);
       if (!testToken.errorCode) {
         const publishToken = await dispatch(exportContractSubmit(data));
         if (!publishToken.errorCode) {
@@ -60,6 +61,7 @@ export default function ({ closeModal }) {
           );
           if (!boardToken.errorCode) {
             closeModal();
+            setLoading(false);
           }
         }
       }
@@ -76,7 +78,7 @@ export default function ({ closeModal }) {
             fuelPrice: 100,
             fuelLimit: 300000000,
             source: sourceValue(modalData.token, modalData.params),
-            secret: secretPhrase,
+            secretPhrase,
           }}
         >
           {({ values, setFieldValue }) => {
@@ -149,7 +151,7 @@ export default function ({ closeModal }) {
                       label="Secret phrase"
                       type="password"
                       placeholder="Secret Phrase"
-                      name="secret"
+                      name="secretPhrase"
                       disabled
                     />
                     <Button
@@ -157,6 +159,7 @@ export default function ({ closeModal }) {
                       size="lg"
                       color="green"
                       name={"Publish"}
+                      isLoading={isLoading}
                     />
                   </div>
                 </div>

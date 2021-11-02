@@ -31,6 +31,7 @@ class TabulationBody extends React.Component {
                   <Tab
                     id={child.props.id}
                     key={index}
+                    handleClose={this.props.handleClose}
                     handleTab={this.handleTab}
                     sectionName={child.props.sectionName}
                     activeTab={this.state.activeTab}
@@ -46,10 +47,7 @@ class TabulationBody extends React.Component {
           {React.Children.map(children, (child, index) => {
             if (this.state.activeTab === index) {
               return (
-                <div
-                  key={index}
-                  className={"tab-body active"}
-                >
+                <div key={index} className={"tab-body active"}>
                   {child}
                 </div>
               );

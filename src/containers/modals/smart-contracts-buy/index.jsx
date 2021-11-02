@@ -21,7 +21,7 @@ export default function ({ closeModal }) {
   const {
     ticker,
     accountRS: sender,
-    passPhrase: secret,
+    passPhrase: secretPhrase,
   } = useSelector((state) => state.account);
   const modalData = useSelector((state) => state.modals.modalData);
   const [fuelSwitcher, setFuelSwitcher] = useState(false);
@@ -79,7 +79,7 @@ export default function ({ closeModal }) {
         fuelLimit: 300000000,
         fuelPrice: 100,
         params: "",
-        secret,
+        secretPhrase,
       }}
     >
       <ByForm
