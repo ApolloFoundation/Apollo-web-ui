@@ -129,7 +129,7 @@ class CreateUser extends React.Component {
 
     generatePassphrase = async (passphrase) => {
         const generatedPassphrase = passphrase ? passphrase : crypto.generatePassPhraseAPL();
-        const generatedAccount = store.dispatch(await this.props.getAccountIdAsyncApl(passphrase ? passphrase : generatedPassphrase.join(' ')));
+        const generatedAccount = await this.props.getAccountIdAsyncApl(passphrase ? passphrase : generatedPassphrase.join(' '));
 
         this.setState({
             ...this.state,
