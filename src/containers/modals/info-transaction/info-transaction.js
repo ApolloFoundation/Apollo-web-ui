@@ -98,10 +98,13 @@ class InfoLedgerTransaction extends React.Component {
     render() {
         const {transaction, transactionId} = this.state;
         const { decimals } = this.props;
-        const parsedSignatures = transaction && (typeof transaction.signature === "string" ? [transaction.signature] : transaction.signature.signatures.map(i => i.signature));
+
+        const parsedSignatures = (transaction && transaction.signature) && (typeof transaction.signature === "string" ? [transaction.signature] : transaction.signature.signatures.map(i => i.signature));
+        
         const recipientRS = transaction
           && (this.props.accountRS === transaction.recipientRS ? transaction.senderRS : transaction.recipientRS);
-        return (
+
+          return (
             <ModalBody
                 modalTitle={`Transaction ${transactionId || ''} Info`}
                 closeModal={this.props.closeModal}

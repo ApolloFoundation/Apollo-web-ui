@@ -93,7 +93,7 @@ class JoinShuffling extends React.Component {
     setAccount = async (getFormState, setValue) => {
         const passphrase = getFormState().values.recipientSecretPhrase;
 
-        const generatedAccount = store.dispatch(await this.props.getAccountIdAsyncApl(passphrase));
+        const generatedAccount = await this.props.getAccountIdAsyncApl(passphrase);
 
         setValue('generatedAccount', generatedAccount);
     };

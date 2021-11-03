@@ -49,7 +49,7 @@ export function getAccountDataBySecretPhrasseAction(requestParams) {
 
         secureStorage.setItem('secretPhrase', JSON.stringify(requestParams.secretPhrase));
 
-        const loginStatus = await dispatch(makeLoginReq({account: dispatch(accountRS)}));
+        const loginStatus = await dispatch(makeLoginReq({account: accountRS}));
 
         if (loginStatus) {
             if (loginStatus.errorCode && !loginStatus.account) {
