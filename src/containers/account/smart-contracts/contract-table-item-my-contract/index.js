@@ -15,7 +15,6 @@ import Button from "../../../components/button";
 
 export const ContractTableItemMyContract = ({
   address,
-  symbol,
   timestamp,
   transaction,
   signature,

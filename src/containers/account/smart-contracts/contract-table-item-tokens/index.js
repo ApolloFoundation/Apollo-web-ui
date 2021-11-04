@@ -7,16 +7,16 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { setBodyModalParamsAction } from "../../../../modules/modals";
-import { getTransactionAction } from "../../../../actions/transactions";
 import { getSmcSpecification } from "../../../../actions/contracts";
+import { convertToToken } from "../../../../helpers/converters";
 import Button from "../../../components/button";
 
 export const ContractTableItemTokens = ({
   address,
   symbol,
-  transaction,
-  balance,
+  signature,
   baseContract,
+  balance,
   id,
 }) => {
   const history = useHistory();
@@ -28,17 +28,6 @@ export const ContractTableItemTokens = ({
     isStatusAPL20
       ? history.push(`/smart-contracts/explorer/${address}`)
       : dispatch(setBodyModalParamsAction("SMC_INFO", { address }));
-  };
-
-  const handleTransactionInfo = async () => {
-    const transactionInfo = await dispatch(
-      getTransactionAction({
-        transaction,
-      })
-    );
-    if (transactionInfo) {
-      dispatch(setBodyModalParamsAction("INFO_TRANSACTION", transactionInfo));
-    }
   };
 
   const handleByMethod = async () => {
@@ -62,14 +51,8 @@ export const ContractTableItemTokens = ({
         <Button color="blue-link" onClick={handleContractInfo} name={address} />
       </td>
       <td>{symbol}</td>
-      <td>
-        <Button
-          color="blue-link"
-          onClick={handleTransactionInfo}
-          name={transaction}
-        />
-      </td>
-      <td>{balance}</td>
+      <td>{convertToToken(balance, 8, true)}</td>
+      <td>{signature.substr(-12)}</td>
       <td className="align-right">
         <div className="btn-box inline">
           <Button

@@ -9,18 +9,15 @@
 
 import React, { useState, useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Form, Formik } from "formik";
 import { getContracts } from "../../../../actions/contracts";
-import { setBodyModalParamsAction } from "../../../../modules/modals";
 import { getSmcSpecification } from "../../../../actions/contracts";
 import SiteHeader from "../../../components/site-header";
 import CustomTable from "../../../components/tables/table";
 import { ContractTableItemTokens } from "../contract-table-item-tokens";
 import { processAccountRStoHex } from "apl-web-crypto";
-import Button from "../../../components/button";
 import { exportReadMethod } from "../../../../actions/contracts";
 
-const MyTokens = (props) => {
+const MyTokens = () => {
   const dispatch = useDispatch();
   const [contractList, setContractList] = useState([]);
   const [pagination, setPagination] = useState({
@@ -88,6 +85,7 @@ const MyTokens = (props) => {
 
   const prevPaginate = () => onPaginate(pagination.page - 1);
   const nextPaginate = () => onPaginate(pagination.page + 1);
+  
   return (
     <div className="page-content">
       <SiteHeader pageTitle="My tokens" />

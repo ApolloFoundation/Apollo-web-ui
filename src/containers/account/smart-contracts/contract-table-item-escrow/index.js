@@ -3,8 +3,7 @@
  *                                                                            *
  ***************************************************************************** */
 
-import React, { useEffect, useCallback, useState } from "react";
-import { v4 as uuidv4 } from "uuid";
+import React from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { formatTimestamp } from "../../../../helpers/util/time";
@@ -15,7 +14,6 @@ import Button from "../../../components/button";
 
 export const ContractTableItemEscrow = ({
   address,
-  symbol,
   timestamp,
   transaction,
   signature,
