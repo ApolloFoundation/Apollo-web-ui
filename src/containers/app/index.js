@@ -90,7 +90,7 @@ import SmartContracts from "../account/smart-contracts";
 import CreateSmartContract from "../account/smart-contracts/create-smart-contract";
 import MySmartContract from "../account/smart-contracts/my-smart-contracts";
 import ExplorerContracts from "../account/smart-contracts/explorer-contracts";
-
+import MyTokens from "../account/smart-contracts/my-tokens";
 import { SmartContractsEvents } from '../account/smart-contracts/smart-contracts-events/Events';
 
 import "./App.scss";
@@ -321,6 +321,11 @@ class App extends React.Component {
         exact
         path="/smart-contracts/my-contracts"
         component={MySmartContract}
+      />
+      <Route
+        exact
+        path="/smart-contracts/my-tokens"
+        component={MyTokens}
       />
       <Route 
         exact

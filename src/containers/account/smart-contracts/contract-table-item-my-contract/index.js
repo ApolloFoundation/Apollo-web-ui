@@ -4,17 +4,16 @@
  ***************************************************************************** */
 
 import React, { useEffect, useCallback, useState } from "react";
+import { v4 as uuidv4 } from "uuid";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { formatTimestamp } from "../../../../helpers/util/time";
 import { setBodyModalParamsAction } from "../../../../modules/modals";
 import { getTransactionAction } from "../../../../actions/transactions";
 import { getSmcSpecification } from "../../../../actions/contracts";
-import { exportReadMethod } from "../../../../actions/contracts";
 import Button from "../../../components/button";
 
-
-export const ContractTableItem = ({
+export const ContractTableItemMyContract = ({
   address,
   symbol,
   timestamp,
@@ -67,7 +66,7 @@ export const ContractTableItem = ({
       <td>
         <Button color="blue-link" onClick={handleContractInfo} name={address} />
       </td>
-      <td>{symbol}</td>
+      <td>{baseContract}</td>
       <td>
         <Button
           color="blue-link"

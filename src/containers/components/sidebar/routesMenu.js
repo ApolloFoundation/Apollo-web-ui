@@ -142,19 +142,26 @@ export const currencySystemMenu = {
 export const smartСontracts = {
   className: "/smart-contracts",
   to: "/smart-contracts",
-  label: "Smart contracts",
+  label: "Contracts",
   icon: "zmdi-collection-text",
   children: [
+    {
+      className: "/create-smart-contracts",
+      to: "/smart-contracts/create",
+      label: "Create contract",
+      icon: "zmdi-collection-text",
+    },
     {
       className: "/my-smart-contracts",
       to: "/smart-contracts/my-contracts",
       label: "My contracts",
       icon: "zmdi-collection-text",
     },
+
     {
-      className: "/create-smart-contracts",
-      to: "/smart-contracts/create",
-      label: "Create smart contract",
+      className: "/smart-contracts/my-tokens",
+      to: "/smart-contracts/my-tokens",
+      label: "My tokens",
       icon: "zmdi-collection-text",
     },
     {

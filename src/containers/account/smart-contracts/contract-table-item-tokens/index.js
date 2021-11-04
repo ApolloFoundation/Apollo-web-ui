@@ -3,30 +3,24 @@
  *                                                                            *
  ***************************************************************************** */
 
-import React, { useEffect, useCallback, useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { formatTimestamp } from "../../../../helpers/util/time";
 import { setBodyModalParamsAction } from "../../../../modules/modals";
 import { getTransactionAction } from "../../../../actions/transactions";
 import { getSmcSpecification } from "../../../../actions/contracts";
-import { exportReadMethod } from "../../../../actions/contracts";
 import Button from "../../../components/button";
 
-
-export const ContractTableItem = ({
+export const ContractTableItemTokens = ({
   address,
   symbol,
-  timestamp,
   transaction,
-  signature,
+  balance,
   baseContract,
-  status,
   id,
 }) => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const currentDate = dispatch(formatTimestamp(new Date(timestamp)));
   const isStatusAPL20 =
     /^APL20BUY/.test(baseContract) || /^APL20LOCK/.test(baseContract);
 
@@ -75,9 +69,7 @@ export const ContractTableItem = ({
           name={transaction}
         />
       </td>
-      <td>{signature.substr(-12)}</td>
-      <td>{currentDate}</td>
-      <td>{status}</td>
+      <td>{balance}</td>
       <td className="align-right">
         <div className="btn-box inline">
           <Button
