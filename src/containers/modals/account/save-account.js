@@ -7,32 +7,26 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {NotificationManager} from "react-notifications";
+import {Text, TextArea} from 'react-form';
 import classNames from "classnames";
 import {setBodyModalParamsAction, setModalData, saveSendModalState, openPrevModal} from '../../../modules/modals';
 import InputForm from '../../components/input-form';
 import AccountRS from '../../components/account-rs';
-import {Text, TextArea} from 'react-form';
-
+import { readFromLocalStorage, writeToLocalStorage } from '../../../actions/localStorage';
 import submitForm from "../../../helpers/forms/forms";
-import { secureStorage } from '../../../helpers/format';
 import BackForm from '../modal-form/modal-form-container';
 
 class AddAccount extends React.Component {
-    constructor(props) {
-        super(props);
+    state = {
+        activeTab: 0,
+        advancedState: false,
 
-        this.state = {
-            activeTab: 0,
-            advancedState: false,
-
-            // submitting
-            passphraseStatus: false,
-            recipientStatus: false,
-            amountStatus: false,
-            feeStatus: false,
-            isPending: false,
-        }
-
+        // submitting
+        passphraseStatus: false,
+        recipientStatus: false,
+        amountStatus: false,
+        feeStatus: false,
+        isPending: false,
     }
 
     handleFormSubmit = async(values) => {
@@ -60,14 +54,14 @@ class AddAccount extends React.Component {
                 return;
             }
 
-            let localContacts = secureStorage.getItem('APLContacts');
+            let localContacts = readFromLocalStorage('APLContacts');
 
             if (localContacts) {
                 localContacts = JSON.parse(localContacts);
 
                 if (!localContacts.filter(contact => contact.accountRS === values.accountRS).length) {
                     localContacts.push(values);
-                    secureStorage.setItem('APLContacts', JSON.stringify(localContacts));
+                    writeToLocalStorage('APLContacts', JSON.stringify(localContacts));
                     NotificationManager.success('Added to contacts!', null, 5000);
                     this.props.closeModal()
 
@@ -76,7 +70,7 @@ class AddAccount extends React.Component {
 
                 }
             } else {
-                secureStorage.setItem('APLContacts', JSON.stringify([values]));
+                writeToLocalStorage('APLContacts', JSON.stringify([values]));
                 NotificationManager.success('Added to contacts!', null, 5000);
                 this.props.closeModal()
             }
@@ -105,7 +99,7 @@ class AddAccount extends React.Component {
                 <BackForm
 	                nameModal={this.props.nameModal}
                     onSubmit={(values) => this.handleFormSubmit(values)}
-                    render={({ submitForm, values, addValue, removeValue, setValue, getValue }) => (
+                    render={({ submitForm, values, setValue, getValue }) => (
                         <form className="modal-form" onChange={() => this.props.saveSendModalState(values)} onSubmit={submitForm}>
                             <div className="form-group-app">
                                 <button type="button" onClick={this.props.closeModal} className="exit"><i className="zmdi zmdi-close" /></button>

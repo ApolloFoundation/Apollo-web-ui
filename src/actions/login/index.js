@@ -10,7 +10,7 @@ import crypto from "../../helpers/crypto/crypto";
 import {NotificationManager} from 'react-notifications';
 
 import {INIT_TRANSACTION_TYPES} from '../../helpers/transaction-types/transaction-types';
-import {login, logout, loadConstants, startLoad, endLoad, LOAD_BLOCKCHAIN_STATUS, SET_PASSPHRASE} from '../../modules/account';
+import {login, logout, loadConstants, startLoad, endLoad } from '../../modules/account';
 import {writeToLocalStorage, readFromLocalStorage} from "../localStorage";
 import {getTransactionsAction} from "../transactions";
 import {updateStoreNotifications} from "../../modules/account";
@@ -55,16 +55,16 @@ export function getAccountDataBySecretPhrasseAction(requestParams) {
             if (loginStatus.errorCode && !loginStatus.account) {
                 NotificationManager.error(loginStatus.errorDescription, 'Error', 5000)
             } else {
-                let localContacts = secureStorage.getItem('APLContacts');
+                let localContacts = readFromLocalStorage('APLContacts')
 
                 let values = {
                     accountRS: loginStatus.accountRS,
                     name: loginStatus.accountRS
                 };
 
-                localContacts = JSON.parse(localContacts);
 
                 if (localContacts) {
+                    localContacts = JSON.parse(localContacts);
                     const isInside = localContacts.find((el) => {
                         return el.accountRS === values.accountRS
                     });
@@ -87,9 +87,10 @@ export function getAccountDataBySecretPhrasseAction(requestParams) {
 
 export function isLoggedIn(history) {
     return dispatch => {
-        let account = JSON.parse(readFromLocalStorage('APLUserRS'));
+        let account = readFromLocalStorage('APLUserRS');
 
         if (account) {
+            account = JSON.parse(account);
             dispatch(makeLoginReq({account}));
         } else {
             if (document.location.pathname !== '/login' && document.location.pathname !== '/faucet')
@@ -107,7 +108,7 @@ export function getUpdateStatus() {
         .then((res) => {
             if (res.data ) {
                 if (!res.data.isUpdate) {
-                    let flag = secureStorage.getItem('updateFlag');
+                    let flag = readFromLocalStorage('updateFlag');
 
                     if (!flag) {
                         NotificationManager.info('You are using up to date version', null, 900000);
@@ -169,13 +170,14 @@ export const makeLoginReq = (requestParams) => (dispatch, getState) => {
             if (res.data) {
                 delete res.data.errorCode;
                 delete res.data.errorDescription;
+                const secret = readFromLocalStorage('secretPhrase');
                 if (res.data.account) {
                     writeToLocalStorage('APLUserRS', res.data.accountRS);
                     dispatch(updateNotifications())(res.data.accountRS);
                     dispatch(getConstantsAction());
                     dispatch({
                         type: 'SET_PASSPHRASE',
-                        payload: JSON.parse(secureStorage.getItem('secretPhrase'))
+                        payload: secret && JSON.parse(secret)
                     });
                     dispatch({
                         type: 'SET_DASHBOARD_ACCOUNT_INFO',
@@ -222,7 +224,8 @@ export function getForging() {
 export function setForging(requestType) {
     return (dispatch, getState) => {
         const account = getState().account;
-        const passpPhrase = JSON.parse(readFromLocalStorage('secretPhrase')) || account.passPhrase;
+        const secretString = readFromLocalStorage('secretPhrase')
+        const passpPhrase = secretString ? JSON.parse(secretString) : account.passPhrase;
         const forgingStatus = dispatch(crypto.validatePassphrase(passpPhrase));
         
         // dispatch({
@@ -285,7 +288,8 @@ export async function logOutAction(action, history) {
 
             secureStorage.removeItem("wallets");
             const {account} = store.getState();
-            const passPhrase = JSON.parse(secureStorage.getItem('secretPhrase')) || account.passPhrase;
+            const secret = readFromLocalStorage('secretPhrase');
+            const passPhrase = secret ? JSON.parse(secret) : account.passPhrase;
             if (account.forgingStatus && !account.forgingStatus.errorCode && (!passPhrase || account.is2FA)) {
                 store.dispatch(setBodyModalParamsAction('CONFIRM_FORGING', {
                     getStatus: 'stopForging',
