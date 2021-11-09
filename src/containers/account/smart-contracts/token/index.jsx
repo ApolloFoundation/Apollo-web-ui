@@ -20,62 +20,38 @@ const ExplorerToken = (props) => {
   const dispatch = useDispatch();
   const { id } = props.match.params;
 
-  const [tokenList, setTokenList] = useState([]);
+  const [eventList, setEventList] = useState([]);
   const [overviewInfo, setOverviewInfo] = useState([]);
   const [currentToken, setCurrentToken] = useState(null);
   const [isLoadingPanels, setIsLoadingPanels] = useState(true);
 
   useEffect(() => {
     getContractSpecification(id);
-    getSmcEventTransfer(id);
-    getSmcEventBay(id);
+    getSmcEventList(id, "Transfer", "to");
+    getSmcEventList(id, "Buy", "who");
   }, [id]);
 
-  const getSmcEventTransfer = useCallback(
-    async (id) => {
-      const transfer = await dispatch(
+  const getSmcEventList = useCallback(
+    async (id, method, from) => {
+      const event = await dispatch(
         getSmcEvent(id, {
-          event: "Transfer",
+          event: `${method}`,
           fromBlock: 0,
-          filter: `{ "to" : {"$eq": "${processAccountRStoHex(id, true)}"} }`,
+          filter: `{ "${from}" : {"$eq": "${processAccountRStoHex(
+            id,
+            true
+          )}"} }`,
         })
       );
-      if (transfer) {
-        let transferCurrentList = [];
-        transfer.events.map((item) => {
-          let itemState = JSON.parse(item.state);
-          transferCurrentList.push({
+      if (event) {
+        let eventCurrentList = event.events.map((item) => {
+          return {
             name: item.name,
             signature: item.signature,
-            ...itemState,
-          });
+            ...JSON.parse(item.state),
+          };
         });
-        setTokenList(transferCurrentList);
-      }
-    },
-    [dispatch]
-  );
-
-  const getSmcEventBay = useCallback(
-    async (id) => {
-      const eventBuy = await dispatch(
-        getSmcEvent(id, {
-          event: "Buy",
-          fromBlock: 0,
-          filter: `{ "who" : {"$eq": "${processAccountRStoHex(id, true)}"} }`,
-        })
-      );
-      if (eventBuy) {
-        let buyCurrentList = [];
-        eventBuy.events.map((item) => {
-          let itemState = JSON.parse(item.state);
-          buyCurrentList.push({
-            name: item.name,
-            signature: item.signature,
-            ...itemState,
-          });
-        });
-        setTokenList((state) => state, ...buyCurrentList);
+        setEventList(...eventList, eventCurrentList);
       }
     },
     [dispatch]
@@ -135,7 +111,7 @@ const ExplorerToken = (props) => {
                   className={"no-min-height"}
                   emptyMessage={"No Smart Contracts found."}
                   TableRowComponent={TableItemToken}
-                  tableData={tokenList}
+                  tableData={eventList}
                 />
               </div>
             </div>
