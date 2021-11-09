@@ -16,10 +16,12 @@ import TableItemEscrow from "./table-items/escrow";
 import Button from "../../components/button";
 import SearchField from "../../components/form-components/search-field";
 
-export default function SmartContracts() {
+const SmartContracts = () => {
   const dispatch = useDispatch();
-  const [searchQuery, setSearchQuery] = useState(null);
+  const [searchQuery, setSearchQuery] = useState({});
   const [contractList, setContractList] = useState([]);
+  const [filteredContractList, setFilteredContractList] = useState(null);
+  const [viewContractList, setViewContractList] = useState([]);
   const [viewEscrow, setViewEscrow] = useState(false);
   const [pagination, setPagination] = useState({
     page: 1,
@@ -32,36 +34,36 @@ export default function SmartContracts() {
   }, [pagination, searchQuery]);
 
   const getContractsList = useCallback(async () => {
-    const myContracts = await dispatch(
-      getContracts({
-        firstIndex: pagination.firstIndex,
-        lastIndex: pagination.lastIndex,
-        ...searchQuery,
-      })
-    );
-    if (myContracts.errorCode) {
-      setContractList([]);
-    } else {
-      Promise.all(
-        myContracts.contracts.map(async (el) => {
-          return await dispatch(getSmcSpecification(el.address));
-        })
-      )
-        .then((data) => {
-          const currentOverviewList = data.map((el) =>
-            el.overview.find((item) => item.name === "symbol")
-          );
-          const currentContractsList = myContracts.contracts.map(
-            (item, index) => {
-              return { ...item, symbol: currentOverviewList[index].value };
-            }
-          );
-          setContractList(currentContractsList);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+    const isSearch = Object.keys(searchQuery).length;
+    const { contracts, errorCode } = await dispatch(getContracts(searchQuery));
+
+    if (errorCode) {
+      console.log(errorCode);
+      return;
     }
+
+    Promise.all(
+      contracts.map(async (el) => {
+        return await dispatch(getSmcSpecification(el.address));
+      })
+    )
+      .then((data) => {
+        const currentOverviewList = data.map((el) =>
+          el.overview.find((item) => item.name === "symbol")
+        );
+        const currentContractsList = contracts.map((item, index) => {
+          return { ...item, symbol: currentOverviewList[index].value };
+        });
+        if (isSearch) {
+          setFilteredContractList(currentContractsList);
+        } else {
+          setContractList(currentContractsList);
+        }
+        setViewContractList(currentContractsList);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, [dispatch, pagination, searchQuery]);
 
   const onPaginate = (currentPage) => {
@@ -76,12 +78,37 @@ export default function SmartContracts() {
   const nextPaginate = () => onPaginate(pagination.page + 1);
 
   const handleSearch = (values) => {
+    let isSearch = false;
     const data = Object.entries(values).reduce((acc, [key, value]) => {
       if (value.length > 0) {
         acc[key] = value;
+        isSearch = true;
       }
       return acc;
     }, {});
+
+    if (data.hasOwnProperty("symbol")) {
+      const dataLength = Object.keys(data).length > 1;
+      if (dataLength) {
+        setSearchQuery(data);
+      }
+      const filteredList = (
+        dataLength ? filteredContractList : contractList
+      ).filter((contract) => {
+        return contract.symbol
+          .toLowerCase()
+          .includes(data.symbol.toLowerCase());
+      });
+      setViewContractList(filteredList);
+      return;
+    }
+
+    if (!isSearch) {
+      setFilteredContractList(null);
+      setViewContractList([...contractList]);
+      return;
+    }
+
     setSearchQuery(data);
   };
 
@@ -170,94 +197,85 @@ export default function SmartContracts() {
           </div>
         </div>
         <div className="card full-height">
-          <div class="card-title">{!viewEscrow ? "Tokens" : "Escrow"}</div>
+          <div class="card-title">{viewEscrow ? "Escrow" : "Tokens"}</div>
           <div class="card-body">
-            {!viewEscrow ? (
-              <CustomTable
-                id={"smart-contracts-tokens"}
-                header={[
-                  {
-                    name: "Address",
-                    alignRight: false,
-                  },
-                  {
-                    name: "Symbol",
-                    alignRight: false,
-                  },
-                  {
-                    name: "Transaction",
-                    alignRight: false,
-                  },
-                  {
-                    name: "Short Hash",
-                    alignRight: false,
-                  },
-                  {
-                    name: "Published",
-                    alignRight: false,
-                  },
-                  {
-                    name: "Status",
-                    alignRight: false,
-                  },
-                  {
-                    name: "Action",
-                    alignRight: true,
-                  },
-                ]}
-                className={"no-min-height"}
-                emptyMessage={"No Smart Contracts found."}
-                page={pagination.page}
-                TableRowComponent={TableItemContract}
-                tableData={contractList}
-                isPaginate
-                previousHendler={prevPaginate}
-                nextHendler={nextPaginate}
-                itemsPerPage={15}
-              />
-            ) : (
-              <CustomTable
-                id={"smart-contracts-escrow"}
-                header={[
-                  {
-                    name: "Address",
-                    alignRight: false,
-                  },
-                  {
-                    name: "Transaction",
-                    alignRight: false,
-                  },
-                  {
-                    name: "Short Hash",
-                    alignRight: false,
-                  },
-                  {
-                    name: "Published",
-                    alignRight: false,
-                  },
-                  {
-                    name: "Status",
-                    alignRight: false,
-                  },
-                  {
-                    name: "Action",
-                    alignRight: true,
-                  },
-                ]}
-                className={"no-min-height"}
-                emptyMessage={"No Smart Contracts found."}
-                page={pagination.page}
-                TableRowComponent={TableItemEscrow}
-                tableData={contractList}
-                isPaginate
-                previousHendler={prevPaginate}
-                nextHendler={nextPaginate}
-                itemsPerPage={15}
-              />
-            )}
+            <CustomTable
+              id={"smart-contracts-tokens"}
+              header={
+                viewEscrow
+                  ? [
+                      {
+                        name: "Address",
+                        alignRight: false,
+                      },
+                      {
+                        name: "Transaction",
+                        alignRight: false,
+                      },
+                      {
+                        name: "Short Hash",
+                        alignRight: false,
+                      },
+                      {
+                        name: "Published",
+                        alignRight: false,
+                      },
+                      {
+                        name: "Status",
+                        alignRight: false,
+                      },
+                      {
+                        name: "Action",
+                        alignRight: true,
+                      },
+                    ]
+                  : [
+                      {
+                        name: "Address",
+                        alignRight: false,
+                      },
+                      {
+                        name: "Symbol",
+                        alignRight: false,
+                      },
+                      {
+                        name: "Transaction",
+                        alignRight: false,
+                      },
+                      {
+                        name: "Short Hash",
+                        alignRight: false,
+                      },
+                      {
+                        name: "Published",
+                        alignRight: false,
+                      },
+                      {
+                        name: "Status",
+                        alignRight: false,
+                      },
+                      {
+                        name: "Action",
+                        alignRight: true,
+                      },
+                    ]
+              }
+              className={"no-min-height"}
+              emptyMessage={"No Smart Contracts found."}
+              TableRowComponent={
+                viewEscrow ? TableItemEscrow : TableItemContract
+              }
+              tableData={viewContractList}
+              page={pagination.page}
+              isPaginate
+              previousHendler={prevPaginate}
+              nextHendler={nextPaginate}
+              itemsPerPage={15}
+            />
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
+export default SmartContracts;

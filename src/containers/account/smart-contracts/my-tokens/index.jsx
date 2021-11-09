@@ -17,8 +17,10 @@ import SearchField from "../../../components/form-components/search-field";
 
 const MyTokens = () => {
   const dispatch = useDispatch();
-  const [searchQuery, setSearchQuery] = useState(null);
+  const [searchQuery, setSearchQuery] = useState({});
   const [contractList, setContractList] = useState([]);
+  const [filteredContractList, setFilteredContractList] = useState(null);
+  const [viewContractList, setViewContractList] = useState([]);
   const [pagination, setPagination] = useState({
     page: 1,
     firstIndex: 0,
@@ -27,17 +29,13 @@ const MyTokens = () => {
 
   useEffect(() => {
     getContractsList();
-  }, [pagination]);
+  }, [pagination, searchQuery]);
 
   const getContractsList = useCallback(async () => {
-    const { contracts, errorCode } = await dispatch(
-      getContracts({
-        firstIndex: pagination.firstIndex,
-        lastIndex: pagination.lastIndex,
-      })
-    );
+    const isSearch = Object.keys(searchQuery).length;
+    const { contracts, errorCode } = await dispatch(getContracts(searchQuery));
     if (errorCode) {
-      setContractList([]);
+      console.log(errorCode);
       return;
     }
 
@@ -73,18 +71,14 @@ const MyTokens = () => {
       };
     });
 
-    setContractList(currentContractsList);
-  }, [dispatch, pagination]);
+    if (isSearch) {
+      setFilteredContractList(currentContractsList);
+    } else {
+      setContractList(currentContractsList);
+    }
+    setViewContractList(currentContractsList);
+  }, [dispatch, pagination, searchQuery]);
 
-  const handleSearch = (values) => {
-    const data = Object.entries(values).reduce((acc, [key, value]) => {
-      if (value.length > 0) {
-        acc[key] = value;
-      }
-      return acc;
-    }, {});
-    setSearchQuery(data);
-  };
   const onPaginate = (currentPage) => {
     setPagination({
       page: currentPage,
@@ -95,6 +89,57 @@ const MyTokens = () => {
 
   const prevPaginate = () => onPaginate(pagination.page - 1);
   const nextPaginate = () => onPaginate(pagination.page + 1);
+
+  const handleSearch = (values) => {
+    let isSearch = false;
+
+    const data = Object.entries(values).reduce((acc, [key, value]) => {
+      if (value.length > 0) {
+        acc[key] = value;
+        isSearch = true;
+      }
+      return acc;
+    }, {});
+
+    if (data.hasOwnProperty("symbol")) {
+      const dataLength = Object.keys(data).length > 1;
+      if (dataLength) {
+        setSearchQuery(data);
+      }
+      const filteredList = (
+        dataLength ? filteredContractList : contractList
+      ).filter((contract) => {
+        return contract.symbol
+          .toLowerCase()
+          .includes(data.symbol.toLowerCase());
+      });
+      setViewContractList(filteredList);
+      return;
+    }
+
+    if (data.hasOwnProperty("balance")) {
+      const dataLength = Object.keys(data).length > 1;
+      if (dataLength) {
+        setSearchQuery(data);
+      }
+      const filteredList = (
+        dataLength ? filteredContractList : contractList
+      ).filter((contract) => {
+        return contract.balance
+          .toLowerCase()
+          .includes(data.balance.toLowerCase());
+      });
+      setViewContractList(filteredList);
+      return;
+    }
+    if (!isSearch) {
+      setFilteredContractList(null);
+      setViewContractList([...contractList]);
+      return;
+    }
+
+    setSearchQuery(data);
+  };
 
   return (
     <div className="page-content">
@@ -166,7 +211,7 @@ const MyTokens = () => {
               emptyMessage={"No Smart Contracts found."}
               page={pagination.page}
               TableRowComponent={TableItemTokens}
-              tableData={contractList}
+              tableData={viewContractList}
               isPaginate
               previousHendler={prevPaginate}
               nextHendler={nextPaginate}
