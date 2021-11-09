@@ -76,12 +76,13 @@ export default function SmartContracts() {
   const nextPaginate = () => onPaginate(pagination.page + 1);
 
   const handleSearch = (values) => {
-    for (const key in values) {
-      if (values[key].length == 0) {
-        delete values[key];
+    const data = Object.entries(values).reduce((acc, [key, value]) => {
+      if (value.length > 0) {
+        acc[key] = value;
       }
-    }
-    setSearchQuery({ ...values });
+      return acc;
+    }, {});
+    setSearchQuery(data);
   };
 
   const handleCrateToken = useCallback(() => {

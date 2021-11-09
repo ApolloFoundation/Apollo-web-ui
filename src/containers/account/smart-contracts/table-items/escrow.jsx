@@ -44,7 +44,7 @@
      }
    };
  
-   const handleByMethod = async () => {
+   const handleBuyMethod = async () => {
      const specifInfo = await dispatch(getSmcSpecification(address));
      if (specifInfo) {
        const smcInfo = specifInfo.members.reduce(
@@ -85,7 +85,7 @@
            />
            {isStatusAPL20 && (
              <Button
-               onClick={handleByMethod}
+               onClick={handleBuyMethod}
                color="green"
                size="sm"
                id={`button-buy-${id}`}

@@ -73,7 +73,7 @@ const ExplorerToken = (props) => {
 
   return (
     <div className="page-content">
-      <SiteHeader pageTitle={"Token"} />
+      <SiteHeader pageTitle="Token" />
       <div className="page-body container-fluid">
         <div className="w-100 h-auto">
           <div className="row ">

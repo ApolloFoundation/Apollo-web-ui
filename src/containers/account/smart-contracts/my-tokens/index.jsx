@@ -77,12 +77,13 @@ const MyTokens = () => {
   }, [dispatch, pagination]);
 
   const handleSearch = (values) => {
-    for (const key in values) {
-      if (values[key].length == 0) {
-        delete values[key];
+    const data = Object.entries(values).reduce((acc, [key, value]) => {
+      if (value.length > 0) {
+        acc[key] = value;
       }
-    }
-    setSearchQuery({ ...values });
+      return acc;
+    }, {});
+    setSearchQuery(data);
   };
   const onPaginate = (currentPage) => {
     setPagination({
