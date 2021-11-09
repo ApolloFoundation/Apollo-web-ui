@@ -117,6 +117,9 @@ class SearchAliases extends React.Component {
                                     },{
                                         name: 'Status',
                                         alignRight: false
+                                    },{
+                                        name: 'Price',
+                                        alignRight: false
                                     }
                                 ]}
                                 TableRowComponent={Alias}

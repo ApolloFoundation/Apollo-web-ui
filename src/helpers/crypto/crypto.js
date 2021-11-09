@@ -108,7 +108,7 @@ function getAccountIdAsyncApl(sp, prefix) {
     return async (dispatch, getStore) => {
         const pk = await getPublicKeyAPL(conv.stringToHexStringAPL(sp));
 
-        return getAccountIdFromPublicKeyAPL(pk, true, prefix);
+        return dispatch(getAccountIdFromPublicKeyAPL(pk, true, prefix));
     }
 };
 

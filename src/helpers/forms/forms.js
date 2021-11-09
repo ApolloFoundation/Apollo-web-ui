@@ -39,7 +39,7 @@ function submitForm(data, requestType, ) {
         const { decimals } = account;
         if (requestType !== 'generateAccount') {
             if (data.secretPhrase) {
-                let isPassphrase = dispatch(await dispatch(crypto.getAccountIdAsyncApl(data.secretPhrase)));
+                let isPassphrase = await dispatch(crypto.getAccountIdAsyncApl(data.secretPhrase));
                 isPassphrase = isPassphrase.split('-');
                 isPassphrase[0] = account.constants.accountPrefix;
                 isPassphrase = isPassphrase.join('-');
@@ -52,7 +52,7 @@ function submitForm(data, requestType, ) {
                     delete data.passphrase;
                 }
             } else if (data.passphrase) {
-                let isPassphrase = dispatch(await dispatch(crypto.getAccountIdAsyncApl(data.passphrase)));
+                let isPassphrase = await dispatch(crypto.getAccountIdAsyncApl(data.passphrase));
                 isPassphrase = isPassphrase.split('-');
                 isPassphrase[0] = account.constants.accountPrefix;
                 isPassphrase = isPassphrase.join('-');

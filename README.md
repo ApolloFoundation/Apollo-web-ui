@@ -51,6 +51,19 @@ To run Apollo-web-ui in development mode, please run following command:
 npm install
 npm start
 ```
+Final installation artefact is zip file in "target" directory.
+
+
+## GIT branches
+
+We follow GIT FLOW procedure in our development and use following branches:
+
+__master__ branch contains stable code of the latest release. It is also tagged for each public release. Please see "Tags" in the "branch" dropdown menu. Please use this branch to compile Apollo components.
+
+__develop__ branch contains latest development version. Use this branch if you are developer/contributor.
+
+__stage__ branch contains release preparation work of the last release. Do not use this branch if you are not release engineer
+
 
 This command start browser with URL: http://localhost:3030/.
 

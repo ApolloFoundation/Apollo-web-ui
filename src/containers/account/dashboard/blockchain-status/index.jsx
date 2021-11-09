@@ -28,8 +28,11 @@ export default function BlockchainStatus() {
       return;
     }
 
-    const prevAccountRS = JSON.parse(readFromLocalStorage('APLUserRS'));
-    const passPhrase = JSON.parse(readFromLocalStorage('secretPhrase')) || secretPhrase;
+    const prevAccountRSstring = readFromLocalStorage('APLUserRS');
+    const prevAccountRS  = prevAccountRSstring && JSON.parse(prevAccountRSstring);
+
+    const secret = readFromLocalStorage('secretPhrase');
+    const passPhrase = secret ? JSON.parse(secret) : secretPhrase;
     if (!passPhrase || is2FA || prevAccountRS !== accountRS) {
       dispatch(setBodyModalParamsAction('CONFIRM_FORGING', setForgingData(action)));
     } else {

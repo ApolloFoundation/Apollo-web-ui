@@ -36,7 +36,7 @@ export const saveSettingsAction = (settings) => dispatch => {
 };
 
 export const getSavedSettingsAction = () => dispatch => {
-    let settings = JSON.parse(readFromLocalStorage("settings"));
+    let settings = readFromLocalStorage("settings");
     if (settings === null) {
         settings = {
             bootstrap_nodes_count: 5,
@@ -49,7 +49,10 @@ export const getSavedSettingsAction = () => dispatch => {
             remote_node_port: 7876,
             validators_count: 3,
         };
+    } else {
+        settings = JSON.parse(settings);
     }
+
     dispatch({
         type: LOAD_SETTINGS,
         settings

@@ -20,6 +20,7 @@ import Button from '../../../components/button';
 import ModalBody from '../../../components/modals/modal-body';
 import TabulationBody from '../../../components/tabulator/tabuator-body';
 import TabContaier from '../../../components/tabulator/tab-container';
+import './styles.scss';
 
 import './styles.scss';
 
