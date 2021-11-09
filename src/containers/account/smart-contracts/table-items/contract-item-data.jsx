@@ -1,5 +1,4 @@
 import React from "react";
-import styles from "./index.module.scss";
 
 const ContractItemSub = (props) => {
 
@@ -14,7 +13,7 @@ const ContractItemSub = (props) => {
     <>
       <tr>
         <td>{props.event}</td>
-        <td className={styles.dataCell}>{handleData()}</td>
+        <td className="white-space-pre-wrap">{handleData()}</td>
         <td>{props.signature}</td>
         <td>{props.transaction}</td>
         <td>{props.blockNumber}</td>

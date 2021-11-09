@@ -214,6 +214,19 @@ export function getContractCode(requestParams) {
       .catch((err) => console.log(err));
 }
 
+export function getSmcEvent(id, requestParams) {
+  return () =>
+    handleFetch(`/rest/v2/smc/${id}/event`, POST, requestParams, false, true)
+      .then((res) => {
+        if (res.errorCode) {
+          NotificationManager.error(res.errorDescription, "Error", 10000);
+          return null;
+        }
+        return res;
+      })
+      .catch((err) => console.log(err));
+}
+
 export function getContractExtraInfo(requestParams) {
   return () =>
     handleFetch(`/rest/v2/state/tx/${requestParams}`)

@@ -11,18 +11,10 @@ import { setBodyModalParamsAction } from "../../../modules/modals";
 import { getSmcSpecification } from "../../../actions/contracts";
 import SiteHeader from "../../components/site-header";
 import CustomTable from "../../components/tables/table";
-import { ContractTableItem } from "./contract-table-item";
-import { ContractTableItemEscrow } from "./contract-table-item-escrow";
+import TableItemContract from "./table-items/contract";
+import TableItemEscrow from "./table-items/escrow";
 import Button from "../../components/button";
-
-import CustomFormSelect from "../../components/form-components/custom-form-select";
 import SearchField from "../../components/form-components/search-field";
-
-const STATUS_DATA = [
-  { value: "ACTIVE", label: "ACTIVE" },
-  { value: "CLOSED", label: "CLOSED" },
-  { value: "DESTROYED", label: "DESTROYED" },
-];
 
 export default function SmartContracts() {
   const dispatch = useDispatch();
@@ -90,10 +82,6 @@ export default function SmartContracts() {
       }
     }
     setSearchQuery({ ...values });
-  };
-
-  const handleChangeStatus = (value) => {
-    handleSearch({ ...searchQuery, status: value });
   };
 
   const handleCrateToken = useCallback(() => {
@@ -166,22 +154,12 @@ export default function SmartContracts() {
                         />
                       </div>
                     )}
-
                     <div className="col-md-6 col-lg p-0 pr-lg-3">
                       <SearchField
                         name={"publish"}
                         field="publish"
                         placeholder="publish"
                         setValue={setValue}
-                      />
-                    </div>
-                    <div className="col-md-6 col-lg p-0">
-                      <CustomFormSelect
-                        placeholder={"Status"}
-                        options={STATUS_DATA}
-                        field={"status"}
-                        setValue={setValue}
-                        onChange={handleChangeStatus}
                       />
                     </div>
                   </Form>
@@ -206,7 +184,7 @@ export default function SmartContracts() {
                     alignRight: false,
                   },
                   {
-                    name: "Transaction id",
+                    name: "Transaction",
                     alignRight: false,
                   },
                   {
@@ -229,7 +207,7 @@ export default function SmartContracts() {
                 className={"no-min-height"}
                 emptyMessage={"No Smart Contracts found."}
                 page={pagination.page}
-                TableRowComponent={ContractTableItem}
+                TableRowComponent={TableItemContract}
                 tableData={contractList}
                 isPaginate
                 previousHendler={prevPaginate}
@@ -245,7 +223,7 @@ export default function SmartContracts() {
                     alignRight: false,
                   },
                   {
-                    name: "Transaction id",
+                    name: "Transaction",
                     alignRight: false,
                   },
                   {
@@ -268,7 +246,7 @@ export default function SmartContracts() {
                 className={"no-min-height"}
                 emptyMessage={"No Smart Contracts found."}
                 page={pagination.page}
-                TableRowComponent={ContractTableItemEscrow}
+                TableRowComponent={TableItemEscrow}
                 tableData={contractList}
                 isPaginate
                 previousHendler={prevPaginate}

@@ -5,7 +5,7 @@ import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-tomorrow";
 import TabulationBody from "../../../../components/tabulator/tabuator-body";
 import TabContainer from "../../../../components/tabulator/tab-container";
-import PanelContract from "../panels/panel-code";
+import PanelContract from "./panel-code";
 import { getSmcSourceInfo } from "../../../../../actions/contracts";
 
 const PanelSource = ({ contracts, address }) => {

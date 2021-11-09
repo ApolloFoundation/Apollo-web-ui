@@ -6,7 +6,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import SiteHeader from "../../../components/site-header";
-import { ContractTableItemMyContract } from "../contract-table-item-my-contract";
+import TableItemMyContract from "../table-items/my-contract";
 import { getMyContracts } from "../../../../actions/contracts";
 import CustomTable from "../../../components/tables/table";
 
@@ -91,7 +91,7 @@ const SmartContracts = () => {
           className={"no-min-height mb-3"}
           emptyMessage={"No Smart Contracts found."}
           page={pagination.page}
-          TableRowComponent={ContractTableItemMyContract}
+          TableRowComponent={TableItemMyContract}
           tableData={contractList}
           isPaginate
           previousHendler={prevPaginate}

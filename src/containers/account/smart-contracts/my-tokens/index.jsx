@@ -2,23 +2,22 @@
  * Copyright © 2018 Apollo Foundation                                         *
  *                                                                            *
  ******************************************************************************/
-/******************************************************************************
- * Copyright © 2018 Apollo Foundation                                         *
- *                                                                            *
- ******************************************************************************/
 
 import React, { useState, useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { Form, Formik } from "formik";
 import { getContracts } from "../../../../actions/contracts";
 import { getSmcSpecification } from "../../../../actions/contracts";
 import SiteHeader from "../../../components/site-header";
 import CustomTable from "../../../components/tables/table";
-import { ContractTableItemTokens } from "../contract-table-item-tokens";
+import TableItemTokens from "../table-items/tokens";
 import { processAccountRStoHex } from "apl-web-crypto";
 import { exportReadMethod } from "../../../../actions/contracts";
+import SearchField from "../../../components/form-components/search-field";
 
 const MyTokens = () => {
   const dispatch = useDispatch();
+  const [searchQuery, setSearchQuery] = useState(null);
   const [contractList, setContractList] = useState([]);
   const [pagination, setPagination] = useState({
     page: 1,
@@ -41,9 +40,11 @@ const MyTokens = () => {
       setContractList([]);
       return;
     }
+
     const contractList = await Promise.all(
       contracts.map((el) => dispatch(getSmcSpecification(el.address)))
     );
+
     const balanceList = await Promise.all(
       contracts.map((el) =>
         dispatch(
@@ -75,6 +76,14 @@ const MyTokens = () => {
     setContractList(currentContractsList);
   }, [dispatch, pagination]);
 
+  const handleSearch = (values) => {
+    for (const key in values) {
+      if (values[key].length == 0) {
+        delete values[key];
+      }
+    }
+    setSearchQuery({ ...values });
+  };
   const onPaginate = (currentPage) => {
     setPagination({
       page: currentPage,
@@ -85,11 +94,47 @@ const MyTokens = () => {
 
   const prevPaginate = () => onPaginate(pagination.page - 1);
   const nextPaginate = () => onPaginate(pagination.page + 1);
-  
+
   return (
     <div className="page-content">
       <SiteHeader pageTitle="My tokens" />
       <div className="page-body container-fluid">
+        <div className="transactions-filters p-0">
+          <div className="search-bar">
+            <Formik onSubmit={handleSearch} initialValues={{}}>
+              {({ values, setValue }) => {
+                return (
+                  <Form className="form-group-app input-group-app transparent mb-0 row">
+                    <div className="col-md-6 col-lg p-0 pr-lg-3">
+                      <SearchField
+                        name={"address"}
+                        field="address"
+                        placeholder="address"
+                        setValue={setValue}
+                      />
+                    </div>
+                    <div className="col-md-6 col-lg p-0 pr-lg-3">
+                      <SearchField
+                        name={"symbol"}
+                        field="symbol"
+                        placeholder="symbol"
+                        setValue={setValue}
+                      />
+                    </div>
+                    <div className="col-md-6 col-lg p-0 pr-lg-0">
+                      <SearchField
+                        name={"balance"}
+                        field="balance"
+                        placeholder="balance"
+                        setValue={setValue}
+                      />
+                    </div>
+                  </Form>
+                );
+              }}
+            </Formik>
+          </div>
+        </div>
         <div className="card full-height">
           <div class="card-body">
             <CustomTable
@@ -105,11 +150,11 @@ const MyTokens = () => {
                 },
                 {
                   name: "Balance",
-                  alignRight: false,
+                  alignRight: true,
                 },
                 {
                   name: "Short Hash",
-                  alignRight: false,
+                  alignRight: true,
                 },
                 {
                   name: "Action",
@@ -119,7 +164,7 @@ const MyTokens = () => {
               className={"no-min-height"}
               emptyMessage={"No Smart Contracts found."}
               page={pagination.page}
-              TableRowComponent={ContractTableItemTokens}
+              TableRowComponent={TableItemTokens}
               tableData={contractList}
               isPaginate
               previousHendler={prevPaginate}

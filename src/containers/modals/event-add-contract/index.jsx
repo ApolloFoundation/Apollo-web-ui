@@ -74,7 +74,7 @@ const EventAddContract = ({ closeModal }) => {
                     <i className="zmdi zmdi-close" />
                   </button>
                   <div className="form-title">
-                    <p>Add contract</p>
+                    Add contract
                   </div>
                   <Field
                     name="contract"
