@@ -11,7 +11,7 @@ import { useField } from 'formik';
 import { NotificationManager } from 'react-notifications';
 import classNames from 'classnames';
 import InputMask from 'react-input-mask';
-import { secureStorage } from '../../../helpers/format';
+import { readFromLocalStorage } from '../../../actions/localStorage';
 
 export default function AccountRS(props) {
   const refContactsList = useRef(null);
@@ -28,7 +28,9 @@ export default function AccountRS(props) {
 
   const [isContacts, setIsContacts] = useState(false);
 
-  const contacts = JSON.parse(secureStorage.getItem('APLContacts'));
+  const contractString = readFromLocalStorage('APLContacts');
+
+  const contacts = contractString ? JSON.parse(contractString) : [];
 
   const { setValue } = helpers;
 

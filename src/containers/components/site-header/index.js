@@ -19,13 +19,13 @@ import crypto from '../../../helpers/crypto/crypto';
 import 'react-accessible-accordion/dist/fancy-example.css';
 import {NotificationManager} from "react-notifications";
 
+import { readFromLocalStorage } from "../../../actions/localStorage";
 import PageTitleBox from './page-title-box';
 
 import UserBox from './user-box';
 
 import CurrentAccount from './current-account';
 import Settings from './settings';
-import { secureStorage } from '../../../helpers/format';
 
 import './SiteHeader.scss';
 import './BodyModals.scss';
@@ -34,12 +34,14 @@ class SiteHeader extends React.Component {
     constructor(props) {
         super(props);
 
+        const contactsString = readFromLocalStorage('APLContacts');
+
         this.state = {
             searching: false,
             menuShow: false,
             isContacts: false,
             showTitleForginMenu: false,
-            contacts: JSON.parse(secureStorage.getItem('APLContacts')),
+            contacts: contactsString && JSON.parse(contactsString),
         };
 
     }

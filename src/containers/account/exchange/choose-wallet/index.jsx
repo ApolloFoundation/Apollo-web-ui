@@ -4,13 +4,13 @@ import React, {
 import { useDispatch, useSelector } from 'react-redux';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
 import { getCurrencyBalance } from '../../../../actions/wallet';
-import { secureStorage } from '../../../../helpers/format';
 import { setCurrentCurrencyAction } from '../../../../modules/exchange';
 import getFullNumber from '../../../../helpers/util/expancionalParser';
 import SiteHeader from '../../../components/site-header';
 import CustomTable from '../../../components/tables/table1';
 import InfoBox from '../../../components/info-box';
 import { useExchangeWalletConverts } from '../../../../hooks/useExchangeWalletConverts';
+import { readFromLocalStorage } from '../../../../actions/localStorage';
 import CurrencyDescriptionComponent from './currency';
 
 export default function ChooseWallet() {
@@ -43,7 +43,7 @@ export default function ChooseWallet() {
 
 
   useEffect(() => {
-    const localWallets = secureStorage.getItem('wallets');
+    const localWallets = readFromLocalStorage('wallets');
 
     if (!localWallets) {
       setBodyModalParamsAction('LOGIN_EXCHANGE', {});

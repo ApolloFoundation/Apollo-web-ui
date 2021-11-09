@@ -13,11 +13,11 @@ import {
   getPlotSellOpenOffers,
   getSellOpenOffers,
 } from '../../../../actions/wallet';
-import { secureStorage } from '../../../../helpers/format';
 import TwitterBanner from '../../../../assets/banner-small.png';
 import SiteHeader from '../../../components/site-header';
 import InfoBox from '../../../components/info-box';
 import { useExchangeWalletConverts } from '../../../../hooks/useExchangeWalletConverts';
+import { readFromLocalStorage } from '../../../../actions/localStorage';
 import TradeHistoryExchange from './trade-history';
 import TradeApollo from './trade-apollo';
 import OpenOrders from './open-orders';
@@ -63,7 +63,7 @@ export default function Exchange() {
 
   useEffect(() => {
     NotificationManager.info(`After creating an order, you should keep your node online, leaving enough funds on your account to cover the exchange fees (min 12 ${ticker}), until the exchange completes`, null, 1000000);
-    const newWallets = secureStorage.getItem('wallets');
+    const newWallets = readFromLocalStorage('wallets');
     if (!newWallets) {
       handleLoginModal();
     } else {

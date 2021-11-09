@@ -7,18 +7,25 @@ import { NotificationManager } from "react-notifications";
 
 import { logOutAction } from "../../../../actions/login";
 import { setBodyModalParamsAction } from '../../../../modules/modals';
-import { secureStorage } from '../../../../helpers/format';
+import { readFromLocalStorage } from '../../../../actions/localStorage';
 
 class CurrentAccount extends React.Component {
     refContactsList = React.createRef();
     refContactsButton = React.createRef();
+
     state = {
-        contacts: JSON.parse(secureStorage.getItem('APLContacts')),
+        contacts: null,
         isContacts: false,
     };
 
     componentDidMount() {
         document.addEventListener('mousedown', this.handleClickOutside);
+        const contactList = readFromLocalStorage('APLContacts');
+        if(contactList) {
+            this.setState({
+                contacts: JSON.parse(contactList),
+            });
+        }
     }
 
     componentWillUnmount() {

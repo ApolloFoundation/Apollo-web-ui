@@ -10,7 +10,7 @@ export function writeToLocalStorage(field, params) {
 }
 
 export function readFromLocalStorage(field) {
-  return secureStorage.getItem((field));
+  return secureStorage.getItem(field);
 }
 
 export function deleteFromLocalStorage(field) {
