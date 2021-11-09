@@ -87,7 +87,7 @@ const SmartContracts = () => {
       return acc;
     }, {});
 
-    if (data.hasOwnProperty("symbol")) {
+    if (data.symbol) {
       const dataLength = Object.keys(data).length > 1;
       if (dataLength) {
         setSearchQuery(data);
