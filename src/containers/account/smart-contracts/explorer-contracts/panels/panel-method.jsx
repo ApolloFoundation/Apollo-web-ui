@@ -8,7 +8,7 @@ import Button from "../../../../components/button";
 import ExplorerForm from "../form";
 import { setBodyModalParamsAction } from "../../../../../modules/modals";
 
-const PanelMethod = ({ items, address, type, title, token }) => {
+const PanelMethod = ({ items, address, type, title, token, id }) => {
   const dispatch = useDispatch();
   const { transactions } = useSelector((state) => state.smartContract);
   const [expanded, setExpanded] = useState(false);
@@ -40,7 +40,7 @@ const PanelMethod = ({ items, address, type, title, token }) => {
       {items.length > 0 ? (
         items.map((item, index) => (
           <Collapsible
-            id={`${item.name}-${index}-explorer-smart-contracts`}
+            id={`${item.name}-${index}-${id}-smart-contracts`}
             title={item.name}
             expand={expanded}
             key={item.id}
@@ -48,7 +48,7 @@ const PanelMethod = ({ items, address, type, title, token }) => {
           >
             {type === "write" || (type === "view" && item.inputs.length > 0) ? (
               <ExplorerForm
-                id={`${item.name}-${index}-explorer-smart-contracts`}
+                id={`${item.name}-${index}-${id}-explorer-smart-contracts`}
                 methodName={item.name}
                 type={type}
                 address={address}

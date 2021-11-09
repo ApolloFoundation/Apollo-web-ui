@@ -58,11 +58,12 @@ export const ContractTableItem = ({
   return (
     <tr key={uuidv4()}>
       <td>
-        <Button color="blue-link" onClick={handleContractInfo} name={address} />
+        <Button id={`button-adres-${id}`} color="blue-link" onClick={handleContractInfo} name={address} />
       </td>
       <td>{name}</td>
       <td>
         <Button
+          id={`button-transaction-${id}`}
           color="blue-link"
           onClick={handleTransactionInfo}
           name={transaction}
