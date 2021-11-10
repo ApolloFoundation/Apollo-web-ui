@@ -15,10 +15,10 @@ import TableItemContract from "./table-items/contract";
 import TableItemEscrow from "./table-items/escrow";
 import Button from "../../components/button";
 import SearchField from "../../components/form-components/search-field";
+import { formatTimestamp } from "../../../helpers/util/time";
 
 const SmartContracts = () => {
   const dispatch = useDispatch();
-  const [searchQuery, setSearchQuery] = useState({});
   const [contractList, setContractList] = useState([]);
   const [filteredContractList, setFilteredContractList] = useState(null);
   const [viewContractList, setViewContractList] = useState([]);
@@ -26,16 +26,15 @@ const SmartContracts = () => {
   const [pagination, setPagination] = useState({
     page: 1,
     firstIndex: 0,
-    lastIndex: 15,
+    lastIndex: 3,
   });
 
   useEffect(() => {
     getContractsList();
-  }, [pagination, searchQuery]);
+  }, []);
 
   const getContractsList = useCallback(async () => {
-    const isSearch = Object.keys(searchQuery).length;
-    const { contracts, errorCode } = await dispatch(getContracts(searchQuery));
+    const { contracts, errorCode } = await dispatch(getContracts());
 
     if (errorCode) {
       console.log(errorCode);
@@ -54,24 +53,27 @@ const SmartContracts = () => {
         const currentContractsList = contracts.map((item, index) => {
           return { ...item, symbol: currentOverviewList[index].value };
         });
-        if (isSearch) {
-          setFilteredContractList(currentContractsList);
-        } else {
-          setContractList(currentContractsList);
-        }
+
+        setContractList(currentContractsList);
         setViewContractList(currentContractsList);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [dispatch, pagination, searchQuery]);
+  }, [dispatch]);
 
   const onPaginate = (currentPage) => {
     setPagination({
       page: currentPage,
-      firstIndex: currentPage * 15 - 15,
-      lastIndex: currentPage * 15,
+      firstIndex: currentPage * 3 - 3,
+      lastIndex: currentPage * 3,
     });
+    if(filteredContractList.length > 0) {
+      setViewContractList([...filteredContractList.slice(currentPage * 3 - 3)]);
+      return;
+    }
+
+    setViewContractList([...contractList.slice(currentPage * 3 - 3)]);
   };
 
   const prevPaginate = () => onPaginate(pagination.page - 1);
@@ -87,32 +89,39 @@ const SmartContracts = () => {
       return acc;
     }, {});
 
-    if (data.symbol) {
-      const dataLength = Object.keys(data).length > 1;
-      if (dataLength) {
-        setSearchQuery(data);
-      }
-      const filteredList = (
-        dataLength ? filteredContractList : contractList
-      ).filter((contract) => {
-        return contract.symbol
-          .toLowerCase()
-          .includes(data.symbol.toLowerCase());
-      });
-      setViewContractList(filteredList);
-      return;
-    }
-
     if (!isSearch) {
-      setFilteredContractList(null);
+      setFilteredContractList([]);
       setViewContractList([...contractList]);
+      setPagination({
+        page: 1,
+        firstIndex: 0,
+        lastIndex: 3,
+      });
       return;
     }
 
-    setSearchQuery(data);
+    const filtersList = Object.entries(data);
+
+    const list = contractList.filter(item => 
+      filtersList.every(([key, value]) => {
+        if(key === 'publish') {
+          return dispatch(formatTimestamp(new Date(item.timestamp))) === value.trim();
+        }
+
+        return item[key].toLowerCase().includes(value.toLowerCase());
+      })
+    );
+
+    setFilteredContractList(list);
+    setViewContractList(list);
+    setPagination({
+      page: 1,
+      firstIndex: 0,
+      lastIndex: 3,
+    });
   };
 
-  const handleCrateToken = useCallback(() => {
+  const handleCreateToken = useCallback(() => {
     dispatch(setBodyModalParamsAction("SMC_CREATE_TOKEN", null));
   }, [dispatch]);
 
@@ -129,7 +138,7 @@ const SmartContracts = () => {
           className="mr-2"
           color="green"
           size="sm"
-          onClick={handleCrateToken}
+          onClick={handleCreateToken}
         />
         <Button
           id={"button-smart-contracts-cteate-token"}
@@ -137,7 +146,7 @@ const SmartContracts = () => {
           className="mr-2"
           color="green"
           size="sm"
-          onClick={handleCrateToken}
+          onClick={handleCreateToken}
         />
         <Button
           id={"button-smart-contracts-cteate-token"}
@@ -270,7 +279,7 @@ const SmartContracts = () => {
               isPaginate
               previousHendler={prevPaginate}
               nextHendler={nextPaginate}
-              itemsPerPage={15}
+              itemsPerPage={3}
             />
           </div>
         </div>
