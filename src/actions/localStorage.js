@@ -17,9 +17,11 @@ export function readFromLocalStorage(field) {
   try {
     const value = secureStorage.getItem(field);
     if(!value) return value;
-
-    JSON.parse(value);
-
+    
+    const parsedValue = JSON.parse(value);
+    if (field === 'APLContracts' && !Array.isArray(parsedValue)) {
+      throw new Error()
+    }
     return value;
   } catch (e) {
     localStorage.clear();
