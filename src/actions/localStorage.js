@@ -16,7 +16,10 @@ export function readFromLocalStorage(field) {
 
   try {
     const value = secureStorage.getItem(field);
+    if(!value) return value;
+
     JSON.parse(value);
+
     return value;
   } catch (e) {
     localStorage.clear();
