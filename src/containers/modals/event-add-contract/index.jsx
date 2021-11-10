@@ -5,7 +5,6 @@ import { Form, Formik, Field } from "formik";
 import { addContractAction } from "../../../actions/smart-contracts";
 import Button from "../../components/button";
 import TextualInputComponent from "../../components/form-components/textual-input1";
-import config from '../../../config';
 
 const initialState = {
   contract: "",
