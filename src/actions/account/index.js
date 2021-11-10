@@ -204,7 +204,6 @@ export const createAccountAction = async requestParams => store.dispatch(await s
 export const removeAccountAction = async requestParams => store.dispatch(await submitForm.submitForm(requestParams, 'deleteKey'));
 
 export const generatePDF = args => {
-  console.log("🚀 ~ file: index.js ~ line 207 ~ args", JSON.stringify(args))
   const today = new Date();
   const dd = today.getDate();
   const mm = today.getMonth() + 1; // January is 0!
@@ -234,7 +233,6 @@ export const generatePDF = args => {
     let objJsonB64 = Buffer.from(data).toString("base64");
     window.java.downloadFile(objJsonB64, `apollo-wallet-${args[0].value}`);
   } else {
-    console.log('else block from generate pdf');
     const doc = new jsPDF();
 
     doc.setFontSize(15);
