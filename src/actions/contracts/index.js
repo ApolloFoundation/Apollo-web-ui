@@ -10,15 +10,11 @@ export function exportTestContract(requestParams) {
   return () =>
     handleFetch(`/rest/v2/smc/validate`, POST, requestParams, false, true)
       .then((res) => {
-        if (!res.errorCode) {
-          NotificationManager.success(
-            "Contract has been validated",
-            null,
-            10000
-          );
-        } else {
+        if (res.errorCode) {
           NotificationManager.error(res.errorDescription, "Error", 10000);
+          return null;
         }
+        NotificationManager.success("Contract has been validated", null, 10000);
         return res;
       })
       .catch((err) => console.log(err));
@@ -28,15 +24,15 @@ export function exportContractSubmit(requestParams) {
   return () =>
     handleFetch(`/rest/v2/smc/publish`, POST, requestParams, false, true)
       .then((res) => {
-        if (!res.errorCode) {
-          NotificationManager.success(
-            "Contract has been published!",
-            null,
-            10000
-          );
-        } else {
+        if (res.errorCode) {
           NotificationManager.error(res.errorDescription, "Error", 10000);
+          return null;
         }
+        NotificationManager.success(
+          "Contract has been published!",
+          null,
+          10000
+        );
         return res;
       })
       .catch((err) => console.log(err));
@@ -52,15 +48,11 @@ export function exportTestExperationMessage(requestParams) {
       true
     )
       .then((res) => {
-        if (!res.errorCode) {
-          NotificationManager.success(
-            "Contract has been validated",
-            null,
-            10000
-          );
-        } else {
+        if (res.errorCode) {
           NotificationManager.error(res.errorDescription, "Error", 10000);
+          return null;
         }
+        NotificationManager.success("Contract has been validated", null, 10000);
         return res;
       })
       .catch((err) => console.log(err));
@@ -70,15 +62,15 @@ export function exportExperationMessageSubmit(requestParams) {
   return () =>
     handleFetch(`/rest/v2/smc/method/call`, POST, requestParams, false, true)
       .then((res) => {
-        if (!res.errorCode) {
-          NotificationManager.success(
-            "Contract request has been submitted!",
-            null,
-            10000
-          );
-        } else {
+        if (res.errorCode) {
           NotificationManager.error(res.errorDescription, "Error", 10000);
+          return null;
         }
+        NotificationManager.success(
+          "Contract request has been submitted!",
+          null,
+          10000
+        );
         return res;
       })
       .catch((err) => console.log(err));
@@ -88,15 +80,15 @@ export function exportConfirmationOnBoard(requestParams) {
   return () =>
     handleFetch(`/rest/v2/transaction`, POST, requestParams, false, true)
       .then((res) => {
-        if (!res.errorCode) {
-          NotificationManager.success(
-            "Publishing request has been submitted",
-            null,
-            10000
-          );
-        } else {
+        if (res.errorCode) {
           NotificationManager.error(res.errorDescription, "Error", 10000);
+          return null;
         }
+        NotificationManager.success(
+          "Publishing request has been submitted",
+          null,
+          10000
+        );
         return res;
       })
       .catch((err) => console.log(err));
@@ -107,6 +99,7 @@ export function exportReadMethod(requestParams) {
       .then((res) => {
         if (res.errorCode) {
           NotificationManager.error(res.errorDescription, "Error", 10000);
+          return null;
         }
         return res;
       })
@@ -118,6 +111,7 @@ export function getContracts(requestParams) {
       .then((res) => {
         if (res.errorCode) {
           NotificationManager.error(res.errorDescription, "Error", 10000);
+          return null;
         }
         return res;
       })
@@ -130,6 +124,7 @@ export function getMyContracts(requestParams) {
       .then((res) => {
         if (res.errorCode) {
           NotificationManager.error(res.errorDescription, "Error", 10000);
+          return null;
         }
         return res;
       })
