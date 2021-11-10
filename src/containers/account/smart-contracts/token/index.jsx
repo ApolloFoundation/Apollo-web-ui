@@ -33,7 +33,7 @@ const ExplorerToken = (props) => {
 
   const getSmcEventList = useCallback(
     async (id, method, from) => {
-      const event = await dispatch(
+      const { events } = await dispatch(
         getSmcEvent(id, {
           event: `${method}`,
           fromBlock: 0,
@@ -43,8 +43,8 @@ const ExplorerToken = (props) => {
           )}"} }`,
         })
       );
-      if (event) {
-        let eventCurrentList = event.events.map((item) => {
+      if (events) {
+        let eventCurrentList = events.map((item) => {
           return {
             name: item.name,
             signature: item.signature,
@@ -59,9 +59,8 @@ const ExplorerToken = (props) => {
 
   const getContractSpecification = useCallback(
     async (id) => {
-      const specifications = await dispatch(getSmcSpecification(id));
-      if (specifications) {
-        const { overview } = specifications;
+      const { overview } = await dispatch(getSmcSpecification(id));
+      if (overview) {
         const token = overview.find((item) => item.name === "symbol");
         setIsLoadingPanels(false);
         setCurrentToken(token);

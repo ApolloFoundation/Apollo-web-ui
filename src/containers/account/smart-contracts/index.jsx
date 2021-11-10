@@ -158,7 +158,7 @@ const SmartContracts = () => {
         />
       </SiteHeader>
       <div className="page-body container-fluid">
-        <div className="transactions-filters p-0">
+        <div className="transactions-filters pb-4">
           <div className="search-bar">
             <Formik onSubmit={handleSearch} initialValues={{}}>
               {({ values, setValue }) => {
@@ -182,7 +182,7 @@ const SmartContracts = () => {
                         />
                       </div>
                     )}
-                    <div className="col-md-6 col-lg p-0 pr-lg-3">
+                    <div className="col-md-6 col-lg p-0 pr-lg-0">
                       <SearchField
                         name={"publish"}
                         field="publish"

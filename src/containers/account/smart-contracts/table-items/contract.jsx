@@ -3,14 +3,13 @@
  *                                                                            *
  ***************************************************************************** */
 
-import React, { useEffect, useCallback, useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { formatTimestamp } from "../../../../helpers/util/time";
 import { setBodyModalParamsAction } from "../../../../modules/modals";
 import { getTransactionAction } from "../../../../actions/transactions";
 import { getSmcSpecification } from "../../../../actions/contracts";
-import { exportReadMethod } from "../../../../actions/contracts";
 import Button from "../../../components/button";
 
 const TableItemContract = ({

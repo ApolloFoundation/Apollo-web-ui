@@ -566,6 +566,16 @@ export function convertToAPL(value, decimal = 8, useGrouping = false) {
     })
 };
 
+export function convertHexToUint(value, base = 16) {
+    let convertedValue = value.toString()
+    if(convertedValue.startsWith('0x')){
+        convertedValue = convertedValue.substr(2)
+    }
+    const valueBN = new BigInteger(convertedValue, base);
+
+    return  valueBN.toString()
+};
+
 export default {
     stringToByteArray,
     wordArrayToByteArrayImplAPL: wordArrayToByteArrayImplAPL,
