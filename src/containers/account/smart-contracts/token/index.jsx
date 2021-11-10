@@ -33,7 +33,7 @@ const ExplorerToken = (props) => {
 
   const getSmcEventList = useCallback(
     async (id, method, from) => {
-      const { events } = await dispatch(
+      const { events, errorCode } = await dispatch(
         getSmcEvent(id, {
           event: `${method}`,
           fromBlock: 0,
@@ -43,6 +43,10 @@ const ExplorerToken = (props) => {
           )}"} }`,
         })
       );
+      if (errorCode) {
+        console.log(errorCode);
+        return;
+      }
       if (events) {
         let eventCurrentList = events.map((item) => {
           return {
