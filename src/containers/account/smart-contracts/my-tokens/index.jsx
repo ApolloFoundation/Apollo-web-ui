@@ -10,6 +10,7 @@ import { getContracts } from "../../../../actions/contracts";
 import { getSmcSpecification } from "../../../../actions/contracts";
 import { processAccountRStoHex } from "apl-web-crypto";
 import { exportReadMethod } from "../../../../actions/contracts";
+import { formatTimestamp } from "../../../../helpers/util/time";
 import SiteHeader from "../../../components/site-header";
 import CustomTable from "../../../components/tables/table";
 import TableItemTokens from "../table-items/tokens";
@@ -17,7 +18,6 @@ import SearchField from "../../../components/form-components/search-field";
 
 const MyTokens = () => {
   const dispatch = useDispatch();
-  const [searchQuery, setSearchQuery] = useState({});
   const [contractList, setContractList] = useState([]);
   const [filteredContractList, setFilteredContractList] = useState(null);
   const [viewContractList, setViewContractList] = useState([]);
@@ -29,13 +29,12 @@ const MyTokens = () => {
 
   useEffect(() => {
     getContractsList();
-  }, [pagination, searchQuery]);
+  }, []);
 
   const getContractsList = useCallback(async () => {
-    const isSearch = Object.keys(searchQuery).length;
-    const { contracts, errorCode } = await dispatch(getContracts(searchQuery));
+    const { contracts, errorCode } = await dispatch(getContracts());
+
     if (errorCode) {
-      console.log(errorCode);
       return;
     }
 
@@ -70,14 +69,9 @@ const MyTokens = () => {
         balance: balanceList[index].results[0].output[0],
       };
     });
-
-    if (isSearch) {
-      setFilteredContractList(currentContractsList);
-    } else {
-      setContractList(currentContractsList);
-    }
+    setContractList(currentContractsList);
     setViewContractList(currentContractsList);
-  }, [dispatch, pagination, searchQuery]);
+  }, [dispatch]);
 
   const onPaginate = (currentPage) => {
     setPagination({
@@ -85,6 +79,14 @@ const MyTokens = () => {
       firstIndex: currentPage * 15 - 15,
       lastIndex: currentPage * 15,
     });
+    if (filteredContractList.length > 0) {
+      setViewContractList([
+        ...filteredContractList.slice(currentPage * 15 - 15),
+      ]);
+      return;
+    }
+
+    setViewContractList([...contractList.slice(currentPage * 15 - 15)]);
   };
 
   const prevPaginate = () => onPaginate(pagination.page - 1);
@@ -92,7 +94,6 @@ const MyTokens = () => {
 
   const handleSearch = (values) => {
     let isSearch = false;
-
     const data = Object.entries(values).reduce((acc, [key, value]) => {
       if (value.length > 0) {
         acc[key] = value;
@@ -101,44 +102,38 @@ const MyTokens = () => {
       return acc;
     }, {});
 
-    if (data.symbol) {
-      const dataLength = Object.keys(data).length > 1;
-      if (dataLength) {
-        setSearchQuery(data);
-      }
-      const filteredList = (
-        dataLength ? filteredContractList : contractList
-      ).filter((contract) => {
-        return contract.symbol
-          .toLowerCase()
-          .includes(data.symbol.toLowerCase());
-      });
-      setViewContractList(filteredList);
-      return;
-    }
-
-    if (data.hasOwnProperty("balance")) {
-      const dataLength = Object.keys(data).length > 1;
-      if (dataLength) {
-        setSearchQuery(data);
-      }
-      const filteredList = (
-        dataLength ? filteredContractList : contractList
-      ).filter((contract) => {
-        return contract.balance
-          .toLowerCase()
-          .includes(data.balance.toLowerCase());
-      });
-      setViewContractList(filteredList);
-      return;
-    }
     if (!isSearch) {
-      setFilteredContractList(null);
+      setFilteredContractList([]);
       setViewContractList([...contractList]);
+      setPagination({
+        page: 1,
+        firstIndex: 0,
+        lastIndex: 15,
+      });
       return;
     }
 
-    setSearchQuery(data);
+    const filtersList = Object.entries(data);
+
+    const list = contractList.filter((item) =>
+      filtersList.every(([key, value]) => {
+        if (key === "publish") {
+          return (
+            dispatch(formatTimestamp(new Date(item.timestamp))) === value.trim()
+          );
+        }
+
+        return item[key].toLowerCase().includes(value.toLowerCase());
+      })
+    );
+
+    setFilteredContractList(list);
+    setViewContractList(list);
+    setPagination({
+      page: 1,
+      firstIndex: 0,
+      lastIndex: 15,
+    });
   };
 
   return (
@@ -151,7 +146,7 @@ const MyTokens = () => {
               {({ values, setValue }) => {
                 return (
                   <Form className="form-group-app input-group-app transparent mb-0 row">
-                    <div className="col-md-6 col-lg p-0 pr-lg-3">
+                    <div className="col-md p-0 pr-md-3">
                       <SearchField
                         name={"address"}
                         field="address"
@@ -159,7 +154,7 @@ const MyTokens = () => {
                         setValue={setValue}
                       />
                     </div>
-                    <div className="col-md-6 col-lg p-0 pr-lg-3">
+                    <div className="col-md p-0 pr-md-3">
                       <SearchField
                         name={"symbol"}
                         field="symbol"
@@ -167,7 +162,7 @@ const MyTokens = () => {
                         setValue={setValue}
                       />
                     </div>
-                    <div className="col-md-6 col-lg p-0 pr-lg-0">
+                    <div className="col-md p-0">
                       <SearchField
                         name={"balance"}
                         field="balance"

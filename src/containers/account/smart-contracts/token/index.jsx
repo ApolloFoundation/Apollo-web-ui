@@ -43,10 +43,11 @@ const ExplorerToken = (props) => {
           )}"} }`,
         })
       );
+
       if (errorCode) {
-        console.log(errorCode);
         return;
       }
+
       if (events) {
         let eventCurrentList = events.map((item) => {
           return {
@@ -55,7 +56,8 @@ const ExplorerToken = (props) => {
             ...JSON.parse(item.state),
           };
         });
-        setEventList(...eventList, eventCurrentList);
+
+        setEventList([...eventList, eventCurrentList]);
       }
     },
     [dispatch]
@@ -64,6 +66,7 @@ const ExplorerToken = (props) => {
   const getContractSpecification = useCallback(
     async (id) => {
       const { overview } = await dispatch(getSmcSpecification(id));
+
       if (overview) {
         const token = overview.find((item) => item.name === "symbol");
         setIsLoadingPanels(false);

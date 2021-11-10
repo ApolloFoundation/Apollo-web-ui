@@ -9,24 +9,82 @@ import { Form, Formik } from "formik";
 import { getContracts } from "../../../actions/contracts";
 import { setBodyModalParamsAction } from "../../../modules/modals";
 import { getSmcSpecification } from "../../../actions/contracts";
+import { formatTimestamp } from "../../../helpers/util/time";
 import SiteHeader from "../../components/site-header";
 import CustomTable from "../../components/tables/table";
 import TableItemContract from "./table-items/contract";
 import TableItemEscrow from "./table-items/escrow";
 import Button from "../../components/button";
 import SearchField from "../../components/form-components/search-field";
-import { formatTimestamp } from "../../../helpers/util/time";
+
+const TABLE_HEAD_CONTRACT = [
+  {
+    name: "Address",
+    alignRight: false,
+  },
+  {
+    name: "Symbol",
+    alignRight: false,
+  },
+  {
+    name: "Transaction",
+    alignRight: false,
+  },
+  {
+    name: "Short Hash",
+    alignRight: false,
+  },
+  {
+    name: "Published",
+    alignRight: false,
+  },
+  {
+    name: "Status",
+    alignRight: false,
+  },
+  {
+    name: "Action",
+    alignRight: true,
+  },
+];
+
+const TABLE_HEAD_ESCROW = [
+  {
+    name: "Address",
+    alignRight: false,
+  },
+  {
+    name: "Transaction",
+    alignRight: false,
+  },
+  {
+    name: "Short Hash",
+    alignRight: false,
+  },
+  {
+    name: "Published",
+    alignRight: false,
+  },
+  {
+    name: "Status",
+    alignRight: false,
+  },
+  {
+    name: "Action",
+    alignRight: true,
+  },
+];
 
 const SmartContracts = () => {
   const dispatch = useDispatch();
   const [contractList, setContractList] = useState([]);
-  const [filteredContractList, setFilteredContractList] = useState(null);
+  const [filteredContractList, setFilteredContractList] = useState([]);
   const [viewContractList, setViewContractList] = useState([]);
   const [viewEscrow, setViewEscrow] = useState(false);
   const [pagination, setPagination] = useState({
     page: 1,
     firstIndex: 0,
-    lastIndex: 3,
+    lastIndex: 15,
   });
 
   useEffect(() => {
@@ -37,7 +95,6 @@ const SmartContracts = () => {
     const { contracts, errorCode } = await dispatch(getContracts());
 
     if (errorCode) {
-      console.log(errorCode);
       return;
     }
 
@@ -50,6 +107,7 @@ const SmartContracts = () => {
         const currentOverviewList = data.map((el) =>
           el.overview.find((item) => item.name === "symbol")
         );
+
         const currentContractsList = contracts.map((item, index) => {
           return { ...item, symbol: currentOverviewList[index].value };
         });
@@ -65,15 +123,18 @@ const SmartContracts = () => {
   const onPaginate = (currentPage) => {
     setPagination({
       page: currentPage,
-      firstIndex: currentPage * 3 - 3,
-      lastIndex: currentPage * 3,
+      firstIndex: currentPage * 15 - 15,
+      lastIndex: currentPage * 15,
     });
-    if(filteredContractList.length > 0) {
-      setViewContractList([...filteredContractList.slice(currentPage * 3 - 3)]);
+
+    if (filteredContractList.length > 0) {
+      setViewContractList([
+        ...filteredContractList.slice(currentPage * 15 - 15),
+      ]);
       return;
     }
 
-    setViewContractList([...contractList.slice(currentPage * 3 - 3)]);
+    setViewContractList([...contractList.slice(currentPage * 15 - 15)]);
   };
 
   const prevPaginate = () => onPaginate(pagination.page - 1);
@@ -95,17 +156,19 @@ const SmartContracts = () => {
       setPagination({
         page: 1,
         firstIndex: 0,
-        lastIndex: 3,
+        lastIndex: 15,
       });
       return;
     }
 
     const filtersList = Object.entries(data);
 
-    const list = contractList.filter(item => 
+    const list = contractList.filter((item) =>
       filtersList.every(([key, value]) => {
-        if(key === 'publish') {
-          return dispatch(formatTimestamp(new Date(item.timestamp))) === value.trim();
+        if (key === "publish") {
+          return (
+            dispatch(formatTimestamp(new Date(item.timestamp))) === value.trim()
+          );
         }
 
         return item[key].toLowerCase().includes(value.toLowerCase());
@@ -117,7 +180,7 @@ const SmartContracts = () => {
     setPagination({
       page: 1,
       firstIndex: 0,
-      lastIndex: 3,
+      lastIndex: 15,
     });
   };
 
@@ -167,13 +230,13 @@ const SmartContracts = () => {
         />
       </SiteHeader>
       <div className="page-body container-fluid">
-        <div className="transactions-filters pb-4">
+        <div className="transactions-filters">
           <div className="search-bar">
             <Formik onSubmit={handleSearch} initialValues={{}}>
               {({ values, setValue }) => {
                 return (
                   <Form className="form-group-app input-group-app transparent mb-0 row">
-                    <div className="col-md-6 col-lg p-0 pr-lg-3">
+                    <div className=" col-md p-0 pr-md-3">
                       <SearchField
                         name={"address"}
                         field="address"
@@ -182,7 +245,7 @@ const SmartContracts = () => {
                       />
                     </div>
                     {!viewEscrow && (
-                      <div className="col-md-6 col-lg p-0 pr-lg-3">
+                      <div className=" col-md p-0 pr-md-3">
                         <SearchField
                           name={"symbol"}
                           field="symbol"
@@ -191,7 +254,7 @@ const SmartContracts = () => {
                         />
                       </div>
                     )}
-                    <div className="col-md-6 col-lg p-0 pr-lg-0">
+                    <div className=" col-md p-0">
                       <SearchField
                         name={"publish"}
                         field="publish"
@@ -210,65 +273,7 @@ const SmartContracts = () => {
           <div class="card-body">
             <CustomTable
               id={"smart-contracts-tokens"}
-              header={
-                viewEscrow
-                  ? [
-                      {
-                        name: "Address",
-                        alignRight: false,
-                      },
-                      {
-                        name: "Transaction",
-                        alignRight: false,
-                      },
-                      {
-                        name: "Short Hash",
-                        alignRight: false,
-                      },
-                      {
-                        name: "Published",
-                        alignRight: false,
-                      },
-                      {
-                        name: "Status",
-                        alignRight: false,
-                      },
-                      {
-                        name: "Action",
-                        alignRight: true,
-                      },
-                    ]
-                  : [
-                      {
-                        name: "Address",
-                        alignRight: false,
-                      },
-                      {
-                        name: "Symbol",
-                        alignRight: false,
-                      },
-                      {
-                        name: "Transaction",
-                        alignRight: false,
-                      },
-                      {
-                        name: "Short Hash",
-                        alignRight: false,
-                      },
-                      {
-                        name: "Published",
-                        alignRight: false,
-                      },
-                      {
-                        name: "Status",
-                        alignRight: false,
-                      },
-                      {
-                        name: "Action",
-                        alignRight: true,
-                      },
-                    ]
-              }
+              header={viewEscrow ? TABLE_HEAD_ESCROW : TABLE_HEAD_CONTRACT}
               className={"no-min-height"}
               emptyMessage={"No Smart Contracts found."}
               TableRowComponent={
@@ -279,7 +284,7 @@ const SmartContracts = () => {
               isPaginate
               previousHendler={prevPaginate}
               nextHendler={nextPaginate}
-              itemsPerPage={3}
+              itemsPerPage={15}
             />
           </div>
         </div>

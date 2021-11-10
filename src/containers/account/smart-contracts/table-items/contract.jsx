@@ -60,6 +60,7 @@ const TableItemContract = ({
     dispatch(setBodyModalParamsAction("SMC_TRANSFER", { address }));
   };
 
+  console.log(timestamp)
   return (
     <tr>
       <td>
