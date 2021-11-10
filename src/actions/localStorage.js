@@ -22,6 +22,9 @@ export function readFromLocalStorage(field) {
     if (field === 'APLContracts' && !Array.isArray(parsedValue)) {
       throw new Error()
     }
+    if(field === 'Wallets' && typeof parsedValue !== 'object') {
+      throw new Error()
+    }
     return value;
   } catch (e) {
     localStorage.clear();
