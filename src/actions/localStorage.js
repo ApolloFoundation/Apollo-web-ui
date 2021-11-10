@@ -10,7 +10,18 @@ export function writeToLocalStorage(field, params) {
 }
 
 export function readFromLocalStorage(field) {
-  return secureStorage.getItem(field);
+  if (field === 'updateFlag' || field === 'language') {
+    return secureStorage.getItem(field);
+  }
+
+  try {
+    const value = secureStorage.getItem(field);
+    JSON.parse(value);
+    return value;
+  } catch (e) {
+    localStorage.clear();
+    return null;
+  }
 }
 
 export function deleteFromLocalStorage(field) {
