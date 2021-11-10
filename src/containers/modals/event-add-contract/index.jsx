@@ -5,6 +5,7 @@ import { Form, Formik, Field } from "formik";
 import { addContractAction } from "../../../actions/smart-contracts";
 import Button from "../../components/button";
 import TextualInputComponent from "../../components/form-components/textual-input1";
+import config from '../../../config';
 
 const initialState = {
   contract: "",
@@ -28,26 +29,32 @@ const EventAddContract = ({ closeModal }) => {
     ({ contract }) => {
       const isValidForm = fieldValidate(contract);
       if (!isValidForm) {
-        const smartContract = new Contract(
-          {
-            apiPath: `/rest/v2/smc/${contract}/event`,
-            socketPath: `${process.env.REACT_APP_SMART_CONTRACT_SOCKET}smc/event/`,
-          },
-          contract,
-          {
-            onContractConnectionClose: () => {
-              const contractData = store.getState().smartContract.contractsData;
-              if (contractData && contractData[contract]) {
-                smartContract.createConnection();
-                console.log("do reconnect", contract);
-              } else {
-                console.log("connection close for", contract);
-              }
+        try {
+          let { host, protocol } = window.location;
+          const protocolPrefix = protocol === 'https:' ? 'wss:' : 'ws:';
+          const smartContract = new Contract(
+            {
+              apiPath: `/rest/v2/smc/${contract}/event`,
+              socketPath: `${protocolPrefix}//${host}/socket/smc/event/`,
             },
-          }
-        );
-        dispatch(addContractAction(contract, smartContract));
-        closeModal();
+            contract,
+            {
+              onContractConnectionClose: () => {
+                const contractData = store.getState().smartContract.contractsData;
+                if (contractData && contractData[contract]) {
+                  smartContract.createConnection();
+                  console.log("do reconnect", contract);
+                } else {
+                  console.log("connection close for", contract);
+                }
+              },
+            }
+          );
+          dispatch(addContractAction(contract, smartContract));
+          closeModal();
+        } catch (e) {
+          console.log(e);
+        }
       }
     },
     [dispatch, store]
