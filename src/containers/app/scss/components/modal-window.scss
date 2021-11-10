@@ -155,16 +155,17 @@
       border: 2px solid #25F459;
       box-shadow: 0 10px 20px 0 rgba(0,0,0,0.26);
       border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       position: absolute;
       right: -15px;
       top: -15px;
       cursor: pointer;
       i {
+        position: absolute;
         color: #25F459;
         font-size: 22px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-45%, -45%);
       }
       @media(max-width: 780px) {
         top: 0;
