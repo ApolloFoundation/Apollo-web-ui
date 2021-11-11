@@ -30,11 +30,13 @@ const EventAddContract = ({ closeModal }) => {
       if (!isValidForm) {
         try {
           let { host, protocol } = window.location;
-          const protocolPrefix = protocol === 'https:' ? 'wss:' : 'ws:';
+          const isDev = process.env.NODE_ENV === 'development';
+          const protocolPrefix = protocol === 'https:' || !isDev ? 'wss:' : 'ws:';
+          const forProxy = isDev ? 'socket/' : '';
           const smartContract = new Contract(
             {
               apiPath: `/rest/v2/smc/${contract}/event`,
-              socketPath: `${protocolPrefix}//${host}/socket/smc/event/`,
+              socketPath: `${protocolPrefix}//${host}/${forProxy}smc/event/`,
             },
             contract,
             {
