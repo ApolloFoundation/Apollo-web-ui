@@ -87,11 +87,12 @@ import OrderDetails from "../account/exchange/order-details";
 import ChooseWallet from "../account/exchange/choose-wallet";
 //SmartContracts
 import SmartContracts from "../account/smart-contracts";
-import CreateSmartContract from "../account/smart-contracts/create-smart-contract";
-import MySmartContract from "../account/smart-contracts/my-smart-contracts";
-import ExplorerContracts from "../account/smart-contracts/explorer-contracts";
-
-import { SmartContractsEvents } from '../account/smart-contracts/smart-contracts-events/Events';
+import SmartContractCreate from "../account/smart-contracts/create";
+import MySmartContract from "../account/smart-contracts/my-contracts";
+import ExplorerContract from "../account/smart-contracts/explorer-contract";
+import ExplorerToken from "../account/smart-contracts/token";
+import MyTokens from "../account/smart-contracts/my-tokens";
+import Events from '../account/smart-contracts/events';
 
 import "./App.scss";
 import "./fonts.scss";
@@ -315,19 +316,25 @@ class App extends React.Component {
       <Route
         exact
         path="/smart-contracts/create"
-        component={CreateSmartContract}
+        component={SmartContractCreate}
       />
       <Route
         exact
         path="/smart-contracts/my-contracts"
         component={MySmartContract}
       />
+      <Route
+        exact
+        path="/smart-contracts/my-tokens"
+        component={MyTokens}
+      />
       <Route 
         exact
         path="/smart-contracts/events"
-        component={SmartContractsEvents}
+        component={Events}
       />
-      <Route exact path="/smart-contracts/explorer/:id?" component={ExplorerContracts} />
+      <Route exact path="/smart-contracts/explorer/:id?" component={ExplorerContract} />
+      <Route exact path="/smart-contracts/token/:id?" component={ExplorerToken} />
       <Route
         exact
         path="/index.html"

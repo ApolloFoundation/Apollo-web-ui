@@ -4,7 +4,6 @@
  ***************************************************************************** */
 
 import React from "react";
-import { v4 as uuidv4 } from "uuid";
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { formatTimestamp } from "../../../../helpers/util/time";
@@ -13,9 +12,9 @@ import { getTransactionAction } from "../../../../actions/transactions";
 import { getSmcSpecification } from "../../../../actions/contracts";
 import Button from "../../../components/button";
 
-export const ContractTableItem = ({
+const TableItemContract = ({
   address,
-  name,
+  symbol,
   timestamp,
   transaction,
   signature,
@@ -26,7 +25,9 @@ export const ContractTableItem = ({
   const history = useHistory();
   const dispatch = useDispatch();
   const currentDate = dispatch(formatTimestamp(new Date(timestamp)));
-  const isStatusAPL20 = /^APL20BUY/.test(baseContract) || /^APL20LOCK/.test(baseContract);
+  const isStatusAPL20 =
+    /^APL20BUY/.test(baseContract) || /^APL20LOCK/.test(baseContract);
+
   const handleContractInfo = () => {
     isStatusAPL20
       ? history.push(`/smart-contracts/explorer/${address}`)
@@ -36,7 +37,7 @@ export const ContractTableItem = ({
   const handleTransactionInfo = async () => {
     const transactionInfo = await dispatch(
       getTransactionAction({
-        transaction: transaction,
+        transaction,
       })
     );
     if (transactionInfo) {
@@ -55,12 +56,16 @@ export const ContractTableItem = ({
     }
   };
 
+  const handleTransferModal = () => {
+    dispatch(setBodyModalParamsAction("SMC_TRANSFER", { address }));
+  };
+
   return (
-    <tr key={uuidv4()}>
+    <tr>
       <td>
         <Button color="blue-link" onClick={handleContractInfo} name={address} />
       </td>
-      <td>{name}</td>
+      <td>{symbol}</td>
       <td>
         <Button
           color="blue-link"
@@ -73,6 +78,13 @@ export const ContractTableItem = ({
       <td>{status}</td>
       <td className="align-right">
         <div className="btn-box inline">
+          <Button
+            onClick={handleTransferModal}
+            color="green"
+            size="sm"
+            id={`button-transfer-${id}`}
+            name="Transfer"
+          />
           {isStatusAPL20 && (
             <Button
               onClick={handleByMethod}
@@ -87,3 +99,4 @@ export const ContractTableItem = ({
     </tr>
   );
 };
+export default TableItemContract;

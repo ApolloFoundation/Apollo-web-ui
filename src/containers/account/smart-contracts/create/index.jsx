@@ -6,24 +6,22 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Form, Formik } from "formik";
+import AceEditor from "react-ace";
+import "ace-builds/src-noconflict/mode-javascript";
+import "ace-builds/src-noconflict/theme-tomorrow";
 import { validationForm } from "./form/form-validation";
 import { parseTextFile } from "../../../../helpers/parseFile";
 import {
   exportTestContract,
   exportContractSubmit,
   exportConfirmationOnBoard,
-} from "../../../../../src/actions/contracts";
+} from "../../../../actions/contracts";
 import { setBodyModalParamsAction } from "../../../../modules/modals";
-
 import SiteHeader from "../../../components/site-header";
 import NumericInput from "../../../components/form-components/numeric-input1";
 import TextualInputComponent from "../../../components/form-components/textual-input1";
 import InputUpload from "../../../components/input-upload";
 import Button from "../../../components/button";
-
-import AceEditor from "react-ace";
-import "ace-builds/src-noconflict/mode-javascript";
-import "ace-builds/src-noconflict/theme-tomorrow";
 
 const INITIAL_FORM_DATA = {
   name: "",
@@ -33,7 +31,8 @@ const INITIAL_FORM_DATA = {
   fuelLimit: 0,
   source: "",
 };
-export default function SmartContracts() {
+
+const SmartContractCreate = () => {
   const dispatch = useDispatch();
   const {
     accountRS,
@@ -119,9 +118,8 @@ export default function SmartContracts() {
   const handleUploadEditor = (value, setFieldValue) => {
     setFileData({
       ...fileData,
-      name: 'file.txt',
+      name: "file.txt",
       content: value,
-
     });
     setFieldValue("source", value);
   };
@@ -133,7 +131,7 @@ export default function SmartContracts() {
 
   return (
     <div className="page-content">
-      <SiteHeader pageTitle={"Create New Contract"}/>
+      <SiteHeader pageTitle="Create New Contract" />
       <div className="page-body container-fluid">
         <div className="w-100 h-auto ">
           <Formik
@@ -200,8 +198,8 @@ export default function SmartContracts() {
                           placeholder="Some comma-separated values"
                           type="text"
                         />
-                        <div className={"row"}>
-                          <div className={"col-md-4 p-sm-0 pr-md-2"}>
+                        <div className="row">
+                          <div className="col-md-4 p-sm-0 pr-md-2">
                             <NumericInput
                               label="Amount APL"
                               name="value"
@@ -210,7 +208,7 @@ export default function SmartContracts() {
                               defaultValue={0}
                             />
                           </div>
-                          <div className={"col-md-4 p-sm-0 pr-md-2"}>
+                          <div className="col-md-4 p-sm-0 pr-md-2">
                             <NumericInput
                               label="Fuel price"
                               name="fuelPrice"
@@ -218,7 +216,7 @@ export default function SmartContracts() {
                               defaultValue={0}
                             />
                           </div>
-                          <div className={"col-md-4 p-sm-0"}>
+                          <div className="col-md-4 p-sm-0">
                             <NumericInput
                               label="Fuel limit"
                               name="fuelLimit"
@@ -284,4 +282,5 @@ export default function SmartContracts() {
       </div>
     </div>
   );
-}
+};
+export default SmartContractCreate;

@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { removeEventAction } from "../../../../../../actions/smart-contracts";
-import Button from "../../../../../components/button";
+import { removeEventAction } from "../../../../actions/smart-contracts";
+import Button from "../../../components/button";
 
 const ContractItemUn = ({ contractInstanse, contractId, id, description, ...event }) => {
   const dispatch = useDispatch();

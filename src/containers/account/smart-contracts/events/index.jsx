@@ -8,7 +8,7 @@ import TabulationBody from "../../../components/tabulator/tabuator-body";
 import Button from "../../../components/button";
 import ContractItem from "./contract-item";
 
-export const SmartContractsEvents = () => {
+const Events = () => {
   const dispatch = useDispatch();
   const contractsData = useSelector(
     (state) => state.smartContract.contractsData
@@ -53,3 +53,4 @@ export const SmartContractsEvents = () => {
     </div>
   );
 };
+export default Events;

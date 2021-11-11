@@ -1,8 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import CustomTable from "../../../../components/tables/table1";
-import ContractItemUn from "./contract-item-un";
-import ContractItemData from "./contract-item-data";
+import ContractItemUn from "../../table-items/contract-item-unsubscribe";
+import ContractItemData from "../../table-items/contract-item-data";
 import ContractItemForm from "./contract-item-form";
 
 const ContractItem = ({ contractId, contractInstanse }) => {
