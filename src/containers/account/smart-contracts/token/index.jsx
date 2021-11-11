@@ -57,7 +57,7 @@ const ExplorerToken = (props) => {
           };
         });
 
-        setEventList([...eventList, eventCurrentList]);
+        setEventList([...eventList, ...eventCurrentList]);
       }
     },
     [dispatch]
