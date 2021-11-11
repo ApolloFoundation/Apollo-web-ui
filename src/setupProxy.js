@@ -9,5 +9,13 @@ module.exports = (app) => {
         changeOrigin: true,
       }),
     );
+
+    app.use(createProxyMiddleware('/socket', {
+        target: process.env.REACT_APP_PROXY_HOST, 
+        ws: true,
+        changeOrigin: true,
+        pathRewrite: function (path) { return path.replace('/socket', '') }
+      }
+    ));
   }
 };
