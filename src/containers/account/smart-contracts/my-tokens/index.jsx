@@ -6,15 +6,24 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Form, Formik } from "formik";
+import { BigInteger } from 'jsbn';
 import { getContracts } from "../../../../actions/contracts";
 import { getSmcSpecification } from "../../../../actions/contracts";
-import { processAccountRStoHex } from "apl-web-crypto";
+import {  ReedSolomonDecode } from "apl-web-crypto/lib/ReedSolomon";
 import { exportReadMethod } from "../../../../actions/contracts";
 import { formatTimestamp } from "../../../../helpers/util/time";
 import SiteHeader from "../../../components/site-header";
 import CustomTable from "../../../components/tables/table";
 import TableItemTokens from "../table-items/tokens";
 import SearchField from "../../../components/form-components/search-field";
+
+export const processAccountRStoHex = (accountRS, needPrefix = false) => {
+  const accountID = ReedSolomonDecode(accountRS);
+  const hexString = new BigInteger(accountID).toString(16);
+  const additionalElement = hexString.length % 2 > 0 ? '0' : '';
+
+  return needPrefix ? `0x${additionalElement}${hexString}` : hexString;
+};
 
 const MyTokens = () => {
   const dispatch = useDispatch();
@@ -41,6 +50,7 @@ const MyTokens = () => {
     const contractList = await Promise.all(
       contracts.map((el) => dispatch(getSmcSpecification(el.address)))
     );
+    console.log("🚀 ~ file: index.jsx ~ line 54 ~ getContractsList ~ contractList", contractList)
 
     const balanceList = await Promise.all(
       contracts.map((el) =>
@@ -59,13 +69,14 @@ const MyTokens = () => {
     );
 
     const currentOverviewList = contractList.map((el) =>
-      el.overview.find((item) => item.name === "symbol")
+      el.members.find((item) => item.name === "symbol")
     );
+    console.log("🚀 ~ file: index.jsx ~ line 74 ~ getContractsList ~ currentOverviewList", currentOverviewList)
 
     const currentContractsList = contracts.map((item, index) => {
       return {
         ...item,
-        symbol: currentOverviewList[index].value,
+        symbol: currentOverviewList[index] ? currentOverviewList[index].value : '-',
         balance: balanceList[index].results[0].output[0],
       };
     });

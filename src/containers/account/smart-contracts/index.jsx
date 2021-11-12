@@ -105,11 +105,14 @@ const SmartContracts = () => {
     )
       .then((data) => {
         const currentOverviewList = data.map((el) =>
-          el.overview.find((item) => item.name === "symbol")
+          el.members.find((item) => item.name === "symbol")
         );
 
         const currentContractsList = contracts.map((item, index) => {
-          return { ...item, symbol: currentOverviewList[index].value };
+          return {
+            ...item,
+            symbol: currentOverviewList[index]? currentOverviewList[index].value : '-' 
+          };
         });
 
         setContractList(currentContractsList);
