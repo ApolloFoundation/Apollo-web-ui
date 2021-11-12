@@ -14,13 +14,13 @@ import {
   exportTestContract,
   exportContractSubmit,
   exportConfirmationOnBoard,
-} from "../../../../src/actions/contracts";
-import TextualInputComponent from "../../components/form-components/textual-input1";
-import NumericInput from "../../components/form-components/numeric-input1";
-import CheckboxFormInput from "../../components/check-button-input";
-import Button from "../../components/button";
+} from "../../../../../src/actions/contracts";
+import TextualInputComponent from "../../../components/form-components/textual-input1";
+import NumericInput from "../../../components/form-components/numeric-input1";
+import CheckboxFormInput from "../../../components/check-button-input";
+import Button from "../../../components/button";
 
-export default function ({ closeModal }) {
+const AproveToken = ({ closeModal }) =>  {
   const dispatch = useDispatch();
   const modalData = useSelector((state) => state.modals.modalData);
   const { accountRS, passPhrase: secretPhrase } = useSelector(
@@ -173,3 +173,5 @@ export default function ({ closeModal }) {
     </div>
   );
 }
+
+export default AproveToken;

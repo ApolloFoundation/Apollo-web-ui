@@ -184,9 +184,12 @@ const SmartContracts = () => {
     });
   };
 
-  const handleCreateToken = useCallback(() => {
-    dispatch(setBodyModalParamsAction("SMC_CREATE_TOKEN", null));
-  }, [dispatch]);
+  const handleCreateToken = useCallback(
+    (type) => {
+      dispatch(setBodyModalParamsAction("SMC_CREATE_TOKEN", type));
+    },
+    [dispatch]
+  );
 
   const handleChangeViewEscrow = () => {
     setViewEscrow((state) => !state);
@@ -201,7 +204,7 @@ const SmartContracts = () => {
           className="mr-2"
           color="green"
           size="sm"
-          onClick={handleCreateToken}
+          onClick={() => handleCreateToken("token")}
         />
         <Button
           id={"button-smart-contracts-cteate-token"}
@@ -209,7 +212,7 @@ const SmartContracts = () => {
           className="mr-2"
           color="green"
           size="sm"
-          onClick={handleCreateToken}
+          onClick={() => handleCreateToken("escrow")}
         />
         <Button
           id={"button-smart-contracts-cteate-token"}
