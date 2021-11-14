@@ -50,7 +50,6 @@ const MyTokens = () => {
     const contractList = await Promise.all(
       contracts.map((el) => dispatch(getSmcSpecification(el.address)))
     );
-    console.log("🚀 ~ file: index.jsx ~ line 54 ~ getContractsList ~ contractList", contractList)
 
     const balanceList = await Promise.all(
       contracts.map((el) =>
@@ -71,7 +70,6 @@ const MyTokens = () => {
     const currentOverviewList = contractList.map((el) =>
       el.members.find((item) => item.name === "symbol")
     );
-    console.log("🚀 ~ file: index.jsx ~ line 74 ~ getContractsList ~ currentOverviewList", currentOverviewList)
 
     const currentContractsList = contracts.map((item, index) => {
       return {

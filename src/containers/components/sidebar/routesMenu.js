@@ -146,12 +146,6 @@ export const smartСontracts = {
   icon: "zmdi-collection-text",
   children: [
     {
-      className: "/create-smart-contracts",
-      to: "/smart-contracts/create",
-      label: "Create contract",
-      icon: "zmdi-collection-text",
-    },
-    {
       className: "/my-smart-contracts",
       to: "/smart-contracts/my-contracts",
       label: "My contracts",
