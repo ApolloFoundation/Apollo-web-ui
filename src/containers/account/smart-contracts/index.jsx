@@ -17,13 +17,15 @@ import TableItemContract from "./table-items/contract";
 import TableItemEscrow from "./table-items/escrow";
 import Button from "../../components/button";
 import SearchField from "../../components/form-components/search-field";
+import ContentLoader from "../../components/content-loader";
+
 import { TABLE_DATA } from "./table-data";
 
 const TYPES_LIST = {
-  all: '',
-  token: 'APL20',
-  escrow: 'TokenEscrow',
-}
+  all: "",
+  token: "APL20",
+  escrow: "TokenEscrow",
+};
 
 const SmartContracts = () => {
   const dispatch = useDispatch();
@@ -31,6 +33,7 @@ const SmartContracts = () => {
   const [filteredContractList, setFilteredContractList] = useState([]);
   const [type, setType] = useState("all");
   const [viewContractList, setViewContractList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [pagination, setPagination] = useState({
     page: 1,
     firstIndex: 0,
@@ -45,6 +48,7 @@ const SmartContracts = () => {
     const { contracts, errorCode } = await dispatch(getContracts());
 
     if (errorCode) {
+      setIsLoading(false);
       return;
     }
 
@@ -66,7 +70,7 @@ const SmartContracts = () => {
               : "-",
           };
         });
-
+        setIsLoading(false);
         setContractList(currentContractsList);
         setViewContractList(currentContractsList);
       })
@@ -98,7 +102,7 @@ const SmartContracts = () => {
   const handleSearch = (values) => {
     let isSearch = false;
     const data = Object.entries(values).reduce((acc, [key, value]) => {
-      if (type === 'escrow' && key === 'symbol') return acc;
+      if (type === "escrow" && key === "symbol") return acc;
       if (value.length > 0) {
         acc[key] = value;
         isSearch = true;
@@ -108,7 +112,8 @@ const SmartContracts = () => {
     }, {});
 
     const contracts = TYPES_LIST[type]
-      ? contractTypeFilter(TYPES_LIST[type]) : contractList;
+      ? contractTypeFilter(TYPES_LIST[type])
+      : contractList;
 
     if (!isSearch) {
       setFilteredContractList([]);
@@ -144,21 +149,21 @@ const SmartContracts = () => {
     });
   };
 
-  const contractTypeFilter = (type) => contractList
-    .filter((item) => item.baseContract.startsWith(type));
+  const contractTypeFilter = (type) =>
+    contractList.filter((item) => item.baseContract.startsWith(type));
 
   const setDefaultSortData = (list) => {
     setFilteredContractList(list);
     setViewContractList(list);
-  }
+  };
 
   const handleTransactionFilters = (currType) => {
-    if(currType === type) return;
+    if (currType === type) return;
 
     setType(currType);
 
-    switch(currType) {
-      case 'all':
+    switch (currType) {
+      case "all":
         setFilteredContractList([]);
         setViewContractList([...contractList]);
         break;
@@ -166,7 +171,7 @@ const SmartContracts = () => {
         const filteredlist = contractTypeFilter(TYPES_LIST[currType]);
         setDefaultSortData(filteredlist);
     }
-    
+
     setPagination({
       page: 1,
       firstIndex: 0,
@@ -258,19 +263,29 @@ const SmartContracts = () => {
         </div>
         <div className="card full-height">
           <div class="card-body">
-            <CustomTable
-              id={"smart-contracts-tokens"}
-              header={type === "escrow" ? TABLE_DATA.head.escrow : TABLE_DATA.head.token}
-              className={"no-min-height"}
-              emptyMessage={"No Smart Contracts found."}
-              TableRowComponent={type === "escrow" ? TableItemEscrow : TableItemContract}
-              tableData={viewContractList}
-              page={pagination.page}
-              isPaginate
-              previousHendler={prevPaginate}
-              nextHendler={nextPaginate}
-              itemsPerPage={15}
-            />
+            {isLoading ? (
+              <ContentLoader />
+            ) : (
+              <CustomTable
+                id={"smart-contracts-tokens"}
+                header={
+                  type === "escrow"
+                    ? TABLE_DATA.head.escrow
+                    : TABLE_DATA.head.token
+                }
+                className={"no-min-height"}
+                emptyMessage={"No Smart Contracts found."}
+                TableRowComponent={
+                  type === "escrow" ? TableItemEscrow : TableItemContract
+                }
+                tableData={viewContractList}
+                page={pagination.page}
+                isPaginate
+                previousHendler={prevPaginate}
+                nextHendler={nextPaginate}
+                itemsPerPage={15}
+              />
+            )}
           </div>
         </div>
       </div>
