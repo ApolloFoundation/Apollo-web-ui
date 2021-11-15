@@ -14,7 +14,6 @@ import SiteHeader from "../../../components/site-header";
 import CustomTable from "../../../components/tables/table";
 import TableItemTokens from "../table-items/tokens";
 import SearchField from "../../../components/form-components/search-field";
-// import { processAccountRStoHex } from '../../../../helpers/processAccountRStoHex';
 import { processAccountRStoHex } from 'apl-web-crypto';
 
 const MyTokens = () => {
