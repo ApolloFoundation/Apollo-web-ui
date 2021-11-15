@@ -6,6 +6,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Form, Formik } from "formik";
+import { processAccountRStoHex } from 'apl-web-crypto';
 import { getContracts } from "../../../../actions/contracts";
 import { getSmcSpecification } from "../../../../actions/contracts";
 import { exportReadMethod } from "../../../../actions/contracts";
@@ -14,7 +15,6 @@ import SiteHeader from "../../../components/site-header";
 import CustomTable from "../../../components/tables/table";
 import TableItemTokens from "../table-items/tokens";
 import SearchField from "../../../components/form-components/search-field";
-import { processAccountRStoHex } from 'apl-web-crypto';
 
 const MyTokens = () => {
   const dispatch = useDispatch();

@@ -123,6 +123,7 @@
          return item[key].toLowerCase().includes(value.toLowerCase());
        })
      );
+     console.log("🚀 ~ file: index.jsx ~ line 126 ~ handleSearch ~ list", list)
  
      setFilteredContractList(list);
      setViewContractList(list);
