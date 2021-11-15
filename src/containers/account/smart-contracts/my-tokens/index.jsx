@@ -6,9 +6,9 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Form, Formik } from "formik";
+import { processAccountRStoHex } from 'apl-web-crypto';
 import { getContracts } from "../../../../actions/contracts";
 import { getSmcSpecification } from "../../../../actions/contracts";
-import { processAccountRStoHex } from "apl-web-crypto";
 import { exportReadMethod } from "../../../../actions/contracts";
 import { formatTimestamp } from "../../../../helpers/util/time";
 import SiteHeader from "../../../components/site-header";
@@ -54,19 +54,20 @@ const MyTokens = () => {
               },
             ],
           })
-        )
+        ).then(res => res || { failed: true })
       )
     );
 
     const currentOverviewList = contractList.map((el) =>
-      el.overview.find((item) => item.name === "symbol")
+      el.members.find((item) => item.name === "symbol")
     );
 
     const currentContractsList = contracts.map((item, index) => {
+      const balance = balanceList[index].failed ? null : balanceList[index].results[0].output[0];
       return {
         ...item,
-        symbol: currentOverviewList[index].value,
-        balance: balanceList[index].results[0].output[0],
+        symbol: currentOverviewList[index] ? currentOverviewList[index].value : '-',
+        balance,
       };
     });
     setContractList(currentContractsList);

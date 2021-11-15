@@ -6,6 +6,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Form, Formik } from "formik";
+import classNames from "classnames";
 import { getContracts } from "../../../actions/contracts";
 import { setBodyModalParamsAction } from "../../../modules/modals";
 import { getSmcSpecification } from "../../../actions/contracts";
@@ -16,71 +17,20 @@ import TableItemContract from "./table-items/contract";
 import TableItemEscrow from "./table-items/escrow";
 import Button from "../../components/button";
 import SearchField from "../../components/form-components/search-field";
+import { TABLE_DATA } from "./table-data";
 
-const TABLE_HEAD_CONTRACT = [
-  {
-    name: "Address",
-    alignRight: false,
-  },
-  {
-    name: "Symbol",
-    alignRight: false,
-  },
-  {
-    name: "Transaction",
-    alignRight: false,
-  },
-  {
-    name: "Short Hash",
-    alignRight: false,
-  },
-  {
-    name: "Published",
-    alignRight: false,
-  },
-  {
-    name: "Status",
-    alignRight: false,
-  },
-  {
-    name: "Action",
-    alignRight: true,
-  },
-];
-
-const TABLE_HEAD_ESCROW = [
-  {
-    name: "Address",
-    alignRight: false,
-  },
-  {
-    name: "Transaction",
-    alignRight: false,
-  },
-  {
-    name: "Short Hash",
-    alignRight: false,
-  },
-  {
-    name: "Published",
-    alignRight: false,
-  },
-  {
-    name: "Status",
-    alignRight: false,
-  },
-  {
-    name: "Action",
-    alignRight: true,
-  },
-];
+const TYPES_LIST = {
+  all: '',
+  token: 'APL20',
+  escrow: 'TokenEscrow',
+}
 
 const SmartContracts = () => {
   const dispatch = useDispatch();
   const [contractList, setContractList] = useState([]);
   const [filteredContractList, setFilteredContractList] = useState([]);
+  const [type, setType] = useState("all");
   const [viewContractList, setViewContractList] = useState([]);
-  const [viewEscrow, setViewEscrow] = useState(false);
   const [pagination, setPagination] = useState({
     page: 1,
     firstIndex: 0,
@@ -105,11 +55,16 @@ const SmartContracts = () => {
     )
       .then((data) => {
         const currentOverviewList = data.map((el) =>
-          el.overview.find((item) => item.name === "symbol")
+          el.members.find((item) => item.name === "symbol")
         );
 
         const currentContractsList = contracts.map((item, index) => {
-          return { ...item, symbol: currentOverviewList[index].value };
+          return {
+            ...item,
+            symbol: currentOverviewList[index]
+              ? currentOverviewList[index].value
+              : "-",
+          };
         });
 
         setContractList(currentContractsList);
@@ -143,16 +98,21 @@ const SmartContracts = () => {
   const handleSearch = (values) => {
     let isSearch = false;
     const data = Object.entries(values).reduce((acc, [key, value]) => {
+      if (type === 'escrow' && key === 'symbol') return acc;
       if (value.length > 0) {
         acc[key] = value;
         isSearch = true;
       }
+
       return acc;
     }, {});
 
+    const contracts = TYPES_LIST[type]
+      ? contractTypeFilter(TYPES_LIST[type]) : contractList;
+
     if (!isSearch) {
       setFilteredContractList([]);
-      setViewContractList([...contractList]);
+      setViewContractList([...contracts]);
       setPagination({
         page: 1,
         firstIndex: 0,
@@ -163,7 +123,7 @@ const SmartContracts = () => {
 
     const filtersList = Object.entries(data);
 
-    const list = contractList.filter((item) =>
+    const list = contracts.filter((item) =>
       filtersList.every(([key, value]) => {
         if (key === "publish") {
           return (
@@ -184,13 +144,39 @@ const SmartContracts = () => {
     });
   };
 
+  const contractTypeFilter = (type) => contractList
+    .filter((item) => item.baseContract.startsWith(type));
+
+  const setDefaultSortData = (list) => {
+    setFilteredContractList(list);
+    setViewContractList(list);
+  }
+
+  const handleTransactionFilters = (currType) => {
+    if(currType === type) return;
+
+    setType(currType);
+
+    switch(currType) {
+      case 'all':
+        setFilteredContractList([]);
+        setViewContractList([...contractList]);
+        break;
+      default:
+        const filteredlist = contractTypeFilter(TYPES_LIST[currType]);
+        setDefaultSortData(filteredlist);
+    }
+    
+    setPagination({
+      page: 1,
+      firstIndex: 0,
+      lastIndex: 15,
+    });
+  };
+
   const handleCreateToken = useCallback(() => {
     dispatch(setBodyModalParamsAction("SMC_CREATE_TOKEN", null));
   }, [dispatch]);
-
-  const handleChangeViewEscrow = () => {
-    setViewEscrow((state) => !state);
-  };
 
   return (
     <div className="page-content">
@@ -211,26 +197,24 @@ const SmartContracts = () => {
           size="sm"
           onClick={handleCreateToken}
         />
-        <Button
-          id={"button-smart-contracts-cteate-token"}
-          name="Tokens"
-          className="mr-2"
-          color={viewEscrow ? "default" : "green"}
-          size="sm"
-          onClick={handleChangeViewEscrow}
-          disabled={!viewEscrow}
-        />
-        <Button
-          id={"button-smart-contracts-cteate-token"}
-          name="Escrow"
-          color={viewEscrow ? "green" : "default"}
-          size="sm"
-          onClick={handleChangeViewEscrow}
-          disabled={viewEscrow}
-        />
       </SiteHeader>
       <div className="page-body container-fluid">
         <div className="transactions-filters">
+          <div className="top-bar mb-4">
+            {TABLE_DATA.type.map((item) => (
+              <div
+                className={classNames({
+                  btn: true,
+                  filter: true,
+                  active: type === item.type,
+                })}
+                key={item.name}
+                onClick={() => handleTransactionFilters(item.type)}
+              >
+                {item.name}
+              </div>
+            ))}
+          </div>
           <div className="search-bar">
             <Formik onSubmit={handleSearch} initialValues={{}}>
               {({ values, setValue }) => {
@@ -244,7 +228,7 @@ const SmartContracts = () => {
                         setValue={setValue}
                       />
                     </div>
-                    {!viewEscrow && (
+                    {type !== "escrow" && (
                       <div className=" col-md p-0 pr-md-3">
                         <SearchField
                           name={"symbol"}
@@ -269,16 +253,13 @@ const SmartContracts = () => {
           </div>
         </div>
         <div className="card full-height">
-          <div class="card-title">{viewEscrow ? "Escrow" : "Tokens"}</div>
           <div class="card-body">
             <CustomTable
               id={"smart-contracts-tokens"}
-              header={viewEscrow ? TABLE_HEAD_ESCROW : TABLE_HEAD_CONTRACT}
+              header={type === "escrow" ? TABLE_DATA.head.escrow : TABLE_DATA.head.token}
               className={"no-min-height"}
               emptyMessage={"No Smart Contracts found."}
-              TableRowComponent={
-                viewEscrow ? TableItemEscrow : TableItemContract
-              }
+              TableRowComponent={type === "escrow" ? TableItemEscrow : TableItemContract}
               tableData={viewContractList}
               page={pagination.page}
               isPaginate
