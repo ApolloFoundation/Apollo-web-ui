@@ -48,7 +48,7 @@ const SmartContracts = () => {
     const { contracts, errorCode } = await dispatch(getContracts());
 
     if (errorCode) {
-      setIsLoading((state) => !state);
+      setIsLoading(false);
       return;
     }
 
@@ -70,7 +70,7 @@ const SmartContracts = () => {
               : "-",
           };
         });
-        setIsLoading((state) => !state);
+        setIsLoading(false);
         setContractList(currentContractsList);
         setViewContractList(currentContractsList);
       })
