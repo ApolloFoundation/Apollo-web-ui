@@ -30,7 +30,7 @@ const TableItemContract = ({
 
   const handleContractInfo = () => {
     isStatusAPL20
-      ? history.push(`/smart-contracts/explorer/${address}`)
+      ? history.push(`/smart-contracts/explorer/contract/${address}`)
       : dispatch(setBodyModalParamsAction("SMC_INFO", { address }));
   };
 

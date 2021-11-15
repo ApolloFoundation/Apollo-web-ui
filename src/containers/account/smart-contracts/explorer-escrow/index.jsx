@@ -5,23 +5,23 @@
 
 import React, { useState, useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { processAccountRStoHex } from "apl-web-crypto";
 import { getSmcSpecification } from "../../../../actions/contracts";
 import SiteHeader from "../../../components/site-header";
 import ContentLoader from "../../../components/content-loader";
 import TabulationBody from "../../../components/tabulator/tabuator-body";
 import TabContaier from "../../../components/tabulator/tab-container";
 import PanelMethod from "../panels/panel-method";
-import PanelOverview from "../panels/panel-overview";
 import PanelSource from "../panels/panel-source";
+import PanelOverview from "../panels/panel-overview";
 
-const ExplorerContracts = (props) => {
+const ExplorerEscrow = (props) => {
   const dispatch = useDispatch();
   const { id } = props.match.params;
 
   const [specificationsList, setSpecificationsList] = useState({});
   const [contractsList, setContractsList] = useState([]);
   const [overviewInfo, setOverviewInfo] = useState([]);
-  const [currentToken, setCurrentToken] = useState(null);
   const [isLoadingPanels, setIsLoadingPanels] = useState(true);
 
   useEffect(() => {
@@ -33,7 +33,6 @@ const ExplorerContracts = (props) => {
       const specifications = await dispatch(getSmcSpecification(id));
       if (specifications) {
         const { members, overview, inheritedContracts } = specifications;
-        const token = overview.find((item) => item.name === "symbol");
         const membersList = members.reduce(
           (acc, item) => {
             if (item.stateMutability === "view") {
@@ -47,9 +46,8 @@ const ExplorerContracts = (props) => {
         );
 
         setIsLoadingPanels(false);
-        setCurrentToken(token);
-        setSpecificationsList(membersList);
         setOverviewInfo(overview);
+        setSpecificationsList(membersList);
         setContractsList(inheritedContracts);
       }
     },
@@ -67,7 +65,7 @@ const ExplorerContracts = (props) => {
                 {isLoadingPanels ? (
                   <ContentLoader />
                 ) : (
-                  <PanelOverview overview={overviewInfo} token={currentToken} />
+                  <PanelOverview overview={overviewInfo} />
                 )}
               </div>
             </div>
@@ -94,7 +92,6 @@ const ExplorerContracts = (props) => {
                           items={specificationsList.readList || []}
                           type={"view"}
                           address={id}
-                          token={currentToken}
                         />
                       </TabContaier>
                       <TabContaier
@@ -120,4 +117,4 @@ const ExplorerContracts = (props) => {
   );
 };
 
-export default ExplorerContracts;
+export default ExplorerEscrow;

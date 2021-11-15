@@ -175,7 +175,11 @@ const SmartContracts = () => {
   };
 
   const handleCreateToken = useCallback(() => {
-    dispatch(setBodyModalParamsAction("SMC_CREATE_TOKEN", null));
+    dispatch(setBodyModalParamsAction("SMC_CREATE_TOKEN"));
+  }, [dispatch]);
+
+  const handleCreateEscrow = useCallback(() => {
+    dispatch(setBodyModalParamsAction("SMC_CREATE_ESCROW"));
   }, [dispatch]);
 
   return (
@@ -195,7 +199,7 @@ const SmartContracts = () => {
           className="mr-2"
           color="green"
           size="sm"
-          onClick={handleCreateToken}
+          onClick={handleCreateEscrow}
         />
       </SiteHeader>
       <div className="page-body container-fluid">

@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   convertToToken,
-} from "../../../../../helpers/converters";
-import Collapsible from "../../../../components/collapsible";
-import Button from "../../../../components/button";
-import ExplorerForm from "../form";
-import { setBodyModalParamsAction } from "../../../../../modules/modals";
+} from "../../../../helpers/converters";
+import Collapsible from "../../../components/collapsible";
+import Button from "../../../components/button";
+import ExplorerForm from "./form";
+import { setBodyModalParamsAction } from "../../../../modules/modals";
 
 const PanelMethod = ({ items, address, type, title, token }) => {
   const dispatch = useDispatch();
