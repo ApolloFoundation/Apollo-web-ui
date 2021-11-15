@@ -184,11 +184,11 @@ const SmartContracts = () => {
     });
   };
 
-  const handleCreateToken = useCallback((type) => {
+  const handleCreateToken = useCallback(() => {
     dispatch(setBodyModalParamsAction("SMC_CREATE_TOKEN"));
   }, [dispatch]);
 
-  const handleCreateEscrow = useCallback((type) => {
+  const handleCreateEscrow = useCallback(() => {
     dispatch(setBodyModalParamsAction("SMC_CREATE_ESCROW"));
   }, [dispatch]);
 

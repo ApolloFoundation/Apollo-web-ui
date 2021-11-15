@@ -22,7 +22,6 @@ const ExplorerEscrow = (props) => {
   const [specificationsList, setSpecificationsList] = useState({});
   const [contractsList, setContractsList] = useState([]);
   const [overviewInfo, setOverviewInfo] = useState([]);
-  const [currentToken, setCurrentToken] = useState(null);
   const [isLoadingPanels, setIsLoadingPanels] = useState(true);
 
   useEffect(() => {
@@ -34,7 +33,6 @@ const ExplorerEscrow = (props) => {
       const specifications = await dispatch(getSmcSpecification(id));
       if (specifications) {
         const { members, overview, inheritedContracts } = specifications;
-        const token = overview.find((item) => item.name === "symbol");
         const membersList = members.reduce(
           (acc, item) => {
             if (item.stateMutability === "view") {
@@ -48,7 +46,6 @@ const ExplorerEscrow = (props) => {
         );
 
         setIsLoadingPanels(false);
-        setCurrentToken(token);
         setOverviewInfo(overview);
         setSpecificationsList(membersList);
         setContractsList(inheritedContracts);
@@ -68,7 +65,7 @@ const ExplorerEscrow = (props) => {
                 {isLoadingPanels ? (
                   <ContentLoader />
                 ) : (
-                  <PanelOverview overview={overviewInfo} token={currentToken} />
+                  <PanelOverview overview={overviewInfo} />
                 )}
               </div>
             </div>
@@ -95,7 +92,6 @@ const ExplorerEscrow = (props) => {
                           items={specificationsList.readList || []}
                           type={"view"}
                           address={id}
-                          token={currentToken}
                         />
                       </TabContaier>
                       <TabContaier

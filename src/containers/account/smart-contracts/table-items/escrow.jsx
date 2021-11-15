@@ -24,7 +24,9 @@ const TableItemEscrow = ({
   const currentDate = dispatch(formatTimestamp(new Date(timestamp)));
 
   const handleTransactionInfo = async () => {
-    const transactionInfo = await dispatch(getTransactionAction({transaction,}));
+    const transactionInfo = await dispatch(
+      getTransactionAction({ transaction })
+    );
     if (transactionInfo) {
       dispatch(setBodyModalParamsAction("INFO_TRANSACTION", transactionInfo));
     }
@@ -35,17 +37,13 @@ const TableItemEscrow = ({
   };
 
   const handleContractInfo = () => {
-    history.push(`/smart-contracts/explorer/escrow/${address}`)
-  }
+    history.push(`/smart-contracts/explorer/escrow/${address}`);
+  };
 
   return (
     <tr>
       <td>
-        <Button
-          color="blue-link"
-          onClick={handleContractInfo}
-          name={address}
-        />
+        <Button color="blue-link" onClick={handleContractInfo} name={address} />
       </td>
       <td>
         <Button

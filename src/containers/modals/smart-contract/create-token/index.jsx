@@ -57,11 +57,7 @@ const CreateToken = ({ closeModal }) => {
   const setInitialValues = (fields) => {
     return fields.reduce(
       (acc, field) => {
-        if (field.name === "rate") {
-          acc[field.name] = 1;
-        } else {
-          acc[field.name] = "";
-        }
+        acc[field.name] = field.name === "rate" ? 1 : "";
         return acc;
       },
       { atm: "", token: "" }
@@ -174,11 +170,8 @@ const CreateToken = ({ closeModal }) => {
                   {formFieldsList.map((item, index) => {
                     if (item.name === "rate") {
                       return (
-                        <>
-                          <div
-                            key={item + index}
-                            className="row w-100 m-0 justify-content-between align-items-center mb-3"
-                          >
+                        <div key={item + index}>
+                          <div className="row w-100 m-0 justify-content-between align-items-center mb-3">
                             <div className="col-5 p-0">
                               <Field
                                 key={"atm" + index}
@@ -241,7 +234,7 @@ const CreateToken = ({ closeModal }) => {
                               </div>
                             )}
                           />
-                        </>
+                        </div>
                       );
                     }
                     return (
