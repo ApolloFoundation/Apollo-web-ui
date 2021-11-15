@@ -55,7 +55,9 @@
        <td>
          <Button color="blue-link" onClick={handleTokenInfo} name={symbol} />
        </td>
-       <td className="align-right">{convertToToken(balance, 8, true)}</td>
+       <td className="align-right">
+         {balance ? convertToToken(balance, 8, true) : '-'}
+       </td>
        <td className="align-right">{signature.substr(-12)}</td>
        <td className="align-right">
          <div className="btn-box inline">
