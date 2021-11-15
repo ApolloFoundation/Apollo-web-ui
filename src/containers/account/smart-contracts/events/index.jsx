@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setBodyModalParamsAction } from "../../../../modules/modals";
 import { removeContractAction } from "../../../../actions/smart-contracts";
@@ -7,6 +7,7 @@ import TabContaier from "../../../components/tabulator/tab-container";
 import TabulationBody from "../../../components/tabulator/tabuator-body";
 import Button from "../../../components/button";
 import ContractItem from "./contract-item";
+import InfoBox from "../../../components/info-box";
 
 const Events = () => {
   const dispatch = useDispatch();
@@ -26,7 +27,6 @@ const Events = () => {
 
   const handleClose = (index) => {
     const [id, contract] = Object.entries(contractsData)[index];
-
     dispatch(removeContractAction(id));
     contract.closeEventConnection();
   };
@@ -42,15 +42,19 @@ const Events = () => {
         />
       </SiteHeader>
       <div className="page-body container-fluid">
-        <div className="form-group-app transparent">
-          <TabulationBody className="transparent" handleClose={handleClose}>
-            {Object.entries(contractsData)?.map(([id, contract]) => (
-              <TabContaier key={id} sectionName={id} active={1}>
-                <ContractItem contractId={id} contractInstanse={contract} />
-              </TabContaier>
-            ))}
-          </TabulationBody>
-        </div>
+        {Object.keys(contractsData).length == 0 ? (
+          <InfoBox default>{"Empty list"}</InfoBox>
+        ) : (
+          <div className="form-group-app transparent">
+            <TabulationBody className="transparent" handleClose={handleClose}>
+              {Object.entries(contractsData)?.map(([id, contract]) => (
+                <TabContaier key={id} sectionName={id} active={1}>
+                  <ContractItem contractId={id} contractInstanse={contract} />
+                </TabContaier>
+              ))}
+            </TabulationBody>
+          </div>
+        )}
       </div>
     </div>
   );

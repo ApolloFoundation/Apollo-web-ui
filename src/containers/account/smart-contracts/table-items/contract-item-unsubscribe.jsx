@@ -16,7 +16,7 @@ const ContractItemUn = ({ contractInstanse, contractId, id, description, ...even
 
   return (
     <>
-      <tr>
+      <tr >
         <td>{event.name || "-"}</td>
         <td>{description}</td>
         <td>{event.fromBlock}</td>
