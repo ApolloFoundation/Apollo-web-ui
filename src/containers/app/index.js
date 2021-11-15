@@ -90,8 +90,10 @@ import SmartContracts from "../account/smart-contracts";
 import SmartContractCreate from "../account/smart-contracts/create";
 import MySmartContract from "../account/smart-contracts/my-contracts";
 import ExplorerContract from "../account/smart-contracts/explorer-contract";
+import ExplorerEscrow from "../account/smart-contracts/explorer-escrow";
 import ExplorerToken from "../account/smart-contracts/token";
 import MyTokens from "../account/smart-contracts/my-tokens";
+
 import Events from '../account/smart-contracts/events';
 
 import "./App.scss";
@@ -333,7 +335,8 @@ class App extends React.Component {
         path="/smart-contracts/events"
         component={Events}
       />
-      <Route exact path="/smart-contracts/explorer/:id?" component={ExplorerContract} />
+      <Route exact path="/smart-contracts/explorer/contract/:id?" component={ExplorerContract} />
+      <Route exact path="/smart-contracts/explorer/escrow/:id?" component={ExplorerEscrow} />
       <Route exact path="/smart-contracts/token/:id?" component={ExplorerToken} />
       <Route
         exact

@@ -1,7 +1,7 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
 
-import { convertToToken } from "../../../../../helpers/converters";
+import { convertToToken } from "../../../../helpers/converters";
 
 const PanelOverview = ({ overview, token }) => {
   return (

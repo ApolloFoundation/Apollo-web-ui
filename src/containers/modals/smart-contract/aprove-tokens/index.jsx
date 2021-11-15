@@ -7,20 +7,19 @@ import React, { useState, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Form, Formik } from "formik";
 import AceEditor from "react-ace";
-import { v4 as uuidv4 } from "uuid";
 import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-tomorrow";
 import {
   exportTestContract,
   exportContractSubmit,
   exportConfirmationOnBoard,
-} from "../../../../src/actions/contracts";
-import TextualInputComponent from "../../components/form-components/textual-input1";
-import NumericInput from "../../components/form-components/numeric-input1";
-import CheckboxFormInput from "../../components/check-button-input";
-import Button from "../../components/button";
+} from "../../../../actions/contracts";
+import TextualInputComponent from "../../../components/form-components/textual-input1";
+import NumericInput from "../../../components/form-components/numeric-input1";
+import CheckboxFormInput from "../../../components/check-button-input";
+import Button from "../../../components/button";
 
-export default function ({ closeModal }) {
+const AproveTokens = ({ closeModal }) => {
   const dispatch = useDispatch();
   const modalData = useSelector((state) => state.modals.modalData);
   const { accountRS, passPhrase: secretPhrase } = useSelector(
@@ -71,7 +70,7 @@ export default function ({ closeModal }) {
 
   return (
     <div className="modal-box">
-      {modalData ? (
+      {modalData && (
         <Formik
           onSubmit={submitForm}
           initialValues={{
@@ -90,8 +89,8 @@ export default function ({ closeModal }) {
                       <i className="zmdi zmdi-close" />
                     </button>
                     <div className="form-title">
-                      <p>Token cretion preview</p>
-                      <p>Token type: {modalData.token}</p>
+                      <p>{`${modalData.type} cretion preview`}</p>
+                      <p>{`${modalData.type} type: ${modalData.token}`}</p>
                     </div>
                     <div className="transaction-table no-min-height transparent">
                       <div className="transaction-table-body transparent full-info">
@@ -100,7 +99,7 @@ export default function ({ closeModal }) {
                             {modalData &&
                               Object.entries(modalData.params).map(
                                 ([key, value]) => (
-                                  <tr key={uuidv4()}>
+                                  <tr key={key+value}>
                                     <td className="text-capitalize">{key}</td>
                                     <td>{value}</td>
                                   </tr>
@@ -167,9 +166,8 @@ export default function ({ closeModal }) {
             );
           }}
         </Formik>
-      ) : (
-        <div>Empty list</div>
       )}
     </div>
   );
 }
+export default AproveTokens;

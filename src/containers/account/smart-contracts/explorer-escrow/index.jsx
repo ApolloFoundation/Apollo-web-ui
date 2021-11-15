@@ -5,16 +5,17 @@
 
 import React, { useState, useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { processAccountRStoHex } from "apl-web-crypto";
 import { getSmcSpecification } from "../../../../actions/contracts";
 import SiteHeader from "../../../components/site-header";
 import ContentLoader from "../../../components/content-loader";
 import TabulationBody from "../../../components/tabulator/tabuator-body";
 import TabContaier from "../../../components/tabulator/tab-container";
 import PanelMethod from "../panels/panel-method";
-import PanelOverview from "../panels/panel-overview";
 import PanelSource from "../panels/panel-source";
+import PanelOverview from "../panels/panel-overview";
 
-const ExplorerContracts = (props) => {
+const ExplorerEscrow = (props) => {
   const dispatch = useDispatch();
   const { id } = props.match.params;
 
@@ -48,8 +49,8 @@ const ExplorerContracts = (props) => {
 
         setIsLoadingPanels(false);
         setCurrentToken(token);
-        setSpecificationsList(membersList);
         setOverviewInfo(overview);
+        setSpecificationsList(membersList);
         setContractsList(inheritedContracts);
       }
     },
@@ -120,4 +121,4 @@ const ExplorerContracts = (props) => {
   );
 };
 
-export default ExplorerContracts;
+export default ExplorerEscrow;

@@ -3,8 +3,8 @@ import { useDispatch } from "react-redux";
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-tomorrow";
-import { getContractCode } from "../../../../../actions/contracts";
-import ContentLoader from "../../../../components/content-loader";
+import { getContractCode } from "../../../../actions/contracts";
+import ContentLoader from "../../../components/content-loader";
 
 const PanelCode = ({ contract }) => {
   const dispatch = useDispatch();

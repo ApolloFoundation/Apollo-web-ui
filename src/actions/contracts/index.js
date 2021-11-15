@@ -172,7 +172,7 @@ export function getSmcSourceInfo(requestParams) {
 
 export function getTokenList(requestParams) {
   return () =>
-    handleFetch(`/rest/v2/smc/asr`)
+    handleFetch(`/rest/v2/smc/asr?type=${requestParams}`)
       .then((res) => {
         if (res.errorCode) {
           NotificationManager.error(res.errorDescription, "Error", 10000);

@@ -58,8 +58,9 @@ import SellCurrency from './currencies/confirm-sell-request';
 import MessageExecution from './smart-contracts';
 import SmartContractsInfo from './smart-contract-info';
 import SmartContractsBuy from './smart-contracts-buy';
-import SmartContractsCreateToken from './smart-contracts-create-token';
-import SmartContractsAproveToken from './smart-contracts-aprove-token'
+import CreateToken from './smart-contract/create-token';
+import CreateEscrow from './smart-contract/create-escrow';
+import AproveTokens from './smart-contract/aprove-tokens'
 import SmartContractTransfer from './smart-contract/transfer'
 // Voting system
 import CreatePoll from './voting-system/create-poll/';
@@ -241,9 +242,10 @@ class ModalWindow extends React.Component {
                     {this.props.modalType === 'SMC_CREATE'                  && <MessageExecution          closeModal={this.closeModal} nameModal={"SMC_CREATE"}/>}
                     {this.props.modalType === 'SMC_INFO'                    && <SmartContractsInfo        closeModal={this.closeModal} nameModal={'SMC_INFO'}/>}
                     {this.props.modalType === 'SMC_BUY'                     && <SmartContractsBuy         closeModal={this.closeModal} nameModal={'SMC_BUY'}/>}
-                    {this.props.modalType === 'SMC_CREATE_TOKEN'            && <SmartContractsCreateToken closeModal={this.closeModal} nameModal={'SMC_CREATE_TOKEN'}/>}
-                    {this.props.modalType === 'SMC_APROVE_TOKEN'            && <SmartContractsAproveToken closeModal={this.closeModal} nameModal={'SMC_APROVE_TOKEN'}/>}
-                    {this.props.modalType === 'SMC_TRANSFER'                && <SmartContractTransfer      closeModal={this.closeModal} nameModal={'SMC_TRANSFER'}/>}
+                    {this.props.modalType === 'SMC_CREATE_TOKEN'            && <CreateToken               closeModal={this.closeModal} nameModal={'SMC_CREATE_TOKEN'}/>}
+                    {this.props.modalType === 'SMC_CREATE_ESCROW'           && <CreateEscrow              closeModal={this.closeModal} nameModal={'SMC_CREATE_ESCROW'}/>}
+                    {this.props.modalType === 'SMC_APROVE_TOKEN'            && <AproveTokens              closeModal={this.closeModal} nameModal={'SMC_APROVE_TOKEN'}/>}
+                    {this.props.modalType === 'SMC_TRANSFER'                && <SmartContractTransfer     closeModal={this.closeModal} nameModal={'SMC_TRANSFER'}/>}
 
                     {/* Voting */}
                     {this.props.modalType === 'ISSUE_POLL'                  && <CreatePoll                closeModal={this.closeModal} nameModal={'ISSUE_POLL'}/>}
