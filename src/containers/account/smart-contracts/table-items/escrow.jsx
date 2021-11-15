@@ -2,13 +2,15 @@
  * Copyright © 2018 Apollo Foundation                                         *
  *                                                                            *
  ***************************************************************************** */
-
-import React from "react";
-import { useDispatch } from "react-redux";
+import React, { useCallback } from "react";
+import { useDispatch, useStore } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { NotificationManager } from "react-notifications";
+import { Contract } from "aplsmcjs";
 import { formatTimestamp } from "../../../../helpers/util/time";
 import { setBodyModalParamsAction } from "../../../../modules/modals";
 import { getTransactionAction } from "../../../../actions/transactions";
+import { addContractAction } from "../../../../actions/smart-contracts";
 import Button from "../../../components/button";
 
 const TableItemEscrow = ({
@@ -21,6 +23,7 @@ const TableItemEscrow = ({
 }) => {
   const history = useHistory();
   const dispatch = useDispatch();
+  const store = useStore();
   const currentDate = dispatch(formatTimestamp(new Date(timestamp)));
 
   const handleTransactionInfo = async () => {
@@ -40,10 +43,51 @@ const TableItemEscrow = ({
     history.push(`/smart-contracts/explorer/escrow/${address}`);
   };
 
+  const handleAddEvent = useCallback(() => {
+    try {
+      let { host, protocol } = window.location;
+      const isDev = process.env.NODE_ENV === "development";
+      const protocolPrefix = protocol === "https:" || !isDev ? "wss:" : "ws:";
+      const forProxy = isDev ? "socket/" : "";
+      const smartContract = new Contract(
+        {
+          apiPath: `/rest/v2/smc/${address}/event`,
+          socketPath: `${protocolPrefix}//${host}/${forProxy}smc/event/`,
+        },
+        address,
+        {
+          onContractConnectionClose: () => {
+            const contractData = store.getState().smartContract.contractsData;
+            if (contractData && contractData[address]) {
+              smartContract.createConnection();
+              console.log("do reconnect", address);
+            } else {
+              console.log("connection close for", address);
+            }
+          },
+        }
+      );
+      dispatch(addContractAction(address, smartContract));
+      NotificationManager.success("Event has been added", null, 10000);
+    } catch (e) {
+      console.log(e);
+    }
+  }, [dispatch, store]);
+
   return (
     <tr>
       <td>
-        <Button color="blue-link" onClick={handleContractInfo} name={address} />
+        <div className="d-flex">
+          <Button
+          className="mr-2"
+            color="blue-link"
+            onClick={handleContractInfo}
+            name={address}
+          />
+          <div className="pointer" onClick={handleAddEvent}>
+            <i class="zmdi zmdi-notifications zmdi-hc-2x"></i>
+          </div>
+        </div>
       </td>
       <td>
         <Button

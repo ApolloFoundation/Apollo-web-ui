@@ -15,7 +15,9 @@ const Events = () => {
   );
 
   useEffect(() => {
-    handleAddContractModal();
+    if (Object.keys(contractsData).length == 0) {
+      handleAddContractModal();
+    }
   }, []);
 
   const handleAddContractModal = useCallback(() => {
