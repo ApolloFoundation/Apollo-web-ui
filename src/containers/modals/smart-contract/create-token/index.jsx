@@ -27,18 +27,18 @@ const CreateToken = ({ closeModal }) => {
   const [apl, setApl] = useState(1);
 
   const getStateTokenList = useCallback(async () => {
-    const tokenList = await dispatch(getTokenList("token"));
-    if (tokenList) {
-      setTokenList(tokenList.modules);
-      setCurrentToken(tokenList.modules[0]);
+    const { modules } = await dispatch(getTokenList("token"));
+    if (modules) {
+      setTokenList(modules);
+      setCurrentToken(modules[0]);
     }
   }, [dispatch]);
 
   const getStateTokensForm = useCallback(
     async (currentToken) => {
-      const stateInfo = await dispatch(getTokensForm(currentToken));
-      if (stateInfo) {
-        setFormFieldsList(stateInfo.members[0].inputs);
+      const { members } = await dispatch(getTokensForm(currentToken));
+      if (members) {
+        setFormFieldsList(members[0].inputs);
       }
     },
     [dispatch]
