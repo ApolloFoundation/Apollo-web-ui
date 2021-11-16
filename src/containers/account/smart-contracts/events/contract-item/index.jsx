@@ -1,9 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import classNames from "classnames";
 import CustomTable from "../../../../components/tables/table1";
 import ContractItemUn from "../../table-items/contract-item-unsubscribe";
 import ContractItemData from "../../table-items/contract-item-data";
 import ContractItemForm from "./contract-item-form";
+
+import styles from "./styles.module.scss";
 
 const ContractItem = ({ contractId, contractInstanse }) => {
   const contractEventsData = useSelector(
@@ -16,15 +19,17 @@ const ContractItem = ({ contractId, contractInstanse }) => {
   return (
     <div className="row">
       <div className="col-12 col-md-6 p-3">
-        <div className="w-100 card card-light h-auto p-3">
-          <ContractItemForm
-            contractId={contractId}
-            contractInstanse={contractInstanse}
-          />
+        <div className={classNames("card", "full-height", styles.contractBox)}>
+          <div className="w-100 card card-light h-auto p-3">
+            <ContractItemForm
+              contractId={contractId}
+              contractInstanse={contractInstanse}
+            />
+          </div>
         </div>
       </div>
       <div className="col-12 col-md-6 p-3">
-        <div className="card full-height">
+        <div className={classNames("card", "full-height", styles.contractBox)}>
           <div class="card-title">Events subscription</div>
           <div class="card-body">
             <CustomTable

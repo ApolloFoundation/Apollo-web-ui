@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Form, Formik, Field } from "formik";
 import {
@@ -6,8 +6,10 @@ import {
   addContractEventInfoAction,
   addEventAction,
 } from "../../../../../../actions/smart-contracts";
+import { getSmcSpecification } from "../../../../../../actions/contracts";
 import TextualInputComponent from "../../../../../components/form-components/textual-input1";
 import Button from "../../../../../components/button";
+import CustomSelect from "../../../../../components/select";
 import validationShema from "./validationShema";
 
 const initialState = {
@@ -20,6 +22,30 @@ const initialState = {
 
 const ContractItemForm = ({ contractInstanse, contractId }) => {
   const dispatch = useDispatch();
+  const [eventList, setEventList] = useState([]);
+
+  useEffect(() => {
+    getContractSpecification(contractId);
+  }, [contractId]);
+
+  const getContractSpecification = useCallback(
+    async (id) => {
+      const { members } = await dispatch(getSmcSpecification(id));
+      if (members.length > 0) {
+        const membersList = members.reduce((acc, item) => {
+          if (item.type === "EVENT") {
+            acc.push({
+              label: item.name,
+              value: item.signature,
+            });
+          }
+          return acc;
+        }, []);
+        setEventList(membersList);
+      }
+    },
+    [dispatch]
+  );
 
   const prepareData = ({ eventName, filter, signature, fromBlock }) => {
     const data = {
@@ -84,16 +110,21 @@ const ContractItemForm = ({ contractInstanse, contractId }) => {
   const handleTestEvent = () => {
     contractInstanse.createTest(handleEventMessage, handleEventSubscription);
   };
+  const handleChangeDrop = (e, setFieldValue) => {
+    setFieldValue("eventName", e.split(":")[0]);
+    setFieldValue("signature", e);
+  };
 
   return (
     <Formik initialValues={initialState} onSubmit={() => {}}>
-      {({ values }) => (
+      {({ values, setFieldValue }) => (
         <Form>
-          <h3>Add contract event</h3>
-          <TextualInputComponent
-            type="text"
+          <h3 className="mb-3">Add contract event</h3>
+          <CustomSelect
             name="eventName"
+            options={eventList}
             placeholder="Enter event name"
+            onChange={(e) => handleChangeDrop(e, setFieldValue)}
           />
           <TextualInputComponent
             type="text"
