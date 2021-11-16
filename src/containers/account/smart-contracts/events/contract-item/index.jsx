@@ -1,10 +1,11 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import classNames from "classnames";
 import CustomTable from "../../../../components/tables/table1";
 import ContractItemUn from "../../table-items/contract-item-unsubscribe";
 import ContractItemData from "../../table-items/contract-item-data";
 import ContractItemForm from "./contract-item-form";
-import classNames from "classnames";
+
 import styles from "./styles.module.scss";
 
 const ContractItem = ({ contractId, contractInstanse }) => {
