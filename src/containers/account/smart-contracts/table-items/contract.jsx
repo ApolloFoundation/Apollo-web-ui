@@ -88,6 +88,7 @@ const TableItemContract = ({
       );
       dispatch(addContractAction(address, smartContract));
       NotificationManager.success("Event has been added", null, 10000);
+      history.push(`/smart-contracts/events`)
     } catch (e) {
       console.log(e);
     }

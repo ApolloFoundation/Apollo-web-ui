@@ -15,7 +15,7 @@ import validationShema from "./validationShema";
 const initialState = {
   eventName: "",
   filter: "",
-  fromBlock: 0,
+  fromBlock: "",
   signature: "",
   description: "",
 };
@@ -61,7 +61,7 @@ const ContractItemForm = ({ contractInstanse, contractId }) => {
     return data;
   };
 
-  const handleAddEvent = (values) => () => {
+  const handleAddEvent = (values, resetForm) => () => {
     const isValidForm = validationShema(values);
     if (!isValidForm) {
       const data = prepareData(values);
@@ -77,6 +77,7 @@ const ContractItemForm = ({ contractInstanse, contractId }) => {
           description: values.description,
         })
       );
+      resetForm();
     }
   };
 
@@ -88,7 +89,7 @@ const ContractItemForm = ({ contractInstanse, contractId }) => {
     dispatch(addContractEventInfoAction(contractId, err || data));
   };
 
-  const handleAddEventOnce = (values) => () => {
+  const handleAddEventOnce = (values, resetForm) => () => {
     const isValidForm = validationShema(values);
     if (!isValidForm) {
       const data = prepareData(values);
@@ -104,12 +105,14 @@ const ContractItemForm = ({ contractInstanse, contractId }) => {
           description: values.description,
         })
       );
+      resetForm();
     }
   };
 
   const handleTestEvent = () => {
     contractInstanse.createTest(handleEventMessage, handleEventSubscription);
   };
+
   const handleChangeDrop = (e, setFieldValue) => {
     setFieldValue("eventName", e.split(":")[0]);
     setFieldValue("signature", e);
@@ -117,32 +120,45 @@ const ContractItemForm = ({ contractInstanse, contractId }) => {
 
   return (
     <Formik initialValues={initialState} onSubmit={() => {}}>
-      {({ values, setFieldValue }) => (
+      {({ values, setFieldValue, resetForm }) => (
         <Form>
           <h3 className="mb-3">Add contract event</h3>
-          <CustomSelect
+          {eventList.length > 0 && (
+            <CustomSelect
+              options={eventList}
+              className="mb-0"
+              placeholder="Chose event name"
+              onChange={(e) => handleChangeDrop(e, setFieldValue)}
+            />
+          )}
+
+          <TextualInputComponent
+            type="text"
             name="eventName"
-            options={eventList}
+            className="mb-0"
             placeholder="Enter event name"
-            onChange={(e) => handleChangeDrop(e, setFieldValue)}
           />
           <TextualInputComponent
             type="text"
             name="signature"
+            className="mb-0"
             placeholder="Enter event signature"
           />
           <TextualInputComponent
             type="text"
             name="fromBlock"
+            className="mb-0"
             placeholder="From block"
           />
           <TextualInputComponent
             type="text"
             name="description"
+            className="mb-15"
             placeholder="description"
           />
-          <div class="form-group mt-5 mb-15">
+          <div class="form-group mt-15 mb-15">
             <Field
+              className="mb-1"
               res
               rows="5"
               as="textarea"
@@ -157,7 +173,7 @@ const ContractItemForm = ({ contractInstanse, contractId }) => {
               name="Add event"
               className="mt-1 mb-1"
               size="sm"
-              onClick={handleAddEvent(values)}
+              onClick={handleAddEvent(values, resetForm)}
             />
             <Button
               type="button"
@@ -166,7 +182,7 @@ const ContractItemForm = ({ contractInstanse, contractId }) => {
               name="Add event once"
               className="mt-1 mb-1"
               size="sm"
-              onClick={handleAddEventOnce(values)}
+              onClick={handleAddEventOnce(values, resetForm)}
             />
             <Button
               type="button"
