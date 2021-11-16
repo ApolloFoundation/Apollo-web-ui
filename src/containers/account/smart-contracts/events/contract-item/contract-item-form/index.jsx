@@ -112,7 +112,7 @@ const ContractItemForm = ({ contractInstanse, contractId }) => {
   };
   const handleChangeDrop = (e, setFieldValue) => {
     setFieldValue("eventName", e.split(":")[0]);
-    setFieldValue("signature", e.split(":")[1]);
+    setFieldValue("signature", e);
   };
 
   return (
