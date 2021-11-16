@@ -5,7 +5,7 @@
 
 import React from "react";
 import Select from "react-select";
-
+import classNames from "classnames";
 import "./Select.scss";
 
 class CustomSelect extends React.Component {
@@ -37,7 +37,7 @@ class CustomSelect extends React.Component {
   render() {
     return (
       <Select
-        className={"form-custom-select"}
+        className={classNames("form-custom-select", this.props.className)}
         classNamePrefix={"custom-select-box"}
         options={this.props.options}
         value={this.state.value}

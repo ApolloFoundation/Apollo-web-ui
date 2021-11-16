@@ -5,7 +5,6 @@ import CustomTable from "../../../../components/tables/table1";
 import ContractItemUn from "../../table-items/contract-item-unsubscribe";
 import ContractItemData from "../../table-items/contract-item-data";
 import ContractItemForm from "./contract-item-form";
-
 import styles from "./styles.module.scss";
 
 const ContractItem = ({ contractId, contractInstanse }) => {

@@ -11,6 +11,7 @@ import InfoBox from "../../../components/info-box";
 
 const Events = () => {
   const dispatch = useDispatch();
+  const [active, setActive] = useState(0);
   const contractsData = useSelector(
     (state) => state.smartContract.contractsData
   );
@@ -20,6 +21,10 @@ const Events = () => {
       handleAddContractModal();
     }
   }, []);
+
+  useEffect(() => {
+    setActive(Object.entries(contractsData).length - 1);
+  }, [contractsData]);
 
   const handleAddContractModal = useCallback(() => {
     dispatch(setBodyModalParamsAction("EVENT_ADD_CONRACT", null));
@@ -46,9 +51,13 @@ const Events = () => {
           <InfoBox default>{"Empty list"}</InfoBox>
         ) : (
           <div className="form-group-app transparent">
-            <TabulationBody className="transparent" handleClose={handleClose}>
+            <TabulationBody
+              className="transparent"
+              active={active}
+              handleClose={handleClose}
+            >
               {Object.entries(contractsData)?.map(([id, contract]) => (
-                <TabContaier key={id} sectionName={id} active={1}>
+                <TabContaier key={id} sectionName={id} activeTab={active}>
                   <ContractItem contractId={id} contractInstanse={contract} />
                 </TabContaier>
               ))}

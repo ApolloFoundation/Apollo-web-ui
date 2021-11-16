@@ -9,6 +9,12 @@ class TabulationBody extends React.Component {
       this.setState({ activeTab: this.props.active });
     }
   }
+  componentDidUpdate(prevProps) {
+    if (this.props.active !== prevProps.active) {
+      this.setState({ activeTab: this.props.active });
+    }
+  }
+
   handleTab = (e, index) => {
     e.preventDefault();
     this.setState({
