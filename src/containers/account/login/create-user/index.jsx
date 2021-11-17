@@ -41,7 +41,6 @@ export default function CreateUser(props) {
   const [isCustomPassphraseTextarea, setIsCustomPassphraseTextarea] = useState(null);
   const [currPassphrase, setCurrPassphrase] = useState(null);
 
-
   const handleTab = useCallback(selectTab => {
     setActiveTab(selectTab);
   }, []);
@@ -50,7 +49,7 @@ export default function CreateUser(props) {
     if (selectedOption === 0) {
       if (values.secretPhrase === currPassphrase) {
         setIsPending(true);
-        dispatch(getAccountDataAction({ account: accountData.accountRS }));
+        dispatch(getAccountDataAction({ account: accountData.currencies[0].wallets[0].address }));
       } else {
         NotificationManager.error('Incorrect secret phrase!', 'Error', 5000);
       }

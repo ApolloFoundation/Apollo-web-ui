@@ -44,11 +44,11 @@ export default function SellFormWrapper(props) {
       if (wallet) {
         if (values.offerAmount > 0 && values.pairRate > 0) {
           let isError = false;
-          if (+values.pairRate < 0.000000001) {
+          if (values.pairRate < 0.000000001) {
             NotificationManager.error(`Price must be more then 0.000000001 ${currency.toUpperCase()}`, 'Error', 5000);
             isError = true;
           }
-          if (+values.offerAmount < 0.001) {
+          if (values.offerAmount < 0.001) {
             NotificationManager.error(`You can sell more then 0.001 ${ticker}`, 'Error', 5000);
             isError = true;
           }
@@ -65,7 +65,7 @@ export default function SellFormWrapper(props) {
             return;
           }
           const pairRate = Math.round(multiply(values.pairRate, ONE_GWEI));
-          const offerAmount = multiply(values.offerAmount, ONE_GWEI);
+          const offerAmount = values.offerAmount * ONE_GWEI;
           const currentBalanceAPL = (dashboardAccoountInfo && dashboardAccoountInfo.unconfirmedBalanceATM)
             ? parseFloat(dashboardAccoountInfo.unconfirmedBalanceATM)
             : parseFloat(balanceAPL);

@@ -8,13 +8,12 @@ import { ONE_GWEI } from '../../../../constants';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
 import { getMyOfferHistory } from '../../../../actions/wallet';
 import { BlockUpdater } from '../../../block-subscriber';
-import {
-  formatDivision, currencyTypes, secureStorage,
-} from '../../../../helpers/format';
+import { formatDivision, currencyTypes } from '../../../../helpers/format';
 import CustomTable from '../../../components/tables/table1';
 import SiteHeader from '../../../components/site-header';
 import InfoBox from '../../../components/info-box';
 import Button from '../../../components/button';
+import { readFromLocalStorage } from '../../../../actions/localStorage';
 
 export default function OrderHistory() {
   const dispatch = useDispatch();
@@ -68,7 +67,7 @@ export default function OrderHistory() {
   }, [listener]);
 
   useEffect(() => {
-    const localWallets = secureStorage.getItem('wallets');
+    const localWallets = readFromLocalStorage('wallets');
     if (!localWallets) {
       dispatch(setBodyModalParamsAction('LOGIN_EXCHANGE', {}));
     } else {

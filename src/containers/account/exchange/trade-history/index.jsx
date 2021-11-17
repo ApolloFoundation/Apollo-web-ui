@@ -6,13 +6,12 @@ import { ALL_STATUSES } from '../../../../constants/statuses';
 import { ONE_GWEI } from '../../../../constants';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
 import { getMyTradeHistory } from '../../../../actions/wallet';
-import {
-  formatDivision, currencyTypes, secureStorage,
-} from '../../../../helpers/format';
+import { formatDivision, currencyTypes } from '../../../../helpers/format';
 import { BlockUpdater } from '../../../block-subscriber';
 import CustomTable from '../../../components/tables/table1';
 import SiteHeader from '../../../components/site-header';
 import InfoBox from '../../../components/info-box';
+import { readFromLocalStorage } from '../../../../actions/localStorage';
 
 export default function TradeHistory() {
   const dispatch = useDispatch();
@@ -64,7 +63,7 @@ export default function TradeHistory() {
   }, [listener]);
 
   useEffect(() => {
-    const localWallets = secureStorage.getItem('wallets');
+    const localWallets = readFromLocalStorage('wallets');
     if (!localWallets) {
       dispatch(setBodyModalParamsAction('LOGIN_EXCHANGE', {}));
     } else {

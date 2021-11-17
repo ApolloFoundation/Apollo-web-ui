@@ -21,7 +21,8 @@ import ExchangeRequestsTable from './tables/exchange-requests-table';
 import ExecutedExcahngeTable from './tables/executed-exchange-table';
 
 import SiteHeader from '../../../components/site-header';
-import SidebarContent from '../../../components/sidebar-list';
+import SidebarList from '../../../components/sidebar-list';
+
 import SidebarCurrency from './sdiebar-item';
 import CurrencyInfoTable from './currency-info';
 
@@ -183,7 +184,7 @@ export default function ExchangeBooth() {
         <div className="row">
           <div className="col-md-3 col-sm-4 p-0 mb-3">
             {(window.innerWidth > 767 || !isGoBack) && (
-              <SidebarContent
+              <SidebarList
                 element="code"
                 baseUrl="/exchange-booth/"
                 data={dataCurrencies}

@@ -17,7 +17,7 @@ import SendApolloPrivate from "./send-apollo-private";
 import IssueAsset from "./issue/issue-asset"
 import InfoTransaction from './info-transaction/info-transaction';
 import { TransactionFail } from './transaction-fail';
-import InfoLedgerTransaction from './info-ledger-transaction';
+import InfoLedgerTransaction from './info-ledger-transaction/index';
 import InfoBlock from './info-block';
 import RawTransactionDetails from './send-apollo/raw-transaction-details';
 import { LoginSaveData } from './login-save-data/index';
@@ -70,7 +70,7 @@ import PollResults from './voting-system/poll-results/';
 import UploadFile from './data-storage/uppload-file/';
 // Coin shuffling
 import CreateShuffling from './coin-shuffling/create-shuffling/';
-import JoinShuffling from './coin-shuffling/join-shuffling/';
+import JoinShuffling from './coin-shuffling/join-shuffling/index.jsx';
 // Aliases
 import EditAlias from './aliases/edit-alias';
 import SellAlias from './aliases/sell-alias';

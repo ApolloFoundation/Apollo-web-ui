@@ -9,12 +9,8 @@ import React, {
 import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 import { NotificationManager } from 'react-notifications';
-import {
-  getTransactionsAction,
-} from '../../../actions/transactions';
-import {
-  setModalCallback, setModalType,
-} from '../../../modules/modals';
+import { getTransactionsAction } from '../../../actions/transactions';
+import { setModalCallback, setModalType } from '../../../modules/modals';
 import { BlockUpdater } from '../../block-subscriber';
 import SiteHeader from '../../components/site-header';
 import Transaction from './transaction';

@@ -5,11 +5,11 @@ import cn from 'classnames';
 import ContentLoader from '../content-loader';
 
 const SidebarContent = ({
-  emptyMessage, baseUrl, data, element, location, Component, currentItem,
+  emptyMessage, baseUrl, data, element, location, Component, currentItem, isLoading,
 }) => (
   <>
     <div className="card scroll justify-content-start absolute h-100 sidebar-content">
-      {!!data && data.length > 0 && data.map((el, index) => (
+      {!isLoading && data && data.length > 0 && data.map((el, index) => (
         <Link
           key={element}
           to={baseUrl + el[element]}
@@ -21,14 +21,14 @@ const SidebarContent = ({
           <Component {...el} />
         </Link>
       ))}
-      {data && data.length === 0
-        ? (
+      {isLoading && <ContentLoader />}
+
+      {(!isLoading && data && data.length === 0) && (
           <p className="no-followed-polls">
             {emptyMessage}
           </p>
-        ) : (
-          <ContentLoader />
-        )}
+        )
+      }
     </div>
   </>
 );

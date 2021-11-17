@@ -14,7 +14,9 @@ export const PureModal = ({ children, withCloseButton }) => {
   return (
     <div className={classNames(styles.pureModal, 'modal-box dark-card')}>
       {withCloseButton && (
-        <span onClick={handleClose} className={styles.pureModalClose}>&times;</span>
+        <button type="button" onClick={handleClose} className={styles.pureModalClose}>
+          <span className={styles.pureModalCloseIcon}>&times;</span>
+        </button>
       )}
       {children}
     </div>

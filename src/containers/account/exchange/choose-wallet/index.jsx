@@ -4,16 +4,18 @@ import React, {
 import { useDispatch, useSelector } from 'react-redux';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
 import { getCurrencyBalance } from '../../../../actions/wallet';
-import { secureStorage } from '../../../../helpers/format';
 import { setCurrentCurrencyAction } from '../../../../modules/exchange';
 import getFullNumber from '../../../../helpers/util/expancionalParser';
 import SiteHeader from '../../../components/site-header';
 import CustomTable from '../../../components/tables/table1';
 import InfoBox from '../../../components/info-box';
+import { useExchangeWalletConverts } from '../../../../hooks/useExchangeWalletConverts';
+import { readFromLocalStorage } from '../../../../actions/localStorage';
 import CurrencyDescriptionComponent from './currency';
 
 export default function ChooseWallet() {
   const dispatch = useDispatch();
+  const { converWallets } = useExchangeWalletConverts();
 
   const { wallets } = useSelector(state => state.account);
 
@@ -22,11 +24,8 @@ export default function ChooseWallet() {
 
   const handleGetCurrencyBalance = useCallback(async currWallets => {
     setIsLoading(true);
-    const params = {eth: []};
 
-    currWallets.eth.map(wallet => {
-      params.eth.push(wallet.address);
-    });
+    const params = converWallets(currWallets);
 
     const walletsBalances = await dispatch(getCurrencyBalance(params));
 
@@ -36,7 +35,7 @@ export default function ChooseWallet() {
     } else {
       setIsLoading(false);
     }
-  }, [dispatch]);
+  }, [dispatch, converWallets]);
 
   const handleCurrentCurrency = useCallback(currency => {
     dispatch(setCurrentCurrencyAction(currency));
@@ -44,7 +43,7 @@ export default function ChooseWallet() {
 
 
   useEffect(() => {
-    const localWallets = secureStorage.getItem('wallets');
+    const localWallets = readFromLocalStorage('wallets');
 
     if (!localWallets) {
       setBodyModalParamsAction('LOGIN_EXCHANGE', {});

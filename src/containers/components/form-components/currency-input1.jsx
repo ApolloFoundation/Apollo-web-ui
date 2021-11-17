@@ -10,26 +10,23 @@ export default function CurrencyInput(props) {
 
   const [currency, setCurrency] = useState('-');
 
-  const { setValue, name, disabled } = props;
+  const { name, disabled, code } = props;
 
   const getCurrency = useCallback(async reqParams => {
     const result = await dispatch(getCurrencyAction(reqParams));
 
     if (result) {
       setCurrency(result.currency);
-      setValue('decimals', result.decimals);
-      setValue('currency', result.currency);
     } else {
       setCurrency('-');
     }
-  }, [setValue, dispatch]);
+  }, [dispatch]);
 
   useEffect(() => {
-    const defaultValue = props;
-    if (defaultValue) {
-      getCurrency({ code: defaultValue });
+    if (code) {
+      getCurrency({ code });
     }
-  }, []);
+  }, [code]);
 
   return (
     <div className="form-group mb-15">
@@ -41,7 +38,6 @@ export default function CurrencyInput(props) {
           name={name}
           placeholder="Code"
           onChange={code => getCurrency({ code })}
-          setValue={setValue}
           disabled={disabled}
         />
         <div className="input-group-append">

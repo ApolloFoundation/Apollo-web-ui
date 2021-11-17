@@ -9,39 +9,38 @@ import {NotificationManager} from "react-notifications";
 import {connect} from 'react-redux';
 import SiteHeader from '../../components/site-header';
 import {BlockUpdater} from "../../block-subscriber";
-import '../messenger/Messenger.scss';
-import './FollowedPools.css';
 import {getpollAction, getPollResultAction, getPollVotesAction} from '../../../actions/polls';
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {getBlockAction} from "../../../actions/blocks";
 import colorGenerator from "../../../helpers/colorGenerator";
 import {getFollowedPolls} from '../../../modules/polls';
-import SidebarContent from '../../components/sidebar-list/';
+import SidebarList from '../../components/sidebar-list/';
 import SidebarContentPage from '../../components/sidebar-content-page';
-import SidebarItem from './sidebar-item';
-import PollRequest from  './poll-request';
 import CustomTable from '../../components/tables/table';
 import VoteResult from './vote-result';
 import PollDescription from './poll-description';
 import {getAssetAction} from "../../../actions/assets";
 import {getCurrencyAction} from "../../../actions/currencies";
 import ContentLoader from "../../components/content-loader";
+import SidebarItem from './sidebar-item';
+import PollRequest from  './poll-request';
+import '../messenger/Messenger.scss';
+import './FollowedPools.css';
 
 const mapStateToProps = state => ({
     followedPolls: state.polls.followedPolls
 });
 
-const mapDispatchToProps = dispatch => ({
-    getFollowedPolls: () => dispatch(getFollowedPolls()),
-
-    getpollAction: (reqParams) => dispatch(getpollAction(reqParams)),
-    getPollVotesAction: (reqParams) => dispatch(getPollVotesAction(reqParams)),
-    getPollResultAction: (reqParams) => dispatch(getPollResultAction(reqParams)),
-    getBlockAction: (reqParams) => dispatch(getBlockAction(reqParams)),
-    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-    getAssetAction: (reqParams) => dispatch(getAssetAction(reqParams)),
-    getCurrencyAction: (reqParams) => dispatch(getCurrencyAction(reqParams)),
-});
+const mapDispatchToProps = {
+    getFollowedPolls,
+    getpollAction,
+    getPollVotesAction,
+    getPollResultAction,
+    getBlockAction,
+    setBodyModalParamsAction,
+    getAssetAction,
+    getCurrencyAction,
+};
 
 class FollowedVotes extends React.Component {
     state =  {
@@ -201,13 +200,14 @@ class FollowedVotes extends React.Component {
     };
 
     initSidebarContent = () => (
-        <SidebarContent
+        <SidebarList
             baseUrl={'/followed-polls/'}
             element={'poll'}
             data={this.props.followedPolls}
             bottomBarPreText={'Current Supply:&nbsp;'}
             emptyMessage={'No followed polls.'}
             Component={SidebarItem}
+            isLoading={this.state.isPending}
         />
     );
 

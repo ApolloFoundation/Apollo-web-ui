@@ -24,6 +24,7 @@ import utils from '../../helpers/util/utils';
 import submitForm from '../../helpers/forms/forms';
 import store from '../../store';
 import config from '../../config';
+import cancelAxiosRequest from '../../helpers/cancelToken';
 
 export function getAccountInfoAction(currAccount) {
   return (dispatch, getStore) => axios.get(config.api.serverUrl, {
@@ -35,6 +36,7 @@ export function getAccountInfoAction(currAccount) {
       includeEffectiveBalance: true,
       ...currAccount,
     },
+    cancelToken: cancelAxiosRequest.token,
   })
     .then(res => {
       if (res.data && (!res.data.errorCode || res.data.errorCode === 5)) {
@@ -222,10 +224,14 @@ export const generatePDF = args => {
         arrText += `<p><img src=${url} style="width: 100px" alt=""></p>`;
       });
     });
-
+    
     window.pdf.fromData(`<html><h2>Apollo Paper Wallet</h2><p>${yyyy}/${mm}/${dd}</p>${arrText}</html>`, options)
       .then(stats => console.log('status', stats))
       .catch(err => console.err(err));
+  } else if (utils.isDesktopApp() && window.java) {
+    const data = JSON.stringify(args);
+    let objJsonB64 = Buffer.from(data).toString("base64");
+    window.java.downloadFile(objJsonB64, `apollo-wallet-${args[0].value}`);
   } else {
     const doc = new jsPDF();
 

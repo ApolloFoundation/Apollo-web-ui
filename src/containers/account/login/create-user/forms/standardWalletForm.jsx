@@ -6,7 +6,6 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { NotificationManager } from 'react-notifications';
 import { useLoginModal } from '../../../../../hooks/useLoginModal';
 import { generatePDF } from '../../../../../actions/account';
-import store from '../../../../../store';
 import crypto from '../../../../../helpers/crypto/crypto';
 import ContentLoader from '../../../../components/content-loader';
 import Button from '../../../../components/button';
@@ -27,7 +26,7 @@ export default function StandardWalletForm(props) {
   const generatePassphrase = useCallback(async () => {
     const newGeneratedPassphrase = crypto.generatePassPhraseAPL();
     const params = newGeneratedPassphrase.join(' ');
-    const newGeneratedAccount = store.dispatch(await dispatch(crypto.getAccountIdAsyncApl(params, ticker)));
+    const newGeneratedAccount = await dispatch(crypto.getAccountIdAsyncApl(params, ticker));
 
     setGeneratedPassphrase(params);
     setGeneratedAccount(newGeneratedAccount);

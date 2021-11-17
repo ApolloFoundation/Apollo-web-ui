@@ -9,9 +9,8 @@
 
 .pureModalClose {
   position: absolute;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: inline-block;
+  text-align: center;
   top: -16px;
   right: -16px;
   width: 32px;
@@ -20,6 +19,15 @@
   color: #25F459;
   border-radius: 50%;
   border: 2px solid #353C46;
-  font-size: 30px;
+  font-size: 32px;
   cursor: pointer;
+}
+
+.pureModalCloseIcon {
+  position: absolute;
+  color: #25F459;
+  font-size: 22px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-45%, -45%);
 }

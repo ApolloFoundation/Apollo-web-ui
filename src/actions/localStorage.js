@@ -10,7 +10,26 @@ export function writeToLocalStorage(field, params) {
 }
 
 export function readFromLocalStorage(field) {
-  return secureStorage.getItem((field));
+  if (field === 'updateFlag' || field === 'language') {
+    return secureStorage.getItem(field);
+  }
+
+  try {
+    const value = secureStorage.getItem(field);
+    if(!value) return value;
+    
+    const parsedValue = JSON.parse(value);
+    if (field === 'APLContracts' && !Array.isArray(parsedValue)) {
+      throw new Error()
+    }
+    if(field === 'Wallets' && typeof parsedValue !== 'object') {
+      throw new Error()
+    }
+    return value;
+  } catch (e) {
+    localStorage.clear();
+    return null;
+  }
 }
 
 export function deleteFromLocalStorage(field) {

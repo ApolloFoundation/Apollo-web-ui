@@ -14,14 +14,14 @@ class ConfirmExportWallet extends React.Component {
         wallet: null,
     };
 
-    handleFormSubmit = async (values) => {
+    handleFormSubmit = async ({secretPhrase, passphrase, ...values}) => {
         if (!this.state.isPending) {
             this.setState({isPending: true});
             let passphrase;
             if (this.props.passPhrase) {
                 passphrase = this.props.passPhrase;
             } else {
-                passphrase = values.passphrase || values.secretPhrase;
+                passphrase = passphrase || secretPhrase;
                 if (!passphrase || passphrase.length === 0) {
                     NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
                     this.setState({isPending: false});
