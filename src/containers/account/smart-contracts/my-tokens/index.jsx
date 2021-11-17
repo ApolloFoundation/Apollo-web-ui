@@ -64,7 +64,7 @@ const MyTokens = () => {
               },
             ],
           })
-        ).then((res) => res)
+        )
       )
     );
 
