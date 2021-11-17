@@ -9,12 +9,20 @@ const PanelOverview = ({ overview, token }) => {
         <div className="heading mb-3">Overview</div>
         <table className="w-100">
           <tbody>
-            {overview.map((item, index) => {
-              return (
-                item.value !== "undefined" && (
-                  <tr key={item.name + index}>
-                    <td>{item.name}</td>
-                    <td>
+            {overview.map((item) => {
+              return token ? (
+                <tr>
+                  <td>{item.name}</td>
+                  <td>
+                    {!item.type === "url" ? (
+                      <a
+                        target="_blank"
+                        href={item.value}
+                        rel="noopener noreferrer"
+                      >
+                        {item.value}
+                      </a>
+                    ) : (
                       <>
                         <span>
                           {item.type === "uint" &&
@@ -42,9 +50,16 @@ const PanelOverview = ({ overview, token }) => {
                           )}
                         </span>
                       </>
-                    </td>
-                  </tr>
-                )
+                    )}
+                  </td>
+                </tr>
+              ) : (
+                <tr>
+                  <td>{item.name}</td>
+                  <td>
+                    {item.value} <span className="text-info"> {item.type}</span>
+                  </td>
+                </tr>
               );
             })}
           </tbody>

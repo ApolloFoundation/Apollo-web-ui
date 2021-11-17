@@ -10,7 +10,7 @@ export function validationForm(values) {
   } else if (!values.fuelLimit || values.fuelLimit.length === 0) {
     NotificationManager.error("Fuel Limit is required.", "Error", 5000);
     return true;
-  } else if (!values.sender || values.sender.length === 0) {
+  } else if (!values.address || values.address.length === 0) {
     NotificationManager.error("Recipient is required.", "Error", 5000);
     return true;
   }
