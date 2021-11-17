@@ -6,7 +6,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Form, Formik } from "formik";
-import { processAccountRStoHex } from 'apl-web-crypto';
+import { processAccountRStoHex } from "apl-web-crypto";
 import { getContracts } from "../../../../actions/contracts";
 import { getSmcSpecification } from "../../../../actions/contracts";
 import { exportReadMethod } from "../../../../actions/contracts";
@@ -38,12 +38,22 @@ const MyTokens = () => {
       return;
     }
 
-    const contractList = await Promise.all(
-      contracts.map((el) => dispatch(getSmcSpecification(el.address)))
+    const filteredList = contracts.filter((el) => {
+      return el.baseContract.startsWith("APL20");
+    });
+
+    const symbolsList = await Promise.all(
+      filteredList.map((el) => {
+        return dispatch(getSmcSpecification(el.address));
+      })
+    );
+
+    const currentOverviewList = symbolsList.map((el) =>
+      el.members.find((item) => item.name === "symbol")
     );
 
     const balanceList = await Promise.all(
-      contracts.map((el) =>
+      filteredList.map((el) =>
         dispatch(
           exportReadMethod({
             address: el.address,
@@ -54,22 +64,18 @@ const MyTokens = () => {
               },
             ],
           })
-        ).then(res => res || { failed: true })
+        )
       )
     );
 
-    const currentOverviewList = contractList.map((el) =>
-      el.members.find((item) => item.name === "symbol")
-    );
-
-    const currentContractsList = contracts.map((item, index) => {
-      const balance = balanceList[index].failed ? null : balanceList[index].results[0].output[0];
-      return {
+    const currentContractsList = filteredList
+      .map((item, index) => ({
         ...item,
-        symbol: currentOverviewList[index] ? currentOverviewList[index].value : '-',
-        balance,
-      };
-    });
+        symbol: currentOverviewList[index].value,
+        balance: balanceList[index].results[0].output[0],
+      }))
+      .filter((item) => item.balance > 0);
+
     setContractList(currentContractsList);
     setViewContractList(currentContractsList);
   }, [dispatch]);
@@ -123,7 +129,6 @@ const MyTokens = () => {
             dispatch(formatTimestamp(new Date(item.timestamp))) === value.trim()
           );
         }
-
         return item[key].toLowerCase().includes(value.toLowerCase());
       })
     );

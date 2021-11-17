@@ -12,6 +12,7 @@ import { setBodyModalParamsAction } from "../../../../modules/modals";
 import { getTransactionAction } from "../../../../actions/transactions";
 import { addContractAction } from "../../../../actions/smart-contracts";
 import Button from "../../../components/button";
+import { Tooltip } from "../../../components/tooltip";
 
 const TableItemEscrow = ({
   address,
@@ -36,7 +37,7 @@ const TableItemEscrow = ({
   };
 
   const handleTransferModal = () => {
-    dispatch(setBodyModalParamsAction("SMC_TRANSFER", { address }));
+    dispatch(setBodyModalParamsAction("SMC_DEPOSIT", { address }));
   };
 
   const handleContractInfo = () => {
@@ -78,15 +79,20 @@ const TableItemEscrow = ({
     <tr>
       <td>
         <div className="d-flex">
+          <div className="pointer" onClick={handleAddEvent}>
+            <Tooltip
+              white
+              iconContent={<i class="zmdi zmdi-notifications zmdi-hc-2x"></i>}
+            >
+              <div>Redirect to event</div>
+            </Tooltip>
+          </div>
           <Button
-          className="mr-2"
+            className="ml-2"
             color="blue-link"
             onClick={handleContractInfo}
             name={address}
           />
-          <div className="pointer" onClick={handleAddEvent}>
-            <i class="zmdi zmdi-notifications zmdi-hc-2x"></i>
-          </div>
         </div>
       </td>
       <td>

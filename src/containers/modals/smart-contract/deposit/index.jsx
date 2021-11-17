@@ -11,7 +11,7 @@ import {
   exportTestExperationMessage,
   exportExperationMessageSubmit,
   exportConfirmationOnBoard,
-} from "../../../../../src/actions/contracts";
+} from "../../../../actions/contracts";
 import { validationForm } from "./form-validation";
 import ModalBody from "../../../components/modals/modal-body1";
 import TransferForm from "./form";
@@ -21,7 +21,7 @@ export default function ({ closeModal }) {
   const { passPhrase: secretPhrase } = useSelector((state) => state.account);
   const { address } = useSelector((state) => state.modals.modalData);
 
-  const formSubmit = async ({ feeATM, amount, ...values }) => {
+  const formSubmit = async ({ feeATM, amount, token, ...values }) => {
     const isValidForm = validationForm({ amount, ...values });
 
     if (!isValidForm) {
@@ -29,8 +29,12 @@ export default function ({ closeModal }) {
       let formData = {
         ...values,
         value: convertedValue,
-        name: "transfer",
-        params: [processAccountRStoHex(values.sender, true), convertedValue],
+        params: [
+          processAccountRStoHex(values.sender, true),
+          processAccountRStoHex(token, true),
+          convertedValue,
+        ],
+        name: "deposit",
       };
       const testMessage = await dispatch(exportTestExperationMessage(formData));
       if (testMessage) {
@@ -52,15 +56,16 @@ export default function ({ closeModal }) {
   return (
     <ModalBody
       id="modal-smart-contract-transfer"
-      modalTitle={`Transfer ${address}`}
+      modalTitle={`Deposit ${address}`}
       closeModal={closeModal}
       handleFormSubmit={formSubmit}
-      submitButtonName="Transfer"
+      submitButtonName="Deposit"
       initialValues={{
         sender: "",
         amount: 0,
         fuelLimit: 300000000,
         fuelPrice: 100,
+        params: "",
         secretPhrase,
         address,
       }}

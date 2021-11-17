@@ -62,6 +62,7 @@ import CreateToken from './smart-contract/create-token';
 import CreateEscrow from './smart-contract/create-escrow';
 import AproveTokens from './smart-contract/aprove-tokens'
 import SmartContractTransfer from './smart-contract/transfer'
+import SmartContractDeposit from './smart-contract/deposit'
 // Voting system
 import CreatePoll from './voting-system/create-poll/';
 import CastVote from './voting-system/cast-vote/';
@@ -246,6 +247,7 @@ class ModalWindow extends React.Component {
                     {this.props.modalType === 'SMC_CREATE_ESCROW'           && <CreateEscrow              closeModal={this.closeModal} nameModal={'SMC_CREATE_ESCROW'}/>}
                     {this.props.modalType === 'SMC_APROVE_TOKEN'            && <AproveTokens              closeModal={this.closeModal} nameModal={'SMC_APROVE_TOKEN'}/>}
                     {this.props.modalType === 'SMC_TRANSFER'                && <SmartContractTransfer     closeModal={this.closeModal} nameModal={'SMC_TRANSFER'}/>}
+                    {this.props.modalType === 'SMC_DEPOSIT'                && <SmartContractDeposit       closeModal={this.closeModal} nameModal={'SMC_DEPOSIt'}/>}
 
                     {/* Voting */}
                     {this.props.modalType === 'ISSUE_POLL'                  && <CreatePoll                closeModal={this.closeModal} nameModal={'ISSUE_POLL'}/>}

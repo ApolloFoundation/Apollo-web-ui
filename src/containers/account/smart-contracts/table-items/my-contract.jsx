@@ -24,13 +24,12 @@
    const history = useHistory();
    const dispatch = useDispatch();
    const currentDate = dispatch(formatTimestamp(new Date(timestamp)));
-   const isStatusAPL20 =
-     /^APL20BUY/.test(baseContract) || /^APL20LOCK/.test(baseContract);
+   const isStatusAPL20 =/^APL20BUY/.test(baseContract) || /^APL20LOCK/.test(baseContract);
  
    const handleContractInfo = () => {
      isStatusAPL20
-       ? history.push(`/smart-contracts/explorer/${address}`)
-       : dispatch(setBodyModalParamsAction("SMC_INFO", { address }));
+       ? history.push(`/smart-contracts/explorer/contract/${address}`)
+       : history.push(`/smart-contracts/explorer/escrow/${address}`);
    };
  
    const handleTransactionInfo = async () => {

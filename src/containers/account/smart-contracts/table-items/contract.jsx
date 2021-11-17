@@ -14,6 +14,7 @@ import { getTransactionAction } from "../../../../actions/transactions";
 import { addContractAction } from "../../../../actions/smart-contracts";
 import { getSmcSpecification } from "../../../../actions/contracts";
 import Button from "../../../components/button";
+import { Tooltip } from "../../../components/tooltip";
 
 const TableItemContract = ({
   address,
@@ -29,7 +30,8 @@ const TableItemContract = ({
   const dispatch = useDispatch();
   const store = useStore();
   const currentDate = dispatch(formatTimestamp(new Date(timestamp)));
-  const isStatusAPL20 = baseContract.startsWith("APL20");
+  const isStatusAPL20 =
+    /^APL20BUY/.test(baseContract) || /^APL20LOCK/.test(baseContract);
 
   const handleContractInfo = () => {
     isStatusAPL20
@@ -62,6 +64,11 @@ const TableItemContract = ({
   const handleTransferModal = () => {
     dispatch(setBodyModalParamsAction("SMC_TRANSFER", { address }));
   };
+
+  const handleDepositModal = () => {
+    dispatch(setBodyModalParamsAction("SMC_DEPOSIT", { address }));
+  };
+
   const handleAddEvent = useCallback(() => {
     try {
       let { host, protocol } = window.location;
@@ -88,7 +95,7 @@ const TableItemContract = ({
       );
       dispatch(addContractAction(address, smartContract));
       NotificationManager.success("Event has been added", null, 10000);
-      history.push(`/smart-contracts/events`)
+      history.push(`/smart-contracts/events`);
     } catch (e) {
       console.log(e);
     }
@@ -98,15 +105,20 @@ const TableItemContract = ({
     <tr>
       <td>
         <div className="d-flex">
+          <div className="pointer" onClick={handleAddEvent}>
+            <Tooltip
+              white
+              iconContent={<i class="zmdi zmdi-notifications zmdi-hc-2x"></i>}
+            >
+              <div>Redirect to event</div>
+            </Tooltip>
+          </div>
           <Button
-            className="mr-2"
+            className="ml-2"
             color="blue-link"
             onClick={handleContractInfo}
             name={address}
           />
-          <div className="pointer" onClick={handleAddEvent}>
-            <i class="zmdi zmdi-notifications zmdi-hc-2x"></i>
-          </div>
         </div>
       </td>
       <td>{symbol}</td>
@@ -123,7 +135,7 @@ const TableItemContract = ({
       <td className="align-right">
         <div className="btn-box inline">
           <Button
-            onClick={handleTransferModal}
+            onClick={isStatusAPL20 ? handleTransferModal : handleDepositModal}
             color="green"
             size="sm"
             id={`button-transfer-${id}`}
