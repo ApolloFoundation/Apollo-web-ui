@@ -9,9 +9,9 @@ const PanelOverview = ({ overview, token }) => {
         <div className="heading mb-3">Overview</div>
         <table className="w-100">
           <tbody>
-            {overview.map((item) => {
-              return token ? (
-                <tr>
+            {overview.map((item, index) =>
+              token ? (
+                <tr key={index}>
                   <td>{item.name}</td>
                   <td>
                     {!item.type === "url" ? (
@@ -34,13 +34,16 @@ const PanelOverview = ({ overview, token }) => {
                               <span className="text-info">
                                 {convertToToken(item.value, 8, true)}{" "}
                               </span>
-                              {token.value} (
-                              <span className="text-info">
-                                {Number(item.value).toLocaleString("en", {
-                                  useGrouping: true,
-                                })}
-                              </span>
-                              )
+                              {token.value && (
+                                <>
+                                  {token.value}
+                                  <span className="text-info">
+                                    {Number(item.value).toLocaleString("en", {
+                                      useGrouping: true,
+                                    })}
+                                  </span>
+                                </>
+                              )}
                             </>
                           ) : (
                             <>
@@ -54,14 +57,14 @@ const PanelOverview = ({ overview, token }) => {
                   </td>
                 </tr>
               ) : (
-                <tr>
+                <tr key={index}>
                   <td>{item.name}</td>
                   <td>
-                    {item.value} <span className="text-info"> {item.type}</span>
+                    {item.value } <span className="text-info"> {item.type}</span>
                   </td>
                 </tr>
-              );
-            })}
+              )
+            )}
           </tbody>
         </table>
       </div>
