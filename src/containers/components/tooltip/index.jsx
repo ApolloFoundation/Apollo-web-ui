@@ -3,7 +3,13 @@ import classNames from "classnames";
 import Icon from "../../../assets/objection-mark.svg";
 import styles from "./index.module.scss";
 
-export const Tooltip = ({ icon = Icon, children, className, iconContent, white }) => {
+export const Tooltip = ({
+  icon = Icon,
+  children,
+  className,
+  iconContent,
+  white,
+}) => {
   const tooltip = useRef(null);
 
   const handleHover = useCallback(() => {
@@ -33,7 +39,9 @@ export const Tooltip = ({ icon = Icon, children, className, iconContent, white }
       <div className={styles.tooltipContentWrapper}>
         <div
           ref={tooltip}
-          className={classNames(styles.tooltipContent, className, white && styles.tooltipContentwhite)}
+          className={classNames(styles.tooltipContent, className, {
+            [styles.tooltipContentwhite]: white,
+          })}
         >
           {children}
         </div>

@@ -22,7 +22,6 @@ export default function ({ closeModal }) {
   const { address } = useSelector((state) => state.modals.modalData);
 
   const formSubmit = async ({ feeATM, amount, ...values }) => {
-    console.log(values, "values");
     const isValidForm = validationForm({ amount, ...values });
 
     if (!isValidForm) {
