@@ -38,7 +38,7 @@ const MyTokens = () => {
       return;
     }
 
-    const filteredList = [...contracts].filter((el) => {
+    const filteredList = contracts.filter((el) => {
       return el.baseContract.startsWith("APL20");
     });
 
