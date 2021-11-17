@@ -8,6 +8,7 @@ import axios from 'axios/index';
 import {NotificationManager} from "react-notifications";
 import config from '../../config';
 import {GET, handleFetch} from "../../helpers/fetch";
+import cancelAxiosRequest from '../../helpers/cancelToken';
 
 export function getBlocksAction(requestParams) {
     return dispatch => {
@@ -74,7 +75,8 @@ export function getBlockAction(requestParams) {
                 includeTransactions: true,
                 includeExecutedPhased: true,
                 ...requestParams
-            }
+            },
+            cancelToken: cancelAxiosRequest.token,
         })
             .then((res) => {
                 if (!res.data.errorCode) {

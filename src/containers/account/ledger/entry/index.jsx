@@ -51,13 +51,13 @@ export default function Entry(props) {
             <Button
               color="blue-link"
               onClick={() => {
-                dispatch(
-                  setBodyModalParamsAction(
-                    "INFO_LEDGER_TRANSACTION",
+                dispatch(setBodyModalParamsAction(
+                  'INFO_LEDGER_TRANSACTION',
+                  {
                     ledgerId,
-                    eventType === "PRIVATE_PAYMENT"
-                  )
-                );
+                    eventType,  
+                  },
+                ));
               }}
               name={dispatch(formatTimestamp(timestamp))}
             />

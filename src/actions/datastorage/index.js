@@ -4,8 +4,9 @@
  ******************************************************************************/
 
 
-import config from '../../config';
 import axios from 'axios';
+import config from '../../config';
+import cancelAxiosRequest from '../../helpers/cancelToken';
 
 export function getAllTaggedDataAction(reqParams) {
     return dispatch => {
@@ -13,7 +14,8 @@ export function getAllTaggedDataAction(reqParams) {
             params: {
                 requestType: 'getAllTaggedData',
                 ...reqParams
-            }
+            },
+            cancelToken: cancelAxiosRequest.token,
         })
             .then((res) => {
                 if (!res.data.errorCode) {

@@ -20,7 +20,8 @@ export default function TransferCurrency(props) {
   const { closeModal } = props;
 
   const handleSubmit = useCallback(values => {
-    dispatch(handleFormSubmit(values));
+    const data = { ...values, currency: modalData.currency };
+    dispatch(handleFormSubmit(data));
   }, [dispatch]);
 
   return (
@@ -40,6 +41,7 @@ export default function TransferCurrency(props) {
       <CurrencyInput
         name="code"
         placeholder="Code"
+        code={modalData.code}
         disabled={!modalData}
       />
       <AccountRSFormInput

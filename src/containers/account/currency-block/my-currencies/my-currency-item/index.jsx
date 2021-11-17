@@ -3,8 +3,7 @@
  *                                                                            *
  ***************************************************************************** */
 
-import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setBodyModalParamsAction } from '../../../../../modules/modals';
@@ -14,14 +13,25 @@ export default function MyCurrencytemItem(props) {
   const dispatch = useDispatch();
   const {
     code, type, name, unconfirmedUnits,
-    decimals, currency,
+    decimals, currency, accountRS
   } = props;
 
   const currencyTypes = getCurrencyTypes(type);
   const isClaimable = currencyTypes.includes('Claimable');
 
+  const handleTransfer = useCallback(() => {
+    dispatch(setBodyModalParamsAction(
+      'TRANSFER_CURRENCY', 
+      { 
+        code,
+        currency,
+        recipient: accountRS,
+      })
+    );
+  }, [dispatch, code, currency, accountRS]);
+
   return (
-    <tr key={uuidv4()}>
+    <tr>
       <td>
         <span className="blue-link-text" onClick={() => dispatch(setBodyModalParamsAction('INFO_TRANSACTION', currency))}>
           {code}
@@ -35,7 +45,7 @@ export default function MyCurrencytemItem(props) {
           <Link to={`/exchange-booth/${code}`} className="btn btn-default">Exchange</Link>
           <button
             type="button"
-            onClick={() => dispatch(setBodyModalParamsAction('TRANSFER_CURRENCY', { code, currency }))}
+            onClick={handleTransfer}
             className="btn btn-default ml-3"
           >
             Transfer

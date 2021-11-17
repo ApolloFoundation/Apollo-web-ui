@@ -9,6 +9,7 @@ import InputMask from 'react-input-mask';
 import classNames from 'classnames';
 import { NotificationManager } from 'react-notifications';
 import { connect } from 'react-redux';
+import { readFromLocalStorage } from '../../../actions/localStorage';
 
 class AccountRS extends React.Component {
   refContactsList = React.createRef();
@@ -17,9 +18,10 @@ class AccountRS extends React.Component {
 
   constructor(props) {
     super(props);
+    const contractString = readFromLocalStorage('APLContacts');
     this.state = {
       prefix: 'APL',
-      contacts: JSON.parse(localStorage.getItem('APLContacts')),
+      contacts: contractString ? JSON.parse(contractString) : [],
       value: this.props.defaultValue || '',
       isContacts: false,
       isUpdate: false,

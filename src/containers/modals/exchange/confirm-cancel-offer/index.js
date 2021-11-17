@@ -27,7 +27,7 @@ class ConfirmCancelOffer extends React.Component {
                 orderId: this.props.modalData.orderId,
                 feeATM: this.props.decimals,
                 sender: this.props.account,
-                passphrase
+                passphrase,
             };
             const offer = await this.props.cancelOffer(params);
             if (offer) {

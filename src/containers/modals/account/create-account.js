@@ -83,81 +83,75 @@ class CreateUser extends React.Component {
     const geneatedAccount = await generateAccountAction(requestParams);
 
     if (geneatedAccount) {
-      const keySeed = await createAccountAction({
-        account: geneatedAccount.accountRS,
-        passphrase: geneatedAccount.passphrase,
-      });
+        const keySeed = await createAccountAction({
+            account: geneatedAccount.accountRS,
+            passphrase: geneatedAccount.passphrase
+        });
 
-      this.setState({
-        isAccountLoaded: true,
-        accountData: geneatedAccount,
-        keySeed: keySeed,
-        isCustomPassphrase: false,
-      });
+        this.setState({
+            isAccountLoaded: true,
+            accountData: geneatedAccount,
+            keySeed: keySeed,
+            isCustomPassphrase: false,
+
+        })
     }
   };
 
   handleFormSubmit = async (values) => {
     if (this.state.selectedOption === 0) {
-      if (values.secretPhrase === this.state.accountData.passphrase) {
-        this.setState({
-          isPending: true,
-        });
-        this.props.getAccountDataAction({
-          account: this.state.accountData.accountRS,
-        });
-      } else {
-        NotificationManager.error("Incorrect secret phrase!", "Error", 5000);
-      }
+        if (values.secretPhrase === this.state.accountData.passphrase) {
+            this.setState({
+                isPending: true
+            });
+            this.props.getAccountDataAction({
+                account: this.state.accountData.accountRS
+            });
+        } else {
+            NotificationManager.error('Incorrect secret phrase!', 'Error', 5000);
+        }
     }
     if (this.state.selectedOption === 1) {
-      if (values.secretPhrase === this.state.generatedPassphrase) {
-        this.setState({
-          isPending: true,
-        });
-        this.props.getAccountDataAction({
-          account: this.state.generatedAccount,
-        });
-      } else {
-        NotificationManager.error("Incorrect secret phrase!", "Error", 5000);
-      }
+        if (values.secretPhrase === this.state.generatedPassphrase) {
+            this.setState({
+                isPending: true
+            });
+            this.props.getAccountDataAction({
+                account: this.state.generatedAccount
+            });
+        } else {
+            NotificationManager.error('Incorrect secret phrase!', 'Error', 5000);
+        }
     }
   };
 
   handleAdvancedState = () => {
     if (this.state.advancedState) {
-      this.setState({
-        ...this.props,
-        advancedState: false,
-      });
+        this.setState({
+            ...this.props,
+            advancedState: false
+        })
     } else {
-      this.setState({
-        ...this.props,
-        advancedState: true,
-      });
+        this.setState({
+            ...this.props,
+            advancedState: true
+        })
     }
   };
 
   generatePassphrase = async (passphrase) => {
-    const generatedPassphrase = passphrase
-      ? passphrase
-      : crypto.generatePassPhraseAPL();
-    const generatedAccount = store.dispatch(
-      await this.props.getAccountIdAsyncApl(
-        passphrase ? passphrase : generatedPassphrase.join(" ")
-      )
-    );
+    const generatedPassphrase = passphrase ? passphrase : crypto.generatePassPhraseAPL();
+    const generatedAccount = await this.props.getAccountIdAsyncApl(passphrase ? passphrase : generatedPassphrase.join(' '));
 
     this.setState({
-      ...this.state,
-      generatedPassphrase: passphrase
-        ? passphrase
-        : generatedPassphrase.join(" "),
-      generatedAccount: generatedAccount,
-      isRSAccountLoaded: true,
-      isCustomPassphraseForStandardWallet: true,
-    });
+        ...this.state,
+        generatedPassphrase: passphrase ? passphrase : generatedPassphrase.join(' '),
+        generatedAccount: generatedAccount,
+        isRSAccountLoaded: true,
+        isCustomPassphraseForStandardWallet: true,
+    })
   };
+
 
   handleGoBack = () =>
     this.setState({ isValidating: false }, () => {

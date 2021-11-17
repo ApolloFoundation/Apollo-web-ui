@@ -40,13 +40,14 @@ export function getSettings(isAccountSpecific) {
                 type: 'SET_SETTINGS',
                 payload: defaultSettings
             });
-            if (readFromLocalStorage("language")) {
+            const language = readFromLocalStorage("language");
+            if (language) {
 
                 dispatch({
                     type: 'SET_SETTINGS',
                     payload: {
                         ...defaultSettings,
-                        language : readFromLocalStorage('language')
+                        language,
                     }
                 });
             }

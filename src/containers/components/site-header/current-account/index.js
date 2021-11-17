@@ -1,25 +1,31 @@
-import React from "react";
-import { connect } from "react-redux";
-
-import classNames from "classnames";
-
-import { NavLink, withRouter } from "react-router-dom";
-import { CopyToClipboard } from "react-copy-to-clipboard";
+import React from 'react';
+import { connect } from 'react-redux';
+import classNames from 'classnames';
+import { NavLink, withRouter } from 'react-router-dom'
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { NotificationManager } from "react-notifications";
 import { logOutAction } from "../../../../actions/login";
 import { setBodyModalParamsAction } from "../../../../modules/modals";
 import Button from "../../../components/button";
+import { readFromLocalStorage } from '../../../../actions/localStorage';
 
 class CurrentAccount extends React.Component {
   refContactsList = React.createRef();
   refContactsButton = React.createRef();
+
   state = {
-    contacts: JSON.parse(localStorage.getItem("APLContacts")),
+    contacts: null,
     isContacts: false,
   };
 
   componentDidMount() {
     document.addEventListener("mousedown", this.handleClickOutside);
+    const contactList = readFromLocalStorage('APLContacts');
+    if(contactList) {
+        this.setState({
+            contacts: JSON.parse(contactList),
+        });
+    }
   }
 
   componentWillUnmount() {
@@ -83,10 +89,10 @@ class CurrentAccount extends React.Component {
           "no-padding": true,
           "account-body-modal-window": true,
           "account-body-modal": true,
-          active: isActive,
+          "active": isActive,
           "settings-menu": true,
           "settings-bar": true,
-          stop: true,
+          "stop": true,
         })}
       >
         <div className="form-group-app">
@@ -157,9 +163,9 @@ class CurrentAccount extends React.Component {
                     <ul>
                       {this.state.contacts &&
                         this.state.contacts.length &&
-                        this.state.contacts.map((el, index) => {
+                        this.state.contacts.map((el) => {
                           return (
-                            <li>
+                            <li key={el.name}>
                               <Button
                                 className="w-100"
                                 name={el.name}
@@ -243,10 +249,9 @@ const mapStateToProps = (state) => ({
   forgingStatus: state.account.forgingStatus,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  setBodyModalParamsAction: (type, values) =>
-    dispatch(setBodyModalParamsAction(type, values)),
-});
+const mapDispatchToProps = {
+    setBodyModalParamsAction,
+};
 
 export default connect(
   mapStateToProps,

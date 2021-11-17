@@ -68,9 +68,7 @@ const BuyAsset = ({
                 <span className="button-text">
                   Buy (
                   {ticker}
-                  {' '}
-                  >
-                  {' '}
+                  {' > '}
                   {asset.name}
                   )
                 </span>

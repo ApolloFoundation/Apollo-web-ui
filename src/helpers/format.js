@@ -17,9 +17,17 @@ export const secureStorage = new SecureStorage(localStorage, {
   decrypt: function decrypt(data) {
     data = CryptoJS.AES.decrypt(data, process.env.REACT_APP_SECRET_KEY);
 
-    data = data.toString(CryptoJS.enc.Utf8);
-
-    return data;
+    try {
+      data = data.toString(CryptoJS.enc.Utf8);
+      if(data.length === 0) {
+        localStorage.clear();
+        return null;
+      }
+      return data;
+    } catch(e) {
+      localStorage.clear();
+      return null;
+    }
   },
 });
 

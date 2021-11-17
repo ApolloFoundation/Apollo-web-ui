@@ -25,7 +25,7 @@ import BuyAsset from './buy-asset';
 import SellAsset from './sell-asset';
 
 import SidebatAsset from './sidebar-asset';
-import SidebarContent from '../../components/sidebar-list';
+import SidebarList from '../../components/sidebar-list';
 
 const bigInteger = require('jsbn').BigInteger;
 const itemsPerPage = 5;
@@ -241,18 +241,15 @@ class AssetExchange extends React.Component {
     handleTotalValue = (setValue, v1, v2) => {
 
         if (v1 && v2) {
-            let result = (bigInteger(v1).multiply(bigInteger(v2)));
-
+            let result = (new bigInteger(v1).multiply(new bigInteger(v2)));
 
             if (result && Array.isArray(result.value)) {
                 result = result.value.reverse().reduce((a, b) => {
                     return a.toString() + b.toString()
-                })
-            } else {
-                result = result.value;
-            }
+                });
+            } 
 
-            setValue('total', (result).toString());
+            setValue('total', result.toString());
         } else {
             setValue('total', 0);
         }
@@ -405,7 +402,7 @@ class AssetExchange extends React.Component {
                         <div className="row">
                             {window.innerWidth > 767 && (
                                 <div className="col-md-3 p-0 mb-3">
-                                    <SidebarContent
+                                    <SidebarList
                                         element={'asset'}
                                         baseUrl={'/asset-exchange/'}
                                         data={this.state.accountAssets}

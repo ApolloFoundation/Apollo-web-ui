@@ -232,18 +232,18 @@ class Transactions extends React.Component {
                     isAll: true,
                     isUnconfirmed: true,
                     isPhassing: false,
+                    failedType: null,
                 }, () => {
                     next();
-
                 })
             } else {
                 this.setState({
                     isAll: false,
                     isUnconfirmed: true,
                     isPhassing: false,
+                    failedType: null,
                 }, () => {
                     next();
-
                 })
             }
 
@@ -256,8 +256,7 @@ class Transactions extends React.Component {
                 subtype: null
             }, () => {
                 next();
-
-            })
+            });
         }
         else {
             this.setState({
@@ -265,7 +264,7 @@ class Transactions extends React.Component {
                 isPhassing: false
             }, () => {
                 next();
-            })
+            });
         }
 
         const next = () => {
@@ -318,15 +317,21 @@ class Transactions extends React.Component {
         this.setState({ 
             type: null,
             failedType: failedOnly ? FailedType.FAILED : FailedType.NON_FAILED,
+            isUnconfirmed: false,
+            isPhassing: false,
+            isAll: false,
+            page:       1,
+            firstIndex: 0,
+            lastIndex:  15,
+        }, () => {
+            if (failedOnly) {
+                params.failedOnly = true;
+            } else {
+                params.nonFailedOnly = true;
+            }
+    
+            this.getTransactions(params, this.state.isAll);
         });
-
-        if (failedOnly) {
-            params.failedOnly = true;
-        } else {
-            params.nonFailedOnly = true;
-        }
-
-        this.getTransactions(params, this.state.isAll);
     }
 
     AboveTabeFailedItems = (label, activeCondition, isFailedOnly) => (
