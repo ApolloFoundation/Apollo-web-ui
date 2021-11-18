@@ -2,10 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import { Form, Formik, Field } from "formik";
-import {
-  convertToAPL,
-  convertToToken,
-} from "../../../../../helpers/converters";
+import { convertToAPL, convertToToken } from "../../../../../helpers/converters";
 import { processAccountRStoHex } from "apl-web-crypto";
 import { exportReadMethod } from "../../../../../actions/contracts";
 import { setBodyModalParamsAction } from "../../../../../modules/modals";
@@ -23,10 +20,8 @@ const ExplorerForm = ({
   id,
 }) => {
   const dispatch = useDispatch();
-
   const [readMethods, setReadMethods] = useState([]);
   const [error, setError] = useState(null);
-
   const regAPL = /^APL/;
   const regAmount = /^amount/;
 
@@ -37,15 +32,17 @@ const ExplorerForm = ({
   };
 
   const onSubmitNonpayable = (values) => {
-    const params = Object.keys(values).map((key) => {
-      if (regAPL.test(values[key])) {
-        const parseRStoHex = processAccountRStoHex(values[key], true);
-        return `'${parseRStoHex}'`;
-      } else if (regAmount.test(key)) {
-        return convertToAPL(values[key]);
-      }
-      return values[key];
-    }).join(",");
+    const params = Object.keys(values)
+      .map((key) => {
+        if (regAPL.test(values[key])) {
+          const parseRStoHex = processAccountRStoHex(values[key], true);
+          return `'${parseRStoHex}'`;
+        } else if (regAmount.test(key)) {
+          return convertToAPL(values[key]);
+        }
+        return values[key];
+      })
+      .join(",");
 
     dispatch(
       setBodyModalParamsAction("SMC_CREATE", {
@@ -119,7 +116,6 @@ const ExplorerForm = ({
                       )}
                     />
                   ))}
-
                   <Button
                     id={`button-${id}`}
                     name="Submit"
@@ -136,31 +132,34 @@ const ExplorerForm = ({
       {error && readMethods.length == 0 && (
         <div className={"text-danger"}>{error}</div>
       )}
-      {readMethods.length > 0
-        ? readMethods.map((item) => (
-            <div key={uuidv4()} className="mb-2">
-              <div className="mb-1">Method: {item.method}</div>
-              {item.signature && item.output && (
-                <>
-                  <div className="mb-1">Signature: {item.signature}</div>
-                  <div className="mb-1">
-                    <span className="text-info"> {convertToToken(item.output[0], 8, true)} </span>
-                    {token.value} (
-                    <span className="text-info">
-                      {Number(item.output[0]).toLocaleString("en", {useGrouping: true})}
-                    </span>
-                    )
-                  </div>
-                </>
-              )}
-              {item.errorDescription && (
-                <div className="mb-1 text-danger">
-                  Error description: {item.errorDescription}
+      {readMethods.length > 0 &&
+        readMethods.map((item, index) => (
+          <div key={index} className="mb-2">
+            <div className="mb-1">Method: {item.method}</div>
+            {item.signature && item.output && (
+              <>
+                <div className="mb-1">Signature: {item.signature}</div>
+                <div className="mb-1">
+                  <span className="text-info">
+                    {convertToToken(item.output[0], 8, true)}
+                  </span>
+                  {token?.value} (
+                  <span className="text-info">
+                    {Number(item.output[0]).toLocaleString("en", {
+                      useGrouping: true,
+                    })}
+                  </span>
+                  )
                 </div>
-              )}
-            </div>
-          ))
-        : null}
+              </>
+            )}
+            {item.errorDescription && (
+              <div className="mb-1 text-danger">
+                Error description: {item.errorDescription}
+              </div>
+            )}
+          </div>
+        ))}
     </div>
   );
 };
