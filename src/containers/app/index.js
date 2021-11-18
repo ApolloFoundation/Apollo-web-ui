@@ -91,7 +91,7 @@ import SmartContractCreate from "../account/smart-contracts/create";
 import MySmartContract from "../account/smart-contracts/my-contracts";
 import ExplorerContract from "../account/smart-contracts/explorer-contract";
 import ExplorerEscrow from "../account/smart-contracts/explorer-escrow";
-import ExplorerToken from "../account/smart-contracts/token";
+import ExplorerToken from "../account/smart-contracts/explorer-token";
 import MyTokens from "../account/smart-contracts/my-tokens";
 
 import Events from '../account/smart-contracts/events';
@@ -309,35 +309,15 @@ class App extends React.Component {
       <Route exact path="/order-history" component={OrderHistory} />
       <Route exact path="/order/:id?" component={OrderDetails} />
       <Route exact path="/choose-wallet" component={ChooseWallet} />
-      <Route
-        exact
-        path="/trade-history-exchange"
-        component={TradeHistoryExchange}
-      />
+      <Route exact path="/trade-history-exchange" component={TradeHistoryExchange}/>
       <Route exact path="/smart-contracts" component={SmartContracts} />
-      <Route
-        exact
-        path="/smart-contracts/create"
-        component={SmartContractCreate}
-      />
-      <Route
-        exact
-        path="/smart-contracts/my-contracts"
-        component={MySmartContract}
-      />
-      <Route
-        exact
-        path="/smart-contracts/my-tokens"
-        component={MyTokens}
-      />
-      <Route 
-        exact
-        path="/smart-contracts/events"
-        component={Events}
-      />
+      <Route exact path="/smart-contracts/create" component={SmartContractCreate}/>
+      <Route exact path="/smart-contracts/my-contracts" component={MySmartContract}/>
+      <Route exact path="/smart-contracts/my-tokens" component={MyTokens}/>
+      <Route exact path="/smart-contracts/events" component={Events}/>
       <Route exact path="/smart-contracts/explorer/contract/:id?" component={ExplorerContract} />
       <Route exact path="/smart-contracts/explorer/escrow/:id?" component={ExplorerEscrow} />
-      <Route exact path="/smart-contracts/token/:id?" component={ExplorerToken} />
+      <Route exact path="/smart-contracts/explorer/token/:id?" component={ExplorerToken} />
       <Route
         exact
         path="/index.html"

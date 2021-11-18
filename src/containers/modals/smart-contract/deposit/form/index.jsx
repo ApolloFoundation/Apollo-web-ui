@@ -1,7 +1,7 @@
 import React from "react";
 import NumericInput from "../../../../components/form-components/numeric-input1";
 import AccountRSForm from "../../../../components/form-components/account-rs1";
-import TextualInputComponent from "../../../../components/form-components/numeric-input1";
+
 const TransferForm = () => {
   return (
     <>
@@ -12,19 +12,17 @@ const TransferForm = () => {
         placeholder="Recipient"
         disabled
       />
-      <TextualInputComponent
-        className={"text-capitalize"}
-        label="Payee"
+      <AccountRSForm
+        noContactList={true}
         name="sender"
+        label="Payee"
         placeholder="Payee"
-        type="text"
       />
-      <TextualInputComponent
-        className={"text-capitalize"}
+      <AccountRSForm
+        noContactList={true}
         label="Token"
         name="token"
-        placeholder="token"
-        type="text"
+        placeholder="Token"
       />
       <NumericInput
         label="Amount"

@@ -11,27 +11,16 @@ import { getSmcSpecification } from "../../../../actions/contracts";
 import { convertToToken } from "../../../../helpers/converters";
 import Button from "../../../components/button";
 
-const TableItemTokens = ({
+const TableItemMyTokens = ({
   address,
   symbol,
   signature,
-  baseContract,
   balance,
   id,
 }) => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const isStatusAPL20 =
-    /^APL20BUY/.test(baseContract) || /^APL20LOCK/.test(baseContract);
 
-  const handleContractInfo = () => {
-    isStatusAPL20
-      ? history.push(`/smart-contracts/explorer/contract/${address}`)
-      : history.push(`/smart-contracts/explorer/escrow/${address}`);
-  };
-
-  const handleTokenInfo = () =>
-    history.push(`/smart-contracts/token/${address}`);
   const handleByMethod = async () => {
     const specifInfo = await dispatch(getSmcSpecification(address));
     if (specifInfo) {
@@ -47,6 +36,14 @@ const TableItemTokens = ({
     dispatch(setBodyModalParamsAction("SMC_TRANSFER", { address }));
   };
 
+  const handleContractInfo = () => {
+    history.push(`/smart-contracts/explorer/contract/${address}`);
+  };
+
+  const handleTokenInfo = () => {
+    history.push(`/smart-contracts/explorer/token/${address}`);
+  };
+
   return (
     <tr>
       <td>
@@ -56,11 +53,9 @@ const TableItemTokens = ({
         <Button color="blue-link" onClick={handleTokenInfo} name={symbol} />
       </td>
       <td className="align-right">
-        {balance
-          ? convertToToken(balance, 8, true).toLocaleString("en", {
-              useGrouping: true,
-            })
-          : "-"}
+        {convertToToken(balance, 8, true).toLocaleString("en", {
+          useGrouping: true,
+        })}
       </td>
       <td className="align-right">{signature.substr(-12)}</td>
       <td className="align-right">
@@ -72,18 +67,16 @@ const TableItemTokens = ({
             id={`button-transfer-${id}`}
             name="Transfer"
           />
-          {isStatusAPL20 && (
-            <Button
-              onClick={handleByMethod}
-              color="green"
-              size="sm"
-              id={`button-buy-${id}`}
-              name="Buy"
-            />
-          )}
+          <Button
+            onClick={handleByMethod}
+            color="green"
+            size="sm"
+            id={`button-buy-${id}`}
+            name="Buy"
+          />
         </div>
       </td>
     </tr>
   );
 };
-export default TableItemTokens;
+export default TableItemMyTokens;

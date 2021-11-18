@@ -12,7 +12,7 @@ import {
   exportExperationMessageSubmit,
   exportConfirmationOnBoard,
 } from "../../../../actions/contracts";
-import { validationForm } from "./form-validation";
+import { validationForm } from "./form/form-validation";
 import ModalBody from "../../../components/modals/modal-body1";
 import TransferForm from "./form";
 
@@ -22,7 +22,7 @@ export default function ({ closeModal }) {
   const { address } = useSelector((state) => state.modals.modalData);
 
   const formSubmit = async ({ feeATM, amount, token, ...values }) => {
-    const isValidForm = validationForm({ amount, ...values });
+    const isValidForm = validationForm({ amount, token, ...values });
 
     if (!isValidForm) {
       const convertedValue = convertToAPL(amount);
@@ -62,10 +62,10 @@ export default function ({ closeModal }) {
       submitButtonName="Deposit"
       initialValues={{
         sender: "",
+        token: "",
         amount: 0,
         fuelLimit: 300000000,
         fuelPrice: 100,
-        params: "",
         secretPhrase,
         address,
       }}

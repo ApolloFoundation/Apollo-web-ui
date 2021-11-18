@@ -12,6 +12,7 @@ import SiteHeader from "../../../components/site-header";
 import TableItemMyContract from "../table-items/my-contract";
 import CustomTable from "../../../components/tables/table";
 import SearchField from "../../../components/form-components/search-field";
+import ContentLoader from "../../../components/content-loader";
 
 const SmartContracts = () => {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ const SmartContracts = () => {
   const [contractList, setContractList] = useState([]);
   const [filteredContractList, setFilteredContractList] = useState([]);
   const [viewContractList, setViewContractList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [pagination, setPagination] = useState({
     page: 1,
     firstIndex: 0,
@@ -34,9 +36,11 @@ const SmartContracts = () => {
     const { contracts, errorCode } = await dispatch(getMyContracts(account));
 
     if (errorCode) {
+      setIsLoading(false);
       return;
     }
 
+    setIsLoading(false);
     setContractList(contracts);
     setViewContractList(contracts);
   }, [dispatch, account]);
@@ -137,47 +141,51 @@ const SmartContracts = () => {
             </Formik>
           </div>
         </div>
-        <CustomTable
-          header={[
-            {
-              name: "Address",
-              alignRight: false,
-            },
-            {
-              name: "Contract",
-              alignRight: false,
-            },
-            {
-              name: "Transaction id",
-              alignRight: false,
-            },
-            {
-              name: "Short Hash",
-              alignRight: false,
-            },
-            {
-              name: "Published",
-              alignRight: false,
-            },
-            {
-              name: "Status",
-              alignRight: false,
-            },
-            {
-              name: "Action",
-              alignRight: true,
-            },
-          ]}
-          className={"no-min-height mb-3"}
-          emptyMessage={"No Smart Contracts found."}
-          TableRowComponent={TableItemMyContract}
-          tableData={viewContractList}
-          page={pagination.page}
-          isPaginate
-          previousHendler={prevPaginate}
-          nextHendler={nextPaginate}
-          itemsPerPage={15}
-        />
+        {isLoading ? (
+          <ContentLoader />
+        ) : (
+          <CustomTable
+            header={[
+              {
+                name: "Address",
+                alignRight: false,
+              },
+              {
+                name: "Contract",
+                alignRight: false,
+              },
+              {
+                name: "Transaction id",
+                alignRight: false,
+              },
+              {
+                name: "Short Hash",
+                alignRight: false,
+              },
+              {
+                name: "Published",
+                alignRight: false,
+              },
+              {
+                name: "Status",
+                alignRight: false,
+              },
+              {
+                name: "Action",
+                alignRight: true,
+              },
+            ]}
+            className={"no-min-height mb-3"}
+            emptyMessage={"No Smart Contracts found."}
+            TableRowComponent={TableItemMyContract}
+            tableData={viewContractList}
+            page={pagination.page}
+            isPaginate
+            previousHendler={prevPaginate}
+            nextHendler={nextPaginate}
+            itemsPerPage={15}
+          />
+        )}
       </div>
     </div>
   );

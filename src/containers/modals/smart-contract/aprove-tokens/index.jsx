@@ -151,7 +151,6 @@ const AproveTokens = ({ closeModal }) => {
                       type="password"
                       placeholder="Secret Phrase"
                       name="secretPhrase"
-                      disabled
                     />
                     <Button
                       type="submit"

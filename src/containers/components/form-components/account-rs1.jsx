@@ -9,6 +9,7 @@ const AccountRSFormInput = (props) => {
     idGroup,
     name,
     handleRemoveItem,
+    placeholder,
     index,
     disabled,
   } = props;
@@ -23,6 +24,7 @@ const AccountRSFormInput = (props) => {
             exportAccountList={exportAccountList}
             noContactList={noContactList}
             id={`${idGroup}${name}-field`}
+            placeholder={placeholder}
             disabled={disabled}
           />
           {handleRemoveItem && (

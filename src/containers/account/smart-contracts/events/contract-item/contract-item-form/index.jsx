@@ -119,7 +119,7 @@ const ContractItemForm = ({ contractInstanse, contractId }) => {
   };
 
   return (
-    <Formik initialValues={initialState} onSubmit={() => {}}>
+    <Formik enableReinitialize initialValues={initialState} onSubmit={() => {}}>
       {({ values, setFieldValue, resetForm }) => (
         <Form>
           <h3 className="mb-3">Add contract event</h3>
