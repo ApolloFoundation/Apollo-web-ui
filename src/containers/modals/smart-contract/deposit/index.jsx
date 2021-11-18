@@ -66,7 +66,7 @@ export default function ({ closeModal }) {
         amount: 0,
         fuelLimit: 300000000,
         fuelPrice: 100,
-        secretPhrase,
+        secretPhrase: '',
         address,
       }}
     >

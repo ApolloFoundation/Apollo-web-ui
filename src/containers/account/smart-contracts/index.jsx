@@ -57,7 +57,9 @@ const SmartContracts = () => {
         return await dispatch(getSmcSpecification(el.address));
       })
     )
+      .then((data) => data.filter((el) => el !== null))
       .then((data) => {
+        console.log(data);
         const currentOverviewList = data.map((el) =>
           el.members.find((item) => item.name === "symbol")
         );
@@ -76,7 +78,7 @@ const SmartContracts = () => {
         setViewContractList(currentContractsList);
       })
       .catch((err) => {
-        console.log(err);
+        setIsLoading(false);
       });
   }, [dispatch]);
 

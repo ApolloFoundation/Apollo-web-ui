@@ -49,7 +49,9 @@ const MyTokens = () => {
       filteredList.map((el) => {
         return dispatch(getSmcSpecification(el.address));
       })
-    );
+    ).catch((err) => {
+      setIsLoading(false);
+    });
 
     const currentOverviewList = symbolsList.map((el) =>
       el.members.find((item) => item.name === "symbol")
@@ -78,7 +80,7 @@ const MyTokens = () => {
         balance: balanceList[index].results[0].output[0],
       }))
       .filter((item) => item.balance > 0);
-      
+
     setIsLoading(false);
     setContractList(currentContractsList);
     setViewContractList(currentContractsList);

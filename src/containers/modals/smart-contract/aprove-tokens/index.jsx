@@ -77,7 +77,7 @@ const AproveTokens = ({ closeModal }) => {
             fuelPrice: 100,
             fuelLimit: 300000000,
             source: sourceValue(modalData.token, modalData.params),
-            secretPhrase,
+            secretPhrase: ""
           }}
         >
           {({ values, setFieldValue }) => {
