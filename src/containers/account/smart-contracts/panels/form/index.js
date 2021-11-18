@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { v4 as uuidv4 } from "uuid";
 import { Form, Formik, Field } from "formik";
 import { convertToAPL, convertToToken } from "../../../../../helpers/converters";
 import { processAccountRStoHex } from "apl-web-crypto";
