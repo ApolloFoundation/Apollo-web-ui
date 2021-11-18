@@ -59,7 +59,6 @@ const SmartContracts = () => {
     )
       .then((data) => data.filter((el) => el !== null))
       .then((data) => {
-        console.log(data);
         const currentOverviewList = data.map((el) =>
           el.members.find((item) => item.name === "symbol")
         );
