@@ -5,16 +5,14 @@
 
 import React, { useState, useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import {
-  getSmcSpecification,
-  getSmcEvent,
-} from "../../../../actions/contracts";
+import { processAccountRStoHex } from "apl-web-crypto";
+import { getSmcSpecification, getSmcEvent } from "../../../../actions/contracts";
 import SiteHeader from "../../../components/site-header";
 import CustomTable from "../../../components/tables/table";
 import ContentLoader from "../../../components/content-loader";
-import Overview from "./overwiev";
+import Overview from "../panels/panel-overview";
 import TableItemToken from "../table-items/token";
-import { processAccountRStoHex } from "apl-web-crypto";
+
 
 const ExplorerToken = (props) => {
   const dispatch = useDispatch();
@@ -37,10 +35,7 @@ const ExplorerToken = (props) => {
         getSmcEvent(id, {
           event: `${method}`,
           fromBlock: 0,
-          filter: `{ "${from}" : {"$eq": "${processAccountRStoHex(
-            id,
-            true
-          )}"} }`,
+          filter: `{ "${from}" : {"$eq": "${processAccountRStoHex(id, true)}"} }`,
         })
       );
 

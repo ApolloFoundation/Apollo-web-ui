@@ -67,9 +67,10 @@ const SmartContracts = () => {
             ...item,
             symbol: currentOverviewList[index]
               ? currentOverviewList[index].value
-              : "-",
+              : "",
           };
         });
+
         setIsLoading(false);
         setContractList(currentContractsList);
         setViewContractList(currentContractsList);

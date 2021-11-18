@@ -13,14 +13,16 @@ import { exportReadMethod } from "../../../../actions/contracts";
 import { formatTimestamp } from "../../../../helpers/util/time";
 import SiteHeader from "../../../components/site-header";
 import CustomTable from "../../../components/tables/table";
-import TableItemTokens from "../table-items/tokens";
+import TableItemMyTokens from "../table-items/my-tokens";
 import SearchField from "../../../components/form-components/search-field";
+import ContentLoader from "../../../components/content-loader";
 
 const MyTokens = () => {
   const dispatch = useDispatch();
   const [contractList, setContractList] = useState([]);
   const [filteredContractList, setFilteredContractList] = useState(null);
   const [viewContractList, setViewContractList] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [pagination, setPagination] = useState({
     page: 1,
     firstIndex: 0,
@@ -35,6 +37,7 @@ const MyTokens = () => {
     const { contracts, errorCode } = await dispatch(getContracts());
 
     if (errorCode) {
+      setIsLoading(false);
       return;
     }
 
@@ -75,7 +78,8 @@ const MyTokens = () => {
         balance: balanceList[index].results[0].output[0],
       }))
       .filter((item) => item.balance > 0);
-
+      
+    setIsLoading(false);
     setContractList(currentContractsList);
     setViewContractList(currentContractsList);
   }, [dispatch]);
@@ -132,7 +136,7 @@ const MyTokens = () => {
         return item[key].toLowerCase().includes(value.toLowerCase());
       })
     );
-
+    setIsLoading(false);
     setFilteredContractList(list);
     setViewContractList(list);
     setPagination({
@@ -184,40 +188,44 @@ const MyTokens = () => {
         </div>
         <div className="card full-height">
           <div class="card-body">
-            <CustomTable
-              id={"smart-contracts-tokens"}
-              header={[
-                {
-                  name: "Address",
-                  alignRight: false,
-                },
-                {
-                  name: "Token symbol",
-                  alignRight: false,
-                },
-                {
-                  name: "Balance",
-                  alignRight: true,
-                },
-                {
-                  name: "Short Hash",
-                  alignRight: true,
-                },
-                {
-                  name: "Action",
-                  alignRight: true,
-                },
-              ]}
-              className={"no-min-height"}
-              emptyMessage={"No Smart Contracts found."}
-              page={pagination.page}
-              TableRowComponent={TableItemTokens}
-              tableData={viewContractList}
-              isPaginate
-              previousHendler={prevPaginate}
-              nextHendler={nextPaginate}
-              itemsPerPage={15}
-            />
+            {isLoading ? (
+              <ContentLoader />
+            ) : (
+              <CustomTable
+                id={"smart-contracts-tokens"}
+                header={[
+                  {
+                    name: "Address",
+                    alignRight: false,
+                  },
+                  {
+                    name: "Token symbol",
+                    alignRight: false,
+                  },
+                  {
+                    name: "Balance",
+                    alignRight: true,
+                  },
+                  {
+                    name: "Short Hash",
+                    alignRight: true,
+                  },
+                  {
+                    name: "Action",
+                    alignRight: true,
+                  },
+                ]}
+                className={"no-min-height"}
+                emptyMessage={"No Smart Contracts found."}
+                page={pagination.page}
+                TableRowComponent={TableItemMyTokens}
+                tableData={viewContractList}
+                isPaginate
+                previousHendler={prevPaginate}
+                nextHendler={nextPaginate}
+                itemsPerPage={15}
+              />
+            )}
           </div>
         </div>
       </div>

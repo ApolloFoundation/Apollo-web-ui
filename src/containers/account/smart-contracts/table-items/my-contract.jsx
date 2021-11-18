@@ -24,7 +24,7 @@
    const history = useHistory();
    const dispatch = useDispatch();
    const currentDate = dispatch(formatTimestamp(new Date(timestamp)));
-   const isStatusAPL20 =/^APL20BUY/.test(baseContract) || /^APL20LOCK/.test(baseContract);
+   const isStatusAPL20 =/^APL20/.test(baseContract);
  
    const handleContractInfo = () => {
      isStatusAPL20

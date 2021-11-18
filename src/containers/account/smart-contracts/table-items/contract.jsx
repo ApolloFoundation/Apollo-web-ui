@@ -30,8 +30,7 @@ const TableItemContract = ({
   const dispatch = useDispatch();
   const store = useStore();
   const currentDate = dispatch(formatTimestamp(new Date(timestamp)));
-  const isStatusAPL20 =
-    /^APL20BUY/.test(baseContract) || /^APL20LOCK/.test(baseContract);
+  const isStatusAPL20 = /^APL20/.test(baseContract);
 
   const handleContractInfo = () => {
     isStatusAPL20
@@ -67,6 +66,10 @@ const TableItemContract = ({
 
   const handleDepositModal = () => {
     dispatch(setBodyModalParamsAction("SMC_DEPOSIT", { address }));
+  };
+
+  const handleTokenInfo = () => {
+    history.push(`/smart-contracts/explorer/token/${address}`);
   };
 
   const handleAddEvent = useCallback(() => {
@@ -121,7 +124,13 @@ const TableItemContract = ({
           />
         </div>
       </td>
-      <td>{symbol}</td>
+      <td>
+        {symbol ? (
+          <Button color="blue-link" onClick={handleTokenInfo} name={symbol} />
+        ) : (
+          "-"
+        )}
+      </td>
       <td>
         <Button
           color="blue-link"

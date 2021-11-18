@@ -12,7 +12,7 @@ import {
   exportExperationMessageSubmit,
   exportConfirmationOnBoard,
 } from "../../../../../src/actions/contracts";
-import { validationForm } from "./form-validation";
+import { validationForm } from "./form/form-validation";
 import ModalBody from "../../../components/modals/modal-body1";
 import TransferForm from "./form";
 

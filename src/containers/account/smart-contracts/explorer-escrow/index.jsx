@@ -5,7 +5,6 @@
 
 import React, { useState, useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { processAccountRStoHex } from "apl-web-crypto";
 import { getSmcSpecification } from "../../../../actions/contracts";
 import SiteHeader from "../../../components/site-header";
 import ContentLoader from "../../../components/content-loader";

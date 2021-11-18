@@ -213,9 +213,6 @@ const CreateToken = ({ closeModal }) => {
                           <Field
                             key={item + index}
                             name={item.name}
-                            validate={(value) =>
-                              fieldValidate(value, item.type)
-                            }
                             render={({ field: { name } }) => (
                               <div className="mb-3">
                                 <TextualInputComponent
@@ -226,11 +223,6 @@ const CreateToken = ({ closeModal }) => {
                                   type="float"
                                   disabled
                                 />
-                                {errors[name] && touched[name] && (
-                                  <div className={"text-danger"}>
-                                    {errors[item.name]}
-                                  </div>
-                                )}
                               </div>
                             )}
                           />
@@ -241,7 +233,6 @@ const CreateToken = ({ closeModal }) => {
                       <Field
                         key={item + index}
                         name={item.name}
-                        validate={(value) => fieldValidate(value, item.type)}
                         render={({ field: { name } }) => (
                           <div className="mb-3">
                             {item.type === "timestamp" ? (
@@ -272,11 +263,6 @@ const CreateToken = ({ closeModal }) => {
                                 placeholder={name}
                                 type={item.type === "uint" ? "float" : "text"}
                               />
-                            )}
-                            {errors[name] && touched[name] && (
-                              <div className={"text-danger"}>
-                                {errors[item.name]}
-                              </div>
                             )}
                           </div>
                         )}
