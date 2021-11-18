@@ -50,20 +50,32 @@ const AproveTokens = ({ closeModal }) => {
         value: 0,
         ...values,
       };
+
       const testToken = await dispatch(exportTestContract(data));
-      setLoading(true);
-      if (!testToken.errorCode) {
-        const publishToken = await dispatch(exportContractSubmit(data));
-        if (!publishToken.errorCode) {
-          const boardToken = await dispatch(
-            exportConfirmationOnBoard({ tx: publishToken.tx })
-          );
-          if (!boardToken.errorCode) {
-            closeModal();
-            setLoading(false);
-          }
-        }
+
+      setLoading(false);
+
+      if (testToken.errorCode) {
+        setLoading(false);
+        return;
       }
+
+      const publishToken = await dispatch(exportContractSubmit(data));
+
+      if (publishToken.errorCode) {
+        setLoading(false);
+        return;
+      }
+
+      const boardToken = await dispatch(exportConfirmationOnBoard({ tx: publishToken.tx }));
+
+      if (boardToken.errorCode) {
+        setLoading(false);
+        return;
+      }
+
+      closeModal();
+      setLoading(false);
     },
     [dispatch, modalData]
   );
@@ -77,7 +89,7 @@ const AproveTokens = ({ closeModal }) => {
             fuelPrice: 100,
             fuelLimit: 300000000,
             source: sourceValue(modalData.token, modalData.params),
-            secretPhrase,
+            secretPhrase: "",
           }}
         >
           {({ values, setFieldValue }) => {
@@ -99,7 +111,7 @@ const AproveTokens = ({ closeModal }) => {
                             {modalData &&
                               Object.entries(modalData.params).map(
                                 ([key, value]) => (
-                                  <tr key={key+value}>
+                                  <tr key={key + value}>
                                     <td className="text-capitalize">{key}</td>
                                     <td>{value}</td>
                                   </tr>
@@ -168,5 +180,5 @@ const AproveTokens = ({ closeModal }) => {
       )}
     </div>
   );
-}
+};
 export default AproveTokens;

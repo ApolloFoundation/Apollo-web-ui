@@ -30,8 +30,9 @@ const ContractItemForm = ({ contractInstanse, contractId }) => {
 
   const getContractSpecification = useCallback(
     async (id) => {
-      const { members } = await dispatch(getSmcSpecification(id));
-      if (members.length > 0) {
+      const members = await dispatch(getSmcSpecification(id));
+
+      if (members && members.length > 0) {
         const membersList = members.reduce((acc, item) => {
           if (item.type === "EVENT") {
             acc.push({
@@ -123,12 +124,14 @@ const ContractItemForm = ({ contractInstanse, contractId }) => {
       {({ values, setFieldValue, resetForm }) => (
         <Form>
           <h3 className="mb-3">Add contract event</h3>
+          {eventList.length > 0 && (
             <CustomSelect
               options={eventList}
               className="mb-0"
               placeholder="Chose event name"
               onChange={(e) => handleChangeDrop(e, setFieldValue)}
             />
+          )}
 
           <TextualInputComponent
             type="text"
