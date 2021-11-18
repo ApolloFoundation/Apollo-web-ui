@@ -174,7 +174,7 @@ export const votingSystemMenu = {
   icon: "zmdi-star",
   additionalChildren: {
     id: "open-create-poll",
-    label: "Send Message",
+    label: "Create poll",
     modalType: "ISSUE_POLL",
   },
   children: [
