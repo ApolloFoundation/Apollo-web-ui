@@ -9,7 +9,6 @@ import {connect} from 'react-redux';
 import {openPrevModal, setBodyModalParamsAction} from '../../../modules/modals';
 import {getDividendsHistory} from "../../../actions/assets";
 import {formatTimestamp} from "../../../helpers/util/time";
-import {ONE_APL} from '../../../constants';
 
 class AssetDividendHistory extends React.Component {
     state = {
@@ -45,7 +44,7 @@ class AssetDividendHistory extends React.Component {
             <div className="modal-box x-wide">
                 <div className="modal-form">
                     <div className="form-group-app">
-                        <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close"/></a>
+                        <button onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close"/></button>
 
                         <div className="form-title">
                             <p>Asset Dividend History</p>
@@ -81,7 +80,7 @@ class AssetDividendHistory extends React.Component {
                                                         </td>
 
                                                         <td className="align-right">{el.dividendHeight}</td>
-                                                        <td>{el.totalDividend / ONE_APL}</td>
+                                                        <td>{el.totalDividend / this.props.decimals}</td>
                                                         <td>{el.numberOfAccounts}</td>
                                                         <td>{el.amountATMPerATU / 1000000}</td>
                                                     </tr>
@@ -107,7 +106,8 @@ class AssetDividendHistory extends React.Component {
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
-    modalsHistory: state.modals.modalsHistory
+    modalsHistory: state.modals.modalsHistory,
+    decimals: state.account.decimals,
 });
 
 const mapDispatchToProps = dispatch => ({

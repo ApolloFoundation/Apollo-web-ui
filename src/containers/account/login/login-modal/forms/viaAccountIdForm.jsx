@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import cn from 'classnames';
 import { Form, Formik } from 'formik';
 import { NotificationManager } from 'react-notifications';
@@ -7,7 +7,8 @@ import { getAccountDataAction } from '../../../../../actions/login';
 import AccountRS from '../../../../components/account-rs/index1';
 import Button from '../../../../components/button';
 
-function AccountIdForm({ activeTab, getAccountDataAction }) {
+export default function AccountIdForm({ activeTab }) {
+  const dispatch = useDispatch();
 
   const enterAccount = useCallback(({ accountRS }) => {
     if (!accountRS || !accountRS.length) {
@@ -15,8 +16,8 @@ function AccountIdForm({ activeTab, getAccountDataAction }) {
       return;
     }
 
-    getAccountDataAction({ account: accountRS });
-  }, [getAccountDataAction]);
+    dispatch(getAccountDataAction({ account: accountRS }));
+  }, [dispatch]);
 
   return (
     <Formik
@@ -52,10 +53,3 @@ function AccountIdForm({ activeTab, getAccountDataAction }) {
     </Formik>
   );
 }
-
-const mapDispatchToProps = {
-  getAccountDataAction,
-};
-
-
-export default connect(null, mapDispatchToProps)(AccountIdForm);

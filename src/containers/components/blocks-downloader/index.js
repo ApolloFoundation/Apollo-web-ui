@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import CircularProgressbar from 'react-circular-progressbar';
+import {CircularProgressbar} from 'react-circular-progressbar';
 import classNames from 'classnames';
 import 'react-circular-progressbar/dist/styles.css';
 import './BlocksDownloader.scss';

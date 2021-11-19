@@ -43,7 +43,7 @@ class PollForm extends React.Component {
             case 0:
                 return '(none)';
             case 1:
-                return '(APL)';
+                return `(${this.props.ticker})`;
             case 2:
                 return '(Asset)';
             case 3:

@@ -36,7 +36,7 @@ class CreatePoll extends React.Component {
     handleFormSubmit = async(values) => handleFormSubmit.call(this.props, values)
 
     render() {
-        const {nameModal} = this.props;
+        const {nameModal, ticker} = this.props;
 
         return (
             <ModalBody
@@ -48,9 +48,9 @@ class CreatePoll extends React.Component {
                 handleFormSubmit={(values) => this.handleFormSubmit(values)}
                 submitButtonName={'Create'}
                 nameModel={nameModal}
-				idGroup={'create-poll-modal-'}
+				        idGroup={'create-poll-modal-'}
             >
-                <PollForm />
+                <PollForm ticker={ticker} />
             </ModalBody>
         );
     }
@@ -58,7 +58,8 @@ class CreatePoll extends React.Component {
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
-    modalsHistory: state.modals.modalsHistory
+    modalsHistory: state.modals.modalsHistory,
+    ticker: state.account.ticker,
 });
 
 const mapDispatchToProps = dispatch => ({

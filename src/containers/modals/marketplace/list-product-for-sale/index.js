@@ -43,9 +43,9 @@ class ListProductForSale extends React.Component {
                 handleFormSubmit={(values) => this.handleFormSubmit(values)}
                 submitButtonName={'List Product'}
             >
-                <ListProductForSaleFrom/>
+                <ListProductForSaleFrom ticker={this.props.ticker} />
             </ModalBody>
-            
+
         );
     }
 }
@@ -53,7 +53,8 @@ class ListProductForSale extends React.Component {
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
-    publicKey: state.account.publicKey
+    ticker: state.account.ticker,
+    publicKey: state.account.publicKey,
 });
 
 const mapDispatchToProps = dispatch => ({

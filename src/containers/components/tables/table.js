@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import ContentHendler from '../content-hendler';
-import uuid from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
 const CustomTable = (props) => {
 
@@ -36,7 +36,7 @@ const CustomTable = (props) => {
                     <>
                         <div className={`transaction-table ${className}`}>
                             {
-                                tableName && 
+                                tableName &&
                                 <div className="form-title padding-left padding-top">
                                     <p>{tableName}</p>
                                 </div>
@@ -50,9 +50,9 @@ const CustomTable = (props) => {
                                     <thead>
                                         <tr>
                                             {
-                                                header && 
-                                                header.map((el) => 
-                                                    <React.Fragment key={uuid()}>
+                                                header &&
+                                                header.map((el) =>
+                                                    <React.Fragment key={uuidv4()}>
                                                         {
                                                             !el.isRender &&
                                                             <td
@@ -66,7 +66,7 @@ const CustomTable = (props) => {
                                                     </React.Fragment>
                                                 )
                                             }
-                                            
+
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -99,7 +99,7 @@ const CustomTable = (props) => {
                                             'disabled' : page <= 1,
                                         })}
                                         onClick={previousHendler}
-                                    > 
+                                    >
                                         Previous
                                     </button>
                                     <div className='pagination-nav'>
@@ -120,7 +120,7 @@ const CustomTable = (props) => {
                                 </div>
                             }
                             {
-                                actionButton && 
+                                actionButton &&
                                 <div className="btn-box pagination">
                                     <button
                                         type={'button'}
@@ -133,7 +133,7 @@ const CustomTable = (props) => {
                             }
                         </div>
                     </>
-                    
+
 
                 }
             </ContentHendler>

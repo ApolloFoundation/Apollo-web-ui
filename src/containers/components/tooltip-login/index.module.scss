@@ -1,20 +1,20 @@
-.tooltipLogin {
+.tooltip {
   position: relative;
   display: inline-block;
   vertical-align: middle;
 
-  &:hover .tooltipLoginContent {
+  &:hover .tooltipContent {
     display: block;
   }
 }
 
-.tooltipLoginIconWrapper {
+.tooltipIconWrapper {
   margin: 0;
   padding: 0;
   cursor: pointer;
 }
 
-.tooltipLoginContent {
+.tooltipContent {
   position: absolute;
   padding: 24px;
   background: #16191D;

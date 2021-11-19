@@ -1,25 +1,31 @@
-import React ,{useState} from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-
 import classNames from 'classnames';
-
 import { NavLink, withRouter } from 'react-router-dom'
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { NotificationManager } from "react-notifications";
 
 import { logOutAction } from "../../../../actions/login";
 import { setBodyModalParamsAction } from '../../../../modules/modals';
+import { readFromLocalStorage } from '../../../../actions/localStorage';
 
 class CurrentAccount extends React.Component {
     refContactsList = React.createRef();
     refContactsButton = React.createRef();
+
     state = {
-        contacts: JSON.parse(localStorage.getItem('APLContacts')),
+        contacts: null,
         isContacts: false,
     };
 
     componentDidMount() {
         document.addEventListener('mousedown', this.handleClickOutside);
+        const contactList = readFromLocalStorage('APLContacts');
+        if(contactList) {
+            this.setState({
+                contacts: JSON.parse(contactList),
+            });
+        }
     }
 
     componentWillUnmount() {
@@ -70,9 +76,9 @@ class CurrentAccount extends React.Component {
                 })}>
                 <div className="form-group-app">
                     <div className="form-title">
-                        <a onClick={() => this.props.closeMenu()} className="exit current-account">
+                        <button onClick={closeMenu} className="exit current-account">
                             <i className="zmdi zmdi-close"/>
-                        </a>
+                        </button>
                         <p>Current account</p>
                     </div>
                     {
@@ -218,8 +224,9 @@ class CurrentAccount extends React.Component {
                                 className="image-button"
                             >
                                 <i className="zmdi zmdi-close-circle"/>
-                                <label style={{cursor: 'pointer'}}>Logout and clear user
-                                    data</label>
+                                <label style={{cursor: 'pointer'}}>
+                                    Logout and clear userdata
+                                </label>
                             </div>
                         </div>
                     </div>
@@ -236,8 +243,8 @@ const mapStateToProps = state => ({
     forgingStatus: state.account.forgingStatus,
 });
 
-const mapDispatchToProps = dispatch => ({
-    setBodyModalParamsAction: (type, values) => dispatch(setBodyModalParamsAction(type, values))
-});
+const mapDispatchToProps = {
+    setBodyModalParamsAction,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(CurrentAccount));

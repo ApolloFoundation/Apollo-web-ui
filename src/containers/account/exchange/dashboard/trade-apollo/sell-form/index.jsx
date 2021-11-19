@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Formik } from 'formik';
 import { NotificationManager } from 'react-notifications';
 import { currencyTypes, multiply } from '../../../../../../helpers/format';
@@ -9,19 +9,21 @@ import {
   setBodyModalParamsAction, resetTrade, setSelectedOrderInfo,
 } from '../../../../../../modules/modals';
 import SellForm from './form';
-import store from '../../../../../../store';
 
 const feeATM = 200000000;
 
-function SellFormWrapper(props) {
-  const { dispatch } = store;
+export default function SellFormWrapper(props) {
+  const dispatch = useDispatch();
 
-  const {
-    wallet, handleLoginModal, ethFee, ticker, decimals, dashboardAccoountInfo, currentCurrency, accountInfo,
-  } = props;
+  const { dashboardAccoountInfo } = useSelector(state => state.dashboard);
+  const { currentCurrency } = useSelector(state => state.exchange);
+  const { unconfirmedBalanceATM: balanceAPL, account, passPhrase } = useSelector(state => state.account);
 
   const { currency } = currentCurrency;
-  const { unconfirmedBalanceATM: balanceAPL, account, passPhrase } = accountInfo
+
+  const {
+    wallet, handleLoginModal, ethFee, ticker, decimals,
+  } = props;
 
   const [isPending, setIsPending] = useState(false);
 
@@ -42,11 +44,11 @@ function SellFormWrapper(props) {
       if (wallet) {
         if (values.offerAmount > 0 && values.pairRate > 0) {
           let isError = false;
-          if (+values.pairRate < 0.000000001) {
+          if (values.pairRate < 0.000000001) {
             NotificationManager.error(`Price must be more then 0.000000001 ${currency.toUpperCase()}`, 'Error', 5000);
             isError = true;
           }
-          if (+values.offerAmount < 0.001) {
+          if (values.offerAmount < 0.001) {
             NotificationManager.error(`You can sell more then 0.001 ${ticker}`, 'Error', 5000);
             isError = true;
           }
@@ -63,11 +65,11 @@ function SellFormWrapper(props) {
             return;
           }
           const pairRate = Math.round(multiply(values.pairRate, ONE_GWEI));
-          const offerAmount = multiply(values.offerAmount, ONE_GWEI);
+          const offerAmount = values.offerAmount * ONE_GWEI;
           const currentBalanceAPL = (dashboardAccoountInfo && dashboardAccoountInfo.unconfirmedBalanceATM)
             ? parseFloat(dashboardAccoountInfo.unconfirmedBalanceATM)
             : parseFloat(balanceAPL);
-          if (!balanceAPL || currentBalanceAPL === 0 || currentBalanceAPL < ((offerAmount + feeATM) / 10)) {
+          if (!currentBalanceAPL || currentBalanceAPL < ((offerAmount + feeATM) / 10)) {
             NotificationManager.error(`Not enough funds on your ${ticker} balance.`, 'Error', 5000);
             setPending(false);
             return;
@@ -79,11 +81,10 @@ function SellFormWrapper(props) {
             pairRate,
             offerAmount,
             sender: account,
+            passphrase: passPhrase,
             feeATM,
             walletAddress: values.walletAddress.value.address,
-            passphrase: passPhrase,
           };
-
           if (passPhrase) {
             dispatch(createOffer(params)).then(() => {
               setPending(false);
@@ -135,11 +136,3 @@ function SellFormWrapper(props) {
     </Formik>
   );
 }
-
-const mapStateToProps = (state) => ({
-  dashboardAccoountInfo: state.dashboard.dashboardAccoountInfo,
-  currentCurrency: state.exchange.currentCurrency,
-  accountInfo: state.account,
-});
-
-export default connect(mapStateToProps)(SellFormWrapper);

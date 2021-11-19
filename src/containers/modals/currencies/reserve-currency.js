@@ -61,7 +61,7 @@ class ReserveCurrency extends React.Component {
             <div className="modal-box">
                 <form className="modal-form">
                     <div className="form-group-app">
-                        <a onClick={this.props.closeModal} className="exit"><i className="zmdi zmdi-close"/></a>
+                        <button onClick={this.props.closeModal} className="exit"><i className="zmdi zmdi-close"/></button>
 
                         <div className="form-title">
                             <p>Reserve Currency - {modalData.code}</p>
@@ -127,7 +127,7 @@ class ReserveCurrency extends React.Component {
                                             }}
                                             setValue={setValue}/>
                                         <div className="input-group-append">
-                                            <span className="input-group-text">APL</span>
+                                            <span className="input-group-text">{this.props.ticker}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -182,6 +182,7 @@ class ReserveCurrency extends React.Component {
 }
 
 const mapStateToProps = state => ({
+    ticker: state.account.ticker,
     modalData: state.modals.modalData,
 });
 

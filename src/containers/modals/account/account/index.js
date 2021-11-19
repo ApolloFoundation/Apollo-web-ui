@@ -202,7 +202,9 @@ class InfoAccount extends React.PureComponent {
                     this.props.modalData &&
                     <form className="modal-form">
                         <div className="form-group-app media-tab">
-                            <a onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close"/></a>
+                            <button type="button" onClick={this.props.closeModal} className="exit">
+                                <i className="zmdi zmdi-close"/>
+                            </button>
 
                             <div className="form-title inline">
                                 {this.props.modalsHistory.length > 1 &&
@@ -231,7 +233,7 @@ class InfoAccount extends React.PureComponent {
                                 {
                                     this.state.account &&
                                     <div className={"account-balance-text"}>Account has a balance
-                                        of <strong>{Math.round(this.state.account.unconfirmedBalanceATM / Math.pow(10, 8))} APL</strong>
+                                        of <strong>{Math.round(this.state.account.unconfirmedBalanceATM / Math.pow(10, 8))} {this.props.ticker}</strong>
                                     </div>
                                 }
 
@@ -524,6 +526,7 @@ const mapStateToProps = state => ({
     modalData: state.modals.modalData,
     modalsHistory: state.modals.modalsHistory,
     account: state.account.account,
+    ticker: state.account.ticker,
     accountRS: state.account.accountRS
 });
 

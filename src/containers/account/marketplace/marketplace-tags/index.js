@@ -4,7 +4,7 @@ import {Form, Text} from 'react-form';
 import InputMask from 'react-input-mask'
 import {connect} from 'react-redux';
 import {getDGSTagsAction,} from '../../../../actions/marketplace'
-import uuid from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import {Link, withRouter} from 'react-router-dom';
 import AccountRS from "../../../components/account-rs";
 import {NotificationManager} from "react-notifications";
@@ -102,7 +102,7 @@ class MarketplaceTags extends Component {
     render () {
         const {showMoreController, isShowMore} = this.props;
         const {getDGSTags, itemsPerPageMore, page} = this.state;
-        
+
         return (
             <div className="card  marketplace filters transparent">
                 <div className="search-bar m-0">
@@ -166,7 +166,7 @@ class MarketplaceTags extends Component {
                     {
                         this.prepareTags().map((el, index) => {
                             return (
-                                <Link key={uuid()} to={'/marketplace/' + el.tag} className="btn filter btn-xs">{el.tag}&nbsp;[{el.totalCount}]</Link>
+                                <Link key={uuidv4()} to={'/marketplace/' + el.tag} className="btn filter btn-xs">{el.tag}&nbsp;[{el.totalCount}]</Link>
                             );
                         })
                     }
@@ -209,7 +209,7 @@ class MarketplaceTags extends Component {
                         </div>
                         )}
                 </div>
-            </div> 
+            </div>
         );
     }
 }

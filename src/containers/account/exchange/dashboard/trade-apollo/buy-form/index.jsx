@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Formik } from 'formik';
 import { NotificationManager } from 'react-notifications';
 import { currencyTypes, multiply } from '../../../../../../helpers/format';
@@ -9,19 +9,20 @@ import {
   setBodyModalParamsAction, resetTrade, setSelectedOrderInfo,
 } from '../../../../../../modules/modals';
 import BuyForm from './form';
-import store from '../../../../../../store';
 
 const feeATM = 200000000;
 
-function BuyFormWrapper(props) {
-  const { dispatch } = store;
+export default function BuyFormWrapper(props) {
+  const dispatch = useDispatch();
+  const { currentCurrency } = useSelector(state => state.exchange);
+  const { dashboardAccoountInfo } = useSelector(state => state.dashboard);
+  const { unconfirmedBalanceATM: balanceAPL, account, passPhrase } = useSelector(state => state.account);
+
+  const { currency } = currentCurrency;
 
   const {
-    wallet, handleLoginModal, ethFee, ticker, currentCurrency, dashboardAccoountInfo, accountInfo,
+    wallet, handleLoginModal, ethFee, ticker,
   } = props;
-  
-  const { currency } = currentCurrency;
-  const { unconfirmedBalanceATM: balanceAPL, account, passPhrase } = accountInfo;
 
   const [isPending, setIsPending] = useState(false);
 
@@ -44,11 +45,11 @@ function BuyFormWrapper(props) {
           const balance = newValues.walletAddress
             && newValues.walletAddress.value.balances[currency];
           let isError = false;
-          if (+newValues.pairRate < 0.000000001) {
+          if (newValues.pairRate < 0.000000001) {
             NotificationManager.error(`Price must be more then 0.000000001 ${currency.toUpperCase()}`, 'Error', 5000);
             isError = true;
           }
-          if (+newValues.offerAmount < 0.001) {
+          if (newValues.offerAmount < 0.001) {
             NotificationManager.error(`You can buy more then 0.001 ${ticker}`, 'Error', 5000);
             isError = true;
           }
@@ -72,7 +73,7 @@ function BuyFormWrapper(props) {
             return;
           }
           const pairRate = Math.round(multiply(newValues.pairRate, ONE_GWEI));
-          const offerAmount = +multiply(newValues.offerAmount, ONE_GWEI);
+          const offerAmount = newValues.offerAmount * ONE_GWEI;
           const balanceETH = parseFloat(newValues.walletAddress.value.balances[currency]);
           const currentBalanceAPL = (dashboardAccoountInfo && dashboardAccoountInfo.unconfirmedBalanceATM)
             ? parseFloat(dashboardAccoountInfo.unconfirmedBalanceATM)
@@ -101,11 +102,10 @@ function BuyFormWrapper(props) {
             pairRate,
             offerAmount: fixedOfferAmount,
             sender: account,
+            passphrase: passPhrase,
             feeATM,
             walletAddress: newValues.walletAddress.value.address,
-            passphrase: passPhrase,
           };
-
           if (passPhrase) {
             dispatch(createOffer(params)).then(() => {
               setPending(false);
@@ -154,11 +154,3 @@ function BuyFormWrapper(props) {
     </Formik>
   );
 }
-
-const mapStateToProps = (state) => ({
-  dashboardAccoountInfo: state.dashboard.dashboardAccoountInfo,
-  currentCurrency: state.exchange.currentCurrency,
-  accountInfo: state.account,
-});
-
-export default connect(mapStateToProps)(BuyFormWrapper);

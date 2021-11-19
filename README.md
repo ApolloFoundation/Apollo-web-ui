@@ -36,12 +36,12 @@ There are no specific requirements to run production build of Apollo-Web-ui. Apo
 
 ## Preparation steps ##
 
-In `src/config.js` you need to set server URL. For example:
+Please, duplicate `.env.skel` to `.env` file.
+Here you can find `REACT_APP_PROXY_HOST` option, where you can change backend server.
+For example:
 ```
-server: 'http://localhost:7876',
+REACT_APP_PROXY_HOST=http://51.15.102.159:7876
 ```
-Note, that you need Apollo-blockchain running locally to Apollo-Web-ui. Please refer to [Apollo](https://github.com/ApolloFoundation/Apollo) sub-project for build and installation instructions of blockchain backend.
-
 
 ## Development builds
 
@@ -51,6 +51,19 @@ To run Apollo-web-ui in development mode, please run following command:
 npm install
 npm start
 ```
+Final installation artefact is zip file in "target" directory.
+
+
+## GIT branches
+
+We follow GIT FLOW procedure in our development and use following branches:
+
+__master__ branch contains stable code of the latest release. It is also tagged for each public release. Please see "Tags" in the "branch" dropdown menu. Please use this branch to compile Apollo components.
+
+__develop__ branch contains latest development version. Use this branch if you are developer/contributor.
+
+__stage__ branch contains release preparation work of the last release. Do not use this branch if you are not release engineer
+
 
 This command start browser with URL: http://localhost:3030/.
 
@@ -63,6 +76,15 @@ npm run build
 ```
 Final installation artefact is zip file in "target" directory.
 
+### Create IOS & Android builds
+
+1. Set `PUBLIC_URL=./` in .env file
+2. Install node modules - `yarn install`
+3. Create production build - `yarn build`
+4. Copy all from `build` directory to `www/` directory from Cordova project (from archive)
+5. In Cordova project run `cordova build android` || `cordova build ios`
+6.  - For Android `.apk` will be in `/platforms/android/app/build/outputs/apk/debug/app-debug.apk`
+    - For IOS - open in Xcode project
 
 ## GIT branches
 

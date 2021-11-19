@@ -5,9 +5,6 @@
 
 
 import React from 'react';
-import uuid from 'uuid';
-import crypto from "../../../../helpers/crypto/crypto";
-import converters from "../../../../helpers/converters";
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {connect} from 'react-redux';
 import {formatTimestamp} from "../../../../helpers/util/time";
