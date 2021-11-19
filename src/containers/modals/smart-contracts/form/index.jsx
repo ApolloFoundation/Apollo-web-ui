@@ -59,7 +59,6 @@ const MessageExecutionForm = ({ isExplorerDisabled, isDisabled, ticker }) => {
         type="password"
         placeholder="Secret Phrase"
         name="secretPhrase"
-        disabled={isDisabled}
       />
     </>
   );

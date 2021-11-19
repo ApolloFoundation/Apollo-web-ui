@@ -28,7 +28,6 @@ export default function ({ closeModal }) {
       const convertedValue = convertToAPL(amount);
       let formData = {
         ...values,
-        value: convertedValue,
         params: [
           processAccountRStoHex(values.sender, true),
           processAccountRStoHex(token, true),

@@ -18,19 +18,24 @@ import TransferForm from "./form";
 
 export default function ({ closeModal }) {
   const dispatch = useDispatch();
-  const { passPhrase: secretPhrase } = useSelector((state) => state.account);
-  const { address } = useSelector((state) => state.modals.modalData);
 
-  const formSubmit = async ({ feeATM, amount, ...values }) => {
-    const isValidForm = validationForm({ amount, ...values });
+  const { passPhrase: secretPhrase, accountRS } = useSelector(
+    (state) => state.account
+  );
+
+  const { address, smcInfo } = useSelector((state) => state.modals.modalData);
+
+  const formSubmit = async ({ feeATM, amount, recipient, ...values }) => {
+    const isValidForm = validationForm({ amount, recipient, ...values });
 
     if (!isValidForm) {
       const convertedValue = convertToAPL(amount);
       let formData = {
         ...values,
-        value: convertedValue,
         name: "transfer",
-        params: [processAccountRStoHex(values.sender, true), convertedValue],
+        params: [processAccountRStoHex(recipient, true), convertedValue],
+        sender: accountRS,
+        address,
       };
       const testMessage = await dispatch(exportTestExperationMessage(formData));
       if (testMessage) {
@@ -52,17 +57,16 @@ export default function ({ closeModal }) {
   return (
     <ModalBody
       id="modal-smart-contract-transfer"
-      modalTitle={`Transfer ${address}`}
+      modalTitle={`Transfer ${smcInfo?.name}`}
       closeModal={closeModal}
       handleFormSubmit={formSubmit}
       submitButtonName="Transfer"
       initialValues={{
-        sender: "",
+        recipient: "",
         amount: 0,
         fuelLimit: 300000000,
         fuelPrice: 100,
-        secretPhrase: '',
-        address,
+        secretPhrase: "",
       }}
     >
       <TransferForm />

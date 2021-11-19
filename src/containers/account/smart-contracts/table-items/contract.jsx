@@ -32,40 +32,32 @@ const TableItemContract = ({
   const currentDate = dispatch(formatTimestamp(new Date(timestamp)));
   const isStatusAPL20 = /^APL20/.test(baseContract);
 
-  const handleContractInfo = () => {
-    isStatusAPL20
-      ? history.push(`/smart-contracts/explorer/contract/${address}`)
-      : history.push(`/smart-contracts/explorer/escrow/${address}`);
-  };
-
-  const handleTransactionInfo = async () => {
-    const transactionInfo = await dispatch(
-      getTransactionAction({
-        transaction,
-      })
-    );
-    if (transactionInfo) {
-      dispatch(setBodyModalParamsAction("INFO_TRANSACTION", transactionInfo));
-    }
-  };
-
-  const handleByMethod = async () => {
+  const handleActionModal = async (type) => {
     const specifInfo = await dispatch(getSmcSpecification(address));
     if (specifInfo) {
       const smcInfo = specifInfo.members.reduce(
         (ac, { ["name"]: x, ...rest }) => ((ac[x] = rest.value), ac),
         {}
       );
-      dispatch(setBodyModalParamsAction("SMC_BUY", { address, smcInfo }));
+      dispatch(setBodyModalParamsAction(type, { address, smcInfo }));
     }
   };
 
-  const handleTransferModal = () => {
-    dispatch(setBodyModalParamsAction("SMC_TRANSFER", { address }));
+  const handleTransactionInfo = async () => {
+    const transactionInfo = await dispatch(getTransactionAction({transaction}));
+    if (transactionInfo) {
+      dispatch(setBodyModalParamsAction("INFO_TRANSACTION", transactionInfo));
+    }
   };
 
   const handleDepositModal = () => {
     dispatch(setBodyModalParamsAction("SMC_DEPOSIT", { address }));
+  };
+
+  const handleContractInfo = () => {
+    isStatusAPL20
+      ? history.push(`/smart-contracts/explorer/contract/${address}`)
+      : history.push(`/smart-contracts/explorer/escrow/${address}`);
   };
 
   const handleTokenInfo = () => {
@@ -144,7 +136,11 @@ const TableItemContract = ({
       <td className="align-right">
         <div className="btn-box inline">
           <Button
-            onClick={isStatusAPL20 ? handleTransferModal : handleDepositModal}
+            onClick={
+              isStatusAPL20
+                ? () => handleActionModal("SMC_TRANSFER")
+                : handleDepositModal
+            }
             color="green"
             size="sm"
             id={`button-transfer-${id}`}
@@ -152,7 +148,7 @@ const TableItemContract = ({
           />
           {isStatusAPL20 && (
             <Button
-              onClick={handleByMethod}
+              onClick={() => handleActionModal("SMC_BUY")}
               color="green"
               size="sm"
               id={`button-buy-${id}`}

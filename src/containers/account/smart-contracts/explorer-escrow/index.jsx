@@ -77,17 +77,17 @@ const ExplorerEscrow = (props) => {
                     <TabulationBody active={1}>
                       <TabContaier sectionName={"Code"}>
                         <PanelSource
-                          title={"Read Contract Information"}
+                          title="Read Contract Information"
                           address={id}
                           contracts={contractsList}
                         />
                       </TabContaier>
                       <TabContaier
                         id="form-tab-read-smart-contracts-explorer"
-                        sectionName={"Read contract"}
+                        sectionName="Read contract"
                       >
                         <PanelMethod
-                          title={"Read Information"}
+                          title="Read Information"
                           items={specificationsList.readList || []}
                           type={"view"}
                           address={id}
@@ -98,7 +98,7 @@ const ExplorerEscrow = (props) => {
                         sectionName={"Write contract"}
                       >
                         <PanelMethod
-                          title={"Write Information"}
+                          title="Write Information"
                           items={specificationsList.writeList || []}
                           type={"write"}
                           address={id}
