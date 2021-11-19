@@ -51,7 +51,7 @@ export const saveAccountSettingsAction = (settings) => {
 };
 
 export const getSavedAccountSettingsAction = () => dispatch => {
-    let settings = JSON.parse(readFromLocalStorage("accountSettings"));
+    let settings = readFromLocalStorage("accountSettings");
     if (settings === null) {
         settings = {
             language: "en",
@@ -78,6 +78,8 @@ export const getSavedAccountSettingsAction = () => dispatch => {
             sidebar: "#F5F5F5",
             boxes: "#F5F5F5",
         };
+    } else {
+        settings = JSON.parse(settings);
     }
     dispatch({
         type: LOAD_ACCOUNT_SETTINGS,

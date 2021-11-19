@@ -10,7 +10,7 @@ import {setModalData, setModalType, setBodyModalParamsAction} from '../../../mod
 import {setAccountPassphrase} from '../../../modules/account';
 import crypto from  '../../../helpers/crypto/crypto';
 
-import ModalBody             from '../../components/modals/modal-body';
+import ModalBody from '../../components/modals/modal-body';
 import TextualInputComponent from '../../components/form-components/textual-input';
 import { writeToLocalStorage } from '../../../actions/localStorage';
 

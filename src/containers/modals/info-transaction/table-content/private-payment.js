@@ -1,6 +1,4 @@
 import React, {Component} from "react";
-import {ONE_APL} from '../../../../constants';
-
 
 export default class PrivatePayment extends Component {
     render() {
@@ -9,13 +7,13 @@ export default class PrivatePayment extends Component {
                 {this.props.transaction.amountATM &&
                 <tr>
                     <td>Amount:</td>
-                    <td>{this.props.transaction.amountATM / ONE_APL}</td>
+                    <td>{this.props.transaction.amountATM / this.props.decimals}</td>
                 </tr>
                 }
                 {this.props.transaction.feeATM &&
                 <tr>
                     <td>Fee:</td>
-                    <td>{this.props.transaction.feeATM / ONE_APL}</td>
+                    <td>{this.props.transaction.feeATM / this.props.decimals}</td>
                 </tr>
                 }
                 {this.props.transaction.senderRS &&

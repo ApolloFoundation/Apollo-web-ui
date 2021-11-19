@@ -37,7 +37,7 @@ const initState = {
     plotBuyOrders: {},
     plotSellOrders: {},
     myOrders: {},
-    myOrderHistory: {},
+    myOrderHistory: null,
     myTradeHistory: {},
     contractStatus: null,
     allContractStatus: null,

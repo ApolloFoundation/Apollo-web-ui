@@ -2,16 +2,20 @@
   position: relative;
   display: inline-block;
   vertical-align: middle;
-
   &:hover .tooltipContent {
     display: block;
   }
 }
-
 .tooltipIconWrapper {
   margin: 0;
   padding: 0;
   cursor: pointer;
+}
+
+.tooltipContentWrapper {
+  position: absolute;
+  bottom: 250%;
+  left: -200%;
 }
 
 .tooltipContent {

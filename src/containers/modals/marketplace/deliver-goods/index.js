@@ -11,7 +11,6 @@ import {getDGSPurchaseAction} from "../../../../actions/marketplace";
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {formatTimestamp} from '../../../../helpers/util/time'
 import config from '../../../../config';
-import {ONE_APL} from '../../../../constants';
 
 import Form from './form';
 import ModalBody from '../../../components/modals/modal-body';
@@ -22,7 +21,9 @@ import submitForm from "../../../../helpers/forms/forms";
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
-    account: state.account.accountRS
+    decimals: state.account.decimals,
+    ticker: state.account.ticker,
+    account: state.account.accountRS,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -61,8 +62,8 @@ class MarketplaceDeliver extends React.Component {
     async handleFormSubmit(values) {
         values = {
             ...values,
-            discountATM: values.discountATM * ONE_APL,
-            priceATM: parseInt(this.state.goods.priceATM) / ONE_APL,
+            discountATM: values.discountATM * this.props.decimals,
+            priceATM: parseInt(this.state.goods.priceATM) / this.props.decimals,
             purchase: this.state.goods.purchase,
             recipient: this.props.account,
             secretPhrase: values.secretPhrase,
@@ -87,7 +88,7 @@ class MarketplaceDeliver extends React.Component {
 
     render() {
 
-        const {formatTimestamp} = this.props;
+        const {formatTimestamp, decimals, ticker} = this.props;
         const {goods} = this.state;
 
         return (
@@ -105,7 +106,7 @@ class MarketplaceDeliver extends React.Component {
                 }}
                 submitButtonName="Deliver Goods"
             >
-                <Form goods={this.state.goods}/>
+                <Form goods={this.state.goods} decimals={decimals} ticker={ticker} />
             </ModalBody>
         );
     }

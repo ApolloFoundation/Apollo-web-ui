@@ -62,7 +62,7 @@ class GetAlias extends React.Component {
                 />
                 <TextualInputComponent
                     label={'Price'}
-                    countLabel={'APL'}
+                    countLabel={this.props.ticker}
                     disabled={true}
                     field="priceATM"
                     placeholder="Amount"
@@ -75,6 +75,7 @@ class GetAlias extends React.Component {
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
+    ticker: state.account.ticker,
 });
 
 const mapDispatchToProps = dispatch => ({

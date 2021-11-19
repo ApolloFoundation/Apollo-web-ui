@@ -1,25 +1,21 @@
+import { batch } from "react-redux";
 import {getBlockAction} from "../../actions/blocks";
 import {getTransactionsAction} from "../../actions/transactions";
 import {getAccountCurrenciesAction} from "../../actions/currencies";
 import {
-	getDGSGoodsCountAction,
-	getDGSPurchaseCountAction,
     getDGSPurchasesAction,
     getDGSGoodsAction,
 	getDGSPendingPurchases
 } from "../../actions/marketplace";
-import {getAccountAssetsAction, getAssetAction, getSpecificAccountAssetsAction} from '../../actions/assets'
+import {getAccountAssetsAction, getAssetAction} from '../../actions/assets'
 import {getAliasesCountAction} from '../../actions/aliases'
 import {getMessages} from "../../actions/messager";
-// import {BlockUpdater} from "../../block-subscriber/index";
 import {getAllTaggedDataAction} from "../../actions/datastorage";
 import {getActiveShfflings, getShufflingAction} from "../../actions/shuffling";
 import {getpollsAction} from "../../actions/polls";
 import {getAccountInfoAction} from "../../actions/account";
-import {LOAD_ACCOUNT} from "../../modules/account";
 
-export const getDashboardData = () => (dispatch, getState, subscribe) => {
-
+export const getDashboardData = () => (dispatch, getState) => {
     const {account: {account}} = getState();
 
     const rquestParams = {
@@ -79,7 +75,6 @@ export const getDashboardData = () => (dispatch, getState, subscribe) => {
     const finishedShuffling = dispatch(getShufflingAction());
     const activePolls       = dispatch(getpollsAction(rquestParams._activePolls));
     const accountInfo       = dispatch(getAccountInfoAction(rquestParams._accountInfo));
-
     Promise.all([
         block,
         transactions,
@@ -94,63 +89,66 @@ export const getDashboardData = () => (dispatch, getState, subscribe) => {
         activePolls,
         accountInfo
     ])
-        .then(async (resolved) => {
+        .then((resolved) => {
             const [block, transactions, currencies, accountAssets, aliaseesCount, messages, dgsGoods, taggetData, activeShuffling, finishedShuffling, activePolls, accountInfo] = resolved;
             const [numberOfGoods, numberOfPurchases, totalPurchases] = dgsGoods;
-
-            if (transactions)
+            batch(() => {
+                if (transactions) {
+                    dispatch({
+                        type: 'SET_DASHBOARD_TRANSACTIONS',
+                        payload: transactions.transactions
+                    });
+                }
                 dispatch({
-                    type: 'SET_DASHBOARD_TRANSACTIONS',
-                    payload: transactions.transactions
+                    type: 'SET_DASHBOARD_CURRENCIES',
+                    payload: calculateCurrencies(currencies.accountCurrencies)
                 });
+                dispatch({
+                    type: 'SET_DASHBOARD_ALIASES_COUNT',
+                    payload: aliaseesCount.numberOfAliases
+                });
+                dispatch({
+                    type: 'SET_DASHBOARD_DGS_GOODS',
+                    payload: {
+                        numberOfGoods : numberOfGoods.goods ? numberOfGoods.goods.length : null,
+                        numberOfPurchases : numberOfPurchases.purchases ? numberOfPurchases.purchases.length : null,
+                        totalPurchases : totalPurchases.purchases ? totalPurchases.purchases.length : null
+                    }
+                });
+                dispatch({
+                    type: 'SET_DASHBOARD_MESSAGES_COUNT',
+                    payload: messages?.transactions.length
+                });
+                dispatch({
+                    type: 'SET_DASHBOARD_TAGGEDDATA',
+                    payload: taggetData.data.length
+                });
+                dispatch({
+                    type: 'SET_DASHBOARD_ACTIVE_SHUFFLING',
+                    payload: activeShuffling.shufflings.length
+                });
+                dispatch({
+                    type: 'SET_DASHBOARD_POSSL',
+                    payload: activePolls.polls
+                });
+                dispatch({
+                    type: 'SET_DASHBOARD_ACCOUNT_INFO',
+                    payload: accountInfo,
+                });
+                dispatch({
+                    type: 'LOAD_ACCOUNT',
+                    payload: accountInfo,
+                });
+            });
 
+            return dispatch(calculateAssets(accountAssets.accountAssets));
+        })
+        .then((accountAssetsData) => {
             dispatch({
                 type: 'SET_DASHBOARD_ASSETS',
-                payload: await dispatch(calculateAssets(accountAssets.accountAssets))
+                payload: accountAssetsData
             });
-            dispatch({
-                type: 'SET_DASHBOARD_CURRENCIES',
-                payload: calculateCurrencies(currencies.accountCurrencies)
-            });
-            dispatch({
-                type: 'SET_DASHBOARD_ALIASES_COUNT',
-                payload: aliaseesCount.numberOfAliases
-            });
-            dispatch({
-                type: 'SET_DASHBOARD_DGS_GOODS',
-                payload: {
-                    numberOfGoods : numberOfGoods.goods ? numberOfGoods.goods.length : null,
-                    numberOfPurchases : numberOfPurchases.purchases ? numberOfPurchases.purchases.length : null,
-                    totalPurchases : totalPurchases.purchases ? totalPurchases.purchases.length : null
-                }
-            });
-            dispatch({
-                type: 'SET_DASHBOARD_MESSAGES_COUNT',
-                payload: messages.transactions.length
-            });
-            dispatch({
-                type: 'SET_DASHBOARD_TAGGEDDATA',
-                payload: taggetData.data.length
-            });
-            dispatch({
-                type: 'SET_DASHBOARD_ACTIVE_SHUFFLING',
-                payload: activeShuffling.shufflings.length
-            });
-            // console.log(dashboardAliasesCount)
-            dispatch({
-                type: 'SET_DASHBOARD_POSSL',
-                payload: activePolls.polls
-            });
-            dispatch({
-                type: 'SET_DASHBOARD_ACCOUNT_INFO',
-                payload: await accountInfo
-            });
-            dispatch({
-                type: 'LOAD_ACCOUNT',
-                payload: await accountInfo
-            });
-
-        })
+        });
 };
 
 var calculateCurrencies = (currencies) => {

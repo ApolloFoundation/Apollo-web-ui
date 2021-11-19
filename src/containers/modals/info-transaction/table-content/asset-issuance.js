@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import {connect} from "react-redux";
 import {getAssetAction} from "../../../../actions/assets";
 import {setBodyModalParamsAction} from "../../../../modules/modals";
-import {ONE_APL} from '../../../../constants';
 
 
 class AssetIssuance extends Component {
@@ -47,13 +46,13 @@ class AssetIssuance extends Component {
 				{this.state.asset &&
 				<tr>
 					<td>Initial Quantity:</td>
-					<td>{this.state.asset && this.state.asset.initialQuantityATU / ONE_APL}</td>
+					<td>{this.state.asset && this.state.asset.initialQuantityATU / this.props.decimals}</td>
 				</tr>
 				}
 				{this.props.transaction.attachment.hasOwnProperty("quantityATU") &&
 				<tr>
 					<td>Quantity:</td>
-					<td>{this.props.transaction.attachment.quantityATU / ONE_APL}</td>
+					<td>{this.props.transaction.attachment.quantityATU / this.props.decimals}</td>
 				</tr>
 				}
 				{this.props.transaction.senderRS &&

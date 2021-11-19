@@ -36,11 +36,13 @@ export function getAccountLedgerAction(requestParams) {
 
 export function getLedgerEntryAction(requestParams) {
     return async () => {
-        let data = requestParams;
-        if (data.passphrase) data.passphrase = await processElGamalEncryption(data.passphrase);
+        let data = { ...requestParams };
+        if (data.secretPhrase) {
+            data.secretPhrase = await processElGamalEncryption(data.secretPhrase);
+        }
         return axios.get(config.api.serverUrl, {
             params : {
-                requestType: (data.passphrase) ? 'getPrivateAccountLedgerEntry' : 'getAccountLedgerEntry',
+                requestType: (data.secretPhrase) ? 'getPrivateAccountLedgerEntry' : 'getAccountLedgerEntry',
                 ...data
             }
         })

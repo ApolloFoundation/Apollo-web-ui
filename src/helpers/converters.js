@@ -9,8 +9,6 @@ import jsbn from 'jsbn';
 import AplAddress from './util/apladres';
 import curve25519 from './crypto/curve25519';
 import crypto from './crypto/crypto';
-import convertString from 'convert-string';
-import {login} from "../modules/account";
 
 const ACCOUNT_REGEX_STR = "^APL-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{5}";
 const BigInteger = jsbn.BigInteger;
@@ -399,13 +397,13 @@ function isRsAccImpAPL(accountId, regularExpression) {
     return regularExpression.test(accountId);
 }
 
-function convertNumericToRSAccountFormatAPL(accIdAPL) {
+function convertNumericToRSAccountFormatAPL(accIdAPL, prefix) {
     return (dispatch) => {
         const checkRsAccount = dispatch(isRsAccountAPL(accIdAPL));
         if (checkRsAccount) {
             return accIdAPL;
         } else {
-            var address = new AplAddress();
+            var address = new AplAddress(prefix);
 
             if (address.set(accIdAPL)) {
                 return address.toString();

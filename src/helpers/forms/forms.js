@@ -8,15 +8,13 @@ import i18n from 'i18next';
 import util from '../../helpers/util/utils';
 import crypto from '../crypto/crypto';
 import config from '../../config';
-import {ONE_APL} from '../../constants';
 import converters from '../converters'
-import BigInteger from 'big-integer';
 import AplAddress from '../util/apladres'
 import {processElGamalEncryption} from '../../actions/crypto';
-import store from '../../store';
 import {NotificationManager} from "react-notifications";
 import {SET_AMOUNT_WARNING, SET_ASSET_WARNING, SET_CURRENCY_WARNING, SET_FEE_WARNING} from "../../modules/modals";
 
+const BigInteger = require('jsbn').BigInteger;
 let forms = {};
 
 const configServer = config;
@@ -35,12 +33,13 @@ function checkRequestType(requestType, data) {
     }
 }
 
-function submitForm(data, requestType) {
+function submitForm(data, requestType, ) {
     return async (dispatch, getState) => {
         const {account, accountSettings, modals, fee} = getState();
+        const { decimals } = account;
         if (requestType !== 'generateAccount') {
             if (data.secretPhrase) {
-                let isPassphrase = dispatch(await dispatch(crypto.getAccountIdAsyncApl(data.secretPhrase)));
+                let isPassphrase = await dispatch(crypto.getAccountIdAsyncApl(data.secretPhrase));
                 isPassphrase = isPassphrase.split('-');
                 isPassphrase[0] = account.constants.accountPrefix;
                 isPassphrase = isPassphrase.join('-');
@@ -53,7 +52,7 @@ function submitForm(data, requestType) {
                     delete data.passphrase;
                 }
             } else if (data.passphrase) {
-                let isPassphrase = dispatch(await dispatch(crypto.getAccountIdAsyncApl(data.passphrase)));
+                let isPassphrase = await dispatch(crypto.getAccountIdAsyncApl(data.passphrase));
                 isPassphrase = isPassphrase.split('-');
                 isPassphrase[0] = account.constants.accountPrefix;
                 isPassphrase = isPassphrase.join('-');
@@ -146,15 +145,15 @@ function submitForm(data, requestType) {
         }
 
         if (data.feeATM && $.isNumeric(data.feeATM)) {
-            data.feeATM = data.feeATM * ONE_APL
+            data.feeATM = data.feeATM * decimals
         }
 
         if (data.amountATM && $.isNumeric(data.amountATM)) {
-            data.amountATM = data.amountATM * ONE_APL
+            data.amountATM = data.amountATM * decimals
         }
 
         if (data.priceATM && $.isNumeric(data.priceATM)) {
-            data.priceATM = data.priceATM * ONE_APL
+            data.priceATM = data.priceATM * decimals
         }
 
         if (data.priceOrder) {
@@ -182,7 +181,7 @@ function submitForm(data, requestType) {
         }
 
         if ((data.feeAPL             > fee.minFeeAmount ||
-             data.feeATM / ONE_APL > fee.minFeeAmount
+             data.feeATM / decimals > fee.minFeeAmount
         ) && !fee.isFeeAlert) {
             NotificationManager.warning(`You are trying to send the transaction with fee that exceeds ${fee.minFeeAmount} APL`, 'Attention', 10000);
 

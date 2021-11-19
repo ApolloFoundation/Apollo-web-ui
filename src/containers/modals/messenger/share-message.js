@@ -13,8 +13,8 @@ class ShareMessage extends React.Component {
             <div className="modal-box wide">
                 <div className="modal-form">
                     <div className="form-group-app">
-                        <a onClick={() => this.props.closeModal()} className="exit"><i
-                            className="zmdi zmdi-close"/></a>
+                        <button onClick={() => this.props.closeModal()} className="exit"><i
+                            className="zmdi zmdi-close"/></button>
                         <div className="form-title">
                             <p>Share message</p>
                         </div>

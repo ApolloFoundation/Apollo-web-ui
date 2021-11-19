@@ -12,7 +12,6 @@ import CustomTable from '../../components/tables/table';
 import {getpollsAction} from '../../../actions/polls';
 import {getAliasesAction} from "../../../actions/aliases";
 import {getTransactionAction} from "../../../actions/transactions";
-import {setBodyModalParamsAction} from "../../../modules/modals";
 import PoolItem from './pool-item';
 import {BlockUpdater} from "../../block-subscriber";
 
@@ -25,7 +24,6 @@ const mapDispatchToProps = dispatch => ({
     getpollsAction: (reqParams) => dispatch(getpollsAction(reqParams)),
     getAliasesAction: (reqParams) => dispatch(getAliasesAction(reqParams)),
     getTransactionAction: (requestParams) => dispatch(getTransactionAction(requestParams)),
-    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 });
 
 class Activepolls extends React.Component {

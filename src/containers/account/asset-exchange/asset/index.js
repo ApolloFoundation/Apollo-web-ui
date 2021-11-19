@@ -5,12 +5,11 @@
 
 
 import React from 'react';
-import uuid from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import crypto from "../../../../helpers/crypto/crypto";
 import converters from "../../../../helpers/converters";
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {connect} from 'react-redux';
-import {ONE_APL} from '../../../../constants';
 
 class Asset extends React.Component {
     constructor(props) {
@@ -46,7 +45,7 @@ class Asset extends React.Component {
     render () {
         if (!this.state.entry.encryptedLedgerEntry) {
             return (
-                <tr key={uuid()}>
+                <tr key={uuidv4()}>
                     <td className="blue-link-text">
                         <a onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_LEDGER_TRANSACTION', this.state.entry.ledgerId)}>{this.state.entry.timestamp}</a>
                     </td>
@@ -54,8 +53,8 @@ class Asset extends React.Component {
                         {this.state.entry.eventType}
                         <a><span className="info"></span></a>
                     </td>
-                    <td className="align-right">-{this.state.entry.change / ONE_APL}</td>
-                    <td>{(this.state.entry.balance / ONE_APL).toFixed(2)}</td>
+                    <td className="align-right">-{this.state.entry.change / this.props.decimals}</td>
+                    <td>{(this.state.entry.balance / this.props.decimals).toFixed(2)}</td>
                     <td>
                         <a></a>
                     </td>
@@ -75,8 +74,12 @@ class Asset extends React.Component {
     }
 }
 
+const mapStateToProps = state => ({
+  decimals: state.account.decimals,
+});
+
 const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
 });
 
-export default connect(null, mapDispatchToProps)(Asset);
+export default connect(mapStateToProps, mapDispatchToProps)(Asset);

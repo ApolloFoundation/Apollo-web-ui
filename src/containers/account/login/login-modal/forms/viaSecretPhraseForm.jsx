@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import cn from 'classnames';
 import { Form, Formik } from 'formik';
 import { NotificationManager } from 'react-notifications';
@@ -11,7 +11,9 @@ import AccountRS from '../../../../components/account-rs/index1';
 import { Switcher } from '../../../../components/form-components/switcher/switcher';
 import './standartForm.scss';
 
-function SecretPhraseForm({ getAccountDataAction, getAccountDataBySecretPhrasseAction }) {
+export default function SecretPhraseForm({ activeTab }) {
+  const dispatch = useDispatch();
+  
   const [showPhrase, setShowPhraze] = useState(false);
   
   const handeError = (name) => {
@@ -33,11 +35,11 @@ function SecretPhraseForm({ getAccountDataAction, getAccountDataBySecretPhrasseA
     }
 
     if (!showPhrase) {
-      getAccountDataAction({ account: accountRS });
+      dispatch(getAccountDataAction({ account: accountRS }));
     } else {
-      getAccountDataBySecretPhrasseAction({ secretPhrase });
+      dispatch(getAccountDataBySecretPhrasseAction({ secretPhrase }));
     }
-  }, [showPhrase, getAccountDataBySecretPhrasseAction, getAccountDataAction]);
+  }, [dispatch, showPhrase]);
 
   const handleShowPhaze = useCallback(
     () => setShowPhraze(state => !state),
@@ -100,11 +102,3 @@ function SecretPhraseForm({ getAccountDataAction, getAccountDataBySecretPhrasseA
     </Formik>
   );
 }
-
-const mapDispatchToProps = {
-  getAccountDataAction,
-  getAccountDataBySecretPhrasseAction,
-
-}
-
-export default connect(null, mapDispatchToProps)(SecretPhraseForm);

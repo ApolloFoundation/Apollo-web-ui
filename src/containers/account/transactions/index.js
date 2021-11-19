@@ -16,6 +16,11 @@ import {NotificationManager} from "react-notifications";
 
 import CustomTable from '../../components/tables/table';
 
+const FailedType = {
+    FAILED: 'failed',
+    NON_FAILED: 'nonfailed',
+};
+
 class Transactions extends React.Component {
     constructor(props) {
         super(props);
@@ -32,7 +37,8 @@ class Transactions extends React.Component {
             subtype: null,
             isUnconfirmed: false,
             isAll: false,
-            transactions: null
+            transactions: null,
+            failedType: null,
         };
     }
 
@@ -79,6 +85,12 @@ class Transactions extends React.Component {
             lastIndex:   this.state.lastIndex,
             requestType: this.state.requestType,
         };
+
+        if (this.state.failedType === FailedType.FAILED) {
+            reqParams.failedOnly = true;
+        } else if (this.state.failedType === FailedType.NON_FAILED) {
+            reqParams.nonFailedOnly = true;
+        }
 
         if (data) {
             if (Object.values(data)[0]) {
@@ -197,13 +209,13 @@ class Transactions extends React.Component {
     };
 
     setTransactionInfo(modalType, data, isPrivate) {
-        
+
         if (isPrivate) {
             this.getTransaction({
                 account: this.props.account,
                 transaction: data,
                 passphrase:   this.state.passphrase.passphrase || null ,
-                secretPhrase: this.state.passphrase.secretPhrase || null 
+                secretPhrase: this.state.passphrase.secretPhrase || null
             });
         } else {
             this.getTransaction({
@@ -219,19 +231,19 @@ class Transactions extends React.Component {
                 this.setState({
                     isAll: true,
                     isUnconfirmed: true,
-                    isPhassing: false
+                    isPhassing: false,
+                    failedType: null,
                 }, () => {
                     next();
-
                 })
             } else {
                 this.setState({
                     isAll: false,
                     isUnconfirmed: true,
-                    isPhassing: false
+                    isPhassing: false,
+                    failedType: null,
                 }, () => {
                     next();
-
                 })
             }
 
@@ -244,8 +256,7 @@ class Transactions extends React.Component {
                 subtype: null
             }, () => {
                 next();
-
-            })
+            });
         }
         else {
             this.setState({
@@ -253,11 +264,12 @@ class Transactions extends React.Component {
                 isPhassing: false
             }, () => {
                 next();
-            })
+            });
         }
 
         const next = () => {
             this.setState({
+                failedType: null,
                 type: type,
                 subtype: subtype,
                 page:       1,
@@ -273,6 +285,7 @@ class Transactions extends React.Component {
                     firstIndex: 0,
                     lastIndex:  15,
                     requestType: requestType,
+                    failedType: this.state.failedType,
                     ...this.state.passphrase
                 }, all);
             });
@@ -292,21 +305,67 @@ class Transactions extends React.Component {
         </div>
     );
 
+    handleFailedTransactions = (failedOnly) => {
+        const params = {
+            account:    this.props.account,
+            firstIndex: 0,
+            lastIndex:  15,
+            requestType: this.state.requestType,
+            ...this.state.passphrase
+        }
+
+        this.setState({ 
+            type: null,
+            failedType: failedOnly ? FailedType.FAILED : FailedType.NON_FAILED,
+            isUnconfirmed: false,
+            isPhassing: false,
+            isAll: false,
+            page:       1,
+            firstIndex: 0,
+            lastIndex:  15,
+        }, () => {
+            if (failedOnly) {
+                params.failedOnly = true;
+            } else {
+                params.nonFailedOnly = true;
+            }
+    
+            this.getTransactions(params, this.state.isAll);
+        });
+    }
+
+    AboveTabeFailedItems = (label, activeCondition, isFailedOnly) => (
+        <div
+            className={classNames({
+                "btn" : true,
+                "filter" : true,
+                "active": activeCondition
+            })}
+            onClick={() => this.handleFailedTransactions(isFailedOnly)}
+        >
+            {label}
+        </div>
+    );
+
     AboveTabeComponent = () => (
         <div className="transactions-filters">
             <div className="top-bar">
-                {this.AboveTabeComponentItem('All types', null, this.state.type !== 0 && !this.state.type && !this.state.subtype && !this.state.isPhassing && !this.state.isUnconfirmed)}
+                {this.AboveTabeComponentItem('All types', null, !this.state.failedType && this.state.type !== 0 && !this.state.type && !this.state.subtype && !this.state.isPhassing && !this.state.isUnconfirmed)}
+
+                {this.AboveTabeComponentItem(<i className="zmdi zmdi-card" />          , 0   , !this.state.failedType && this.state.type === 0 && !this.state.subtype && !this.state.isPhassing)}
+                {this.AboveTabeComponentItem(<i className="zmdi zmdi-email" />         , 1   , !this.state.failedType && this.state.type === 1 && !this.state.subtype)}
+                {this.AboveTabeComponentItem(<i className="zmdi zmdi-equalizer" />     , 2   , !this.state.failedType && this.state.type === 2 && !this.state.subtype)}
+                {this.AboveTabeComponentItem(<i className="zmdi zmdi-shopping-cart" /> , 3   , !this.state.failedType && this.state.type === 3 && !this.state.subtype)}
+                {this.AboveTabeComponentItem(<i className="zmdi zmdi-lock" />          , 4   , !this.state.failedType && this.state.type === 4 && !this.state.subtype)}
+                {this.AboveTabeComponentItem(<i className="zmdi zmdi-balance" />       , 5   , !this.state.failedType && this.state.type === 5 && !this.state.subtype)}
+                {this.AboveTabeComponentItem(<i className="zmdi zmdi-cloud" />         , 6   , !this.state.failedType && this.state.type === 6 && !this.state.subtype)}
+                {this.AboveTabeComponentItem(<i className="zmdi zmdi-shuffle" />       , 7   , !this.state.failedType && this.state.type === 7 && !this.state.subtype)}
+                {this.AboveTabeComponentItem(<i className="zmdi zmdi-help" />          , 8   , !this.state.failedType && this.state.type === 8 && !this.state.subtype)}
                 
-                {this.AboveTabeComponentItem(<i className="zmdi zmdi-card" />          , 0   , this.state.type === 0 && !this.state.subtype && !this.state.isPhassing)}
-                {this.AboveTabeComponentItem(<i className="zmdi zmdi-email" />         , 1   , this.state.type === 1 && !this.state.subtype)}
-                {this.AboveTabeComponentItem(<i className="zmdi zmdi-equalizer" />     , 2   , this.state.type === 2 && !this.state.subtype)}
-                {this.AboveTabeComponentItem(<i className="zmdi zmdi-shopping-cart" /> , 3   , this.state.type === 3 && !this.state.subtype)}
-                {this.AboveTabeComponentItem(<i className="zmdi zmdi-lock" />          , 4   , this.state.type === 4 && !this.state.subtype)}
-                {this.AboveTabeComponentItem(<i className="zmdi zmdi-balance" />       , 5   , this.state.type === 5 && !this.state.subtype)}
-                {this.AboveTabeComponentItem(<i className="zmdi zmdi-cloud" />         , 6   , this.state.type === 6 && !this.state.subtype)}
-                {this.AboveTabeComponentItem(<i className="zmdi zmdi-shuffle" />       , 7   , this.state.type === 7 && !this.state.subtype)}
-                {this.AboveTabeComponentItem(<i className="zmdi zmdi-help" />          , 8   , this.state.type === 8 && !this.state.subtype)}
-              
+                {this.AboveTabeFailedItems('Failed'                                    , this.state.failedType === FailedType.FAILED, true)}
+                {this.AboveTabeFailedItems('Not failed'                                , this.state.failedType === FailedType.NON_FAILED, false)}
+
+
                 <div
                     className={classNames({
                         "btn" : true,
@@ -366,7 +425,7 @@ class Transactions extends React.Component {
                 </SiteHeader>
                 <div className="page-body container-fluid">
                     <div className={'my-transactions'}>
-                        {this.AboveTabeComponent()}   
+                        {this.AboveTabeComponent()}
                         <CustomTable
                             header={[
                                 {

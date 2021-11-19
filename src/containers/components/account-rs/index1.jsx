@@ -3,31 +3,34 @@
  *                                                                            *
  ***************************************************************************** */
 
- import React, {
+import React, {
   useState, useEffect, useRef, useCallback,
 } from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useField } from 'formik';
 import { NotificationManager } from 'react-notifications';
 import classNames from 'classnames';
 import InputMask from 'react-input-mask';
+import { readFromLocalStorage } from '../../../actions/localStorage';
 
-function AccountRS(props) {
+export default function AccountRS(props) {
   const refContactsList = useRef(null);
   const refContactsIcon = useRef(null);
 
   const {
     onChange, exportAccountList, id, name,
-    disabled, placeholder, noContactList, accountInfo,
+    disabled, placeholder, noContactList,
   } = props;
 
-  const { ticker = "APL" } = accountInfo;
+  const { ticker } = useSelector(state => state.account);
 
   const [field, , helpers] = useField(name);
 
   const [isContacts, setIsContacts] = useState(false);
 
-  const contacts = JSON.parse(localStorage.getItem('APLContacts'));
+  const contractString = readFromLocalStorage('APLContacts');
+
+  const contacts = contractString ? JSON.parse(contractString) : [];
 
   const { setValue } = helpers;
 
@@ -135,9 +138,3 @@ function AccountRS(props) {
     </div>
   );
 }
-
-const mapStateToProps = (state) => ({
-  accountInfo: state.account,
-});
-
-export default connect(mapStateToProps)(AccountRS);

@@ -16,7 +16,7 @@
  * Based on work by Daniel J Bernstein, http://cr.yp.to/ecdh.html
  */
 
-import bigInt from 'big-integer';
+const bigInt = require('jsbn').BigInteger;
 
 //region Constants
 
