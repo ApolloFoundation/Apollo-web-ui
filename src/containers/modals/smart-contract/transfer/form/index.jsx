@@ -7,13 +7,12 @@ const TransferForm = () => {
   return (
     <>
       <AccountRSForm
-        noContactList={true}
-        name="sender"
+        name="recipient"
         label="Recipient"
         placeholder="Recipient"
       />
       <NumericInput
-        label="amount"
+        label="Amount"
         name="amount"
         type="float"
         defaultValue={0}

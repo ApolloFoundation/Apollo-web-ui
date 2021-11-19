@@ -6,11 +6,9 @@ const TransferForm = () => {
   return (
     <>
       <AccountRSForm
-        noContactList={true}
         name="address"
         label="Recipient"
         placeholder="Recipient"
-        disabled
       />
       <AccountRSForm
         noContactList={true}

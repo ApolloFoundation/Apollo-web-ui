@@ -79,7 +79,7 @@ export default function ({ closeModal }) {
         fuelLimit: 300000000,
         fuelPrice: 100,
         params: "",
-        secretPhrase: '',
+        secretPhrase: "",
       }}
     >
       <ByForm

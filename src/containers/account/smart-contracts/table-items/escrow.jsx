@@ -29,8 +29,7 @@ const TableItemEscrow = ({
 
   const handleTransactionInfo = async () => {
     const transactionInfo = await dispatch(
-      getTransactionAction({ transaction })
-    );
+      getTransactionAction({ transaction }));
     if (transactionInfo) {
       dispatch(setBodyModalParamsAction("INFO_TRANSACTION", transactionInfo));
     }

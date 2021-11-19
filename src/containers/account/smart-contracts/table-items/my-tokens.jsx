@@ -21,20 +21,16 @@ const TableItemMyTokens = ({
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const handleByMethod = async () => {
+  const handleActionModal = async (type) => {
     const specifInfo = await dispatch(getSmcSpecification(address));
     if (specifInfo) {
       const smcInfo = specifInfo.members.reduce(
         (ac, { ["name"]: x, ...rest }) => ((ac[x] = rest.value), ac),
         {}
       );
-      dispatch(setBodyModalParamsAction("SMC_BUY", { address, smcInfo }));
+      dispatch(setBodyModalParamsAction(type, { address, smcInfo }));
     }
-  };
-
-  const handleTransferModal = () => {
-    dispatch(setBodyModalParamsAction("SMC_TRANSFER", { address }));
-  };
+   };
 
   const handleContractInfo = () => {
     history.push(`/smart-contracts/explorer/contract/${address}`);
@@ -53,22 +49,20 @@ const TableItemMyTokens = ({
         <Button color="blue-link" onClick={handleTokenInfo} name={symbol} />
       </td>
       <td className="align-right">
-        {convertToToken(balance, 8, true).toLocaleString("en", {
-          useGrouping: true,
-        })}
+        {convertToToken(balance, 8, true).toLocaleString("en", {useGrouping: true})}
       </td>
       <td className="align-right">{signature.substr(-12)}</td>
       <td className="align-right">
         <div className="btn-box inline">
           <Button
-            onClick={handleTransferModal}
+            onClick={()=> handleActionModal("SMC_TRANSFER")}
             color="green"
             size="sm"
             id={`button-transfer-${id}`}
             name="Transfer"
           />
           <Button
-            onClick={handleByMethod}
+            onClick={()=> handleActionModal("SMC_BUY")}
             color="green"
             size="sm"
             id={`button-buy-${id}`}
