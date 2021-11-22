@@ -96,7 +96,7 @@ const CreateToken = ({ closeModal }) => {
   const handleChangeAPL = useCallback(
     (setFieldValue, value) => {
       setApl(value);
-      if (value != 0 && token != 0 && token.toString().startsWith("0.") ) {
+      if (value != 0 && token != 0 && token.toString().startsWith("0.")) {
         setFieldValue("rate", convertToAPL(token) / convertToAPL(value));
       } else {
         setFieldValue("rate", 0);
@@ -107,7 +107,7 @@ const CreateToken = ({ closeModal }) => {
 
   const handleChangeToken = (setFieldValue, value) => {
     setToken(value);
-    if (value != 0 && apl != 0 && !value.toString().startsWith("0.") ) {
+    if (value != 0 && apl != 0 && !value.toString().startsWith("0.")) {
       setFieldValue("rate", convertToAPL(value) / convertToAPL(apl));
     } else {
       setFieldValue("rate", 0);
@@ -144,10 +144,7 @@ const CreateToken = ({ closeModal }) => {
                   <div className="mb-3">
                     <div className="d-flex">
                       {tokenList.map((item, index) => (
-                        <div
-                          key={item}
-                          className="d-flex align-items-center"
-                        >
+                        <div key={item} className="d-flex align-items-center">
                           <label
                             htmlFor="text"
                             className="mr-2 mb-0 d-flex align-items-center"
@@ -242,25 +239,23 @@ const CreateToken = ({ closeModal }) => {
                         render={({ field: { name } }) => (
                           <div className="mb-3">
                             {item.type === "timestamp" ? (
-                              <>
-                                <InputDate
-                                  label={name}
-                                  selected={startDate}
-                                  onChange={(date) => {
-                                    setStartDate(date);
-                                    setFieldValue(
-                                      name,
-                                      moment(date).toISOString()
-                                    );
-                                  }}
-                                  name={name}
-                                  showTimeSelect
-                                  timeIntervals={1}
-                                  timeFormat="HH:mm:ss"
-                                  timeCaption="time"
-                                  dateFormat="MMMM d, yyyy h:mm:ss aa"
-                                />
-                              </>
+                              <InputDate
+                                label={name}
+                                selected={startDate}
+                                onChange={(date) => {
+                                  setStartDate(date);
+                                  setFieldValue(
+                                    name,
+                                    moment(date).toISOString()
+                                  );
+                                }}
+                                name={name}
+                                showTimeSelect
+                                timeIntervals={1}
+                                timeFormat="HH:mm:ss"
+                                timeCaption="time"
+                                dateFormat="MMMM d, yyyy h:mm:ss aa"
+                              />
                             ) : (
                               <TextualInputComponent
                                 className={"text-capitalize"}
