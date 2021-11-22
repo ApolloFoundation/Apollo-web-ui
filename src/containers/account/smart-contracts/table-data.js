@@ -66,7 +66,7 @@ export const TABLE_DATA = {
     {
       id: 1,
       name: "Tokens",
-      type: "token",
+      type: "APL20",
     },
     {
       id: 2,
