@@ -19,14 +19,14 @@ import TransferForm from "./form";
 export default function ({ closeModal }) {
   const dispatch = useDispatch();
 
-  const { passPhrase: secretPhrase, accountRS } = useSelector(
-    (state) => state.account
-  );
-
+  const { passPhrase, accountRS } = useSelector((state) => state.account);
   const { address, smcInfo } = useSelector((state) => state.modals.modalData);
 
   const formSubmit = async ({ feeATM, amount, recipient, ...values }) => {
-    const isValidForm = validationForm({ amount, recipient, ...values });
+    const isValidForm = validationForm(
+      { amount, recipient, ...values },
+      passPhrase
+    );
 
     if (!isValidForm) {
       const convertedValue = convertToAPL(amount);
@@ -64,7 +64,7 @@ export default function ({ closeModal }) {
       initialValues={{
         recipient: "",
         amount: 0,
-        fuelLimit: 300000000,
+        fuelLimit: 500000000,
         fuelPrice: 100,
         secretPhrase: "",
       }}

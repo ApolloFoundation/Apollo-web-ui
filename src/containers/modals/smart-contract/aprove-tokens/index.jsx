@@ -6,6 +6,7 @@
 import React, { useState, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Form, Formik } from "formik";
+import { NotificationManager } from "react-notifications";
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-tomorrow";
@@ -22,9 +23,7 @@ import Button from "../../../components/button";
 const AproveTokens = ({ closeModal }) => {
   const dispatch = useDispatch();
   const modalData = useSelector((state) => state.modals.modalData);
-  const { accountRS, passPhrase: secretPhrase } = useSelector(
-    (state) => state.account
-  );
+  const { accountRS, passPhrase } = useSelector((state) => state.account);
   const [fuelSwitcher, setFuelSwitcher] = useState(false);
   const [isLoading, setLoading] = useState(false);
 
@@ -41,6 +40,18 @@ const AproveTokens = ({ closeModal }) => {
     }`;
   };
 
+  const validationForm = (values, passPhrase) => {
+    if (!values.secretPhrase || values.secretPhrase.length === 0) {
+      if (values.secretPhrase !== passPhrase) {
+        NotificationManager.error("Incorrect SecretPhrase", "Error", 5000);
+        return true;
+      }
+      NotificationManager.error("Secret Phrase is required.", "Error", 5000);
+      return true;
+    }
+    return false;
+  };
+
   const submitForm = useCallback(
     async ({ advance, ...values }) => {
       let data = {
@@ -51,30 +62,38 @@ const AproveTokens = ({ closeModal }) => {
         ...values,
       };
 
-      const testToken = await dispatch(exportTestContract(data));
+      const isValidForm = validationForm({ values }, passPhrase);
 
-      setLoading(false);
+      if (isValidForm) {
+        const testToken = await dispatch(exportTestContract(data));
 
-      if (testToken.errorCode) {
+        setLoading(false);
+
+        if (testToken.errorCode) {
+          setLoading(false);
+          return;
+        }
+
+        const publishToken = await dispatch(exportContractSubmit(data));
+
+        if (publishToken.errorCode) {
+          setLoading(false);
+          return;
+        }
+
+        const boardToken = await dispatch(
+          exportConfirmationOnBoard({ tx: publishToken.tx })
+        );
+
+        if (boardToken.errorCode) {
+          setLoading(false);
+          return;
+        }
+
+        closeModal();
         setLoading(false);
         return;
       }
-
-      const publishToken = await dispatch(exportContractSubmit(data));
-
-      if (publishToken.errorCode) {
-        setLoading(false);
-        return;
-      }
-
-      const boardToken = await dispatch(exportConfirmationOnBoard({ tx: publishToken.tx }));
-
-      if (boardToken.errorCode) {
-        setLoading(false);
-        return;
-      }
-
-      closeModal();
       setLoading(false);
     },
     [dispatch, modalData]
@@ -87,7 +106,7 @@ const AproveTokens = ({ closeModal }) => {
           onSubmit={submitForm}
           initialValues={{
             fuelPrice: 100,
-            fuelLimit: 300000000,
+            fuelLimit: 500000000,
             source: sourceValue(modalData.token, modalData.params),
             secretPhrase: "",
           }}

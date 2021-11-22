@@ -18,11 +18,11 @@ import TransferForm from "./form";
 
 export default function ({ closeModal }) {
   const dispatch = useDispatch();
-  const { passPhrase: secretPhrase } = useSelector((state) => state.account);
+  const { passPhrase } = useSelector((state) => state.account);
   const { address } = useSelector((state) => state.modals.modalData);
 
   const formSubmit = async ({ feeATM, amount, token, ...values }) => {
-    const isValidForm = validationForm({ amount, token, ...values });
+    const isValidForm = validationForm({ amount, token, ...values }, passPhrase);
 
     if (!isValidForm) {
       const convertedValue = convertToAPL(amount);
@@ -34,6 +34,7 @@ export default function ({ closeModal }) {
           convertedValue,
         ],
         name: "deposit",
+        address
       };
       const testMessage = await dispatch(exportTestExperationMessage(formData));
       if (testMessage) {
@@ -63,10 +64,9 @@ export default function ({ closeModal }) {
         sender: "",
         token: "",
         amount: 0,
-        fuelLimit: 300000000,
+        fuelLimit: 500000000,
         fuelPrice: 100,
         secretPhrase: '',
-        address,
       }}
     >
       <TransferForm />

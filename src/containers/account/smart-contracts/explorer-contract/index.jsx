@@ -36,10 +36,12 @@ const ExplorerContracts = (props) => {
         const token = overview.find((item) => item.name === "symbol");
         const membersList = members.reduce(
           (acc, item) => {
-            if (item.stateMutability === "view") {
-              acc.readList.push(item);
-            } else {
-              acc.writeList.push(item);
+            if (item.type === "FUNCTION") {
+              if (item.stateMutability === "view" && item.type === "FUNCTION") {
+                acc.readList.push(item);
+              } else {
+                acc.writeList.push(item);
+              }
             }
             return acc;
           },
