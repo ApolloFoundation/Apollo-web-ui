@@ -14,7 +14,7 @@ import { parseTextFile } from "../../../../helpers/parseFile";
 import {
   exportTestContract,
   exportContractSubmit,
-  exportConfirmationOnBoard,
+  publishSmcTransaction,
 } from "../../../../actions/contracts";
 import { setBodyModalParamsAction } from "../../../../modules/modals";
 import SiteHeader from "../../../components/site-header";
@@ -75,15 +75,13 @@ const SmartContractCreate = () => {
   const handlePublickFormSubmit = async (value, { resetForm }) => {
     if (!isPublish) {
       setPending((state) => ({ ...state, publish: true }));
-      const publishContract = await dispatch(
-        exportContractSubmit(formContarctData)
-      );
+      const publishContract = await dispatch(exportContractSubmit(formContarctData));
       if (publishContract.errorCode) {
         setError(publishContract);
         setPending((state) => ({ ...state, publish: false }));
       } else {
         const boadContarct = await dispatch(
-          exportConfirmationOnBoard({ tx: publishContract.tx })
+          publishSmcTransaction({ tx: publishContract.tx })
         );
         if (boadContarct.errorCode) {
           setError(boadContarct);

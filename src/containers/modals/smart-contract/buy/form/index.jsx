@@ -1,8 +1,8 @@
 import React from "react";
 import { useFormikContext } from "formik";
-import TextualInputComponent from "../../../components/form-components/textual-input1";
-import NumericInput from "../../../components/form-components/numeric-input1";
-import CheckboxFormInput from "../../../components/check-button-input";
+import TextualInputComponent from "../../../../components/form-components/textual-input1";
+import NumericInput from "../../../../components/form-components/numeric-input1";
+import CheckboxFormInput from "../../../../components/check-button-input";
 
 const ByForm = ({
   switcher,
@@ -28,7 +28,6 @@ const ByForm = ({
         placeholder="Contract Address"
         disabled
       />
-
       <div className="w-100">
         <div className="row w-100 m-0 justify-content-between align-items-center">
           <div className="col-5 p-0">
@@ -64,7 +63,7 @@ const ByForm = ({
         setValue={switcher}
         onChange={onChangeSwither}
       />
-      {switcher ? (
+      {switcher && (
         <>
           <NumericInput
             id="input-fuel-price-buy-token"
@@ -81,14 +80,7 @@ const ByForm = ({
             defaultValue={0}
           />
         </>
-      ) : null}
-      <TextualInputComponent
-        id="input-secret-phrase-buy-token"
-        label="Secret phrase"
-        type="password"
-        placeholder="Secret Phrase"
-        name="secretPhrase"
-      />
+      )}
     </>
   );
 };

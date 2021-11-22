@@ -5,8 +5,8 @@
 
 import React, { useEffect, useState, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import ModalBody from "../../components/modals/modal-body1";
-import { getState } from "../../../actions/contracts";
+import ModalBody from "../../../components/modals/modal-body1";
+import { getState } from "../../../../actions/contracts";
 
 export default function ({ closeModal }) {
   const dispatch = useDispatch();

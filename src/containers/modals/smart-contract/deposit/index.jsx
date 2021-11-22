@@ -3,55 +3,70 @@
  *                                                                            *
  ***************************************************************************** */
 
-import React from "react";
+import React, { useState, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { processAccountRStoHex } from "apl-web-crypto";
 import { convertToAPL } from "../../../../helpers/converters";
 import {
-  exportTestExperationMessage,
-  exportExperationMessageSubmit,
-  exportConfirmationOnBoard,
+  testSmcMethod,
+  callSmcMethod,
+  publishSmcTransaction,
 } from "../../../../actions/contracts";
-import { validationForm } from "./form/form-validation";
 import ModalBody from "../../../components/modals/modal-body1";
 import TransferForm from "./form";
+import { validationForm } from "./form/form-validation";
 
 export default function ({ closeModal }) {
   const dispatch = useDispatch();
   const { passPhrase } = useSelector((state) => state.account);
   const { address } = useSelector((state) => state.modals.modalData);
 
-  const formSubmit = async ({ feeATM, amount, token, ...values }) => {
-    const isValidForm = validationForm({ amount, token, ...values }, passPhrase);
+  const [isLoading, setLoading] = useState(false);
+
+  const formSubmit = useCallback(async ({ feeATM, amount, token, ...values }) => {
+    const isValidForm = validationForm(
+      { amount, token, ...values },
+      passPhrase
+    );
 
     if (!isValidForm) {
-      const convertedValue = convertToAPL(amount);
-      let formData = {
+      let data = {
         ...values,
+        name: "deposit",
         params: [
           processAccountRStoHex(values.sender, true),
           processAccountRStoHex(token, true),
-          convertedValue,
+          convertToAPL(amount),
         ],
-        name: "deposit",
-        address
+        address,
       };
-      const testMessage = await dispatch(exportTestExperationMessage(formData));
-      if (testMessage) {
-        const publishMessage = await dispatch(
-          exportExperationMessageSubmit(formData)
-        );
-        if (publishMessage) {
-          const boardMessage = await dispatch(
-            exportConfirmationOnBoard({ tx: publishMessage.tx })
-          );
-          if (boardMessage) {
-            closeModal();
-          }
-        }
+
+      setLoading(true);
+
+      const testData = await dispatch(testSmcMethod(data));
+      if (!testData) {
+        setLoading(false);
+        return;
       }
+
+      const callData = await dispatch(callSmcMethod(data));
+      if (!callData) {
+        setLoading(false);
+        return;
+      }
+
+      const publishData = await dispatch(publishSmcTransaction({ tx: callData.tx }));
+      if (!publishData) {
+        setLoading(false);
+        return;
+      }
+
+      setLoading(false);
+      closeModal();
     }
-  };
+  },
+  [dispatch, closeModal]
+);
 
   return (
     <ModalBody
@@ -60,13 +75,14 @@ export default function ({ closeModal }) {
       closeModal={closeModal}
       handleFormSubmit={formSubmit}
       submitButtonName="Deposit"
+      isPending={isLoading}
       initialValues={{
         sender: "",
         token: "",
         amount: 0,
         fuelLimit: 500000000,
         fuelPrice: 100,
-        secretPhrase: '',
+        secretPhrase: "",
       }}
     >
       <TransferForm />

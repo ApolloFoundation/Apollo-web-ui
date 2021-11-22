@@ -1,12 +1,11 @@
 import { NotificationManager } from "react-notifications";
 
-const rsRegExp = /APL-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{5}/i;
-
 const errorsList = {
-  secretPhrase: "Incorrect Secret Phrase",
+  secretPhrase: "Secret Phrase is required.",
   fuelPrice: "Fuel Price is required.",
   fuelLimit: "Fuel Limit is required.",
-  recipient: "Incorrect Recipient"
+  name: "Call method is required.",
+  address: "Contract is required."
 };
 
 export function validationForm(values, passPhrase) {
@@ -15,10 +14,7 @@ export function validationForm(values, passPhrase) {
       NotificationManager.error(errorsList[key], "Error", 5000);
       return true;
     } else if (key === "secretPhrase" && value != passPhrase) {
-      NotificationManager.error(errorsList[key], "Error", 5000);
-      return true;
-    } else if (key === "recipient" && !rsRegExp.test(value)) {
-      NotificationManager.error(errorsList[key], "Error", 5000);
+      NotificationManager.error("Incorrect SecretPhrase", "Error", 5000);
       return true;
     }
     return acc;
