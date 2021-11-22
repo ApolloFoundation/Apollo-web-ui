@@ -1,12 +1,8 @@
 import { NotificationManager } from "react-notifications";
 
 export function validationForm(values, passPhrase ) {
-  if (!values.secretPhrase || values.secretPhrase.length === 0) {
-    if (values.secretPhrase !== passPhrase) {
-      NotificationManager.error("Incorrect Secret Phrase", "Error", 5000);
-      return true;
-    }
-    NotificationManager.error("Secret Phrase is required.", "Error", 5000);
+  if (values.secretPhrase != passPhrase) {
+    NotificationManager.error("Incorrect SecretPhrase", "Error", 5000);
     return true;
   } else if (!values.address || values.address.length === 0) {
     NotificationManager.error("Contract is required.", "Error", 5000);

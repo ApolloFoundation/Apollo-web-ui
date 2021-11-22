@@ -41,12 +41,8 @@ const AproveTokens = ({ closeModal }) => {
   };
 
   const validationForm = (values, passPhrase) => {
-    if (!values.secretPhrase || values.secretPhrase.length === 0) {
-      if (values.secretPhrase !== passPhrase) {
-        NotificationManager.error("Incorrect SecretPhrase", "Error", 5000);
-        return true;
-      }
-      NotificationManager.error("Secret Phrase is required.", "Error", 5000);
+    if (values.secretPhrase != passPhrase) {
+      NotificationManager.error("Incorrect SecretPhrase", "Error", 5000);
       return true;
     }
     return false;
@@ -61,10 +57,9 @@ const AproveTokens = ({ closeModal }) => {
         value: 0,
         ...values,
       };
+      const isValidForm = validationForm(values , passPhrase);
 
-      const isValidForm = validationForm({ values }, passPhrase);
-
-      if (isValidForm) {
+      if (!isValidForm) {
         const testToken = await dispatch(exportTestContract(data));
 
         setLoading(false);
