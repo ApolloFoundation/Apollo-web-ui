@@ -27,8 +27,6 @@ const CreateToken = ({ closeModal }) => {
   const [token, setToken] = useState(1);
   const [apl, setApl] = useState(1);
 
-  const zeroRegExp = /^0|^\.+(?!$)+(?!$)/g;
-
   const getStateTokenList = useCallback(async () => {
     const { modules } = await dispatch(getTokenList("token"));
     if (modules) {
