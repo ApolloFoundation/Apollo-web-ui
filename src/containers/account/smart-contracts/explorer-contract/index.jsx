@@ -37,7 +37,7 @@ const ExplorerContracts = (props) => {
         const membersList = members.reduce(
           (acc, item) => {
             if (item.type === "FUNCTION") {
-              if (item.stateMutability === "view" && item.type === "FUNCTION") {
+              if (item.stateMutability === "view") {
                 acc.readList.push(item);
               } else {
                 acc.writeList.push(item);

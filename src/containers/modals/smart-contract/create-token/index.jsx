@@ -118,7 +118,6 @@ const CreateToken = ({ closeModal }) => {
     setCurrentToken(e.target.value);
   };
 
-  console.log(setInitialValues(formFieldsList));
   return (
     <div className="modal-box wide">
       <Formik
@@ -146,7 +145,7 @@ const CreateToken = ({ closeModal }) => {
                     <div className="d-flex">
                       {tokenList.map((item, index) => (
                         <div
-                          key={item + index}
+                          key={item}
                           className="d-flex align-items-center"
                         >
                           <label
@@ -171,11 +170,10 @@ const CreateToken = ({ closeModal }) => {
                   {formFieldsList.map((item, index) => {
                     if (item.name === "rate") {
                       return (
-                        <div key={item + index}>
+                        <div key={item.name}>
                           <div className="row w-100 m-0 justify-content-between align-items-center mb-3">
                             <div className="col-5 p-0">
                               <Field
-                                key={"atm" + index}
                                 name="atm"
                                 render={() => (
                                   <NumericInput
@@ -195,7 +193,6 @@ const CreateToken = ({ closeModal }) => {
                             </div>
                             <div className="col-5 p-0">
                               <Field
-                                key={"token" + index}
                                 name="token"
                                 render={({ field: { name } }) => (
                                   <NumericInput
@@ -212,7 +209,6 @@ const CreateToken = ({ closeModal }) => {
                             </div>
                           </div>
                           <Field
-                            key={item + index}
                             name={item.name}
                             validate={(value) =>
                               fieldValidate(value, item.type)
@@ -240,7 +236,7 @@ const CreateToken = ({ closeModal }) => {
                     }
                     return (
                       <Field
-                        key={item + index}
+                        key={item.name}
                         name={item.name}
                         validate={(value) => fieldValidate(value, item.type)}
                         render={({ field: { name } }) => (
