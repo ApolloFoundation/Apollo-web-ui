@@ -31,7 +31,7 @@ const SmartContracts = () => {
   const dispatch = useDispatch();
   const [contractList, setContractList] = useState([]);
   const [filteredContractList, setFilteredContractList] = useState([]);
-  const [type, setType] = useState("tokens");
+  const [type, setType] = useState("token");
   const [viewContractList, setViewContractList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [pagination, setPagination] = useState({
