@@ -34,10 +34,12 @@ const ExplorerEscrow = (props) => {
         const { members, overview, inheritedContracts } = specifications;
         const membersList = members.reduce(
           (acc, item) => {
-            if (item.stateMutability === "view") {
-              acc.readList.push(item);
-            } else {
-              acc.writeList.push(item);
+            if (item.type === "FUNCTION") {
+              if (item.stateMutability === "view") {
+                acc.readList.push(item);
+              } else {
+                acc.writeList.push(item);
+              }
             }
             return acc;
           },

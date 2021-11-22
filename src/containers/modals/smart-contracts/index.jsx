@@ -21,7 +21,7 @@ export default function ({ closeModal }) {
   const modalData = useSelector((state) => state.modals.modalData);
   const {
     accountRS,
-    passPhrase: secretPhrase,
+    passPhrase,
     ticker,
   } = useSelector((state) => state.account);
 
@@ -42,14 +42,14 @@ export default function ({ closeModal }) {
     initialValues = {
       ...initialValues,
       ...modalData,
-      fuelLimit: 300000000,
+      fuelLimit: 500000000,
       fuelPrice: 100,
     };
   }
 
   const formSubmit = useCallback(
     async ({ feeATM, source, formIndex, ...values }) => {
-      const isValidForm = validationForm(values);
+      const isValidForm = validationForm(values, passPhrase);
       if (!isValidForm) {
         let data = {
           ...values,

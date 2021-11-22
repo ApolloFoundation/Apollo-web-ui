@@ -6,11 +6,6 @@ const TransferForm = () => {
   return (
     <>
       <AccountRSForm
-        name="address"
-        label="Recipient"
-        placeholder="Recipient"
-      />
-      <AccountRSForm
         noContactList={true}
         name="sender"
         label="Payee"

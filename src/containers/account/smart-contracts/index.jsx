@@ -31,7 +31,7 @@ const SmartContracts = () => {
   const dispatch = useDispatch();
   const [contractList, setContractList] = useState([]);
   const [filteredContractList, setFilteredContractList] = useState([]);
-  const [type, setType] = useState("all");
+  const [type, setType] = useState("token");
   const [viewContractList, setViewContractList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [pagination, setPagination] = useState({
@@ -72,9 +72,14 @@ const SmartContracts = () => {
           };
         });
 
+        const filteredByTokens = currentContractsList.filter((item) =>
+          item.baseContract.startsWith("APL20")
+        );
+
         setIsLoading(false);
         setContractList(currentContractsList);
-        setViewContractList(currentContractsList);
+        setViewContractList(filteredByTokens);
+        setFilteredContractList(filteredByTokens);
       })
       .catch((err) => {
         setIsLoading(false);

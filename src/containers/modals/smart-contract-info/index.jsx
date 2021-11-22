@@ -11,9 +11,11 @@ import { getState } from "../../../actions/contracts";
 export default function ({ closeModal }) {
   const dispatch = useDispatch();
   const [smartContract, setSmartContract] = useState(null);
-  const modalData = useSelector((state) => state.modals.modalData);
+  const { address } = useSelector((state) => state.modals.modalData);
 
-  const { address } = modalData;
+  useEffect(() => {
+    getStateContract(address);
+  }, [address]);
 
   const getStateContract = useCallback(
     async (address) => {
@@ -25,10 +27,6 @@ export default function ({ closeModal }) {
     },
     [dispatch]
   );
-
-  useEffect(() => {
-    getStateContract(address);
-  }, [address]);
 
   return (
     <ModalBody

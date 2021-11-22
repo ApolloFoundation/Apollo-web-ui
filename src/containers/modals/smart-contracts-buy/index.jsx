@@ -21,7 +21,7 @@ export default function ({ closeModal }) {
   const {
     ticker,
     accountRS: sender,
-    passPhrase: secretPhrase,
+    passPhrase,
   } = useSelector((state) => state.account);
   const modalData = useSelector((state) => state.modals.modalData);
   const [fuelSwitcher, setFuelSwitcher] = useState(false);
@@ -36,7 +36,7 @@ export default function ({ closeModal }) {
   };
 
   const formSubmit = async ({ token, advance, feeATM, ...values }) => {
-    const isValidForm = validationForm(values);
+    const isValidForm = validationForm(values, passPhrase);
 
     if (!isValidForm) {
       const convertedValue = convertToAPL(values.value);
@@ -76,7 +76,7 @@ export default function ({ closeModal }) {
         sender,
         value: 0,
         token: 0,
-        fuelLimit: 300000000,
+        fuelLimit: 500000000,
         fuelPrice: 100,
         params: "",
         secretPhrase: "",
