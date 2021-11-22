@@ -31,7 +31,7 @@ const SmartContracts = () => {
   const dispatch = useDispatch();
   const [contractList, setContractList] = useState([]);
   const [filteredContractList, setFilteredContractList] = useState([]);
-  const [type, setType] = useState("APL20");
+  const [type, setType] = useState("tokens");
   const [viewContractList, setViewContractList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [pagination, setPagination] = useState({
@@ -165,6 +165,7 @@ const SmartContracts = () => {
   };
 
   const handleTransactionFilters = (currType) => {
+    if (currType === type) return;
 
     setType(currType);
 
