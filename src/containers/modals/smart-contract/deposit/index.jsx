@@ -14,7 +14,7 @@ import {
 } from "../../../../actions/contracts";
 import ModalBody from "../../../components/modals/modal-body1";
 import TransferForm from "./form";
-import { validationForm } from "./form/form-validation";
+import { validationForm } from "../../../../helpers/forms/contractValidator"
 
 export default function ({ closeModal }) {
   const dispatch = useDispatch();
@@ -24,10 +24,7 @@ export default function ({ closeModal }) {
   const [isLoading, setLoading] = useState(false);
 
   const formSubmit = useCallback(async ({ feeATM, amount, token, ...values }) => {
-    const isValidForm = validationForm(
-      { amount, token, ...values },
-      passPhrase
-    );
+    const isValidForm = validationForm({ amount, token, ...values },passPhrase);
 
     if (!isValidForm) {
       let data = {

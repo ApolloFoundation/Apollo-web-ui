@@ -12,9 +12,9 @@ import {
   callSmcMethod,
   publishSmcTransaction,
 } from "../../../../actions/contracts";
-import { validationForm } from "./form/form-validation";
 import ModalBody from "../../../components/modals/modal-body1";
 import ByForm from "./form";
+import { validationForm } from "../../../../helpers/forms/contractValidator"
 
 export default function ({ closeModal }) {
   const dispatch = useDispatch();

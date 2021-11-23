@@ -12,9 +12,9 @@ import {
   callSmcMethod,
   publishSmcTransaction,
 } from "../../../../../src/actions/contracts";
-import { validationForm } from "./form/form-validation";
 import ModalBody from "../../../components/modals/modal-body1";
 import TransferForm from "./form";
+import { validationForm } from "../../../../helpers/forms/contractValidator"
 
 export default function ({ closeModal }) {
   const dispatch = useDispatch();
@@ -25,10 +25,7 @@ export default function ({ closeModal }) {
   const [isLoading, setLoading] = useState(false);
 
   const formSubmit = useCallback(async ({ feeATM, amount, recipient, ...values }) => {
-    const isValidForm = validationForm(
-      { amount, recipient, ...values },
-      passPhrase
-    );
+    const isValidForm = validationForm({ amount, recipient, ...values },passPhrase);
 
     if (!isValidForm) {
       const convertedValue = convertToAPL(amount);

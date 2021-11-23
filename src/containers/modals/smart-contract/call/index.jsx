@@ -5,7 +5,6 @@
 
 import React, { useCallback, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { validationForm } from "./form/form-validation";
 import ModalBody from "../../../components/modals/modal-body1";
 import MessageExecutionForm from "./form";
 import {
@@ -15,6 +14,7 @@ import {
 } from "../../../../actions/contracts";
 import { convertToAPL } from "../../../../helpers/converters";
 import { setTransaction } from "../../../../modules/smartContract";
+import { validationForm } from "../../../../helpers/forms/contractValidator"
 
 export default function ({ closeModal }) {
   const dispatch = useDispatch();

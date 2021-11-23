@@ -19,6 +19,7 @@ import TextualInputComponent from "../../../components/form-components/textual-i
 import NumericInput from "../../../components/form-components/numeric-input1";
 import CheckboxFormInput from "../../../components/check-button-input";
 import Button from "../../../components/button";
+import { validationForm } from "../../../../helpers/forms/contractValidator"
 
 const AproveTokens = ({ closeModal }) => {
   const dispatch = useDispatch();
@@ -38,14 +39,6 @@ const AproveTokens = ({ closeModal }) => {
           super(${convertedParams});
       }
     }`;
-  };
-
-  const validationForm = (values, passPhrase) => {
-    if (values.secretPhrase != passPhrase) {
-      NotificationManager.error("Incorrect SecretPhrase", "Error", 5000);
-      return true;
-    }
-    return false;
   };
 
   const submitForm = useCallback(
