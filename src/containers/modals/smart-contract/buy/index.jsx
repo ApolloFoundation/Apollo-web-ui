@@ -21,12 +21,7 @@ export default function ({ closeModal }) {
   const { ticker, accountRS, passPhrase } = useSelector((state) => state.account);
   const modalData = useSelector((state) => state.modals.modalData);
 
-  const [fuelSwitcher, setFuelSwitcher] = useState(false);
   const [isLoading, setLoading] = useState(false);
-
-  const handleFuelSwitcher = () => {
-    setFuelSwitcher(state => !state);
-  };
 
   const handleChangeAmount = (setFieldValue) => (value) => {
     const convertedValue = convertToToken(value * modalData?.smcInfo?.rate);
@@ -91,9 +86,7 @@ export default function ({ closeModal }) {
       }}
     >
       <ByForm
-        onChangeSwither={handleFuelSwitcher}
         onChangeAmount={handleChangeAmount}
-        switcher={fuelSwitcher}
         ticker={ticker}
       />
     </ModalBody>
