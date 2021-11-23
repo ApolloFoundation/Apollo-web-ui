@@ -20,7 +20,7 @@ export default function ({ closeModal }) {
   const dispatch = useDispatch();
 
   const { passPhrase, accountRS } = useSelector((state) => state.account);
-  const { address, smcInfo } = useSelector((state) => state.modals.modalData);
+  const modalData = useSelector((state) => state.modals.modalData);
 
   const [isLoading, setLoading] = useState(false);
 
@@ -69,7 +69,7 @@ export default function ({ closeModal }) {
   return (
     <ModalBody
       id="modal-smart-contract-transfer"
-      modalTitle={`Transfer ${smcInfo?.name}`}
+      modalTitle={`Transfer ${modalData?.smcInfo?.name}`}
       closeModal={closeModal}
       handleFormSubmit={formSubmit}
       submitButtonName="Transfer"
@@ -80,7 +80,7 @@ export default function ({ closeModal }) {
         fuelLimit: 500000000,
         fuelPrice: 100,
         secretPhrase: "",
-        address
+        address: modalData?.address
       }}
     >
       <TransferForm />

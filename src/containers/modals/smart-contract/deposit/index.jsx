@@ -19,7 +19,7 @@ import { validationForm } from "./form/form-validation";
 export default function ({ closeModal }) {
   const dispatch = useDispatch();
   const { passPhrase } = useSelector((state) => state.account);
-  const { address } = useSelector((state) => state.modals.modalData);
+  const modalData = useSelector((state) => state.modals.modalData);
 
   const [isLoading, setLoading] = useState(false);
 
@@ -38,7 +38,7 @@ export default function ({ closeModal }) {
           processAccountRStoHex(token, true),
           convertToAPL(amount),
         ],
-        address,
+        address: modalData?.address,
       };
 
       setLoading(true);
@@ -71,7 +71,7 @@ export default function ({ closeModal }) {
   return (
     <ModalBody
       id="modal-smart-contract-transfer"
-      modalTitle={`Deposit ${address}`}
+      modalTitle={`Deposit ${modalData?.address}`}
       closeModal={closeModal}
       handleFormSubmit={formSubmit}
       submitButtonName="Deposit"
