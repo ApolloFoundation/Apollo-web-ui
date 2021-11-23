@@ -3,18 +3,18 @@
  *                                                                            *
  ***************************************************************************** */
 
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { validationForm } from "./form/form-validation";
-import ModalBody from "../../components/modals/modal-body1";
+import ModalBody from "../../../components/modals/modal-body1";
 import MessageExecutionForm from "./form";
 import {
-  exportTestExperationMessage,
-  exportExperationMessageSubmit,
-  exportConfirmationOnBoard,
-} from "../../../../src/actions/contracts";
-import { convertToAPL } from "../../../helpers/converters";
-import { setTransaction } from "../../../modules/smartContract";
+  testSmcMethod,
+  callSmcMethod,
+  publishSmcTransaction,
+} from "../../../../actions/contracts";
+import { convertToAPL } from "../../../../helpers/converters";
+import { setTransaction } from "../../../../modules/smartContract";
+import { validationForm } from "../../../../helpers/forms/contractValidator"
 
 export default function ({ closeModal }) {
   const dispatch = useDispatch();
@@ -24,6 +24,8 @@ export default function ({ closeModal }) {
     passPhrase,
     ticker,
   } = useSelector((state) => state.account);
+
+  const [isLoading, setLoading] = useState(false);
 
   const isEmptyData = modalData?.hasOwnProperty("address");
   const isExplorerData = modalData?.hasOwnProperty("params");
@@ -47,9 +49,9 @@ export default function ({ closeModal }) {
     };
   }
 
-  const formSubmit = useCallback(
-    async ({ feeATM, source, formIndex, ...values }) => {
+  const formSubmit = useCallback(async ({ feeATM, source, formIndex, ...values }) => {
       const isValidForm = validationForm(values, passPhrase);
+      
       if (!isValidForm) {
         let data = {
           ...values,
@@ -57,23 +59,27 @@ export default function ({ closeModal }) {
           params: values.params.split(","),
         };
 
-        const testMessage = await dispatch(exportTestExperationMessage(data));
-
-        if (!testMessage.errorCode) {
-          const publishMessage = await dispatch(
-            exportExperationMessageSubmit(data)
-          );
-          if (!publishMessage.errorCode) {
-            const boardMessage = await dispatch(
-              exportConfirmationOnBoard({ tx: publishMessage.tx })
-            );
-            if (!boardMessage.errorCode) {
-              dispatch(setTransaction(formIndex, boardMessage.transaction));
-              closeModal();
-            }
-          }
+        const testData = await dispatch(testSmcMethod(data));
+        if (!testData) {
+          setLoading(false);
+          return;
         }
-      }
+  
+        const callData = await dispatch(callSmcMethod(data));
+        if (!callData) {
+          setLoading(false);
+          return;
+        }
+  
+        const publishData = await dispatch(publishSmcTransaction({ tx: callData.tx }));
+        if (!publishData) {
+          setLoading(false);
+          return;
+        }
+
+        dispatch(setTransaction(formIndex, publishData.transaction));
+        closeModal();
+        }
     },
     [dispatch, closeModal]
   );
@@ -87,6 +93,7 @@ export default function ({ closeModal }) {
       handleFormSubmit={formSubmit}
       submitButtonName="Execute"
       idGroup="issue-currency-modal-"
+      isPending={isLoading}
       isFee={false}
       isDisableSecretPhrase
       initialValues={initialValues}

@@ -38,7 +38,7 @@ export function exportContractSubmit(requestParams) {
       .catch((err) => console.log(err));
 }
 
-export function exportTestExperationMessage(requestParams) {
+export function testSmcMethod(requestParams) {
   return () =>
     handleFetch(
       `/rest/v2/smc/method/validate`,
@@ -58,7 +58,7 @@ export function exportTestExperationMessage(requestParams) {
       .catch((err) => console.log(err));
 }
 
-export function exportExperationMessageSubmit(requestParams) {
+export function callSmcMethod(requestParams) {
   return () =>
     handleFetch(`/rest/v2/smc/method/call`, POST, requestParams, false, true)
       .then((res) => {
@@ -76,7 +76,7 @@ export function exportExperationMessageSubmit(requestParams) {
       .catch((err) => console.log(err));
 }
 
-export function exportConfirmationOnBoard(requestParams) {
+export function publishSmcTransaction(requestParams) {
   return () =>
     handleFetch(`/rest/v2/transaction`, POST, requestParams, false, true)
       .then((res) => {

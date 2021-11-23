@@ -44,7 +44,7 @@ const ExplorerForm = ({
       .join(",");
 
     dispatch(
-      setBodyModalParamsAction("SMC_CREATE", {
+      setBodyModalParamsAction("SMC_CALL", {
         address,
         name,
         params,

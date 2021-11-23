@@ -13,12 +13,13 @@ import "ace-builds/src-noconflict/theme-tomorrow";
 import {
   exportTestContract,
   exportContractSubmit,
-  exportConfirmationOnBoard,
+  publishSmcTransaction,
 } from "../../../../actions/contracts";
 import TextualInputComponent from "../../../components/form-components/textual-input1";
 import NumericInput from "../../../components/form-components/numeric-input1";
 import CheckboxFormInput from "../../../components/check-button-input";
 import Button from "../../../components/button";
+import { validationForm } from "../../../../helpers/forms/contractValidator"
 
 const AproveTokens = ({ closeModal }) => {
   const dispatch = useDispatch();
@@ -40,14 +41,6 @@ const AproveTokens = ({ closeModal }) => {
     }`;
   };
 
-  const validationForm = (values, passPhrase) => {
-    if (values.secretPhrase != passPhrase) {
-      NotificationManager.error("Incorrect SecretPhrase", "Error", 5000);
-      return true;
-    }
-    return false;
-  };
-
   const submitForm = useCallback(
     async ({ advance, ...values }) => {
       let data = {
@@ -57,39 +50,37 @@ const AproveTokens = ({ closeModal }) => {
         value: 0,
         ...values,
       };
-      const isValidForm = validationForm(values , passPhrase);
+
+      const isValidForm = validationForm(values, passPhrase);
 
       if (!isValidForm) {
+        setLoading(true);
         const testToken = await dispatch(exportTestContract(data));
 
-        setLoading(false);
-
-        if (testToken.errorCode) {
+        if (!testToken) {
           setLoading(false);
           return;
         }
 
         const publishToken = await dispatch(exportContractSubmit(data));
 
-        if (publishToken.errorCode) {
+        if (!publishToken) {
           setLoading(false);
           return;
         }
 
         const boardToken = await dispatch(
-          exportConfirmationOnBoard({ tx: publishToken.tx })
+          publishSmcTransaction({ tx: publishToken.tx })
         );
 
-        if (boardToken.errorCode) {
+        if (!boardToken) {
           setLoading(false);
           return;
         }
 
-        closeModal();
         setLoading(false);
-        return;
+        closeModal();
       }
-      setLoading(false);
     },
     [dispatch, modalData]
   );

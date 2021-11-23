@@ -1,15 +1,9 @@
 import React from "react";
 import { useFormikContext } from "formik";
-import TextualInputComponent from "../../../components/form-components/textual-input1";
-import NumericInput from "../../../components/form-components/numeric-input1";
-import CheckboxFormInput from "../../../components/check-button-input";
+import TextualInputComponent from "../../../../components/form-components/textual-input1";
+import NumericInput from "../../../../components/form-components/numeric-input1";
 
-const ByForm = ({
-  switcher,
-  ticker,
-  onChangeSwither,
-  onChangeAmount,
-}) => {
+const ByForm = ({ ticker, onChangeAmount }) => {
   const { setFieldValue } = useFormikContext();
   return (
     <>
@@ -28,7 +22,6 @@ const ByForm = ({
         placeholder="Contract Address"
         disabled
       />
-
       <div className="w-100">
         <div className="row w-100 m-0 justify-content-between align-items-center">
           <div className="col-5 p-0">
@@ -57,37 +50,19 @@ const ByForm = ({
           </div>
         </div>
       </div>
-      <CheckboxFormInput
-        id="check-box-advanced-settings-buy-token"
-        name="advance"
-        label="Advanced settings"
-        setValue={switcher}
-        onChange={onChangeSwither}
+      <NumericInput
+        id="input-fuel-price-buy-token"
+        label="Fuel price"
+        name="fuelPrice"
+        type="float"
+        defaultValue={0}
       />
-      {switcher ? (
-        <>
-          <NumericInput
-            id="input-fuel-price-buy-token"
-            label="Fuel price"
-            name="fuelPrice"
-            type="float"
-            defaultValue={0}
-          />
-          <NumericInput
-            id="input-fuel-limit-buy-token"
-            label="Fuel limit"
-            name="fuelLimit"
-            type="float"
-            defaultValue={0}
-          />
-        </>
-      ) : null}
-      <TextualInputComponent
-        id="input-secret-phrase-buy-token"
-        label="Secret phrase"
-        type="password"
-        placeholder="Secret Phrase"
-        name="secretPhrase"
+      <NumericInput
+        id="input-fuel-limit-buy-token"
+        label="Fuel limit"
+        name="fuelLimit"
+        type="float"
+        defaultValue={0}
       />
     </>
   );

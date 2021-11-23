@@ -55,14 +55,14 @@ import ClaimCurrency from './currencies/claim-currency/';
 import BuyCurrency from './currencies/confirm-buy-request';
 import SellCurrency from './currencies/confirm-sell-request';
 //Smart Contracts
-import MessageExecution from './smart-contracts';
-import SmartContractsInfo from './smart-contract-info';
-import SmartContractsBuy from './smart-contracts-buy';
 import CreateToken from './smart-contract/create-token';
 import CreateEscrow from './smart-contract/create-escrow';
 import AproveTokens from './smart-contract/aprove-tokens'
+import SmartContractCall from './smart-contract/call';
+import SmartContractBuy from './smart-contract/buy';
 import SmartContractTransfer from './smart-contract/transfer'
 import SmartContractDeposit from './smart-contract/deposit'
+import SmartContractInfo from './smart-contract/info';
 // Voting system
 import CreatePoll from './voting-system/create-poll/';
 import CastVote from './voting-system/cast-vote/';
@@ -240,14 +240,16 @@ class ModalWindow extends React.Component {
 
 
                     {/* Smart Contracts */}
-                    {this.props.modalType === 'SMC_CREATE'                  && <MessageExecution          closeModal={this.closeModal} nameModal={"SMC_CREATE"}/>}
-                    {this.props.modalType === 'SMC_INFO'                    && <SmartContractsInfo        closeModal={this.closeModal} nameModal={'SMC_INFO'}/>}
-                    {this.props.modalType === 'SMC_BUY'                     && <SmartContractsBuy         closeModal={this.closeModal} nameModal={'SMC_BUY'}/>}
+                  
+                  
                     {this.props.modalType === 'SMC_CREATE_TOKEN'            && <CreateToken               closeModal={this.closeModal} nameModal={'SMC_CREATE_TOKEN'}/>}
                     {this.props.modalType === 'SMC_CREATE_ESCROW'           && <CreateEscrow              closeModal={this.closeModal} nameModal={'SMC_CREATE_ESCROW'}/>}
                     {this.props.modalType === 'SMC_APROVE_TOKEN'            && <AproveTokens              closeModal={this.closeModal} nameModal={'SMC_APROVE_TOKEN'}/>}
+                    {this.props.modalType === 'SMC_CALL'                    && <SmartContractCall         closeModal={this.closeModal} nameModal={"SMC_CALL"}/>}
                     {this.props.modalType === 'SMC_TRANSFER'                && <SmartContractTransfer     closeModal={this.closeModal} nameModal={'SMC_TRANSFER'}/>}
-                    {this.props.modalType === 'SMC_DEPOSIT'                && <SmartContractDeposit       closeModal={this.closeModal} nameModal={'SMC_DEPOSIt'}/>}
+                    {this.props.modalType === 'SMC_DEPOSIT'                 && <SmartContractDeposit      closeModal={this.closeModal} nameModal={'SMC_DEPOSIt'}/>}
+                    {this.props.modalType === 'SMC_BUY'                     && <SmartContractBuy          closeModal={this.closeModal} nameModal={'SMC_BUY'}/>}
+                    {this.props.modalType === 'SMC_INFO'                    && <SmartContractInfo         closeModal={this.closeModal} nameModal={'SMC_INFO'}/>}
 
                     {/* Voting */}
                     {this.props.modalType === 'ISSUE_POLL'                  && <CreatePoll                closeModal={this.closeModal} nameModal={'ISSUE_POLL'}/>}

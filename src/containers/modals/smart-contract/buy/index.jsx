@@ -5,41 +5,42 @@
 
 import React, { useState, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { processAccountRStoHex } from "apl-web-crypto";
-import { convertToAPL } from "../../../../helpers/converters";
+import { convertToAPL, convertToToken } from "../../../../helpers/converters";
+
 import {
   testSmcMethod,
   callSmcMethod,
   publishSmcTransaction,
 } from "../../../../actions/contracts";
 import ModalBody from "../../../components/modals/modal-body1";
-import TransferForm from "./form";
+import ByForm from "./form";
 import { validationForm } from "../../../../helpers/forms/contractValidator"
 
 export default function ({ closeModal }) {
   const dispatch = useDispatch();
-  const { passPhrase } = useSelector((state) => state.account);
+  const { ticker, accountRS, passPhrase } = useSelector((state) => state.account);
   const modalData = useSelector((state) => state.modals.modalData);
 
   const [isLoading, setLoading] = useState(false);
 
-  const formSubmit = useCallback(async ({ feeATM, amount, token, ...values }) => {
-    const isValidForm = validationForm({ amount, token, ...values },passPhrase);
+  const handleChangeAmount = (setFieldValue) => (value) => {
+    const convertedValue = convertToToken(value * modalData?.smcInfo?.rate);
+    setFieldValue("token", convertedValue);
+  };
+
+  const formSubmit = useCallback(async ({ token, advance, feeATM, ...values }) => {
+    const isValidForm = validationForm(values, passPhrase);
 
     if (!isValidForm) {
       let data = {
         ...values,
-        name: "deposit",
-        params: [
-          processAccountRStoHex(values.sender, true),
-          processAccountRStoHex(token, true),
-          convertToAPL(amount),
-        ],
-        address: modalData?.address,
+        name: "buy",
+        value: convertToAPL(values.value),
+        params: values.params.split(","),
       };
-
+      
       setLoading(true);
-
+      
       const testData = await dispatch(testSmcMethod(data));
       if (!testData) {
         setLoading(false);
@@ -59,30 +60,35 @@ export default function ({ closeModal }) {
       }
 
       setLoading(false);
-      closeModal();
+      closeModal()
     }
   },
-  [dispatch, closeModal]
-);
+    [dispatch, closeModal]
+  );
 
   return (
     <ModalBody
-      id="modal-smart-contract-transfer"
-      modalTitle={`Deposit ${modalData?.address}`}
+      id="modal-buy-token"
+      modalTitle={`Buy token ${modalData?.smcInfo?.name}`}
       closeModal={closeModal}
       handleFormSubmit={formSubmit}
-      submitButtonName="Deposit"
+      submitButtonName="Execute"
       isPending={isLoading}
       initialValues={{
-        sender: "",
-        token: "",
-        amount: 0,
+        address: modalData?.address,
+        sender: accountRS,
+        value: 0,
+        token: 0,
         fuelLimit: 500000000,
         fuelPrice: 100,
+        params: "",
         secretPhrase: "",
       }}
     >
-      <TransferForm />
+      <ByForm
+        onChangeAmount={handleChangeAmount}
+        ticker={ticker}
+      />
     </ModalBody>
   );
 }

@@ -25,6 +25,17 @@ export default function SmcInfo({ transaction: info, decimals }) {
     fuelLimit,
   } = extraInfo;
 
+  const getContractInfo = useCallback(
+    async (transaction) => {
+      const contractInfo = await dispatch(getContractExtraInfo(transaction));
+      if (contractInfo) {
+        setExtraInfo(JSON.parse(contractInfo.payload));
+      }
+    },
+    [dispatch]
+  );
+
+  
   useEffect(() => {
     getContractInfo(transaction);
   }, [transaction, getContractInfo]);
@@ -43,16 +54,6 @@ export default function SmcInfo({ transaction: info, decimals }) {
       const ledgerInfo = await dispatch(getLedgerEntryAction({ ledgerId }));
       if (ledgerInfo) {
         setChangeFee(ledgerInfo.change);
-      }
-    },
-    [dispatch]
-  );
-
-  const getContractInfo = useCallback(
-    async (transaction) => {
-      const contractInfo = await dispatch(getContractExtraInfo(transaction));
-      if (contractInfo) {
-        setExtraInfo(JSON.parse(contractInfo.payload));
       }
     },
     [dispatch]

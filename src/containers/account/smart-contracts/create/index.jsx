@@ -9,12 +9,12 @@ import { Form, Formik } from "formik";
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-tomorrow";
-import { validationForm } from "./form/form-validation";
+import { validationForm } from "../../../../helpers/forms/contractValidator";
 import { parseTextFile } from "../../../../helpers/parseFile";
 import {
   exportTestContract,
   exportContractSubmit,
-  exportConfirmationOnBoard,
+  publishSmcTransaction,
 } from "../../../../actions/contracts";
 import { setBodyModalParamsAction } from "../../../../modules/modals";
 import SiteHeader from "../../../components/site-header";
@@ -60,43 +60,43 @@ const SmartContractCreate = () => {
         params: values.params.split(","),
       };
       setPending((state) => ({ ...state, test: true }));
+
       const testContract = await dispatch(exportTestContract(data));
-      setPending((state) => ({ ...state, test: false }));
-      if (testContract.errorCode) {
+
+      if (!testContract) {
         setError(testContract);
-      } else {
-        setIsValidated(true);
-        setFormContractData(data);
-        setError(null);
+        setPending((state) => ({ ...state, test: false }));
+        return;
       }
+
+      setPending((state) => ({ ...state, test: false }));
+      setIsValidated(true);
+      setFormContractData(data);
+      setError(null);
     }
   };
 
   const handlePublickFormSubmit = async (value, { resetForm }) => {
     if (!isPublish) {
       setPending((state) => ({ ...state, publish: true }));
-      const publishContract = await dispatch(
-        exportContractSubmit(formContarctData)
-      );
-      if (publishContract.errorCode) {
+
+      const publishContract = await dispatch(exportContractSubmit(formContarctData));
+      if (!publishContract) {
         setError(publishContract);
         setPending((state) => ({ ...state, publish: false }));
-      } else {
-        const boadContarct = await dispatch(
-          exportConfirmationOnBoard({ tx: publishContract.tx })
-        );
-        if (boadContarct.errorCode) {
-          setError(boadContarct);
-        } else {
-          setIsPublish(true);
-          dispatch(
-            setBodyModalParamsAction("SMC_CREATE", {
-              address: boadContarct.recipient,
-            })
-          );
-        }
-      }
+        return;
+      } 
+        
+      const boadContarct = await dispatch(publishSmcTransaction({ tx: publishContract.tx }));
+      if (!boadContarct) {
+        setError(boadContarct);
+        setPending((state) => ({ ...state, publish: false }));
+        return;
+      } 
+
+      setIsPublish(true);
       setPending((state) => ({ ...state, publish: false }));
+      dispatch(setBodyModalParamsAction("SMC_CREATE", {address: boadContarct.recipient}));
     } else {
       resetForm({});
       setError(null);
