@@ -11,10 +11,10 @@ import InfoBox from "../../../components/info-box";
 
 const Events = () => {
   const dispatch = useDispatch();
+
+  const contractsData = useSelector((state) => state.smartContract.contractsData);
+
   const [active, setActive] = useState(0);
-  const contractsData = useSelector(
-    (state) => state.smartContract.contractsData
-  );
 
   useEffect(() => {
     if (Object.keys(contractsData).length == 0) {

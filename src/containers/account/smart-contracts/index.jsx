@@ -45,12 +45,13 @@ const SmartContracts = () => {
   }, []);
 
   const getContractsList = useCallback(async () => {
-    const { contracts } = await dispatch(getContracts());
+    const contractsDataList = await dispatch(getContracts());
 
-    if (!contracts) {
+    if (!contractsDataList) {
       setIsLoading(false);
       return;
     }
+    const { contracts } = contractsDataList;
 
     Promise.all(
       contracts.map(async (el) => {
