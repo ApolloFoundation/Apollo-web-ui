@@ -59,7 +59,7 @@ const errorsList = {
     }
   },
   signature: (value) => {
-    if (!value && !rsRegExp.test(value) && !hexaRegExp.test(value)) {
+    if (!value || value.length === 0) {
       NotificationManager.error("Signature is required.", "Error", 5000);
       return true;
     }
