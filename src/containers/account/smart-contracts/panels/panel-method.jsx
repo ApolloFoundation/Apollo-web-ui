@@ -1,25 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  convertToToken,
-} from "../../../../helpers/converters";
+import { convertToToken } from "../../../../helpers/converters";
 import Collapsible from "../../../components/collapsible";
 import Button from "../../../components/button";
 import ExplorerForm from "./form";
 import { setBodyModalParamsAction } from "../../../../modules/modals";
 
-const PanelMethod = ({ items, address, type, title, token }) => {
+const PanelMethod = ({ items, address, type, title, token, active }) => {
   const dispatch = useDispatch();
   const { transactions } = useSelector((state) => state.smartContract);
   const [expanded, setExpanded] = useState(false);
+
+  useEffect(() => {
+    setExpanded(false);
+  }, [active]);
 
   const handleExpandAll = () => {
     setExpanded((state) => !state);
   };
 
-  const handleTransactionInfo = (transaction) => {
-    dispatch(setBodyModalParamsAction("INFO_TRANSACTION", transaction));
-  };
+  const handleTransactionInfo = useCallback((transaction) => {
+      dispatch(setBodyModalParamsAction("INFO_TRANSACTION", transaction));
+    },[dispatch]);
 
   return (
     <div>
@@ -37,12 +39,13 @@ const PanelMethod = ({ items, address, type, title, token }) => {
           </div>
         </div>
       </div>
-      {items.length > 0 ? (
+      {items.length > 0 &&
         items.map((item, index) => (
           <Collapsible
             id={`${item.name}-${index}-explorer-smart-contracts`}
             title={item.name}
             expand={expanded}
+            active={active}
             key={item.id}
             className={"mb-3"}
           >
@@ -59,19 +62,29 @@ const PanelMethod = ({ items, address, type, title, token }) => {
             ) : (
               <>
                 <span>
-                  {item.outputs[0].type === "uint" && !(item.name === "releaseTime" || item.name === "decimals") ? (
-                      <div className="mb-1">
-                        <span className="text-info">{convertToToken(item.value, 8, true)} </span>
-                        {token.value} (
-                          <span className="text-info"> 
-                          {Number(item.value).toLocaleString('en', { useGrouping: true })}
-                          </span>
-                        )
-                      </div>
+                  {item.outputs[0].type === "uint" &&
+                  !(item.name === "releaseTime" || item.name === "decimals") ? (
+                    <div className="mb-1">
+                      <span className="text-info">
+                        {convertToToken(item.value, 8, true)}{" "}
+                      </span>
+                      {token.value} (
+                      <span className="text-info">
+                        {Number(item.value).toLocaleString("en", {
+                          useGrouping: true,
+                        })}
+                      </span>
+                      )
+                    </div>
                   ) : (
                     <>
                       {item.value}
-                      <span className="text-info"> {item.outputs[0].type.toLocaleString('en', {useGrouping: true})}</span>
+                      <span className="text-info">
+                        {" "}
+                        {item.outputs[0].type.toLocaleString("en", {
+                          useGrouping: true,
+                        })}
+                      </span>
                     </>
                   )}
                 </span>
@@ -88,10 +101,7 @@ const PanelMethod = ({ items, address, type, title, token }) => {
               </div>
             )}
           </Collapsible>
-        ))
-      ) : (
-        <div>Empty List</div>
-      )}
+        ))}
     </div>
   );
 };

@@ -23,6 +23,7 @@ const ExplorerContracts = (props) => {
   const [overviewInfo, setOverviewInfo] = useState([]);
   const [currentToken, setCurrentToken] = useState(null);
   const [isLoadingPanels, setIsLoadingPanels] = useState(true);
+  const [activePanel, setActivePanel] = useState(1);
 
   useEffect(() => {
     getContractSpecification(id);
@@ -58,6 +59,10 @@ const ExplorerContracts = (props) => {
     [dispatch]
   );
 
+  const handleChangeTab = (e, index) => {
+    setActivePanel(index)
+  };
+  
   return (
     <div className="page-content">
       <SiteHeader pageTitle={"Smart Contracts"} />
@@ -79,7 +84,7 @@ const ExplorerContracts = (props) => {
                   {isLoadingPanels ? (
                     <ContentLoader />
                   ) : (
-                    <TabulationBody active={1}>
+                    <TabulationBody active={1} onChange={handleChangeTab}>
                       <TabContaier sectionName={"Code"}>
                         <PanelSource
                           title={"Read Contract Information"}
@@ -97,6 +102,7 @@ const ExplorerContracts = (props) => {
                           type={"view"}
                           address={id}
                           token={currentToken}
+                          active={activePanel}
                         />
                       </TabContaier>
                       <TabContaier
@@ -108,6 +114,7 @@ const ExplorerContracts = (props) => {
                           items={specificationsList.writeList || []}
                           type={"write"}
                           address={id}
+                          active={activePanel}
                         />
                       </TabContaier>
                     </TabulationBody>
