@@ -71,11 +71,11 @@ const CreateToken = ({ closeModal }) => {
       if (!isValidForm) {
         Object.keys(values).map((key) => {
           if (/^APL/.test(values[key])) {
-            const parseRStoHex = processAccountRStoHex(values[key], true);
-            return (values[key] = parseRStoHex);
+            return (values[key] = processAccountRStoHex(values[key], true));
+          } else if (key === "rate" || key === "releaseDelay") {
+            return values[key];
           } else if (/^\d+(?:[\.,]\d+)?$/.test(values[key])) {
-            const parseNumToATM = convertToAPL(values[key]);
-            return (values[key] = parseNumToATM);
+            return (values[key] = convertToAPL(values[key]));
           }
           return values[key];
         });
