@@ -7,10 +7,10 @@ import {
   addEventAction,
 } from "../../../../../../actions/smart-contracts";
 import { getSmcSpecification } from "../../../../../../actions/contracts";
+import { validationForm } from "../../../../../../helpers/forms/contractValidator"
 import TextualInputComponent from "../../../../../components/form-components/textual-input1";
 import Button from "../../../../../components/button";
 import CustomSelect from "../../../../../components/select";
-import validationShema from "./validationShema";
 
 const initialState = {
   eventName: "",
@@ -63,7 +63,7 @@ const ContractItemForm = ({ contractInstanse, contractId }) => {
   };
 
   const handleAddEvent = (values, resetForm) => () => {
-    const isValidForm = validationShema(values);
+    const isValidForm = validationForm(values);
     if (!isValidForm) {
       const data = prepareData(values);
 
@@ -91,7 +91,7 @@ const ContractItemForm = ({ contractInstanse, contractId }) => {
   };
 
   const handleAddEventOnce = (values, resetForm) => () => {
-    const isValidForm = validationShema(values);
+    const isValidForm = validationForm(values);
     if (!isValidForm) {
       const data = prepareData(values);
 
@@ -132,7 +132,6 @@ const ContractItemForm = ({ contractInstanse, contractId }) => {
               onChange={(e) => handleChangeDrop(e, setFieldValue)}
             />
           )}
-
           <TextualInputComponent
             type="text"
             name="eventName"
@@ -150,6 +149,7 @@ const ContractItemForm = ({ contractInstanse, contractId }) => {
             name="fromBlock"
             className="mb-0"
             placeholder="From block"
+            type="float"
           />
           <TextualInputComponent
             type="text"

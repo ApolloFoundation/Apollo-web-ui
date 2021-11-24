@@ -33,12 +33,14 @@ const SmartContracts = () => {
   }, []);
 
   const getMyContractsList = useCallback(async () => {
-    const { contracts, errorCode } = await dispatch(getMyContracts(account));
+    const contractsDataList = await dispatch(getMyContracts(account));
 
-    if (errorCode) {
+    if (!contractsDataList) {
       setIsLoading(false);
       return;
     }
+
+    const { contracts } = contractsDataList;
 
     setIsLoading(false);
     setContractList(contracts);

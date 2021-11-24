@@ -35,20 +35,32 @@ const errorsList = {
     }
   },
   sender: (value) => {
-    if(!value && !rsRegExp.test(value) && !hexaRegExp.test(value)) {
+    if (!value && !rsRegExp.test(value) && !hexaRegExp.test(value)) {
       NotificationManager.error("Incorrect Payee.", "Error", 5000);
       return true;
     }
   },
   token: (value) => {
-    if(!value && !rsRegExp.test(value) && !hexaRegExp.test(value)) {
+    if (!value && !rsRegExp.test(value) && !hexaRegExp.test(value)) {
       NotificationManager.error("Incorrect Token.", "Error", 5000);
       return true;
     }
   },
   source: (value) => {
-    if(!value && !rsRegExp.test(value) && !hexaRegExp.test(value)) {
+    if (!value && !rsRegExp.test(value) && !hexaRegExp.test(value)) {
       NotificationManager.error("Contract is required.", "Error", 5000);
+      return true;
+    }
+  },
+  contract: (value) => {
+    if (!value && !rsRegExp.test(value) && !hexaRegExp.test(value)) {
+      NotificationManager.error("Contract is required.", "Error", 5000);
+      return true;
+    }
+  },
+  signature: (value) => {
+    if (!value || value.length === 0) {
+      NotificationManager.error("Signature is required.", "Error", 5000);
       return true;
     }
   },

@@ -6,7 +6,6 @@
 import React, { useState, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Form, Formik } from "formik";
-import { NotificationManager } from "react-notifications";
 import AceEditor from "react-ace";
 import "ace-builds/src-noconflict/mode-javascript";
 import "ace-builds/src-noconflict/theme-tomorrow";
@@ -15,11 +14,11 @@ import {
   exportContractSubmit,
   publishSmcTransaction,
 } from "../../../../actions/contracts";
+import { validationForm } from "../../../../helpers/forms/contractValidator"
 import TextualInputComponent from "../../../components/form-components/textual-input1";
 import NumericInput from "../../../components/form-components/numeric-input1";
 import CheckboxFormInput from "../../../components/check-button-input";
 import Button from "../../../components/button";
-import { validationForm } from "../../../../helpers/forms/contractValidator"
 
 const AproveTokens = ({ closeModal }) => {
   const dispatch = useDispatch();

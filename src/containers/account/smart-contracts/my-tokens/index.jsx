@@ -34,13 +34,16 @@ const MyTokens = () => {
   }, []);
 
   const getContractsList = useCallback(async () => {
-    const { contracts, errorCode } = await dispatch(getContracts());
 
-    if (errorCode) {
+    const contractsDataList = await dispatch(getContracts());
+
+    if (!contractsDataList) {
       setIsLoading(false);
       return;
     }
 
+    const { contracts } = contractsDataList;
+    
     const filteredList = contracts.filter((el) => {
       return el.baseContract.startsWith("APL20");
     });
