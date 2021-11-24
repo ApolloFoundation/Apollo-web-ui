@@ -2,19 +2,22 @@ import React, { useState, useEffect } from "react";
 import classNames from "classnames";
 import "./collapsible.scss";
 
-const Collapsible = ({ title, expand, children, className, id }) => {
+const Collapsible = ({ title, expand, children, className, id, active }) => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
     setOpen(expand);
-  }, [expand]);
+  }, [expand, active]);
 
   const handleToggleCollapsible = () => {
-    setOpen(!open);
+    setOpen(state => !state);
   };
 
   return (
-    <div className={classNames("collapsible", className)} id={`collapsible-heading-${id}`}>
+    <div
+      className={classNames("collapsible", className)}
+      id={`collapsible-heading-${id}`}
+    >
       <div className="collapsible-heading" onClick={handleToggleCollapsible}>
         <div className="collapsible-icon">
           <i

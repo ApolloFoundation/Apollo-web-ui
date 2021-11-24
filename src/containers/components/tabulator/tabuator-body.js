@@ -1,5 +1,6 @@
 import React from "react";
 import Tab from "./tab";
+import classNames from "classnames";
 
 class TabulationBody extends React.Component {
   state = { activeTab: 0 };
@@ -20,12 +21,13 @@ class TabulationBody extends React.Component {
     this.setState({
       activeTab: index,
     });
-    if (this.props.onChange) this.props.onChange(e, index);
+    if (this.props.onChange) {
+      this.props.onChange(e, index);
+    }
   };
 
   render() {
     const { children, className } = this.props;
-
     return (
       <>
         <div className={`form-tabulator active h-100 ${className}`}>
@@ -50,15 +52,16 @@ class TabulationBody extends React.Component {
           </div>
 
           {/** Render tabulator body */}
-          {React.Children.map(children, (child, index) => {
-            if (this.state.activeTab === index) {
-              return (
-                <div key={index} className={"tab-body active"}>
-                  {child}
-                </div>
-              );
-            }
-          })}
+          {React.Children.map(children, (child, index) => (
+            <div
+              className={classNames({
+                "tab-body": true,
+                active: this.state.activeTab === index,
+              })}
+            >
+              {child}
+            </div>
+          ))}
         </div>
       </>
     );

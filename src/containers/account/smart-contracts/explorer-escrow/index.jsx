@@ -22,7 +22,8 @@ const ExplorerEscrow = (props) => {
   const [contractsList, setContractsList] = useState([]);
   const [overviewInfo, setOverviewInfo] = useState([]);
   const [isLoadingPanels, setIsLoadingPanels] = useState(true);
-
+  const [activeTab, setActiveTab] = useState(1);
+  
   useEffect(() => {
     getContractSpecification(id);
   }, [id]);
@@ -55,6 +56,8 @@ const ExplorerEscrow = (props) => {
     [dispatch]
   );
 
+  const handleChangeTab = (e, index) => setActiveTab(index)
+  
   return (
     <div className="page-content">
       <SiteHeader pageTitle={"Smart Contracts"} />
@@ -76,7 +79,7 @@ const ExplorerEscrow = (props) => {
                   {isLoadingPanels ? (
                     <ContentLoader />
                   ) : (
-                    <TabulationBody active={1}>
+                    <TabulationBody active={activeTab} onChange={handleChangeTab}>
                       <TabContaier sectionName={"Code"}>
                         <PanelSource
                           title="Read Contract Information"
@@ -93,6 +96,7 @@ const ExplorerEscrow = (props) => {
                           items={specificationsList.readList || []}
                           type={"view"}
                           address={id}
+                          active={activeTab}
                         />
                       </TabContaier>
                       <TabContaier
@@ -104,6 +108,7 @@ const ExplorerEscrow = (props) => {
                           items={specificationsList.writeList || []}
                           type={"write"}
                           address={id}
+                          active={activeTab}
                         />
                       </TabContaier>
                     </TabulationBody>
