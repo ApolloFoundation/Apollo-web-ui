@@ -12,14 +12,12 @@ import { getTokenList, getTokensForm } from "../../../../actions/contracts";
 import { setBodyModalParamsAction } from "../../../../modules/modals";
 import { convertToAPL } from "../../../../helpers/converters";
 import TextualInputComponent from "../../../components/form-components/textual-input1";
-import NumericInput from "../../../components/form-components/numeric-input1";
 import InputDate from "../../../components/input-date";
 import Button from "../../../components/button";
 import fieldValidate from "./form/form-validation";
 
 const CreateToken = ({ closeModal }) => {
   const dispatch = useDispatch();
-  const { passPhrase } = useSelector((state) => state.account);
   const [startDate, setStartDate] = useState(null);
   const [tokenList, setTokenList] = useState([]);
   const [currentToken, setCurrentToken] = useState(null);
@@ -67,6 +65,7 @@ const CreateToken = ({ closeModal }) => {
 
   const submitForm = useCallback(
     ({ atm, token, ...values }) => {
+      console.log(values)
       const isValidForm = fieldValidate(values);
       if (!isValidForm) {
         Object.keys(values).map((key) => {
@@ -92,23 +91,31 @@ const CreateToken = ({ closeModal }) => {
   );
 
   const handleChangeAPL = useCallback(
-    (setFieldValue, value) => {
-      setApl(value);
-      if (value != 0 && token != 0 && token.toString().startsWith("0.")) {
-        setFieldValue("rate", convertToAPL(token) / convertToAPL(value));
-      } else {
-        setFieldValue("rate", 0);
-      }
-    },
-    [token]
-  );
+    (setFieldValue, e) => {
+      const value = e.target.value;
 
-  const handleChangeToken = (setFieldValue, value) => {
+      setFieldValue("atm", value);
+      setApl(value);
+
+      if (value != 0 && token != 0) {
+        setFieldValue("rate", convertToAPL(token) / convertToAPL(value));
+      }
+    },[token]);
+
+  const handleChangeToken = (setFieldValue, e) => {
+    const value = e.target.value;
+
+    setFieldValue("token", value);
     setToken(value);
-    if (value != 0 && apl != 0 && !value.toString().startsWith("0.")) {
+
+    if (/^0./.test(value)) {
+      setFieldValue("token", 0);
+      setToken(0);
+      return;
+    }
+
+    if (value != 0 && apl != 0) {
       setFieldValue("rate", convertToAPL(value) / convertToAPL(apl));
-    } else {
-      setFieldValue("rate", 0);
     }
   };
 
@@ -162,44 +169,37 @@ const CreateToken = ({ closeModal }) => {
                       ))}
                     </div>
                   </div>
-                  {formFieldsList.map((item, index) => {
+                  {formFieldsList.map((item) => {
                     if (item.name === "rate") {
                       return (
-                        <div key={item.name}>
+                        <div
+                          key={item.name}
+                          className="border-top border-bottom mb-3 pt-3"
+                        >
                           <div className="row w-100 m-0 justify-content-between align-items-center mb-3">
                             <div className="col-5 p-0">
+                              <label for="atm">Amount APL</label>
                               <Field
+                                className="mr-3 d-inline-block"
+                                placeholder="1"
+                                type="number"
                                 name="atm"
-                                render={() => (
-                                  <NumericInput
-                                    label="Amount APL"
-                                    type="float"
-                                    placeholder="1"
-                                    name="atm"
-                                    onChange={(value) =>
-                                      handleChangeAPL(setFieldValue, value)
-                                    }
-                                  />
-                                )}
+                                value={values.atm}
+                                onChange={(e) => handleChangeAPL(setFieldValue, e)}
                               />
                             </div>
                             <div className="col-auto">
                               <i class="zmdi zmdi-swap zmdi-hc-2x"></i>
                             </div>
                             <div className="col-5 p-0">
+                              <label for="token">Amount Token</label>
                               <Field
+                                className="mr-3 d-inline-block"
+                                placeholder="1"
+                                type="number"
                                 name="token"
-                                render={({ field: { name } }) => (
-                                  <NumericInput
-                                    label="Amount Token"
-                                    type="float"
-                                    name={name}
-                                    placeholder="1"
-                                    onChange={(value) =>
-                                      handleChangeToken(setFieldValue, value)
-                                    }
-                                  />
-                                )}
+                                value={values.token}
+                                onChange={(e) => handleChangeToken(setFieldValue, e)}
                               />
                             </div>
                           </div>
@@ -215,6 +215,7 @@ const CreateToken = ({ closeModal }) => {
                                   label={name}
                                   name={name}
                                   placeholder={name}
+                                  de
                                   type="float"
                                   disabled
                                 />

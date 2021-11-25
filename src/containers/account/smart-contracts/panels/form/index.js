@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Form, Formik, Field } from "formik";
-import { convertToAPL, convertToToken } from "../../../../../helpers/converters";
+import {
+  convertToAPL,
+  convertToToken,
+} from "../../../../../helpers/converters";
 import { processAccountRStoHex } from "apl-web-crypto";
 import { exportReadMethod } from "../../../../../actions/contracts";
 import { setBodyModalParamsAction } from "../../../../../modules/modals";
 import TextualInputComponent from "../../../../components/form-components/textual-input1";
 import Button from "../../../../components/button";
+import AccountRSForm from "../../../../components/form-components/account-rs1";
 import fieldValidate from "./form-validation";
 
 const ExplorerForm = ({
@@ -97,22 +101,32 @@ const ExplorerForm = ({
                     <Field
                       name={item.name}
                       validate={(value) => fieldValidate(value, item.type)}
-                      render={({ field: { name } }) => (
-                        <div className="mb-3">
-                          <TextualInputComponent
-                            id={`input-${id}`}
-                            label={name}
-                            name={name}
-                            placeholder={name}
-                            type={item.type === "uint" ? "float" : "text"}
-                          />
-                          {errors[name] && touched[name] ? (
-                            <div className={"text-danger"}>
-                              {errors[item.name]}
-                            </div>
-                          ) : null}
+                      render={({ field: { name } }) => {
+                        return (
+                          <div className="mb-3">
+                            {item.type === "address" ? (
+                              <AccountRSForm
+                                id={`input-${id}`}
+                                label={name}
+                                name={name}
+                                placeholder={name}
+                              />
+                              ) : (
+                              <TextualInputComponent
+                                id={`input-${id}`}
+                                label={name}
+                                name={name}
+                                placeholder={name}
+                                type={item.type === "uint" ? "float" : "text"}
+                              />
+                            )}
+                            {errors[name] && touched[name] && (
+                              <div className={"text-danger"}>
+                                {errors[item.name]}
+                              </div>
+                            )}
                         </div>
-                      )}
+                      )}}
                     />
                   ))}
                   <Button
