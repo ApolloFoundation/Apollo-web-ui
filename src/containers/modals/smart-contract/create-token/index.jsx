@@ -65,7 +65,6 @@ const CreateToken = ({ closeModal }) => {
 
   const submitForm = useCallback(
     ({ atm, token, ...values }) => {
-      console.log(values)
       const isValidForm = fieldValidate(values);
       if (!isValidForm) {
         Object.keys(values).map((key) => {
@@ -215,7 +214,6 @@ const CreateToken = ({ closeModal }) => {
                                   label={name}
                                   name={name}
                                   placeholder={name}
-                                  de
                                   type="float"
                                   disabled
                                 />
