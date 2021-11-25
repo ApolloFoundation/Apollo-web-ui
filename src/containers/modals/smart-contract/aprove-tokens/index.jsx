@@ -155,7 +155,7 @@ const AproveTokens = ({ closeModal }) => {
                           tabSize={2}
                           width="100%"
                           height="200px"
-                          value={""}
+                          readOnly
                           name="source"
                           value={values["source"]}
                           onChange={(value) => setFieldValue("source", value)}
