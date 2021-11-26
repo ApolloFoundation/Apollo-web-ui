@@ -52,6 +52,14 @@ export const currencySystemMenu = {
 	],
 };
 
+export const smartContracts = {
+  className: [process.env.REACT_APP_SMC_URL],
+  to: process.env.REACT_APP_SMC_URL,
+  isExternal: true,
+  label: "Contracts",
+  icon: "zmdi-collection-text",
+};
+
 export const votingSystemMenu = {
 	className: '/active-polls',
 	to: '/active-polls',

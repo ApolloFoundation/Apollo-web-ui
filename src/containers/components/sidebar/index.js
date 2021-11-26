@@ -68,18 +68,23 @@ class Sidebar extends React.Component {
 		})
 	};
 
-	createNav = ({className, to, icon, label}) => {
-		return <NavLink
-			exact={true}
-			className={`text ${this.getNavLinkClass(className)}`}
-			activeClassName="active"
-			to={to}>{label}<i className={`zmdi ${icon} left`}/>
-		</NavLink>
+	createNav = ({className, to, isExternal, icon, label}) => {
+		return (
+      <NavLink
+        exact={true}
+        className={`text ${this.getNavLinkClass(className)}`}
+        activeClassName="active"
+        to={isExternal ? { pathname: to } : to}
+        target={isExternal ? '_blank' : ''}
+      >
+        {label}<i className={`zmdi ${icon} left`}/>
+		  </NavLink>
+    )
 	};
 
-	createItemMenu = ({to, className, icon, label}) => {
-		return this.state.activeMenu === to
-		? (this.createNav({to, className, icon, label}))
+	createItemMenu = ({to, isExternal, className, icon, label, children}) => {
+		return this.state.activeMenu === to || !children
+		? (this.createNav({to, isExternal, className, icon, label}))
 		: (<a className={`text ${this.getNavLinkClass(className)}`} onClick={() => this.hanldeActive(to)}>
 			{label}<i className={`zmdi ${icon} left`}/>
 			</a>)
@@ -93,18 +98,18 @@ class Sidebar extends React.Component {
 
 	createMenu = menu => {
 		let allRoutes = menu.className instanceof Array ? menu.className : [menu.className];
-		allRoutes = allRoutes.concat(menu.children.map(opt => opt.to));
+		allRoutes = allRoutes.concat(menu.children?.map(opt => opt.to));
 		return <li className={`active-menu ${this.getNavLinkClass(allRoutes)}`}>
 			{this.createItemMenu(menu)}
 			<>
-				{menu.children.map(opt => this.createNav(opt))}
+				{menu.children?.map(opt => this.createNav(opt))}
 				{menu.additionalChildren && this.createAdditionalNav(menu.additionalChildren)}
 			</>
 		</li>
 	};
 
 	hanldeActive = (activeMenu) => {this.setState({activeMenu})};
-	
+
 	getNavLinkClass = (path) => {
 		const routes = path instanceof Array ? path : [path];
 		if(routes.some(i => window.location.pathname === i)) return 'active';
