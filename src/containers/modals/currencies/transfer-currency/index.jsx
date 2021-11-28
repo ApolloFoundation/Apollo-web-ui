@@ -26,7 +26,7 @@ export default function TransferCurrency(props) {
       decimals: modalData.decimals
     };
     dispatch(handleFormSubmit(data));
-  }, [dispatch]);
+  }, [dispatch, modalData]);
 
   return (
     <ModalBody
