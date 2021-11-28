@@ -16,11 +16,15 @@ export default function TransferCurrency(props) {
   const dispatch = useDispatch();
 
   const { modalData } = useSelector(state => state.modals);
-
+  
   const { closeModal } = props;
-
+  
   const handleSubmit = useCallback(values => {
-    const data = { ...values, currency: modalData.currency };
+    const data = {
+      ...values,
+      currency: modalData.currency,
+      decimals: modalData.decimals
+    };
     dispatch(handleFormSubmit(data));
   }, [dispatch]);
 

@@ -10,7 +10,7 @@ export default function BuyForm(props) {
   const dispatch = useDispatch();
 
   const {
-    minimumSellRate, currencyInfo, balanceBuy, currentCoinDecimals, ticker,
+    minimumSellRate, currencyInfo = {}, balanceBuy, currentCoinDecimals, ticker,
   } = props;
 
   const { code, decimals, currency } = currencyInfo;
