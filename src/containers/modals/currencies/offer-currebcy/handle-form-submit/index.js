@@ -3,7 +3,7 @@ import { setBodyModalParamsAction, IS_MODAL_PROCESSING } from '../../../../../mo
 import submitForm from '../../../../../helpers/forms/forms';
 
 export const handleFormSubmit = values => async dispatch => {
-  const { decimals = 0, currency } = values;
+  const { decimals, currency } = values;
 
   const data = {
     ...values,
