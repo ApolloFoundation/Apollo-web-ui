@@ -73,7 +73,7 @@ const CreateToken = ({ closeModal }) => {
           } else if (key === "releaseDelay") {
             return values[key];
           } else if (/^\d+(?:[\.,]\d+)?$/.test(values[key])) {
-            return (values[key] = convertToAPL(values[key])); //convert to atm
+            return (values[key] = convertToAPL(values[key]));
           }
           return values[key];
         });
