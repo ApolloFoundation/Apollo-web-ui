@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Form, Formik, Field } from "formik";
 import {
-  convertToAPL,
+  convertToATM,
   convertToToken,
 } from "../../../../../helpers/converters";
 import { processAccountRStoHex } from "apl-web-crypto";
@@ -41,7 +41,7 @@ const ExplorerForm = ({
           const parseRStoHex = processAccountRStoHex(values[key], true);
           return `'${parseRStoHex}'`;
         } else if (regAmount.test(key)) {
-          return convertToAPL(values[key]);
+          return convertToATM(values[key]);
         }
         return values[key];
       })
@@ -142,7 +142,7 @@ const ExplorerForm = ({
           }}
         </Formik>
       </div>
-      {error && readMethods.length == 0 && (
+      {error && readMethods.length === 0 && (
         <div className={"text-danger"}>{error}</div>
       )}
       {readMethods.length > 0 &&
@@ -154,15 +154,13 @@ const ExplorerForm = ({
                 <div className="mb-1">Signature: {item.signature}</div>
                 <div className="mb-1">
                   <span className="text-info">
-                    {convertToToken(item.output[0], 8, true)}
+                    {convertToToken(item.output[0], 8, true)}&nbsp;
                   </span>
-                  {token?.value} (
-                  <span className="text-info">
-                    {Number(item.output[0]).toLocaleString("en", {
+                  <span>
+                    ({Number(item.output[0]).toLocaleString("en", {
                       useGrouping: true,
-                    })}
+                    })})
                   </span>
-                  )
                 </div>
               </>
             )}

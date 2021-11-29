@@ -22,6 +22,7 @@ import NumericInput from "../../../components/form-components/numeric-input1";
 import TextualInputComponent from "../../../components/form-components/textual-input1";
 import InputUpload from "../../../components/input-upload";
 import Button from "../../../components/button";
+import { convertToATM } from '../../../../helpers/converters';
 
 const INITIAL_FORM_DATA = {
   name: "",
@@ -56,7 +57,7 @@ const SmartContractCreate = () => {
     if (!isValidForm) {
       const data = {
         ...values,
-        value: Number(values.value) * Math.pow(10, 8),
+        value: convertToATM(values.value),
         params: values.params.split(","),
       };
       setPending((state) => ({ ...state, test: true }));
@@ -85,14 +86,14 @@ const SmartContractCreate = () => {
         setError(publishContract);
         setPending((state) => ({ ...state, publish: false }));
         return;
-      } 
-        
+      }
+
       const boadContarct = await dispatch(publishSmcTransaction({ tx: publishContract.tx }));
       if (!boadContarct) {
         setError(boadContarct);
         setPending((state) => ({ ...state, publish: false }));
         return;
-      } 
+      }
 
       setIsPublish(true);
       setPending((state) => ({ ...state, publish: false }));

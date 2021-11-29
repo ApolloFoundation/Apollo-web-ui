@@ -553,18 +553,26 @@ function generateTokenAPL(messageToGenerate, sp) {
 export function convertToToken(value, decimal = 8, useGrouping = false) {
     const valueBN = new BigInteger(value.toString());
     const pointsBN = new BigInteger(Math.pow(10, decimal).toString());
-    return  (Number(valueBN.divide(pointsBN))).toLocaleString('en', {
+    return (valueBN.divide(pointsBN)).toLocaleString('en', {
         useGrouping
     })
 }
 
-export function convertToAPL(value, decimal = 8, useGrouping = false) {
-    const valueBN = new BigInteger(value.toString());
-    const pointsBN = new BigInteger(Math.pow(10, decimal).toString());
-    return  (Number(valueBN.multiply(pointsBN))).toLocaleString('en', {
+export function convertRate(value, useGrouping = false) {
+  const points = Math.pow(10, 8);
+  return (value / points).toLocaleString('en', {
+    useGrouping,
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 8,
+  })
+}
+
+export function convertToATM(value, decimal = 8, useGrouping = false) {
+    const points = Math.pow(10, decimal).toString();
+    return  (value * points).toLocaleString('en', {
         useGrouping
     })
-};
+}
 
 export function convertHexToUint(value, base = 16) {
     let convertedValue = value.toString()

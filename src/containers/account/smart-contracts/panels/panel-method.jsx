@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { convertToToken } from "../../../../helpers/converters";
+import { convertRate, convertToToken } from '../../../../helpers/converters';
 import Collapsible from "../../../components/collapsible";
 import Button from "../../../components/button";
 import ExplorerForm from "./form";
@@ -62,27 +62,21 @@ const PanelMethod = ({ items, address, type, title, token, active }) => {
             ) : (
               <>
                 <span>
-                  {item.outputs[0].type === "uint" && !(item.name === "releaseTime" || item.name === "decimals") ? (
+                  {item.outputs[0].type === "uint" && !(item.name === "releaseTime" || item.name === "releaseDelay" || item.name === "decimals" || item.name === "rate") ? (
                     <div className="mb-1">
                       <span className="text-info">
                         {convertToToken(item.value, 8, true)}&nbsp;
                       </span>
-                      {token.value}&nbsp; 
-                      <span className="text-info">
+                      <span>
                         ({Number(item.value).toLocaleString("en", {
                           useGrouping: true,
                         })})
                       </span>
                     </div>
+                  ) : (item.outputs[0].type === "uint" && item.name === "rate") ? (
+                    <span className="text-info">{convertRate(item.value)}</span>
                   ) : (
-                    <>
-                      {item.value}&nbsp;
-                      <span className="text-info">
-                        {item.outputs[0].type.toLocaleString("en", {
-                          useGrouping: true,
-                        })}
-                      </span>
-                    </>
+                    <span className="text-info">{item.value}</span>
                   )}
                 </span>
               </>

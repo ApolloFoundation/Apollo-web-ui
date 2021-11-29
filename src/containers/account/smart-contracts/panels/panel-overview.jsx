@@ -1,6 +1,6 @@
 import React from "react";
 
-import { convertToToken } from "../../../../helpers/converters";
+import { convertRate, convertToToken } from '../../../../helpers/converters';
 
 const PanelOverview = ({ overview, token }) => {
   return (
@@ -9,41 +9,35 @@ const PanelOverview = ({ overview, token }) => {
         <div className="heading mb-3">Overview</div>
         <table className="w-100">
           <tbody>
-            {overview.map((item) => {
+            {overview.map((item, index) => {
               return token ? (
-                <tr key={item.name}>
+                <tr key={index}>
                   <td>{item.name}</td>
                   <td>
-                    {item.type === "uint" && !(item.name === "releaseTime" || item.name === "decimals" || item.name === "rate") ? (
+                    {item.type === "uint" && !(item.name === "releaseTime" || item.name === "releaseDelay" || item.name === "decimals" || item.name === "rate") ? (
                       <span>
                         <span className="text-info">
                           {convertToToken(item.value, 8, true)}&nbsp;
                         </span>
                         {token.value && (
-                          <span>
-                            {token.value}&nbsp;
-                            <span className="text-info">
-                              {Number(item.value).toLocaleString("en", {
+                            <span>
+                              ({Number(item.value).toLocaleString("en", {
                                 useGrouping: true,
-                              })}
+                              })})
                             </span>
-                          </span>
                         )}
                       </span>
+                    ) : (item.type === "uint" && item.name === "rate") ? (
+                      <span className="text-info">{convertRate(item.value)}</span>
                     ) : (
-                      <>
-                        {item.name === "rate" ? convertToToken(item.value, 8, true) : item.value}&nbsp;
-                        <span className="text-info">{item.type}</span>
-                      </>
+                      <span className="text-info">{ item.value }</span>
                     )}
                   </td>
                 </tr>
               ) : (
-                <tr key={item.name}>
+                <tr key={index}>
                   <td>{item.name}</td>
-                  <td>
-                    {item.value} <span className="text-info"> {item.type}</span>
-                  </td>
+                  <td>{item.value}</td>
                 </tr>
               );
             })}

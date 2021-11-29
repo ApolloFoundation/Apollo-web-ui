@@ -10,7 +10,7 @@ import moment from "moment";
 import { processAccountRStoHex } from "apl-web-crypto";
 import { getTokenList, getTokensForm } from "../../../../actions/contracts";
 import { setBodyModalParamsAction } from "../../../../modules/modals";
-import { convertToAPL } from "../../../../helpers/converters";
+import { convertToATM } from "../../../../helpers/converters";
 import TextualInputComponent from "../../../components/form-components/textual-input1";
 import InputDate from "../../../components/input-date";
 import Button from "../../../components/button";
@@ -74,7 +74,7 @@ const CreateToken = ({ closeModal }) => {
           } else if (key === "releaseDelay") {
             return values[key];
           } else if (/^\d+(?:[\.,]\d+)?$/.test(values[key])) {
-            return (values[key] = convertToAPL(values[key]));
+            return (values[key] = convertToATM(values[key]));
           }
           return values[key];
         });

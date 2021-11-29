@@ -6,7 +6,7 @@
  import React, { useCallback, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { processAccountRStoHex } from "apl-web-crypto";
-import { convertToAPL } from "../../../../helpers/converters";
+import { convertToATM } from "../../../../helpers/converters";
 import {
   testSmcMethod,
   callSmcMethod,
@@ -28,7 +28,7 @@ export default function ({ closeModal }) {
     const isValidForm = validationForm({ amount, recipient, ...values },passPhrase);
 
     if (!isValidForm) {
-      const convertedValue = convertToAPL(amount);
+      const convertedValue = convertToATM(amount);
       let data = {
         ...values,
         name: "transfer",

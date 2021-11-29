@@ -12,7 +12,7 @@ import {
   callSmcMethod,
   publishSmcTransaction,
 } from "../../../../actions/contracts";
-import { convertToAPL } from "../../../../helpers/converters";
+import { convertToATM } from "../../../../helpers/converters";
 import { setTransaction } from "../../../../modules/smartContract";
 import { validationForm } from "../../../../helpers/forms/contractValidator"
 
@@ -51,11 +51,11 @@ export default function ({ closeModal }) {
 
   const formSubmit = useCallback(async ({ feeATM, source, formIndex, ...values }) => {
       const isValidForm = validationForm(values, passPhrase);
-      
+
       if (!isValidForm) {
         let data = {
           ...values,
-          value: convertToAPL(values.value),
+          value: convertToATM(values.value),
           params: values.params.split(","),
         };
 
@@ -64,13 +64,13 @@ export default function ({ closeModal }) {
           setLoading(false);
           return;
         }
-  
+
         const callData = await dispatch(callSmcMethod(data));
         if (!callData) {
           setLoading(false);
           return;
         }
-  
+
         const publishData = await dispatch(publishSmcTransaction({ tx: callData.tx }));
         if (!publishData) {
           setLoading(false);

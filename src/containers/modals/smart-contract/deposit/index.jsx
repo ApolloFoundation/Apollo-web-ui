@@ -6,7 +6,7 @@
 import React, { useState, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { processAccountRStoHex } from "apl-web-crypto";
-import { convertToAPL } from "../../../../helpers/converters";
+import { convertToATM } from "../../../../helpers/converters";
 import {
   testSmcMethod,
   callSmcMethod,
@@ -33,7 +33,7 @@ export default function ({ closeModal }) {
         params: [
           processAccountRStoHex(values.sender, true),
           processAccountRStoHex(token, true),
-          convertToAPL(amount),
+          convertToATM(amount),
         ],
         address: modalData?.address,
       };
