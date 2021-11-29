@@ -14,7 +14,7 @@ const PanelOverview = ({ overview, token }) => {
                 <tr key={index}>
                   <td>{item.name}</td>
                   <td>
-                    {item.type === "uint" && !(item.name === "releaseTime" || item.name === "decimals" || "rate") ? (
+                    {item.type === "uint" && !(item.name === "releaseTime" || item.name === "decimals" || item.name === "rate") ? (
                       <span>
                         <span className="text-info">
                           {convertToToken(item.value, 8, true)}&nbsp;
