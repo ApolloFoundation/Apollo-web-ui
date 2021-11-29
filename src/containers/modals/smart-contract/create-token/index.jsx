@@ -15,6 +15,7 @@ import TextualInputComponent from "../../../components/form-components/textual-i
 import InputDate from "../../../components/input-date";
 import Button from "../../../components/button";
 import fieldValidate from "./form/form-validation";
+import AccountRSForm from "../../../components/form-components/account-rs1";
 
 const CreateToken = ({ closeModal }) => {
   const dispatch = useDispatch();
@@ -89,7 +90,8 @@ const CreateToken = ({ closeModal }) => {
     [dispatch, currentToken]
   );
 
-  const handleChangeAPL = useCallback((setFieldValue, e) => {
+  const handleChangeAPL = useCallback(
+    (setFieldValue, e) => {
       const value = e.target.value;
       setFieldValue("atm", value);
       setApl(value);
@@ -234,23 +236,44 @@ const CreateToken = ({ closeModal }) => {
                         </div>
                       );
                     }
-                    return (
-                      <Field
-                        key={item.name}
-                        name={item.name}
-                        validate={(value) => fieldValidate(value, item.type)}
-                        render={({ field: { name } }) => (
-                          <div className="mb-3">
-                            {item.type === "timestamp" ? (
+                    if (item.type === "address") {
+                      return (
+                        <Field
+                          name={item.name}
+                          validate={(value) => fieldValidate(value, item.type)}
+                          render={({ field: { name } }) => {
+                            return (
+                              <div className="mb-3">
+                                <AccountRSForm
+                                  className={"text-capitalize"}
+                                  label={name}
+                                  name={name}
+                                  placeholder={name}
+                                />
+                                {errors[name] && touched[name] && (
+                                  <div className={"text-danger"}>
+                                    {errors[item.name]}
+                                  </div>
+                                )}
+                              </div>
+                            );
+                          }}
+                        />
+                      );
+                    }
+                    if (item.type === "timestamp") {
+                      return (
+                        <Field
+                          name={item.name}
+                          validate={(value) => fieldValidate(value, item.type)}
+                          render={({ field: { name } }) => (
+                            <div className="mb-3">
                               <InputDate
                                 label={name}
                                 selected={startDate}
                                 onChange={(date) => {
                                   setStartDate(date);
-                                  setFieldValue(
-                                    name,
-                                    moment(date).toISOString()
-                                  );
+                                  setFieldValue(name, moment(date).toISOString());
                                 }}
                                 name={name}
                                 showTimeSelect
@@ -259,15 +282,29 @@ const CreateToken = ({ closeModal }) => {
                                 timeCaption="time"
                                 dateFormat="MMMM d, yyyy h:mm:ss aa"
                               />
-                            ) : (
-                              <TextualInputComponent
-                                className={"text-capitalize"}
-                                label={name}
-                                name={name}
-                                placeholder={name}
-                                type={item.type === "uint" ? "float" : "text"}
-                              />
-                            )}
+                              {errors[name] && touched[name] && (
+                                <div className={"text-danger"}>
+                                  {errors[item.name]}
+                                </div>
+                              )}
+                            </div>
+                          )}
+                        />
+                      );
+                    }
+                    return (
+                      <Field
+                        name={item.name}
+                        validate={(value) => fieldValidate(value, item.type)}
+                        render={({ field: { name } }) => (
+                          <div className="mb-3">
+                            <TextualInputComponent
+                              className={"text-capitalize"}
+                              label={name}
+                              name={name}
+                              placeholder={name}
+                              type={item.type === "uint" ? "float" : "text"}
+                            />
                             {errors[name] && touched[name] && (
                               <div className={"text-danger"}>
                                 {errors[item.name]}
