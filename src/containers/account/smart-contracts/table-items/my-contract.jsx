@@ -67,7 +67,7 @@ const TableItemMyContract = ({
           name={address} 
         />
       </td>
-      <td>{baseContract || "-"}</td>
+      <td>{baseContract}</td>
       <td>
         <Button
           color="blue-link"
@@ -75,9 +75,9 @@ const TableItemMyContract = ({
           name={transaction}
         />
       </td>
-      <td>{signature && signature.substr(-12) || "-"}</td>
-      <td>{timestamp && currentDate || "-"}</td>
-      <td>{status || "-"}</td>
+      <td>{signature && signature.substr(-12) || " "}</td>
+      <td>{timestamp}</td>
+      <td>{status}</td>
       <td className="align-right">
         <div className="btn-box inline">
           <Button
