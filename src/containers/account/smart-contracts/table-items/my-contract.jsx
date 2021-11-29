@@ -43,17 +43,6 @@ const TableItemMyContract = ({
     }
   };
 
-  const handleBuyModal = async () => {
-    const specifInfo = await dispatch(getSmcSpecification(address));
-    if (specifInfo) {
-      const smcInfo = specifInfo.members.reduce(
-        (ac, { ["name"]: x, ...rest }) => ((ac[x] = rest.value), ac),
-        {}
-      );
-      dispatch(setBodyModalParamsAction("SMC_BUY", { address, smcInfo }));
-    }
-  };
-
   const handleDepositModal = () => {
     dispatch(setBodyModalParamsAction("SMC_DEPOSIT", { address }));
   };
@@ -82,7 +71,7 @@ const TableItemMyContract = ({
           name={transaction}
         />
       </td>
-      <td>{signature.substr(-12)}</td>
+      <td>{signature && signature.substr(-12)}</td>
       <td>{currentDate}</td>
       <td>{status}</td>
       <td className="align-right">
