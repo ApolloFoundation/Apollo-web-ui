@@ -6,6 +6,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
+import classNames from 'classnames';
 import {openPrevModal, setBodyModalParamsAction, setModalData} from '../../../modules/modals';
 import {getTransactionAction} from "../../../actions/transactions";
 import {formatTimestamp} from "../../../helpers/util/time";
@@ -16,40 +17,45 @@ import TabContaier from '../../components/tabulator/tab-container';
 import ModalBody from "../../components/modals/modal-body";
 import ContentLoader from "../../components/content-loader";
 import InfoBox from "../../components/info-box";
+import {getCurrencyAction} from "../../../actions/currencies";
+
 
 class InfoLedgerTransaction extends React.Component {
-    constructor(props) {
-        super(props);
+    state = {
+        isPending: true,
+        activeTab: 0,
+        transaction: null,
+        transactionId: null,
+        currency: null,
+    };
 
-        this.state = {
-            isPending: true,
-            activeTab: 0,
-            transaction: null,
-            transactionId: null,
-        };
-
-        this.handleTab = this.handleTab.bind(this);
-    }
-
-    handleTab(e, index) {
+    handleTab = (e, index) => {
         e.preventDefault();
 
         this.setState({
             ...this.props,
             activeTab: index
-        })
+        });
     }
 
     processTransaction = async () => {
-        const transaction = await this.props.getTransaction({transaction: this.state.transactionId});
+        let currency = null;
+        const transaction = await this.props.getTransactionAction({transaction: this.state.transactionId});
+        if (transaction && transaction.attachment.currency) {
+            currency = await this.props.getCurrencyAction({currency: transaction.attachment.currency});
+        }
         this.setState({
             transaction,
-            isPending: false
+            isPending: false,
+            currency,
         });
     };
 
     static getDerivedStateFromProps(props, state) {
-        if (props.modalData && Object.keys(props.modalData).length > 0 && (!state.transactionId || props.modalData !== state.modalData)) {
+        if (props.modalData
+            && Object.keys(props.modalData).length > 0
+            && (!state.transactionId || props.modalData !== state.modalData)
+        ) {
             if (props.modalData && !props.modalData.errorCode) {
                 const isDataObject = props.modalData instanceof Object;
                 return {
@@ -63,15 +69,29 @@ class InfoLedgerTransaction extends React.Component {
         return null;
     };
 
+    getCurrency = async () => {
+        let currency = null;
+        if (this.state.transaction && this.state.transaction.attachment.currency) {
+            currency = await this.props.getCurrencyAction({
+                currency: this.state.transaction.attachment.currency
+            });
+        }
+        this.setState({
+            currency,
+        });
+    }
+
     componentDidMount() {
         if (this.state.transactionId && !(this.state.transaction instanceof Object)) {
             this.processTransaction();
         }
+        this.getCurrency();
     }
 
     componentDidUpdate(prevProps, prevState) {
         if (this.state.transactionId && prevState.transactionId !== this.state.transactionId) {
             this.processTransaction();
+            this.getCurrency();
         }
         if (this.state.transaction && this.state.transaction.phased && this.state.transaction !== prevState.transaction) {
             this.getWhiteListOfTransaction();
@@ -95,9 +115,22 @@ class InfoLedgerTransaction extends React.Component {
         }
     };
 
+    handleTransferCurrency = () => {
+        const { transaction, currency } = this.state;
+        const recipientRS = transaction
+          && (this.props.accountRS === transaction.recipientRS ? transaction.senderRS : transaction.recipientRS);
+
+        const data = {
+            recipient: recipientRS,
+            ...currency,
+        }
+        this.props.setBodyModalParamsAction('TRANSFER_CURRENCY', data);
+    }
+
     render() {
         const {transaction, transactionId} = this.state;
         const { decimals } = this.props;
+        console.log("🚀 ~ file: info-transaction.js ~ line 136 ~ InfoLedgerTransaction ~ render ~ this.props", this.props)
 
         const parsedSignatures = (transaction && transaction.signature) && (typeof transaction.signature === "string" ? [transaction.signature] : transaction.signature.signatures.map(i => i.signature));
         
@@ -149,8 +182,13 @@ class InfoLedgerTransaction extends React.Component {
                                         </button>
                                         <button
                                             type={'button'}
-                                            onClick={() => this.props.setBodyModalParamsAction('TRANSFER_CURRENCY', {recipient: recipientRS})}
-                                            className={`btn btn-green ${!this.state.transaction.recipientRS ? 'disabled' : ''}`}
+                                            onClick={this.handleTransferCurrency}
+                                            className={
+                                                classNames('btn btn-green', {
+                                                    'disabled': !this.state.transaction.recipientRS || !this.state.currency,
+                                                    }
+                                                )
+                                            }
                                         >
                                             Transfer Currency
                                         </button>
@@ -416,13 +454,14 @@ const mapStateToProps = state => ({
     constants: state.account.constants,
 });
 
-const mapDispatchToProps = dispatch => ({
-    setModalData: (data) => dispatch(setModalData(data)),
-    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-    formatTimestamp: (timestamp) => dispatch(formatTimestamp(timestamp)),
-    openPrevModal: () => dispatch(openPrevModal()),
-    getTransaction: transaction => dispatch(getTransactionAction(transaction)),
-    getAccountInfoAction: (account) => dispatch(getAccountInfoAction(account)),
-});
+const mapDispatchToProps = {
+    setModalData,
+    setBodyModalParamsAction,
+    formatTimestamp,
+    openPrevModal,
+    getTransactionAction,
+    getAccountInfoAction,
+    getCurrencyAction,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(InfoLedgerTransaction);

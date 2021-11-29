@@ -128,7 +128,11 @@ class InfoTransactionTable extends Component {
 	);
 
 	render() {
-		const modalTypeName = formatTransactionType(this.props.constants.transactionTypes[this.props.transaction.type].subtypes[this.props.transaction.subtype].name);
+		const modalTypeName = this.props.constants.transactionTypes[this.props.transaction.type].subtypes[this.props.transaction.subtype] 
+			&& formatTransactionType(this.props.constants.transactionTypes[this.props.transaction.type].subtypes[this.props.transaction.subtype].name);
+		
+		if (!modalTypeName) return null;
+
 		const {secretPhrase, transaction: {attachment: {message, encryptedMessage}}, passPhrase, decimals, ticker} = this.props;
 		const transactionType = this.props.transaction && this.props.constants.transactionTypes && this.props.constants.transactionTypes[this.props.transaction.type];
 		return (
