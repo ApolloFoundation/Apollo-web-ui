@@ -4,7 +4,7 @@
  ******************************************************************************/
 
 import React, { useState, useCallback, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Form, Formik } from "formik";
 import { processAccountRStoHex } from "apl-web-crypto";
 import { getContracts } from "../../../../actions/contracts";
@@ -19,6 +19,7 @@ import ContentLoader from "../../../components/content-loader";
 
 const MyTokens = () => {
   const dispatch = useDispatch();
+  const { accountRS } = useSelector((state) => state.account);
   const [contractList, setContractList] = useState([]);
   const [filteredContractList, setFilteredContractList] = useState(null);
   const [viewContractList, setViewContractList] = useState([]);
@@ -68,7 +69,7 @@ const MyTokens = () => {
             members: [
               {
                 function: "balanceOf",
-                input: [processAccountRStoHex(el.address, true)],
+                input: [processAccountRStoHex(accountRS, true)],
               },
             ],
           })
