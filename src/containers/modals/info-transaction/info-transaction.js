@@ -129,7 +129,6 @@ class InfoLedgerTransaction extends React.Component {
     render() {
         const {transaction, transactionId} = this.state;
         const { decimals } = this.props;
-        console.log("🚀 ~ file: info-transaction.js ~ line 136 ~ InfoLedgerTransaction ~ render ~ this.props", this.props)
 
         const parsedSignatures = (transaction && transaction.signature) && (typeof transaction.signature === "string" ? [transaction.signature] : transaction.signature.signatures.map(i => i.signature));
         
