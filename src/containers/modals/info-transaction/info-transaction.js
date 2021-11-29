@@ -91,7 +91,6 @@ class InfoLedgerTransaction extends React.Component {
     componentDidUpdate(prevProps, prevState) {
         if (this.state.transactionId && prevState.transactionId !== this.state.transactionId) {
             this.processTransaction();
-            this.getCurrency();
         }
         if (this.state.transaction && this.state.transaction.phased && this.state.transaction !== prevState.transaction) {
             this.getWhiteListOfTransaction();

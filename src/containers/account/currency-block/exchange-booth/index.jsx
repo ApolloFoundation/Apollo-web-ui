@@ -119,8 +119,6 @@ export default function ExchangeBooth() {
     ? (dataAccountCurrency.unconfirmedUnits / (10 ** dataAccountCurrency.decimals))
     : 0;
 
-    console.log(currencyInfo);
-
   return (
     <div className="page-content">
       <SiteHeader pageTitle="Exchange booth">
