@@ -128,7 +128,8 @@ class InfoTransactionTable extends Component {
 	);
 
 	render() {
-		const modalTypeName = (this.props.transaction.type && this.props.transaction.subtype)
+		const modalTypeName = (typeof this.props.transaction.type === 'number' 
+			&& typeof this.props.transaction.subtype === 'number')
 			&& formatTransactionType(this.props.constants.transactionTypes[this.props.transaction.type].subtypes[this.props.transaction.subtype].name);
 		
 		if (!modalTypeName) return null;
