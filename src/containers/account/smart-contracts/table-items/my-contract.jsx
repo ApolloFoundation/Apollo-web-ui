@@ -63,7 +63,7 @@ const TableItemMyContract = ({
       <td>
         <Button color="blue-link" onClick={handleContractInfo} name={address} />
       </td>
-      <td>{baseContract}</td>
+      <td>{baseContract && baseContract}</td>
       <td>
         <Button
           color="blue-link"
@@ -72,8 +72,8 @@ const TableItemMyContract = ({
         />
       </td>
       <td>{signature && signature.substr(-12)}</td>
-      <td>{currentDate}</td>
-      <td>{status}</td>
+      <td>{timestamp && currentDate}</td>
+      <td>{status && status}</td>
       <td className="align-right">
         <div className="btn-box inline">
           <Button
