@@ -70,10 +70,10 @@ const CreateToken = ({ closeModal }) => {
         Object.keys(values).map((key) => {
           if (/^APL/.test(values[key])) {
             return (values[key] = processAccountRStoHex(values[key], true));
-          } else if (key === "rate" || key === "releaseDelay") {
+          } else if (key === "releaseDelay") {
             return values[key];
           } else if (/^\d+(?:[\.,]\d+)?$/.test(values[key])) {
-            return (values[key] = convertToAPL(values[key]));
+            return (values[key] = convertToAPL(values[key])); //convert to atm
           }
           return values[key];
         });
@@ -89,17 +89,21 @@ const CreateToken = ({ closeModal }) => {
     [dispatch, currentToken]
   );
 
-  const handleChangeAPL = useCallback(
-    (setFieldValue, e) => {
+  const handleChangeAPL = useCallback((setFieldValue, e) => {
       const value = e.target.value;
-
       setFieldValue("atm", value);
       setApl(value);
 
-      if (value != 0 && token != 0) {
-        setFieldValue("rate", convertToAPL(token) / convertToAPL(value));
+      if (value && token) {
+        const currentRate = (token / value).toLocaleString("en", {
+          useGrouping: false,
+          maximumFractionDigits: 8,
+        });
+        setFieldValue("rate", currentRate);
       }
-    },[token]);
+    },
+    [token]
+  );
 
   const handleChangeToken = (setFieldValue, e) => {
     const value = e.target.value;
@@ -107,14 +111,12 @@ const CreateToken = ({ closeModal }) => {
     setFieldValue("token", value);
     setToken(value);
 
-    if (/^0./.test(value)) {
-      setFieldValue("token", 0);
-      setToken(0);
-      return;
-    }
-
-    if (value != 0 && apl != 0) {
-      setFieldValue("rate", convertToAPL(value) / convertToAPL(apl));
+    if (value && apl) {
+      const currentRate = (value / apl).toLocaleString("en", {
+        useGrouping: false,
+        maximumFractionDigits: 8,
+      });
+      setFieldValue("rate", currentRate);
     }
   };
 
@@ -184,7 +186,9 @@ const CreateToken = ({ closeModal }) => {
                                 type="number"
                                 name="atm"
                                 value={values.atm}
-                                onChange={(e) => handleChangeAPL(setFieldValue, e)}
+                                onChange={(e) =>
+                                  handleChangeAPL(setFieldValue, e)
+                                }
                               />
                             </div>
                             <div className="col-auto">
@@ -198,7 +202,9 @@ const CreateToken = ({ closeModal }) => {
                                 type="number"
                                 name="token"
                                 value={values.token}
-                                onChange={(e) => handleChangeToken(setFieldValue, e)}
+                                onChange={(e) =>
+                                  handleChangeToken(setFieldValue, e)
+                                }
                               />
                             </div>
                           </div>

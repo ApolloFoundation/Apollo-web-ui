@@ -23,8 +23,8 @@ export default function ({ closeModal }) {
 
   const [isLoading, setLoading] = useState(false);
 
-  const handleChangeAmount = (setFieldValue) => (value) => {
-    const convertedValue = convertToToken(value * modalData?.smcInfo?.rate);
+  const handleChangeAmount = (setFieldValue) => (value) => {  
+    const convertedValue = value * convertToToken(modalData?.smcInfo?.rate)
     setFieldValue("token", convertedValue);
   };
 
