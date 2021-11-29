@@ -21,13 +21,11 @@ export function readFromLocalStorage(field) {
   try {
     let value = secureStorage.getItem(field);
     let cookieValue
-    let checkValue
     if (field === 'APLUserRS') {
       cookieValue = getCookie(field);
-      checkValue = value ? (!!cookieValue && cookieValue !== JSON.parse(value)) : !!cookieValue
     }
     if (!value && !cookieValue) return value;
-    if (checkValue) {
+    if (!value && !!cookieValue) {
       secureStorage.clear();
       writeToLocalStorage(field, cookieValue);
       value = JSON.stringify(cookieValue);
