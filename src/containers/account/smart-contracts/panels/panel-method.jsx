@@ -62,25 +62,22 @@ const PanelMethod = ({ items, address, type, title, token, active }) => {
             ) : (
               <>
                 <span>
-                  {item.outputs[0].type === "uint" &&
-                  !(item.name === "releaseTime" || item.name === "decimals") ? (
+                  {item.outputs[0].type === "uint" && !(item.name === "releaseTime" || item.name === "decimals") ? (
                     <div className="mb-1">
                       <span className="text-info">
-                        {convertToToken(item.value, 8, true)}{" "}
+                        {convertToToken(item.value, 8, true)}&nbsp;
                       </span>
-                      {token.value} (
+                      {token.value}&nbsp; 
                       <span className="text-info">
-                        {Number(item.value).toLocaleString("en", {
+                        ({Number(item.value).toLocaleString("en", {
                           useGrouping: true,
-                        })}
+                        })})
                       </span>
-                      )
                     </div>
                   ) : (
                     <>
-                      {item.value}
+                      {item.value}&nbsp;
                       <span className="text-info">
-                        {" "}
                         {item.outputs[0].type.toLocaleString("en", {
                           useGrouping: true,
                         })}

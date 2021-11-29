@@ -9,9 +9,9 @@ const PanelOverview = ({ overview, token }) => {
         <div className="heading mb-3">Overview</div>
         <table className="w-100">
           <tbody>
-            {overview.map((item, index) => {
+            {overview.map((item) => {
               return token ? (
-                <tr key={index}>
+                <tr key={item.name}>
                   <td>{item.name}</td>
                   <td>
                     {item.type === "uint" && !(item.name === "releaseTime" || item.name === "decimals" || item.name === "rate") ? (
@@ -32,14 +32,14 @@ const PanelOverview = ({ overview, token }) => {
                       </span>
                     ) : (
                       <>
-                        {item.value}
-                        <span className="text-info"> {item.type}</span>
+                        {item.name === "rate" ? convertToToken(item.value, 8, true) : item.value}&nbsp;
+                        <span className="text-info">{item.type}</span>
                       </>
                     )}
                   </td>
                 </tr>
               ) : (
-                <tr key={index}>
+                <tr key={item.name}>
                   <td>{item.name}</td>
                   <td>
                     {item.value} <span className="text-info"> {item.type}</span>
