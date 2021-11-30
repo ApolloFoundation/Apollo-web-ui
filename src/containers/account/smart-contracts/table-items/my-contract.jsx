@@ -61,10 +61,10 @@ const TableItemMyContract = ({
   return (
     <tr>
       <td>
-        <Button 
-          color="blue-link" 
-          onClick={handleContractInfo} 
-          name={address} 
+        <Button
+          color="blue-link"
+          onClick={handleContractInfo}
+          name={address}
         />
       </td>
       <td>{baseContract}</td>

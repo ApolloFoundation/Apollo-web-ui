@@ -5,7 +5,7 @@
 
 import React, { useState, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { convertRate, convertToATM, convertToToken } from '../../../../helpers/converters';
+import { convertToATM, convertToToken } from '../../../../helpers/converters';
 
 import {
   testSmcMethod,
@@ -24,7 +24,7 @@ export default function ({ closeModal }) {
   const [isLoading, setLoading] = useState(false);
 
   const handleChangeAmount = (setFieldValue) => (value) => {
-    const convertedValue = value * convertRate(modalData?.smcInfo?.rate)
+    const convertedValue = convertToToken(value * modalData?.smcInfo?.rate)
     setFieldValue("token", convertedValue);
   };
 

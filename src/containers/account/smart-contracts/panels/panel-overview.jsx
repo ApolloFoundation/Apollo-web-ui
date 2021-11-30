@@ -1,6 +1,6 @@
 import React from "react";
 
-import { convertRate, convertToToken } from '../../../../helpers/converters';
+import { convertToToken } from '../../../../helpers/converters';
 
 const PanelOverview = ({ overview, token }) => {
   return (
@@ -28,7 +28,7 @@ const PanelOverview = ({ overview, token }) => {
                         )}
                       </span>
                     ) : (item.type === "uint" && item.name === "rate") ? (
-                      <span className="text-info">{convertRate(item.value)}</span>
+                      <span className="text-info">{convertToToken(item.value)}</span>
                     ) : (
                       <span className="text-info">{ item.value }</span>
                     )}

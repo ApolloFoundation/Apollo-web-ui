@@ -7,6 +7,7 @@
     "ace-builds": "^1.4.12",
     "apl-web-crypto": "^1.0.22",
     "axios": "0.19.2",
+    "bignumber.js": "9.0.1",
     "bootstrap": "4.4.1",
     "chart.js": "2.9.3",
     "classnames": "2.2.6",

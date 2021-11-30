@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { convertRate, convertToToken } from '../../../../helpers/converters';
+import { convertToToken } from '../../../../helpers/converters';
 import Collapsible from "../../../components/collapsible";
 import Button from "../../../components/button";
 import ExplorerForm from "./form";
@@ -74,7 +74,7 @@ const PanelMethod = ({ items, address, type, title, token, active }) => {
                       </span>
                     </div>
                   ) : (item.outputs[0].type === "uint" && item.name === "rate") ? (
-                    <span className="text-info">{convertRate(item.value)}</span>
+                    <span className="text-info">{convertToToken(item.value)}</span>
                   ) : (
                     <span className="text-info">{item.value}</span>
                   )}

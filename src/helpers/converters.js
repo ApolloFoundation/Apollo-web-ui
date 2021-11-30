@@ -6,6 +6,7 @@
 
 import CryptoJS from 'crypto-js';
 import jsbn from 'jsbn';
+import BigNumber from 'bignumber.js';
 import AplAddress from './util/apladres';
 import curve25519 from './crypto/curve25519';
 import crypto from './crypto/crypto';
@@ -551,27 +552,23 @@ function generateTokenAPL(messageToGenerate, sp) {
 };
 
 export function convertToToken(value, decimal = 8, useGrouping = false) {
-    const valueBN = new BigInteger(value.toString());
-    const pointsBN = new BigInteger(Math.pow(10, decimal).toString());
-    return (valueBN.divide(pointsBN)).toLocaleString('en', {
-        useGrouping
-    })
-}
-
-export function convertRate(value, useGrouping = false) {
-  const points = Math.pow(10, 8);
-  return (value / points).toLocaleString('en', {
+  const valueBN = new BigNumber(value);
+  const pointsBN = new BigNumber(Math.pow(10, decimal));
+  return (valueBN.dividedBy(pointsBN)).toNumber().toLocaleString('en', {
     useGrouping,
     minimumFractionDigits: 0,
     maximumFractionDigits: 8,
-  })
+  });
 }
 
 export function convertToATM(value, decimal = 8, useGrouping = false) {
-    const points = Math.pow(10, decimal).toString();
-    return  (value * points).toLocaleString('en', {
-        useGrouping
-    })
+  const valueBN = new BigNumber(value);
+  const pointsBN = new BigNumber(Math.pow(10, decimal));
+  return (valueBN.multipliedBy(pointsBN)).toNumber().toLocaleString('en', {
+    useGrouping,
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 8,
+  });
 }
 
 export function convertHexToUint(value, base = 16) {

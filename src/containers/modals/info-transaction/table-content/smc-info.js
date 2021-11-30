@@ -35,7 +35,7 @@ export default function SmcInfo({ transaction: info, decimals }) {
     [dispatch]
   );
 
-  
+
   useEffect(() => {
     getContractInfo(transaction);
   }, [transaction, getContractInfo]);

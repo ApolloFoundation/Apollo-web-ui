@@ -60,7 +60,7 @@ const ExplorerContracts = (props) => {
   );
 
   const handleChangeTab = (e, index) => setActiveTab(index)
-  
+
   return (
     <div className="page-content">
       <SiteHeader pageTitle={"Smart Contracts"} />

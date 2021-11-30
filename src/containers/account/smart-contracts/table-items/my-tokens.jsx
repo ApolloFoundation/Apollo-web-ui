@@ -49,7 +49,7 @@ const TableItemMyTokens = ({
         <Button color="blue-link" onClick={handleTokenInfo} name={symbol} />
       </td>
       <td className="align-right">
-        {convertToToken(balance, 8, true).toLocaleString("en", {useGrouping: true})}
+        {convertToToken(balance, 8, true)}
       </td>
       <td className="align-right">{signature.substr(-12)}</td>
       <td className="align-right">
