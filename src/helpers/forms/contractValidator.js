@@ -80,7 +80,6 @@ const errorsList = {
 
 export function validationForm(values, passPhrase) {
   return Object.entries(values).reduce((acc, [key, value]) => {
-    console.log('---acc---', acc, key, value, errorsList[key])
     const validateValue = errorsList[key] && errorsList[key](value, passPhrase);
     return acc || validateValue;
   }, false);
