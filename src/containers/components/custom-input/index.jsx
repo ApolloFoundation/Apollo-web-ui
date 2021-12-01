@@ -13,7 +13,7 @@ export default function CustomInput(props) {
   const { setValue } = helpers;
   const isNumberInput = (type === 'tel' || type === 'float') && !disabled && !disableArrows;
 
-  const parseValue = value => {
+  const parseValue = (value) => {
     let currentValue = value;
 
     if (type === 'tel') {
@@ -27,6 +27,7 @@ export default function CustomInput(props) {
       if (!value.target && currentValue.includes('.')) {
         let fract = currentValue.substring(currentValue.indexOf('.'));
         currentValue = currentValue.substring(0, currentValue.indexOf('.'));
+
         if (fract.length > 9) {
           fract = fract.substring(0, 9); // 8 + 1 (dot symbol)
         }

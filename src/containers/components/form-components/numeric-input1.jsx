@@ -6,7 +6,7 @@ import CheckboxFormInput from '../check-button-input';
 const NumericInput = ({
   values, label, name, countingTtile, counterLabel, placeholder, type,
   inputHint, defaultValue, disabled, disableArrows, disabledFee, idGroup,
-  onChange, id
+  onChange, id,
 }) => (
   <>
     <div className="form-group">

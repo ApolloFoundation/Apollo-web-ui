@@ -30,6 +30,7 @@ const ByForm = ({ ticker, onChangeAmount }) => {
               label="Amount APL"
               name="value"
               type="float"
+    
               counterLabel={ticker}
               defaultValue={0}
               onChange={onChangeAmount(setFieldValue)}
@@ -43,6 +44,7 @@ const ByForm = ({ ticker, onChangeAmount }) => {
               id="input-amount-token-buy-token"
               label="Amount Token"
               type="float"
+    
               name="token"
               defaultValue={0}
               disabled
