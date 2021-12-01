@@ -97,10 +97,10 @@ const CreateToken = ({ closeModal }) => {
       setApl(value);
 
       if (value && token) {
-        const currentRate = (token / value).toLocaleString("en", {
+        const currentRate = +value ? (token / value).toLocaleString("en", {
           useGrouping: false,
           maximumFractionDigits: 8,
-        });
+        }) : '0';
         setFieldValue("rate", currentRate);
       }
     },
@@ -212,9 +212,7 @@ const CreateToken = ({ closeModal }) => {
                           </div>
                           <Field
                             name={item.name}
-                            validate={(value) =>
-                              fieldValidate(value, item.type)
-                            }
+                            validate={(value) => fieldValidate(value, item.type)}
                             render={({ field: { name } }) => (
                               <div className="mb-3">
                                 <TextualInputComponent

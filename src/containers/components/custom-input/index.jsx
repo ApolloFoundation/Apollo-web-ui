@@ -61,7 +61,7 @@ export default function CustomInput(props) {
         value -= newStep;
         if (value < 0) value = 0;
         if (minValue !== undefined && value < parseFloat(minValue)) {
-          value = minValue;
+          value = minValue.toLocaleString('en', { useGrouping: false, maximumFractionDigits: 8 });
         }
 
         setValue(value);
