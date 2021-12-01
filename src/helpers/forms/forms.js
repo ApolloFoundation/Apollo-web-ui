@@ -763,7 +763,7 @@ function processAjaxRequest(requestType, data, callback, options) {
                 delete data.encrypt_message;
             } else {
                 try {
-                    file = $("#file")[0].files[0];
+                    file = $("input[id^='file-input-']")[0].files[0];
                 } catch(e) {
                     // console.log(e);
                 }

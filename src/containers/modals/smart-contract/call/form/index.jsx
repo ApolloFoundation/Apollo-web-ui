@@ -32,7 +32,6 @@ const MessageExecutionForm = ({ isExplorerDisabled, isDisabled, ticker }) => {
         label="Amount APL"
         name="value"
         type="float"
-        limit={9}
         counterLabel={ticker}
         defaultValue={0}
       />
@@ -47,14 +46,12 @@ const MessageExecutionForm = ({ isExplorerDisabled, isDisabled, ticker }) => {
         label="Fuel price"
         name="fuelPrice"
         type="float"
-        limit={9}
         defaultValue={0}
       />
       <NumericInput
         label="Fuel limit"
         name="fuelLimit"
         type="float"
-        limit={9}
         defaultValue={0}
       />
       <TextualInputComponent

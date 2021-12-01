@@ -7,13 +7,13 @@ import styles from './styles.module.scss';
 export default function CustomInput(props) {
   const {
     label, className, type, disableArrows, disabled, id, children, onChange,
-    maxValue, minValue, step, isSpecialSymbols, name, placeholder,limit
+    maxValue, minValue, step, isSpecialSymbols, name, placeholder,
   } = props;
   const [field, , helpers] = useField(name);
   const { setValue } = helpers;
   const isNumberInput = (type === 'tel' || type === 'float') && !disabled && !disableArrows;
 
-  const parseValue = (value, limitValue = 10) => {
+  const parseValue = (value) => {
     let currentValue = value;
 
     if (type === 'tel') {
@@ -27,8 +27,9 @@ export default function CustomInput(props) {
       if (!value.target && currentValue.includes('.')) {
         let fract = currentValue.substring(currentValue.indexOf('.'));
         currentValue = currentValue.substring(0, currentValue.indexOf('.'));
-        if (fract.length > limitValue) {
-          fract = fract.substring(0, limitValue);
+
+        if (fract.length > 9) {
+          fract = fract.substring(0, 9); // 8 + 1 (dot symbol)
         }
         currentValue += fract;
       }
@@ -61,7 +62,7 @@ export default function CustomInput(props) {
         value -= newStep;
         if (value < 0) value = 0;
         if (minValue !== undefined && value < parseFloat(minValue)) {
-          value = minValue;
+          value = minValue.toLocaleString('en', { useGrouping: false, maximumFractionDigits: 8 });
         }
 
         setValue(value);
@@ -70,7 +71,7 @@ export default function CustomInput(props) {
   };
 
   const handleChange = ({ target: { value } }) => {
-    const parsedValue = parseValue(value, limit);
+    const parsedValue = parseValue(value);
     if (onChange) onChange(parsedValue);
     setValue(parsedValue);
   };

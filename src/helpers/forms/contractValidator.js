@@ -4,8 +4,8 @@ const hexaRegExp = /0x[0-9a-fA-F]+/i;
 const rsRegExp = /APL-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{5}/i;
 
 const errorsList = {
-  secretPhrase: (value, passPhrase) => {
-    if (!value || value.length === 0 || value !== passPhrase) {
+  secretPhrase: (value) => {
+    if (!value || value.length === 0) {
       NotificationManager.error("Incorrect SecretPhrase", "Error", 5000);
       return true;
     }
@@ -64,11 +64,23 @@ const errorsList = {
       return true;
     }
   },
+  value: (value) => {
+    if (!value || parseFloat(value) < 0.00000001) {
+      NotificationManager.error("Amount should be numeric and have a minimum 0.00000001 value.", "Error", 5000);
+      return true;
+    }
+  },
+  amount: (value) => {
+    if (!value || parseFloat(value) < 0.00000001) {
+      NotificationManager.error("Amount should be numeric and have a minimum 0.00000001 value.", "Error", 5000);
+      return true;
+    }
+  },
 };
 
-export function validationForm(values, passPhrase) {
+export function validationForm(values) {
   return Object.entries(values).reduce((acc, [key, value]) => {
-    const validateValue = errorsList[key] && errorsList[key](value, passPhrase);
+    const validateValue = errorsList[key] && errorsList[key](value);
     return acc || validateValue;
   }, false);
 }

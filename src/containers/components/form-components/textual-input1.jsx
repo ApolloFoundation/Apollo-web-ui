@@ -3,9 +3,7 @@ import CustomInput from '../custom-input';
 
 const TextualInputComponent = ({
   disabled, hendler, placeholder, name, type,
-  label, code, text, className, idGroup, inputHint, id,
-  limit
-}) => (
+  label, code, text, className, idGroup, inputHint, id, minValue }) => (
   <>
     {type === 'button'
       ? (
@@ -31,13 +29,13 @@ const TextualInputComponent = ({
                 ? (
                   <>
                     <CustomInput
-                      limit={limit}
                       disabled={disabled}
                       label={label}
                       type={type}
                       name={name}
                       placeholder={placeholder}
                       id={idGroup ?? id}
+                      minValue={minValue}
                     />
                     {code && (
                       <div className="input-group-append">

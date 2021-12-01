@@ -14,7 +14,7 @@ import { convertToATM } from "../../../../helpers/converters";
 import TextualInputComponent from "../../../components/form-components/textual-input1";
 import InputDate from "../../../components/input-date";
 import Button from "../../../components/button";
-import fieldValidate from "./form/form-validation";
+import { fieldValidate, validationForm } from './form/form-validation';
 import AccountRSForm from "../../../components/form-components/account-rs1";
 
 const CreateToken = ({ closeModal }) => {
@@ -66,7 +66,7 @@ const CreateToken = ({ closeModal }) => {
 
   const submitForm = useCallback(
     ({ atm, token, ...values }) => {
-      const isValidForm = fieldValidate(values);
+      const isValidForm = validationForm(values);
       if (!isValidForm) {
         Object.keys(values).map((key) => {
           if (/^APL/.test(values[key])) {
@@ -97,10 +97,10 @@ const CreateToken = ({ closeModal }) => {
       setApl(value);
 
       if (value && token) {
-        const currentRate = (token / value).toLocaleString("en", {
+        const currentRate = +value ? (token / value).toLocaleString("en", {
           useGrouping: false,
           maximumFractionDigits: 8,
-        });
+        }) : '0';
         setFieldValue("rate", currentRate);
       }
     },
@@ -187,7 +187,7 @@ const CreateToken = ({ closeModal }) => {
                                 name="atm"
                                 placeholder="Amount APL"
                                 type="float"
-                                limit={9}
+
                               />
                             </div>
                             <div className="col-auto">
@@ -200,15 +200,13 @@ const CreateToken = ({ closeModal }) => {
                                 name="token"
                                 placeholder="Amount Token"
                                 type="float"
-                                limit={9}
+
                               />
                             </div>
                           </div>
                           <Field
                             name={item.name}
-                            validate={(value) =>
-                              fieldValidate(value, item.type)
-                            }
+                            validate={(value) => fieldValidate(value, item.type)}
                             render={({ field: { name } }) => (
                               <div className="mb-3">
                                 <TextualInputComponent
@@ -217,7 +215,7 @@ const CreateToken = ({ closeModal }) => {
                                   name={name}
                                   placeholder={name}
                                   type="float"
-                                  limit={9}
+  
                                   disabled
                                 />
                                 {errors[name] && touched[name] && (
@@ -301,7 +299,6 @@ const CreateToken = ({ closeModal }) => {
                               label={name}
                               name={name}
                               placeholder={name}
-                              limit={9}
                               type={item.type === "uint" ? "float" : "text"}
                             />
                             {errors[name] && touched[name] && (

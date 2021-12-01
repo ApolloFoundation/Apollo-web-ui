@@ -112,8 +112,8 @@ const ExplorerForm = ({
                                 label={name}
                                 name={name}
                                 placeholder={name}
-                                limit={9}
                                 type={item.type === "uint" ? "float" : "text"}
+                                minValue={0.00000001}
                               />
                             )}
                             {errors[name] && touched[name] && (

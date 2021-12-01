@@ -18,7 +18,7 @@ import { validationForm } from "../../../../helpers/forms/contractValidator"
 
 export default function ({ closeModal }) {
   const dispatch = useDispatch();
-  const { ticker, accountRS, passPhrase } = useSelector((state) => state.account);
+  const { ticker, accountRS } = useSelector((state) => state.account);
   const modalData = useSelector((state) => state.modals.modalData);
 
   const [isLoading, setLoading] = useState(false);
@@ -29,7 +29,7 @@ export default function ({ closeModal }) {
   };
 
   const formSubmit = useCallback(async ({ token, advance, feeATM, ...values }) => {
-    const isValidForm = validationForm(values, passPhrase);
+    const isValidForm = validationForm(values);
 
     if (!isValidForm) {
       let data = {

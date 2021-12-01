@@ -23,7 +23,7 @@ import Button from "../../../components/button";
 const AproveTokens = ({ closeModal }) => {
   const dispatch = useDispatch();
   const modalData = useSelector((state) => state.modals.modalData);
-  const { accountRS, passPhrase } = useSelector((state) => state.account);
+  const { accountRS } = useSelector((state) => state.account);
   const [fuelSwitcher, setFuelSwitcher] = useState(false);
   const [isLoading, setLoading] = useState(false);
 
@@ -50,7 +50,7 @@ const AproveTokens = ({ closeModal }) => {
         ...values,
       };
 
-      const isValidForm = validationForm(values, passPhrase);
+      const isValidForm = validationForm(values);
 
       if (!isValidForm) {
         setLoading(true);
@@ -139,14 +139,12 @@ const AproveTokens = ({ closeModal }) => {
                           label="Fuel price"
                           name="fuelPrice"
                           type="float"
-                          limit={9}
                           defaultValue={0}
                         />
                         <NumericInput
                           label="Fuel limit"
                           name="fuelLimit"
                           type="float"
-                          limit={9}
                           defaultValue={0}
                         />
                         <AceEditor

@@ -28,10 +28,14 @@ const ContractItemForm = ({ contractInstanse, contractId }) => {
     getContractSpecification(contractId);
   }, [contractId]);
 
-  const getContractSpecification = useCallback(async (id) => {
-    const specList = await dispatch(getSmcSpecification(id));
-    
-    if (specList) {
+  const getContractSpecification = useCallback(
+    async (id) => {
+      const specList = await dispatch(getSmcSpecification(id));
+
+      if (!specList) {
+        return;
+      }
+
       const membersList = specList.members.reduce((acc, item) => {
         if (item.type === "EVENT") {
           acc.push({
@@ -41,8 +45,7 @@ const ContractItemForm = ({ contractInstanse, contractId }) => {
         }
         return acc;
       }, []);
-        setEventList(membersList);
-      }
+      setEventList(membersList);
     },
     [dispatch]
   );
@@ -118,7 +121,6 @@ const ContractItemForm = ({ contractInstanse, contractId }) => {
     setFieldValue("signature", e);
   };
 
-
   return (
     <Formik initialValues={initialState} onSubmit={() => {}}>
       {({ values, setFieldValue, resetForm }) => (
@@ -148,7 +150,6 @@ const ContractItemForm = ({ contractInstanse, contractId }) => {
             className="mb-0"
             placeholder="From block"
             type="float"
-            limit={9}
           />
           <TextualInputComponent
             type="text"

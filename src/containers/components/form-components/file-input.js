@@ -44,6 +44,7 @@ class FileInput extends React.Component {
                         type={type}
                         accept={accept}
                         maxSize={maxSize}
+                        file={this.state.file}
                         handleFileAccepted={this.handleFileAccepted}
                         handleFileRejected={this.handleFileRejected}
                     />
