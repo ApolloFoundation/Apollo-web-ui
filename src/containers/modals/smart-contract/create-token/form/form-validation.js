@@ -1,5 +1,6 @@
-const fieldValidate = (value, type) => {
+import { NotificationManager } from 'react-notifications';
 
+export const fieldValidate = (value, type) => {
   const hexaRegExp = /0x[0-9a-fA-F]+/i;
   const rsRegExp = /APL-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{4}-[A-Z0-9]{5}/i;
 
@@ -14,4 +15,10 @@ const fieldValidate = (value, type) => {
   return error;
 };
 
-export default fieldValidate ;
+export const validationForm = (values) => {
+  if (Number(values.initialSupply) > Number(values.cap)) {
+    NotificationManager.error("Initial supply can't be greater then Cap", "Error", 5000);
+    return true;
+  }
+  return false;
+}

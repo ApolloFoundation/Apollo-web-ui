@@ -14,7 +14,7 @@ import { convertToATM } from "../../../../helpers/converters";
 import TextualInputComponent from "../../../components/form-components/textual-input1";
 import InputDate from "../../../components/input-date";
 import Button from "../../../components/button";
-import fieldValidate from "./form/form-validation";
+import { fieldValidate, validationForm } from './form/form-validation';
 import AccountRSForm from "../../../components/form-components/account-rs1";
 
 const CreateToken = ({ closeModal }) => {
@@ -66,7 +66,7 @@ const CreateToken = ({ closeModal }) => {
 
   const submitForm = useCallback(
     ({ atm, token, ...values }) => {
-      const isValidForm = fieldValidate(values);
+      const isValidForm = validationForm(values);
       if (!isValidForm) {
         Object.keys(values).map((key) => {
           if (/^APL/.test(values[key])) {
