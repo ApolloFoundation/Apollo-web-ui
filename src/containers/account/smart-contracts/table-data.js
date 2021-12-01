@@ -10,7 +10,7 @@ export const TABLE_DATA = {
         alignRight: false,
       },
       {
-        name: "Short Hash",
+        name: "Full Hash",
         alignRight: false,
       },
       {
@@ -40,7 +40,7 @@ export const TABLE_DATA = {
         alignRight: false,
       },
       {
-        name: "Short Hash",
+        name: "Full Hash",
         alignRight: false,
       },
       {

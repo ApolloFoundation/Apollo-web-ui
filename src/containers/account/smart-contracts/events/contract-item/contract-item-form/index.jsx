@@ -145,7 +145,6 @@ const ContractItemForm = ({ contractInstanse, contractId }) => {
             placeholder="Enter event signature"
           />
           <TextualInputComponent
-            type="text"
             name="fromBlock"
             className="mb-0"
             placeholder="From block"
@@ -157,7 +156,7 @@ const ContractItemForm = ({ contractInstanse, contractId }) => {
             className="mb-15"
             placeholder="description"
           />
-          <div class="form-group mt-15 mb-15">
+          <div className="form-group mt-15 mb-15">
             <Field
               className="mb-1"
               res
@@ -182,7 +181,6 @@ const ContractItemForm = ({ contractInstanse, contractId }) => {
               size="sm"
               name="Add event once"
               className="mt-1 mb-1"
-              size="sm"
               onClick={handleAddEventOnce(values, resetForm)}
             />
             <Button
@@ -191,7 +189,6 @@ const ContractItemForm = ({ contractInstanse, contractId }) => {
               size="sm"
               name="Add test event"
               className="mt-1 mb-1"
-              size="sm"
               onClick={handleTestEvent}
             />
           </div>

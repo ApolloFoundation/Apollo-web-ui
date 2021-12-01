@@ -64,7 +64,7 @@ PropTypes.propTypes = {
     "transparent",
     "blue-link",
   ]),
-  size: PropTypes.oneOf(["sm", "lg"]),
+  size: PropTypes.oneOf(["sm", "md", "lg"]),
   className: PropTypes.string,
   name: PropTypes.string,
   disabled: PropTypes.bool,

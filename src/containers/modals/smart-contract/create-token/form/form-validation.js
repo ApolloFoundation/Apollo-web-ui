@@ -9,9 +9,8 @@ export const fieldValidate = (value, type) => {
     error = "Required";
   } else if (type === "address" && !rsRegExp.test(value) && !hexaRegExp.test(value)) {
     error = "Field not valid";
-  } else if (type === "uint" && parseFloat(value) < 0.00000001) {
-    error = "Field should be numeric and have a minimum 0.00000001 value.";
   }
+
   return error;
 };
 

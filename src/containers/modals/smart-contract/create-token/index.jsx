@@ -181,25 +181,32 @@ const CreateToken = ({ closeModal }) => {
                         >
                           <div className="row w-100 m-0 justify-content-between align-items-center mb-3">
                             <div className="col-5 p-0">
-                              <TextualInputComponent
-                                className={"text-capitalize"}
-                                label="Amount APL"
+                              <label for="atm">Amount APL</label>
+                              <Field
+                                className="mr-3 d-inline-block"
+                                placeholder="1"
+                                type="number"
                                 name="atm"
-                                placeholder="Amount APL"
-                                type="float"
-
+                                value={values.atm}
+                                onChange={(e) =>
+                                  handleChangeAPL(setFieldValue, e)
+                                }
                               />
                             </div>
                             <div className="col-auto">
                               <i class="zmdi zmdi-swap zmdi-hc-2x"></i>
                             </div>
                             <div className="col-5 p-0">
-                              <TextualInputComponent
-                                className={"text-capitalize"}
-                                label="Amount Token"
+                              <label for="token">Amount Token</label>
+                              <Field
+                                className="mr-3 d-inline-block"
+                                placeholder="1"
+                                type="number"
                                 name="token"
-                                placeholder="Amount Token"
-                                type="float"
+                                value={values.token}
+                                onChange={(e) =>
+                                  handleChangeToken(setFieldValue, e)
+                                }
                               />
                             </div>
                           </div>
@@ -214,6 +221,7 @@ const CreateToken = ({ closeModal }) => {
                                   name={name}
                                   placeholder={name}
                                   type="float"
+                                  disabled
                                 />
                                 {errors[name] && touched[name] && (
                                   <div className={"text-danger"}>
@@ -263,10 +271,7 @@ const CreateToken = ({ closeModal }) => {
                                 selected={startDate}
                                 onChange={(date) => {
                                   setStartDate(date);
-                                  setFieldValue(
-                                    name,
-                                    moment(date).toISOString()
-                                  );
+                                  setFieldValue(name, moment(date).toISOString());
                                 }}
                                 name={name}
                                 showTimeSelect
@@ -325,3 +330,4 @@ const CreateToken = ({ closeModal }) => {
   );
 };
 export default CreateToken;
+

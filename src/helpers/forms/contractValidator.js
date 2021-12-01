@@ -64,18 +64,6 @@ const errorsList = {
       return true;
     }
   },
-  value: (value) => {
-    if (!value || parseFloat(value) < 0.00000001) {
-      NotificationManager.error("Amount should be numeric and have a minimum 0.00000001 value.", "Error", 5000);
-      return true;
-    }
-  },
-  amount: (value) => {
-    if (!value || parseFloat(value) < 0.00000001) {
-      NotificationManager.error("Amount should be numeric and have a minimum 0.00000001 value.", "Error", 5000);
-      return true;
-    }
-  },
 };
 
 export function validationForm(values) {

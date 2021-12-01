@@ -18,7 +18,7 @@ const TableItemEscrow = ({
   address,
   timestamp,
   transaction,
-  signature,
+  fullHash,
   status,
   id,
 }) => {
@@ -101,7 +101,7 @@ const TableItemEscrow = ({
           name={transaction}
         />
       </td>
-      <td>{signature.substr(-12)}</td>
+      <td>{fullHash.substr(-12)}</td>
       <td>{currentDate}</td>
       <td>{status}</td>
       <td className="align-right">
