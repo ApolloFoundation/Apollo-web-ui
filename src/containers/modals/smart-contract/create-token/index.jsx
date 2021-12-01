@@ -200,7 +200,6 @@ const CreateToken = ({ closeModal }) => {
                                 name="token"
                                 placeholder="Amount Token"
                                 type="float"
-
                               />
                             </div>
                           </div>
@@ -215,8 +214,6 @@ const CreateToken = ({ closeModal }) => {
                                   name={name}
                                   placeholder={name}
                                   type="float"
-  
-                                  disabled
                                 />
                                 {errors[name] && touched[name] && (
                                   <div className={"text-danger"}>
