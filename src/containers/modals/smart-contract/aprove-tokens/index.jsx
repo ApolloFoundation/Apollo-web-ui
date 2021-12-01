@@ -24,7 +24,6 @@ const AproveTokens = ({ closeModal }) => {
   const dispatch = useDispatch();
   const modalData = useSelector((state) => state.modals.modalData);
   const { accountRS, passPhrase } = useSelector((state) => state.account);
-  const acc = useSelector((state) => state.account);
   const [fuelSwitcher, setFuelSwitcher] = useState(false);
   const [isLoading, setLoading] = useState(false);
 
@@ -51,8 +50,6 @@ const AproveTokens = ({ closeModal }) => {
         ...values,
       };
 
-      console.log(passPhrase, "passPhrase")
-      console.log(acc)
       const isValidForm = validationForm(values, passPhrase);
 
       if (!isValidForm) {

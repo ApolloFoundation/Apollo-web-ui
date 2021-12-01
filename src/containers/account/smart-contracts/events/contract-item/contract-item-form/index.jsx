@@ -30,10 +30,6 @@ const ContractItemForm = ({ contractInstanse, contractId }) => {
 
   const getContractSpecification = useCallback(async (id) => {
     const specList = await dispatch(getSmcSpecification(id));
-
-    if(!specList) {
-      return;
-    }
     
     if (specList) {
       const membersList = specList.members.reduce((acc, item) => {
