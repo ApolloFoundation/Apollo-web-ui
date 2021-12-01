@@ -13,7 +13,7 @@ export default function CustomInput(props) {
   const { setValue } = helpers;
   const isNumberInput = (type === 'tel' || type === 'float') && !disabled && !disableArrows;
 
-  const parseValue = (value, decimals = 10) => {
+  const parseValue = (value, limitValue = 10) => {
     let currentValue = value;
 
     if (type === 'tel') {
@@ -27,8 +27,8 @@ export default function CustomInput(props) {
       if (!value.target && currentValue.includes('.')) {
         let fract = currentValue.substring(currentValue.indexOf('.'));
         currentValue = currentValue.substring(0, currentValue.indexOf('.'));
-        if (fract.length > decimals) {
-          fract = fract.substring(0, decimals);
+        if (fract.length > limitValue) {
+          fract = fract.substring(0, limitValue);
         }
         currentValue += fract;
       }
