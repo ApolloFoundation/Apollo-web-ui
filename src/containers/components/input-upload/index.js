@@ -20,8 +20,8 @@ const InputUpload = ({
     if (handleFileAccepted) handleFileAccepted(files);
   };
 
-  const onDropRejected = () => {
-    NotificationManager.error("Please select another file.", "Error", 5000);
+  const onDropRejected = (e) => {
+    NotificationManager.error(`Please select another file. ${e ? e[0]?.errors[0]?.message : ''}`, "Error", 5000);
     if (handleFileRejected) handleFileRejected();
   };
 
@@ -60,7 +60,7 @@ const InputUpload = ({
             isDragActive ? "upload-block-active" : ""
           }`}
         >
-          <input {...getInputProps()} accept={accept} id={`input-${id}`}/>
+          <input {...getInputProps()} accept={accept} id={`file-input-${id}`}/>
           <div className={"d-none"} id={id} />
           <p className="flex-grow-1">
             {file ? file.name || file.path : "Click or drag file to upload"}
