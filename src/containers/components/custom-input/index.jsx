@@ -27,8 +27,8 @@ export default function CustomInput(props) {
       if (!value.target && currentValue.includes('.')) {
         let fract = currentValue.substring(currentValue.indexOf('.'));
         currentValue = currentValue.substring(0, currentValue.indexOf('.'));
-        if (fract.length > 10) {
-          fract = fract.substring(0, 10);
+        if (fract.length > 9) {
+          fract = fract.substring(0, 9); // 8 + 1 (dot symbol)
         }
         currentValue += fract;
       }
