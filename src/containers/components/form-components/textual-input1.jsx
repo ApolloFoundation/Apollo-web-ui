@@ -3,7 +3,8 @@ import CustomInput from '../custom-input';
 
 const TextualInputComponent = ({
   disabled, hendler, placeholder, name, type,
-  label, code, text, className, idGroup, inputHint, id
+  label, code, text, className, idGroup, inputHint, id,
+  limit
 }) => (
   <>
     {type === 'button'
@@ -30,6 +31,7 @@ const TextualInputComponent = ({
                 ? (
                   <>
                     <CustomInput
+                      limit={limit}
                       disabled={disabled}
                       label={label}
                       type={type}

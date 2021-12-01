@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Form, Formik, Field } from "formik";
-import {
-  convertToATM,
-  convertToToken,
-} from "../../../../../helpers/converters";
+import { convertToATM, convertToToken } from "../../../../../helpers/converters";
 import { processAccountRStoHex } from "apl-web-crypto";
 import { exportReadMethod } from "../../../../../actions/contracts";
 import { setBodyModalParamsAction } from "../../../../../modules/modals";
+import { regExpAPL, regExpAmount, regExpDecrease, regExpIncrease } from "../../../../../helpers/regExp"
 import TextualInputComponent from "../../../../components/form-components/textual-input1";
 import Button from "../../../../components/button";
 import AccountRSForm from "../../../../components/form-components/account-rs1";
@@ -19,14 +17,11 @@ const ExplorerForm = ({
   methodName: name,
   type,
   formIndex,
-  token,
   id,
 }) => {
   const dispatch = useDispatch();
   const [readMethods, setReadMethods] = useState([]);
   const [error, setError] = useState(null);
-  const regAPL = /^APL/;
-  const regAmount = /^amount/;
 
   const getInitialValues = (fields) => {
     const initialValues = {};
@@ -37,10 +32,10 @@ const ExplorerForm = ({
   const onSubmitNonpayable = (values) => {
     const params = Object.keys(values)
       .map((key) => {
-        if (regAPL.test(values[key])) {
+        if (regExpAPL.test(values[key])) {
           const parseRStoHex = processAccountRStoHex(values[key], true);
           return `'${parseRStoHex}'`;
-        } else if (regAmount.test(key)) {
+        } else if (regExpAmount.test(key) || regExpDecrease.test(key) || regExpIncrease.test(key)) {
           return convertToATM(values[key]);
         }
         return values[key];
@@ -59,7 +54,7 @@ const ExplorerForm = ({
 
   const onSubmitView = async (values) => {
     const fieldValues = Object.keys(values).map((key) => {
-      if (regAPL.test(values[key])) {
+      if (regExpAPL.test(values[key])) {
         const parseRStoHex = processAccountRStoHex(values[key], true);
         return `'${parseRStoHex}'`;
       }
@@ -117,6 +112,7 @@ const ExplorerForm = ({
                                 label={name}
                                 name={name}
                                 placeholder={name}
+                                limit={9}
                                 type={item.type === "uint" ? "float" : "text"}
                               />
                             )}

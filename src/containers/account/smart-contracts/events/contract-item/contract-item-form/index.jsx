@@ -7,7 +7,7 @@ import {
   addEventAction,
 } from "../../../../../../actions/smart-contracts";
 import { getSmcSpecification } from "../../../../../../actions/contracts";
-import { validationForm } from "../../../../../../helpers/forms/contractValidator"
+import { validationForm } from "../../../../../../helpers/forms/contractValidator";
 import TextualInputComponent from "../../../../../components/form-components/textual-input1";
 import Button from "../../../../../components/button";
 import CustomSelect from "../../../../../components/select";
@@ -28,20 +28,23 @@ const ContractItemForm = ({ contractInstanse, contractId }) => {
     getContractSpecification(contractId);
   }, [contractId]);
 
-  const getContractSpecification = useCallback(
-    async (id) => {
-      const members = await dispatch(getSmcSpecification(id));
+  const getContractSpecification = useCallback(async (id) => {
+    const specList = await dispatch(getSmcSpecification(id));
 
-      if (members && members.length > 0) {
-        const membersList = members.reduce((acc, item) => {
-          if (item.type === "EVENT") {
-            acc.push({
-              label: item.name,
-              value: item.signature,
-            });
-          }
-          return acc;
-        }, []);
+    if(!specList) {
+      return;
+    }
+    
+    if (specList) {
+      const membersList = specList.members.reduce((acc, item) => {
+        if (item.type === "EVENT") {
+          acc.push({
+            label: item.name,
+            value: item.signature,
+          });
+        }
+        return acc;
+      }, []);
         setEventList(membersList);
       }
     },
@@ -119,19 +122,18 @@ const ContractItemForm = ({ contractInstanse, contractId }) => {
     setFieldValue("signature", e);
   };
 
+
   return (
-    <Formik enableReinitialize initialValues={initialState} onSubmit={() => {}}>
+    <Formik initialValues={initialState} onSubmit={() => {}}>
       {({ values, setFieldValue, resetForm }) => (
         <Form>
           <h3 className="mb-3">Add contract event</h3>
-          {eventList.length > 0 && (
-            <CustomSelect
-              options={eventList}
-              className="mb-0"
-              placeholder="Chose event name"
-              onChange={(e) => handleChangeDrop(e, setFieldValue)}
-            />
-          )}
+          <CustomSelect
+            options={eventList}
+            className="mb-0"
+            placeholder="Chose event name"
+            onChange={(e) => handleChangeDrop(e, setFieldValue)}
+          />
           <TextualInputComponent
             type="text"
             name="eventName"
@@ -150,6 +152,7 @@ const ContractItemForm = ({ contractInstanse, contractId }) => {
             className="mb-0"
             placeholder="From block"
             type="float"
+            limit={9}
           />
           <TextualInputComponent
             type="text"

@@ -30,6 +30,7 @@ const ByForm = ({ ticker, onChangeAmount }) => {
               label="Amount APL"
               name="value"
               type="float"
+              limit={9}
               counterLabel={ticker}
               defaultValue={0}
               onChange={onChangeAmount(setFieldValue)}
@@ -43,6 +44,7 @@ const ByForm = ({ ticker, onChangeAmount }) => {
               id="input-amount-token-buy-token"
               label="Amount Token"
               type="float"
+              limit={9}
               name="token"
               defaultValue={0}
               disabled
@@ -55,6 +57,7 @@ const ByForm = ({ ticker, onChangeAmount }) => {
         label="Fuel price"
         name="fuelPrice"
         type="float"
+        limit={9}
         defaultValue={0}
       />
       <NumericInput
@@ -62,6 +65,7 @@ const ByForm = ({ ticker, onChangeAmount }) => {
         label="Fuel limit"
         name="fuelLimit"
         type="float"
+        limit={9}
         defaultValue={0}
       />
     </>

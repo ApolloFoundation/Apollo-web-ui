@@ -15,18 +15,21 @@ const TransferForm = () => {
         label="Amount"
         name="amount"
         type="float"
+        limit={9}
         defaultValue={0}
       />
       <NumericInput
         label="Fuel price"
         name="fuelPrice"
         type="float"
+        limit={9}
         defaultValue={0}
       />
       <NumericInput
         label="Fuel limit"
         name="fuelLimit"
         type="float"
+        limit={9}
         defaultValue={0}
       />
     </>

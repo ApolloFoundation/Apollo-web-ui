@@ -7,13 +7,13 @@ import styles from './styles.module.scss';
 export default function CustomInput(props) {
   const {
     label, className, type, disableArrows, disabled, id, children, onChange,
-    maxValue, minValue, step, isSpecialSymbols, name, placeholder,
+    maxValue, minValue, step, isSpecialSymbols, name, placeholder,limit
   } = props;
   const [field, , helpers] = useField(name);
   const { setValue } = helpers;
   const isNumberInput = (type === 'tel' || type === 'float') && !disabled && !disableArrows;
 
-  const parseValue = value => {
+  const parseValue = (value, decimals = 10) => {
     let currentValue = value;
 
     if (type === 'tel') {
@@ -27,8 +27,8 @@ export default function CustomInput(props) {
       if (!value.target && currentValue.includes('.')) {
         let fract = currentValue.substring(currentValue.indexOf('.'));
         currentValue = currentValue.substring(0, currentValue.indexOf('.'));
-        if (fract.length > 10) {
-          fract = fract.substring(0, 10);
+        if (fract.length > decimals) {
+          fract = fract.substring(0, decimals);
         }
         currentValue += fract;
       }
@@ -70,7 +70,7 @@ export default function CustomInput(props) {
   };
 
   const handleChange = ({ target: { value } }) => {
-    const parsedValue = parseValue(value);
+    const parsedValue = parseValue(value, limit);
     if (onChange) onChange(parsedValue);
     setValue(parsedValue);
   };

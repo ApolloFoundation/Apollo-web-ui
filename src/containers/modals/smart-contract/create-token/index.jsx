@@ -223,6 +223,7 @@ const CreateToken = ({ closeModal }) => {
                                   name={name}
                                   placeholder={name}
                                   type="float"
+                                  limit={9}
                                   disabled
                                 />
                                 {errors[name] && touched[name] && (
