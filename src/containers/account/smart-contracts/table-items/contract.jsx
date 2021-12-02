@@ -23,6 +23,7 @@ const TableItemContract = ({
   transaction,
   fullHash,
   baseContract,
+  owner,
   status,
   id,
 }) => {
@@ -99,11 +100,11 @@ const TableItemContract = ({
   return (
     <tr>
       <td>
-        <div className="d-flex">
+        <div className="d-flex align-items-center">
           <div className="pointer" onClick={handleAddEvent}>
             <Tooltip
               white
-              iconContent={<i class="zmdi zmdi-notifications zmdi-hc-2x"></i>}
+              iconContent={<i class="zmdi zmdi-notifications zmdi-hc-lg"></i>}
             >
               <div>Redirect to event</div>
             </Tooltip>
@@ -116,6 +117,7 @@ const TableItemContract = ({
           />
         </div>
       </td>
+      <td>{owner}</td>
       <td>
         {symbol ? (
           <Button color="blue-link" onClick={handleTokenInfo} name={symbol} />
@@ -130,7 +132,6 @@ const TableItemContract = ({
           name={transaction}
         />
       </td>
-      <td>{fullHash.substr(-12)}</td>
       <td>{currentDate}</td>
       <td>{status}</td>
       <td className="align-right">

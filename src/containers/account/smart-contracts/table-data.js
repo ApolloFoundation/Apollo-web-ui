@@ -32,15 +32,15 @@ export const TABLE_DATA = {
         alignRight: false,
       },
       {
+        name: "Owner",
+        alignRight: false,
+      },
+      {
         name: "Symbol",
         alignRight: false,
       },
       {
         name: "Transaction",
-        alignRight: false,
-      },
-      {
-        name: "Full Hash",
         alignRight: false,
       },
       {
