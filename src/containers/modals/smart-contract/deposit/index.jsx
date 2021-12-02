@@ -77,7 +77,7 @@ export default function ({ closeModal }) {
         token: "",
         amount: 0,
         fuelLimit: 500000000,
-        fuelPrice: 100,
+        fuelPrice: 10000,
         secretPhrase: "",
       }}
     >
