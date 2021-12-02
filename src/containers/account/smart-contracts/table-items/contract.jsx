@@ -15,17 +15,18 @@ import { addContractAction } from "../../../../actions/smart-contracts";
 import { getSmcSpecification } from "../../../../actions/contracts";
 import Button from "../../../components/button";
 import { Tooltip } from "../../../components/tooltip";
+import { convertToToken } from "../../../../helpers/converters";
 
 const TableItemContract = ({
   address,
   symbol,
   timestamp,
   transaction,
-  fullHash,
   baseContract,
   owner,
   status,
   id,
+  balance,
 }) => {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -117,6 +118,11 @@ const TableItemContract = ({
           />
         </div>
       </td>
+      {balance && (
+        <td>
+          {convertToToken(balance, 8, true)}
+        </td>
+      )}
       <td>{owner}</td>
       <td>
         {symbol ? (

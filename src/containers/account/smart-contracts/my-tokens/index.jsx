@@ -16,6 +16,8 @@ import CustomTable from "../../../components/tables/table";
 import TableItemMyTokens from "../table-items/my-tokens";
 import SearchField from "../../../components/form-components/search-field";
 import ContentLoader from "../../../components/content-loader";
+import TableItemContract from '../table-items/contract';
+import { TABLE_DATA } from '../table-data';
 
 const MyTokens = () => {
   const dispatch = useDispatch();
@@ -36,7 +38,7 @@ const MyTokens = () => {
 
   const getContractsList = useCallback(async () => {
 
-    const contractsDataList = await dispatch(getContracts());
+    const contractsDataList = await dispatch(getContracts({ type: 'APL20' }));
 
     if (!contractsDataList) {
       setIsLoading(false);
@@ -45,12 +47,8 @@ const MyTokens = () => {
 
     const { contracts } = contractsDataList;
 
-    const filteredList = contracts.filter((el) => {
-      return el.baseContract.startsWith("APL20");
-    });
-
     const symbolsList = await Promise.all(
-      filteredList.map((el) => {
+      contracts.map((el) => {
         return dispatch(getSmcSpecification(el.address));
       })
     ).catch((err) => {
@@ -62,7 +60,7 @@ const MyTokens = () => {
     );
 
     const balanceList = await Promise.all(
-      filteredList.map((el) =>
+      contracts.map((el) =>
         dispatch(
           exportReadMethod({
             address: el.address,
@@ -77,7 +75,7 @@ const MyTokens = () => {
       )
     );
 
-    const currentContractsList = filteredList
+    const currentContractsList = contracts
       .map((item, index) => ({
         ...item,
         symbol: currentOverviewList[index].value,
@@ -193,38 +191,17 @@ const MyTokens = () => {
           </div>
         </div>
         <div className="card full-height">
-          <div class="card-body">
+          <div className="card-body">
             {isLoading ? (
               <ContentLoader />
             ) : (
               <CustomTable
                 id={"smart-contracts-tokens"}
-                header={[
-                  {
-                    name: "Address",
-                    alignRight: false,
-                  },
-                  {
-                    name: "Token symbol",
-                    alignRight: false,
-                  },
-                  {
-                    name: "Balance",
-                    alignRight: true,
-                  },
-                  {
-                    name: "Short Hash",
-                    alignRight: true,
-                  },
-                  {
-                    name: "Action",
-                    alignRight: true,
-                  },
-                ]}
+                header={TABLE_DATA.head.my_token}
                 className={"no-min-height"}
                 emptyMessage={"No Smart Contracts found."}
                 page={pagination.page}
-                TableRowComponent={TableItemMyTokens}
+                TableRowComponent={TableItemContract}
                 tableData={viewContractList}
                 isPaginate
                 previousHendler={prevPaginate}

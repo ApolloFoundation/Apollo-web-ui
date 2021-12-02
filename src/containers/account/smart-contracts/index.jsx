@@ -4,38 +4,36 @@
  ******************************************************************************/
 
 import React, { useState, useCallback, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
 import { Form, Formik } from "formik";
 import classNames from "classnames";
+import moment from "moment";
 import { getContracts } from "../../../actions/contracts";
 import { setBodyModalParamsAction } from "../../../modules/modals";
 import { getSmcSpecification } from "../../../actions/contracts";
-import { formatTimestamp } from "../../../helpers/util/time";
 import SiteHeader from "../../components/site-header";
 import CustomTable from "../../components/tables/table";
 import TableItemContract from "./table-items/contract";
 import TableItemEscrow from "./table-items/escrow";
 import Button from "../../components/button";
-import SearchField from "../../components/form-components/search-field";
 import ContentLoader from "../../components/content-loader";
+import TextualInputComponent from "../../components/form-components/textual-input1";
+import AccountRSForm from "../../components/form-components/account-rs1";
+import InputDate from "../../components/input-date";
 
 import { TABLE_DATA } from "./table-data";
-import TextualInputComponent from '../../components/form-components/textual-input1';
-import AccountRSForm from '../../components/form-components/account-rs1';
-import moment from 'moment';
-import InputDate from '../../components/input-date';
 
 const initialFilter = {
-  type: 'token',
   address: undefined,
   publish: undefined,
   transaction: undefined,
   symbol: undefined,
-
 };
 
-const SmartContracts = () => {
+const SmartContracts = ({ owner }) => {
   const dispatch = useDispatch();
+  const { accountRS } = useSelector((state) => state.account);
+  const [type, setType] = useState('token')
   const [publishedDate, setPublishedDate] = useState(null)
   const [filtersData, setFiltersData] = useState(initialFilter)
   const [contractList, setContractList] = useState([]);
@@ -47,12 +45,8 @@ const SmartContracts = () => {
   });
 
   useEffect(() => {
-    getContractsList();
-  }, []);
-
-  useEffect(() => {
     onPaginate(1);
-  }, [filtersData]);
+  }, [filtersData, type, owner]);
 
   const getContractsList = useCallback(async (currPagination) => {
     let newPagination = currPagination;
@@ -61,13 +55,14 @@ const SmartContracts = () => {
     }
 
     const contractParams = {
-      address: filtersData.address,
-      timestamp: filtersData.publish && moment(filtersData.publish).unix(),
-      transaction: filtersData.transaction,
+      publisher: owner ? accountRS : undefined,
+      address: !!filtersData.address?.length ? filtersData.address : undefined,
+      timestamp: filtersData.publish && moment(filtersData.publish).valueOf() || undefined,
+      transaction: !!filtersData.transaction?.length ? filtersData.transaction : undefined,
       firstIndex: newPagination.firstIndex,
       lastIndex: newPagination.lastIndex,
     }
-    switch (filtersData.type) {
+    switch (type) {
       case 'escrow':
         contractParams.baseContract = 'TokenEscrow';
         break;
@@ -104,7 +99,7 @@ const SmartContracts = () => {
     }).catch((err) => {
       setIsLoading(false);
     });
-  }, [dispatch, pagination, filtersData]);
+  }, [dispatch, pagination, filtersData, owner, accountRS, type]);
 
   const onPaginate = useCallback(async currentPage => {
     const newPagination = {
@@ -129,9 +124,9 @@ const SmartContracts = () => {
   }
 
   const handleTransactionFilters = useCallback(async currType => {
-    if (currType === filtersData.type) return;
-    setFiltersData({...filtersData, type: currType});
-  }, [filtersData.type]);
+    if (currType === type) return;
+    setType(currType);
+  }, [type]);
 
   const handleCreateToken = useCallback(() => {
     dispatch(setBodyModalParamsAction("SMC_CREATE_TOKEN"));
@@ -143,7 +138,7 @@ const SmartContracts = () => {
 
   return (
     <div className="page-content">
-      <SiteHeader pageTitle={"Contracts"}>
+      <SiteHeader pageTitle={owner ? "My Contracts" : "Contracts"}>
         <Button
           id={"button-smart-contracts-cteate-token"}
           name="Create token"
@@ -169,7 +164,7 @@ const SmartContracts = () => {
                 className={classNames({
                   btn: true,
                   filter: true,
-                  active: filtersData.type === item.type,
+                  active: type === item.type,
                 })}
                 key={item.name}
                 onClick={() => handleTransactionFilters(item.type)}
@@ -182,9 +177,10 @@ const SmartContracts = () => {
             <Formik onSubmit={handleSearch} initialValues={filtersData}>
               {({ resetForm, setFieldValue }) => {
                 return (
-                  <Form className="form-group-app input-group-app transparent mb-0 row">
+                  <Form className="form-group-app input-group-app transparent mb-0 row" autocomplete="off">
                     <div className="col-md p-0 pr-md-3">
                       <AccountRSForm
+                        noContactList={true}
                         name='address'
                         placeholder='Address'
                       />
@@ -212,7 +208,7 @@ const SmartContracts = () => {
                         type='text'
                       />
                     </div>
-                    { filtersData.type !== "escrow" && (
+                    { type !== "escrow" && (
                       <div className="col-md p-0 pl-md-3">
                         <TextualInputComponent
                           name='symbol'
@@ -258,14 +254,14 @@ const SmartContracts = () => {
               <CustomTable
                 id={"smart-contracts-tokens"}
                 header={
-                  filtersData.type === "escrow"
+                  type === "escrow"
                     ? TABLE_DATA.head.escrow
                     : TABLE_DATA.head.token
                 }
                 className={"no-min-height"}
                 emptyMessage={"No Smart Contracts found."}
                 TableRowComponent={
-                  filtersData.type === "escrow" ? TableItemEscrow : TableItemContract
+                  type === "escrow" ? TableItemEscrow : TableItemContract
                 }
                 tableData={contractList}
                 page={pagination.page}

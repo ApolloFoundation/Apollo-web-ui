@@ -56,6 +56,40 @@ export const TABLE_DATA = {
         alignRight: true,
       },
     ],
+    my_token: [
+      {
+        name: "Address",
+        alignRight: false,
+      },
+      {
+        name: "Balance",
+        alignRight: false,
+      },
+      {
+        name: "Owner",
+        alignRight: false,
+      },
+      {
+        name: "Symbol",
+        alignRight: false,
+      },
+      {
+        name: "Transaction",
+        alignRight: false,
+      },
+      {
+        name: "Published",
+        alignRight: false,
+      },
+      {
+        name: "Status",
+        alignRight: false,
+      },
+      {
+        name: "Action",
+        alignRight: true,
+      },
+    ],
   },
   type: [
     {

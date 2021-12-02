@@ -88,7 +88,6 @@ import ChooseWallet from "../account/exchange/choose-wallet";
 //SmartContracts
 import SmartContracts from "../account/smart-contracts";
 import SmartContractCreate from "../account/smart-contracts/create";
-import MySmartContract from "../account/smart-contracts/my-contracts";
 import ExplorerContract from "../account/smart-contracts/explorer-contract";
 import ExplorerEscrow from "../account/smart-contracts/explorer-escrow";
 import ExplorerToken from "../account/smart-contracts/explorer-token";
@@ -312,7 +311,13 @@ class App extends React.Component {
       <Route exact path="/trade-history-exchange" component={TradeHistoryExchange}/>
       <Route exact path="/smart-contracts" component={SmartContracts} />
       <Route exact path="/smart-contracts/create" component={SmartContractCreate}/>
-      <Route exact path="/smart-contracts/my-contracts" component={MySmartContract}/>
+      <Route
+        exact
+        path="/smart-contracts/my-contracts"
+        render={(props) => (
+          <SmartContracts {...props} owner={true} />
+        )}
+      />
       <Route exact path="/smart-contracts/my-tokens" component={MyTokens}/>
       <Route exact path="/smart-contracts/events" component={Events}/>
       <Route exact path="/smart-contracts/explorer/contract/:id?" component={ExplorerContract} />
