@@ -90,7 +90,7 @@ const AproveTokens = ({ closeModal }) => {
         <Formik
           onSubmit={submitForm}
           initialValues={{
-            fuelPrice: 100,
+            fuelPrice: 10000,
             fuelLimit: 500000000,
             source: sourceValue(modalData.token, modalData.params),
             secretPhrase: "",
