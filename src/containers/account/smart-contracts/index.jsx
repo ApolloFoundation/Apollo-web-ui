@@ -117,13 +117,12 @@ const SmartContracts = ({ owner }) => {
     setFiltersData(({...filtersData, ...values}));
   }, [filtersData]);
 
-  const handleClearTransactionFilters = (resetForm) => () => {
+  const handleClearTransactionFilters = () => {
     setFiltersData(initialFilter);
-    resetForm();
     setPublishedDate(null);
   }
 
-  const handleTransactionFilters = useCallback(async currType => {
+  const handleTransactionFilters = useCallback(currType => {
     if (currType === type) return;
     setType(currType);
   }, [type]);
@@ -174,12 +173,13 @@ const SmartContracts = ({ owner }) => {
             ))}
           </div>
           <div className="search-bar">
-            <Formik onSubmit={handleSearch} initialValues={filtersData}>
+            <Formik enableReinitialize onSubmit={handleSearch} initialValues={filtersData}>
               {({ resetForm, setFieldValue }) => {
                 return (
                   <Form className="form-group-app input-group-app transparent mb-0 row" autocomplete="off">
                     <div className="col-md p-0 pr-md-3">
                       <AccountRSForm
+                        idGroup='sc-'
                         noContactList={true}
                         name='address'
                         placeholder='Address'
@@ -235,7 +235,7 @@ const SmartContracts = ({ owner }) => {
                             color="grey"
                             type="button"
                             size="md"
-                            onClick={ handleClearTransactionFilters(resetForm) }
+                            onClick={ handleClearTransactionFilters }
                           />
                         </div>
                       </div>

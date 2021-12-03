@@ -17,27 +17,25 @@ const AccountRSFormInput = (props) => {
   return (
     <div className="form-group">
       <label>{label}</label>
-      <div>
-        <div className="input-group iconned-input-field">
-          <AccountRS
-            name={name}
-            exportAccountList={exportAccountList}
-            noContactList={noContactList}
-            id={`${idGroup}${name}-field`}
-            placeholder={placeholder}
-            disabled={disabled}
-          />
-          {handleRemoveItem && (
-            <div
-              className="input-icon remove-item"
-              onClick={() => handleRemoveItem(index)}
-            >
-              <span className="input-group-text">
-                <i className="zmdi zmdi-minus-circle" />
-              </span>
-            </div>
-          )}
-        </div>
+      <div className={!noContactList && 'input-group iconned-input-field'}>
+        <AccountRS
+          name={name}
+          exportAccountList={exportAccountList}
+          noContactList={noContactList}
+          id={`${idGroup}${name}-field`}
+          placeholder={placeholder}
+          disabled={disabled}
+        />
+        {handleRemoveItem && (
+          <div
+            className="input-icon remove-item"
+            onClick={() => handleRemoveItem(index)}
+          >
+            <span className="input-group-text">
+              <i className="zmdi zmdi-minus-circle" />
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );

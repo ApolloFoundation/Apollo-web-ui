@@ -23,16 +23,24 @@ export default function AccountRS(props) {
   } = props;
 
   const { ticker } = useSelector(state => state.account);
-
   const [field, , helpers] = useField(name);
-
+  const [currentValue, setCurrentValue] = useState(field.value);
   const [isContacts, setIsContacts] = useState(false);
-
   const contractString = readFromLocalStorage('APLContacts');
 
   const contacts = contractString ? JSON.parse(contractString) : [];
 
   const { setValue } = helpers;
+
+  useEffect(() => {
+    if (field.value !== currentValue) {
+      const newValue = field.value || ''
+      setCurrentValue(newValue);
+      if (setValue) setValue(newValue);
+      if (exportAccountList) exportAccountList(newValue);
+      if (onChange) onChange(newValue);
+    }
+  }, [field.value])
 
   const handleClickOutside = useCallback(event => {
     if (isContacts
@@ -62,18 +70,6 @@ export default function AccountRS(props) {
     }
   };
 
-  const handleChange = ({ target: { value } }) => {
-    if (setValue) {
-      setValue(value);
-    }
-
-    if (exportAccountList) {
-      exportAccountList(value);
-    }
-
-    if (onChange) onChange(value);
-  };
-
   const handleBeforeMaskedValueChange = (newState, oldState, userInput) => {
     let value = newState.value.toUpperCase();
     if (userInput) {
@@ -96,14 +92,14 @@ export default function AccountRS(props) {
   }, [handleClickOutside]);
 
   return (
-    <div className="iconned-input-field">
+    <div className={noContactList ? 'input-text-wrap' : 'iconned-input-field'}>
       <InputMask
         {...field}
+        value={currentValue}
         className="form-control"
         disabled={disabled}
         mask={`${ticker}-****-****-****-*****`}
         placeholder={placeholder || 'Account ID'}
-        onChange={handleChange}
         beforeMaskedValueChange={handleBeforeMaskedValueChange}
         id={id}
       />
