@@ -126,7 +126,7 @@ const TableItemContract = ({
       <td>{owner}</td>
       <td>
         {symbol ? (
-          <Button color="blue-link" onClick={handleTokenInfo} name={symbol} />
+          <Button color="blue-link" onClick={handleContractInfo} name={symbol} />
         ) : (
           "-"
         )}
