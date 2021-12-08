@@ -14,8 +14,9 @@ import { convertToATM } from "../../../../helpers/converters";
 import TextualInputComponent from "../../../components/form-components/textual-input1";
 import InputDate from "../../../components/input-date";
 import Button from "../../../components/button";
-import { fieldValidate, validationForm } from './form/form-validation';
+import { fieldValidate, validationForm, validationRate } from "./form/form-validation";
 import AccountRSForm from "../../../components/form-components/account-rs1";
+import CustomInput from "../../../components/custom-input";
 
 const CreateToken = ({ closeModal }) => {
   const dispatch = useDispatch();
@@ -91,25 +92,24 @@ const CreateToken = ({ closeModal }) => {
   );
 
   const handleChangeAPL = useCallback(
-    (setFieldValue, e) => {
-      const value = e.target.value;
+    (setFieldValue, value) => {
       setFieldValue("atm", value);
       setApl(value);
 
       if (value && token) {
-        const currentRate = +value ? (token / value).toLocaleString("en", {
-          useGrouping: false,
-          maximumFractionDigits: 8,
-        }) : '0';
+        const currentRate = +value
+          ? (token / value).toLocaleString("en", {
+              useGrouping: false,
+              maximumFractionDigits: 8,
+            })
+          : "0";
         setFieldValue("rate", currentRate);
       }
     },
     [token]
   );
 
-  const handleChangeToken = (setFieldValue, e) => {
-    const value = e.target.value;
-
+  const handleChangeToken = (setFieldValue, value) => {
     setFieldValue("token", value);
     setToken(value);
 
@@ -181,38 +181,51 @@ const CreateToken = ({ closeModal }) => {
                         >
                           <div className="row w-100 m-0 justify-content-between align-items-center mb-3">
                             <div className="col-5 p-0">
-                              <label for="atm">Amount APL</label>
                               <Field
                                 className="mr-3 d-inline-block"
-                                placeholder="1"
-                                type="number"
                                 name="atm"
                                 value={values.atm}
-                                onChange={(e) =>
-                                  handleChangeAPL(setFieldValue, e)
-                                }
+                                render={({ field: { name } }) => (
+                                  <div className="mb-3">
+                                    <CustomInput
+                                      className={"text-capitalize"}
+                                      label="Amount APL"
+                                      name={name}
+                                      placeholder="1"
+                                      type="float"
+                                      maxValue={1000000000}
+                                      onChange={(value) => handleChangeAPL(setFieldValue, value)}
+                                    />
+                                  </div>
+                                )}
                               />
                             </div>
                             <div className="col-auto">
                               <i class="zmdi zmdi-swap zmdi-hc-2x"></i>
                             </div>
                             <div className="col-5 p-0">
-                              <label for="token">Amount Token</label>
                               <Field
                                 className="mr-3 d-inline-block"
-                                placeholder="1"
-                                type="number"
                                 name="token"
                                 value={values.token}
-                                onChange={(e) =>
-                                  handleChangeToken(setFieldValue, e)
-                                }
+                                render={({ field: { name } }) => (
+                                  <div className="mb-3">
+                                    <CustomInput
+                                      className="text-capitalize"
+                                      label="Amount Token"
+                                      name={name}
+                                      placeholder="1"
+                                      type="float"
+                                      onChange={(value) => handleChangeToken(setFieldValue, value)}
+                                    />
+                                  </div>
+                                )}
                               />
                             </div>
                           </div>
                           <Field
                             name={item.name}
-                            validate={(value) => fieldValidate(value, item.type)}
+                            validate={(value) => validationRate(value)}
                             render={({ field: { name } }) => (
                               <div className="mb-3">
                                 <TextualInputComponent
@@ -223,7 +236,7 @@ const CreateToken = ({ closeModal }) => {
                                   type="float"
                                   disabled
                                 />
-                                {errors[name] && touched[name] && (
+                                {errors[item.name] && touched[item.name] && (
                                   <div className={"text-danger"}>
                                     {errors[item.name]}
                                   </div>
@@ -271,7 +284,10 @@ const CreateToken = ({ closeModal }) => {
                                 selected={startDate}
                                 onChange={(date) => {
                                   setStartDate(date);
-                                  setFieldValue(name, moment(date).toISOString());
+                                  setFieldValue(
+                                    name,
+                                    moment(date).toISOString()
+                                  );
                                 }}
                                 name={name}
                                 showTimeSelect
@@ -330,4 +346,3 @@ const CreateToken = ({ closeModal }) => {
   );
 };
 export default CreateToken;
-
