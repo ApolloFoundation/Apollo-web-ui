@@ -158,12 +158,12 @@ export const smartСontracts = {
       label: "My tokens",
       icon: "zmdi-collection-text",
     },
-    {
-      className: "/smart-contracts/events",
-      to: "/smart-contracts/events",
-      label: "Events",
-      icon: "zmdi-collection-text",
-    }
+    // {
+    //   className: "/smart-contracts/events",
+    //   to: "/smart-contracts/events",
+    //   label: "Events",
+    //   icon: "zmdi-collection-text",
+    // }
   ],
 };
 
