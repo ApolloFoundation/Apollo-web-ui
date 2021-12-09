@@ -81,7 +81,7 @@ const PanelMethod = ({ items, address, type, title, token, active }) => {
                 </span>
               </>
             )}
-            {type === "write" && transactions[index] && (
+            {type === "write" && transactions[index] && item.name != "unlock" && (
               <div>
                 transaction id:
                 <Button
