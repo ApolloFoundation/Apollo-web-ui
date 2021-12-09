@@ -1,6 +1,6 @@
 {
   "name": "apollo-web-wallet",
-  "version": "2.10.90",
+  "version": "2.10.91",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-free": "5.13.0",
