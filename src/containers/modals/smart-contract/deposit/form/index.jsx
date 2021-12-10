@@ -6,7 +6,7 @@ const TransferForm = () => {
   return (
     <>
       <AccountRSForm
-        name="sender"
+        name="payee"
         label="Payee"
         placeholder="Payee"
       />

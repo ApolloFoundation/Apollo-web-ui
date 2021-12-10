@@ -19,18 +19,19 @@ import { validationForm } from "../../../../helpers/forms/contractValidator"
 export default function ({ closeModal }) {
   const dispatch = useDispatch();
   const modalData = useSelector((state) => state.modals.modalData);
+  const { accountRS } = useSelector((state) => state.account);
 
   const [isLoading, setLoading] = useState(false);
 
-  const formSubmit = useCallback(async ({ feeATM, amount, token, ...values }) => {
-    const isValidForm = validationForm({ amount, token, ...values });
+  const formSubmit = useCallback(async ({ feeATM, amount, payee, token, ...values }) => {
+    const isValidForm = validationForm({ amount, token, payee, ...values });
 
     if (!isValidForm) {
       let data = {
         ...values,
         name: "deposit",
         params: [
-          processAccountRStoHex(values.sender, true),
+          processAccountRStoHex(values.payee, true),
           processAccountRStoHex(token, true),
           convertToATM(amount),
         ],
@@ -61,8 +62,8 @@ export default function ({ closeModal }) {
       closeModal();
     }
   },
-  [dispatch, closeModal]
-);
+    [dispatch, closeModal]
+  );
 
   return (
     <ModalBody
@@ -73,7 +74,7 @@ export default function ({ closeModal }) {
       submitButtonName="Deposit"
       isPending={isLoading}
       initialValues={{
-        sender: "",
+        sender: accountRS,
         token: "",
         amount: 0,
         fuelLimit: 500000000,
