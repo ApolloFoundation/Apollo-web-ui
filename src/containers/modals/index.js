@@ -63,6 +63,7 @@ import SmartContractBuy from './smart-contract/buy';
 import SmartContractTransfer from './smart-contract/transfer'
 import SmartContractDeposit from './smart-contract/deposit'
 import SmartContractInfo from './smart-contract/info';
+import SmartContractApprove from './smart-contract/aprove';
 // Voting system
 import CreatePoll from './voting-system/create-poll/';
 import CastVote from './voting-system/cast-vote/';
@@ -250,6 +251,7 @@ class ModalWindow extends React.Component {
                     {this.props.modalType === 'SMC_DEPOSIT'                 && <SmartContractDeposit      closeModal={this.closeModal} nameModal={'SMC_DEPOSIt'}/>}
                     {this.props.modalType === 'SMC_BUY'                     && <SmartContractBuy          closeModal={this.closeModal} nameModal={'SMC_BUY'}/>}
                     {this.props.modalType === 'SMC_INFO'                    && <SmartContractInfo         closeModal={this.closeModal} nameModal={'SMC_INFO'}/>}
+                    {this.props.modalType === 'SMC_APPROVE'                 && <SmartContractApprove      closeModal={this.closeModal} nameModal={'SMC_APPROVE'}/>}
 
                     {/* Voting */}
                     {this.props.modalType === 'ISSUE_POLL'                  && <CreatePoll                closeModal={this.closeModal} nameModal={'ISSUE_POLL'}/>}
