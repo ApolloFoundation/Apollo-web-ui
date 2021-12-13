@@ -39,6 +39,10 @@ const TableItemEscrow = ({
     dispatch(setBodyModalParamsAction("SMC_DEPOSIT", { address }));
   };
 
+  const handleApproveModal = () => {
+    dispatch(setBodyModalParamsAction("SMC_APPROVE", { address }));
+  };
+
   const handleContractInfo = () => {
     history.push(`/smart-contracts/explorer/escrow/${address}`);
   };
@@ -107,10 +111,17 @@ const TableItemEscrow = ({
       <td className="align-right">
         <div className="btn-box inline">
           <Button
+            onClick={handleApproveModal}
+            color="green"
+            size="sm"
+            id={`button-aprove-${id}`}
+            name="Aprove"
+          />
+          <Button
             onClick={handleTransferModal}
             color="green"
             size="sm"
-            id={`button-transfer-${id}`}
+            id={`button-deposit-${id}`}
             name="Deposit"
           />
         </div>

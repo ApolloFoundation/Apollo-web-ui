@@ -20,18 +20,17 @@ export default function ({ closeModal }) {
   const dispatch = useDispatch();
   const modalData = useSelector((state) => state.modals.modalData);
   const { accountRS } = useSelector((state) => state.account);
-
   const [isLoading, setLoading] = useState(false);
 
-  const formSubmit = useCallback(async ({ feeATM, amount, payee, token, ...values }) => {
-    const isError = validationForm({ amount, token, payee, ...values });
+  const formSubmit = useCallback(async ({ feeATM, amount, token, ...values }) => {
+    const isError = validationForm({ amount, token, ...values });
 
     if (!isError) {
       let data = {
         ...values,
-        name: "deposit",
+        name: "approve",
         params: [
-          processAccountRStoHex(values.payee, true),
+          processAccountRStoHex(values.sender, true),
           processAccountRStoHex(token, true),
           convertToATM(amount),
         ],
@@ -62,16 +61,16 @@ export default function ({ closeModal }) {
       closeModal();
     }
   },
-    [dispatch, closeModal]
-  );
+  [dispatch, closeModal]
+);
 
   return (
     <ModalBody
-      id="modal-smart-contract-transfer"
-      modalTitle={`Deposit ${modalData?.address}`}
+      id="modal-smart-contract-approve"
+      modalTitle={`Approve ${modalData?.address}`}
       closeModal={closeModal}
       handleFormSubmit={formSubmit}
-      submitButtonName="Deposit"
+      submitButtonName="Approve"
       isPending={isLoading}
       initialValues={{
         sender: accountRS,

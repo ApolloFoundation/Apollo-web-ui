@@ -36,6 +36,12 @@ const errorsList = {
   },
   sender: (value) => {
     if (!value && !rsRegExp.test(value) && !hexaRegExp.test(value)) {
+      NotificationManager.error("Incorrect Sender.", "Error", 5000);
+      return true;
+    }
+  },
+  payee: (value) => {
+    if (!value && !rsRegExp.test(value) && !hexaRegExp.test(value)) {
       NotificationManager.error("Incorrect Payee.", "Error", 5000);
       return true;
     }
