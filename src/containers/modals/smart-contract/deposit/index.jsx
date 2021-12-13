@@ -31,7 +31,7 @@ export default function ({ closeModal }) {
         ...values,
         name: "deposit",
         params: [
-          processAccountRStoHex(values.payee, true),
+          processAccountRStoHex(payee, true),
           processAccountRStoHex(token, true),
           convertToATM(amount),
         ],

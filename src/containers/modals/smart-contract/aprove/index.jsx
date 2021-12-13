@@ -30,11 +30,10 @@ export default function ({ closeModal }) {
         ...values,
         name: "approve",
         params: [
-          processAccountRStoHex(values.sender, true),
-          processAccountRStoHex(token, true),
+          processAccountRStoHex(modalData.address, true),
           convertToATM(amount),
         ],
-        address: modalData?.address,
+        address: token,
       };
 
       setLoading(true);
