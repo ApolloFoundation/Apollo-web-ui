@@ -26,6 +26,7 @@ export default function MyCurrencytemItem(props) {
       { 
         code,
         currency,
+        decimals,
         recipient: accountRS,
       })
     );
