@@ -26,7 +26,6 @@ export default function ({ closeModal }) {
   const formSubmit = useCallback(async ({ feeATM, amount, payee, token, ...values }) => {
     const isError = validationForm({ amount, token, payee, ...values });
 
-    console.log(token, "token")
     if (!isError) {
       let data = {
         ...values,
