@@ -26,12 +26,13 @@ export default function ({ closeModal }) {
   const formSubmit = useCallback(async ({ feeATM, amount, payee, token, ...values }) => {
     const isError = validationForm({ amount, token, payee, ...values });
 
+    console.log(token, "token")
     if (!isError) {
       let data = {
         ...values,
         name: "deposit",
         params: [
-          processAccountRStoHex(values.payee, true),
+          processAccountRStoHex(payee, true),
           processAccountRStoHex(token, true),
           convertToATM(amount),
         ],

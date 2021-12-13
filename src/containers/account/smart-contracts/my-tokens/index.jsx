@@ -78,7 +78,7 @@ const MyTokens = () => {
     const currentContractsList = contracts
       .map((item, index) => ({
         ...item,
-        symbol: currentOverviewList[index].value,
+        symbol: currentOverviewList[index]?.value || "-",
         balance: balanceList[index].results[0].output[0],
       }))
       .filter((item) => item.balance > 0);
