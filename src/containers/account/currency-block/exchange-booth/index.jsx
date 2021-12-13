@@ -155,11 +155,11 @@ export default function ExchangeBooth() {
       </SiteHeader>
       <div className="page-body container-fluid exchange-booth">
         <div className="row">
-          <CurrencyInfoTable {...currencyInfo} />
+          {currencyInfo && <CurrencyInfoTable {...currencyInfo} />}
           <div className="col-md-9 col-sm-8 p-0">
             {(window.innerWidth > 767 || isGoBack) && (
               <>
-                {dataCurrencies && (
+                {(dataCurrencies && currencyInfo) && (
                   <div className="row">
                     <BuyForm
                       ticker={ticker}
@@ -196,7 +196,7 @@ export default function ExchangeBooth() {
           <div className="col-md-9 col-sm-8 p-0">
             {(window.innerWidth > 767 || isGoBack) && (
               <>
-                {dataCurrencies && (
+                {(dataCurrencies && currencyInfo) && (
                   <div className="row">
                     <div className="col-md-12 p-0">
                       <div className="row">
