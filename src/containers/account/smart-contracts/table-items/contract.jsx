@@ -102,14 +102,14 @@ const TableItemContract = ({
     <tr>
       <td>
         <div className="d-flex align-items-center">
-          <div className="pointer" onClick={handleAddEvent}>
+          {/* <div className="pointer" onClick={handleAddEvent}>
             <Tooltip
               white
               iconContent={<i class="zmdi zmdi-notifications zmdi-hc-lg"></i>}
             >
               <div>Redirect to event</div>
             </Tooltip>
-          </div>
+          </div> */}
           <Button
             className="ml-2"
             color="blue-link"
