@@ -82,14 +82,14 @@ const TableItemEscrow = ({
     <tr>
       <td>
         <div className="d-flex">
-          <div className="pointer" onClick={handleAddEvent}>
+          {/* <div className="pointer" onClick={handleAddEvent}>
             <Tooltip
               white
               iconContent={<i class="zmdi zmdi-notifications zmdi-hc-2x"></i>}
             >
               <div>Redirect to event</div>
             </Tooltip>
-          </div>
+          </div> */}
           <Button
             className="ml-2"
             color="blue-link"
