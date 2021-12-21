@@ -52,13 +52,13 @@ export const currencySystemMenu = {
 	],
 };
 
-export const smartContracts = {
-  className: [process.env.REACT_APP_SMC_URL],
-  to: process.env.REACT_APP_SMC_URL,
+export const smartContracts = (to) => ({
+  className: ['/smc'],
+  to,
   isExternal: true,
   label: "Contracts",
   icon: "zmdi-collection-text",
-};
+});
 
 export const dfs = {
   className: [process.env.REACT_APP_DFS_URL],
