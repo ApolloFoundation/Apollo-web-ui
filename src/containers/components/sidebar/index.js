@@ -88,7 +88,7 @@ class Sidebar extends React.Component {
 	createNav = ({className, to, isExternal, icon, label}) => {
 		return (
       <NavLink
-				key={`${to}-${label}`}
+				key={to}
         exact={true}
         className={`text ${this.getNavLinkClass(className)}`}
         activeClassName="active"
@@ -117,8 +117,9 @@ class Sidebar extends React.Component {
 	createMenu = menu => {
 		let allRoutes = menu.className instanceof Array ? menu.className : [menu.className];
 		allRoutes = allRoutes.concat(menu.children?.map(opt => opt.to));
+		if (menu.to === '#' || !menu.to) return null;
 		return (
-			<li key={`${menu.to}-${menu.label}`} className={`active-menu ${this.getNavLinkClass(allRoutes)}`}>
+			<li key={menu.to} className={`active-menu ${this.getNavLinkClass(allRoutes)}`}>
 				{this.createItemMenu(menu)}
 				<>
 					{menu.children?.map(opt => this.createNav(opt))}
