@@ -16,13 +16,14 @@ import './Sidebar.scss';
 
 const mapStateToProps = state => ({
 	modalType: state.modals.modalType,
-    settings: state.accountSettings,
-    notifications: state.account.notifications
+	settings: state.accountSettings,
+	notifications: state.account.notifications,
+	chainId: state.account.blockchainStatus.chainId,
 });
 
-const mapDispatchToProps = dispatch => ({
-	setModalType: (modalType) => dispatch(setModalType(modalType))
-});
+const mapDispatchToProps = {
+	setModalType,
+};
 
 class Sidebar extends React.Component {
 	// submenuRef = React.createRef();
@@ -31,15 +32,31 @@ class Sidebar extends React.Component {
 		isHover: false,
 		isMenuCollapsed: false,
 		activeMenu: null,
+		smartContractAddress: '#',
 	};
 
-	// componentDidMount() {
-	// 	document.addEventListener('touchstart', this.handleMenuTouchOut);
-	// }
+	componentDidMount() {
+		this.getServer();
+		// document.addEventListener('touchstart', this.handleMenuTouchOut);
+	}
+
+	componentDidUpdate(prevProps){
+		if(prevProps.chainId !== this.props.chainId) {
+			this.getServer();
+		}
+	}
 	//
-	// componentWillUnmount() {
+	// componentWillUnmount(prevProps) {
 	// 	document.removeEventListener('touchstart', this.handleMenuTouchOut);
 	// }
+
+	getServer = () => {
+		if (this.props.chainId) {
+			const chainIdValue = this.props.chainId.split('-');
+			const addresses = JSON.parse(process.env.REACT_APP_SMC_URL);
+			this.setState({ smartContractAddress: addresses[chainIdValue[0]] });
+		}
+	}
 
 	// handleMenuMouseOver = () => {
 	// 	this.setState({
@@ -68,18 +85,24 @@ class Sidebar extends React.Component {
 		})
 	};
 
-	createNav = ({className, to, icon, label}) => {
-		return <NavLink
-			exact={true}
-			className={`text ${this.getNavLinkClass(className)}`}
-			activeClassName="active"
-			to={to}>{label}<i className={`zmdi ${icon} left`}/>
-		</NavLink>
+	createNav = ({className, to, isExternal, icon, label}) => {
+		return (
+      <NavLink
+				key={to}
+        exact={true}
+        className={`text ${this.getNavLinkClass(className)}`}
+        activeClassName="active"
+        to={isExternal ? { pathname: to } : to}
+        target={isExternal ? '_blank' : ''}
+      >
+        {label}<i className={`zmdi ${icon} left`}/>
+		  </NavLink>
+    )
 	};
 
-	createItemMenu = ({to, className, icon, label}) => {
-		return this.state.activeMenu === to
-		? (this.createNav({to, className, icon, label}))
+	createItemMenu = ({to, isExternal, className, icon, label, children}) => {
+		return this.state.activeMenu === to || !children
+		? (this.createNav({to, isExternal, className, icon, label}))
 		: (<a className={`text ${this.getNavLinkClass(className)}`} onClick={() => this.hanldeActive(to)}>
 			{label}<i className={`zmdi ${icon} left`}/>
 			</a>)
@@ -93,18 +116,21 @@ class Sidebar extends React.Component {
 
 	createMenu = menu => {
 		let allRoutes = menu.className instanceof Array ? menu.className : [menu.className];
-		allRoutes = allRoutes.concat(menu.children.map(opt => opt.to));
-		return <li className={`active-menu ${this.getNavLinkClass(allRoutes)}`}>
-			{this.createItemMenu(menu)}
-			<>
-				{menu.children.map(opt => this.createNav(opt))}
-				{menu.additionalChildren && this.createAdditionalNav(menu.additionalChildren)}
-			</>
-		</li>
+		allRoutes = allRoutes.concat(menu.children?.map(opt => opt.to));
+		if (menu.to === '#' || !menu.to) return null;
+		return (
+			<li key={menu.to} className={`active-menu ${this.getNavLinkClass(allRoutes)}`}>
+				{this.createItemMenu(menu)}
+				<>
+					{menu.children?.map(opt => this.createNav(opt))}
+					{menu.additionalChildren && this.createAdditionalNav(menu.additionalChildren)}
+				</>
+			</li>
+		)
 	};
 
 	hanldeActive = (activeMenu) => {this.setState({activeMenu})};
-	
+
 	getNavLinkClass = (path) => {
 		const routes = path instanceof Array ? path : [path];
 		if(routes.some(i => window.location.pathname === i)) return 'active';
@@ -146,7 +172,10 @@ class Sidebar extends React.Component {
 							onMouseOut={this.handleMenuMouseOut}
 						>
 							<ul>
-								{Object.keys(routes).map(rout => this.createMenu(routes[rout]))}
+								{
+									Object.entries(routes).map(([key, rout]) => key === 'smartContracts' 
+										? this.createMenu(rout(this.state.smartContractAddress)) : this.createMenu(rout))
+								}
 							</ul>
 						</nav>
 						<a

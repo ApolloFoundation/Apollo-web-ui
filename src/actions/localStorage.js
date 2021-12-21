@@ -4,9 +4,13 @@
  ***************************************************************************** */
 
 import { secureStorage } from '../helpers/format';
+import { getCookie, removeCookie, setCookie } from './cookie';
 
 export function writeToLocalStorage(field, params) {
   secureStorage.setItem(field, JSON.stringify(params));
+  if (field === 'APLUserRS') {
+    setCookie(field, params);
+  }
 }
 
 export function readFromLocalStorage(field) {
@@ -15,9 +19,17 @@ export function readFromLocalStorage(field) {
   }
 
   try {
-    const value = secureStorage.getItem(field);
-    if(!value) return value;
-    
+    let value = secureStorage.getItem(field);
+    let cookieValue
+    if (field === 'APLUserRS') {
+      cookieValue = getCookie(field);
+    }
+    if (!value && !cookieValue) return value;
+    if (!value && !!cookieValue) {
+      secureStorage.clear();
+      writeToLocalStorage(field, cookieValue);
+      value = JSON.stringify(cookieValue);
+    }
     const parsedValue = JSON.parse(value);
     if (field === 'APLContracts' && !Array.isArray(parsedValue)) {
       throw new Error()
@@ -27,18 +39,29 @@ export function readFromLocalStorage(field) {
     }
     return value;
   } catch (e) {
-    localStorage.clear();
+    clearLocalStorage();
     return null;
   }
 }
 
+export function clearLocalStorage() {
+  secureStorage.clear();
+  removeCookie('APLUserRS');
+}
+
 export function deleteFromLocalStorage(field) {
   secureStorage.removeItem(field);
+  if (field === 'APLUserRS') {
+    removeCookie(field);
+  }
 }
 
 export function setJSONItem(key, data) {
   const jsonData = JSON.stringify(data);
   secureStorage.setItem(key, jsonData);
+  if (key === 'APLUserRS') {
+    setCookie(key, jsonData);
+  }
 }
 
 function getAccountKey(key) {

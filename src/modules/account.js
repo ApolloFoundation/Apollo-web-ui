@@ -22,6 +22,7 @@ export const SET_WALLETS = 'SET_WALLETS';
 export const SET_BLOCKCHAIN_SETTINGS = 'SET_BLOCKCHAIN_SETTINGS';
 
 const initialState = {
+  blockchainStatus: {},
   settings: null,
   constants: {},
   passPhrase: null,
@@ -140,6 +141,8 @@ export default (state = initialState, action) => {
           adminPassword: JSON.parse(adminPassword),
         };
       }
+      return state;
+
     case LOAD_BLOCKCHAIN_STATUS:
       return {
         ...state,
