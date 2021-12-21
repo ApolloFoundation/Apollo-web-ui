@@ -60,6 +60,14 @@ export const smartContracts = {
   icon: "zmdi-collection-text",
 };
 
+export const dfs = {
+  className: [process.env.REACT_APP_DFS_URL],
+  to: process.env.REACT_APP_DFS_URL,
+  isExternal: true,
+  label: "Distributed file storage ",
+  icon: "zmdi-storage",
+};
+
 export const votingSystemMenu = {
 	className: '/active-polls',
 	to: '/active-polls',
