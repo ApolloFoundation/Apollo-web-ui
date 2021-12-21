@@ -117,6 +117,7 @@ class Sidebar extends React.Component {
 	createMenu = menu => {
 		let allRoutes = menu.className instanceof Array ? menu.className : [menu.className];
 		allRoutes = allRoutes.concat(menu.children?.map(opt => opt.to));
+		if (menu.to === '#' || !menu.to) return null;
 		return (
 			<li key={menu.to} className={`active-menu ${this.getNavLinkClass(allRoutes)}`}>
 				{this.createItemMenu(menu)}
