@@ -11,14 +11,13 @@ import {NotificationManager} from 'react-notifications';
 
 import {INIT_TRANSACTION_TYPES} from '../../helpers/transaction-types/transaction-types';
 import {login, logout, loadConstants, startLoad, endLoad } from '../../modules/account';
-import {writeToLocalStorage, readFromLocalStorage} from "../localStorage";
+import {writeToLocalStorage, readFromLocalStorage, clearLocalStorage, deleteFromLocalStorage} from "../localStorage";
 import {getTransactionsAction} from "../transactions";
 import {updateStoreNotifications} from "../../modules/account";
 import submitForm from "../../helpers/forms/forms";
 import store from '../../store'
 import {setBodyModalParamsAction} from "../../modules/modals";
 import {setAccountPassphrase} from '../../modules/account';
-import { secureStorage } from '../../helpers/format';
 import cancelAxiosRequest from '../../helpers/cancelToken';
 
 export function getAccountDataAction(requestParams) {
@@ -47,7 +46,7 @@ export function getAccountDataBySecretPhrasseAction(requestParams) {
             payload: requestParams.secretPhrase
         });
 
-        secureStorage.setItem('secretPhrase', JSON.stringify(requestParams.secretPhrase));
+        writeToLocalStorage('secretPhrase', requestParams.secretPhrase);
 
         const loginStatus = await dispatch(makeLoginReq({account: accountRS}));
 
@@ -73,10 +72,10 @@ export function getAccountDataBySecretPhrasseAction(requestParams) {
 
                     } else {
                         localContacts.push(values);
-                        secureStorage.setItem('APLContacts', JSON.stringify(localContacts));
+                      writeToLocalStorage('APLContacts', localContacts);
                     }
                 } else {
-                    secureStorage.setItem('APLContacts', JSON.stringify([values]));
+                  writeToLocalStorage('APLContacts',[values]);
                 }
 
                 // document.location = '/dashboard';
@@ -112,7 +111,7 @@ export function getUpdateStatus() {
 
                     if (!flag) {
                         NotificationManager.info('You are using up to date version', null, 900000);
-                        secureStorage.setItem('updateFlag', true)
+                        writeToLocalStorage('updateFlag', true)
                     }
                 }
                 if (res.data.isUpdate) {
@@ -227,7 +226,7 @@ export function setForging(requestType) {
         const secretString = readFromLocalStorage('secretPhrase')
         const passpPhrase = secretString ? JSON.parse(secretString) : account.passPhrase;
         const forgingStatus = dispatch(crypto.validatePassphrase(passpPhrase));
-        
+
         // dispatch({
         //     type: 'SET_PASSPHRASE',
         //     payload: passpPhrase
@@ -268,9 +267,9 @@ export async function logOutAction(action, history) {
 
     switch (action) {
         case('simpleLogOut'):
-            secureStorage.removeItem("APLUserRS");
-            secureStorage.removeItem("secretPhrase");
-            secureStorage.removeItem("wallets");
+            deleteFromLocalStorage('APLUserRS');
+            deleteFromLocalStorage('secretPhrase');
+            deleteFromLocalStorage('wallets');
             dispatch(logout());
             dispatch(setAccountPassphrase(null));
 
@@ -278,15 +277,15 @@ export async function logOutAction(action, history) {
             return;
         case('logOutStopForging'):
             const handleLogout = () => {
-                secureStorage.removeItem("APLUserRS");
-                secureStorage.removeItem("secretPhrase");
-                secureStorage.removeItem("wallets");
+                deleteFromLocalStorage('APLUserRS');
+                deleteFromLocalStorage('secretPhrase');
+                deleteFromLocalStorage('wallets');
                 dispatch(logout());
 
                 history.push('/login');
             };
 
-            secureStorage.removeItem("wallets");
+            deleteFromLocalStorage('wallets');
             const {account} = store.getState();
             const secret = readFromLocalStorage('secretPhrase');
             const passPhrase = secret ? JSON.parse(secret) : account.passPhrase;
@@ -320,7 +319,7 @@ export async function logOutAction(action, history) {
             }
             return;
         case('logoutClearUserData'):
-            secureStorage.clear();
+            clearLocalStorage();
             dispatch(setAccountPassphrase(null))
             dispatch(logout());
 

@@ -52,6 +52,22 @@ export const currencySystemMenu = {
 	],
 };
 
+export const smartContracts = (to) => ({
+  className: ['/smc'],
+  to,
+  isExternal: true,
+  label: "Contracts",
+  icon: "zmdi-collection-text",
+});
+
+export const dfs = {
+  className: [process.env.REACT_APP_DFS_URL],
+  to: process.env.REACT_APP_DFS_URL,
+  isExternal: true,
+  label: "Distributed file storage ",
+  icon: "zmdi-storage",
+};
+
 export const votingSystemMenu = {
 	className: '/active-polls',
 	to: '/active-polls',
