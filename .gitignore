@@ -36,3 +36,4 @@ public/datafeeds/udf/node_modules/
 package-lock.json
 yarn.lock
 /nbproject/private/
+/src/smc.json

@@ -10,8 +10,9 @@ import {connect} from 'react-redux';
 import {Scrollbars} from 'react-custom-scrollbars';
 import classNames from 'classnames'
 import {setModalType} from '../../../modules/modals';
-import * as routes from './routesMenu';
 import ApolloLogo from '../../../assets/new_apl_icon_black.svg';
+import smcAddress from '../../../smc.json';
+import * as routes from './routesMenu';
 import './Sidebar.scss';
 
 const mapStateToProps = state => ({
@@ -53,8 +54,7 @@ class Sidebar extends React.Component {
 	getServer = () => {
 		if (this.props.chainId) {
 			const chainIdValue = this.props.chainId.split('-');
-			const addresses = JSON.parse(process.env.REACT_APP_SMC_URL);
-			this.setState({ smartContractAddress: addresses[chainIdValue[0]] });
+			this.setState({ smartContractAddress: smcAddress[chainIdValue[0]] });
 		}
 	}
 
