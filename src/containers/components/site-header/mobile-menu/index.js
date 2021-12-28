@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
     Accordion,
     AccordionItem,
@@ -10,7 +10,6 @@ import {NavLink} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {setBodyModalParamsAction} from '../../../../modules/modals';
 import smcAddress from '../../../../smc.json';
-import { useEffect } from 'react';
 
 const getNavLinkClass = (path) => {
     return path.some(i => window.location.pathname === i) ? 'active' : '';
