@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
     Accordion,
     AccordionItem,
@@ -7,16 +7,29 @@ import {
     AccordionItemPanel,
 } from 'react-accessible-accordion';
 import {NavLink} from 'react-router-dom';
-import {connect} from 'react-redux';
-
+import {useDispatch, useSelector} from 'react-redux';
 import {setBodyModalParamsAction} from '../../../../modules/modals';
+import smcAddress from '../../../../smc.json';
+import { useEffect } from 'react';
 
 const getNavLinkClass = (path) => {
     return path.some(i => window.location.pathname === i) ? 'active' : '';
 };
 
 
-const MobileMenu = ({setBodyModalParamsAction, closeMenu}) => (
+const MobileMenu = ({closeMenu}) => {
+    const dispatch = useDispatch()
+    const chainId = useSelector(state => state.account.blockchainStatus.chainId)
+    const [smartContractAddress, setSmartContractAddress] = useState('#')
+    
+    useEffect(()=>{
+        if(chainId){
+            const chainIdValue = chainId.split('-');
+			setSmartContractAddress(smcAddress[chainIdValue[0]]);
+        }
+    },[chainId])
+
+    return (
     <>
         <Accordion>
             <AccordionItem>
@@ -114,7 +127,7 @@ const MobileMenu = ({setBodyModalParamsAction, closeMenu}) => (
 
                             <a
                                 id='open-issue-asset-mobile'
-                                onClick={() => setBodyModalParamsAction('ISSUE_ASSET')}
+                                onClick={() => dispatch(setBodyModalParamsAction('ISSUE_ASSET'))}
                             >
                                 Issue assets
                             </a>
@@ -144,7 +157,7 @@ const MobileMenu = ({setBodyModalParamsAction, closeMenu}) => (
                             <NavLink to="/transfer-history-currency">Transfer history</NavLink>
                             <a
                                 id='open-issue-currency-mobile'
-                                onClick={() => setBodyModalParamsAction('ISSUE_CURRENCIES')}
+                                onClick={() => dispatch(setBodyModalParamsAction('ISSUE_CURRENCIES'))}
                             >
                                 Issue Currencies
                             </a>
@@ -153,6 +166,38 @@ const MobileMenu = ({setBodyModalParamsAction, closeMenu}) => (
                 </div>
             </AccordionItem>
 
+            { smartContractAddress !== '#' && (
+                <NavLink to={{pathname:smartContractAddress}} target='_blank' className="w-100">
+                    <AccordionItem>
+                        <div className={"mobile-nav-item"}>
+                            <AccordionItemHeading
+                                className={'text'}>
+                                <AccordionItemButton>
+                                    <i className="zmdi zmdi-collection-text left"/>Contracts<span
+                                    className="arrow"/>
+                                </AccordionItemButton>
+                            </AccordionItemHeading>
+                        </div>
+                    </AccordionItem>
+                </NavLink>
+            )}
+
+            {process.env.REACT_APP_DFS_URL && (
+                <NavLink to={{pathname: process.env.REACT_APP_DFS_URL}} target='_blank' className="w-100">
+                    <AccordionItem>
+                        <div className={"mobile-nav-item"}>
+                            <AccordionItemHeading
+                                className={'text'}>
+                                <AccordionItemButton>
+                                    <i className="zmdi zmdi-storage left"/>Distributed file storage <span
+                                    className="arrow"/>
+                                </AccordionItemButton>
+                            </AccordionItemHeading>
+                        </div>
+                    </AccordionItem>
+                </NavLink>
+            )}
+            
             <AccordionItem>
                 <div className={"mobile-nav-item"}>
                     <AccordionItemHeading
@@ -176,7 +221,7 @@ const MobileMenu = ({setBodyModalParamsAction, closeMenu}) => (
 
                             <a
                                 id='open-create-poll-mobile'
-                                onClick={() => setBodyModalParamsAction('ISSUE_POLL')}
+                                onClick={() => dispatch(setBodyModalParamsAction('ISSUE_POLL'))}
                             >
                                 Create poll
                             </a>
@@ -199,7 +244,7 @@ const MobileMenu = ({setBodyModalParamsAction, closeMenu}) => (
 
                             <a
                                 id='open-file-upload-mobile'
-                                onClick={() => setBodyModalParamsAction('ISSUE_FILE_UPLOAD')}
+                                onClick={() => dispatch(setBodyModalParamsAction('ISSUE_FILE_UPLOAD'))}
                             >
                                 File upload
                             </a>
@@ -229,7 +274,7 @@ const MobileMenu = ({setBodyModalParamsAction, closeMenu}) => (
                             <NavLink to="/my-completed-orders">My completed orders</NavLink>
                             <a
                                 id='open-list-product-for-sale-mobile'
-                                onClick={() => setBodyModalParamsAction('LIST_PRODUCT_FOR_SALE')}
+                                onClick={() => dispatch(setBodyModalParamsAction('LIST_PRODUCT_FOR_SALE'))}
                             >
                                 List product for sale
                             </a>
@@ -257,7 +302,7 @@ const MobileMenu = ({setBodyModalParamsAction, closeMenu}) => (
                             <NavLink to="/my-shuffling">My shuffling</NavLink>
                             <a
                                 id='open-create-shuffling-mobile'
-                                onClick={() => setBodyModalParamsAction('ISSUE_CREATE_SHUFFLING')}
+                                onClick={() => dispatch(setBodyModalParamsAction('ISSUE_CREATE_SHUFFLING'))}
                             >
                                 Create shuffling
                             </a>
@@ -311,10 +356,6 @@ const MobileMenu = ({setBodyModalParamsAction, closeMenu}) => (
             </div>
         </div>
     </>
-)
+)}
 
-const mapDispatchToProps = dispatch => ({
-    setBodyModalParamsAction: (type, value) => dispatch(setBodyModalParamsAction(type, value))
-})
-
-export default connect(null, mapDispatchToProps)(MobileMenu);
+export default MobileMenu;
