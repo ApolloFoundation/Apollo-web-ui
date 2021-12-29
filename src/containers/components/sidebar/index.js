@@ -138,6 +138,7 @@ class Sidebar extends React.Component {
 		return ''
 	};
 
+
 	render() {
 		return (
 			<Scrollbars
