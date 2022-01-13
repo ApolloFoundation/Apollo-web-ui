@@ -17,7 +17,7 @@ const StayInTouch = () => (
         <div className="social-row">
           <a
             className="social-item"
-            href="https://twitter.com/ApolloCurrency"
+            href="https://twitter.com/aplfintech"
             target="_blank"
             rel="noopener noreferrer"
             data-custom
