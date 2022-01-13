@@ -52,7 +52,7 @@ class AboutApollo extends React.Component {
                             <p>
                                 <a target='blank' href='https://t.me/apollocommunity' className={'h2 mr-5'} style={{color: '#0088cc'}}><i className="fab fa-telegram" /></a>
                                 <a target='blank' href='https://www.facebook.com/Apolloprivacycoin' className={'h2 mr-5'} style={{color: '#3b5998'}}><i className="fab fa-facebook-f"/></a>
-                                <a target='blank' href='https://twitter.com/ApolloCurrency' className={'h2 mr-5'} style={{color: '#1da1f2'}}><i className="fab fa-twitter"/></a>
+                                <a target='blank' href='https://twitter.com/aplfintech' className={'h2 mr-5'} style={{color: '#1da1f2'}}><i className="fab fa-twitter"/></a>
                                 <a target='blank' href='https://www.instagram.com/apollocurrency/?hl=en' className={'h2 mr-5'} style={{color: '#c32aa3'}}><i className="fab fa-instagram"/></a>
                                 <a target='blank' href='https://www.youtube.com/channel/UCZbB3PAUlkSKuBYEMG-l_CQ' className={'h2'} style={{color: '#ff0000'}}><i className="fab fa-youtube"/></a>
                             </p>
