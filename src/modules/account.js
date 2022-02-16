@@ -133,6 +133,7 @@ export default (state = initialState, action) => {
         currentBlock: action.payload,
       };
     case SET_ADMIN_PASSWORD:
+      console.log('reducer');
       const adminPassword = localStorage.getItem('adminPassword');
 
       if (adminPassword) {

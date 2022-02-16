@@ -61,8 +61,10 @@ class ConfirmForging extends React.Component {
         }
     };
 
-    checkPassphrase = () => JSON.parse(localStorage.getItem('secretPhrase')) || this.props.passphrase;
-
+    checkPassphrase = () => {
+        console.log('check passprase');
+        return localStorage.getItem('secretPhrase') ? JSON.parse(localStorage.getItem('secretPhrase')) : this.props.passphrase;
+    }
     render() {
         const {action, is2FA} = this.props;
         const forgingAction = action && action.getStatus === 'startForging' ? 'start' : 'stop';

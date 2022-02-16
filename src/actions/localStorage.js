@@ -20,6 +20,7 @@ export function readFromLocalStorage(field) {
 
   try {
     let value = secureStorage.getItem(field);
+    console.log('value !!!',value, field);
     let cookieValue
     if (field === 'APLUserRS') {
       cookieValue = getCookie(field);

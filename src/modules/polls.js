@@ -18,6 +18,7 @@ export default (state = initState, action) => {
 }
 
 export const getFollowedPolls = () => dispatch => {
+    console.log('get pools');
     let polls = localStorage.getItem('followedPolls');
     if (polls) {
         polls = JSON.parse(polls);
