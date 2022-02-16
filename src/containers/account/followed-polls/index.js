@@ -165,7 +165,6 @@ class FollowedVotes extends React.Component {
     };
 
     addToFollowedPolls = () => {
-        console.log('pools');
         let polls = localStorage.getItem('followedPolls');
 
         if (polls) {
