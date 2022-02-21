@@ -19,6 +19,7 @@ export function readFromLocalStorage(field) {
   }
 
   try {
+    console.log('field', field);
     let value = secureStorage.getItem(field);
     let cookieValue
     if (field === 'APLUserRS') {
