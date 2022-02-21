@@ -8,7 +8,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {getAccountDataAction} from '../../../actions/login';
 
-const savedAccount = JSON.parse(localStorage.getItem('APLUserRS'))
+const savedAccount = localStorage.getItem('APLUserRS') ? JSON.parse(localStorage.getItem('APLUserRS')) : '';
 
 const PageLoader = ({loginProblem, getAccountDataAction}) => (
     <div className="page-loader">

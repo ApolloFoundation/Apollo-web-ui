@@ -123,7 +123,7 @@ class SiteHeader extends React.Component {
             NotificationManager.error('Your effective balance must be greater than 1000 APL to forge.', 'Error', 5000);
             return;
         }
-        const passPhrase = JSON.parse(localStorage.getItem('secretPhrase')) || this.props.secretPhrase;
+        const passPhrase = localStorage.getItem('secretPhrase') ? JSON.parse(localStorage.getItem('secretPhrase')) : this.props.secretPhrase;
         if (!passPhrase || this.props.is2FA) {
             this.props.setBodyModalParamsAction('CONFIRM_FORGING', this.setForgingData(action.requestType));
         } else {
