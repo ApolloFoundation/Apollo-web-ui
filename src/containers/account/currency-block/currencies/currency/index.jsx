@@ -16,7 +16,7 @@ export default function Currency(props) {
 
   const {
     currency, code, type, types, decimals,
-    currentSupply, initialSupply, name, issuanceHeight,
+    currentSupply, maxSupply, name, issuanceHeight,
   } = props;
   const currencyTypes = getCurrencyTypes(type);
 
@@ -36,7 +36,7 @@ export default function Currency(props) {
       <td>{name}</td>
       <td className="" dangerouslySetInnerHTML={{ __html: currencyTypes }} />
       <td className="align-right">{currentSupply / 10 ** decimals}</td>
-      <td className="align-right">{initialSupply / 10 ** decimals}</td>
+      <td className="align-right">{maxSupply / 10 ** decimals}</td>
       <td className="align-right">
         <div className="btn-box inline">
           <Link to={`/exchange-booth/${code}`} className="btn btn-default">Exchange</Link>

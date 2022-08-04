@@ -28,7 +28,7 @@ export default function CurrencyInfo(props) {
             </p>
             <p className="mb-3">
               <label>
-                Max supply:
+                Initial supply:
               </label>
               <div>
                 {initialSupply / (10 ** decimals)}
