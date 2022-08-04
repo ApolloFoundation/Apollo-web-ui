@@ -5,7 +5,6 @@ export default function CurrencyInfo(props) {
     currentSupply, decimals, code,
     currency, description, accountRS, initialSupply
   } = props;
-  console.log(props)
 
   return (
     <div className="col-md-3 col-sm-4 p-0">
