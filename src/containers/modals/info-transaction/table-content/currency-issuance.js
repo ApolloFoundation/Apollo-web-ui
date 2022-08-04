@@ -53,7 +53,7 @@ export default class CurrencyIssuance extends Component {
 	            {this.props.transaction.attachment.hasOwnProperty("maxSupply") &&
 	            <tr>
 		            <td>Maximum Units Supply:</td>
-		            <td>{this.props.transaction.attachment.maxSupply}</td>
+		            <td>{this.props.transaction.attachment.initialSupply}</td>
 	            </tr>
 	            }
 	            {this.props.transaction.attachment.hasOwnProperty("decimals") &&
