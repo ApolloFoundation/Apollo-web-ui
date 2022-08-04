@@ -5,6 +5,7 @@ export default function CurrencyInfo(props) {
     currentSupply, decimals, code,
     currency, description, accountRS, initialSupply
   } = props;
+  console.log(props)
 
   return (
     <div className="col-md-3 col-sm-4 p-0">
@@ -28,7 +29,7 @@ export default function CurrencyInfo(props) {
             </p>
             <p className="mb-3">
               <label>
-                Max supply:
+                Initial supply:
               </label>
               <div>
                 {initialSupply / (10 ** decimals)}
