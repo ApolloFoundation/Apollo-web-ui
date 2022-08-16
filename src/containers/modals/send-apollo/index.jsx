@@ -9,8 +9,10 @@ import { NotificationManager } from 'react-notifications';
 import { setBodyModalParamsAction } from '../../../modules/modals';
 import ModalBody from '../../components/modals/modal-body1';
 import SendApolloForm from './form';
+import {PrivateTransactionConfirm} from './PrivateTransactionConfirm/PrivateTransactionConfirm';
 
 export default function SendApollo(props) {
+  const [ isShowNotification, setIsShowNotification ] = useState(false);
   const dispatch = useDispatch();
 
   const { closeModal, processForm } = props;
@@ -22,7 +24,7 @@ export default function SendApollo(props) {
   const { account, ticker, decimals } = useSelector(state => state.account);
 
   const handleFormSubmit = useCallback(async values => {
-    const data = { ...values };
+    const { privateTransaction, ...data } = values;
     if (!values.secretPhrase || values.secretPhrase.length === 0) {
       NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
       return;
@@ -62,6 +64,10 @@ export default function SendApollo(props) {
 
   const handelChangeAlias = ({ value }) => setAlias(value);
 
+  const handleShowNotification = (value) => () => {
+    setIsShowNotification(value);
+  }
+
   return (
     <ModalBody
       modalTitle="Create transaction"
@@ -78,9 +84,12 @@ export default function SendApollo(props) {
         encrypt_message: true,
       }}
     >
+      {isShowNotification && <PrivateTransactionConfirm onClose={handleShowNotification(false)} />}
       <SendApolloForm
         onChangeAlias={handelChangeAlias}
         onChosenTransactionOnAlias={onChosenTransactionOnAlias}
+        onPrivateTransactionChange={handleShowNotification}
+        isShowPrivateTransaction={isShowNotification}
         ticker={ticker}
       />
     </ModalBody>
