@@ -12,7 +12,7 @@ const newAliasValidation = /APL-[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{
 const oldAliasValidation = /^acct:(APL-[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{5})@apl$/i;
 
 export default function SendMoneyForm({
-  values, idGroup, onChangeAlias, onChosenTransactionOnAlias, onPrivateTransaction, ticker,
+  values, idGroup, onChangeAlias, onChosenTransactionOnAlias, onPrivateTransactionChange, ticker,
   isShowPrivateTransaction,
 }) {
   const dispatch = useDispatch();
@@ -69,7 +69,7 @@ export default function SendMoneyForm({
       <CheckboxFormInput 
         label="Private transaction"
         name='privateTransaction'
-        onChange={onPrivateTransaction(true)}
+        onChange={onPrivateTransactionChange(true)}
         value={isShowPrivateTransaction}
         id="open-private-transaction-from-modal"
       />

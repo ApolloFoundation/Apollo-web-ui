@@ -88,7 +88,7 @@ export default function SendApollo(props) {
       <SendApolloForm
         onChangeAlias={handelChangeAlias}
         onChosenTransactionOnAlias={onChosenTransactionOnAlias}
-        onPrivateTransaction={handleShowNotification}
+        onPrivateTransactionChange={handleShowNotification}
         isShowPrivateTransaction={isShowNotification}
         ticker={ticker}
       />
