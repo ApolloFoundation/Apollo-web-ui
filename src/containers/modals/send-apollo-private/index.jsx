@@ -12,8 +12,6 @@ import { setBodyModalParamsAction } from '../../../modules/modals';
 import { getMixerAccount } from '../../../actions/transactions';
 import submitForm from '../../../helpers/forms/forms';
 import ModalBody from '../../components/modals/modal-body1';
-import InfoBox from '../../components/info-box';
-import Button from '../../components/button';
 import SendPrivateApolloForm from './form';
 
 export default function SendApolloPrivate(props) {
@@ -24,7 +22,6 @@ export default function SendApolloPrivate(props) {
   const { modalData } = useSelector(state => state.modals);
   const { constants: { mixerUrl, accountPrefix }, ticker, decimals } = useSelector(state => state.account);
 
-  const [isPrivateTransactionAlert, setIsPrivateTransactionAlert] = useState(false);
   const [useMixer, setUseMixer] = useState(false);
   const [isPending, setIsPending] = useState(false);
   const [newMixerData, setNewMixerData] = useState(null);
@@ -107,10 +104,6 @@ export default function SendApolloPrivate(props) {
     }
   }, [closeModal, decimals, dispatch, isPending]);
 
-  const setConfirm = () => {
-    setIsPrivateTransactionAlert(true);
-  };
-
   useEffect(() => {
     handleGetMixerAccount();
   }, [handleGetMixerAccount]);
@@ -123,7 +116,6 @@ export default function SendApolloPrivate(props) {
       isAdvanced
       isPending={isPending}
       submitButtonName="Send"
-      isDisabled={!isPrivateTransactionAlert}
       idGroup="send-private-money-modal-"
       initialValues={{
         recipient: (modalData && modalData.recipient) || '',
@@ -135,19 +127,6 @@ export default function SendApolloPrivate(props) {
         isMixer: useMixer,
       }}
     >
-      {!isPrivateTransactionAlert && (
-        <InfoBox info>
-          Please note: Exchanges may not support private transactions, we recommend sending publically to exchanges.
-          <br />
-          Private transactions currently protect down the API level. Database level protection will start with Olympus 2.0
-          <br />
-          <Button
-            className="mt-3"
-            name="I agree"
-            onClick={setConfirm}
-          />
-        </InfoBox>
-      )}
       <SendPrivateApolloForm
         ticker={ticker}
         mixerData={newMixerData}

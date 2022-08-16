@@ -2,8 +2,6 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { processAccountRStoID } from 'apl-web-crypto';
 import { searchAliases } from '../../../actions/aliases';
-import { setBodyModalParamsAction } from '../../../modules/modals';
-import CustomInputForm from '../../components/form-components/textual-input';
 import CustomTextArea from '../../components/form-components/text-area1';
 import AutoComplete from '../../components/auto-complete';
 import CheckboxFormInput from '../../components/check-button-input';
@@ -14,7 +12,8 @@ const newAliasValidation = /APL-[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{
 const oldAliasValidation = /^acct:(APL-[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{5})@apl$/i;
 
 export default function SendMoneyForm({
-  values, idGroup, onChangeAlias, onChosenTransactionOnAlias, ticker,
+  values, idGroup, onChangeAlias, onChosenTransactionOnAlias, onPrivateTransactionChange, ticker,
+  isShowPrivateTransaction,
 }) {
   const dispatch = useDispatch();
 
@@ -67,12 +66,12 @@ export default function SendMoneyForm({
         placeholder={`Amount ${ticker}`}
         idGroup={idGroup}
       />
-      <CustomInputForm
-        hendler={() => dispatch(setBodyModalParamsAction('SEND_APOLLO_PRIVATE', { ...values, feeATM: 5 }))}
+      <CheckboxFormInput 
         label="Private transaction"
+        name='privateTransaction'
+        onChange={onPrivateTransactionChange(true)}
+        value={isShowPrivateTransaction}
         id="open-private-transaction-from-modal"
-        type="button"
-        idGroup={idGroup}
       />
       <CheckboxFormInput
         name="add_message"
