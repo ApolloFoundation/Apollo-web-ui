@@ -20,7 +20,7 @@ export const PrivateTransactionConfirm = ({ onClose, values }) => {
 
   return (
     <div className={styles.privateTransactionConfirmWrapper}>
-      <InfoBox info className={styles.privateTransactionConfirmIfoBox}>
+      <InfoBox info className={styles.privateTransactionConfirmInfoBox}>
       <button type="button" onClick={onClose} className="exit">
         <i className="zmdi zmdi-close" />
       </button>
