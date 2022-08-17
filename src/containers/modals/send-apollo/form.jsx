@@ -67,7 +67,7 @@ export default function SendMoneyForm({
         idGroup={idGroup}
       />
       <CheckboxFormInput 
-        label="Private transaction"
+        label="Send Privately"
         name='privateTransaction'
         onChange={onPrivateTransactionChange(true)}
         value={isShowPrivateTransaction}
