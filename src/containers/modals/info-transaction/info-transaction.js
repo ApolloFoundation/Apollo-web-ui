@@ -55,6 +55,7 @@ class InfoLedgerTransaction extends React.Component {
         if (props.modalData
             && Object.keys(props.modalData).length > 0
             && (!state.transactionId || props.modalData !== state.modalData)
+            && props.modalType === 'INFO_TRANSACTION'
         ) {
             if (props.modalData && !props.modalData.errorCode) {
                 const isDataObject = props.modalData instanceof Object;
@@ -133,7 +134,7 @@ class InfoLedgerTransaction extends React.Component {
         const parsedSignatures = (transaction && transaction.signature) && (typeof transaction.signature === "string" ? [transaction.signature] : transaction.signature.signatures.map(i => i.signature));
         
         const recipientRS = transaction
-          && (this.props.accountRS === transaction.recipientRS ? transaction.senderRS : transaction.recipientRS);
+        && (this.props.accountRS === transaction.recipientRS ? transaction.senderRS : transaction.recipientRS);
 
           return (
             <ModalBody

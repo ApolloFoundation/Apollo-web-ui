@@ -158,7 +158,7 @@ class AddMonitoredAccount extends React.Component {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="btn-box align-buttons-inside absolute right-conner align-right">
+                                <div className="btn-box right-conner align-right form-footer">
                                     <button
                                         type={'button'}
                                         onClick={() => this.props.closeModal()}

@@ -2,8 +2,8 @@ import React from 'react';
 
 export default function CurrencyInfo(props) {
   const {
-    currentSupply, decimals, code, maxSupply,
-    currency, description, accountRS,
+    currentSupply, decimals, code,
+    currency, description, accountRS, maxSupply
   } = props;
 
   return (
@@ -28,7 +28,7 @@ export default function CurrencyInfo(props) {
             </p>
             <p className="mb-3">
               <label>
-                Max supply:
+                Initial supply:
               </label>
               <div>
                 {maxSupply / (10 ** decimals)}
