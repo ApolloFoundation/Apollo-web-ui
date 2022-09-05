@@ -60,7 +60,7 @@ class DeleteAccountProperty extends React.Component {
                         <form className="modal-form" onChange={() => this.props.saveSendModalState(values)}
                               onSubmit={submitForm}>
                             <div className="form-group-app">
-                                <button onClick={() => this.props.closeModal()} className="exit"><i
+                                <button type="button" onClick={() => this.props.closeModal()} className="exit"><i
                                     className="zmdi zmdi-close"/></button>
 
                                 <div className="form-title">
