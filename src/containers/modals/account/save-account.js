@@ -61,7 +61,7 @@ class AddAccount extends React.Component {
 
                 if (!localContacts.filter(contact => contact.accountRS === values.accountRS).length) {
                     localContacts.push(values);
-                    writeToLocalStorage('APLContacts', JSON.stringify(localContacts));
+                    writeToLocalStorage('APLContacts', localContacts);
                     NotificationManager.success('Added to contacts!', null, 5000);
                     this.props.closeModal()
 
@@ -70,7 +70,7 @@ class AddAccount extends React.Component {
 
                 }
             } else {
-                writeToLocalStorage('APLContacts', JSON.stringify([values]));
+                writeToLocalStorage('APLContacts', [values]);
                 NotificationManager.success('Added to contacts!', null, 5000);
                 this.props.closeModal()
             }

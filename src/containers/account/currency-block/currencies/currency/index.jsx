@@ -16,7 +16,7 @@ export default function Currency(props) {
 
   const {
     currency, code, type, types, decimals,
-    currentSupply, maxSupply, name, issuanceHeight
+    currentSupply, maxSupply, name, issuanceHeight,
   } = props;
   const currencyTypes = getCurrencyTypes(type);
 
