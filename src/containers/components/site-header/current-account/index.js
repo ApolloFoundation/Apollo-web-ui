@@ -76,7 +76,7 @@ class CurrentAccount extends React.Component {
                 })}>
                 <div className="form-group-app">
                     <div className="form-title">
-                        <button onClick={closeMenu} className="exit current-account">
+                        <button type="button" onClick={closeMenu} className="exit current-account">
                             <i className="zmdi zmdi-close"/>
                         </button>
                         <p>Current account</p>
