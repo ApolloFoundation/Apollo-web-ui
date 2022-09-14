@@ -44,7 +44,7 @@ import Assets from '../account/assets';
 import ApprovalRequest from '../account/approval-request/index1';
 import ApprovalRequestAssets from '../account/approval-request-assets';
 import AssetExchange from '../account/asset-exchange';
-import Aliases from '../account/aliases';
+import Aliases from '../account/aliases/index.jsx';
 import SearchAliases from '../account/search-aliases';
 import DeleteHistory from '../account/delete-history';
 import FundingMonitors from '../account/funding-monitors';
