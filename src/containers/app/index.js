@@ -39,7 +39,7 @@ import MyPandingOrders from '../account/my-panding-orders';
 import PurchasdProucts from '../account/purchased-proucts';
 import MyCompletedOrders from '../account/my-completed-orders';
 import Activepolls from '../account/active-polls';
-import AccountProperties from '../account/account-properties/index1';
+import AccountProperties from '../account/account-properties';
 import Assets from '../account/assets';
 import ApprovalRequest from '../account/approval-request/index1';
 import ApprovalRequestAssets from '../account/approval-request-assets';
