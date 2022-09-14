@@ -9,7 +9,7 @@ import {connect} from 'react-redux';
 import classNames from "classnames";
 import {Link} from 'react-router-dom';
 import SiteHeader from '../../../components/site-header/index';
-import MarketplaceItem from '../marketplace-card'
+import MarketplaceItem from '../marketplace-card/index'
 import {getDGSGoodsAction} from "../../../../actions/marketplace";
 
 import '../MarketPLace.scss';

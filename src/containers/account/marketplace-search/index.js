@@ -8,7 +8,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import SiteHeader from '../../components/site-header/index';
-import MarketplaceItem from '../marketplace/marketplace-card'
+import MarketplaceItem from '../marketplace/marketplace-card/index'
 import {searchDGSGoodsAction} from "../../../actions/marketplace";
 
 import classNames from "classnames";
