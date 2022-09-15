@@ -49,7 +49,7 @@ import SearchAliases from '../account/search-aliases';
 import DeleteHistory from '../account/delete-history';
 import FundingMonitors from '../account/funding-monitors';
 import FundingMonitorsStatus from '../account/funding-monitors-status';
-import MyAssets from '../account/my-assets';
+import MyAssets from '../account/my-assets/index';
 import OpenOrders from '../account/open-orders';
 import Peers from '../account/peers';
 import BackendStatus from '../account/backend-status';
