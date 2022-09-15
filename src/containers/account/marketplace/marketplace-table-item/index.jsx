@@ -1,0 +1,67 @@
+/** ****************************************************************************
+ * Copyright © 2018 Apollo Foundation                                         *
+ *                                                                            *
+ ***************************************************************************** */
+
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { setBodyModalParamsAction } from '../../../../modules/modals';
+
+const MarketplaceTableItem = props => {
+  const dispatch = useDispatch();
+  const decimals = useSelector(state => state.account.decimals);
+  const ticker = useSelector(state => state.account.ticker);
+
+  const handleInfoTransation = () => dispatch(setBodyModalParamsAction('INFO_TRANSACTION', props.goods));
+
+  const handleChangePrice = () => dispatch(setBodyModalParamsAction('CHANGE_PRICE', props.goods));
+
+  const handleChangeQuantity = () => dispatch(setBodyModalParamsAction('CHANGE_QUANTITY', props.goods));
+
+  const handleDeleteGoods = () => dispatch(setBodyModalParamsAction('DELETE_GOODS', props.goods));
+
+  return (
+    <tr>
+      <td className="blue-link-text">
+        <a onClick={handleInfoTransation}>
+          {props.name}
+        </a>
+      </td>
+      <td className="align-right">
+        <a>{props.quantity}</a>
+      </td>
+      <td className="align-right">
+        {Math.floor(props.priceATM / decimals).toLocaleString('it')}
+        {' '}
+        {ticker}
+      </td>
+      <td className="align-right">
+        <div className="btn-box inline">
+          <button
+            type="button"
+            onClick={handleChangePrice}
+            className="btn btn-default"
+          >
+            Change Price
+          </button>
+          <button
+            type="button"
+            onClick={handleChangeQuantity}
+            className="btn btn-default"
+          >
+            Change QTY
+          </button>
+          <button
+            type="button"
+            onClick={handleDeleteGoods}
+            className="btn btn-default"
+          >
+            Delete
+          </button>
+        </div>
+      </td>
+    </tr>
+  );
+}
+
+export default MarketplaceTableItem;

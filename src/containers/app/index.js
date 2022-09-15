@@ -32,7 +32,7 @@ import Transactions from '../account/transactions';
 import Blocks from '../account/blocks';
 import Followedpolls from '../account/followed-polls';
 import Messenger from '../account/messenger';
-import ResentMarketplaceListing from '../account/marketplace/recent-listing';
+import ResentMarketplaceListing from '../account/marketplace/recent-listing/index';
 import Marketplace from '../account/marketplace';
 import MyProductsForSale from '../account/my-products-for-sale';
 import MyPandingOrders from '../account/my-panding-orders';
