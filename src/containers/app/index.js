@@ -72,7 +72,7 @@ import DataStorage from '../account/datastorage';
 import ActiveShufflings from '../account/active-shufflings';
 import FinishedShufflings from '../account/finished-shufflings';
 import MyMessages from '../account/my-messages';
-import MarketplaceSearch from '../account/marketplace-search';
+import MarketplaceSearch from '../account/marketplace-search/index';
 import Generators from '../account/generators';
 // Excahnge
 import Exchange from '../account/exchange/dashboard';
