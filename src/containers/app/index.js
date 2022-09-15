@@ -71,7 +71,7 @@ import MyPolls from '../account/my-polls';
 import DataStorage from '../account/datastorage';
 import ActiveShufflings from '../account/active-shufflings';
 import FinishedShufflings from '../account/finished-shufflings';
-import MyMessages from '../account/my-messages';
+import MyMessages from '../account/my-messages/index';
 import MarketplaceSearch from '../account/marketplace-search/index';
 import Generators from '../account/generators';
 // Excahnge
