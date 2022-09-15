@@ -36,7 +36,7 @@ import ResentMarketplaceListing from '../account/marketplace/recent-listing/inde
 import Marketplace from '../account/marketplace/index';
 import MyProductsForSale from '../account/my-products-for-sale/index';
 import MyPandingOrders from '../account/my-panding-orders';
-import PurchasdProucts from '../account/purchased-proucts';
+import PurchasdProucts from '../account/purchased-proucts/index';
 import MyCompletedOrders from '../account/my-completed-orders/index';
 import Activepolls from '../account/active-polls';
 import AccountProperties from '../account/account-properties';
