@@ -27,12 +27,12 @@ const  MarketplaceSearch = (props) => {
         });
 
     const getDGSGoods = useCallback(async (reqParams) => {
-        const getDGSGoods = await dispatch(searchDGSGoodsAction(reqParams));
+        const { goods } = await dispatch(searchDGSGoodsAction(reqParams));
 
-        if (getDGSGoods) {
+        if (goods) {
             setState(prevState => ({
                 ...prevState,
-                DGSGoods: getDGSGoods.goods
+                DGSGoods: goods
             }));
         }
     }, [dispatch]);
