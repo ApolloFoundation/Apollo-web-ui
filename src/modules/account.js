@@ -3,6 +3,8 @@
  *                                                                            *
  ***************************************************************************** */
 
+import { readFromLocalStorage } from "../actions/localStorage";
+
 export const LOAD_ACCOUNT = 'LOAD_ACCOUNT';
 export const RESET_ACCOUNT = 'RESET_ACCOUNT';
 export const SET_CONSTANTS = 'SET_CONSTANTS';
@@ -133,12 +135,12 @@ export default (state = initialState, action) => {
         currentBlock: action.payload,
       };
     case SET_ADMIN_PASSWORD:
-      const adminPassword = localStorage.getItem('adminPassword');
+      const adminPassword = readFromLocalStorage('adminPassword');
 
       if (adminPassword) {
         return {
           ...state,
-          adminPassword: JSON.parse(adminPassword),
+          adminPassword: adminPassword,
         };
       }
       return state;
