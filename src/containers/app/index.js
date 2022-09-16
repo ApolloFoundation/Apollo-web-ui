@@ -44,7 +44,7 @@ import Assets from '../account/assets';
 import ApprovalRequest from '../account/approval-request/index1';
 import ApprovalRequestAssets from '../account/approval-request-assets';
 import AssetExchange from '../account/asset-exchange';
-import Aliases from '../account/aliases/index.jsx';
+import Aliases from '../account/aliases/index';
 import SearchAliases from '../account/search-aliases';
 import DeleteHistory from '../account/delete-history';
 import FundingMonitors from '../account/funding-monitors';
@@ -54,7 +54,7 @@ import OpenOrders from '../account/open-orders';
 import Peers from '../account/peers';
 import BackendStatus from '../account/backend-status';
 import ScheduledTransactions from '../account/scheduled-transactions';
-import Settings from '../account/settings';
+import Settings from '../account/settings/index';
 import TradeHistory from '../account/trade-history';
 import TransferHistory from '../account/transfer-history';
 // Currencies
