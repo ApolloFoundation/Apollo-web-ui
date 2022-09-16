@@ -3,8 +3,8 @@
  *                                                                            *
  ***************************************************************************** */
 
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useCallback, useEffect } from 'react';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { Form } from 'react-form';
 import { NotificationManager } from 'react-notifications';
 import { getSavedAccountSettingsAction, saveAccountSettingsAction } from '../../../modules/accountSettings';
@@ -18,19 +18,36 @@ import InputForm from '../../components/input-form';
 import InfoBox from '../../components/info-box';
 import ModalFooter from '../../components/modal-footer';
 import AccountRSFormInput from '../../components/form-components/account-rs';
+import { 
+  getAccountSelector,
+  getSettingsSelector,
+  get2FASelector,
+  getIsLocalhostSelector,
+} from '../../../selectors';
 import './Settings.scss';
 
-class Settings extends React.Component {
-    settingsLoaded = false;
+const Settings = () => {
+  const dispatch = useDispatch();
+  const account = useSelector(getAccountSelector);
+  const settings = useSelector(getSettingsSelector);
+  const is2FA = useSelector(get2FASelector);
+  const isLocalhost = useSelector(getIsLocalhostSelector);
 
-    valuesSet = false;
+  const [state, setState] = useState({
+    settingsLoaded: false,
+    settings: null,
+    adminPassword: localStorage.getItem('adminPassword') ? JSON.parse(localStorage.getItem('adminPassword')) : '',
+    account: null, 
+  });
+
+    // valuesSet = false;
 
     componentDidMount() {
       this.getAdminPassword();
       this.props.getSavedAccountSettings();
       this.getAccountInfoAction(this.props);
-      this.settingsLoaded = true;
-
+      // this.settingsLoaded = true;
+      setSettingsLoaded(true);
       if (this.state.settings) {
         this.setState({ is2FA: true });
       } else {
@@ -38,25 +55,35 @@ class Settings extends React.Component {
       }
     }
 
-    state = {
-      settings: null,
-      adminPassword: localStorage.getItem('adminPassword') ? JSON.parse(localStorage.getItem('adminPassword')) : '',
-    };
+    useEffect(() => {
+      getAdminPassword();
+      dispatch(getSavedAccountSettingsAction());
+      getAccountInfoAction(props);
+    }, [dispatch, getAdminPassword,]);
 
-    getAccountInfoAction = async props => {
-      const account = await this.props.getAccountInfoAction({ account: props ? props.account : this.props.account });
+    // state = {
+    //   settings: null,
+    //   adminPassword: localStorage.getItem('adminPassword') ? JSON.parse(localStorage.getItem('adminPassword')) : '',
+    // };
 
-      if (account) {
-        this.props.login(account);
-        this.setState({ account });
+    // check can we remove props from argumets of fn
+    const getAccountInfoAction = useCallback(async data => {
+      const accountResponse = await dispatch(getAccountInfoAction({ account: data ? data.account : account }));
+
+      if (accountResponse) {
+        dispatch(login(accountResponse));
+        setState(prevState => ({ 
+          ...prevState, 
+          account: accountResponse,
+        }));
       }
-    };
+    }, [dispatch, account]);
 
-    handleSubmit = values => {
-      saveAccountSettingsAction(values);
-      getSavedAccountSettingsAction();
-      NotificationManager.success('Settings has been saved!');
-    };
+    // const handleSubmit = values => {
+    //   saveAccountSettingsAction(values);
+    //   dispatch(getSavedAccountSettingsAction());
+    //   NotificationManager.success('Settings has been saved!');
+    // };
 
     componentWillReceiveProps = (newState, oldState) => {
       this.getAccountInfoAction(newState);
@@ -70,15 +97,14 @@ class Settings extends React.Component {
       }
     };
 
-    set2faStatus = selectedOption => {
-      if (selectedOption.value) {
-        this.setState({ is2FA: true });
-      } else {
-        this.setState({ is2FA: false });
-      }
-    };
+    // const set2faStatus = selectedOption => {
+    //   setState(prevState => ({ 
+    //     ...prevState,
+    //     is2FA: Boolean(selectedOption.value)
+    //   }));
+    // };
 
-    getQRCode = async getFormState => {
+    const getQRCode = async getFormState => {
       const { values } = getFormState();
 
       if (!values.account) {
@@ -94,19 +120,22 @@ class Settings extends React.Component {
       if (status.errorCode) {
         NotificationManager.error(status.errorDescription, null, 5000);
       } else {
-        this.props.setBodyModalParamsAction('CONFIRM_2FA_OPERATION', {
+        dispatch(setBodyModalParamsAction('CONFIRM_2FA_OPERATION', {
           ...status,
           passphrase: values.secretPhrase,
           account: values.account,
           operation: 'enable 2FA',
-          settingsReloader: this.getAccountInfoAction,
-        });
+          settingsReloader: getAccountInfoAction,
+        }));
 
-        this.setState({ info2fa: status });
+        setState(prevState => ({ 
+          ...prevState,
+          info2fa: status
+        }));
       }
     };
 
-    disable2fa = async getFormState => {
+    const disable2fa = async getFormState => {
       const { values } = getFormState();
 
       if (!values.account) {
@@ -123,20 +152,23 @@ class Settings extends React.Component {
       if (status.errorCode) {
         NotificationManager.error(status.errorDescription, null, 5000);
       } else {
-        this.getAccountInfoAction();
+        getAccountInfoAction();
         NotificationManager.success('2FA was successfully disabled.', null, 5000);
       }
     };
 
-    getAdminPassword = () => {
+    const getAdminPassword = useCallback(() => {
       const adminPassword = localStorage.getItem('adminPassword');
 
       if (adminPassword) {
-        this.setState({ adminPassword: JSON.parse(adminPassword) });
+        setState(prevState => ({
+          ...prevState, 
+          adminPassword: JSON.parse(adminPassword) 
+        }));
       }
-    };
+    }, []);
 
-    handleGeneralSettingFormSubmit = values => {
+    const handleGeneralSettingFormSubmit = values => {
       const adminPassword = JSON.stringify(values.adminPassword);
 
       if (adminPassword) {
@@ -145,7 +177,6 @@ class Settings extends React.Component {
       }
     };
 
-    render() {
       return (
         <div className="page-content">
           <SiteHeader pageTitle="Settings" />
@@ -271,7 +302,6 @@ class Settings extends React.Component {
           </div>
         </div>
       );
-    }
 }
 
 const mapStateToProps = state => ({
@@ -286,7 +316,6 @@ const mapDispatchToProps = dispatch => ({
   setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
   getAccountInfoAction: account => dispatch(getAccountInfoAction(account)),
   login: account => dispatch(login(account)),
-
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Settings);
