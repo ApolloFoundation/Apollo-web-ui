@@ -85,7 +85,7 @@ const  MarketplaceSearch = (props) => {
     };
 
     useEffect(() => {
-        if (props.match.params) loadAccount(props.match.params.tag);
+        loadAccount(props.match.params.tag);
     }, [loadAccount, props.match.params.tag]);
 
     return (
@@ -102,7 +102,7 @@ const  MarketplaceSearch = (props) => {
                 </Link>
             </SiteHeader>
             <div className="page-body container-fluid full-screen-block no-padding-on-the-sides marketplace-container">
-                {(state.DGSGoods && state.DGSGoods.length > 0) ? (
+                {(!!state.DGSGoods?.length) ? (
                     <div className="marketplace">
                         <div
                             className={classNames({

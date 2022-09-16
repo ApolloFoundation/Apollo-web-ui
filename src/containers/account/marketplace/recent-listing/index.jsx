@@ -11,7 +11,6 @@ import {Link} from 'react-router-dom';
 import SiteHeader from '../../../components/site-header/index';
 import MarketplaceItem from '../marketplace-card/index'
 import {getDGSGoodsAction} from "../../../../actions/marketplace";
-
 import '../MarketPLace.scss';
 
 const itemsPerPage = 8;
@@ -23,16 +22,17 @@ const ResentMarketplaceListing = () => {
             page: 1,
             firstIndex: 0,
             lastIndex: itemsPerPage - 1,
-            isGrid: true
+            isGrid: true,
+            getDGSGoods: [],
         });
 
     const getDGSGoods = useCallback(async (reqParams) => {
-        const getDGSGoods = await dispatch(getDGSGoodsAction(reqParams));
+        const { goods } = await dispatch(getDGSGoodsAction(reqParams));
 
-        if (getDGSGoods) {
+        if (goods) {
             setState(prevState => ({
                 ...prevState,
-                getDGSGoods: getDGSGoods.goods
+                getDGSGoods: goods,
             }));
         }
     }, [dispatch]);
@@ -83,58 +83,55 @@ const ResentMarketplaceListing = () => {
                             position: 'relative',
                         }}
                     >
-                        {
-                            state.getDGSGoods &&
-                            state.getDGSGoods.map((el) => (
-                                    <div
-                                        key={`marketplace-item-${el.goods}`}
+                        { state.getDGSGoods &&
+                            <>
+                                {state.getDGSGoods.map((el) => (
+                                        <div
+                                            key={`marketplace-item-${el.goods}`}
+                                            className={classNames({
+                                                'marketplace-item': state.isGrid,
+                                                'marketplace-item--full-width': !state.isGrid,
+                                                'd-flex': true
+                                            })}
+                                        >
+                                            <MarketplaceItem
+                                                tall={state.isGrid}
+                                                fluid={!state.isGrid}
+                                                isHovered
+                                                {...el}
+                                            />
+                                        </div>
+                                    )
+                                )}
+                                <div className="btn-box pagination">
+                                    <button
+                                        type='button'
                                         className={classNames({
-                                            'marketplace-item': state.isGrid,
-                                            'marketplace-item--full-width': !state.isGrid,
-                                            'd-flex': true
+                                            'btn btn-default': true,
+                                            'disabled': state.page <= 1,
+                                        })}
+                                        onClick={handlePaginate(state.page - 1)}
+                                    >
+                                        Previous
+                                    </button>
+                                    <div className='pagination-nav'>
+                                        <span>{state.page * itemsPerPage - itemsPerPage + 1}</span>
+                                        <span>&hellip;</span>
+                                        <span>{(state.page * itemsPerPage - itemsPerPage) + state.getDGSGoods.length}</span>
+                                    </div>
+                                    <button
+                                        type='button'
+                                        onClick={handlePaginate(state.page + 1)}
+                                        className={classNames({
+                                            'btn btn-default': true,
+                                            'disabled': state.getDGSGoods.length < itemsPerPage
                                         })}
                                     >
-                                        <MarketplaceItem
-                                            tall={state.isGrid}
-                                            fluid={!state.isGrid}
-                                            isHovered
-                                            {...el}
-                                        />
-                                    </div>
-                                )
-                            )
-                        }
-                        {
-                            state.getDGSGoods &&
-                            <div className="btn-box pagination">
-                                <button
-                                    type='button'
-                                    className={classNames({
-                                        'btn btn-default': true,
-                                        'disabled': state.page <= 1,
-                                    })}
-                                    onClick={handlePaginate(state.page - 1)}
-                                >
-                                    Previous
-                                </button>
-                                <div className='pagination-nav'>
-                                    <span>{state.page * itemsPerPage - itemsPerPage + 1}</span>
-                                    <span>&hellip;</span>
-                                    <span>{(state.page * itemsPerPage - itemsPerPage) + state.getDGSGoods.length}</span>
+                                        Next
+                                    </button>
                                 </div>
-                                <button
-                                    type='button'
-                                    onClick={handlePaginate(state.page + 1)}
-                                    className={classNames({
-                                        'btn btn-default': true,
-                                        'disabled': state.getDGSGoods.length < itemsPerPage
-                                    })}
-                                >
-                                    Next
-                                </button>
-                            </div>
+                            </>
                         }
-
                     </div>
                 </div>
             </div>
