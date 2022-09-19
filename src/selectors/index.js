@@ -6,3 +6,4 @@ export const getTickerSelector = state => state.account.ticker;
 export const getSettingsSelector = state => state.accountSettings;
 export const get2FASelector = state => state.account.is2FA;
 export const getIsLocalhostSelector = state => state.account.isLocalhost;
+export const getMdalsSelector = state => state.modals;

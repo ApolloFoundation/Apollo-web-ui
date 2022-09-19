@@ -23,7 +23,7 @@ const InfoTransactions = (props) => {
     const handleGetData = useCallback(async () => {
         setLoadingTrue();
         let params = {
-            ledgerId: props.modalData.ledgerId,
+            ledgerId: props.modalData.ledgerId ? props.modalData.ledgerId : props.modalData,
         };
         
         if (props.modalData.eventType === 'PRIVATE_PAYMENT') {
