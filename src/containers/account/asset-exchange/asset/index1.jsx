@@ -4,7 +4,6 @@
  ***************************************************************************** */
 
 import React, { useEffect, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import { useDispatch, useSelector } from 'react-redux';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
 import crypto from '../../../../helpers/crypto/crypto';
@@ -45,7 +44,7 @@ export default function Asset(props) {
     <>
       {!entryData.encryptedLedgerEntry
         ? (
-          <tr key={uuidv4()}>
+          <tr>
             <td>
               <span
                 className="blue-link-text"

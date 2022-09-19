@@ -5,7 +5,6 @@
 
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { v4 as uuidv4 } from 'uuid';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
 import { formatTimestamp } from '../../../../helpers/util/time';
 import { getTransactionAction } from '../../../../actions/transactions';
@@ -29,7 +28,7 @@ export default function Transaction(props) {
   }, [dispatch]);
 
   return (
-    <tr key={uuidv4()}>
+    <tr>
       <td className="blue-link-text">
         <a onClick={async () => dispatch(setBodyModalParamsAction('INFO_TRANSACTION', await getTransactionInfo(transaction)))}>
           {dispatch(formatTimestamp(timestamp))}

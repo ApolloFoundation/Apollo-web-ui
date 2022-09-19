@@ -1,6 +1,5 @@
 import React from 'react';
 import classNames from 'classnames';
-import { v4 as uuidv4 } from 'uuid';
 import ContentHendler from '../content-hendler';
 import Button from '../button';
 
@@ -46,7 +45,7 @@ export default function CustomTable(props) {
                   <thead>
                     <tr>
                       {header && header.map(el => (
-                        <React.Fragment key={uuidv4()}>
+                        <React.Fragment>
                           {!el.isRender && (
                             <td className={classNames({ 'align-right': el.alignRight })}>
                               {el.name}

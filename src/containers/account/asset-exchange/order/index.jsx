@@ -4,7 +4,6 @@
  ***************************************************************************** */
 
 import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import { connect } from 'react-redux';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
 import { getTransactionAction } from '../../../../actions/transactions';
@@ -31,7 +30,7 @@ class OrderItem extends React.Component {
     render() {
       const { orderInfo } = this.state;
       return (
-        <tr key={uuidv4()}>
+        <tr>
           <td className="align-left blue-link-text">
             {orderInfo.name}
           </td>

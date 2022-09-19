@@ -5,7 +5,6 @@
 
 
 import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import crypto from "../../../../helpers/crypto/crypto";
 import converters from "../../../../helpers/converters";
 import {setBodyModalParamsAction} from "../../../../modules/modals";
@@ -45,7 +44,7 @@ class Asset extends React.Component {
     render () {
         if (!this.state.entry.encryptedLedgerEntry) {
             return (
-                <tr key={uuidv4()}>
+                <tr>
                     <td className="blue-link-text">
                         <a onClick={this.props.setBodyModalParamsAction.bind(this, 'INFO_LEDGER_TRANSACTION', this.state.entry.ledgerId)}>{this.state.entry.timestamp}</a>
                     </td>
