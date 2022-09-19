@@ -124,13 +124,11 @@ const Settings = () => {
     state.account.is2FA ? disable2fa(values) : getQRCode(values);
   }
 
-  // from componentDidMount
   useEffect(() => {
     getAdminPassword();
     dispatch(getSavedAccountSettingsAction());
   }, []);
 
-  // from componentWillReceiveProps
   useEffect(() => {
     getAccountInfo();
     setState(prevState => ({
