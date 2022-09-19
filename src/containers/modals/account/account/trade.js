@@ -1,7 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { v4 as uuidv4 } from 'uuid';
 import { formatTimestamp } from '../../../../helpers/util/time';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
 
@@ -20,7 +19,7 @@ const Trade = ({
   };
 
   return (
-    <tr key={uuidv4()}>
+    <tr>
       <td className="blue-link-text">
         <span
           className="cursor-pointer blue-link-text"
