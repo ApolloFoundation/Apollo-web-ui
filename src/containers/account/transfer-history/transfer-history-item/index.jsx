@@ -12,14 +12,14 @@ export default function TransferHistoryItem(props) {
   const dispatch = useDispatch();
 
   const {
-    assetTransfer, timestamp, recipientRS,
+    assetTransfer, timestamp, recipientRS, name,
     decimals, quantityATU, recipient, sender, senderRS,
   } = props;
 
   return (
     <tr key={assetTransfer}>
       <td className="blue-link-text">
-        <span onClick={() => dispatch(setBodyModalParamsAction('INFO_TRANSACTION', assetTransfer))}>{assetTransfer}</span>
+        <a onClick={() => dispatch(setBodyModalParamsAction('INFO_TRANSACTION', assetTransfer))}>{assetTransfer}</a>
       </td>
       <td>
         {name}
@@ -33,10 +33,10 @@ export default function TransferHistoryItem(props) {
         })}
       </td>
       <td className="blue-link-text">
-        <span onClick={() => dispatch(setBodyModalParamsAction('INFO_ACCOUNT', recipient))}>{recipientRS}</span>
+        <a onClick={() => dispatch(setBodyModalParamsAction('INFO_ACCOUNT', recipient))}>{recipientRS}</a>
       </td>
       <td className="blue-link-text">
-        <span onClick={() => dispatch(setBodyModalParamsAction('INFO_ACCOUNT', sender))}>{senderRS}</span>
+        <a onClick={() => dispatch(setBodyModalParamsAction('INFO_ACCOUNT', sender))}>{senderRS}</a>
       </td>
     </tr>
   );
