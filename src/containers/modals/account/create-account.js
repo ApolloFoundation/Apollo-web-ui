@@ -16,7 +16,6 @@ import ContentLoader from '../../components/content-loader'
 import {setAlert, setBodyModalParamsAction, setModalData} from "../../../modules/modals";
 import submitForm from "../../../helpers/forms/forms";
 import crypto from '../../../helpers/crypto/crypto';
-import store from '../../../store'
 import {getAccountDataAction} from "../../../actions/login";
 import {createAccountAction, generateAccountAction, generatePDF} from '../../../actions/account';
 
@@ -52,8 +51,8 @@ class CreateUser extends React.Component {
         }
     };
 
-    componentWillReceiveProps(newProps) {
-        if (newProps.account) {
+    componentDidUpdate() {
+        if (this.state.account) {
             this.props.closeModal();
         }
     }
