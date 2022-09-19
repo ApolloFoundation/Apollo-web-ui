@@ -3,13 +3,12 @@
  *                                                                            *
  ******************************************************************************/
 
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from "react-redux";
 import { getDeleteHistory } from "../../../actions/delete-history";
-import { BlockUpdater } from "../../block-subscriber";
 import { DeleteItem } from "./deletes/index";
 import SiteHeader from '../../components/site-header'
-import CustomTable from '../../components/tables/table';
+import { TableLoader } from '../../components/TableLoader';
 
 const headersList = [
   {
@@ -33,63 +32,22 @@ const headersList = [
 export const DeleteHistory = () => {
   const dispatch = useDispatch();
   const account = useSelector(state => state.account.accountRS);
-  const [state, setState] = useState({
-    deletes: null,
-    page: 1,
-    perPage: 15,
-    firstIndex: 0,
-    lastIndex: 15,
-    loader: false,
-  });
 
-  const getDeleteHistoryCallback = useCallback((account) => {
-    dispatch(getDeleteHistory(account, state.firstIndex, state.lastIndex))
-      .then(history => {
-        setState(state => ({
-          ...state,
-          deletes: history ? history.deletes : null
-        }))
-      });
-  }, [account, state.firstIndex, state.lastIndex]);
-
-  const listener = useCallback(() => {
-    getDeleteHistoryCallback(account);
-  }, [account, getDeleteHistoryCallback]);
-
-   
-  const handlePaginate = (page) => () => {
-    setState((prevState) => ({
-      ...prevState,
-      page,
-      firstIndex: page * prevState.perPage - prevState.perPage,
-      lastIndex: page * prevState.perPage
-    }));
-  }
-
-
-  useEffect(() => {
-    getDeleteHistoryCallback(account);
-    BlockUpdater.on("data", listener);
-    return () => {
-      BlockUpdater.removeListener("data", listener)
-    };
-  }, [getDeleteHistoryCallback, listener]);
+  const getDeleteHistoryCallback = useCallback(({ firstIndex, lastIndex }) => 
+    dispatch(getDeleteHistory(account, firstIndex, lastIndex))
+      .then(history => history.deletes)
+  , [account, dispatch]);
 
   return (
     <div className="page-content">
       <SiteHeader pageTitle='Delete History' />
         <div className="page-body container-fluid">
-          <CustomTable
-            header={headersList}
-            previousHendler={handlePaginate(state.page - 1)}
-            nextHendler={handlePaginate(state.page + 1)}
-            page={state.page}
+          <TableLoader
+            headersList={headersList}
             className='mb-3'
-            TableRowComponent={(el) => <DeleteItem delete={el} />}
-            tableData={state.deletes}
-            isPaginate
+            TableRowComponent={DeleteItem}
             emptyMessage='No asset deletion history available.'
-            itemsPerPage={state.perPage}
+            dataLoaderCallback={getDeleteHistoryCallback}
           />
         </div>
     </div>

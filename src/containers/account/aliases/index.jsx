@@ -4,13 +4,13 @@
  ******************************************************************************/
 
 
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback } from 'react';
+import { TableLoader } from '../../components/TableLoader';
 import {useDispatch, useSelector} from 'react-redux';
 import {getAliasesAction} from "../../../actions/aliases";
 import {setBodyModalParamsAction} from "../../../modules/modals";
-import {BlockUpdater} from "../../block-subscriber";
 import SiteHeader from '../../components/site-header'
-import CustomTable from '../../components/tables/table';
+import { getAccountSelector } from '../../../selectors';
 import Alias from "./alias/index";
 
 const headersList = [
@@ -34,60 +34,21 @@ const headersList = [
 
 export const Aliases = () => {
   const dispatch = useDispatch();
-  const account = useSelector(state => state.account.account)
-  const [state, setState] = useState({
-        aliases: null,
-        firstIndex: 0,
-        lastIndex: 15,
-        page: 1
-    });
+  const account = useSelector(getAccountSelector);
 
-  const listener = useCallback(() => {
-      getAliases({
-          account:    account,
-          firstIndex: state.firstIndex,
-          lastIndex:  state.lastIndex,
-      });
-  }, [account, state.firstIndex, state.lastIndex, getAliases]);
-
-
-  const getAliases = useCallback(async (reqParams) => {
-    const aliases = await dispatch(getAliasesAction(reqParams));
-
-    if (aliases) {
-        setState(prevState => ({
-          ...prevState,
-          aliases: aliases.aliases
-        }));
-    }
-  }, [dispatch]);
-
-  const handlePaginate = (page) => () => {
-      setState(prevState => ({
-        ...prevState,
-        page: page,
-        firstIndex: page * 15 - 15,
-        lastIndex:  page * 15
-      }));
+  const getAliases = useCallback(async ({ firstIndex, lastIndex }) => {
+    const { aliases } = await dispatch(getAliasesAction({
+      firstIndex,
+      lastIndex,
+      account,
+    }))
+    return aliases;
   }
+  , [dispatch, account]);
 
   const handleAddAlias = () => {
     dispatch(setBodyModalParamsAction('ADD_ALIAS', {}));
   }
-
-  useEffect(() => {
-    getAliases({
-      account:    account,
-      firstIndex: state.firstIndex,
-      lastIndex:  state.lastIndex,
-    });
-
-    BlockUpdater.on("data", listener);
-
-    return () => {
-      BlockUpdater.removeListener("data", listener)
-    }
-  }, [getAliases, listener]);
 
   return (
       <div className="page-content">
@@ -103,17 +64,12 @@ export const Aliases = () => {
               </button>
           </SiteHeader>
           <div className="page-body container-fluid">
-              <CustomTable 
-                  header={headersList}
+              <TableLoader
+                  headersList={headersList}
                   TableRowComponent={Alias}
-                  tableData={state.aliases}
-                  isPaginate
-                  page={state.page}
-                  previousHendler={handlePaginate(state.page - 1)}
-                  nextHendler={handlePaginate(state.page + 1)}
                   className='no-min-height mb-3'
                   emptyMessage='No aliases found.'
-                  itemsPerPage={15}
+                  dataLoaderCallback={getAliases}
               />        
           </div>
       </div>

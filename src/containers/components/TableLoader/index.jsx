@@ -9,7 +9,8 @@ export const TableLoader = ({
   emptyMessage,
   className = 'p-0',
   TableRowComponent,
-  withLoader = true, 
+  withLoader = true,
+  passProps = {},
 }) => {
   const [data, setData] = useState(null);
   const [pagination, setPagination] = useState({
@@ -56,6 +57,7 @@ export const TableLoader = ({
       previousHendler={handlePagination(pagination.page - 1)}
       nextHendler={handlePagination(pagination.page + 1)}
       itemsPerPage={15}
+      passProps={passProps}
     />
   )
 }
