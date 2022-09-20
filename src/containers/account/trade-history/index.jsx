@@ -9,7 +9,7 @@ import { getTradesHistoryAction } from '../../../actions/assets';
 import SiteHeader from '../../components/site-header';
 import TradeHistoryItem from './trade-history-item/index';
 import { TableLoader } from '../../components/TableLoader';
-import { getAccountInfoSelector } from 'selectors';
+import { getAccountInfoSelector } from '../../../selectors';
 
 export default function TradeHistory() {
   const dispatch = useDispatch();
