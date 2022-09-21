@@ -6,6 +6,13 @@ export default function CurrencyInfo(props) {
     currency, description, accountRS, maxSupply
   } = props;
 
+  const handleNumber = (number) => {
+    const numberString = String(number);
+    const end = numberString.slice(-decimals);
+    const start = numberString.slice(0, numberString.length - decimals);
+    return `${start}.${end}`
+  }
+
   return (
     <div className="col-md-3 col-sm-4 p-0">
       <div className="card mb-3 custom-height">
@@ -21,7 +28,7 @@ export default function CurrencyInfo(props) {
                 Current supply:
               </label>
               <div>
-                {currentSupply / (10 ** decimals)}
+                {handleNumber(currentSupply)}
                 {' '}
                 {code}
               </div>
@@ -31,7 +38,7 @@ export default function CurrencyInfo(props) {
                 Initial supply:
               </label>
               <div>
-                {maxSupply / (10 ** decimals)}
+                {handleNumber(maxSupply)}
                 {' '}
                 {code}
               </div>
