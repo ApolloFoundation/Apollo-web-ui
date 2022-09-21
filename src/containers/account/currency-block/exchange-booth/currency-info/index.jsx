@@ -10,7 +10,7 @@ export default function CurrencyInfo(props) {
     const numberString = String(number);
     const end = numberString.slice(-decimals);
     const start = numberString.slice(0, numberString.length - decimals);
-    return `${start}.${end}`
+    return parseFloat(`0.${end}`) > 0 ? `${start}.${end}` : start;
   }
 
   return (
