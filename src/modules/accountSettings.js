@@ -84,5 +84,8 @@ export const getSavedAccountSettingsAction = () => dispatch => {
     dispatch({
         type: LOAD_ACCOUNT_SETTINGS,
         settings
+    });
+    dispatch({
+        type: 'SET_ADMIN_PASSWORD',
     })
 };

@@ -23,8 +23,9 @@ import {
   getSettingsSelector,
   get2FASelector,
   getIsLocalhostSelector,
+  getAdminPasswordSelector,
 } from '../../../selectors';
-import { writeToLocalStorage, readFromLocalStorage } from '../../../actions/localStorage';
+import { writeToLocalStorage } from '../../../actions/localStorage';
 import './Settings.scss';
 
 const Settings = () => {
@@ -33,14 +34,13 @@ const Settings = () => {
   const settings = useSelector(getSettingsSelector);
   const is2FA = useSelector(get2FASelector);
   const isLocalhost = useSelector(getIsLocalhostSelector);
+  const adminPassword = useSelector(getAdminPasswordSelector);
 
   const [state, setState] = useState({
     settings: null,
-    adminPassword: readFromLocalStorage('adminPassword') ? readFromLocalStorage('adminPassword') : '',
     account: null, 
   });
 
-  // check can we remove props from argumets of fn
   const getAccountInfo = useCallback(async () => {
     const accountResponse = await dispatch(getAccountInfoAction({ account }));
 
@@ -102,20 +102,9 @@ const Settings = () => {
     }
   };
 
-  const getAdminPassword = useCallback(() => {
-    const adminPassword = readFromLocalStorage('adminPassword');
-
-    if (adminPassword) {
-      setState(prevState => ({
-        ...prevState, 
-        adminPassword, 
-      }));
-    }
-  }, []);
-
   const handleGeneralSettingFormSubmit = ({ adminPassword }) => {
     if (adminPassword) {
-      writeToLocalStorage('adminPassword', adminPassword);
+      writeToLocalStorage('adminPassword', { adminPassword });
       NotificationManager.success('Admin password has been successfully saved!', null, 5000);
     }
   };
@@ -125,9 +114,8 @@ const Settings = () => {
   }
 
   useEffect(() => {
-    getAdminPassword();
     dispatch(getSavedAccountSettingsAction());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     getAccountInfo();
@@ -223,7 +211,7 @@ const Settings = () => {
                                   field="adminPassword"
                                   placeholder="Admin password"
                                   setValue={setValue}
-                                  defaultValue={state.adminPassword}
+                                  defaultValue={adminPassword}
                                 />
                               </div>
                             </div>

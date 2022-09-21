@@ -6,7 +6,6 @@
 
 import React from 'react';
 import SiteHeader from '../../components/site-header'
-import ContentLoader from '../../components/content-loader'
 import InfoBox from "../../components/info-box";
 import {Link} from "react-router-dom";
 import {connect} from 'react-redux'
@@ -31,22 +30,21 @@ const mapDispatchToProps = dispatch => ({
 class ScheduledTransactions extends React.Component {
     state = {
         scheduledTransactions: null,
-        adminPassword: localStorage.getItem('adminPassword') ? JSON.parse(localStorage.getItem('adminPassword')) : ''
     }
 
     componentDidUpdate = () => {
-        if (!this.state.isLoaded && this.props.account &&  (this.state.adminPassword || this.state.adminPassword === '')) {
+        if (!this.state.isLoaded && this.props.account &&  (this.props.adminPassword || this.props.adminPassword === '')) {
             this.getScheduledTransactions({
-                adminPassword: this.state.adminPassword,
+                adminPassword: this.props.adminPassword,
                 account: this.props.account
             })
         }
     };
 
     componentDidMount = () => {
-        if (this.state.adminPassword) {
+        if (this.props.adminPassword) {
             this.getScheduledTransactions({
-                adminPassword: this.state.adminPassword,
+                adminPassword: this.props.adminPassword,
                 account: this.props.account
             })
         } else {
@@ -84,7 +82,7 @@ class ScheduledTransactions extends React.Component {
     };
 
     deleteScheduledTransaction = async (transaction) => {
-        const deleteTransacrtio = await this.props.submitForm({adminPassword : this.state.adminPassword , transaction}, 'deleteScheduledTransaction');
+        const deleteTransacrtio = await this.props.submitForm({adminPassword : this.props.adminPassword , transaction}, 'deleteScheduledTransaction');
 
         if (deleteTransacrtio) {
             if (deleteTransacrtio.errorCode) {
@@ -153,11 +151,11 @@ class ScheduledTransactions extends React.Component {
                                         {
                                             this.state.scheduledTransactions &&
                                             this.state.scheduledTransactions.length > 0 &&
-                                            this.state.scheduledTransactions.map((el, index) => {
+                                            this.state.scheduledTransactions.map((el) => {
                                                 return (
                                                     <TransactionItem
                                                         transaction={el}
-                                                        isScheduled={true}
+                                                        isScheduled
                                                         deleteSheduledTransaction={this.deleteScheduledTransaction}
                                                     />
                                                 )
