@@ -48,9 +48,9 @@ export const TableLoader = ({
 
   useEffect(() => {
     loadData();
-    // BlockUpdater.on("data", loadData);
+    BlockUpdater.on("data", loadData);
     return () => {
-      // BlockUpdater.removeListener("data", loadData);
+      BlockUpdater.removeListener("data", loadData);
     }
   }, [loadData]);
 
