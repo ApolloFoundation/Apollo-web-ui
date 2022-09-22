@@ -28,7 +28,7 @@ import Dashboard from '../account/dashboard';
 import Ledger from '../account/ledger';
 import Login from '../account/login';
 import Faucet from '../account/faucet';
-import Transactions from '../account/transactions';
+import Transactions from '../account/transactions/indexOld';
 import Blocks from '../account/blocks';
 import Followedpolls from '../account/followed-polls';
 import Messenger from '../account/messenger';

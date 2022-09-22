@@ -51,7 +51,7 @@ const CustomTable = (props) => {
                                             {
                                                 header &&
                                                 header.map((el) =>
-                                                    <React.Fragment>
+                                                    <React.Fragment key={el.name}>
                                                         {
                                                             !el.isRender &&
                                                             <td

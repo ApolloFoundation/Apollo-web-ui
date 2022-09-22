@@ -137,7 +137,7 @@ export default (state = initialState, action) => {
     case SET_ADMIN_PASSWORD:
       const adminPassword = readFromLocalStorage('adminPassword');
       const parsed = JSON.parse(adminPassword);
-      if (parsed.adminPassword) {
+      if (parsed && parsed.adminPassword) {
         return {
           ...state,
           adminPassword: parsed.adminPassword,
