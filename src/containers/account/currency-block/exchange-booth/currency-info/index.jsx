@@ -1,4 +1,6 @@
 import React from 'react';
+const { BigInteger } = require('jsbn');
+
 
 export default function CurrencyInfo(props) {
   const {
@@ -7,10 +9,10 @@ export default function CurrencyInfo(props) {
   } = props;
 
   const handleNumber = (number) => {
-    const numberString = String(number);
-    const end = numberString.slice(-decimals);
-    const start = numberString.slice(0, numberString.length - decimals);
-    return parseFloat(`0.${end}`) > 0 ? `${start}.${end}` : start;
+    const num = new BigInteger(`${number}`);
+    const div = new BigInteger(`${10 ** decimals}`);
+    const res =  num.divide(div);
+    return res.toString();
   }
 
   return (
