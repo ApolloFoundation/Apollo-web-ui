@@ -127,7 +127,11 @@ class ModalBody extends React.Component {
                                                 Price:
                                             </label>
                                             <div className="price">
-                                                {marketplace.priceATM / this.props.decimals} {this.props.ticker}
+                                                {(marketplace.priceATM / this.props.decimals).toLocaleString('en', {
+                                                    minimumFractionDigits: 2,
+                                                    maximumFractionDigits: 20,
+                                                    useGrouping: false,
+                                                })} {this.props.ticker}
                                             </div>
                                         </div>
 
