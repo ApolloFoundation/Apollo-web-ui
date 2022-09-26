@@ -28,7 +28,15 @@ const Form = ({
         <TextualInput
           setValue={setValue}
           label="Current price:"
-          text={`${(goods.priceATM / decimals).toLocaleString('en')} ${ticker}`}
+          text={`
+            ${
+              (goods.priceATM / decimals).toLocaleString('en', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 20,
+                useGrouping: false,
+                })
+              } ${ticker}`
+            }
         />
         <NumericInput
           setValue={setValue}
