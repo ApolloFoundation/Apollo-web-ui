@@ -1,5 +1,5 @@
 import React from 'react';
-const { BigInteger } = require('jsbn');
+import { bigIntDecimalsDivision } from '../../../../../helpers/util/utils';
 
 export default function CurrencyInfo(props) {
   const {
@@ -7,12 +7,12 @@ export default function CurrencyInfo(props) {
     currency, description, accountRS, maxSupply
   } = props;
 
-  const handleNumber = (number) => {
-    const num = new BigInteger(`${number}`);
-    const div = new BigInteger(`${10 ** decimals}`);
-    const res =  num.divide(div);
-    return res.toString();
-  }
+  // const handleNumber = (number) => {
+  //   const num = new BigInteger(`${number}`);
+  //   const div = new BigInteger(`${10 ** decimals}`);
+  //   const res =  num.divide(div);
+  //   return res.toString();
+  // }
 
   return (
     <div className="col-md-3 col-sm-4 p-0">
@@ -29,7 +29,7 @@ export default function CurrencyInfo(props) {
                 Current supply:
               </label>
               <div>
-                {handleNumber(currentSupply)}
+                {bigIntDecimalsDivision(currentSupply, decimals)}
                 {' '}
                 {code}
               </div>
@@ -39,7 +39,7 @@ export default function CurrencyInfo(props) {
                 Initial supply:
               </label>
               <div>
-                {handleNumber(maxSupply)}
+                {bigIntDecimalsDivision(maxSupply, decimals)}
                 {' '}
                 {code}
               </div>

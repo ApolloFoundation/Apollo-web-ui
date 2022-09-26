@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import { setBodyModalParamsAction } from '../../../../../modules/modals';
 import { getCurrencyTypes } from '../../../../../modules/currencies';
+import { bigIntDecimalsDivision } from '../../../../../helpers/util/utils';
 
 export default function Currency(props) {
   const dispatch = useDispatch();
@@ -35,8 +36,8 @@ export default function Currency(props) {
       </td>
       <td>{name}</td>
       <td className="" dangerouslySetInnerHTML={{ __html: currencyTypes }} />
-      <td className="align-right">{currentSupply / 10 ** decimals}</td>
-      <td className="align-right">{maxSupply / 10 ** decimals}</td>
+      <td className="align-right">{bigIntDecimalsDivision(currentSupply, decimals)}</td>
+      <td className="align-right">{bigIntDecimalsDivision(maxSupply, decimals)}</td>
       <td className="align-right">
         <div className="btn-box inline">
           <Link to={`/exchange-booth/${code}`} className="btn btn-default">Exchange</Link>

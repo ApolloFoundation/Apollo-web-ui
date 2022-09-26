@@ -5,6 +5,13 @@
 
 const { BigInteger } = require('jsbn');
 
+export function bigIntDecimalsDivision (number, decimals) {
+  const num = new BigInteger(`${number}`);
+  const div = new BigInteger(`${10 ** decimals}`);
+  const res =  num.divide(div);
+  return res.toString();
+}
+
 function normalizeTicker(ticker) {
   return (ticker === 'Apollo' ? 'APL' : ticker.toUpperCase());
 }
@@ -315,6 +322,7 @@ function parseStringBySpace(str) {
 }
 
 export default {
+  bigIntDecimalsDivision,
   isNumericAccount,
   isRsAccount,
   calculateOrderTotal,
