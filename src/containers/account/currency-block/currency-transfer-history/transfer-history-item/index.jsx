@@ -3,12 +3,12 @@
  *                                                                            *
  ***************************************************************************** */
 
-import React, { useState, useEffect, useCallback } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setBodyModalParamsAction } from '../../../../../modules/modals';
 import { formatTimestamp } from '../../../../../helpers/util/time';
+import { bigIntDecimalsDivision } from '../../../../../helpers/util/utils';
 import { getTransactionAction } from '../../../../../actions/transactions';
 import { Tooltip } from '../../../../components/tooltip';
 import RedIcon from '../../../../../assets/red-triangle.svg'
@@ -30,13 +30,6 @@ export default function TransferHistoryItem(props) {
       setCurrency(attachment);
     })
   }, [dispatch, transfer]);
-
-  const unitsHandler = useCallback(() => {
-    const result = units / (10 ** decimals);
-    if(result > 1e-7) return result;
-    
-    return result.toFixed(decimals);
-  }, [units, decimals]);
 
   const name = code ? (
     <Link to={"/exchange-booth/" + code}>{code}</Link>
@@ -60,7 +53,7 @@ export default function TransferHistoryItem(props) {
   );
 
   return (
-    <tr key={uuidv4()}>
+    <tr>
       <td>
         <span
           className="blue-link-text"
@@ -73,7 +66,7 @@ export default function TransferHistoryItem(props) {
         {name}
       </td>
       <td className="">{formatTimestamp(timestamp)}</td>
-      <td className="align-right">{unitsHandler()} {unitsTooltip}</td>
+      <td className="align-right">{bigIntDecimalsDivision(units, decimals)} {unitsTooltip}</td>
       <td>
         <span
           className="blue-link-text"
