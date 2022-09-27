@@ -3,13 +3,14 @@
  *                                                                            *
  ***************************************************************************** */
 
+import BigNumber from "bignumber.js";
 const { BigInteger } = require('jsbn');
 
 export function bigIntDecimalsDivision (number, decimals) {
-  const num = new BigInteger(`${number}`);
-  const div = new BigInteger(`${10 ** decimals}`);
-  const res =  num.divide(div);
-  return res.toString();
+  const num = new BigNumber(number);
+  const div = new BigNumber(10 ** decimals);
+  const res =  num.dividedBy(div);
+  return res.toFixed();
 }
 
 function normalizeTicker(ticker) {
