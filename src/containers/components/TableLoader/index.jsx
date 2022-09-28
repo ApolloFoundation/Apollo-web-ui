@@ -59,7 +59,6 @@ export const TableLoader = ({
 
   if (isShowLoader) return (<ContentLoader noPaddingOnTheSides />);
 
-  console.log("🚀 ~ file: index.jsx ~ line 59 ~ !data && withLoader) || isShowLoader", !data,  withLoader, isShowLoader)
   if (!data && withLoader) return (<ContentLoader noPaddingOnTheSides />);
 
   return (
