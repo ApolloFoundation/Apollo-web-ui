@@ -9,13 +9,14 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { setBodyModalParamsAction } from '../../../../../modules/modals';
 import { formatTimestamp } from '../../../../../helpers/util/time';
+import { bigIntDecimalsDivision } from '../../../../../helpers/util/utils';
 
 export default function TradeHistoryItem({ transfer, decimals }) {
   const dispatch = useDispatch();
 
   if (transfer) {
     return (
-      <tr key={uuidv4()}>
+      <tr>
         <td>{dispatch(formatTimestamp(transfer.timestamp))}</td>
         <td>
           <span
@@ -55,7 +56,7 @@ export default function TradeHistoryItem({ transfer, decimals }) {
           </span>
         </td>
         <td className="align-right">
-          {(transfer.units / (10 ** transfer.decimals)).toFixed(2)}
+          {bigIntDecimalsDivision(transfer.units, transfer.decimals)}
         </td>
         <td className="align-right">
           {parseFloat(transfer.rateATM).toLocaleString('en')}
@@ -71,6 +72,6 @@ export default function TradeHistoryItem({ transfer, decimals }) {
   }
 
   return (
-    <tr key={uuidv4()} />
+    <tr />
   );
 }
