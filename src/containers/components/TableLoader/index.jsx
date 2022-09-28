@@ -19,8 +19,6 @@ export const TableLoader = ({
   passProps = {},
   isResetPagination,
   onResetPagination,
-  isShowLoader,
-  onResetLoader,
 }) => {
   const [data, setData] = useState(null);
   const [pagination, setPagination] = useState(initialPagination);
@@ -45,9 +43,8 @@ export const TableLoader = ({
       setPagination(initialPagination);
     }
     const res = await dataLoaderCallback(pag);
-    if (res && isShowLoader && onResetLoader ) onResetLoader();
     setData(res);
-  }, [dataLoaderCallback, isShowLoader, onResetLoader , pagination.firstIndex, pagination.lastIndex, isResetPagination, onResetPagination])
+  }, [dataLoaderCallback, pagination.firstIndex, pagination.lastIndex, isResetPagination, onResetPagination])
 
   useEffect(() => {
     loadData();
@@ -56,8 +53,6 @@ export const TableLoader = ({
       BlockUpdater.removeListener("data", loadData);
     }
   }, [loadData]);
-
-  if (isShowLoader) return (<ContentLoader noPaddingOnTheSides />);
 
   if (!data && withLoader) return (<ContentLoader noPaddingOnTheSides />);
 

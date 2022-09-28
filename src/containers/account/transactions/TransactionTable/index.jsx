@@ -17,7 +17,6 @@ export const TransactionTable = (props) => {
   })
   const dispatch = useDispatch();
   const [isResetPagination, setIsResetPagination] = useState(false);
-  const [isShowLoader, setIsShowLoader] = useState(false);
   const account = useSelector(getAccountSelector);
   const passPhrase = useSelector(getPassPhraseSelector);
 
@@ -41,38 +40,27 @@ export const TransactionTable = (props) => {
             return [];
         }
     
-        if (transactions) {
-            if (transactions.serverPublicKey && !props.isPrivate) {
-                props.onPrivateTransaction();
-            }
-    
-            if (transactions.serverPublicKey && ref.current.showPrivateOnce) {
-                NotificationManager.success('You are watching private transactions.', null, 900000);
-                ref.current.showPrivateOnce = false;
-            }
-    
-            return transactions[resultField];
+        if (transactions.serverPublicKey && !props.isPrivate) {
+            props.onPrivateTransaction();
         }
-        return [];
+
+        if (transactions.serverPublicKey && ref.current.showPrivateOnce) {
+            NotificationManager.success('You are watching private transactions.', null, 900000);
+            ref.current.showPrivateOnce = false;
+        }
+        return transactions[resultField] || [];
     } catch(e) {
         NotificationManager.error('Error', 'Error', 900000);
-    } finally {
-        // setIsShowLoader(false);
+        return null;
     }
-    
   }, [dispatch, account, type, props.isPrivate, passPhrase, props.onPrivateTransaction]);
 
   const handleResetPagination = useCallback(() => {
     setIsResetPagination(false);
   }, []);
 
-  const handleResetLoader = useCallback(() => {
-    setIsShowLoader(false);
-  }, []);
-
   useEffect(() => {
     setIsResetPagination(true);
-    setIsShowLoader(true);
     cancelAxiosRequest.cancelRequests();
   }, [type]);
 
@@ -116,8 +104,6 @@ export const TransactionTable = (props) => {
       dataLoaderCallback={handleRequest}
       isResetPagination={isResetPagination}
       onResetPagination={handleResetPagination}
-      isShowLoader={isShowLoader}
-      onResetLoader={handleResetLoader}
   />
   );
 }
