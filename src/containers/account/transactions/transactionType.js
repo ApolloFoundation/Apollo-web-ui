@@ -1,0 +1,17 @@
+export const TRANSACTION_TYPES = {
+  ALL: 'All',
+  0: '0',
+  1: '1',
+  2: '2',
+  3: '3',
+  4: '4',
+  5: '5',
+  6: '6',
+  7: '7',
+  8: '8',
+  PHASING: 'phasing',
+  UNCONFIRMED: 'unconfirmed',
+  UNCONFIRMED_ACCOUNT: 'unconfirmedAccount',
+  FAILED: 'failed',
+  NON_FAILED: 'nonfailed',
+};

@@ -1,135 +1,92 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import classNames from 'classnames';
-import { FailedType } from '../failedType';
+import { Link, useLocation } from 'react-router-dom';
+import { TRANSACTION_TYPES } from '../transactionType';
 
-export const TransactionFilter = (props) => {
-  const AboveTabeComponentItem = (label, handler, activeCondition) => (
-    <div
+export const TransactionFilter = () => {
+  const { search } = useLocation();
+  const type = useMemo(() => new URLSearchParams(search).get('type'), [search]);
+
+  const AboveTabeComponentItem = (label, handler) => (
+    <Link
         className={classNames({
             "btn" : true,
             "filter" : true,
-            "active": activeCondition
+            "active": type === handler,
         })}
-        onClick={() => props.handleTransactionFilters(handler, null)}
+        to={`/transactions?type=${handler}`}
     >
         {label}
-    </div>
+    </Link>
   );
 
   const AboveTabeFailedItems = (label, activeCondition, isFailedOnly) => (
-    <div
+    <Link
         className={classNames({
             "btn" : true,
             "filter" : true,
             "active": activeCondition
         })}
-        onClick={() => props.handleFailedTransactions(isFailedOnly)}
+        to={`/transactions?type=${isFailedOnly ? TRANSACTION_TYPES.FAILED : TRANSACTION_TYPES.NON_FAILED}`}
     >
         {label}
-    </div>
+    </Link>
   );
-
 
   return (
     <div className="transactions-filters">
       <div className="top-bar">
-          {AboveTabeComponentItem(
-            'All types',
-            null,
-            !props.failedType && props.type !== 0 && !props.type && !props.subtype && !props.isPhassing && !props.isUnconfirmed
-          )}
-
-          {AboveTabeComponentItem(
-            <i className="zmdi zmdi-card" />,
-            0,
-            !props.failedType && props.type === 0 && !props.subtype && !props.isPhassing
-          )}
-          {AboveTabeComponentItem(
-            <i className="zmdi zmdi-email" />,
-            1,
-            !props.failedType && props.type === 1 && !props.subtype
-          )}
-          {AboveTabeComponentItem(
-            <i className="zmdi zmdi-equalizer" />,
-            2,
-            !props.failedType && props.type === 2 && !props.subtype
-          )}
-          {AboveTabeComponentItem(
-            <i className="zmdi zmdi-shopping-cart" />,
-            3,
-            !props.failedType && props.type === 3 && !props.subtype
-          )}
-          {AboveTabeComponentItem(
-            <i className="zmdi zmdi-lock" />,
-            4,
-            !props.failedType && props.type === 4 && !props.subtype
-          )}
-          {AboveTabeComponentItem(
-            <i className="zmdi zmdi-balance" />,
-            5,
-            !props.failedType && props.type === 5 && !props.subtype
-          )}
-          {AboveTabeComponentItem(
-            <i className="zmdi zmdi-cloud" />,
-            6,
-            !props.failedType && props.type === 6 && !props.subtype
-          )}
-          {AboveTabeComponentItem(
-            <i className="zmdi zmdi-shuffle" />,
-            7,
-            !props.failedType && props.type === 7 && !props.subtype
-          )}
-          {AboveTabeComponentItem(
-            <i className="zmdi zmdi-help" />,
-            8,
-            !props.failedType && props.type === 8 && !props.subtype
-          )}
+          {AboveTabeComponentItem( 'All types', TRANSACTION_TYPES.ALL)}
+          {AboveTabeComponentItem( <i className="zmdi zmdi-card" />, TRANSACTION_TYPES[0])}
+          {AboveTabeComponentItem( <i className="zmdi zmdi-email" />, TRANSACTION_TYPES[1])}
+          {AboveTabeComponentItem( <i className="zmdi zmdi-equalizer" />, TRANSACTION_TYPES[2])}
+          {AboveTabeComponentItem( <i className="zmdi zmdi-shopping-cart" />, TRANSACTION_TYPES[3])}
+          {AboveTabeComponentItem( <i className="zmdi zmdi-lock" />, TRANSACTION_TYPES[4])}
+          {AboveTabeComponentItem( <i className="zmdi zmdi-balance" />, TRANSACTION_TYPES[5])}
+          {AboveTabeComponentItem( <i className="zmdi zmdi-cloud" />, TRANSACTION_TYPES[6])}
+          {AboveTabeComponentItem( <i className="zmdi zmdi-shuffle" />, TRANSACTION_TYPES[7])}
+          {AboveTabeComponentItem( <i className="zmdi zmdi-help" />, TRANSACTION_TYPES[8])}
           
           {AboveTabeFailedItems(
             'Failed', 
-            props.failedType === FailedType.FAILED,
+            type === TRANSACTION_TYPES.FAILED,
             true
           )}
           {AboveTabeFailedItems(
             'Not failed',
-            props.failedType === FailedType.NON_FAILED,
+            type === TRANSACTION_TYPES.NON_FAILED,
             false
           )}
-
-
-          <div
+          <Link
               className={classNames({
                   "btn" : true,
                   "filter" : true,
-                  "active": props.isUnconfirmed && !props.isAll
+                  "active": type === TRANSACTION_TYPES.UNCONFIRMED_ACCOUNT,
               })}
-              onClick={() => {
-                  props.handleTransactionFilters(null, null, 'getUnconfirmedTransactions', false)
-              }}
+              to={`/transactions?type=${TRANSACTION_TYPES.UNCONFIRMED_ACCOUNT}`}
           >
               Unconfirmed (account)
-          </div>
-          <div
+          </Link>
+          <Link
               className={classNames({
                   "btn" : true,
                   "filter" : true,
-                  "active": props.isPhassing
+                  "active": type === TRANSACTION_TYPES.PHASING,
               })}
-              onClick={() => props.handleTransactionFilters(null, null, 'getAccountPhasedTransactions')}
+              to={`/transactions?type=${TRANSACTION_TYPES.PHASING}`}
           >
               Phasing
-          </div>
-          <div
+          </Link>
+          <Link
               className={classNames({
                   "btn" : true,
                   "filter" : true,
-                  "active": props.isUnconfirmed && props.isAll
+                  "active": type === TRANSACTION_TYPES.UNCONFIRMED,
               })}
-              onClick={() => props.handleTransactionFilters(null, null, 'getUnconfirmedTransactions', true)}
+              to={`/transactions?type=${TRANSACTION_TYPES.UNCONFIRMED}`}
           >
               All Unconfirmed
-          </div>
-
+          </Link>
       </div>
     </div>
   );

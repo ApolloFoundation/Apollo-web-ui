@@ -19,6 +19,8 @@ export const TableLoader = ({
   passProps = {},
   isResetPagination,
   onResetPagination,
+  isShowLoader,
+  onResetLoader,
 }) => {
   const [data, setData] = useState(null);
   const [pagination, setPagination] = useState(initialPagination);
@@ -43,8 +45,9 @@ export const TableLoader = ({
       setPagination(initialPagination);
     }
     const res = await dataLoaderCallback(pag);
+    if (res && isShowLoader && onResetLoader ) onResetLoader();
     setData(res);
-  }, [dataLoaderCallback, pagination.firstIndex, pagination.lastIndex, isResetPagination, onResetPagination])
+  }, [dataLoaderCallback, isShowLoader, onResetLoader , pagination.firstIndex, pagination.lastIndex, isResetPagination, onResetPagination])
 
   useEffect(() => {
     loadData();
@@ -54,6 +57,9 @@ export const TableLoader = ({
     }
   }, [loadData]);
 
+  if (isShowLoader) return (<ContentLoader noPaddingOnTheSides />);
+
+  console.log("🚀 ~ file: index.jsx ~ line 59 ~ !data && withLoader) || isShowLoader", !data,  withLoader, isShowLoader)
   if (!data && withLoader) return (<ContentLoader noPaddingOnTheSides />);
 
   return (
