@@ -4,11 +4,11 @@
  ***************************************************************************** */
 
 import React, { useCallback } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setBodyModalParamsAction } from '../../../../../modules/modals';
 import { getCurrencyTypes } from '../../../../../modules/currencies';
+import { bigIntDecimalsDivision } from '../../../../../helpers/util/utils';
 
 export default function MyCurrencytemItem(props) {
   const dispatch = useDispatch();
@@ -33,7 +33,7 @@ export default function MyCurrencytemItem(props) {
   }, [dispatch, code, currency, accountRS]);
 
   return (
-    <tr key={uuidv4()}>
+    <tr>
       <td>
         <span className="blue-link-text" onClick={() => dispatch(setBodyModalParamsAction('INFO_TRANSACTION', currency))}>
           {code}
@@ -41,7 +41,9 @@ export default function MyCurrencytemItem(props) {
       </td>
       <td>{name}</td>
       <td className="" dangerouslySetInnerHTML={{ __html: currencyTypes }} />
-      <td className="align-right">{unconfirmedUnits / (10 ** decimals)}</td>
+      <td className="align-right">
+        {bigIntDecimalsDivision(unconfirmedUnits, decimals)}
+      </td>
       <td className="align-right">
         <div className="btn-box inline">
           <Link to={`/exchange-booth/${code}`} className="btn btn-default">Exchange</Link>
