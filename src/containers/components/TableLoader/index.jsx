@@ -19,6 +19,7 @@ export const TableLoader = ({
   passProps = {},
   isResetPagination,
   onResetPagination,
+  isShowLoader,
 }) => {
   const [data, setData] = useState(null);
   const [pagination, setPagination] = useState(initialPagination);
@@ -53,6 +54,9 @@ export const TableLoader = ({
       BlockUpdater.removeListener("data", loadData);
     }
   }, [loadData]);
+
+  // manual loader show handler
+  if (isShowLoader) return (<ContentLoader noPaddingOnTheSides />);
 
   if (!data && withLoader) return (<ContentLoader noPaddingOnTheSides />);
 

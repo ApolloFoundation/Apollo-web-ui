@@ -3,114 +3,80 @@
  *                                                                            *
  ***************************************************************************** */
 
-import React, {
-  useState, useEffect, useCallback,
-} from 'react';
+import React, { useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import classNames from 'classnames';
 import { getAccountPropertiesAction } from '../../../actions/account/index';
 import { setBodyModalParamsAction } from '../../../modules/modals';
-import AccountProperty from './acocunt-property/index1';
+import AccountProperty from './acocunt-property';
 import SiteHeader from '../../components/site-header';
-import CustomTable from '../../components/tables/table1';
 import Button from '../../components/button';
-
-const initialPagination = {
-  page: 1,
-  firstIndex: 0,
-  lastIndex: 15,
-};
+import { TableLoader } from '../../components/TableLoader';
+import { getAccountInfoSelector } from '../../../selectors';
 
 export default function AccountProperties() {
   const dispatch = useDispatch();
+  const { account } = useSelector(getAccountInfoSelector);
 
-  const { actualBlock, account } = useSelector(state => state.account);
+  const [state, setState] = useState({
+    incoming: true,
+    isResetPagination: true,
+    isShowLoader: true,
+  });
 
-  const [properties, setProperties] = useState(null);
-  const [incoming, setIncoming] = useState(true);
-  const [pagination, setPagination] = useState({ ...initialPagination });
+  const handleTab = (val) => () => {
+    setState({
+      incoming: val,
+      isResetPagination: true,
+      isShowLoader: true,
+    });
+  }
 
-  const getAccountPropertiesIncoming = useCallback(async (currAccount, currPagination) => {
-    let newPagination = currPagination;
-    let newAccount = currAccount;
-
-    if (!newAccount) newAccount = account;
-    if (!newPagination) {
-      newPagination = { ...pagination };
-    }
-
-    const newProperties = await dispatch(getAccountPropertiesAction({
-      recipient: newAccount,
-      firstIndex: newPagination.firstIndex,
-      lastIndex: newPagination.lastIndex,
+  const handleResetPagination = useCallback(() => {
+    setState(prevState => ({
+      ...prevState,
+      isResetPagination: false,
     }));
-
-    if (newProperties) {
-      setProperties(newProperties.properties);
-      setIncoming(true);
-      setPagination({ ...newPagination });
-    }
-  }, [account, dispatch, pagination]);
-
-  const getAccountPropertiesOutgoing = useCallback(async (currAccount, currPagination) => {
-    let newPagination = currPagination;
-    let newAccount = currAccount;
-
-    if (!newAccount) newAccount = account;
-    if (!newPagination) {
-      newPagination = { ...pagination };
-    }
-
-    const newProperties = await dispatch(getAccountPropertiesAction({
-      setter: newAccount,
-      firstIndex: newPagination.firstIndex,
-      lastIndex: newPagination.lastIndex,
-    }));
-
-    if (newProperties) {
-      setProperties(newProperties.properties);
-      setIncoming(false);
-      setPagination({ ...newPagination });
-    }
-  }, [account, dispatch, pagination]);
-
-  const setProperty = useCallback(() => {
-    dispatch(setBodyModalParamsAction('SET_ACCOUNT_PROPERTY', {}));
-  }, [dispatch]);
-
-  const onPaginate = useCallback(page => {
-    const newPagination = {
-      page,
-      firstIndex: page * 15 - 15,
-      lastIndex: page * 15,
-    };
-    getAccountPropertiesIncoming(null, newPagination);
-  }, [getAccountPropertiesIncoming]);
-
-  useEffect(() => {
-    if (incoming) getAccountPropertiesIncoming(account);
-    else getAccountPropertiesOutgoing(account);
-  }, [incoming, account, actualBlock]);
-
-  useEffect(() => {
-    getAccountPropertiesIncoming();
   }, []);
+
+  const getAccountProperties = useCallback(async ({ firstIndex, lastIndex }) => {
+    const params = { firstIndex, lastIndex };
+
+    if (state.incoming) {
+      params.recipient = account;
+    } else {
+      params.setter = account; 
+    }
+
+    const newProperties = await dispatch(getAccountPropertiesAction(params));
+
+    setState(prevState => ({
+      ...prevState,
+      isShowLoader: false,
+    }));
+
+    return newProperties?.properties ?? [];
+  }, [account, state.incoming, dispatch]);
+
+  
+  const setProperty = useCallback(() => 
+    dispatch(setBodyModalParamsAction('SET_ACCOUNT_PROPERTY', {})),
+  [dispatch]);
 
   return (
     <div className="page-content">
-      <SiteHeader
-        pageTitle="Account properties"
-      >
+      <SiteHeader pageTitle="Account properties">
         <button
           type="button"
-          className={`btn ${incoming ? 'outline-primary' : 'outline-transparent'} mr-1`}
-          onClick={() => getAccountPropertiesIncoming(null, initialPagination)}
+          className={classNames('btn mr-1', { 'outline-primary': state.incoming, 'outline-transparent': !state.incoming })}
+          onClick={handleTab(true)}
         >
           Incoming
         </button>
         <button
           type="button"
-          className={`btn ${incoming ? 'outline-transparent' : 'outline-primary'} mr-1`}
-          onClick={() => getAccountPropertiesOutgoing(null, initialPagination)}
+          className={classNames('btn mr-1', { 'outline-primary': !state.incoming, 'outline-transparent': state.incoming })}
+          onClick={handleTab(false)}
         >
           Outgoing
         </button>
@@ -122,10 +88,10 @@ export default function AccountProperties() {
         />
       </SiteHeader>
       <div className="page-body container-fluid">
-        <CustomTable
-          header={[
+        <TableLoader
+          headersList={[
             {
-              name: `${incoming ? 'Setter' : 'Recipient'}`,
+              name: `${state.incoming ? 'Setter' : 'Recipient'}`,
               alignRight: false,
             }, {
               name: 'Property',
@@ -140,13 +106,12 @@ export default function AccountProperties() {
           ]}
           className="mb-3"
           emptyMessage="No account properties found ."
-          TableRowComponent={conponentProps => <AccountProperty incoming={incoming} {...conponentProps} />}
-          tableData={properties}
-          isPaginate
-          page={pagination.page}
-          previousHendler={() => onPaginate(pagination.page - 1)}
-          nextHendler={() => onPaginate(pagination.page + 1)}
-          itemsPerPage={15}
+          TableRowComponent={AccountProperty}
+          dataLoaderCallback={getAccountProperties}
+          passProps={{ incoming: state.incoming }}
+          isResetPagination={state.isResetPagination}
+          onResetPagination={handleResetPagination}
+          isShowLoader={state.isShowLoader}
         />
       </div>
     </div>

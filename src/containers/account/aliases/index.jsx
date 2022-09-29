@@ -65,11 +65,11 @@ export const Aliases = () => {
           </SiteHeader>
           <div className="page-body container-fluid">
               <TableLoader
-                  headersList={headersList}
-                  TableRowComponent={Alias}
-                  className='no-min-height mb-3'
-                  emptyMessage='No aliases found.'
-                  dataLoaderCallback={getAliases}
+                headersList={headersList}
+                TableRowComponent={Alias}
+                className='no-min-height mb-3'
+                emptyMessage='No aliases found.'
+                dataLoaderCallback={getAliases}
               />        
           </div>
       </div>
