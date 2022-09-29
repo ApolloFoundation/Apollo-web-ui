@@ -6,98 +6,81 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
 import { setBodyModalParamsAction } from "../../../../modules/modals";
-import { connect } from "react-redux";
-
-const mapStateToProps = state => ({
-  decimals: state.account.decimals,
-  ticker: state.account.ticker,
-});
-
-const mapDispatchToProps = dispatch => ({
-    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-});
+import { getAccountInfoSelector } from '../../../../selectors';
+import { getTransactionAction } from '../../../../actions/transactions';
 
 const ShufflingItem = (props) => {
+    const dispatch = useDispatch();
+    const { ticker, decimals, account } = useSelector(getAccountInfoSelector);
+
+    const handleTransactionModal = async () => {
+        const transaction = await dispatch(getTransactionAction({
+            transaction: props.shuffling,
+            account,
+        }));
+        if (transaction) {
+            dispatch(setBodyModalParamsAction('INFO_TRANSACTION', transaction));
+        }
+    }
+
+    const handleAccountInfoModal = () =>
+        dispatch(setBodyModalParamsAction('INFO_ACCOUNT', props.issuer));
+
+    const handleStartShufflingModal = () =>
+        dispatch(setBodyModalParamsAction('START_SHUFFLING', props.shuffling));
+
     return (
         <tr>
             <td className="blue-link-text">
-                <a onClick={() => props.getTransaction(props.shuffling)}>
+                <a onClick={handleTransactionModal}>
                     {props.shuffling}
                 </a>
             </td>
             <td>
-                {
-                    props.stage === 0 &&
-                    'Registration'
-                }
-                {
-                    props.stage === 1 &&
-                    'Processing'
-                }
-                {
-                    props.stage === 4 &&
-                    'Expired'
-                }
-                {
-                    props.stage === 5 &&
-                    'Done'
-                }
+                { props.stage === 0 && 'Registration'}
+                { props.stage === 1 && 'Processing'}
+                { props.stage === 4 && 'Expired' }
+                { props.stage === 5 && 'Done'}
             </td>
-            <td className={'blue-link-text'}>
-                {
-                    props.holdingType === 0 &&
-                    props.ticker
-                }
-                {
-                    props.holdingType === 1 &&
-                    <Link
-                        to={'/asset-exchange/' + props.holding}
-                    >
+            <td className='blue-link-text'>
+                { props.holdingType === 0 && ticker }
+                { props.holdingType === 1 &&
+                    <Link to={'/asset-exchange/' + props.holding}>
                         {props.holding} (Asset)
-                </Link>
+                    </Link>
                 }
-                {
-                    props.holdingType === 2 &&
-                    <Link
-                        to={'/exchange-booth/' + props.holdingInfo.name}
-                    >
+                {props.holdingType === 2 &&
+                    <Link to={'/exchange-booth/' + props.holdingInfo.name}>
                         {props.holding} (Currency)
-                </Link>
+                    </Link>
                 }
-
             </td>
-            <td>{props.amount / props.decimals}</td>
-            {
-                props.blocksRemaining ?
-                    <td>{props.blocksRemaining}</td> : null
-            }
+            <td>{props.amount / decimals}</td>
+
+            { props.blocksRemaining &&  <td>{props.blocksRemaining}</td>}
 
             <td className="align-right">{props.registrantCount} / {props.participantCount}</td>
             <td className="blue-link-text align-right">
-                <a onClick={() => props.setBodyModalParamsAction('INFO_ACCOUNT', props.issuer)}>
-                    {props.issuerRS}
-                </a>
+                <a onClick={handleAccountInfoModal}>{props.issuerRS}</a>
             </td>
-            {
-                props.blocksRemaining && props.stage !== 1 ?
-                    <td className="align-right">
-                        <div className="btn-box inline">
-                            <a className={'btn btn-default'}
-                                onClick={() => props.setBodyModalParamsAction('START_SHUFFLING', props.shuffling)}>
-                                Join
-                            </a>
-                        </div>
-                    </td> : null
+            { (props.blocksRemaining && props.stage !== 1) &&
+                <td className="align-right">
+                    <div className="btn-box inline">
+                        <a className='btn btn-default' onClick={handleStartShufflingModal}>
+                            Join
+                        </a>
+                    </div>
+                </td>
             }
-            {
-                props.blocksRemaining && props.stage === 1 ?
-                    <td className="align-right">
-                        In Progress
-                    </td> : null
+            {(props.blocksRemaining && props.stage === 1) &&
+                <td className="align-right">
+                    In Progress
+                </td>
             }
         </tr>
     )
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ShufflingItem)
+export default ShufflingItem;
