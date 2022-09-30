@@ -5,25 +5,19 @@
 
 
 import React from 'react';
-import {connect} from 'react-redux';
-import {setBodyModalParamsAction} from "../../../../modules/modals";
-import {formatTimestamp} from "../../../../helpers/util/time";
+import { useDispatch, useSelector } from 'react-redux';
+import {setBodyModalParamsAction } from "../../../../modules/modals";
+import { formatTimestamp } from "../../../../helpers/util/time";
+import { getDecimalsSelector } from '../../../../selectors';
 
-const mapStateToProps = state => ({
-  decimals: state.account.decimals,
-});
+const Block = (props) => {
+    const dispatch = useDispatch();
+    const decimals = useSelector(getDecimalsSelector);
 
-const mapDispatchToProps = dispatch => ({
-    formatTimestamp: (timestamp, date_only, isAbsoluteTime) => dispatch(formatTimestamp(timestamp, date_only, isAbsoluteTime)),
-    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-});
+    const {height, totalAmountATM, timestamp, totalFeeATM, numberOfTransactions,
+      generator, generatorRS, payloadLength, baseTarget} = props;
 
-class Block extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
-    pad = (value, size) => {
+    const pad = (value, size) => {
         if (typeof(size) !== "number") {
             size = 2;
         }
@@ -34,40 +28,34 @@ class Block extends React.Component {
         return value;
     };
 
-    render () {
+    const handleInfoBlockModal = () => dispatch(setBodyModalParamsAction('INFO_BLOCK', height));
 
-        const {height, totalAmountATM, timestamp, totalFeeATM, numberOfTransactions, formatTimestamp,
-            setBodyModalParamsAction, generator, generatorRS, payloadLength, baseTarget, decimals} = this.props;
+    const handleTime = () => dispatch(formatTimestamp(timestamp));
 
-        return (
-            <tr>
-                <td className="blue-link-text">
-                    <a
-                        onClick={() => setBodyModalParamsAction('INFO_BLOCK', height)}
-                    >
-                        {height}
-                    </a>
-                </td>
-                <td className="align-right">
-                    <p>{formatTimestamp(timestamp)}</p>
-                </td>
-                <td className="align-right">{totalAmountATM / decimals}</td>
-                <td className="align-right">{totalFeeATM    / decimals}</td>
-                <td className="align-right">
-                    {numberOfTransactions}
-                </td>
-                <td className="blue-link-text">
-                    <a onClick={() => setBodyModalParamsAction('INFO_ACCOUNT', generator)}>{generatorRS}</a>
-                </td>
-                <td className="align-right">
-                    <p>{payloadLength} B</p>
-                </td>
-                <td className="align-right">
-                    {this.pad(Math.round(baseTarget / 153722867 * 100), 4)} %
-                </td>
-            </tr>
-        );
-    }
+    const handleInfoAccountModal = () => dispatch(setBodyModalParamsAction('INFO_ACCOUNT', generator));
+
+    return (
+        <tr>
+            <td className="blue-link-text">
+                <a onClick={handleInfoBlockModal}>{height}</a>
+            </td>
+            <td className="align-right">
+                <p>{handleTime()}</p>
+            </td>
+            <td className="align-right">{totalAmountATM / decimals}</td>
+            <td className="align-right">{totalFeeATM / decimals}</td>
+            <td className="align-right">{numberOfTransactions}</td>
+            <td className="blue-link-text">
+                <a onClick={handleInfoAccountModal}>{generatorRS}</a>
+            </td>
+            <td className="align-right">
+                <p>{payloadLength} B</p>
+            </td>
+            <td className="align-right">
+                {pad(Math.round(baseTarget / 153722867 * 100), 4)} %
+            </td>
+        </tr>
+    );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Block);
+export default Block;
