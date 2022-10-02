@@ -41,7 +41,7 @@ import MyCompletedOrders from '../account/my-completed-orders/index';
 import Activepolls from '../account/active-polls';
 import AccountProperties from '../account/account-properties';
 import Assets from '../account/assets';
-import ApprovalRequest from '../account/approval-request/index1';
+import ApprovalRequest from '../account/approval-request/index';
 import ApprovalRequestAssets from '../account/approval-request-assets';
 import AssetExchange from '../account/asset-exchange';
 import Aliases from '../account/aliases/index';

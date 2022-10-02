@@ -7,15 +7,16 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setBodyModalParamsAction } from '../../../../../modules/modals';
-import { formatTimestamp } from '../../../../../helpers/util/time';
 import { getTransactionAction } from '../../../../../actions/transactions';
 import { Tooltip } from '../../../../components/tooltip';
 import RedIcon from '../../../../../assets/red-triangle.svg'
+import { useFormatTimestamp } from '../../../../../hooks/useFormatTimestamp';
 import styles from './index.module.scss';
 
 export default function TransferHistoryItem(props) {
   const dispatch = useDispatch();
   const [currency, setCurrency] = useState(null);
+  const handleTime = useFormatTimestamp();
 
   const {
     transfer, code, timestamp, senderRS, sender,
@@ -36,6 +37,11 @@ export default function TransferHistoryItem(props) {
     
     return result.toFixed(decimals);
   }, [units, decimals]);
+
+  const handleAccountInfoModal = (data) => () =>
+    dispatch(setBodyModalParamsAction('INFO_ACCOUNT', data));
+
+  const handleTransactionInfo = () => dispatch(setBodyModalParamsAction('INFO_TRANSACTION', transfer));
 
   const name = code ? (
     <Link to={"/exchange-booth/" + code}>{code}</Link>
@@ -61,31 +67,22 @@ export default function TransferHistoryItem(props) {
   return (
     <tr>
       <td>
-        <span
-          className="blue-link-text"
-          onClick={() => dispatch(setBodyModalParamsAction('INFO_TRANSACTION', transfer))}
-        >
+        <span className="blue-link-text" onClick={handleTransactionInfo}>
           {transfer}
         </span>
       </td>
       <td className="blue-link-text">
         {name}
       </td>
-      <td className="">{formatTimestamp(timestamp)}</td>
+      <td className="">{handleTime(timestamp)}</td>
       <td className="align-right">{unitsHandler()} {unitsTooltip}</td>
       <td>
-        <span
-          className="blue-link-text"
-          onClick={() => dispatch(setBodyModalParamsAction('INFO_ACCOUNT', recipient))}
-        >
+        <span className="blue-link-text" onClick={handleAccountInfoModal(recipient)}>
           {recipientRS}
         </span>
       </td>
       <td>
-        <span
-          className="blue-link-text"
-          onClick={() => dispatch(setBodyModalParamsAction('INFO_ACCOUNT', sender))}
-        >
+        <span className="blue-link-text" onClick={handleAccountInfoModal(sender)}>
           {senderRS}
         </span>
       </td>
