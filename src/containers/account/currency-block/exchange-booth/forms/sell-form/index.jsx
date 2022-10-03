@@ -1,10 +1,9 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { Formik, Form } from 'formik';
+import { Formik } from 'formik';
 import { NotificationManager } from 'react-notifications';
 import { setBodyModalParamsAction } from '../../../../../../modules/modals';
-import Button from '../../../../../components/button';
-import NummericInput from '../../../../../components/form-components/numeric-input1';
+import { SellFormFields }from './form';
 
 export default function SellForm(props) {
   const dispatch = useDispatch();
@@ -16,7 +15,7 @@ export default function SellForm(props) {
 
   const { code, decimals, currency } = currencyInfo;
 
-  const handleMinimumSellRate = useCallback(values => {
+  const handleSubmit = useCallback(values => {
     const normalizedValues = {
       ...values,
       code,
@@ -30,6 +29,18 @@ export default function SellForm(props) {
       NotificationManager.error('Please fill in number of units and rate.', null, 5000);
     }
   }, [code, currency, decimals, dispatch]);
+
+  const handleUnitChange = (values, setFieldValue) => e => {
+    if (!e.target) {
+      setFieldValue('rateATM', Math.round(
+        ((minimumBuyRate / currentCoinDecimals) * (10 ** decimals)) * +e,
+      ));
+    } else {
+      setFieldValue('rateATM', Math.round(
+        ((minimumBuyRate / currentCoinDecimals) * (10 ** decimals)) * +values.units
+      ));
+    }
+  }
 
   useEffect(() => {
     if (ref.current) {
@@ -60,88 +71,18 @@ export default function SellForm(props) {
               units: 0,
               rateATM: '',
             }}
-            onSubmit={handleMinimumSellRate}
+            onSubmit={handleSubmit}
           >
             {({ values, setFieldValue }) => {
               ref.current.setFieldValue = setFieldValue;
               return (
-                <Form className="form-group-app">
-                  <NummericInput
-                    label="Units"
-                    name="units"
-                    type="float"
-                    placeholder="Units"
-                    onChange={e => {
-                      if (!e.target) {
-                        setFieldValue('rateATM', Math.round(
-                          ((minimumBuyRate / currentCoinDecimals) * (10 ** decimals)) * +e,
-                        ));
-                      } else {
-                        setFieldValue('rateATM', Math.round(((minimumBuyRate / currentCoinDecimals) * (10 ** decimals)) * +values.units));
-                      }
-                    }}
-                    counterLabel={code}
-                  />
-                  {!!minimumBuyRate && (
-                    <NummericInput
-                      label="Maximum Rate"
-                      name="maximumRate"
-                      type="float"
-                      placeholder="Quantity"
-                      disableArrows
-                      disabled
-                      onChange={e => {
-                        if (!e.target) {
-                          setFieldValue('rateATM', Math.round(
-                            ((minimumBuyRate / currentCoinDecimals) * (10 ** decimals)) * +e,
-                          ));
-                        } else {
-                          setFieldValue('rateATM', Math.round(
-                            ((minimumBuyRate / currentCoinDecimals) * (10 ** decimals)) * +values.units,
-                          ));
-                        }
-                      }}
-                      counterLabel={`${ticker}/${code}`}
-                    />
-                  )}
-                  {!!minimumBuyRate && (
-                    <NummericInput
-                      label="Effective Rate"
-                      name="maximumRate"
-                      type="float"
-                      placeholder="Quantity"
-                      disableArrows
-                      disabled
-                      onChange={e => {
-                        if (!e.target) {
-                          setFieldValue('rateATM', Math.round(
-                            ((minimumBuyRate / currentCoinDecimals) * (10 ** decimals)) * +e,
-                          ));
-                        } else {
-                          setFieldValue('rateATM', Math.round(
-                            ((minimumBuyRate / currentCoinDecimals) * (10 ** decimals)) * +values.units,
-                          ));
-                        }
-                      }}
-                      counterLabel={`${ticker}/${code}`}
-                    />
-                  )}
-                  <NummericInput
-                    label="Total"
-                    name="rateATM"
-                    type="tel"
-                    placeholder="Price"
-                    counterLabel={ticker}
-                    disabled
-                  />
-                  <Button
-                    type="submit"
-                    size="lg"
-                    name={`Buy (${code} > ${ticker})`}
-                    disabled={!(+values.rateATM)}
-                    color="green"
-                  />
-                </Form>
+                <SellFormFields
+                  onChange={handleUnitChange(values, setFieldValue)}
+                  code={code}
+                  ticker={ticker}
+                  minimumBuyRate={minimumBuyRate}
+                  values={values}
+                />
             )}}
           </Formik>
         </div>
