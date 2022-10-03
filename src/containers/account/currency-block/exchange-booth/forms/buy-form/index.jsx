@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { Formik, Form } from 'formik';
+import { Formik } from 'formik';
 import { NotificationManager } from 'react-notifications';
 import { setBodyModalParamsAction } from '../../../../../../modules/modals';
 import { BuyFormFields } from './form';
