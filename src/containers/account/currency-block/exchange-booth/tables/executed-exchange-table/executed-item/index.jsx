@@ -3,28 +3,29 @@
  *                                                                            *
  ***************************************************************************** */
 
+import { useFormatTimestamp } from 'hooks/useFormatTimestamp';
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { formatTimestamp } from '../../../../../../../helpers/util/time';
 import { setBodyModalParamsAction } from '../../../../../../../modules/modals';
 
-export default function ExecutedItem(props) {
+export default function ExecutedItem({
+  transaction, sellerRS, timestamp, buyerRS,
+  decimals, account, units, rateATM,
+}) {
   const dispatch = useDispatch();
-
-  const {
-    transaction, sellerRS, timestamp, buyerRS,
-    decimals, account, units, rateATM,
-  } = props;
+  const handleTime = useFormatTimestamp();
 
   const setModal = (data) => () => {
-    dispatch(setBodyModalParamsAction('INFO_ACCOUNT', data))
+    dispatch(setBodyModalParamsAction('INFO_ACCOUNT', data));
   }
+
+  const handleInfoTransactionModal = () => dispatch(setBodyModalParamsAction('INFO_TRANSACTION', transaction));
 
   return (
     <tr>
       <td>
-        <span className="blue-link-text" onClick={() => dispatch(setBodyModalParamsAction('INFO_TRANSACTION', transaction))}>
-          {dispatch(formatTimestamp(timestamp))}
+        <span className="blue-link-text" onClick={handleInfoTransactionModal}>
+          {handleTime(timestamp)}
         </span>
       </td>
       <td onClick={setModal(sellerRS)}>

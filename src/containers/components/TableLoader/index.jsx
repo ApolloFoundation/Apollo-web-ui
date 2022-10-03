@@ -3,11 +3,11 @@ import {BlockUpdater} from "../../block-subscriber";
 import ContentLoader from '../content-loader'
 import CustomTable from "../tables/table";
 
-const initialPagination = {
+const initialPagination = (perPage) => ({
   page: 1,
   firstIndex: 0,
-  lastIndex: 15,
-};
+  lastIndex: perPage,
+});
 
 export const TableLoader = ({
   dataLoaderCallback,
@@ -20,17 +20,18 @@ export const TableLoader = ({
   isResetPagination,
   onResetPagination,
   isShowLoader,
+  itemsPerPage = 15,
 }) => {
   const [data, setData] = useState(null);
-  const [pagination, setPagination] = useState(initialPagination);
+  const [pagination, setPagination] = useState(initialPagination(itemsPerPage));
 
   const handlePagination = useCallback((page) => () => {
     setPagination({
       page,
-      firstIndex: page * 15 - 15,
-      lastIndex: page * 15
+      firstIndex: page * itemsPerPage - itemsPerPage,
+      lastIndex: page * itemsPerPage,
     });
-  }, []);
+  }, [itemsPerPage]);
 
   const loadData = useCallback(async () => {
     const pag = {
@@ -39,13 +40,13 @@ export const TableLoader = ({
     }
     if (isResetPagination) {
       pag.firstIndex = 0;
-      pag.lastIndex = 15;
+      pag.lastIndex = itemsPerPage;
       onResetPagination();
-      setPagination(initialPagination);
+      setPagination(initialPagination(itemsPerPage));
     }
     const res = await dataLoaderCallback(pag);
     setData(res);
-  }, [dataLoaderCallback, pagination.firstIndex, pagination.lastIndex, isResetPagination, onResetPagination])
+  }, [dataLoaderCallback, pagination.firstIndex, pagination.lastIndex, isResetPagination, onResetPagination, itemsPerPage])
 
   useEffect(() => {
     loadData();
@@ -71,7 +72,7 @@ export const TableLoader = ({
       page={pagination.page}
       previousHendler={handlePagination(pagination.page - 1)}
       nextHendler={handlePagination(pagination.page + 1)}
-      itemsPerPage={15}
+      itemsPerPage={itemsPerPage}
       passProps={passProps}
     />
   )

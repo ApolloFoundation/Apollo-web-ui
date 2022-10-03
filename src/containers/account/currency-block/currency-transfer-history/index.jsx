@@ -3,10 +3,10 @@
  *                                                                            *
  ***************************************************************************** */
 
-import { TableLoader } from 'containers/components/TableLoader';
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAccountInfoSelector } from 'selectors';
+import { getAccountInfoSelector } from '../../../../selectors';
+import { TableLoader } from '../../../components/TableLoader';
 import { getTransferHistory } from '../../../../actions/currencies';
 import SiteHeader from '../../../components/site-header';
 import TransferHistoryItem from './transfer-history-item';

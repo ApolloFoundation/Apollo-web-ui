@@ -1,75 +1,29 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { getTransactionAction } from '../../../../../../actions/transactions';
 import { getExchangesAction } from '../../../../../../actions/exchange-booth';
-import { setBodyModalParamsAction } from '../../../../../../modules/modals';
-import CustomTable from '../../../../../components/tables/table1';
 import ExecutedItem from './executed-item';
+import { TableLoader } from 'containers/components/TableLoader';
 
-const itemsPerPage = 5;
-
-export default function ExecutedExcahngeTable(props) {
+export default function ExecutedExcahngeTable({ currencyInfo }) {
   const dispatch = useDispatch();
-
-  const { currencyInfo } = props;
-
   const { decimals, currency } = currencyInfo;
 
-  const [executedExchanges, setExecutedExchanges] = useState(null);
-  const [pagination, setPagination] = useState({
-    page: 1,
-    firstIndex: 0,
-    lastIndex: itemsPerPage,
-  });
-
-  const getTransaction = useCallback(async requestParams => {
-    const transaction = await dispatch(getTransactionAction(requestParams));
-
-    if (transaction) {
-      dispatch(setBodyModalParamsAction('INFO_TRANSACTION', transaction));
-    }
-  }, [dispatch]);
-
-  const getExchanges = useCallback(async currPagination => {
-    let selectedCurrPagination = currPagination;
-
-    if (!selectedCurrPagination) {
-      selectedCurrPagination = pagination;
-    }
+  const getExchanges = useCallback(async ({ firstIndex, lastIndex }) => {
     const dataExcahnge = await dispatch(getExchangesAction({
       currency,
-      ...selectedCurrPagination,
+      firstIndex,
+      lastIndex,
     }));
-
-    const { exchanges } = dataExcahnge;
-
-    setExecutedExchanges(exchanges);
-    setPagination(selectedCurrPagination);
-  }, [currency, dispatch, pagination]);
-
-  const onPaginate = useCallback(page => {
-    const currPagination = {
-      page,
-      firstIndex: page * itemsPerPage - itemsPerPage,
-      lastIndex: page * itemsPerPage,
-    };
-
-    getExchanges(currPagination);
-  }, [getExchanges]);
-
-  useEffect(() => {
-    getExchanges();
-  }, [currencyInfo]);
+    return dataExcahnge?.exchanges ?? [];
+  }, [currency, dispatch]);
 
   return (
     <div className="col-md-12 pr-0 pb-3">
       <div className="card h-auto">
-        <div className="card-title">
-          Executed exchanges
-        </div>
+        <div className="card-title">Executed exchanges</div>
         <div className="card-body h-auto">
-          <CustomTable
-            header={[
+          <TableLoader
+            headersList={[
               {
                 name: 'Date',
                 alignRight: false,
@@ -93,16 +47,11 @@ export default function ExecutedExcahngeTable(props) {
             className="p-0"
             emptyMessage="No executed exchanges found."
             TableRowComponent={ExecutedItem}
-            tableData={executedExchanges}
             passProps={{
               decimals,
-              setTransactionInfo: getTransaction,
             }}
-            isPaginate
-            itemsPerPage={itemsPerPage}
-            page={pagination.page}
-            previousHendler={() => onPaginate('executedExchanges', pagination.page - 1)}
-            nextHendler={() => onPaginate('executedExchanges', pagination.page + 1)}
+            dataLoaderCallback={getExchanges}
+            itemsPerPage={5}
           />
         </div>
       </div>
