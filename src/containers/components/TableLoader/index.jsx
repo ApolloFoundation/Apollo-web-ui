@@ -26,6 +26,7 @@ export const TableLoader = ({
   const [pagination, setPagination] = useState(initialPagination(itemsPerPage));
 
   const handlePagination = useCallback((page) => () => {
+    console.log("🚀 ~ file: index.jsx ~ line 29 ~ handlePagination ~ page", page)
     setPagination({
       page,
       firstIndex: page * itemsPerPage - itemsPerPage,
