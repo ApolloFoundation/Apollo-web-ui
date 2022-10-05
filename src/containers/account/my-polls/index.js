@@ -4,138 +4,75 @@
  ******************************************************************************/
 
 
-import React from 'react';
-import {connect} from 'react-redux';
+import React, { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import SiteHeader from '../../components/site-header'
-import {getMyPollsAction, getVoteAction} from '../../../actions/polls';
+import { getMyPollsAction } from '../../../actions/polls';
 import PoolItem from '../active-polls/pool-item';
-import { v4 as uuidv4 } from 'uuid';
-import {getTransactionAction} from "../../../actions/transactions";
-import {setBodyModalParamsAction} from "../../../modules/modals";
-import {BlockUpdater} from "../../block-subscriber/index";
+import { setBodyModalParamsAction } from "../../../modules/modals";
+import { getAccountSelector } from '../../../selectors';
+import { TableLoader } from '../../components/TableLoader';
 
-import CustomTable from '../../components/tables/table';
+const MyVotes = () => {
+    const dispatch = useDispatch();
+    const account = useSelector(getAccountSelector);
 
-
-const mapStateToProps = state => ({
-    account: state.account.account
-});
-
-const mapDispatchToProps = dispatch => ({
-    getMyPollsAction: (reqParams) => dispatch(getMyPollsAction(reqParams)),
-    getTransactionAction:     (requestParams) => dispatch(getTransactionAction(requestParams)),
-    getVoteAction:     (requestParams) => dispatch(getVoteAction(requestParams)),
-    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-});
-
-
-class MyVotes extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            firstIndex: 0,
-            lastIndex: 15,
-            page: 1,
-            myPolls: null
-        };
-
-        // this.getVote  = this.getVote.bind(this);
-    }
-
-    componentDidMount() {
-        this.getMyPolls({
-            account: this.props.account,
+    const getMyPolls = useCallback(async ({ firstIndex, lastIndex }) => {
+        const myPolls = await dispatch(getMyPollsAction({
+            firstIndex,
+            lastIndex,
+            account,
             includeFinished: true
-        });
-        BlockUpdater.on("data", data => {
-            this.getMyPolls({
-                account: this.props.account,
-                includeFinished: true
-            });
-        });
+        }));
 
-    }
+        return myPolls?.polls ?? [];
+    }, [dispatch, account]);
 
-    componentWillUnmount() {
-        BlockUpdater.removeAllListeners('data');
-    }
+    const handleIssuePollModal = () => dispatch(setBodyModalParamsAction('ISSUE_POLL', {}));
 
-    getMyPolls = async (reqParams) => {
-        const myPolls = await this.props.getMyPollsAction(reqParams);
-
-        if (myPolls) {
-            this.setState({
-                ...this.props,
-                myPolls: myPolls.polls
-            });
-        }
-    };
-
-    onPaginate = (page) => {
-        this.setState({
-            page: page,
-            account: this.props.account,
-            firstIndex: page * 15 - 15,
-            lastIndex:  page * 15
-        });
-    };
-
-    render () {
-        return (
-            <div className="page-content">
-                <SiteHeader
-                    pageTitle={'My Polls'}
+    return (
+        <div className="page-content">
+            <SiteHeader pageTitle='My Polls'>
+                <button
+                    type='button'
+                    className="btn btn-green btn-sm"
+                    style={{marginLeft: 15}}
+                    onClick={handleIssuePollModal}
                 >
-                    <button
-                        type={'button'}
-                        className="btn btn-green btn-sm"
-                        style={{marginLeft: 15}}
-                        onClick={() => this.props.setBodyModalParamsAction('ISSUE_POLL', {})}
-                    >
-                        Create Poll
-                    </button>
-                </SiteHeader>
-                <div className="page-body container-fluid">
-                    <CustomTable
-                        header={[
-                            {
-                                name: 'Title',
-                                alignRight: false
-                            },{
-                                name: 'Description',
-                                alignRight: false
-                            },{
-                                name: 'Sender',
-                                alignRight: false
-                            },{
-                                name: 'Start date',
-                                alignRight: false
-                            },{
-                                name: 'Blocks left',
-                                alignRight: false
-                            },{
-                                name: 'Actions',
-                                alignRight: true
-                            }
-                        ]}
-                        className={'no-min-height mb-3'}
-                        emptyMessage={'No polls found.'}
-                        page={this.state.page}
-                        TableRowComponent={PoolItem}
-                        tableData={this.state.myPolls}
-                        isPaginate
-                        previousHendler={this.onPaginate.bind(this, this.state.page - 1)}
-                        nextHendler={this.onPaginate.bind(this, this.state.page + 1)}
-                        itemsPerPage={15}
-                    />
-                </div>
+                    Create Poll
+                </button>
+            </SiteHeader>
+            <div className="page-body container-fluid">
+                <TableLoader
+                    headersList={[
+                        {
+                            name: 'Title',
+                            alignRight: false
+                        },{
+                            name: 'Description',
+                            alignRight: false
+                        },{
+                            name: 'Sender',
+                            alignRight: false
+                        },{
+                            name: 'Start date',
+                            alignRight: false
+                        },{
+                            name: 'Blocks left',
+                            alignRight: false
+                        },{
+                            name: 'Actions',
+                            alignRight: true
+                        }
+                    ]}
+                    className='no-min-height mb-3'
+                    emptyMessage='No polls found.'
+                    TableRowComponent={PoolItem}
+                    dataLoaderCallback={getMyPolls}
+                />
             </div>
-        );
-    }
+        </div>
+    );
 }
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(MyVotes);
+export default MyVotes;
