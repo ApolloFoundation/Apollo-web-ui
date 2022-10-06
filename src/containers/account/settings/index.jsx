@@ -5,36 +5,24 @@
 
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Form } from 'react-form';
-import { NotificationManager } from 'react-notifications';
 import { getSavedAccountSettingsAction } from '../../../modules/accountSettings';
-import { setBodyModalParamsAction } from '../../../modules/modals';
 import { login } from '../../../modules/account';
-import {
-  disable2FAActon, enable2FAActon, getAccountInfoAction,
-} from '../../../actions/account';
+import { getAccountInfoAction } from '../../../actions/account';
 import SiteHeader from '../../components/site-header';
-import InputForm from '../../components/input-form';
-import InfoBox from '../../components/info-box';
-import ModalFooter from '../../components/modal-footer';
-import AccountRSFormInput from '../../components/form-components/account-rs';
 import { 
   getAccountSelector,
   getSettingsSelector,
-  get2FASelector,
   getIsLocalhostSelector,
-  getAdminPasswordSelector,
 } from '../../../selectors';
-import { writeToLocalStorage } from '../../../actions/localStorage';
+import { Settings2FAForm } from './Settings2FAForm';
+import { AdminPasswordForm } from './AdminPasswordForm';
 import './Settings.scss';
 
 const Settings = () => {
   const dispatch = useDispatch();
   const account = useSelector(getAccountSelector);
   const settings = useSelector(getSettingsSelector);
-  const is2FA = useSelector(get2FASelector);
   const isLocalhost = useSelector(getIsLocalhostSelector);
-  const adminPassword = useSelector(getAdminPasswordSelector);
 
   const [state, setState] = useState({
     settings: null,
@@ -52,66 +40,6 @@ const Settings = () => {
       }));
     }
   }, [dispatch, account]);
-
-  const getQRCode = async (values) => {
-    if (!values.account) {
-      NotificationManager.error('Account ID is not specified.', 'Error', 5000);
-      return;
-    }
-    // it is a redux action but some special)
-    const status = await enable2FAActon({
-      passphrase: values.secretPhrase,
-      account: values.account,
-    });
-
-    if (status.errorCode) {
-      NotificationManager.error(status.errorDescription, null, 5000);
-    } else {
-      dispatch(setBodyModalParamsAction('CONFIRM_2FA_OPERATION', {
-        ...status,
-        passphrase: values.secretPhrase,
-        account: values.account,
-        operation: 'enable 2FA',
-        settingsReloader: getAccountInfo,
-      }));
-
-      setState(prevState => ({ 
-        ...prevState,
-        info2fa: status
-      }));
-    }
-  };
-
-  const disable2fa = async (values) => {
-    if (!values.account) {
-      NotificationManager.error('Account ID is not specified.', 'Error', 5000);
-      return;
-    }
-    // it is a redux action but some special)
-    const status = await disable2FAActon({
-      passphrase: values.secretPhrase,
-      account: values.account,
-      code2FA: values.code2FA,
-    });
-
-    if (status.errorCode) {
-      NotificationManager.error(status.errorDescription, null, 5000);
-    } else {
-      getAccountInfo();
-      NotificationManager.success('2FA was successfully disabled.', null, 5000);
-    }
-  };
-
-  const handleGeneralSettingFormSubmit = ({ adminPassword }) => {
-    if (adminPassword) {
-      writeToLocalStorage('adminPassword', { adminPassword });
-      NotificationManager.success('Admin password has been successfully saved!', null, 5000);
-    }
-  };
-
-  const handleSubmit2FA = (values) => {
-    state.account.is2FA ? disable2fa(values) : getQRCode(values);
-  }
 
   useEffect(() => {
     dispatch(getSavedAccountSettingsAction());
@@ -135,56 +63,10 @@ const Settings = () => {
               <div className="card full-height">
                 <div className="card-title">Two Factor Authentication (2FA)</div>
                 <div className="card-body">
-                  <Form
-                    onSubmit={handleSubmit2FA}
-                    render={({
-                      submitForm, setValue,
-                    }) => (
-                      <form className="modal-form" onSubmit={submitForm}>
-                        <div className="form-group-app">
-                          {is2FA
-                            ? (
-                              <>
-                                <div className="form-sub-title mb-3">
-                                  The 2FA is currently enabled on this account.
-                                </div>
-                              </>
-                            ) : (
-                              <div className="form-sub-title mb-3">
-                                The 2FA is currently disabled on this account. You can
-                                increase
-                                your wallet security with this option.
-                              </div>
-                            )}
-                          <InfoBox attentionLeft>
-                            <p className="mb-3">
-                              Please note:
-                            </p>
-                            <div className="form-sub-title">
-                              2FA is a feature for Vault addresses only,
-                              and will not add a second factor authentication to a standard address.
-                            </div>
-                          </InfoBox>
-                          <AccountRSFormInput
-                            setValue={setValue}
-                            noContactList
-                            field="account"
-                            label="Account ID"
-                            placeholder="Account ID"
-                          />
-                          <ModalFooter
-                            setValue={setValue}
-                          />
-                          {state.account && (
-                          <div>
-                            <button type="submit" className="btn btn-green">
-                              {!state.account.is2FA ? 'Get Qr code' : 'Confirm disable'}
-                            </button>
-                          </div>
-                          )}
-                        </div>
-                      </form>
-                    )}
+                  <Settings2FAForm
+                    account={state.account}
+                    getAccountInfo={getAccountInfo}
+                    setState={setState}
                   />
                 </div>
               </div>
@@ -194,37 +76,7 @@ const Settings = () => {
                 <div className="card full-height">
                   <div className="card-title">General</div>
                   <div className="card-body">
-                    <Form
-                      onSubmit={handleGeneralSettingFormSubmit}
-                      render={({ submitForm, setValue }) => (
-                        <form className="modal-form" onSubmit={submitForm}>
-                          <div className="form-group-app">
-                            <div className="form-group mb-15">
-                              <label>
-                                Admin password
-                              </label>
-                              <div>
-                                <InputForm
-                                  isPlain
-                                  className="form-control"
-                                  type="password"
-                                  field="adminPassword"
-                                  placeholder="Admin password"
-                                  setValue={setValue}
-                                  defaultValue={adminPassword}
-                                />
-                              </div>
-                            </div>
-                            <button
-                              type="submit"
-                              className="btn btn-green"
-                            >
-                              Save
-                            </button>
-                          </div>
-                        </form>
-                      )}
-                    />
+                    <AdminPasswordForm />
                   </div>
                 </div>
               </div>

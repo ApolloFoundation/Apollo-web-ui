@@ -21,6 +21,7 @@ export const TableLoader = ({
   onResetPagination,
   isShowLoader,
   itemsPerPage = 15,
+  withoutPagination = false,
 }) => {
   const [data, setData] = useState(null);
   const [pagination, setPagination] = useState(initialPagination(itemsPerPage));
@@ -69,7 +70,7 @@ export const TableLoader = ({
       emptyMessage={emptyMessage}
       TableRowComponent={TableRowComponent}
       tableData={data}
-      isPaginate
+      isPaginate={!withoutPagination}
       page={pagination.page}
       previousHendler={handlePagination(pagination.page - 1)}
       nextHendler={handlePagination(pagination.page + 1)}
