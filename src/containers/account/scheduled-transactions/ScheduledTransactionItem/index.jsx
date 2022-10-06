@@ -1,5 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from "react-redux";
+import {NotificationManager} from "react-notifications";
 import { useFormatTimestamp } from "../../../../hooks/useFormatTimestamp";
 import { setBodyModalParamsAction } from "../../../../modules/modals";
 import { getAccountInfoSelector } from "../../../../selectors";
@@ -22,6 +23,8 @@ export const ScheduledTransactionItem = (props) => {
 
     if (block) {
       dispatch(setBodyModalParamsAction('INFO_BLOCK', block));
+    } else {
+      NotificationManager.error('Request error!', 'Error', 5000);
     }
   }
 
