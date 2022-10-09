@@ -15,22 +15,6 @@ import ModalBody from '../../components/modals/modal-body';
 import TextualInputComponent from '../../components/form-components/textual-input';
 
 class SellAsset extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            activeTab: 0,
-            advancedState: false,
-
-            // submitting
-            passphraseStatus: false,
-            recipientStatus: false,
-            amountStatus: false,
-            feeStatus: false
-        }
-
-    }
-
     handleFormSubmit = async(values) => {
         values = {
             ...values,
@@ -40,6 +24,7 @@ class SellAsset extends React.Component {
         };
 
         this.props.processForm(values, 'placeAskOrder', 'The sell order has been submitted!', () => {
+            this.props.modalCallback();
             this.props.setBodyModalParamsAction(null, {});
             NotificationManager.success('The sell order has been submitted!', null, 5000);
         })
@@ -86,7 +71,8 @@ const mapStateToProps = state => ({
     modalData: state.modals.modalData,
     modalsHistory: state.modals.modalsHistory,
     decimals: state.account.decimals,
-	  ticker: state.account.ticker,
+    ticker: state.account.ticker,
+    modalCallback: state.modals.modalCallback,
 });
 
 const mapDispatchToProps = dispatch => ({

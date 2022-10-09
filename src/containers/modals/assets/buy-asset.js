@@ -6,33 +6,14 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {setBodyModalParamsAction} from '../../../modules/modals';
 import {Text} from 'react-form';
-
 import {NotificationManager} from "react-notifications";
-
+import {setBodyModalParamsAction} from '../../../modules/modals';
 import ModalBody from '../../components/modals/modal-body';
 import TextualInputComponent from '../../components/form-components/textual-input';
 
 class BuyAsset extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            activeTab: 0,
-            advancedState: false,
-
-            // submitting
-            passphraseStatus: false,
-            recipientStatus: false,
-            amountStatus: false,
-            feeStatus: false
-        }
-
-    }
-
-    handleFormSubmit = async(values) => {
-
+    handleFormSubmit = async (values) => {
         values = {
             ...values,
             asset: this.props.modalData.assetInfo.asset,
@@ -41,6 +22,7 @@ class BuyAsset extends React.Component {
         };
 
         this.props.processForm(values, 'placeBidOrder', 'The buy order has been submitted!', () => {
+            this.props.modalCallback();
             this.props.setBodyModalParamsAction(null, {});
             NotificationManager.success('The buy order has been submitted!', null, 5000);
         }, (res) => {
@@ -63,17 +45,17 @@ class BuyAsset extends React.Component {
         return (
             <ModalBody
                 loadForm={this.loadForm}
-                modalTitle={'Confirm Order (Buy)'}
-                isAdvanced={true}
+                modalTitle='Confirm Order (Buy)'
+                isAdvanced
                 isFee
                 closeModal={closeModal}
-                handleFormSubmit={(values) => this.handleFormSubmit(values)}
-                submitButtonName={'Confirm Order'}
+                handleFormSubmit={this.handleFormSubmit}
+                submitButtonName='Confirm Order'
                 nameModel={nameModal}
             >
-                <Text defaultValue={name} type="hidden" field={'name'}/>
-                <Text defaultValue={assetID} type="hidden" field={'asset'}/>
-                <Text defaultValue={quantityATU} placeholder={'Quantity'} type="hidden" field={'quantityATU'}/>
+                <Text defaultValue={name} type="hidden" field='name' />
+                <Text defaultValue={assetID} type="hidden" field='asset' />
+                <Text defaultValue={quantityATU} placeholder='Quantity' type="hidden" field='quantityATU' />
 
                 <TextualInputComponent
                     label={'Order Description'}
@@ -91,13 +73,14 @@ class BuyAsset extends React.Component {
 
 const mapStateToProps = state => ({
     modalData: state.modals.modalData,
-	  modalsHistory: state.modals.modalsHistory,
-	  decimals: state.account.decimals,
-	  ticker: state.account.ticker,
+    modalsHistory: state.modals.modalsHistory,
+    decimals: state.account.decimals,
+    ticker: state.account.ticker,
+    modalCallback: state.modals.modalCallback,
 });
 
-const mapDispatchToProps = dispatch => ({
-    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-});
+const mapDispatchToProps = {
+    setBodyModalParamsAction
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(BuyAsset);

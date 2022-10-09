@@ -12,3 +12,5 @@ export const getAdminPasswordSelector = state => state.account.adminPassword;
 export const getBockTimeSelector = state => state.account.blockchainStatus
   ? state.account.blockchainStatus.blockTime : null;
 export const getForgedBalanceSelector = state => state.account.forgedBalanceATM;
+export const getBalanceATMSelector = state => state.account.balanceATM;
+export const getAssetBalanceSelector = state => state.account.assetBalances;
