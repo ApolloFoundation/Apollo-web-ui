@@ -14,7 +14,7 @@ import classNames from "classnames";
 import InfoBox from '../../components/info-box';
 import {BlockUpdater} from "../../block-subscriber";
 import SidebarList from '../../components/sidebar-list';
-import { getAccountSelector } from '../../../selectors';
+import { getAccountInfoSelector, getAccountSelector } from '../../../selectors';
 import OffersToBuy from './offers-to-buy';
 import OffersToSell from './offers-to-sell';
 import BuyAsset from './buy-asset';
@@ -26,7 +26,12 @@ const itemsPerPage = 5;
 
 const AssetExchange = (props) => {
     const dispatch = useDispatch();
-    const account = useSelector(getAccountSelector);
+    const { 
+        account,
+        decimals,
+        ticker,
+        assetBalances,
+    } = useSelector(getAccountInfoSelector);
     const [state, setState] = useState({
         asset: null,
         assets: null,
@@ -38,7 +43,7 @@ const AssetExchange = (props) => {
 
 
         if (asset) {
-            const assetBalance = props.assetBalances && props.assetBalances.find(item => {
+            const assetBalance = assetBalances && assetBalances.find(item => {
                 if (item) return item.asset === asset.asset;
             });
             asset.balanceATU = assetBalance ? assetBalance.balanceATU : 0;
@@ -69,15 +74,13 @@ const AssetExchange = (props) => {
     }, [dispatch, account, props.match.params.asset]);
 
     const getAssets = useCallback(() => {
-        if (props.assetBalances) {
-            let assets = props.assetBalances.map(async (el) => {
-                return dispatch(getAssetAction({
+        if (assetBalances) {
+            let assets = assetBalances.map((el) => 
+                dispatch(getAssetAction({
                     asset: el ? el.asset : ""
-                }))
-            });
+                })));
             Promise.all(assets)
                 .then((data) => {
-
                     setState(prevState => ({
                         ...prevState,
                         assets: data,
@@ -87,7 +90,7 @@ const AssetExchange = (props) => {
                     console.log(err);
                 })
         }
-    }, [props.assetBalances, dispatch]);
+    }, [assetBalances, dispatch]);
 
     const handleUpdate = useCallback(() => {
         getAsset();
@@ -145,15 +148,15 @@ const AssetExchange = (props) => {
                             <div className="col-md-9 p-0">
                                 <div className='row'>
                                     <BuyAsset
-                                        decimals={props.decimals}
-                                        ticker={props.ticker}
+                                        decimals={decimals}
+                                        ticker={ticker}
                                         asset={state.asset}
                                         balanceATU={state.asset.balanceATU}
                                         onSubmit={handleSubmitSaleForm('BUY_ASSET', state.asset)}
                                     />
                                     <SellAsset
                                         asset={state.asset}
-                                        ticker={props.ticker}
+                                        ticker={ticker}
                                         accountAsset={state.accountAsset}
                                         onSubmit={handleSubmitSaleForm('SELL_ASSET', state.asset)}
                                     />
@@ -207,9 +210,7 @@ const AssetExchange = (props) => {
                                             key={el.asset}
                                             style={{display: 'block'}}
                                             to={"/asset-exchange/" + (el ? el.asset : "")}
-                                            className={classNames({
-                                                "chat-item": true,
-                                            })}
+                                            className="chat-item"
                                         >
                                             <div className="chat-box-item">
                                                 <div className="chat-box-rs">{el?.name ?? ""}</div>
