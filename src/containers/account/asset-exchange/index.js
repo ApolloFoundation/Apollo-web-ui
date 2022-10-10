@@ -5,16 +5,15 @@
 
 
 import React, { useCallback, useEffect, useState } from 'react';
-import {connect, useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
 import SiteHeader from '../../components/site-header'
-import {getAssetAction, getSpecificAccountAssetsAction} from "../../../actions/assets";
 import {Link} from 'react-router-dom';
+import {getAssetAction, getSpecificAccountAssetsAction} from "../../../actions/assets";
 import {setBodyModalParamsAction, setModalCallback} from "../../../modules/modals";
-import classNames from "classnames";
 import InfoBox from '../../components/info-box';
 import {BlockUpdater} from "../../block-subscriber";
 import SidebarList from '../../components/sidebar-list';
-import { getAccountInfoSelector, getAccountSelector } from '../../../selectors';
+import { getAccountInfoSelector } from '../../../selectors';
 import OffersToBuy from './offers-to-buy';
 import OffersToSell from './offers-to-sell';
 import BuyAsset from './buy-asset';
@@ -235,13 +234,4 @@ const AssetExchange = (props) => {
     );
 }
 
-
-const mapStateToProps = state => ({
-    amountATM: state.account.balanceATM,
-    account: state.account.account,
-    decimals: state.account.decimals,
-    ticker: state.account.ticker,
-    assetBalances: state.account.assetBalances
-});
-
-export default connect(mapStateToProps)(AssetExchange);
+export default AssetExchange;
