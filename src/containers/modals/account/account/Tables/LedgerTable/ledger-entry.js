@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { formatTimestamp } from '../../../../helpers/util/time';
-import { setBodyModalParamsAction } from '../../../../modules/modals';
+import { formatTimestamp } from '../../../../../../helpers/util/time';
+import { setBodyModalParamsAction } from '../../../../../../modules/modals';
 
 const Entry = ({
   event, eventType, timestamp, change, holdingType,

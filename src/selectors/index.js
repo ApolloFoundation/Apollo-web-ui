@@ -14,3 +14,5 @@ export const getBockTimeSelector = state => state.account.blockchainStatus
 export const getForgedBalanceSelector = state => state.account.forgedBalanceATM;
 export const getBalanceATMSelector = state => state.account.balanceATM;
 export const getAssetBalanceSelector = state => state.account.assetBalances;
+export const getModalDataSelector = state => state.modals.modalData;
+export const getModalHistorySelector = state => state.modals.modalsHistory;

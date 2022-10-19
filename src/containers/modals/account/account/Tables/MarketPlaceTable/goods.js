@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setBodyModalParamsAction } from '../../../../modules/modals';
+import { setBodyModalParamsAction } from '../../../../../../modules/modals';
 
 const Goods = ({
   name, goods, quantity, priceATM,
