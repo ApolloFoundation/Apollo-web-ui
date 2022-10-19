@@ -11,12 +11,12 @@ const MarketplaceTags = ({ showMoreController, isShowMore }) => {
     const dispatch =  useDispatch();
     const [state, setState] = useState({
         itemsPerPage: 10,
-        itemsPerPageMore: 32,
+        itemsPerPageMore: 33,
         getDGSTags: [],
         page: 1,
         firstIndex: 0,
         lastIndex: 32,
-        itemsPerPage: 32 + 1
+        itemsPerPage: 32,
     });
 
     const getDGSTags = useCallback(async (reqParams) => {
@@ -63,7 +63,6 @@ const MarketplaceTags = ({ showMoreController, isShowMore }) => {
             firstIndex: page * state.itemsPerPageMore - state.itemsPerPageMore,
             lastIndex:  page * state.itemsPerPageMore
         };
-
         setState(prevState => ({
             ...prevState,
             ...reqParams,
@@ -72,7 +71,7 @@ const MarketplaceTags = ({ showMoreController, isShowMore }) => {
         getDGSTags(reqParams)
     };
 
-    return (
+        return (
         <div className="card  marketplace filters transparent">
             <div className="search-bar m-0">
                 <div className="row m-0">
@@ -111,11 +110,17 @@ const MarketplaceTags = ({ showMoreController, isShowMore }) => {
                 </button>
                 {state.getDGSTags && isShowMore && (
                     <Pagination
-                        page={state.page}
-                        onPaginate={handlePaginate}
+                        firstIndex={state.firstIndex + 1}
+                        lastIndex={
+                            // state.getDGSTags?.length === state.itemsPerPageMore 
+                            //     ? state.lastIndex 
+                                (state.page - 1) * state.itemsPerPageMore + (state.getDGSTags?.length > 0 ? state.getDGSTags?.length : 1)
+                        }
                         itemsPerPage={state.itemsPerPageMore}
                         isNextDisabled={isNextDisabled()}
-                        data={state.getDGSTags}
+                        isPrevDisabled={state.page === 1}
+                        onNextPage={handlePaginate(state.page + 1)}
+                        onPrevPage={handlePaginate(state.page - 1)}
                     />
                 )}
             </div>

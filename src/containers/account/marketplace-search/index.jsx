@@ -4,94 +4,54 @@
  ******************************************************************************/
 
 
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback } from 'react';
 import {useDispatch} from 'react-redux';
 import {Link} from 'react-router-dom';
-import classNames from "classnames";
 import SiteHeader from '../../components/site-header/index';
 import MarketplaceItem from '../marketplace/marketplace-card/index'
 import {searchDGSGoodsAction} from "../../../actions/marketplace";
 import InfoBox from "../../components/info-box";
+import { Pagination } from '../../components/pagination';
+import {useDataLoader} from '../../../hooks/useDataLoader';
 
 const itemsPerPage = 8;
 
 const  MarketplaceSearch = (props) => {
     const dispatch = useDispatch();
-    const [state, setState] = useState({
-            market: [],
-            page: 1,
-            firstIndex: 0,
-            lastIndex: itemsPerPage - 1,
-            tag: props.match.params ? props.match.params.tag : null,
-            isGrid: true,
-        });
 
-    const getDGSGoods = useCallback(async (reqParams) => {
-        const { goods } = await dispatch(searchDGSGoodsAction(reqParams));
-
-        if (goods) {
-            setState(prevState => ({
-                ...prevState,
-                DGSGoods: goods
-            }));
-        }
-    }, [dispatch]);
-
-    const loadAccount = useCallback((tag) => {
-        const searchingBy = /^APL-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{5}/.test(tag) ?
-            {
-                seller: tag,
-                requestType: 'getDGSGoods'
-            } : {
-                query: tag
-            };
-
-        getDGSGoods({
-            includeCounts: true,
-            firstIndex: state.firstIndex,
-            lastIndex: state.lastIndex,
-            completed: true,
-            ...searchingBy
-        });
-        setState(prevState => ({
-            ...prevState,
-            tag: tag
-        }));
-    }, [getDGSGoods, state.firstIndex, state.lastIndex]);
-
-    const handlePaginate = (page) => () => {
+    const getDGSGoods = useCallback(async ({ firstIndex, lastIndex }) => {
         const searchingBy = /^APL-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{5}/.test(props.match.params.tag) ?
             {
-                seller: state.tag,
-                requestType: 'getDGSGoods'
+                seller: props.match.params.tag ?? null,
+                requestType: 'getDGSGoods',
             } : {
-                tag: state.tag
+                tag: props.match.params.tag ?? null,
             };
 
-        let reqParams = {
+        const { goods } = await dispatch(searchDGSGoodsAction({
+            firstIndex,
+            lastIndex,
             includeCounts: true,
-
-            page: page,
-            tag: state.tag,
+            completed: true,
             ...searchingBy,
-            firstIndex: page * itemsPerPage - itemsPerPage,
-            lastIndex: page * itemsPerPage - 1
-        };
-
-        setState(prevState => ({
-            ...prevState,
-            ...reqParams,
         }));
-    };
+        return goods ?? [];
+    }, [dispatch, props.match.params.tag]);
 
-    useEffect(() => {
-        loadAccount(props.match.params.tag);
-    }, [loadAccount, props.match.params.tag]);
+    const {
+        data,
+        onNextPage,
+        onPrevPage,
+        isDisabledNext,
+        isDisabledPrev,
+        firstCount,
+        lastCount,
+    } = useDataLoader(getDGSGoods, itemsPerPage);
 
     return (
         <div className="page-content">
             <SiteHeader
-                pageTitle={`Search <small>"${state.tag}"</small>`}
+                pageTitle={`Search <small>"${props.match.params.tag ?? ''}"</small>`}
                 showPrivateTransactions='ledger'
             >
                 <Link
@@ -102,58 +62,26 @@ const  MarketplaceSearch = (props) => {
                 </Link>
             </SiteHeader>
             <div className="page-body container-fluid full-screen-block no-padding-on-the-sides marketplace-container">
-                {(!!state.DGSGoods?.length) ? (
+                {(!!data?.length) ? (
                     <div className="marketplace">
-                        <div
-                            className={classNames({
-                                'row': true,
-                                'fluid-row': !state.isGrid
-                            })}
-                        >
-                            {state.DGSGoods.map((el) => (
+                        <div className='row'>
+                            {data.map((el) => (
                                 <div
                                     key={`marketplace-search-item-${el.goods}`}
-                                    className={classNames({
-                                        'marketplace-item': state.isGrid,
-                                        'marketplace-item--full-width': !state.isGrid,
-                                        'd-flex pl-3 pb-3 ': true
-                                    })}
+                                    className="marketplace-item d-flex pl-3 pb-3"
                                 >
-                                    <MarketplaceItem
-                                        tall={state.isGrid}
-                                        fluid={!state.isGrid}
-                                        isHovered
-                                        {...el}
-                                    />
+                                    <MarketplaceItem tall isHovered {...el} />
                                 </div>
                             ))}
-                            <div className="btn-box pagination">
-                                <button
-                                    type='button'
-                                    className={classNames({
-                                        'btn btn-default': true,
-                                        'disabled': state.page <= 1,
-                                    })}
-                                    onClick={handlePaginate(state.page - 1)}
-                                >
-                                    Previous
-                                </button>
-                                <div className='pagination-nav'>
-                                    <span>{state.page * itemsPerPage - itemsPerPage + 1}</span>
-                                    <span>&hellip;</span>
-                                    <span>{(state.page * itemsPerPage - itemsPerPage) + state.DGSGoods.length}</span>
-                                </div>
-                                <button
-                                    type='button'
-                                    onClick={handlePaginate(state.page + 1)}
-                                    className={classNames({
-                                        'btn btn-default': true,
-                                        'disabled': state.DGSGoods.length < itemsPerPage
-                                    })}
-                                >
-                                    Next
-                                </button>
-                            </div>
+                            <Pagination
+                                onNextPage={onNextPage}
+                                onPrevPage={onPrevPage}
+                                isNextDisabled={isDisabledNext}
+                                isPrevDisabled={isDisabledPrev}
+                                data={data}
+                                firstIndex={firstCount}
+                                lastIndex={lastCount}
+                            />
                         </div>
                     </div>
                 ) : (
