@@ -112,9 +112,7 @@ const MarketplaceTags = ({ showMoreController, isShowMore }) => {
                     <Pagination
                         firstIndex={state.firstIndex + 1}
                         lastIndex={
-                            // state.getDGSTags?.length === state.itemsPerPageMore 
-                            //     ? state.lastIndex 
-                                (state.page - 1) * state.itemsPerPageMore + (state.getDGSTags?.length > 0 ? state.getDGSTags?.length : 1)
+                            (state.page - 1) * state.itemsPerPageMore + (state.getDGSTags?.length > 0 ? state.getDGSTags?.length : 1)
                         }
                         itemsPerPage={state.itemsPerPageMore}
                         isNextDisabled={isNextDisabled()}
