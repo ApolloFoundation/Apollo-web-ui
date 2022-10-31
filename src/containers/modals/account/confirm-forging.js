@@ -20,7 +20,6 @@ import store from '../../../store'
 import { writeToLocalStorage } from '../../../actions/localStorage';
 
 class ConfirmForging extends React.Component {
-
     validatePassphrase = async (passphrase) => {
         return await this.props.validatePassphrase(passphrase);
     };
