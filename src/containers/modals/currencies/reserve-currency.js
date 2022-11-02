@@ -100,11 +100,9 @@ class ReserveCurrency extends React.Component {
                             </div>
                         </div>
                         <Form
-                            getApi={form => {
-                            }}
-                            onSubmit={values => this.handleFormSubmit(values)}
+                            onSubmit={this.handleFormSubmit}
                             render={({
-                                         submitForm, values, addValue, removeValue, setValue, getFormState
+                                         submitForm, values, setValue, getFormState
                                      }) => <React.Fragment>
                                 <div className="form-group mb-15">
                                     <label>

@@ -6,11 +6,9 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {setBodyModalParamsAction} from '../../../modules/modals';
 import {Text} from 'react-form';
-
 import {NotificationManager} from "react-notifications";
-
+import {setBodyModalParamsAction} from '../../../modules/modals';
 import ModalBody from '../../components/modals/modal-body';
 import TextualInputComponent from '../../components/form-components/textual-input';
 

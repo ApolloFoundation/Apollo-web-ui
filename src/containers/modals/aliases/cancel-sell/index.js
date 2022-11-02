@@ -7,19 +7,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {setBodyModalParamsAction, setModalData, saveSendModalState, openPrevModal} from '../../../../modules/modals';
-
-import { Form, Text } from 'react-form';
 import {getAliasAction} from "../../../../actions/aliases";
 import submitForm from "../../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
-import InputForm from '../../../components/input-form';
-import AdvancedSettings from '../../../components/advanced-transaction-settings';
-import FeeCalc from '../../../components/form-components/fee-calc';
-
-import BackForm from '../../modal-form/modal-form-container';
-import ModalFooter from '../../../components/modal-footer';
 import ModalBody from "../../../components/modals/modal-body";
-import TextualInputComponent from "../../../components/form-components/textual-input";
 
 const aliasTypeData = [
     { value: 'uri',     label: 'URI' },

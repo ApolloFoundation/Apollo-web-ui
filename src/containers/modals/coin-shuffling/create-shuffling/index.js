@@ -6,40 +6,14 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
+import {NotificationManager} from "react-notifications";
 import {
     setBodyModalParamsAction,
 } from '../../../../modules/modals';
-import {handleFormSubmit} from './handleFormSubmit';
-
-// Form components
-
 import ModalBody from '../../../components/modals/modal-body';
 import CreateShufflngForm from './form';
-import {NotificationManager} from "react-notifications";
-
-const holdingTypeData = [
-    { value: 0, label: 'Apollo' },
-    { value: 1, label: 'Asset' },
-    { value: 2, label: 'Currency' },
-];
 
 class CreateShuffling extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            activeTab: 0,
-            advancedState: false,
-
-            // submitting
-            passphraseStatus: false,
-            recipientStatus: false,
-            amountStatus: false,
-            feeStatus: false,
-        }
-
-    }
-
     handleFormSubmit = (values) => {
         values = {
             ...values,
@@ -65,12 +39,11 @@ class CreateShuffling extends React.Component {
     render() {
         return (
             <ModalBody
-                loadForm={this.loadForm}
                 modalTitle={'Create shuffling'}
                 isAdvanced
                 isFee
                 closeModal={this.props.closeModal}
-                handleFormSubmit={(values) => this.handleFormSubmit(values)}
+                handleFormSubmit={this.handleFormSubmit}
                 submitButtonName={'Create shuffling'}
             >
                 <CreateShufflngForm ticker={this.props.ticker} />

@@ -8,7 +8,7 @@ export const AssetDescription = ({ asset }) => {
   const params = useParams();
 
   const handleModal = () =>
-  dispatch(setBodyModalParamsAction('VIEW_ASSET_DISTRIBUTION', {
+    dispatch(setBodyModalParamsAction('VIEW_ASSET_DISTRIBUTION', {
         asset: params.asset,
         decimals: asset.decimals,
         totalAvailable: asset.quantityATU
