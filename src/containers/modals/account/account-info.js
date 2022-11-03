@@ -12,10 +12,10 @@ import {openPrevModal, setBodyModalParamsAction} from '../../../modules/modals';
 import submitForm from "../../../helpers/forms/forms";
 import ModalFooter from '../../components/modal-footer/index1';
 import BackForm from '../modal-form/modal-form-container';
-import FeeInputForm from "../../components/form-components/fee-input1";
 import CustomInput from '../../components/custom-input';
 import CustomTextArea from '../../components/form-components/text-area1';
 import { getAccountInfoSelector, getModalHistorySelector } from '../../../selectors';
+import { FeeWrapper } from '../../components/form-components/fee-wrapper';
 
 const  AccountInfo = (props) => {
     const dispatch = useDispatch();
@@ -82,7 +82,7 @@ const  AccountInfo = (props) => {
                             rows="10"
                         />
                     </div>
-                    <FeeInputForm name='feeATM' />
+                    <FeeWrapper name='feeATM' />
 
                     <ModalFooter />
 
