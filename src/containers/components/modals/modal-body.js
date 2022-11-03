@@ -40,10 +40,10 @@ class ModalBody extends React.Component {
         }
     };
 
-    handleChange = (props) => {
-        this.props.saveSendModalState(props.values);
-        if (this.props.onChange) this.props.onChange(props);
-    };
+    // handleChange = (props) => {
+    //     this.props.saveSendModalState(props.values);
+    //     if (this.props.onChange) this.props.onChange(props);
+    // };
 
     form = () => {
         const {
@@ -59,17 +59,11 @@ class ModalBody extends React.Component {
 
         return (
             <BackForm
-                getApi={(value) => this.getForm(value)}
-                onChange={this.handleChange}
-                onSubmit={(values) => this.handleFormSubmit(values)}
+                // onChange={this.handleChange}
+                onSubmit={this.handleFormSubmit}
                 nameModel={nameModel}
-                render={({
-                             submitForm, values, addValue, removeValue, setValue, getFormState, getValue
-                         }) => (
-                    <form
-                        onSubmit={submitForm}
-                        className={`${isPour ? '' : 'modal-form modal-send-apollo'} ${className}`}
-                    >
+                className={`${isPour ? '' : 'modal-form modal-send-apollo'} ${className}`}
+            >
                         <div className={`form-group-app`}>
                             <RightBar>
                                 {
@@ -145,7 +139,7 @@ class ModalBody extends React.Component {
                                 )}
 
                                 {/** Passing props to each form component */}
-                                {
+                                {/* {
                                     React.Children.map(children, child => {
                                             if (child) {
                                                 return React.cloneElement(child, {
@@ -161,9 +155,10 @@ class ModalBody extends React.Component {
                                             }
                                         }
                                     )
-                                }
+                                } */}
+                                {children}
 
-                                {isFee && (
+                                {/* {isFee && (
                                     <FeeInputForm
                                         field={'feeATM'}
                                         values={values}
@@ -171,12 +166,12 @@ class ModalBody extends React.Component {
                                         idGroup={idGroup}
                                         defaultValue={(modalData && modalData.feeATM) || '1'}
                                     />
-                                )}
+                                )} */}
 
                                 {/** Rendering of secret phrase and 2fa fields */}
-                                {
+                                {/* {
                                     !isDisableSecretPhrase &&
-                                    // handleFormSubmit &&
+                                    handleFormSubmit &&
                                     <ModalFooter
                                         off2FA={isDisabe2FA}
                                         setValue={setValue}
@@ -184,17 +179,17 @@ class ModalBody extends React.Component {
                                         values={values}
                                         idGroup={idGroup}
                                     />
-                                }
+                                } */}
 
-                                {
+                                {/* {
                                     isAdvanced &&
-                                    <AdvancedSettings
-                                        setValue={setValue}
-                                        getFormState={getFormState}
-                                        values={values}
-                                        white={isAdvancedWhite}
-                                    />
-                                }
+                                    // <AdvancedSettings
+                                    //     setValue={setValue}
+                                    //     getFormState={getFormState}
+                                    //     values={values}
+                                    //     white={isAdvancedWhite}
+                                    // />
+                                } */}
 
                                 {/** Bottom forms buttons */}
                                 {
@@ -204,7 +199,6 @@ class ModalBody extends React.Component {
                                         submitButtonName={submitButtonName}
                                         isPending={isPending}
                                         isDisabled={isDisabled}
-                                        setValue={setValue}
                                         closeModal={closeModal}
                                         isClosing={isClosingButton}
                                         idGroup={idGroup}
@@ -216,9 +210,7 @@ class ModalBody extends React.Component {
                                 }
                             </RightBar>
                         </div>
-                    </form>
-                )}
-            />
+            </BackForm>
         )
     };
 

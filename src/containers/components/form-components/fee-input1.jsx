@@ -2,17 +2,20 @@ import React from 'react';
 import cn from 'classnames';
 import CheckboxFormInput from '../check-button-input';
 import CustomInput from '../custom-input';
+import { useFormikContext } from 'formik';
 
 const FeeInput = ({
-  values, name, countingTtile, counterLabel = 'APL', type, idGroup,
+  values, name, countingTitle, counterLabel = 'APL', type, idGroup,
   inputHint, defaultValue, disabled, disableArrows, disabledFee = true,
-}) => (
+}) => {
+  const formik = useFormikContext();
+  return (
   <>
     <div className="form-group">
       <div className={disabledFee ? 'disabled-fee-wrap' : ''}>
         <div className={cn({
-          'input-group': countingTtile || counterLabel,
-          'input-group-disabled': disabled || (disabledFee && values && !values.isCustomFee),
+          'input-group': countingTitle || counterLabel,
+          'input-group-disabled': disabled || (disabledFee && formik.values && !formik.values.isCustomFee),
         })}
         >
           <CustomInput
@@ -22,12 +25,12 @@ const FeeInput = ({
             type={type || 'float'}
             defaultValue={defaultValue || '1'}
             id={`${idGroup}${name}-field`}
-            disabled={disabled || (disabledFee && values && !values.isCustomFee)}
+            disabled={disabled || (disabledFee && formik.values && !formik.values.isCustomFee)}
             disableArrows={disableArrows}
           >
-            {(countingTtile || counterLabel) && (
+            {(countingTitle || counterLabel) && (
               <div className="input-group-append">
-                <span className="input-group-text">{countingTtile || counterLabel}</span>
+                <span className="input-group-text">{countingTitle || counterLabel}</span>
               </div>
             )}
             {disabledFee && (
@@ -47,6 +50,7 @@ const FeeInput = ({
       </div>
     )}
   </>
-);
+  );
+}
 
 export default FeeInput;

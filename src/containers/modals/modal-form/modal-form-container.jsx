@@ -1,23 +1,15 @@
 import React, {
-  useState, useCallback, useEffect,
+  useCallback, useEffect, memo
 } from 'react';
 import { useSelector } from 'react-redux';
-// import { Form } from 'react-form';
-import { Formik, FormikProvider, useFormik, Form } from 'formik';
+import { FormikProvider, useFormik, Form } from 'formik';
 import { getMdalsSelector } from '../../../selectors';
 
-export default function BackForm(props) {
-  const {
-    nameModal, getApi, onChange, onSubmit, render, children,
-  } = props;
-
-  // const [newForm, setNewForm] = useState(null);
-  const [newModalData, setNewModalData] = useState(null);
-
+function BackForm({ nameModal, onSubmit, children, className, initialValues, isLoadValue }) {
   const { modalsHistory, modalData } = useSelector(getMdalsSelector);
 
   const formik = useFormik({
-    initialValues: modalData,
+    initialValues,
     onSubmit,
   });
 
@@ -37,51 +29,22 @@ export default function BackForm(props) {
     }
   }, [modalsHistory, nameModal, formik?.setValues]);
 
-  // const getForm = useCallback(form => {
-  //   setNewForm(form);
-  //   loadValues();
-
-  //   if (getApi) {
-  //     getApi(form);
-  //   }
-  // }, [getApi, loadValues]);
-
   useEffect(() => {
     if (modalData && Object.keys(modalData).length > 0) {
-      setNewModalData(modalData);
-      loadValues(modalData);
+      if (isLoadValue) {
+        loadValues(modalData);
+      }
     }
-  }, [loadValues, modalData, newModalData]);
+  }, [loadValues, modalData, isLoadValue]);
 
-
-  console.log("🚀 ~ file: modal-form-container.jsx ~ line 55 ~ BackForm ~ formik", formik)
 
   return (
     <FormikProvider value={formik}>
-      <Form onSubmit={formik.handleSubmit} className="modal-form">
+      <Form onSubmit={formik.handleSubmit} className={className ?? "modal-form"}>
         {children}
       </Form>
     </FormikProvider>
-    // <Form
-    //   onChange={onChange}
-    //   nameModal={nameModal}
-    //   onSubmit={onSubmit}
-    //   getApi={getForm}
-    //   render={render}
-    // >
-    //   <>
-    //   <Formik
-    //     initialValues={{}}
-    //     onSubmit={() => {}}
-    //   >
-    //     {(props) => {
-    //       console.log(props);
-    //       return 11;
-    //     }}
-    //   </Formik>
-    //   {children}
-    //   <div>34</div>
-    //   </>
-    // </Form>
   );
 }
+
+export default memo(BackForm);

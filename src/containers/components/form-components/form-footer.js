@@ -8,7 +8,6 @@ const FormFooter = ({
     isAdvanced, 
     isPending, 
     isDisabled, 
-    setValue, 
     closeModal,
     isMomalProcessing,
     isClosing,
