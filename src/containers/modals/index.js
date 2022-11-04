@@ -33,7 +33,6 @@ import ApolloAbout from './about';
 import AccountInfo from './account/account-info';
 import ShardingInfo from './account/sharding-info';
 import SaveAccount from './account/save-account';
-import EnterAdminPassword from './admin-password';
 import EnterSecretPhrase from './account/get-seecret-phrase';
 import CheckForgingStatus from './account/check-forging-status';
 import SetAccountProperty from './account/set-account-property';
@@ -251,7 +250,6 @@ class ModalWindow extends React.Component {
                     {this.props.modalType === 'SHARDING_INFO'               && <ShardingInfo              closeModal={this.closeModal} nameModal={'SHARDING_INFO'}/>}
                     {this.props.modalType === 'SET_ACCOUNT_INFO'            && <AccountInfo               closeModal={this.closeModal} nameModal={'SET_ACCOUNT_INFO'}/>}
                     {this.props.modalType === 'SAVE_ACCOUNT'                && <SaveAccount               closeModal={this.closeModal} nameModal={'SAVE_ACCOUNT'}/>}
-                    {this.props.modalType === 'ADMIN_PASSWORD'              && <EnterAdminPassword        closeModal={this.closeModal} nameModal={'ADMIN_PASSWORD'}/>}
                     {this.props.modalType === 'ENTER_SECRET_PHRASE'         && <EnterSecretPhrase         closeModal={this.closeModal} nameModal={'ENTER_SECRET_PHRASE'}/>}
                     {this.props.modalType === 'CHECK_FORGING_STATUS'        && <CheckForgingStatus        closeModal={this.closeModal} nameModal={'CHECK_FORGING_STATUS'}/>}
                     {this.props.modalType === 'SET_ACCOUNT_PROPERTY'        && <SetAccountProperty        closeModal={this.closeModal} nameModal={'SET_ACCOUNT_PROPERTY'}/>}
