@@ -116,9 +116,6 @@ const FundingMonitors = () => {
                             TableRowComponent={MonitorItem}
                             emptyMessage='No monitors found.'
                             dataLoaderCallback={getFundingMointors}
-                            passProps={{ 
-                                reloadCallback: getFundingMointors,
-                            }}
                         />
                 </div>
             </div>
