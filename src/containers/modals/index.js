@@ -101,7 +101,6 @@ import Confirm2FA from './2fa'
 import DeleteAccountFromWebNode from './account/delete-account-from-node';
 import ConfirmForging from './account/confirm-forging';
 //Login
-import ImportAccount from '../modals/account/import-account'
 import ExportAccount from '../modals/account/export-account'
 // scheduled transactins
 import ScheaduleCurrency from '../modals/scheaduled-transactions/sceadule-currency'
@@ -258,7 +257,6 @@ class ModalWindow extends React.Component {
                     {this.props.modalType === 'SET_ACCOUNT_PROPERTY'        && <SetAccountProperty        closeModal={this.closeModal} nameModal={'SET_ACCOUNT_PROPERTY'}/>}
                     {this.props.modalType === 'DELETE_ACCOUNT_PROPERTY'     && <DeleteAccountProperty     closeModal={this.closeModal} nameModal={'DELETE_ACCOUNT_PROPERTY'}/>}
                     {this.props.modalType === 'CONFIRM_2FA_OPERATION'       && <Confirm2FA                closeModal={this.closeModal} nameModal={'CONFIRM_2FA_OPERATION'}/>}
-                    {this.props.modalType === 'IMPORT_ACCOUNT'              && <ImportAccount             closeModal={this.closeModal} nameModal={'IMPORT_ACCOUNT'}/>}
                     {this.props.modalType === 'EXPORT_KEY_SEED'             && <ExportAccount             closeModal={this.closeModal} nameModal={'EXPORT_KEY_SEED'}/>}
                     {this.props.modalType === 'DELETE_ACCOUNT_FROM_NODE'    && <DeleteAccountFromWebNode  closeModal={this.closeModal} nameModal={'DELETE_ACCOUNT_FROM_NODE'}/>}
                     {this.props.modalType === 'CONFIRM_FORGING'             && <ConfirmForging            closeModal={this.closeModal}/>}
