@@ -6,7 +6,7 @@ import './styles.scss';
 
 const CheckboxFormInput = props => {
   const {
-    label, name, id, className, disabled, onChange, value,
+    label, name, id, className, disabled, onChange, value, isTopOffset,
   } = props;
 
   const [field, , helpers] = useField({
@@ -27,7 +27,7 @@ const CheckboxFormInput = props => {
   }, [value]);
 
   return (
-    <div className={cn('checkbox-group mb-15', className)}>
+    <div className={cn('checkbox-group mb-15', className, { 'checkbox-group--top': isTopOffset})}>
       <input
         {...field}
         type="checkbox"
