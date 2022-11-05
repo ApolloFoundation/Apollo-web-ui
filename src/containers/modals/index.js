@@ -34,7 +34,6 @@ import AccountInfo from './account/account-info';
 import ShardingInfo from './account/sharding-info';
 import SaveAccount from './account/save-account';
 import EnterSecretPhrase from './account/get-seecret-phrase';
-import CheckForgingStatus from './account/check-forging-status';
 import SetAccountProperty from './account/set-account-property';
 import DeleteAccountProperty from './account/delete-account-property';
 import ChainProps from './account/chain-properties';
@@ -251,7 +250,6 @@ class ModalWindow extends React.Component {
                     {this.props.modalType === 'SET_ACCOUNT_INFO'            && <AccountInfo               closeModal={this.closeModal} nameModal={'SET_ACCOUNT_INFO'}/>}
                     {this.props.modalType === 'SAVE_ACCOUNT'                && <SaveAccount               closeModal={this.closeModal} nameModal={'SAVE_ACCOUNT'}/>}
                     {this.props.modalType === 'ENTER_SECRET_PHRASE'         && <EnterSecretPhrase         closeModal={this.closeModal} nameModal={'ENTER_SECRET_PHRASE'}/>}
-                    {this.props.modalType === 'CHECK_FORGING_STATUS'        && <CheckForgingStatus        closeModal={this.closeModal} nameModal={'CHECK_FORGING_STATUS'}/>}
                     {this.props.modalType === 'SET_ACCOUNT_PROPERTY'        && <SetAccountProperty        closeModal={this.closeModal} nameModal={'SET_ACCOUNT_PROPERTY'}/>}
                     {this.props.modalType === 'DELETE_ACCOUNT_PROPERTY'     && <DeleteAccountProperty     closeModal={this.closeModal} nameModal={'DELETE_ACCOUNT_PROPERTY'}/>}
                     {this.props.modalType === 'CONFIRM_2FA_OPERATION'       && <Confirm2FA                closeModal={this.closeModal} nameModal={'CONFIRM_2FA_OPERATION'}/>}
