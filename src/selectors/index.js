@@ -16,3 +16,4 @@ export const getBalanceATMSelector = state => state.account.balanceATM;
 export const getAssetBalanceSelector = state => state.account.assetBalances;
 export const getModalDataSelector = state => state.modals.modalData;
 export const getModalHistorySelector = state => state.modals.modalsHistory;
+export const getAccountPublicKey = state => state.account.publicKey;
