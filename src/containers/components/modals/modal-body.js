@@ -2,7 +2,7 @@ import React from 'react';
 
 import {connect} from 'react-redux';
 import FormFooter from '../form-components/form-footer';
-import ModalFooter from '../modal-footer';
+import ModalFooter from '../modal-footer/index1';
 import classNames from 'classnames';
 
 import AdvancedSettings from '../advanced-transaction-settings';
@@ -10,6 +10,7 @@ import {openPrevModal, saveSendModalState} from "../../../modules/modals";
 
 import BackForm from '../../modals/modal-form/modal-form-container';
 import FeeInputForm from "../form-components/fee-input";
+import { FeeWrapper } from '../form-components/fee-wrapper';
 
 
 class ModalBody extends React.Component {
@@ -50,7 +51,7 @@ class ModalBody extends React.Component {
             CustomFooter, isDisableFormFooter, marketplace, onChange, isDisabledBackArrow, isAdvancedWhite,
             isDisableSecretPhrase, isDisabe2FA, modalSubTitle, className, idGroup, isPour, openPrevModal, modalsHistory,
             saveSendModalState, nameModel, children, handleFormSubmit, modalTitle, isPending, isDisabled, isFee, closeModal,
-            submitButtonName, modalData, isClosingButton,
+            submitButtonName, modalData, isClosingButton, initialValues,
         } = this.props;
 
         const LeftBar = marketplace ? (p) => <div className="left-bar">{p.children}</div> : React.Fragment;
@@ -60,6 +61,7 @@ class ModalBody extends React.Component {
         return (
             <BackForm
                 // onChange={this.handleChange}
+                initialValues={initialValues}
                 onSubmit={this.handleFormSubmit}
                 nameModel={nameModel}
                 className={`${isPour ? '' : 'modal-form modal-send-apollo'} ${className}`}
@@ -158,28 +160,22 @@ class ModalBody extends React.Component {
                                 } */}
                                 {children}
 
-                                {/* {isFee && (
-                                    <FeeInputForm
-                                        field={'feeATM'}
-                                        values={values}
-                                        setValue={setValue}
+                                {isFee && (
+                                    <FeeWrapper
+                                        name='feeATM'
                                         idGroup={idGroup}
-                                        defaultValue={(modalData && modalData.feeATM) || '1'}
                                     />
-                                )} */}
+                                )}
 
                                 {/** Rendering of secret phrase and 2fa fields */}
-                                {/* {
+                                {
                                     !isDisableSecretPhrase &&
                                     handleFormSubmit &&
                                     <ModalFooter
                                         off2FA={isDisabe2FA}
-                                        setValue={setValue}
-                                        getFormState={getFormState}
-                                        values={values}
                                         idGroup={idGroup}
                                     />
-                                } */}
+                                }
 
                                 {/* {
                                     isAdvanced &&

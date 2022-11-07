@@ -4,26 +4,24 @@
  ***************************************************************************** */
 
 import React from 'react';
-import { connect } from 'react-redux';
-import InputForm from '../../components/input-form';
-import AccountRSFormInput from '../../components/form-components/account-rs';
+import AccountRSFormInput from '../../../components/form-components/account-rs1';
+import CustomInput from '../../../components/custom-input';
 
-const SetAccountPropertyForm = ({ setValue, modalData }) => (
+const SetAccountPropertyForm = ({ recipientRS, property }) => (
   <>
-    {(modalData && modalData.recipientRS) ? (
+    {(recipientRS) ? (
       <div className="form-group mb-15">
         <label>
           Recipient
         </label>
         <div>
-          <span>{modalData.recipientRS}</span>
+          <span>{recipientRS}</span>
         </div>
       </div>
     ) : (
       <AccountRSFormInput
-        field="recipient"
+        name="recipient"
         label="Recipient"
-        setValue={setValue}
       />
     )}
     <div className="form-group mb-15">
@@ -31,13 +29,12 @@ const SetAccountPropertyForm = ({ setValue, modalData }) => (
         Property
       </label>
       <div>
-        {(modalData && modalData.property) ? (
-          <span>{modalData.property}</span>
+        {(property) ? (
+          <span>{property}</span>
         ) : (
-          <InputForm
-            field="property"
+          <CustomInput
+            name="property"
             placeholder="Property"
-            setValue={setValue}
           />
         )}
       </div>
@@ -47,17 +44,14 @@ const SetAccountPropertyForm = ({ setValue, modalData }) => (
         Value
       </label>
       <div>
-        <InputForm
-          field="value"
-          defaultValue={(modalData && modalData.value) ? modalData.value : ''}
+        <CustomInput
+          name="value"
           placeholder="Value"
-          setValue={setValue}
         />
       </div>
     </div>
   </>
 );
 
-const mapStateToProps = state => ({ modalData: state.modals.modalData });
 
-export default connect(mapStateToProps)(SetAccountPropertyForm);
+export default SetAccountPropertyForm;

@@ -33,7 +33,7 @@ import ApolloAbout from './about';
 import AccountInfo from './account/account-info';
 import ShardingInfo from './account/sharding-info';
 import SaveAccount from './account/save-account';
-import SetAccountProperty from './account/set-account-property';
+import SetAccountProperty from './account/SetAccountProperty/set-account-property';
 import DeleteAccountProperty from './account/delete-account-property';
 import ChainProps from './account/chain-properties';
 // Assets
