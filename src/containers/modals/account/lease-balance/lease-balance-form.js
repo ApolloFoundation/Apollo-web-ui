@@ -1,11 +1,14 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { useSelector} from 'react-redux';
+import { useFormikContext } from 'formik';
+import NumericInputComponent from '../../../components/form-components/numeric-input1';
+import AccountRSInput from '../../../components/form-components/account-rs1';
+import { getBlockTimeSelector } from '../../../../selectors';
 
-import NumericInputComponent from '../../../components/form-components/numeric-input';
-import AccountRSInput        from '../../../components/form-components/account-rs';
 
-
-const LeaseBalanceForm = ({setValue, blockGenerationTime, values}) => {
+const LeaseBalanceForm = () => {
+    const blockGenerationTime = useSelector(getBlockTimeSelector);
+    const { values } = useFormikContext();
 
     const period  = parseInt(values && values.period ? values.period : 0);
     const avgTime = period ? Math.round((period * (blockGenerationTime ? blockGenerationTime : 10)) / 86400) : 0;
@@ -13,16 +16,14 @@ const LeaseBalanceForm = ({setValue, blockGenerationTime, values}) => {
     return (
         <>
             <AccountRSInput
-                label={'Recipient'}
-                field={'recipient'}
-                placeholder={'Recipient'}
-                setValue={setValue}
+                label='Recipient'
+                name='recipient'
+                placeholder='Recipient'
             />
             <NumericInputComponent
-                label={'Period'}
-                field={'period'}
-                placeholder={'Period'}
-                setValue={setValue}
+                label='Period'
+                name='period'
+                placeholder='Period'
                 defaultVallue={0}
                 inputHint={`A lease of ${period} blocks is about ${avgTime} days.`}
             />
@@ -30,13 +31,4 @@ const LeaseBalanceForm = ({setValue, blockGenerationTime, values}) => {
     )
 }
 
-const mapStateToProps = state => {
-
-    const blockchainStatus = state.account.blockchainStatus;
-    
-    return {
-        blockGenerationTime: blockchainStatus ? blockchainStatus.emptyBlockTime : null
-    }
-}
-
-export default connect(mapStateToProps)(LeaseBalanceForm)
+export default LeaseBalanceForm;

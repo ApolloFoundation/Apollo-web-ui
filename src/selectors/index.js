@@ -10,7 +10,7 @@ export const getIsLocalhostSelector = state => state.account.isLocalhost;
 export const getMdalsSelector = state => state.modals;
 export const getAccountInfoSelector = state => state.account;
 export const getAdminPasswordSelector = state => state.account.adminPassword;
-export const getBockTimeSelector = state => state.account.blockchainStatus
+export const getBlockTimeSelector = state => state.account.blockchainStatus
   ? state.account.blockchainStatus.blockTime : null;
 export const getForgedBalanceSelector = state => state.account.forgedBalanceATM;
 export const getBalanceATMSelector = state => state.account.balanceATM;

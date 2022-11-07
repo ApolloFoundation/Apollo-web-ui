@@ -12,7 +12,7 @@ import { TableLoader } from '../../../components/TableLoader';
 import {
   getAccountInfoSelector,
   getForgedBalanceSelector,
-  getBockTimeSelector
+  getBlockTimeSelector
 } from '../../../../selectors';
 import Block from '../block';
 import { headersList } from './headersList';
@@ -21,7 +21,7 @@ export const ForgedBlocks = () => {
   const dispatch = useDispatch();
   const { decimals, account } = useSelector(getAccountInfoSelector);
   const forgedBalance = useSelector(getForgedBalanceSelector);
-  const blockTime = useSelector(getBockTimeSelector);
+  const blockTime = useSelector(getBlockTimeSelector);
 
   const [state, setState] = useState({
     avgFee: 0,
