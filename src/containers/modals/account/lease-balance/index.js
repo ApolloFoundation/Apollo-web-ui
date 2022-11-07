@@ -26,7 +26,10 @@ const  LeaseBalance = (props) => {
             handleFormSubmit={handleFormSubmit}
             submitButtonName='Lease your balance'
             idGroup='lease-balance-modal-'
-            initialValues={{ period: 0 }}
+            initialValues={{
+                period: 0,
+                feeATM: 1,
+            }}
         >
             <LeaseBalanceForm />
         </ModalBody>
