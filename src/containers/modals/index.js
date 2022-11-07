@@ -99,7 +99,7 @@ import Confirm2FA from './2fa'
 import DeleteAccountFromWebNode from './account/delete-account-from-node';
 import ConfirmForging from './account/confirm-forging';
 //Login
-import ExportAccount from '../modals/account/export-account'
+import ExportAccount from './account/ExportAccount/export-account'
 // scheduled transactins
 import ScheaduleCurrency from '../modals/scheaduled-transactions/sceadule-currency'
 import AssetDividendHistory from "./assets/view-asset-dividend-history";
