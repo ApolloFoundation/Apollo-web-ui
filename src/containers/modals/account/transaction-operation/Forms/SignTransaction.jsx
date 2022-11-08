@@ -5,11 +5,11 @@ import {NotificationManager} from "react-notifications";
 import submitForm from "../../../../../helpers/forms/forms";
 import {signBytesArrayAPL} from "../../../../../helpers/converters";
 import ModalBody from "../../../../components/modals/modal-body";
-import CustomTextArea from "../../../../components/form-components/text-area";
-import {CheckboxFormInput} from "../../../../components/form-components/check-button-input";
-import InputForm from "../../../../components/input-form";
+import CustomTextArea from "../../../../components/form-components/text-area1";
+import CheckboxFormInput from "../../../../components/check-button-input";
 import InfoBox from '../../../../components/info-box';
 import { getAccountInfoSelector } from '../../../../../selectors';
+import CustomInput from '../../../../components/custom-input';
 
 export const SignTransactionForm = ({ setState, state, closeModal }) => {
   const dispatch = useDispatch();
@@ -60,35 +60,28 @@ export const SignTransactionForm = ({ setState, state, closeModal }) => {
     >
         <CustomTextArea
             label='Unsigned Transaction Bytes'
-            field='signBytes'
+            name='signBytes'
             placeholder='Unsigned Transaction Bytes'
         />
         <CustomTextArea
             label='Unsigned Transaction JSON'
-            field='signJson'
+            name='signJson'
             placeholder='Unsigned Transaction JSON'
         />
         <CheckboxFormInput
-            checkboxes={[
-                {
-                    field: 'signValidate',
-                    label: 'Validate',
-                }
-            ]}
+            name='signValidate'
+            label='Validate'
+            id="signValidateCheckbox"
         />
         <div className="form-group mb-15">
-            <label>
-                Secret phrase
-            </label>
-            <div>
-                <InputForm
-                    isPlain
-                    className='form-control'
-                    type="password"
-                    field="secretPhrase"
-                    placeholder="Secret Phrase"
-                />
-            </div>
+            <CustomInput
+                isPlain
+                className='form-control'
+                type="password"
+                name="secretPhrase"
+                placeholder="Secret Phrase"
+                label="Secret phrase"
+            />
         </div>
         {state.showSignature && (
             <>

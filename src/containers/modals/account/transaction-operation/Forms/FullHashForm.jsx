@@ -3,8 +3,8 @@ import { useDispatch } from "react-redux";
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../../../helpers/forms/forms";
 import ModalBody from "../../../../components/modals/modal-body";
-import TextualInputComponent from "../../../../components/form-components/textual-input";
-import CustomTextArea from "../../../../components/form-components/text-area";
+import CustomTextArea from "../../../../components/form-components/text-area1";
+import CustomInput from '../../../../components/custom-input';
 
 export const FullHashForm = ({ closeModal }) => {
   const dispatch = useDispatch();
@@ -35,17 +35,17 @@ export const FullHashForm = ({ closeModal }) => {
     >
         <CustomTextArea
             label='Unsigned Transaction Bytes'
-            field='calculateBytes'
+            name='calculateBytes'
             placeholder='Unsigned Transaction Bytes'
         />
         <CustomTextArea
             label='Unsigned Transaction JSON'
-            field='calculateJson'
+            name='calculateJson'
             placeholder='Unsigned Transaction JSON'
         />
-        <TextualInputComponent
+        <CustomInput
             label='Signature Hash'
-            field="calculateHash"
+            name="calculateHash"
             placeholder="Signature Hash"
             type="text"
         />
