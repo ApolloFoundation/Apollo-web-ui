@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import cn from 'classnames';
 import { useField } from 'formik';
 
@@ -7,7 +7,7 @@ import styles from './styles.module.scss';
 export default function CustomInput(props) {
   const {
     label, className, type, disableArrows, disabled, id, children, onChange,
-    maxValue, minValue, step, isSpecialSymbols, name, placeholder,
+    maxValue, minValue, step, isSpecialSymbols, name, placeholder, defaultValue
   } = props;
   const [field, , helpers] = useField(name);
   const { setValue } = helpers;
@@ -75,8 +75,14 @@ export default function CustomInput(props) {
     setValue(parsedValue);
   };
 
+  useEffect(() => {
+    if(defaultValue) {
+      helpers.setValue(defaultValue);
+    }
+  }, []);
+
   return (
-    <div className="form-group mb-0">
+    <div className="form-group mb-15">
       <label htmlFor={field.name}>
         {label}
       </label>

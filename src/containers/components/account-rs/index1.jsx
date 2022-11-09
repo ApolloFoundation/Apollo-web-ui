@@ -19,12 +19,15 @@ export default function AccountRS(props) {
 
   const {
     onChange, exportAccountList, id, name,
-    disabled, placeholder, noContactList,
+    disabled, placeholder, noContactList, defaultValue,
   } = props;
 
   const { ticker } = useSelector(state => state.account);
 
-  const [field, , helpers] = useField(name);
+  const [field, , helpers] = useField({
+    name,
+    defaultValue,
+  });
 
   const [isContacts, setIsContacts] = useState(false);
 

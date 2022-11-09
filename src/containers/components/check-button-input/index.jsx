@@ -47,7 +47,6 @@ const CheckboxFormInput = props => {
 };
 
 PropTypes.propTypes = {
-  checkboxes: PropTypes.Array,
   label: PropTypes.string,
   className: PropTypes.string,
 };

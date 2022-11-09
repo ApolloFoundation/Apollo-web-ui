@@ -177,15 +177,10 @@ class ModalBody extends React.Component {
                                     />
                                 }
 
-                                {/* {
+                                {
                                     isAdvanced &&
-                                    // <AdvancedSettings
-                                    //     setValue={setValue}
-                                    //     getFormState={getFormState}
-                                    //     values={values}
-                                    //     white={isAdvancedWhite}
-                                    // />
-                                } */}
+                                    <AdvancedSettings white={isAdvancedWhite} />
+                                }
 
                                 {/** Bottom forms buttons */}
                                 {

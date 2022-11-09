@@ -35,6 +35,7 @@ const FeeInput = ({
                 className="disabled-fee-checkbox"
                 name="isCustomFee"
                 label="Custom fee"
+                id={`${idGroup}-isCustomFee`}
               />
             )}
           </CustomInput>
