@@ -12,48 +12,50 @@ const Alias = (props) => (
     <tr>
         <td>{props.aliasName}</td>
         <td>{props.aliasURI}</td>
-        {
-            props.priceATM &&
-            props.priceATM === '0' &&
-            props.userAccount === props.buyer &&
-            <td>CANCELLING SALE</td>
-        }
-        {
-            props.priceATM &&
-            props.priceATM === '0' &&
-            props.userAccount !== props.buyer &&
-            <td>TRANSFER IN PROGRESS</td>
-        }
-        {
-            props.priceATM &&
-            props.priceATM !== '0' &&
-            typeof props.buyer !== "undefined" &&
-            <td>FOR SALE (DIRECT)</td>
-        }
-        {
-            props.priceATM &&
-            props.priceATM !== '0' &&
-            !props.buyer &&
-            <td>FOR SALE (INDIRECT)</td>
-        }
-        {
-            !props.priceATM &&
-            <td>REGISTERED</td>
-        }
-        {((props.priceATM && props.priceATM !== '0' && !props.buyer)
-        || (props.buyer && props.account === props.buyer))
-        && (<td className="align-right unset-text-overflow">
-            <div className="btn-box inline">
-                <button
-                    type={'button'}
-                    onClick={() => props.setBodyModalParamsAction('BUY_ALIAS', {...props, priceATM: props.priceATM / props.decimals})}
-                    className="btn btn-default"
-                >
-                    Buy alias
-                </button>
-            </div>
-        </td>)
-        }
+        <td>
+            {
+                (props.priceATM &&
+                props.priceATM === '0' &&
+                props.userAccount === props.buyer) && 'CANCELLING SALE'
+            }
+            {
+                (props.priceATM &&
+                props.priceATM === '0' &&
+                props.userAccount !== props.buyer) &&
+                'TRANSFER IN PROGRESS'
+            }
+            {
+                (props.priceATM &&
+                props.priceATM !== '0' &&
+                typeof props.buyer !== "undefined") &&
+                'FOR SALE (DIRECT)'
+            }
+            {
+                (props.priceATM &&
+                props.priceATM !== '0' &&
+                !props.buyer) &&
+                'FOR SALE (INDIRECT)'
+            }
+            {
+                !props.priceATM &&
+               'REGISTERED'
+            }
+        </td>
+        <td>{props.priceATM ? (props.priceATM / props.decimals) : ''}</td>
+        <td className="align-right unset-text-overflow">
+            {((props.priceATM && props.priceATM !== '0' && !props.buyer)
+                || (props.buyer && props.account === props.buyer)) && (
+                    <div className="btn-box inline">
+                        <button
+                            type='button'
+                            onClick={() => props.setBodyModalParamsAction('BUY_ALIAS', props)}
+                            className="btn btn-default"
+                        >
+                            Buy alias
+                        </button>
+                    </div>
+                )}
+        </td>
     </tr>
 );
 

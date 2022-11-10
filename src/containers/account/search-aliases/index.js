@@ -65,6 +65,10 @@ const SearchAliases = () => {
                                 },{
                                     name: 'Price',
                                     alignRight: false
+                                },
+                                {
+                                    name: 'Action',
+                                    alignRight: true
                                 }
                             ]}
                             TableRowComponent={Alias}
