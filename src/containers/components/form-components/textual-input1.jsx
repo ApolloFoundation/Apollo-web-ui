@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import CustomInput from '../custom-input';
 
 const TextualInputComponent = ({
@@ -24,8 +25,8 @@ const TextualInputComponent = ({
         </>
       ) : (
         <>
-          <div className={`form-group mb-15 ${className}`}>
-            <div className={code && 'input-group'}>
+          <div className={classNames('form-group mb-15', className)}>
+            <div className={classNames({ 'input-group': code })}>
               {!text
                 ? (
                   <>

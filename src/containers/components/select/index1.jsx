@@ -28,7 +28,7 @@ export default function CustomSelect({
   return (
     <Select
       {...field}
-      value={options ? options.find(option => option.value === field.value) : ''}
+      value={options ? options.find(option => option.value === value) : ''}
       className="form-custom-select"
       classNamePrefix="custom-select-box"
       options={options}

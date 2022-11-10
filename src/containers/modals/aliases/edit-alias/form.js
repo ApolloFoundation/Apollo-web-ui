@@ -1,12 +1,8 @@
-import React from 'react';
-import {connect} from 'react-redux';
-
-import {getAliasAction} from "../../../../actions/aliases";
-
-import CustomFormSelect from '../../../components/form-components/custom-form-select';
-import TextualInputComponent from '../../../components/form-components/textual-input';
-import AccountRSFormInput from '../../../components/form-components/account-rs';
-
+import React, { useEffect } from 'react';
+import { useFormikContext } from 'formik';
+import CustomFormSelect from '../../../components/form-components/custom-form-select1';
+import TextualInputComponent from '../../../components/form-components/textual-input1';
+import AccountRSFormInput from '../../../components/form-components/account-rs1';
 
 const typeData = [
     { value: 'uri',     label: 'URI' },
@@ -14,88 +10,49 @@ const typeData = [
     { value: 'general', label: 'Other' },
 ];
 
-class EditAliasForm extends React.Component {
-    state = {inputType: 'uri'};
+const EditAliasForm = ({ alias }) => {
+    const { values, setFieldValue } = useFormikContext();
     
-    componentDidMount = () => {
-        this.getAlias();
-    };
-
-    getAlias = async () => {
-        const alias = await this.props.getAliasAction({alias: this.props.modalData});
-
-        if (alias) {
-            this.setState({
-                alias
-            });
-        }
-    };
-
-
-    handleChange = (value) => {
-        this.setState({
-            inputType: value
-        })
-    };
-
-    render () {
-        const {setValue} = this.props;
-        
-        return (
-            <>
-               <CustomFormSelect
-                    defaultValue={typeData[0]}
-                    setValue={setValue}
-                    options={typeData}
-                    label={'Type'}
-                    field={'type'}
-                    onChange={this.handleChange}
-                />
+    useEffect(() => {
+        setFieldValue('aliasURI', alias?.aliasName);
+    }, [alias?.aliasName, setFieldValue]);
+    
+    return (
+        <>
+            <CustomFormSelect
+                defaultValue={typeData[0]}
+                options={typeData}
+                label='Type'
+                name='type'
+            />
+            <TextualInputComponent 
+                label='Alias'
+                text={alias ? alias?.aliasName : ''}
+            />
+            {
+                values.type === 'uri' &&
                 <TextualInputComponent 
-                    label={'Alias'}
-                    text={this.state.alias ? this.state.alias.aliasName : ''}
+                    label='URI'
+                    name="aliasURI"
+                    placeholder="http://"
+                    type="text"
                 />
-                {
-                    this.state.inputType === 'uri' &&
-                    <TextualInputComponent 
-                        label={'URI'}
-                        field="aliasURI"
-                        placeholder="http://"
-                        type={"text"}
-                        setValue={setValue}
-                        defaultValue={this.state.alias ? this.state.alias.aliasURI : ''}
-                    />
-                }
-                {
-                    this.state.inputType === 'account' &&
-                    <AccountRSFormInput
-                        field={'aliasURI'}
-                        label={'Account ID'}
-                        setValue={setValue}
-                    />
-                }
-                {
-                    this.state.inputType === 'general' &&
-                    <TextualInputComponent 
-                        label={'Data'}
-                        field="aliasURI"
-                        placeholder="Data"
-                        type={"text"}
-                        setValue={setValue}
-                    />
-                }
-
-            </>
-        )
-    }
+            }
+            {
+                values.type ==='account' &&
+                <AccountRSFormInput name='aliasURI' label='Account ID' />
+            }
+            {
+                values.type  === 'general' &&
+                <TextualInputComponent 
+                    label='Data'
+                    name="aliasURI"
+                    placeholder="Data"
+                    type="text"
+                />
+            }
+        </>
+    )
 }
 
-const mapStateToProps = state => ({
-    modalData: state.modals.modalData,
-});
-
-const mapDispatchToProps = dispatch => ({
-    getAliasAction: (requestParams) => dispatch(getAliasAction(requestParams)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(EditAliasForm);
+export default EditAliasForm;
