@@ -4,138 +4,77 @@
  ******************************************************************************/
 
 
-import React from 'react';
-import {connect} from 'react-redux';
-import {setAlert, setBodyModalParamsAction, setModalData, saveSendModalState, openPrevModal} from '../../../../modules/modals';
-
+import React, { useCallback, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {NotificationManager} from "react-notifications";
 import {getAliasAction} from "../../../../actions/aliases";
 import submitForm from "../../../../helpers/forms/forms";
-
 import ModalBody from '../../../components/modals/modal-body';
+import { getModalDataSelector } from '../../../../selectors';
 import TransferCurrencyForm from './form';
 
-class TransferAlias extends React.Component {
-    constructor(props) {
-        super(props);
+const TransferAlias = ({ closeModal }) => {
+    const dispatch = useDispatch();
+    const [state, setState] = useState({
+        isPending: false,
+        alias: null,
+    });
+    const modalData = useSelector(getModalDataSelector);
 
-        this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    const handleFormSubmit = useCallback(async (values) => {
+        setState(prevState => ({
+            ...prevState,
+            isPending: true,
+        }));
 
-        this.state = {
-            activeTab: 0,
-            advancedState: false,
-
-            // submitting
-            passphraseStatus: false,
-            recipientStatus: false,
-            amountStatus: false,
-            feeStatus: false
-        };
-
-        this.handleTabChange = this.handleTabChange.bind(this);
-        this.handleAdvancedState = this.handleAdvancedState.bind(this);
-    }
-
-    componentDidMount = () => {
-        this.getAlias();
-    };
-
-    async handleFormSubmit(values) {
-
-        values = {
+        const data = {
             ...values,
             priceATM: 0,
-            aliasName: this.state.alias.aliasName
+            aliasName: state.alias.aliasName
         };
 
-        this.setState({
-            isPending: true
-        })
-
-        const res = await this.props.submitForm( values, 'sellAlias')
+        const res = await dispatch(submitForm.submitForm(data, 'sellAlias'));
         if (res && res.errorCode) {
-            this.setState({
+            setState(prevState => ({
+                ...prevState,
                 isPending: false
-            })
+            }));
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
-            this.props.setBodyModalParamsAction(null, {});
-
+            closeModal();
             NotificationManager.success('Alias has been transferred!', null, 5000);
         }
+    }, [dispatch, state.isPending, state.alias, closeModal]);
 
-        // this.props.sendTransaction(values);
-        // this.props.setBodyModalParamsAction(null, {});
-        // this.props.setAlert('success', 'Transaction has been submitted!');
-    }
+    const getAlias = async () => {
+        const aliasRes = await dispatch(getAliasAction({alias: modalData}));
 
-    getAlias = async () => {
-        const alias = await this.props.getAliasAction({alias: this.props.modalData});
-
-        if (alias) {
-            this.setState({
-                alias
-            });
+        if (aliasRes) {
+            setState(prevState => ({
+                ...prevState,
+                alias: aliasRes,
+            }));
         }
     };
 
-    handleTabChange(tab) {
-        this.setState({
-            ...this.props,
-            activeTab: tab
-        })
-    }
+    useEffect(() => {
+        getAlias();
+    }, []);
 
-    handleAdvancedState() {
-        if (this.state.advancedState) {
-            this.setState({
-                ...this.props,
-                advancedState: false
-            })
-        } else {
-            this.setState({
-                ...this.props,
-                advancedState: true
-            })
-        }
-    }
 
-    handleChange = (value) => {
-        this.setState({
-            inputType: value
-        })
-    };
-
-    render() {
-        return (
-            <ModalBody
-                loadForm={this.loadForm}
-                modalTitle={'Transfer Alias'}
-                isAdvanced={true}
-                isFee
-                closeModal={this.props.closeModal}
-                handleFormSubmit={(values) => this.handleFormSubmit(values)}
-                submitButtonName={'Transfer Alias'}
-            >
-                <TransferCurrencyForm />
-            </ModalBody>
-        );
-    }
+    return (
+        <ModalBody
+            modalTitle='Transfer Alias'
+            isAdvanced
+            isFee
+            closeModal={closeModal}
+            handleFormSubmit={handleFormSubmit}
+            submitButtonName='Transfer Alias'
+            isPending={state.isPending}
+        >
+            <TransferCurrencyForm alias={state.alias} />
+        </ModalBody>
+    );
 }
 
-const mapStateToProps = state => ({
-    modalData: state.modals.modalData,
-    modalsHistory: state.modals.modalsHistory,
-});
-
-const mapDispatchToProps = dispatch => ({
-	setAlert: (status, message) => dispatch(setAlert(status, message)),
-    setModalData: (data) => dispatch(setModalData(data)),
-    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
-    getAliasAction: (requestParams) => dispatch(getAliasAction(requestParams)),
-    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-    saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
-	openPrevModal: () => dispatch(openPrevModal()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(TransferAlias);
+export default TransferAlias;
