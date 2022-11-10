@@ -4,34 +4,20 @@
  ******************************************************************************/
 
 
-import React, { useCallback, useEffect, useState } from 'react';
-import { useDispatch, useSelector} from 'react-redux';
+import React, { useCallback } from 'react';
+import { useSelector} from 'react-redux';
 import {NotificationManager} from "react-notifications";
-import {getAliasAction} from "../../../../actions/aliases";
 import TabulationBody from '../../../components/tabulator/tabuator-body';
 import TabContaier from '../../../components/tabulator/tab-container';
 import ModalBody from '../../../components/modals/modal-body';
-import { getModalDataSelector, getTickerSelector } from '../../../../selectors';
+import { getTickerSelector } from '../../../../selectors';
 import { ToSpecificAccount } from './forms/ToSpecificAccount';
 import { ToAnyoneAccount } from './forms/ToAnyoneAccount';
+import { useAliasDataLoader } from '../useAliasDataLoader';
 
 const SellAlias = (props) => {
-    const dispatch = useDispatch();
-    const [alias, setAlias] = useState(null);
-    const modalData = useSelector(getModalDataSelector);
+    const alias = useAliasDataLoader();
     const ticker = useSelector(getTickerSelector);
-
-    const getAlias = useCallback(async () => {
-        const alias = await dispatch(getAliasAction({ alias: modalData }));
-
-        if (alias) {
-            setAlias(alias);
-        }
-    }, [modalData, dispatch]);
-
-    useEffect(() => {
-        getAlias();
-    }, [getAlias]);
 
     const handleFormSubmit = useCallback(async (values) => {
         const data = {

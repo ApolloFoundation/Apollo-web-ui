@@ -4,18 +4,14 @@
  ******************************************************************************/
 
 
-import React, { useCallback, useEffect, useState } from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import React, { useCallback } from 'react';
 import {NotificationManager} from "react-notifications";
-import {getAliasAction} from '../../../../actions/aliases/';
 import ModalBody from '../../../components/modals/modal-body';
-import { getModalDataSelector } from '../../../../selectors';
+import { useAliasDataLoader } from '../useAliasDataLoader';
 import EditAliasForm from './form';
 
 const EditAlias = ({ closeModal, processForm }) => {
-    const dispatch = useDispatch();
-    const modalData = useSelector(getModalDataSelector);
-    const [alias, setAlias] = useState(null);
+    const alias = useAliasDataLoader();
 
     const handleFormSubmit = useCallback(async (values) => {
         const data = {
@@ -28,18 +24,6 @@ const EditAlias = ({ closeModal, processForm }) => {
             NotificationManager.success('Alias has been edited!', null, 5000);
         });
     }, [closeModal, alias?.aliasName])
-
-    const getAlias = async () => {
-        const aliasResponse = await dispatch(getAliasAction({alias: modalData}));
-
-        if (aliasResponse) {
-            setAlias(aliasResponse);
-        }
-    };
-
-    useEffect(() => {
-        getAlias();
-    }, [])
 
     return (
         <ModalBody

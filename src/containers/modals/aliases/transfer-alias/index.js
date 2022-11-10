@@ -4,63 +4,34 @@
  ******************************************************************************/
 
 
-import React, { useCallback, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useCallback, useState } from 'react';
 import {NotificationManager} from "react-notifications";
-import {getAliasAction} from "../../../../actions/aliases";
-import submitForm from "../../../../helpers/forms/forms";
 import ModalBody from '../../../components/modals/modal-body';
-import { getModalDataSelector } from '../../../../selectors';
+import { useAliasDataLoader } from '../useAliasDataLoader';
 import TransferCurrencyForm from './form';
 
-const TransferAlias = ({ closeModal }) => {
-    const dispatch = useDispatch();
-    const [state, setState] = useState({
-        isPending: false,
-        alias: null,
-    });
-    const modalData = useSelector(getModalDataSelector);
+const TransferAlias = ({ closeModal, processForm }) => {
+    const alias = useAliasDataLoader();
+    const [isPending, setIsPending] = useState(false);
 
     const handleFormSubmit = useCallback(async (values) => {
-        setState(prevState => ({
-            ...prevState,
-            isPending: true,
-        }));
+        setIsPending(true);
 
         const data = {
             ...values,
             priceATM: 0,
-            aliasName: state.alias.aliasName
+            aliasName: alias.aliasName
         };
 
-        const res = await dispatch(submitForm.submitForm(data, 'sellAlias'));
+        const res = await processForm(data, 'sellAlias');
         if (res && res.errorCode) {
-            setState(prevState => ({
-                ...prevState,
-                isPending: false
-            }));
+            setIsPending(false);
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
             closeModal();
             NotificationManager.success('Alias has been transferred!', null, 5000);
         }
-    }, [dispatch, state.isPending, state.alias, closeModal]);
-
-    const getAlias = async () => {
-        const aliasRes = await dispatch(getAliasAction({alias: modalData}));
-
-        if (aliasRes) {
-            setState(prevState => ({
-                ...prevState,
-                alias: aliasRes,
-            }));
-        }
-    };
-
-    useEffect(() => {
-        getAlias();
-    }, []);
-
+    }, [processForm, alias, closeModal]);
 
     return (
         <ModalBody
@@ -70,9 +41,9 @@ const TransferAlias = ({ closeModal }) => {
             closeModal={closeModal}
             handleFormSubmit={handleFormSubmit}
             submitButtonName='Transfer Alias'
-            isPending={state.isPending}
+            isPending={isPending}
         >
-            <TransferCurrencyForm alias={state.alias} />
+            <TransferCurrencyForm alias={alias} />
         </ModalBody>
     );
 }
