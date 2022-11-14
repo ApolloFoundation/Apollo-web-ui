@@ -1,7 +1,8 @@
 import React from 'react';
-import { useField } from 'formik';
 import { useSelector } from 'react-redux';
-import CustomInput from '../custom-input';
+import classNames from 'classnames';
+import CustomInput from '../../custom-input';
+import styles from './index.module.scss';
 
 export default function BlockHeightInput(props) {
   const { actualBlock } = useSelector(state => state.account);
@@ -26,7 +27,7 @@ export default function BlockHeightInput(props) {
           id={`${idGroup}${name}-field`}
         />
         {!isSubtitle && actualBlock && (
-          <div className="input-group-append">
+          <div className={classNames("input-group-append", styles.heightCount)}>
             <span className="input-group-text" id="finishHeightText">{!isSubtitle && actualBlock}</span>
           </div>
         )}

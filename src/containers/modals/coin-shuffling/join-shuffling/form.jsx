@@ -1,115 +1,70 @@
-import React from 'react';
-import {connect} from 'react-redux';
-import {Text} from 'react-form';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector} from 'react-redux';
+import { useFormikContext } from 'formik';
+import CheckboxFormInput from '../../../components/check-button-input';
+import CustomInput from '../../../components/custom-input';
+import crypto from "../../../../helpers/crypto/crypto";
+import { getModalDataSelector } from '../../../../selectors';
+import { VaultWallet } from './VaultWallet';
 
-import {CheckboxFormInput} from '../../../components/form-components/check-button-input';
-import InfoBox from "../../../components/info-box";
-import {CopyToClipboard} from "react-copy-to-clipboard";
-import {NotificationManager} from "react-notifications";
-import InputForm from "../../../components/input-form";
+const JoinShufflingForm = ({ shuffling }) => {
+    const dispatch = useDispatch();
+    const modalData = useSelector(getModalDataSelector);
+    const { values, setFieldValue } = useFormikContext();
 
-const JoinShufflingForm = ({values, setValue, getFormState, modalData, setAccount, handleVaultWalletCondition, shuffling, vaultWallet}) => (
-    <>
-        <div className="form-group mb-15">
-            <label>
-                Shuffling Id
-            </label>
-            <div>
-                {shuffling &&
-                <p>{shuffling.shuffling}</p>
-                }
-                {modalData && modalData.broadcast &&
-                <p>{modalData.broadcast.transaction}</p>
-                }
-            </div>
-        </div>
-        {
-            !values.isVaultWallet &&
+    useEffect(() => {
+        if (values.recipientSecretPhrase !== '') {
+            dispatch(
+                crypto.getAccountIdAsyncApl(values.recipientSecretPhrase)
+            ).then(res =>  setFieldValue('generatedAccount', res));
+        } else {
+            setFieldValue('generatedAccount', '');
+        }
+    }, [values.recipientSecretPhrase]);
+
+    return (
+        <>
             <div className="form-group mb-15">
                 <label>
-                    Recipient secret phrase
+                    Shuffling Id
                 </label>
                 <div>
-                    <Text className="form-control"
-                          field="recipientSecretPhrase"
-                          placeholder="Recipient Secret Phrase"
-                          onKeyUp={(e) => {
-                              if (values.recipientSecretPhrase !== '') {
-                                  setAccount(getFormState, setValue)
-                              } else {
-                                  setValue('generatedAccount', '')
-                              }
-                          }}
-                          type={'password'}/>
+                    {shuffling &&
+                    <p>{shuffling.shuffling}</p>
+                    }
+                    {modalData && modalData.broadcast &&
+                    <p>{modalData.broadcast.transaction}</p>
+                    }
                 </div>
             </div>
-        }
-        <CheckboxFormInput
-            setValue={setValue}
-            checkboxes={[
-                {
-                    field: 'isVaultWallet',
-                    label: 'Use Vault Wallet for Shuffling',
-                    handler: handleVaultWalletCondition,
-                    defaultValue: false
-                }
-            ]}
-        />
-        <div className="mobile-class mb-15 ">
             {
-                values.isVaultWallet &&
-                vaultWallet &&
-                <InfoBox attentionLeft>
-                    <p className={'mb-3'}>
-                        Account ID: <span className={'itatic'}>{vaultWallet.accountRS}</span>
-                    </p>
-                    <p className={'mb-3'}>
-                        Secret Phrase:  <span className={'itatic'}>{vaultWallet.passphrase}</span>
-                    </p>
-                    <p className={'mb-3'}>
-                        Public Key: <span className={'itatic'}>{vaultWallet.publicKey}</span>
-                    </p>
-                    <CopyToClipboard
-                        text={
-                            `Account ID: ${vaultWallet.accountRS}\n` +
-                            `Secret Phrase: ${vaultWallet.passphrase}\n` +
-                            `Public Key: ${vaultWallet.publicKey}\n`
-                        }
-                        onCopy={() => {
-                            NotificationManager.success('The account data has been copied to clipboard.')
-                        }}
-                    >
-                        <button
-                            type={'button'}
-                            className="btn btn-green"
-                        >
-                            Copy account data to clipboard.
-                        </button>
-                    </CopyToClipboard>
-                </InfoBox>
+                !values.isVaultWallet &&
+                <CustomInput
+                    label='Recipient secret phrase'
+                    name="recipientSecretPhrase"
+                    placeholder="Recipient Secret Phrase"
+                    type='password'
+                />
             }
-        </div>
-
-        {
-            !values.isVaultWallet &&
-            <div className="form-group mb-15">
-                <label>
-                    Recipient Account
-                </label>
-                <div>
-                    <InputForm
-                        disabled={true}
-                        field="generatedAccount"
-                        placeholder="Account ID"
-                        setValue={setValue}/>
-                </div>
+            <CheckboxFormInput
+                name='isVaultWallet'
+                label='Use Vault Wallet for Shuffling'
+                id="isVaultWallet-join-shaffilng-modal"
+            />
+            <div className="mobile-class mb-15 ">
+                <VaultWallet />
             </div>
-        }
-    </>
-);
+            {
+                !values.isVaultWallet &&
+                <CustomInput
+                    label="Recipient Account"
+                    disabled
+                    name="generatedAccount"
+                    placeholder="Account ID"
+                />
+            }
+        </>
+    );
+}
 
-const mapStateToProps = state => ({
-    modalData: state.modals.modalData
-});
-
-export default connect(mapStateToProps)(JoinShufflingForm);
+export default JoinShufflingForm;

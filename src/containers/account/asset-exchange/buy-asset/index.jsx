@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useFormik, FormikProvider, Form } from 'formik';
 import classNames from 'classnames';
-import NumericInput from '../../../components/form-components/numeric-input/numeric-input1'
+import NumericInput from '../../../components/form-components/NumericInput/numeric-input1'
 import { getBalanceATMSelector } from '../../../../selectors';
 const bigInteger = require('jsbn').BigInteger;
 

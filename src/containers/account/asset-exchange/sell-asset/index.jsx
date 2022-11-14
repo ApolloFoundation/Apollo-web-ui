@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { useFormik, FormikProvider, Form } from 'formik';
-import NumericInput from '../../../components/form-components/numeric-input/numeric-input1'
+import NumericInput from '../../../components/form-components/NumericInput/numeric-input1'
 const bigInteger = require('jsbn').BigInteger;
 
 const SellAsset = ({ asset, accountAsset, ticker, onSubmit }) => {

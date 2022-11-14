@@ -7,7 +7,7 @@ import CustomInput from '../../../../../../components/custom-input';
 import Button from '../../../../../../components/button';
 import CustomSelect from '../../../../../../components/select/index1';
 import InputRange from '../../../../../../components/input-range/index1';
-import NumericInput from '../../../../../../components/form-components/numeric-input/numeric-input1';
+import NumericInput from '../../../../../../components/form-components/NumericInput/numeric-input1';
 import getFullNumber from '../../../../../../../helpers/util/expancionalParser';
 
 export default function BuyForm(props) {

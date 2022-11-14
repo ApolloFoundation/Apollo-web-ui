@@ -6,7 +6,7 @@ import NumericInput from '../../../../components/form-components/numeric-input1'
 import TextualInputComponent from '../../../../components/form-components/textual-input/textual-input1';
 import CheckboxFormInput from '../../../../components/check-button-input';
 import CustomTextArea from '../../../../components/form-components/text-area1';
-import BlockHeightInput from '../../../../components/form-components/block-height-input1';
+import BlockHeightInput from '../../../../components/form-components/BlockHeight/block-height-input1';
 import { getAccountInfoSelector } from '../../../../../selectors';
 
 const IssueCurrencyForm = () => {

@@ -13,7 +13,7 @@ import {getAssetAction} from "../../../actions/assets";
 
 
 // Form components
-import BlockHeightInput from '../form-components/block-height-input1';
+import BlockHeightInput from '../form-components/BlockHeight/block-height-input1';
 import CheckboxFormInput from '../check-button-input';
 import CustomInputForm from '../form-components/textual-input/textual-input1';
 import CustomTextArea from '../form-components/text-area1';

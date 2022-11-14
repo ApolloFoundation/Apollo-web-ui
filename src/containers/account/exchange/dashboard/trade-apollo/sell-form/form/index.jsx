@@ -4,7 +4,7 @@ import { Form, useFormikContext } from 'formik';
 import { ONE_GWEI } from '../../../../../../../constants';
 import { multiply, division } from '../../../../../../../helpers/format';
 import Button from '../../../../../../components/button';
-import NumericInput from '../../../../../../components/form-components/numeric-input/numeric-input1';
+import NumericInput from '../../../../../../components/form-components/NumericInput/numeric-input1';
 import CustomInput from '../../../../../../components/custom-input';
 import InputRange from '../../../../../../components/input-range/index1';
 import CustomSelect from '../../../../../../components/select/index1';

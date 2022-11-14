@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import CustomInput from '../custom-input';
-import BlockHeightInput from '../form-components/block-height-input1';
+import BlockHeightInput from '../form-components/BlockHeight/block-height-input1';
 import InfoBox from '../info-box';
 
 const mapStateToProps = state => ({
