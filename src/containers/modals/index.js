@@ -101,7 +101,6 @@ import ConfirmForging from './account/confirm-forging';
 import ExportAccount from './account/ExportAccount/export-account'
 // scheduled transactins
 import ScheaduleCurrency from '../modals/scheaduled-transactions/sceadule-currency'
-import AssetDividendHistory from "./assets/view-asset-dividend-history";
 //exchange
 import LoginToExchange from './exchange/login/index.jsx';
 import LogoutExchange from './exchange/logout';
@@ -210,9 +209,6 @@ class ModalWindow extends React.Component {
                     {this.props.modalType === 'BUY_ASSET'                   && <BuyAssets                 closeModal={this.closeModal} nameModal={'BUY_ASSET'}/>}
                     {this.props.modalType === 'SELL_ASSET'                  && <SellAssets                closeModal={this.closeModal} nameModal={'SELL_ASSET'}/>}
                     {this.props.modalType === 'VIEW_ASSET_DISTRIBUTION'     && <AssetDistribution         closeModal={this.closeModal} nameModal={'VIEW_ASSET_DISTRIBUTION'}/>}
-                    {/* don't  call anywhere*/}
-                    {this.props.modalType === 'VIEW_ASSET_DIVIDEND_HISTORY' && <AssetDividendHistory      closeModal={this.closeModal} nameModal={'VIEW_ASSET_DIVIDEND_HISTORY'}/>}
-
 
                     {/* Currency */}
                     {this.props.modalType === 'ISSUE_CURRENCIES'            && <IssueCurrency             closeModal={this.closeModal} nameModal={'ISSUE_CURRENCIES'}/>}
