@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useFormikContext } from 'formik';
 import CustomFormSelect from '../../../components/form-components/custom-form-select1';
-import TextualInputComponent from '../../../components/form-components/textual-input1';
+import TextualInputComponent from '../../../components/form-components/textual-input/textual-input1';
 import AccountRSFormInput from '../../../components/form-components/account-rs1';
 
 const typeData = [

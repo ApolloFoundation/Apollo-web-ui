@@ -6,7 +6,7 @@ import { openPrevModal, saveSendModalState } from '../../../modules/modals';
 import FormFooter from '../form-components/form-footer1';
 import ModalFooter from '../modal-footer/index1';
 import AdvancedSettings from '../advanced-transaction-settings';
-import FeeInputForm from '../form-components/fee-input1';
+import FeeInputForm from '../form-components/FeeInput/fee-input1';
 
 export default function ModalBody(props) {
   const dispatch = useDispatch();

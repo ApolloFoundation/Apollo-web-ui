@@ -1,7 +1,8 @@
 import React from 'react';
 import cn from 'classnames';
-import CheckboxFormInput from '../check-button-input';
-import CustomInput from '../custom-input';
+import CheckboxFormInput from '../../check-button-input';
+import CustomInput from '../../custom-input';
+import styles from './index.module.scss';
 
 const FeeInput = ({
   values, name, countingTitle, counterLabel = 'APL', type, idGroup,
@@ -26,7 +27,7 @@ const FeeInput = ({
             disableArrows={disableArrows}
           >
             {(countingTitle || counterLabel) && (
-              <div className="input-group-append">
+              <div className={cn("input-group-append", styles.ticker)}>
                 <span className="input-group-text">{countingTitle || counterLabel}</span>
               </div>
             )}

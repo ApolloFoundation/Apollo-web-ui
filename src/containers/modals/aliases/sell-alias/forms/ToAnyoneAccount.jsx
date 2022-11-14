@@ -1,7 +1,7 @@
 import React from 'react';
 import { useFormikContext } from 'formik';
 import ModalBody from '../../../../components/modals/modal-body';
-import TextualInputComponent from '../../../../components/form-components/textual-input1';
+import TextualInputComponent from '../../../../components/form-components/textual-input/textual-input1';
 import NumericInputComponent from '../../../../components/form-components/numeric-input1';
 import CheckboxFormInput from '../../../../components/check-button-input';
 import CustomTextArea from '../../../../components/form-components/text-area1';

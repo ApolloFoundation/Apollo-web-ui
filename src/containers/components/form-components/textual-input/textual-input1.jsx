@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
-import CustomInput from '../custom-input';
+import CustomInput from '../../custom-input';
+import styles from './index.module.scss';
 
 const TextualInputComponent = ({
   disabled, hendler, placeholder, name, type,
@@ -45,9 +46,14 @@ const TextualInputComponent = ({
                     )}
                   </>
                 ) : (
-                  <span>
-                    {text}
-                  </span>
+                  <div className={styles.message}>
+                    <label>
+                        {label}
+                    </label>
+                    <span>
+                      {text}
+                    </span>
+                  </div>  
                 )}
             </div>
           </div>

@@ -10,7 +10,7 @@ import AccountRSForm from '../../../components/form-components/account-rs1';
 import ContentLoader from '../../../components/content-loader';
 import CustomInput from '../../../components/custom-input';
 import Button from '../../../components/button';
-import FeeInputForm from '../../../components/form-components/fee-input1';
+import FeeInputForm from '../../../components/form-components/FeeInput/fee-input1';
 
 export default function SendApollo() {
   const dispatch = useDispatch();

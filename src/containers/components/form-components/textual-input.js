@@ -48,7 +48,6 @@ const TextualInputComponent = ({disabled, setValue, hendler, placeholder, field,
                                     {text}
                                 </span>
                                 }
-
                             </div>
                         </div>
                         {

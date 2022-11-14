@@ -11,7 +11,7 @@ import { setBodyModalParamsAction } from '../../../modules/modals';
 import submitForm from "../../../helpers/forms/forms";
 import { NotificationManager } from "react-notifications";
 import ModalFooter from '../../components/modal-footer/index1';
-import FeeCalc from '../../components/form-components/fee-calc1';
+import FeeCalc from '../../components/form-components/FeeCalc/fee-calc1';
 import BackForm from '../modal-form/modal-form-container';
 import { getModalDataSelector } from '../../../selectors';
 import { ModalBackButton } from '../../components/ModalBackButton';

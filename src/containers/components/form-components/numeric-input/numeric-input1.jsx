@@ -10,7 +10,7 @@ const NumericInput = ({
   onChange,
 }) => (
   <>
-    <div className={cn("form-group mb-15", styles.numericInputWrapper)}>
+    <div className={cn("form-group", styles.numericInputWrapper)}>
       <div className={disabledFee ? 'disabled-fee-wrap' : ''}>
         <div className={cn( styles.numericInput, {
           'input-group': countingTtile || counterLabel,

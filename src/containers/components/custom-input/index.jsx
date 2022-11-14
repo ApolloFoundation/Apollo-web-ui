@@ -82,7 +82,11 @@ export default function CustomInput(props) {
   }, []);
 
   return (
-    <div className="form-group mb-15">
+    <div className={cn("form-group", {
+        'mb-15': type !== 'hidden',
+        [styles.hidden]: type === 'hidden',
+      })}
+    >
       <label htmlFor={field.name}>
         {label}
       </label>

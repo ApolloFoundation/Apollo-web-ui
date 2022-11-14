@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import CheckboxForm from '../../components/check-button-input';
 import AccountRS from '../../components/form-components/account-rs1';
 import NumericInput from '../../components/form-components/numeric-input1';
-import FeeInput from '../../components/form-components/fee-input1';
+import FeeInput from '../../components/form-components/FeeInput/fee-input1';
 import InfoBox from '../../components/info-box';
 
 const SendPrivateMoneyForm = ({ values, idGroup, mixerData, ticker }) => (

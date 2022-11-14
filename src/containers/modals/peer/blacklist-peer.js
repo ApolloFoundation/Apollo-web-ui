@@ -12,11 +12,11 @@ import InfoBox from '../../components/info-box';
 import { ModalBackButton } from '../../components/ModalBackButton';
 import CustomInput from '../../components/custom-input';
 import { ButtonsBlock } from '../../components/ButtonsBlock';
-import { getModalDataSelector, getAccountPublicKey } from '../../../selectors';
+import { getModalDataSelector, getAccountPublicKeySelector } from '../../../selectors';
 
 const BlacklistPeer = (props) => {
     const modalData = useSelector(getModalDataSelector);
-    const publicKey = useSelector(getAccountPublicKey);
+    const publicKey = useSelector(getAccountPublicKeySelector);
     const [isPending, setIsPending] = useState(false);
 
     const handleFormSubmit = useCallback(async (values) => {

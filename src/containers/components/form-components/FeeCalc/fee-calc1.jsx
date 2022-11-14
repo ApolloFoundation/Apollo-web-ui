@@ -2,16 +2,15 @@ import React, { useEffect } from 'react';
 import {NotificationManager} from 'react-notifications';
 import {connect, useSelector} from 'react-redux';
 import { useFormikContext } from 'formik';
-import InputForm from '../custom-input';
-import {calculateFeeAction} from "../../../actions/forms";
-import { getAccountInfoSelector } from '../../../selectors';
+import InputForm from '../../custom-input';
+import {calculateFeeAction} from "../../../../actions/forms";
+import { getAccountInfoSelector } from '../../../../selectors';
 
 const FeeCalc = ({ requestType, defaultValue }) => {
     const formik = useFormikContext();
     const { publicKey,decimals,ticker } = useSelector(getAccountInfoSelector);
 
     const calculateFee = async () => {
-        console.log(formik)
         const { secretPhrase, passphrase, ...values } = formik.values;
 
         const requestParams = {
