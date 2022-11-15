@@ -13,14 +13,16 @@ import { getCurrencyAction, getAccountCurrenciesAction } from '../../../../actio
 import TextualInputComponent from '../../../components/form-components/textual-input/textual-input1';
 import FormRowText from '../../../components/form-components/form-row-text';
 import ModalBody from '../../../components/modals/modal-body1';
+import { getAccountSelector, getModalDataSelector, getTickerSelector } from '../../../../selectors';
 
 export default function ClaimCurrency(props) {
   const dispatch = useDispatch();
 
   const { nameModal, closeModal, processForm } = props;
 
-  const { modalData } = useSelector(state => state.modals);
-  const { account, ticker } = useSelector(state => state.account);
+  const modalData = useSelector(getModalDataSelector);
+  const ticker = useSelector(getTickerSelector);
+  const account= useSelector(getAccountSelector);
 
   const [dataCurrency, setDataCurrency] = useState(null);
   const [dataAccountCurrecny, setDataAccountCurrecny] = useState(null);

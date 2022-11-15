@@ -10,19 +10,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
 import { getAccountCurrenciesAction } from '../../../../actions/currencies';
 import ModalBody from '../../../components/modals/modal-body1';
-import NumericInput from '../../../components/form-components/numeric-input1';
+import NumericInput from '../../../components/form-components/NumericInput/numeric-input1';
 import TextualInputComponent from '../../../components/form-components/textual-input/textual-input1';
 import BlockHeightInput from '../../../components/form-components/BlockHeight/block-height-input1';
-import { getModalDataSelector } from '../../../../selectors';
+import { getAccountSelector, getModalDataSelector, getTickerSelector } from '../../../../selectors';
 import { handleFormSubmit } from './handle-form-submit';
 
-export default function OfferCurrency(props) {
+export default function OfferCurrency({ closeModal }) {
   const dispatch = useDispatch();
 
   const modalData = useSelector(getModalDataSelector);
-  const { account, ticker } = useSelector(state => state.account);
-
-  const { closeModal } = props;
+  const ticker = useSelector(getTickerSelector);
+  const account = useSelector(getAccountSelector);
 
   const [currencyAvailable, setCurrencyAvailable] = useState(null);
   const [dataCurrency, setDataCurrency] = useState(null);
