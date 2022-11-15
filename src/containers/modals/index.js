@@ -28,10 +28,9 @@ import LeaseBalance from './account/lease-balance/';
 import TokenGenerationValidation from './account/token-generation-validation/';
 import HashCalculation from './account/hash-calculation';
 import TransactionOperations from './account/transaction-operation';
-import DeviceSettings from './account/device-settings';
 import ApolloAbout from './about';
 import AccountInfo from './account/account-info';
-import ShardingInfo from './account/sharding-info';
+import ShardingInfo from './account/ShardingInfo/sharding-info';
 import SaveAccount from './account/save-account';
 import SetAccountProperty from './account/SetAccountProperty/set-account-property';
 import DeleteAccountProperty from './account/delete-account-property';
@@ -236,7 +235,6 @@ class ModalWindow extends React.Component {
                     {this.props.modalType === 'TOKEN_GENERATION_VALIDATION' && <TokenGenerationValidation closeModal={this.closeModal} nameModal={'TOKEN_GENERATION_VALIDATION'}/>}
                     {this.props.modalType === 'CALCULATE_CACHE'             && <HashCalculation           closeModal={this.closeModal} nameModal={'CALCULATE_CACHE'}/>}
                     {this.props.modalType === 'TRANSACTIONS_OPERATIONS'     && <TransactionOperations     closeModal={this.closeModal} nameModal={'TRANSACTIONS_OPERATIONS'}/>}
-                    {this.props.modalType === 'DEVICE_SETTINGS'             && <DeviceSettings            closeModal={this.closeModal} nameModal={'DEVICE_SETTINGS'}/>}
                     {this.props.modalType === 'GENERAL_INFO'                && <ApolloAbout               closeModal={this.closeModal} nameModal={'GENERAL_INFO'}/>}
                     {this.props.modalType === 'SHARDING_INFO'               && <ShardingInfo              closeModal={this.closeModal} nameModal={'SHARDING_INFO'}/>}
                     {this.props.modalType === 'SET_ACCOUNT_INFO'            && <AccountInfo               closeModal={this.closeModal} nameModal={'SET_ACCOUNT_INFO'}/>}
