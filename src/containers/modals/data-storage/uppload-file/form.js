@@ -1,53 +1,48 @@
 import React from 'react';
-import TextualInputComponent from '../../../components/form-components/textual-input';
-import MultiSelect from '../../../components/multi-select';
-import CustomTextArea from '../../../components/form-components/text-area';
-import FileInput from '../../../components/form-components/file-input';
+import TextualInputComponent from '../../../components/form-components/textual-input/textual-input1';
+import MultiSelect from '../../../components/multi-select/index1';
+import CustomTextArea from '../../../components/form-components/text-area1';
+import FileInput from '../../../components/form-components/file-input1';
 
 
-const UpploadFileForm = ({ setValue, dataTags = [], value, onChange }) => {
+const UpploadFileForm = ({  dataTags = [], onChange }) => {
     return (
     <>
         <TextualInputComponent 
-            label={'Name'}
-            field="name"
+            label='Name'
+            name="name"
             placeholder="Name"
-            type={"text"}
-            setValue={setValue}
+            type="text"
         />
 
         <CustomTextArea
-            label={'Description'} 
-            field={'description'} 
-            placeholder={'Description'}
-            setValue={setValue}
+            label='Description'
+            name='description'
+            placeholder='Description'
         />
 
         <MultiSelect
-            label={'Tags'}
+            label='Tags'
             options={dataTags}
             isClearable={false}
-            field="tags"
-            setValue={setValue}
-            value={value}
+            name="tags"
             onChange={onChange}
-            isClearable={false}
-            placeholder={'Tags'}
+            isClearable
+            placeholder='Tags'
         />
 
         <TextualInputComponent 
-            label={'Channel'}
-            field="channel"
+            label='Channel'
+            name="channel"
             placeholder="Channel"
-            type={"text"}
-            setValue={setValue}
+            type="text"
         />
 
         <FileInput
-            label={'File'}
+            label='File'
             maxSize={40000}
-            setValue={setValue}
-            accept={"*"}
+            accept="*"
+            name="file"
         />
     </>
 )};
