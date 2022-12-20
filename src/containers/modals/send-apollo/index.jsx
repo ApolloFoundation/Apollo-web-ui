@@ -10,7 +10,7 @@ import { setBodyModalParamsAction } from '../../../modules/modals';
 import ModalBody from '../../components/modals/modal-body1';
 import SendApolloForm from './form';
 import {PrivateTransactionConfirm} from './PrivateTransactionConfirm/PrivateTransactionConfirm';
-
+// TODO check modal 
 export default function SendApollo(props) {
   const [ isShowNotification, setIsShowNotification ] = useState(false);
   const dispatch = useDispatch();

@@ -21,6 +21,7 @@ const tabs = [
   'Approve with asset',
   'Approve with currency',
 ];
+// TODO update
 
 class MandatoryApprovalModal extends React.Component {
     state = {

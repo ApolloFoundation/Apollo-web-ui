@@ -14,7 +14,7 @@ import {handleFormSubmit} from './handleFormSubmit';
 import ModalBody from '../../../components/modals/modal-body';
 
 import PollForm from './form';
-
+// TODO update
 class CreatePoll extends React.Component {
     constructor(props) {
         super(props);

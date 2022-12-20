@@ -9,7 +9,7 @@ import InputAccounts from '../../../components/form-components/input-accounts';
 const minBalanceType = [
     {value: '0', label: 'No min balance necessary'},
 ];
-
+// TODO update
 export default class ApproveByBalanceBody extends React.Component {
     state = {
         accounts: [

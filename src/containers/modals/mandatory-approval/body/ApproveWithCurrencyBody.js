@@ -11,7 +11,7 @@ const minBalanceType = [
     {value: '0', label: 'No min balance necessary'},
     {value: '1', label: 'Min Balance of currency units required'},
 ];
-
+// TODO update
 export default class ApproveWithCurrencyBody extends React.Component {
     state = {
         accounts: [

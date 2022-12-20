@@ -33,7 +33,7 @@ const mapDispatchToProps = dispatch => ({
     setAlert: (type, message) => dispatch(setAlert(type, message)),
     validatePassphrase: (passPhrase) => dispatch(crypto.validatePassphrase(passPhrase))
 });
-
+// TODO update
 class IssueAsset extends React.Component {
     constructor(props) {
         super(props);

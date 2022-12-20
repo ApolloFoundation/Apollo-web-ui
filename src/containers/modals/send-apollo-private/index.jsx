@@ -13,7 +13,7 @@ import { getMixerAccount } from '../../../actions/transactions';
 import submitForm from '../../../helpers/forms/forms';
 import ModalBody from '../../components/modals/modal-body1';
 import SendPrivateApolloForm from './form';
-
+// TODO check modal
 export default function SendApolloPrivate(props) {
   const dispatch = useDispatch();
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import ModalBody from '../../../components/modals/modal-body';
-
+// TODO check
 class InfoPopup extends React.Component {
 
     handleSubmit = () => {

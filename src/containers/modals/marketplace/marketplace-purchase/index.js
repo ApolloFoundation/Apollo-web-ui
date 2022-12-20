@@ -34,7 +34,7 @@ const mapDispatchToProps = dispatch => ({
     submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
     validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
 });
-
+// TODO update
 class MarketplacePurchase extends React.Component {
     constructor(props) {
         super(props);

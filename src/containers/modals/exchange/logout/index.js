@@ -6,7 +6,7 @@ import {logOutAction} from "../../../../actions/login";
 import {logout} from "../../../../actions/wallet";
 import ModalBody from '../../../components/modals/modal-body';
 import TextualInputComponent from '../../../components/form-components/textual-input';
-
+// TODO update
 class LogoutExchange extends React.Component {
     constructor(props) {
         super(props);

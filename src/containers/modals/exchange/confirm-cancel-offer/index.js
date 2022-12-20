@@ -6,7 +6,7 @@ import {cancelOffer} from "../../../../actions/wallet";
 import ModalBody from '../../../components/modals/modal-body';
 import TextualInputComponent from '../../../components/form-components/textual-input';
 import InfoBox from "../../../components/info-box";
-
+// TODO update
 class ConfirmCancelOffer extends React.Component {
 
     state = {

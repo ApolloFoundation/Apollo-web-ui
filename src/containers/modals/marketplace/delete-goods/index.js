@@ -34,7 +34,7 @@ const mapDispatchToProps = dispatch => ({
     formatTimestamp: (time) => dispatch(formatTimestamp(time)),
     submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
 });
-
+// TODO update
 class MarketplaceDelete extends React.Component {
     constructor(props) {
         super(props);

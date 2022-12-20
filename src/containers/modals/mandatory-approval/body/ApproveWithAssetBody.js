@@ -12,7 +12,7 @@ const minBalanceType = [
     {value: '0', label: 'No min balance necessary'},
     {value: '1', label: 'Min balance of asset quantity required'},
 ];
-
+// TODO update
 export default class ApproveWithAssetBody extends React.Component {
     state = {
         accounts: [

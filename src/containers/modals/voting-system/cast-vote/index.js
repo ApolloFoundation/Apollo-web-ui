@@ -23,7 +23,7 @@ import {getCurrencyAction} from "../../../../actions/currencies";
 import ModalBody from '../../../components/modals/modal-body';
 import CastVoteForm   from './form';
 import $ from 'jquery';
-
+// TODO update
 class CastPoll extends React.Component {
     constructor(props) {
         super(props);

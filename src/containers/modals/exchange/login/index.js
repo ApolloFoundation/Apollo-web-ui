@@ -6,7 +6,7 @@ import {setAccountPassphrase} from '../../../../modules/account';
 import {getWallets} from "../../../../actions/wallet";
 import ModalBody             from '../../../components/modals/modal-body';
 import TextualInputComponent from '../../../components/form-components/textual-input';
-
+// TODO update
 class LoginToExchange extends React.Component {
     constructor(props) {
         super(props);
