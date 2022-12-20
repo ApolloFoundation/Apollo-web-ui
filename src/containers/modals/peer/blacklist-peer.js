@@ -13,7 +13,7 @@ import { ModalBackButton } from '../../components/ModalBackButton';
 import CustomInput from '../../components/custom-input';
 import { ButtonsBlock } from '../../components/ButtonsBlock';
 import { getModalDataSelector, getAccountPublicKeySelector } from '../../../selectors';
-
+// TODO update
 const BlacklistPeer = (props) => {
     const modalData = useSelector(getModalDataSelector);
     const publicKey = useSelector(getAccountPublicKeySelector);

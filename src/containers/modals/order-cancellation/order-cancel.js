@@ -21,7 +21,7 @@ import FeeCalc from '../../components/form-components/fee-calc';
 import BackForm from '../modal-form/modal-form-container';
 import ButtonWrapper from "../mandatory-approval/components/ModalFooter";
 import classNames from "classnames";
-
+// TODO update
 class OrderCancel extends React.Component {
     constructor(props) {
         super(props);
@@ -40,6 +40,7 @@ class OrderCancel extends React.Component {
             currency: '-',
             asset: 'Not Existing',
         }
+        console.log('tsx')
     }
 
     handleFormSubmit = async (values) => {

@@ -22,7 +22,7 @@ const mapDispatchToProps = dispatch => ({
     saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
     submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
 });
-
+// TODO update
 class ScheaduleCurrency extends React.Component {
 
     handleFormSubmit = async (values) => {

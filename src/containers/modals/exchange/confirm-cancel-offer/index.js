@@ -1,91 +1,81 @@
-import React from 'react';
-import {connect} from 'react-redux';
-import {NotificationManager} from 'react-notifications';
-import {setAccountPassphrase} from '../../../../modules/account';
-import {cancelOffer} from "../../../../actions/wallet";
+import React, { useCallback, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { NotificationManager } from 'react-notifications';
+import { setAccountPassphrase } from '../../../../modules/account';
+import { cancelOffer } from "../../../../actions/wallet";
 import ModalBody from '../../../components/modals/modal-body';
-import TextualInputComponent from '../../../components/form-components/textual-input';
+import TextualInputComponent from '../../../components/form-components/textual-input/textual-input1';
 import InfoBox from "../../../components/info-box";
-// TODO update
-class ConfirmCancelOffer extends React.Component {
+import {
+    getAccountSelector,
+    getDecimalsSelector,
+    getModalDataSelector,
+    getTickerSelector
+} from '../../../../selectors';
 
-    state = {
-        isPending: false,
-    }
+const ConfirmCancelOffer = ({ closeModal, nameModal }) =>  {
+    const dispatch = useDispatch();
+    const [isPending, setIsPending] = useState(false);
+    const {currency, pairRate, offerAmount, total, orderId } = useSelector(getModalDataSelector);
+    const account = useSelector(getAccountSelector);
+    const ticker = useSelector(getTickerSelector);
+    const decimals = useSelector(getDecimalsSelector);
 
-    handleFormSubmit = async (values) => {
-        if(!this.state.isPending) {
-            this.setState({isPending: true});
-            let passphrase = values.passphrase;
+    const handleFormSubmit = useCallback(async ({ passphrase }) => {
+        if(!isPending) {
+            setIsPending(true);
             if (!passphrase || passphrase.length === 0) {
                 NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
-                this.setState({isPending: false});
+                setIsPending(false);
                 return;
             }
 
-            const params = {
-                orderId: this.props.modalData.orderId,
-                feeATM: this.props.decimals,
-                sender: this.props.account,
+            const offer = await dispatch(cancelOffer({
+                orderId,
+                feeATM: decimals,
+                sender: account,
                 passphrase,
-            };
-            const offer = await this.props.cancelOffer(params);
+            }));
             if (offer) {
-                this.props.setAccountPassphrase(passphrase);
-                this.props.closeModal();
+                dispatch(setAccountPassphrase(passphrase));
+                closeModal();
             }
-            this.setState({isPending: false});
+            setIsPending(false);
         }
-    };
+    }, [dispatch, isPending, closeModal, decimals, account, orderId]);
 
-    render() {
-        const {currency, pairRate, offerAmount, total} = this.props.modalData;
-        return (
-            <ModalBody
-                loadForm={this.loadForm}
-                modalTitle={'Confirm Order Cancellation'}
-                closeModal={this.props.closeModal}
-                handleFormSubmit={this.handleFormSubmit}
-                submitButtonName={'Cancel my order'}
-                isPending={this.state.isPending}
-                isDisableSecretPhrase
-                nameModel={this.props.nameModal}
-            >
-                <InfoBox default>
-                    If you are sure you want to cancel your order, type your passphrase to confirm.
-                </InfoBox>
-                <InfoBox attentionLeft>
-                <p>
-                    Price {currency.toUpperCase()}: <span>{pairRate}</span>
-                </p>
-                <p>
-                    Amount {this.props.ticker}: <span>{offerAmount}</span>
-                </p>
-                <p>
-                    Total {currency.toUpperCase()}: <span>{total}</span>
-                </p>
-                </InfoBox>
-                <TextualInputComponent
-                    field={'passphrase'}
-                    type={'password'}
-                    label={'Secret Phrase'}
-                    placeholder={'Secret Phrase'}
-                />
-            </ModalBody>
-        );
-    }
+    return (
+        <ModalBody
+            modalTitle='Confirm Order Cancellation'
+            closeModal={closeModal}
+            handleFormSubmit={handleFormSubmit}
+            submitButtonName='Cancel my order'
+            isPending={isPending}
+            isDisableSecretPhrase
+            nameModel={nameModal}
+        >
+            <InfoBox default>
+                If you are sure you want to cancel your order, type your passphrase to confirm.
+            </InfoBox>
+            <InfoBox attentionLeft>
+            <p>
+                Price {currency.toUpperCase()}: <span>{pairRate}</span>
+            </p>
+            <p>
+                Amount {ticker}: <span>{offerAmount}</span>
+            </p>
+            <p>
+                Total {currency.toUpperCase()}: <span>{total}</span>
+            </p>
+            </InfoBox>
+            <TextualInputComponent
+                name='passphrase'
+                type='password'
+                label='Secret Phrase'
+                placeholder='Secret Phrase'
+            />
+        </ModalBody>
+    );
 }
 
-const mapStateToProps = state => ({
-    account: state.account.account,
-    ticker: state.account.ticker,
-    decimals: state.account.decimals,
-    modalData: state.modals.modalData,
-});
-
-const mapDispatchToProps = dispatch => ({
-    cancelOffer: (params) => dispatch(cancelOffer(params)),
-    setAccountPassphrase: (passphrase) => dispatch(setAccountPassphrase(passphrase)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ConfirmCancelOffer);
+export default ConfirmCancelOffer;
