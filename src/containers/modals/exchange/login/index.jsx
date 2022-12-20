@@ -4,17 +4,14 @@ import { NotificationManager } from 'react-notifications';
 import { setAccountPassphrase } from '../../../../modules/account';
 import { getWallets } from '../../../../actions/wallet';
 import ModalBody from '../../../components/modals/modal-body';
-import TextualInputComponent from '../../../components/form-components/textual-input';
-// TODO update
-export default function LoginToExchange(props) {
+import TextualInputComponent from '../../../components/form-components/textual-input/textual-input1';
+import { getAccountRsSelector } from '../../../../selectors';
+
+export default function LoginToExchange({ closeModal, nameModal }) {
   const dispatch = useDispatch();
+  const accountRS = useSelector(getAccountRsSelector);
 
-  const { closeModal, nameModal } = props;
-
-  const { accountRS } = useSelector(state => state.account);
-
-  const handleFormSubmit = useCallback(async values => {
-    const { passphrase } = values;
+  const handleFormSubmit = useCallback(async ({ passphrase }) => {
     if (!passphrase || passphrase.length === 0) {
       NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
       return;
@@ -41,7 +38,7 @@ export default function LoginToExchange(props) {
       nameModel={nameModal}
     >
       <TextualInputComponent
-        field="passphrase"
+        name="passphrase"
         type="password"
         label="Secret Phrase"
         placeholder="Secret Phrase"
