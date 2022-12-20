@@ -13,6 +13,7 @@ import {
     getTickerSelector
 } from '../../../../selectors';
 
+// TODO check
 const ConfirmCancelOffer = ({ closeModal, nameModal }) =>  {
     const dispatch = useDispatch();
     const [isPending, setIsPending] = useState(false);
