@@ -1,17 +1,12 @@
 import React from 'react';
-
-import {Text} from 'react-form';
-import TextualInputComponent from '../../../components/form-components/textual-input';
-import CustomInputForm from '../../../components/form-components/textual-input';
-import CustomTextArea from '../../../components/form-components/text-area';
-import CustomFormSelect from '../../../components/form-components/custom-form-select';
-
-import AssetInput from '../../../components/form-components/asset-input';
-import CurrencyInput from '../../../components/form-components/currency-input';
-
-import BlockHeightInput from '../../../components/form-components/block-height-input';
-
-import InputForm from '../../../components/input-form';
+import { Field, FieldArray, useFormikContext } from 'formik';
+import TextualInputComponent from '../../../components/form-components/textual-input/textual-input1';
+import CustomTextArea from '../../../components/form-components/text-area1';
+import CustomFormSelect from '../../../components/form-components/custom-form-select1';
+import BlockHeightInput from '../../../components/form-components/BlockHeight/block-height-input1';
+import { AssetInput } from '../../../components/form-components-new/AssetInput';
+import { CurrencyInput } from '../../../components/form-components-new/CurrencyInput';
+import { TextComponentWithIcon } from '../../../components/form-components-new/TextComponent';
 
 const votingModelData = [
     {value: 0, label: 'Vote by Account'},
@@ -20,214 +15,147 @@ const votingModelData = [
     {value: 3, label: 'Vote by Currency Balance'}
 ];
 
-class PollForm extends React.Component {
-    removeAnswer = (setValue, answers, index) => {
+const PollForm = ({ idGroup, ticker }) => {
+    const { values } = useFormikContext();
+    const removeAnswer = (remove, answers, index) => () => {
         if (answers && answers.length > 1) {
-            answers.splice(index, 1);
-            setValue('answers', answers);
+            remove(index);
         }
     };
 
-    addAnswer = (setValue, answers) => {
-        let arrItem = answers === undefined ? 0 : answers.length;
-        if (answers === undefined) {
-            setValue(`answers[${arrItem}]`, '');
-            arrItem = 1;
+    const selectedBalanceType = () => {
+        const obj = {
+            0: '(none)',
+            1: `(${ticker})`,
+            2: '(Asset)',
+            3: '(Currency)',
         }
-        setValue(`answers[${arrItem}]`, '');
+        return obj[values?.votingModel] ?? null;
     };
 
-    selectedBalanceType = () => {
-        const {values} = this.props.getFormState();
-        switch (values.votingModel) {
-            case 0:
-                return '(none)';
-            case 1:
-                return `(${this.props.ticker})`;
-            case 2:
-                return '(Asset)';
-            case 3:
-                return '(Currency)';
-            default:
-                return null;
-        }
-    };
+    return (
+        <>
+            <TextualInputComponent
+                label='Name'
+                name="name"
+                placeholder="Poll Name"
+                type="text"
+                isSpecialSymbols
+                idGroup={idGroup}
+            />
 
-    render() {
-        const {getFormState, setValue, idGroup} = this.props;
-        const {values: {votingModel}} = getFormState();
+            <CustomTextArea
+                label='Description'
+                name='description'
+                placeholder='Description'
+                idGroup={idGroup}
+            />
 
-        return (
-            <>
+            <CustomFormSelect
+                options={votingModelData}
+                label='Poll By'
+                name='votingModel'
+                idGroup={idGroup}
+                defaultValue={votingModelData[0]}
+            />
+
+            {values.votingModel === 2 && (
+                <Field name='holding' id={idGroup} component={AssetInput} />
+            )}
+
+            {values.votingModel === 3 && (
+                <Field name='holding' id={idGroup} component={CurrencyInput} />
+            )}
+
+            {values.votingModel !== 0 && (
                 <TextualInputComponent
-                    label={'Name'}
-                    field={"name"}
-                    placeholder={"Poll Name"}
-                    type={"text"}
-                    setValue={setValue}
-                    isSpecialSymbols
-                    idGroup={idGroup}
+                    label={`Min voting balance ${selectedBalanceType()}`}
+                    name="minBalance"
+                    placeholder=""
+                    type="tel"
                 />
+            )}
+            <BlockHeightInput
+                label='Finish height'
+                name='finishHeight'
+                placeholder='Finish height'
+                idGroup={idGroup}
+            />
 
-                <CustomTextArea
-                    label={'Description'}
-                    field={'description'}
-                    placeholder={'Description'}
-                    setValue={setValue}
-                    idGroup={idGroup}
-                />
-
-                <CustomFormSelect
-                    defaultValue={votingModelData[0]}
-                    setValue={setValue}
-                    options={votingModelData}
-                    label={'Poll By'}
-                    field={'votingModel'}
-                    idGroup={idGroup}
-                />
-
-                {votingModel === 2 && (
-                    <AssetInput
-                        field={'holding'}
-                        setValue={setValue}
+            <div className="mb-0">
+                <label>
+                    Answer
+                </label>
+                <div>
+                    <FieldArray name='answers'>
+                        {({ remove, push }) => (
+                            <>
+                                {values.answers.map((answer, index) =>(
+                                    <Field
+                                        key={`${answer}-${index}`}
+                                        name={`answers[${index}]`}
+                                        className="mb-0"
+                                        placeholder='Answer'
+                                        icon={
+                                            <span className="input-group-text">
+                                                <i className="zmdi zmdi-minus-circle cursor-pointer"/>
+                                            </span>
+                                        }
+                                        onIconClick={removeAnswer(remove, values.answers, index)}
+                                        component={TextComponentWithIcon}
+                                    />
+                                ))}
+                                <div className="mb-15">
+                                    <button
+                                        type='button'
+                                        id={`${idGroup}addAnswer-field`}
+                                        className="no-margin btn btn-green"
+                                        onClick={() => push("")}
+                                    >
+                                        Add answer
+                                    </button>
+                                </div>
+                            </>
+                        )}
+                    </FieldArray>
+                </div>
+            </div>
+            <div className="row">
+                <div className="col-sm-6">
+                    <TextualInputComponent
+                        label='Min number of choices'
+                        placeholder=''
+                        name='minNumberOfOptions'
+                        type='tel'
                         idGroup={idGroup}
                     />
-                )}
-
-                {votingModel === 3 && (
-                    <CurrencyInput
-                        field={'holding'}
-                        setValue={setValue}
+                    <TextualInputComponent
+                        label='Max number of choices'
+                        placeholder=''
+                        name='maxNumberOfOptions'
+                        type='tel'
                         idGroup={idGroup}
                     />
-                )}
-
-                {votingModel !== 0 && (
-                    <div className="form-group mb-15">
-                        <label>
-                            Min voting balance {this.selectedBalanceType()}
-                        </label>
-                        <div>
-                            <InputForm
-                                field="minBalance"
-                                placeholder=""
-                                type={"tel"}
-                                defaultValue={"0"}
-                                setValue={setValue}/>
-                        </div>
-                    </div>
-                )}
-                <BlockHeightInput
-                    label={'Finish height'}
-                    field={'finishHeight'}
-                    placeholder={'Finish height'}
-                    setValue={setValue}
-                    idGroup={idGroup}
-                />
-
-                <div className="form-group mb-0">
-                    <label>
-                        Answer
-                    </label>
-                    <div>
-                        <div className="input-group mb-15">
-                            <Text
-                                field={'answers[0]'}
-                                className="form-control"
-                                placeholder={'Answer'}
-                            />
-                            <div
-                                className="input-group-append"
-                                onClick={() => this.removeAnswer(setValue, getFormState().values.answers, 0)}
-                            >
-                                <span className="input-group-text">
-                                    <i className="zmdi zmdi-minus-circle cursor-pointer"/>
-                                </span>
-                            </div>
-                        </div>
-                        {getFormState().values.answers &&
-                        getFormState().values.answers.map((el, index) => {
-                            if (index !== 0) {
-                                const filed = `answers[${index}]`;
-                                return (
-                                    <div key={filed}
-                                         className="input-group mb-15 no-left-padding">
-                                        <Text
-                                            id={`${idGroup}${filed}-field`}
-                                            field={filed}
-                                            className="form-control"
-                                            placeholder={'Answer'}
-                                        />
-                                        <div className="input-group-append"
-                                             onClick={() => this.removeAnswer(setValue, getFormState().values.answers, index)}>
-                                                <span className="input-group-text">
-                                                    <i className="zmdi zmdi-minus-circle cursor-pointer"/>
-                                                </span>
-                                        </div>
-                                    </div>
-                                )
-                            }
-                        })
-                        }
-                    </div>
                 </div>
-                <div className="mb-15">
-                    <button
-                        type={'button'}
-                        id={`${idGroup}addAnswer-field`}
-                        className="no-margin btn btn-green"
-                        onClick={() => this.addAnswer(setValue, getFormState().values.answers)}
-                    >
-                        Add answer
-                    </button>
+                <div className="col-sm-6">
+                    <TextualInputComponent
+                        label='Min range value'
+                        placeholder=''
+                        name='minRangeValue'
+                        type='tel'
+                        idGroup={idGroup}
+                    />
+                    <TextualInputComponent
+                        label='Max range value'
+                        placeholder=''
+                        name='maxRangeValue'
+                        type='tel'
+                        idGroup={idGroup}
+                    />
                 </div>
-
-                <div className="row">
-                    <div className="col-sm-6">
-                        <CustomInputForm
-                            label={'Min number of choices'}
-                            setValue={setValue}
-                            placeholder={''}
-                            field={'minNumberOfOptions'}
-                            type={'tel'}
-                            idGroup={idGroup}
-                            defaultValue={1}
-                        />
-                        <CustomInputForm
-                            label={'Max number of choices'}
-                            setValue={setValue}
-                            placeholder={''}
-                            field={'maxNumberOfOptions'}
-                            type={'tel'}
-                            idGroup={idGroup}
-                            defaultValue={1}
-                        />
-                    </div>
-                    <div className="col-sm-6">
-                        <CustomInputForm
-                            label={'Min range value'}
-                            setValue={setValue}
-                            placeholder={''}
-                            field={'minRangeValue'}
-                            type={'tel'}
-                            idGroup={idGroup}
-                            defaultValue={"0"}
-                        />
-                        <CustomInputForm
-                            label={'Max range value'}
-                            setValue={setValue}
-                            placeholder={''}
-                            field={'maxRangeValue'}
-                            type={'tel'}
-                            idGroup={idGroup}
-                            defaultValue={1}
-                        />
-                    </div>
-                </div>
-            </>
-
-        )
-    }
+            </div>
+        </>
+    )
 }
 
 export default PollForm;

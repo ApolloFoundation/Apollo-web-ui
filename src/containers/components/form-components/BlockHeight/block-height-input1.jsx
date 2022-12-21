@@ -1,20 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useFormikContext } from 'formik';
 import classNames from 'classnames';
+import { getAccountInfoSelector } from '../../../../selectors';
 import CustomInput from '../../custom-input';
 import styles from './index.module.scss';
 
 export default function BlockHeightInput(props) {
-  const { actualBlock } = useSelector(state => state.account);
+  const { actualBlock } = useSelector(getAccountInfoSelector);
+  const formik = useFormikContext();
 
   const {
     label, name, isSubtitle,
     placeholder, className, idGroup,
   } = props;
 
-  // useEffect(() => {
-  //   setValue(field, actualBlock);
-  // }, [actualBlock, field, setValue]);
+  useEffect(() => {
+    if (!formik.values[props.name]) {
+      formik.setFieldValue(props.name, actualBlock);
+    }
+  }, [actualBlock]);
 
   return (
     <div className={`form-group mb-15 ${className}`}>
