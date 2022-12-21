@@ -10,17 +10,19 @@ export const TextComponentWithIcon = ({
   icon,
   onIconClick,
   className="",
+  name,
   ...rest
 }) => (
   <div className={classNames(styles.textCommonWrapper, className)}>
       {label && (
-        <label htmlFor={id}>{label}</label>
+        <label htmlFor={`${id}-${name}`}>{label}</label>
       )}
       <div className={styles.textCommonInputWrapper}>
         <input
-          id={id}
+          id={`${id}-${name}`}
           className={styles.textComponentInput}
           placeholder={placeholder}
+          name={name}
           {...rest}
           {...field}
         />
