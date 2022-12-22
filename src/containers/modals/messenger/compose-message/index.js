@@ -16,7 +16,7 @@ import {handleFormSubmit} from './handleFormSubmit';
 import ModalBody from '../../../components/modals/modal-body';
 import ComposeMessageForm from './form';
 
-//TODO update
+// TODO update
 class ComposeMessage extends React.Component {
     constructor(props) {
         super(props);

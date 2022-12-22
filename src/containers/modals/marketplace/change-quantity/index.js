@@ -35,7 +35,7 @@ const mapDispatchToProps = dispatch => ({
     formatTimestamp: (time) => dispatch(formatTimestamp(time)),
     submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
 });
-//TODO update
+// TODO update
 class MarketplaceChangeQuantity extends React.Component {
     constructor(props) {
         super(props);
