@@ -4,109 +4,74 @@
  ******************************************************************************/
 
 
-import React from 'react';
-import {connect} from 'react-redux';
-import {setModalData} from '../../../../modules/modals';
-import  {getDGSGoodAction} from "../../../../actions/marketplace";
-import {setBodyModalParamsAction} from "../../../../modules/modals";
-import classNames from 'classnames';
-import {formatTimestamp} from '../../../../helpers/util/time'
+import React, { useCallback, useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { NotificationManager } from "react-notifications";
+import  { getDGSGoodAction } from "../../../../actions/marketplace";
 import config from '../../../../config';
-
-
+import ModalBody from '../../../components/modals/modal-body';
+import { getAccountRsSelector, getModalDataSelector } from '../../../../selectors';
+import { useFormatTimestamp } from '../../../../hooks/useFormatTimestamp';
 import Form from './form';
-import ModalBody    from '../../../components/modals/modal-body';
 
-import {NotificationManager} from "react-notifications";
-import submitForm from "../../../../helpers/forms/forms";
-import crypto from "../../../../helpers/crypto/crypto";
+const MarketplaceChangeQuantity = ({ closeModal, processForm }) => {
+    const dispatch = useDispatch();
+    const [goods, setGoods] = useState(null);
+    const modalData = useSelector(getModalDataSelector);
+    const account = useSelector(getAccountRsSelector);
+    const format = useFormatTimestamp();
 
-
-
-const mapStateToProps = state => ({
-    modalData: state.modals.modalData,
-    account: state.account.accountRS
-});
-
-const mapDispatchToProps = dispatch => ({
-    setModalData: (data) => dispatch(setModalData(data)),
-    getDGSGoodAction: (requestParams) => dispatch(getDGSGoodAction(requestParams)),
-    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-    formatTimestamp: (time) => dispatch(formatTimestamp(time)),
-    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
-});
-// TODO update
-class MarketplaceChangeQuantity extends React.Component {
-    constructor(props) {
-        super(props);
-
-
-        this.state = {
-            goods: null
-        };
-
-    }
-
-    componentDidMount() {
-        this.handleImageLoadint(this.props.modalData)
-    }
-
-    handleImageLoadint = async (value) => {
-        const productData = await this.props.getDGSGoodAction({
-            goods: value
-        });
+    const handleImageLoadint = useCallback(async () => {
+        const productData = await dispatch(getDGSGoodAction({
+            goods: modalData,
+        }));
 
         if (productData) {
-            this.setState({
-                goods: productData
-            })
+            setGoods(productData);
         }
-    };
+    }, [dispatch, modalData]);
 
-    async handleFormSubmit(values) {
-        this.setState({
-            isPending: true
-        });
-
-        values = {
+    const handleFormSubmit = useCallback(async (values) => {
+        const data = {
             ...values,
-            deltaQuantity: (values.quantity - this.state.goods.quantity),
-            goods: this.state.goods.goods,
-            recipient: this.props.account,
+            deltaQuantity: (values.quantity - goods.quantity),
+            goods: goods.goods,
+            recipient: account,
         };
 
-        this.props.processForm(values, 'dgsQuantityChange', 'The marketplace item\'s quantity has been changed successfully!', () => {
-            this.props.setBodyModalParamsAction(null, {});
+        processForm(data, 'dgsQuantityChange', 'The marketplace item\'s quantity has been changed successfully!', () => {
+            closeModal();
             NotificationManager.success('The marketplace item\'s quantity has been changed successfully!', null, 5000);
         })
-    }
+    }, [processForm, closeModal, account, goods]);
 
-    render() {
-        
-        const {formatTimestamp} = this.props;
-        const {goods} = this.state;
-        
-        return (
-            <ModalBody
-                handleFormSubmit={(values) => this.handleFormSubmit(values)}
-                closeModal={this.props.closeModal}
-                isAdvanced
-                isFee
-                marketplace={{
-                    priceATM: goods ? goods.priceATM : null,
-                    name: goods ? goods.name : null,
-                    hasImage: goods ? goods.hasImage : null,
-                    image:  `${config.api.serverUrl}requestType=downloadPrunableMessage&transaction=${goods ? goods.goods : null}&retrieve=true`,
-                    description: goods ? goods.description : null
-                }}
-                submitButtonName="Change quantity"
-            >
-                <Form goods={this.state.goods} formatTimestamp={formatTimestamp}/>
-            </ModalBody>
-        );
-    }
+    useEffect(() => {
+        handleImageLoadint();
+    }, [handleImageLoadint]);
+
+    return (
+        <ModalBody
+            handleFormSubmit={handleFormSubmit}
+            closeModal={closeModal}
+            isAdvanced
+            isFee
+            marketplace={{
+                priceATM: goods?.priceATM ?? null,
+                name: goods?.name ?? null,
+                hasImage: goods?.hasImage ?? null,
+                image:  `${config.api.serverUrl}requestType=downloadPrunableMessage&transaction=${goods?.goods ?? null}&retrieve=true`,
+                description: goods?.description ?? null
+            }}
+            submitButtonName="Change quantity"
+            initialValues={{
+                quantity: 1,
+            }}
+        >
+            <Form goods={goods} formatTimestamp={format}/>
+        </ModalBody>
+    );
 }
 
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(MarketplaceChangeQuantity);
+export default MarketplaceChangeQuantity;
