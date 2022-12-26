@@ -4,76 +4,49 @@
  ******************************************************************************/
 
 
-import React from 'react';
-import {connect} from 'react-redux';
-import {setModalData} from '../../../../modules/modals';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {NotificationManager} from "react-notifications";
 import {getDGSPurchaseAction, getDGSGoodAction} from "../../../../actions/marketplace";
-import {setBodyModalParamsAction} from "../../../../modules/modals";
-import {formatTimestamp} from '../../../../helpers/util/time'
 import config from '../../../../config';
 import ModalBody from '../../../components/modals/modal-body';
-import {NotificationManager} from "react-notifications";
-import submitForm from "../../../../helpers/forms/forms";
-import crypto from "../../../../helpers/crypto/crypto";
+import {
+    getAccountRsSelector,
+    getDecimalsSelector,
+    getModalDataSelector,
+    getTickerSelector
+} from '../../../../selectors';
 import Form from './form';
 
+const MarketplacePurchase = ({ closeModal, processForm }) => {
+    const dispatch = useDispatch();
+    const modalData = useSelector(getModalDataSelector);
+    const account = useSelector(getAccountRsSelector);
+    const decimals = useSelector(getDecimalsSelector);
+    const ticker = useSelector(getTickerSelector);
+    
+    const [goods, setGoods] = useState(null);
 
-const mapStateToProps = state => ({
-    modalData: state.modals.modalData,
-    account: state.account.accountRS,
-    decimals: state.account.decimals,
-    ticker: state.account.ticker,
-});
+    const handleImageLoadint = useCallback(async () => {
+        const productData = await dispatch(getDGSPurchaseAction({
+            purchase: modalData
+        }));
 
-const mapDispatchToProps = dispatch => ({
-    setModalData: (data) => dispatch(setModalData(data)),
-    getDGSPurchaseAction: (requestParams) => dispatch(getDGSPurchaseAction(requestParams)),
-    getDGSGoodAction: (requestParams) => dispatch(getDGSGoodAction(requestParams)),
-    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-    formatTimestamp: (time) => dispatch(formatTimestamp(time)),
-    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
-    validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
-});
-// TODO update
-class MarketplacePurchase extends React.Component {
-    constructor(props) {
-        super(props);
-
-
-        this.state = {
-            goods: null
-        };
-
-    }
-
-    componentDidMount() {
-        this.handleImageLoadint(this.props.modalData)
-    }
-
-    handleImageLoadint = async (value) => {
-        const productData = await this.props.getDGSPurchaseAction({
-            purchase: value
-        });
-
-        const productGoods = await this.props.getDGSGoodAction({
-            goods: value
-        });
+        const productGoods = await dispatch(getDGSGoodAction({
+            goods: modalData
+        }));
 
         if (productData && !productData.errorCode) {
-            this.setState({
-                goods: productData
-            })
+            setGoods(productData);
             return;
         }
         if (productGoods && !productGoods.errorCode) {
-            this.setState({
-                goods: productGoods
-            })
+            setGoods(productGoods);
             return;
         }
-    };
+    }, [dispatch, modalData]);
 
-    async handleFormSubmit(values) {
+    const handleFormSubmit = useCallback(async(values) => {
         if (!values.secretPhrase || values.secretPhrase.length === 0) {
             NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
             return;
@@ -83,46 +56,45 @@ class MarketplacePurchase extends React.Component {
             return;
         }
 
-        values = {
+        const data = {
             ...values,
-            priceATM: parseInt(this.state.goods.priceATM) / this.props.decimals,
-            goods: this.state.goods.goods,
-            recipient: this.props.account,
-            secretPhrase: values.secretPhrase
+            priceATM: parseInt(goods.priceATM) / decimals,
+            goods: goods.goods,
+            recipient: account,
         };
 
-        this.props.processForm(values, 'dgsPurchase', 'Goods has been purchased', () => {
-            this.props.setBodyModalParamsAction(null, {});
+        processForm(data, 'dgsPurchase', 'Goods has been purchased', () => {
+            closeModal();
             NotificationManager.success('Goods has been purchased!', null, 5000);
         })
-    }
+    }, [processForm, closeModal, goods]);
 
-    render() {
-        const {goods} = this.state;
+    useEffect(() => {
+        handleImageLoadint();
+    }, [handleImageLoadint]);
 
-        return (
-            <ModalBody
-                handleFormSubmit={(values) => this.handleFormSubmit(values)}
-                closeModal={this.props.closeModal}
-                isAdvanced
-                isFee
-                marketplace={{
-                    priceATM: goods ? goods.priceATM : null,
-                    name: goods ? goods.name : null,
-                    hasImage: goods ? goods.hasImage : null,
-                    image:  `${config.api.serverUrl}requestType=downloadPrunableMessage&transaction=${goods ? goods.goods : null}&retrieve=true`,
-                    description: goods ? goods.description : null
-                }}
-                submitButtonName="Purchase"
-            >
-                <Form
-                  goods={this.state.goods}
-                  ticker={this.props.ticker}
-                  decimals={this.props.decimals}
-                />
-            </ModalBody>
-        );
-    }
+    return (
+        <ModalBody
+            handleFormSubmit={handleFormSubmit}
+            closeModal={closeModal}
+            isAdvanced
+            isFee
+            marketplace={{
+                priceATM: goods ? goods.priceATM : null,
+                name: goods ? goods.name : null,
+                hasImage: goods ? goods.hasImage : null,
+                image:  `${config.api.serverUrl}requestType=downloadPrunableMessage&transaction=${goods ? goods.goods : null}&retrieve=true`,
+                description: goods ? goods.description : null
+            }}
+            submitButtonName="Purchase"
+            initialValues={{
+                deliveryDeadlineTimestamp: 168,
+                quantity: 1,
+            }}
+        >
+            <Form goods={goods} ticker={ticker} decimals={decimals} />
+        </ModalBody>
+    );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(MarketplacePurchase);
+export default MarketplacePurchase;
