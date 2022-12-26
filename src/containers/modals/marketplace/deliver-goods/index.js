@@ -4,114 +4,91 @@
  ******************************************************************************/
 
 
-import React from 'react';
-import {connect} from 'react-redux';
-import {setModalData} from '../../../../modules/modals';
-import {getDGSPurchaseAction} from "../../../../actions/marketplace";
-import {setBodyModalParamsAction} from "../../../../modules/modals";
-import {formatTimestamp} from '../../../../helpers/util/time'
+import React, { useCallback, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import config from '../../../../config';
-
 import Form from './form';
 import ModalBody from '../../../components/modals/modal-body';
-
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../../helpers/forms/forms";
+import {
+    getAccountRsSelector,
+    getDecimalsSelector,
+    getModalDataSelector,
+    getTickerSelector
+} from '../../../../selectors';
+import { useFormatTimestamp } from '../../../../hooks/useFormatTimestamp';
+import {getDGSPurchaseAction} from "../../../../actions/marketplace";
 
+const MarketplaceDeliver = ({ closeModal }) => {
+    const dispatch = useDispatch();
+    const [goods, setGoods] = useState(null);
+    const [isPending, setIsPending] = useState(false);
 
-const mapStateToProps = state => ({
-    modalData: state.modals.modalData,
-    decimals: state.account.decimals,
-    ticker: state.account.ticker,
-    account: state.account.accountRS,
-});
+    const modalData = useSelector(getModalDataSelector);
+    const account = useSelector(getAccountRsSelector);
+    const decimals = useSelector(getDecimalsSelector);
+    const ticker = useSelector(getTickerSelector);
+    const format = useFormatTimestamp();
 
-const mapDispatchToProps = dispatch => ({
-    getDGSPurchasesAction: (data) => dispatch(setModalData(data)),
-    getDGSGoodAction: (requestParams) => dispatch(getDGSPurchaseAction(requestParams)),
-    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-    formatTimestamp: (time) => dispatch(formatTimestamp(time)),
-    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
-});
-// TODO update
-class MarketplaceDeliver extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            goods: null
-        };
-    }
-
-    componentDidMount() {
-        this.handleImageLoadint(this.props.modalData)
-    }
-
-    handleImageLoadint = async (value) => {
-        const productData = await this.props.getDGSGoodAction({
-            purchase: value
-        });
+    const handleImageLoadint = useCallback(async () => {
+        const productData = await dispatch(getDGSPurchaseAction({
+            purchase: modalData
+        }));
 
         if (productData) {
-            this.setState({
-                goods: productData
-            })
+            setGoods(productData);
         }
-    };
+    }, [dispatch, modalData]);
 
-    async handleFormSubmit(values) {
-        values = {
+    const handleFormSubmit = useCallback(async (values) => {
+        setIsPending(true);
+        const data = {
             ...values,
-            discountATM: values.discountATM * this.props.decimals,
-            priceATM: parseInt(this.state.goods.priceATM) / this.props.decimals,
-            purchase: this.state.goods.purchase,
-            recipient: this.props.account,
-            secretPhrase: values.secretPhrase,
+            discountATM: values.discountATM * decimals,
+            priceATM: parseInt(goods.priceATM) / decimals,
+            purchase: goods.purchase,
+            recipient: account,
         };
 
-        this.setState({
-            isPending: true
-        })
-
-        const res = await this.props.submitForm( values, 'dgsDelivery');
+        const res = await dispatch(submitForm.submitForm( data, 'dgsDelivery'));
         if (res.errorCode) {
-            this.setState({
-                isPending: false
-            })
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
-            this.props.setBodyModalParamsAction(null, {});
-
+            closeModal();
             NotificationManager.success('Goods has been purchased!', null, 5000);
         }
-    }
+        setIsPending(false);
+    }, [dispatch, closeModal, decimals, account, goods]);
 
-    render() {
+    useEffect(() => {
+        handleImageLoadint();
+    }, [handleImageLoadint]);
 
-        const {formatTimestamp, decimals, ticker} = this.props;
-        const {goods} = this.state;
-
-        return (
-            <ModalBody
-                handleFormSubmit={(values) => this.handleFormSubmit(values)}
-                closeModal={this.props.closeModal}
-                isAdvanced
-                isFee
-                marketplace={{
-                    priceATM: goods ? goods.priceATM : null,
-                    name: goods ? goods.name : null,
-                    hasImage: goods ? goods.hasImage : null,
-                    image:  `${config.api.serverUrl}requestType=downloadPrunableMessage&transaction=${goods ? goods.goods : null}&retrieve=true`,
-                    description: goods ? goods.description : null
-                }}
-                submitButtonName="Deliver Goods"
-            >
-                <Form goods={this.state.goods} decimals={decimals} ticker={ticker} />
-            </ModalBody>
-        );
-    }
+    return (
+        <ModalBody
+            handleFormSubmit={handleFormSubmit}
+            closeModal={closeModal}
+            isAdvanced
+            isFee
+            marketplace={{
+                priceATM: goods?.priceATM ?? null,
+                name: goods?.name ?? null,
+                hasImage: goods?.hasImage ?? null,
+                image:  `${config.api.serverUrl}requestType=downloadPrunableMessage&transaction=${goods?.goods ?? null}&retrieve=true`,
+                description: goods?.description ?? null
+            }}
+            submitButtonName="Deliver Goods"
+            initialValues={{
+                discountATM: 1,
+            }}
+            isPending={isPending}
+        >
+            <Form goods={goods} decimals={decimals} ticker={ticker} formatTimestamp={format} />
+        </ModalBody>
+    );
 }
 
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(MarketplaceDeliver);
+export default MarketplaceDeliver;
