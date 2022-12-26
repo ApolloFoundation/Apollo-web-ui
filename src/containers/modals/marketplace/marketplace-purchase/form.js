@@ -30,13 +30,11 @@ const Form = ({
           label="Quantity"
           name="quantity"
           placeholder="Quantity"
-          defaultValue={1}
         />
         <NumericInput
           label="Delivery deadline (hours)"
           name="deliveryDeadlineTimestamp"
           placeholder="Quantity"
-          defaultValue={168}
         />
       </>
     )}
