@@ -4,110 +4,82 @@
  ******************************************************************************/
 
 
-import React from 'react';
-import {connect} from 'react-redux';
-import classNames from 'classnames';
-import {setModalData} from '../../../../modules/modals';
-import {getDGSGoodAction} from "../../../../actions/marketplace";
-import {setBodyModalParamsAction} from "../../../../modules/modals";
-import {formatTimestamp} from '../../../../helpers/util/time'
-import config from '../../../../config';
-
-import Form from './form';
-import ModalBody from '../../../components/modals/modal-body';
-
+import React, { useCallback, useEffect, useState } from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import {NotificationManager} from "react-notifications";
+import {getDGSGoodAction} from "../../../../actions/marketplace";
+import config from '../../../../config';
+import ModalBody from '../../../components/modals/modal-body';
 import submitForm from "../../../../helpers/forms/forms";
 import crypto from "../../../../helpers/crypto/crypto";
+import { getAccountRsSelector, getModalDataSelector } from '../../../../selectors';
+import { useFormatTimestamp } from '../../../../hooks/useFormatTimestamp';
+import Form from './form';
 
+const MarketplaceDelete = ({ closeModal, processForm }) =>  {
+    const dispatch = useDispatch();
+    const [goods, setGoods] = useState(null);
+    const [isPending, setIsPending] = useState(false);
 
+    const modalData = useSelector(getModalDataSelector);
+    const account = useSelector(getAccountRsSelector);
+    const format = useFormatTimestamp();
 
-const mapStateToProps = state => ({
-    modalData: state.modals.modalData,
-    account: state.account.accountRS,
-});
-
-const mapDispatchToProps = dispatch => ({
-    setModalData: (data) => dispatch(setModalData(data)),
-    getDGSGoodAction: (requestParams) => dispatch(getDGSGoodAction(requestParams)),
-    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-    formatTimestamp: (time) => dispatch(formatTimestamp(time)),
-    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
-});
-// TODO update
-class MarketplaceDelete extends React.Component {
-    constructor(props) {
-        super(props);
-
-
-        this.state = {
-            goods: null
-        };
-
-    }
-
-    componentDidMount() {
-        this.handleImageLoadint(this.props.modalData)
-    }
-
-    handleImageLoadint = async (value) => {
-        const productData = await this.props.getDGSGoodAction({
-            goods: value
-        });
+    const handleImageLoadint = useCallback(async () => {
+        const productData = await dispatch(getDGSGoodAction({
+            goods: modalData,
+        }));
 
         if (productData) {
-            this.setState({
-                goods: productData
-            })
+            setGoods(productData);
         }
-    };
+    }, [modalData, dispatch]);
 
-    async handleFormSubmit(values) {
+    const handleFormSubmit = useCallback(async (values) => {
+        setIsPending(true);
         const publicKey = await crypto.getPublicKeyAPL(values.secretPhrase, false);
 
-        values = {
+        const data = {
             ...values,
-            deltaQuantity: (values.quantity - this.state.goods.quantity),
-            goods: this.state.goods.goods,
-            recipient: this.props.account,
-            publicKey: publicKey
+            deltaQuantity: (values.quantity - goods.quantity),
+            goods: goods.goods,
+            recipient: account,
+            publicKey,
         };
 
-        const res = await this.props.submitForm( values, 'dgsDelisting');
+        const res = await dispatch(submitForm.submitForm( data, 'dgsDelisting'));
         if (res.errorCode) {
-            NotificationManager.error(res.errorDescription, 'Error', 5000)
+            NotificationManager.error(res.errorDescription, 'Error', 5000);
         } else {
-            this.props.setBodyModalParamsAction(null, {});
-
+            closeModal();
             NotificationManager.success('The marketplace item has been deleted successfully!', null, 5000);
         }
-    }
+        setIsPending(false);
+    }, [closeModal, goods, dispatch, account]);
 
-    render() {
-        const {formatTimestamp} = this.props;
-        const {goods} = this.state;
+    useEffect(() => {
+        handleImageLoadint();
+    }, [handleImageLoadint]);
 
-        return (
-            <ModalBody
-                handleFormSubmit={(values) => this.handleFormSubmit(values)}
-                closeModal={this.props.closeModal}
-                isAdvanced
-                isFee
-                marketplace={{
-                    priceATM: goods ? goods.priceATM : null,
-                    name: goods ? goods.name : null,
-                    hasImage: goods ? goods.hasImage : null,
-                    image:  `${config.api.serverUrl}requestType=downloadPrunableMessage&transaction=${goods ? goods.goods : null}&retrieve=true`,
-                    description: goods ? goods.description : null
-                }}
-                submitButtonName="Delete"
-            >
-                <Form goods={this.state.goods}/>
-            </ModalBody>
-        );
-    }
+    return (
+        <ModalBody
+            handleFormSubmit={handleFormSubmit}
+            closeModal={closeModal}
+            isAdvanced
+            isFee
+            marketplace={{
+                priceATM: goods?.priceATM ?? null,
+                name: goods?.name ?? null,
+                hasImage: goods?.hasImage ?? null,
+                image:  `${config.api.serverUrl}requestType=downloadPrunableMessage&transaction=${goods?.goods ?? null}&retrieve=true`,
+                description: goods?.description ?? null,
+            }}
+            submitButtonName="Delete"
+            isPending={isPending}
+        >
+            <Form goods={goods} formatTimestamp={format}/>
+        </ModalBody>
+    );
 }
 
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(MarketplaceDelete);
+export default MarketplaceDelete;
