@@ -1,57 +1,45 @@
 import React from 'react';
-import TextualInputComponent from '../../../components/form-components/textual-input';
-import CustomTextArea from '../../../components/form-components/text-area';
-import NumericInputComponent from '../../../components/form-components/numeric-input';
-import FileInput from '../../../components/form-components/file-input';
+import TextualInputComponent from '../../../components/form-components/textual-input/textual-input1';
+import CustomTextArea from '../../../components/form-components/text-area1';
+import NumericInputComponent from '../../../components/form-components/NumericInput/numeric-input1';
+import FileInput from '../../../components/form-components/file-input1';
 
-
-const ListProductForSaleFrom = ({setValue, ticker}) => (
+const ListProductForSaleFrom = ({ ticker }) => (
     <>
         <TextualInputComponent
-            label={'Name'}
-            field="name"
+            label='Name'
+            name="name"
             placeholder="Name"
-            type={"text"}
-            setValue={setValue}
+            type="text"
         />
-
         <CustomTextArea
-            label={'Description'}
-            field={'description'}
-            placeholder={'Description'}
-            setValue={setValue}
+            label='Description'
+            name='description'
+            placeholder='Description'
         />
-
         <TextualInputComponent
-            label={'Tags'}
-            field="tags"
-            placeholder={"Tags (categories)"}
-            type={"text"}
-            setValue={setValue}
+            label='Tags'
+            name="tags"
+            placeholder="Tags (categories)"
+            type="text"
         />
-
         <NumericInputComponent
             countLabel={ticker}
-            label={'Price'}
-            field={'priceATM'}
-            placeholder={'Price'}
-            setValue={setValue}
+            label='Price'
+            name='priceATM'
+            placeholder='Price'
         />
-
         <NumericInputComponent
-            countLabel={''}
-            label={'Quantity'}
-            field={'quantity'}
-            placeholder={'Quantity'}
-            setValue={setValue}
+            countLabel=''
+            label='Quantity'
+            name='quantity'
+            placeholder='Quantity'
         />
-
         <FileInput
-            label={'Image'}
-            type={'image/jpeg, image/jpg, image/png'}
+            label='Image'
+            type='image/jpeg, image/jpg, image/png'
             showPreview
             maxSize={40000}
-            setValue={setValue}
         />
     </>
 );
