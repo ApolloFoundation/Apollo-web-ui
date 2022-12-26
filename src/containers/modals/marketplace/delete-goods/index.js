@@ -16,7 +16,7 @@ import { getAccountRsSelector, getModalDataSelector } from '../../../../selector
 import { useFormatTimestamp } from '../../../../hooks/useFormatTimestamp';
 import Form from './form';
 
-const MarketplaceDelete = ({ closeModal, processForm }) =>  {
+const MarketplaceDelete = ({ closeModal }) =>  {
     const dispatch = useDispatch();
     const [goods, setGoods] = useState(null);
     const [isPending, setIsPending] = useState(false);
