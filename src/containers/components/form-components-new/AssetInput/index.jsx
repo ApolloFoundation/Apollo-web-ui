@@ -12,7 +12,6 @@ export const AssetInput = ({
 
   const getAsset = useCallback(async () => {
       const asset = await dispatch(getAssetAction({ asset: field.value }));
-      console.log("🚀 ~ file: index.jsx:15 ~ getAsset ~ asset", asset)
       setAsset(asset);
   }, [dispatch, field.value])
 

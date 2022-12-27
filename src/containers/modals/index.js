@@ -99,7 +99,7 @@ import ConfirmForging from './account/confirm-forging';
 //Login
 import ExportAccount from './account/ExportAccount/export-account'
 // scheduled transactins
-import ScheaduleCurrency from '../modals/scheaduled-transactions/sceadule-currency'
+import ScheaduleCurrency from './scheaduled-transactions/scheaduled-currency'
 //exchange
 import LoginToExchange from './exchange/login/index.jsx';
 import LogoutExchange from './exchange/logout';
