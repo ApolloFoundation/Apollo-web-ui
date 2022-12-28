@@ -1,54 +1,53 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import { useSelector } from 'react-redux';
 import ModalBody from '../../../components/modals/modal-body';
-import TextualInputComponent from '../../../components/form-components/textual-input';
-// TODO update
-class SelectOrder extends React.Component {
-    render() {
-        return (
-            <ModalBody
-                modalTitle={'Chosen trade'}
-                closeModal={this.props.closeModal}
-                isDisableSecretPhrase
-                isDisableFormFooter
-            >
-                <TextualInputComponent
-                    field={'typeName'}
-                    disabled
-                    label={'Type'}
-                    placeholder={'Type'}
-                />
-                <TextualInputComponent
-                    field={'pairRate'}
-                    disabled
-                    label={'Price'}
-                    placeholder={'Price'}
-                />
-                <TextualInputComponent
-                    field={'offerAmount'}
-                    disabled
-                    label={'Amount'}
-                    placeholder={'Amount'}
-                />
-                <TextualInputComponent
-                    field={'total'}
-                    disabled
-                    label={'Total'}
-                    placeholder={'Total'}
-                />
-                <TextualInputComponent
-                    field={'statusName'}
-                    disabled
-                    label={'Status'}
-                    placeholder={'Status'}
-                />
-            </ModalBody>
-        );
-    }
+import TextualInputComponent from '../../../components/form-components/textual-input/textual-input1';
+import { getModalDataSelector } from '../../../../selectors';
+
+const SelectOrder = ({ closeModal }) => {
+    const modalData = useSelector(getModalDataSelector);
+    return (
+        <ModalBody
+            modalTitle='Chosen trade'
+            closeModal={closeModal}
+            isDisableSecretPhrase
+            isDisableFormFooter
+            initialValues={{
+                ...modalData,
+            }}
+        >
+            <TextualInputComponent
+                name='typeName'
+                disabled
+                label='Type'
+                placeholder='Type'
+            />
+            <TextualInputComponent
+                name='pairRate'
+                disabled
+                label='Price'
+                placeholder='Price'
+            />
+            <TextualInputComponent
+                name='offerAmount'
+                disabled
+                label='Amount'
+                placeholder='Amount'
+            />
+            <TextualInputComponent
+                name='total'
+                disabled
+                label='Total'
+                placeholder='Total'
+            />
+            <TextualInputComponent
+                name='statusName'
+                disabled
+                label='Status'
+                placeholder='Status'
+            />
+        </ModalBody>
+    );
 }
 
-const mapStateToProps = state => ({
-    modalData: state.modals.modalData,
-});
-
-export default connect(mapStateToProps, null)(SelectOrder);
+export default SelectOrder;
