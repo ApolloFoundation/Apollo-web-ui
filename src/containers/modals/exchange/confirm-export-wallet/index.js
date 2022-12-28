@@ -6,7 +6,7 @@ import {setAccountPassphrase} from '../../../../modules/account';
 import {exportWallet} from "../../../../actions/wallet";
 import ModalBody from '../../../components/modals/modal-body';
 import util from "../../../../helpers/util/utils";
-// TODO update
+
 class ConfirmExportWallet extends React.Component {
     downloadSecretFile = React.createRef();
     state = {
@@ -28,9 +28,8 @@ class ConfirmExportWallet extends React.Component {
                     return;
                 }
             }
-
             const params = {
-                ...this.props.modalData.params,
+                ...this.props.modalData,
                 ...values,
                 passphrase,
                 account: this.props.account,

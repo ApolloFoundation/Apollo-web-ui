@@ -5,8 +5,7 @@ import {setModalData, setModalType, setBodyModalParamsAction} from '../../../../
 import {setAccountPassphrase} from '../../../../modules/account';
 import {createOffer} from "../../../../actions/wallet";
 import ModalBody from '../../../components/modals/modal-body';
-import TextualInputComponent from '../../../components/form-components/textual-input';
-// TODO update
+import TextualInputComponent from '../../../components/form-components/textual-input/textual-input1';
 class ConfirmCreateOffer extends React.Component {
     constructor(props) {
         super(props);
@@ -56,10 +55,10 @@ class ConfirmCreateOffer extends React.Component {
                 nameModel={this.props.nameModal}
             >
                 <TextualInputComponent
-                    field={'passphrase'}
-                    type={'password'}
-                    label={'Secret Phrase'}
-                    placeholder={'Secret Phrase'}
+                    name='passphrase'
+                    type='password'
+                    label='Secret Phrase'
+                    placeholder='Secret Phrase'
                 />
             </ModalBody>
         );
@@ -78,7 +77,6 @@ const mapDispatchToProps = dispatch => ({
     setModalType: (passphrase) => dispatch(setModalType(passphrase)),
     setBodyModalParamsAction: (passphrase) => dispatch(setBodyModalParamsAction(passphrase)),
     setAccountPassphrase: (passphrase) => dispatch(setAccountPassphrase(passphrase)),
-
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ConfirmCreateOffer);
