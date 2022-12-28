@@ -1,5 +1,5 @@
 import React from 'react';
-
+// TODO remove
 export default class Message extends React.Component {
   render() {
     return (

@@ -1,4 +1,5 @@
 import React from 'react';
+// TODO remove
 
 export default class Modal extends React.Component {
   render() {

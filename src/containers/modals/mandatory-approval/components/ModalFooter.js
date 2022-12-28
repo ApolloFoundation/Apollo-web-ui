@@ -1,4 +1,5 @@
 import React from 'react';
+// TODO remove
 
 export default class ModalFooter extends React.Component {
   render() {

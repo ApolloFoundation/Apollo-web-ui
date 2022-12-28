@@ -1,5 +1,6 @@
 import React from "react";
 import classNames from "classnames";
+// TODO remove
 
 export default class ModalTabs extends React.Component {
 

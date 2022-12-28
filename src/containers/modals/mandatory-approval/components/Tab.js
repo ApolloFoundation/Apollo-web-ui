@@ -1,5 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
+// TODO remove
 
 export default class Tab extends React.Component {
   render() {

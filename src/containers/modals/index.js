@@ -82,7 +82,6 @@ import ShareMessage from "./messenger/share-message";
 import AboutPeerInfo from "./peer/about-peer-info";
 import ConnectPeer from "./peer/connect-peer";
 import BlacklistPeer from "./peer/blacklist-peer";
-import MandatoryApproval from "./mandatory-approval/index";
 import AddMonitor from "./monitors/add-monitor";
 import RemoveMonitor from "./monitors/remove-monitor";
 import AddMonitoredAccount from "./monitors/add-monitored-account";
@@ -229,7 +228,6 @@ class ModalWindow extends React.Component {
 
                     {/*Account*/}
                     {this.props.modalType === 'INFO_ACCOUNT'                && <InfoAccount               setModal={this.props.setModalType} closeModal={this.closeModal} nameModal={'INFO_ACCOUNT'}/>}
-                    {this.props.modalType === 'MANDATORY_APPROVAL'          && <MandatoryApproval         closeModal={this.closeModal} nameModal={'MANDATORY_APPROVAL'}/>}
                     {this.props.modalType === 'ACCOUNT_DETAILS'             && <AccountDetails            closeModal={this.closeModal} nameModal={'ACCOUNT_DETAILS'}/>}
                     {this.props.modalType === 'LEASE_BALANCE'               && <LeaseBalance              closeModal={this.closeModal} nameModal={'LEASE_BALANCE'}/>}
                     {this.props.modalType === 'TOKEN_GENERATION_VALIDATION' && <TokenGenerationValidation closeModal={this.closeModal} nameModal={'TOKEN_GENERATION_VALIDATION'}/>}
