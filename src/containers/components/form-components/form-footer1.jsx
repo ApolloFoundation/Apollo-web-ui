@@ -5,6 +5,7 @@ import CustomButton from '../button';
 const FormFooter = ({
   idGroup,
   submitButtonName,
+  cancelButtonName,
   isPending,
   isDisabled,
   closeModal,
@@ -17,7 +18,7 @@ const FormFooter = ({
         id={`${idGroup}cancel-button`}
         onClick={closeModal}
         className="mr-3"
-        name="Cancel"
+        name={cancelButtonName ?? "Cancel"}
       />
     )}
     {submitButtonName && (
