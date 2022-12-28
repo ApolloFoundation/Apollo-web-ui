@@ -4,64 +4,33 @@
  ******************************************************************************/
 
 
-import { connect } from 'react-redux';
-import React from 'react';
-import {Form} from 'react-form';
-import {NotificationManager} from 'react-notifications';
-import AccountRS from '../../components/account-rs';
-import InfoBox from '../../components/info-box';
+import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import LogoImg from '../../../assets/logo.png';
-import {getCoins, getFaucetAccountInfoAction} from '../../../actions/faucet';
+import { getFaucetAccountInfoAction } from '../../../actions/faucet';
 import config from "../../../config";
+import { FaucetForm } from './Form';
+import { getDecimalsSelector } from '../../../selectors';
 import './style.scss'
 
-class Faucet extends React.Component {
-    state = {
-        form: null,
-        account: null,
-    };
-
-    componentDidMount() {
-        this.getAccountInfoAction();
-    }
-
-    getAccountInfoAction = async () => {
-        const account = await this.props.getFaucetAccountInfoAction({
+const Faucet = () => {
+    const dispatch = useDispatch();
+    const [account, setAccount] = useState();
+    const decimals = useSelector(getDecimalsSelector);
+    const getAccountInfoAction = async () => {
+        const account = await dispatch(getFaucetAccountInfoAction({
             account: 'APL-TYSU-V4Z9-VWDY-7X95C',
-        });
+        }));
 
         if (account) {
-            this.setState({account});
+            setAccount(account);
         }
     };
 
-    enterAccount = async (values) => {
-        if (!values.accountRS || values.accountRS.length === 0) {
-            NotificationManager.error('Account ID is required.', 'Error', 5000);
-            return;
-        }
+    useEffect(() => {
+        getAccountInfoAction();
+    }, []);
 
-        const result = await this.props.getCoins({
-            address: values.accountRS
-        });
-        if (result) {
-            if (result.success) {
-                NotificationManager.success('Success! Sent 30,000 APL to your address', null, 5000);
-                this.state.form.resetAll();
-            } else {
-                NotificationManager.error(result.message, 'Error', 5000);
-            }
-        }
-    };
-
-    getFormApi = (form) => {
-        this.setState({
-            form
-        })
-    };
-
-    render() {
-        const {account} = this.state;
         return (
             <div className="page-content">
                 <div className="page-body container-fluid">
@@ -75,7 +44,7 @@ class Faucet extends React.Component {
                                         <p className={'sub-title'}>
                                             {account.accountRS}<br/>
                                             Balance: {account.unconfirmedBalanceATM ? (
-                                                Math.round(account.unconfirmedBalanceATM / this.props.decimals).toLocaleString('en')
+                                                Math.round(account.unconfirmedBalanceATM / decimals).toLocaleString('en')
                                             ) : (
                                                 '0'
                                             )} APL
@@ -101,45 +70,7 @@ class Faucet extends React.Component {
                                     <div className={'dark-card login-form'}>
                                         <p className={'title'}>Testnet Faucet</p>
                                         <div className="form-tabulator">
-                                            <Form
-                                                getApi={this.getFormApi}
-                                                onSubmit={(values) => this.enterAccount(values)}
-                                                render={({
-                                                             submitForm, setValue, values
-                                                         }) => (
-                                                    <form
-                                                        onSubmit={submitForm}
-                                                        className="tab-body mt-4 active">
-                                                        <InfoBox className={'green-text'} transparent>
-                                                            Get free 30,000 APL every 60 minutes
-                                                        </InfoBox>
-                                                        <div className="input-group-app user">
-                                                            <div>
-                                                                <label htmlFor="recipient">
-                                                                    Enter your testnet account address
-                                                                </label>
-                                                                <div>
-                                                                    <div className="iconned-input-field">
-                                                                        <AccountRS
-                                                                            field={'accountRS'}
-                                                                            setValue={setValue}
-                                                                            placeholder={'Account ID'}
-                                                                            defaultValue={values.accountRS || ''}
-                                                                        />
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <button
-                                                            type="submit"
-                                                            name={'closeModal'}
-                                                            className="btn"
-                                                        >
-                                                            Get testnet APL
-                                                        </button>
-                                                    </form>
-                                                )}
-                                            />
+                                            <FaucetForm />
                                         </div>
                                     </div>
                                     <div
@@ -156,16 +87,6 @@ class Faucet extends React.Component {
                 </div>
             </div>
         );
-    }
 }
 
-const mapStateToProps = state => ({
-  decimals: state.account.decimals,
-});
-
-const mapDipatchToProps = dispatch => ({
-    getCoins: (requestParams) => dispatch(getCoins(requestParams)),
-    getFaucetAccountInfoAction: (account) => dispatch(getFaucetAccountInfoAction(account)),
-});
-
-export default connect(mapStateToProps, mapDipatchToProps)(Faucet);
+export default Faucet;
