@@ -44,7 +44,7 @@ import AssetDistribution from './assets/view-asset-distribution';
 // Currency System
 import TransferCurrency from './currencies/transfer-currency';
 import OfferCurrency from './currencies/offer-currebcy';
-import ReserveCurrency from './currencies/reserve-currency';
+import ReserveCurrency from './currencies/ReserveCurrency/index';
 import IssueCurrency from './currencies/issue-currency';
 import ClaimCurrency from './currencies/claim-currency/';
 import BuyCurrency from './currencies/confirm-buy-request';
