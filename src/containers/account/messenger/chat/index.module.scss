@@ -1,0 +1,13 @@
+.chatInputs {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chatInputItem {
+  flex: 1 1 0;
+}
+
+.chatInputs button {
+  margin-left: 10px;
+}

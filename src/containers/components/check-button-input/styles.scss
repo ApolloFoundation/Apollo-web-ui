@@ -1,6 +1,7 @@
 .checkbox-group {
   display: flex;
   align-items: center;
+  white-space: nowrap;
 
   .checkbox-label {
     text-transform: uppercase;

@@ -10,7 +10,6 @@ export default function CustomInput(props) {
     maxValue, minValue, step, isSpecialSymbols, name, placeholder, defaultValue
   } = props;
   const [field, , helpers] = useField(name);
-  console.log("🚀 ~ file: index.jsx:13 ~ CustomInput ~ helpers", helpers)
   const { setValue } = helpers;
   const isNumberInput = (type === 'tel' || type === 'float') && !disabled && !disableArrows;
 
