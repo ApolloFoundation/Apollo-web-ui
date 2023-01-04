@@ -1,20 +1,18 @@
 import React, {Component} from 'react';
 import classNames from 'classnames';
 import {Link} from 'react-router-dom';
-import {Form, Text} from 'react-form';
 import {NotificationManager} from "react-notifications";
 import {connect} from 'react-redux';
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 import {setBodyModalParamsAction} from '../../../../modules/modals';
-
 import IconndeButton from '../iconned-button';
 import CurrentAccountIcon from '../current-account/current-account-icon';
 import MobieMenu from '../mobile-menu/';
-import {CopyToClipboard} from 'react-copy-to-clipboard';
-
 import {getTransactionAction} from "../../../../actions/transactions";
 import {getBlockAction} from "../../../../actions/blocks";
 import {getAccountInfoAction} from "../../../../actions/account";
 import ApolloLogo from "../../../../assets/new_apl_icon_black.svg";
+import { InputSearchForm } from './InputSearch'
 
 class UserBox extends Component {
     refSearchInput = React.createRef();
@@ -36,59 +34,40 @@ class UserBox extends Component {
         }
     };
 
-    setSearchStateToActive = (form) => {
-        clearInterval(this.searchInterval);
-        if (!this.state.searching) {
-            this.setState({searching: true});
+    handleSubmit = (values) => {
+        if(!this.state.searching) {
+            this.setState({
+                searching: true,
+            })
         } else {
-            if (form.value) this.handleSearchind(form);
+            this.handleSearchind(values);
         }
-    };
+    }
 
     handleSearchind = async (values) => {
-        if (!this.state.isSearching) {
-            this.setState({
-                isSearching: true
-            });
+        const transaction = this.props.getTransactionAction({transaction: values.value});
+        const block = this.props.getBlockAction({block: values.value});
+        const account = this.props.getAccountInfoAction({account: values.value});
 
-            const transaction = this.props.getTransactionAction({transaction: values.value});
-            const block = this.props.getBlockAction({block: values.value});
-            const account = this.props.getAccountInfoAction({account: values.value});
+        Promise.all([transaction, block, account])
+            .then((res) => {
+                const modals = ['INFO_TRANSACTION', 'INFO_BLOCK', 'INFO_ACCOUNT'];
 
-            Promise.all([transaction, block, account])
-                .then((data) => {
-                    const transaction = data[0];
-                    const block = data[1];
-                    const account = data[2];
-
-                    const modals = ['INFO_TRANSACTION', 'INFO_BLOCK', 'INFO_ACCOUNT'];
-
-                    const result = [transaction, block, account].find((el, index) => {
-                        if (el) {
-                            if (index < 2) {
-                                this.props.setBodyModalParamsAction(modals[index], el);
-                                return el
-                            } else {
-                                if (el.account) {
-                                    this.props.setBodyModalParamsAction(modals[index], el.account);
-                                    return el
-                                }
-                            }
-                        }
-                    });
-
-                    if (!result) {
-                        NotificationManager.error('Invalid search properties.', null, 5000);
+                // check result for some objects instead of undefined
+                const result = res.find((el, index) => {
+                    if (el) {
+                        const payload = index < 2 ? el : el.account;
+                        this.props.setBodyModalParamsAction(modals[index], payload);
+                        return el;
                     }
-
-                    this.setState({
-                        isSearching: false
-                    })
-
                 });
-        }
-    };
 
+                // if every element of response are undefined we make error notification about it
+                if (!result) {
+                    NotificationManager.error('Invalid search properties.', null, 5000);
+                }
+            });
+    };
 
     render() {
         const {setBodyModalType, setBodyModalParamsAction, menuShow, showMenu, closeMenu} = this.props;
@@ -102,89 +81,55 @@ class UserBox extends Component {
                     <Link className="logo" to={"/"}>
                         <img src={ApolloLogo} alt={''}/>
                     </Link>
-                    <div
-                        className={classNames({
-                            'search-bar': true,
-                        })}
-                    >
-                        <Form
-                            onSubmit={values => this.handleSearchind(values)}
-                            render={({submitForm, getFormState}) => (
-                                <form onSubmit={submitForm}>
+                    <div className='search-bar'>
+                        <div className="user-account-actions">
+                            <CopyToClipboard
+                                text={this.props.accountRS}
+                                onCopy={() => 
+                                    NotificationManager.success('The account has been copied to clipboard.')
+                                }
+                            >
+                                <a className="user-account-rs">
+                                    {this.props.accountRS}
+                                </a>
+                            </CopyToClipboard>
 
-                                    <div className="user-account-actions">
-                                        <CopyToClipboard
-                                            text={this.props.accountRS}
-                                            onCopy={() => {
-                                                NotificationManager.success('The account has been copied to clipboard.')
-                                            }}
-                                        >
-                                            <a
-                                                className="user-account-rs"
-                                            >
-                                                {this.props.accountRS}
-                                            </a>
-                                        </CopyToClipboard>
+                            <IconndeButton
+                                className={'d-none d-sm-flex text-ellipsis'}
+                                id={'open-send-apollo-modal-window'}
+                                icon={<i className="zmdi zmdi-alert-circle"/>}
+                                text={'Support'}
+                                action={'https://support.apollocurrency.com/support/home'}
+                                link
+                            />
 
-                                        <IconndeButton
-                                            className={'d-none d-sm-flex text-ellipsis'}
-                                            id={'open-send-apollo-modal-window'}
-                                            icon={<i className="zmdi zmdi-alert-circle"/>}
-                                            text={'Support'}
-                                            action={'https://support.apollocurrency.com/support/home'}
-                                            link
-                                        />
+                            <IconndeButton
+                                id={'open-send-apollo-modal-window'}
+                                icon={<i className="zmdi zmdi-balance-wallet"/>}
+                                action={() => setBodyModalParamsAction('SEND_APOLLO')}
+                            />
 
-                                        <IconndeButton
-                                            id={'open-send-apollo-modal-window'}
-                                            icon={<i className="zmdi zmdi-balance-wallet"/>}
-                                            action={() => setBodyModalParamsAction('SEND_APOLLO')}
-                                        />
+                            <IconndeButton
+                                id={'open-settings-window'}
+                                icon={<i className="zmdi zmdi stop zmdi-settings"/>}
+                                action={() => setBodyModalType('SETTINGS_BODY_MODAL')}
+                            />
 
-                                        <IconndeButton
-                                            id={'open-settings-window'}
-                                            icon={<i className="zmdi zmdi stop zmdi-settings"/>}
-                                            action={() => setBodyModalType('SETTINGS_BODY_MODAL')}
-                                        />
+                            <IconndeButton
+                                id={'open-about-apollo'}
+                                icon={<i className="zmdi zmdi-help"/>}
+                                action={() => setBodyModalParamsAction('GENERAL_INFO')}
+                            />
 
-                                        <IconndeButton
-                                            id={'open-about-apollo'}
-                                            icon={<i className="zmdi zmdi-help"/>}
-                                            action={() => setBodyModalParamsAction('GENERAL_INFO')}
-                                        />
-
-                                        {this.props.appState && (
-                                            <IconndeButton
-                                                id={'open-info-apollo'}
-                                                icon={<i className="zmdi zmdi-info"/>}
-                                                action={() => setBodyModalParamsAction('INFO_NETWORK')}
-                                            />
-                                        )}
-
-                                        <div ref={this.refSearchInput} className={'searching-window-wrap'}>
-                                            <div className={'searching-window-slide'}> 
-                                                <div
-                                                    className={'searching-window-icon'}
-                                                >
-                                                    <IconndeButton
-                                                        id={'open-search-transaction'}
-                                                        icon={<i className="zmdi zmdi-search"/>}
-                                                        action={() => this.setSearchStateToActive(getFormState().values)}
-                                                    />
-                                                </div>
-                                                <Text
-                                                    field={'value'}
-                                                    className={"searching-window"}
-                                                    type="text"
-                                                    placeholder="Enter Transaction/Account ID/Block ID"
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
+                            {this.props.appState && (
+                                <IconndeButton
+                                    id={'open-info-apollo'}
+                                    icon={<i className="zmdi zmdi-info"/>}
+                                    action={() => setBodyModalParamsAction('INFO_NETWORK')}
+                                />
                             )}
-                        />
-
+                            <InputSearchForm ref={this.refSearchInput} onSubmit={this.handleSubmit} />
+                        </div>
                     </div>
                     {window.location.pathname === '/dex' && <IconndeButton
                         className={'logout-button'}
@@ -192,18 +137,19 @@ class UserBox extends Component {
                         icon={<i className="zmdi zmdi-power"/>}
                         action={() => setBodyModalParamsAction('LOGOUT_EXCHANGE')}
                     />}
-                    <div className="user-box cursor-pointer"
-                         onClick={(e) => setBodyModalType('ACCOUNT_BODY_MODAL', e)}
+                    <div
+                        className="user-box cursor-pointer"
+                        onClick={(e) => setBodyModalType('ACCOUNT_BODY_MODAL', e)}
                     >
                         <CurrentAccountIcon/>
                     </div>
                     <div
-                        className={`burger-mobile ${menuShow ? "menu-open" : ""}`}
+                        className={classNames('burger-mobile', { 'menu-open':  menuShow})}
                         onClick={showMenu}
                     >
                         <div className="line"/>
                     </div>
-                    <div className={`mobile-nav ${menuShow ? "show" : ""}`}>
+                    <div className={classNames('mobile-nav', { 'show':  menuShow})}>
                         <MobieMenu closeMenu={closeMenu}/>
                     </div>
                 </div>
