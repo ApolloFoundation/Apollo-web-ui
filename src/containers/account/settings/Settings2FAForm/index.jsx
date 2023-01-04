@@ -1,13 +1,13 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Form } from 'react-form';
 import { NotificationManager } from 'react-notifications';
+import { FormikProvider, Form, useFormik } from 'formik';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
 import { disable2FAActon, enable2FAActon } from '../../../../actions/account';
-import InfoBox from '../../../components/info-box';
-import ModalFooter from '../../../components/modal-footer';
-import AccountRSFormInput from '../../../components/form-components/account-rs';
+import ModalFooter from '../../../components/modal-footer/index1';
+import AccountRSFormInput from '../../../components/form-components/account-rs1';
 import { get2FASelector } from '../../../../selectors';
+import InfoBox from '../../../components/info-box';
 
 export const Settings2FAForm = ({ account, setState, getAccountInfo }) => {
   const dispatch = useDispatch();
@@ -66,55 +66,56 @@ export const Settings2FAForm = ({ account, setState, getAccountInfo }) => {
     }
   };
 
+  const formik = useFormik({
+    initialValues: {
+      account: '',
+    },
+    onSubmit: handleSubmit2FA,
+  })
+
   return (
-    <Form
-      onSubmit={handleSubmit2FA}
-      render={({
-        submitForm, setValue,
-      }) => (
-        <form className="modal-form" onSubmit={submitForm}>
-          <div className="form-group-app">
-            {is2FA
-              ? (
-                <>
-                  <div className="form-sub-title mb-3">
-                    The 2FA is currently enabled on this account.
-                  </div>
-                </>
-              ) : (
+    <FormikProvider value={formik}>
+      <Form className="modal-form">
+        <div className="form-group-app">
+          {is2FA
+            ? (
+              <>
                 <div className="form-sub-title mb-3">
-                  The 2FA is currently disabled on this account. You can
-                  increase
-                  your wallet security with this option.
+                  The 2FA is currently enabled on this account.
                 </div>
-              )}
-            <InfoBox attentionLeft>
-              <p className="mb-3">
-                Please note:
-              </p>
-              <div className="form-sub-title">
-                2FA is a feature for Vault addresses only,
-                and will not add a second factor authentication to a standard address.
+              </>
+            ) : (
+              <div className="form-sub-title mb-3">
+                The 2FA is currently disabled on this account. You can
+                increase
+                your wallet security with this option.
               </div>
-            </InfoBox>
-            <AccountRSFormInput
-              setValue={setValue}
-              noContactList
-              field="account"
-              label="Account ID"
-              placeholder="Account ID"
-            />
-            <ModalFooter setValue={setValue} />
-            {account && (
-            <div>
-              <button type="submit" className="btn btn-green">
-                {!account.is2FA ? 'Get Qr code' : 'Confirm disable'}
-              </button>
-            </div>
             )}
+          <InfoBox attentionLeft>
+            <p className="mb-3">
+              Please note:
+            </p>
+            <div className="form-sub-title">
+              2FA is a feature for Vault addresses only,
+              and will not add a second factor authentication to a standard address.
+            </div>
+          </InfoBox>
+          <AccountRSFormInput
+            noContactList
+            name="account"
+            label="Account ID"
+            placeholder="Account ID"
+          />
+          <ModalFooter />
+          {account && (
+          <div>
+            <button type="submit" className="btn btn-green">
+              {!account.is2FA ? 'Get Qr code' : 'Confirm disable'}
+            </button>
           </div>
-        </form>
-      )}
-    />
-  )
+          )}
+        </div>
+      </Form>
+    </FormikProvider>
+  );
 }
