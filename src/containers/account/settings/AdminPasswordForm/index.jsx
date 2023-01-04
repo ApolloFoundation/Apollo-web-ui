@@ -1,4 +1,4 @@
-import React  from 'react';
+import React, { useCallback }  from 'react';
 import { useSelector } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
 import { FormikProvider, useFormik, Form } from 'formik';
@@ -9,12 +9,12 @@ import TextualInputComponent from '../../../components/form-components/textual-i
 export const AdminPasswordForm = () => {
   const adminPassword = useSelector(getAdminPasswordSelector);
 
-  const handleGeneralSettingFormSubmit = ({ adminPassword }) => {
+  const handleGeneralSettingFormSubmit = useCallback(({ adminPassword }) => {
     if (adminPassword) {
       writeToLocalStorage('adminPassword', { adminPassword });
       NotificationManager.success('Admin password has been successfully saved!', null, 5000);
     }
-  };
+  }, []);
 
   const formik = useFormik({
     initialValues: {
