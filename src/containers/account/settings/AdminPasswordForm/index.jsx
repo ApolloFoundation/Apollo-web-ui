@@ -1,10 +1,10 @@
 import React  from 'react';
-import { Form } from 'react-form';
 import { useSelector } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
-import InputForm from '../../../components/input-form';
+import { FormikProvider, useFormik, Form } from 'formik';
 import { getAdminPasswordSelector } from '../../../../selectors';
 import { writeToLocalStorage } from '../../../../actions/localStorage';
+import TextualInputComponent from '../../../components/form-components/textual-input/textual-input1';
 
 export const AdminPasswordForm = () => {
   const adminPassword = useSelector(getAdminPasswordSelector);
@@ -16,28 +16,23 @@ export const AdminPasswordForm = () => {
     }
   };
 
+  const formik = useFormik({
+    initialValues: {
+      adminPassword,
+    },
+    onSubmit: handleGeneralSettingFormSubmit,
+  })
+
   return (
-    <Form
-      onSubmit={handleGeneralSettingFormSubmit}
-      render={({ submitForm, setValue }) => (
-        <form className="modal-form" onSubmit={submitForm}>
+    <FormikProvider value={formik}>
+        <Form className="modal-form">
           <div className="form-group-app">
-            <div className="form-group mb-15">
-              <label>
-                Admin password
-              </label>
-              <div>
-                <InputForm
-                  isPlain
-                  className="form-control"
-                  type="password"
-                  field="adminPassword"
-                  placeholder="Admin password"
-                  setValue={setValue}
-                  defaultValue={adminPassword}
-                />
-              </div>
-            </div>
+            <TextualInputComponent
+              label="Admin password"
+              type="password"
+              name="adminPassword"
+              placeholder="Admin password"
+            />
             <button
               type="submit"
               className="btn btn-green"
@@ -45,8 +40,7 @@ export const AdminPasswordForm = () => {
               Save
             </button>
           </div>
-        </form>
-      )}
-    />
-  )
+        </Form>
+    </FormikProvider>
+  );
 }
