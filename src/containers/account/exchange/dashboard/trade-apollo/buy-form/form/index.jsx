@@ -56,6 +56,7 @@ export default function BuyForm(props) {
   }, [currency, infoSelectedBuyOrder, setValues, wallet, walletsList, passPhrase]);
 
   const currencyName = currency.toUpperCase();
+  // TODO check error of object structure. Prop "value" can not exist
   let balance = values.walletAddress && values.walletAddress.value.balances[currency];
   balance = currency === 'eth' ? balance - ethFee : balance;
   balance = balance < 0 ? 0 : balance;
