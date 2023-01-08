@@ -19,3 +19,4 @@ export const getModalDataSelector = state => state.modals.modalData;
 export const getModalHistorySelector = state => state.modals.modalsHistory;
 export const getAccountPublicKeySelector = state => state.account.publicKey;
 export const getModalCallbackSelector = state => state.modals.modalCallback;
+export const getConstantsSelector = state => state.account.constants;
