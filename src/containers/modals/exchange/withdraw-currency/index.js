@@ -1,13 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {NotificationManager} from 'react-notifications';
-import {Form} from 'react-form';
-import InputForm from '../../../components/input-form';
-import CustomFormSelect from "../../../components/form-components/custom-form-select";
 import ContentLoader from "../../../components/content-loader";
 import {getTransactionFee, walletWithdraw} from '../../../../actions/wallet';
 import {currencyTypes, formatGweiToEth} from '../../../../helpers/format';
-import classNames from "classnames";
+import ModalBody from 'containers/components/modals/modal-body';
+import { WithdrawForm } from './form';
 
 class WithdrawCurrency extends React.Component {
     state = {
@@ -121,185 +119,84 @@ class WithdrawCurrency extends React.Component {
     render() {
         const {modalData: {address}, constants} = this.props;
         const {transactionFee, currency} = this.state;
-        const currencyFormat = currency.toUpperCase();
         const gasLimit = currency === 'eth' ? constants.gasLimitEth : constants.gasLimitERC20;
         const typeData = this.getAssetTypes();
+
         return (
-            <div className="modal-box">
-                <Form
-                    onSubmit={(values) => this.handleFormSubmit(values)}
-                    render={({submitForm, setValue}) => (
-                        <form className="modal-form" onSubmit={submitForm}>
-                            <div className="form-group-app">
-                                <button type="button" onClick={() => this.props.closeModal()} className="exit"><i
-                                    className="zmdi zmdi-close"/></button>
-                                <div className="form-title">
-                                    <p>Withdraw</p>
-                                </div>
-                                    <div className="form-group mb-15">
-                                        <label>
-                                            From
-                                        </label>
-                                        <div>
-                                            <InputForm
-                                                field="fromAddress"
-                                                placeholder={`${currencyFormat} Wallet`}
-                                                type={"text"}
-                                                setValue={setValue}
-                                                defaultValue={address}
-                                                disabled
-                                            />
-                                        </div>
-                                    </div>
-                                    <div className="form-group mb-15">
-                                        <label>
-                                            To
-                                        </label>
-                                        <div>
-                                            <InputForm
-                                                field="toAddress"
-                                                placeholder={`${currencyFormat} Wallet`}
-                                                type={"text"}
-                                                setValue={setValue}/>
-                                        </div>
-                                    </div>
-                                    {currency && (
-                                        <CustomFormSelect
-                                            defaultValue={typeData.find(type => type.value.currency === currency)}
-                                            setValue={setValue}
-                                            options={typeData}
-                                            label={'Wallet'}
-                                            field={'asset'}
-                                            onChange={this.handleChangeAsset}
-                                        />
-                                    )}
-                                    <div className="form-group mb-15">
-                                        <label htmlFor={"withdraw-modal-amount"}>
-                                            Amount
-                                        </label>
-                                        <div className="input-group">
-                                            <InputForm
-                                                field="amount"
-                                                placeholder="Amount"
-                                                type={"float"}
-                                                setValue={setValue}
-                                                id={"withdraw-modal-amount"}
-                                                defaultValue={0}
-                                            />
-                                            <div className="input-group-append">
-                                                <span className="input-group-text">{currencyFormat}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <React.Fragment>
-                                        <div className="form-group mb-15">
-                                            <label>
-                                                Gas Fee
-                                            </label>
-                                            <div>
-                                                {transactionFee && this.state.fee ? (
-                                                    <div className="btn-group btn-group-switch w-100"
-                                                         role="group"
-                                                         aria-label="Gas Fee">
-                                                        <button
-                                                            type="button"
-                                                            className={`w-100 p-2 btn btn-secondary btn-grey ${this.state.fee.level === 'safeLow' ? 'btn-green' : ''}`}
-                                                            onClick={() => this.handleSelectTransactionFee({
-                                                                level: 'safeLow',
-                                                                value: transactionFee['safeLow']
-                                                            })}
-                                                        >
-                                                            <span className="text-uppercase">SafeLow</span>
-                                                            <small>{formatGweiToEth(transactionFee['safeLow'], 0)} ETH</small>
-                                                        </button>
-                                                        <button
-                                                            type="button"
-                                                            className={`w-100 p-2 btn btn-secondary btn-grey ${this.state.fee.level === 'average' ? 'btn-green' : ''}`}
-                                                            onClick={() => this.handleSelectTransactionFee({
-                                                                level: 'average',
-                                                                value: transactionFee['average']
-                                                            })}
-                                                        >
-                                                            <span className="text-uppercase">Average</span>
-                                                            <small>{formatGweiToEth(transactionFee['average'], 0)} ETH</small>
-                                                        </button>
-                                                        <button
-                                                            type="button"
-                                                            className={`w-100 p-2 btn btn-secondary btn-grey ${this.state.fee.level === 'fast' ? 'btn-green' : ''}`}
-                                                            onClick={() => this.handleSelectTransactionFee({
-                                                                level: 'fast',
-                                                                value: transactionFee['fast']
-                                                            })}
-                                                        >
-                                                            <span className="text-uppercase">Fast</span>
-                                                            <small>{formatGweiToEth(transactionFee['fast'], 0)} ETH</small>
-                                                        </button>
-                                                    </div>
-                                                ) : (
-                                                    <ContentLoader className={'m-0 p-0'}/>
-                                                )}
-                                            </div>
-                                        </div>
-                                        <div className="form-group mb-15">
-                                            <label>
-                                                Max Fee
-                                            </label>
-                                            <div>
-                                                {this.state.fee ? (
-                                                    <span>{formatGweiToEth(this.state.fee.value * gasLimit, 0)} ETH</span>
-                                                ) : (
-                                                    <ContentLoader className={'m-0 p-0'}/>
-                                                )}
-                                            </div>
-                                        </div>
-                                    </React.Fragment>
-                                    <div className="form-group mb-15">
-                                        <label>
-                                            Secret phrase
-                                        </label>
-                                        <div>
-                                            <InputForm
-                                                isPlain
-                                                className={'form-control'}
-                                                type="password"
-                                                field="secretPhrase"
-                                                placeholder="Secret Phrase"
-                                                setValue={setValue}
-                                            />
-                                        </div>
-                                    </div>
-                                <div className="btn-box right-conner align-right form-footer">
-                                    <button
-                                        type={'button'}
-                                        onClick={() => this.props.closeModal()}
-                                        className="btn btn-default mr-3"
-                                    >
-                                        Cancel
-                                    </button>
-                                    <button
-                                        type="submit"
-                                        className={classNames({
-                                            "btn btn-green submit-button": true,
-                                            "loading": this.state.isPending,
-                                            "btn-green-disabled": !this.state.fee || this.state.isPending,
-                                        })}
-                                    >
-                                        <div className="button-loader">
-                                            <div className="ball-pulse">
-                                                <div/>
-                                                <div/>
-                                                <div/>
-                                            </div>
-                                        </div>
-                                        <span className={'button-text'}>Withdraw</span>
-                                    </button>
-                                </div>
-                        </div>
-                        </form>
-                    )
-                    }/>
-            </div>
-        )
+            <ModalBody
+                modalTitle="Withdraw"
+                handleFormSubmit={this.handleFormSubmit}
+                submitButtonName="Withdraw"
+                initialValues={{
+                    fromAddress: address,
+                    toAddress: '',
+                    amount: 0,
+                    asset: typeData.find(type => type.value.currency === 'eth')
+                }}
+            >
+                <WithdrawForm typeData={typeData} />
+                <div className="form-group mb-15">
+                    <label>
+                        Gas Fee
+                    </label>
+                    <div>
+                        {transactionFee && this.state.fee ? (
+                            <div className="btn-group btn-group-switch w-100"
+                                role="group"
+                                aria-label="Gas Fee">
+                                <button
+                                    type="button"
+                                    className={`w-100 p-2 btn btn-secondary btn-grey ${this.state.fee.level === 'safeLow' ? 'btn-green' : ''}`}
+                                    onClick={() => this.handleSelectTransactionFee({
+                                        level: 'safeLow',
+                                        value: transactionFee['safeLow']
+                                    })}
+                                >
+                                    <span className="text-uppercase">SafeLow</span>
+                                    <small>{formatGweiToEth(transactionFee['safeLow'], 0)} ETH</small>
+                                </button>
+                                <button
+                                    type="button"
+                                    className={`w-100 p-2 btn btn-secondary btn-grey ${this.state.fee.level === 'average' ? 'btn-green' : ''}`}
+                                    onClick={() => this.handleSelectTransactionFee({
+                                        level: 'average',
+                                        value: transactionFee['average']
+                                    })}
+                                >
+                                    <span className="text-uppercase">Average</span>
+                                    <small>{formatGweiToEth(transactionFee['average'], 0)} ETH</small>
+                                </button>
+                                <button
+                                    type="button"
+                                    className={`w-100 p-2 btn btn-secondary btn-grey ${this.state.fee.level === 'fast' ? 'btn-green' : ''}`}
+                                    onClick={() => this.handleSelectTransactionFee({
+                                        level: 'fast',
+                                        value: transactionFee['fast']
+                                    })}
+                                >
+                                    <span className="text-uppercase">Fast</span>
+                                    <small>{formatGweiToEth(transactionFee['fast'], 0)} ETH</small>
+                                </button>
+                            </div>
+                        ) : (
+                            <ContentLoader className={'m-0 p-0'}/>
+                        )}
+                    </div>
+                </div>
+                <div className="form-group mb-15">
+                    <label>
+                        Max Fee
+                    </label>
+                    <div>
+                        {this.state.fee ? (
+                            <span>{formatGweiToEth(this.state.fee.value * gasLimit, 0)} ETH</span>
+                        ) : (
+                            <ContentLoader className={'m-0 p-0'}/>
+                        )}
+                    </div>
+                </div>
+            </ModalBody>
+        );
     }
 }
 
