@@ -11,16 +11,21 @@ import { NotificationManager } from 'react-notifications';
 import { setBodyModalParamsAction } from '../../../modules/modals';
 import { getMixerAccount } from '../../../actions/transactions';
 import submitForm from '../../../helpers/forms/forms';
-import ModalBody from '../../components/modals/modal-body1';
+import ModalBody from '../../components/modals/modal-body';
+import {
+  getConstantsSelector,
+  getDecimalsSelector,
+  getModalDataSelector,
+  getTickerSelector
+} from '../../../selectors';
 import SendPrivateApolloForm from './form';
-// TODO check modal
-export default function SendApolloPrivate(props) {
+
+export default function SendApolloPrivate({ closeModal }) {
   const dispatch = useDispatch();
-
-  const { closeModal } = props;
-
-  const { modalData } = useSelector(state => state.modals);
-  const { constants: { mixerUrl, accountPrefix }, ticker, decimals } = useSelector(state => state.account);
+  const modalData= useSelector(getModalDataSelector);
+  const { mixerUrl, accountPrefix } = useSelector(getConstantsSelector);
+  const ticker = useSelector(getTickerSelector);
+  const decimals = useSelector(getDecimalsSelector);
 
   const [useMixer, setUseMixer] = useState(false);
   const [isPending, setIsPending] = useState(false);
@@ -126,6 +131,7 @@ export default function SendApolloPrivate(props) {
         feeATM: '5',
         isMixer: useMixer,
       }}
+      isLoadValue
     >
       <SendPrivateApolloForm
         ticker={ticker}

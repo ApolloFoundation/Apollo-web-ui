@@ -7,7 +7,7 @@ import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
 import { getModalDataSelector } from '../../../../selectors';
-import ModalBody from '../../../components/modals/modal-body1';
+import ModalBody from '../../../components/modals/modal-body';
 import ReserveCurrencyForm from './Form';
 import { InfoCurrency } from './InfoCurrency'
 

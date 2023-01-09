@@ -7,21 +7,27 @@ import React, { useState, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
 import { setBodyModalParamsAction } from '../../../modules/modals';
-import ModalBody from '../../components/modals/modal-body1';
+import {
+  getAccountSelector,
+  getDecimalsSelector,
+  getModalDataSelector,
+  getTickerSelector
+} from '../../../selectors';
+import ModalBody from '../../components/modals/modal-body';
 import SendApolloForm from './form';
 import {PrivateTransactionConfirm} from './PrivateTransactionConfirm/PrivateTransactionConfirm';
-// TODO check modal 
-export default function SendApollo(props) {
+
+export default function SendApollo({ closeModal, processForm }) {
   const [ isShowNotification, setIsShowNotification ] = useState(false);
   const dispatch = useDispatch();
 
-  const { closeModal, processForm } = props;
-
   const [alias, setAlias] = useState(null);
 
-  const { modalData } = useSelector(state => state.modals);
-
-  const { account, ticker, decimals } = useSelector(state => state.account);
+  const modalData = useSelector(getModalDataSelector);
+  console.log("🚀 ~ file: index.jsx:27 ~ SendApollo ~ modalData", modalData)
+  const account = useSelector(getAccountSelector);
+  const ticker = useSelector(getTickerSelector);
+  const decimals = useSelector(getDecimalsSelector);
 
   const handleFormSubmit = useCallback(async values => {
     const { privateTransaction, ...data } = values;
@@ -42,8 +48,6 @@ export default function SendApollo(props) {
     if (values.alias) {
       data.recipient = alias;
     }
-
-    // export const processForm = (values, requestType, successMesage, successCallback) => {
 
     processForm({ decimals, ...data }, 'sendMoney', 'Transaction has been submitted!', res => {
       if (res.broadcasted === false) {
@@ -83,6 +87,7 @@ export default function SendApollo(props) {
         amountATM: (modalData && modalData.amountATM) || '',
         encrypt_message: true,
       }}
+      isLoadValue
     >
       {isShowNotification && <PrivateTransactionConfirm onClose={handleShowNotification(false)} />}
       <SendApolloForm

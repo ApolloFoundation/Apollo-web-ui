@@ -15,7 +15,7 @@ export const FaucetForm = () => {
     },
   });
 
-  const handleSubmit = async ({ accountRS }) => {
+  async function handleSubmit ({ accountRS }) {
     if (!accountRS || accountRS.length === 0) {
       NotificationManager.error('Account ID is required.', 'Error', 5000);
       return;

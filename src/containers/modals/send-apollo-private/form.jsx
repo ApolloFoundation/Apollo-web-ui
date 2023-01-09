@@ -1,12 +1,14 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useFormikContext } from 'formik';
 import CheckboxForm from '../../components/check-button-input';
 import AccountRS from '../../components/form-components/account-rs1';
 import NumericInput from '../../components/form-components/numeric-input1';
 import FeeInput from '../../components/form-components/FeeInput/fee-input1';
 import InfoBox from '../../components/info-box';
 
-const SendPrivateMoneyForm = ({ values, idGroup, mixerData, ticker }) => (
+const SendPrivateMoneyForm = ({ idGroup, mixerData, ticker }) => {
+  const { values } = useFormikContext();
+  return (
   <>
     <AccountRS
       name="recipient"
@@ -56,8 +58,7 @@ const SendPrivateMoneyForm = ({ values, idGroup, mixerData, ticker }) => (
       idGroup={idGroup}
     />
   </>
-);
+)
+}
 
-const mapStateToProps = state => ({ modalData: state.modals.modalData });
-
-export default connect(mapStateToProps)(SendPrivateMoneyForm);
+export default SendPrivateMoneyForm;

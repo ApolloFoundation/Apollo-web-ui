@@ -7,15 +7,17 @@ import AutoComplete from '../../components/auto-complete';
 import CheckboxFormInput from '../../components/check-button-input';
 import AccountRSForm from '../../components/form-components/account-rs1';
 import NumericInput from '../../components/form-components/numeric-input1';
+import { useFormikContext } from 'formik';
 
 const newAliasValidation = /APL-[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{5}/;
 const oldAliasValidation = /^acct:(APL-[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{5})@apl$/i;
 
 export default function SendMoneyForm({
-  values, idGroup, onChangeAlias, onChosenTransactionOnAlias, onPrivateTransactionChange, ticker,
+  idGroup, onChangeAlias, onChosenTransactionOnAlias, onPrivateTransactionChange, ticker,
   isShowPrivateTransaction,
 }) {
   const dispatch = useDispatch();
+  const { values } = useFormikContext();
 
   const getAliasOptions = aliases => aliases.filter(({ aliasURI }) => {
     const exchangeAlias = oldAliasValidation.test(aliasURI)

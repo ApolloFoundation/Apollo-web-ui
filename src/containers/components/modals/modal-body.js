@@ -22,7 +22,7 @@ const ModalBody = (props) => {
             CustomFooter, isDisableFormFooter, marketplace, isDisabledBackArrow, isAdvancedWhite,
             isDisableSecretPhrase, isDisabe2FA, modalSubTitle, className, idGroup, isPour, openPrevModal, modalsHistory,
             nameModel, children, handleFormSubmit, modalTitle, isPending, isDisabled, isFee, closeModal,
-            submitButtonName, isClosingButton, initialValues, cancelButtonName,
+            submitButtonName, isClosingButton, initialValues, cancelButtonName, isLoadValue,
         } = props;
 
         const RightBar = marketplace ? (p) => <div className="right-bar">{p.children}</div> : React.Fragment;
@@ -34,6 +34,7 @@ const ModalBody = (props) => {
                 onSubmit={props.handleFormSubmit}
                 nameModel={nameModel}
                 className={classNames(className, { 'modal-form modal-send-apollo': !isPour })}
+                isLoadValue={isLoadValue}
             >
                 <div className='form-group-app'>
                     <RightBar>

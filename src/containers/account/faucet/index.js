@@ -6,15 +6,17 @@
 
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import LogoImg from '../../../assets/logo.png';
 import { getFaucetAccountInfoAction } from '../../../actions/faucet';
 import config from "../../../config";
-import { FaucetForm } from './Form';
 import { getDecimalsSelector } from '../../../selectors';
+import { FaucetForm } from './Form';
 import './style.scss'
 
 const Faucet = () => {
     const dispatch = useDispatch();
+    const history = useHistory();
     const [account, setAccount] = useState();
     const decimals = useSelector(getDecimalsSelector);
     const getAccountInfoAction = async () => {
@@ -75,7 +77,7 @@ const Faucet = () => {
                                     </div>
                                     <div
                                         className={'button-block'}
-                                        onClick={() => this.props.history.push('/login')}
+                                        onClick={() => history.push('/login')}
                                     >
                                         <span className={'title'}>Log in</span>
                                         <span className={'sub-title'}>or create Apollo Wallet</span>

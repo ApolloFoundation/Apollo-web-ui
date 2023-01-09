@@ -9,7 +9,7 @@ import React, {
 import { useDispatch, useSelector } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
 import { getAccountCurrenciesAction } from '../../../../actions/currencies';
-import ModalBody from '../../../components/modals/modal-body1';
+import ModalBody from '../../../components/modals/modal-body';
 import NumericInput from '../../../components/form-components/NumericInput/numeric-input1';
 import TextualInputComponent from '../../../components/form-components/textual-input/textual-input1';
 import BlockHeightInput from '../../../components/form-components/BlockHeight/block-height-input1';

@@ -12,7 +12,7 @@ import { setBodyModalParamsAction } from '../../../../modules/modals';
 import { getCurrencyAction, getAccountCurrenciesAction } from '../../../../actions/currencies';
 import TextualInputComponent from '../../../components/form-components/textual-input/textual-input1';
 import FormRowText from '../../../components/form-components/form-row-text';
-import ModalBody from '../../../components/modals/modal-body1';
+import ModalBody from '../../../components/modals/modal-body';
 import { getAccountSelector, getModalDataSelector, getTickerSelector } from '../../../../selectors';
 
 export default function ClaimCurrency(props) {
