@@ -1,46 +1,21 @@
 import React from 'react';
-
+import classNames from 'classnames';
 import {connect} from 'react-redux';
 import FormFooter from '../form-components/form-footer';
 import ModalFooter from '../modal-footer/index1';
-import classNames from 'classnames';
-
 import AdvancedSettings from '../advanced-transaction-settings';
 import {openPrevModal, saveSendModalState} from "../../../modules/modals";
-
 import BackForm from '../../modals/modal-form/modal-form-container';
-import FeeInputForm from "../form-components/fee-input";
 import { FeeWrapper } from '../form-components/fee-wrapper';
 
 
 class ModalBody extends React.Component {
-
-    getForm = (form) => {
-        if (this.props.loadForm) {
-            this.props.loadForm(form)
-        } else {
-            this.setState({form}, () => this.loadValues());
-        }
-    };
-
-    loadValues = (values) => {
-        if (values) {
-            this.state.form.setAllValues(values);
-            return;
-        } else {
-            const {modalsHistory} = this.props;
-            if (modalsHistory[modalsHistory.length - 1] && modalsHistory[modalsHistory.length - 1].value) {
-                this.state.form.setAllValues(modalsHistory[modalsHistory.length - 1].value)
-            }
-        }
-    };
-
     handleFormSubmit = (values) => {
         if (this.props.handleFormSubmit) {
             this.props.handleFormSubmit(values)
         }
     };
-
+    // might be return on demand but need to create flow for using it
     // handleChange = (props) => {
     //     this.props.saveSendModalState(props.values);
     //     if (this.props.onChange) this.props.onChange(props);
@@ -48,29 +23,29 @@ class ModalBody extends React.Component {
 
     form = () => {
         const {
-            CustomFooter, isDisableFormFooter, marketplace, onChange, isDisabledBackArrow, isAdvancedWhite,
+            CustomFooter, isDisableFormFooter, marketplace, isDisabledBackArrow, isAdvancedWhite,
             isDisableSecretPhrase, isDisabe2FA, modalSubTitle, className, idGroup, isPour, openPrevModal, modalsHistory,
-            saveSendModalState, nameModel, children, handleFormSubmit, modalTitle, isPending, isDisabled, isFee, closeModal,
-            submitButtonName, modalData, isClosingButton, initialValues, cancelButtonName,
+            nameModel, children, handleFormSubmit, modalTitle, isPending, isDisabled, isFee, closeModal,
+            submitButtonName, isClosingButton, initialValues, cancelButtonName,
         } = this.props;
 
-        const LeftBar = marketplace ? (p) => <div className="left-bar">{p.children}</div> : React.Fragment;
         const RightBar = marketplace ? (p) => <div className="right-bar">{p.children}</div> : React.Fragment;
         const isAdvanced = false;
 
         return (
             <BackForm
-                // onChange={this.handleChange}
                 initialValues={initialValues}
                 onSubmit={this.handleFormSubmit}
                 nameModel={nameModel}
-                className={`${isPour ? '' : 'modal-form modal-send-apollo'} ${className}`}
+                className={classNames(className, { 'modal-form modal-send-apollo': isPour })}
             >
-                        <div className={`form-group-app`}>
+                        <div className='form-group-app'>
                             <RightBar>
                                 {
                                     closeModal && !isPour &&
-                                    <button type="button" onClick={closeModal} className="exit"><i className="zmdi zmdi-close"/></button>
+                                    <button type="button" onClick={closeModal} className="exit">
+                                        <i className="zmdi zmdi-close"/>
+                                    </button>
                                 }
 
                                 {
@@ -79,9 +54,7 @@ class ModalBody extends React.Component {
                                         {
                                             !isDisabledBackArrow &&
                                             modalsHistory.length > 1 &&
-                                            <div className={"backMy"} onClick={() => {
-                                                openPrevModal()
-                                            }}/>
+                                            <div className="backMy" onClick={openPrevModal} />
                                         }
                                         <p>{modalTitle}</p>
                                     </div>
@@ -98,9 +71,7 @@ class ModalBody extends React.Component {
                                                 {
                                                     !isDisabledBackArrow &&
                                                     modalsHistory.length > 1 &&
-                                                    <div className={"backMy"} onClick={() => {
-                                                        openPrevModal()
-                                                    }}/>
+                                                    <div className="backMy" onClick={openPrevModal}/>
                                                 }
                                                 <p>{marketplace.name}</p>
                                             </div>
@@ -111,8 +82,7 @@ class ModalBody extends React.Component {
                                                     style={{
                                                         backgroundImage: `url(${marketplace.image})`
                                                     }}
-                                                    className={classNames({
-                                                        "marketplace-image": true,
+                                                    className={classNames('marketplace-image', {
                                                         "no-image": !marketplace.hasImage
                                                     })}
                                                 />
@@ -139,53 +109,27 @@ class ModalBody extends React.Component {
                                         )}
                                     </>
                                 )}
-
-                                {/** Passing props to each form component */}
-                                {/* {
-                                    React.Children.map(children, child => {
-                                            if (child) {
-                                                return React.cloneElement(child, {
-                                                    ...submitForm,
-                                                    values,
-                                                    getValue,
-                                                    addValue,
-                                                    removeValue,
-                                                    setValue,
-                                                    getFormState,
-                                                    idGroup
-                                                })
-                                            }
-                                        }
-                                    )
-                                } */}
                                 {children}
-
                                 {isFee && (
                                     <FeeWrapper
                                         name='feeATM'
                                         idGroup={idGroup}
                                     />
                                 )}
-
                                 {/** Rendering of secret phrase and 2fa fields */}
                                 {
-                                    !isDisableSecretPhrase &&
-                                    handleFormSubmit &&
+                                    !isDisableSecretPhrase && handleFormSubmit &&
                                     <ModalFooter
                                         off2FA={isDisabe2FA}
                                         idGroup={idGroup}
                                     />
                                 }
 
-                                {
-                                    isAdvanced &&
-                                    <AdvancedSettings white={isAdvancedWhite} />
-                                }
+                                { isAdvanced && <AdvancedSettings white={isAdvancedWhite} /> }
 
                                 {/** Bottom forms buttons */}
                                 {
-                                    !CustomFooter &&
-                                    !isDisableFormFooter &&
+                                    !CustomFooter && !isDisableFormFooter &&
                                     <FormFooter
                                         submitButtonName={submitButtonName}
                                         isPending={isPending}
@@ -196,10 +140,7 @@ class ModalBody extends React.Component {
                                         cancelButtonName={cancelButtonName}
                                     />
                                 }
-                                {
-                                    !!CustomFooter &&
-                                    <CustomFooter/>
-                                }
+                                { !!CustomFooter && <CustomFooter/> }
                             </RightBar>
                         </div>
             </BackForm>
@@ -214,11 +155,15 @@ class ModalBody extends React.Component {
             isPour ?
                 this.form()
                 :
-                <div className={`modal-box ${isWide ? 'wide' : ''} ${isXWide ? 'x-wide' : ''}`}>
+                <div className={
+                    classNames('modal-box', { 
+                        'wide': isWide,
+                        'x-wide': isXWide,
+                     })}
+                >
                     {this.form()}
                 </div>
-
-        )
+        );
     }
 }
 
@@ -229,9 +174,9 @@ const mapStateToProps = state => ({
     ticker: state.account.ticker,
 });
 
-const mapDispatchToProps = dispatch => ({
-    saveSendModalState: (params) => dispatch(saveSendModalState(params)),
-    openPrevModal: () => dispatch(openPrevModal())
-});
+const mapDispatchToProps = {
+    saveSendModalState,
+    openPrevModal,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ModalBody);

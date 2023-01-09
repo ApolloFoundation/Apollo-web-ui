@@ -3,10 +3,10 @@ import React, {
 } from 'react';
 import { useSelector } from 'react-redux';
 import { FormikProvider, useFormik, Form } from 'formik';
-import { getMdalsSelector } from '../../../selectors';
+import { getModalsSelector } from '../../../selectors';
 
 function BackForm({ nameModal, onSubmit, children, className, initialValues = {}, isLoadValue }) {
-  const { modalsHistory, modalData } = useSelector(getMdalsSelector);
+  const { modalsHistory, modalData } = useSelector(getModalsSelector);
 
   const formik = useFormik({
     initialValues,
