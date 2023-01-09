@@ -4,7 +4,7 @@ import { NotificationManager } from 'react-notifications';
 import { FormikProvider, Form, useFormik } from 'formik';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
 import { disable2FAActon, enable2FAActon } from '../../../../actions/account';
-import ModalFooter from '../../../components/modal-footer/index1';
+import ModalFooter from '../../../components/modal-footer';
 import AccountRSFormInput from '../../../components/form-components/account-rs1';
 import { get2FASelector } from '../../../../selectors';
 import InfoBox from '../../../components/info-box';

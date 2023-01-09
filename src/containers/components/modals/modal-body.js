@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import {connect} from 'react-redux';
 import FormFooter from '../form-components/form-footer';
-import ModalFooter from '../modal-footer/index1';
+import ModalFooter from '../modal-footer';
 import AdvancedSettings from '../advanced-transaction-settings';
 import {openPrevModal, saveSendModalState} from "../../../modules/modals";
 import BackForm from '../../modals/modal-form/modal-form-container';

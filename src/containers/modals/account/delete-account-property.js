@@ -10,7 +10,7 @@ import classNames from "classnames";
 import { setBodyModalParamsAction } from '../../../modules/modals';
 import submitForm from "../../../helpers/forms/forms";
 import { NotificationManager } from "react-notifications";
-import ModalFooter from '../../components/modal-footer/index1';
+import ModalFooter from '../../components/modal-footer';
 import FeeCalc from '../../components/form-components/FeeCalc/fee-calc1';
 import BackForm from '../modal-form/modal-form-container';
 import { getModalDataSelector } from '../../../selectors';
