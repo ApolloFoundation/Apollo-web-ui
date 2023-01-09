@@ -4,7 +4,7 @@ import {connect} from "react-redux";
 import {readMessageAction} from '../../../actions/messager/'
 import crypto from '../../../helpers/crypto/crypto';
 import {setBodyModalParamsAction} from '../../../modules/modals';
-import {Form, Text} from 'react-form';
+import {Form, Formik, Field} from 'formik';
 import {NotificationManager} from 'react-notifications';
 import {setAccountPassphrase} from '../../../modules/account';
 
@@ -102,19 +102,15 @@ class InfoTransactionTable extends Component {
 	};
 
 	decryptMessageComponent = () => (
-		<Form
-			onSubmit={(values) => this.showPrivateTransactions(values)}
-			render={({
-						 submitForm, values, addValue, removeValue, setValue, getFormState
-					 }) => (
-				<form
-					className="form-group-app"
-					onSubmit={submitForm}
-				>
+		<Formik
+			initialValues={{ secretPhrase: '' }}
+			onSubmit={this.showPrivateTransactions}
+		>
+				<Form className="form-group-app">
 					<div className="d-flex">
-						<Text
+						<Field
 							className="mr-3"
-							field="secretPhrase"
+							name="secretPhrase"
 							placeholder="Secret phrase"
 							type="password"
 						/>
@@ -122,9 +118,8 @@ class InfoTransactionTable extends Component {
 							Submit
 						</button>
 					</div>
-				</form>
-			)}
-		/>
+				</Form>
+		</Formik>
 	);
 
 	render() {
