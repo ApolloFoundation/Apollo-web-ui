@@ -1,6 +1,6 @@
 import React from 'react';
 
-import NummericInput from '../../../components/form-components/NumericInput/numeric-input1';
+import NummericInput from '../../../components/form-components/NumericInput';
 import TextualInput from '../../../components/form-components/textual-input/textual-input1';
 
 

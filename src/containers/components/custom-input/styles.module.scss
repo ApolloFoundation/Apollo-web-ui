@@ -4,21 +4,21 @@
 	position: relative;
 }
 
-.input-number-wrap {
-	-webkit-appearance: none;
-	background: url(../../../assets/number-arrows.png) no-repeat center center;
-	background-size: contain;
-	width: 9px;
-	margin-right: 6px;
-	opacity: 1;
+.inputNumberWrap {
 	position: absolute;
+	width: 9px;
+	height: 40px;
+	opacity: 1;
 	top: 0;
 	right: 0;
-	bottom: 0;
-	cursor: pointer;
+	margin-right: 6px;
 	display: flex;
 	flex: 2;
 	flex-direction: column;
+	cursor: pointer;
+	background: url(../../../assets/number-arrows.png) no-repeat center center;
+	background-size: contain;
+	-webkit-appearance: none;
 }
 
 .input-number-up {

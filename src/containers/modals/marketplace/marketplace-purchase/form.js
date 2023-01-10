@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { formatTimestamp } from '../../../../helpers/util/time';
 import TextualInput from '../../../components/form-components/textual-input/textual-input1';
-import NumericInput from '../../../components/form-components/NumericInput/numeric-input1';
+import NumericInput from '../../../components/form-components/NumericInput';
 
 const Form = ({
   goods, formatTimestamp, decimals, ticker,

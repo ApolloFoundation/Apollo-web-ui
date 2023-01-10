@@ -4,7 +4,7 @@ import { Form, useFormikContext } from 'formik';
 import { ONE_GWEI } from '../../../../../../../constants';
 import { multiply, division } from '../../../../../../../helpers/format';
 import Button from '../../../../../../components/button';
-import NumericInput from '../../../../../../components/form-components/NumericInput/numeric-input1';
+import NumericInput from '../../../../../../components/form-components/NumericInput';
 import CustomInput from '../../../../../../components/custom-input';
 import InputRange from '../../../../../../components/input-range/index1';
 import CustomSelect from '../../../../../../components/select/index1';
@@ -91,6 +91,7 @@ export default function SellForm(props) {
             }
             setFieldValue('total', multiply(amount, price));
           }}
+          classNameWrapper="mb-0"
         />
       </div>
       <div className="form-group mb-0">
@@ -143,6 +144,7 @@ export default function SellForm(props) {
           type="float"
           placeholder="I will pay"
           disabled
+          classNameWrapper='mb-0'
         />
       </div>
       {values.walletAddress && (

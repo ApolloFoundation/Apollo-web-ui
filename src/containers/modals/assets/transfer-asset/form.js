@@ -1,7 +1,7 @@
 import React from 'react';
 import AccountRsInput from '../../../components/form-components/account-rs1';
 import TextualInputComponent from '../../../components/form-components/textual-input/textual-input1';
-import NumericInputComponent from '../../../components/form-components/numeric-input1';
+import NumericInputComponent from '../../../components/form-components/NumericInput';
 import CustomTextArea from '../../../components/form-components/text-area1';
 import CustomInput from '../../../components/custom-input';
 

@@ -70,12 +70,14 @@ const ChatForm = (props) => {
                                     id="messageToEncrypt"
                                     className="mb-0"
                                 />
-                                <TextualInputComponent
-                                    name='secretPhrase'
-                                    placeholder='Secret Phrase'
-                                    type="password"
-                                    className="mb-0"
-                                />
+                                <div className={styles.chatInput}>
+                                    <TextualInputComponent
+                                        name='secretPhrase'
+                                        placeholder='Secret Phrase'
+                                        type="password"
+                                        className="mb-0"
+                                    />
+                                </div>
                                 {props.is2FA && (
                                     <TextualInputComponent
                                         name='code2FA'

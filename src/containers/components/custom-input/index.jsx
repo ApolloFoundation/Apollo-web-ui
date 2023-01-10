@@ -7,7 +7,7 @@ import styles from './styles.module.scss';
 export default function CustomInput(props) {
   const {
     label, className, type, disableArrows, disabled, id, children, onChange,
-    maxValue, minValue, step, isSpecialSymbols, name, placeholder, defaultValue
+    maxValue, minValue, step, isSpecialSymbols, name, placeholder, defaultValue, classNameWrapper
   } = props;
   const [field, , helpers] = useField(name);
   const { setValue } = helpers;
@@ -82,7 +82,7 @@ export default function CustomInput(props) {
   }, []);
 
   return (
-    <div className={cn("form-group", {
+    <div className={cn("form-group", classNameWrapper, {
         'mb-15': type !== 'hidden',
         [styles.hidden]: type === 'hidden',
       })}
@@ -103,7 +103,7 @@ export default function CustomInput(props) {
             autoComplete="on"
           />
           {isNumberInput && (
-            <div className="input-number-wrap">
+            <div className={styles.inputNumberWrap}>
               <div className="input-number-up" onClick={handleClickUp} />
               <div className="input-number-down" onClick={handleClickDown} />
             </div>

@@ -6,7 +6,7 @@ import CustomTextArea from '../../components/form-components/text-area1';
 import AutoComplete from '../../components/auto-complete';
 import CheckboxFormInput from '../../components/check-button-input';
 import AccountRSForm from '../../components/form-components/account-rs1';
-import NumericInput from '../../components/form-components/numeric-input1';
+import NumericInput from '../../components/form-components/NumericInput';
 import { useFormikContext } from 'formik';
 
 const newAliasValidation = /APL-[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{5}/;

@@ -9,7 +9,7 @@ import {NotificationManager} from 'react-notifications';
 import ModalBody from '../../components/modals/modal-body';
 import TextualInputComponent from '../../components/form-components/textual-input/textual-input1';
 import CustomTextArea from '../../components/form-components/text-area1';
-import NummericInputForm from '../../components/form-components/NumericInput/numeric-input1'
+import NummericInputForm from '../../components/form-components/NumericInput'
 
 const IssueAsset = ({ closeModal, processForm }) => {
     const handleFormSubmit = useCallback((values) => {

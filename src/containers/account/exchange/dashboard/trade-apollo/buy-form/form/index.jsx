@@ -7,7 +7,7 @@ import CustomInput from '../../../../../../components/custom-input';
 import Button from '../../../../../../components/button';
 import CustomSelect from '../../../../../../components/select/index1';
 import InputRange from '../../../../../../components/input-range/index1';
-import NumericInput from '../../../../../../components/form-components/NumericInput/numeric-input1';
+import NumericInput from '../../../../../../components/form-components/NumericInput';
 import getFullNumber from '../../../../../../../helpers/util/expancionalParser';
 
 export default function BuyForm(props) {
@@ -79,7 +79,6 @@ export default function BuyForm(props) {
           />
         </div>
       )}
-      <div className="form-group mb-0">
         <NumericInput
           name="pairRate"
           label={`Price for 1 ${ticker}`}
@@ -96,9 +95,8 @@ export default function BuyForm(props) {
             setFieldValue('range', rangeValue);
             setFieldValue('total', multiply(amount, price));
           }}
-        />
-      </div>
-      <div className="form-group mb-0">
+          classNameWrapper="mb-2"
+          />
         <NumericInput
           name="offerAmount"
           label="I want to Buy"
@@ -115,9 +113,8 @@ export default function BuyForm(props) {
             setFieldValue('range', rangeValue === 'NaN' ? 0 : rangeValue);
             setFieldValue('total', multiply(amount, pairRate));
           }}
+          classNameWrapper="mb-2"
         />
-      </div>
-      <div className="form-group mb-0">
         <div className="input-group">
           <CustomInput
             name="total"
@@ -125,6 +122,7 @@ export default function BuyForm(props) {
             type="float"
             placeholder="I will pay"
             disabled
+            classNameWrapper="mb-0"
           >
             <div className="input-group-append">
               <span className="input-group-text">
@@ -152,7 +150,6 @@ export default function BuyForm(props) {
           </small>
         </div>
         )}
-      </div>
       {values.walletAddress && (
         <InputRange
           name="range"

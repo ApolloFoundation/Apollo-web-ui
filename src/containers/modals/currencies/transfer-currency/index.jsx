@@ -7,7 +7,7 @@ import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ModalBody from '../../../components/modals/modal-body';
 import AccountRSFormInput from '../../../components/form-components/account-rs1';
-import NumericInput from '../../../components/form-components/NumericInput/numeric-input1';
+import NumericInput from '../../../components/form-components/NumericInput';
 import CurrencyInput from '../../../components/form-components/currency-input1';
 import { getModalDataSelector } from '../../../../selectors';
 import { handleFormSubmit } from './handle-form-submit';

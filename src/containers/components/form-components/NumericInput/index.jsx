@@ -1,13 +1,12 @@
 import React from 'react';
 import cn from 'classnames';
 import CustomInput from '../../custom-input';
-import CheckboxFormInput from '../../check-button-input';
 import styles from './index.module.scss';
 
 const NumericInput = ({
   values, label, name, countingTtile, counterLabel, placeholder, type,
   inputHint, defaultValue, disabled, disableArrows, disabledFee, idGroup,
-  onChange,
+  onChange, classNameWrapper, 
 }) => (
   <>
     <div className={cn("form-group", styles.numericInputWrapper)}>
@@ -27,20 +26,15 @@ const NumericInput = ({
             id={`${idGroup}${name}-field`}
             disabled={disabled || (disabledFee && values && !values.isCustomFee)}
             disableArrows={disableArrows}
-          />
+            classNameWrapper={classNameWrapper}
+          >
           {(countingTtile || counterLabel) && (
             <div className={cn("input-group-append", styles.numericInputIcon)}>
               <span className="input-group-text">{countingTtile || counterLabel}</span>
             </div>
           )}
+          </CustomInput>
         </div>
-        {disabledFee && (
-          <CheckboxFormInput
-            className="disabled-fee-checkbox"
-            name="isCustomFee"
-            label="Custom fee"
-          />
-        )}
       </div>
     </div>
     {inputHint && (
