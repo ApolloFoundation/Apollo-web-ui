@@ -52,7 +52,7 @@ export default function SellFormWrapper(props) {
             NotificationManager.error(`You can sell more then 0.001 ${ticker}`, 'Error', 5000);
             isError = true;
           }
-          if (+ethFee > +values.walletAddress.value.balances.eth) {
+          if (+ethFee > +values.walletAddress.balances.eth) {
             NotificationManager.error(`To sell ${ticker} you need to have at least ${ethFee.toLocaleString('en', {
               minimumFractionDigits: 0,
               maximumFractionDigits: 9,
@@ -83,7 +83,7 @@ export default function SellFormWrapper(props) {
             sender: account,
             passphrase: passPhrase,
             feeATM,
-            walletAddress: values.walletAddress.value.address,
+            walletAddress: values.walletAddress.address,
           };
           if (passPhrase) {
             dispatch(createOffer(params)).then(() => {

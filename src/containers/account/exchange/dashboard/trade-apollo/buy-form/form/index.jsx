@@ -46,7 +46,7 @@ export default function BuyForm(props) {
         ((normalizePairRate * normalizeOfferAmount) * 100) / (balance || 1)
       ).toFixed(0);
       setValues({
-        walletAddress: walletsList && walletsList[0],
+        walletAddress: walletsList && walletsList[0]?.value,
         pairRate: normalizePairRate,
         offerAmount: normalizeOfferAmount,
         total: normalizeTotal,
@@ -59,8 +59,6 @@ export default function BuyForm(props) {
   let balance = values.walletAddress && values.walletAddress.balances?.[currency];
   balance = currency === 'eth' ? balance - ethFee : balance;
   balance = balance < 0 ? 0 : balance;
-
-  console.log(walletsList);
 
   return (
     <Form
@@ -125,7 +123,7 @@ export default function BuyForm(props) {
                   <span className="input-group-info-text">
                     <i className="zmdi zmdi-balance-wallet" />
                     &nbsp;
-                    {(getFullNumber(Number(values.walletAddress.balances?.[currency])))}
+                    {(getFullNumber(Number(values.walletAddress.balances?.[currency] ?? 0)))}
                     &nbsp;
                   </span>
                 )}

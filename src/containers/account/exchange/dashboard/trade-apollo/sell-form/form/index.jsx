@@ -44,7 +44,7 @@ export default function SellForm(props) {
       const normalizeTotal = !total ? 0 : division(total, 10 ** 18, 9);
       const rangeValue = ((normalizeOfferAmount * 100) / balanceFormat).toFixed(0);
       setValues({
-        walletAddress: walletsList && walletsList[0],
+        walletAddress: walletsList && walletsList[0].value,
         pairRate: normalizePairRate,
         offerAmount: normalizeOfferAmount,
         total: normalizeTotal,

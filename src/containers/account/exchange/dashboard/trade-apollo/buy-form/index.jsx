@@ -29,6 +29,7 @@ export default function BuyFormWrapper(props) {
   const setPending = useCallback((value = true) => { setIsPending(value); }, []);
 
   const handleFormSubmit = useCallback( async (newValues) => {
+    console.log("🚀 ~ file: index.jsx:32 ~ handleFormSubmit ~ newValues", newValues)
     if (!isPending) {
       const pairRateInfo = multiply(newValues.pairRate, ONE_GWEI);
       const offerAmountInfo = multiply(newValues.offerAmount, ONE_GWEI);
@@ -43,7 +44,7 @@ export default function BuyFormWrapper(props) {
       if (wallet) {
         if (newValues.offerAmount > 0 && newValues.pairRate > 0) {
           const balance = newValues.walletAddress
-            && newValues.walletAddress.value.balances[currency];
+            && newValues.walletAddress.balances[currency];
           let isError = false;
           if (newValues.pairRate < 0.000000001) {
             NotificationManager.error(`Price must be more then 0.000000001 ${currency.toUpperCase()}`, 'Error', 5000);
@@ -53,7 +54,7 @@ export default function BuyFormWrapper(props) {
             NotificationManager.error(`You can buy more then 0.001 ${ticker}`, 'Error', 5000);
             isError = true;
           }
-          if (!newValues.walletAddress || !newValues.walletAddress.value.balances) {
+          if (!newValues.walletAddress || !newValues.walletAddress.balances) {
             NotificationManager.error('Please select wallet address', 'Error', 5000);
             isError = true;
           }
@@ -61,7 +62,7 @@ export default function BuyFormWrapper(props) {
             NotificationManager.error(`You need more ${currency.toUpperCase()}. Please check your wallet balance.`, 'Error', 5000);
             isError = true;
           }
-          if (+ethFee > +newValues.walletAddress.value.balances.eth) {
+          if (+ethFee > +newValues.walletAddress.balances.eth) {
             NotificationManager.error(`To buy ${ticker} you need to have at least ${ethFee.toLocaleString('en', {
               minimumFractionDigits: 0,
               maximumFractionDigits: 9,
@@ -74,7 +75,7 @@ export default function BuyFormWrapper(props) {
           }
           const pairRate = Math.round(multiply(newValues.pairRate, ONE_GWEI));
           const offerAmount = newValues.offerAmount * ONE_GWEI;
-          const balanceETH = parseFloat(newValues.walletAddress.value.balances[currency]);
+          const balanceETH = parseFloat(newValues.walletAddress.balances[currency]);
           const currentBalanceAPL = (dashboardAccoountInfo && dashboardAccoountInfo.unconfirmedBalanceATM)
             ? parseFloat(dashboardAccoountInfo.unconfirmedBalanceATM)
             : parseFloat(balanceAPL);
@@ -104,7 +105,7 @@ export default function BuyFormWrapper(props) {
             sender: account,
             passphrase: passPhrase,
             feeATM,
-            walletAddress: newValues.walletAddress.value.address,
+            walletAddress: newValues.walletAddress.address,
           };
           if (passPhrase) {
             dispatch(createOffer(params)).then(() => {
