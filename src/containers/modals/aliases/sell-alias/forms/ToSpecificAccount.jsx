@@ -64,7 +64,7 @@ export const ToSpecificAccount = ({ ticker, alias, closeModal, onSubmit }) => {
               />
               <CheckboxFormInput
                   label='Message is Never Deleted'
-                  field='permanent_message'
+                  name='permanent_message'
                   id="permanent_message-to-account"
               />
           </>

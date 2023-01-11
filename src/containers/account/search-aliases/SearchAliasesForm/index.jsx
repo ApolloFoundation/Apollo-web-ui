@@ -11,9 +11,9 @@ export const SearchAliasForm = ({ onSubmit }) => (
         <div className="iconned-input-field form-group-app">
             <CustomInput
                 placeholder='Alias'
-                field='alias'
                 type="text"
                 name="alias"
+                classNameWrapper="mb-0"
             />
             <button
                 type='submit'

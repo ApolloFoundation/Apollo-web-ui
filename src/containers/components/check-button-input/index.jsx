@@ -15,16 +15,11 @@ const CheckboxFormInput = props => {
   
   const { setValue } = helpers;
 
-  const handleChange = useCallback(({ target: { checked } }) => {
+  const handleChange = useCallback((e) => {
+      const { checked } = e.target;
     setValue(checked);
-    if (onChange) onChange();
+    if (onChange) onChange(e);
   }, [onChange, setValue]);
-
-  useEffect(() => {
-    if (typeof value !== undefined) {
-      helpers.setValue(value);
-    }
-  }, [value]);
 
   return (
     <div className={cn('checkbox-group mb-15', className, { 'checkbox-group--top': isTopOffset})}>

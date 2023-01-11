@@ -28,7 +28,6 @@ export const TagForm = () => {
           <div className="iconned-input-field form-group-app">
               <CustomInput
                 placeholder='Name Description Tag'
-                field='query'
                 type="text"
                 name="query"
               />

@@ -4,13 +4,10 @@
  ******************************************************************************/
 
 
-import React from 'react';
-import {connect} from 'react-redux';
-import {setModalData} from '../../../modules/modals';
-import submitForm from "../../../helpers/forms/forms";
-import CustomTextArea from "../../components/form-components/text-area";
-import {CheckboxFormInput} from "../../components/form-components/check-button-input";
-import CustomFormSelect from "../../components/form-components/custom-form-select";
+import React, { useCallback, useState } from 'react';
+import CustomTextArea from "../../components/form-components/text-area1";
+import CheckboxFormInput from "../../components/check-button-input";
+import CustomFormSelect from "../../components/form-components/custom-form-select1";
 import ModalBody from "../../components/modals/modal-body";
 
 const hashOptions = [
@@ -40,97 +37,58 @@ const hashOptions = [
     }
 ];
 
-class HashCalculation extends React.Component {
-    state = {
-        activeTab: 0,
-        advancedState: false,
+const HashCalculation = ({ processForm, closeModal }) => {
+    const [generatedHash, setGeneratedHash] = useState(false);
 
-        // submitting
-        passphraseStatus: false,
-        recipientStatus: false,
-        amountStatus: false,
-        feeStatus: false,
-        generatedHash: false,
-    };
-
-    handleFormSubmit = async (values) => {
-        values = {
+    const handleFormSubmit = useCallback(async (values) => {
+        const data = {
             secret: values.data,
             secretIsText: values.isMessage,
             hashAlgorithm: values.alg,
             feeATM: 0
         };
 
-        this.props.processForm(values, 'hash', null, (res) => {
-            this.setState({
-                generatedHash: res.hash
-            });
+        processForm(data, 'hash', null, (res) => {
+            setGeneratedHash(res.hash);
         });
-    };
+    }, [processForm]);
 
-    handleAdvancedState = () => {
-        if (this.state.advancedState) {
-            this.setState({
-                ...this.props,
-                advancedState: false
-            })
-        } else {
-            this.setState({
-                ...this.props,
-                advancedState: true
-            })
-        }
-    };
-
-    render() {
-        return (
-            <ModalBody
-                modalTitle={'Hash calculation'}
-                closeModal={this.props.closeModal}
-                handleFormSubmit={(values) => this.handleFormSubmit(values)}
-                submitButtonName={'Calculate'}
-                isDisableSecretPhrase
-            >
-                <CustomTextArea
-                    label={'Data'}
-                    placeholder={'Data to hash'}
-                    field={'data'}
+    return (
+        <ModalBody
+            modalTitle='Hash calculation'
+            closeModal={closeModal}
+            handleFormSubmit={handleFormSubmit}
+            submitButtonName='Calculate'
+            isDisableSecretPhrase
+            initialValues={{
+                isMessage: true,
+            }}
+        >
+            <CustomTextArea
+                label='Data'
+                placeholder='Data to hash'
+                name='data'
+            />
+            <CheckboxFormInput
+                name='isMessage'
+                label='Textual data representation'
+                id="isMessage"
+            />
+            {hashOptions && (
+                <CustomFormSelect
+                    options={hashOptions}
+                    defaultValue={hashOptions[0]}
+                    label='Hash algorithm'
+                    name='alg'
                 />
-                <CheckboxFormInput
-                    checkboxes={[
-                        {
-                            field: 'isMessage',
-                            label: 'Textual data representation',
-                            defaultValue: true
-                        }
-                    ]}
-                />
-                {hashOptions && (
-                    <CustomFormSelect
-                        options={hashOptions}
-                        defaultValue={hashOptions[0]}
-                        label={'Hash algorithm'}
-                        field={'alg'}
-                    />
-                )}
-                {this.state.generatedHash && (
-                    <div className='info-box blue-info'>
-                        <div className="token word-brake">{this.state.generatedHash}</div>
-                    </div>
-                )}
-            </ModalBody>
-        );
-    }
+            )}
+            {generatedHash && (
+                <div className='info-box blue-info'>
+                    <div className="token word-brake">{generatedHash}</div>
+                </div>
+            )}
+        </ModalBody>
+    );
 }
 
-const mapStateToProps = state => ({
-    modalData: state.modals.modalData
-});
-
-const mapDispatchToProps = dispatch => ({
-    setModalData: (data) => dispatch(setModalData(data)),
-    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
-
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(HashCalculation);
+export default HashCalculation;

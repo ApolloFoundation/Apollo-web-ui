@@ -1,7 +1,6 @@
 import React from 'react';
 import cn from 'classnames';
 import CustomInput from '../../custom-input';
-import styles from './index.module.scss';
 
 const NumericInput = ({
   values, label, name, countingTtile, counterLabel, placeholder, type,
@@ -9,9 +8,9 @@ const NumericInput = ({
   onChange, classNameWrapper, 
 }) => (
   <>
-    <div className={cn("form-group", styles.numericInputWrapper)}>
+    <div className="form-group">
       <div className={disabledFee ? 'disabled-fee-wrap' : ''}>
-        <div className={cn( styles.numericInput, {
+        <div className={cn({
           'input-group': countingTtile || counterLabel,
           'input-group-disabled': disabled || (disabledFee && values && !values.isCustomFee),
         })}
@@ -29,7 +28,7 @@ const NumericInput = ({
             classNameWrapper={classNameWrapper}
           >
           {(countingTtile || counterLabel) && (
-            <div className={cn("input-group-append", styles.numericInputIcon)}>
+            <div className="input-group-append">
               <span className="input-group-text">{countingTtile || counterLabel}</span>
             </div>
           )}
