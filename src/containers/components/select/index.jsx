@@ -16,8 +16,6 @@ export default function CustomSelect({
     if (onChange) onChange(value);
   };
 
-  console.log(value);
-
   return (
     <Select
       name={name}
