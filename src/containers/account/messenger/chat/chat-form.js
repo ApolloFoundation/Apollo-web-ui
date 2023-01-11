@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {handleSendMessageFormSubmit} from './handleFormSubmit';
 import classNames from "classnames";
 import { Form, FormikProvider, useFormik } from 'formik';
-import CustomTextArea from 'containers/components/form-components/TextArea';
+import CustomTextArea from 'containers/components/form-components/TextArea/TextAreaWithFormik';
 import CheckboxFormInput from 'containers/components/check-button-input';
 import TextualInputComponent from 'containers/components/form-components/TextualInput';
 import styles from './index.module.scss';

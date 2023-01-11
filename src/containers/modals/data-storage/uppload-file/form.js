@@ -1,7 +1,7 @@
 import React from 'react';
 import TextualInputComponent from '../../../components/form-components/TextualInput';
 import MultiSelect from '../../../components/multi-select/index1';
-import CustomTextArea from '../../../components/form-components/TextArea';
+import CustomTextArea from '../../../components/form-components/TextArea/TextAreaWithFormik';
 import FileInput from '../../../components/form-components/FIleInput';
 
 

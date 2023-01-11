@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field, FieldArray, useFormikContext } from 'formik';
 import TextualInputComponent from '../../../components/form-components/TextualInput';
-import CustomTextArea from '../../../components/form-components/TextArea';
+import CustomTextArea from '../../../components/form-components/TextArea/TextAreaWithFormik';
 import CustomFormSelect from '../../../components/form-components/CustomSelect';
 import BlockHeightInput from '../../../components/form-components/BlockHeight/block-height-input1';
 import { AssetInput } from '../../../components/form-components-new/AssetInput';

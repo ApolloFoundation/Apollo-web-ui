@@ -16,7 +16,7 @@ import {getAssetAction} from "../../../actions/assets";
 import BlockHeightInput from '../form-components/BlockHeight/block-height-input1';
 import CheckboxFormInput from '../check-button-input';
 import CustomInputForm from '../form-components/TextualInput';
-import CustomTextArea from '../form-components/TextArea';
+import CustomTextArea from '../form-components/TextArea/TextAreaWithFormik';
 import {TabContainer} from '../form-components/TabContainer/tab-container';
 import AccountRSFormInput from '../form-components/AccountRS'
 import CustomFormSelect from '../select/index1'

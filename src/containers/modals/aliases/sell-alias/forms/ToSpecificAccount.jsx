@@ -5,7 +5,7 @@ import TextualInputComponent from '../../../../components/form-components/Textua
 import AccountRSFormInput from '../../../../components/form-components/AccountRS';
 import NumericInputComponent from '../../../../components/form-components/NumericInput';
 import CheckboxFormInput from '../../../../components/check-button-input';
-import CustomTextArea from '../../../../components/form-components/TextArea';
+import CustomTextArea from '../../../../components/form-components/TextArea/TextAreaWithFormik';
 
 export const ToSpecificAccount = ({ ticker, alias, closeModal, onSubmit }) => {
   const { values } = useFormikContext();

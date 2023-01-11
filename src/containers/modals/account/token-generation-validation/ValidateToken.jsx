@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
 import { validateTokenAction } from "../../../../actions/account";
 import ModalBody from '../../../components/modals/modal-body';
-import CustomTextArea from '../../../components/form-components/TextArea';
+import CustomTextArea from '../../../components/form-components/TextArea/TextAreaWithFormik';
 import CustomInput from '../../../components/custom-input';
 
 export const ValidateToken = ({ closeModal }) => {

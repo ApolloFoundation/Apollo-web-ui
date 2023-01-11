@@ -8,7 +8,7 @@ import React, { useCallback } from 'react';
 import {NotificationManager} from 'react-notifications';
 import ModalBody from '../../components/modals/modal-body';
 import TextualInputComponent from '../../components/form-components/TextualInput';
-import CustomTextArea from '../../components/form-components/TextArea';
+import CustomTextArea from '../../components/form-components/TextArea/TextAreaWithFormik';
 import NummericInputForm from '../../components/form-components/NumericInput'
 
 const IssueAsset = ({ closeModal, processForm }) => {

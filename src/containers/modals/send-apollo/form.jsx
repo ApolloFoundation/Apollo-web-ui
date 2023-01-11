@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { processAccountRStoID } from 'apl-web-crypto';
 import { searchAliases } from '../../../actions/aliases';
-import CustomTextArea from '../../components/form-components/TextArea';
+import CustomTextArea from '../../components/form-components/TextArea/TextAreaWithFormik';
 import AutoComplete from '../../components/auto-complete';
 import CheckboxFormInput from '../../components/check-button-input';
 import AccountRSForm from '../../components/form-components/AccountRS';

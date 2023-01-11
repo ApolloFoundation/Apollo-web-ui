@@ -13,7 +13,7 @@ import submitForm from "../../../helpers/forms/forms";
 import ModalFooter from '../../components/modal-footer';
 import BackForm from '../modal-form/modal-form-container';
 import CustomInput from '../../components/custom-input';
-import CustomTextArea from '../../components/form-components/TextArea';
+import CustomTextArea from '../../components/form-components/TextArea/TextAreaWithFormik';
 import { getAccountInfoSelector, getModalHistorySelector } from '../../../selectors';
 import { FeeWrapper } from '../../components/form-components/FeeWrapper';
 

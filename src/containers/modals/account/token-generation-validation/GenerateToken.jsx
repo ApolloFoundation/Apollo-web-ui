@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import QRCode from 'qrcode.react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
-import CustomTextArea from '../../../components/form-components/TextArea';
+import CustomTextArea from '../../../components/form-components/TextArea/TextAreaWithFormik';
 import InfoBox from '../../../components/info-box'
 import ModalBody from '../../../components/modals/modal-body';
 import submitForm from "../../../../helpers/forms/forms";

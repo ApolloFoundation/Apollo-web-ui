@@ -1,6 +1,6 @@
 import React from 'react';
 import TextualInputComponent from '../../../components/form-components/TextualInput';
-import CustomTextArea from '../../../components/form-components/TextArea';
+import CustomTextArea from '../../../components/form-components/TextArea/TextAreaWithFormik';
 import NumericInputComponent from '../../../components/form-components/NumericInput';
 import FileInput from '../../../components/form-components/FIleInput';
 
