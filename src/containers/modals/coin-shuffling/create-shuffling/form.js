@@ -1,7 +1,7 @@
 import React from 'react';
 import { useFormikContext } from 'formik';
 import { useSelector } from 'react-redux';
-import CustomFormSelect from '../../../components/select/index1';
+import CustomFormSelect from '../../../components/select';
 import NumericInputComponent from '../../../components/form-components/NumericInput';
 import { AssetInput } from '../../../components/form-components/AssetInput';
 import CurrencyInput from '../../../components/form-components/CurrencyInput';

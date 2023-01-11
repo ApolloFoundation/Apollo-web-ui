@@ -62,6 +62,7 @@ const HashCalculation = ({ processForm, closeModal }) => {
             isDisableSecretPhrase
             initialValues={{
                 isMessage: true,
+                alg: hashOptions[0].value,
             }}
         >
             <CustomTextArea
@@ -77,7 +78,6 @@ const HashCalculation = ({ processForm, closeModal }) => {
             {hashOptions && (
                 <CustomFormSelect
                     options={hashOptions}
-                    defaultValue={hashOptions[0]}
                     label='Hash algorithm'
                     name='alg'
                 />

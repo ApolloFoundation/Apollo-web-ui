@@ -4,13 +4,7 @@ import CustomFormSelect from '../../../components/form-components/CustomSelect';
 import TextualInputComponent from '../../../components/form-components/TextualInput';
 import AccountRSFormInput from '../../../components/form-components/AccountRS';
 
-const typeData = [
-    { value: 'uri',     label: 'URI' },
-    { value: 'account', label: 'Account' },
-    { value: 'general', label: 'Other' },
-];
-
-const EditAliasForm = ({ alias }) => {
+const EditAliasForm = ({ alias, typeData }) => {
     const { values, setFieldValue } = useFormikContext();
     
     useEffect(() => {
@@ -20,7 +14,6 @@ const EditAliasForm = ({ alias }) => {
     return (
         <>
             <CustomFormSelect
-                defaultValue={typeData[0]}
                 options={typeData}
                 label='Type'
                 name='type'

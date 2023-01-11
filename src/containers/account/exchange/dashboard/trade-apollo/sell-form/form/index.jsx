@@ -7,7 +7,7 @@ import Button from '../../../../../../components/button';
 import NumericInput from '../../../../../../components/form-components/NumericInput';
 import CustomInput from '../../../../../../components/custom-input';
 import InputRange from '../../../../../../components/input-range/index1';
-import CustomSelect from '../../../../../../components/select/index1';
+import CustomSelect from '../../../../../../components/form-components/CustomSelect';
 
 export default function SellForm(props) {
   const { values, setFieldValue, setValues } = useFormikContext();
@@ -61,16 +61,12 @@ export default function SellForm(props) {
   return (
     <Form className="form-group-app d-flex flex-column justify-content-between h-100 mb-0">
       {walletsList && !!walletsList.length && (
-        <div className="form-group mb-3">
-          <label>
-            {`${currencyName} Wallet`}
-          </label>
           <CustomSelect
+            label={`${currencyName} Wallet`}
             className="form-control"
             name="walletAddress"
             options={walletsList}
           />
-        </div>
       )}
       <div className="form-group  mb-0">
         <NumericInput

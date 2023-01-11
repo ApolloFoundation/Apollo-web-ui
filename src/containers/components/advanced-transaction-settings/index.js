@@ -19,7 +19,7 @@ import CustomInputForm from '../form-components/TextualInput';
 import CustomTextArea from '../form-components/TextArea/TextAreaWithFormik';
 import {TabContainer} from '../form-components/TabContainer/tab-container';
 import AccountRSFormInput from '../form-components/AccountRS'
-import CustomFormSelect from '../select/index1'
+import CustomFormSelect from '../select'
 import { AssetInput } from '../form-components/AssetInput'
 import CurrencyInput from '../form-components/CurrencyInput'
 

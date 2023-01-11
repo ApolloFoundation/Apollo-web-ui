@@ -5,7 +5,7 @@ import { multiply, division } from '../../../../../../../helpers/format';
 import { ONE_GWEI } from '../../../../../../../constants';
 import CustomInput from '../../../../../../components/custom-input';
 import Button from '../../../../../../components/button';
-import CustomSelect from '../../../../../../components/select/index1';
+import CustomSelect from '../../../../../../components/form-components/CustomSelect';
 import InputRange from '../../../../../../components/input-range/index1';
 import NumericInput from '../../../../../../components/form-components/NumericInput';
 import getFullNumber from '../../../../../../../helpers/util/expancionalParser';
@@ -56,28 +56,23 @@ export default function BuyForm(props) {
   }, [currency, infoSelectedBuyOrder, setValues, wallet, walletsList, passPhrase]);
 
   const currencyName = currency.toUpperCase();
-  // TODO check error of object structure. Prop "value" can not exist
-  let balance = values.walletAddress && values.walletAddress.value.balances[currency];
+  let balance = values.walletAddress && values.walletAddress.balances?.[currency];
   balance = currency === 'eth' ? balance - ethFee : balance;
   balance = balance < 0 ? 0 : balance;
+
+  console.log(walletsList);
 
   return (
     <Form
       className="form-group-app d-flex flex-column justify-content-between h-100 mb-0"
     >
       {walletsList && !!walletsList.length && (
-        <div className="form-group mb-3">
-          <label>
-            {currencyName}
-            {' '}
-            Wallet
-          </label>
           <CustomSelect
+            label={`${currencyName} Wallet`}
             className="form-control"
             name="walletAddress"
             options={walletsList}
           />
-        </div>
       )}
         <NumericInput
           name="pairRate"
@@ -130,7 +125,7 @@ export default function BuyForm(props) {
                   <span className="input-group-info-text">
                     <i className="zmdi zmdi-balance-wallet" />
                     &nbsp;
-                    {(getFullNumber(Number(values.walletAddress.value.balances[currency])))}
+                    {(getFullNumber(Number(values.walletAddress.balances?.[currency])))}
                     &nbsp;
                   </span>
                 )}

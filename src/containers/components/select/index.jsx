@@ -10,30 +10,24 @@ import Select from 'react-select';
 import './Select.scss';
 
 export default function CustomSelect({
-  options, name, defaultValue, onChange,
+  options, name, defaultValue, onChange, value, onBlur,
 }) {
-  const [{value, ...field}, , helpers] = useField(name);
-
   const handleChange = ({ value }) => {
-    helpers.setValue(value);
-    if (onChange) onChange();
+    if (onChange) onChange(value);
   };
 
-  useEffect(() => {
-    if (defaultValue) {
-      helpers.setValue(defaultValue.value);
-    }
-  }, []);
+  console.log(value);
 
   return (
     <Select
-      {...field}
+      name={name}
       value={options ? options.find(option => option.value === value) : ''}
       className="form-custom-select"
       classNamePrefix="custom-select-box"
       options={options}
       defaultValue={defaultValue}
       onChange={handleChange}
+      onBlur={onBlur}
       theme={theme => ({
         ...theme,
         borderRadius: 0,

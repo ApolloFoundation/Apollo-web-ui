@@ -1,5 +1,5 @@
 import React from 'react';
-import CustomSelect from '../../select/index1';
+import { SelectWithFormik } from '../../select/SelectWithFormik';
 
 const CustomFormSelect = ({ defaultValue, options, label, name }) => (
     <div className="form-group mb-15">
@@ -8,7 +8,7 @@ const CustomFormSelect = ({ defaultValue, options, label, name }) => (
         </label>
         <div>
             <div className="form-group-select">
-                <CustomSelect
+                <SelectWithFormik
                     className="form-control"
                     name={name}
                     defaultValue={defaultValue}

@@ -4,19 +4,12 @@ import AccountRSFormInput from '../../../components/form-components/AccountRS';
 import CustomInput from '../../../components/custom-input';
 import CustomSelect from '../../../components/form-components/CustomSelect';
 
-const aliasTypeData = [
-    { value: 'uri',     label: 'URI' },
-    { value: 'account', label: 'Account' },
-    { value: 'general', label: 'Other' },
-];
-
-const AddAliasForm = () => {
+const AddAliasForm = ({ aliasTypeData }) => {
     const { values } = useFormikContext();
 
     return (
         <>
             <CustomSelect
-                defaultValue={aliasTypeData[0]}
                 options={aliasTypeData}
                 label='Type'
                 name='type'

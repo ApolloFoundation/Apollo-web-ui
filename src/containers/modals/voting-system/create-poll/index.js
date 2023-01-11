@@ -12,6 +12,13 @@ import { getTickerSelector } from '../../../../selectors';
 import { IS_MODAL_PROCESSING } from '../../../../modules/modals';
 import PollForm from './form';
 
+const votingModelData = [
+    {value: 0, label: 'Vote by Account'},
+    {value: 1, label: 'Vote by Account Balance'},
+    {value: 2, label: 'Vote by Asset Balance'},
+    {value: 3, label: 'Vote by Currency Balance'}
+];
+
 const CreatePoll = ({ processForm, nameModal, closeModal }) => {
     const dispatch = useDispatch();
     const ticker = useSelector(getTickerSelector);
@@ -67,9 +74,10 @@ const CreatePoll = ({ processForm, nameModal, closeModal }) => {
                 minRangeValue: 0,
                 maxRangeValue: 1,
                 minBalance: 0,
+                votingModel: votingModelData[0].value,
             }}
         >
-            <PollForm ticker={ticker} />
+            <PollForm ticker={ticker} votingModelData={votingModelData} />
         </ModalBody>
     );
 }

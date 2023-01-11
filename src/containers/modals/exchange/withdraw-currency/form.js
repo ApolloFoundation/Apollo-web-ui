@@ -25,7 +25,6 @@ export const WithdrawForm = ({ typeData }) => {
             />
             {values.asset && (
                 <CustomSelect
-                    defaultValue={typeData.find(type => type.value.currency === 'eth')}
                     options={typeData}
                     label='Wallet'
                     name='asset'

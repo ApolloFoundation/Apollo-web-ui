@@ -11,6 +11,12 @@ import {NotificationManager} from "react-notifications";
 import ModalBody from '../../../components/modals/modal-body';
 import AddAliasForm from './form';
 
+const aliasTypeData = [
+    { value: 'uri',     label: 'URI' },
+    { value: 'account', label: 'Account' },
+    { value: 'general', label: 'Other' },
+];
+
 const AddAlias = ({ closeModal }) => {
     const dispatch = useDispatch();
     const [isPending, setIsPending] = useState(false);
@@ -39,8 +45,11 @@ const AddAlias = ({ closeModal }) => {
             handleFormSubmit={handleFormSubmit}
             submitButtonName='Add Alias'
             idGroup="add-alias-fee"
+            initialValues={{
+                type: aliasTypeData[0].value,
+            }}
         >
-            <AddAliasForm />
+            <AddAliasForm aliasTypeData={aliasTypeData} />
         </ModalBody>
     );
 }

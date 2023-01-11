@@ -10,6 +10,12 @@ import ModalBody from '../../../components/modals/modal-body';
 import { useAliasDataLoader } from '../useAliasDataLoader';
 import EditAliasForm from './form';
 
+const typeData = [
+    { value: 'uri',     label: 'URI' },
+    { value: 'account', label: 'Account' },
+    { value: 'general', label: 'Other' },
+];
+
 const EditAlias = ({ closeModal, processForm }) => {
     const alias = useAliasDataLoader();
 
@@ -33,8 +39,11 @@ const EditAlias = ({ closeModal, processForm }) => {
             closeModal={closeModal}
             handleFormSubmit={handleFormSubmit}
             submitButtonName='Edit Alias'
+            initialValues={{
+                type: typeData[0].value,
+            }}
         >
-            <EditAliasForm alias={alias} />
+            <EditAliasForm alias={alias} typeData={typeData} />
         </ModalBody>
     );
 }

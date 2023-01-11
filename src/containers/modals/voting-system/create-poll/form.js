@@ -8,14 +8,7 @@ import { AssetInput } from '../../../components/form-components-new/AssetInput';
 import { CurrencyInput } from '../../../components/form-components-new/CurrencyInput';
 import { TextComponentWithIcon } from '../../../components/form-components-new/TextComponent';
 
-const votingModelData = [
-    {value: 0, label: 'Vote by Account'},
-    {value: 1, label: 'Vote by Account Balance'},
-    {value: 2, label: 'Vote by Asset Balance'},
-    {value: 3, label: 'Vote by Currency Balance'}
-];
-
-const PollForm = ({ idGroup, ticker }) => {
+const PollForm = ({ idGroup, ticker, votingModelData }) => {
     const { values } = useFormikContext();
     const removeAnswer = (remove, answers, index) => () => {
         if (answers && answers.length > 1) {
@@ -56,7 +49,6 @@ const PollForm = ({ idGroup, ticker }) => {
                 label='Poll By'
                 name='votingModel'
                 idGroup={idGroup}
-                defaultValue={votingModelData[0]}
             />
 
             {values.votingModel === 2 && (

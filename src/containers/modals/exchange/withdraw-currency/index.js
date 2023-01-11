@@ -95,7 +95,7 @@ const WithdrawCurrency = ({ closeModal,  }) => {
                 fromAddress: modalData?.address ?? '',
                 toAddress: '',
                 amount: 0,
-                asset: typeData.find(type => type.value.currency === 'eth'),
+                asset: typeData.find(type => type.value.currency === 'eth')?.value,
                 transferFee: 0,
             }}
             isPending={isPending}
