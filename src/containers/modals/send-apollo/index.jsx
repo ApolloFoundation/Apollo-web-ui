@@ -24,7 +24,6 @@ export default function SendApollo({ closeModal, processForm }) {
   const [alias, setAlias] = useState(null);
 
   const modalData = useSelector(getModalDataSelector);
-  console.log("🚀 ~ file: index.jsx:27 ~ SendApollo ~ modalData", modalData)
   const account = useSelector(getAccountSelector);
   const ticker = useSelector(getTickerSelector);
   const decimals = useSelector(getDecimalsSelector);
