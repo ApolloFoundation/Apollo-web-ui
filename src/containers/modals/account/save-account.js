@@ -8,7 +8,7 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import {NotificationManager} from "react-notifications";
 import classNames from "classnames";
-import AccountRS from '../../components/account-rs/index1';
+import AccountRS from '../../components/account-rs';
 import { readFromLocalStorage, writeToLocalStorage } from '../../../actions/localStorage';
 import BackForm from '../modal-form/modal-form-container';
 import { ModalBackButton } from '../../components/ModalBackButton';

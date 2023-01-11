@@ -1,5 +1,5 @@
 import React from 'react';
-import AccountRS from '../../account-rs/index1';
+import AccountRS from '../../account-rs';
 
 const AccountRSFormInput = props => {
   const {

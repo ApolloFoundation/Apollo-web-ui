@@ -7,7 +7,7 @@ import { getAccountDataBySecretPhrasseAction, getAccountDataAction } from '../..
 import InfoBox from '../../../../components/info-box';
 import CustomInput from '../../../../components/custom-input';
 import Button from '../../../../components/button';
-import AccountRS from '../../../../components/account-rs/index1';
+import AccountRS from '../../../../components/account-rs';
 import { Switcher } from '../../../../components/form-components/switcher/switcher';
 import './standartForm.scss';
 

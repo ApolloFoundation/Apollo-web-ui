@@ -2,7 +2,7 @@ import React from 'react';
 import { Formik, Form } from 'formik';
 import { useHistory } from 'react-router-dom';
 import {NotificationManager} from "react-notifications";
-import AccountRS from "../../../../components/account-rs/index1";
+import AccountRS from "../../../../components/account-rs";
 
 export const AccountForm = () => {
   const history = useHistory();
