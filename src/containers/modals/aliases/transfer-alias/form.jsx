@@ -36,6 +36,7 @@ const TransferAlias = ({ alias }) => {
                     <CheckboxFormInput
                         label='Message is Never Deleted'
                         name='permanent_message'
+                        id='permanent_message'
                     />
                 </>
             }

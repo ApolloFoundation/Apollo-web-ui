@@ -38,6 +38,7 @@ const SendPrivateMoneyForm = ({ idGroup, mixerData, ticker }) => {
     />
     {mixerData && (
       <CheckboxForm
+        id="isMixer"
         name="isMixer"
         label="Use Mixer"
       />

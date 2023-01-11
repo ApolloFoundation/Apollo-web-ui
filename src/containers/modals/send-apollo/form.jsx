@@ -49,6 +49,7 @@ export default function SendMoneyForm({
       <CheckboxFormInput
         onChange={onChosenTransactionOnAlias}
         name="alias"
+        id="alias"
         label="Use alias?"
       />
       {values.alias && (
@@ -77,6 +78,7 @@ export default function SendMoneyForm({
       />
       <CheckboxFormInput
         name="add_message"
+        id="add_message"
         label="Add a message?"
       />
       {values.add_message && (
@@ -88,10 +90,12 @@ export default function SendMoneyForm({
           />
           <CheckboxFormInput
             name="encrypt_message"
+            id="encrypt_message"
             label="Encrypt Message"
           />
           <CheckboxFormInput
             name="permanent_message"
+            id="permanent_message"
             label="Message is Never Deleted"
           />
         </>

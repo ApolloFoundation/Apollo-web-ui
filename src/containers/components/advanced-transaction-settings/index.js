@@ -54,7 +54,7 @@ const mapDispatchToProps = dispatch => ({
     getCurrencyAction: (requestParams) => dispatch(getCurrencyAction(requestParams)),
     getAssetAction: (requestParams) => dispatch(getAssetAction(requestParams))
 });
-
+// TODO unused
 class AdvancedSettings extends React.Component {
     state = {
         activeTab: 0,
@@ -237,25 +237,6 @@ class AdvancedSettings extends React.Component {
                     label="Add note to self?"
                     id="add_note_to_selfCheckbox"
                 />
-                {/* <CheckboxFormInput 
-                    checkboxes={[
-                        {
-                            name : 'doNotBroadcast',
-                            handler : this.handleNotBroadcast,
-                            label : 'Do not broadcast'
-                        },
-                        {
-                            name: 'doNotSign',
-                            handler : null,
-                            label : 'Do not sign'
-                        },
-                        {
-                            name : 'add_note_to_self',
-                            handler : this.handleAddNote,
-                            label : 'Add note to self?'
-                        }
-                    ]}
-                /> */}
                 {
                     values.add_note_to_self &&
                     <CustomTextArea

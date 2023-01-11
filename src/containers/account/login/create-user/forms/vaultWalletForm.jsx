@@ -131,6 +131,7 @@ export default function VaultWalletForm(props) {
                   randomly generated secret phrase.
                 </InfoBox>
                 <CheckboxFormInput
+                  id="isCustomPassphrase"
                   name="isCustomPassphrase"
                   label="Use custom secret phrase"
                   onChange={() => setIsCustomPassphraseTextarea(!isCustomPassphraseTextarea)}
