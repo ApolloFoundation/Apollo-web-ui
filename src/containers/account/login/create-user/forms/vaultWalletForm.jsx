@@ -8,7 +8,7 @@ import {
   createAccountAction, generateAccountAction, generatePDF,
 } from '../../../../../actions/account';
 import ContentLoader from '../../../../components/content-loader';
-import CheckboxFormInput from '../../../../components/check-button-input';
+import CheckboxFormInput from '../../../../components/check-button-input/CheckboxWithFormik';
 import CustomInput from '../../../../components/custom-input';
 import Button from '../../../../components/button';
 import InfoBox from '../../../../components/info-box';

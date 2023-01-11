@@ -8,7 +8,7 @@ import React, { useCallback } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {NotificationManager} from 'react-notifications';
 import {getForging} from '../../../actions/login';
-import CheckboxFormInput from '../../components/check-button-input';
+import CheckboxFormInput from '../../components/check-button-input/CheckboxWithFormik';
 import {setAccountPassphrase} from "../../../modules/account";
 import ModalBody from '../../components/modals/modal-body';
 import submitForm from '../../../helpers/forms/forms'

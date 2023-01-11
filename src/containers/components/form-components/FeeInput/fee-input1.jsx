@@ -1,6 +1,6 @@
 import React from 'react';
 import cn from 'classnames';
-import CheckboxFormInput from '../../check-button-input';
+import CheckboxFormInput from '../../check-button-input/CheckboxWithFormik';
 import CustomInput from '../../custom-input';
 import styles from './index.module.scss';
 

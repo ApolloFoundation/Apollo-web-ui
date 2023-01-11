@@ -2,7 +2,7 @@ import React from 'react';
 import { useFormikContext } from 'formik';
 import TextualInputComponent from '../../../components/form-components/TextualInput';
 import AccountRSFormInput from '../../../components/form-components/AccountRS';
-import CheckboxFormInput from '../../../components/check-button-input';
+import CheckboxFormInput from '../../../components/check-button-input/CheckboxWithFormik';
 import CustomTextArea from '../../../components/form-components/TextArea/TextAreaWithFormik';
 
 const TransferAlias = ({ alias }) => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useFormikContext } from 'formik';
-import CheckboxForm from '../../components/check-button-input';
+import CheckboxForm from '../../components/check-button-input/CheckboxWithFormik';
 import AccountRS from '../../components/form-components/AccountRS';
 import NumericInput from '../../components/form-components/NumericInput';
 import FeeInput from '../../components/form-components/FeeInput/fee-input1';

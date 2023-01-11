@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 import { useFormikContext } from 'formik';
-import CheckboxFormInput from '../../../components/check-button-input';
+import CheckboxFormInput from '../../../components/check-button-input/CheckboxWithFormik';
 import CustomInput from '../../../components/custom-input';
 import crypto from "../../../../helpers/crypto/crypto";
 import { getModalDataSelector } from '../../../../selectors';

@@ -4,7 +4,7 @@ import ModalBody from '../../../../components/modals/modal-body';
 import TextualInputComponent from '../../../../components/form-components/TextualInput';
 import AccountRSFormInput from '../../../../components/form-components/AccountRS';
 import NumericInputComponent from '../../../../components/form-components/NumericInput';
-import CheckboxFormInput from '../../../../components/check-button-input';
+import CheckboxFormInput from '../../../../components/check-button-input/CheckboxWithFormik';
 import CustomTextArea from '../../../../components/form-components/TextArea/TextAreaWithFormik';
 
 export const ToSpecificAccount = ({ ticker, alias, closeModal, onSubmit }) => {

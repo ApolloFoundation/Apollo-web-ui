@@ -5,7 +5,7 @@ import {handleSendMessageFormSubmit} from './handleFormSubmit';
 import classNames from "classnames";
 import { Form, FormikProvider, useFormik } from 'formik';
 import CustomTextArea from 'containers/components/form-components/TextArea/TextAreaWithFormik';
-import CheckboxFormInput from 'containers/components/check-button-input';
+import CheckboxFormInput from 'containers/components/check-button-input/CheckboxWithFormik';
 import TextualInputComponent from 'containers/components/form-components/TextualInput';
 import styles from './index.module.scss';
 

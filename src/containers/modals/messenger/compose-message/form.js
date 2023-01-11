@@ -1,7 +1,7 @@
 import React from 'react';
 import AccountRSFormInput from '../../../components/form-components/AccountRS'
 import CustomTextArea from '../../../components/form-components/TextArea/TextAreaWithFormik'
-import CheckboxFormInput from '../../../components/check-button-input';
+import CheckboxFormInput from '../../../components/check-button-input/CheckboxWithFormik';
 
 const ComposeMessageForm = () => (
     <>

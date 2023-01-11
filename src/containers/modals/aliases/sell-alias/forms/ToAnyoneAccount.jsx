@@ -3,7 +3,7 @@ import { useFormikContext } from 'formik';
 import ModalBody from '../../../../components/modals/modal-body';
 import TextualInputComponent from '../../../../components/form-components/TextualInput';
 import NumericInputComponent from '../../../../components/form-components/NumericInput';
-import CheckboxFormInput from '../../../../components/check-button-input';
+import CheckboxFormInput from '../../../../components/check-button-input/CheckboxWithFormik';
 import CustomTextArea from '../../../../components/form-components/TextArea/TextAreaWithFormik';
 
 export const ToAnyoneAccount = ({ onSubmit, closeModal, alias }) => {

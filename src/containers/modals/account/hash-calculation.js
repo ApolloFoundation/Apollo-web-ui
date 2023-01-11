@@ -6,7 +6,7 @@
 
 import React, { useCallback, useState } from 'react';
 import CustomTextArea from "../../components/form-components/TextArea/TextAreaWithFormik";
-import CheckboxFormInput from "../../components/check-button-input";
+import CheckboxFormInput from "../../components/check-button-input/CheckboxWithFormik";
 import CustomFormSelect from "../../components/form-components/CustomSelect";
 import ModalBody from "../../components/modals/modal-body";
 

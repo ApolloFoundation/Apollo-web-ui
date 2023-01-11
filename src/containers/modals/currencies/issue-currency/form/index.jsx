@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useFormikContext } from 'formik';
 import NumericInput from '../../../../components/form-components/NumericInput';
 import TextualInputComponent from '../../../../components/form-components/TextualInput';
-import CheckboxFormInput from '../../../../components/check-button-input';
+import CheckboxFormInput from '../../../../components/check-button-input/CheckboxWithFormik';
 import CustomTextArea from '../../../../components/form-components/TextArea/TextAreaWithFormik';
 import BlockHeightInput from '../../../../components/form-components/BlockHeight/block-height-input1';
 import { getTickerSelector } from '../../../../../selectors';
