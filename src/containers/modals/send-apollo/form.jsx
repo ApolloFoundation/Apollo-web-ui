@@ -2,10 +2,10 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import { processAccountRStoID } from 'apl-web-crypto';
 import { searchAliases } from '../../../actions/aliases';
-import CustomTextArea from '../../components/form-components/text-area1';
+import CustomTextArea from '../../components/form-components/TextArea';
 import AutoComplete from '../../components/auto-complete';
 import CheckboxFormInput from '../../components/check-button-input';
-import AccountRSForm from '../../components/form-components/account-rs1';
+import AccountRSForm from '../../components/form-components/AccountRS';
 import NumericInput from '../../components/form-components/NumericInput';
 import { useFormikContext } from 'formik';
 

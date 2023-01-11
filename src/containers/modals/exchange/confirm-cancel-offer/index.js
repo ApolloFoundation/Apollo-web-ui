@@ -4,7 +4,7 @@ import { NotificationManager } from 'react-notifications';
 import { setAccountPassphrase } from '../../../../modules/account';
 import { cancelOffer } from "../../../../actions/wallet";
 import ModalBody from '../../../components/modals/modal-body';
-import TextualInputComponent from '../../../components/form-components/textual-input/textual-input1';
+import TextualInputComponent from '../../../components/form-components/TextualInput';
 import InfoBox from "../../../components/info-box";
 import {
     getAccountSelector,

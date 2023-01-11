@@ -15,13 +15,13 @@ import {getAssetAction} from "../../../actions/assets";
 // Form components
 import BlockHeightInput from '../form-components/BlockHeight/block-height-input1';
 import CheckboxFormInput from '../check-button-input';
-import CustomInputForm from '../form-components/textual-input/textual-input1';
-import CustomTextArea from '../form-components/text-area1';
-import {TabContainer} from '../form-components/tab-container';
-import AccountRSFormInput from '../form-components/account-rs1'
+import CustomInputForm from '../form-components/TextualInput';
+import CustomTextArea from '../form-components/TextArea';
+import {TabContainer} from '../form-components/TabContainer/tab-container';
+import AccountRSFormInput from '../form-components/AccountRS'
 import CustomFormSelect from '../select/index1'
-import { AssetInput } from '../form-components/asset-input1'
-import CurrencyInput from '../form-components/currency-input1'
+import { AssetInput } from '../form-components/AssetInput'
+import CurrencyInput from '../form-components/CurrencyInput'
 
 const minBalanceType = [
     { value: '0', label: 'No min balance necessary' },

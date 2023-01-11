@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { get2FASelector } from '../../../../selectors';
-import AccountRSFormInput from "../../../components/form-components/account-rs1";
+import AccountRSFormInput from "../../../components/form-components/AccountRS";
 import CustomInput from '../../../components/custom-input';
 
 export const ExportAccountForm = () => {

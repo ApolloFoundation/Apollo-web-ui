@@ -4,12 +4,11 @@ import {connect} from 'react-redux';
 import {handleSendMessageFormSubmit} from './handleFormSubmit';
 import classNames from "classnames";
 import { Form, FormikProvider, useFormik } from 'formik';
-import CustomTextArea from 'containers/components/form-components/text-area1';
+import CustomTextArea from 'containers/components/form-components/TextArea';
 import CheckboxFormInput from 'containers/components/check-button-input';
-import TextualInputComponent from 'containers/components/form-components/textual-input/textual-input1';
+import TextualInputComponent from 'containers/components/form-components/TextualInput';
 import styles from './index.module.scss';
 
-// TODO finish update styles
 const ChatForm = (props) => {
     const [isPending, setIsPending] = useState(false);
     let { chat } = useParams();

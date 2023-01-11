@@ -1,10 +1,10 @@
 import React from 'react';
 import { useFormikContext } from 'formik';
 import ModalBody from '../../../../components/modals/modal-body';
-import TextualInputComponent from '../../../../components/form-components/textual-input/textual-input1';
+import TextualInputComponent from '../../../../components/form-components/TextualInput';
 import NumericInputComponent from '../../../../components/form-components/NumericInput';
 import CheckboxFormInput from '../../../../components/check-button-input';
-import CustomTextArea from '../../../../components/form-components/text-area1';
+import CustomTextArea from '../../../../components/form-components/TextArea';
 
 export const ToAnyoneAccount = ({ onSubmit, closeModal, alias }) => {
   const { values } = useFormikContext();

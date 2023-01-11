@@ -2,8 +2,8 @@ import React, {
   useCallback, useState, useEffect,
 } from 'react';
 import { useDispatch } from 'react-redux';
-import { getCurrencyAction } from '../../../actions/currencies';
-import CustomInput from '../custom-input';
+import { getCurrencyAction } from '../../../../actions/currencies';
+import CustomInput from '../../custom-input';
 
 export default function CurrencyInput(props) {
   const dispatch = useDispatch();

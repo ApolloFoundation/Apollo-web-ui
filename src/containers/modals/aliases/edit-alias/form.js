@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useFormikContext } from 'formik';
-import CustomFormSelect from '../../../components/form-components/custom-form-select1';
-import TextualInputComponent from '../../../components/form-components/textual-input/textual-input1';
-import AccountRSFormInput from '../../../components/form-components/account-rs1';
+import CustomFormSelect from '../../../components/form-components/CustomSelect';
+import TextualInputComponent from '../../../components/form-components/TextualInput';
+import AccountRSFormInput from '../../../components/form-components/AccountRS';
 
 const typeData = [
     { value: 'uri',     label: 'URI' },

@@ -4,7 +4,7 @@
  ***************************************************************************** */
 
 import React from 'react';
-import AccountRSFormInput from '../../../components/form-components/account-rs1';
+import AccountRSFormInput from '../../../components/form-components/AccountRS';
 import CustomInput from '../../../components/custom-input';
 
 const SetAccountPropertyForm = ({ recipientRS, property }) => (

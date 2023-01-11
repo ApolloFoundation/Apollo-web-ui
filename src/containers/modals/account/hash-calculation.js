@@ -5,9 +5,9 @@
 
 
 import React, { useCallback, useState } from 'react';
-import CustomTextArea from "../../components/form-components/text-area1";
+import CustomTextArea from "../../components/form-components/TextArea";
 import CheckboxFormInput from "../../components/check-button-input";
-import CustomFormSelect from "../../components/form-components/custom-form-select1";
+import CustomFormSelect from "../../components/form-components/CustomSelect";
 import ModalBody from "../../components/modals/modal-body";
 
 const hashOptions = [

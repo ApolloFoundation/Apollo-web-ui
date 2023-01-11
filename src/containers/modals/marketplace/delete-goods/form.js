@@ -1,5 +1,5 @@
 import React from 'react';
-import TextualInput from '../../../components/form-components/textual-input/textual-input1';
+import TextualInput from '../../../components/form-components/TextualInput';
 
 const Form = ({ goods, formatTimestamp }) => (
     <>

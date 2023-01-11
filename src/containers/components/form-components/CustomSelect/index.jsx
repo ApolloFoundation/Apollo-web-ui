@@ -1,5 +1,5 @@
 import React from 'react';
-import CustomSelect from '../select/index1';
+import CustomSelect from '../../select/index1';
 
 const CustomFormSelect = ({ defaultValue, options, label, name }) => (
     <div className="form-group mb-15">

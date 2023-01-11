@@ -5,7 +5,7 @@ import {NotificationManager} from "react-notifications";
 import submitForm from "../../../../../helpers/forms/forms";
 import {signBytesArrayAPL} from "../../../../../helpers/converters";
 import ModalBody from "../../../../components/modals/modal-body";
-import CustomTextArea from "../../../../components/form-components/text-area1";
+import CustomTextArea from "../../../../components/form-components/TextArea";
 import CheckboxFormInput from "../../../../components/check-button-input";
 import InfoBox from '../../../../components/info-box';
 import { getAccountInfoSelector } from '../../../../../selectors';

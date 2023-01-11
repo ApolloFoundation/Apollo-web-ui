@@ -3,8 +3,8 @@ import { useFormikContext } from 'formik';
 import { useSelector } from 'react-redux';
 import CustomFormSelect from '../../../components/select/index1';
 import NumericInputComponent from '../../../components/form-components/NumericInput';
-import { AssetInput } from '../../../components/form-components/asset-input1';
-import CurrencyInput from '../../../components/form-components/currency-input1';
+import { AssetInput } from '../../../components/form-components/AssetInput';
+import CurrencyInput from '../../../components/form-components/CurrencyInput';
 import BlockHeightInput from '../../../components/form-components/BlockHeight/block-height-input1';
 import { getTickerSelector } from '../../../../selectors';
 

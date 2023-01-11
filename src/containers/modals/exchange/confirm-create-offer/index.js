@@ -5,7 +5,7 @@ import {setModalData, setModalType, setBodyModalParamsAction} from '../../../../
 import {setAccountPassphrase} from '../../../../modules/account';
 import {createOffer} from "../../../../actions/wallet";
 import ModalBody from '../../../components/modals/modal-body';
-import TextualInputComponent from '../../../components/form-components/textual-input/textual-input1';
+import TextualInputComponent from '../../../components/form-components/TextualInput';
 class ConfirmCreateOffer extends React.Component {
     constructor(props) {
         super(props);

@@ -9,7 +9,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {getDGSGoodAction} from "../../../../actions/marketplace";
 import classNames from 'classnames';
 import config from '../../../../config';
-import TextualInput from "../../../components/form-components/textual-input/textual-input1";
+import TextualInput from "../../../components/form-components/TextualInput";
 import ModalBody from '../../../components/modals/modal-body';
 import { getDecimalsSelector, getModalDataSelector, getTickerSelector } from '../../../../selectors';
 import { useFormatTimestamp } from '../../../../hooks/useFormatTimestamp';

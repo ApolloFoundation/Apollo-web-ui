@@ -1,8 +1,8 @@
 import React from 'react';
-import TextualInputComponent from '../../../components/form-components/textual-input/textual-input1';
-import CustomTextArea from '../../../components/form-components/text-area1';
+import TextualInputComponent from '../../../components/form-components/TextualInput';
+import CustomTextArea from '../../../components/form-components/TextArea';
 import NumericInputComponent from '../../../components/form-components/NumericInput';
-import FileInput from '../../../components/form-components/file-input1';
+import FileInput from '../../../components/form-components/FIleInput';
 
 const ListProductForSaleFrom = ({ ticker }) => (
     <>

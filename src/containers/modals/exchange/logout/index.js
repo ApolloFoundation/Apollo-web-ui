@@ -5,7 +5,7 @@ import {NotificationManager} from "react-notifications";
 import {logOutAction} from "../../../../actions/login";
 import {logout} from "../../../../actions/wallet";
 import ModalBody from '../../../components/modals/modal-body';
-import TextualInputComponent from '../../../components/form-components/textual-input/textual-input1';
+import TextualInputComponent from '../../../components/form-components/TextualInput';
 import { getAccountSelector } from '../../../../selectors';
 
 const LogoutExchange = ({ closeModal, nameModal }) => {

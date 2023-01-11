@@ -10,8 +10,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
 import { getCurrencyAction, getAccountCurrenciesAction } from '../../../../actions/currencies';
-import TextualInputComponent from '../../../components/form-components/textual-input/textual-input1';
-import FormRowText from '../../../components/form-components/form-row-text';
+import TextualInputComponent from '../../../components/form-components/TextualInput';
+import FormRowText from '../../../components/form-components/FormTextRow';
 import ModalBody from '../../../components/modals/modal-body';
 import { getAccountSelector, getModalDataSelector, getTickerSelector } from '../../../../selectors';
 

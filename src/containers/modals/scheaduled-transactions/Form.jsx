@@ -1,7 +1,7 @@
 import React, { useEffect,  } from 'react';
 import { useFormikContext, Field } from "formik";
-import TextualInput from "../../components/form-components/textual-input/textual-input1";
-import AccountRS from '../../components/form-components/account-rs1';
+import TextualInput from "../../components/form-components/TextualInput";
+import AccountRS from '../../components/form-components/AccountRS';
 import { CurrencyInput } from '../../components/form-components-new/CurrencyInput';
 import FeeInput from '../../components/form-components/FeeInput/fee-input1';
 import { useDispatch, useSelector } from 'react-redux';

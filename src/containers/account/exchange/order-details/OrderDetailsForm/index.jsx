@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { Formik, Form } from "formik";
-import TextualInputComponent from "../../../../components/form-components/textual-input/textual-input1";
+import TextualInputComponent from "../../../../components/form-components/TextualInput";
 import SimpleProgressBar from '../../../../components/simple-progress-bar/simple-progress-bar';
 import ContractStatusItem from '../contract-status-item';
 

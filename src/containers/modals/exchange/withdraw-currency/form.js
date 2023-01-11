@@ -1,7 +1,7 @@
 import React from 'react';
 import { useFormikContext } from 'formik';
-import TextualInput from '../../../components/form-components/textual-input/textual-input1';
-import CustomSelect from '../../../components/form-components/custom-form-select1';
+import TextualInput from '../../../components/form-components/TextualInput';
+import CustomSelect from '../../../components/form-components/CustomSelect';
 import NumericInput from '../../../components/form-components/NumericInput';
 
 export const WithdrawForm = ({ typeData }) => {

@@ -10,7 +10,7 @@ import {NotificationManager} from 'react-notifications';
 import {removeAccountAction} from '../../../actions/account';
 import InfoBox from '../../components/info-box';
 import ModalBody from "../../components/modals/modal-body";
-import AccountRSFormInput from "../../components/form-components/account-rs1";
+import AccountRSFormInput from "../../components/form-components/AccountRS";
 import { useDownloadFile } from './ExportAccount/useDownloadFIle';
 import { getModalDataSelector } from 'selectors';
 import CustomInput from 'containers/components/custom-input';

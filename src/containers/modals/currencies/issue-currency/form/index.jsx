@@ -2,9 +2,9 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useFormikContext } from 'formik';
 import NumericInput from '../../../../components/form-components/NumericInput';
-import TextualInputComponent from '../../../../components/form-components/textual-input/textual-input1';
+import TextualInputComponent from '../../../../components/form-components/TextualInput';
 import CheckboxFormInput from '../../../../components/check-button-input';
-import CustomTextArea from '../../../../components/form-components/text-area1';
+import CustomTextArea from '../../../../components/form-components/TextArea';
 import BlockHeightInput from '../../../../components/form-components/BlockHeight/block-height-input1';
 import { getTickerSelector } from '../../../../../selectors';
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import { useFormikContext } from 'formik';
-import AccountRSFormInput from '../../../components/form-components/account-rs1';
+import AccountRSFormInput from '../../../components/form-components/AccountRS';
 import CustomInput from '../../../components/custom-input';
-import CustomSelect from '../../../components/form-components/custom-form-select1';
+import CustomSelect from '../../../components/form-components/CustomSelect';
 
 const aliasTypeData = [
     { value: 'uri',     label: 'URI' },

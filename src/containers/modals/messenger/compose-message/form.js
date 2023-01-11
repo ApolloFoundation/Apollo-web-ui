@@ -1,6 +1,6 @@
 import React from 'react';
-import AccountRSFormInput from '../../../components/form-components/account-rs1'
-import CustomTextArea from '../../../components/form-components/text-area1'
+import AccountRSFormInput from '../../../components/form-components/AccountRS'
+import CustomTextArea from '../../../components/form-components/TextArea'
 import CheckboxFormInput from '../../../components/check-button-input';
 
 const ComposeMessageForm = () => (

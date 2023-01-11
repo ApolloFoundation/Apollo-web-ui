@@ -1,7 +1,7 @@
 import React from 'react';
 import { Field } from 'formik';
 import InfoBox from '../../../components/info-box';
-import TextualInputForm from '../../../components/form-components/textual-input/textual-input1';
+import TextualInputForm from '../../../components/form-components/TextualInput';
 import CheckboxFormInput from '../../../components/check-button-input';
 import ContentLoader from '../../../components/content-loader';
 import { RangeInput } from '../../../components/form-components-new/RangeInput';

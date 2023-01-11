@@ -6,7 +6,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import QRCode from 'qrcode.react';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
 import { ReactComponent as QrIcon } from '../../../../assets/qr-icon.svg';
-import AccountRSForm from '../../../components/form-components/account-rs1';
+import AccountRSForm from '../../../components/form-components/AccountRS';
 import ContentLoader from '../../../components/content-loader';
 import CustomInput from '../../../components/custom-input';
 import Button from '../../../components/button';

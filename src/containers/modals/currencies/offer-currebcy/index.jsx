@@ -11,7 +11,7 @@ import { NotificationManager } from 'react-notifications';
 import { getAccountCurrenciesAction } from '../../../../actions/currencies';
 import ModalBody from '../../../components/modals/modal-body';
 import NumericInput from '../../../components/form-components/NumericInput';
-import TextualInputComponent from '../../../components/form-components/textual-input/textual-input1';
+import TextualInputComponent from '../../../components/form-components/TextualInput';
 import BlockHeightInput from '../../../components/form-components/BlockHeight/block-height-input1';
 import { getAccountSelector, getModalDataSelector, getTickerSelector } from '../../../../selectors';
 import { handleFormSubmit } from './handle-form-submit';

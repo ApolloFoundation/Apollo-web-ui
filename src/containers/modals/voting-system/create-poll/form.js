@@ -1,8 +1,8 @@
 import React from 'react';
 import { Field, FieldArray, useFormikContext } from 'formik';
-import TextualInputComponent from '../../../components/form-components/textual-input/textual-input1';
-import CustomTextArea from '../../../components/form-components/text-area1';
-import CustomFormSelect from '../../../components/form-components/custom-form-select1';
+import TextualInputComponent from '../../../components/form-components/TextualInput';
+import CustomTextArea from '../../../components/form-components/TextArea';
+import CustomFormSelect from '../../../components/form-components/CustomSelect';
 import BlockHeightInput from '../../../components/form-components/BlockHeight/block-height-input1';
 import { AssetInput } from '../../../components/form-components-new/AssetInput';
 import { CurrencyInput } from '../../../components/form-components-new/CurrencyInput';

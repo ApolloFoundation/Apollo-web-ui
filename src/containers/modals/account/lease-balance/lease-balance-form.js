@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector} from 'react-redux';
 import { useFormikContext } from 'formik';
 import NumericInputComponent from '../../../components/form-components/NumericInput';
-import AccountRSInput from '../../../components/form-components/account-rs1';
+import AccountRSInput from '../../../components/form-components/AccountRS';
 import { getBlockTimeSelector } from '../../../../selectors';
 
 

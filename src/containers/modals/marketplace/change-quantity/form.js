@@ -1,7 +1,7 @@
 import React from 'react';
 
 import NummericInput from '../../../components/form-components/NumericInput';
-import TextualInput from '../../../components/form-components/textual-input/textual-input1';
+import TextualInput from '../../../components/form-components/TextualInput';
 
 
 const Form = ({ goods, formatTimestamp }) => (

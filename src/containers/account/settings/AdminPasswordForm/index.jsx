@@ -4,7 +4,7 @@ import { NotificationManager } from 'react-notifications';
 import { FormikProvider, useFormik, Form } from 'formik';
 import { getAdminPasswordSelector } from '../../../../selectors';
 import { writeToLocalStorage } from '../../../../actions/localStorage';
-import TextualInputComponent from '../../../components/form-components/textual-input/textual-input1';
+import TextualInputComponent from '../../../components/form-components/TextualInput';
 
 export const AdminPasswordForm = () => {
   const adminPassword = useSelector(getAdminPasswordSelector);

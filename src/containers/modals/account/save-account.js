@@ -13,7 +13,7 @@ import { readFromLocalStorage, writeToLocalStorage } from '../../../actions/loca
 import BackForm from '../modal-form/modal-form-container';
 import { ModalBackButton } from '../../components/ModalBackButton';
 import CustomInput from '../../components/custom-input';
-import CustomTextArea from '../../components/form-components/text-area1';
+import CustomTextArea from '../../components/form-components/TextArea';
 import { getModalDataSelector } from '../../../selectors';
 
 const AddAccount = (props) => {

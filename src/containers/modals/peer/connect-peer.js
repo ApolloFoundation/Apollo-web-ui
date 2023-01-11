@@ -8,7 +8,7 @@ import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../helpers/forms/forms";
-import TextualInput from '../../components/form-components/textual-input/textual-input1';
+import TextualInput from '../../components/form-components/TextualInput';
 import ModalBody from '../../components/modals/modal-body';
 import { getModalDataSelector } from '../../../selectors';
 

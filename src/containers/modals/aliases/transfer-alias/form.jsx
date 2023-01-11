@@ -1,9 +1,9 @@
 import React from 'react';
 import { useFormikContext } from 'formik';
-import TextualInputComponent from '../../../components/form-components/textual-input/textual-input1';
-import AccountRSFormInput from '../../../components/form-components/account-rs1';
+import TextualInputComponent from '../../../components/form-components/TextualInput';
+import AccountRSFormInput from '../../../components/form-components/AccountRS';
 import CheckboxFormInput from '../../../components/check-button-input';
-import CustomTextArea from '../../../components/form-components/text-area1';
+import CustomTextArea from '../../../components/form-components/TextArea';
 
 const TransferAlias = ({ alias }) => {
     const { values } = useFormikContext();

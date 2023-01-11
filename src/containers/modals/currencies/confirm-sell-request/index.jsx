@@ -7,7 +7,7 @@ import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
-import TextualInputComponent from '../../../components/form-components/textual-input/textual-input1';
+import TextualInputComponent from '../../../components/form-components/TextualInput';
 import ModalBody from '../../../components/modals/modal-body';
 import { getModalDataSelector, getTickerSelector } from '../../../../selectors';
 

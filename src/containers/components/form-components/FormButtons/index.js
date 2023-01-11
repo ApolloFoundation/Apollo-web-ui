@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import {connect} from 'react-redux';
 
-const FormFooter = ({
+const FormButtons = ({
     idGroup, 
     submitButtonName, 
     isPending, 
@@ -55,4 +55,4 @@ const mapStateToProps = state => ({
     isMomalProcessing: state.modals.isMomalProcessing,
 })
 
-export default connect(mapStateToProps)(FormFooter);
+export default connect(mapStateToProps)(FormButtons);

@@ -1,8 +1,8 @@
 import React from 'react';
-import TextualInputComponent from '../../../components/form-components/textual-input/textual-input1';
+import TextualInputComponent from '../../../components/form-components/TextualInput';
 import MultiSelect from '../../../components/multi-select/index1';
-import CustomTextArea from '../../../components/form-components/text-area1';
-import FileInput from '../../../components/form-components/file-input1';
+import CustomTextArea from '../../../components/form-components/TextArea';
+import FileInput from '../../../components/form-components/FIleInput';
 
 
 const UpploadFileForm = ({  dataTags = [], onChange }) => {
