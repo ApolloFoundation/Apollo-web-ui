@@ -8,7 +8,7 @@ import { setBodyModalParamsAction } from '../../../../modules/modals';
 import { ReactComponent as QrIcon } from '../../../../assets/qr-icon.svg';
 import AccountRSForm from '../../../components/form-components/AccountRS';
 import ContentLoader from '../../../components/content-loader';
-import CustomInput from '../../../components/custom-input';
+import CustomInput from '../../../components/custom-input/CustomInputWithFormik';
 import Button from '../../../components/button';
 import FeeInputForm from '../../../components/form-components/FeeInput/fee-input1';
 

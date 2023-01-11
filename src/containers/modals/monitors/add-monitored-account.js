@@ -3,7 +3,7 @@ import BackForm from "../modal-form/modal-form-container";
 import { useDispatch, useSelector } from 'react-redux';
 import submitForm from '../../../helpers/forms/forms';
 import { ModalBackButton } from '../../components/ModalBackButton';
-import CustomInput from '../../components/custom-input';
+import CustomInput from '../../components/custom-input/CustomInputWithFormik';
 import { getModalDataSelector } from '../../../selectors';
 
 const AddMonitoredAccount = (props) =>  {

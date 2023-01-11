@@ -12,7 +12,7 @@ import AccountRS from '../../components/account-rs';
 import { readFromLocalStorage, writeToLocalStorage } from '../../../actions/localStorage';
 import BackForm from '../modal-form/modal-form-container';
 import { ModalBackButton } from '../../components/ModalBackButton';
-import CustomInput from '../../components/custom-input';
+import CustomInput from '../../components/custom-input/CustomInputWithFormik';
 import CustomTextArea from '../../components/form-components/TextArea/TextAreaWithFormik';
 import { getModalDataSelector } from '../../../selectors';
 

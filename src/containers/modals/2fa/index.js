@@ -11,7 +11,7 @@ import { openPrevModal, setBodyModalParamsAction } from '../../../modules/modals
 import { confirm2FAActon } from '../../../actions/account';
 import InfoBox from '../../components/info-box';
 import BackForm from '../modal-form/modal-form-container';
-import CustomInput from 'containers/components/custom-input';
+import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
 import { getModalDataSelector, getModalHistorySelector } from 'selectors';
 
 const Confirm2FA = (props) => {

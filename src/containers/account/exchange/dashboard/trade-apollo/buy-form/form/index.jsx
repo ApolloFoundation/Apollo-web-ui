@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { Form, useFormikContext } from 'formik';
 import { multiply, division } from '../../../../../../../helpers/format';
 import { ONE_GWEI } from '../../../../../../../constants';
-import CustomInput from '../../../../../../components/custom-input';
+import CustomInput from '../../../../../../components/custom-input/CustomInputWithFormik';
 import Button from '../../../../../../components/button';
 import CustomSelect from '../../../../../../components/form-components/CustomSelect';
 import { InputRangeWithFormik } from '../../../../../../components/input-range/InputRangeWithFormik';

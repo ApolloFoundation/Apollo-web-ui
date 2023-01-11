@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { useFormikContext } from 'formik';
 import classNames from 'classnames';
 import { getAccountInfoSelector } from '../../../../selectors';
-import CustomInput from '../../custom-input';
+import CustomInput from '../../custom-input/CustomInputWithFormik';
 import styles from './index.module.scss';
 
 export default function BlockHeightInput(props) {

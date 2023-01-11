@@ -4,7 +4,7 @@ import {NotificationManager} from "react-notifications";
 import submitForm from "../../../../../helpers/forms/forms";
 import ModalBody from "../../../../components/modals/modal-body";
 import CustomTextArea from "../../../../components/form-components/TextArea/TextAreaWithFormik";
-import CustomInput from '../../../../components/custom-input';
+import CustomInput from '../../../../components/custom-input/CustomInputWithFormik';
 
 export const FullHashForm = ({ closeModal }) => {
   const dispatch = useDispatch();

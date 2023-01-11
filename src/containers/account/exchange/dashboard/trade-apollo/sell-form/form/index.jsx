@@ -5,7 +5,7 @@ import { ONE_GWEI } from '../../../../../../../constants';
 import { multiply, division } from '../../../../../../../helpers/format';
 import Button from '../../../../../../components/button';
 import NumericInput from '../../../../../../components/form-components/NumericInput';
-import CustomInput from '../../../../../../components/custom-input';
+import CustomInput from '../../../../../../components/custom-input/CustomInputWithFormik';
 import { InputRangeWithFormik } from '../../../../../../components/input-range/InputRangeWithFormik';
 import CustomSelect from '../../../../../../components/form-components/CustomSelect';
 

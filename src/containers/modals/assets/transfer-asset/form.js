@@ -3,7 +3,7 @@ import AccountRsInput from '../../../components/form-components/AccountRS';
 import TextualInputComponent from '../../../components/form-components/TextualInput';
 import NumericInputComponent from '../../../components/form-components/NumericInput';
 import CustomTextArea from '../../../components/form-components/TextArea/TextAreaWithFormik';
-import CustomInput from '../../../components/custom-input';
+import CustomInput from '../../../components/custom-input/CustomInputWithFormik';
 
 const TransferAsset = ({ modalData }) => (
     <>

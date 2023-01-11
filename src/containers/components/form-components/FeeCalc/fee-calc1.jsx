@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import {NotificationManager} from 'react-notifications';
 import {connect, useSelector} from 'react-redux';
 import { useFormikContext } from 'formik';
-import InputForm from '../../custom-input';
+import InputForm from '../../custom-input/CustomInputWithFormik';
 import {calculateFeeAction} from "../../../../actions/forms";
 import { getAccountInfoSelector } from '../../../../selectors';
 

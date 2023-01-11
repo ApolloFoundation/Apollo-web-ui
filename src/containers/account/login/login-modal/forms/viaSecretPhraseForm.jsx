@@ -5,7 +5,7 @@ import { Form, Formik } from 'formik';
 import { NotificationManager } from 'react-notifications';
 import { getAccountDataBySecretPhrasseAction, getAccountDataAction } from '../../../../../actions/login';
 import InfoBox from '../../../../components/info-box';
-import CustomInput from '../../../../components/custom-input';
+import CustomInput from '../../../../components/custom-input/CustomInputWithFormik';
 import Button from '../../../../components/button';
 import AccountRS from '../../../../components/account-rs';
 import { Switcher } from '../../../../components/form-components/switcher/switcher';

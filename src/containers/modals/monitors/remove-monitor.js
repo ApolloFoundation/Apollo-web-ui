@@ -11,7 +11,7 @@ import InfoBox from '../../components/info-box';
 import submitForm from "../../../helpers/forms/forms";
 import BackForm from '../modal-form/modal-form-container';
 import { ModalBackButton } from '../../components/ModalBackButton';
-import CustomInput from '../../components/custom-input';
+import CustomInput from '../../components/custom-input/CustomInputWithFormik';
 import { getModalDataSelector } from '../../../selectors';
 
 const RemoveMonitor = (props) => {

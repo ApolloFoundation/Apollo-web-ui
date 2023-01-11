@@ -13,7 +13,7 @@ import ModalBody from "../../components/modals/modal-body";
 import AccountRSFormInput from "../../components/form-components/AccountRS";
 import { useDownloadFile } from './ExportAccount/useDownloadFIle';
 import { getModalDataSelector } from 'selectors';
-import CustomInput from 'containers/components/custom-input';
+import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
 
 const DeleteAccountFromWebNode = (props) => {
     const modalData = useSelector(getModalDataSelector);

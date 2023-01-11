@@ -1,7 +1,7 @@
 import React from 'react';
 import cn from 'classnames';
 import CheckboxFormInput from '../../check-button-input/CheckboxWithFormik';
-import CustomInput from '../../custom-input';
+import CustomInput from '../../custom-input/CustomInputWithFormik';
 import styles from './index.module.scss';
 
 const FeeInput = ({

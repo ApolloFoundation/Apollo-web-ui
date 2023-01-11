@@ -14,7 +14,7 @@ import ModalBody from '../../components/modals/modal-body';
 import submitForm from '../../../helpers/forms/forms'
 import InfoBox from '../../components/info-box';
 import { writeToLocalStorage } from '../../../actions/localStorage';
-import CustomInput from '../../components/custom-input';
+import CustomInput from '../../components/custom-input/CustomInputWithFormik';
 import {
     getAccountSelector,
     getDecimalsSelector,

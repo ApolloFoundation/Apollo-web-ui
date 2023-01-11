@@ -1,6 +1,6 @@
 import React from 'react';
 import { Formik, Form } from "formik";
-import CustomInput from "../../../components/custom-input/index";
+import CustomInput from "../../../components/custom-input/CustomInputWithFormik";
 
 export const SearchAliasForm = ({ onSubmit }) => (
   <Formik

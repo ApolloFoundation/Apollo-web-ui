@@ -15,7 +15,7 @@ import {
     getModalCallbackSelector,
     getTickerSelector
 } from '../../../selectors';
-import CustomInput from '../../components/custom-input';
+import CustomInput from '../../components/custom-input/CustomInputWithFormik';
 
 const BuyAsset = ({ processForm, closeModal, nameModal }) => {
     const modalData = useSelector(getModalDataSelector);

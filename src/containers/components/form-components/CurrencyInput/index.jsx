@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 import { useDispatch } from 'react-redux';
 import { getCurrencyAction } from '../../../../actions/currencies';
-import CustomInput from '../../custom-input';
+import CustomInput from '../../custom-input/CustomInputWithFormik';
 
 export default function CurrencyInput(props) {
   const dispatch = useDispatch();

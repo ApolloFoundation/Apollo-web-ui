@@ -11,7 +11,7 @@ import {NotificationManager} from "react-notifications";
 import submitForm from "../../../helpers/forms/forms";
 import BackForm from '../modal-form/modal-form-container';
 import { ModalBackButton } from '../../components/ModalBackButton';
-import CustomInput from '../../components/custom-input';
+import CustomInput from '../../components/custom-input/CustomInputWithFormik';
 import { getModalDataSelector } from '../../../selectors';
 
 const AddMonitor = (props) => {

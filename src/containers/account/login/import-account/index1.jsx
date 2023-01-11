@@ -10,7 +10,7 @@ import { NotificationManager } from 'react-notifications';
 import classNames from 'classnames';
 import { saveSendModalState } from '../../../../modules/modals';
 import { importAccountAction, importAccountActionViaFile } from '../../../../actions/account';
-import CustomInput from '../../../components/custom-input';
+import CustomInput from '../../../components/custom-input/CustomInputWithFormik';
 import InfoBox from '../../../components/info-box';
 import InputUpload from '../../../components/input-upload';
 import ButtonTabs from '../../../components/button-tabs';

@@ -10,7 +10,7 @@ import {NotificationManager} from "react-notifications";
 import BackForm from '../modal-form/modal-form-container';
 import InfoBox from '../../components/info-box';
 import { ModalBackButton } from '../../components/ModalBackButton';
-import CustomInput from '../../components/custom-input';
+import CustomInput from '../../components/custom-input/CustomInputWithFormik';
 import { ButtonsBlock } from '../../components/ButtonsBlock';
 import { getModalDataSelector, getAccountPublicKeySelector } from '../../../selectors';
 

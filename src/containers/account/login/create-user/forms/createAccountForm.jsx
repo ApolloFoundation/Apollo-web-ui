@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, Formik } from 'formik';
-import CustomInput from '../../../../components/custom-input';
+import CustomInput from '../../../../components/custom-input/CustomInputWithFormik';
 import Button from '../../../../components/button';
 
 export default function CreateAccount(props) {

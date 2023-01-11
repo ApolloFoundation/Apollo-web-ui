@@ -10,7 +10,7 @@ import { NotificationManager } from 'react-notifications';
 import {
   setBodyModalParamsAction, saveSendModalState, openPrevModal,
 } from '../../../modules/modals';
-import CustomInput from '../../components/custom-input';
+import CustomInput from '../../components/custom-input/CustomInputWithFormik';
 import CustomButton from '../../components/button';
 import CustomTextArea from '../../components/form-components/TextArea/TextAreaWithFormik';
 

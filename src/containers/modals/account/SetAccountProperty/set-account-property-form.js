@@ -5,7 +5,7 @@
 
 import React from 'react';
 import AccountRSFormInput from '../../../components/form-components/AccountRS';
-import CustomInput from '../../../components/custom-input';
+import CustomInput from '../../../components/custom-input/CustomInputWithFormik';
 
 const SetAccountPropertyForm = ({ recipientRS, property }) => (
   <>
