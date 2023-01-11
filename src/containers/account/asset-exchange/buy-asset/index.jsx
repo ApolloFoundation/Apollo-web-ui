@@ -59,6 +59,7 @@ const BuyAsset = ({ asset, decimals, ticker, onSubmit }) => {
                       name="quantity"
                       onChange={handleValue(formik.values.priceATM)}
                       counterLabel={asset.name}
+                      classNameWrapper="mb-2"
                     />
                     <NumericInput
                       label="Price"
@@ -67,6 +68,7 @@ const BuyAsset = ({ asset, decimals, ticker, onSubmit }) => {
                       name="priceATM"
                       onChange={handleValue(formik.values.quantity)}
                       counterLabel={`${ticker} / ${asset.name}`}
+                      classNameWrapper="mb-2"
                     />
                     <NumericInput
                       label="Total"
@@ -75,6 +77,7 @@ const BuyAsset = ({ asset, decimals, ticker, onSubmit }) => {
                       name="total"
                       counterLabel={asset.name}
                       disabled
+                      classNameWrapper="mb-0"
                     />
                     <button
                       type="submit"
