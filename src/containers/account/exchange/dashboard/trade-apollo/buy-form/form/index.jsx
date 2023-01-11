@@ -6,7 +6,7 @@ import { ONE_GWEI } from '../../../../../../../constants';
 import CustomInput from '../../../../../../components/custom-input';
 import Button from '../../../../../../components/button';
 import CustomSelect from '../../../../../../components/form-components/CustomSelect';
-import InputRange from '../../../../../../components/input-range/index1';
+import { InputRangeWithFormik } from '../../../../../../components/input-range/InputRangeWithFormik';
 import NumericInput from '../../../../../../components/form-components/NumericInput';
 import getFullNumber from '../../../../../../../helpers/util/expancionalParser';
 
@@ -144,12 +144,13 @@ export default function BuyForm(props) {
         </div>
         )}
       {values.walletAddress && (
-        <InputRange
+        <InputRangeWithFormik
           name="range"
           min={0}
           max={100}
           disabled={!values.pairRate || values.pairRate === '0' || values.pairRate === ''}
-          onChange={amount => {
+          onChange={e => {
+            const amount = e.target.value;
             const offerAmount = values.pairRate !== '0' ? division((amount * balance), (100 * values.pairRate), 10) : 0;
             const total = multiply(offerAmount, values.pairRate, 14);
 

@@ -6,7 +6,7 @@ import { multiply, division } from '../../../../../../../helpers/format';
 import Button from '../../../../../../components/button';
 import NumericInput from '../../../../../../components/form-components/NumericInput';
 import CustomInput from '../../../../../../components/custom-input';
-import InputRange from '../../../../../../components/input-range/index1';
+import { InputRangeWithFormik } from '../../../../../../components/input-range/InputRangeWithFormik';
 import CustomSelect from '../../../../../../components/form-components/CustomSelect';
 
 export default function SellForm(props) {
@@ -144,11 +144,12 @@ export default function SellForm(props) {
         />
       </div>
       {values.walletAddress && (
-        <InputRange
+        <InputRangeWithFormik
           name="range"
           min={0}
           max={100}
-          onChange={amount => {
+          onChange={e => {
+            const amount = e.target.value;
             const offerAmount = values.pairRate !== '0' ? ((amount * balanceFormat) / 100).toFixed(3) : 0;
             const total = multiply(offerAmount, values.pairRate, 14);
 
