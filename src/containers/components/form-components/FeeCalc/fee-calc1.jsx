@@ -6,7 +6,6 @@ import InputForm from '../../custom-input';
 import {calculateFeeAction} from "../../../../actions/forms";
 import { getAccountInfoSelector } from '../../../../selectors';
 
-// TODO can remove
 const FeeCalc = ({ requestType, defaultValue }) => {
     const formik = useFormikContext();
     const { publicKey,decimals,ticker } = useSelector(getAccountInfoSelector);

@@ -5,7 +5,6 @@ import {connect} from 'react-redux';
 const FormFooter = ({
     idGroup, 
     submitButtonName, 
-    isAdvanced, 
     isPending, 
     isDisabled, 
     closeModal,
