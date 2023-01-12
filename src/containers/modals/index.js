@@ -33,7 +33,7 @@ import AccountInfo from './account/account-info';
 import ShardingInfo from './account/ShardingInfo/sharding-info';
 import SaveAccount from './account/save-account';
 import SetAccountProperty from './account/SetAccountProperty/set-account-property';
-import DeleteAccountProperty from './account/delete-account-property';
+import DeleteAccountProperty from './account/DeleteAccountProperty';
 import ChainProps from './account/chain-properties';
 // Assets
 import TransferAsset from './assets/transfer-asset/';
