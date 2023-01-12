@@ -6,15 +6,12 @@
 
 import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import classNames from "classnames";
+import { NotificationManager } from "react-notifications";
 import { setBodyModalParamsAction } from '../../../modules/modals';
 import submitForm from "../../../helpers/forms/forms";
-import { NotificationManager } from "react-notifications";
-import ModalFooter from '../../components/modal-footer';
-import FeeCalc from '../../components/form-components/FeeCalc/fee-calc1';
-import BackForm from '../modal-form/modal-form-container';
+import FeeCalc from '../../components/form-components/FeeCalc';
 import { getModalDataSelector } from '../../../selectors';
-import { ModalBackButton } from '../../components/ModalBackButton';
+import ModalBody from '../../components/modals/modal-body';
 
 const DeleteAccountProperty = (props) => {
     const dispatch = useDispatch();
@@ -39,80 +36,47 @@ const DeleteAccountProperty = (props) => {
     }, [dispatch, isPending, modalData]);
 
     return (
-        <div className="modal-box">
-            <BackForm
-                nameModal={props.nameModal}
-                onSubmit={handleFormSubmit}
-                initialValues={{ feeATM: 1 }}
-            >
-                <div className="form-group-app">
-                    <button type="button" onClick={props.closeModal} className="exit">
-                        <i className="zmdi zmdi-close"/>
-                    </button>
-                    <div className="form-title">
-                        <ModalBackButton />
-                        <p>Delete Account Property</p>
-                    </div>
-                    <div className="form-group mb-15">
-                        <label>
-                            Setter
-                        </label>
-                        <div>
-                            <span>
-                                {(modalData && modalData.setterRS) ? modalData.setterRS : '-'}
-                            </span>
-                        </div>
-                    </div>
-                    <div className="form-group mb-15">
-                        <label>
-                            Recipient
-                        </label>
-                        <div>
-                            <span>
-                                {(modalData && modalData.recipientRS) ? modalData.recipientRS : '-'}
-                            </span>
-                        </div>
-                    </div>
-                    <div className="form-group mb-15">
-                        <label>
-                            Property
-                        </label>
-                        <div>
-                            <span>
-                                {(modalData && modalData.property) ? modalData.property : '-'}
-                            </span>
-                        </div>
-                    </div>
-                    <FeeCalc requestType={'setAccountInfo'} />
-                    <ModalFooter />
-                    <div className="btn-box right-conner align-right form-footer">
-                        <button
-                            type='button'
-                            onClick={props.closeModal}
-                            className="btn btn-default mr-3"
-                        >
-                            Cancel
-                        </button>
-                        <button
-                            type="submit"
-                            name='closeModal'
-                            className={classNames("btn btn-green submit-button", {
-                                "loading btn-green-disabled": isPending,
-                            })}
-                        >
-                            <div className="button-loader">
-                                <div className="ball-pulse">
-                                    <div/>
-                                    <div/>
-                                    <div/>
-                                </div>
-                            </div>
-                            <span className='button-text'>Delete Property</span>
-                        </button>
+        <ModalBody
+            nameModal={props.nameModal}
+            handleFormSubmit={handleFormSubmit}
+            initialValues={{ feeATM: 1 }}
+            submitButtonName='Delete Property'
+            modalTitle="Delete Account Property"
+            closeModal={props.closeModal}
+            isPending={isPending}
+        >
+                <div className="form-group mb-15">
+                    <label>
+                        Setter
+                    </label>
+                    <div>
+                        <span>
+                            {(modalData && modalData.setterRS) ? modalData.setterRS : '-'}
+                        </span>
                     </div>
                 </div>
-            </BackForm>
-        </div>
+                <div className="form-group mb-15">
+                    <label>
+                        Recipient
+                    </label>
+                    <div>
+                        <span>
+                            {(modalData && modalData.recipientRS) ? modalData.recipientRS : '-'}
+                        </span>
+                    </div>
+                </div>
+                <div className="form-group mb-15">
+                    <label>
+                        Property
+                    </label>
+                    <div>
+                        <span>
+                            {(modalData && modalData.property) ? modalData.property : '-'}
+                        </span>
+                    </div>
+                </div>
+                <FeeCalc requestType='setAccountInfo' />
+        </ModalBody>
     );
 }
 

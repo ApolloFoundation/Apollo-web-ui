@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
-import {NotificationManager} from 'react-notifications';
-import {connect, useSelector} from 'react-redux';
+import { NotificationManager } from 'react-notifications';
+import { useSelector } from 'react-redux';
 import { useFormikContext } from 'formik';
 import InputForm from '../../custom-input/CustomInputWithFormik';
-import {calculateFeeAction} from "../../../../actions/forms";
+import { calculateFeeAction } from "../../../../actions/forms";
 import { getAccountInfoSelector } from '../../../../selectors';
 
-const FeeCalc = ({ requestType, defaultValue }) => {
+const FeeCalc = ({ requestType }) => {
     const formik = useFormikContext();
     const { publicKey,decimals,ticker } = useSelector(getAccountInfoSelector);
 
@@ -36,30 +36,19 @@ const FeeCalc = ({ requestType, defaultValue }) => {
     }, []);
 
     return (
-        <div className="form-group mb-15">
-            <div className="input-group">
-                <InputForm
-                    label='Fee'
-                    name="feeATM"
-                    placeholder="Minimum fee"
-                    type="float"
-                    // setValue={formik.setFieldValue}
-                    defaultValue={defaultValue || '1'}
-                />
-                <div className="input-group-append">
-                    <span className="input-group-text">
-                        {ticker}
-                    </span>
-                </div>
+        <InputForm
+            label='Fee'
+            name="feeATM"
+            placeholder="Minimum fee"
+            type="float"
+        >
+            <div className="input-group-append">
+                <span className="input-group-text">
+                    {ticker}
+                </span>
             </div>
-        </div>
-    )
+        </InputForm>
+    );
 }
 
-const mapStateToProps = state => ({
-    publicKey: state.account.publicKey,
-    decimals: state.account.decimals,
-    ticker: state.account.ticker,
-});
-
-export default connect(mapStateToProps)(FeeCalc)
+export default FeeCalc;
