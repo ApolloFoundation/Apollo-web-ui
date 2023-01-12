@@ -31,7 +31,7 @@ import TransactionOperations from './account/transaction-operation';
 import ApolloAbout from './about';
 import AccountInfo from './account/account-info';
 import ShardingInfo from './account/ShardingInfo/sharding-info';
-import SaveAccount from './account/save-account';
+import SaveAccount from './account/SaveAccount';
 import SetAccountProperty from './account/SetAccountProperty/set-account-property';
 import DeleteAccountProperty from './account/DeleteAccountProperty';
 import ChainProps from './account/chain-properties';
