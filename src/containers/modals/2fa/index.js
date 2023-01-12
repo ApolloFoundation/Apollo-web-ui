@@ -6,18 +6,16 @@
 import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
-import classNames from 'classnames';
-import { openPrevModal, setBodyModalParamsAction } from '../../../modules/modals';
+import { setBodyModalParamsAction } from '../../../modules/modals';
 import { confirm2FAActon } from '../../../actions/account';
 import InfoBox from '../../components/info-box';
-import BackForm from '../modal-form/modal-form-container';
-import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
-import { getModalDataSelector, getModalHistorySelector } from 'selectors';
+import CustomInput from '../../components/custom-input/CustomInputWithFormik';
+import { getModalDataSelector } from '../../../selectors';
+import ModalBody from '../../components/modals/modal-body';
 
 const Confirm2FA = (props) => {
   const dispatch = useDispatch();
   const modalData = useSelector(getModalDataSelector);
-  const modalsHistory = useSelector(getModalHistorySelector);
 
   const [state, setState] = useState({
     isPending: false,
@@ -41,7 +39,6 @@ const Confirm2FA = (props) => {
             if (modalData.settingsReloader) {
               modalData.settingsReloader();
             }
-            dispatch(setBodyModalParamsAction(null, {}));
             props.closeModal();
 
             NotificationManager.success('2FA was successfully enabled!', null, 5000);
@@ -51,84 +48,52 @@ const Confirm2FA = (props) => {
       }
     }, [dispatch, props.closeModal, dispatch, modalData.passphrase, modalData.account, state.isPending]);
 
-  const handleOpenPrevModal = () => dispatch(openPrevModal());
-
   return (
-    <div className="modal-box">
-      <BackForm
+      <ModalBody
         nameModal={props.nameModal}
-        onSubmit={handleFormSubmit}
+        handleFormSubmit={handleFormSubmit}
+        closeModal={props.closeModal}
+        modalTitle="Confirm 2FA enabling"
+        submitButtonName="Confirm enable"
+        isDisableSecretPhrase
+        isPending={state.isPending}
       >
-            <div className="form-group-app">
-              <button type="button" onClick={props.closeModal} className="exit">
-                <i className="zmdi zmdi-close" />
-              </button>
-              <div className="form-title">
-                {modalsHistory.length > 1
-                  && (
-                    <div
-                      className="backMy"
-                      onClick={handleOpenPrevModal}
-                    />
-                  )}
-                <p>Confirm 2FA enabling</p>
-              </div>
-              <div className="form-group mb-15">
-                <label>Your Google Authenticate QR code:</label>
-                <div>
-                  {
-                    modalData && modalData.qrCodeUrl && <img src={modalData.qrCodeUrl} alt="" />
-                  }
-                </div>
-              </div>
-              <InfoBox attentionLeft>
-                <p className="mb-3">
-                  Please note:
-                </p>
-                2FA is a feature for Vault addresses only,
-                and will not add a second factor authentication to a standard address.
-              </InfoBox>
-              <div className="form-group mb-15">
-                <label>Your generated secret word:</label>
-                <div>
-                  <InfoBox info>
-                    {
-                      modalData && modalData.secret
-                    }
-                  </InfoBox>
-                </div>
-              </div>
-              <div className="form-group mb-15">
-                <div>
-                  <CustomInput
-                    label="2FA code"
-                    type="password"
-                    name="code2FA"
-                    placeholder="2FA code"
-                  />
-                </div>
-              </div>
-              <div className="btn-box right-conner align-right form-footer">
-                <button
-                  type="submit"
-                  name="closeModal"
-                  className={classNames('btn btn-green submit-button', {
-                    'loading btn-green-disabled': state.isPending,
-                  })}
-                >
-                  <div className="button-loader">
-                    <div className="ball-pulse">
-                      <div />
-                      <div />
-                      <div />
-                    </div>
-                  </div>
-                  <span className="button-text">Confirm enable</span>
-                </button>
-              </div>
-            </div>
-      </BackForm>
-    </div>
+        <div className="form-group mb-15">
+          <label>Your Google Authenticate QR code:</label>
+          <div>
+            {
+              modalData && modalData.qrCodeUrl && <img src={modalData.qrCodeUrl} alt="" />
+            }
+          </div>
+        </div>
+        <InfoBox attentionLeft>
+          <p className="mb-3">
+            Please note:
+          </p>
+          2FA is a feature for Vault addresses only,
+          and will not add a second factor authentication to a standard address.
+        </InfoBox>
+        <div className="form-group mb-15">
+          <label>Your generated secret word:</label>
+          <div>
+            <InfoBox info>
+              {
+                modalData && modalData.secret
+              }
+            </InfoBox>
+          </div>
+        </div>
+        <div className="form-group mb-15">
+          <div>
+            <CustomInput
+              label="2FA code"
+              type="password"
+              name="code2FA"
+              placeholder="2FA code"
+            />
+          </div>
+        </div>
+      </ModalBody>
   );
 }
 

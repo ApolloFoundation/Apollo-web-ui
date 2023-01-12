@@ -13,7 +13,17 @@ export const Settings2FAForm = ({ account, setState, getAccountInfo }) => {
   const dispatch = useDispatch();
   const is2FA = useSelector(get2FASelector);
 
-  const handleSubmit2FA = (values) => {
+
+  const formik = useFormik({
+    initialValues: {
+      account: '',
+      secretPhrase: '',
+      code2FA: '',
+    },
+    onSubmit: handleSubmit2FA,
+  })
+
+  function handleSubmit2FA (values) {
     account.is2FA ? disable2fa(values) : getQRCode(values);
   }
 
@@ -32,6 +42,7 @@ export const Settings2FAForm = ({ account, setState, getAccountInfo }) => {
     if (status.errorCode) {
       NotificationManager.error(status.errorDescription, null, 5000);
     } else {
+      formik.resetForm();
       getAccountInfo();
       NotificationManager.success('2FA was successfully disabled.', null, 5000);
     }
@@ -56,7 +67,10 @@ export const Settings2FAForm = ({ account, setState, getAccountInfo }) => {
         passphrase: values.secretPhrase,
         account: values.account,
         operation: 'enable 2FA',
-        settingsReloader: getAccountInfo,
+        settingsReloader: () => {
+          formik.resetForm();
+          getAccountInfo();
+        },
       }));
 
       setState(prevState => ({ 
@@ -65,13 +79,6 @@ export const Settings2FAForm = ({ account, setState, getAccountInfo }) => {
       }));
     }
   };
-
-  const formik = useFormik({
-    initialValues: {
-      account: '',
-    },
-    onSubmit: handleSubmit2FA,
-  })
 
   return (
     <FormikProvider value={formik}>
