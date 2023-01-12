@@ -1,14 +1,13 @@
 import React, { useEffect,  } from 'react';
-import { useFormikContext, Field } from "formik";
-import TextualInput from "../../components/form-components/TextualInput";
+import { useFormikContext } from "formik";
+import NumericInput from "../../components/form-components/NumericInput";
 import AccountRS from '../../components/form-components/AccountRS';
-import { CurrencyInput } from '../../components/form-components-new/CurrencyInput';
+import CurrencyInput from '../../components/form-components/CurrencyInput';
 import FeeInput from '../../components/form-components/FeeInput/fee-input1';
 import { useDispatch, useSelector } from 'react-redux';
 import {getCurrencyAction} from "../../../actions/currencies";
 import { getTickerSelector } from '../../../selectors';
 
-// TODO fix styles (TextualComponent)
 export const Form = () => {
   const dispatch = useDispatch();
   const ticker = useSelector(getTickerSelector);
@@ -28,25 +27,24 @@ export const Form = () => {
 
   return (
     <>
-      <Field
+      <CurrencyInput
         label="Currency code"
         name="code"
-        component={CurrencyInput}
         placeholder="Code"
       />
-      <TextualInput
+      <NumericInput
         name="rateATM"
         placeholder="Rate"
         type="float"
         label="Rate"
-        code={ticker}
+        counterLabel={ticker}
       />
-      <TextualInput
+      <NumericInput
         name="units"
         placeholder="Units"
         type="float"
         label="Units"
-        code={ticker}
+        counterLabel={ticker}
       />
       <AccountRS
         name="offerIssuer"

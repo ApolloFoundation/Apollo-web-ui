@@ -75,6 +75,7 @@ const CreatePoll = ({ processForm, nameModal, closeModal }) => {
                 maxRangeValue: 1,
                 minBalance: 0,
                 votingModel: votingModelData[0].value,
+                feeATM: 1,
             }}
         >
             <PollForm ticker={ticker} votingModelData={votingModelData} />

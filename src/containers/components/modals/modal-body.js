@@ -30,7 +30,10 @@ const ModalBody = (props) => {
 
         return (
             <BackForm
-                initialValues={initialValues}
+                initialValues={{
+                    ...initialValues,
+                    feeATM: 1,
+                }}
                 onSubmit={props.handleFormSubmit}
                 nameModel={nameModel}
                 className={classNames(className, { 'modal-form modal-send-apollo': !isPour })}

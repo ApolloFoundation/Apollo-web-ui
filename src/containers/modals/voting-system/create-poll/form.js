@@ -1,12 +1,12 @@
 import React from 'react';
-import { Field, FieldArray, useFormikContext } from 'formik';
+import { FieldArray, useFormikContext } from 'formik';
 import TextualInputComponent from '../../../components/form-components/TextualInput';
 import CustomTextArea from '../../../components/form-components/TextArea/TextAreaWithFormik';
 import CustomFormSelect from '../../../components/form-components/CustomSelect';
 import BlockHeightInput from '../../../components/form-components/BlockHeight/block-height-input1';
-import { AssetInput } from '../../../components/form-components-new/AssetInput';
-import { CurrencyInput } from '../../../components/form-components-new/CurrencyInput';
-import { TextComponentWithIcon } from '../../../components/form-components-new/TextComponent';
+import { AssetInput } from '../../../components/form-components/AssetInput';
+import CurrencyInput from '../../../components/form-components/CurrencyInput';
+import TextComponent from '../../../components/custom-input/CustomInputWithFormik';
 
 const PollForm = ({ idGroup, ticker, votingModelData }) => {
     const { values } = useFormikContext();
@@ -52,11 +52,11 @@ const PollForm = ({ idGroup, ticker, votingModelData }) => {
             />
 
             {values.votingModel === 2 && (
-                <Field name='holding' id={idGroup} component={AssetInput} />
+                <AssetInput name='holding' id={idGroup} />
             )}
 
             {values.votingModel === 3 && (
-                <Field name='holding' id={idGroup} component={CurrencyInput} />
+                <CurrencyInput name='holding' id={idGroup} />
             )}
 
             {values.votingModel !== 0 && (
@@ -83,19 +83,32 @@ const PollForm = ({ idGroup, ticker, votingModelData }) => {
                         {({ remove, push }) => (
                             <>
                                 {values.answers.map((answer, index) =>(
-                                    <Field
+                                    <TextComponent
                                         key={`${answer}-${index}`}
                                         name={`answers[${index}]`}
                                         className="mb-0"
                                         placeholder='Answer'
-                                        icon={
+                                    >
+                                        <div className="input-group-append" onClick={removeAnswer(remove, values.answers, index)}>
                                             <span className="input-group-text">
                                                 <i className="zmdi zmdi-minus-circle cursor-pointer"/>
                                             </span>
-                                        }
-                                        onIconClick={removeAnswer(remove, values.answers, index)}
-                                        component={TextComponentWithIcon}
-                                    />
+                                        </div>
+                                    </TextComponent>
+                                    
+                                    // <Field
+                                    //     key={`${answer}-${index}`}
+                                    //     name={`answers[${index}]`}
+                                    //     className="mb-0"
+                                    //     placeholder='Answer'
+                                    //     icon={
+                                    //         <span className="input-group-text">
+                                    //             <i className="zmdi zmdi-minus-circle cursor-pointer"/>
+                                    //         </span>
+                                    //     }
+                                    //     onIconClick={removeAnswer(remove, values.answers, index)}
+                                    //     component={TextComponentWithIcon}
+                                    // />
                                 ))}
                                 <div className="mb-15">
                                     <button

@@ -29,24 +29,19 @@ export default function CurrencyInput(props) {
   }, [code]);
 
   return (
-    <div className="form-group mb-15">
-      <label>
-        Currency
-      </label>
-      <div className="input-group">
-        <CustomInput
-          name={name}
-          placeholder="Code"
-          onChange={code => getCurrency({ code })}
-          disabled={disabled}
-        />
-        <div className="input-group-append">
-          <span className="input-group-text">
-            ID:
-            {currency}
-          </span>
-        </div>
+    <CustomInput
+      label="Currency"
+      name={name}
+      placeholder="Code"
+      onChange={code => getCurrency({ code })}
+      disabled={disabled}
+    >
+      <div className="input-group-append">
+        <span className="input-group-text">
+          ID:
+          {currency}
+        </span>
       </div>
-    </div>
+    </CustomInput>
   );
 }

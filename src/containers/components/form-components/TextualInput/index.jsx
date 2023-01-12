@@ -38,12 +38,13 @@ const TextualInputComponent = ({
                       name={name}
                       placeholder={placeholder}
                       id={`${idGroup}${name}-field`}
-                    />
-                    {code && (
-                      <div className="input-group-append">
-                        <span className="input-group-text">{code}</span>
-                      </div>
-                    )}
+                    >
+                      {code && (
+                        <div className="input-group-append">
+                          <span className="input-group-text">{code}</span>
+                        </div>
+                      )}
+                    </CustomInput>
                   </>
                 ) : (
                   <div className={styles.message}>

@@ -19,15 +19,14 @@ export const AssetInput = ({ name }) => {
     }, [getAsset])
 
     return (
-        <div className="form-group row form-group-grey mb-15">
-            <CustomInput
-                name={name}
-                placeholder="Asset"
-                label="Asset ID"
-            />
+        <CustomInput
+            name={name}
+            placeholder="Asset"
+            label="Asset ID"
+        >
             <div className="input-group-append">
                 <span className="input-group-text">Asset: {asset?.name ?? '-'}</span>
             </div>
-        </div>
+        </CustomInput>
     );
 }
