@@ -5,12 +5,13 @@ import { useSelector } from 'react-redux';
 import { FormikProvider, useFormik, Form } from 'formik';
 import { getModalsSelector } from '../../../selectors';
 
-function BackForm({ nameModal, onSubmit, children, className, initialValues = {}, isLoadValue }) {
+function BackForm({ nameModal, onSubmit, children, className, initialValues = {}, isLoadValue, enableReinitialize }) {
   const { modalsHistory, modalData } = useSelector(getModalsSelector);
 
   const formik = useFormik({
     initialValues,
     onSubmit,
+    enableReinitialize,
   });
 
   const loadValues = useCallback(values => {
