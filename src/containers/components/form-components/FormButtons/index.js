@@ -10,6 +10,7 @@ const FormButtons = ({
     closeModal,
     isMomalProcessing,
     isClosing,
+    cancelButtonName,
 }) => (
     <div className="btn-box right-conner align-right form-footer">
         {!isClosing &&
@@ -19,7 +20,7 @@ const FormButtons = ({
                 onClick={closeModal}
                 className="btn btn-default mr-3"
             >
-                Cancel
+                {cancelButtonName ?? 'Cancel'}
             </button>}
         {
             submitButtonName &&

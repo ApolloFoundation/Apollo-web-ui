@@ -7,12 +7,10 @@
 import React, { useCallback, useState } from 'react';
 import {useSelector} from 'react-redux';
 import {NotificationManager} from "react-notifications";
-import BackForm from '../modal-form/modal-form-container';
 import InfoBox from '../../components/info-box';
-import { ModalBackButton } from '../../components/ModalBackButton';
 import CustomInput from '../../components/custom-input/CustomInputWithFormik';
-import { ButtonsBlock } from '../../components/ButtonsBlock';
 import { getModalDataSelector, getAccountPublicKeySelector } from '../../../selectors';
+import ModalBody from '../../components/modals/modal-body';
 
 const BlacklistPeer = (props) => {
     const modalData = useSelector(getModalDataSelector);
@@ -37,56 +35,43 @@ const BlacklistPeer = (props) => {
         }
     }, [isPending, modalData, props.closeModal, props.processForm]);
 
-        return (
-            <div className="modal-box">
-                <BackForm
-                    nameModal={props.nameModal}
-                    onSubmit={handleFormSubmit}
-                >
-                    <div className="form-group-app">
-                        <button type="button" onClick={props.closeModal} className="exit">
-                            <i className="zmdi zmdi-close"/>
-                        </button>
+    return (
+        <ModalBody
+            nameModal={props.nameModal}
+            handleFormSubmit={handleFormSubmit}
+            modalTitle="Blacklist Peer"
+            closeModal={props.closeModal}
+            submitButtonName="Yes"
+            cancelButtonName="No"
+            isDisableSecretPhrase
+            isPending={isPending}
+        >
+            <InfoBox className='light-info'>
+                <ul className='marked-list'>
+                    <li className='danger-icon'>
+                        <strong>Attention!</strong><br/>
+                        Are you sure you want to blacklist this peer?
+                    </li>
+                </ul>
+            </InfoBox>
 
-                        <div className="form-title">
-                            <ModalBackButton />
-                            <p>Blacklist Peer</p>
-                        </div>
-
-                        <InfoBox className='light-info'>
-                            <ul className='marked-list'>
-                                <li className='danger-icon'>
-                                    <strong>Attention!</strong><br/>
-                                    Are you sure you want to blacklist this peer?
-                                </li>
-                            </ul>
-                        </InfoBox>
-
-                        <div className="form-group mb-15">
-                            <label>
-                                Name:
-                            </label>
-                            <div>
-                                <span>{modalData}</span>
-                            </div>
-                        </div>
-                        <div className="form-group mb-15">
-                            <CustomInput
-                                label="Admin Password"
-                                name="adminPass"
-                                type="password"
-                            />
-                        </div>
-                        <ButtonsBlock
-                            cancelMessage="No"
-                            cancelAction={props.closeModal}
-                            submitMessage="Yes"
-                            isPending={isPending}
-                        />
-                    </div>
-                </BackForm>
+            <div className="form-group mb-15">
+                <label>
+                    Name:
+                </label>
+                <div>
+                    <span>{modalData}</span>
+                </div>
             </div>
-        );
+            <div className="form-group mb-15">
+                <CustomInput
+                    label="Admin Password"
+                    name="adminPass"
+                    type="password"
+                />
+            </div>
+        </ModalBody>
+    );
 }
 
 export default BlacklistPeer;
