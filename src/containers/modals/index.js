@@ -78,7 +78,6 @@ import MarketplaceDeliver from './marketplace/deliver-goods/';
 // Messenger
 import DecryptMessage from './messenger/decrypt-messages';
 import ComposeMessage from './messenger/compose-message/';
-import ShareMessage from "./messenger/share-message";
 import AboutPeerInfo from "./peer/about-peer-info";
 import ConnectPeer from "./peer/connect-peer";
 import BlacklistPeer from "./peer/blacklist-peer";
@@ -290,7 +289,6 @@ class ModalWindow extends React.Component {
                     {/*Messages*/}
                     {this.props.modalType === 'DECRYPT_MESSAGES'            && <DecryptMessage            closeModal={this.closeModal} nameModal={'DECRYPT_MESSAGES'}/>}
                     {this.props.modalType === 'COMPOSE_MESSAGE'             && <ComposeMessage            closeModal={this.closeModal} nameModal={'COMPOSE_MESSAGE'}/>}
-                    {this.props.modalType === 'SHARE_MESSAGE'               && <ShareMessage              closeModal={this.closeModal}/>}
                     {this.props.modalType === 'SCHEDULE_CURRENCY'           && <ScheaduleCurrency         closeModal={this.closeModal} nameModal={'SCHEDULE_CURRENCY'}/>}
 
                     {/* Exchange */}
