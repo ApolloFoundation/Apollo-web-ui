@@ -9,35 +9,36 @@ import CustomTextArea from "../../components/form-components/TextArea/TextAreaWi
 import CheckboxFormInput from "../../components/check-button-input/CheckboxWithFormik";
 import CustomFormSelect from "../../components/form-components/CustomSelect";
 import ModalBody from "../../components/modals/modal-body";
+import { getHashRequest } from '../../../actions/hash';
 
 const hashOptions = [
     {
         label: "SHA256",
-        value: "2"
+        value: "SHA256"
     },
     {
         label: "SHA3",
-        value: "3",
+        value: "SHA3",
     },
     {
         label: "SCRYPT",
-        value: "5",
+        value: "SCRYPT",
     },
     {
         label: "RIPEMD160",
-        value: "6"
+        value: "RIPEMD160"
     },
     {
         label: "Keccak25",
-        value: "25"
+        value: "Keccak25"
     },
     {
         label: "RIPEMD160_SHA256",
-        value: "62"
+        value: "RIPEMD160_SHA256"
     }
 ];
 
-const HashCalculation = ({ processForm, closeModal }) => {
+const HashCalculation = ({ closeModal }) => {
     const [generatedHash, setGeneratedHash] = useState(false);
 
     const handleFormSubmit = useCallback(async (values) => {
@@ -45,13 +46,14 @@ const HashCalculation = ({ processForm, closeModal }) => {
             secret: values.data,
             secretIsText: values.isMessage,
             hashAlgorithm: values.alg,
-            feeATM: 0
+            feeATM: 0,
         };
 
-        processForm(data, 'hash', null, (res) => {
+        getHashRequest(data).then(res => {
             setGeneratedHash(res.hash);
         });
-    }, [processForm]);
+
+    }, []);
 
     return (
         <ModalBody
