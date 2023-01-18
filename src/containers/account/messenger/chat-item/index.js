@@ -7,23 +7,17 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import classNames from 'classnames';
-import crypto from "../../../../helpers/crypto/crypto";
 import {setBodyModalParamsAction} from "../../../../modules/modals";
-import {formatTimestamp} from "../../../../helpers/util/time";
-import submitForm from "../../../../helpers/forms/forms";
+import { getAccountSelector, getChatMessagesSelector } from '../../../../selectors';
 
 const mapStateToProps = state => ({
-    account: state.account.account,
-    messages: state.messages.chatMessages,
+    account: getAccountSelector(state),
+    messages: getChatMessagesSelector(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-    tryToDecryptMessageAPL: (data, options) => dispatch(crypto.tryToDecryptMessageAPL(data, options)),
-    formatTimestamp: (time) => dispatch(formatTimestamp(time)),
-    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
-});
-
+const mapDispatchToProps = {
+    setBodyModalParamsAction,
+};
 
 const ChatItem = ({publicMessage, decryptedMessage, isDescrypted, setBodyModalParamsAction, messageFormat, attachment, account, sender}) => (
     <div className={classNames({

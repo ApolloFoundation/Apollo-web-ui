@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {setBodyModalParamsAction} from "../../../../modules/modals";
+import { getAccountNameSelector, getAccountPublicKeySelector } from '../../../../selectors';
 
-const CurrentAccountIcon = ({name, publicKey, appState, setBodyModalParamsAction}) => (
+const CurrentAccountIcon = ({ name, publicKey }) => (
     <>
         <div className="user-avatar stop">
             <i className="zmdi stop zmdi-account"/>
@@ -24,13 +24,8 @@ const CurrentAccountIcon = ({name, publicKey, appState, setBodyModalParamsAction
 );
 
 const mapStateToProps = state => ({
-    name: state.account.name,
-    publicKey: state.account.publicKey,
-    appState: state.account.blockchainStatus,
+    name: getAccountNameSelector(state),
+    publicKey: getAccountPublicKeySelector(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-    setBodyModalParamsAction: (type, values) => dispatch(setBodyModalParamsAction(type, values))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(CurrentAccountIcon);
+export default connect(mapStateToProps)(CurrentAccountIcon);

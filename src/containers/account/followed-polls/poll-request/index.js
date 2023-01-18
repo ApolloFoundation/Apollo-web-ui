@@ -6,6 +6,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
+import { getDecimalsSelector } from 'selectors';
 
 const PollRequest = props => (
   <tr>
@@ -21,7 +22,7 @@ const PollRequest = props => (
 );
 
 const mapStateToProps = state => ({
-  decimals: state.account.decimals,
+  decimals: getDecimalsSelector(state),
 });
 
 export default connect(mapStateToProps, null)(PollRequest);

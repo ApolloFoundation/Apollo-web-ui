@@ -10,9 +10,9 @@ import {Link} from 'react-router-dom'
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {getTransactionAction} from "../../../../actions/transactions";
 import {getOrderInfoAction} from "../../../../actions/open-orders";
+import { getDecimalsSelector } from '../../../../selectors';
 
 class OrderItem extends React.Component {
-
     state = {
         orderInfo: {}
     };
@@ -75,13 +75,13 @@ class OrderItem extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  currentCoinDecimals: state.account.decimals,
+  currentCoinDecimals: getDecimalsSelector(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-    getTransactionAction: (reqParams) => dispatch(getTransactionAction(reqParams)),
-    getOrderInfo: order => dispatch(getOrderInfoAction(order)),
-});
+const mapDispatchToProps = {
+    setBodyModalParamsAction,
+    getTransactionAction,
+    getOrderInfo: getOrderInfoAction,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(OrderItem);

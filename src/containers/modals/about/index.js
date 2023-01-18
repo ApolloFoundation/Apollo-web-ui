@@ -6,10 +6,11 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
+import { getBlockchainStatusSelector } from '../../../selectors';
 import ModalBody from '../../components/modals/modal-body';
 
 const mapStateToProps = state => ({
-    blockchainStatus: state.account.blockchainStatus,
+    blockchainStatus: getBlockchainStatusSelector(state),
 });
 
 const AboutApollo = ({ blockchainStatus, closeModal }) => (

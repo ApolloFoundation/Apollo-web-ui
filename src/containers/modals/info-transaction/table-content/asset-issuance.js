@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
+import { getConstantsSelector } from "../../../../selectors";
 import {getAssetAction} from "../../../../actions/assets";
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 
@@ -68,13 +69,13 @@ class AssetIssuance extends Component {
 }
 
 const mapStateToProps = state => ({
-	constants: state.account.constants,
+	constants: getConstantsSelector(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-	getAssetAction: (reqParams) => dispatch(getAssetAction(reqParams)),
-	setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-});
+const mapDispatchToProps = {
+	getAssetAction,
+	setBodyModalParamsAction,
+};
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(AssetIssuance)

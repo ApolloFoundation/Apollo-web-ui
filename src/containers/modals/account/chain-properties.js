@@ -1,10 +1,10 @@
-import ModalBody from 'containers/components/modals/modal-body';
 import React from 'react';
 import {connect} from 'react-redux';
-
+import ModalBody from '../../components/modals/modal-body';
+import { getBlockchainStatusSelector } from '../../../selectors';
 
 const mapStateToProps = state => ({
-    appState: state.account.blockchainStatus,
+    appState: getBlockchainStatusSelector(state),
 })
 
 const ChainProps = (props) => (

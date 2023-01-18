@@ -12,6 +12,7 @@ import {getTransactionAction} from "../../../../actions/transactions";
 import {getBlockAction} from "../../../../actions/blocks";
 import {getAccountInfoAction} from "../../../../actions/account";
 import ApolloLogo from "../../../../assets/new_apl_icon_black.svg";
+import { getAccountRsSelector, getBlockchainStatusSelector } from '../../../../selectors';
 import { InputSearchForm } from './InputSearch'
 
 class UserBox extends Component {
@@ -159,15 +160,15 @@ class UserBox extends Component {
 }
 
 const mapStateToProps = state => ({
-    accountRS: state.account.accountRS,
-    appState: state.account.blockchainStatus,
+    accountRS: getAccountRsSelector(state),
+    appState: getBlockchainStatusSelector(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-    setBodyModalParamsAction: (type, values) => dispatch(setBodyModalParamsAction(type, values)),
-    getTransactionAction: transaction => dispatch(getTransactionAction(transaction)),
-    getBlockAction: (data) => dispatch(getBlockAction(data)),
-    getAccountInfoAction: (account) => dispatch(getAccountInfoAction(account)),
-});
+const mapDispatchToProps = {
+    setBodyModalParamsAction,
+    getTransactionAction,
+    getBlockAction,
+    getAccountInfoAction,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserBox)

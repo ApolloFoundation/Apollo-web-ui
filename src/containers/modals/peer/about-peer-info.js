@@ -6,7 +6,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {setModalData} from '../../../modules/modals';
+import { getModalDataSelector } from '../../../selectors';
 import ModalBody from '../../components/modals/modal-body';
 
 class AboutPeerInfo extends React.Component {
@@ -133,11 +133,7 @@ class AboutPeerInfo extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    modalData: state.modals.modalData
+    modalData: getModalDataSelector(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-    setModalData: (data) => dispatch(setModalData(data))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(AboutPeerInfo);
+export default connect(mapStateToProps)(AboutPeerInfo);

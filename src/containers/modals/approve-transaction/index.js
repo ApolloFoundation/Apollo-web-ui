@@ -10,8 +10,8 @@ import {setBodyModalParamsAction} from '../../../modules/modals';
 import submitForm from "../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
 import crypto from "../../../helpers/crypto/crypto";
-
 import ModalBody from '../../components/modals/modal-body';
+import { getModalDataSelector, getModalHistorySelector } from '../../../selectors';
 
 class ApproveTransaction extends React.Component {
     constructor(props) {
@@ -65,8 +65,8 @@ class ApproveTransaction extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    modalData: state.modals.modalData,
-    modalsHistory: state.modals.modalsHistory,
+    modalData: getModalDataSelector(state),
+    modalsHistory: getModalHistorySelector(state),
 });
 
 const mapDispatchToProps = dispatch => ({

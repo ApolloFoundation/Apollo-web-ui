@@ -7,25 +7,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import SiteHeader from '../../components/site-header'
-import { setBodyModalParamsAction } from "../../../modules/modals";
 import InfoBox from "../../components/info-box"
 import { getDGSGoodsAction } from "../../../actions/marketplace";
 import { BlockUpdater } from "../../block-subscriber/index";
-
 import MarketplaceColumnTable from '../../components/marketplace-column-table/';
+import { getAccountSelector, getModalDataSelector } from '../../../selectors';
 
 class MyProductsForSale extends React.Component {
-    constructor(props) {
-        super(props);
-
-
-        this.state = {
-            page: 1,
-            firstIndex: 0,
-            lastIndex: 7,
-            getDGSGoods: null
-        };
-    }
+    state = {
+        page: 1,
+        firstIndex: 0,
+        lastIndex: 7,
+        getDGSGoods: null
+    };
 
     componentDidMount() {
         this.getDGSGoods({
@@ -103,16 +97,13 @@ class MyProductsForSale extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    account: state.account.account,
-
-    // modals
-    modalData: state.modals.modalData
+    account: getAccountSelector(state),
+    modalData: getModalDataSelector(state),
 });
 
-const initMapDispatchToProps = dispatch => ({
-    getDGSGoodsAction: (reqParams) => dispatch(getDGSGoodsAction(reqParams)),
-    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-});
+const initMapDispatchToProps = {
+    getDGSGoodsAction
+};
 
 export default connect(
     mapStateToProps,

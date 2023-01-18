@@ -43,7 +43,7 @@ const InfoBlock = () => {
 
   return (
     <ModalBody
-      modalTitle={`Block ${blockInfo?.block} (${blockInfo?.height}) info`}
+      modalTitle={`Block ${blockInfo?.block ?? ''} (${blockInfo?.height ?? ''}) info`}
       isXWide
       isDisableFormFooter
       isDisableSecretPhrase

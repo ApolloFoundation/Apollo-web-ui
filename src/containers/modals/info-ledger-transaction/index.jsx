@@ -11,6 +11,9 @@ import {getLedgerEntryAction} from '../../../actions/ledger';
 import ModalBody from "../../components/modals/modal-body";
 import { useLoading } from '../../../hooks/useLoading';
 import ContentLoader from '../../components/content-loader';
+import {
+    getDecimalsSelector, getModalDataSelector, getModalHistorySelector, getPassPhraseSelector
+} from '../../../selectors';
 
 const InfoTransactions = (props) => {
     const [entry, setEntry] = useState({});
@@ -103,10 +106,10 @@ const InfoTransactions = (props) => {
 }
 
 const mapStateToProps = state => ({
-    modalData: state.modals.modalData,
-    decimals: state.account.decimals,
-    modalsHistory: state.modals.modalsHistory,
-    passPhrase: state.account.passPhrase,
+    modalData: getModalDataSelector(state),
+    decimals: getDecimalsSelector(state),
+    modalsHistory: getModalHistorySelector(state),
+    passPhrase: getPassPhraseSelector(state),
 });
 
 const mapDispatchToProps = {

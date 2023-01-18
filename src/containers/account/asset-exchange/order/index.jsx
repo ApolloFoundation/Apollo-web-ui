@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
 import { getTransactionAction } from '../../../../actions/transactions';
 import { getOrderInfoAction } from '../../../../actions/open-orders';
+import { getDecimalsSelector } from '../../../../selectors';
 
 class OrderItem extends React.Component {
     state = { orderInfo: {} };
@@ -45,7 +46,7 @@ class OrderItem extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  currentCoinDecimals: state.account.decimals,
+  currentCoinDecimals: getDecimalsSelector(state),
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -96,8 +96,8 @@ const Settings = ({setBodyModalParamsAction, isLocalhost, isActive, closeMenu}) 
     </div>
 )
 
-const mapStateToProps = dispatch => ({
-    setBodyModalParamsAction: (type, value) => dispatch(setBodyModalParamsAction(type, value))
-})
+const mapDispatchToProps = {
+    setBodyModalParamsAction
+};
 
-export default connect(null, mapStateToProps)(Settings);
+export default connect(null, mapDispatchToProps)(Settings);

@@ -1,13 +1,14 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
+import {NotificationManager} from 'react-notifications'
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {stopMonitor} from "../../../../actions/monitors";
-import {NotificationManager} from 'react-notifications'
+import { getAdminPasswordSelector, getDecimalsSelector } from '../../../../selectors';
 
 const mapStateToProps  = state => ({
-    adminPassword: state.account.adminPassword,
-    decimals: state.account.decimals,
+    adminPassword: getAdminPasswordSelector(state),
+    decimals: getDecimalsSelector(state),
 })
 
 const mapDispatchToProps = dispatch => ({

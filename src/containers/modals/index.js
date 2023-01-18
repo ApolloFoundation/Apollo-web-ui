@@ -6,9 +6,10 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {closeModal, SET_MODAL_DATA, setModalType} from '../../modules/modals';
 import classNames from 'classnames';
+import {closeModal, SET_MODAL_DATA, setModalType} from '../../modules/modals';
 import ModalProvider from '../components/modals/modal-provider';
+import { getModalTypeSelector } from '../../selectors';
 import $ from 'jquery';
 // Modals
 import PrivateTransactions from "./private-transaction";
@@ -306,12 +307,12 @@ class ModalWindow extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    modalType: state.modals.modalType
+    modalType: getModalTypeSelector(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-    setModalType: (modalType) => dispatch(setModalType(modalType)),
-    closeModal: (param) => dispatch(closeModal(param))
-});
+const mapDispatchToProps = {
+    setModalType,
+    closeModal,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ModalWindow)

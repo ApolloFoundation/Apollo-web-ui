@@ -18,8 +18,16 @@ import ModalBody from "../../components/modals/modal-body";
 import ContentLoader from "../../components/content-loader";
 import InfoBox from "../../components/info-box";
 import {getCurrencyAction} from "../../../actions/currencies";
+import {
+    getAccountRsSelector,
+    getConstantsSelector,
+    getDecimalsSelector,
+    getModalDataSelector,
+    getModalHistorySelector,
+    getModalTypeSelector
+} from '../../../selectors';
 
-
+// TODO add code splitting
 class InfoLedgerTransaction extends React.Component {
     state = {
         isPending: true,
@@ -445,12 +453,12 @@ class InfoLedgerTransaction extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    accountRS: state.account.accountRS,
-    decimals: state.account.decimals,
-    modalType: state.modals.modalType,
-    modalData: state.modals.modalData,
-    modalsHistory: state.modals.modalsHistory,
-    constants: state.account.constants,
+    accountRS: getAccountRsSelector(state),
+    decimals: getDecimalsSelector(state),
+    modalType: getModalTypeSelector(state),
+    modalData: getModalDataSelector(state),
+    modalsHistory: getModalHistorySelector(state),
+    constants: getConstantsSelector(state),
 });
 
 const mapDispatchToProps = {
