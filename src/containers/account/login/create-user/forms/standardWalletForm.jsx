@@ -10,6 +10,7 @@ import crypto from '../../../../../helpers/crypto/crypto';
 import ContentLoader from '../../../../components/content-loader';
 import Button from '../../../../components/button';
 import InfoBox from '../../../../components/info-box';
+import { getTickerSelector } from '../../../../../selectors';
 
 export default function StandardWalletForm(props) {
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ export default function StandardWalletForm(props) {
     activeTab, generatedPassphrase, generatedAccount, setIsValidating, setSelectedOption,
   } = props;
 
-  const { ticker } = useSelector(state => state.account);
+  const ticker = useSelector(getTickerSelector);
   const [isRSAccountLoaded, setIsRSAccountLoaded] = useState(false);
   const [isCustomPassphraseStandardWallet, setIsCustomPassphraseStandardWallet] = useState(false);
 

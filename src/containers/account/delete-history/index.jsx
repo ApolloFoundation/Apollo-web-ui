@@ -9,6 +9,7 @@ import { getDeleteHistory } from "../../../actions/delete-history";
 import { DeleteItem } from "./deletes/index";
 import SiteHeader from '../../components/site-header'
 import { TableLoader } from '../../components/TableLoader';
+import { getAccountRsSelector } from '../../../selectors';
 
 const headersList = [
   {
@@ -31,12 +32,12 @@ const headersList = [
 
 export const DeleteHistory = () => {
   const dispatch = useDispatch();
-  const account = useSelector(state => state.account.accountRS);
+  const accountRs = useSelector(getAccountRsSelector);
 
   const getDeleteHistoryCallback = useCallback(({ firstIndex, lastIndex }) => 
-    dispatch(getDeleteHistory(account, firstIndex, lastIndex))
+    dispatch(getDeleteHistory(accountRs, firstIndex, lastIndex))
       .then(history => history.deletes)
-  , [account, dispatch]);
+  , [accountRs, dispatch]);
 
   return (
     <div className="page-content">

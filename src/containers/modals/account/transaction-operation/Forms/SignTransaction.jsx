@@ -8,12 +8,12 @@ import ModalBody from "../../../../components/modals/modal-body";
 import CustomTextArea from "../../../../components/form-components/TextArea/TextAreaWithFormik";
 import CheckboxFormInput from "../../../../components/check-button-input/CheckboxWithFormik";
 import InfoBox from '../../../../components/info-box';
-import { getAccountInfoSelector } from '../../../../../selectors';
+import { getAccountPublicKeySelector } from '../../../../../selectors';
 import CustomInput from '../../../../components/custom-input/CustomInputWithFormik';
 
 export const SignTransactionForm = ({ setState, state, closeModal }) => {
   const dispatch = useDispatch();
-  const { publicKey } = useSelector(getAccountInfoSelector);
+  const publicKey = useSelector(getAccountPublicKeySelector);
 
   const  handleFormSubmit = async (values) => {
     if (!values.secretPhrase) {

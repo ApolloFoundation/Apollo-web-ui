@@ -5,17 +5,14 @@
 
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAccountInfoSelector } from '../../../../../../../selectors';
+import { getDecimalsSelector } from '../../../../../../../selectors';
 import { getBlockAction } from '../../../../../../../actions/blocks';
 import { setBodyModalParamsAction } from '../../../../../../../modules/modals';
 
-export default function ExchangeItem(props) {
+export default function ExchangeItem({ decimals, height, subtype, rateATM, units, }) {
   const dispatch = useDispatch();
-  const {
-    decimals, height, subtype, rateATM, units,
-  } = props;
 
-  const { decimals: currentCoinDecimals } = useSelector(getAccountInfoSelector);
+  const currentCoinDecimals = useSelector(getDecimalsSelector);
 
   const getBlock = async () => {
     const block = await dispatch(getBlockAction({ height }));

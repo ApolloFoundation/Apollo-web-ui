@@ -5,7 +5,7 @@
 
 
 import React, { useCallback, useEffect, useState } from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch, useSelector, shallowEqual} from 'react-redux';
 import {useHistory} from "react-router-dom";
 import {getAccountInfoAction, switchAccountAction} from "../../../../actions/account";
 import TabulationBody from '../../../components/tabulator/tabuator-body';
@@ -23,8 +23,8 @@ import { Actions } from './Tables/Actions';
 
 const InfoAccount = (props) => {
     const dispatch = useDispatch();
-    const modalData = useSelector(getModalDataSelector);
-    const { account, ticker } = useSelector(getAccountInfoSelector);
+    const modalData = useSelector(getModalDataSelector, shallowEqual);
+    const { account, ticker } = useSelector(getAccountInfoSelector, shallowEqual);
     const history = useHistory();
 
     const [state, setState] = useState({

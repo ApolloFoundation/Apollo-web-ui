@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import {NotificationManager} from "react-notifications";
 import { useFormatTimestamp } from "../../../../hooks/useFormatTimestamp";
 import { setBodyModalParamsAction } from "../../../../modules/modals";
@@ -9,7 +9,7 @@ import { formatTransactionType } from '../../../../actions/transactions';
 
 export const ScheduledTransactionItem = (props) => {
   const dispatch = useDispatch();
-  const { decimals, constants } = useSelector(getAccountInfoSelector);
+  const { decimals, constants } = useSelector(getAccountInfoSelector, shallowEqual);
   const handleTime = useFormatTimestamp();
 
   const handleINfoTransactionModal = () => 

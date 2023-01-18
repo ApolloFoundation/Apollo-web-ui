@@ -12,11 +12,12 @@ import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {formatTimestamp} from "../../../../helpers/util/time";
 import utils from "../../../../helpers/util/utils";
 import config from '../../../../config';
+import { getDecimalsSelector, getTickerSelector } from '../../../../selectors';
 
 const MarketplaceItem = (props) => {
     const dispatch = useDispatch();
-    const decimals = useSelector(state => state.account.decimals);
-    const ticker = useSelector(state => state.account.ticker);
+    const decimals = useSelector(getDecimalsSelector);
+    const ticker = useSelector(getTickerSelector);
     const tagsArr = utils.parseStringBySpace(props.tags);
 
     const handlePrice = () => {

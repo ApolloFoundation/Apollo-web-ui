@@ -1,7 +1,7 @@
 import React, {
   useEffect, useState, useCallback, useMemo,
 } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
 import { getCurrencyBalance } from '../../../../actions/wallet';
 import { setCurrentCurrencyAction } from '../../../../modules/exchange';
@@ -11,13 +11,14 @@ import CustomTable from '../../../components/tables/table1';
 import InfoBox from '../../../components/info-box';
 import { useExchangeWalletConverts } from '../../../../hooks/useExchangeWalletConverts';
 import { readFromLocalStorage } from '../../../../actions/localStorage';
+import { getAccountInfoSelector } from '../../../../selectors';
 import CurrencyDescriptionComponent from './currency';
 
 export default function ChooseWallet() {
   const dispatch = useDispatch();
   const { converWallets } = useExchangeWalletConverts();
 
-  const { wallets } = useSelector(state => state.account);
+  const { wallets } = useSelector(getAccountInfoSelector, shallowEqual);
 
   const [dataWallets, setDataWallets] = useState(null);
   const [isLoading, setIsLoading] = useState(false);

@@ -5,7 +5,7 @@
 
 
 import React, { useCallback, useState } from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch, useSelector, shallowEqual} from 'react-redux';
 import {NotificationManager} from "react-notifications";
 import {setBodyModalParamsAction} from '../../../modules/modals';
 import submitForm from "../../../helpers/forms/forms";
@@ -21,7 +21,7 @@ const  AccountInfo = (props) => {
         isPending: false,
     });
 
-    const accountInfo = useSelector(getAccountInfoSelector);
+    const accountInfo = useSelector(getAccountInfoSelector, shallowEqual);
 
     const handleFormSubmit = useCallback(async (values) => {
         if (!state.isPending) {

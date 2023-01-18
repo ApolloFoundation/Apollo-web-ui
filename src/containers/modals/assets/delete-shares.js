@@ -5,7 +5,7 @@
 
 
 import React, { useCallback } from 'react';
-import {useSelector} from 'react-redux';
+import {useSelector, shallowEqual} from 'react-redux';
 import {NotificationManager} from "react-notifications";
 import ModalBody from '../../components/modals/modal-body';
 import TextualInputComponent from '../../components/form-components/TextualInput';
@@ -13,7 +13,7 @@ import NumericInputComponent from '../../components/form-components/NumericInput
 import { getModalDataSelector } from '../../../selectors';
 
 const DeleteShares = ({ closeModal, nameModal, processForm }) => {
-    const modalData = useSelector(getModalDataSelector);
+    const modalData = useSelector(getModalDataSelector, shallowEqual);
 
     const handleFormSubmit = useCallback(async(values) => {
         const data = {

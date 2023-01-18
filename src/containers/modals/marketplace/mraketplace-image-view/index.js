@@ -5,7 +5,7 @@
 
 
 import React, { useCallback, useEffect, useState } from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch, useSelector, shallowEqual} from 'react-redux';
 import classNames from 'classnames';
 import  {getDGSGoodAction} from "../../../../actions/marketplace";
 import config from '../../../../config'
@@ -15,7 +15,7 @@ import { getModalDataSelector } from '../../../../selectors';
 const MarketplaceImage = (props) => {
     const dispatch = useDispatch();
     const [goods, setGoods] = useState(null);
-    const modalData = useSelector(getModalDataSelector);
+    const modalData = useSelector(getModalDataSelector, shallowEqual);
 
     const handleImageLoadint = useCallback(async () => {
         const productData = await dispatch(getDGSGoodAction({

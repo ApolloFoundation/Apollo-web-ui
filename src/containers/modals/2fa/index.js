@@ -4,9 +4,8 @@
  ***************************************************************************** */
 
 import React, { useCallback, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
-import { setBodyModalParamsAction } from '../../../modules/modals';
 import { confirm2FAActon } from '../../../actions/account';
 import InfoBox from '../../components/info-box';
 import CustomInput from '../../components/custom-input/CustomInputWithFormik';
@@ -15,7 +14,7 @@ import ModalBody from '../../components/modals/modal-body';
 
 const Confirm2FA = (props) => {
   const dispatch = useDispatch();
-  const modalData = useSelector(getModalDataSelector);
+  const modalData = useSelector(getModalDataSelector, shallowEqual);
 
   const [state, setState] = useState({
     isPending: false,

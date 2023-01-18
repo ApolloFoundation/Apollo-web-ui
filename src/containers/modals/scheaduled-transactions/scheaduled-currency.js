@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { useSelector} from 'react-redux';
+import { useSelector, shallowEqual} from 'react-redux';
 import {NotificationManager} from "react-notifications";
 import ModalBody from '../../components/modals/modal-body';
 import { getAdminPasswordSelector, getModalDataSelector } from '../../../selectors';
@@ -7,7 +7,7 @@ import { Form } from './Form';
 
 const ScheaduleCurrency = ({ processForm, closeModal }) => {
     const adminPassword = useSelector(getAdminPasswordSelector);
-    const modalData = useSelector(getModalDataSelector);
+    const modalData = useSelector(getModalDataSelector, shallowEqual);
 
     const handleFormSubmit = useCallback(async ({currencyDecimals, ...values}) => {
         const data = {

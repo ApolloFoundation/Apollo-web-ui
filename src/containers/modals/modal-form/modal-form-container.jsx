@@ -1,12 +1,12 @@
 import React, {
   useCallback, useEffect, memo
 } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, shallowEqual } from 'react-redux';
 import { FormikProvider, useFormik, Form } from 'formik';
 import { getModalsSelector } from '../../../selectors';
 
 function BackForm({ nameModal, onSubmit, children, className, initialValues = {}, isLoadValue, enableReinitialize }) {
-  const { modalsHistory, modalData } = useSelector(getModalsSelector);
+  const { modalsHistory, modalData } = useSelector(getModalsSelector, shallowEqual);
 
   const formik = useFormik({
     initialValues,

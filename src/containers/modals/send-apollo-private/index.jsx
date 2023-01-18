@@ -6,7 +6,7 @@
 import React, {
   useEffect, useState, useCallback,
 } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
 import { setBodyModalParamsAction } from '../../../modules/modals';
 import { getMixerAccount } from '../../../actions/transactions';
@@ -22,8 +22,8 @@ import SendPrivateApolloForm from './form';
 
 export default function SendApolloPrivate({ closeModal }) {
   const dispatch = useDispatch();
-  const modalData= useSelector(getModalDataSelector);
-  const { mixerUrl, accountPrefix } = useSelector(getConstantsSelector);
+  const modalData= useSelector(getModalDataSelector, shallowEqual);
+  const { mixerUrl, accountPrefix } = useSelector(getConstantsSelector, shallowEqual);
   const ticker = useSelector(getTickerSelector);
   const decimals = useSelector(getDecimalsSelector);
 

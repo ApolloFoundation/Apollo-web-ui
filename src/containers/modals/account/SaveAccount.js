@@ -5,7 +5,7 @@
 
 
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, shallowEqual } from 'react-redux';
 import {NotificationManager} from "react-notifications";
 import AccountRS from '../../components/form-components/AccountRS';
 import { readFromLocalStorage, writeToLocalStorage } from '../../../actions/localStorage';
@@ -16,7 +16,7 @@ import { getModalDataSelector } from '../../../selectors';
 
 const AddAccount = (props) => {
     const [isPending, setIsPending] = useState(false);
-    const modalData = useSelector(getModalDataSelector);
+    const modalData = useSelector(getModalDataSelector, shallowEqual);
 
     const handleFormSubmit = async(data) => {
         if (!isPending) {

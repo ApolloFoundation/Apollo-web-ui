@@ -5,7 +5,7 @@
 
 
 import React, { useCallback, useState, useEffect } from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch, useSelector, shallowEqual} from 'react-redux';
 import submitForm from "../../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
 import {getpollAction} from "../../../../actions/polls";
@@ -22,9 +22,8 @@ const CastPoll = ({ closeModal, nameModal }) => {
     const [asset, setAsset] = useState(null);
     const [currency, setCurrency] = useState();
     const [isPending, setIsPending] = useState(false);
-    const modalData = useSelector(getModalDataSelector);
+    const modalData = useSelector(getModalDataSelector, shallowEqual);
 
-   
     const getAsset = async (asset) => {
         const res = await dispatch(getAssetAction({ asset }));
 

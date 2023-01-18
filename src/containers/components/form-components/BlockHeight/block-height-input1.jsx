@@ -2,12 +2,12 @@ import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useFormikContext } from 'formik';
 import classNames from 'classnames';
-import { getAccountInfoSelector } from '../../../../selectors';
+import { getActualBlockSelector } from '../../../../selectors';
 import CustomInput from '../../custom-input/CustomInputWithFormik';
 import styles from './index.module.scss';
 
 export default function BlockHeightInput(props) {
-  const { actualBlock } = useSelector(getAccountInfoSelector);
+  const actualBlock = useSelector(getActualBlockSelector);
   const formik = useFormikContext();
 
   const {

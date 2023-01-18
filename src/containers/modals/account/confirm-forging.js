@@ -5,7 +5,7 @@
 
 
 import React, { useCallback } from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch, useSelector, shallowEqual} from 'react-redux';
 import {NotificationManager} from 'react-notifications';
 import {getForging} from '../../../actions/login';
 import CheckboxFormInput from '../../components/check-button-input/CheckboxWithFormik';
@@ -31,7 +31,7 @@ const ConfirmForging = (props) => {
     const account = useSelector(getAccountSelector);
     const is2FA = useSelector(get2FASelector);
     const balanceATM = useSelector(getBalanceATMSelector);
-    const action = useSelector(getModalDataSelector);
+    const action = useSelector(getModalDataSelector, shallowEqual);
 
     const checkPassphrase = useCallback(
         () => JSON.parse(localStorage.getItem('secretPhrase')) || passPhrase

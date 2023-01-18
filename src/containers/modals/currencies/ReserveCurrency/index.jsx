@@ -4,7 +4,7 @@
  ***************************************************************************** */
 
 import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
 import { getModalDataSelector } from '../../../../selectors';
 import ModalBody from '../../../components/modals/modal-body';
@@ -13,7 +13,7 @@ import { InfoCurrency } from './InfoCurrency'
 
 export default function ReserveCurrency({ nameModal, closeModal, processForm }) {
   const dispatch = useDispatch();
-  const modalData = useSelector(getModalDataSelector);
+  const modalData = useSelector(getModalDataSelector, shallowEqual);
 
   const handleFormSubmit = useCallback(async values => {
       if (!values.secretPhrase || values.secretPhrase.length === 0) {

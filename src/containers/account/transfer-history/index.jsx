@@ -5,7 +5,7 @@
 
 import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAccountInfoSelector } from '../../../selectors';
+import { getAccountRsSelector } from '../../../selectors';
 import { getTransferHistory } from '../../../actions/assets';
 import SiteHeader from '../../components/site-header';
 import { TableLoader } from '../../components/TableLoader';
@@ -13,7 +13,7 @@ import TransferHistoryItem from './transfer-history-item';
 
 export default function TransferHistory() {
   const dispatch = useDispatch();
-  const { accountRS } = useSelector(getAccountInfoSelector);
+  const accountRS = useSelector(getAccountRsSelector);
 
   const getAssets = useCallback(async ({ firstIndex, lastIndex }) => {
     const newTransfers = await dispatch(getTransferHistory({ 

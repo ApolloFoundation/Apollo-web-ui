@@ -11,14 +11,20 @@ import { NotificationManager } from 'react-notifications';
 import { getAccountLedgerAction } from '../../../actions/ledger';
 import { setModalCallback } from '../../../modules/modals';
 import SiteHeader from '../../components/site-header';
-import { getAccountInfoSelector } from 'selectors';
+import {
+  getAccountSelector,
+  getBlockchainStatusSelector,
+  getPassPhraseSelector
+} from '../../../selectors';
 import { TableLoader } from '../../components/TableLoader';
 import { PrivateTransactionButton } from './PrivateTransationButton';
 import Entry from './entry';
 
 export default function Ledger() {
   const dispatch = useDispatch();
-  const { account, blockchainStatus, passPhrase } = useSelector(getAccountInfoSelector);
+  const blockchainStatus = useSelector(getBlockchainStatusSelector);
+  const account = useSelector(getAccountSelector);
+  const passPhrase = useSelector(getPassPhraseSelector);
 
   const [isPrivate, setIsPrivate] = useState(null);
   const ref = useRef({

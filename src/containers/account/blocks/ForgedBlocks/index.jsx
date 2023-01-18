@@ -10,16 +10,18 @@ import { getAccountBlockCountAction, getForgedBlocksAction } from "../../../../a
 import TopPageBlocks from '../../../components/tob-page-blocks';
 import { TableLoader } from '../../../components/TableLoader';
 import {
-  getAccountInfoSelector,
   getForgedBalanceSelector,
-  getBlockTimeSelector
+  getBlockTimeSelector,
+  getAccountSelector,
+  getDecimalsSelector
 } from '../../../../selectors';
 import Block from '../block';
 import { headersList } from './headersList';
 
 export const ForgedBlocks = () => {
   const dispatch = useDispatch();
-  const { decimals, account } = useSelector(getAccountInfoSelector);
+  const decimals = useSelector(getDecimalsSelector);
+  const account = useSelector(getAccountSelector);
   const forgedBalance = useSelector(getForgedBalanceSelector);
   const blockTime = useSelector(getBlockTimeSelector);
 

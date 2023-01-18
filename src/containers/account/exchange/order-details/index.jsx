@@ -1,7 +1,7 @@
 import React, {
   useState, useEffect, useCallback,
 } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useRouteMatch, useHistory } from 'react-router-dom';
 import { NotificationManager } from 'react-notifications';
 import { currencyTypes, formatDivision } from '../../../../helpers/format';
@@ -14,13 +14,14 @@ import SiteHeader from '../../../components/site-header';
 import ContentLoader from '../../../components/content-loader';
 import Button from '../../../components/button';
 import InfoBox from '../../../components/info-box';
+import { getAccountInfoSelector, getExchangeInfoSelector } from '../../../../selectors';
 import { OrderDetailsForm } from './OrderDetailsForm';
 
 export default function OrderDetails() {
   const dispatch = useDispatch();
 
-  const account = useSelector(state => state.account);
-  const { allContractStatus, selectedContractStatus } = useSelector(state => state.exchange);
+  const account = useSelector(getAccountInfoSelector, shallowEqual);
+  const { allContractStatus, selectedContractStatus } = useSelector(getExchangeInfoSelector, shallowEqual);
 
   const [isPending, setIsPending] = useState(true);
   const [isShowingContractHistory, setIsShowingContractHistory] = useState(false);

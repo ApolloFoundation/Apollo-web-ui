@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 import { Form, useFormikContext } from 'formik';
 import { multiply, division } from '../../../../../../../helpers/format';
 import { ONE_GWEI } from '../../../../../../../constants';
@@ -9,10 +9,11 @@ import CustomSelect from '../../../../../../components/form-components/CustomSel
 import { InputRangeWithFormik } from '../../../../../../components/input-range/InputRangeWithFormik';
 import NumericInput from '../../../../../../components/form-components/NumericInput';
 import getFullNumber from '../../../../../../../helpers/util/expancionalParser';
+import { getExchangeInfoSelector, getModalsSelector } from '../../../../../../../selectors';
 
 export default function BuyForm(props) {
-  const { currentCurrency } = useSelector(state => state.exchange);
-  const { infoSelectedBuyOrder } = useSelector(state => state.modals);
+  const { currentCurrency } = useSelector(getExchangeInfoSelector, shallowEqual);
+  const { infoSelectedBuyOrder } = useSelector(getModalsSelector, shallowEqual);
 
   const { values, setFieldValue, setValues } = useFormikContext();
 

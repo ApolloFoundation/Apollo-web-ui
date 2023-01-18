@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useFormikContext } from 'formik';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import classNames from 'classnames';
 import ContentLoader from "../../../components/content-loader";
 import {getTransactionFee } from '../../../../actions/wallet';
@@ -13,7 +13,7 @@ const LEVEL_NAMES = ['safeLow', 'average', 'fast'];
 export const WithdrawCurrencyFee = () => {
   const dispatch = useDispatch();
   const formik = useFormikContext();
-  const constants = useSelector(getConstantsSelector);
+  const constants = useSelector(getConstantsSelector, shallowEqual);
 
   const [transactionFeeData, setTransactionFeeData] = useState(null);
   const [activeLevel, setActiveLevel] = useState(null);

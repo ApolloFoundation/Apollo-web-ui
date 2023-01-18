@@ -6,7 +6,7 @@
 
 import React, { useCallback, useEffect, useState } from 'react';
 import SiteHeader from "../../components/site-header"
-import { useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {BlockUpdater} from "../../block-subscriber/index";
 import CustomTable from '../../components/tables/table';
@@ -18,7 +18,7 @@ const itemsPerPage = 15;
 
 const MyMessages = () => {
     const dispatch = useDispatch();
-    const messages = useSelector(getMessagesSelector);
+    const messages = useSelector(getMessagesSelector, shallowEqual);
     const passPhrase = useSelector(getPassPhraseSelector);
     const [state, setState] = useState({
         page: 1,

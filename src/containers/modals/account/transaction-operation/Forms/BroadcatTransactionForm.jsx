@@ -4,11 +4,11 @@ import {NotificationManager} from "react-notifications";
 import submitForm from "../../../../../helpers/forms/forms";
 import ModalBody from "../../../../components/modals/modal-body";
 import CustomTextArea from "../../../../components/form-components/TextArea/TextAreaWithFormik";
-import { getAccountInfoSelector } from '../../../../../selectors';
+import { getAccountPublicKeySelector } from '../../../../../selectors';
 
 export const BroadcastTransactionForm = ({ closeModal }) => {
   const dispatch = useDispatch();
-  const { publicKey } = useSelector(getAccountInfoSelector);
+  const publicKey = useSelector(getAccountPublicKeySelector);
 
   const  handleFormSubmit = async (values) => {
     const toSendBroadcast = {

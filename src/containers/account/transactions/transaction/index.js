@@ -4,7 +4,7 @@
  ***************************************************************************** */
 
 import React, { useCallback, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import classNames from 'classnames';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
 import { formatTransactionType, getPhasingTransactionVoters } from '../../../../actions/transactions';
@@ -17,7 +17,7 @@ import styles from './index.module.scss';
 
 const Transaction = (props) => {
     const dispatch = useDispatch();
-    const { decimals, constants } = useSelector(getAccountInfoSelector);
+    const { decimals, constants } = useSelector(getAccountInfoSelector, shallowEqual);
     const handleTime = useFormatTimestamp();
     const [state, setState] = useState({
       phasing: null,

@@ -5,7 +5,7 @@
 
 
 import React, { useCallback, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../helpers/forms/forms";
 import InfoBox from "../../components/info-box";
@@ -16,18 +16,19 @@ import ModalBody from '../../components/modals/modal-body';
 const OrderCancel = ({ closeModal }) => {
     const dispatch = useDispatch();
     const [isPending, setIsPending] = useState(false);
-    const modalData = useSelector(getModalDataSelector);
+    const modalData = useSelector(getModalDataSelector, shallowEqual);
 
     const handleFormSubmit = useCallback(async (values) => {
         setIsPending(true);
 
-        values.publicKey = await crypto.getPublicKeyAPL(values.secretPhrase);
+        const publicKey = await crypto.getPublicKeyAPL(values.secretPhrase);
         const res = await dispatch(submitForm.submitForm({
             ...values,
             order: modalData.order,
             phased: false,
             deadline: 0,
             phasingHashedSecretAlgorithm: 2,
+            publicKey,
         }, modalData.type === 'bid' ? 'cancelBidOrder' : modalData.type === 'ask' ? 'cancelAskOrder' : modalData.type));
         if (res.errorCode) {
             NotificationManager.error(res.errorDescription, 'Error', 5000)

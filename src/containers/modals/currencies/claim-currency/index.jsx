@@ -6,7 +6,7 @@
 import React, {
   useState, useEffect, useCallback,
 } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
 import { getCurrencyAction, getAccountCurrenciesAction } from '../../../../actions/currencies';
@@ -20,7 +20,7 @@ export default function ClaimCurrency(props) {
 
   const { nameModal, closeModal, processForm } = props;
 
-  const modalData = useSelector(getModalDataSelector);
+  const modalData = useSelector(getModalDataSelector, shallowEqual);
   const ticker = useSelector(getTickerSelector);
   const account= useSelector(getAccountSelector);
 

@@ -5,7 +5,7 @@
 
 import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAccountInfoSelector } from '../../../../selectors';
+import { getAccountRsSelector } from '../../../../selectors';
 import { getAccountExchangesAction } from '../../../../actions/exchange-booth';
 import { TableLoader } from '../../../components/TableLoader';
 import SiteHeader from '../../../components/site-header';
@@ -13,7 +13,7 @@ import TradeHistoryItem from './exchange-history-item';
 
 export default function TradeHistoryCurrency() {
   const dispatch = useDispatch();
-  const { accountRS } = useSelector(getAccountInfoSelector);
+  const accountRS = useSelector(getAccountRsSelector);
 
   const getExchanges = useCallback(async ({ firstIndex, lastIndex }) => {
     const exchanges = await dispatch(getAccountExchangesAction({

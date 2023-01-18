@@ -6,14 +6,14 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { setBodyModalParamsAction } from "../../../../modules/modals";
 import { getAccountInfoSelector } from '../../../../selectors';
 import { getTransactionAction } from '../../../../actions/transactions';
 
 const ShufflingItem = (props) => {
     const dispatch = useDispatch();
-    const { ticker, decimals, account } = useSelector(getAccountInfoSelector);
+    const { ticker, decimals, account } = useSelector(getAccountInfoSelector, shallowEqual);
 
     const handleTransactionModal = async () => {
         const transaction = await dispatch(getTransactionAction({

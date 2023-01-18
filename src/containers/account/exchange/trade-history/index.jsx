@@ -1,7 +1,7 @@
 import React, {
   useEffect, useCallback, useState,
 } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { ALL_STATUSES } from '../../../../constants/statuses';
 import { ONE_GWEI } from '../../../../constants';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
@@ -12,12 +12,13 @@ import CustomTable from '../../../components/tables/table1';
 import SiteHeader from '../../../components/site-header';
 import InfoBox from '../../../components/info-box';
 import { readFromLocalStorage } from '../../../../actions/localStorage';
+import { getAccountInfoSelector, getExchangeInfoSelector } from '../../../../selectors';
 
 export default function TradeHistory() {
   const dispatch = useDispatch();
 
-  const { myTradeHistory } = useSelector(state => state.exchange);
-  const { wallets, ticker } = useSelector(state => state.account);
+  const { myTradeHistory } = useSelector(getExchangeInfoSelector, shallowEqual);
+  const { wallets, ticker } = useSelector(getAccountInfoSelector, shallowEqual);
 
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(1);

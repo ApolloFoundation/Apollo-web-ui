@@ -1,18 +1,18 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import {Link} from 'react-router-dom';
-import {useDispatch, useSelector} from 'react-redux';
+import {shallowEqual, useDispatch, useSelector} from 'react-redux';
 import {getDGSGoodsAction, getDGSPurchasesAction} from '../../../../actions/marketplace';
 import InfoBox from '../../../components/info-box';
 import MarketplaceItem from '../marketplace-card/index';
 import ContentLoader from '../../../components/content-loader';
 import {BlockUpdater} from "../../../block-subscriber";
+import { getTotalPurchasedProductsSelector } from '../../../../selectors';
 
 
 const MarketplaceDashboardFooter = () => {
     const dispatch = useDispatch();
-    const totalPurchasedProducts = useSelector(state => 
-        state.marketplace.marketplaceGeneral?.totalPurchasedProducts || null
-    );
+    const totalPurchasedProducts = useSelector(getTotalPurchasedProductsSelector, shallowEqual);
+
     const [state, setState] = useState({
         getDGSGoods: [],
         getDGSPurchasesCount: 0,

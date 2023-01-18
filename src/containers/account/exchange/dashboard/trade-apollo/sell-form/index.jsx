@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { Formik } from 'formik';
 import { NotificationManager } from 'react-notifications';
 import { currencyTypes, multiply } from '../../../../../../helpers/format';
@@ -8,6 +8,9 @@ import { ONE_GWEI } from '../../../../../../constants';
 import {
   setBodyModalParamsAction, resetTrade, setSelectedOrderInfo,
 } from '../../../../../../modules/modals';
+import {
+  getAccountInfoSelector, getDashboardInfoSelector, getExchangeInfoSelector
+} from '../../../../../../selectors';
 import SellForm from './form';
 
 const feeATM = 200000000;
@@ -15,9 +18,9 @@ const feeATM = 200000000;
 export default function SellFormWrapper(props) {
   const dispatch = useDispatch();
 
-  const { dashboardAccoountInfo } = useSelector(state => state.dashboard);
-  const { currentCurrency } = useSelector(state => state.exchange);
-  const { unconfirmedBalanceATM: balanceAPL, account, passPhrase } = useSelector(state => state.account);
+  const { dashboardAccoountInfo } = useSelector(getDashboardInfoSelector, shallowEqual);
+  const { currentCurrency } = useSelector(getExchangeInfoSelector, shallowEqual);
+  const { unconfirmedBalanceATM: balanceAPL, account, passPhrase } = useSelector(getAccountInfoSelector, shallowEqual);
 
   const { currency } = currentCurrency;
 

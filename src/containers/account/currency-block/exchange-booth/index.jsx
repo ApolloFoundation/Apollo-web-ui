@@ -6,7 +6,7 @@
 import React, {
   useEffect, useCallback, useState,
 } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { useRouteMatch, useHistory } from 'react-router-dom';
 import { getAllCurrenciesAction, getCurrencyAction } from '../../../../actions/currencies';
 import { BlockUpdater } from '../../../block-subscriber';
@@ -29,7 +29,7 @@ export default function ExchangeBooth() {
   const dispatch = useDispatch();
   const {
     balanceATM, accountRS, decimals, ticker,
-  } = useSelector(getAccountInfoSelector);
+  } = useSelector(getAccountInfoSelector, shallowEqual);
   const match = useRouteMatch();
   const history = useHistory();
 

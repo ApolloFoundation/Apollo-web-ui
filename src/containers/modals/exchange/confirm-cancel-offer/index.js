@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
 import { setAccountPassphrase } from '../../../../modules/account';
 import { cancelOffer } from "../../../../actions/wallet";
@@ -13,11 +13,10 @@ import {
     getTickerSelector
 } from '../../../../selectors';
 
-// TODO check
 const ConfirmCancelOffer = ({ closeModal, nameModal }) =>  {
     const dispatch = useDispatch();
     const [isPending, setIsPending] = useState(false);
-    const {currency, pairRate, offerAmount, total, orderId } = useSelector(getModalDataSelector);
+    const {currency, pairRate, offerAmount, total, orderId } = useSelector(getModalDataSelector, shallowEqual);
     const account = useSelector(getAccountSelector);
     const ticker = useSelector(getTickerSelector);
     const decimals = useSelector(getDecimalsSelector);

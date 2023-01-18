@@ -1,11 +1,11 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, shallowEqual } from 'react-redux';
 import ModalBody from '../../../components/modals/modal-body';
 import TextualInputComponent from '../../../components/form-components/TextualInput';
 import { getModalDataSelector } from '../../../../selectors';
 
 const SelectOrder = ({ closeModal }) => {
-    const modalData = useSelector(getModalDataSelector);
+    const modalData = useSelector(getModalDataSelector, shallowEqual);
     return (
         <ModalBody
             modalTitle='Chosen trade'

@@ -3,14 +3,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import {NotificationManager} from "react-notifications";
 import { getBlocksAction, getBlockAction } from "../../../../actions/blocks";
 import TopPageBlocks from '../../../components/tob-page-blocks';
-import { getAccountInfoSelector, getBlockTimeSelector } from '../../../../selectors';
+import { getAccountSelector, getBlockTimeSelector, getDecimalsSelector } from '../../../../selectors';
 import { TableLoader } from '../../../components/TableLoader';
 import Block from '../block';
 import { headersList } from './headersList';
 
 export const AllBlocks = ({ height }) => {
   const dispatch = useDispatch();
-  const { decimals, account } = useSelector(getAccountInfoSelector);
+  const account = useSelector(getAccountSelector);
+  const decimals = useSelector(getDecimalsSelector);
   const blockTime = useSelector(getBlockTimeSelector);
   const [state, setState] = useState({
     avgFee: 0,

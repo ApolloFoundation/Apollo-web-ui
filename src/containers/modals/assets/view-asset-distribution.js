@@ -5,7 +5,7 @@
 
 
 import React, { useCallback } from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch, useSelector, shallowEqual} from 'react-redux';
 import {setBodyModalParamsAction} from '../../../modules/modals';
 import {getAccountAssetsAction} from "../../../actions/assets";
 import { useDataLoader } from '../../../hooks/useDataLoader';
@@ -14,7 +14,7 @@ import ModalBody from '../../components/modals/modal-body';
 
 const AssetDistribution = (props) => {
     const dispatch = useDispatch();
-    const modalData = useSelector(getModalDataSelector);
+    const modalData = useSelector(getModalDataSelector, shallowEqual);
     
     const handleLoadData = useCallback(async () => {
         const res = await dispatch(getAccountAssetsAction({

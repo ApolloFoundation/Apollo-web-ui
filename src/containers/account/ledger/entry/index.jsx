@@ -8,14 +8,14 @@ import i18n from 'i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
 import Button from '../../../components/button';
-import { getAccountInfoSelector } from '../../../../selectors';
+import { getDecimalsSelector } from '../../../../selectors';
 import { useFormatTimestamp } from '../../../../hooks/useFormatTimestamp';
 
 export default function Entry(props) {
   const dispatch = useDispatch();
   const handleTime = useFormatTimestamp();
 
-  const { decimals } = useSelector(getAccountInfoSelector);
+  const decimals = useSelector(getDecimalsSelector);
   const {
     eventType, height, event, ledgerId, timestamp,
     holdingType, holdingInfo, change, balance,

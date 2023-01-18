@@ -5,7 +5,7 @@
 
 
 import React, { useCallback, useEffect, useState } from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch, useSelector, shallowEqual} from 'react-redux';
 import {NotificationManager} from "react-notifications";
 import  {getDGSGoodAction} from "../../../../actions/marketplace";
 import config from '../../../../config';
@@ -22,7 +22,7 @@ import Form from './form';
 const MarketplaceChangePrice = ({ closeModal, processForm }) => {
     const dispatch = useDispatch();
     const [goods, setGoods] = useState(null);
-    const modalData = useSelector(getModalDataSelector);
+    const modalData = useSelector(getModalDataSelector, shallowEqual);
     const account = useSelector(getAccountRsSelector);
     const decimals = useSelector(getDecimalsSelector);
     const ticker = useSelector(getTickerSelector);

@@ -5,7 +5,7 @@
 
 
 import React, { useCallback } from 'react';
-import { useSelector} from 'react-redux';
+import { useSelector, shallowEqual} from 'react-redux';
 import {NotificationManager} from "react-notifications";
 import TextualInputComponent from '../../../components/form-components/TextualInput';
 import ModalBody from '../../../components/modals/modal-body';
@@ -14,7 +14,7 @@ import { useAliasDataLoader } from '../useAliasDataLoader';
 
 const DeleteAlias = ({ processForm, closeModal }) => {
     const alias = useAliasDataLoader();
-    const modalData = useSelector(getModalDataSelector);
+    const modalData = useSelector(getModalDataSelector, shallowEqual);
     const handleFormSubmit = useCallback(async (values) => {
         const data = {
             ...values,

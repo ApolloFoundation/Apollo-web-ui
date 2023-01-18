@@ -5,7 +5,7 @@
 
 
 import React, { useCallback, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import config from '../../../../config';
 import Form from './form';
 import ModalBody from '../../../components/modals/modal-body';
@@ -25,7 +25,7 @@ const MarketplaceDeliver = ({ closeModal }) => {
     const [goods, setGoods] = useState(null);
     const [isPending, setIsPending] = useState(false);
 
-    const modalData = useSelector(getModalDataSelector);
+    const modalData = useSelector(getModalDataSelector, shallowEqual);
     const account = useSelector(getAccountRsSelector);
     const decimals = useSelector(getDecimalsSelector);
     const ticker = useSelector(getTickerSelector);
