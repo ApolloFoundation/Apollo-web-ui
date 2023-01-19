@@ -4,10 +4,10 @@
  ******************************************************************************/
 
 
-import React, { createRef } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import {connect} from 'react-redux';
 import classNames from 'classnames';
-import {closeModal, setModalType} from '../../modules/modals';
+import { closeModal } from '../../modules/modals';
 import ModalProvider from '../components/modals/modal-provider';
 import { getModalTypeSelector } from '../../selectors';
 // Modals
@@ -105,150 +105,147 @@ import ConfirmCancelOrder from './exchange/confirm-cancel-offer';
 import SelectOrder from './exchange/select-order';
 import ConfirmExportWallet from "./exchange/confirm-export-wallet";
 
-class ModalWindow extends React.Component {
-    modalRef = createRef();
-    componentDidMount() {
-        document.addEventListener('mousedown', this.handleClickOutside);
-    }
+const ModalWindow = (props) => {
+    const modalRef = useRef();
 
-    componentWillUnmount() {
-        document.removeEventListener('mousedown', this.handleClickOutside);
-    }
-
-    handleClickOutside = (event) => {
-        if(event.target === this.modalRef.current) {
-            this.props.closeModal();
+    const handleClickOutside = useCallback((event) => {
+        if (event.target === modalRef.current) {
+            props.closeModal();
         }
-    };
+    }, [props.closeModal, modalRef.current]);
 
-    render() {
-        return (
-            <div
-                onClick={this.handleClickOutside}
-                className={classNames({
-                    "modal-window": true,
-                    "active": this.props.modalType
-                })}
-                ref={this.modalRef}
-                id="modal-window-container"
-            >
-                <ModalProvider>
-                    {this.props.modalType === 'SAVE_CREDENTIALS'            && <LoginSaveData             closeModal={this.props.closeModal} nameModal={'SAVE_CREDENTIALS'}/>}
-                    {this.props.modalType === 'INFO_TRANSACTION'            && <InfoTransaction           closeModal={this.props.closeModal} nameModal={'INFO_TRANSACTION'}/>}
-                    {this.props.modalType === 'INFO_LEDGER_TRANSACTION'     && <InfoLedgerTransaction     closeModal={this.props.closeModal} nameModal={'INFO_LEDGER_TRANSACTION'}/>}
-                    {this.props.modalType === 'INFO_BLOCK'                  && <InfoBlock                 closeModal={this.props.closeModal} nameModal={'INFO_BLOCK'}/>}
-                    {this.props.modalType === 'PrivateTransactions'         && <PrivateTransactions       closeModal={this.props.closeModal} nameModal={'PrivateTransactions'}/>}
-                    {this.props.modalType === 'SEND_APOLLO'                 && <SendApollo                closeModal={this.props.closeModal} nameModal={'SEND_APOLLO'}/>}
-                    {this.props.modalType === 'SEND_APOLLO_PRIVATE'         && <SendApolloPrivate         closeModal={this.props.closeModal} nameModal={'SEND_APOLLO_PRIVATE'}/>}
-                    {this.props.modalType === 'APPROVE_TRANSACTION'         && <ApproveTransaction        closeModal={this.props.closeModal} nameModal={'APPROVE_TRANSACTION'}/>}
-                    {this.props.modalType === 'RAW_TRANSACTION_DETAILS'     && <RawTransactionDetails     closeModal={this.props.closeModal} nameModal={'RAW_TRANSACTION_DETAILS'}/>}
-                    {this.props.modalType === 'TRANSACTION_FAIL'            && <TransactionFail closeModal={this.props.closeModal} nameModal={'TRANSACTION_FAIL'} />}
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        }
+    }, [handleClickOutside]);
 
-                    {/* Assets */}
-                    {this.props.modalType === 'TRANSFER_ASSET'              && <TransferAsset             closeModal={this.props.closeModal} nameModal={'TRANSFER_ASSET'}/>}
-                    {this.props.modalType === 'DELETE_SHARES'               && <DeleteShares              closeModal={this.props.closeModal} nameModal={'DELETE_SHARES'}/>}
-                    {this.props.modalType === 'RESERVE_CURRENCY'            && <ReserveCurrency           closeModal={this.props.closeModal} nameModal={'RESERVE_CURRENCY'}/>}
-                    {this.props.modalType === 'ISSUE_ASSET'                 && <IssueAsset                closeModal={this.props.closeModal} nameModal={'ISSUE_ASSET'}/>}
-                    {this.props.modalType === 'BUY_ASSET'                   && <BuyAssets                 closeModal={this.props.closeModal} nameModal={'BUY_ASSET'}/>}
-                    {this.props.modalType === 'SELL_ASSET'                  && <SellAssets                closeModal={this.props.closeModal} nameModal={'SELL_ASSET'}/>}
-                    {this.props.modalType === 'VIEW_ASSET_DISTRIBUTION'     && <AssetDistribution         closeModal={this.props.closeModal} nameModal={'VIEW_ASSET_DISTRIBUTION'}/>}
+    return (
+        <div
+            onClick={handleClickOutside}
+            className={classNames("modal-window", {
+                "active": props.modalType
+            })}
+            ref={modalRef}
+            id="modal-window-container"
+        >
+            <ModalProvider>
+                {props.modalType === 'SAVE_CREDENTIALS'            && <LoginSaveData             closeModal={props.closeModal} nameModal={'SAVE_CREDENTIALS'}/>}
+                {props.modalType === 'INFO_TRANSACTION'            && <InfoTransaction           closeModal={props.closeModal} nameModal={'INFO_TRANSACTION'}/>}
+                {props.modalType === 'INFO_LEDGER_TRANSACTION'     && <InfoLedgerTransaction     closeModal={props.closeModal} nameModal={'INFO_LEDGER_TRANSACTION'}/>}
+                {props.modalType === 'INFO_BLOCK'                  && <InfoBlock                 closeModal={props.closeModal} nameModal={'INFO_BLOCK'}/>}
+                {props.modalType === 'PrivateTransactions'         && <PrivateTransactions       closeModal={props.closeModal} nameModal={'PrivateTransactions'}/>}
+                {props.modalType === 'SEND_APOLLO'                 && <SendApollo                closeModal={props.closeModal} nameModal={'SEND_APOLLO'}/>}
+                {props.modalType === 'SEND_APOLLO_PRIVATE'         && <SendApolloPrivate         closeModal={props.closeModal} nameModal={'SEND_APOLLO_PRIVATE'}/>}
+                {props.modalType === 'APPROVE_TRANSACTION'         && <ApproveTransaction        closeModal={props.closeModal} nameModal={'APPROVE_TRANSACTION'}/>}
+                {props.modalType === 'RAW_TRANSACTION_DETAILS'     && <RawTransactionDetails     closeModal={props.closeModal} nameModal={'RAW_TRANSACTION_DETAILS'}/>}
+                {props.modalType === 'TRANSACTION_FAIL'            && <TransactionFail closeModal={props.closeModal} nameModal={'TRANSACTION_FAIL'} />}
 
-                    {/* Currency */}
-                    {this.props.modalType === 'ISSUE_CURRENCIES'            && <IssueCurrency             closeModal={this.props.closeModal} nameModal={'ISSUE_CURRENCIES'}/>}
-                    {this.props.modalType === 'TRANSFER_CURRENCY'           && <TransferCurrency          closeModal={this.props.closeModal} nameModal={'TRANSFER_CURRENCY'}/>}
-                    {this.props.modalType === 'OFFER_CURRENCY'              && <OfferCurrency             closeModal={this.props.closeModal} nameModal={'OFFER_CURRENCY'}/>}
-                    {this.props.modalType === 'BUY_CURRENCY'                && <BuyCurrency               closeModal={this.props.closeModal} nameModal={'BUY_CURRENCY'}/>}
-                    {this.props.modalType === 'SELL_CURRENCY'               && <SellCurrency              closeModal={this.props.closeModal} nameModal={'SELL_CURRENCY'}/>}
-                    {this.props.modalType === 'CLAIM_CURRENCY'              && <ClaimCurrency             closeModal={this.props.closeModal} nameModal={'CLAIM_CURRENCY'}/>}
+                {/* Assets */}
+                {props.modalType === 'TRANSFER_ASSET'              && <TransferAsset             closeModal={props.closeModal} nameModal={'TRANSFER_ASSET'}/>}
+                {props.modalType === 'DELETE_SHARES'               && <DeleteShares              closeModal={props.closeModal} nameModal={'DELETE_SHARES'}/>}
+                {props.modalType === 'RESERVE_CURRENCY'            && <ReserveCurrency           closeModal={props.closeModal} nameModal={'RESERVE_CURRENCY'}/>}
+                {props.modalType === 'ISSUE_ASSET'                 && <IssueAsset                closeModal={props.closeModal} nameModal={'ISSUE_ASSET'}/>}
+                {props.modalType === 'BUY_ASSET'                   && <BuyAssets                 closeModal={props.closeModal} nameModal={'BUY_ASSET'}/>}
+                {props.modalType === 'SELL_ASSET'                  && <SellAssets                closeModal={props.closeModal} nameModal={'SELL_ASSET'}/>}
+                {props.modalType === 'VIEW_ASSET_DISTRIBUTION'     && <AssetDistribution         closeModal={props.closeModal} nameModal={'VIEW_ASSET_DISTRIBUTION'}/>}
 
-
-                    {/* Voting */}
-                    {this.props.modalType === 'ISSUE_POLL'                  && <CreatePoll                closeModal={this.props.closeModal} nameModal={'ISSUE_POLL'}/>}
-                    {this.props.modalType === 'CAST_VOTE'                   && <CastVote                  closeModal={this.props.closeModal} nameModal={'CAST_VOTE'}/>}
-                    {this.props.modalType === 'POLL_RESULTS'                && <PollResults               closeModal={this.props.closeModal} nameModal={'CAST_VOTE'}/>}
-
-                    {/* Data Storage */}
-                    {this.props.modalType === 'ISSUE_FILE_UPLOAD'           && <UploadFile                closeModal={this.props.closeModal} nameModal={'ISSUE_FILE_UPLOAD'}/>}
+                {/* Currency */}
+                {props.modalType === 'ISSUE_CURRENCIES'            && <IssueCurrency             closeModal={props.closeModal} nameModal={'ISSUE_CURRENCIES'}/>}
+                {props.modalType === 'TRANSFER_CURRENCY'           && <TransferCurrency          closeModal={props.closeModal} nameModal={'TRANSFER_CURRENCY'}/>}
+                {props.modalType === 'OFFER_CURRENCY'              && <OfferCurrency             closeModal={props.closeModal} nameModal={'OFFER_CURRENCY'}/>}
+                {props.modalType === 'BUY_CURRENCY'                && <BuyCurrency               closeModal={props.closeModal} nameModal={'BUY_CURRENCY'}/>}
+                {props.modalType === 'SELL_CURRENCY'               && <SellCurrency              closeModal={props.closeModal} nameModal={'SELL_CURRENCY'}/>}
+                {props.modalType === 'CLAIM_CURRENCY'              && <ClaimCurrency             closeModal={props.closeModal} nameModal={'CLAIM_CURRENCY'}/>}
 
 
-                    {/*Account*/}
-                    {this.props.modalType === 'INFO_ACCOUNT'                && <InfoAccount               setModal={this.props.setModalType} closeModal={this.props.closeModal} nameModal={'INFO_ACCOUNT'}/>}
-                    {this.props.modalType === 'ACCOUNT_DETAILS'             && <AccountDetails            closeModal={this.props.closeModal} nameModal={'ACCOUNT_DETAILS'}/>}
-                    {this.props.modalType === 'LEASE_BALANCE'               && <LeaseBalance              closeModal={this.props.closeModal} nameModal={'LEASE_BALANCE'}/>}
-                    {this.props.modalType === 'TOKEN_GENERATION_VALIDATION' && <TokenGenerationValidation closeModal={this.props.closeModal} nameModal={'TOKEN_GENERATION_VALIDATION'}/>}
-                    {this.props.modalType === 'CALCULATE_CACHE'             && <HashCalculation           closeModal={this.props.closeModal} nameModal={'CALCULATE_CACHE'}/>}
-                    {this.props.modalType === 'TRANSACTIONS_OPERATIONS'     && <TransactionOperations     closeModal={this.props.closeModal} nameModal={'TRANSACTIONS_OPERATIONS'}/>}
-                    {this.props.modalType === 'GENERAL_INFO'                && <ApolloAbout               closeModal={this.props.closeModal} nameModal={'GENERAL_INFO'}/>}
-                    {this.props.modalType === 'SHARDING_INFO'               && <ShardingInfo              closeModal={this.props.closeModal} nameModal={'SHARDING_INFO'}/>}
-                    {this.props.modalType === 'SET_ACCOUNT_INFO'            && <AccountInfo               closeModal={this.props.closeModal} nameModal={'SET_ACCOUNT_INFO'}/>}
-                    {this.props.modalType === 'SAVE_ACCOUNT'                && <SaveAccount               closeModal={this.props.closeModal} nameModal={'SAVE_ACCOUNT'}/>}
-                    {this.props.modalType === 'SET_ACCOUNT_PROPERTY'        && <SetAccountProperty        closeModal={this.props.closeModal} nameModal={'SET_ACCOUNT_PROPERTY'}/>}
-                    {this.props.modalType === 'DELETE_ACCOUNT_PROPERTY'     && <DeleteAccountProperty     closeModal={this.props.closeModal} nameModal={'DELETE_ACCOUNT_PROPERTY'}/>}
-                    {this.props.modalType === 'CONFIRM_2FA_OPERATION'       && <Confirm2FA                closeModal={this.props.closeModal} nameModal={'CONFIRM_2FA_OPERATION'}/>}
-                    {this.props.modalType === 'EXPORT_KEY_SEED'             && <ExportAccount             closeModal={this.props.closeModal} nameModal={'EXPORT_KEY_SEED'}/>}
-                    {this.props.modalType === 'DELETE_ACCOUNT_FROM_NODE'    && <DeleteAccountFromWebNode  closeModal={this.props.closeModal} nameModal={'DELETE_ACCOUNT_FROM_NODE'}/>}
-                    {this.props.modalType === 'CONFIRM_FORGING'             && <ConfirmForging            closeModal={this.props.closeModal}/>}
-                    {this.props.modalType === 'INFO_NETWORK'                && <ChainProps                closeModal={this.props.closeModal}/>}
+                {/* Voting */}
+                {props.modalType === 'ISSUE_POLL'                  && <CreatePoll                closeModal={props.closeModal} nameModal={'ISSUE_POLL'}/>}
+                {props.modalType === 'CAST_VOTE'                   && <CastVote                  closeModal={props.closeModal} nameModal={'CAST_VOTE'}/>}
+                {props.modalType === 'POLL_RESULTS'                && <PollResults               closeModal={props.closeModal} nameModal={'CAST_VOTE'}/>}
+
+                {/* Data Storage */}
+                {props.modalType === 'ISSUE_FILE_UPLOAD'           && <UploadFile                closeModal={props.closeModal} nameModal={'ISSUE_FILE_UPLOAD'}/>}
 
 
-                    {/* Shuffling */}
-                    {this.props.modalType === 'ISSUE_CREATE_SHUFFLING'      && <CreateShuffling           closeModal={this.props.closeModal} nameModal={'ISSUE_CREATE_SHUFFLING'}/>}
-                    {this.props.modalType === 'START_SHUFFLING'             && <JoinShuffling             closeModal={this.props.closeModal} nameModal={'START_SHUFFLING'}/>}
+                {/*Account*/}
+                {props.modalType === 'INFO_ACCOUNT'                && <InfoAccount               setModal={props.setModalType} closeModal={props.closeModal} nameModal={'INFO_ACCOUNT'}/>}
+                {props.modalType === 'ACCOUNT_DETAILS'             && <AccountDetails            closeModal={props.closeModal} nameModal={'ACCOUNT_DETAILS'}/>}
+                {props.modalType === 'LEASE_BALANCE'               && <LeaseBalance              closeModal={props.closeModal} nameModal={'LEASE_BALANCE'}/>}
+                {props.modalType === 'TOKEN_GENERATION_VALIDATION' && <TokenGenerationValidation closeModal={props.closeModal} nameModal={'TOKEN_GENERATION_VALIDATION'}/>}
+                {props.modalType === 'CALCULATE_CACHE'             && <HashCalculation           closeModal={props.closeModal} nameModal={'CALCULATE_CACHE'}/>}
+                {props.modalType === 'TRANSACTIONS_OPERATIONS'     && <TransactionOperations     closeModal={props.closeModal} nameModal={'TRANSACTIONS_OPERATIONS'}/>}
+                {props.modalType === 'GENERAL_INFO'                && <ApolloAbout               closeModal={props.closeModal} nameModal={'GENERAL_INFO'}/>}
+                {props.modalType === 'SHARDING_INFO'               && <ShardingInfo              closeModal={props.closeModal} nameModal={'SHARDING_INFO'}/>}
+                {props.modalType === 'SET_ACCOUNT_INFO'            && <AccountInfo               closeModal={props.closeModal} nameModal={'SET_ACCOUNT_INFO'}/>}
+                {props.modalType === 'SAVE_ACCOUNT'                && <SaveAccount               closeModal={props.closeModal} nameModal={'SAVE_ACCOUNT'}/>}
+                {props.modalType === 'SET_ACCOUNT_PROPERTY'        && <SetAccountProperty        closeModal={props.closeModal} nameModal={'SET_ACCOUNT_PROPERTY'}/>}
+                {props.modalType === 'DELETE_ACCOUNT_PROPERTY'     && <DeleteAccountProperty     closeModal={props.closeModal} nameModal={'DELETE_ACCOUNT_PROPERTY'}/>}
+                {props.modalType === 'CONFIRM_2FA_OPERATION'       && <Confirm2FA                closeModal={props.closeModal} nameModal={'CONFIRM_2FA_OPERATION'}/>}
+                {props.modalType === 'EXPORT_KEY_SEED'             && <ExportAccount             closeModal={props.closeModal} nameModal={'EXPORT_KEY_SEED'}/>}
+                {props.modalType === 'DELETE_ACCOUNT_FROM_NODE'    && <DeleteAccountFromWebNode  closeModal={props.closeModal} nameModal={'DELETE_ACCOUNT_FROM_NODE'}/>}
+                {props.modalType === 'CONFIRM_FORGING'             && <ConfirmForging            closeModal={props.closeModal}/>}
+                {props.modalType === 'INFO_NETWORK'                && <ChainProps                closeModal={props.closeModal}/>}
 
 
-                    {/*Aliases */}
-                    {this.props.modalType === 'EDIT_ALIAS'                  && <EditAlias                 closeModal={this.props.closeModal} nameModal={'EDIT_ALIAS'}/>}
-                    {this.props.modalType === 'SELL_ALIAS'                  && <SellAlias                 closeModal={this.props.closeModal} nameModal={'SELL_ALIAS'}/>}
-                    {this.props.modalType === 'TRANSFER_ALIAS'              && <TransferAlias             closeModal={this.props.closeModal} nameModal={'TRANSFER_ALIAS'}/>}
-                    {this.props.modalType === 'DELETE_ALIAS'                && <DeleteAlias               closeModal={this.props.closeModal} nameModal={'DELETE_ALIAS'}/>}
-                    {this.props.modalType === 'ADD_ALIAS'                   && <AddAlias                  closeModal={this.props.closeModal} nameModal={'ADD_ALIAS'}/>}
-                    {this.props.modalType === 'CANCEL_SALE_ALIAS'           && <CancelSell                closeModal={this.props.closeModal} nameModal={'CANCEL_SALE_ALIAS'}/>}
-                    {this.props.modalType === 'BUY_ALIAS'                   && <GetAlais                  closeModal={this.props.closeModal} nameModal={'BUY_ALIAS'}/>}
+                {/* Shuffling */}
+                {props.modalType === 'ISSUE_CREATE_SHUFFLING'      && <CreateShuffling           closeModal={props.closeModal} nameModal={'ISSUE_CREATE_SHUFFLING'}/>}
+                {props.modalType === 'START_SHUFFLING'             && <JoinShuffling             closeModal={props.closeModal} nameModal={'START_SHUFFLING'}/>}
 
 
-                    {/*Marketplace*/}
-                    {this.props.modalType === 'MARKETPLACE_IMAGE'           && <MarketplaceImage          closeModal={this.props.closeModal} nameModal={'MARKETPLACE_IMAGE'}/>}
-                    {this.props.modalType === 'MARKETPLACE_GOOD_DETAILS'    && <MarketplaceProductDetails closeModal={this.props.closeModal} nameModal={'MARKETPLACE_GOOD_DETAILS'}/>}
-                    {this.props.modalType === 'LIST_PRODUCT_FOR_SALE'       && <ListProductForSale        closeModal={this.props.closeModal} nameModal={'LIST_PRODUCT_FOR_SALE'}/>}
-                    {this.props.modalType === 'MARKETPLACE_PURCHASE'        && <MarketplacePurchase       closeModal={this.props.closeModal} nameModal={'MARKETPLACE_PURCHASE'}/>}
-                    {this.props.modalType === 'CHANGE_PRICE'                && <MarketplaceChangePrice    closeModal={this.props.closeModal} nameModal={'CHANGE_PRICE'}/>}
-                    {this.props.modalType === 'CHANGE_QUANTITY'             && <MarketplaceChangeQuantity closeModal={this.props.closeModal} nameModal={'CHANGE_QUANTITY'}/>}
-                    {this.props.modalType === 'DELETE_GOODS'                && <MarketplaceDelete         closeModal={this.props.closeModal} nameModal={'DELETE_GOODS'}/>}
-                    {this.props.modalType === 'MARKETPLACE_GOODS_DELIVER'   && <MarketplaceDeliver        closeModal={this.props.closeModal} nameModal={'MARKETPLACE_GOODS_DELIVER'}/>}
-
-                    {/* General */}
-                    {this.props.modalType === 'INFO-POPUP'                  && <InfoPopup                 closeModal={this.props.closeModal} nameModal={'INFO-POPUP'}/>}
-
-                    {/*Peers*/}
-                    {this.props.modalType === 'ABOUT_PEER_INFO'             && <AboutPeerInfo             closeModal={this.props.closeModal} nameModal={'ABOUT_PEER_INFO'}/>}
-                    {this.props.modalType === 'CONNECT_PEER'                && <ConnectPeer               closeModal={this.props.closeModal} nameModal={'CONNECT_PEER'}/>}
-                    {this.props.modalType === 'BLACKLIST_PEER'              && <BlacklistPeer             closeModal={this.props.closeModal} nameModal={'BLACKLIST_PEER'}/>}
+                {/*Aliases */}
+                {props.modalType === 'EDIT_ALIAS'                  && <EditAlias                 closeModal={props.closeModal} nameModal={'EDIT_ALIAS'}/>}
+                {props.modalType === 'SELL_ALIAS'                  && <SellAlias                 closeModal={props.closeModal} nameModal={'SELL_ALIAS'}/>}
+                {props.modalType === 'TRANSFER_ALIAS'              && <TransferAlias             closeModal={props.closeModal} nameModal={'TRANSFER_ALIAS'}/>}
+                {props.modalType === 'DELETE_ALIAS'                && <DeleteAlias               closeModal={props.closeModal} nameModal={'DELETE_ALIAS'}/>}
+                {props.modalType === 'ADD_ALIAS'                   && <AddAlias                  closeModal={props.closeModal} nameModal={'ADD_ALIAS'}/>}
+                {props.modalType === 'CANCEL_SALE_ALIAS'           && <CancelSell                closeModal={props.closeModal} nameModal={'CANCEL_SALE_ALIAS'}/>}
+                {props.modalType === 'BUY_ALIAS'                   && <GetAlais                  closeModal={props.closeModal} nameModal={'BUY_ALIAS'}/>}
 
 
-                    {/*Monitors*/}
-                    {this.props.modalType === 'ADD_MONITOR'                 && <AddMonitor                closeModal={this.props.closeModal} nameModal={'ADD_MONITOR'}/>}
-                    {this.props.modalType === 'ADD_MONITORED_ACCOUNT'       && <AddMonitoredAccount       closeModal={this.props.closeModal} nameModal={'ADD_MONITORED_ACCOUNT'}/>}
-                    {this.props.modalType === 'REMOVE_MONITOR'              && <RemoveMonitor             closeModal={this.props.closeModal} nameModal={'REMOVE_MONITOR'}/>}
-                    {this.props.modalType === 'CANCEL_ORDER'                && <OrderCancel               closeModal={this.props.closeModal} nameModal={'CANCEL_ORDER'}/>}
+                {/*Marketplace*/}
+                {props.modalType === 'MARKETPLACE_IMAGE'           && <MarketplaceImage          closeModal={props.closeModal} nameModal={'MARKETPLACE_IMAGE'}/>}
+                {props.modalType === 'MARKETPLACE_GOOD_DETAILS'    && <MarketplaceProductDetails closeModal={props.closeModal} nameModal={'MARKETPLACE_GOOD_DETAILS'}/>}
+                {props.modalType === 'LIST_PRODUCT_FOR_SALE'       && <ListProductForSale        closeModal={props.closeModal} nameModal={'LIST_PRODUCT_FOR_SALE'}/>}
+                {props.modalType === 'MARKETPLACE_PURCHASE'        && <MarketplacePurchase       closeModal={props.closeModal} nameModal={'MARKETPLACE_PURCHASE'}/>}
+                {props.modalType === 'CHANGE_PRICE'                && <MarketplaceChangePrice    closeModal={props.closeModal} nameModal={'CHANGE_PRICE'}/>}
+                {props.modalType === 'CHANGE_QUANTITY'             && <MarketplaceChangeQuantity closeModal={props.closeModal} nameModal={'CHANGE_QUANTITY'}/>}
+                {props.modalType === 'DELETE_GOODS'                && <MarketplaceDelete         closeModal={props.closeModal} nameModal={'DELETE_GOODS'}/>}
+                {props.modalType === 'MARKETPLACE_GOODS_DELIVER'   && <MarketplaceDeliver        closeModal={props.closeModal} nameModal={'MARKETPLACE_GOODS_DELIVER'}/>}
+
+                {/* General */}
+                {props.modalType === 'INFO-POPUP'                  && <InfoPopup                 closeModal={props.closeModal} nameModal={'INFO-POPUP'}/>}
+
+                {/*Peers*/}
+                {props.modalType === 'ABOUT_PEER_INFO'             && <AboutPeerInfo             closeModal={props.closeModal} nameModal={'ABOUT_PEER_INFO'}/>}
+                {props.modalType === 'CONNECT_PEER'                && <ConnectPeer               closeModal={props.closeModal} nameModal={'CONNECT_PEER'}/>}
+                {props.modalType === 'BLACKLIST_PEER'              && <BlacklistPeer             closeModal={props.closeModal} nameModal={'BLACKLIST_PEER'}/>}
 
 
-                    {/*Messages*/}
-                    {this.props.modalType === 'DECRYPT_MESSAGES'            && <DecryptMessage            closeModal={this.props.closeModal} nameModal={'DECRYPT_MESSAGES'}/>}
-                    {this.props.modalType === 'COMPOSE_MESSAGE'             && <ComposeMessage            closeModal={this.props.closeModal} nameModal={'COMPOSE_MESSAGE'}/>}
-                    {this.props.modalType === 'SCHEDULE_CURRENCY'           && <ScheaduleCurrency         closeModal={this.props.closeModal} nameModal={'SCHEDULE_CURRENCY'}/>}
+                {/*Monitors*/}
+                {props.modalType === 'ADD_MONITOR'                 && <AddMonitor                closeModal={props.closeModal} nameModal={'ADD_MONITOR'}/>}
+                {props.modalType === 'ADD_MONITORED_ACCOUNT'       && <AddMonitoredAccount       closeModal={props.closeModal} nameModal={'ADD_MONITORED_ACCOUNT'}/>}
+                {props.modalType === 'REMOVE_MONITOR'              && <RemoveMonitor             closeModal={props.closeModal} nameModal={'REMOVE_MONITOR'}/>}
+                {props.modalType === 'CANCEL_ORDER'                && <OrderCancel               closeModal={props.closeModal} nameModal={'CANCEL_ORDER'}/>}
 
-                    {/* Exchange */}
-                    {this.props.modalType === 'LOGIN_EXCHANGE'              && <LoginToExchange           closeModal={this.props.closeModal}/>}
-                    {this.props.modalType === 'WITHDRAW_CURRENCY'           && <WithdrawCurrency          closeModal={this.props.closeModal}/>}
-                    {this.props.modalType === 'CONFIRM_CREATE_OFFER'        && <ConfirmCreateOffer        closeModal={this.props.closeModal}/>}
-                    {this.props.modalType === 'CONFIRM_CANCEL_ORDER'        && <ConfirmCancelOrder        closeModal={this.props.closeModal}/>}
-                    {this.props.modalType === 'CONFIRM_EXPORT_WALLET'       && <ConfirmExportWallet       closeModal={this.props.closeModal}/>}
-                    {this.props.modalType === 'SELECT_ORDER'                && <SelectOrder               closeModal={this.props.closeModal}/>}
-                    {this.props.modalType === 'LOGOUT_EXCHANGE'             && <LogoutExchange            closeModal={this.props.closeModal}/>}
-                </ModalProvider>
-            </div>
-        );
-    }
+
+                {/*Messages*/}
+                {props.modalType === 'DECRYPT_MESSAGES'            && <DecryptMessage            closeModal={props.closeModal} nameModal={'DECRYPT_MESSAGES'}/>}
+                {props.modalType === 'COMPOSE_MESSAGE'             && <ComposeMessage            closeModal={props.closeModal} nameModal={'COMPOSE_MESSAGE'}/>}
+                {props.modalType === 'SCHEDULE_CURRENCY'           && <ScheaduleCurrency         closeModal={props.closeModal} nameModal={'SCHEDULE_CURRENCY'}/>}
+
+                {/* Exchange */}
+                {props.modalType === 'LOGIN_EXCHANGE'              && <LoginToExchange           closeModal={props.closeModal}/>}
+                {props.modalType === 'WITHDRAW_CURRENCY'           && <WithdrawCurrency          closeModal={props.closeModal}/>}
+                {props.modalType === 'CONFIRM_CREATE_OFFER'        && <ConfirmCreateOffer        closeModal={props.closeModal}/>}
+                {props.modalType === 'CONFIRM_CANCEL_ORDER'        && <ConfirmCancelOrder        closeModal={props.closeModal}/>}
+                {props.modalType === 'CONFIRM_EXPORT_WALLET'       && <ConfirmExportWallet       closeModal={props.closeModal}/>}
+                {props.modalType === 'SELECT_ORDER'                && <SelectOrder               closeModal={props.closeModal}/>}
+                {props.modalType === 'LOGOUT_EXCHANGE'             && <LogoutExchange            closeModal={props.closeModal}/>}
+            </ModalProvider>
+        </div>
+    );
 }
 
 const mapStateToProps = state => ({
@@ -256,7 +253,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-    setModalType,
     closeModal,
 };
 

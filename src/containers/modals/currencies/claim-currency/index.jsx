@@ -8,7 +8,6 @@ import React, {
 } from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
-import { setBodyModalParamsAction } from '../../../../modules/modals';
 import { getCurrencyAction, getAccountCurrenciesAction } from '../../../../actions/currencies';
 import TextualInputComponent from '../../../components/form-components/TextualInput';
 import FormRowText from '../../../components/form-components/FormTextRow';
@@ -39,10 +38,10 @@ export default function ClaimCurrency(props) {
 
   const handleFormSubmit = useCallback(values => {
     processForm({ ...values, currency: dataCurrency ? dataCurrency.currency : null }, 'currencyReserveClaim', 'Claim currency has been submitted!', () => {
-      dispatch(setBodyModalParamsAction(null, {}));
+      closeModal();
       NotificationManager.success('Claim currency has been submitted!', null, 5000);
     });
-  }, [dataCurrency, dispatch, processForm]);
+  }, [dataCurrency, dispatch, processForm, closeModal]);
 
   useEffect(() => {
     getCurrency(modalData);

@@ -55,7 +55,6 @@ export default function SendApollo({ closeModal, processForm }) {
           result: res,
         }));
       } else {
-        dispatch(setBodyModalParamsAction(null, {}));
         closeModal();
       }
 

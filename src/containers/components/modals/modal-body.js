@@ -7,7 +7,7 @@ import AdvancedSettings from '../advanced-transaction-settings';
 import {openPrevModal, saveSendModalState} from "../../../modules/modals";
 import BackForm from '../../modals/modal-form/modal-form-container';
 import { FeeWrapper } from '../form-components/FeeWrapper';
-import { getModalDataSelector, getModalHistorySelector } from '../../../selectors';
+import { getModalDataSelector, getModalHistorySelector, getModalTypeSelector } from '../../../selectors';
 import { ModalBodyMarketplace } from './ModalBodyMarketplace'
 
 
@@ -110,6 +110,7 @@ const ModalBody = (props) => {
                 classNames('modal-box', { 
                     'wide': props.isWide,
                     'x-wide': props.isXWide,
+                    "active": props.modalType,
                     })}
             >
                 {form()}
@@ -120,6 +121,7 @@ const ModalBody = (props) => {
 const mapStateToProps = state => ({
     modalData: getModalDataSelector(state),
     modalsHistory: getModalHistorySelector(state),
+    modalType: getModalTypeSelector(state),
 });
 
 const mapDispatchToProps = {
