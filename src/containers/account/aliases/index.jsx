@@ -12,7 +12,6 @@ import {setBodyModalParamsAction} from "../../../modules/modals";
 import SiteHeader from '../../components/site-header'
 import { getAccountSelector } from '../../../selectors';
 import Alias from "./alias/index";
-import { AccountInputBase } from 'containers/components/form-components/AccountInputBase';
 
 const headersList = [
   {
@@ -73,8 +72,6 @@ export const Aliases = () => {
                 dataLoaderCallback={getAliases}
               />        
           </div>
-          <div>sdsdsd</div>
-          <AccountInputBase />
       </div>
   );
 }
