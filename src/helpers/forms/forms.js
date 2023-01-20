@@ -12,7 +12,8 @@ import converters from '../converters'
 import AplAddress from '../util/apladres'
 import {processElGamalEncryption} from '../../actions/crypto';
 import {NotificationManager} from "react-notifications";
-import {SET_AMOUNT_WARNING, SET_ASSET_WARNING, SET_CURRENCY_WARNING, SET_FEE_WARNING} from "../../modules/modals";
+import { handleFetch } from 'helpers/fetch';
+import axios from 'axios';
 
 const BigInteger = require('jsbn').BigInteger;
 let forms = {};
@@ -79,6 +80,7 @@ function submitForm(data, requestType, ) {
 
         var successMessage = getSuccessMessage(requestTypeKey);
         var errorMessage = getErrorMessage(requestTypeKey);
+        
 
         var formFunction = forms[requestType];
         var formErrorFunction = forms[requestType + "Error"];
@@ -90,6 +92,16 @@ function submitForm(data, requestType, ) {
         var originalRequestType = requestType;
 
         var invalidElement = false;
+
+        console.dir({
+            $form,
+            requestTypeKey,
+            successMessage,
+            errorMessage,
+            forms,
+            formErrorFunction,
+            invalidElement,
+        })
 
         if (invalidElement) {
             return;
@@ -107,16 +119,20 @@ function submitForm(data, requestType, ) {
                 return;
             } else if (output.error) {
                 if (formErrorFunction) {
+                    // эта штука функцией не будет и на нее забиваем
                     formErrorFunction();
                 }
                 return;
             } else {
+                // выносим requestType (вопрос зачем, если он у нас и так есть)
                 if (output.requestType) {
                     requestType = output.requestType;
                 }
+                // такой фигни тоже вроде нет. Данные везде вроде норм передаются в модалках
                 if (output.data) {
                     data = output.data;
                 }
+                // этой шляпы тоже нет в проекте по поиску
                 if ("successMessage" in output) {
                     successMessage = output.successMessage;
                 }
@@ -203,6 +219,7 @@ function submitForm(data, requestType, ) {
 
 
         if (data.messageFile && data.encrypt_message) {
+            console.log("🚀 ~ file: forms.js:222 ~ return ~ data.encrypt_message", data.encrypt_message, util.isFileEncryptionSupported())
             if (!util.isFileEncryptionSupported()) {
                 $form.find(".error_message").html(i18n.t("file_encryption_not_supported")).show();
                 if (formErrorFunction) {
@@ -486,6 +503,7 @@ function updateFee(modal, feeATM) {
 function sendRequest(requestType, data, callback, options) {
     return (dispatch, getState) => {
         const account = getState().account;
+        console.log("🚀 ~ file: forms.js:506 ~ return ~ account", account)
 
         if (!options) {
             options = {};
@@ -493,6 +511,7 @@ function sendRequest(requestType, data, callback, options) {
         if (requestType == undefined) {
             return;
         }
+
         if (!util.isRequestTypeEnabled(requestType)) {
             return {
                 "errorCode": 1,
@@ -692,10 +711,7 @@ function isVolatileRequest(doNotSign, type, requestType, secretPhrase) {
 }
 
 function processAjaxRequest(requestType, data, callback, options) {
-    return (dispatch, getState) => {
-
-        const {account} = getState();
-
+    return (dispatch) => {
         var extra = null;
         if (data["_extra"]) {
             extra = data["_extra"];
@@ -748,13 +764,14 @@ function processAjaxRequest(requestType, data, callback, options) {
         }
 
         var config = dispatch(getFileUploadConfig(requestType, data));
+        console.log("🚀 ~ file: forms.js:749 ~ return ~ config", config)
 
         if (config) {
             // inspired by http://stackoverflow.com/questions/5392344/sending-multipart-formdata-with-jquery-ajax
             contentType = false;
             processData = false;
             formData = new FormData();
-            var file;
+            var file = data.file;
             // var tempFiel = Object.assign(data.messageFile);
             if (data.messageFile) {
                 file = data.messageFile;
@@ -762,7 +779,7 @@ function processAjaxRequest(requestType, data, callback, options) {
                 delete data.encrypt_message;
             } else {
                 try {
-                    file = $("#file")[0].files[0];
+                    // file = $("#file")[0].files[0];
                 } catch(e) {
                     // console.log(e);
                 }
@@ -802,7 +819,8 @@ function processAjaxRequest(requestType, data, callback, options) {
                     formData.append(key, data[key]);
                 }
             }
-        } else {
+        }
+         else {
             // JQuery defaults
             contentType = "application/x-www-form-urlencoded; charset=UTF-8";
             processData = true;
@@ -845,6 +863,26 @@ function processAjaxRequest(requestType, data, callback, options) {
         if (requestType === "cancelBidOrder" || requestType === "cancelAskOrder") {
             delete data.publicKey;
         }
+
+        if (data.formData) {
+            return axios.post('/apl?requestType=' + requestType, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+        }
+
+        // return handleFetch('/apl?requestType=' + requestType, 'POST', formData, requestType, false, true)
+        console.dir({
+            url,
+            options,
+            currentPage,
+            currentSubPage,
+            processData,
+            contentType,
+            data,
+        })
+
         return $.ajax({
             url: url,
             crossDomain: true,

@@ -7,7 +7,7 @@ import { getAccountDataBySecretPhrasseAction, getAccountDataAction } from '../..
 import InfoBox from '../../../../components/info-box';
 import CustomInput from '../../../../components/custom-input/CustomInputWithFormik';
 import Button from '../../../../components/button';
-import AccountRS from '../../../../components/account-rs';
+import { AccountRSWithFormik } from '../../../../components/account-rs/AccountRSWithFormik';
 import { Switcher } from '../../../../components/form-components/switcher/switcher';
 import './standartForm.scss';
 
@@ -77,7 +77,7 @@ export default function SecretPhraseForm({ activeTab }) {
           ) :(
             <div className="input-group-app user">
               <label htmlFor="Account_id">Enter your ID or choose from saved</label>
-              <AccountRS
+              <AccountRSWithFormik
                 name="accountRS"
                 placeholder="Account ID"
                 id="Account_id"

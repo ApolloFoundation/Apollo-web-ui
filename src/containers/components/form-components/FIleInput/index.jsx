@@ -2,7 +2,7 @@ import { useFormikContext } from 'formik';
 import React, { useCallback, useState } from 'react';
 import InputUpload from "../../input-upload";
 
-const FileInput = ({ label, type, accept, maxSize, showPreview }) => {
+const FileInput = ({ label, type, accept, maxSize, showPreview, name }) => {
     const [fileData, setFileData] = useState(null);
 
     const formik = useFormikContext();
@@ -23,13 +23,15 @@ const FileInput = ({ label, type, accept, maxSize, showPreview }) => {
         if (formik.setFieldValue) {
             formik.setFieldValue("messageIsText", false);
             formik.setFieldValue("messageIsPrunable", true);
+            formik.setFieldValue(name, file);
         }
         setFileData(file);
-    }, [showPreview, formik.setFieldValue]);
+    }, [showPreview, formik.setFieldValue, name]);
 
     const handleFileRejected = useCallback(() => {
+        formik.setFieldValue(name, null);
         setFileData(null);
-    }, []);
+    }, [name, formik.setFieldValue]);
 
     return (
         <div className="form-group mb-15">

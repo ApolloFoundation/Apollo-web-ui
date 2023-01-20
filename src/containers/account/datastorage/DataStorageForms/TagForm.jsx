@@ -30,6 +30,7 @@ export const TagForm = () => {
                 placeholder='Name Description Tag'
                 type="text"
                 name="query"
+                classNameWrapper="mb-0"
               />
               <button
                 type='submit'
