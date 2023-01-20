@@ -34,227 +34,227 @@ function checkRequestType(requestType, data) {
     }
 }
 
-function submitForm(data, requestType, ) {
-    return async (dispatch, getState) => {
-        const {account, accountSettings, modals, fee} = getState();
-        const { decimals } = account;
-        if (requestType !== 'generateAccount') {
-            if (data.secretPhrase) {
-                let isPassphrase = await dispatch(crypto.getAccountIdAsyncApl(data.secretPhrase));
-                isPassphrase = isPassphrase.split('-');
-                isPassphrase[0] = account.constants.accountPrefix;
-                isPassphrase = isPassphrase.join('-');
+// function submitForm(data, requestType, ) {
+//     return async (dispatch, getState) => {
+//         const {account, accountSettings, modals, fee} = getState();
+//         const { decimals } = account;
+//         if (requestType !== 'generateAccount') {
+//             if (data.secretPhrase) {
+//                 let isPassphrase = await dispatch(crypto.getAccountIdAsyncApl(data.secretPhrase));
+//                 isPassphrase = isPassphrase.split('-');
+//                 isPassphrase[0] = account.constants.accountPrefix;
+//                 isPassphrase = isPassphrase.join('-');
 
-                if (account.accountRS !== isPassphrase) {
-                    data.passphrase = await checkRequestType(requestType ,data.secretPhrase);
-                    delete data.secretPhrase;
-                } else {
-                    data.secretPhrase = await checkRequestType(requestType ,data.secretPhrase);
-                    delete data.passphrase;
-                }
-            } else if (data.passphrase) {
-                let isPassphrase = await dispatch(crypto.getAccountIdAsyncApl(data.passphrase));
-                isPassphrase = isPassphrase.split('-');
-                isPassphrase[0] = account.constants.accountPrefix;
-                isPassphrase = isPassphrase.join('-');
-                if (account.accountRS !== isPassphrase) {
-                    data.passphrase = await checkRequestType(requestType ,data.passphrase);
-                    delete data.secretPhrase;
-                } else {
-                    data.secretPhrase = await checkRequestType(requestType ,data.passphrase);
-                    delete data.passphrase;
-                }
-            }
-        }
+//                 if (account.accountRS !== isPassphrase) {
+//                     data.passphrase = await checkRequestType(requestType ,data.secretPhrase);
+//                     delete data.secretPhrase;
+//                 } else {
+//                     data.secretPhrase = await checkRequestType(requestType ,data.secretPhrase);
+//                     delete data.passphrase;
+//                 }
+//             } else if (data.passphrase) {
+//                 let isPassphrase = await dispatch(crypto.getAccountIdAsyncApl(data.passphrase));
+//                 isPassphrase = isPassphrase.split('-');
+//                 isPassphrase[0] = account.constants.accountPrefix;
+//                 isPassphrase = isPassphrase.join('-');
+//                 if (account.accountRS !== isPassphrase) {
+//                     data.passphrase = await checkRequestType(requestType ,data.passphrase);
+//                     delete data.secretPhrase;
+//                 } else {
+//                     data.secretPhrase = await checkRequestType(requestType ,data.passphrase);
+//                     delete data.passphrase;
+//                 }
+//             }
+//         }
 
-        if (data.encrypt_message) {
-            data.messageToEncrypt = data.message;
-            delete data.message;
-            delete data.encrypt_message;
-        }
+//         if (data.encrypt_message) {
+//             data.messageToEncrypt = data.message;
+//             delete data.message;
+//             delete data.encrypt_message;
+//         }
 
-        data.sender = account.account;
+//         data.sender = account.account;
 
-        var $form;
-        var requestTypeKey;
+//         var $form;
+//         var requestTypeKey;
 
-        var successMessage = getSuccessMessage(requestTypeKey);
-        var errorMessage = getErrorMessage(requestTypeKey);
+//         var successMessage = getSuccessMessage(requestTypeKey);
+//         var errorMessage = getErrorMessage(requestTypeKey);
         
 
-        var formFunction = forms[requestType];
-        var formErrorFunction = forms[requestType + "Error"];
+//         var formFunction = forms[requestType];
+//         var formErrorFunction = forms[requestType + "Error"];
 
-        if (typeof formErrorFunction != "function") {
-            formErrorFunction = false;
-        }
+//         if (typeof formErrorFunction != "function") {
+//             formErrorFunction = false;
+//         }
 
-        var originalRequestType = requestType;
+//         var originalRequestType = requestType;
 
-        var invalidElement = false;
+//         var invalidElement = false;
 
-        console.dir({
-            $form,
-            requestTypeKey,
-            successMessage,
-            errorMessage,
-            forms,
-            formErrorFunction,
-            invalidElement,
-        })
+//         console.dir({
+//             $form,
+//             requestTypeKey,
+//             successMessage,
+//             errorMessage,
+//             forms,
+//             formErrorFunction,
+//             invalidElement,
+//         })
 
-        if (invalidElement) {
-            return;
-        }
+//         if (invalidElement) {
+//             return;
+//         }
 
-        if (data.createNoneTransactionMethod) {
-            data.account = account.account;
-            delete data.sender;
-        }
+//         if (data.createNoneTransactionMethod) {
+//             data.account = account.account;
+//             delete data.sender;
+//         }
 
-        if (Object.values(data).length) {
-            var output = data;
+//         if (Object.values(data).length) {
+//             var output = data;
 
-            if (!output) {
-                return;
-            } else if (output.error) {
-                if (formErrorFunction) {
-                    // эта штука функцией не будет и на нее забиваем
-                    formErrorFunction();
-                }
-                return;
-            } else {
-                // выносим requestType (вопрос зачем, если он у нас и так есть)
-                if (output.requestType) {
-                    requestType = output.requestType;
-                }
-                // такой фигни тоже вроде нет. Данные везде вроде норм передаются в модалках
-                if (output.data) {
-                    data = output.data;
-                }
-                // этой шляпы тоже нет в проекте по поиску
-                if ("successMessage" in output) {
-                    successMessage = output.successMessage;
-                }
-                if ("errorMessage" in output) {
-                    errorMessage = output.errorMessage;
-                }
-                if (output.stop) {
-                    if (errorMessage) {
-                        $form.find(".error_message").html(errorMessage).show();
-                    } else if (successMessage) {
-                        $.growl(successMessage.escapeHTML(), {
-                            type: "success"
-                        });
-                    }
-                    return;
-                }
-                if (output.reload) {
-                    window.location.reload(output.forceGet);
-                    return;
-                }
-            }
-        }
+//             if (!output) {
+//                 return;
+//             } else if (output.error) {
+//                 if (formErrorFunction) {
+//                     // эта штука функцией не будет и на нее забиваем
+//                     formErrorFunction();
+//                 }
+//                 return;
+//             } else {
+//                 // выносим requestType (вопрос зачем, если он у нас и так есть)
+//                 if (output.requestType) {
+//                     requestType = output.requestType;
+//                 }
+//                 // такой фигни тоже вроде нет. Данные везде вроде норм передаются в модалках
+//                 if (output.data) {
+//                     data = output.data;
+//                 }
+//                 // этой шляпы тоже нет в проекте по поиску
+//                 if ("successMessage" in output) {
+//                     successMessage = output.successMessage;
+//                 }
+//                 if ("errorMessage" in output) {
+//                     errorMessage = output.errorMessage;
+//                 }
+//                 if (output.stop) {
+//                     if (errorMessage) {
+//                         $form.find(".error_message").html(errorMessage).show();
+//                     } else if (successMessage) {
+//                         $.growl(successMessage.escapeHTML(), {
+//                             type: "success"
+//                         });
+//                     }
+//                     return;
+//                 }
+//                 if (output.reload) {
+//                     window.location.reload(output.forceGet);
+//                     return;
+//                 }
+//             }
+//         }
 
-        if (!data.deadline) {
-            data.deadline = 1440;
-        }
+//         if (!data.deadline) {
+//             data.deadline = 1440;
+//         }
 
-        if (data.feeATM && $.isNumeric(data.feeATM)) {
-            data.feeATM = data.feeATM * decimals
-        }
+//         if (data.feeATM && $.isNumeric(data.feeATM)) {
+//             data.feeATM = data.feeATM * decimals
+//         }
 
-        if (data.amountATM && $.isNumeric(data.amountATM)) {
-            data.amountATM = data.amountATM * decimals
-        }
+//         if (data.amountATM && $.isNumeric(data.amountATM)) {
+//             data.amountATM = data.amountATM * decimals
+//         }
 
-        if (data.priceATM && $.isNumeric(data.priceATM)) {
-            data.priceATM = data.priceATM * decimals
-        }
+//         if (data.priceATM && $.isNumeric(data.priceATM)) {
+//             data.priceATM = data.priceATM * decimals
+//         }
 
-        if (data.priceOrder) {
-            data.priceATM = data.priceOrder;
+//         if (data.priceOrder) {
+//             data.priceATM = data.priceOrder;
 
-            delete data.priceOrder;
-        }
+//             delete data.priceOrder;
+//         }
 
-        if (data.quantityOrder) {
-            data.quantityATU = data.quantityOrder;
+//         if (data.quantityOrder) {
+//             data.quantityATU = data.quantityOrder;
 
-            delete data.quantityOrder;
-        }
+//             delete data.quantityOrder;
+//         }
 
-        if (data.deliveryDeadlineTimestamp) {
-            data.deliveryDeadlineTimestamp = String(toEpochTime() + 60 * 60 * data.deliveryDeadlineTimestamp);
-        }
+//         if (data.deliveryDeadlineTimestamp) {
+//             data.deliveryDeadlineTimestamp = String(toEpochTime() + 60 * 60 * data.deliveryDeadlineTimestamp);
+//         }
 
-        if (data.doNotBroadcast || data.calculateFee) {
-            data.broadcast = "false";
+//         if (data.doNotBroadcast || data.calculateFee) {
+//             data.broadcast = "false";
 
-            if (data.doNotBroadcast) {
-                delete data.doNotBroadcast;
-            }
-        }
+//             if (data.doNotBroadcast) {
+//                 delete data.doNotBroadcast;
+//             }
+//         }
 
-        if ((data.feeAPL             > fee.minFeeAmount ||
-             data.feeATM / decimals > fee.minFeeAmount
-        ) && !fee.isFeeAlert) {
-            NotificationManager.warning(`You are trying to send the transaction with fee that exceeds ${fee.minFeeAmount} APL`, 'Attention', 10000);
+//         if ((data.feeAPL             > fee.minFeeAmount ||
+//              data.feeATM / decimals > fee.minFeeAmount
+//         ) && !fee.isFeeAlert) {
+//             NotificationManager.warning(`You are trying to send the transaction with fee that exceeds ${fee.minFeeAmount} APL`, 'Attention', 10000);
 
-            dispatch({
-                type: 'SET_FEE_ALERT',
-                payload: true
-            });
-            dispatch({
-                type: 'IS_MODAL_PROCESSING',
-                payload: false
-            });
-            return;
-        } else {
-            dispatch({
-                type: 'SET_FEE_ALERT',
-                payload: false
-            });
-        }
+//             dispatch({
+//                 type: 'SET_FEE_ALERT',
+//                 payload: true
+//             });
+//             dispatch({
+//                 type: 'IS_MODAL_PROCESSING',
+//                 payload: false
+//             });
+//             return;
+//         } else {
+//             dispatch({
+//                 type: 'SET_FEE_ALERT',
+//                 payload: false
+//             });
+//         }
 
 
-        if (data.messageFile && data.encrypt_message) {
-            console.log("🚀 ~ file: forms.js:222 ~ return ~ data.encrypt_message", data.encrypt_message, util.isFileEncryptionSupported())
-            if (!util.isFileEncryptionSupported()) {
-                $form.find(".error_message").html(i18n.t("file_encryption_not_supported")).show();
-                if (formErrorFunction) {
-                    formErrorFunction(false, data);
-                }
-                return;
-            }
-            try {
-                crypto.encryptFileAPL(data.messageFile, data.encryptionKeys, function(encrypted) {
-                    data.messageFile = encrypted.file;
-                    data.encryptedMessageNonce = converters.byteArrayToHexString(encrypted.nonce);
-                    delete data.encryptionKeys;
+//         if (data.messageFile && data.encrypt_message) {
+//             console.log("🚀 ~ file: forms.js:222 ~ return ~ data.encrypt_message", data.encrypt_message, util.isFileEncryptionSupported())
+//             if (!util.isFileEncryptionSupported()) {
+//                 $form.find(".error_message").html(i18n.t("file_encryption_not_supported")).show();
+//                 if (formErrorFunction) {
+//                     formErrorFunction(false, data);
+//                 }
+//                 return;
+//             }
+//             try {
+//                 crypto.encryptFileAPL(data.messageFile, data.encryptionKeys, function(encrypted) {
+//                     data.messageFile = encrypted.file;
+//                     data.encryptedMessageNonce = converters.byteArrayToHexString(encrypted.nonce);
+//                     delete data.encryptionKeys;
 
-                    return sendRequest(requestType, data, function (response) {})
-                });
-            } catch (err) {
-                $form.find(".error_message").html(String(err).escapeHTML()).show();
-                if (formErrorFunction) {
-                    formErrorFunction(false, data);
-                }
-            }
-        } else {
-            if (requestType === 'sendMoneyPrivate') {
-                data.deadline = '1440';
-                return sendRequest(requestType, data, function (response) {});
-            } else {
+//                     return sendRequest(requestType, data, function (response) {})
+//                 });
+//             } catch (err) {
+//                 $form.find(".error_message").html(String(err).escapeHTML()).show();
+//                 if (formErrorFunction) {
+//                     formErrorFunction(false, data);
+//                 }
+//             }
+//         } else {
+//             if (requestType === 'sendMoneyPrivate') {
+//                 data.deadline = '1440';
+//                 return sendRequest(requestType, data, function (response) {});
+//             } else {
 
-                return dispatch(
-                    sendRequest(requestType, data, function (response) {})
-                );
-            }
+//                 return dispatch(
+//                     sendRequest(requestType, data, function (response) {})
+//                 );
+//             }
 
-        }
-    }
-};
+//         }
+//     }
+// };
 
 function toEpochTime(currentTime) {
     if (currentTime == undefined) {
@@ -500,104 +500,104 @@ function updateFee(modal, feeATM) {
     recalcIndicator.hide();
 }
 
-function sendRequest(requestType, data, callback, options) {
-    return (dispatch, getState) => {
-        const account = getState().account;
-        console.log("🚀 ~ file: forms.js:506 ~ return ~ account", account)
+// function sendRequest(requestType, data, callback, options) {
+//     return (dispatch, getState) => {
+//         const account = getState().account;
+//         console.log("🚀 ~ file: forms.js:506 ~ return ~ account", account)
 
-        if (!options) {
-            options = {};
-        }
-        if (requestType == undefined) {
-            return;
-        }
+//         if (!options) {
+//             options = {};
+//         }
+//         if (requestType == undefined) {
+//             return;
+//         }
 
-        if (!util.isRequestTypeEnabled(requestType)) {
-            return {
-                "errorCode": 1,
-                "errorDescription": i18n.t("request_of_type", {
-                    type: requestType
-                })
-            };
-        }
-        if (data == undefined) {
-            return;
-        }
-        if (callback == undefined) {
-            return;
-        }
+//         if (!util.isRequestTypeEnabled(requestType)) {
+//             return {
+//                 "errorCode": 1,
+//                 "errorDescription": i18n.t("request_of_type", {
+//                     type: requestType
+//                 })
+//             };
+//         }
+//         if (data == undefined) {
+//             return;
+//         }
+//         if (callback == undefined) {
+//             return;
+//         }
 
-        $.each(data, function (key, val) {
-            if (key != "secretPhrase") {
-                if (typeof val == "string") {
-                    data[key] = $.trim(val);
-                }
-            }
-        });
-        //convert APL to ATM...
-        var field = "N/A";
+//         $.each(data, function (key, val) {
+//             if (key != "secretPhrase") {
+//                 if (typeof val == "string") {
+//                     data[key] = $.trim(val);
+//                 }
+//             }
+//         });
+//         //convert APL to ATM...
+//         var field = "N/A";
 
-        // convert asset/currency decimal amount to base unit
-        try {
-            var currencyFields = [
-                ["phasingQuorumATUf", "phasingHoldingDecimals"],
-                ["phasingMinBalanceATUf", "phasingHoldingDecimals"],
-                ["controlQuorumATUf", "controlHoldingDecimals"],
-                ["controlMinBalanceATUf", "controlHoldingDecimals"],
-                ["minBalanceATUf", "create_poll_asset_decimals"],
-                ["minBalanceATUf", "create_poll_ms_decimals"],
-                ["amountATUf", "shuffling_asset_decimals"],
-                ["amountATUf", "shuffling_ms_decimals"]
-            ];
-            var toDelete = [];
-            for (i = 0; i < currencyFields.length; i++) {
-                var decimalUnitField = currencyFields[i][0];
-                var decimalsField = currencyFields[i][1];
-                field = decimalUnitField.replace("ATUf", "");
+//         // convert asset/currency decimal amount to base unit
+//         try {
+//             var currencyFields = [
+//                 ["phasingQuorumATUf", "phasingHoldingDecimals"],
+//                 ["phasingMinBalanceATUf", "phasingHoldingDecimals"],
+//                 ["controlQuorumATUf", "controlHoldingDecimals"],
+//                 ["controlMinBalanceATUf", "controlHoldingDecimals"],
+//                 ["minBalanceATUf", "create_poll_asset_decimals"],
+//                 ["minBalanceATUf", "create_poll_ms_decimals"],
+//                 ["amountATUf", "shuffling_asset_decimals"],
+//                 ["amountATUf", "shuffling_ms_decimals"]
+//             ];
+//             var toDelete = [];
+//             for (i = 0; i < currencyFields.length; i++) {
+//                 var decimalUnitField = currencyFields[i][0];
+//                 var decimalsField = currencyFields[i][1];
+//                 field = decimalUnitField.replace("ATUf", "");
 
-                if (decimalUnitField in data && decimalsField in data) {
-                    data[field] = convertToATU(parseFloat(data[decimalUnitField]), parseInt(data[decimalsField]));
-                    toDelete.push(decimalUnitField);
-                    toDelete.push(decimalsField);
-                }
-            }
-            for (var i = 0; i < toDelete.length; i++) {
-                delete data[toDelete[i]];
-            }
-        } catch (err) {
-            return {
-                "errorCode": 1,
-                "errorDescription": err + " (" + i18n.t(field) + ")"
-            };
-        }
+//                 if (decimalUnitField in data && decimalsField in data) {
+//                     data[field] = convertToATU(parseFloat(data[decimalUnitField]), parseInt(data[decimalsField]));
+//                     toDelete.push(decimalUnitField);
+//                     toDelete.push(decimalsField);
+//                 }
+//             }
+//             for (var i = 0; i < toDelete.length; i++) {
+//                 delete data[toDelete[i]];
+//             }
+//         } catch (err) {
+//             return {
+//                 "errorCode": 1,
+//                 "errorDescription": err + " (" + i18n.t(field) + ")"
+//             };
+//         }
 
-        if (!data.recipientPublicKey) {
-            delete data.recipientPublicKey;
-        }
-        if (!data.referencedTransactionFullHash) {
-            delete data.referencedTransactionFullHash;
-        }
+//         if (!data.recipientPublicKey) {
+//             delete data.recipientPublicKey;
+//         }
+//         if (!data.referencedTransactionFullHash) {
+//             delete data.referencedTransactionFullHash;
+//         }
 
-        //gets account id from passphrase client side, used only for login.
-        var accountId;
-        if (requestType == "getAccountIdAPL") {
-            accountId = dispatch(crypto.getAccountIdAPL()(data.secretPhrase));
+//         //gets account id from passphrase client side, used only for login.
+//         var accountId;
+//         if (requestType == "getAccountIdAPL") {
+//             accountId = dispatch(crypto.getAccountIdAPL()(data.secretPhrase));
 
-            var aplAddress = new AplAddress();
-            var accountRS = "";
-            if (aplAddress.set(accountId)) {
-                accountRS = aplAddress.toString();
-            }
-            callback({
-                "account": accountId,
-                "accountRS": accountRS
-            });
-            return;
-        }
+//             var aplAddress = new AplAddress();
+//             var accountRS = "";
+//             if (aplAddress.set(accountId)) {
+//                 accountRS = aplAddress.toString();
+//             }
+//             callback({
+//                 "account": accountId,
+//                 "accountRS": accountRS
+//             });
+//             return;
+//         }
 
-        return dispatch(processAjaxRequest(requestType, data, callback, options));
-    }
-};
+//         return dispatch(processAjaxRequest(requestType, data, callback, options));
+//     }
+// };
 
 function convertToATU(quantity, decimals) {
     quantity = String(quantity);
@@ -964,6 +964,308 @@ function addMissingData(data) {
         }
     }
 }
+
+const checkEncryptMessage = (data) => {
+    if (!data.encrypt_message) return data;
+  
+    const { message, encrypt_message, ...rest } = data;
+  
+    return {
+      ...rest,
+      messageToEncrypt: message,
+    }
+  }
+  
+  const chechCreateNoneTransactionMethod = (data, acc) => {
+    if (!data.createNoneTransactionMethod) return data;
+  
+    const { sender, ...rest } = data;
+  
+    return {
+      ...rest,
+      account: acc
+    }
+  }
+  
+  const checkPriceOrder = (data) => {
+    if (!data.priceOrder) return data;
+    const { priceOrder, ...rest } = data;
+    return {
+      ...rest,
+      priceATM: priceOrder,
+    }
+  }
+  
+  const checkQuantityOrder = (data) => {
+    if (!data.quantityOrder) return data;
+    const { quantityOrder , ...rest } = data;
+    return {
+      ...rest,
+      quantityATU: quantityOrder,
+    }
+  }
+  
+  const checkDelivery = (data) => {
+    if (!data.deliveryDeadlineTimestamp) return data;
+    const { deliveryDeadlineTimestamp, ...rest } = data;
+  
+    return {
+      ...rest,
+      deliveryDeadlineTimestamp: String(toEpochTime() + 60 * 60 * deliveryDeadlineTimestamp)
+    }
+  }
+  
+  const checkDoNotBroadcast = (data) => {
+    if (!data.doNotBroadcast && !data.calculateFee) return data;
+    const { doNotBroadcast, ...rest } = data;
+  
+    return {
+      ...rest,
+      broadcast:"false" 
+    }
+  }
+  
+  // if true return from function
+  const checkFeeAlert = (data, fee, decimals, dispatch) => {
+    if (
+      (data.feeAPL > fee.minFeeAmount || data.feeATM / decimals > fee.minFeeAmount)
+      && !fee.isFeeAlert
+    ) {
+      NotificationManager.warning(
+        `You are trying to send the transaction with fee that exceeds ${fee.minFeeAmount} APL`,
+        'Attention',
+        10000
+      );
+  
+      dispatch({
+          type: 'SET_FEE_ALERT',
+          payload: true
+      });
+      dispatch({
+          type: 'IS_MODAL_PROCESSING',
+          payload: false
+      });
+      return true;
+    } else {
+      dispatch({
+          type: 'SET_FEE_ALERT',
+          payload: false
+      });
+    }
+  }
+  
+  export const submitForm = (defaultData, requestType) => async (dispatch, getState) => {
+    const appState = getState();
+    const { account, fee } = appState;
+    let data = {
+        ...defaultData,
+        sender: account.account,
+    };
+    const accFromSecretPhrase = await dispatch(crypto.getAccountIdAsyncApl(data.secretPhrase ?? data.passphrase));
+  
+    if (accFromSecretPhrase !== account.accountRS) {
+      // не сходится пользователь
+      return;
+    }
+  
+    data = checkEncryptMessage(data);
+    data = chechCreateNoneTransactionMethod(data, account.account);
+  
+    if (!data.deadline) {
+      data.deadline = 1440;
+    }
+  
+    if (data.feeATM && parseFloat(data.feeATM)) {
+      data.feeATM = data.feeATM * account.decimals
+    }
+  
+    if (data.amountATM && parseFloat(data.amountATM)) {
+      data.amountATM = data.amountATM * account.decimals
+    }
+  
+    if (data.priceATM && parseFloat(data.priceATM)) {
+      data.priceATM = data.priceATM * account.decimals
+    }
+  
+    data = checkPriceOrder(data);
+    data = checkQuantityOrder(data)
+    data = checkDelivery(data);
+    data = checkDoNotBroadcast(data);
+  
+    // if checkFeeInfo exit from function because it's too much fee and user must reaccept sending
+    const checkFeeInfo = checkFeeAlert(data, fee, account.decimals, dispatch);
+    if (checkFeeInfo) return;
+  
+    data = Object
+          .entries(data)
+          .reduce((acc, [key, value]) => {
+            acc[key] = typeof value === 'string' ? value.trim() : value;
+            return acc;
+          }, {})
+  
+    // can send request
+  
+    return dispatch(sendRequest(requestType, data));
+  }
+  
+  const getConfig = (data, constants, type) => {
+    const d = {
+      "uploadTaggedData": {
+        requestParam: 'file',
+        errorDescription: "error_file_too_big",
+        maxSize: constants.MAX_TAGGED_DATA_DATA_LENGTH
+      },
+      "dgsListing": {
+        requestParam: 'messageFile',
+        errorDescription: "error_image_too_big",
+        maxSize: constants.maxPrunableMessageLength,
+      },
+      "sendMessage": {
+        requestParam: data.encrypt_message ? "encryptedMessageFile" : "messageFile",
+        errorDescription: "error_message_too_big",
+        maxSize: constants.maxPrunableMessageLength
+      },
+      "importKeyViaFile": {
+        requestParam: "keyStore",
+        errorDescription: "error_secret_file_too_big",
+        maxSize: constants.maxImportSecretFileLength || 1000
+      }
+    }
+    return d[type];
+  }
+  
+  function sendRequest(requestType, data) {
+    return (dispatch, getState) => {
+      const { account } = getState();
+        const httpMethod = "secretPhrase" in data || "doNotSign" in data || "adminPassword" in data ? "POST" : "GET";
+  
+        if (httpMethod == "GET") {
+            if (typeof data == "string") {
+                data += "&random=" + Math.random();
+            } else {
+                data.random = Math.random();
+            }
+        }
+  
+        if (data.referencedTransactionFullHash) {
+            if (!/^[a-z0-9]{64}$/.test(data.referencedTransactionFullHash)) {
+                return {
+                    "errorCode": -1,
+                    "errorDescription": i18n.t("error_invalid_referenced_transaction_hash")
+                };
+            }
+        }
+  
+        let url;
+        if (requestType === 'importKeyViaFile') {
+            url = configServer.api.server + '/rest/keyStore/upload';
+        } else {
+            url = configServer.api.serverUrl + "requestType=" + requestType;
+        }
+  
+        const config = getConfig(data, account.constants, requestType);
+  
+       
+  
+        let formData = null;
+        if (config) {
+            formData = new FormData();
+            let file = data.file;
+
+            if (!file && (requestType === "uploadTaggedData" || requestType === "importKeyViaFile")) {
+                return {
+                    "errorCode": 3,
+                    "errorDescription": i18n.t("error_no_file_chosen")
+                };
+            }
+
+            if (data.messageFile) {
+                file = data.messageFile;
+                delete data.messageFile;
+                delete data.encrypt_message;
+            }
+            
+            if (file && file.size > config.maxSize) {
+                return {
+                    "errorCode": 3,
+                    "errorDescription": i18n.t(config.errorDescription, {
+                        "size": file.size,
+                        "allowed": config.maxSize
+                    })
+                };
+            }
+  
+            formData.append(config.requestParam, file);
+  
+            if (requestType === "importKeyViaFile") {
+                delete data.sender;
+                delete data.format;
+                delete data.deadline;
+            }
+            for (let key in data) {
+                if (!data.hasOwnProperty(key)) {
+                  continue;
+                }
+                if (data[key] instanceof Array) {
+                  for (let i = 0; i < data[key].length; i++) {
+                      formData.append(key, data[key][i]);
+                  }
+                } else {
+                  formData.append(key, data[key]);
+                }
+            }
+        }
+  
+        dispatch({
+            type: 'SET_AMOUNT_WARNING',
+            payload: 0
+        });
+        dispatch({
+            type: 'SET_FEE_WARNING',
+            payload: 0
+        });
+        dispatch({
+            type: 'SET_ASSET_WARNING',
+            payload: 0
+        });
+        dispatch({
+            type: 'SET_CURRENCY_WARNING',
+            payload: 0
+        });
+  
+        if (data.messageFile === 'undefined') {
+            delete data.messageFile;
+        }
+  
+        if (requestType === "importKeyViaFile") {
+            return fetch(`${configServer.api.server}/rest/keyStore/upload`, {
+                method: 'POST',
+                body: (formData != null ? formData : data)
+            })
+                .then(res => res.json())
+                .then((res) => {
+                    return res;
+                })
+                .catch(() => {
+  
+                });
+        }
+        if (requestType === "cancelBidOrder" || requestType === "cancelAskOrder") {
+            delete data.publicKey;
+        }
+  
+        if (formData) {
+            return axios.post(url, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+        }
+  
+        return handleFetch(url, httpMethod, data, requestType, false)
+    }
+  };
+  
 
 export default {
     submitForm
