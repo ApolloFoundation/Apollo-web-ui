@@ -848,10 +848,16 @@ function processAjaxRequest(requestType, data, callback, options) {
         }
 
         if (requestType === "importKeyViaFile") {
-            return fetch(`${configServer.api.server}/rest/keyStore/upload`, {
-                method: 'POST',
-                body: (formData != null ? formData : data)
-            })
+            return processElGamalEncryption(data.passPhrase)
+                .then(res => {
+                    formData.delete('passPhrase');
+                    formData.append('passPhrase', res);
+            
+                    return fetch(`${configServer.api.server}/rest/keyStore/upload`, {
+                         method: 'POST',
+                        body: (formData != null ? formData : data)
+                    })
+                })
                 .then(res => res.json())
                 .then((res) => {
                     return res;
@@ -873,15 +879,6 @@ function processAjaxRequest(requestType, data, callback, options) {
         }
 
         // return handleFetch('/apl?requestType=' + requestType, 'POST', formData, requestType, false, true)
-        console.dir({
-            url,
-            options,
-            currentPage,
-            currentSubPage,
-            processData,
-            contentType,
-            data,
-        })
 
         return $.ajax({
             url: url,
@@ -1054,6 +1051,49 @@ const checkEncryptMessage = (data) => {
     }
   }
   
+const checkPhrase = (data, requestType) => async (dispatch, getState) => {
+    const { account } = getState();
+    if (requestType === 'generateAccount') return data;
+
+    if (data.secretPhrase) {
+        const { secretPhrase, ...rest } = data;
+        let isPassphrase = await dispatch(crypto.getAccountIdAsyncApl(secretPhrase));
+        
+        console.log("🚀 ~ file: forms.js:1059 ~ checkPhrase ~ isPassphrase", isPassphrase)
+
+        const elGamalPhrase = await processElGamalEncryption(secretPhrase)
+        if (isPassphrase !== account.accountRS) {
+            return {
+                ...rest,
+                passphrase: elGamalPhrase, 
+            }
+        }
+        return {
+            ...rest,
+            secretPhrase: elGamalPhrase,
+        }
+    }
+
+    if (data.passphrase) {
+        const { passphrase, ...rest } = data;
+        let isPassphrase = await dispatch(crypto.getAccountIdAsyncApl(data.passphrase));
+        console.log("🚀 ~ file: forms.js:1064 ~ checkPhrase ~ isPassphrase", isPassphrase)
+        const elGamalPhrase = await processElGamalEncryption(passphrase);
+        if (account.accountRS !== isPassphrase) {
+            return {
+                ...rest,
+               passphrase: elGamalPhrase,
+            } 
+        }
+        return {
+            ...rest,
+            secretPhrase: elGamalPhrase,
+        }
+    }
+
+    return data;
+}
+
   export const submitForm = (defaultData, requestType) => async (dispatch, getState) => {
     const appState = getState();
     const { account, fee } = appState;
@@ -1061,13 +1101,8 @@ const checkEncryptMessage = (data) => {
         ...defaultData,
         sender: account.account,
     };
-    const accFromSecretPhrase = await dispatch(crypto.getAccountIdAsyncApl(data.secretPhrase ?? data.passphrase));
-  
-    if (accFromSecretPhrase !== account.accountRS) {
-      // не сходится пользователь
-      return;
-    }
-  
+    // const accFromSecretPhrase = await dispatch(crypto.getAccountIdAsyncApl(data.secretPhrase ?? data.passphrase ?? data.passPhrase));
+
     data = checkEncryptMessage(data);
     data = chechCreateNoneTransactionMethod(data, account.account);
   
@@ -1091,6 +1126,7 @@ const checkEncryptMessage = (data) => {
     data = checkQuantityOrder(data)
     data = checkDelivery(data);
     data = checkDoNotBroadcast(data);
+    data = await dispatch(checkPhrase(data, requestType));
   
     // if checkFeeInfo exit from function because it's too much fee and user must reaccept sending
     const checkFeeInfo = checkFeeAlert(data, fee, account.decimals, dispatch);
@@ -1106,38 +1142,14 @@ const checkEncryptMessage = (data) => {
     // can send request
   
     return dispatch(sendRequest(requestType, data));
-  }
+}
   
-  const getConfig = (data, constants, type) => {
-    const d = {
-      "uploadTaggedData": {
-        requestParam: 'file',
-        errorDescription: "error_file_too_big",
-        maxSize: constants.MAX_TAGGED_DATA_DATA_LENGTH
-      },
-      "dgsListing": {
-        requestParam: 'messageFile',
-        errorDescription: "error_image_too_big",
-        maxSize: constants.maxPrunableMessageLength,
-      },
-      "sendMessage": {
-        requestParam: data.encrypt_message ? "encryptedMessageFile" : "messageFile",
-        errorDescription: "error_message_too_big",
-        maxSize: constants.maxPrunableMessageLength
-      },
-      "importKeyViaFile": {
-        requestParam: "keyStore",
-        errorDescription: "error_secret_file_too_big",
-        maxSize: constants.maxImportSecretFileLength || 1000
-      }
-    }
-    return d[type];
-  }
-  
-  function sendRequest(requestType, data) {
-    return (dispatch, getState) => {
-      const { account } = getState();
-        const httpMethod = "secretPhrase" in data || "doNotSign" in data || "adminPassword" in data ? "POST" : "GET";
+const formDataRequestList = ['importKeyViaFile', 'dgsListing', 'uploadTaggedData'];
+const list = ["secretPhrase", "passPhrase", "doNotSign", "adminPassword", "passphrase"];
+
+export function sendRequest(requestType, data) {
+    return (dispatch) => {
+        const httpMethod = list.some(item => data[item]) ? "POST" : "GET"
   
         if (httpMethod == "GET") {
             if (typeof data == "string") {
@@ -1163,59 +1175,6 @@ const checkEncryptMessage = (data) => {
             url = configServer.api.serverUrl + "requestType=" + requestType;
         }
   
-        const config = getConfig(data, account.constants, requestType);
-  
-       
-  
-        let formData = null;
-        if (config) {
-            formData = new FormData();
-            let file = data.file;
-
-            if (!file && (requestType === "uploadTaggedData" || requestType === "importKeyViaFile")) {
-                return {
-                    "errorCode": 3,
-                    "errorDescription": i18n.t("error_no_file_chosen")
-                };
-            }
-
-            if (data.messageFile) {
-                file = data.messageFile;
-                delete data.messageFile;
-                delete data.encrypt_message;
-            }
-            
-            if (file && file.size > config.maxSize) {
-                return {
-                    "errorCode": 3,
-                    "errorDescription": i18n.t(config.errorDescription, {
-                        "size": file.size,
-                        "allowed": config.maxSize
-                    })
-                };
-            }
-  
-            formData.append(config.requestParam, file);
-  
-            if (requestType === "importKeyViaFile") {
-                delete data.sender;
-                delete data.format;
-                delete data.deadline;
-            }
-            for (let key in data) {
-                if (!data.hasOwnProperty(key)) {
-                  continue;
-                }
-                if (data[key] instanceof Array) {
-                  for (let i = 0; i < data[key].length; i++) {
-                      formData.append(key, data[key][i]);
-                  }
-                } else {
-                  formData.append(key, data[key]);
-                }
-            }
-        }
-  
         dispatch({
             type: 'SET_AMOUNT_WARNING',
             payload: 0
@@ -1232,41 +1191,67 @@ const checkEncryptMessage = (data) => {
             type: 'SET_CURRENCY_WARNING',
             payload: 0
         });
-  
-        if (data.messageFile === 'undefined') {
-            delete data.messageFile;
+
+        if (formDataRequestList.includes(requestType)) {
+            return filesRequestsHandling(data, requestType, url);
         }
-  
-        if (requestType === "importKeyViaFile") {
-            return fetch(`${configServer.api.server}/rest/keyStore/upload`, {
-                method: 'POST',
-                body: (formData != null ? formData : data)
-            })
-                .then(res => res.json())
-                .then((res) => {
-                    return res;
-                })
-                .catch(() => {
-  
-                });
-        }
+
         if (requestType === "cancelBidOrder" || requestType === "cancelAskOrder") {
             delete data.publicKey;
         }
   
-        if (formData) {
+        return handleFetch(url, httpMethod, data, requestType, false, true);
+            // .then(res => {
+            //     console.log(res);
+            //     return res.data;
+            // })
+    }
+  };
+
+function filesRequestsHandling (data, requestType, url) {
+    const formData = new FormData();
+
+    Object
+        .entries(data)
+        .forEach(([key, value]) => {
+            if (Array.isArray(value)) {
+                value.forEach(item => {
+                    formData.append(key, item);
+                })
+            }
+            formData.append(key, value);
+        })
+
+    if (requestType === "importKeyViaFile") {
+        // special fiels for importKeyViaFile request
+        // return processElGamalEncryption(data.passPhrase)
+        //     .then(res => {
+        //         formData.delete('passPhrase');
+        //         formData.append('passPhrase', res);
+        return fetch(url, {
+            method: 'POST',
+            body: formData,
+        })
+            // })
+            .then(res => res.json())
+            .catch(() => {})
+    }
+
+    // return processElGamalEncryption(data.secretPhrase)
+    //     .then(res => {
+    //         formData.delete('secretPhrase');
+    //         formData.append('secretPhrase', res);
+
             return axios.post(url, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
-            })
-        }
-  
-        return handleFetch(url, httpMethod, data, requestType, false)
-    }
-  };
+            }) 
+        // })
+        .then(res => res.data);
+}
   
 
 export default {
-    submitForm
+    submitForm,
 };

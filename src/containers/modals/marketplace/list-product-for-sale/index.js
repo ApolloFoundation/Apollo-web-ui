@@ -5,14 +5,16 @@
 
 
 import React, { useCallback } from 'react';
-import { useSelector } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 import {NotificationManager} from 'react-notifications';
+import i18n from 'i18next';
 import ModalBody from '../../../components/modals/modal-body';
-import { getTickerSelector } from '../../../../selectors';
+import { getConstantsSelector, getTickerSelector } from '../../../../selectors';
 import ListProductForSaleFrom from './form';
 
 const ListProductForSale = ({ processForm, closeModal }) => {
     const ticker = useSelector(getTickerSelector);
+    const constants = useSelector(getConstantsSelector, shallowEqual);
 
     const handleFormSubmit = useCallback((values) => {
         if (!values.secretPhrase || values.secretPhrase.length === 0) {
@@ -21,6 +23,10 @@ const ListProductForSale = ({ processForm, closeModal }) => {
         }
         if (!values.quantity || parseFloat(values.quantity) === 0) {
             NotificationManager.error('Quantity is required.', 'Error', 5000);
+            return;
+        }
+        if (!values.messageFile) {
+            NotificationManager.error(i18n.t("error_no_file_chosen"), 'Error', 5000);
             return;
         }
     
@@ -39,7 +45,7 @@ const ListProductForSale = ({ processForm, closeModal }) => {
             handleFormSubmit={handleFormSubmit}
             submitButtonName='List Product'
         >
-            <ListProductForSaleFrom ticker={ticker} />
+            <ListProductForSaleFrom ticker={ticker} maxSize={constants?.maxPrunableMessageLength} />
         </ModalBody>
 
     );

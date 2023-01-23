@@ -21,7 +21,7 @@ import { makeLoginReq } from '../login';
 import { processElGamalEncryption } from '../crypto';
 import { handleFetch } from '../../helpers/fetch';
 import utils from '../../helpers/util/utils';
-import submitForm from '../../helpers/forms/forms';
+import submitForm, { sendRequest } from '../../helpers/forms/forms';
 import store from '../../store';
 import config from '../../config';
 import cancelAxiosRequest from '../../helpers/cancelToken';
@@ -189,7 +189,7 @@ export const confirm2FAActon = async requestParams => store.dispatch(await submi
 
 export const importAccountAction = async requestParams => store.dispatch(await submitForm.submitForm(requestParams, 'importKey'));
 
-export const importAccountActionViaFile = async requestParams => store.dispatch(await submitForm.submitForm(requestParams, 'importKeyViaFile'));
+export const importAccountActionViaFile = (data) => store.dispatch(sendRequest('importKeyViaFile', data));
 
 export const createAccountAction = async requestParams => store.dispatch(await submitForm.submitForm(requestParams, 'exportKey'));
 

@@ -6,7 +6,8 @@ export const GET = 'GET';
 export const POST = 'POST';
 export const DELETE = 'DELETE';
 
-export const handleFetch = async (url, method, value = null, typeOfRequest, isJson = false, isFormData = false) => {
+//TODO move last  params such as typeOfRequest/isJSON/isPrahseAlreadyEncrypt to the object like an option part
+export const handleFetch = async (url, method, value = null, typeOfRequest, isJson = false, isPrahseAlreadyEncrypt = false) => {
   let queryPath = url;
   const contentType = isJson ? 'application/json' : 'application/x-www-form-urlencoded;charset=UTF-8';
   const options = {
@@ -17,7 +18,7 @@ export const handleFetch = async (url, method, value = null, typeOfRequest, isJs
   };
   if (value !== null) {
     const data = { ...value };
-    if(!isFormData) {
+    if (!isPrahseAlreadyEncrypt) {
       if (data.passphrase) {
         data.passphrase = await processElGamalEncryption(data.passphrase);
         delete data.secretPhrase;
@@ -28,20 +29,6 @@ export const handleFetch = async (url, method, value = null, typeOfRequest, isJs
 
     if (method === GET) {
       queryPath += `?${qs.stringify(data)}`;
-    } else if (isFormData) {
-      const param = new URLSearchParams();
-      for (const pair of value) {
-          console.log("🚀 ~ file: forms.js:873 ~ return ~ pair", pair)
-          param.append(pair[0], pair[1]);
-      }
-      // Object
-      //   .keys(data)
-      //   .forEach((key) => {
-      //     param.append(key, data[key]);
-      //   });
-      //   // param.append(pair[0], pair[1]);
-      // console.log("🚀 ~ file: fetch.js:36 ~ handleFetch ~ param", param)
-      options.body = param;
     } else if (!isJson){
       options.body = Object
         .keys(data)

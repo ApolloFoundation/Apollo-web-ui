@@ -2,7 +2,7 @@ import { useFormikContext } from 'formik';
 import React, { useCallback, useState } from 'react';
 import InputUpload from "../../input-upload";
 
-const FileInput = ({ label, type, accept, maxSize, showPreview, name }) => {
+const FileInput = ({ label, type, accept, maxSize, showPreview, name, hidenMaxSize }) => {
     const [fileData, setFileData] = useState(null);
 
     const formik = useFormikContext();
@@ -47,7 +47,7 @@ const FileInput = ({ label, type, accept, maxSize, showPreview, name }) => {
                     handleFileAccepted={handleFileAccepted}
                     handleFileRejected={handleFileRejected}
                 />
-                {maxSize && (
+                {maxSize && !hidenMaxSize && (
                     <div className="form-sub-title block align-right align-margin-top">
                         Max file size - {maxSize / 1000} KB
                     </div>

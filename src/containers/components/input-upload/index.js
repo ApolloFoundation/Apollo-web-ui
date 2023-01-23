@@ -2,12 +2,10 @@ import React from 'react';
 import classNames from 'classnames';
 import {NotificationManager} from "react-notifications";
 import Dropzone from 'react-dropzone';
-import $ from 'jquery';
 import UploadImg from '../../../assets/upload-icon.png';
 
 const InputUpload = ({id, maxSize, type, accept, handleFileAccepted, handleFileRejected}) => {
     const onDropAccepted = (files) => {
-        $(`#${id}`).prop('files', files);
         if (handleFileAccepted) handleFileAccepted(files);
     };
     const onDropRejected = () => {

@@ -28,6 +28,8 @@ const ChatForm = (props) => {
         initialValues: {
             textareaCount: 0,
             message: '',
+            secretPhrase: '',
+            messageToEncrypt: false
         },
         onSubmit: handleSendMessageFormSubmit,
     });
