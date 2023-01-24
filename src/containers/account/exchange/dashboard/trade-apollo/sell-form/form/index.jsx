@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Form, useFormikContext } from 'formik';
 import { ONE_GWEI } from '../../../../../../../constants';
-import { multiply, division } from '../../../../../../../helpers/format';
+import { multiply, division, numberToLocaleString } from '../../../../../../../helpers/format';
 import Button from '../../../../../../components/button';
 import NumericInput from '../../../../../../components/form-components/numeric-input1';
 import CustomInput from '../../../../../../components/custom-input';
@@ -122,7 +122,7 @@ export default function SellForm(props) {
                   <span className="input-group-info-text">
                     <i className="zmdi zmdi-balance-wallet" />
                     &nbsp;
-                    {balanceFormat.toLocaleString('en', {
+                    {numberToLocaleString(balanceFormat, {
                       minimumFractionDigits: 3,
                       maximumFractionDigits: 3,
                     })}

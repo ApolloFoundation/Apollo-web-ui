@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { setBodyModalParamsAction } from '../../../../../modules/modals';
 import { formatTimestamp } from '../../../../../helpers/util/time';
+import { numberToLocaleString } from '../../../../../helpers/format';
 
 export default function TradeHistoryItem({ transfer, decimals }) {
   const dispatch = useDispatch();
@@ -58,10 +59,10 @@ export default function TradeHistoryItem({ transfer, decimals }) {
           {(transfer.units / (10 ** transfer.decimals)).toFixed(2)}
         </td>
         <td className="align-right">
-          {parseFloat(transfer.rateATM).toLocaleString('en')}
+          {numberToLocaleString(parseFloat(transfer.rateATM))}
         </td>
         <td className="align-right">
-          {((transfer.units * transfer.rateATM) / decimals).toLocaleString('ru', {
+          {numberToLocaleString(((transfer.units * transfer.rateATM) / decimals), {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2,
           })}

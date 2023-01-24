@@ -10,6 +10,7 @@ import { v4 as uuidv4 } from 'uuid';
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import {formatTimestamp} from "../../../helpers/util/time";
 import {toEpochTime} from "../../../helpers/util/time"
+import { numberToLocaleString } from 'helpers/format';
 
 const mapDispatchToProps = dispatch => ({
     formatTimestamp: (timestamp, date_only, isAbsoluteTime) => dispatch(formatTimestamp(timestamp, date_only, isAbsoluteTime)),
@@ -46,7 +47,7 @@ class Generator extends React.Component {
                     <a onClick={() => setBodyModalParamsAction('INFO_ACCOUNT', account)}>{accountRS}</a>
                 </td>
                 <td className="align-right">
-                    <a>{effectiveBalanceAPL.toLocaleString('en')}</a>
+                    <a>{numberToLocaleString(effectiveBalanceAPL)}</a>
                 </td>
                 <td className="align-right">
                     <a>{this.props.formatTimestamp(hitTime)}</a>
