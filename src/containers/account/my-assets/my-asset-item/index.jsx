@@ -4,7 +4,7 @@
  ******************************************************************************/
 
 
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import {useDispatch} from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { numberToLocaleString } from 'helpers/format';
@@ -78,9 +78,18 @@ const MyAssetItem = ({ asset, decimals, name, unconfirmedQuantityATU, quantityAT
         getBidOrdersRequest();
     }, [getAskOrdersRequest, getAskOrdersRequest]);
 
-    const lowest = state.lowestAskOrder / Math.pow(10, 8) * Math.pow(10, decimals);
-    const highest = state.highestBidOrder / Math.pow(10, 8) * Math.pow(10, decimals);
-    const valInCoin = highest * (quantityATU / Math.pow(10, decimals));
+    const lowest = useMemo(
+        () =>  state.lowestAskOrder / Math.pow(10, 8) * Math.pow(10, decimals),
+        [decimals, state.lowestAskOrder]
+    );
+    const highest = useMemo(
+        () => state.highestBidOrder / Math.pow(10, 8) * Math.pow(10, decimals),
+        [decimals, state.highestBidOrder]
+    );
+    const valInCoin = useMemo(
+        () => highest * (quantityATU / Math.pow(10, decimals)),
+        [decimals, quantityATU, highest]
+    );
 
     return (
         <tr>

@@ -12,6 +12,7 @@ import SiteHeader from '../../components/site-header/index';
 import MarketplaceItem from '../marketplace/marketplace-card/index'
 import {searchDGSGoodsAction} from "../../../actions/marketplace";
 import InfoBox from "../../components/info-box";
+import { MARKETPLACE_REG_EXP } from '../../../constants';
 
 const itemsPerPage = 8;
 
@@ -38,7 +39,7 @@ const  MarketplaceSearch = (props) => {
     }, [dispatch]);
 
     const loadAccount = useCallback((tag) => {
-        const searchingBy = /^APL-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{5}/.test(tag) ?
+        const searchingBy = MARKETPLACE_REG_EXP.test(tag) ?
             {
                 seller: tag,
                 requestType: 'getDGSGoods'
@@ -60,7 +61,7 @@ const  MarketplaceSearch = (props) => {
     }, [getDGSGoods, state.firstIndex, state.lastIndex]);
 
     const handlePaginate = (page) => () => {
-        const searchingBy = /^APL-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{5}/.test(props.match.params.tag) ?
+        const searchingBy = MARKETPLACE_REG_EXP.test(props.match.params.tag) ?
             {
                 seller: state.tag,
                 requestType: 'getDGSGoods'

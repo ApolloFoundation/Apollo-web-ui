@@ -54,7 +54,7 @@ const MarketplaceDashboardFooter = () => {
 
     useEffect(() => {
         updateData();
-    }, []);
+    }, [updateData]);
 
     return (
         <>
