@@ -3,7 +3,7 @@ import { useFormik, Form, FormikProvider } from "formik";
 import { useDispatch } from 'react-redux';
 import {NotificationManager} from 'react-notifications';
 import InfoBox from '../../components/info-box';
-import AccountRS from '../../components/account-rs';
+import {AccountRSWithFormik} from '../../components/account-rs/AccountRSWithFormik';
 import {getCoins} from '../../../actions/faucet';
 
 export const FaucetForm = () => {
@@ -48,7 +48,7 @@ export const FaucetForm = () => {
             </label>
             <div>
               <div className="iconned-input-field">
-                <AccountRS
+                <AccountRSWithFormik
                     name='accountRS'
                     placeholder='Account ID'
                 />

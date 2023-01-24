@@ -1059,8 +1059,6 @@ const checkPhrase = (data, requestType) => async (dispatch, getState) => {
         const { secretPhrase, ...rest } = data;
         let isPassphrase = await dispatch(crypto.getAccountIdAsyncApl(secretPhrase));
         
-        console.log("🚀 ~ file: forms.js:1059 ~ checkPhrase ~ isPassphrase", isPassphrase)
-
         const elGamalPhrase = await processElGamalEncryption(secretPhrase)
         if (isPassphrase !== account.accountRS) {
             return {
@@ -1077,7 +1075,6 @@ const checkPhrase = (data, requestType) => async (dispatch, getState) => {
     if (data.passphrase) {
         const { passphrase, ...rest } = data;
         let isPassphrase = await dispatch(crypto.getAccountIdAsyncApl(data.passphrase));
-        console.log("🚀 ~ file: forms.js:1064 ~ checkPhrase ~ isPassphrase", isPassphrase)
         const elGamalPhrase = await processElGamalEncryption(passphrase);
         if (account.accountRS !== isPassphrase) {
             return {
@@ -1124,8 +1121,11 @@ const checkPhrase = (data, requestType) => async (dispatch, getState) => {
   
     data = checkPriceOrder(data);
     data = checkQuantityOrder(data)
+    // correct parametr deliveryDeadlineTimestamp of exist
     data = checkDelivery(data);
+    // check data for broadcast
     data = checkDoNotBroadcast(data);
+    // check secretPharse or passphrase for user and add encrypting ElGamal
     data = await dispatch(checkPhrase(data, requestType));
   
     // if checkFeeInfo exit from function because it's too much fee and user must reaccept sending
@@ -1135,6 +1135,8 @@ const checkPhrase = (data, requestType) => async (dispatch, getState) => {
     data = Object
           .entries(data)
           .reduce((acc, [key, value]) => {
+            // remove value if it is null or undefined. It may be a problem for some requests
+            if (value === undefined || value === null) return acc;
             acc[key] = typeof value === 'string' ? value.trim() : value;
             return acc;
           }, {})
@@ -1149,7 +1151,7 @@ const list = ["secretPhrase", "passPhrase", "doNotSign", "adminPassword", "passp
 
 export function sendRequest(requestType, data) {
     return (dispatch) => {
-        const httpMethod = list.some(item => data[item]) ? "POST" : "GET"
+        const httpMethod = util.isRequirePost(requestType) || list.some(item => data[item]) ? "POST" : "GET"
   
         if (httpMethod == "GET") {
             if (typeof data == "string") {
@@ -1200,11 +1202,16 @@ export function sendRequest(requestType, data) {
             delete data.publicKey;
         }
   
-        return handleFetch(url, httpMethod, data, requestType, false, true);
-            // .then(res => {
-            //     console.log(res);
-            //     return res.data;
-            // })
+        return handleFetch(
+            url,
+            httpMethod,
+            data,
+            {
+                requestType,
+                isJson: false,
+                isPrahseAlreadyEncrypt: true,
+            }
+        );
     }
   };
 
@@ -1222,6 +1229,7 @@ function filesRequestsHandling (data, requestType, url) {
             formData.append(key, value);
         })
 
+    // it demands on backend because
     if (requestType === "importKeyViaFile") {
         // special fiels for importKeyViaFile request
         // return processElGamalEncryption(data.passPhrase)
@@ -1236,19 +1244,17 @@ function filesRequestsHandling (data, requestType, url) {
             .then(res => res.json())
             .catch(() => {})
     }
-
-    // return processElGamalEncryption(data.secretPhrase)
-    //     .then(res => {
-    //         formData.delete('secretPhrase');
-    //         formData.append('secretPhrase', res);
-
-            return axios.post(url, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            }) 
-        // })
-        .then(res => res.data);
+    
+    return axios.post(
+        url,
+        formData,
+        {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }
+    ) 
+    .then(res => res.data);
 }
   
 

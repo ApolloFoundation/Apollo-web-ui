@@ -65,6 +65,7 @@ const CastVoteForm = ({ currencyHint, assetHint, poll, votes }) => (
                                     name={index > 9 ? 'vote' + index : 'vote0' + index}
                                     label={votes[el]}
                                     id={votes[el]}
+                                    defaultValue={false}
                                 />
                             ))
                         }

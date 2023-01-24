@@ -4,7 +4,7 @@
  ******************************************************************************/
 
 
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import {NotificationManager} from "react-notifications";
 import ModalBody from '../../../components/modals/modal-body';
 import { useAliasDataLoader } from '../useAliasDataLoader';
@@ -12,11 +12,8 @@ import TransferCurrencyForm from './form';
 
 const TransferAlias = ({ closeModal, processForm }) => {
     const alias = useAliasDataLoader();
-    const [isPending, setIsPending] = useState(false);
 
     const handleFormSubmit = useCallback(async (values) => {
-        setIsPending(true);
-
         const data = {
             ...values,
             priceATM: 0,
@@ -24,10 +21,7 @@ const TransferAlias = ({ closeModal, processForm }) => {
         };
 
         const res = await processForm(data, 'sellAlias');
-        if (res && res.errorCode) {
-            setIsPending(false);
-            NotificationManager.error(res.errorDescription, 'Error', 5000)
-        } else {
+        if (res && !res.errorCode) {
             closeModal();
             NotificationManager.success('Alias has been transferred!', null, 5000);
         }
@@ -41,7 +35,13 @@ const TransferAlias = ({ closeModal, processForm }) => {
             closeModal={closeModal}
             handleFormSubmit={handleFormSubmit}
             submitButtonName='Transfer Alias'
-            isPending={isPending}
+            initialValues={{
+                add_message: false,
+                encrypt_message: false,
+                permanent_message: false,
+                message: '',
+                recipient: '',
+            }}
         >
             <TransferCurrencyForm alias={alias} />
         </ModalBody>

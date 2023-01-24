@@ -41,6 +41,7 @@ const EditAlias = ({ closeModal, processForm }) => {
             submitButtonName='Edit Alias'
             initialValues={{
                 type: typeData[0].value,
+                aliasURI: '',
             }}
         >
             <EditAliasForm alias={alias} typeData={typeData} />

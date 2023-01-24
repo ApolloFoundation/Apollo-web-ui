@@ -6,9 +6,9 @@ export const GET = 'GET';
 export const POST = 'POST';
 export const DELETE = 'DELETE';
 
-//TODO move last  params such as typeOfRequest/isJSON/isPrahseAlreadyEncrypt to the object like an option part
-export const handleFetch = async (url, method, value = null, typeOfRequest, isJson = false, isPrahseAlreadyEncrypt = false) => {
+export const handleFetch = async (url, method, value = null, requestOptions = {}) => {
   let queryPath = url;
+  const { requestType, isJson = false, isPrahseAlreadyEncrypt = false } = requestOptions;
   const contentType = isJson ? 'application/json' : 'application/x-www-form-urlencoded;charset=UTF-8';
   const options = {
     method,

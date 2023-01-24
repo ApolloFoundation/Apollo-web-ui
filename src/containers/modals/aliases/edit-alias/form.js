@@ -8,7 +8,7 @@ const EditAliasForm = ({ alias, typeData }) => {
     const { values, setFieldValue } = useFormikContext();
     
     useEffect(() => {
-        setFieldValue('aliasURI', alias?.aliasName);
+        setFieldValue('aliasURI', alias?.aliasURI);
     }, [alias?.aliasName, setFieldValue]);
     
     return (
@@ -20,7 +20,7 @@ const EditAliasForm = ({ alias, typeData }) => {
             />
             <TextualInputComponent 
                 label='Alias'
-                text={alias ? alias?.aliasName : ''}
+                text={alias ? alias?.aliasName : ' '}
             />
             {
                 values.type === 'uri' &&
