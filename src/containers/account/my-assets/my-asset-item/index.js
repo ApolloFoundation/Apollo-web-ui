@@ -11,6 +11,7 @@ import {connect} from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import {getAskOrders, getBidOrders} from "../../../../actions/marketplace";
 import store from '../../../../store';
+import { numberToLocaleString } from 'helpers/format';
 
 class MyAssetItem extends React.Component {
 
@@ -93,13 +94,13 @@ class MyAssetItem extends React.Component {
                     </span>
                 </td>
                 <td className="align-right">
-                    {(unconfirmedQuantityATU / Math.pow(10, decimals)).toLocaleString('en', {
+                    {numberToLocaleString((unconfirmedQuantityATU / Math.pow(10, decimals)), {
                         minimumFractionDigits: decimals,
                         maximumFractionDigits: decimals
                     })}
                 </td>
                 <td className="align-right">
-                    {(quantityATU  / Math.pow(10, decimals)).toLocaleString('en', {
+                    {numberToLocaleString(quantityATU  / Math.pow(10, decimals), {
                         minimumFractionDigits: decimals,
                         maximumFractionDigits: decimals
                     })}</td>
@@ -109,8 +110,7 @@ class MyAssetItem extends React.Component {
                 <td className="align-right">
                     {
                         !!(this.state.lowestAskOrder / Math.pow(10, 8) * Math.pow(10, decimals)) &&
-                        (this.state.lowestAskOrder / Math.pow(10, 8) * Math.pow(10, decimals))
-                            .toLocaleString('en', {
+                        numberToLocaleString((this.state.lowestAskOrder / Math.pow(10, 8) * Math.pow(10, decimals)), {
                                 minimumFractionDigits: decimals,
                                 maximumFractionDigits: decimals
                             })
@@ -119,8 +119,7 @@ class MyAssetItem extends React.Component {
                 <td className="align-right">
                     {
                         !!(this.state.highestBidOrder / Math.pow(10, 8) * Math.pow(10, decimals)) &&
-                        (this.state.highestBidOrder / Math.pow(10, 8) * Math.pow(10, decimals))
-                            .toLocaleString('en', {
+                        numberToLocaleString((this.state.highestBidOrder / Math.pow(10, 8) * Math.pow(10, decimals)), {
                                 minimumFractionDigits: decimals,
                                 maximumFractionDigits: decimals
                             })
@@ -129,11 +128,13 @@ class MyAssetItem extends React.Component {
                 <td className="align-right">
                     {
                         !!(this.state.highestBidOrder / Math.pow(10, 8) * Math.pow(10, decimals)) &&
-                        ((this.state.highestBidOrder / Math.pow(10, 8) * Math.pow(10, decimals)) *
-                            (quantityATU / Math.pow(10, decimals))).toLocaleString('en', {
-                            minimumFractionDigits: decimals,
-                            maximumFractionDigits: decimals
-                        })
+                        numberToLocaleString(
+                            (this.state.highestBidOrder / Math.pow(10, 8) * Math.pow(10, decimals)) * (quantityATU / Math.pow(10, decimals)),
+                            {
+                                minimumFractionDigits: decimals,
+                                maximumFractionDigits: decimals
+                            }
+                        )
                     }
                 </td>
                 <td className="align-right">
@@ -146,7 +147,7 @@ class MyAssetItem extends React.Component {
                                     assetID:   asset,
                                     assetName: name,
                                     decimals,
-                                    availableAssets: (quantityATU / Math.pow(10, decimals)).toLocaleString('en', {
+                                    availableAssets: numberToLocaleString((quantityATU / Math.pow(10, decimals)), {
                                         minimumFractionDigits: decimals,
                                         maximumFractionDigits: decimals
                                     })}

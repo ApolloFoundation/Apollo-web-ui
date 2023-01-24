@@ -11,7 +11,6 @@ import SiteHeader from '../../components/site-header'
 import {setBodyModalParamsAction} from "../../../modules/modals";
 
 import {getDGSGoodsAction} from "../../../actions/marketplace";
-import MarketplaceItem from "../marketplace/marketplace-card";
 import {BlockUpdater} from "../../block-subscriber/index";
 import InfoBox from "../../components/info-box"
 import ContentLoader from '../../components/content-loader'

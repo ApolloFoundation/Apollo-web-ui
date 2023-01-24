@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { setBodyModalParamsAction, setModalType } from '../../../../modules/modals';
 import { getAskOrders, getBidOrders } from '../../../../actions/marketplace';
+import { numberToLocaleString } from 'helpers/format';
 
 class AssetItem extends React.Component {
     state = {};
@@ -82,13 +83,13 @@ class AssetItem extends React.Component {
             </span>
           </td>
           <td>
-            {(unconfirmedQuantityATU / Math.pow(10, decimals)).toLocaleString('en', {
+            {numberToLocaleString((unconfirmedQuantityATU / Math.pow(10, decimals)), {
               minimumFractionDigits: decimals,
               maximumFractionDigits: decimals,
             })}
           </td>
           <td>
-            {(quantityATU / Math.pow(10, decimals)).toLocaleString('en', {
+            {numberToLocaleString((quantityATU / Math.pow(10, decimals)), {
               minimumFractionDigits: decimals,
               maximumFractionDigits: decimals,
             })}
@@ -100,8 +101,7 @@ class AssetItem extends React.Component {
           <td>
             {
               !!(this.state.lowestAskOrder / Math.pow(10, 8) * Math.pow(10, decimals))
-              && (this.state.lowestAskOrder / Math.pow(10, 8) * Math.pow(10, decimals))
-                .toLocaleString('en', {
+              && numberToLocaleString((this.state.lowestAskOrder / Math.pow(10, 8) * Math.pow(10, decimals)), {
                   minimumFractionDigits: decimals,
                   maximumFractionDigits: decimals,
                 })
@@ -110,8 +110,7 @@ class AssetItem extends React.Component {
           <td>
             {
               !!(this.state.highestBidOrder / Math.pow(10, 8) * Math.pow(10, decimals))
-              && (this.state.highestBidOrder / Math.pow(10, 8) * Math.pow(10, decimals))
-                .toLocaleString('en', {
+              && numberToLocaleString((this.state.highestBidOrder / Math.pow(10, 8) * Math.pow(10, decimals)), {
                   minimumFractionDigits: decimals,
                   maximumFractionDigits: decimals,
                 })
@@ -120,8 +119,8 @@ class AssetItem extends React.Component {
           <td>
             {
               !!(this.state.highestBidOrder / Math.pow(10, 8) * Math.pow(10, decimals))
-              && ((this.state.highestBidOrder / Math.pow(10, 8) * Math.pow(10, decimals))
-                  * (quantityATU / Math.pow(10, decimals))).toLocaleString('en', {
+              && numberToLocaleString(((this.state.highestBidOrder / Math.pow(10, 8) * Math.pow(10, decimals))
+                  * (quantityATU / Math.pow(10, decimals))), {
                 minimumFractionDigits: decimals,
                 maximumFractionDigits: decimals,
               })
