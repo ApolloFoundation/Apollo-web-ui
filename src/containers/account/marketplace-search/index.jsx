@@ -12,7 +12,7 @@ import SiteHeader from '../../components/site-header/index';
 import MarketplaceItem from '../marketplace/marketplace-card/index'
 import {searchDGSGoodsAction} from "../../../actions/marketplace";
 import InfoBox from "../../components/info-box";
-import { MARKETPLACE_REG_EXP } from '../../../constants';
+import { MARKETPLACE_REG_EXP } from '../../../constants/constants';
 
 const itemsPerPage = 8;
 

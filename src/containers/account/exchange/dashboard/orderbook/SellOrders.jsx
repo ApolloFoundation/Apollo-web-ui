@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getSellOpenOffers } from '../../../../../actions/wallet';
 import { setSelectedOrderInfo } from '../../../../../modules/modals';
 import { formatDivision } from '../../../../../helpers/format';
-import { ONE_GWEI } from '../../../../../constants';
+import { ONE_GWEI } from '../../../../../constants/constants';
 import CustomTable from '../../../../components/tables/table1';
 
 export default function SellOrders(props) {
