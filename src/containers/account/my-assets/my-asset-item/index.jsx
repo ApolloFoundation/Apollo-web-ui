@@ -5,9 +5,10 @@
 
 
 import React, { useEffect, useState, useCallback } from 'react';
-import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {useDispatch} from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { numberToLocaleString } from 'helpers/format';
+import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {getAskOrders, getBidOrders} from "../../../../actions/marketplace";
 
 const MyAssetItem = ({ asset, decimals, name, unconfirmedQuantityATU, quantityATU, info }) => {
@@ -77,6 +78,10 @@ const MyAssetItem = ({ asset, decimals, name, unconfirmedQuantityATU, quantityAT
         getBidOrdersRequest();
     }, [getAskOrdersRequest, getAskOrdersRequest]);
 
+    const lowest = state.lowestAskOrder / Math.pow(10, 8) * Math.pow(10, decimals);
+    const highest = state.highestBidOrder / Math.pow(10, 8) * Math.pow(10, decimals);
+    const valInCoin = highest * (quantityATU / Math.pow(10, decimals));
+
     return (
         <tr>
             <td className="blue-link-text" >
@@ -88,44 +93,42 @@ const MyAssetItem = ({ asset, decimals, name, unconfirmedQuantityATU, quantityAT
                 </span>
             </td>
             <td className="align-right">
-                {(unconfirmedQuantityATU / Math.pow(10, decimals)).toLocaleString('en', {
+                {numberToLocaleString((unconfirmedQuantityATU / Math.pow(10, decimals)), {
                     minimumFractionDigits: decimals,
                     maximumFractionDigits: decimals
                 })}
             </td>
             <td className="align-right">
-                {(quantityATU  / Math.pow(10, decimals)).toLocaleString('en', {
+                {numberToLocaleString(quantityATU  / Math.pow(10, decimals), {
                     minimumFractionDigits: decimals,
                     maximumFractionDigits: decimals
-                })}</td>
+                })}
+            </td>
             <td className="align-right">
                 {((parseInt(unconfirmedQuantityATU) / parseInt(quantityATU)) * 100).toFixed(2)}&nbsp;%
             </td>
             <td className="align-right">
                 {
-                    !!(state.lowestAskOrder / Math.pow(10, 8) * Math.pow(10, decimals)) &&
-                    (state.lowestAskOrder / Math.pow(10, 8) * Math.pow(10, decimals))
-                        .toLocaleString('en', {
-                            minimumFractionDigits: decimals,
-                            maximumFractionDigits: decimals
-                        })
+                    !!lowest &&
+                    numberToLocaleString(lowest, {
+                        minimumFractionDigits: decimals,
+                        maximumFractionDigits: decimals
+                    })
                 }
             </td>
             <td className="align-right">
                 {
-                    !!(state.highestBidOrder / Math.pow(10, 8) * Math.pow(10, decimals)) &&
-                    (state.highestBidOrder / Math.pow(10, 8) * Math.pow(10, decimals))
-                        .toLocaleString('en', {
-                            minimumFractionDigits: decimals,
-                            maximumFractionDigits: decimals
-                        })
+                    !!highest &&
+                    numberToLocaleString(highest, {
+                        minimumFractionDigits: decimals,
+                        maximumFractionDigits: decimals
+                    })
                 }
             </td>
             <td className="align-right">
                 {
-                    !!(state.highestBidOrder / Math.pow(10, 8) * Math.pow(10, decimals)) &&
-                    ((state.highestBidOrder / Math.pow(10, 8) * Math.pow(10, decimals)) *
-                        (quantityATU / Math.pow(10, decimals))).toLocaleString('en', {
+                    !!highest &&
+                    numberToLocaleString(valInCoin, {
                         minimumFractionDigits: decimals,
                         maximumFractionDigits: decimals
                     })

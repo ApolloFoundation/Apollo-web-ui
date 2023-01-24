@@ -8,6 +8,7 @@ import React from 'react';
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {connect} from 'react-redux';
 import {formatTimestamp} from "../../../../helpers/util/time";
+import { numberToLocaleString } from 'helpers/format';
 
 class TransferHistoryItem extends React.Component {
     constructor(props) {
@@ -31,7 +32,7 @@ class TransferHistoryItem extends React.Component {
                     <a><span className="info"/></a>
                 </td>
                 <td className="">{this.props.formatTimestamp(timestamp)}</td>
-                <td className="align-right" >{(quantityATU / Math.pow(10, decimals)).toLocaleString('en', {
+                <td className="align-right" >{numberToLocaleString((quantityATU / Math.pow(10, decimals)), {
                     minimumFractionDigits: decimals,
                     maximumFractionDigits: decimals
                 })}</td>

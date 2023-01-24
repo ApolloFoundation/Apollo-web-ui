@@ -5,6 +5,7 @@ import { NotificationManager } from 'react-notifications';
 import { setBodyModalParamsAction } from '../../../../../../modules/modals';
 import Button from '../../../../../components/button';
 import NumericInput from '../../../../../components/form-components/numeric-input1';
+import { numberToLocaleString } from 'helpers/format';
 
 export default function BuyForm(props) {
   const dispatch = useDispatch();
@@ -40,7 +41,7 @@ export default function BuyForm(props) {
           <span>
             Balance:
             {' '}
-            {balanceBuy.toLocaleString('en')}
+            {numberToLocaleString(balanceBuy)}
             {' '}
             {ticker}
           </span>

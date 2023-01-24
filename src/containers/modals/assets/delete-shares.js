@@ -16,6 +16,7 @@ import submitForm from "../../../helpers/forms/forms";
 import ModalBody from '../../components/modals/modal-body';
 import TextualInputComponent from '../../components/form-components/textual-input';
 import NumericInputComponent from '../../components/form-components/numeric-input';
+import { numberToLocaleString } from 'helpers/format';
 
 class DeleteShares extends React.Component {
     constructor(props) {
@@ -66,8 +67,7 @@ class DeleteShares extends React.Component {
 
                 <TextualInputComponent
                     label={'Asset'}
-                    text={`${this.props.modalData.assetName} - ${(this.props.modalData.quantityATU)
-                        .toLocaleString('en', {
+                    text={`${this.props.modalData.assetName} - ${numberToLocaleString((this.props.modalData.quantityATU), {
                             minimumFractionDigits: decimals,
                             maximumFractionDigits: decimals
                         })
