@@ -13,6 +13,14 @@ import converters from '../converters'
 import AplAddress from '../util/apladres'
 import {processElGamalEncryption} from '../../actions/crypto';
 import { handleFetch } from '../../helpers/fetch';
+import { SET_FEE_ALERT } from '../../modules/fee';
+import {
+    IS_MODAL_PROCESSING,
+    SET_AMOUNT_WARNING,
+    SET_ASSET_WARNING,
+    SET_CURRENCY_WARNING,
+    SET_FEE_WARNING
+} from '../../modules/modals';
 
 // request which use FormData objects
 const formDataRequestList = ['importKeyViaFile', 'dgsListing', 'uploadTaggedData'];
@@ -351,17 +359,17 @@ const checkEncryptMessage = (data) => {
       );
   
       dispatch({
-          type: 'SET_FEE_ALERT',
+          type: SET_FEE_ALERT,
           payload: true
       });
       dispatch({
-          type: 'IS_MODAL_PROCESSING',
+          type: IS_MODAL_PROCESSING,
           payload: false
       });
       return true;
     } else {
       dispatch({
-          type: 'SET_FEE_ALERT',
+          type: SET_FEE_ALERT,
           payload: false
       });
     }
@@ -490,19 +498,19 @@ export function sendRequest(requestType, data) {
         }
   
         dispatch({
-            type: 'SET_AMOUNT_WARNING',
+            type: SET_AMOUNT_WARNING,
             payload: 0
         });
         dispatch({
-            type: 'SET_FEE_WARNING',
+            type: SET_FEE_WARNING,
             payload: 0
         });
         dispatch({
-            type: 'SET_ASSET_WARNING',
+            type: SET_ASSET_WARNING,
             payload: 0
         });
         dispatch({
-            type: 'SET_CURRENCY_WARNING',
+            type: SET_CURRENCY_WARNING,
             payload: 0
         });
 
