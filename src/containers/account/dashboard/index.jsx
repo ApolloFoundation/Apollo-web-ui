@@ -14,7 +14,7 @@ import ActivePolls from './active-polls';
 import InfoStatistic from './info-statistic';
 
 import TwitterBanner from "../../../assets/dashboard-safe.jpeg";
-import InfoBanner from "../../../assets/dashboard-knox.jpeg";
+import InfoBanner from "../../../assets/dashboard-Invest-APL.jpg";
 
 export default function Dashboard(props) {
   const dispatch = useDispatch();
@@ -69,7 +69,7 @@ export default function Dashboard(props) {
                   </div>
                   <div className="wrap-card-square-xl">
                     <a
-                      href="https://www.knox.exchange"
+                      href="https://instantinvest.co/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="card card-square card-xl dashboard-tooltip-card"
