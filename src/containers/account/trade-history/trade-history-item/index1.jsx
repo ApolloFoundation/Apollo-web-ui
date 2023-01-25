@@ -12,7 +12,7 @@ import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';
 import {formatTimestamp} from "../../../../helpers/util/time";
-import {ONE_APL} from '../../../../constants';
+import {ONE_APL} from '../../../../constants/constants';
 
 class TradeHistoryItem extends React.Component {
     constructor(props) {

@@ -6,23 +6,23 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
 import { setBodyModalParamsAction } from "../../../../modules/modals";
-import { connect } from "react-redux";
-
-const mapStateToProps = state => ({
-  decimals: state.account.decimals,
-  ticker: state.account.ticker,
-});
-
-const mapDispatchToProps = dispatch => ({
-    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-});
+import { getDecimalsSelector, getTickerSelector } from '../../../../selectors';
 
 const ShufflingItem = (props) => {
+    const dispatch = useDispatch();
+    const decimals = useSelector(getDecimalsSelector);
+    const ticker = useSelector(getTickerSelector);
+
+    const handleGetTransaction = () => props.getTransaction(props.shuffling);
+
+    const handleGetAccountInfoModal = () => dispatch(setBodyModalParamsAction('INFO_ACCOUNT', props.issuer));
+
     return (
         <tr>
             <td className="blue-link-text">
-                <a onClick={() => props.getTransaction(props.shuffling)}>
+                <a onClick={handleGetTransaction}>
                     {props.shuffling}
                 </a>
             </td>
@@ -44,10 +44,10 @@ const ShufflingItem = (props) => {
                     'Done'
                 }
             </td>
-            <td className={'blue-link-text'}>
+            <td className='blue-link-text'>
                 {
                     props.holdingType === 0 &&
-                    props.ticker
+                    ticker
                 }
                 {
                     props.holdingType === 1 &&
@@ -55,7 +55,7 @@ const ShufflingItem = (props) => {
                         to={'/asset-exchange/' + props.holding}
                     >
                         {props.holding} (Asset)
-                </Link>
+                    </Link>
                 }
                 {
                     props.holdingType === 2 &&
@@ -63,15 +63,15 @@ const ShufflingItem = (props) => {
                         to={'/exchange-booth/' + props.holdingInfo.name}
                     >
                         {props.holding} (Currency)
-                </Link>
+                    </Link>
                 }
 
             </td>
-            <td>{props.amount / props.decimals}</td>
+            <td>{props.amount / decimals}</td>
             <td>{props.blocksRemaining || ''}</td>
             <td className="align-right">{props.registrantCount} / {props.participantCount}</td>
             <td className="blue-link-text align-right">
-                <a onClick={() => props.setBodyModalParamsAction('INFO_ACCOUNT', props.issuer)}>
+                <a onClick={handleGetAccountInfoModal}>
                     {props.issuerRS}
                 </a>
             </td>
@@ -79,4 +79,4 @@ const ShufflingItem = (props) => {
     )
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ShufflingItem)
+export default ShufflingItem;
