@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Form } from 'react-form';
 import classNames from 'classnames';
 import NummericInput from '../../../components/form-components/numeric-input';
+import { numberToLocaleString } from '../../../../helpers/format';
 
 const BuyAsset = ({
   balanceATM, asset, handleTotalValue, handleBuyOrders, getFormApi, decimals, ticker,
@@ -14,7 +15,7 @@ const BuyAsset = ({
       {asset.name}
       <span>
         Balance:
-        {(balanceATM / decimals).toLocaleString('en', {
+        {numberToLocaleString(balanceATM / decimals, {
           minimumFractionDigits: asset.decimals,
           maximumFractionDigits: asset.decimals,
         })}

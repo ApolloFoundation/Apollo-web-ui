@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 import { setBodyModalParamsAction } from '../../../../../modules/modals';
 import { getDecimalsSelector } from 'selectors';
 import { useFormatTimestamp } from '../../../../../hooks/useFormatTimestamp';
+import { numberToLocaleString } from '../../../../../helpers/format';
 
 export default function TradeHistoryItem(props) {
   const dispatch = useDispatch();
@@ -54,10 +55,10 @@ export default function TradeHistoryItem(props) {
           {(props.units / (10 ** props.decimals)).toFixed(2)}
         </td>
         <td className="align-right">
-          {parseFloat(props.rateATM).toLocaleString('en')}
+          {numberToLocaleString(parseFloat(props.rateATM))}
         </td>
         <td className="align-right">
-          {((props.units * props.rateATM) / decimals).toLocaleString('ru', {
+          {numberToLocaleString(((props.units * props.rateATM) / decimals), {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2,
           })}
