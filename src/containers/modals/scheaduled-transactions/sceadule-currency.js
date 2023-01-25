@@ -151,7 +151,8 @@ class ScheaduleCurrency extends React.Component {
                                         Fee
                                     </label>
                                     <div
-                                        className="col-sm-9 input-group input-group-text-transparent input-group-sm">
+                                        className="col-sm-9 input-group input-group-text-transparent input-group-sm"
+                                    >
                                         <InputForm
                                             field="feeATM"
                                             placeholder="Fee"
@@ -169,7 +170,7 @@ class ScheaduleCurrency extends React.Component {
                                     values={values}
                                 />
 
-                                <div className="btn-box align-buttons-inside absolute right-conner align-right">
+                                <div className="btn-box align-buttons-inside right-conner align-right">
                                     {
                                         !!this.state.isPending ?
                                             <div

@@ -1,64 +1,32 @@
-import React, {
-  useCallback, useState, useEffect,
-} from 'react';
+import React, {useCallback } from 'react';
 import { useDispatch } from 'react-redux';
+import { TableLoader } from '../../../../../components/TableLoader';
 import { getSellOffersAction } from '../../../../../../actions/exchange-booth';
-import CustomTable from '../../../../../components/tables/table1';
 import OfferItem from '../../offer-item';
 
 const itemsPerPage = 5;
 
-export default function OffersToSellTable(props) {
+export default function OffersToSellTable({ currencyInfo, setMinimumSellRate }) {
   const dispatch = useDispatch();
-
-  const { currencyInfo, setMinimumSellRate } = props;
-
   const { currency, code, decimals } = currencyInfo;
 
-  const [sellOffers, setSellOffers] = useState(null);
-  const [pagination, setPagination] = useState({
-    page: 1,
-    firstIndex: 0,
-    lastIndex: itemsPerPage,
-  });
-
-  const getSellOffers = useCallback(async currPagination => {
-    let selectedCurrPagination = currPagination;
-
-    if (!selectedCurrPagination) {
-      selectedCurrPagination = pagination;
-    }
-
+  const getSellOffers = useCallback(async ({ firstIndex, lastIndex }) => {
     const newSellOffers = await dispatch(getSellOffersAction({
       currency,
-      ...selectedCurrPagination,
+      firstIndex,
+      lastIndex,
     }));
+
+    if (!newSellOffers || !newSellOffers.offers) return [];
 
     const { offers } = newSellOffers;
 
-    const values = Math.min.apply(null, offers.map(el => el.rateATM));
+    const values = Math.min(...offers.map(el => el.rateATM));
 
-    setMinimumSellRate('0');
-    setPagination(newSellOffers);
-    setSellOffers(offers);
-    if (offers.length) {
-      setMinimumSellRate(Number.isFinite(values) ? values : 0);
-    }
-  }, [currency, dispatch, pagination, setMinimumSellRate]);
-
-  const onPaginate = useCallback(page => {
-    const currPagination = {
-      page,
-      firstIndex: page * itemsPerPage - itemsPerPage,
-      lastIndex: page * itemsPerPage,
-    };
-
-    getSellOffers(currPagination);
-  }, [getSellOffers]);
-
-  useEffect(() => {
-    getSellOffers();
-  }, [currencyInfo]);
+    const minRate = offers.length && Number.isFinite(values) ? values : 0; 
+    setMinimumSellRate(minRate);
+    return offers;
+  }, [currency, dispatch, setMinimumSellRate]);
 
   return (
     <div className="col-md-6 display-flex pr-0 mb-3">
@@ -69,8 +37,8 @@ export default function OffersToSellTable(props) {
           {code}
         </div>
         <div className="card-body h-auto">
-          <CustomTable
-            header={[
+          <TableLoader
+            headersList={[
               {
                 name: 'Account',
                 alignRight: false,
@@ -88,13 +56,9 @@ export default function OffersToSellTable(props) {
             className="p-0"
             emptyMessage="No open sell offers. You cannot sell this currency now, but you can publish an exchange offer instead, and wait for others to fill it."
             TableRowComponent={OfferItem}
-            tableData={sellOffers}
             passProps={{ decimals }}
-            isPaginate
             itemsPerPage={itemsPerPage}
-            page={pagination.page}
-            previousHendler={() => onPaginate('sellOffers', pagination.page - 1)}
-            nextHendler={() => onPaginate('sellOffers', pagination.page + 1)}
+            dataLoaderCallback={getSellOffers}
           />
         </div>
       </div>

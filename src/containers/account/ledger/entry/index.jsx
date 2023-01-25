@@ -7,14 +7,16 @@ import React, { useCallback } from 'react';
 import i18n from 'i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
-import { formatTimestamp } from '../../../../helpers/util/time';
 import Button from '../../../components/button';
+import { getAccountInfoSelector } from '../../../../selectors';
+import { useFormatTimestamp } from '../../../../hooks/useFormatTimestamp';
 import { numberToLocaleString } from 'helpers/format';
 
 export default function Entry(props) {
   const dispatch = useDispatch();
+  const handleTime = useFormatTimestamp();
 
-  const { decimals } = useSelector(state => state.account);
+  const { decimals } = useSelector(getAccountInfoSelector);
   const {
     eventType, height, event, ledgerId, timestamp,
     holdingType, holdingInfo, change, balance,
@@ -28,6 +30,15 @@ export default function Entry(props) {
     }
   }, [dispatch, event, eventType, height]);
 
+  const handleInfoLedgerTransactionModal = () =>
+    dispatch(setBodyModalParamsAction(
+      'INFO_LEDGER_TRANSACTION',
+      {
+        ledgerId,
+        eventType,  
+      },
+    ));
+
   return (
     <>
       {ledgerId && (
@@ -35,16 +46,8 @@ export default function Entry(props) {
           <td className="blue-link-text">
             <Button
               color="blue-link"
-              onClick={() => {
-                dispatch(setBodyModalParamsAction(
-                  'INFO_LEDGER_TRANSACTION',
-                  {
-                    ledgerId,
-                    eventType,  
-                  },
-                ));
-              }}
-              name={dispatch(formatTimestamp(timestamp))}
+              onClick={handleInfoLedgerTransactionModal}
+              name={handleTime(timestamp)}
             />
           </td>
           <td>

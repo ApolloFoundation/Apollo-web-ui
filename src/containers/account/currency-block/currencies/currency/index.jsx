@@ -23,12 +23,16 @@ export default function Currency(props) {
   const isReserveDisable = actualBlock >= issuanceHeight;
   const isDisable = !types.includes('RESERVABLE') || !actualBlock || types.includes('RESERVABLE') && isReserveDisable;
 
+  const handleInfoTransactionModal = () => dispatch(setBodyModalParamsAction('INFO_TRANSACTION', currency));
+
+  const handleReserveCurrency = () => dispatch(setBodyModalParamsAction('RESERVE_CURRENCY', props));
+
   return (
     <tr>
       <td>
         <span
           className="blue-link-text"
-          onClick={() => dispatch(setBodyModalParamsAction('INFO_TRANSACTION', currency))}
+          onClick={handleInfoTransactionModal}
         >
           {code}
         </span>
@@ -42,7 +46,7 @@ export default function Currency(props) {
           <Link to={`/exchange-booth/${code}`} className="btn btn-default">Exchange</Link>
           <button
             type="button"
-            onClick={() => dispatch(setBodyModalParamsAction('RESERVE_CURRENCY', props))}
+            onClick={handleReserveCurrency}
             className={classNames('btn btn-default', {
               'disabled': isDisable,
             })}

@@ -33,10 +33,10 @@ const ShufflingItem = (props) => {
 
     return (
         <tr>
-            <td className="blue-link-text">
-                <a onClick={handleTransactionModal}>
+            <td>
+                <span className="blue-link-text" onClick={handleTransactionModal}>
                     {props.shuffling}
-                </a>
+                </span>
             </td>
             <td>
                 { props.stage === 0 && 'Registration'}
@@ -62,15 +62,15 @@ const ShufflingItem = (props) => {
             { props.blocksRemaining &&  <td>{props.blocksRemaining}</td>}
 
             <td className="align-right">{props.registrantCount} / {props.participantCount}</td>
-            <td className="blue-link-text align-right">
-                <a onClick={handleAccountInfoModal}>{props.issuerRS}</a>
+            <td className="align-right">
+                <span className="blue-link-text" onClick={handleAccountInfoModal}>{props.issuerRS}</span>
             </td>
             { (props.blocksRemaining && props.stage !== 1) &&
                 <td className="align-right">
                     <div className="btn-box inline">
-                        <a className='btn btn-default' onClick={handleStartShufflingModal}>
+                        <span className='btn btn-default' onClick={handleStartShufflingModal}>
                             Join
-                        </a>
+                        </span>
                     </div>
                 </td>
             }

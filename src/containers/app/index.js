@@ -41,8 +41,7 @@ import MyCompletedOrders from '../account/my-completed-orders/index';
 import Activepolls from '../account/active-polls';
 import AccountProperties from '../account/account-properties';
 import Assets from '../account/assets';
-import ApprovalRequest from '../account/approval-request/index1';
-import ApprovalRequestAssets from '../account/approval-request-assets';
+import ApprovalRequest from '../account/approval-request/index';
 import AssetExchange from '../account/asset-exchange';
 import Aliases from '../account/aliases/index';
 import SearchAliases from '../account/search-aliases';
@@ -256,7 +255,6 @@ class App extends React.Component {
         <Route exact path="/my-shuffling" component={MyCurrencies} />
         <Route exact path="/account-properties" component={AccountProperties} />
         <Route exact path="/approval-request" component={ApprovalRequest} />
-        <Route exact path="/approval-request-assets" component={ApprovalRequestAssets} />
         <Route exact path="/asset-exchange/:asset" component={AssetExchange} />
         <Route exact path="/asset-exchange" component={AssetExchange} />
         <Route exact path="/all-assets" component={Assets} />

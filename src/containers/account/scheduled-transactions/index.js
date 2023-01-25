@@ -4,85 +4,51 @@
  ******************************************************************************/
 
 
-import React from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
+import {NotificationManager} from "react-notifications";
+import {Link} from "react-router-dom";
+import {useDispatch, useSelector} from 'react-redux'
+import classNames from "classnames";
 import SiteHeader from '../../components/site-header'
 import InfoBox from "../../components/info-box";
-import {Link} from "react-router-dom";
-import {connect} from 'react-redux'
 import {setBodyModalParamsAction} from "../../../modules/modals";
-import {getScheduledTransactions} from "../../../actions/scheduled-transactions";
+import {getScheduledTransactions, deleteScheduledTransactionAction} from "../../../actions/scheduled-transactions";
 import ContentHendler from "../../components/content-hendler";
-import classNames from "classnames";
-import TransactionItem from '../transactions/transaction';
-import submitForm from "../../../helpers/forms/forms";
-import {NotificationManager} from "react-notifications";
+import { getAdminPasswordSelector } from '../../../selectors';
+import { ScheduleTransactionTable } from './ScheduleTransactionTable';
 
-const mapStateToProps = state => ({
-    adminPassword: state.account.adminPassword,
-    account: state.account.account,
-});
-
-const mapDispatchToProps = dispatch => ({
-    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
-});
-
-class ScheduledTransactions extends React.Component {
-    state = {
+const ScheduledTransactions = () => {
+    const dispatch = useDispatch();
+    const adminPassword = useSelector(getAdminPasswordSelector);
+    const [state, setState] = useState({
         scheduledTransactions: null,
-    }
+        errorCode: null,
+    })
 
-    componentDidUpdate = () => {
-        if (!this.state.isLoaded && this.props.account &&  (this.props.adminPassword || this.props.adminPassword === '')) {
-            this.getScheduledTransactions({
-                adminPassword: this.props.adminPassword,
-                account: this.props.account
-            })
-        }
-    };
-
-    componentDidMount = () => {
-        if (this.props.adminPassword) {
-            this.getScheduledTransactions({
-                adminPassword: this.props.adminPassword,
-                account: this.props.account
-            })
-        } else {
-            this.setState({
-                monitors: {
-                    errorCode: 3
-                }
-            })
-        }
-    };
-
-    getScheduledTransactions = async (reqParams) => {
-        const scheduledTransactions = await getScheduledTransactions(reqParams);
-
+    const getScheduledTransactionsRequest = useCallback(async () => {
+        const scheduledTransactions = await getScheduledTransactions({
+            adminPassword,
+        });
+        
         if (scheduledTransactions && !scheduledTransactions.errorCode) {
-            this.setState({
+            setState({
                 scheduledTransactions: scheduledTransactions.scheduledTransactions,
-                isLoaded: true
+                errorCode: null,
             })
         }
 
         if (scheduledTransactions && scheduledTransactions.errorCode) {
-            this.setState({
+            setState({
                 scheduledTransactions,
-                isLoaded: true
-            })
+                errorCode: scheduledTransactions.errorCode,
+            });
         }
-    };
+    }, [ adminPassword]);
 
-    reloadSceduledTransactions = () => {
-
-        this.getScheduledTransactions({
-            adminPassword: this.state.adminPassword
-        })
-    };
-
-    deleteScheduledTransaction = async (transaction) => {
-        const deleteTransacrtio = await this.props.submitForm({adminPassword : this.props.adminPassword , transaction}, 'deleteScheduledTransaction');
+    const deleteScheduledTransaction = (transaction) => async () => {
+        const deleteTransacrtio = await dispatch(
+            deleteScheduledTransactionAction({adminPassword, transaction})
+        );
 
         if (deleteTransacrtio) {
             if (deleteTransacrtio.errorCode) {
@@ -90,88 +56,67 @@ class ScheduledTransactions extends React.Component {
 
             } else {
                 NotificationManager.success('Scheduled transaction has been deleted!', null, 5000);
-                this.reloadSceduledTransactions();
+                getScheduledTransactionsRequest();
             }
         }
     };
 
-    render () {
-        return (
-            <div className="page-content">
-                <SiteHeader
-                    pageTitle={'Scheduled transactions'}
+    const handleScheduleCurrency = () =>
+        dispatch(setBodyModalParamsAction('SCHEDULE_CURRENCY', getScheduledTransactionsRequest));
+
+    useEffect(() => {
+        if (adminPassword) {
+            getScheduledTransactionsRequest()
+        } else {
+            setState({
+                scheduledTransactions: [],
+                errorCode: 3,
+            });
+        }
+    }, [getScheduledTransactionsRequest]);
+
+    return (
+        <div className="page-content">
+            <SiteHeader pageTitle='Scheduled transactions'>
+                <span
+                    className={classNames({
+                        'btn': true,
+                        'primary': true,
+                        'disabled' : state.isPrivate
+                    })}
+                    onClick={handleScheduleCurrency}
                 >
-                    <a
-                        className={classNames({
-                            'btn': true,
-                            'primary': true,
-                            'disabled' : this.state.isPrivate
-                        })}
-                        onClick={() => this.props.setBodyModalParamsAction('SCHEDULE_CURRENCY', this.reloadSceduledTransactions)}
+                    Schedule currency
+                </span>
+            </SiteHeader>
+            <div className="page-body container-fluid">
+                <div className="scheduled-transactions">
+                    {
+                        (state.errorCode &&
+                        state.errorCode === 3) &&
+                        <InfoBox default>
+                            An admin password was not specified. Please set an admin password on the
+                            <Link
+                                to={'/settings'}
+                            >
+                                &nbsp;settings&nbsp;
+                            </Link>
+                            page.
+                        </InfoBox>
+                    }
+                    <ContentHendler
+                        items={state.scheduledTransactions}
+                        emptyMessage='No schedules found.'
                     >
-                        Schedule currency
-                    </a>
-                </SiteHeader>
-
-                <div className="page-body container-fluid">
-                    <div className="scheduled-transactions">
-                        {
-                            this.state.scheduledTransactions &&
-                            this.state.scheduledTransactions.errorCode &&
-                            this.state.scheduledTransactions.errorCode === 3 &&
-                            <InfoBox default>
-                                An admin password was not specified. Please set an admin password on the
-                                <Link
-                                    to={'/settings'}
-                                >
-                                    &nbsp;settings&nbsp;
-                                </Link>
-                                page.
-                            </InfoBox>
-                        }
-                        <ContentHendler
-                            items={this.state.scheduledTransactions}
-                            emptyMessage={'No schedules found.'}
-                        >
-                            <div className="transaction-table">
-                                <div className="transaction-table-body">
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <td>Date</td>
-                                                <td>Type</td>
-                                                <td className="align-right">Amount</td>
-                                                <td className="align-right">Fee</td>
-                                                <td>Account</td>
-                                                <td className="align-right">Height</td>
-                                                <td className="align-right">Actions</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        {
-                                            this.state.scheduledTransactions &&
-                                            this.state.scheduledTransactions.length > 0 &&
-                                            this.state.scheduledTransactions.map((el) => {
-                                                return (
-                                                    <TransactionItem
-                                                        transaction={el}
-                                                        isScheduled
-                                                        deleteSheduledTransaction={this.deleteScheduledTransaction}
-                                                    />
-                                                )
-                                            })
-
-                                        }
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </ContentHendler>
-                    </div>
+                        <ScheduleTransactionTable
+                            scheduledTransactions={state.scheduledTransactions}
+                            deleteScheduledTransaction={deleteScheduledTransaction}    
+                        />
+                    </ContentHendler>
                 </div>
             </div>
-        );
-    }
+        </div>
+    );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ScheduledTransactions);
+export default ScheduledTransactions;

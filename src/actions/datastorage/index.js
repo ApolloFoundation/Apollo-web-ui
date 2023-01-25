@@ -35,7 +35,7 @@ export function getDataTagsAction(reqParams) {
             params: {
                 requestType: 'getDataTags',
                 ...reqParams
-            }
+            },
         })
             .then((res) => {
                 if (!res.data.errorCode) {
@@ -55,7 +55,8 @@ export function searchTaggedDataAction(reqParams) {
             params: {
                 requestType: 'searchTaggedData',
                 ...reqParams
-            }
+            },
+            cancelToken: cancelAxiosRequest.token,
         })
             .then((res) => {
                 if (!res.data.errorCode) {
@@ -75,7 +76,8 @@ export function getAccountTaggedDataAction(reqParams) {
             params: {
                 requestType: 'getAccountTaggedData',
                 ...reqParams
-            }
+            },
+            cancelToken: cancelAxiosRequest.token,
         })
             .then((res) => {
                 if (!res.data.errorCode) {

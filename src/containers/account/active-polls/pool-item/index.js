@@ -32,16 +32,16 @@ const PoolItem = props => {
 
   return (
     <tr>
-      <td className="blue-link-text">
-        <a onClick={handleInfoTransactionModal}>{props.name}</a>
+      <td>
+        <span className="blue-link-text" onClick={handleInfoTransactionModal}>{props.name}</span>
       </td>
       <td>
         { (props.description.length > 100) ? `${props.description.slice(0, 100)}...` : props.description}
       </td>
-      <td className="blue-link-text">
-        <a onClick={handleInfoAccountModal}>
+      <td>
+        <span className="blue-link-text" onClick={handleInfoAccountModal}>
           {props.accountRS}
-        </a>
+        </span>
       </td>
       <td>{handleTime()}</td>
       <td className="">

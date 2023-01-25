@@ -20,7 +20,7 @@ export const TransactionTable = (props) => {
   const account = useSelector(getAccountSelector);
   const passPhrase = useSelector(getPassPhraseSelector);
 
-  const type = useMemo(() => new URLSearchParams(search).get('type'), [search]);
+  const type = useMemo(() => new URLSearchParams(search).get('type') ?? 'All', [search]);
 
   const handleRequest = useCallback(async ({ firstIndex, lastIndex }) => {
     try {
