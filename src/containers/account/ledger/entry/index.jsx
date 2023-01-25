@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
 import { formatTimestamp } from '../../../../helpers/util/time';
 import Button from '../../../components/button';
+import { numberToLocaleString } from 'helpers/format';
 
 export default function Entry(props) {
   const dispatch = useDispatch();
@@ -55,14 +56,14 @@ export default function Entry(props) {
           </td>
           <td className="align-right">
             {holdingType === 'UNCONFIRMED_APL_BALANCE'
-              && (change / decimals).toLocaleString('en', {
+              && numberToLocaleString(change / decimals, {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 8,
               })}
           </td>
           <td className="align-right">
             {holdingType === 'UNCONFIRMED_APL_BALANCE' && balance > 0
-              && (balance / decimals).toLocaleString('en', {
+              && numberToLocaleString(balance / decimals, {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 8,
               })}
@@ -73,12 +74,12 @@ export default function Entry(props) {
           <td className="align-right">
             {holdingType === 'UNCONFIRMED_CURRENCY_BALANCE'
               && holdingInfo && holdingInfo.name
-              && (change / (10 ** holdingInfo.decimals)).toLocaleString('en', {
+              && numberToLocaleString(change / (10 ** holdingInfo.decimals), {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 8,
               })}
             {holdingType === 'UNCONFIRMED_ASSET_BALANCE'
-              && (change / decimals).toLocaleString('en', {
+              && numberToLocaleString(change / decimals, {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 8,
               })}
@@ -86,12 +87,12 @@ export default function Entry(props) {
           <td className="align-right">
             {holdingType === 'UNCONFIRMED_CURRENCY_BALANCE'
               && holdingInfo && holdingInfo.name
-              && (balance / (10 ** holdingInfo.decimals)).toLocaleString('en', {
+              && numberToLocaleString(balance / (10 ** holdingInfo.decimals), {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 8,
               })}
             {holdingType === 'UNCONFIRMED_ASSET_BALANCE'
-              && (balance / decimals).toLocaleString('en', {
+              && numberToLocaleString(balance / decimals, {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 8,
               })}
