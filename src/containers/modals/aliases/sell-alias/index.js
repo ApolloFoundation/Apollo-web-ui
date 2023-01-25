@@ -14,7 +14,6 @@ import { getTickerSelector } from '../../../../selectors';
 import { ToSpecificAccount } from './Tabs/ToSpecificAccount';
 import { ToAnyoneAccount } from './Tabs/ToAnyoneAccount';
 import { useAliasDataLoader } from '../useAliasDataLoader';
-import { PureModal } from 'containers/components/modals/pure-modal/pure-modal';
 
 const SellAlias = (props) => {
     const alias = useAliasDataLoader();
@@ -37,20 +36,11 @@ const SellAlias = (props) => {
         <ModalBody
             modalTitle='Sell Alias'
             submitButtonName='Sell Alias'
-            // onSubmit={handleFormSubmit}
             closeModal={props.closeModal}
             isDisableSecretPhrase
             isAdvanced
             isAdvancedWhite
             isDisableFormFooter
-            // initialValues={{
-            //     add_message: false,
-            //     recipient: alias ? alias.accountRS : '',
-            //     priceATM: '',
-            //     message: '',
-            //     encrypt_message: false,
-            //     permanent_message: false,
-            // }}
         >
             <TabulationBody className='p-0'>
                 <TabContaier sectionName='Sell alias to Specific Account'>
