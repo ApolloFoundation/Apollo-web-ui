@@ -1,57 +1,31 @@
-import React, { useEffect, useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {getSellOrdersAction} from "../../../../actions/open-orders";
 import OrderItem from "../order";
-import {BlockUpdater} from "../../../block-subscriber";
-import ContentLoader from '../../../components/content-loader'
-import CustomTable from "../../../components/tables/table";
 import { getAccountSelector } from "../../../../selectors";
+import { TableLoader } from "../../../components/TableLoader";
 
 export const OrderSell = () => {
   const dispatch = useDispatch();
   const account = useSelector(getAccountSelector);
 
-  const [data, setData] = useState(null);
-  const [pagination, setPagination] = useState({
-    page: 1,
-    firstIndex: 0,
-    lastIndex: 15,
-  });
-
-  const handlePagination = useCallback((page) => () => {
-    setPagination({
-      page,
-      firstIndex: page * 15 - 15,
-      lastIndex: page * 15
-    });
-  }, []);
-
-  const loadData = useCallback(async () => {
+  const loadData = useCallback(async ({ firstIndex, lastIndex }) => {
     const { assets, orders } = await dispatch(getSellOrdersAction({
         account,
-        firstIndex: pagination.firstIndex,
-        lastIndex: pagination.lastIndex,
+        firstIndex,
+        lastIndex,
     }));
     if (assets && orders) {
       const result = assets.map((el, index) => ({...el, ...orders[index]}));
-
-      setData(result);
+      return result;
     }
-  }, [dispatch, account, pagination.firstIndex, pagination.lastIndex])
+    return [];
+  }, [dispatch, account])
 
-  useEffect(() => {
-    loadData();
-    BlockUpdater.on("data", loadData);
-    return () => {
-      BlockUpdater.removeListener("data", loadData);
-    }
-  }, [loadData]);
-
-  if (!data) return (<ContentLoader noPaddingOnTheSides />);
 
   return (
-    <CustomTable
-      header={[
+    <TableLoader
+      headersList={[
           {
               name: 'Asset',
               alignRight: false
@@ -69,15 +43,9 @@ export const OrderSell = () => {
               alignRight: true
           }
       ]}
-      className='p-0'
-      emptyMessage='No assets found.'
+      emptyMessage="No assets found."
       TableRowComponent={OrderItem}
-      tableData={data}
-      isPaginate
-      page={pagination.page}
-      previousHendler={handlePagination(pagination.page - 1)}
-      nextHendler={handlePagination(pagination.page + 1)}
-      itemsPerPage={15}
+      dataLoaderCallback={loadData}
     />
   );
 }
