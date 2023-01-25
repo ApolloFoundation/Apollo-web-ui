@@ -226,16 +226,19 @@ class AdvancedSettings extends React.Component {
                     nme="doNotBroadcast"
                     label="Do not broadcast"
                     id="doNotBroadcastCheckbox"
+                    defaultValue={false}
                 />
                 <CheckboxFormInput
                     nme="doNotSign"
                     label="Do not sign"
                     id="doNotSignCheckbox"
+                    defaultValue={false}
                 />
                 <CheckboxFormInput
                     nme="add_note_to_self"
                     label="Add note to self?"
                     id="add_note_to_selfCheckbox"
+                    defaultValue={false}
                 />
                 {
                     values.add_note_to_self &&

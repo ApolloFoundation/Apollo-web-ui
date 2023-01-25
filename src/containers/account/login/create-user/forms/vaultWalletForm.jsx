@@ -3,15 +3,15 @@ import { Form, Formik } from 'formik';
 import { NotificationManager } from 'react-notifications';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import cn from 'classnames';
-import { useLoginModal } from '../../../../../hooks/useLoginModal';
+import { useLoginModal } from 'hooks/useLoginModal';
 import {
   createAccountAction, generateAccountAction, generatePDF,
-} from '../../../../../actions/account';
-import ContentLoader from '../../../../components/content-loader';
-import CheckboxFormInput from '../../../../components/check-button-input/CheckboxWithFormik';
-import CustomInput from '../../../../components/custom-input/CustomInputWithFormik';
-import Button from '../../../../components/button';
-import InfoBox from '../../../../components/info-box';
+} from 'actions/account';
+import ContentLoader from 'containers/components/content-loader';
+import CheckboxFormInput from 'containers/components/check-button-input/CheckboxWithFormik';
+import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
+import Button from 'containers/components/button';
+import InfoBox from 'containers/components/info-box';
 
 export default function VaultWalletForm(props) {
   const {
@@ -88,6 +88,9 @@ export default function VaultWalletForm(props) {
     <Formik
       initialValues={{
         option: 1,
+        isCustomPassphrase: false,
+        newAccountpassphrse: '',
+        secretPhrase: '',
       }}
       onSubmit={onSubmit}
     >

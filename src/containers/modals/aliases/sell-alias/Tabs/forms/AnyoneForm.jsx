@@ -1,25 +1,14 @@
 import React from 'react';
 import { useFormikContext } from 'formik';
-import ModalBody from '../../../../components/modals/modal-body';
-import TextualInputComponent from '../../../../components/form-components/TextualInput';
-import NumericInputComponent from '../../../../components/form-components/NumericInput';
-import CheckboxFormInput from '../../../../components/check-button-input/CheckboxWithFormik';
-import CustomTextArea from '../../../../components/form-components/TextArea/TextAreaWithFormik';
+import TextualInputComponent from 'containers/components/form-components/TextualInput';
+import NumericInputComponent from 'containers/components/form-components/NumericInput';
+import CheckboxFormInput from 'containers/components/check-button-input/CheckboxWithFormik';
+import CustomTextArea from 'containers/components/form-components/TextArea/TextAreaWithFormik';
 
-export const ToAnyoneAccount = ({ onSubmit, closeModal, alias }) => {
+export const AnyoneForm = ({ alias }) => {
   const { values } = useFormikContext();
-
   return (
-    <ModalBody
-      handleFormSubmit={onSubmit}
-      closeModal={closeModal}
-      className='p-0 transparent gray-form'
-      submitButtonName='Sell alias'
-      isFee
-      isPour
-      idGroup='sell-alias-anyone-modal-'
-      submitButtonName='Sell Alias'
-    >
+    <>
       {
           alias && 
           <TextualInputComponent
@@ -58,6 +47,6 @@ export const ToAnyoneAccount = ({ onSubmit, closeModal, alias }) => {
               />
           </>
       }
-    </ModalBody>
+    </>
   );
 }

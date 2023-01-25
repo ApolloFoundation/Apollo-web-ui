@@ -3,10 +3,10 @@ import {useParams} from 'react-router-dom';
 import { Form, FormikProvider, useFormik } from 'formik';
 import {connect} from 'react-redux';
 import classNames from "classnames";
-import CustomTextArea from '../../../components/form-components/TextArea/TextAreaWithFormik';
-import CheckboxFormInput from '../../../components/check-button-input/CheckboxWithFormik';
-import TextualInputComponent from '../../../components/form-components/TextualInput';
-import { get2FASelector } from '../../../../selectors';
+import CustomTextArea from 'containers/components/form-components/TextArea/TextAreaWithFormik';
+import CheckboxFormInput from 'containers/components/check-button-input/CheckboxWithFormik';
+import TextualInputComponent from 'containers/components/form-components/TextualInput';
+import { get2FASelector } from 'selectors';
 import {handleSendMessageFormSubmit} from './handleFormSubmit';
 import styles from './index.module.scss';
 
@@ -29,6 +29,7 @@ const ChatForm = (props) => {
             textareaCount: 0,
             message: '',
             secretPhrase: '',
+            code2FA: '',
             messageToEncrypt: false
         },
         onSubmit: handleSendMessageFormSubmit,

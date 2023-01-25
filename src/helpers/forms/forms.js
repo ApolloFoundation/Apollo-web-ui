@@ -382,7 +382,6 @@ const checkPhrase = (data, requestType) => async (dispatch, getState) => {
     if (data.secretPhrase) {
         const { secretPhrase, ...rest } = data;
         let isPassphrase = await dispatch(crypto.getAccountIdAsyncApl(secretPhrase));
-        
         const elGamalPhrase = await processElGamalEncryption(secretPhrase)
         if (isPassphrase !== account.accountRS) {
             return {
@@ -552,15 +551,15 @@ function filesRequestsHandling (data, requestType, url) {
     // it demands on backend because
     if (requestType === "importKeyViaFile") {
         // special fiels for importKeyViaFile request
-        return processElGamalEncryption(data.passPhrase)
-            .then(res => {
-                formData.delete('passPhrase');
-                formData.append('passphrase', res);
+        // return processElGamalEncryption(data.passPhrase)
+        //     .then(res => {
+        //         formData.delete('passPhrase');
+        //         formData.append('passphrase', res);
                 return fetch(url, {
                     method: 'POST',
                     body: formData,
                 })
-            })
+            // })
             .then(res => res.json())
             .catch(() => {})
     }

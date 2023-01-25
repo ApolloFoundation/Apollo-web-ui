@@ -7,14 +7,14 @@
 import React, { useCallback } from 'react';
 import {useDispatch, useSelector, shallowEqual} from 'react-redux';
 import {NotificationManager} from 'react-notifications';
-import {getForging} from '../../../actions/login';
-import CheckboxFormInput from '../../components/check-button-input/CheckboxWithFormik';
-import {setAccountPassphrase} from "../../../modules/account";
-import ModalBody from '../../components/modals/modal-body';
-import submitForm from '../../../helpers/forms/forms'
-import InfoBox from '../../components/info-box';
-import { writeToLocalStorage } from '../../../actions/localStorage';
-import CustomInput from '../../components/custom-input/CustomInputWithFormik';
+import {getForging} from 'actions/login';
+import CheckboxFormInput from 'containers/components/check-button-input/CheckboxWithFormik';
+import {setAccountPassphrase} from "modules/account";
+import ModalBody from 'containers/components/modals/modal-body';
+import submitForm from 'helpers/forms/forms'
+import InfoBox from 'containers/components/info-box';
+import { writeToLocalStorage } from 'actions/localStorage';
+import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
 import {
     getAccountSelector,
     getDecimalsSelector,
@@ -22,7 +22,7 @@ import {
     get2FASelector,
     getBalanceATMSelector,
     getModalDataSelector,
-} from '../../../selectors';
+} from 'selectors';
 
 const ConfirmForging = (props) => {
     const dispatch = useDispatch();
@@ -84,6 +84,11 @@ const ConfirmForging = (props) => {
             submitButtonName={`${forgingAction.charAt(0).toUpperCase() + forgingAction.slice(1)} forging`}
             isDisableSecretPhrase
             nameModel={props.nameModal}
+            initialValues={{
+                passphrase: '',
+                isSavePassphrase: false,
+                code2FA: '',
+            }}
         >
             {action.getStatus === 'startForging' && (
                 <InfoBox info>
