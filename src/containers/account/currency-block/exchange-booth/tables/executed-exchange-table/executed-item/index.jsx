@@ -3,7 +3,7 @@
  *                                                                            *
  ***************************************************************************** */
 
-import React from 'react';
+import React, { useMemo }from 'react';
 import { useDispatch } from 'react-redux';
 import { numberToLocaleString } from 'helpers/format';
 import { formatTimestamp } from '../../../../../../../helpers/util/time';
@@ -21,8 +21,11 @@ export default function ExecutedItem(props) {
     dispatch(setBodyModalParamsAction('INFO_ACCOUNT', data))
   }
 
-  const rate = (rateATM / (10 ** 8)) * (10 ** decimals);
-  const total = (((rateATM / (10 ** 8)) * units) / (10 ** decimals)) * (10 ** decimals);
+  const rate = useMemo(() => (rateATM / (10 ** 8)) * (10 ** decimals), [decimals, rateATM]);
+  const total = useMemo(
+    () => (((rateATM / (10 ** 8)) * units) / (10 ** decimals)) * (10 ** decimals),
+    [rate, units, decimals]
+  );
 
   return (
     <tr>

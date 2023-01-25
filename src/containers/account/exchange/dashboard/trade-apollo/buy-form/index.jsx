@@ -4,7 +4,7 @@ import { Formik } from 'formik';
 import { NotificationManager } from 'react-notifications';
 import { currencyTypes, multiply, numberToLocaleString } from '../../../../../../helpers/format';
 import { createOffer } from '../../../../../../actions/wallet';
-import { ONE_GWEI } from '../../../../../../constants';
+import { ONE_GWEI } from '../../../../../../constants/constants';
 import {
   setBodyModalParamsAction, resetTrade, setSelectedOrderInfo,
 } from '../../../../../../modules/modals';
