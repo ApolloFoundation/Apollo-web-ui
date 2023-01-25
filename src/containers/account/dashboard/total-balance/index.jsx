@@ -4,6 +4,7 @@ import { NotificationManager } from 'react-notifications';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
 import ContentLoader from '../../../components/content-loader';
+import { numberToLocaleString } from 'helpers/format';
 
 const TotalBalance = props => {
   const dispatch = useDispatch();
@@ -13,7 +14,7 @@ const TotalBalance = props => {
   const { dashboardAccoountInfo } = useSelector(state => state.dashboard);
 
   const balanceAPL = (dashboardAccoountInfo && dashboardAccoountInfo.unconfirmedBalanceATM)
-    ? (dashboardAccoountInfo.unconfirmedBalanceATM / decimals).toLocaleString('en-GB', {
+    ? numberToLocaleString(dashboardAccoountInfo.unconfirmedBalanceATM / decimals, {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     })
