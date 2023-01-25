@@ -23,7 +23,6 @@ import RawTransactionDetails from './send-apollo/raw-transaction-details';
 import { LoginSaveData } from './login-save-data/index';
 // Account
 import InfoAccount from './account/account/';
-import CreateUser from './account/create-account';
 import AccountDetails from './account/account-details/';
 import LeaseBalance from './account/lease-balance/';
 import TokenGenerationValidation from './account/token-generation-validation/';
@@ -249,7 +248,6 @@ class ModalWindow extends React.Component {
                     {this.props.modalType === 'DEVICE_SETTINGS'             && <DeviceSettings            closeModal={this.closeModal} nameModal={'DEVICE_SETTINGS'}/>}
                     {this.props.modalType === 'GENERAL_INFO'                && <ApolloAbout               closeModal={this.closeModal} nameModal={'GENERAL_INFO'}/>}
                     {this.props.modalType === 'SHARDING_INFO'               && <ShardingInfo              closeModal={this.closeModal} nameModal={'SHARDING_INFO'}/>}
-                    {this.props.modalType === 'CREATE_USER'                 && <CreateUser                closeModal={this.closeModal} nameModal={'CREATE_USER'}/>}
                     {this.props.modalType === 'SET_ACCOUNT_INFO'            && <AccountInfo               closeModal={this.closeModal} nameModal={'SET_ACCOUNT_INFO'}/>}
                     {this.props.modalType === 'SAVE_ACCOUNT'                && <SaveAccount               closeModal={this.closeModal} nameModal={'SAVE_ACCOUNT'}/>}
                     {this.props.modalType === 'ADMIN_PASSWORD'              && <EnterAdminPassword        closeModal={this.closeModal} nameModal={'ADMIN_PASSWORD'}/>}

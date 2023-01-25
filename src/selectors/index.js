@@ -8,3 +8,7 @@ export const get2FASelector = state => state.account.is2FA;
 export const getIsLocalhostSelector = state => state.account.isLocalhost;
 export const getMdalsSelector = state => state.modals;
 export const getAccountInfoSelector = state => state.account;
+export const getAdminPasswordSelector = state => state.account.adminPassword;
+export const getBockTimeSelector = state => state.account.blockchainStatus
+  ? state.account.blockchainStatus.blockTime : null;
+export const getForgedBalanceSelector = state => state.account.forgedBalanceATM;

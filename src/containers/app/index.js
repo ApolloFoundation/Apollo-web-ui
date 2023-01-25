@@ -55,7 +55,7 @@ import Peers from '../account/peers';
 import BackendStatus from '../account/backend-status';
 import ScheduledTransactions from '../account/scheduled-transactions';
 import Settings from '../account/settings/index';
-import TradeHistory from '../account/trade-history';
+import TradeHistory from '../account/trade-history/index';
 import TransferHistory from '../account/transfer-history';
 // Currencies
 import Currencies from '../account/currency-block/currencies';

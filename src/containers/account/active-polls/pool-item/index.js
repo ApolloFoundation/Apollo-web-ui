@@ -4,50 +4,46 @@
  ***************************************************************************** */
 
 import React from 'react';
-import { connect } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import classNames from 'classnames';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
 import { formatTimestamp } from '../../../../helpers/util/time';
-import { getTransactionAction } from '../../../../actions/transactions';
-
-const mapStateToProps = state => ({
-  actualBlock: state.account.actualBlock,
-  decimals: state.account.decimals,
-  balanceAPL: state.account.unconfirmedBalanceATM,
-});
-
-const mapDispatchToProps = dispatch => ({
-  setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-  formatTimestamp: time => dispatch(formatTimestamp(time)),
-  getTransaction: transaction => dispatch(getTransactionAction(transaction)),
-});
+import { getAccountInfoSelector } from '../../../../selectors';
 
 const PoolItem = props => {
-  const blocksLeft = parseInt(props.finishHeight) - parseInt(props.actualBlock);
-  let checkAction = false;
-  if (props.minBalanceModel === 1 && parseFloat(props.minBalance) >= (props.balanceAPL / props.decimals)) {
-    checkAction = true;
-  }
+  const dispatch = useDispatch();
+  const {decimals, actualBlock, unconfirmedBalanceATM} = useSelector(getAccountInfoSelector);
+  const blocksLeft = parseInt(props.finishHeight) - parseInt(actualBlock);
+
+  let isDisableVoteButton = props.minBalanceModel === 1 && parseFloat(props.minBalance) >= (unconfirmedBalanceATM / decimals);
+
+  const handleInfoTransactionModal = () =>
+    dispatch(setBodyModalParamsAction('INFO_TRANSACTION', props.poll));
+
+  const handleInfoAccountModal = () =>
+    dispatch(setBodyModalParamsAction('INFO_ACCOUNT', props.account));
+
+  const handleCastVoteModal = () => dispatch(setBodyModalParamsAction('CAST_VOTE', props.poll));
+
+  const handlePollResultModal = () => dispatch(setBodyModalParamsAction('POLL_RESULTS', props.poll));
+
+  const handleTime = () => dispatch(formatTimestamp(props.timestamp));
+
   return (
     <tr>
       <td className="blue-link-text">
-        <a onClick={() => props.setBodyModalParamsAction('INFO_TRANSACTION', props.poll)}>{props.name}</a>
+        <a onClick={handleInfoTransactionModal}>{props.name}</a>
       </td>
-      <td className="">
-        {' '}
+      <td>
         { (props.description.length > 100) ? `${props.description.slice(0, 100)}...` : props.description}
-        {' '}
       </td>
       <td className="blue-link-text">
-        <a onClick={() => props.setBodyModalParamsAction('INFO_ACCOUNT', props.account)}>
-          {' '}
+        <a onClick={handleInfoAccountModal}>
           {props.accountRS}
-          {' '}
         </a>
       </td>
-      <td className="">
-        {props.formatTimestamp(props.timestamp)}
-      </td>
+      <td>{handleTime()}</td>
       <td className="">
         {blocksLeft || ''}
       </td>
@@ -55,14 +51,14 @@ const PoolItem = props => {
         <div className="btn-box inline">
           <button
             type="button"
-            onClick={() => props.setBodyModalParamsAction('CAST_VOTE', props.poll)}
-            className={`btn btn-default ${checkAction ? 'disabled' : ''}`}
+            onClick={handleCastVoteModal}
+            className={classNames('btn btn-default', { 'disabled':  isDisableVoteButton })}
           >
             Vote
           </button>
           <button
             type="button"
-            onClick={() => props.setBodyModalParamsAction('POLL_RESULTS', props.poll)}
+            onClick={handlePollResultModal}
             className="btn btn-default"
           >
             Results
@@ -74,4 +70,4 @@ const PoolItem = props => {
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(PoolItem);
+export default PoolItem;

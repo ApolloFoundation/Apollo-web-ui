@@ -3,6 +3,12 @@ import {BlockUpdater} from "../../block-subscriber";
 import ContentLoader from '../content-loader'
 import CustomTable from "../tables/table";
 
+const initialPagination = {
+  page: 1,
+  firstIndex: 0,
+  lastIndex: 15,
+};
+
 export const TableLoader = ({
   dataLoaderCallback,
   headersList,
@@ -11,13 +17,12 @@ export const TableLoader = ({
   TableRowComponent,
   withLoader = true,
   passProps = {},
+  isResetPagination,
+  onResetPagination,
+  isShowLoader,
 }) => {
   const [data, setData] = useState(null);
-  const [pagination, setPagination] = useState({
-    page: 1,
-    firstIndex: 0,
-    lastIndex: 15,
-  });
+  const [pagination, setPagination] = useState(initialPagination);
 
   const handlePagination = useCallback((page) => () => {
     setPagination({
@@ -28,12 +33,19 @@ export const TableLoader = ({
   }, []);
 
   const loadData = useCallback(async () => {
-    const res = await dataLoaderCallback({
+    const pag = {
       firstIndex: pagination.firstIndex,
       lastIndex: pagination.lastIndex,
-    });
+    }
+    if (isResetPagination) {
+      pag.firstIndex = 0;
+      pag.lastIndex = 15;
+      onResetPagination();
+      setPagination(initialPagination);
+    }
+    const res = await dataLoaderCallback(pag);
     setData(res);
-  }, [pagination.firstIndex, pagination.lastIndex])
+  }, [dataLoaderCallback, pagination.firstIndex, pagination.lastIndex, isResetPagination, onResetPagination])
 
   useEffect(() => {
     loadData();
@@ -42,6 +54,9 @@ export const TableLoader = ({
       BlockUpdater.removeListener("data", loadData);
     }
   }, [loadData]);
+
+  // manual loader show handler
+  if (isShowLoader) return (<ContentLoader noPaddingOnTheSides />);
 
   if (!data && withLoader) return (<ContentLoader noPaddingOnTheSides />);
 

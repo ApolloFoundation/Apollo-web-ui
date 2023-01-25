@@ -78,10 +78,6 @@ class SiteHeader extends React.Component {
         }, 4000);
     }
 
-    // componentWillReceiveProps = (newState) => {
-    //     this.setState({forgingStatus: newState.forgingStatus});
-    // }
-
     // componentDidUpdate = () => {
     //     if (!this.state.forgingStatus && this.props.account) {
     //         this.getForging();
@@ -214,7 +210,7 @@ class SiteHeader extends React.Component {
                         isActive={bodyModalType === "ACCOUNT_BODY_MODAL"}
                         closeMenu={this.closeMenu}
                     />
-                    <Settings isActive={bodyModalType === "SETTINGS_BODY_MODAL"} closeMenu={this.closeMenu}/>
+                    <Settings isLocalhost={this.props.isLocalhost} isActive={bodyModalType === "SETTINGS_BODY_MODAL"} closeMenu={this.closeMenu}/>
                 </div>
             </>
         );
