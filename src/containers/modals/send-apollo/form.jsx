@@ -1,13 +1,14 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { processAccountRStoID } from 'apl-web-crypto';
-import { searchAliases } from '../../../actions/aliases';
-import CustomTextArea from '../../components/form-components/TextArea/TextAreaWithFormik';
-import AutoComplete from '../../components/auto-complete';
-import CheckboxFormInput from '../../components/check-button-input/CheckboxWithFormik';
-import AccountRSForm from '../../components/form-components/AccountRS';
-import NumericInput from '../../components/form-components/NumericInput';
 import { useFormikContext } from 'formik';
+import { searchAliases } from 'actions/aliases';
+import CustomTextArea from 'containers/components/form-components/TextArea/TextAreaWithFormik';
+import AutoComplete from 'containers/components/auto-complete';
+import CheckboxFormInput from 'containers/components/check-button-input/CheckboxWithFormik';
+import CheckboxFormInputPure from 'containers/components/check-button-input';
+import AccountRSForm from 'containers/components/form-components/AccountRS';
+import NumericInput from 'containers/components/form-components/NumericInput';
 
 const newAliasValidation = /APL-[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{5}/;
 const oldAliasValidation = /^acct:(APL-[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{5})@apl$/i;
@@ -69,11 +70,10 @@ export default function SendMoneyForm({
         placeholder={`Amount ${ticker}`}
         idGroup={idGroup}
       />
-      <CheckboxFormInput 
+      <CheckboxFormInputPure
         label="Send Privately"
-        name='privateTransaction'
         onChange={onPrivateTransactionChange(true)}
-        value={isShowPrivateTransaction}
+        checked={isShowPrivateTransaction}
         id="open-private-transaction-from-modal"
       />
       <CheckboxFormInput

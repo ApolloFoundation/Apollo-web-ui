@@ -84,6 +84,7 @@ export default function SendApollo({ closeModal, processForm }) {
         recipient: (modalData && modalData.recipient) || '',
         amountATM: (modalData && modalData.amountATM) || '',
         encrypt_message: true,
+        add_message: false,
       }}
       isLoadValue
     >
