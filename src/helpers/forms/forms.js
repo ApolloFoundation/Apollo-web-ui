@@ -552,15 +552,15 @@ function filesRequestsHandling (data, requestType, url) {
     // it demands on backend because
     if (requestType === "importKeyViaFile") {
         // special fiels for importKeyViaFile request
-        // return processElGamalEncryption(data.passPhrase)
-        //     .then(res => {
-        //         formData.delete('passPhrase');
-        //         formData.append('passPhrase', res);
-        return fetch(url, {
-            method: 'POST',
-            body: formData,
-        })
-            // })
+        return processElGamalEncryption(data.passPhrase)
+            .then(res => {
+                formData.delete('passPhrase');
+                formData.append('passphrase', res);
+                return fetch(url, {
+                    method: 'POST',
+                    body: formData,
+                })
+            })
             .then(res => res.json())
             .catch(() => {})
     }
