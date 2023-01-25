@@ -93,9 +93,8 @@ export default function SendApolloPrivate({ closeModal }) {
       const {
         duration, isMixer, mixerPublicKey, ...params
       } = newValues;
-
       dispatch(await dispatch(submitForm.submitForm(params, 'sendMoneyPrivate', decimals)))
-        .done(privateTransaction => {
+        .then(privateTransaction => {
           if (privateTransaction && privateTransaction.errorCode) {
             NotificationManager.error(privateTransaction.errorDescription, 'Error', 5000);
           } else {
