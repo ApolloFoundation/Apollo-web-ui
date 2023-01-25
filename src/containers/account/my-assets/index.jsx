@@ -4,39 +4,23 @@
  ******************************************************************************/
 
 
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import SiteHeader from '../../components/site-header';
 import {getSpecificAccountAssetsAction} from "../../../actions/assets";
-import {BlockUpdater} from "../../block-subscriber/index";
 import { getAccountSelector } from '../../../selectors';
-import CustomTable from '../../components/tables/table';
+import { TableLoader } from '../../components/TableLoader';
 import MyAssetItem from './my-asset-item/index';
 
 const MyAssets = () => {
     const dispatch = useDispatch();
     const account = useSelector(getAccountSelector);
-    const [state, setState] = useState({
-        assets: null,
-        page: 1,
-        firstIndex: 0,
-        lastIndex: 1,
-    });
 
-    const handlePaginate = (page) => () => {
-        setState(prevState => ({
-            ...prevState,
-            page: page,
-            firstIndex: page * 15 - 15,
-            lastIndex:  page * 15,
-        }));
-    };
-
-    const getAssets = useCallback(async () => {
+    const getAssets = useCallback(async ({ firstIndex, lastIndex}) => {
         const assets = await dispatch(getSpecificAccountAssetsAction({
             account,
-            firstIndex: state.firstIndex,
-            lastIndex: state.lastIndex,
+            firstIndex,
+            lastIndex,
         }));
 
         if (assets) {
@@ -47,28 +31,17 @@ const MyAssets = () => {
                 ...el,
                 unconfirmedQuantityATU: accountAssets[index].unconfirmedQuantityATU
             }));
-
-            setState(prevState => ({
-                ...prevState,
-                assets: result,
-            }));
+            return result;
         }
-    }, [state.firstIndex, state.lastIndex, account, dispatch]);
-
-    useEffect(() => {
-        getAssets();
-        BlockUpdater.on("data", getAssets);
-        return () => {
-            BlockUpdater.removeAllListeners('data', getAssets);
-        };
-    }, [getAssets]);
+        return [];
+    }, [account, dispatch]);
 
     return (
         <div className="page-content">
             <SiteHeader pageTitle='My assets' />
             <div className="page-body container-fluid">
-                <CustomTable
-                    header={[
+                <TableLoader
+                    headersList={[
                         {
                             name: 'Asset',
                             alignRight: false
@@ -96,14 +69,9 @@ const MyAssets = () => {
                         }
                     ]}
                     TableRowComponent={MyAssetItem}
-                    tableData={state.assets}
                     className='mb-3'
-                    isPaginate
-                    page={state.page}
                     emptyMessage='No assets found.'
-                    previousHendler={handlePaginate(state.page - 1)}
-                    nextHendler={handlePaginate(state.page + 1)}
-                    itemsPerPage={15}
+                    dataLoaderCallback={getAssets}
                 />
             </div>
         </div>

@@ -6,10 +6,8 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import { v4 as uuidv4 } from 'uuid';
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {formatTimestamp} from "../../../../helpers/util/time";
-import CryptoJS from 'crypto-js'
 import {getTransactionAction} from "../../../../actions/transactions";
 
 class Transaction extends React.Component {
@@ -27,7 +25,7 @@ class Transaction extends React.Component {
         } = this.props;
 
         return (
-            <tr key={uuidv4()}>
+            <tr>
                 <td className="blue-link-text">
                     <a onClick={async () => setBodyModalParamsAction('INFO_TRANSACTION', await this.getTransactionInfo(transaction))}>
                         {formatTimestamp(timestamp)}

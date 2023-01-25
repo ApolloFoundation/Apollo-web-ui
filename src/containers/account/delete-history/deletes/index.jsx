@@ -21,21 +21,21 @@ export const DeleteItem = (props) => {
     };
 
     const handleModal = async () => {
-        dispatch(setBodyModalParamsAction('INFO_TRANSACTION', await getTransactionInfo(props.delete.assetDelete)))
+        dispatch(setBodyModalParamsAction('INFO_TRANSACTION', await getTransactionInfo(props.assetDelete)))
     }
 
-    const handleTime = () => dispatch(formatTimestamp(props.delete.timestamp));
+    const handleTime = () => dispatch(formatTimestamp(props.timestamp));
 
     return (
         <tr>
             <td className="align-left blue-link-text">
                 <a onClick={handleModal}>
-                    {props.delete.assetDelete}
+                    {props.assetDelete}
                 </a>
             </td>
-            <td className="align-left">{props.delete.name}</td>
+            <td className="align-left">{props.name}</td>
             <td>{handleTime()}</td>
-            <td className="align-right">{props.delete.quantityATU / Math.pow(10, props.delete.decimals)}</td>
+            <td className="align-right">{props.quantityATU / Math.pow(10, props.decimals)}</td>
         </tr>
     );
 }

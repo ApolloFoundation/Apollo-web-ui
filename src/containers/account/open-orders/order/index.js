@@ -7,7 +7,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom'
-import { v4 as uuidv4 } from 'uuid';
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {getTransactionAction} from "../../../../actions/transactions";
 import {getOrderInfoAction} from "../../../../actions/open-orders";
@@ -40,7 +39,7 @@ class OrderItem extends React.Component {
     render() {
         const {orderInfo} = this.state;
         return (
-            <tr key={uuidv4()}>
+            <tr>
                 <td
                     className="align-left blue-link-text"
                 >

@@ -42,7 +42,7 @@ class Generator extends React.Component {
     render() {
         const {setBodyModalParamsAction, account, accountRS, effectiveBalanceAPL, hitTime, deadline} = this.props;
         return (
-            <tr key={uuidv4()}>
+            <tr>
                 <td className="blue-link-text align-left">
                     <a onClick={() => setBodyModalParamsAction('INFO_ACCOUNT', account)}>{accountRS}</a>
                 </td>

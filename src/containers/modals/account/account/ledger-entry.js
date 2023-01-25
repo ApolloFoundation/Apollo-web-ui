@@ -1,5 +1,4 @@
 import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import { useDispatch, useSelector } from 'react-redux';
 import { formatTimestamp } from '../../../../helpers/util/time';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
@@ -13,15 +12,21 @@ const Entry = ({
 
   const { decimals } = useSelector(state => state.account);
 
+  const handleOpenLedgetModal = () =>
+    dispatch(setBodyModalParamsAction('INFO_LEDGER_TRANSACTION', { ledgerId }));
+
+  const handleOpenInfoTransaction = () =>
+    dispatch(setBodyModalParamsAction('INFO_TRANSACTION', event)); 
+
   return (
-    <tr key={uuidv4()}>
+    <tr>
       <td className="blue-link-text">
-        <a onClick={() => dispatch(setBodyModalParamsAction('INFO_LEDGER_TRANSACTION', ledgerId))}>
+        <a onClick={handleOpenLedgetModal}>
           {dispatch(formatTimestamp(timestamp))}
         </a>
       </td>
       <td>
-        <a onClick={() => dispatch(setBodyModalParamsAction('INFO_TRANSACTION', event))}>
+        <a onClick={handleOpenInfoTransaction}>
           {eventType}
         &nbsp;&nbsp;
           <span className="zmdi zmdi-info" />

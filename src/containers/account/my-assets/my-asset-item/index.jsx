@@ -8,7 +8,7 @@ import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import {useDispatch} from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { numberToLocaleString } from 'helpers/format';
-import {setBodyModalParamsAction} from "../../../../modules/modals";
+import { setBodyModalParamsAction } from "../../../../modules/modals";
 import {getAskOrders, getBidOrders} from "../../../../actions/marketplace";
 
 const MyAssetItem = ({ asset, decimals, name, unconfirmedQuantityATU, quantityATU, info }) => {

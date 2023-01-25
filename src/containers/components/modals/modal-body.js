@@ -8,7 +8,7 @@ import classNames from 'classnames';
 import AdvancedSettings from '../advanced-transaction-settings';
 import {openPrevModal, saveSendModalState} from "../../../modules/modals";
 
-import BackForm from '../../../containers/modals/modal-form/modal-form-container';
+import BackForm from '../../modals/modal-form/modal-form-container';
 import FeeInputForm from "../form-components/fee-input";
 
 

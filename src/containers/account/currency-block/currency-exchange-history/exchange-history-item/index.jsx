@@ -4,7 +4,6 @@
  ***************************************************************************** */
 
 import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { setBodyModalParamsAction } from '../../../../../modules/modals';
@@ -16,7 +15,7 @@ export default function TradeHistoryItem({ transfer, decimals }) {
 
   if (transfer) {
     return (
-      <tr key={uuidv4()}>
+      <tr>
         <td>{dispatch(formatTimestamp(transfer.timestamp))}</td>
         <td>
           <span
@@ -72,6 +71,6 @@ export default function TradeHistoryItem({ transfer, decimals }) {
   }
 
   return (
-    <tr key={uuidv4()} />
+    <tr />
   );
 }

@@ -31,32 +31,28 @@ const mapStateToProps = state => ({
     modalsHistory: state.modals.modalsHistory,
 });
 
-const mapDispatchToProps = dispatch => ({
-    setModalData: (data) => dispatch(setModalData(data)),
-    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
-    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-    setAlert: (type, message) => dispatch(setAlert(type, message)),
-    validatePassphrase: (passPhrase) => dispatch(crypto.validatePassphrase(passPhrase)),
-    getAccountIdAsyncApl: (passPhrase) => dispatch(crypto.getAccountIdAsyncApl(passPhrase)),
-    getAccountDataAction: (reqParams) => dispatch(getAccountDataAction(reqParams)),
-    saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
-    openPrevModal: () => dispatch(openPrevModal()),
-});
+const mapDispatchToProps = {
+    setModalData,
+    submitForm: submitForm.submitForm,
+    setBodyModalParamsAction,
+    setAlert,
+    validatePassphrase: crypto.validatePassphrase,
+    getAccountIdAsyncApl: crypto.getAccountIdAsyncApl,
+    getAccountDataAction,
+    saveSendModalState,
+    openPrevModal,
+};
 
 class ImportAccount extends React.Component {
-    constructor(props) {
-        super(props);
+    state = {
+        generatedPassphrase: null,
+        generatedAccount: null,
+        isValidating: false,
+        isAccountLoaded: false
+    }
 
-        this.state = {
-            generatedPassphrase: null,
-            generatedAccount: null,
-            isValidating: false,
-            isAccountLoaded: false
-        }
-    };
-
-    componentWillReceiveProps(newProps) {
-        if (newProps.account) {
+    componentDidUpdate(prevProps) {
+        if (this.props.account !== prevProps.account) {
             this.props.closeModal();
         }
     }
@@ -106,7 +102,7 @@ class ImportAccount extends React.Component {
             isPending: true
         })
 
-        const account = this.props.getAccountDataAction({account: values.account});
+        this.props.getAccountDataAction({account: values.account});
     }
 
 
@@ -126,20 +122,19 @@ class ImportAccount extends React.Component {
                         !this.state.isValidating &&
                         <BackForm
                             nameModal={this.props.nameModal}
-                            onSubmit={(values) => this.handleFormSubmit(values)}
-                            render={({submitForm, values, addValue, removeValue, getFormState}) => (
+                            onSubmit={this.handleFormSubmit}
+                            render={({submitForm, values }) => (
                                 <form className="modal-form" onChange={() => this.props.saveSendModalState(values)}
                                       onSubmit={submitForm}>
 
                                     <div className="form-group-app">
-                                        <button type="button" onClick={() => this.props.closeModal()} className="exit"><i
-                                            className="zmdi zmdi-close"/></button>
+                                        <button type="button" onClick={this.props.closeModal} className="exit">
+                                            <i className="zmdi zmdi-close"/>
+                                        </button>
 
                                         <div className="form-title">
                                             {this.props.modalsHistory.length > 1 &&
-                                            <div className={"backMy"} onClick={() => {
-                                                this.props.openPrevModal()
-                                            }}/>
+                                            <div className="backMy" onClick={this.props.openPrevModal}/>
                                             }
                                             <p>Import Account</p>
                                         </div>
@@ -156,7 +151,7 @@ class ImportAccount extends React.Component {
                                         )}
 
                                         <div className="form-group row form-group-grey mb-15">
-                                            <RadioGroup field="format" defaultValue={'text'}>
+                                            <RadioGroup field="format" defaultValue='text'>
                                                 <label htmlFor="text" className="mr-2">Secret key</label>
                                                 <Radio value="text" className="mr-3 d-inline-block"/>
                                                 <label htmlFor="file" className="mr-2">Secret file</label>
@@ -188,7 +183,7 @@ class ImportAccount extends React.Component {
                                                     </label>
                                                     <div className="col-sm-9">
                                                         <Text
-                                                            className={'form-control'}
+                                                            className='form-control'
                                                             type="password"
                                                             field="passPhrase"
                                                             placeholder="Secret Phrase"/>
@@ -202,7 +197,7 @@ class ImportAccount extends React.Component {
                                                         <input
                                                             id="file"
                                                             type="file"
-                                                            className={'upload-file'}
+                                                            className='upload-file'
                                                         />
                                                     </div>
                                                 </div>
@@ -214,11 +209,11 @@ class ImportAccount extends React.Component {
                                             this.state.importAccount &&
                                             <InfoBox attentionLeft>
                                                 Secret Phrase: <span
-                                                className={'itatic'}>{this.state.importAccount.passphrase}</span>
+                                                className='itatic'>{this.state.importAccount.passphrase}</span>
                                                 <br/>
                                                 <br/>
                                                 Account ID: <span
-                                                className={'itatic'}>{this.state.importAccount.accountRS}</span>
+                                                className='itatic'>{this.state.importAccount.accountRS}</span>
                                                 <br/>
                                                 <br/>
                                                 <CopyToClipboard
@@ -256,7 +251,7 @@ class ImportAccount extends React.Component {
                                                 !this.state.isGenerated &&
                                                 <button
                                                     type="submit"
-                                                    name={'closeModal'}
+                                                    name='closeModal'
                                                     className="btn absolute btn-right blue round round-top-left round-bottom-right"
                                                 >
                                                     Restore account
@@ -265,7 +260,7 @@ class ImportAccount extends React.Component {
                                             {
                                                 this.state.isGenerated &&
                                                 <a
-                                                    onClick={() => this.props.closeModal()}
+                                                    onClick={this.props.closeModal}
                                                     name={'closeModal'}
                                                     className="btn absolute btn-right default round round-top-left round-bottom-right"
                                                 >
@@ -283,10 +278,8 @@ class ImportAccount extends React.Component {
                         this.state.isValidating &&
                         <div className="modal-form">
                             <Form
-                                onSubmit={(values) => this.hnandleEnterAccount(values)}
-                                render={({
-                                             submitForm, setValue, values, getFormState
-                                         }) => (
+                                onSubmit={this.hnandleEnterAccount}
+                                render={({ submitForm, setValue }) => (
                                     <form
                                         className={classNames({
                                             "tab-body": true,
@@ -334,7 +327,7 @@ class ImportAccount extends React.Component {
                                                         width: 121.5
                                                     }}
                                                     type="submit"
-                                                    name={'closeModal'}
+                                                    name='closeModal'
                                                     className="btn absolute btn-right blue round round-top-left round-bottom-right"
                                                 >
                                                     Confirm restore
@@ -357,7 +350,7 @@ class ImportAccount extends React.Component {
                                                         <button
 
                                                             type="submit"
-                                                            name={'closeModal'}
+                                                            name='closeModal'
                                                             className="btn absolute btn-right blue round round-top-left round-bottom-right"
                                                         >
                                                             Create new Account

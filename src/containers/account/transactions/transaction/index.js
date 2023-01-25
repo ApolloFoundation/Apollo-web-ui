@@ -92,7 +92,7 @@ class Transaction extends React.Component {
       const transactionType = constants.transactionTypes && constants.transactionTypes[type];
       const { phasing } = this.state;
       return (
-        <tr key={uuidv4()}>
+        <tr>
           {constants && (
             <>
               <td className={classNames("blue-link-text", styles.transactionDate)}>

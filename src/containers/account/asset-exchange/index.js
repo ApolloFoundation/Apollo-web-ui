@@ -13,7 +13,6 @@ import crypto from '../../../helpers/crypto/crypto'
 import {setAlert, setBodyModalParamsAction} from "../../../modules/modals";
 import classNames from "classnames";
 import {getAskOrders, getBidOrders} from "../../../actions/marketplace";
-import { v4 as uuidv4 } from 'uuid';
 import InfoBox from '../../components/info-box';
 import {getTransactionAction} from "../../../actions/transactions";
 import {BlockUpdater} from "../../block-subscriber";
@@ -451,7 +450,6 @@ class AssetExchange extends React.Component {
                                         this.state.accountAssets.map((el, index) => {
                                             return (
                                                 <Link
-                                                    key={uuidv4()}
                                                     style={{display: 'block'}}
                                                     to={"/asset-exchange/" + (el ? el.asset : "")}
                                                     className={classNames({

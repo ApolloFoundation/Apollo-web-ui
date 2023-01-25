@@ -5,9 +5,6 @@
 
 
 import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import crypto from "../../../../helpers/crypto/crypto";
-import converters from "../../../../helpers/converters";
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -26,7 +23,7 @@ class TradeHistoryItem extends React.Component {
     render () {
         if (this.state.transfer) {
             return (
-                <tr key={uuidv4()}>
+                <tr>
                     <td className="blue-link-text">
                         <Link to={'/asset-exchange/' + this.state.transfer.asset}>{this.state.transfer.name}</Link>
                     </td>
@@ -48,7 +45,7 @@ class TradeHistoryItem extends React.Component {
             );
         } else {
             return (
-                <tr key={uuidv4()}></tr>
+                <tr></tr>
             );
         }
     }

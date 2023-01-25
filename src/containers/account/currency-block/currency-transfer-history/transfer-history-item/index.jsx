@@ -4,7 +4,6 @@
  ***************************************************************************** */
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setBodyModalParamsAction } from '../../../../../modules/modals';
@@ -60,7 +59,7 @@ export default function TransferHistoryItem(props) {
   );
 
   return (
-    <tr key={uuidv4()}>
+    <tr>
       <td>
         <span
           className="blue-link-text"

@@ -6,10 +6,8 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import { v4 as uuidv4 } from 'uuid';
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {formatTimestamp} from "../../../../helpers/util/time";
-import CryptoJS from 'crypto-js'
 
 const mapStateToProps = state => ({
   decimals: state.account.decimals,
@@ -42,7 +40,7 @@ class Block extends React.Component {
             setBodyModalParamsAction, generator, generatorRS, payloadLength, baseTarget, decimals} = this.props;
 
         return (
-            <tr key={uuidv4()}>
+            <tr>
                 <td className="blue-link-text">
                     <a
                         onClick={() => setBodyModalParamsAction('INFO_BLOCK', height)}

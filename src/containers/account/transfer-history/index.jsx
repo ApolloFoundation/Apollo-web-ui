@@ -7,16 +7,17 @@ import React, {
   useEffect, useCallback, useState,
 } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { getAccountInfoSelector } from '../../../selectors';
 import { getTransferHistory } from '../../../actions/assets';
 import { BlockUpdater } from '../../block-subscriber';
 import SiteHeader from '../../components/site-header';
 import CustomTable from '../../components/tables/table1';
-import TransferHistoryItem from './transfer-history-item/index1';
+import TransferHistoryItem from './transfer-history-item';
 
 export default function ScheduledTransactions() {
   const dispatch = useDispatch();
 
-  const { accountRS } = useSelector(state => state.account);
+  const { accountRS } = useSelector(getAccountInfoSelector);
 
   const [transfers, setTransfers] = useState(null);
   const [pagination, setPagination] = useState({
@@ -25,54 +26,40 @@ export default function ScheduledTransactions() {
     lastIndex: 15,
   });
 
-  const getAssets = useCallback(async requestParams => {
-    const newTransfers = await dispatch(getTransferHistory(
-      { account: accountRS, ...requestParams },
-    ));
-
-    setPagination(requestParams);
+  const getAssets = useCallback(async () => {
+    const newTransfers = await dispatch(getTransferHistory({ 
+        account: accountRS,
+        firstIndex: pagination.firstIndex,
+        lastIndex: pagination.lastIndex
+    }));
 
     if (newTransfers) {
       setTransfers(newTransfers.transfers);
     }
-  }, [accountRS, dispatch]);
+  }, [accountRS, pagination.firstIndex, pagination.lastIndex]);
 
-  const onPaginate = useCallback(page => {
-    const reqParams = {
-      // !must be accont! don`t accRS
+  const onPaginate = useCallback(page => () => {
+    setPagination({
       page,
       firstIndex: page * 15 - 15,
       lastIndex: page * 15,
-    };
+    });
+  }, [setPagination]);
 
-    getAssets(reqParams);
+  const listener = useCallback(() => getAssets(), [getAssets]);
+
+  useEffect(() => {
+    getAssets();
   }, [getAssets]);
 
-  const listener = useCallback(data => {
-    console.warn('height in dashboard', data);
-    console.warn('updating dashboard');
-    getAssets({
-      firstIndex: pagination.firstIndex,
-      lastIndex: pagination.lastIndex,
-    });
-  }, [getAssets, pagination.firstIndex, pagination.lastIndex]);
-
   useEffect(() => {
-    getAssets({
-      firstIndex: pagination.firstIndex,
-      lastIndex: pagination.lastIndex,
-    });
-  }, []);
-
-  useEffect(() => {
-    BlockUpdater.on('data', data => listener(data));
-
-    return () => BlockUpdater.removeAllListeners('data', listener);
+    BlockUpdater.on('data', listener);
+    return () => BlockUpdater.removeListener('data', listener);
   }, [listener]);
 
   return (
     <div className="page-content">
-      <SiteHeader pageTitle="Transfer History1" />
+      <SiteHeader pageTitle="Transfer History" />
       <div className="page-body container-fluid">
         <CustomTable
           header={[
@@ -102,8 +89,8 @@ export default function ScheduledTransactions() {
           TableRowComponent={TransferHistoryItem}
           tableData={transfers}
           isPaginate
-          previousHendler={() => onPaginate(pagination.page - 1)}
-          nextHendler={() => onPaginate(pagination.page + 1)}
+          previousHendler={onPaginate(pagination.page - 1)}
+          nextHendler={onPaginate(pagination.page + 1)}
           itemsPerPage={15}
         />
       </div>

@@ -5,7 +5,6 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { v4 as uuidv4 } from 'uuid';
 import { Link } from 'react-router-dom';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
 import { formatTimestamp } from '../../../../helpers/util/time';
@@ -30,29 +29,29 @@ const PoolItem = props => {
     checkAction = true;
   }
   return (
-    <tr key={uuidv4()}>
-      <td key={uuidv4()} className="blue-link-text">
+    <tr>
+      <td className="blue-link-text">
         <a onClick={() => props.setBodyModalParamsAction('INFO_TRANSACTION', props.poll)}>{props.name}</a>
       </td>
-      <td key={uuidv4()} className="">
+      <td className="">
         {' '}
         { (props.description.length > 100) ? `${props.description.slice(0, 100)}...` : props.description}
         {' '}
       </td>
-      <td key={uuidv4()} className="blue-link-text">
+      <td className="blue-link-text">
         <a onClick={() => props.setBodyModalParamsAction('INFO_ACCOUNT', props.account)}>
           {' '}
           {props.accountRS}
           {' '}
         </a>
       </td>
-      <td key={uuidv4()} className="">
+      <td className="">
         {props.formatTimestamp(props.timestamp)}
       </td>
-      <td key={uuidv4()} className="">
+      <td className="">
         {blocksLeft || ''}
       </td>
-      <td key={uuidv4()} className="align-right">
+      <td className="align-right">
         <div className="btn-box inline">
           <button
             type="button"

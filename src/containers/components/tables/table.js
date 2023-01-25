@@ -1,7 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
 import ContentHendler from '../content-hendler';
-import { v4 as uuidv4 } from 'uuid';
 
 const CustomTable = (props) => {
 
@@ -52,7 +51,7 @@ const CustomTable = (props) => {
                                             {
                                                 header &&
                                                 header.map((el) =>
-                                                    <React.Fragment key={uuidv4()}>
+                                                    <React.Fragment>
                                                         {
                                                             !el.isRender &&
                                                             <td
