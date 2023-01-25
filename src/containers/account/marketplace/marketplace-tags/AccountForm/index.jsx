@@ -2,7 +2,7 @@ import React from 'react';
 import { Formik, Form } from 'formik';
 import { useHistory } from 'react-router-dom';
 import {NotificationManager} from "react-notifications";
-import AccountRS from "../../../../components/account-rs";
+import {AccountRSWithFormik} from "../../../../components/account-rs/AccountRSWithFormik";
 
 export const AccountForm = () => {
   const history = useHistory();
@@ -20,7 +20,7 @@ export const AccountForm = () => {
   return (
     <Formik onSubmit={handleSubmit} initialValues={{ seller: '' }}>
       <Form className="iconned-input-field">
-        <AccountRS
+        <AccountRSWithFormik
             name='seller'
             noContactList
             placeholder="Seller's Account ID"
