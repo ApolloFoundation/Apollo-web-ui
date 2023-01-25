@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useRouteMatch, useHistory } from 'react-router-dom';
 import { NotificationManager } from 'react-notifications';
 import { currencyTypes, formatDivision } from '../../../../helpers/format';
-import { ONE_GWEI } from '../../../../constants';
+import { ONE_GWEI } from '../../../../constants/constants';
 import { ALL_STATUSES } from '../../../../constants/statuses';
 import {
   getAllContractStatus, getContractStatus, getOrderById,

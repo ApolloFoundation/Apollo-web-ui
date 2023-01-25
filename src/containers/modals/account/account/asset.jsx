@@ -3,9 +3,10 @@
  *                                                                            *
  ***************************************************************************** */
 
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import { numberToLocaleString } from 'helpers/format';
 import {
   getAskOrders as getAskOrdersAction,
   getBidOrders as getBidOrdersAction,
@@ -52,6 +53,19 @@ const AssetItem = ({ asset, decimals, name, unconfirmedQuantityATU, quantityATU 
     history.push(`/asset-exchange/${asset}`)
   };
 
+  const lowest = useMemo(
+    () =>  state.lowestAskOrder / Math.pow(10, 8) * Math.pow(10, decimals),
+    [decimals, state.lowestAskOrder]
+  );
+  const highest = useMemo(
+      () => state.highestBidOrder / Math.pow(10, 8) * Math.pow(10, decimals),
+      [decimals, state.highestBidOrder]
+  );
+  const valInCoin = useMemo(
+      () => highest * (quantityATU / Math.pow(10, decimals)),
+      [decimals, quantityATU, highest]
+  );
+
   return (
     <tr>
       <td className="blue-link-text">
@@ -80,29 +94,26 @@ const AssetItem = ({ asset, decimals, name, unconfirmedQuantityATU, quantityATU 
       </td>
       <td>
         {
-          !!(state.lowestAskOrder / Math.pow(10, 8) * Math.pow(10, decimals))
-          && (state.lowestAskOrder / Math.pow(10, 8) * Math.pow(10, decimals))
-            .toLocaleString('en', {
-              minimumFractionDigits: decimals,
-              maximumFractionDigits: decimals,
-            })
+          !!lowest
+          && numberToLocaleString(lowest, {
+            minimumFractionDigits: decimals,
+            maximumFractionDigits: decimals,
+          })
         }
       </td>
       <td>
         {
-          !!(state.highestBidOrder / Math.pow(10, 8) * Math.pow(10, decimals))
-          && (state.highestBidOrder / Math.pow(10, 8) * Math.pow(10, decimals))
-            .toLocaleString('en', {
-              minimumFractionDigits: decimals,
-              maximumFractionDigits: decimals,
-            })
+          !!highest
+          && numberToLocaleString(highest, {
+            minimumFractionDigits: decimals,
+            maximumFractionDigits: decimals,
+          })
         }
       </td>
       <td>
         {
-          !!(state.highestBidOrder / Math.pow(10, 8) * Math.pow(10, decimals))
-          && ((state.highestBidOrder / Math.pow(10, 8) * Math.pow(10, decimals))
-              * (quantityATU / Math.pow(10, decimals))).toLocaleString('en', {
+          !!highest
+          && numberToLocaleString(valInCoin, {
             minimumFractionDigits: decimals,
             maximumFractionDigits: decimals,
           })

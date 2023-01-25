@@ -14,6 +14,7 @@ import LogoImg from '../../../assets/logo.png';
 import {getCoins, getFaucetAccountInfoAction} from '../../../actions/faucet';
 import config from "../../../config";
 import './style.scss'
+import { numberToLocaleString } from 'helpers/format';
 
 class Faucet extends React.Component {
     state = {
@@ -75,7 +76,7 @@ class Faucet extends React.Component {
                                         <p className={'sub-title'}>
                                             {account.accountRS}<br/>
                                             Balance: {account.unconfirmedBalanceATM ? (
-                                                Math.round(account.unconfirmedBalanceATM / this.props.decimals).toLocaleString('en')
+                                                numberToLocaleString(Math.round(account.unconfirmedBalanceATM / this.props.decimals))
                                             ) : (
                                                 '0'
                                             )} APL

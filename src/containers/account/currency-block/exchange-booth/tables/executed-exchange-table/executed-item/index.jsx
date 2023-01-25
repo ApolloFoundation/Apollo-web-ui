@@ -3,8 +3,9 @@
  *                                                                            *
  ***************************************************************************** */
 
-import React from 'react';
+import React, { useMemo }from 'react';
 import { useDispatch } from 'react-redux';
+import { numberToLocaleString } from 'helpers/format';
 import { formatTimestamp } from '../../../../../../../helpers/util/time';
 import { setBodyModalParamsAction } from '../../../../../../../modules/modals';
 
@@ -19,6 +20,12 @@ export default function ExecutedItem(props) {
   const setModal = (data) => () => {
     dispatch(setBodyModalParamsAction('INFO_ACCOUNT', data))
   }
+
+  const rate = useMemo(() => (rateATM / (10 ** 8)) * (10 ** decimals), [decimals, rateATM]);
+  const total = useMemo(
+    () => (((rateATM / (10 ** 8)) * units) / (10 ** decimals)) * (10 ** decimals),
+    [rate, units, decimals]
+  );
 
   return (
     <tr>
@@ -39,13 +46,13 @@ export default function ExecutedItem(props) {
         {(units / (10 ** decimals)).toFixed(8)}
       </td>
       <td className="align-right">
-        {((rateATM / (10 ** 8)) * (10 ** decimals)).toLocaleString('en', {
+        {numberToLocaleString (rate, {
           minimumFractionDigits: 2,
           maximumFractionDigits: 2,
         })}
       </td>
       <td className="align-right">
-        {((((rateATM / (10 ** 8)) * units) / (10 ** decimals)) * (10 ** decimals)).toLocaleString('ru', {
+        {numberToLocaleString(total, {
           minimumFractionDigits: 2,
           maximumFractionDigits: 2,
         })}

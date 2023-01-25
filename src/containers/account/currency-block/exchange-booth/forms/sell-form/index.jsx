@@ -5,6 +5,7 @@ import { NotificationManager } from 'react-notifications';
 import { setBodyModalParamsAction } from '../../../../../../modules/modals';
 import Button from '../../../../../components/button';
 import NummericInput from '../../../../../components/form-components/numeric-input1';
+import { numberToLocaleString } from 'helpers/format';
 
 export default function SellForm(props) {
   const dispatch = useDispatch();
@@ -39,7 +40,7 @@ export default function SellForm(props) {
           {code}
           <span>
             Balance:
-            {balanceSell.toLocaleString('en')}
+            {numberToLocaleString(balanceSell)}
             {' '}
             {code}
           </span>
