@@ -4,8 +4,8 @@
  ***************************************************************************** */
 
 import React from 'react';
+import ModalBody from 'containers/components/modals/modal-body';
 import { handleFormSubmit } from './handle-form-submit';
-import ModalBody from '../../../components/modals/modal-body';
 import IssueCurrencyForm from './form';
 
 export default function (props) {

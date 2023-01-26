@@ -3,12 +3,12 @@ import { useDispatch } from 'react-redux';
 import { processAccountRStoID } from 'apl-web-crypto';
 import { useFormikContext } from 'formik';
 import { searchAliases } from 'actions/aliases';
-import CustomTextArea from 'containers/components/form-components/TextArea/TextAreaWithFormik';
 import AutoComplete from 'containers/components/auto-complete';
 import { CheckboxWithFormik } from 'containers/components/check-button-input/CheckboxWithFormik';
 import CheckboxFormInputPure from 'containers/components/check-button-input';
 import AccountRSForm from 'containers/components/form-components/AccountRS';
 import NumericInput from 'containers/components/form-components/NumericInput';
+import { MessageInputs } from 'containers/components/form-components/MessageInputs';
 
 const newAliasValidation = /APL-[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{5}/;
 const oldAliasValidation = /^acct:(APL-[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{5})@apl$/i;
@@ -80,33 +80,7 @@ export default function SendMoneyForm({
         checked={isShowPrivateTransaction}
         id="open-private-transaction-from-modal"
       />
-      <CheckboxWithFormik
-        name="add_message"
-        id="add_message"
-        label="Add a message?"
-        defaultValue={false}
-      />
-      {values.add_message && (
-        <>
-          <CustomTextArea
-            name="message"
-            label="Message"
-            placeholder="Message"
-          />
-          <CheckboxWithFormik
-            name="encrypt_message"
-            id="encrypt_message"
-            label="Encrypt Message"
-            defaultValue={false}
-          />
-          <CheckboxWithFormik
-            name="permanent_message"
-            id="permanent_message"
-            label="Message is Never Deleted"
-            defaultValue={false}
-          />
-        </>
-      )}
+      <MessageInputs idGroup="SendMoneyForm" />
     </>
   );
 }

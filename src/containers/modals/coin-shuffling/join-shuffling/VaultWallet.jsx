@@ -2,8 +2,8 @@ import { useFormikContext } from 'formik';
 import React, { useCallback, useEffect, useState } from 'react';
 import {CopyToClipboard} from "react-copy-to-clipboard";
 import {NotificationManager} from "react-notifications";
-import InfoBox from "../../../components/info-box";
-import {generateAccountAction} from "../../../../actions/account";
+import InfoBox from "containers/components/info-box";
+import {generateAccountAction} from "actions/account";
 
 export const VaultWallet = () => {
   const [vaultWallet, setVaultWallet] = useState(null);

@@ -1,13 +1,10 @@
 import React from 'react';
-import { useFormikContext } from 'formik';
 import TextualInputComponent from 'containers/components/form-components/TextualInput';
 import AccountRSFormInput from 'containers/components/form-components/AccountRS';
 import NumericInputComponent from 'containers/components/form-components/NumericInput';
-import CheckboxFormInput from 'containers/components/check-button-input/CheckboxWithFormik';
-import CustomTextArea from 'containers/components/form-components/TextArea/TextAreaWithFormik';
+import { MessageInputs } from 'containers/components/form-components/MessageInputs';
 
 export const SpecificForm = ({ alias, ticker }) => {
-  const { values } = useFormikContext();
   return (
     <>
       {
@@ -28,31 +25,7 @@ export const SpecificForm = ({ alias, ticker }) => {
             countingTtile={ticker}
             idGroup='sell-alias-account-modal-'
           />
-        <CheckboxFormInput
-            name="add_message"
-            label="Add a message?"
-            id='sell-alias-to-acc-'
-        />
-        {
-            values.add_message &&
-            <>
-                <CustomTextArea
-                    label='Message'
-                    name='message'
-                    placeholder='Message'
-                />
-                <CheckboxFormInput
-                    label='Encrypt Message'
-                    name='encrypt_message'
-                    id="encrypt_message-to-account"
-                />
-                <CheckboxFormInput
-                    label='Message is Never Deleted'
-                    name='permanent_message'
-                    id="permanent_message-to-account"
-                />
-            </>
-        }
+        <MessageInputs idGroup="sell-alias-to-acc-" />
     </>   
   )
 }
