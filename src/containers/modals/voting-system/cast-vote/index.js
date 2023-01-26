@@ -4,191 +4,137 @@
  ******************************************************************************/
 
 
-import React from 'react';
-import {connect} from 'react-redux';
-import {setBodyModalParamsAction, setModalData, saveSendModalState, openPrevModal} from '../../../../modules/modals';
-import InputForm from '../../../components/input-form';
-import AdvancedSettings from '../../../components/advanced-transaction-settings';
-import {Form, Text, Number, Checkbox} from 'react-form';
+import React, { useCallback, useState, useEffect } from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import submitForm from "../../../../helpers/forms/forms";
-import {getBlockAction} from "../../../../actions/blocks";
 import {NotificationManager} from "react-notifications";
 import {getpollAction} from "../../../../actions/polls";
-import { v4 as uuidv4 } from 'uuid';
-import crypto from "../../../../helpers/crypto/crypto";
-
 import {getAssetAction} from "../../../../actions/assets";
 import {getCurrencyAction} from "../../../../actions/currencies";
-
 import ModalBody from '../../../components/modals/modal-body';
+import { getModalDataSelector } from '../../../../selectors';
 import CastVoteForm   from './form';
-import $ from 'jquery';
 
-class CastPoll extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            activeTab: 0,
-            advancedState: false,
-            rangeValue: 10,
+const CastPoll = ({ closeModal, nameModal }) => {
+    const dispatch = useDispatch();
+    const [poll, setPoll] = useState(null);
+    const [votes, setVotes] = useState(null);
+    const [asset, setAsset] = useState(null);
+    const [currency, setCurrency] = useState();
+    const [isPending, setIsPending] = useState(false);
+    const modalData = useSelector(getModalDataSelector);
 
-            // submitting
-            passphraseStatus: false,
-            recipientStatus: false,
-            amountStatus: false,
-            feeStatus: false,
+   
+    const getAsset = useCallback(async (asset) => {
+        const res = await dispatch(getAssetAction({ asset }));
 
-            answers: [''],
-            voteOptions: []
-        };
-    }
+        if (res && !res.errorCode) {
+            setAsset(res);
+        }
+    }, [dispatch])
 
-    componentDidMount() {
-        this.getPoll();
-    }
+    const getCurrency = useCallback(async (currency) => {
+        const res = await dispatch(getCurrencyAction({ currency }));
 
-    getPoll =  async () => {
-        const poll = await this.props.getpollAction({
-            poll: this.props.modalData
-        });
+        if (res && !res.errorCode) {
+            setCurrency(res);
+        }
+    }, [dispatch]);
+
+    const getPoll = useCallback(async () => {
+        const poll = await dispatch(getpollAction({
+            poll: modalData
+        }));
 
         if (poll && !poll.errorCode) {
+            const votes = Object.values(poll.options).reduce((acc, item, index) => {
+                if (index > 9) {
+                    acc['vote' + index] = item;
+                } else {
+                    acc['vote0' + index] = item;
+                }
+                return acc;
+            }, {});
+            // update state
+            setPoll(poll);
+            setVotes(votes);
+            // get info about asset and currency
+            getAsset(poll.holding);
+            getCurrency(poll.holding);
+        }
+    }, [dispatch]);
+
+    const handleFormSubmit = useCallback(async({ feeATM, secretPhrase, ...votesUnhandlered }) => {
+        if (!isPending) {
+            setIsPending(true);
             let votes = {};
 
-            Object.values(poll.options).forEach((el, index) => {
-                if (index > 9) {
-                    votes['vote' + index] = el;
-                } else {
-                    votes['vote0' + index] = el;
-                }
-            });
-
-            this.setState({
-                poll,
-                votes
-            }, () => {
-                this.getAsset();
-                this.getCurrency();
-            });
-        }
-    };
-
-    getAsset = async () => {
-        const asset = await this.props.getAssetAction({asset: this.state.poll.holding});
-
-        if (asset && !asset.errorCode) {
-            this.setState({
-                asset
-            })
-        }
-    }
-
-    getCurrency = async () => {
-        const currency = await this.props.getCurrencyAction({currency: this.state.poll.holding});
-
-        if (currency && !currency.errorCode) {
-            this.setState({
-                asset: currency
-            })
-        }
-    }
-
-    handleFormSubmit = async(values) => {
-        if (!this.state.isPending) {
-            this.setState({isPending: true});
-            let votes = values.voteOptions;
-
-            if (this.state.poll.maxRangeValue > 1) {
-                votes = values.voteOptions;
-                delete values.voteOptions;
-
+            if (poll.maxRangeValue === 1) {
+                // we need update votes to number values
+                votes = Object
+                    .entries(votesUnhandlered)
+                    .reduce((acc, [key, value]) => {
+                        acc[key] = value === true ? 1 : -128;
+                        return acc;
+                    }, {});
             } else {
-                const voteVals = Object.keys(values).filter((el) => {
-                    return el.includes('vote')
-                });
-
-                voteVals.map(vote => {
-                    values[vote] = values[vote] === true ? 1 : -128;
-                });
+                // we must remove values equal to 0
+                votes = Object
+                    .entries(votesUnhandlered)
+                    .reduce((acc, [key, value]) => {
+                        if (value > 0) {
+                            acc[key] = value;
+                        }
+                        return acc;
+                    }, {});
             }
 
-
-            values = {
-                poll: this.state.poll.poll,
-                ...values,
+            const data = {
+                poll: poll.poll,
+                feeATM,
+                secretPhrase,
                 ...votes,
             };
 
-            const res = await this.props.submitForm(values, 'castVote');
+            const res = await dispatch(submitForm.submitForm(data, 'castVote'));
             if (res.errorCode) {
-                this.setState({
-                    isPending: false
-                });
+                setIsPending(false);
                 NotificationManager.error(res.errorDescription, 'Error', 5000)
             } else {
-                this.props.setBodyModalParamsAction(null, {});
-
+                closeModal();
                 NotificationManager.success('Your vote has been cast!', null, 5000);
             }
         }
-    };
+    }, [isPending, dispatch, poll, ]);
 
-    handleAnswerChange = (e, index) => {
-        const newAnwer = e.target.value;
+    useEffect(() => {
+        getPoll();
+    }, [getPoll]);
 
-        let answers = this.state.answers;
+    const assetHint    = asset    ? `This vote is based on the balance of asset: ${asset.asset}. If you do not have enough of this asset, your vote will not be counted.` : null;
+    const currencyHint = currency ? `This vote is based on the balance of asset: ${currency.currency}. If you do not have enough of this currency, your vote will not be counted.` : null;
 
-        answers[index] = newAnwer;
-
-        this.setState({
-            answers
-        })
-    };
-
-    render() {
-        const {asset, currency, poll, votes} = this.state;
-
-        const assetHint    = asset    ? `This vote is based on the balance of asset: ${asset.asset}. If you do not have enough of this asset, your vote will not be counted.` : null;
-        const currencyHint = currency ? `This vote is based on the balance of asset: ${currency.currency}. If you do not have enough of this currency, your vote will not be counted.` : null;
-
-        return (
-            <ModalBody
-                loadForm={this.loadForm}
-                modalTitle={'Cast vote'}
-                closeModal={this.props.closeModal}
-                handleFormSubmit={(values) => this.handleFormSubmit(values)}
-                submitButtonName={'Cast vote'}
-
-                isFee
-                nameModel={this.props.nameModal}
-            >
-                <CastVoteForm
-                    assetHint={assetHint}
-                    currencyHint={currencyHint}
-                    poll={poll}
-                    votes={votes}
-                />
-            </ModalBody>
-        );
-    }
+    return (
+        <ModalBody
+            modalTitle='Cast vote'
+            closeModal={closeModal}
+            handleFormSubmit={handleFormSubmit}
+            submitButtonName='Cast vote'
+            isFee
+            nameModel={nameModal}
+            isPending={isPending}
+            initialValues={{
+                ...votes,
+            }}
+        >
+            <CastVoteForm
+                assetHint={assetHint}
+                currencyHint={currencyHint}
+                poll={poll}
+                votes={votes}
+            />
+        </ModalBody>
+    );
 }
 
-const mapStateToProps = state => ({
-    modalData: state.modals.modalData,
-	modalsHistory: state.modals.modalsHistory
-});
-
-const mapDispatchToProps = dispatch => ({
-    getAssetAction: (reqParams) => dispatch(getAssetAction(reqParams)),
-    getCurrencyAction: (reqParams) => dispatch(getCurrencyAction(reqParams)),
-    getBlockAction: (data) => dispatch(getBlockAction(data)),
-    setModalData: (data) => dispatch(setModalData(data)),
-    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
-    getpollAction: (reqParams) => dispatch(getpollAction(reqParams)),
-    validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
-	saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
-	openPrevModal: () => dispatch(openPrevModal()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(CastPoll);
+export default CastPoll;

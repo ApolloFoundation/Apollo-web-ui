@@ -28,9 +28,8 @@ class ConfirmExportWallet extends React.Component {
                     return;
                 }
             }
-
             const params = {
-                ...this.props.modalData.params,
+                ...this.props.modalData,
                 ...values,
                 passphrase,
                 account: this.props.account,

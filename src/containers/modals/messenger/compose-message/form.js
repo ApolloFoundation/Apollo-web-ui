@@ -1,40 +1,25 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import AccountRSFormInput from '../../../components/form-components/AccountRS'
+import CustomTextArea from '../../../components/form-components/TextArea/TextAreaWithFormik'
+import CheckboxFormInput from '../../../components/check-button-input/CheckboxWithFormik';
 
-import AccountRSFormInput from '../../../components/form-components/account-rs'
-import CustomTextArea from '../../../components/form-components/text-area'
-import {CheckboxFormInput} from '../../../components/form-components/check-button-input';
-
-const ComposeMessageForm = ({setValue, getValue, modalData, getFormState, values}) => (
+const ComposeMessageForm = () => (
     <>
         <AccountRSFormInput
-            setValue={setValue}
-            label={'Recipient'}
-            field={'recipient'}
-            value={getValue('recipient') || ''}
-            defaultValue={(modalData && modalData.recipient) ? modalData.recipient : ''}
+            label='Recipient'
+            name='recipient'
         />
         <CustomTextArea
-            setVaue={setValue}
-            label={'Message'}
-            field={'message'}
-            placeholder={'Message'}
+            label='Message'
+            name='message'
+            placeholder='Message'
         />
         <CheckboxFormInput
-            setVaue={setValue}
-            checkboxes={[
-                {
-                    field: 'messageToEncrypt',
-                    label: 'Encrypt Message',
-                    defaultValue: true
-                }
-            ]}
+            name='messageToEncrypt'
+            label='Encrypt Message'
+            id="messageToEncryptCheckbox"
         />
     </>
 )
 
-const mapStateToProps = state => ({
-    modalData: state.modals.modalData
-})
-
-export default connect(mapStateToProps)(ComposeMessageForm);
+export default ComposeMessageForm;

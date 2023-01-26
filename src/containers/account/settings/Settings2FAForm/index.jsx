@@ -1,21 +1,27 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Form } from 'react-form';
 import { NotificationManager } from 'react-notifications';
+import { FormikProvider, Form, useFormik } from 'formik';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
 import { disable2FAActon, enable2FAActon } from '../../../../actions/account';
-import InfoBox from '../../../components/info-box';
 import ModalFooter from '../../../components/modal-footer';
-import AccountRSFormInput from '../../../components/form-components/account-rs';
+import AccountRSFormInput from '../../../components/form-components/AccountRS';
 import { get2FASelector } from '../../../../selectors';
+import InfoBox from '../../../components/info-box';
 
 export const Settings2FAForm = ({ account, setState, getAccountInfo }) => {
   const dispatch = useDispatch();
   const is2FA = useSelector(get2FASelector);
 
-  const handleSubmit2FA = (values) => {
-    account.is2FA ? disable2fa(values) : getQRCode(values);
-  }
+
+  const formik = useFormik({
+    initialValues: {
+      account: '',
+      secretPhrase: '',
+      code2FA: '',
+    },
+    onSubmit: handleSubmit2FA,
+  })
 
   const disable2fa = async (values) => {
     if (!values.account) {
@@ -32,6 +38,7 @@ export const Settings2FAForm = ({ account, setState, getAccountInfo }) => {
     if (status.errorCode) {
       NotificationManager.error(status.errorDescription, null, 5000);
     } else {
+      formik.resetForm();
       getAccountInfo();
       NotificationManager.success('2FA was successfully disabled.', null, 5000);
     }
@@ -56,7 +63,10 @@ export const Settings2FAForm = ({ account, setState, getAccountInfo }) => {
         passphrase: values.secretPhrase,
         account: values.account,
         operation: 'enable 2FA',
-        settingsReloader: getAccountInfo,
+        settingsReloader: () => {
+          formik.resetForm();
+          getAccountInfo();
+        },
       }));
 
       setState(prevState => ({ 
@@ -66,55 +76,53 @@ export const Settings2FAForm = ({ account, setState, getAccountInfo }) => {
     }
   };
 
+  function handleSubmit2FA (values) {
+    account.is2FA ? disable2fa(values) : getQRCode(values);
+  }
+
   return (
-    <Form
-      onSubmit={handleSubmit2FA}
-      render={({
-        submitForm, setValue,
-      }) => (
-        <form className="modal-form" onSubmit={submitForm}>
-          <div className="form-group-app">
-            {is2FA
-              ? (
-                <>
-                  <div className="form-sub-title mb-3">
-                    The 2FA is currently enabled on this account.
-                  </div>
-                </>
-              ) : (
+    <FormikProvider value={formik}>
+      <Form className="modal-form">
+        <div className="form-group-app">
+          {is2FA
+            ? (
+              <>
                 <div className="form-sub-title mb-3">
-                  The 2FA is currently disabled on this account. You can
-                  increase
-                  your wallet security with this option.
+                  The 2FA is currently enabled on this account.
                 </div>
-              )}
-            <InfoBox attentionLeft>
-              <p className="mb-3">
-                Please note:
-              </p>
-              <div className="form-sub-title">
-                2FA is a feature for Vault addresses only,
-                and will not add a second factor authentication to a standard address.
+              </>
+            ) : (
+              <div className="form-sub-title mb-3">
+                The 2FA is currently disabled on this account. You can
+                increase
+                your wallet security with this option.
               </div>
-            </InfoBox>
-            <AccountRSFormInput
-              setValue={setValue}
-              noContactList
-              field="account"
-              label="Account ID"
-              placeholder="Account ID"
-            />
-            <ModalFooter setValue={setValue} />
-            {account && (
-            <div>
-              <button type="submit" className="btn btn-green">
-                {!account.is2FA ? 'Get Qr code' : 'Confirm disable'}
-              </button>
-            </div>
             )}
+          <InfoBox attentionLeft>
+            <p className="mb-3">
+              Please note:
+            </p>
+            <div className="form-sub-title">
+              2FA is a feature for Vault addresses only,
+              and will not add a second factor authentication to a standard address.
+            </div>
+          </InfoBox>
+          <AccountRSFormInput
+            noContactList
+            name="account"
+            label="Account ID"
+            placeholder="Account ID"
+          />
+          <ModalFooter />
+          {account && (
+          <div>
+            <button type="submit" className="btn btn-green">
+              {!account.is2FA ? 'Get Qr code' : 'Confirm disable'}
+            </button>
           </div>
-        </form>
-      )}
-    />
-  )
+          )}
+        </div>
+      </Form>
+    </FormikProvider>
+  );
 }

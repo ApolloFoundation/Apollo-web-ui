@@ -1,6 +1,7 @@
 .checkbox-group {
   display: flex;
   align-items: center;
+  white-space: nowrap;
 
   .checkbox-label {
     text-transform: uppercase;
@@ -31,4 +32,8 @@
       background-image: none;
     }
   }
+}
+
+.checkbox-group--top {
+  margin-top: 15px;
 }

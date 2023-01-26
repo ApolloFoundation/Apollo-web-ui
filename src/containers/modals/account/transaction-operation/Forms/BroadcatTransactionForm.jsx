@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../../../helpers/forms/forms";
 import ModalBody from "../../../../components/modals/modal-body";
-import CustomTextArea from "../../../../components/form-components/text-area";
+import CustomTextArea from "../../../../components/form-components/TextArea/TextAreaWithFormik";
 import { getAccountInfoSelector } from '../../../../../selectors';
 
 export const BroadcastTransactionForm = ({ closeModal }) => {
@@ -37,13 +37,13 @@ export const BroadcastTransactionForm = ({ closeModal }) => {
     >
         <CustomTextArea
             label='Transaction Bytes'
-            field='broadcastBytes'
+            name='broadcastBytes'
             placeholder='Signed Transaction Bytes'
         />
         <CustomTextArea
             label='Signed Transaction JSON'
-            field='broadcastJson'
-            placeholder={'Signed Transaction JSON'}
+            name='broadcastJson'
+            placeholder='Signed Transaction JSON'
         />
     </ModalBody>
   );

@@ -7,16 +7,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {setModalData} from '../../../modules/modals';
+import ModalBody from '../../components/modals/modal-body';
 
 class AboutPeerInfo extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     formDate = date => {
         if (!date) return "";
         const lastUpdDate = new Date(Date.now() - date);
-        const month = lastUpdDate.getMonth();
+        const month = lastUpdDate.getMonth() +1;
         const day = lastUpdDate.getDay();
         const year = lastUpdDate.getFullYear();
         const time = lastUpdDate.getHours() + ":" + lastUpdDate.getMinutes() + ":" + lastUpdDate.getSeconds();
@@ -31,16 +28,14 @@ class AboutPeerInfo extends React.Component {
     render() {
         const peer = this.props.modalData;
         return (
-            <div className="modal-box">
+            <ModalBody
+                modalTitle={`Peer ${this.props?.modalData?.address} Info`}
+                isDisableSecretPhrase
+                isDisableFormFooter
+                closeModal={this.props.closeModal}
+            >
                 {
                     this.props.modalData &&
-                    <form className="modal-form">
-                        <div className="form-group-app">
-                            <button type="button" onClick={() => this.props.closeModal()} className="exit"><i className="zmdi zmdi-close"/></button>
-                            <div className="form-title">
-                                <p>Peer {peer.address} Info</p>
-                            </div>
-
                             <div className="transaction-table no-min-height">
                                 <div className="transaction-table-body transparent padding-only-top">
                                     <table>
@@ -131,11 +126,8 @@ class AboutPeerInfo extends React.Component {
                                     </table>
                                 </div>
                             </div>
-                        </div>
-                    </form>
                 }
-
-            </div>
+            </ModalBody>
         );
     }
 }

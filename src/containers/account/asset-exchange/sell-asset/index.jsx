@@ -2,7 +2,8 @@ import React from 'react';
 import classNames from 'classnames';
 import { useFormik, FormikProvider, Form } from 'formik';
 import { numberToLocaleString } from 'helpers/format';
-import NumericInput from '../../../components/form-components/numeric-input/numeric-input1'
+import NumericInput from 'containers/components/form-components/NumericInput'
+
 const bigInteger = require('jsbn').BigInteger;
 
 const SellAsset = ({ asset, accountAsset, ticker, onSubmit }) => {
@@ -58,6 +59,7 @@ const SellAsset = ({ asset, accountAsset, ticker, onSubmit }) => {
                     placeholder="Quantity"
                     onChange={handleValue(formik.values.priceATM)}
                     counterLabel={asset.name}
+                    classNameWrapper="mb-2"
                   />
                   <NumericInput
                     label="Price"
@@ -66,6 +68,7 @@ const SellAsset = ({ asset, accountAsset, ticker, onSubmit }) => {
                     placeholder="Price"
                     onChange={handleValue(formik.values.quantity)}
                     counterLabel={`${ticker} / ${asset.name}`}
+                    classNameWrapper="mb-2"
                   />
                   <NumericInput
                     label="Total"
@@ -74,6 +77,7 @@ const SellAsset = ({ asset, accountAsset, ticker, onSubmit }) => {
                     placeholder="Total"
                     counterLabel={asset.name}
                     disabled
+                    classNameWrapper="mb-0"
                   />
                   <button
                     className={classNames({

@@ -1,14 +1,15 @@
 import React from 'react';
+import { Field } from 'formik';
 import InfoBox from '../../../components/info-box';
-import TextualInputForm from '../../../components/form-components/textual-input';
-import {CheckboxFormInput} from '../../../components/form-components/check-button-input';
-import CustomRange from '../range';
+import TextualInputForm from '../../../components/form-components/TextualInput';
+import CheckboxFormInput from '../../../components/check-button-input/CheckboxWithFormik';
 import ContentLoader from '../../../components/content-loader';
+import { RangeInput } from '../../../components/form-components/RangeInput';
 
-const CastVoteForm = ({currencyHint, assetHint, poll, votes, getFormState, setValue}) => (
+const CastVoteForm = ({ currencyHint, assetHint, poll, votes }) => (
     <>
         {
-            poll && 
+            poll ?
             <>
                 {
                     (currencyHint || assetHint) &&
@@ -36,13 +37,14 @@ const CastVoteForm = ({currencyHint, assetHint, poll, votes, getFormState, setVa
                         <label>Select option</label>
                         <div className="form-check custom-checkbox mb-15 pl-0">
                             {Object.keys(votes).map((el) =>
-                                <CustomRange
-                                    setValue={setValue}
+                                <Field
+                                    key={el}
+                                    name={el}
                                     label={votes[el]}
                                     min={poll.minRangeValue}
                                     max={poll.maxRangeValue}
-                                    el={el}
-                                    getFormState={getFormState}
+                                    component={RangeInput}
+                                    defaultValue={0}
                                 />
                             )}
                         </div>
@@ -53,31 +55,26 @@ const CastVoteForm = ({currencyHint, assetHint, poll, votes, getFormState, setVa
                     poll && 
                     votes &&
                     poll.maxRangeValue === 1 &&
+                    <>  
+                        <label>Select option</label>
                     
-                    <CheckboxFormInput 
-                        label={'Select option'}
-                        checkboxes={Object.keys(votes).map((el, index) => {
-                            if (index > 9) {
-                                return ({
-                                    field : 'vote' + index,
-                                    handler : null,
-                                    label : votes[el]
-                                });
-                            } else {
-                                return ({
-                                    field : 'vote0' + index,
-                                    handler : null,
-                                    label : votes[el]
-                                });
-                            }
-                        })}
-                    />
+                        {
+                            Object.keys(votes).map((el, index) =>(
+                                <CheckboxFormInput
+                                    key={votes[el]}
+                                    name={index > 9 ? 'vote' + index : 'vote0' + index}
+                                    label={votes[el]}
+                                    id={votes[el]}
+                                />
+                            ))
+                        }
+                    </>
                 }
-            </> ||
+            </> 
+            :
             <ContentLoader />
         }
-        
     </>
-)
+);
 
 export default CastVoteForm;

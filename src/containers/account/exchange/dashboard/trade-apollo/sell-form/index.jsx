@@ -83,7 +83,7 @@ export default function SellFormWrapper(props) {
             sender: account,
             passphrase: passPhrase,
             feeATM,
-            walletAddress: values.walletAddress.value.address,
+            walletAddress: values.walletAddress.address,
           };
           if (passPhrase) {
             dispatch(createOffer(params)).then(() => {

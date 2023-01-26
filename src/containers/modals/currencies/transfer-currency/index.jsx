@@ -5,19 +5,17 @@
 
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import ModalBody from '../../../components/modals/modal-body';
+import AccountRSFormInput from '../../../components/form-components/AccountRS';
+import NumericInput from '../../../components/form-components/NumericInput';
+import CurrencyInput from '../../../components/form-components/CurrencyInput';
+import { getModalDataSelector } from '../../../../selectors';
 import { handleFormSubmit } from './handle-form-submit';
 
-import ModalBody from '../../../components/modals/modal-body1';
-import AccountRSFormInput from '../../../components/form-components/account-rs1';
-import NumericInput from '../../../components/form-components/numeric-input1';
-import CurrencyInput from '../../../components/form-components/currency-input1';
-
-export default function TransferCurrency(props) {
+export default function TransferCurrency({ closeModal }) {
   const dispatch = useDispatch();
 
-  const { modalData } = useSelector(state => state.modals);
-  
-  const { closeModal } = props;
+  const modalData = useSelector(getModalDataSelector);
   
   const handleSubmit = useCallback(values => {
     const data = {

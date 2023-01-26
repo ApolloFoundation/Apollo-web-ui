@@ -1,0 +1,40 @@
+.rangeWrapper {
+  margin-bottom: 15px;
+}
+.rangeLabels {
+  display: flex;
+  justify-content: space-between;
+}
+
+.rangeBadge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25em 0.4em;
+  color: #fff;
+  background-color: #007bff;
+  font-size: 75%;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  padding-right: 0.6em;
+  padding-left: 0.6em;
+  border-radius: 10rem;
+}
+
+.rangeInput {
+  color: #3d5a7e;
+  border-radius: 2px;
+  background-color: #fcfcfd;
+  border: 1px solid #e6eaee;
+  font-family: "BBRollerMonoProST",sans-serif;
+  font-size: 14px;
+  line-height: normal;
+  letter-spacing: -.57px;
+  padding: 5px;
+  height: 40px!important;
+  opacity: 1;
+  font-weight: 400;
+  width: 100%;
+}

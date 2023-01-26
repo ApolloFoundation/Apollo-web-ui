@@ -1,10 +1,12 @@
 import React from 'react';
-
-import CustomFormSelect from '../../../components/form-components/custom-form-select';
-import NumericInputComponent from '../../../components/form-components/numeric-input';
-import AssetInput from '../../../components/form-components/asset-input';
-import CurrencyInput from '../../../components/form-components/currency-input';
-import BlockHeightInput from '../../../components/form-components/block-height-input';
+import { useFormikContext } from 'formik';
+import { useSelector } from 'react-redux';
+import CustomFormSelect from '../../../components/select';
+import NumericInputComponent from '../../../components/form-components/NumericInput';
+import { AssetInput } from '../../../components/form-components/AssetInput';
+import CurrencyInput from '../../../components/form-components/CurrencyInput';
+import BlockHeightInput from '../../../components/form-components/BlockHeight/block-height-input1';
+import { getTickerSelector } from '../../../../selectors';
 
 
 const holdingTypeData = [
@@ -14,65 +16,47 @@ const holdingTypeData = [
 ];
 
 const CreateShufflngForm = (props) => {
+    const ticker = useSelector(getTickerSelector);
 
-    const {setValue, getFormState} = props;
-    const {values : {holdingType}} = getFormState();
+    const { values } = useFormikContext();
+
     return (
         <>
             <CustomFormSelect
                 defaultValue={holdingTypeData[0]}
-                setValue={setValue}
                 options={holdingTypeData}
-                label={'Holding Type'}
-                field={'holdingType'}
+                label='Holding Type'
+                name='holdingType'
             />
-
             <NumericInputComponent
-                setValue={setValue}
-                label={'Amount'}
-                field={'amount'}
-                countingTtile={props.ticker}
-                placeholder={'Amount'}
-                type={'tel'}
+                label='Amount'
+                name='amount'
+                countingTtile={ticker}
+                placeholder='Amount'
+                type='tel'
             />
-
+            { values.holdingType === 1 && <AssetInput name='holding' /> }
+            { values.holdingType === 2 && <CurrencyInput name='holding' /> }
             {
-                holdingType === 1 &&
-                <AssetInput
-                    field={'holding'}
-                    setValue={setValue}
-                />
-            }
-            {
-                holdingType === 2 &&
-                <CurrencyInput
-                    field={'holding'}
-                    setValue={setValue}
-                />
-            }
-            {
-                (holdingType === 1 || holdingType === 2) &&
+                (values.holdingType === 1 || values.holdingType === 2) &&
                 <NumericInputComponent
-                    setValue={setValue}
-                    label={'Quantity'}
-                    field={'amountATUf'}
-                    countingTtile={''}
-                    placeholder={'Quantity'}
-                    type={'tel'}
+                    label='Quantity'
+                    name='amountATUf'
+                    countingTtile=''
+                    placeholder='Quantity'
+                    type='tel'
                 />
             }
             <BlockHeightInput
-                setValue={setValue}
-                label={'Register Until'}
-                field={'registrationPeriod'}
-                placeholder={'Register Until'}
+                label='Register Until'
+                name='registrationPeriod'
+                placeholder='Register Until'
             />
             <NumericInputComponent
-                setValue={setValue}
-                label={'Participant Count'}
-                field={'participantCount'}
-                placeholder={'Participant Count'}
-                type={'tel'}
+                label='Participant Count'
+                name='participantCount'
+                placeholder='Participant Count'
+                type='tel'
             />
         </>
     )

@@ -24,9 +24,6 @@ const stopMonitorAction = (props) => {
 
     if (monitor && !monitor.errorCode) {
         NotificationManager.success('The funding monitor has been stopped.', null, 5000);
-        setTimeout(() => {
-            props.reloadCallback()
-        }, 1000)
     }
 }
 

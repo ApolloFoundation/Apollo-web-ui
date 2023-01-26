@@ -4,67 +4,83 @@
  ******************************************************************************/
 
 
-import React from 'react';
-import {connect} from 'react-redux';
-import {setBodyModalParamsAction} from '../../../../modules/modals';
-import submitForm from "../../../../helpers/forms/forms";
-
-import {handleFormSubmit} from './handleFormSubmit';
-
+import React, { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { NotificationManager } from "react-notifications";
 import ModalBody from '../../../components/modals/modal-body';
-
+import { getTickerSelector } from '../../../../selectors';
+import { IS_MODAL_PROCESSING } from '../../../../modules/modals';
 import PollForm from './form';
 
-class CreatePoll extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            activeTab: 0,
-            advancedState: false,
+const votingModelData = [
+    {value: 0, label: 'Vote by Account'},
+    {value: 1, label: 'Vote by Account Balance'},
+    {value: 2, label: 'Vote by Asset Balance'},
+    {value: 3, label: 'Vote by Currency Balance'}
+];
 
-            // submitting
-            passphraseStatus: false,
-            recipientStatus: false,
-            amountStatus: false,
-            feeStatus: false,
+const CreatePoll = ({ processForm, nameModal, closeModal }) => {
+    const dispatch = useDispatch();
+    const ticker = useSelector(getTickerSelector);
 
-            currency: '-',
-            asset: 'Not Existing',
+    const handleFormSubmit = useCallback((values) => {
+        if (!values.answers) {
+            NotificationManager.error('Please write answers.', 'Error', 5000);
+            return;
         }
-    }
 
-    handleFormSubmit = async(values) => handleFormSubmit.call(this.props, values)
+        const resultAnswers = values.answers.reduce((acc, item, index) => {
+            if(index > 9) {
+                acc['option' + index] = item;
+            } else {
+                acc['option0' + index] = item;
+            }
+            return acc
+        }, {});
 
-    render() {
-        const {nameModal, ticker} = this.props;
+        const reqParams = {
+            ...values,
+            votingModel : values.votingModel || 0,
+            'create_poll_answers[]': values.answers[0],
+            minBalanceModel: values.votingModel || 0,
+            ...resultAnswers
+        };
 
-        return (
-            <ModalBody
-                loadForm={this.loadForm}
-                modalTitle={'Create Poll'}
-                isAdvanced={true}
-                isFee
-                closeModal={this.props.closeModal}
-                handleFormSubmit={(values) => this.handleFormSubmit(values)}
-                submitButtonName={'Create'}
-                nameModel={nameModal}
-				        idGroup={'create-poll-modal-'}
-            >
-                <PollForm ticker={ticker} />
-            </ModalBody>
-        );
-    }
+        processForm(reqParams, 'createPoll', 'Your vote has been created!', (res) => {
+            dispatch({
+                type: IS_MODAL_PROCESSING,
+                payload: false
+            });
+
+            closeModal();
+            NotificationManager.success('Your vote has been created!', null, 5000);
+        });
+    }, [dispatch, closeModal,])
+
+    return (
+        <ModalBody
+            modalTitle='Create Poll'
+            isAdvanced
+            isFee
+            closeModal={closeModal}
+            handleFormSubmit={handleFormSubmit}
+            submitButtonName='Create'
+            nameModel={nameModal}
+            idGroup='create-poll-modal-'
+            initialValues={{
+                answers: [''],
+                minNumberOfOptions: 1,
+                maxNumberOfOptions: 1,
+                minRangeValue: 0,
+                maxRangeValue: 1,
+                minBalance: 0,
+                votingModel: votingModelData[0].value,
+                feeATM: 1,
+            }}
+        >
+            <PollForm ticker={ticker} votingModelData={votingModelData} />
+        </ModalBody>
+    );
 }
 
-const mapStateToProps = state => ({
-    modalData: state.modals.modalData,
-    modalsHistory: state.modals.modalsHistory,
-    ticker: state.account.ticker,
-});
-
-const mapDispatchToProps = dispatch => ({
-    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(CreatePoll);
+export default CreatePoll;

@@ -19,7 +19,6 @@ export const LOAD_BLOCKCHAIN_STATUS = 'LOAD_BLOCKCHAIN_STATUS';
 export const GET_FORGING = 'GET_FORGING';
 export const SET_CURRENT_BLOCK = 'SET_CURRENT_BLOCK';
 export const SET_ADMIN_PASSWORD = 'SET_ADMIN_PASSWORD';
-export const SET_SHARE_MESSAGE = 'SET_SHARE_MESSAGE';
 export const SET_WALLETS = 'SET_WALLETS';
 export const SET_BLOCKCHAIN_SETTINGS = 'SET_BLOCKCHAIN_SETTINGS';
 
@@ -150,12 +149,6 @@ export default (state = initialState, action) => {
         ...state,
         blockchainStatus: action.payload,
       };
-    case SET_SHARE_MESSAGE:
-      return {
-        ...state,
-        isShareMessage: action.payload.isShareMessage,
-        shareMessageTransaction: action.payload.shareMessageTransaction,
-      };
     case 'SET_ACTUAL_BLOCK':
       return {
         ...state,
@@ -224,11 +217,6 @@ export const endLoad = () => dispatch => {
   });
   dispatch({ type: SET_ADMIN_PASSWORD });
 };
-
-export const setShareMessage = payload => ({
-  type: SET_SHARE_MESSAGE,
-  payload,
-});
 
 /*
 * @prevent -> boolean  |

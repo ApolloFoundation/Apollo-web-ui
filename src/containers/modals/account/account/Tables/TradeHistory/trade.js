@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { formatTimestamp } from '../../../../../../helpers/util/time';
 import { setBodyModalParamsAction } from '../../../../../../modules/modals';
+import { getDecimalsSelector } from '../../../../../../selectors';
 
 const Trade = ({
   quantityATU, tradeType, timestamp, asset, decimals, priceATM, name,
@@ -11,7 +12,7 @@ const Trade = ({
 
   const history = useHistory();
 
-  const { decimals: accountCoinDecimals } = useSelector(state => state.account);
+  const accountCoinDecimals = useSelector(getDecimalsSelector);
 
   const gotToAsset = () => {
     dispatch(setBodyModalParamsAction());

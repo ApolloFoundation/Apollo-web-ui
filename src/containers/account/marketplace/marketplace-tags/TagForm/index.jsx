@@ -1,7 +1,7 @@
 import React from 'react';
 import { Formik, Form } from 'formik';
 import { useHistory } from 'react-router-dom';
-import CustomInput from '../../../../components/custom-input';
+import CustomInput from '../../../../components/custom-input/CustomInputWithFormik';
 import styles from './index.module.scss';
 
 export const TagForm = () => {

@@ -1,9 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
+import { getModalDataSelector } from '../../../selectors';
 import ModalBody from "../../components/modals/modal-body";
 
 export const TransactionFail = ({ closeModal }) => {
-  const transaction = useSelector(state =>  state.modals.modalData)
+  const transaction = useSelector(getModalDataSelector);
   return (
     <ModalBody
       modalTitle={`Transaction fail info`}

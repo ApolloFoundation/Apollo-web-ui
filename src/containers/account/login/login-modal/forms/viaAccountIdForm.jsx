@@ -4,7 +4,7 @@ import cn from 'classnames';
 import { Form, Formik } from 'formik';
 import { NotificationManager } from 'react-notifications';
 import { getAccountDataAction } from '../../../../../actions/login';
-import AccountRS from '../../../../components/account-rs/index1';
+import AccountRS from '../../../../components/account-rs';
 import Button from '../../../../components/button';
 
 export default function AccountIdForm({ activeTab }) {

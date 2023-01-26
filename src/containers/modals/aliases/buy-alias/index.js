@@ -4,17 +4,19 @@
  ******************************************************************************/
 
 
-import React     from 'react';
-import {connect} from 'react-redux';
+import React, { useCallback } from 'react';
+import {useSelector} from 'react-redux';
 import {NotificationManager} from "react-notifications";
-import {setBodyModalParamsAction} from '../../../../modules/modals';
-import {buyAliasAction} from '../../../../actions/aliases';
-import TextualInputComponent from '../../../components/form-components/textual-input';
-import ModalBody             from '../../../components/modals/modal-body';
+import TextualInputComponent from '../../../components/form-components/TextualInput';
+import ModalBody from '../../../components/modals/modal-body';
+import { getDecimalsSelector, getModalDataSelector, getTickerSelector } from '../../../../selectors';
 
-class GetAlias extends React.Component {
+const GetAlias = ({ processForm, closeModal }) => {
+    const ticker = useSelector(getTickerSelector);
+    const modalData = useSelector(getModalDataSelector);
+    const decimals = useSelector(getDecimalsSelector);
 
-    handleFormSubmit = async (values) => {
+    const handleFormSubmit = useCallback((values) => {
         const {alias, aliasName, secretPhrase, priceATM, feeATM} = values;
         let isError = false;
         if (!feeATM) {
@@ -37,50 +39,42 @@ class GetAlias extends React.Component {
             feeATM: feeATM,
         }
 
-        this.props.processForm(boughtAlias, 'buyAlias', 'Alias has been bought!', () => {
-            this.props.setBodyModalParamsAction(null, {});
+        processForm(boughtAlias, 'buyAlias', 'Alias has been bought!', () => {
+            closeModal();
             NotificationManager.success('Alias has been bought!', null, 5000);
         });
-    }
+    }, [processForm, closeModal])
 
-    render() {
-        return (
-            <ModalBody
-                modalTitle={'Buy Alias'}
-                isAdvanced={true}
-                isFee
-                closeModal={this.props.closeModal}
-                handleFormSubmit={(values) => this.handleFormSubmit(values)}
-                submitButtonName={'Buy Alias'}
-            >
-                <TextualInputComponent
-                    label={'Alias'}
-                    disabled={true}
-                    field="aliasName"
-                    placeholder="Alias"
-                    type={"text"}
-                />
-                <TextualInputComponent
-                    label={'Price'}
-                    countLabel={this.props.ticker}
-                    disabled={true}
-                    field="priceATM"
-                    placeholder="Amount"
-                    type={"float"}
-                />
-            </ModalBody>
-        );
-    }
+    return (
+        <ModalBody
+            modalTitle='Buy Alias'
+            isAdvanced
+            isFee
+            closeModal={closeModal}
+            handleFormSubmit={handleFormSubmit}
+            submitButtonName='Buy Alias'
+            initialValues={{
+                aliasName: modalData.aliasName,
+                priceATM: modalData.priceATM / decimals,
+            }}
+        >
+            <TextualInputComponent
+                label='Alias'
+                disabled
+                name="aliasName"
+                placeholder="Alias"
+                type="text"
+            />
+            <TextualInputComponent
+                label='Price'
+                countLabel={ticker}
+                disabled
+                name="priceATM"
+                placeholder="Amount"
+                type="float"
+            />
+        </ModalBody>
+    );
 }
 
-const mapStateToProps = state => ({
-    modalData: state.modals.modalData,
-    ticker: state.account.ticker,
-});
-
-const mapDispatchToProps = dispatch => ({
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)),
-    buyAliasAction: (data) => dispatch(buyAliasAction(data)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(GetAlias);
+export default GetAlias;

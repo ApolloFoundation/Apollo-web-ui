@@ -83,9 +83,7 @@ import ChooseWallet from '../account/exchange/choose-wallet';
 import './App.scss';
 import './fonts.scss';
 
-import urlHelper from '../../helpers/util/urlParser';
 import { startBlockPullingAction } from '../../actions/blocks';
-import { loginWithShareMessage } from '../../actions/account';
 import './window';
 
 const ReactHint = ReactHintFactory(React);
@@ -104,7 +102,6 @@ class App extends React.Component {
       getCurrentTicker();
 
       getSavedAccountSettings();
-      this.checkUrl();
       getUpdateStatus();
       if (!this.shareMessage) {
           isLoggedIn(this.props.history);
@@ -143,16 +140,6 @@ class App extends React.Component {
     }
 
     state = { isMounted: false };
-
-    checkUrl = () => {
-      const params = urlHelper.parseUrl();
-      if (params.isShareMessage) {
-        this.shareMessage = true;
-        const { account } = params;
-        const { transaction } = params;
-        this.props.loginWithShareMessage(account, transaction);
-      }
-    };
 
     onRenderContent = (target, content) => {
       let { catId } = target.dataset;
@@ -406,7 +393,6 @@ const mapDispatchToProps = dispatch => ({
     getCurrentTicker: () => dispatch(getCurrentTicker()),
     getConstantsAction: () => dispatch(getConstantsAction()),
     getSavedAccountSettings: () => dispatch(getSavedAccountSettingsAction()),
-    loginWithShareMessage: (account, transaction) => dispatch(loginWithShareMessage(account, transaction)),
     loadConstants: () => dispatch(loadConstants()),
 
     //modals

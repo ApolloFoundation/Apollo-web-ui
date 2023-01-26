@@ -4,82 +4,53 @@
  ******************************************************************************/
 
 
-import React from 'react';
-import {connect} from 'react-redux';
-import {setModalData} from '../../../../modules/modals';
-import  {getDGSGoodAction} from "../../../../actions/marketplace";
-import {setBodyModalParamsAction} from "../../../../modules/modals";
+import React, { useCallback, useEffect, useState } from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import classNames from 'classnames';
+import  {getDGSGoodAction} from "../../../../actions/marketplace";
 import config from '../../../../config'
+import ModalBody from '../../../components/modals/modal-body';
+import { getModalDataSelector } from '../../../../selectors';
 
-const mapStateToProps = state => ({
-    modalData: state.modals.modalData
-});
+const MarketplaceImage = (props) => {
+    const dispatch = useDispatch();
+    const [goods, setGoods] = useState(null);
+    const modalData = useSelector(getModalDataSelector);
 
-const mapDispatchToProps = dispatch => ({
-    setModalData: (data) => dispatch(setModalData(data)),
-    getDGSGoodAction: (requestParams) => dispatch(getDGSGoodAction(requestParams)),
-    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-});
-
-class MarketplaceImage extends React.Component {
-    constructor(props) {
-        super(props);
-
-
-        this.state = {
-            goods: null
-        };
-
-    }
-
-    componentDidMount() {
-        this.handleImageLoadint(this.props.modalData)
-    }
-
-    handleImageLoadint = async (value) => {
-        const productData = await this.props.getDGSGoodAction({
-            goods: value
-        });
-
-
+    const handleImageLoadint = useCallback(async () => {
+        const productData = await dispatch(getDGSGoodAction({
+            goods: modalData
+        }));
         if (productData) {
-
-            this.setState({
-                goods: productData
-            })
+            setGoods(productData)
         }
-    };
+    }, [modalData]);
 
-    render() {
-        return (
-            <div className="modal-box wide">
-                <div className="modal-form">
-                    {
-                        this.state.goods &&
-                        <div className="form-group-app">
-                            <button type="button" onClick={this.props.closeModal} className="exit"><i className="zmdi zmdi-close" /></button>
-                            <div className="form-title">
-                                <p>{this.state.goods.name}</p>
-                            </div>
-                            <div
-                                style={{
-                                    height: 400,
-                                    backgroundImage: 'url(' + config.api.serverUrl + 'requestType=downloadPrunableMessage&transaction=' + this.state.goods.goods + '&retrieve=true)'
-                                }}
-                                className={classNames({
-                                    "marketplace-image": true,
-                                    "no-image": !this.state.goods.hasImage
-                                })}
-                            />
-                        </div>
-                    }
-                </div>
-            </div>
-        );
-    }
+    useEffect(() => {
+        handleImageLoadint()
+    }, [handleImageLoadint]);
+
+    return (
+        <ModalBody
+            isDisableFormFooter
+            modalTitle={goods?.name}
+            closeModal={props.closeModal}
+        >
+            {
+                goods &&
+                    <div
+                        style={{
+                            height: 400,
+                            backgroundImage: 'url(' + config.api.serverUrl + 'requestType=downloadPrunableMessage&transaction=' + goods.goods + '&retrieve=true)'
+                        }}
+                        className={classNames({
+                            "marketplace-image": true,
+                            "no-image": !goods.hasImage
+                        })}
+                    />
+            }
+        </ModalBody>
+    );
 }
 
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(MarketplaceImage);
+export default MarketplaceImage;

@@ -27,7 +27,6 @@ const mapDispatchToProps = dispatch => ({
     saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
 	openPrevModal: () => dispatch(openPrevModal()),
 });
-
 class DecryptMessage extends React.Component {
     state = {
         passphraseStatus: false

@@ -4,77 +4,63 @@
  ******************************************************************************/
 
 
-import React from 'react';
-import {connect} from 'react-redux';
-import {Text} from 'react-form';
+import React, { useCallback } from 'react';
+import {useSelector} from 'react-redux';
 import {NotificationManager} from "react-notifications";
-import {setBodyModalParamsAction} from '../../../modules/modals';
 import ModalBody from '../../components/modals/modal-body';
-import TextualInputComponent from '../../components/form-components/textual-input';
+import TextualInputComponent from '../../components/form-components/TextualInput';
+import {
+    getDecimalsSelector,
+    getModalCallbackSelector,
+    getModalDataSelector,
+    getTickerSelector
+} from '../../../selectors';
 
-class SellAsset extends React.Component {
-    handleFormSubmit = async(values) => {
-        values = {
+const SellAsset = ({ closeModal, processForm, nameModal }) => {
+    const modalData = useSelector(getModalDataSelector);
+    const decimals = useSelector(getDecimalsSelector);
+    const ticker = useSelector(getTickerSelector);
+    const modalCallback = useSelector(getModalCallbackSelector);
+
+    const handleFormSubmit = useCallback((values) => {
+        const data = {
             ...values,
-            asset: this.props.modalData.assetInfo.asset,
-            priceOrder: this.props.modalData.priceATM * (this.props.decimals / Math.pow(10, this.props.modalData.assetInfo.decimals)),
-            quantityOrder: (this.props.modalData.quantityATU * Math.pow(10, this.props.modalData.assetInfo.decimals))
+            asset: modalData.assetInfo.asset,
+            priceOrder: modalData.priceATM * (decimals / Math.pow(10, modalData.assetInfo.decimals)),
+            quantityOrder: (modalData.quantityATU * Math.pow(10, modalData.assetInfo.decimals)),
+            name: modalData?.assetInfo?.name,
+            asset: modalData?.assetInfo?.asset,
+            quantityATU: modalData?.quantityATU,
         };
 
-        this.props.processForm(values, 'placeAskOrder', 'The sell order has been submitted!', () => {
-            this.props.modalCallback();
-            this.props.setBodyModalParamsAction(null, {});
+        processForm(data, 'placeAskOrder', 'The sell order has been submitted!', () => {
+            closeModal();
+            modalCallback();
             NotificationManager.success('The sell order has been submitted!', null, 5000);
         })
-    };
+    }, [closeModal, processForm, modalData, decimals, modalCallback]);
 
-    render() {
-        const {nameModal, modalData, closeModal, ticker} = this.props;
+    const name = modalData?.assetInfo?.name ?? '';
+    const quantityATU = modalData?.quantityATU;
+    const total = modalData?.total;
 
-        const name        = modalData && modalData.assetInfo ? modalData.assetInfo.name : '';
-        const assetID     = modalData && modalData.assetInfo ? modalData.assetInfo.assetID : '';
-        const quantityATU = modalData && modalData.quantityATU;
-        const total       = modalData && modalData.total;
-
-        return (
-            <ModalBody
-                loadForm={this.loadForm}
-                modalTitle={'Confirm Order (Sell)'}
-                isAdvanced={true}
-                isFee
-                closeModal={closeModal}
-                handleFormSubmit={(values) => this.handleFormSubmit(values)}
-                submitButtonName={'Confirm Order'}
-                nameModel={nameModal}
-            >
-                <Text defaultValue={name} type="hidden" field={'name'}/>
-                <Text defaultValue={assetID} type="hidden" field={'asset'}/>
-                <Text defaultValue={quantityATU} placeholder={'Quantity'} type="hidden" field={'quantityATU'}/>
-
-                <TextualInputComponent
-                    label={'Order Description'}
-                    text={`Sell ${quantityATU} ${name} assets at ${total / quantityATU} ${ticker} each.`}
-                />
-
-                <TextualInputComponent
-                    label={'Total'}
-                    text={`${total} ${ticker}`}
-                />
-            </ModalBody>
-        );
-    }
+    return (
+        <ModalBody
+            modalTitle='Confirm Order (Sell)'
+            isAdvanced
+            isFee
+            closeModal={closeModal}
+            handleFormSubmit={handleFormSubmit}
+            submitButtonName='Confirm Order'
+            nameModel={nameModal}
+        >
+            <TextualInputComponent
+                label='Order Description'
+                text={`Sell ${quantityATU} ${name} assets at ${total / quantityATU} ${ticker} each.`}
+            />
+            <TextualInputComponent label='Total' text={`${total} ${ticker}`} />
+        </ModalBody>
+    );
 }
 
-const mapStateToProps = state => ({
-    modalData: state.modals.modalData,
-    modalsHistory: state.modals.modalsHistory,
-    decimals: state.account.decimals,
-    ticker: state.account.ticker,
-    modalCallback: state.modals.modalCallback,
-});
-
-const mapDispatchToProps = dispatch => ({
-    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(SellAsset);
+export default SellAsset;

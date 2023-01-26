@@ -21,7 +21,6 @@ export default function MyMadedCurrencies() {
       firstIndex,
       lastIndex,
     })));
-    console.log("🚀 ~ file: index.jsx ~ line 24 ~ getExchanges ~ exchanges", exchanges)
 
     if (!exchanges) return [];
 

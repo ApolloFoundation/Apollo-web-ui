@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Form, FormikProvider, useFormik } from 'formik';
 import { useHistory } from 'react-router-dom';
-import AccountRS from '../../../components/account-rs/index1';
+import AccountRS from '../../../components/account-rs';
 import { useSearchParams } from './useSearchParams';
 
 export const AccountForm = () => {
@@ -27,7 +27,6 @@ export const AccountForm = () => {
       <Form className="input-group-app search col-md-3 pl-0">
         <div className="iconned-input-field form-group-app">
             <AccountRS
-              field='account'
               placeholder='Account ID'
               noContactList
               name="account"

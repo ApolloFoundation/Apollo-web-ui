@@ -1,61 +1,51 @@
 import React, {
-  useState, useCallback, useEffect,
+  useCallback, useEffect, memo
 } from 'react';
 import { useSelector } from 'react-redux';
-import { Form } from 'react-form';
-import { getMdalsSelector } from '../../../selectors';
+import { FormikProvider, useFormik, Form } from 'formik';
+import { getModalsSelector } from '../../../selectors';
 
-export default function BackForm(props) {
-  const {
-    nameModal, getApi, onChange, onSubmit, render, children,
-  } = props;
+function BackForm({ nameModal, onSubmit, children, className, initialValues = {}, isLoadValue, enableReinitialize }) {
+  const { modalsHistory, modalData } = useSelector(getModalsSelector);
 
-  const [newForm, setNewForm] = useState(null);
-  const [newModalData, setNewModalData] = useState(null);
-
-  const { modalsHistory, modalData } = useSelector(getMdalsSelector);
+  const formik = useFormik({
+    initialValues,
+    onSubmit,
+    enableReinitialize,
+  });
 
   const loadValues = useCallback(values => {
-    if (newForm) {
+    if (formik) {
       if (values) {
-        newForm.setAllValues(values);
+        formik.setValues(values);
         return;
       }
   
       if (modalsHistory.length > 0) {
         const myModal = modalsHistory[modalsHistory.length - 1];
         if (nameModal === myModal.modalName && myModal.value) {
-          newForm.setAllValues(myModal.value);
+          formik.setValues(myModal.value);
         }
       }
     }
-  }, [modalsHistory, nameModal, newForm?.setAllValues]);
-
-  const getForm = useCallback(form => {
-    setNewForm(form);
-    loadValues();
-
-    if (getApi) {
-      getApi(form);
-    }
-  }, [getApi, loadValues]);
+  }, [modalsHistory, nameModal, formik?.setValues]);
 
   useEffect(() => {
     if (modalData && Object.keys(modalData).length > 0) {
-      setNewModalData(modalData);
-      loadValues(modalData);
+      if (isLoadValue) {
+        loadValues(modalData);
+      }
     }
-  }, [loadValues, modalData, newModalData]);
+  }, [loadValues, modalData, isLoadValue]);
+
 
   return (
-    <Form
-      onChange={onChange}
-      nameModal={nameModal}
-      onSubmit={onSubmit}
-      getApi={getForm}
-      render={render}
-    >
-      {children}
-    </Form>
+    <FormikProvider value={formik}>
+      <Form onSubmit={formik.handleSubmit} className={className ?? "modal-form"}>
+        {children}
+      </Form>
+    </FormikProvider>
   );
 }
+
+export default memo(BackForm);

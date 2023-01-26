@@ -13,15 +13,15 @@ import {getAssetAction} from "../../../actions/assets";
 
 
 // Form components
-import BlockHeightInput from '../form-components/block-height-input';
-import {CheckboxFormInput} from '../form-components/check-button-input';
-import CustomInputForm from '../form-components/textual-input';
-import CustomTextArea from '../form-components/text-area';
-import {TabContainer} from '../form-components/tab-container';
-import AccountRSFormInput from '../form-components/account-rs'
-import CustomFormSelect from '../form-components/custom-form-select'
-import AssetInput from '../form-components/asset-input'
-import CurrencyInput from '../form-components/currency-input'
+import BlockHeightInput from '../form-components/BlockHeight/block-height-input1';
+import CheckboxFormInput from '../check-button-input/CheckboxWithFormik';
+import CustomInputForm from '../form-components/TextualInput';
+import CustomTextArea from '../form-components/TextArea/TextAreaWithFormik';
+import {TabContainer} from '../form-components/TabContainer/tab-container';
+import AccountRSFormInput from '../form-components/AccountRS'
+import CustomFormSelect from '../select'
+import { AssetInput } from '../form-components/AssetInput'
+import CurrencyInput from '../form-components/CurrencyInput'
 
 const minBalanceType = [
     { value: '0', label: 'No min balance necessary' },
@@ -54,26 +54,17 @@ const mapDispatchToProps = dispatch => ({
     getCurrencyAction: (requestParams) => dispatch(getCurrencyAction(requestParams)),
     getAssetAction: (requestParams) => dispatch(getAssetAction(requestParams))
 });
-
+// TODO unused
 class AdvancedSettings extends React.Component {
-
     state = {
         activeTab: 0,
         currency: '-',
         block: null,
         accounts: {
-            5: [
-                ''
-            ],
-            2: [
-                ''
-            ],
-            3: [
-                ''
-            ],
-            4: [
-                ''
-            ]
+            5: [''],
+            2: [''],
+            3: [''],
+            4: ['']
         }
     };
 
@@ -103,17 +94,17 @@ class AdvancedSettings extends React.Component {
         }
     };
 
-    handleNotBroadcast = (value) => {
-        if (value === false) {
-            this.props.setValue('doNotSign', false);
-        }
-    };
+    // handleNotBroadcast = (value) => {
+    //     if (value === false) {
+    //         this.props.setValue('doNotSign', false);
+    //     }
+    // };
 
-    handleAddNote = (value) => {
-        if (value === false) {
-            this.props.setValue('note_to_self', '');
-        }
-    };
+    // handleAddNote = (value) => {
+    //     if (value === false) {
+    //         this.props.setValue('note_to_self', '');
+    //     }
+    // };
 
     addAccount = (tabIndex) => {
         this.setState({
@@ -212,54 +203,46 @@ class AdvancedSettings extends React.Component {
 
         const ReferencedTransactoinHash = () => (
             <CustomInputForm 
-                label={'Referenced transaction hash'}
-                field="referencedTransactionFullHash"
+                label='Referenced transaction hash'
+                name="referencedTransactionFullHash"
                 placeholder="Referenced transaction hash"
                 className={this.props.white ?  '' : 'gray-form'}
-                type={"text"}
-                setValue={setValue}
+                type="text"
             />
         )
 
         const FinishHeightInput = () => (
             <BlockHeightInput 
-                setValue={setValue}
-                label={'Finish height'}
-                field={'phasingFinishHeight'}
-                placeholder={'Finish height'}
+                label='Finish height'
+                field='phasingFinishHeight'
+                placeholder='Finish height'
                 className={this.props.white ?  '' : 'gray-form'}
-                deafultPlus={100}
             />
         )
 
         const BroadcastCheckboxOptions = () => (
             <React.Fragment>
-                <CheckboxFormInput 
-                    checkboxes={[
-                        {
-                            field : 'doNotBroadcast',
-                            handler : this.handleNotBroadcast,
-                            label : 'Do not broadcast'
-                        },
-                        {
-                            field : 'doNotSign',
-                            handler : null,
-                            label : 'Do not sign'
-                        },
-                        {
-                            field : 'add_note_to_self',
-                            handler : this.handleAddNote,
-                            label : 'Add note to self?'
-                        }
-                    ]}
+                <CheckboxFormInput
+                    nme="doNotBroadcast"
+                    label="Do not broadcast"
+                    id="doNotBroadcastCheckbox"
+                />
+                <CheckboxFormInput
+                    nme="doNotSign"
+                    label="Do not sign"
+                    id="doNotSignCheckbox"
+                />
+                <CheckboxFormInput
+                    nme="add_note_to_self"
+                    label="Add note to self?"
+                    id="add_note_to_selfCheckbox"
                 />
                 {
                     values.add_note_to_self &&
                     <CustomTextArea
-                        label={'Note to self'}
-                        field={'note_to_self'}
-                        placeholder={''}
-                        note={'This note is encrypted'}
+                        label='Note to self'
+                        name='note_to_self'
+                        note='This note is encrypted'
                     />
                 }
             </React.Fragment>   
@@ -270,13 +253,12 @@ class AdvancedSettings extends React.Component {
                 {
                     this.state.advancedState &&
                     <CustomInputForm
-                        label={'Deadline (hours)'}
-                        fieldType={'counter-number'}
-                        type={"tel"}
-                        placeholder={'Deadline'}
-                        field={'deadline'}
-                        setValue={setValue}
-                        code={'hours'}										
+                        label='Deadline (hours)'
+                        fieldType='counter-number'
+                        type="tel"
+                        placeholder='Deadline'
+                        name='deadline'
+                        code='hours'
                     />
                 }
 
@@ -321,11 +303,10 @@ class AdvancedSettings extends React.Component {
                         onFocus={() => this.onFocus(0)}
                     >
                         <CustomInputForm 
-                            label={'Number of accounts'}
-                            setValue={setValue}
-                            placeholder={'Number of accounts'}
-                            field={'phasingQuorum'}
-                            type={'tel'}
+                            label='Number of accounts'
+                            placeholder='Number of accounts'
+                            name='phasingQuorum'
+                            type='tel'
                             className={this.props.white ?  '' : 'gray-form'}
                         />
 
@@ -336,13 +317,12 @@ class AdvancedSettings extends React.Component {
                             this.state.accounts[2].map((el, index) => {
                                 return (
                                     <AccountRSFormInput 
-                                        setValue={setValue}
                                         defaultValue={this.state.accounts[2][index]}
                                         exportAccountList={this.setListValue(2, index)}
                                         handleRemoveItem={this.removeListValue(2, setValue)}
                                         index={index}
-                                        label={'Accounts (whitelist)'}
-                                        field={'phasingWhitelisted'}
+                                        label='Accounts (whitelist)'
+                                        name='phasingWhitelisted'
                                         noContactList
                                     />
                                 );
@@ -351,42 +331,34 @@ class AdvancedSettings extends React.Component {
                         
                         {/* Button */}
                         <CustomInputForm 
-                            label={'Add account'}
-                            type={'button'}
+                            label='Add account'
+                            type='button'
                             hendler={() => this.addAccount(2)}
                         />
 
                         <CustomFormSelect
                             defaultValue={minBalanceType[0]}
-                            setValue={setValue}
                             options={minBalanceType}
-                            label={'Min balance type'}
-                            field={'phasingMinBalanceModel'}
+                            label='Min balance type'
+                            name='phasingMinBalanceModel'
                         />
                         
                         {
                             values.phasingMinBalanceModel >= 1 &&
                             <CustomInputForm 
-                                label={'Number of accounts'}
-                                setValue={setValue}
-                                placeholder={'Number of accounts'}
-                                field={'phasingQuorum'}
-                                type={'text'}
+                                label='Number of accounts'
+                                placeholder='Number of accounts'
+                                name='phasingQuorum'
+                                type='text'
                             />
                         }
                         {
                             values.phasingMinBalanceModel == 2 &&
-                            <AssetInput 
-                                field={'phasingHoldingCurrencyCode'}
-                                setValue={setValue}
-                            />
+                            <AssetInput name='phasingHoldingCurrencyCode' />
                         }
                         {
                             values.phasingMinBalanceModel == 3 &&
-                            <CurrencyInput 
-                                setValue={setValue}
-                                field={'phasingHoldingCurrencyCode'}
-                            />
+                            <CurrencyInput name='phasingHoldingCurrencyCode' />
                         }
                         {ReferencedTransactoinHash()}
                         <BroadcastCheckboxOptions />
@@ -397,14 +369,12 @@ class AdvancedSettings extends React.Component {
                         onFocus={() => this.onFocus(1)}                        
                     >
                         <CustomInputForm 
-                            label={'Amount'}
-                            setValue={setValue}
-                            placeholder={'Amount'}
+                            label='Amount'
+                            placeholder='Amount'
                             className={this.props.white ?  '' : 'gray-form'}
-                            field={'phasingQuorumAPL'}
-                            fieldType={'counter-number'}
-                            code={'APL'}
-                            type={'tel'}
+                            name='phasingQuorumAPL'
+                            code='APL'
+                            type='tel'
                         />
 
                         {FinishHeightInput()}                    
@@ -414,13 +384,12 @@ class AdvancedSettings extends React.Component {
                             this.state.accounts[3].map((el, index) => {
                                 return (
                                     <AccountRSFormInput 
-                                        setValue={setValue}
                                         defaultValue={this.state.accounts[2][index]}
                                         exportAccountList={this.setListValue(3, index)}
                                         handleRemoveItem={this.removeListValue(3, setValue)}
                                         index={index}
-                                        label={'Accounts (whitelist)'}
-                                        field={'phasingWhitelisted'}
+                                        label='Accounts (whitelist)'
+                                        name='phasingWhitelisted'
                                         noContactList
                                     />
                                 );
@@ -428,29 +397,26 @@ class AdvancedSettings extends React.Component {
                         }
 
                         <CustomInputForm 
-                            label={'Add account'}
-                            type={'button'}
+                            label='Add account'
+                            type='button'
                             hendler={() => this.addAccount(3)}
                         />
 
                         <CustomFormSelect
-                            field={'phasingMinBalanceModel'}
+                            name='phasingMinBalanceModel'
                             defaultValue={phasingMinBalanceModel[0]}
-                            setValue={setValue}
                             options={phasingMinBalanceModel}
-                            label={'Min balance type'}
+                            label='Min balance type'
                         />
                         
                         {
                             values.phasingMinBalanceModel === '1' &&
                             <CustomInputForm 
-                                label={'Minimum Balance'}
-                                setValue={setValue}
-                                placeholder={'Amount'}
-                                field={'phasingMinBalanceAPL'}
-                                fieldType={'counter-number'}
-                                code={'APL'}
-                                type={'tel'}
+                                label='Minimum Balance'
+                                placeholder='Amount'
+                                name='phasingMinBalanceAPL'
+                                code='APL'
+                                type='tel'
                             />
                         }
                         
@@ -465,35 +431,29 @@ class AdvancedSettings extends React.Component {
                     
                     >
                         <CustomInputForm 
-                            label={'Asset quantity'}
-                            setValue={setValue}
-                            placeholder={'Asset quantity'}
-                            field={'phasingQuorum'}
+                            label='Asset quantity'
+                            placeholder='Asset quantity'
+                            name='phasingQuorum'
                             className={this.props.white ?  '' : 'gray-form'}
-                            fieldType={'counter-number'}
                             defaultValue={this.state.block ? this.state.block.height : ''}
-                            type={'tel'}
+                            type='tel'
                         />
 
-                        {FinishHeightInput()}                    
+                        {FinishHeightInput()}
 
-                        <AssetInput 
-                            field={'phasingHolding'}
-                            setValue={setValue}
-                        />
+                        <AssetInput name='phasingHolding' />
 
                         {
                             this.state.accounts[4] &&
                             this.state.accounts[4].map((el, index) => {
                                 return (
                                     <AccountRSFormInput 
-                                        setValue={setValue}
                                         defaultValue={this.state.accounts[2][index]}
                                         exportAccountList={this.setListValue(4, index)}
                                         handleRemoveItem={this.removeListValue(4, setValue)}
                                         index={index}
-                                        label={'Accounts (whitelist)'}
-                                        field={'phasingWhitelisted'}
+                                        label='Accounts (whitelist)'
+                                        field='phasingWhitelisted'
                                         noContactList
                                     />
                                 );
@@ -502,29 +462,27 @@ class AdvancedSettings extends React.Component {
 
                         {/* Button */}
                         <CustomInputForm 
-                            label={'Add account'}
-                            type={'button'}
+                            label='Add account'
+                            type='button'
                             hendler={() => this.addAccount(4)}
                         />
 
                         <CustomFormSelect
-                            field={'phasingMinBalanceModel'}
+                            name='phasingMinBalanceModel'
                             defaultValue={phasingMinBalanceModel[0]}
-                            setValue={setValue}
                             options={phasingMinBalanceModel}
-                            label={'Min balance type'}
+                            label='Min balance type'
                         />
 
                         {
                             values.phasingMinBalanceModel === '1' &&
                             <CustomInputForm 
-                                label={'Minimum Balance'}
-                                setValue={setValue}
-                                placeholder={'Amount'}
-                                field={'phasingMinBalanceAPL'}
-                                fieldType={'counter-number'}
-                                code={'APL'}
-                                type={'tel'}
+                                label='Minimum Balance'
+                                placeholder='Amount'
+                                name='phasingMinBalanceAPL'
+                                fieldType='counter-number'
+                                code='APL'
+                                type='tel'
                             />
                         }
 
@@ -539,35 +497,30 @@ class AdvancedSettings extends React.Component {
                         onFocus={() => this.onFocus(3)}                        
                     >
                         <CustomInputForm 
-                            label={'Currency units'}
-                            setValue={setValue}
-                            placeholder={'Currency units'}
-                            field={'phasingQuorumATUf'}
+                            label='Currency units'
+                            placeholder='Currency units'
+                            name='phasingQuorumATUf'
                             className={this.props.white ?  '' : 'gray-form'}
-                            fieldType={'counter-number'}
-                            code={'Units'}
-                            type={'tel'}
+                            // fieldType={'counter-number'}
+                            code='Units'
+                            type='tel'
                         />
 
-                        {FinishHeightInput()}                    
+                        {FinishHeightInput()}
 
-                        <CurrencyInput 
-                            setValue={setValue}
-                            field={'phasingHoldingCurrencyCode'}
-                        />
+                        <CurrencyInput name={'phasingHoldingCurrencyCode'} />
 
                         {
                             this.state.accounts[5] &&
                             this.state.accounts[5].map((el, index) => {
                                 return (
                                     <AccountRSFormInput 
-                                        setValue={setValue}
                                         defaultValue={this.state.accounts[2][index]}
                                         exportAccountList={this.setListValue(5, index)}
                                         handleRemoveItem={this.removeListValue(5, setValue)}
                                         index={index}
-                                        label={'Accounts (whitelist)'}
-                                        field={'phasingWhitelisted'}
+                                        label='Accounts (whitelist)'
+                                        field='phasingWhitelisted'
                                         noContactList
                                     />
                                 );
@@ -576,29 +529,27 @@ class AdvancedSettings extends React.Component {
 
                         {/* Button */}
                         <CustomInputForm 
-                            label={'Add account'}
-                            type={'button'}
+                            label='Add account'
+                            type='button'
                             hendler={() => this.addAccount(5)}
                         />
 
                         <CustomFormSelect
                             defaultValue={phasingMinCurrencyModel[0]}
-                            setValue={setValue}
                             options={phasingMinCurrencyModel}
-                            label={'Min balance type'}
-                            field={'phasingMinBalanceModel'}
+                            label='Min balance type'
+                            name='phasingMinBalanceModel'
                         />
 
                         {
                             values.phasingMinBalanceModel === '1' &&
                             <CustomInputForm 
-                                label={'Minimum Balance'}
-                                setValue={setValue}
-                                placeholder={'Amount'}
-                                field={'phasingMinBalanceAPL'}
-                                fieldType={'counter-number'}
-                                code={'APL'}
-                                type={'tel'}
+                                label='Minimum Balance'
+                                placeholder='Amount'
+                                name='phasingMinBalanceAPL'
+                                // fieldType='counter-number'
+                                code='APL'
+                                type='tel'
                             />
                         }
 
@@ -611,12 +562,11 @@ class AdvancedSettings extends React.Component {
                     <TabContainer active={this.state.activeTab === 6}>
                         {FinishHeightInput()}                    
                         <CustomInputForm 
-                            label={'Approved by transaction hash'}
-                            setValue={setValue}
+                            label='Approved by transaction hash'
                             className={this.props.white ?  '' : 'gray-form'}
-                            placeholder={'Full hash of transaction'}
-                            field={'phasingLinkedFullHash'}
-                            type={'text'}
+                            placeholder='Full hash of transaction'
+                            name='phasingLinkedFullHash'
+                            type='text'
                         />
 
                         {ReferencedTransactoinHash()}
@@ -629,18 +579,16 @@ class AdvancedSettings extends React.Component {
                         {FinishHeightInput()} 
                         <CustomInputForm 
                             className={this.props.white ?  '' : 'gray-form'}
-                            label={'Approved by hash secret'}
-                            setValue={setValue}
-                            placeholder={'Hash of secret'}
-                            field={'phasingHashedSecret'}
-                            type={'text'}
+                            label='Approved by hash secret'
+                            placeholder='Hash of secret'
+                            field='phasingHashedSecret'
+                            type='text'
                         />
                         <CustomFormSelect
                             defaultValue={hashAlgorithm[0]}
-                            setValue={setValue}
                             options={hashAlgorithm}
-                            label={'Hash algorithm'}
-                            field={'phasingHashedSecretAlgorithm'}
+                            label='Hash algorithm'
+                            name='phasingHashedSecretAlgorithm'
                         />
                         {ReferencedTransactoinHash()}
 

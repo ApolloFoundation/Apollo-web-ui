@@ -6,11 +6,11 @@ import { CopyToClipboard } from 'react-copy-to-clipboard';
 import QRCode from 'qrcode.react';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
 import { ReactComponent as QrIcon } from '../../../../assets/qr-icon.svg';
-import AccountRSForm from '../../../components/form-components/account-rs1';
+import AccountRSForm from '../../../components/form-components/AccountRS';
 import ContentLoader from '../../../components/content-loader';
-import CustomInput from '../../../components/custom-input';
+import CustomInput from '../../../components/custom-input/CustomInputWithFormik';
 import Button from '../../../components/button';
-import FeeInputForm from '../../../components/form-components/fee-input1';
+import FeeInputForm from '../../../components/form-components/FeeInput/fee-input1';
 
 export default function SendApollo() {
   const dispatch = useDispatch();

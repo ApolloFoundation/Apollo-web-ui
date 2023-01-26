@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../../../helpers/forms/forms";
 import ModalBody from "../../../../components/modals/modal-body";
-import CustomTextArea from "../../../../components/form-components/text-area";
+import CustomTextArea from "../../../../components/form-components/TextArea/TextAreaWithFormik";
 
 export const ParseTransactionForm = ({ closeModal }) => {
   const dispatch = useDispatch();
@@ -34,12 +34,12 @@ export const ParseTransactionForm = ({ closeModal }) => {
     >
         <CustomTextArea
             label='Transaction Bytes'
-            field='parseBytes'
+            name='parseBytes'
             placeholder='Signed Transaction Bytes'
         />
         <CustomTextArea
             label='Transaction JSON'
-            field='parseJson'
+            name='parseJson'
             placeholder='Transaction JSON'
         />
     </ModalBody>

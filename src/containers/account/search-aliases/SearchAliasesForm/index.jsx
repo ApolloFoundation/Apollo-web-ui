@@ -1,6 +1,6 @@
 import React from 'react';
 import { Formik, Form } from "formik";
-import CustomInput from "../../../components/custom-input/index";
+import CustomInput from "../../../components/custom-input/CustomInputWithFormik";
 
 export const SearchAliasForm = ({ onSubmit }) => (
   <Formik
@@ -11,9 +11,9 @@ export const SearchAliasForm = ({ onSubmit }) => (
         <div className="iconned-input-field form-group-app">
             <CustomInput
                 placeholder='Alias'
-                field='alias'
                 type="text"
                 name="alias"
+                classNameWrapper="mb-0"
             />
             <button
                 type='submit'

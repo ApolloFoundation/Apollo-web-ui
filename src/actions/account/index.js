@@ -8,7 +8,7 @@ import queryString from 'query-string';
 import QRCode from 'qrcode';
 import jsPDF from 'jspdf';
 import { NotificationManager } from 'react-notifications';
-import { login, setShareMessage, setTicker } from '../../modules/account';
+import { login, setTicker } from '../../modules/account';
 import { setBodyModalParamsAction } from '../../modules/modals';
 import { getTransactionsAction } from '../transactions';
 import { getAccountLedgerAction } from '../ledger';
@@ -145,14 +145,6 @@ export function getAccountPropertiesAction(reqParams) {
     .catch(err => {
       console.log(err);
     });
-}
-
-export function loginWithShareMessage(account, transaction) {
-  return dispatch => {
-    dispatch(setShareMessage({ isShareMessage: true, shareMessageTransaction: transaction }));
-    makeLoginReq(dispatch, { account });
-    dispatch(setBodyModalParamsAction('INFO_TRANSACTION', transaction));
-  };
 }
 
 export const getPhasingOnlyControl = reqParams => axios.get(config.api.serverUrl, {

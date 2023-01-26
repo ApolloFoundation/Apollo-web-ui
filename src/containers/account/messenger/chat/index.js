@@ -8,23 +8,6 @@ import {withRouter} from 'react-router-dom';
 import ChatForm from './chat-form';
 
 class Chat extends React.Component {
-    state = {
-        textareaCount: 0,
-        form: null
-    };
-
-    componentDidUpdate(prevProps) {
-        if (this.props.match.params.chat !== prevProps.match.params.chat && this.state.form) {
-            this.state.form.resetAll();
-        }
-    }
-
-    getFormApi = (form) => {
-        this.setState({
-            form
-        })
-    };
-
     render() {
         const {chatMessages, match: {params: {chat}}} = this.props;
 
@@ -40,9 +23,9 @@ class Chat extends React.Component {
                         <>
                             <div className="chatting-box">
                                 {chatMessages ? (
-                                    chatMessages.map((el, index) => (
+                                    chatMessages.map((el) => (
                                         <ChatItem
-                                            key={index}
+                                            key={el.recipientRS}
                                             {...el}
                                         />
                                     ))
@@ -50,10 +33,7 @@ class Chat extends React.Component {
                                     <ContentLoader/>
                                 )}
                             </div>
-                            <ChatForm
-                                getFormApi={this.getFormApi}
-                                form={this.state.form}
-                            />
+                            <ChatForm />
                         </>
                     ) : (
                         <InfoBox>

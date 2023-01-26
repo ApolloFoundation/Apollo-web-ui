@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Form, FormikProvider, useFormik } from 'formik';
 import { useHistory } from 'react-router-dom';
-import CustomInput from '../../../components/custom-input';
+import CustomInput from '../../../components/custom-input/CustomInputWithFormik';
 import { useSearchParams } from './useSearchParams';
 
 export const TagForm = () => {
@@ -28,7 +28,6 @@ export const TagForm = () => {
           <div className="iconned-input-field form-group-app">
               <CustomInput
                 placeholder='Name Description Tag'
-                field='query'
                 type="text"
                 name="query"
               />

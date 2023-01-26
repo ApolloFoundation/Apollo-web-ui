@@ -30,6 +30,7 @@ const FundingMonitorItem = (props) => (
                    onClick={() => props.setBodyModalParamsAction('REMOVE_MONITOR', {
                        recipient: props.recipient,
                        property: props.property,
+                       recipientRS: props.recipientRS,
                    })}
                 >
                     Remove
