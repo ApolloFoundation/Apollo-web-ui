@@ -11,6 +11,7 @@ import ModalBody from '../../components/modals/modal-body';
 import TextualInputComponent from '../../components/form-components/TextualInput';
 import NumericInputComponent from '../../components/form-components/NumericInput';
 import { getModalDataSelector } from '../../../selectors';
+import { numberToLocaleString } from 'helpers/format';
 
 const DeleteShares = ({ closeModal, nameModal, processForm }) => {
     const modalData = useSelector(getModalDataSelector);
@@ -43,8 +44,7 @@ const DeleteShares = ({ closeModal, nameModal, processForm }) => {
         >
             <TextualInputComponent
                 label='Asset'
-                text={`${modalData?.assetName} - ${(modalData?.quantityATU)
-                    .toLocaleString('en', {
+                text={`${modalData?.assetName} - ${numberToLocaleString(modalData?.quantityATU, {
                         minimumFractionDigits: decimals,
                         maximumFractionDigits: decimals
                     })

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { formatTimestamp } from '../../../../helpers/util/time';
 import TextualInput from '../../../components/form-components/TextualInput';
 import NumericInput from '../../../components/form-components/NumericInput';
+import { numberToLocaleString } from 'helpers/format';
 
 const Form = ({
   goods, formatTimestamp, decimals, ticker,
@@ -24,7 +25,7 @@ const Form = ({
         />
         <TextualInput
           label="Current price:"
-          text={`${(goods.priceATM / decimals).toLocaleString('en')} ${ticker}`}
+          text={`${numberToLocaleString(goods.priceATM / decimals)} ${ticker}`}
         />
         <NumericInput
           label="Quantity"
