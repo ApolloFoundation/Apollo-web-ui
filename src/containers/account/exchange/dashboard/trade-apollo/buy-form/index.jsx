@@ -29,7 +29,6 @@ export default function BuyFormWrapper(props) {
   const setPending = useCallback((value = true) => { setIsPending(value); }, []);
 
   const handleFormSubmit = useCallback( async (newValues) => {
-    console.log("🚀 ~ file: index.jsx:32 ~ handleFormSubmit ~ newValues", newValues)
     if (!isPending) {
       const pairRateInfo = multiply(newValues.pairRate, ONE_GWEI);
       const offerAmountInfo = multiply(newValues.offerAmount, ONE_GWEI);

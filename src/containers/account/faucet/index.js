@@ -12,8 +12,8 @@ import { getFaucetAccountInfoAction } from '../../../actions/faucet';
 import config from "../../../config";
 import { getDecimalsSelector } from '../../../selectors';
 import { FaucetForm } from './Form';
-import './style.scss'
 import { numberToLocaleString } from 'helpers/format';
+import './style.scss'
 
 const Faucet = () => {
     const dispatch = useDispatch();
@@ -47,7 +47,7 @@ const Faucet = () => {
                                         <p className={'sub-title'}>
                                             {account.accountRS}<br/>
                                             Balance: {account.unconfirmedBalanceATM ? (
-                                                numberToLocaleString(Math.round(account.unconfirmedBalanceATM / this.props.decimals))
+                                                numberToLocaleString(Math.round(account.unconfirmedBalanceATM / decimals))
                                             ) : (
                                                 '0'
                                             )} APL

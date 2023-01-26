@@ -10,8 +10,8 @@ export const AssetInput = ({ name }) => {
     const [asset, setAsset] = useState();
 
     const getAsset = useCallback(async () => {
-        const asset = await dispatch(getAssetAction(values[name]));
-        setAsset(asset);
+        const res = await dispatch(getAssetAction(values[name]));
+        setAsset(res);
     }, [dispatch, name, values[name]])
 
     useEffect(() => {
