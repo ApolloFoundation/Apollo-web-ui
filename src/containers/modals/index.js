@@ -27,7 +27,7 @@ import AccountDetails from './account/account-details/';
 import LeaseBalance from './account/lease-balance/';
 import TokenGenerationValidation from './account/token-generation-validation/';
 import HashCalculation from './account/hash-calculation';
-import TransactionOperations from './account/transactions-operations';
+import TransactionOperations from './account/transaction-operation';
 import DeviceSettings from './account/device-settings';
 import ApolloAbout from './about';
 import AccountInfo from './account/account-info';
@@ -215,7 +215,9 @@ class ModalWindow extends React.Component {
                     {this.props.modalType === 'BUY_ASSET'                   && <BuyAssets                 closeModal={this.closeModal} nameModal={'BUY_ASSET'}/>}
                     {this.props.modalType === 'SELL_ASSET'                  && <SellAssets                closeModal={this.closeModal} nameModal={'SELL_ASSET'}/>}
                     {this.props.modalType === 'VIEW_ASSET_DISTRIBUTION'     && <AssetDistribution         closeModal={this.closeModal} nameModal={'VIEW_ASSET_DISTRIBUTION'}/>}
+                    {/* don't  call anywhere*/}
                     {this.props.modalType === 'VIEW_ASSET_DIVIDEND_HISTORY' && <AssetDividendHistory      closeModal={this.closeModal} nameModal={'VIEW_ASSET_DIVIDEND_HISTORY'}/>}
+                    {/* don't  call anywhere*/}
                     {this.props.modalType === 'PAY_DIVIDENDS'               && <PayDividends              closeModal={this.closeModal} nameModal={'PAY_DIVIDENDS'}/>}
 
 

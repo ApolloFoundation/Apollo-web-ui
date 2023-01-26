@@ -9,22 +9,12 @@ import {connect} from 'react-redux';
 import {setModalData} from '../../../../modules/modals';
 import classNames from 'classnames';
 
-import ModalBody from '../../../components/modals/modal-body';
-import TabulationBody from '../../../components/tabulator/tabuator-body';
-import TabContaier from '../../../components/tabulator/tab-container';
-
 class MandatoryApproval extends React.Component {
-    constructor(props) {
-        super(props);
+    state = {
+        activeTab: 0,
+        advancedState: false
 
-        this.state = {
-            activeTab: 0,
-            advancedState: false
-
-        };
-
-        this.handleTab = this.handleTab.bind(this);
-    }
+    };
 
     handleAdvancedState = () => {
         if (this.state.advancedState) {
@@ -40,7 +30,7 @@ class MandatoryApproval extends React.Component {
         }
     }
 
-    handleTab(e, index) {
+    handleTab = (e, index) => {
         e.preventDefault();
 
         this.setState({
@@ -51,7 +41,6 @@ class MandatoryApproval extends React.Component {
 
     render() {
         return (
-            
             <div className="modal-box">
                     <form className="modal-form">
                         <div className="form-group-app">

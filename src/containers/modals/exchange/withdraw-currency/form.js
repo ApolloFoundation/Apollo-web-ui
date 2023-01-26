@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import NummericInputForm from '../../../components/form-components/numeric-input';
 import InputForm from "../../../components/input-form";
 
-const WithdrawForm = ({values, setValue, modalData, idGroup}) => (
+const WithdrawForm = ({ setValue, modalData, idGroup }) => (
     <>
         <div className="form-group row form-group-white mb-15">
             <label className="col-sm-3 col-form-label">

@@ -1,14 +1,13 @@
 import React from 'react';
-
+import {connect} from 'react-redux';
 import {Text} from 'react-form';
 import AccountRsInput from '../../../components/form-components/account-rs';
 import TextualInputComponent from '../../../components/form-components/textual-input';
 import NumericInputComponent from '../../../components/form-components/numeric-input';
 import CustomTextArea from '../../../components/form-components/text-area';
 
-import {connect} from 'react-redux';
 
-const TransferAsset = ({setValue, values, modalData}) => (
+const TransferAsset = ({setValue, modalData}) => (
     <>
         <Text defaultValue={modalData.assetName} type="hidden" field={'name'}/>
         <Text defaultValue={modalData.assetID} type="hidden" field={'asset'}/>

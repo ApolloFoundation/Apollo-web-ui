@@ -9,21 +9,16 @@ import {connect} from 'react-redux';
 import {setModalData, setModalType, setBodyModalParamsAction} from '../../../modules/modals';
 import {setAccountPassphrase} from '../../../modules/account';
 import crypto from  '../../../helpers/crypto/crypto';
-
 import ModalBody from '../../components/modals/modal-body';
 import TextualInputComponent from '../../components/form-components/textual-input';
 import { writeToLocalStorage } from '../../../actions/localStorage';
 
 class CheckForgingStatus extends React.Component {
-    constructor(props) {
-        super(props);
+    state = {
+        passphraseStatus: false
+    };
 
-        this.state = {
-            passphraseStatus: false
-        };
-    }
-
-    async validatePassphrase(passphrase) {
+    validatePassphrase = async (passphrase) => {
         return await this.props.validatePassphrase(passphrase);
     }
 

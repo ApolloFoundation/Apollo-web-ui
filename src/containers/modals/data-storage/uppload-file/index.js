@@ -8,10 +8,6 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {getDataTagsAction} from "../../../../actions/datastorage";
 import {setBodyModalParamsAction, setModalData, saveSendModalState, openPrevModal} from '../../../../modules/modals';
-import InputForm from '../../../components/input-form';
-import InfoBox from '../../../components/info-box';
-import {Form, Text, TextArea} from 'react-form';
-
 import submitForm from '../../../../helpers/forms/forms';
 import {NotificationManager} from "react-notifications";
 

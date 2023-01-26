@@ -7,9 +7,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {setBodyModalParamsAction, setModalData} from '../../../modules/modals';
-import classNames from 'classnames';
 
-import {Form, Text, TextArea, Checkbox} from 'react-form';
+import {Form, Checkbox} from 'react-form';
 import InputForm from '../../components/input-form';
 import crypto from "../../../helpers/crypto/crypto";
 import submitForm from "../../../helpers/forms/forms";
@@ -17,23 +16,16 @@ import {getSavedSettingsAction, saveSettingsAction} from "../../../modules/setti
 import {NotificationManager} from "react-notifications";
 
 class DeviceSettings extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            activeTab: 0,
-            advancedState: false,
+    state = {
+        activeTab: 0,
+        advancedState: false,
 
-            // submitting
-            passphraseStatus: false,
-            recipientStatus: false,
-            amountStatus: false,
-            feeStatus: false
-        };
-
-        this.handleFormSubmit = this.handleFormSubmit.bind(this);
-        this.handleTabChange = this.handleTabChange.bind(this);
-        this.handleAdvancedState = this.handleAdvancedState.bind(this);
-    }
+        // submitting
+        passphraseStatus: false,
+        recipientStatus: false,
+        amountStatus: false,
+        feeStatus: false
+    };
 
     valuesSet = false;
     settingsLoaded = false;
@@ -43,7 +35,7 @@ class DeviceSettings extends React.Component {
         this.settingsLoaded = true;
     }
 
-    handleFormSubmit(values) {
+    handleFormSubmit = (values) => {
         this.setState({
             isPending: true
         })
@@ -52,13 +44,13 @@ class DeviceSettings extends React.Component {
         NotificationManager.success('Settings has been saved!', null, 5000);
     }
 
-    handleTabChange(tab) {
+    handleTabChange = (tab) => {
         this.setState({
             activeTab: tab
         })
     }
 
-    handleAdvancedState() {
+    handleAdvancedState = () => {
         if (this.state.advancedState) {
             this.setState({
                 advancedState: false

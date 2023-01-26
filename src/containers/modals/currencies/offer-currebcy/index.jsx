@@ -9,17 +9,17 @@ import React, {
 import { useDispatch, useSelector } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
 import { getAccountCurrenciesAction } from '../../../../actions/currencies';
-import { handleFormSubmit } from './handle-form-submit';
-
 import ModalBody from '../../../components/modals/modal-body1';
 import NumericInput from '../../../components/form-components/numeric-input1';
 import TextualInputComponent from '../../../components/form-components/textual-input1';
 import BlockHeightInput from '../../../components/form-components/block-height-input1';
+import { getModalDataSelector } from '../../../../selectors';
+import { handleFormSubmit } from './handle-form-submit';
 
 export default function OfferCurrency(props) {
   const dispatch = useDispatch();
 
-  const { modalData } = useSelector(state => state.modals);
+  const modalData = useSelector(getModalDataSelector);
   const { account, ticker } = useSelector(state => state.account);
 
   const { closeModal } = props;

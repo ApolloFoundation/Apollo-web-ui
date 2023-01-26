@@ -1,8 +1,8 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { formatTimestamp } from '../../../../helpers/util/time';
-import { setBodyModalParamsAction } from '../../../../modules/modals';
+import { formatTimestamp } from '../../../../../../helpers/util/time';
+import { setBodyModalParamsAction } from '../../../../../../modules/modals';
 
 const Trade = ({
   quantityATU, tradeType, timestamp, asset, decimals, priceATM, name,

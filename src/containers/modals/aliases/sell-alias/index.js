@@ -68,8 +68,6 @@ class SellAlias extends React.Component {
             aliasName: this.state.alias.aliasName,
         };
 
-        console.log(this.state.activeForm)
-
         this.props.processForm(values, 'sellAlias', 'Alias has been listed!', () => {
             this.props.setBodyModalParamsAction(null, {});
             NotificationManager.success('Alias has been listed!', null, 5000);

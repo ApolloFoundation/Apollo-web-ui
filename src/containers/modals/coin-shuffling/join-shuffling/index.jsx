@@ -16,7 +16,6 @@ import {
 import {getBlockAction} from "../../../../actions/blocks";
 import {NotificationManager} from "react-notifications";
 import {getShufflingAction} from "../../../../actions/shuffling";
-import store from '../../../../store'
 import crypto from "../../../../helpers/crypto/crypto";
 import {generateAccountAction} from "../../../../actions/account";
 import {processElGamalEncryption} from "../../../../actions/crypto";

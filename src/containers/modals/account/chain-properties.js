@@ -8,7 +8,6 @@ const mapStateToProps = state => ({
 
 const ChainProps = (props) => (
     <div className="modal-box wide">
-
             <div className="modal-form">
                 <div className="form-group-app">
                     <button type="button" onClick={props.closeModal} className="exit"><i className="zmdi zmdi-close" /></button>
@@ -67,8 +66,6 @@ const ChainProps = (props) => (
                     </div>
                 </div>
             </div>
-
-
     </div>
 )
 

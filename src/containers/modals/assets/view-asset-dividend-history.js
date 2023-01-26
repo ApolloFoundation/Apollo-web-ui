@@ -10,6 +10,7 @@ import {openPrevModal, setBodyModalParamsAction} from '../../../modules/modals';
 import {getDividendsHistory} from "../../../actions/assets";
 import {formatTimestamp} from "../../../helpers/util/time";
 
+// This modal don't call at any project place
 class AssetDividendHistory extends React.Component {
     state = {
         dividends: []
@@ -72,11 +73,11 @@ class AssetDividendHistory extends React.Component {
                                                     <tr>
                                                         <td
                                                             className={'blue-link-text'}>
-                                                            <a
+                                                            <span
                                                                 className={'blue-link-text'}
                                                                 onClick={() => this.props.setBodyModalParamsAction('INFO_TRANSACTION', el.assetDividend)}>
                                                                 {this.props.formatTimestamp(el.timestamp)}
-                                                            </a>
+                                                            </span>
                                                         </td>
 
                                                         <td className="align-right">{el.dividendHeight}</td>

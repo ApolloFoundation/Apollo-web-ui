@@ -7,11 +7,12 @@ import TextualInputComponent from '../../../../components/form-components/textua
 import CheckboxFormInput from '../../../../components/check-button-input';
 import CustomTextArea from '../../../../components/form-components/text-area1';
 import BlockHeightInput from '../../../../components/form-components/block-height-input1';
+import { getAccountInfoSelector } from '../../../../../selectors';
 
 const IssueCurrencyForm = () => {
   const { values } = useFormikContext();
 
-  const { ticker } = useSelector(state => state.account);
+  const { ticker } = useSelector(getAccountInfoSelector);
 
   const checkboxes = [
     {

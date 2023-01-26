@@ -7,24 +7,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {setBodyModalParamsAction, setModalData} from '../../../../modules/modals';
-import {Form, Text} from 'react-form';
-import AdvancedSettings from '../../../components/advanced-transaction-settings';
-
-import AccountRS from '../../../components/account-rs';
 import submitForm from "../../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
-import ModalFooter from '../../../components/modal-footer'
-import FeeCalc from '../../../components/form-components/fee-calc';
-
 import ModalBody from '../../../components/modals/modal-body';
-import AssetInput from '../../../components/form-components/asset-input';
-import AccountRsInput from '../../../components/form-components/account-rs';
-import TextualInputComponent from '../../../components/form-components/textual-input';
-import NummericInputForm from '../../../components/form-components/numeric-input'
-import CustomTextArea from '../../../components/form-components/text-area';
-
 import TransferAssetFrom from './form';
-
 
 class TransferAsset extends React.Component {
     constructor(props) {

@@ -18,6 +18,7 @@ import FeeCalc from '../../components/form-components/fee-calc';
 
 import BackForm from '../modal-form/modal-form-container';
 
+// This modal don't call at any project place
 class PayDividends extends React.Component {
     state = {
         activeTab: 0,
