@@ -5,14 +5,14 @@
 
 
 import React from 'react';
-import SiteHeader from '../../components/site-header';
 import {connect} from 'react-redux';
 import {withRouter} from "react-router-dom";
-import {BlockUpdater} from "../../block-subscriber/index";
-import {getChatsPerPage, getChatHistory, resetChatHistory} from "../../../actions/messager";
-import {setBodyModalParamsAction} from "../../../modules/modals";
-import SidebarContentPage from '../../components/sidebar-content-page';
-import { getAccountSelector, getPassPhraseSelector } from '../../../selectors';
+import {BlockUpdater} from "containers/block-subscriber";
+import SiteHeader from 'containers/components/site-header';
+import {getChatsPerPage, getChatHistory, resetChatHistory} from "actions/messager";
+import {setBodyModalParamsAction} from "modules/modals";
+import SidebarContentPage from 'containers/components/sidebar-content-page';
+import { getAccountSelector, getPassPhraseSelector } from 'selectors';
 import Chat from './chat';
 import SidebarMessages from './sidebar-messenger';
 import './Messenger.scss';

@@ -6,7 +6,7 @@
 import React, { useState, useCallback } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import classNames from 'classnames';
-import { getAccountPropertiesAction } from '../../../actions/account/index';
+import { getAccountPropertiesAction } from '../../../actions/account';
 import { setBodyModalParamsAction } from '../../../modules/modals';
 import AccountProperty from './acocunt-property';
 import SiteHeader from '../../components/site-header';

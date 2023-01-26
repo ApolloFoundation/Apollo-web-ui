@@ -6,11 +6,11 @@
 
 import React, { useCallback } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import SiteHeader from '../../components/site-header';
-import {getSpecificAccountAssetsAction} from "../../../actions/assets";
-import { getAccountSelector } from '../../../selectors';
-import { TableLoader } from '../../components/TableLoader';
-import MyAssetItem from './my-asset-item/index';
+import SiteHeader from 'containers/components/site-header';
+import { TableLoader } from 'containers/components/TableLoader';
+import {getSpecificAccountAssetsAction} from "actions/assets";
+import { getAccountSelector } from 'selectors';
+import MyAssetItem from './my-asset-item';
 
 const MyAssets = () => {
     const dispatch = useDispatch();

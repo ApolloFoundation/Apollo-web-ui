@@ -4,7 +4,7 @@
  ******************************************************************************/
 
 
-import axios from 'axios/index';
+import axios from 'axios';
 // import fetch from 'fetch';
 import config from '../../config';
 import queryString from 'query-string';

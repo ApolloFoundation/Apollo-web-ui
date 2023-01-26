@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { getExchangeCurrencySelector, getTickerSelector } from '../../../../../selectors';
-import config from '../../../../../config';
+import { getExchangeCurrencySelector, getTickerSelector } from 'selectors';
+import config from 'config';
 import './index.scss';
 
 function getLanguageFromURL() {

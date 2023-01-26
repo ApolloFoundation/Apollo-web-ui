@@ -5,11 +5,11 @@
 
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { getDeleteHistory } from "../../../actions/delete-history";
-import { DeleteItem } from "./deletes/index";
-import SiteHeader from '../../components/site-header'
-import { TableLoader } from '../../components/TableLoader';
-import { getAccountRsSelector } from '../../../selectors';
+import { getDeleteHistory } from "actions/delete-history";
+import SiteHeader from 'containers/components/site-header'
+import { TableLoader } from 'containers/components/TableLoader';
+import { getAccountRsSelector } from 'selectors';
+import { DeleteItem } from "./deletes";
 
 const headersList = [
   {

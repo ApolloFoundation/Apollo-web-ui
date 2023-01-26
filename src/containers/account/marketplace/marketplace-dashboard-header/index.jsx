@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import classNames from 'classnames';
 import { useDispatch } from 'react-redux';
-import { getMarketplaceGeneralInfo } from '../../../../modules/marketplace';
+import { getMarketplaceGeneralInfo } from 'modules/marketplace';
 import MarketplaceGeneral from '../marketplace-general';
-import MarketplaceTags from '../marketplace-tags/index';
+import MarketplaceTags from '../marketplace-tags';
 
 const MarketplaceDashboardHeader = () => {
   const dispatch = useDispatch();  

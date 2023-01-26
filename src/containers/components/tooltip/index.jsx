@@ -1,6 +1,6 @@
 import React, { useCallback, useRef } from 'react';
 import classNames from 'classnames';
-import Icon from '../../../assets/objection-mark.svg';
+import Icon from 'assets/objection-mark.svg';
 import styles from './index.module.scss';
 
 export const Tooltip = ({ icon = Icon, children, className }) => {

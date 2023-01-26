@@ -5,15 +5,15 @@
 
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
-import { getBlockAction } from '../../../actions/blocks';
+import { getBlockAction } from 'actions/blocks';
+import CustomTable from 'containers/components/tables/table';
+import TabulationBody from 'containers/components/tabulator/tabuator-body';
+import TabContaier from 'containers/components/tabulator/tab-container';
+import ModalBody from 'containers/components/modals/modal-body';
+import ContentLoader from 'containers/components/content-loader';
+import { getDecimalsSelector, getModalDataSelector } from 'selectors';
+import { useFormatTimestamp } from 'hooks/useFormatTimestamp';
 import Transaction from '../../account/transactions/transaction';
-import CustomTable from '../../components/tables/table';
-import TabulationBody from '../../components/tabulator/tabuator-body';
-import TabContaier from '../../components/tabulator/tab-container';
-import ModalBody from '../../components/modals/modal-body';
-import ContentLoader from '../../components/content-loader';
-import { getDecimalsSelector, getModalDataSelector } from '../../../selectors';
-import { useFormatTimestamp } from '../../../hooks/useFormatTimestamp';
 import { BlockDetails } from './BlockDetails';
 import './index.scss';
 

@@ -6,12 +6,12 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import SiteHeader from '../../components/site-header'
-import InfoBox from "../../components/info-box"
-import { getDGSGoodsAction } from "../../../actions/marketplace";
-import { BlockUpdater } from "../../block-subscriber/index";
-import MarketplaceColumnTable from '../../components/marketplace-column-table/';
-import { getAccountSelector, getModalDataSelector } from '../../../selectors';
+import SiteHeader from 'containers/components/site-header'
+import InfoBox from "containers/components/info-box"
+import { getDGSGoodsAction } from "actions/marketplace";
+import { BlockUpdater } from "containers/block-subscriber";
+import MarketplaceColumnTable from 'containers/components/marketplace-column-table/';
+import { getAccountSelector, getModalDataSelector } from 'selectors';
 
 class MyProductsForSale extends React.Component {
     state = {

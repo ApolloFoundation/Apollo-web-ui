@@ -1,6 +1,6 @@
 import { useField } from 'formik';
 import React from 'react';
-import TextAreaBase from './index';
+import TextAreaBase from './';
 
 const TextAreaWithFormik = ({name, ...props}) => {
   const [field] = useField(name);

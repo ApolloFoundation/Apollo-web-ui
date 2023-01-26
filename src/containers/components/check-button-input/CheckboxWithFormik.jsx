@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import { useField } from 'formik';
-import CheckboxFormInput from './index';
+import CheckboxFormInput from './';
 
 export const CheckboxWithFormik = ({ name, onChange, ...props}) => {
   const [field, ,helpers] = useField({ name, type: 'checkbox' });

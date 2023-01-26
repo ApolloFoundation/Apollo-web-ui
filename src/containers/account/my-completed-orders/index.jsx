@@ -6,12 +6,12 @@
 
 import React, { useCallback, useEffect, useState } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import SiteHeader from '../../components/site-header'
-import {getDGSGoodsAction} from "../../../actions/marketplace";
-import {BlockUpdater} from "../../block-subscriber/index";
-import InfoBox from "../../components/info-box"
-import MarketplaceColumnTable from "../../components/marketplace-column-table";
-import { getAccountSelector } from '../../../selectors';
+import SiteHeader from 'containers/components/site-header'
+import {getDGSGoodsAction} from "actions/marketplace";
+import {BlockUpdater} from "containers/block-subscriber";
+import InfoBox from "containers/components/info-box"
+import MarketplaceColumnTable from "containers/components/marketplace-column-table";
+import { getAccountSelector } from 'selectors';
 
 const itemsPerPage = 15;
 

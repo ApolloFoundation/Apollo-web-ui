@@ -8,10 +8,10 @@ import React, { useCallback, useState } from 'react';
 import {useDispatch} from 'react-redux';
 import {Link} from 'react-router-dom';
 import classNames from "classnames";
-import SiteHeader from '../../components/site-header';
-import {getAccountPropertiesAction} from '../../../actions/account/index';
-import {setBodyModalParamsAction} from "../../../modules/modals";
-import { TableLoader } from '../../components/TableLoader';
+import SiteHeader from 'containers/components/site-header';
+import {getAccountPropertiesAction} from 'actions/account';
+import {setBodyModalParamsAction} from "modules/modals";
+import { TableLoader } from 'containers/components/TableLoader';
 import FundingMonitorItem from "./funding-monitor-status-item";
 
 const FundingMonitorsStatus = ({ match }) => {

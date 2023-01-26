@@ -1,10 +1,10 @@
 import React from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
-import TextualInputComponent from '../../../components/form-components/TextualInput';
-import MultiSelect from '../../../components/multi-select/index1';
-import CustomTextArea from '../../../components/form-components/TextArea/TextAreaWithFormik';
-import FileInput from '../../../components/form-components/FIleInput';
-import { getConstantsSelector } from '../../../../selectors';
+import TextualInputComponent from 'containers/components/form-components/TextualInput';
+import MultiSelect from 'containers/components/multi-select';
+import CustomTextArea from 'containers/components/form-components/TextArea/TextAreaWithFormik';
+import FileInput from 'containers/components/form-components/FIleInput';
+import { getConstantsSelector } from 'selectors';
 
 
 const UpploadFileForm = ({  dataTags = [], onChange }) => {

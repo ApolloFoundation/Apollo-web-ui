@@ -11,7 +11,7 @@ import {getAliasesAction} from "../../../actions/aliases";
 import {setBodyModalParamsAction} from "../../../modules/modals";
 import SiteHeader from '../../components/site-header'
 import { getAccountSelector } from '../../../selectors';
-import Alias from "./alias/index";
+import Alias from "./alias";
 
 const headersList = [
   {

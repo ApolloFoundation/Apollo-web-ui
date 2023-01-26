@@ -6,11 +6,11 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { setBodyModalParamsAction } from '../../../../../modules/modals';
-import { getTransactionAction } from '../../../../../actions/transactions';
-import { Tooltip } from '../../../../components/tooltip';
-import RedIcon from '../../../../../assets/red-triangle.svg'
-import { useFormatTimestamp } from '../../../../../hooks/useFormatTimestamp';
+import { setBodyModalParamsAction } from 'modules/modals';
+import { getTransactionAction } from 'actions/transactions';
+import { Tooltip } from 'containers/components/tooltip';
+import RedIcon from 'assets/red-triangle.svg'
+import { useFormatTimestamp } from 'hooks/useFormatTimestamp';
 import styles from './index.module.scss';
 
 export default function TransferHistoryItem(props) {

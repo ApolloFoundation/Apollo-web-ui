@@ -5,14 +5,14 @@
 
 
 import React, { useCallback, useEffect, useState } from 'react';
-import SiteHeader from "../../components/site-header"
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import {setBodyModalParamsAction} from "../../../modules/modals";
-import {BlockUpdater} from "../../block-subscriber/index";
-import CustomTable from '../../components/tables/table';
-import {getMessagesPerpage} from '../../../actions/messager'
-import { getMessagesSelector, getPassPhraseSelector } from '../../../selectors';
-import MessageItem from './message-item/index'
+import SiteHeader from "containers/components/site-header"
+import {setBodyModalParamsAction} from "modules/modals";
+import {BlockUpdater} from "containers/block-subscriber";
+import CustomTable from 'containers/components/tables/table';
+import {getMessagesPerpage} from 'actions/messager'
+import { getMessagesSelector, getPassPhraseSelector } from 'selectors';
+import MessageItem from './message-item'
 
 const itemsPerPage = 15;
 

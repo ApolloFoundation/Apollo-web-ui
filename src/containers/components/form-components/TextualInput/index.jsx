@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import CustomInput from '../../custom-input/CustomInputWithFormik';
+import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
 import styles from './index.module.scss';
 
 const TextualInputComponent = ({

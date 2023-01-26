@@ -6,13 +6,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import classNames from 'classnames';
-import { setBodyModalParamsAction } from '../../../../modules/modals';
-import { formatTransactionType, getPhasingTransactionVoters } from '../../../../actions/transactions';
-import { getBlockAction } from '../../../../actions/blocks';
-import { Tooltip } from '../../../../containers/components/tooltip';
-import IconRed from '../../../../assets/red-triangle.svg';
-import { useFormatTimestamp } from '../../../../hooks/useFormatTimestamp';
-import { getAccountInfoSelector } from '../../../../selectors';
+import { setBodyModalParamsAction } from 'modules/modals';
+import { formatTransactionType, getPhasingTransactionVoters } from 'actions/transactions';
+import { getBlockAction } from 'actions/blocks';
+import { Tooltip } from 'containers/components/tooltip';
+import IconRed from 'assets/red-triangle.svg';
+import { useFormatTimestamp } from 'hooks/useFormatTimestamp';
+import { getAccountInfoSelector } from 'selectors';
 import styles from './index.module.scss';
 
 const Transaction = (props) => {
