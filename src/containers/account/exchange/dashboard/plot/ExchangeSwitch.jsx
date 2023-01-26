@@ -1,8 +1,8 @@
 import React, { useCallback, useState } from 'react';
 import { NotificationManager } from 'react-notifications';
-import BtcIcon from '../../../../../assets/BTC.png';
-import EthIcon from '../../../../../assets/ETH.png';
-import PaxIcon from '../../../../../assets/PAX.png';
+import BtcIcon from 'assets/BTC.png';
+import EthIcon from 'assets/ETH.png';
+import PaxIcon from 'assets/PAX.png';
 
 const currencyIcons = {
   btc: BtcIcon, eth: EthIcon, pax: PaxIcon,

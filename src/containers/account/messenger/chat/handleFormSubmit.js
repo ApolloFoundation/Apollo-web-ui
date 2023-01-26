@@ -1,11 +1,10 @@
 import {NotificationManager} from 'react-notifications';
-import submitForm from '../../../../helpers/forms/forms';
+import submitForm from 'helpers/forms/forms';
 
 export const handleSendMessageFormSubmit = ({
     recipient, resetForm, messageToEncrypt, message, textareaCount, ...values
 }) => {
     return async (dispatch) => {
-        console.log("🚀 ~ file: handleFormSubmit.js:7 ~ values", values)
         if (!message || message.length === 0 || !(/\S/.test(message))) {
             NotificationManager.error('Please write your message.', 'Error', 5000);
             return;

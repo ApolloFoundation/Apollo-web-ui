@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Form, FormikProvider, useFormik } from 'formik';
 import { useHistory } from 'react-router-dom';
-import { AccountRSWithFormik } from '../../../components/account-rs/AccountRSWithFormik';
+import { AccountRSWithFormik } from 'containers/components/account-rs/AccountRSWithFormik';
 import { useSearchParams } from './useSearchParams';
 
 export const AccountForm = () => {

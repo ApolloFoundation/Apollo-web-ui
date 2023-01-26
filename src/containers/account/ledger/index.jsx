@@ -8,15 +8,15 @@ import React, {
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
-import { getAccountLedgerAction } from '../../../actions/ledger';
-import { setModalCallback } from '../../../modules/modals';
-import SiteHeader from '../../components/site-header';
+import { getAccountLedgerAction } from 'actions/ledger';
+import { setModalCallback } from 'modules/modals';
+import SiteHeader from 'containers/components/site-header';
 import {
   getAccountSelector,
   getBlockchainStatusSelector,
   getPassPhraseSelector
-} from '../../../selectors';
-import { TableLoader } from '../../components/TableLoader';
+} from 'selectors';
+import { TableLoader } from 'containers/components/TableLoader';
 import { PrivateTransactionButton } from './PrivateTransationButton';
 import Entry from './entry';
 

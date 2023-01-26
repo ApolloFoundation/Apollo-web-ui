@@ -7,9 +7,9 @@
 import React from 'react';
 import {shallowEqual, useSelector} from 'react-redux';
 import Task from './task';
-import SiteHeader from '../../components/site-header';
-import CustomTable from '../../components/tables/table';
-import { getBlockchainStatusSelector } from '../../../selectors';
+import SiteHeader from 'containers/components/site-header';
+import CustomTable from 'containers/components/tables/table';
+import { getBlockchainStatusSelector } from 'selectors';
 
 const  BackendStatus = () => {
     const blockchainStatus = useSelector(getBlockchainStatusSelector, shallowEqual);

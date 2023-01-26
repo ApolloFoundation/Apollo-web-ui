@@ -6,15 +6,15 @@
 
 import React, { useCallback, useState } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import { getAccountBlockCountAction, getForgedBlocksAction } from "../../../../actions/blocks";
-import TopPageBlocks from '../../../components/tob-page-blocks';
-import { TableLoader } from '../../../components/TableLoader';
+import { getAccountBlockCountAction, getForgedBlocksAction } from "actions/blocks";
+import TopPageBlocks from 'containers/components/tob-page-blocks';
+import { TableLoader } from 'containers/components/TableLoader';
 import {
   getForgedBalanceSelector,
   getBlockTimeSelector,
   getAccountSelector,
   getDecimalsSelector
-} from '../../../../selectors';
+} from 'selectors';
 import Block from '../block';
 import { headersList } from './headersList';
 

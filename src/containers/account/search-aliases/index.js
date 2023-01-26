@@ -7,9 +7,9 @@
 import React, { useCallback, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {NotificationManager} from 'react-notifications';
-import {searchAliases} from "../../../actions/aliases";
-import SiteHeader from '../../components/site-header'
-import { TableLoader } from '../../components/TableLoader';
+import {searchAliases} from "actions/aliases";
+import SiteHeader from 'containers/components/site-header'
+import { TableLoader } from 'containers/components/TableLoader';
 import { SearchAliasForm } from './SearchAliasesForm';
 import Alias from "./alias";
 

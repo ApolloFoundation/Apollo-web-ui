@@ -7,8 +7,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
-import { setBodyModalParamsAction } from "../../../../modules/modals";
-import { getDecimalsSelector, getTickerSelector } from '../../../../selectors';
+import { setBodyModalParamsAction } from "modules/modals";
+import { getDecimalsSelector, getTickerSelector } from 'selectors';
 
 const ShufflingItem = (props) => {
     const dispatch = useDispatch();

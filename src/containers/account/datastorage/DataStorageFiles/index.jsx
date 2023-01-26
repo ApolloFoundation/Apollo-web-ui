@@ -5,10 +5,10 @@ import {
   getAccountTaggedDataAction,
   getAllTaggedDataAction,
   searchTaggedDataAction
-} from "../../../../actions/datastorage";
-import { TableLoader } from "../../../components/TableLoader";
+} from "actions/datastorage";
+import { TableLoader } from "containers/components/TableLoader";
 import DataStorageItem from '../datastorage-item';
-import cancelAxiosRequest from '../../../../helpers/cancelToken';
+import cancelAxiosRequest from 'helpers/cancelToken';
 
 export const DataStorageFiles = () => {
   const params = useParams();

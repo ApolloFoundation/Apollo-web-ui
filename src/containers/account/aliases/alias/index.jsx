@@ -6,7 +6,7 @@
 
 import React from 'react';
 import {useDispatch} from 'react-redux';
-import {setBodyModalParamsAction} from "../../../../modules/modals";
+import {setBodyModalParamsAction} from "modules/modals";
 
 const Alias = (props) => {
   const dispatch = useDispatch();

@@ -1,13 +1,13 @@
 import React, { useMemo, useCallback } from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import classNamse from 'classnames';
-import { formatTimestamp } from '../../../../../helpers/util/time';
-import { formatTransactionType } from '../../../../../actions/transactions';
-import { setBodyModalParamsAction } from '../../../../../modules/modals';
-import { Tooltip } from '../../../../components/tooltip';
-import { ReactComponent as ArrowIcon } from '../../../../../assets/arrow-right-long.svg';
-import IconRed from '../../../../../assets/red-triangle.svg';
-import { getAccountInfoSelector } from '../../../../../selectors';
+import { formatTimestamp } from 'helpers/util/time';
+import { formatTransactionType } from 'actions/transactions';
+import { setBodyModalParamsAction } from 'modules/modals';
+import { Tooltip } from 'containers/components/tooltip';
+import { ReactComponent as ArrowIcon } from 'assets/arrow-right-long.svg';
+import { getAccountInfoSelector } from 'selectors';
+import IconRed from 'assets/red-triangle.svg';
 
 export default function TransactionItem(props) {
   const dispatch = useDispatch();

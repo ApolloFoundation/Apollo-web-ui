@@ -7,8 +7,8 @@
 import React from 'react';
 import { useDispatch } from 'react-redux'
 import {Link} from 'react-router-dom';
-import {setBodyModalParamsAction} from "../../../../modules/modals";
-import { useFormatTimestamp } from '../../../../hooks/useFormatTimestamp';
+import {setBodyModalParamsAction} from "modules/modals";
+import { useFormatTimestamp } from 'hooks/useFormatTimestamp';
 
 const FinishedpollsItem = props => {
     const dispatch = useDispatch();

@@ -7,9 +7,9 @@ import React from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
-import { setBodyModalParamsAction } from '../../../../modules/modals';
-import { formatTimestamp } from '../../../../helpers/util/time';
-import { getAccountInfoSelector } from '../../../../selectors';
+import { setBodyModalParamsAction } from 'modules/modals';
+import { formatTimestamp } from 'helpers/util/time';
+import { getAccountInfoSelector } from 'selectors';
 
 const PoolItem = props => {
   const dispatch = useDispatch();

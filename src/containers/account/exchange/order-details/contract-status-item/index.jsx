@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
-import { getBlockAction } from '../../../../../actions/blocks';
-import { setBodyModalParamsAction } from '../../../../../modules/modals';
-import { getAccountInfoSelector } from '../../../../../selectors';
+import { getBlockAction } from 'actions/blocks';
+import { setBodyModalParamsAction } from 'modules/modals';
+import { getAccountInfoSelector } from 'selectors';
 import './style.scss';
 
 const infoAboutStep = {

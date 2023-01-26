@@ -5,7 +5,7 @@
 
 
 import React from 'react';
-import SiteHeader from '../../components/site-header'
+import SiteHeader from 'containers/components/site-header'
 import { OrderSell } from './order-sell';
 import { OrderBuy } from './order-buy';
 

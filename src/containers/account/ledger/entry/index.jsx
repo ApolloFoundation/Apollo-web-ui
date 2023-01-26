@@ -6,10 +6,10 @@
 import React, { useCallback } from 'react';
 import i18n from 'i18next';
 import { useDispatch, useSelector } from 'react-redux';
-import { setBodyModalParamsAction } from '../../../../modules/modals';
-import Button from '../../../components/button';
-import { getDecimalsSelector } from '../../../../selectors';
-import { useFormatTimestamp } from '../../../../hooks/useFormatTimestamp';
+import { setBodyModalParamsAction } from 'modules/modals';
+import Button from 'containers/components/button';
+import { getDecimalsSelector } from 'selectors';
+import { useFormatTimestamp } from 'hooks/useFormatTimestamp';
 
 export default function Entry(props) {
   const dispatch = useDispatch();

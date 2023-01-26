@@ -6,8 +6,8 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import { getAccountSelector, getDecimalsSelector } from '../../../../selectors';
-import {setBodyModalParamsAction} from "../../../../modules/modals";
+import { getAccountSelector, getDecimalsSelector } from 'selectors';
+import {setBodyModalParamsAction} from "modules/modals";
 
 const Alias = (props) => (
     <tr>

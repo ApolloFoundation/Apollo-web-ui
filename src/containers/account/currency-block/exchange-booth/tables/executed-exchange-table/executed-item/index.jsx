@@ -6,7 +6,7 @@
 import { useFormatTimestamp } from 'hooks/useFormatTimestamp';
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { setBodyModalParamsAction } from '../../../../../../../modules/modals';
+import { setBodyModalParamsAction } from 'modules/modals';
 
 export default function ExecutedItem({
   transaction, sellerRS, timestamp, buyerRS,

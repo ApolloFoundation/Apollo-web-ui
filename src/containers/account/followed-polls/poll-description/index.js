@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Pie from '../pie-diagram';
-import { setBodyModalParamsAction } from '../../../../modules/modals';
+import { setBodyModalParamsAction } from 'modules/modals';
 import {
   getDecimalsSelector, getUnconfirmedBalanceATMSelector
-} from '../../../../selectors';
+} from 'selectors';
 
 const PollDescription = ({
   colors, poll, pollResults, setBodyModalParamsAction, balanceAPL, decimals,

@@ -5,10 +5,10 @@
 
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import SiteHeader from "../../components/site-header";
-import ShufflingItem from './../active-shufflings/shuffling-item';
-import {getFinishedShfflings} from '../../../actions/shuffling';
-import { TableLoader } from '../../components/TableLoader';
+import SiteHeader from "containers/components/site-header";
+import {getFinishedShfflings} from 'actions/shuffling';
+import { TableLoader } from 'containers/components/TableLoader';
+import ShufflingItem from '../active-shufflings/shuffling-item';
 
 const FinishedShufflings = () => {
     const dispatch = useDispatch();

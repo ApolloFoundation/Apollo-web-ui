@@ -2,11 +2,11 @@ import React, { useCallback, useEffect, useRef, useState, useMemo} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {NotificationManager} from "react-notifications";
 import { useLocation } from 'react-router-dom';
-import {getTransactionsAction } from "../../../../actions/transactions";
-import { getAccountSelector, getPassPhraseSelector } from '../../../../selectors';
-import { TableLoader } from '../../../components/TableLoader';
+import {getTransactionsAction } from "actions/transactions";
+import { getAccountSelector, getPassPhraseSelector } from 'selectors';
+import { TableLoader } from 'containers/components/TableLoader';
+import cancelAxiosRequest from 'helpers/cancelToken';
 import Transaction from '../transaction'
-import cancelAxiosRequest from '../../../../helpers/cancelToken';
 import { getRequestParams } from './requestParams';
 
 // There is table for transactions and data loading logic

@@ -5,12 +5,12 @@
 
 
 import React, { useCallback } from 'react';
-import { TableLoader } from '../../components/TableLoader';
+import { TableLoader } from 'containers/components/TableLoader';
 import {useDispatch, useSelector} from 'react-redux';
-import {getAliasesAction} from "../../../actions/aliases";
-import {setBodyModalParamsAction} from "../../../modules/modals";
-import SiteHeader from '../../components/site-header'
-import { getAccountSelector } from '../../../selectors';
+import {getAliasesAction} from "actions/aliases";
+import {setBodyModalParamsAction} from "modules/modals";
+import SiteHeader from 'containers/components/site-header'
+import { getAccountSelector } from 'selectors';
 import Alias from "./alias";
 
 const headersList = [

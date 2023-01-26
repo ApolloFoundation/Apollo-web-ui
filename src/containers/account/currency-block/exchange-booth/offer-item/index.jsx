@@ -6,7 +6,7 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDecimalsSelector } from 'selectors';
-import { setBodyModalParamsAction } from '../../../../../modules/modals';
+import { setBodyModalParamsAction } from 'modules/modals';
 
 export default function OfferItem({ decimals, accountRS, supply, limit, rateATM }) {
   const dispatch = useDispatch();

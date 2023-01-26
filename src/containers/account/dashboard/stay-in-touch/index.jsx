@@ -1,11 +1,11 @@
 import React from 'react';
-import { ReactComponent as TwitterImg } from '../../../../assets/social-icons/twitter.svg';
-import { ReactComponent as MediumImg } from '../../../../assets/social-icons/medium.svg';
-import { ReactComponent as GithubImg } from '../../../../assets/social-icons/github.svg';
-import { ReactComponent as InstagramImg } from '../../../../assets/social-icons/instagram.svg';
-import { ReactComponent as FacebookImg } from '../../../../assets/social-icons/facebook.svg';
-import { ReactComponent as TelegramImg } from '../../../../assets/social-icons/telegram.svg';
-import { ReactComponent as ArrowRight } from '../../../../assets/arrow-right.svg';
+import { ReactComponent as TwitterImg } from 'assets/social-icons/twitter.svg';
+import { ReactComponent as MediumImg } from 'assets/social-icons/medium.svg';
+import { ReactComponent as GithubImg } from 'assets/social-icons/github.svg';
+import { ReactComponent as InstagramImg } from 'assets/social-icons/instagram.svg';
+import { ReactComponent as FacebookImg } from 'assets/social-icons/facebook.svg';
+import { ReactComponent as TelegramImg } from 'assets/social-icons/telegram.svg';
+import { ReactComponent as ArrowRight } from 'assets/arrow-right.svg';
 
 const StayInTouch = () => (
   <div className="card card-light card-h-255">

@@ -7,8 +7,8 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import classNames from 'classnames';
-import {setBodyModalParamsAction} from "../../../../modules/modals";
-import { getAccountSelector, getChatMessagesSelector } from '../../../../selectors';
+import {setBodyModalParamsAction} from "modules/modals";
+import { getAccountSelector, getChatMessagesSelector } from 'selectors';
 
 const mapStateToProps = state => ({
     account: getAccountSelector(state),

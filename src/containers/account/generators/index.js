@@ -6,12 +6,12 @@
 
 import React, { useCallback, useState } from "react";
 import {useDispatch} from "react-redux";
-import SiteHeader from "../../components/site-header";
-import {getGeneratorsAction} from "../../../actions/generators";
-import Generator from "../../../actions/generators/generator";
-import TopPageBlocks from '../../components/tob-page-blocks';
-import { useFormatTimestamp } from "../../../hooks/useFormatTimestamp";
-import { TableLoader } from "../../components/TableLoader";
+import SiteHeader from "containers/components/site-header";
+import {getGeneratorsAction} from "actions/generators";
+import Generator from "actions/generators/generator";
+import TopPageBlocks from 'containers/components/tob-page-blocks';
+import { useFormatTimestamp } from "hooks/useFormatTimestamp";
+import { TableLoader } from "containers/components/TableLoader";
 
 const Generators = () =>  {
     const dispatch = useDispatch();

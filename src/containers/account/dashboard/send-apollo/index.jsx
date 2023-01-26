@@ -4,14 +4,14 @@ import { Form, Formik } from 'formik';
 import { NotificationManager } from 'react-notifications';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import QRCode from 'qrcode.react';
-import { setBodyModalParamsAction } from '../../../../modules/modals';
-import { ReactComponent as QrIcon } from '../../../../assets/qr-icon.svg';
-import AccountRSForm from '../../../components/form-components/AccountRS';
-import ContentLoader from '../../../components/content-loader';
-import CustomInput from '../../../components/custom-input/CustomInputWithFormik';
-import Button from '../../../components/button';
-import FeeInputForm from '../../../components/form-components/FeeInput/fee-input1';
-import { getDashboardInfoSelector } from '../../../../selectors';
+import { setBodyModalParamsAction } from 'modules/modals';
+import { ReactComponent as QrIcon } from 'assets/qr-icon.svg';
+import AccountRSForm from 'containers/components/form-components/AccountRS';
+import ContentLoader from 'containers/components/content-loader';
+import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
+import Button from 'containers/components/button';
+import FeeInputForm from 'containers/components/form-components/FeeInput/fee-input1';
+import { getDashboardInfoSelector } from 'selectors';
 
 export default function SendApollo() {
   const dispatch = useDispatch();

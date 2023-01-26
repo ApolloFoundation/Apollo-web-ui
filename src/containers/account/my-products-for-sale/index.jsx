@@ -7,11 +7,11 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import MarketplaceTableItem from '../marketplace/marketplace-table-item';
-import SiteHeader from  '../../components/site-header'
-import {setBodyModalParamsAction } from "../../../modules/modals";
-import {getDGSGoodsAction} from "../../../actions/marketplace";
-import { TableLoader } from '../../components/TableLoader';
-import { getAccountSelector } from '../../../selectors';
+import SiteHeader from  'containers/components/site-header'
+import {setBodyModalParamsAction } from "modules/modals";
+import {getDGSGoodsAction} from "actions/marketplace";
+import { TableLoader } from 'containers/components/TableLoader';
+import { getAccountSelector } from 'selectors';
 
 const MyProductsForSale = () => {
     const dispatch = useDispatch();

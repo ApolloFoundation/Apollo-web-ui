@@ -2,9 +2,9 @@ import React, {
   useState, useCallback, useEffect,
 } from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
-import { getDecimalsSelector, getModalsSelector } from '../../../../../selectors';
-import { getTransactionFee } from '../../../../../actions/wallet';
-import { setTypeOfTrade, resetTrade } from '../../../../../modules/modals';
+import { getDecimalsSelector, getModalsSelector } from 'selectors';
+import { getTransactionFee } from 'actions/wallet';
+import { setTypeOfTrade, resetTrade } from 'modules/modals';
 import BuyForm from './buy-form';
 import SellForm from './sell-form';
 

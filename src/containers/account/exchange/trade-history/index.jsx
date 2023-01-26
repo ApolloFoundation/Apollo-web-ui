@@ -2,17 +2,17 @@ import React, {
   useEffect, useCallback, useState,
 } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { ALL_STATUSES } from '../../../../constants/statuses';
+import { ALL_STATUSES } from 'constants/statuses';
+import { setBodyModalParamsAction } from 'modules/modals';
+import { getMyTradeHistory } from 'actions/wallet';
+import { formatDivision, currencyTypes } from 'helpers/format';
+import { BlockUpdater } from 'containers/block-subscriber';
+import CustomTable from 'containers/components/tables/table1';
+import SiteHeader from 'containers/components/site-header';
+import InfoBox from 'containers/components/info-box';
+import { readFromLocalStorage } from 'actions/localStorage';
+import { getAccountInfoSelector, getExchangeInfoSelector } from 'selectors';
 import { ONE_GWEI } from '../../../../constants';
-import { setBodyModalParamsAction } from '../../../../modules/modals';
-import { getMyTradeHistory } from '../../../../actions/wallet';
-import { formatDivision, currencyTypes } from '../../../../helpers/format';
-import { BlockUpdater } from '../../../block-subscriber';
-import CustomTable from '../../../components/tables/table1';
-import SiteHeader from '../../../components/site-header';
-import InfoBox from '../../../components/info-box';
-import { readFromLocalStorage } from '../../../../actions/localStorage';
-import { getAccountInfoSelector, getExchangeInfoSelector } from '../../../../selectors';
 
 export default function TradeHistory() {
   const dispatch = useDispatch();

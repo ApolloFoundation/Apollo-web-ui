@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
-import { setBodyModalParamsAction } from "../../../../modules/modals";
+import { setBodyModalParamsAction } from "modules/modals";
 
 export const AssetDescription = ({ asset }) => {
   const dispatch = useDispatch();

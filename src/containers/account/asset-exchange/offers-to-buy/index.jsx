@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { getBidOrders } from "../../../../actions/marketplace";
-import { TableLoader } from '../../../components/TableLoader';
-import { useResetPaginationForTableLoader } from '../../../../hooks/useResetPaginationForTableLoader';
+import { getBidOrders } from "actions/marketplace";
+import { TableLoader } from 'containers/components/TableLoader';
+import { useResetPaginationForTableLoader } from 'hooks/useResetPaginationForTableLoader';
 import OrderItem from '../order';
 
 const OffersToBuy = ({ asset, itemsPerPage }) => {

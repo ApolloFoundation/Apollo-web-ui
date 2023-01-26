@@ -1,12 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {setBodyModalParamsAction} from "modules/modals";
 
-import {setBodyModalParamsAction} from "../../../../modules/modals";
 
-
-const mapDispatchToProps = dispatch => ({
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
-})
+const mapDispatchToProps = {
+    setBodyModalParamsAction
+}
 
 const FundingMonitorItem = (props) => (
     <tr>

@@ -1,9 +1,9 @@
 import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {getSellOrdersAction} from "../../../../actions/open-orders";
+import {getSellOrdersAction} from "actions/open-orders";
+import { getAccountSelector } from "selectors";
+import { TableLoader } from "containers/components/TableLoader";
 import OrderItem from "../order";
-import { getAccountSelector } from "../../../../selectors";
-import { TableLoader } from "../../../components/TableLoader";
 
 export const OrderSell = () => {
   const dispatch = useDispatch();

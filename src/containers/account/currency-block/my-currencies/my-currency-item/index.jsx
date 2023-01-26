@@ -7,8 +7,8 @@ import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import classNames from 'classnames';
-import { setBodyModalParamsAction } from '../../../../../modules/modals';
-import { getCurrencyTypes } from '../../../../../modules/currencies';
+import { setBodyModalParamsAction } from 'modules/modals';
+import { getCurrencyTypes } from 'modules/currencies';
 
 export default function MyCurrencytemItem(props) {
   const dispatch = useDispatch();

@@ -2,8 +2,8 @@ import React, { useEffect, useState, useCallback } from 'react';
 import classNames from 'classnames';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getDGSTagsAction } from '../../../../actions/marketplace'
-import { Pagination } from '../../../components/pagination';
+import { getDGSTagsAction } from 'actions/marketplace'
+import { Pagination } from 'containers/components/pagination';
 import { AccountForm } from './AccountForm';
 import { TagForm } from './TagForm';
 

@@ -2,16 +2,16 @@ import React, {
   useEffect, useState, useCallback, useMemo,
 } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { setBodyModalParamsAction } from '../../../../modules/modals';
-import { getCurrencyBalance } from '../../../../actions/wallet';
-import { setCurrentCurrencyAction } from '../../../../modules/exchange';
-import getFullNumber from '../../../../helpers/util/expancionalParser';
-import SiteHeader from '../../../components/site-header';
-import CustomTable from '../../../components/tables/table1';
-import InfoBox from '../../../components/info-box';
-import { useExchangeWalletConverts } from '../../../../hooks/useExchangeWalletConverts';
-import { readFromLocalStorage } from '../../../../actions/localStorage';
-import { getAccountInfoSelector } from '../../../../selectors';
+import { setBodyModalParamsAction } from 'modules/modals';
+import { getCurrencyBalance } from 'actions/wallet';
+import { setCurrentCurrencyAction } from 'modules/exchange';
+import getFullNumber from 'helpers/util/expancionalParser';
+import SiteHeader from 'containers/components/site-header';
+import CustomTable from 'containers/components/tables/table1';
+import InfoBox from 'containers/components/info-box';
+import { useExchangeWalletConverts } from 'hooks/useExchangeWalletConverts';
+import { readFromLocalStorage } from 'actions/localStorage';
+import { getAccountInfoSelector } from 'selectors';
 import CurrencyDescriptionComponent from './currency';
 
 export default function ChooseWallet() {

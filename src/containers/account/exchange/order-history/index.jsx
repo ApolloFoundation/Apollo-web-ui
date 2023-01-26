@@ -3,18 +3,18 @@ import React, {
 } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { ALL_STATUSES } from '../../../../constants/statuses';
+import { ALL_STATUSES } from 'constants/statuses';
+import { setBodyModalParamsAction } from 'modules/modals';
+import { getMyOfferHistory } from 'actions/wallet';
+import { BlockUpdater } from 'containers/block-subscriber';
+import { formatDivision, currencyTypes } from 'helpers/format';
+import CustomTable from 'containers/components/tables/table1';
+import SiteHeader from 'containers/components/site-header';
+import InfoBox from 'containers/components/info-box';
+import Button from 'containers/components/button';
+import { readFromLocalStorage } from 'actions/localStorage';
+import { getAccountInfoSelector, getExchangeInfoSelector } from 'selectors';
 import { ONE_GWEI } from '../../../../constants';
-import { setBodyModalParamsAction } from '../../../../modules/modals';
-import { getMyOfferHistory } from '../../../../actions/wallet';
-import { BlockUpdater } from '../../../block-subscriber';
-import { formatDivision, currencyTypes } from '../../../../helpers/format';
-import CustomTable from '../../../components/tables/table1';
-import SiteHeader from '../../../components/site-header';
-import InfoBox from '../../../components/info-box';
-import Button from '../../../components/button';
-import { readFromLocalStorage } from '../../../../actions/localStorage';
-import { getAccountInfoSelector, getExchangeInfoSelector } from '../../../../selectors';
 
 export default function OrderHistory() {
   const dispatch = useDispatch();

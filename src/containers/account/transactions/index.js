@@ -7,8 +7,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import classNames from 'classnames';
-import SiteHeader from  '../../components/site-header'
-import {setModalCallback, setModalType} from "../../../modules/modals";
+import SiteHeader from  'containers/components/site-header'
+import {setModalCallback, setModalType} from "modules/modals";
 import { TransactionFilter } from './TransactionFilter';
 import { TransactionTable } from './TransactionTable';
 

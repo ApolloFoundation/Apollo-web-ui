@@ -7,10 +7,10 @@
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import LogoImg from '../../../assets/logo.png';
-import { getFaucetAccountInfoAction } from '../../../actions/faucet';
-import config from "../../../config";
-import { getDecimalsSelector } from '../../../selectors';
+import LogoImg from 'assets/logo.png';
+import { getFaucetAccountInfoAction } from 'actions/faucet';
+import config from "config";
+import { getDecimalsSelector } from 'selectors';
 import { FaucetForm } from './Form';
 import './style.scss'
 

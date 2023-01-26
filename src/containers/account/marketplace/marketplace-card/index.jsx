@@ -8,11 +8,11 @@ import React from 'react';
 import classNames from 'classnames';
 import {Link} from 'react-router-dom'
 import {useDispatch, useSelector} from 'react-redux';
-import {setBodyModalParamsAction} from "../../../../modules/modals";
-import {formatTimestamp} from "../../../../helpers/util/time";
-import utils from "../../../../helpers/util/utils";
-import config from '../../../../config';
-import { getDecimalsSelector, getTickerSelector } from '../../../../selectors';
+import {setBodyModalParamsAction} from "modules/modals";
+import {formatTimestamp} from "helpers/util/time";
+import utils from "helpers/util/utils";
+import config from 'config';
+import { getDecimalsSelector, getTickerSelector } from 'selectors';
 
 const MarketplaceItem = (props) => {
     const dispatch = useDispatch();

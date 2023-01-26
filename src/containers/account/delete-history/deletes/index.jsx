@@ -6,9 +6,9 @@
 
 import React from 'react';
 import {useDispatch} from 'react-redux';
-import {setBodyModalParamsAction} from "../../../../modules/modals";
-import {formatTimestamp} from "../../../../helpers/util/time";
-import {getTransactionAction} from "../../../../actions/transactions";
+import {setBodyModalParamsAction} from "modules/modals";
+import {formatTimestamp} from "helpers/util/time";
+import {getTransactionAction} from "actions/transactions";
 
 export const DeleteItem = (props) => {
     const dispatch = useDispatch();

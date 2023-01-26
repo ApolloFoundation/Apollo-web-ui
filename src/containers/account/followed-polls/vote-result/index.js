@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { setBodyModalParamsAction } from '../../../../modules/modals';
+import { setBodyModalParamsAction } from 'modules/modals';
 
 const VoteResult = ({
   votes, voter, voterRS, setBodyModalParamsAction,
@@ -13,14 +13,14 @@ const VoteResult = ({
         {' '}
       </a>
     </td>
-    {votes && votes.map((subEl) => {
+    {votes && votes.map((subEl, index) => {
       if (subEl.length) {
         return (
-          <td className="align-right">{subEl}</td>
+          <td key={index} className="align-right">{subEl}</td>
         );
       }
       return (
-        <td className="align-right">-</td>
+        <td key={index} className="align-right">-</td>
       );
     })}
   </tr>

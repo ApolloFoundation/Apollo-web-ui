@@ -5,10 +5,10 @@
 
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setBodyModalParamsAction } from '../../../../modules/modals';
-import { getTransactionAction } from '../../../../actions/transactions';
-import { getDecimalsSelector } from '../../../../selectors';
-import { useFormatTimestamp } from '../../../../hooks/useFormatTimestamp';
+import { setBodyModalParamsAction } from 'modules/modals';
+import { getTransactionAction } from 'actions/transactions';
+import { getDecimalsSelector } from 'selectors';
+import { useFormatTimestamp } from 'hooks/useFormatTimestamp';
 
 export default function Transaction(props) {
   const dispatch = useDispatch();

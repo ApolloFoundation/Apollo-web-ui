@@ -7,12 +7,12 @@
 import React, { useState, useCallback } from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {Link} from 'react-router-dom'
-import SiteHeader from '../../components/site-header'
-import {setBodyModalParamsAction} from "../../../modules/modals";
-import {getFundingMonitorsAction} from '../../../actions/monitors'
-import InfoBox from '../../components/info-box'
-import { TableLoader } from '../../components/TableLoader';
-import { getAdminPasswordSelector } from '../../../selectors';
+import SiteHeader from 'containers/components/site-header'
+import {setBodyModalParamsAction} from "modules/modals";
+import {getFundingMonitorsAction} from 'actions/monitors'
+import InfoBox from 'containers/components/info-box'
+import { TableLoader } from 'containers/components/TableLoader';
+import { getAdminPasswordSelector } from 'selectors';
 import MonitorItem from './monitor-item';
 
 const FundingMonitors = () => {

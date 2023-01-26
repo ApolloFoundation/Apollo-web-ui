@@ -2,9 +2,9 @@ import React from 'react';
 import { useFormik, Form, FormikProvider } from "formik";
 import { useDispatch } from 'react-redux';
 import {NotificationManager} from 'react-notifications';
-import InfoBox from '../../components/info-box';
-import {AccountRSWithFormik} from '../../components/account-rs/AccountRSWithFormik';
-import {getCoins} from '../../../actions/faucet';
+import InfoBox from 'containers/components/info-box';
+import {AccountRSWithFormik} from 'containers/components/account-rs/AccountRSWithFormik';
+import {getCoins} from 'actions/faucet';
 
 export const FaucetForm = () => {
   const dispatch = useDispatch();

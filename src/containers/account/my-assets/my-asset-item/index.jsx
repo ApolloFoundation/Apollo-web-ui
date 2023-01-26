@@ -5,10 +5,10 @@
 
 
 import React, { useEffect, useState, useCallback } from 'react';
-import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {useDispatch} from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import {getAskOrders, getBidOrders} from "../../../../actions/marketplace";
+import {setBodyModalParamsAction} from "modules/modals";
+import {getAskOrders, getBidOrders} from "actions/marketplace";
 
 const MyAssetItem = ({ asset, decimals, name, unconfirmedQuantityATU, quantityATU, info }) => {
     const history = useHistory();

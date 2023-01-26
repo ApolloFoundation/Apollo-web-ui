@@ -8,9 +8,11 @@ import React, {
 } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { useRouteMatch, useHistory } from 'react-router-dom';
-import { getAllCurrenciesAction, getCurrencyAction } from '../../../../actions/currencies';
-import { BlockUpdater } from '../../../block-subscriber';
-import { getAccountInfoSelector } from '../../../../selectors';
+import { getAllCurrenciesAction, getCurrencyAction } from 'actions/currencies';
+import { BlockUpdater } from 'containers/block-subscriber';
+import { getAccountInfoSelector } from 'selectors';
+import SiteHeader from 'containers/components/site-header';
+import SidebarList from 'containers/components/sidebar-list';
 // Forms
 import BuyForm from './forms/buy-form';
 import SellForm from './forms/sell-form';
@@ -19,8 +21,6 @@ import OffersToBuyTable from './tables/offers-to-buy-table';
 import OffersToSellTable from './tables/offers-to-sell-table';
 import ExchangeRequestsTable from './tables/exchange-requests-table';
 import ExecutedExcahngeTable from './tables/executed-exchange-table';
-import SiteHeader from '../../../components/site-header';
-import SidebarList from '../../../components/sidebar-list';
 import SidebarCurrency from './sdiebar-item';
 import CurrencyInfoTable from './currency-info';
 import { CurrencyButtonMenu } from './CurrencyButtonMenu';

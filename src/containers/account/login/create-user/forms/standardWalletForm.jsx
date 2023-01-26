@@ -4,13 +4,13 @@ import { Form, Formik } from 'formik';
 import cn from 'classnames';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { NotificationManager } from 'react-notifications';
-import { useLoginModal } from '../../../../../hooks/useLoginModal';
-import { generatePDF } from '../../../../../actions/account';
-import crypto from '../../../../../helpers/crypto/crypto';
-import ContentLoader from '../../../../components/content-loader';
-import Button from '../../../../components/button';
-import InfoBox from '../../../../components/info-box';
-import { getTickerSelector } from '../../../../../selectors';
+import { useLoginModal } from 'hooks/useLoginModal';
+import { generatePDF } from 'actions/account';
+import crypto from 'helpers/crypto/crypto';
+import ContentLoader from 'containers/components/content-loader';
+import Button from 'containers/components/button';
+import InfoBox from 'containers/components/info-box';
+import { getTickerSelector } from 'selectors';
 
 export default function StandardWalletForm(props) {
   const dispatch = useDispatch();

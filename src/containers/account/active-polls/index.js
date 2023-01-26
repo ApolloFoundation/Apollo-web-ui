@@ -6,10 +6,10 @@
 
 import React, { useCallback } from 'react';
 import {useDispatch} from 'react-redux';
-import SiteHeader from '../../components/site-header';
-import {getpollsAction} from '../../../actions/polls';
+import SiteHeader from 'containers/components/site-header';
+import {getpollsAction} from 'actions/polls';
+import { TableLoader } from 'containers/components/TableLoader';
 import PoolItem from './pool-item';
-import { TableLoader } from '../../components/TableLoader';
 
 const Activepolls  = () => {
     const dispatch = useDispatch();

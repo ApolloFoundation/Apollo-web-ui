@@ -6,9 +6,9 @@
 
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {setBodyModalParamsAction } from "../../../../modules/modals";
-import { formatTimestamp } from "../../../../helpers/util/time";
-import { getDecimalsSelector } from '../../../../selectors';
+import {setBodyModalParamsAction } from "modules/modals";
+import { formatTimestamp } from "helpers/util/time";
+import { getDecimalsSelector } from 'selectors';
 
 const Block = (props) => {
     const dispatch = useDispatch();

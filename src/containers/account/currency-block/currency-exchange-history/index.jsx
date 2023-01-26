@@ -5,10 +5,10 @@
 
 import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAccountRsSelector } from '../../../../selectors';
-import { getAccountExchangesAction } from '../../../../actions/exchange-booth';
-import { TableLoader } from '../../../components/TableLoader';
-import SiteHeader from '../../../components/site-header';
+import { getAccountRsSelector } from 'selectors';
+import { getAccountExchangesAction } from 'actions/exchange-booth';
+import { TableLoader } from 'containers/components/TableLoader';
+import SiteHeader from 'containers/components/site-header';
 import TradeHistoryItem from './exchange-history-item';
 
 export default function TradeHistoryCurrency() {

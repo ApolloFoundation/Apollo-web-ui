@@ -4,10 +4,10 @@
  ***************************************************************************** */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
-import { getAssetsSelector } from '../../../selectors';
-import { getAssets } from '../../../modules/assets';
-import SiteHeader from '../../components/site-header';
-import CustomTable from '../../components/tables/table1';
+import { getAssetsSelector } from 'selectors';
+import { getAssets } from 'modules/assets';
+import SiteHeader from 'containers/components/site-header';
+import CustomTable from 'containers/components/tables/table1';
 import AssetItem from './asset-item';
 
 export default function Assets() {
