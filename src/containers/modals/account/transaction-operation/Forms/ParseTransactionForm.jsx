@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch } from "react-redux";
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../../../helpers/forms/forms";
@@ -8,7 +8,7 @@ import CustomTextArea from "../../../../components/form-components/text-area";
 export const ParseTransactionForm = ({ closeModal }) => {
   const dispatch = useDispatch();
 
-  const handleFormSubmit = async (values) => {
+  const handleFormSubmit = useCallback(async (values) => {
     const toSendParse = {
         transactionBytes: values.parseBytes,
         transactionJSON: values.parseJson,
@@ -21,7 +21,7 @@ export const ParseTransactionForm = ({ closeModal }) => {
     } else {
         NotificationManager.success("Transaction parsed!", null, 5000);
     }
-  };
+  }, [dispatch]);
   
   return (
     <ModalBody
