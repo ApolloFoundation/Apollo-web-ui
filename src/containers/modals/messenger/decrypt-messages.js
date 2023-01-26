@@ -4,66 +4,41 @@
  ******************************************************************************/
 
 
-import React from 'react';
-import {connect} from 'react-redux';
-import {setModalType } from '../../../modules/modals';
-import {setAccountPassphrase} from '../../../modules/account';
-import crypto from  '../../../helpers/crypto/crypto';
-import ModalBody from '../../components/modals/modal-body';
-import { writeToLocalStorage } from '../../../actions/localStorage';
-import { getAccountPublicKeySelector, getModalHistorySelector } from '../../../selectors';
+import React, { useCallback } from 'react';
+import { NotificationManager } from "react-notifications";
+import { useDispatch } from 'react-redux';
+import {setAccountPassphrase} from 'modules/account';
+import crypto from  'helpers/crypto/crypto';
+import ModalBody from 'containers/components/modals/modal-body';
+import { writeToLocalStorage } from 'actions/localStorage';
 
-const mapStateToProps = state => ({
-    publicKey: getAccountPublicKeySelector(state),
-    modalsHistory: getModalHistorySelector(state),
-});
+const DecryptMessage = ({ closeModal }) =>  {
+    const dispatch = useDispatch();
 
-const mapDispatchToProps = {
-    setModalType,
-    validatePassphrase: crypto.validatePassphrase,
-    setAccountPassphrase,
-};
-class DecryptMessage extends React.Component {
-    state = {
-        passphraseStatus: false
-    };
-
-    async validatePassphrase(passphrase) {
-        return await this.props.validatePassphrase(passphrase);
-    }
-
-    handleFormSubmit = async (params) => {
+    const handleFormSubmit = useCallback(async (params) => {
         let passphrase = params.passphrase || params.secretPhrase;
+
+        const isValidPhrase = await dispatch(crypto.validatePassphrase(passphrase));
+        if (!isValidPhrase) {
+            NotificationManager.error('Secret phrase is incorrect.', 'Error', 5000);
+            return;
+        }
         if (params.isRememberPassphrase) {
             writeToLocalStorage('secretPhrase',passphrase);
         }
-        this.props.setAccountPassphrase(passphrase);
-        this.closeModal();
-    };
-
-    closeModal = () => {
-        const modalWindow = document.querySelector('.modal-window');
-
-        if (Object.values(modalWindow.classList).indexOf('active') !== -1) {
-            modalWindow.classList.remove('active');
-            setTimeout(() => {
-                this.props.setModalType(null);
-
-            }, 300);
-        }
-    };
-
-    render() {
-        return (
-            <ModalBody
-                modalTitle={'Decrypt messages'}
-                submitButtonName={'Decrypt messages'}
-                handleFormSubmit={values => this.handleFormSubmit(values)}
-                closeModal={this.props.closeModal}
-                isDisabe2FA
-            />
-        );
-    }
+        dispatch(setAccountPassphrase(passphrase));
+        closeModal();
+    }, [closeModal, dispatch]);
+    
+    return (
+        <ModalBody
+            modalTitle='Decrypt messages'
+            submitButtonName='Decrypt messages'
+            handleFormSubmit={handleFormSubmit}
+            closeModal={closeModal}
+            isDisabe2FA
+        />
+    );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DecryptMessage);
+export default DecryptMessage;
