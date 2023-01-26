@@ -7,13 +7,13 @@
 import React, { useCallback } from 'react';
 import { useSelector} from 'react-redux';
 import {NotificationManager} from "react-notifications";
-import TabulationBody from '../../../components/tabulator/tabuator-body';
-import TabContaier from '../../../components/tabulator/tab-container';
-import ModalBody from '../../../components/modals/modal-body';
-import { getTickerSelector } from '../../../../selectors';
+import TabulationBody from 'containers/components/tabulator/tabuator-body';
+import TabContaier from 'containers/components/tabulator/tab-container';
+import ModalBody from 'containers/components/modals/modal-body';
+import { getTickerSelector } from 'selectors';
+import { useAliasDataLoader } from '../useAliasDataLoader';
 import { ToSpecificAccount } from './Tabs/ToSpecificAccount';
 import { ToAnyoneAccount } from './Tabs/ToAnyoneAccount';
-import { useAliasDataLoader } from '../useAliasDataLoader';
 
 const SellAlias = (props) => {
     const alias = useAliasDataLoader();
@@ -32,7 +32,6 @@ const SellAlias = (props) => {
     }, [alias, props.processForm, props.closeModal]);
 
     return (
-
         <ModalBody
             modalTitle='Sell Alias'
             submitButtonName='Sell Alias'
