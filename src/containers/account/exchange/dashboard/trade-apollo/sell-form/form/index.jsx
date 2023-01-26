@@ -4,7 +4,7 @@ import { Form, useFormikContext } from 'formik';
 import { ONE_GWEI } from '../../../../../../../constants/constants';
 import { multiply, division, numberToLocaleString } from '../../../../../../../helpers/format';
 import Button from '../../../../../../components/button';
-import NumericInput from '../../../../../../components/form-components/numeric-input1';
+import NumericInput from '../../../../../../components/form-components/numeric-input/numeric-input1';
 import CustomInput from '../../../../../../components/custom-input';
 import InputRange from '../../../../../../components/input-range/index1';
 import CustomSelect from '../../../../../../components/select/index1';
@@ -63,9 +63,7 @@ export default function SellForm(props) {
       {walletsList && !!walletsList.length && (
         <div className="form-group mb-3">
           <label>
-            {currencyName}
-            {' '}
-            Wallet
+            {`${currencyName} Wallet`}
           </label>
           <CustomSelect
             className="form-control"
@@ -74,7 +72,7 @@ export default function SellForm(props) {
           />
         </div>
       )}
-      <div className="form-group mb-0">
+      <div className="form-group  mb-0">
         <NumericInput
           name="pairRate"
           label={`Price for 1 ${ticker}`}

@@ -5,6 +5,8 @@ import {getDGSGoodsAction, getDGSPurchasesAction} from '../../../../actions/mark
 import InfoBox from '../../../components/info-box';
 import MarketplaceItem from '../marketplace-card/index';
 import ContentLoader from '../../../components/content-loader';
+import {BlockUpdater} from "../../../block-subscriber";
+
 
 const MarketplaceDashboardFooter = () => {
     const dispatch = useDispatch();

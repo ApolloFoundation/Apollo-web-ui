@@ -29,6 +29,10 @@ export const useDataLoader = (callback, itemsPerPage = 15) => {
     [pagination.page, handlePagination]
   );
 
+  const handleCommonPagination = useCallback((page) => () => {
+    handlePagination(page);
+  }, [handlePagination])
+
   const loadData = useCallback(async () => {
     const pag = {
       firstIndex: pagination.firstIndex,
@@ -51,9 +55,11 @@ export const useDataLoader = (callback, itemsPerPage = 15) => {
     data,
     onNextPage: handleNextPage,
     onPrevPage: handlePrevPage,
+    onCommonPagination: handleCommonPagination,
     isDisabledPrev: pagination.page === 1,
     isDisabledNext: !data || data.length < itemsPerPage,
     firstCount: pagination.page * itemsPerPage - itemsPerPage + 1,
     lastCount: pagination.page * itemsPerPage - itemsPerPage + (data?.length > 0 ? data?.length : 1),
+    page: pagination.page,
   }
 }

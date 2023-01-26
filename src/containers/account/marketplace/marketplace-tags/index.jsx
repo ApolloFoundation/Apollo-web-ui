@@ -1,23 +1,22 @@
-import React, {useEffect, useState, useCallback} from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import classNames from 'classnames';
-import {Form, Text} from 'react-form';
-import {useDispatch} from 'react-redux';
-import {NotificationManager} from "react-notifications";
-import {Link, useHistory} from 'react-router-dom';
-import {getDGSTagsAction,} from '../../../../actions/marketplace'
-import AccountRS from "../../../components/account-rs";
+import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { getDGSTagsAction } from '../../../../actions/marketplace'
+import { Pagination } from '../../../components/pagination';
+import { AccountForm } from './AccountForm';
+import { TagForm } from './TagForm';
 
 const MarketplaceTags = ({ showMoreController, isShowMore }) => {
     const dispatch =  useDispatch();
-    const history = useHistory();
     const [state, setState] = useState({
         itemsPerPage: 10,
-        itemsPerPageMore: 32,
+        itemsPerPageMore: 33,
         getDGSTags: [],
         page: 1,
         firstIndex: 0,
         lastIndex: 32,
-        itemsPerPage: 32 + 1
+        itemsPerPage: 32,
     });
 
     const getDGSTags = useCallback(async (reqParams) => {
@@ -51,22 +50,6 @@ const MarketplaceTags = ({ showMoreController, isShowMore }) => {
         }
     }, [isShowMore, getDGSTags]);
 
-    const handleSearchByTag = (values) => {
-        if (values.tag) {
-            history.push(`/marketplace/${values.tag}`);
-        }
-    };
-
-    const handleSearchByAccount = (values) => {
-        if (values && values.seller) {
-            if (!values.seller.includes("_")) {
-                history.push(`/marketplace/${values.seller}`);
-            } else {
-                NotificationManager.error('The account ID is incorrect.', 'Error', 5000);
-            }
-        }
-    };
-
     const isNextDisabled = () => !state.getDGSTags[state.itemsPerPageMore];
 
     const prepareTags = () => {
@@ -80,7 +63,6 @@ const MarketplaceTags = ({ showMoreController, isShowMore }) => {
             firstIndex: page * state.itemsPerPageMore - state.itemsPerPageMore,
             lastIndex:  page * state.itemsPerPageMore
         };
-
         setState(prevState => ({
             ...prevState,
             ...reqParams,
@@ -89,7 +71,7 @@ const MarketplaceTags = ({ showMoreController, isShowMore }) => {
         getDGSTags(reqParams)
     };
 
-    return (
+        return (
         <div className="card  marketplace filters transparent">
             <div className="search-bar m-0">
                 <div className="row m-0">
@@ -98,28 +80,7 @@ const MarketplaceTags = ({ showMoreController, isShowMore }) => {
                         'col-md-6 pr-0 pl-0' : isShowMore
                     })}>
                         <div className="input-group-app search tabled">
-                            <Form
-                                onSubmit={handleSearchByAccount}
-                                render={({
-                                            submitForm, values, addValue, removeValue, setValue, getFormState
-                                        }) => (
-                                        <form
-                                            className="iconned-input-field"
-                                            onSubmit={submitForm}
-                                        >
-                                            <AccountRS
-                                                field='seller'
-                                                setValue={setValue}
-                                                noContactList
-                                                placeholder="Seller's Account ID"
-                                            />
-                                            <button className="search-icon">
-                                                <i className="zmdi zmdi-search" />
-                                            </button>
-                                        </form>
-                                    )}
-                            />
-
+                            <AccountForm />
                         </div>
                     </div>
                     <div className={classNames({
@@ -127,21 +88,7 @@ const MarketplaceTags = ({ showMoreController, isShowMore }) => {
                         'col-md-6 pr-0 pl-0' : isShowMore
                     })}>
                         <div className="input-group-app search tabled">
-                            <Form
-                                onSubmit={handleSearchByTag}
-                                render={({ submitForm }) => (
-                                    <form
-                                        className="iconned-input-field"
-                                        onSubmit={submitForm}
-                                    >
-                                        <Text field="tag" placeholder="Title, description or Tag" />
-
-                                        <button className="search-icon">
-                                            <i className="zmdi zmdi-search" />
-                                        </button>
-                                    </form>
-                                )}
-                            />
+                            <TagForm />
                         </div>
                     </div>
                 </div>
@@ -162,34 +109,18 @@ const MarketplaceTags = ({ showMoreController, isShowMore }) => {
                     {isShowMore ? 'View less' : 'View more'}
                 </button>
                 {state.getDGSTags && isShowMore && (
-                    <div className="btn-box pagination">
-                        <button
-                            type='button'
-                            className={classNames({
-                                'btn btn-default': true,
-                                'disabled': state.page <= 1,
-                            })}
-                            onClick={handlePaginate(state.page - 1)}
-                        >
-                            Previous
-                        </button>
-                        <div className='pagination-nav'>
-                            <span>{state.page * state.itemsPerPageMore - state.itemsPerPageMore + 1}</span>
-                            <span>&hellip;</span>
-                            <span>{(state.page * state.itemsPerPageMore - state.itemsPerPageMore - 1) + state.getDGSTags.length}</span>
-                        </div>
-                        <button
-                            type='button'
-                            onClick={handlePaginate(state.page + 1)}
-                            className={classNames({
-                                'btn btn-default': true,
-                                'disabled': isNextDisabled()
-                            })}
-                        >
-                            Next
-                        </button>
-                    </div>
-                    )}
+                    <Pagination
+                        firstIndex={state.firstIndex + 1}
+                        lastIndex={
+                            (state.page - 1) * state.itemsPerPageMore + (state.getDGSTags?.length > 0 ? state.getDGSTags?.length : 1)
+                        }
+                        itemsPerPage={state.itemsPerPageMore}
+                        isNextDisabled={isNextDisabled()}
+                        isPrevDisabled={state.page === 1}
+                        onNextPage={handlePaginate(state.page + 1)}
+                        onPrevPage={handlePaginate(state.page - 1)}
+                    />
+                )}
             </div>
         </div>
     );
