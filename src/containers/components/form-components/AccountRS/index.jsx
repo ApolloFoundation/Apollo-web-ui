@@ -1,5 +1,5 @@
 import React from 'react';
-import { AccountRSWithFormik } from '../../account-rs/AccountRSWithFormik';
+import { AccountRSWithFormik } from 'containers/components/account-rs/AccountRSWithFormik';
 
 const AccountRSFormInput = props => {
   const {

@@ -7,7 +7,7 @@
 import React from 'react';
 import {shallowEqual, useSelector} from 'react-redux';
 import classNames from "classnames";
-import { getModalsSelector } from '../../../selectors';
+import { getModalsSelector } from 'selectors';
 import './AlertBox.css';
 
 const AlertBox = () => {

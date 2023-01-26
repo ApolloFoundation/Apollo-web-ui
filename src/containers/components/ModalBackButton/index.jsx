@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
-import { openPrevModal } from '../../../modules/modals';
-import { getModalHistorySelector } from '../../../selectors';
+import { openPrevModal } from 'modules/modals';
+import { getModalHistorySelector } from 'selectors';
 
 export const ModalBackButton = () => {
   const dispatch = useDispatch();

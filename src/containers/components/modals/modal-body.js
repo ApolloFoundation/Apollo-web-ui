@@ -3,7 +3,6 @@ import classNames from 'classnames';
 import {connect} from 'react-redux';
 import FormFooter from '../form-components/FormButtons';
 import ModalFooter from '../modal-footer';
-import AdvancedSettings from '../advanced-transaction-settings';
 import {openPrevModal, saveSendModalState} from "../../../modules/modals";
 import BackForm from '../../modals/modal-form/modal-form-container';
 import { FeeWrapper } from '../form-components/FeeWrapper';
@@ -27,7 +26,6 @@ const ModalBody = (props) => {
         } = props;
 
         const RightBar = marketplace ? (p) => <div className="right-bar">{p.children}</div> : React.Fragment;
-        // const isAdvanced = false;
 
         return (
             <BackForm
@@ -80,9 +78,6 @@ const ModalBody = (props) => {
                                 idGroup={idGroup}
                             />
                         }
-                        {/* isAdvanced is always false and this render never */}
-                        {/* { isAdvanced && <AdvancedSettings white={isAdvancedWhite} /> } */}
-
                         {/** Bottom forms buttons */}
                         { !CustomFooter && !isDisableFormFooter &&
                             <FormFooter

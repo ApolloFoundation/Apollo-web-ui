@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import {NotificationManager} from "react-notifications";
 import Dropzone from 'react-dropzone';
-import UploadImg from '../../../assets/upload-icon.png';
+import UploadImg from 'assets/upload-icon.png';
 
 const InputUpload = ({id, maxSize, type, accept, handleFileAccepted, handleFileRejected}) => {
     const onDropAccepted = (files) => {

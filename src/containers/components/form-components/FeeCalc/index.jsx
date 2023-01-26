@@ -2,13 +2,13 @@ import React, { useEffect } from 'react';
 import { NotificationManager } from 'react-notifications';
 import { useSelector } from 'react-redux';
 import { useFormikContext } from 'formik';
-import InputForm from '../../custom-input/CustomInputWithFormik';
-import { calculateFeeAction } from "../../../../actions/forms";
+import InputForm from 'containers/components/custom-input/CustomInputWithFormik';
+import { calculateFeeAction } from "actions/forms";
 import {
     getAccountPublicKeySelector,
     getDecimalsSelector,
     getTickerSelector
-} from '../../../../selectors';
+} from 'selectors';
 
 const FeeCalc = ({ requestType }) => {
     const formik = useFormikContext();

@@ -11,18 +11,18 @@ import {
 import {NotificationContainer} from 'react-notifications';
 import classNames from 'classnames';
 import ReactHintFactory from 'react-hint';
-import { getConstantsAction, isLoggedIn, getUpdateStatus } from '../../actions/login';
-import { getCurrentTicker } from '../../actions/account';
-import { loadConstants, setPageEvents } from '../../modules/account';
-import { setBodyModalParamsAction, setBodyModalType } from '../../modules/modals';
+import { getConstantsAction, isLoggedIn, getUpdateStatus } from 'actions/login';
+import { getCurrentTicker } from 'actions/account';
+import { loadConstants, setPageEvents } from 'modules/account';
+import { setBodyModalParamsAction, setBodyModalType } from 'modules/modals';
 import { version } from '../../../package.json';
 // components
-import PageLoader from '../components/page-loader/page-loader';
-import SideBar from '../components/sidebar';
-import ModalWindow from '../modals';
-import AlertBox from '../components/alert-box';
-import BlocksDownloader from '../components/blocks-downloader';
-import { getSavedAccountSettingsAction } from '../../modules/accountSettings';
+import PageLoader from 'containers/components/page-loader/page-loader';
+import SideBar from 'containers/components/sidebar';
+import ModalWindow from 'containers/modals';
+import AlertBox from 'containers/components/alert-box';
+import BlocksDownloader from 'containers/components/blocks-downloader';
+import { getSavedAccountSettingsAction } from 'modules/accountSettings';
 // pages components
 import Dashboard from '../account/dashboard';
 import Ledger from '../account/ledger';

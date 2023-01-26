@@ -1,6 +1,6 @@
 import React from 'react';
 import cn from 'classnames';
-import CustomInput from '../../custom-input/CustomInputWithFormik';
+import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
 
 const NumericInput = ({
   values, label, name, countingTtile, counterLabel, placeholder, type,

@@ -1,6 +1,6 @@
 import { useFormikContext } from 'formik';
 import React, { useCallback, useState } from 'react';
-import InputUpload from "../../input-upload";
+import InputUpload from "containers/components/input-upload";
 
 const FileInput = ({ label, type, accept, maxSize, showPreview, name, hidenMaxSize }) => {
     const [fileData, setFileData] = useState(null);
