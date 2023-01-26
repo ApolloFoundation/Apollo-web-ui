@@ -25,7 +25,7 @@ const AddAlias = ({ closeModal }) => {
         if (!isPending) {
             setIsPending(true);
             const res = await dispatch(submitForm.submitForm({ ...values }, 'setAlias'));
-            if ((res && res?.errorCode) || !res) {
+            if (!res || res.errorCode) {
                 setIsPending(false);
                 NotificationManager.error(res.errorDescription, 'Error', 5000)
             } else {

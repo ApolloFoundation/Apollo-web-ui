@@ -16,7 +16,7 @@ import { numberToLocaleString } from 'helpers/format';
 const DeleteShares = ({ closeModal, nameModal, processForm }) => {
     const modalData = useSelector(getModalDataSelector);
 
-    const handleFormSubmit = useCallback(async(values) => {
+    const handleFormSubmit = useCallback((values) => {
         const data = {
             ...values,
             asset: modalData?.assetID,
