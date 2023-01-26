@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import { useFormik, FormikProvider, Form } from 'formik';
+import { numberToLocaleString } from 'helpers/format';
 import NumericInput from '../../../components/form-components/numeric-input/numeric-input1'
 const bigInteger = require('jsbn').BigInteger;
 
@@ -38,7 +39,7 @@ const SellAsset = ({ asset, accountAsset, ticker, onSubmit }) => {
           {`Sell ${asset.name}`}
           <span>
             Balance:
-            {balance.toLocaleString('en', {
+            {numberToLocaleString(balance, {
               minimumFractionDigits: asset.decimals,
               maximumFractionDigits: asset.decimals,
             })}

@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { Formik } from 'formik';
 import { NotificationManager } from 'react-notifications';
+import { numberToLocaleString } from 'helpers/format';
 import { setBodyModalParamsAction } from '../../../../../../modules/modals';
 import { BuyFormFields } from './form';
 
@@ -57,7 +58,7 @@ export default function BuyForm(props) {
           <span>
             Balance:
             {' '}
-            {balanceBuy.toLocaleString('en')}
+            {numberToLocaleString(balanceBuy)}
             {' '}
             {ticker}
           </span>
