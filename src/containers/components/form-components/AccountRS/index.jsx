@@ -1,5 +1,5 @@
 import React from 'react';
-import AccountRS from '../../account-rs';
+import { AccountRSWithFormik } from '../../account-rs/AccountRSWithFormik';
 
 const AccountRSFormInput = props => {
   const {
@@ -14,7 +14,7 @@ const AccountRSFormInput = props => {
       </label>
       <div>
         <div className="input-group iconned-input-field">
-          <AccountRS
+          <AccountRSWithFormik
             name={name}
             exportAccountList={exportAccountList}
             noContactList={noContactList}

@@ -6,36 +6,26 @@
 import React, {
   useState, useEffect, useRef, useCallback,
 } from 'react';
-import { useSelector } from 'react-redux';
-import { useField } from 'formik';
 import { NotificationManager } from 'react-notifications';
 import classNames from 'classnames';
-import InputMask from 'react-input-mask';
 import { readFromLocalStorage } from '../../../actions/localStorage';
+import { AccountInputBase } from '../form-components/AccountInputBase';
 
+// onChange is a require props
 export default function AccountRS(props) {
   const refContactsList = useRef(null);
   const refContactsIcon = useRef(null);
 
   const {
-    onChange, exportAccountList, id, name,
-    disabled, placeholder, noContactList, defaultValue,
+    onChange, exportAccountList, id, name, value,
+    disabled, placeholder, noContactList, ...rest
   } = props;
-
-  const { ticker } = useSelector(state => state.account);
-
-  const [field, , helpers] = useField({
-    name,
-    defaultValue,
-  });
 
   const [isContacts, setIsContacts] = useState(false);
 
   const contractString = readFromLocalStorage('APLContacts');
 
   const contacts = contractString ? JSON.parse(contractString) : [];
-
-  const { setValue } = helpers;
 
   const handleClickOutside = useCallback(event => {
     if (isContacts
@@ -48,14 +38,14 @@ export default function AccountRS(props) {
   const handleFillForm = useCallback(account => {
     setIsContacts(false);
 
-    if (setValue) {
-      setValue(account);
+    if (onChange) {
+      onChange(account);
     }
 
     if (exportAccountList) {
       exportAccountList(account);
     }
-  }, [exportAccountList, setValue]);
+  }, [exportAccountList, onChange]);
 
   const handleContacts = () => {
     if (contacts && !!contacts.length) {
@@ -65,34 +55,15 @@ export default function AccountRS(props) {
     }
   };
 
-  const handleChange = ({ target: { value } }) => {
-    if (setValue) {
-      setValue(value);
-    }
-
+  const handleChange = (value) => {
     if (exportAccountList) {
       exportAccountList(value);
     }
-
-    if (onChange) onChange(value);
-  };
-
-  const handleBeforeMaskedValueChange = (newState, oldState, userInput) => {
-    let value = newState.value.toUpperCase();
-    if (userInput) {
-      if ((value.startsWith('APL-APL') || value.startsWith('USDS-USDS'))
-        && (userInput.startsWith('APL-') || userInput.startsWith('USDS-'))
-        && userInput.length === 24
-      ) {
-        value = userInput;
-      }
-    }
-    return { value, selection: newState.selection };
-  };
+    onChange(value);
+  }
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
-
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
@@ -100,15 +71,15 @@ export default function AccountRS(props) {
 
   return (
     <div className="iconned-input-field">
-      <InputMask
-        {...field}
+      <AccountInputBase 
+        {...rest}
+        onChange={handleChange}
         className="form-control"
         disabled={disabled}
-        mask={`${ticker}-****-****-****-*****`}
-        placeholder={placeholder || 'Account ID'}
-        onChange={handleChange}
-        beforeMaskedValueChange={handleBeforeMaskedValueChange}
+        placeholder={placeholder ?? 'Account ID'}
         id={id}
+        name={name}
+        value={value}
       />
       {!noContactList && (
         <div
@@ -128,8 +99,8 @@ export default function AccountRS(props) {
           })}
         >
           <ul>
-            {contacts.map((el, index) => (
-              <li key={index}>
+            {contacts.map((el) => (
+              <li key={el.accountRS}>
                 <a onClick={() => handleFillForm(el.accountRS)}>
                   {el.name}
                 </a>
