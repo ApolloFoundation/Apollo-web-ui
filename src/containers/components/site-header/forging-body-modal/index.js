@@ -17,6 +17,7 @@ import {
     getModalTypeSelector,
     getPassPhraseSelector
 } from 'selectors';
+import { numberToLocaleString } from 'helpers/format';
 
 class ForgingBodyModalWindow extends Component {
 
@@ -124,7 +125,7 @@ class ForgingBodyModalWindow extends Component {
                             <p>
                                 {
                                     forgedBalanceATM &&
-                                    <label>Forged balance: {(forgedBalanceATM / decimals).toLocaleString('en')}&nbsp;APL</label>
+                                    <label>Forged balance: {numberToLocaleString(forgedBalanceATM / decimals)}&nbsp;APL</label>
                                 }
                             </p>
                             <div className="btn-block text-center d-sm-block d-md-none mt-2">

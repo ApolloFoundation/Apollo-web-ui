@@ -4,7 +4,7 @@ import { NotificationManager } from 'react-notifications';
 import { formatDivision } from 'helpers/format';
 import { setBodyModalParamsAction } from 'modules/modals';
 import CustomTable from 'containers/components/tables/table1';
-import { ONE_GWEI } from '../../../../../constants';
+import { ONE_GWEI } from 'constants/constants';
 
 export default function OpenOrdersExchange(props) {
   const dispatch = useDispatch();

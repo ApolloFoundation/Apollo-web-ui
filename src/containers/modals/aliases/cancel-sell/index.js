@@ -13,7 +13,7 @@ const CancelSell = ({ closeModal, processForm }) => {
     const alias = useAliasDataLoader();
 
 
-    const handleFormSubmit = useCallback(async (values) => {
+    const handleFormSubmit = useCallback((values) => {
         const data = {
             ...values,
             recipient: alias?.accountRS,

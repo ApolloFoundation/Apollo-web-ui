@@ -9,7 +9,7 @@ const ScheaduleCurrency = ({ processForm, closeModal }) => {
     const adminPassword = useSelector(getAdminPasswordSelector);
     const modalData = useSelector(getModalDataSelector, shallowEqual);
 
-    const handleFormSubmit = useCallback(async ({currencyDecimals, ...values}) => {
+    const handleFormSubmit = useCallback(({currencyDecimals, ...values}) => {
         const data = {
             ...values,
             broadcast: false,

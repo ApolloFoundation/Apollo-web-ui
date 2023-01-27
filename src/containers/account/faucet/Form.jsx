@@ -5,6 +5,7 @@ import {NotificationManager} from 'react-notifications';
 import InfoBox from 'containers/components/info-box';
 import {AccountRSWithFormik} from 'containers/components/account-rs/AccountRSWithFormik';
 import {getCoins} from 'actions/faucet';
+import { FAUCET_APL_AMOUNT } from 'constants/constants';
 
 export const FaucetForm = () => {
   const dispatch = useDispatch();
@@ -27,7 +28,7 @@ export const FaucetForm = () => {
 
     if (result) {
         if (result.success) {
-          NotificationManager.success('Success! Sent 30,000 APL to your address', null, 5000);
+          NotificationManager.success(`Success! Sent ${FAUCET_APL_AMOUNT} APL to your address`, null, 5000);
           formik.handleReset();
         } else {
           NotificationManager.error(result.message, 'Error', 5000);

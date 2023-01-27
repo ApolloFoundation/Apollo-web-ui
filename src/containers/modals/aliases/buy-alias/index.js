@@ -16,7 +16,7 @@ const GetAlias = ({ processForm, closeModal }) => {
     const modalData = useSelector(getModalDataSelector, shallowEqual);
     const decimals = useSelector(getDecimalsSelector);
 
-    const handleFormSubmit = useCallback(async (values) => {
+    const handleFormSubmit = useCallback((values) => {
         const {alias, aliasName, secretPhrase, priceATM, feeATM} = values;
         let isError = false;
         if (!feeATM) {

@@ -12,7 +12,7 @@ import SiteHeader from 'containers/components/site-header';
 import InfoBox from 'containers/components/info-box';
 import { readFromLocalStorage } from 'actions/localStorage';
 import { getAccountInfoSelector, getExchangeInfoSelector } from 'selectors';
-import { ONE_GWEI } from '../../../../constants';
+import { ONE_GWEI } from 'constants/constants';
 
 export default function TradeHistory() {
   const dispatch = useDispatch();

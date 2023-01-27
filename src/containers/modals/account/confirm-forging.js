@@ -50,7 +50,7 @@ const ConfirmForging = (props) => {
             account,
             ...params
         };
-        const forging = await dispatch(await submitForm.submitForm(requestParams, actionData));
+        const forging = await dispatch(submitForm.submitForm(requestParams, actionData));
 
         if (forging) {
             if (!forging.errorCode) {

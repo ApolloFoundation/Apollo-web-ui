@@ -73,7 +73,7 @@ const ScheduledTransactions = () => {
                 errorCode: 3,
             });
         }
-    }, []);
+    }, [getScheduledTransactionsRequest]);
 
     return (
         <div className="page-content">

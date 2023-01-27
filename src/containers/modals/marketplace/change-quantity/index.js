@@ -31,7 +31,7 @@ const MarketplaceChangeQuantity = ({ closeModal, processForm }) => {
         }
     }, [dispatch, modalData]);
 
-    const handleFormSubmit = useCallback(async (values) => {
+    const handleFormSubmit = useCallback((values) => {
         const data = {
             ...values,
             deltaQuantity: (values.quantity - goods.quantity),

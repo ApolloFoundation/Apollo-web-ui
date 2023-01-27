@@ -9,7 +9,7 @@ import { InputRangeWithFormik } from 'containers/components/input-range/InputRan
 import NumericInput from 'containers/components/form-components/NumericInput';
 import getFullNumber from 'helpers/util/expancionalParser';
 import { getExchangeInfoSelector, getModalsSelector } from 'selectors';
-import { ONE_GWEI } from '../../../../../../../constants';
+import { ONE_GWEI } from 'constants/constants';
 
 export default function BuyForm(props) {
   const { currentCurrency } = useSelector(getExchangeInfoSelector, shallowEqual);

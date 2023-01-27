@@ -14,7 +14,7 @@ import InfoBox from 'containers/components/info-box';
 import Button from 'containers/components/button';
 import { readFromLocalStorage } from 'actions/localStorage';
 import { getAccountInfoSelector, getExchangeInfoSelector } from 'selectors';
-import { ONE_GWEI } from '../../../../constants';
+import { ONE_GWEI } from 'constants/constants';
 
 export default function OrderHistory() {
   const dispatch = useDispatch();

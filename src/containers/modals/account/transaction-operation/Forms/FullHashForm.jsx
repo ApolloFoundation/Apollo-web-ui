@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch } from "react-redux";
 import {NotificationManager} from "react-notifications";
 import submitForm from "helpers/forms/forms";
@@ -8,7 +8,7 @@ import CustomInput from 'containers/components/custom-input/CustomInputWithFormi
 
 export const FullHashForm = ({ closeModal }) => {
   const dispatch = useDispatch();
-  const handleFormSubmit = async (values) => {
+  const handleFormSubmit = useCallback(async (values) => {
     const toSendCalculate = {
       unsignedTransactionBytes: values.calculateBytes,
       unsignedTransactionJSON: values.calculateJson,
@@ -22,7 +22,7 @@ export const FullHashForm = ({ closeModal }) => {
     } else {
         NotificationManager.success("Hash calculated", null, 5000);
     }
-  }
+  }, [dispatch])
 
   return (
     <ModalBody

@@ -23,7 +23,7 @@ const CreatePoll = ({ processForm, nameModal, closeModal }) => {
     const dispatch = useDispatch();
     const ticker = useSelector(getTickerSelector);
 
-    const handleFormSubmit = useCallback(async(values) => {
+    const handleFormSubmit = useCallback((values) => {
         if (!values.answers) {
             NotificationManager.error('Please write answers.', 'Error', 5000);
             return;

@@ -47,9 +47,7 @@ const AssetDistribution = (props) => {
                             </thead>
                             <tbody>
                             {
-                                data &&
-                                data.length &&
-                                data.map((el) => (
+                                data?.map((el) => (
                                     <tr key={el.accountRS}>
                                         <td className='blue-link-text'>
                                             <span

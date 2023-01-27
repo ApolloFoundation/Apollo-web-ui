@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import ContentHendler from 'containers/components/content-hendler';
-import MarketplaceItem from "containers/account/marketplace/marketplace-card/";
+import MarketplaceItem from "containers/account/marketplace/marketplace-card";
 
 const MarketplaceColumnTable = ({data, page, itemsPerPage = 15, onPaginate, deliver, emptyMessage, ...props}) => (
     <>

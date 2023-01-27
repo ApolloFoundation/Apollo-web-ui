@@ -10,7 +10,7 @@ import ArrowUp from 'assets/arrow-up.png';
 import ArrowDown from 'assets/arrow-down.png';
 import CustomTable from 'containers/components/tables/table1';
 import { getExchangeInfoSelector } from 'selectors';
-import { ONE_GWEI } from '../../../../../constants';
+import { ONE_GWEI } from 'constants/constants';
 
 const itemsPerPage = 15;
 

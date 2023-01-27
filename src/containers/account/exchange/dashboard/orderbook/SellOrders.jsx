@@ -7,7 +7,7 @@ import { setSelectedOrderInfo } from 'modules/modals';
 import { formatDivision } from 'helpers/format';
 import CustomTable from 'containers/components/tables/table1';
 import { getExchangeInfoSelector } from 'selectors';
-import { ONE_GWEI } from '../../../../../constants';
+import { ONE_GWEI } from 'constants/constants';
 
 export default function SellOrders({ currentCurrency, sellOrders, ticker }) {
   const dispatch = useDispatch();

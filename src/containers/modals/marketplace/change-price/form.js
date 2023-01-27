@@ -1,6 +1,7 @@
 import React from 'react';
 import NummericInput from 'containers/components/form-components/NumericInput';
 import TextualInput from 'containers/components/form-components/TextualInput';
+import { numberToLocaleString } from 'helpers/format';
 
 const Form = ({ goods, formatTimestamp, decimals, ticker }) => (
     <>
@@ -21,7 +22,7 @@ const Form = ({ goods, formatTimestamp, decimals, ticker }) => (
                 />
                 <TextualInput
                     label="Current price:"
-                    text={`${(goods.priceATM / decimals).toLocaleString('en')} ${ticker}`}
+                    text={`${numberToLocaleString(goods.priceATM / decimals)} ${ticker}`}
                 />
                 <NummericInput
                     label="New price"

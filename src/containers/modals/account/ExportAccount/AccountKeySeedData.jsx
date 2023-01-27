@@ -1,8 +1,10 @@
 import React, { forwardRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import classNames from 'classnames';
 import { setBodyModalParamsAction } from 'modules/modals';
 import { getAccountRsSelector } from 'selectors';
 import InfoBox from 'containers/components/info-box';
+import styles from './index.module.scss';
 
 export const AccountKeySeedData = forwardRef((
   { accountKeySeedData, downloadFile, closeModal },
@@ -51,17 +53,15 @@ export const AccountKeySeedData = forwardRef((
           <br/>
           <button
               type='button'
-              style={{marginTop: 18, marginRight: 18}}
               onClick={handleDeleteModal}
-              className={'btn btn-danger'}
+              className={classNames('btn btn-danger', styles.button)}
           >
               Yes
           </button>
           <button
               type='button'
-              style={{marginTop: 18}}
               onClick={closeModal}
-              className='btn btn-green'
+              className={classNames('btn btn-green', styles.button)}
           >
               No
           </button>

@@ -22,6 +22,10 @@ export default function CurrencyInput(props) {
     }
   }, [dispatch]);
 
+  const handleChange = useCallback((code) => {
+    getCurrency({ code })
+  }, [getCurrency]);
+
   useEffect(() => {
     if (code) {
       getCurrency({ code });
@@ -33,7 +37,7 @@ export default function CurrencyInput(props) {
       label="Currency"
       name={name}
       placeholder="Code"
-      onChange={code => getCurrency({ code })}
+      onChange={handleChange}
       disabled={disabled}
     >
       <div className="input-group-append">

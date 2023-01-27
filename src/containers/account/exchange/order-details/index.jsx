@@ -6,6 +6,7 @@ import { useRouteMatch, useHistory } from 'react-router-dom';
 import { NotificationManager } from 'react-notifications';
 import { currencyTypes, formatDivision } from 'helpers/format';
 import { ALL_STATUSES } from 'constants/statuses';
+import { ONE_GWEI } from 'constants/constants';
 import {
   getAllContractStatus, getContractStatus, getOrderById,
 } from 'actions/wallet';
@@ -15,7 +16,6 @@ import Button from 'containers/components/button';
 import InfoBox from 'containers/components/info-box';
 import { getAccountInfoSelector, getExchangeInfoSelector } from 'selectors';
 import { OrderDetailsForm } from './OrderDetailsForm';
-import { ONE_GWEI } from '../../../../constants';
 
 export default function OrderDetails() {
   const dispatch = useDispatch();
