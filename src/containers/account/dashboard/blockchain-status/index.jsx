@@ -1,14 +1,14 @@
 import React, { useMemo, useCallback } from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
-import { formatTimestamp } from '../../../../helpers/util/time';
-import { setBodyModalParamsAction } from '../../../../modules/modals';
-import { getForging, setForging } from '../../../../actions/login';
-import { readFromLocalStorage } from '../../../../actions/localStorage';
-import { ReactComponent as ClockIcon } from '../../../../assets/clock-icon.svg';
-import ContentLoader from '../../../components/content-loader';
-import Button from '../../../components/button';
-import { getAccountInfoSelector } from '../../../../selectors';
+import { formatTimestamp } from 'helpers/util/time';
+import { setBodyModalParamsAction } from 'modules/modals';
+import { getForging, setForging } from 'actions/login';
+import { readFromLocalStorage } from 'actions/localStorage';
+import { ReactComponent as ClockIcon } from 'assets/clock-icon.svg';
+import ContentLoader from 'containers/components/content-loader';
+import Button from 'containers/components/button';
+import { getAccountInfoSelector } from 'selectors';
 
 export default function BlockchainStatus() {
   const dispatch = useDispatch();

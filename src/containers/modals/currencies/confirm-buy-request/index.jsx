@@ -6,9 +6,9 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
-import ModalBody from '../../../components/modals/modal-body';
-import TextualInputComponent from '../../../components/form-components/TextualInput';
-import { getModalDataSelector, getTickerSelector } from '../../../../selectors';
+import ModalBody from 'containers/components/modals/modal-body';
+import TextualInputComponent from 'containers/components/form-components/TextualInput';
+import { getModalDataSelector, getTickerSelector } from 'selectors';
 
 export default function BuyCurrency({ processForm, closeModal, nameModal }) {
   const dispatch = useDispatch();

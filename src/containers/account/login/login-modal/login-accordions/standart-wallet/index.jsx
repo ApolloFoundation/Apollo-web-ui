@@ -1,6 +1,6 @@
 import React from 'react';
-import { Accordion } from '../../../../../components/accordion';
-import { Tooltip } from '../../../../../components/tooltip-login';
+import { Accordion } from 'containers/components/accordion';
+import { Tooltip } from 'containers/components/tooltip-login';
 import SecretPhraseForm from '../../forms/viaSecretPhraseForm';
 import { TooltipWrapper } from '../tooltipWrapper';
 

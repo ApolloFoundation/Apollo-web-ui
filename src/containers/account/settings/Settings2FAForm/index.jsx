@@ -2,12 +2,12 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
 import { FormikProvider, Form, useFormik } from 'formik';
-import { setBodyModalParamsAction } from '../../../../modules/modals';
-import { disable2FAActon, enable2FAActon } from '../../../../actions/account';
-import ModalFooter from '../../../components/modal-footer';
-import AccountRSFormInput from '../../../components/form-components/AccountRS';
-import { get2FASelector } from '../../../../selectors';
-import InfoBox from '../../../components/info-box';
+import { setBodyModalParamsAction } from 'modules/modals';
+import { disable2FAActon, enable2FAActon } from 'actions/account';
+import ModalFooter from 'containers/components/modal-footer';
+import AccountRSFormInput from 'containers/components/form-components/AccountRS';
+import { get2FASelector } from 'selectors';
+import InfoBox from 'containers/components/info-box';
 
 export const Settings2FAForm = ({ account, setState, getAccountInfo }) => {
   const dispatch = useDispatch();

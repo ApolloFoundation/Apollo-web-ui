@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
-import { getModalDataSelector } from '../../../selectors';
-import ModalBody from "../../components/modals/modal-body";
+import { getModalDataSelector } from 'selectors';
+import ModalBody from "containers/components/modals/modal-body";
 
 export const TransactionFail = ({ closeModal }) => {
   const transaction = useSelector(getModalDataSelector, shallowEqual);

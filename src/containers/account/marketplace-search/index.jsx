@@ -7,13 +7,13 @@
 import React, { useCallback } from 'react';
 import {useDispatch} from 'react-redux';
 import {Link} from 'react-router-dom';
-import SiteHeader from '../../components/site-header/index';
-import MarketplaceItem from '../marketplace/marketplace-card/index'
-import {searchDGSGoodsAction} from "../../../actions/marketplace";
-import InfoBox from "../../components/info-box";
-import { Pagination } from '../../components/pagination';
-import {useDataLoader} from '../../../hooks/useDataLoader';
-import { MARKETPLACE_REG_EXP } from '../../../constants/constants';
+import SiteHeader from 'containers/components/site-header';
+import {searchDGSGoodsAction} from "actions/marketplace";
+import InfoBox from "containers/components/info-box";
+import { Pagination } from 'containers/components/pagination';
+import {useDataLoader} from 'hooks/useDataLoader';
+import { MARKETPLACE_REG_EXP } from 'constants/constants';
+import MarketplaceItem from '../marketplace/marketplace-card'
 
 const itemsPerPage = 8;
 

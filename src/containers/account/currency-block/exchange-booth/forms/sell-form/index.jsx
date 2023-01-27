@@ -2,8 +2,8 @@ import React, { useCallback, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { Formik } from 'formik';
 import { NotificationManager } from 'react-notifications';
+import { setBodyModalParamsAction } from 'modules/modals';
 import { numberToLocaleString } from 'helpers/format';
-import { setBodyModalParamsAction } from '../../../../../../modules/modals';
 import { SellFormFields }from './form';
 
 export default function SellForm(props) {

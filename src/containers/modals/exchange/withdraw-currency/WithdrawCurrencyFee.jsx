@@ -2,10 +2,10 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useFormikContext } from 'formik';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import classNames from 'classnames';
-import ContentLoader from "../../../components/content-loader";
-import {getTransactionFee } from '../../../../actions/wallet';
-import { formatGweiToEth} from '../../../../helpers/format';
-import { getConstantsSelector } from '../../../../selectors';
+import ContentLoader from "containers/components/content-loader";
+import {getTransactionFee } from 'actions/wallet';
+import { formatGweiToEth} from 'helpers/format';
+import { getConstantsSelector } from 'selectors';
 
 // levels of transactions fee which we get from request and add to transactionFeeData in component
 const LEVEL_NAMES = ['safeLow', 'average', 'fast'];

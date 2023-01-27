@@ -6,7 +6,7 @@
 
 import React, { useCallback } from 'react';
 import {NotificationManager} from "react-notifications";
-import ModalBody from "../../../components/modals/modal-body";
+import ModalBody from "containers/components/modals/modal-body";
 import { useAliasDataLoader } from '../useAliasDataLoader';
 
 const CancelSell = ({ closeModal, processForm }) => {

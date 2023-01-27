@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { get2FASelector, getAccountControlsSelector } from '../../../selectors';
-import CustomInput from '../custom-input/CustomInputWithFormik';
-import BlockHeightInput from '../form-components/BlockHeight/block-height-input1';
-import InfoBox from '../info-box';
+import { get2FASelector, getAccountControlsSelector } from 'selectors';
+import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
+import BlockHeightInput from 'containers/components/form-components/BlockHeight/block-height-input1';
+import InfoBox from 'containers/components/info-box';
 
 const mapStateToProps = state => ({
   is2fa: get2FASelector(state),

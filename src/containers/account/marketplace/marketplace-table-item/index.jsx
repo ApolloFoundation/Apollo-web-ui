@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDecimalsSelector, getTickerSelector } from '../../../../selectors';
+import { getDecimalsSelector, getTickerSelector } from 'selectors';
 import { numberToLocaleString } from 'helpers/format';
 import { setBodyModalParamsAction } from 'modules/modals';
 

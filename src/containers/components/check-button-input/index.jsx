@@ -7,7 +7,6 @@ const CheckboxFormInput = props => {
   const {
     label, name, id, className, disabled, onChange, isTopOffset, checked, value, ...rest
   } = props;
-
   return (
     <div className={cn('checkbox-group mb-15', className, { 'checkbox-group--top': isTopOffset})}>
       <input

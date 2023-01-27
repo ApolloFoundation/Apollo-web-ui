@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getDashboardInfoSelector } from '../../../../selectors';
+import { getDashboardInfoSelector } from 'selectors';
 
 const InfoStatistic = () => {
   const {

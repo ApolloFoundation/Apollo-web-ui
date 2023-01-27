@@ -5,15 +5,15 @@
 
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getSavedAccountSettingsAction } from '../../../modules/accountSettings';
-import { login } from '../../../modules/account';
-import { getAccountInfoAction } from '../../../actions/account';
-import SiteHeader from '../../components/site-header';
+import { getSavedAccountSettingsAction } from 'modules/accountSettings';
+import { login } from 'modules/account';
+import { getAccountInfoAction } from 'actions/account';
+import SiteHeader from 'containers/components/site-header';
 import { 
   getAccountSelector,
   getSettingsSelector,
   getIsLocalhostSelector,
-} from '../../../selectors';
+} from 'selectors';
 import { Settings2FAForm } from './Settings2FAForm';
 import { AdminPasswordForm } from './AdminPasswordForm';
 import './Settings.scss';

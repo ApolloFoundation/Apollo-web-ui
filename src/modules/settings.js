@@ -4,7 +4,7 @@
  ******************************************************************************/
 
 
-import {readFromLocalStorage, writeToLocalStorage} from "../actions/localStorage";
+import {readFromLocalStorage, writeToLocalStorage} from "actions/localStorage";
 
 export const LOAD_SETTINGS = "LOAD_SETTINGS";
 

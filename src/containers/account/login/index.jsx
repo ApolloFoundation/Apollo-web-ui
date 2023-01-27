@@ -2,8 +2,8 @@ import React, {
   useState, useCallback, useEffect, useMemo,
 } from 'react';
 import { useDispatch } from 'react-redux';
-import { getConstantsAction } from '../../../actions/login';
-import LogoImg from '../../../assets/new_apl_icon_white.svg';
+import { getConstantsAction } from 'actions/login';
+import LogoImg from 'assets/new_apl_icon_white.svg';
 import LoginModal from './login-modal';
 import ImportAccount from './import-account';
 import CreateUser from './create-user';

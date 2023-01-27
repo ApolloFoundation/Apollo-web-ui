@@ -8,9 +8,9 @@ import {
 } from "react-accessible-accordion";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setBodyModalParamsAction } from "../../../../modules/modals";
-import { getChainIdSelector } from "../../../../selectors";
-import smcAddress from "../../../../smc.json";
+import { setBodyModalParamsAction } from "modules/modals";
+import { getChainIdSelector } from "selectors";
+import smcAddress from "smc.json";
 
 const getNavLinkClass = (path) => {
   return path.some((i) => window.location.pathname === i) ? "active" : "";

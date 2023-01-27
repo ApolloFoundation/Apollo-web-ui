@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import { Form, useFormikContext } from 'formik';
-import { multiply, division } from '../../../../../../../helpers/format';
-import { ONE_GWEI } from '../../../../../../../constants/constants';
-import CustomInput from '../../../../../../components/custom-input';
-import Button from '../../../../../../components/button';
-import CustomSelect from '../../../../../../components/form-components/CustomSelect';
-import { InputRangeWithFormik } from '../../../../../../components/input-range/InputRangeWithFormik';
-import NumericInput from '../../../../../../components/form-components/NumericInput';
-import getFullNumber from '../../../../../../../helpers/util/expancionalParser';
-import { getExchangeInfoSelector, getModalsSelector } from '../../../../../../../selectors';
+import { multiply, division } from 'helpers/format';
+import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
+import Button from 'containers/components/button';
+import CustomSelect from 'containers/components/form-components/CustomSelect';
+import { InputRangeWithFormik } from 'containers/components/input-range/InputRangeWithFormik';
+import NumericInput from 'containers/components/form-components/NumericInput';
+import getFullNumber from 'helpers/util/expancionalParser';
+import { getExchangeInfoSelector, getModalsSelector } from 'selectors';
+import { ONE_GWEI } from 'constants/constants';
 
 export default function BuyForm(props) {
   const { currentCurrency } = useSelector(getExchangeInfoSelector, shallowEqual);

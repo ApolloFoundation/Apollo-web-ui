@@ -1,6 +1,6 @@
 import { useField } from 'formik';
 import React, { useCallback } from 'react';
-import InputRange from './index';
+import InputRange from './';
 
 export const InputRangeWithFormik = ({ name, min, max, onChange, ...rest }) => {
   const [field] = useField(name);

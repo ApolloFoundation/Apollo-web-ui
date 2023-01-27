@@ -6,12 +6,12 @@
 
 import React, { useCallback } from 'react';
 import {useDispatch, useSelector, shallowEqual} from 'react-redux';
-import InfoBox from '../../components/info-box';
+import InfoBox from 'containers/components/info-box';
 import {NotificationManager} from "react-notifications";
-import submitForm from "../../../helpers/forms/forms";
-import CustomInput from '../../components/custom-input/CustomInputWithFormik';
-import { getModalDataSelector } from '../../../selectors';
-import ModalBody from '../../components/modals/modal-body';
+import submitForm from "helpers/forms/forms";
+import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
+import { getModalDataSelector } from 'selectors';
+import ModalBody from 'containers/components/modals/modal-body';
 
 const AddMonitor = (props) => {
     const dispatch = useDispatch();

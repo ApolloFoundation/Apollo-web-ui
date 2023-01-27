@@ -5,11 +5,11 @@
 
 
 import React from 'react';
-import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {connect} from 'react-redux'
-import {formatTimestamp} from "../../../../helpers/util/time";
-import {formatTransactionType} from "../../../../actions/transactions";
-import { getConstantsSelector, getDecimalsSelector } from '../../../../selectors';
+import {setBodyModalParamsAction} from "modules/modals";
+import {formatTimestamp} from "helpers/util/time";
+import {formatTransactionType} from "actions/transactions";
+import { getConstantsSelector, getDecimalsSelector } from 'selectors';
 
 const mapStateToProps = state => ({
     constants: getConstantsSelector(state),

@@ -6,12 +6,12 @@
 
 import React, { useCallback, useEffect } from 'react';
 import {useDispatch} from 'react-redux';
-import {BlockUpdater} from "../../block-subscriber";
-import {setBodyModalParamsAction} from "../../../modules/modals";
-import {getMarketplaceGeneralInfo} from '../../../modules/marketplace';
-import SiteHeader from '../../components/site-header';
-import MarketplaceDashboardHeader from './marketplace-dashboard-header/index';
-import MarketplaceDashboardFooter from './marketplace-dashboard-footer/index';
+import {BlockUpdater} from "containers/block-subscriber";
+import {setBodyModalParamsAction} from "modules/modals";
+import {getMarketplaceGeneralInfo} from 'modules/marketplace';
+import SiteHeader from 'containers/components/site-header';
+import MarketplaceDashboardHeader from './marketplace-dashboard-header';
+import MarketplaceDashboardFooter from './marketplace-dashboard-footer';
 
 import './MarketPLace.scss';
 

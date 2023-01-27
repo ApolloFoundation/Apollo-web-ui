@@ -6,9 +6,9 @@
 
 import React, { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import submitForm from "../../../../helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
-import ModalBody from '../../../components/modals/modal-body';
+import submitForm from "helpers/forms/forms";
+import ModalBody from 'containers/components/modals/modal-body';
 import AddAliasForm from './form';
 
 const aliasTypeData = [

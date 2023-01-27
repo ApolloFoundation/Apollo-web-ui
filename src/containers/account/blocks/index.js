@@ -5,9 +5,9 @@
 
 
 import React, { useState } from 'react';
-import SiteHeader from '../../components/site-header'
-import TabContaier from "../../components/tabulator/tab-container";
-import TabulationBody from "../../components/tabulator/tabuator-body";
+import SiteHeader from 'containers/components/site-header'
+import TabContaier from "containers/components/tabulator/tab-container";
+import TabulationBody from "containers/components/tabulator/tabuator-body";
 import { ForgedBlocks } from './ForgedBlocks';
 import { AllBlocks } from './AllBlocks';
 import { BlocksForm } from './form'

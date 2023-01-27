@@ -1,12 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-has-content */
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setBodyModalParamsAction } from '../../../modules/modals';
-import { getDashboardData } from '../../../actions/dashboard';
+import { setBodyModalParamsAction } from 'modules/modals';
+import { getDashboardData } from 'actions/dashboard';
 import SiteHeader from '../../components/site-header';
-import TwitterBanner from "../../../assets/dashboard-safe.jpeg";
-import InfoBanner from "../../../assets/dashboard-knox.jpeg";
-import { getAccountSelector, getActualBlockSelector } from '../../../selectors';
+import TwitterBanner from "assets/dashboard-safe.jpeg";
+import InfoBanner from "assets/dashboard-knox.jpeg";
+import { getAccountSelector, getActualBlockSelector } from 'selectors';
 import TotalBalance from './total-balance';
 import MyTransactions from './my-transactions';
 import BlockchainStatus from './blockchain-status';

@@ -6,7 +6,7 @@
 
 import React from 'react';
 import {Link} from 'react-router-dom';
-import SiteHeader from '../../components/site-header';
+import SiteHeader from 'containers/components/site-header';
 import { DatastoregeTags } from './DatastorageTags';
 import { DataStorageFiles } from './DataStorageFiles';
 import { AccountForm } from './DataStorageForms/AccountForm';

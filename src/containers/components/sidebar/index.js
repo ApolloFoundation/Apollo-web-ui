@@ -9,12 +9,12 @@ import { NavLink, Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {Scrollbars} from 'react-custom-scrollbars';
 import classNames from 'classnames'
-import {setModalType} from '../../../modules/modals';
-import ApolloLogo from '../../../assets/new_apl_icon_black.svg';
-import smcAddress from '../../../smc.json';
+import {setModalType} from 'modules/modals';
+import ApolloLogo from 'assets/new_apl_icon_black.svg';
+import smcAddress from 'smc.json';
 import {
 	getChainIdSelector, getModalTypeSelector, getNotificationSelector, getSettingsSelector
-} from '../../../selectors';
+} from 'selectors';
 import * as routes from './routesMenu';
 import './Sidebar.scss';
 

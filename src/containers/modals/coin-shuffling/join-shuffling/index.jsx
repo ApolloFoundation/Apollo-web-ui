@@ -6,14 +6,14 @@
 
 import React, { useCallback, useEffect, useState } from 'react';
 import {useDispatch, useSelector, shallowEqual} from 'react-redux';
-import {getBlockAction} from "../../../../actions/blocks";
 import {NotificationManager} from "react-notifications";
-import submitForm from "../../../../helpers/forms/forms";
-import {getShufflingAction} from "../../../../actions/shuffling";
-import crypto from "../../../../helpers/crypto/crypto";
-import {processElGamalEncryption} from "../../../../actions/crypto";
-import ModalBody from "../../../components/modals/modal-body";
-import { getModalDataSelector } from '../../../../selectors';
+import {getBlockAction} from "actions/blocks";
+import submitForm from "helpers/forms/forms";
+import {getShufflingAction} from "actions/shuffling";
+import crypto from "helpers/crypto/crypto";
+import {processElGamalEncryption} from "actions/crypto";
+import ModalBody from "containers/components/modals/modal-body";
+import { getModalDataSelector } from 'selectors';
 import JoinShufflingForm from "./form";
 
 const JoinShuffling = ({ closeModal }) => {
@@ -82,6 +82,8 @@ const JoinShuffling = ({ closeModal }) => {
             isPending={isPending}
             initialValues={{
                 isVaultWallet: false,
+                recipientSecretPhrase: '',
+                generatedAccount: '',
                 recipientSecretPhrase: '',
             }}
         >

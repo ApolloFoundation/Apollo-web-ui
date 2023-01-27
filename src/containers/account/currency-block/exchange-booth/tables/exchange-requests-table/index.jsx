@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { TableLoader } from '../../../../../components/TableLoader';
-import { getAccountExchangeAction } from '../../../../../../actions/exchange-booth';
+import { TableLoader } from 'containers/components/TableLoader';
+import { getAccountExchangeAction } from 'actions/exchange-booth';
 import ExchangeItem from './exchange-item';
 
 export default function ExchangeRequestsTable({ account, currencyInfo }) {

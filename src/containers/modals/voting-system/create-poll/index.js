@@ -7,9 +7,9 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NotificationManager } from "react-notifications";
-import ModalBody from '../../../components/modals/modal-body';
-import { getTickerSelector } from '../../../../selectors';
-import { IS_MODAL_PROCESSING } from '../../../../modules/modals';
+import ModalBody from 'containers/components/modals/modal-body';
+import { getTickerSelector } from 'selectors';
+import { IS_MODAL_PROCESSING } from 'modules/modals';
 import PollForm from './form';
 
 const votingModelData = [

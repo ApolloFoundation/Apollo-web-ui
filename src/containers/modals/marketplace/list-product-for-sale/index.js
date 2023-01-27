@@ -8,8 +8,8 @@ import React, { useCallback } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import {NotificationManager} from 'react-notifications';
 import i18n from 'i18next';
-import ModalBody from '../../../components/modals/modal-body';
-import { getConstantsSelector, getTickerSelector } from '../../../../selectors';
+import ModalBody from 'containers/components/modals/modal-body';
+import { getConstantsSelector, getTickerSelector } from 'selectors';
 import ListProductForSaleFrom from './form';
 
 const ListProductForSale = ({ processForm, closeModal }) => {

@@ -2,13 +2,13 @@ import React from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { setBodyModalParamsAction } from '../../../../modules/modals';
-import ContentLoader from '../../../components/content-loader';
+import { setBodyModalParamsAction } from 'modules/modals';
+import ContentLoader from 'containers/components/content-loader';
 import {
   getDashboardInfoSelector,
   getDecimalsSelector,
   getTickerSelector
-} from '../../../../selectors';
+} from 'selectors';
 import { numberToLocaleString } from 'helpers/format';
 
 const TotalBalance = () => {

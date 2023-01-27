@@ -5,11 +5,11 @@
 
 
 import React, { useCallback, useState } from 'react';
-import CustomTextArea from "../../components/form-components/TextArea/TextAreaWithFormik";
-import CheckboxFormInput from "../../components/check-button-input/CheckboxWithFormik";
-import CustomFormSelect from "../../components/form-components/CustomSelect";
-import ModalBody from "../../components/modals/modal-body";
-import { getHashRequest } from '../../../actions/hash';
+import CustomTextArea from "containers/components/form-components/TextArea/TextAreaWithFormik";
+import CheckboxFormInput from "containers/components/check-button-input/CheckboxWithFormik";
+import CustomFormSelect from "containers/components/form-components/CustomSelect";
+import ModalBody from "containers/components/modals/modal-body";
+import { getHashRequest } from 'actions/hash';
 
 const hashOptions = [
     {
@@ -65,6 +65,7 @@ const HashCalculation = ({ closeModal }) => {
             initialValues={{
                 isMessage: true,
                 alg: hashOptions[0].value,
+                data: '',
             }}
         >
             <CustomTextArea

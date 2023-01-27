@@ -1,5 +1,5 @@
 import React from 'react';
-import { getAccountCurrenciesAction } from '../../../../../../actions/currencies';
+import { getAccountCurrenciesAction } from 'actions/currencies';
 import { AccountTableBase } from '..';
 import Currency from './currency';
 

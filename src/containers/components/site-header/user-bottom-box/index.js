@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import { getBlockchainStatusSelector } from '../../../../selectors';
-import {setBodyModalParamsAction} from '../../../../modules/modals';
+import { getBlockchainStatusSelector } from 'selectors';
+import {setBodyModalParamsAction} from 'modules/modals';
 
 const UserBottomBox = ({appState, setBodyModalParamsAction}) => (
     <div className="network-overview">

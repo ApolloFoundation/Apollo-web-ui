@@ -4,13 +4,12 @@ import classNames from 'classnames';
 import { NavLink, withRouter } from 'react-router-dom'
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { NotificationManager } from "react-notifications";
-
-import { logOutAction } from "../../../../actions/login";
-import { setBodyModalParamsAction } from '../../../../modules/modals';
-import { readFromLocalStorage } from '../../../../actions/localStorage';
+import { logOutAction } from "actions/login";
+import { setBodyModalParamsAction } from 'modules/modals';
+import { readFromLocalStorage } from 'actions/localStorage';
 import {
     getAccountPublicKeySelector, getAccountRsSelector, getAccountSelector, getForgingStatusSelector
-} from '../../../../selectors';
+} from 'selectors';
 
 class CurrentAccount extends React.Component {
     refContactsList = React.createRef();

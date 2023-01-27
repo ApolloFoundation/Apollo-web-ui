@@ -10,16 +10,16 @@ import { Form, Formik } from 'formik';
 import { NotificationManager } from 'react-notifications';
 import classNames from 'classnames';
 import i18n from 'i18next';
-import { saveSendModalState } from '../../../../modules/modals';
-import { importAccountAction, importAccountActionViaFile } from '../../../../actions/account';
-import CustomInput from '../../../components/custom-input/CustomInputWithFormik';
-import InfoBox from '../../../components/info-box';
-import InputUpload from '../../../components/form-components/FIleInput';
-import ButtonTabs from '../../../components/button-tabs';
-import Button from '../../../components/button';
+import { saveSendModalState } from 'modules/modals';
+import { importAccountAction, importAccountActionViaFile } from 'actions/account';
+import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
+import InfoBox from 'containers/components/info-box';
+import InputUpload from 'containers/components/form-components/FIleInput';
+import ButtonTabs from 'containers/components/button-tabs';
+import Button from 'containers/components/button';
+import RedTriangle from 'assets/red-triangle.svg';
+import { getConstantsSelector } from 'selectors';
 import ErrorWrapper from './error-wrapper';
-import RedTriangle from '../../../../assets/red-triangle.svg';
-import { getConstantsSelector } from '../../../../selectors';
 import styles from './index.module.scss';
 
 const formats = {

@@ -1,8 +1,8 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import {useDispatch} from 'react-redux';
 import { useFormikContext } from 'formik';
-import CustomInput from '../../custom-input/CustomInputWithFormik';
-import { getAssetAction } from '../../../../actions/assets';
+import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
+import { getAssetAction } from 'actions/assets';
 
 export const AssetInput = ({ name }) => {
     const dispatch = useDispatch();

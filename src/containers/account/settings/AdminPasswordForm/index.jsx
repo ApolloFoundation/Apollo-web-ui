@@ -2,9 +2,9 @@ import React, { useCallback }  from 'react';
 import { useSelector } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
 import { FormikProvider, useFormik, Form } from 'formik';
-import { getAdminPasswordSelector } from '../../../../selectors';
-import { writeToLocalStorage } from '../../../../actions/localStorage';
-import TextualInputComponent from '../../../components/form-components/TextualInput';
+import { getAdminPasswordSelector } from 'selectors';
+import { writeToLocalStorage } from 'actions/localStorage';
+import TextualInputComponent from 'containers/components/form-components/TextualInput';
 
 export const AdminPasswordForm = () => {
   const adminPassword = useSelector(getAdminPasswordSelector);

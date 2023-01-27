@@ -1,6 +1,6 @@
 import React from 'react';
-import CustomFormSelect from '../../../components/form-components/CustomSelect';
-import TextualInputComponent from '../../../components/form-components/TextualInput';
+import CustomFormSelect from 'containers/components/form-components/CustomSelect';
+import TextualInputComponent from 'containers/components/form-components/TextualInput';
 import { AliasFields } from 'containers/components/form-components/AliasFields';
 
 const EditAliasForm = ({ alias, typeData }) =>  (

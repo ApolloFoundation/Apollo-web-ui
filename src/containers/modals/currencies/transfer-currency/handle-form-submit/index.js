@@ -1,6 +1,6 @@
 import { NotificationManager } from 'react-notifications';
-import { setBodyModalParamsAction, IS_MODAL_PROCESSING } from '../../../../../modules/modals';
-import submitForm from '../../../../../helpers/forms/forms';
+import { setBodyModalParamsAction, IS_MODAL_PROCESSING } from 'modules/modals';
+import submitForm from 'helpers/forms/forms';
 
 export const handleFormSubmit = ({decimals, ...values}) => async dispatch => {
   const data = {

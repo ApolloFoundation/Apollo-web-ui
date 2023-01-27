@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {connect} from 'react-redux';
-import { getConstantsSelector } from "../../../../selectors";
-import {getCurrencyAction} from "../../../../actions/currencies";
+import { getConstantsSelector } from "selectors";
+import {getCurrencyAction} from "actions/currencies";
 
 class CurrencyTransfer extends Component {
 

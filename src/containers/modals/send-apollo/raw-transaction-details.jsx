@@ -6,10 +6,10 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
-import CustomInput from '../../components/custom-input/CustomInputWithFormik';
-import CustomTextArea from '../../components/form-components/TextArea/TextAreaWithFormik';
-import ModalBody from '../../components/modals/modal-body';
-import { getModalDataSelector } from '../../../selectors';
+import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
+import CustomTextArea from 'containers/components/form-components/TextArea/TextAreaWithFormik';
+import ModalBody from 'containers/components/modals/modal-body';
+import { getModalDataSelector } from 'selectors';
 
 export default function RawTransactionDetails({ closeModal, processForm }) {
   const dispatch = useDispatch();

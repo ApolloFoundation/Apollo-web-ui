@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect } from 'react';
 import { useField } from 'formik';
-import CheckboxFormInput from './index';
+import CheckboxFormInput from './';
 
 export const CheckboxWithFormik = ({ name, onChange, ...props}) => {
   const [field, ,helpers] = useField({ name, type: 'checkbox' });
@@ -14,7 +14,7 @@ export const CheckboxWithFormik = ({ name, onChange, ...props}) => {
     if(props.defaultValue) {
       helpers.setValue(props.defaultValue);
     }
-  }, [props.defaultValue])
+  }, [props.defaultValue]);
 
   return (
     <CheckboxFormInput {...props} {...field} name={name} onChange={handleChange} />

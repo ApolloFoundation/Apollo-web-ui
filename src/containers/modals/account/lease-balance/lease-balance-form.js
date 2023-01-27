@@ -1,9 +1,9 @@
 import React from 'react';
 import { useSelector} from 'react-redux';
 import { useFormikContext } from 'formik';
-import NumericInputComponent from '../../../components/form-components/NumericInput';
-import AccountRSInput from '../../../components/form-components/AccountRS';
-import { getBlockTimeSelector } from '../../../../selectors';
+import NumericInputComponent from 'containers/components/form-components/NumericInput';
+import AccountRSInput from 'containers/components/form-components/AccountRS';
+import { getBlockTimeSelector } from 'selectors';
 
 
 const LeaseBalanceForm = () => {

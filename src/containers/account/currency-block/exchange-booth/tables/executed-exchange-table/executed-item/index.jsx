@@ -5,9 +5,9 @@
 
 import React, { useMemo }from 'react';
 import { useDispatch } from 'react-redux';
+import { setBodyModalParamsAction } from 'modules/modals';
 import { useFormatTimestamp } from 'hooks/useFormatTimestamp';
 import { numberToLocaleString } from 'helpers/format';
-import { setBodyModalParamsAction } from '../../../../../../../modules/modals';
 
 export default function ExecutedItem({
   transaction, sellerRS, timestamp, buyerRS,

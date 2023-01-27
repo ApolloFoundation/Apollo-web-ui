@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback, useState } from "react";
-import {BlockUpdater} from "../../block-subscriber";
+import {BlockUpdater} from "containers/block-subscriber";
 import ContentLoader from '../content-loader'
 import CustomTable from "../tables/table";
 

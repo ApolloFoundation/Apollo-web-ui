@@ -1,10 +1,10 @@
 import React from 'react';
 import { Field } from 'formik';
-import InfoBox from '../../../components/info-box';
-import TextualInputForm from '../../../components/form-components/TextualInput';
-import CheckboxFormInput from '../../../components/check-button-input/CheckboxWithFormik';
-import ContentLoader from '../../../components/content-loader';
-import { RangeInput } from '../../../components/form-components/RangeInput';
+import InfoBox from 'containers/components/info-box';
+import TextualInputForm from 'containers/components/form-components/TextualInput';
+import CheckboxFormInput from 'containers/components/check-button-input/CheckboxWithFormik';
+import ContentLoader from 'containers/components/content-loader';
+import { RangeInput } from 'containers/components/form-components/RangeInput';
 
 const CastVoteForm = ({ currencyHint, assetHint, poll, votes }) => (
     <>

@@ -1,8 +1,8 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { get2FASelector } from '../../../../selectors';
-import AccountRSFormInput from "../../../components/form-components/AccountRS";
-import CustomInput from '../../../components/custom-input/CustomInputWithFormik';
+import { get2FASelector } from 'selectors';
+import AccountRSFormInput from "containers/components/form-components/AccountRS";
+import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
 
 export const ExportAccountForm = () => {
   const is2FA = useSelector(get2FASelector);

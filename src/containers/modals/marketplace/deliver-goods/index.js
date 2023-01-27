@@ -6,19 +6,19 @@
 
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
-import config from '../../../../config';
+import config from 'config';
 import Form from './form';
-import ModalBody from '../../../components/modals/modal-body';
+import ModalBody from 'containers/components/modals/modal-body';
 import {NotificationManager} from "react-notifications";
-import submitForm from "../../../../helpers/forms/forms";
+import submitForm from "helpers/forms/forms";
 import {
     getAccountRsSelector,
     getDecimalsSelector,
     getModalDataSelector,
     getTickerSelector
-} from '../../../../selectors';
-import { useFormatTimestamp } from '../../../../hooks/useFormatTimestamp';
-import {getDGSPurchaseAction} from "../../../../actions/marketplace";
+} from 'selectors';
+import { useFormatTimestamp } from 'hooks/useFormatTimestamp';
+import {getDGSPurchaseAction} from "actions/marketplace";
 
 const MarketplaceDeliver = ({ closeModal }) => {
     const dispatch = useDispatch();

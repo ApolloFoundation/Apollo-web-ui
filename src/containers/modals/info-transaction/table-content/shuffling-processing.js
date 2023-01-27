@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {setBodyModalParamsAction} from "../../../../modules/modals";
-import {getShufflingAction} from "../../../../actions/shuffling";
-import {getTransactionAction} from "../../../../actions/transactions";
+import {setBodyModalParamsAction} from "modules/modals";
+import {getShufflingAction} from "actions/shuffling";
+import {getTransactionAction} from "actions/transactions";
 
 class ShufflingProcessing extends Component {
 	componentDidMount = () => {

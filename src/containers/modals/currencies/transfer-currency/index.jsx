@@ -5,11 +5,11 @@
 
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
-import ModalBody from '../../../components/modals/modal-body';
-import AccountRSFormInput from '../../../components/form-components/AccountRS';
-import NumericInput from '../../../components/form-components/NumericInput';
-import CurrencyInput from '../../../components/form-components/CurrencyInput';
-import { getModalDataSelector } from '../../../../selectors';
+import ModalBody from 'containers/components/modals/modal-body';
+import AccountRSFormInput from 'containers/components/form-components/AccountRS';
+import NumericInput from 'containers/components/form-components/NumericInput';
+import CurrencyInput from 'containers/components/form-components/CurrencyInput';
+import { getModalDataSelector } from 'selectors';
 import { handleFormSubmit } from './handle-form-submit';
 
 export default function TransferCurrency({ closeModal }) {

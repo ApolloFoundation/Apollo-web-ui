@@ -7,10 +7,10 @@
 import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { NotificationManager } from "react-notifications";
-import submitForm from "../../../helpers/forms/forms";
-import FeeCalc from '../../components/form-components/FeeCalc';
-import { getModalDataSelector } from '../../../selectors';
-import ModalBody from '../../components/modals/modal-body';
+import submitForm from "helpers/forms/forms";
+import FeeCalc from 'containers/components/form-components/FeeCalc';
+import { getModalDataSelector } from 'selectors';
+import ModalBody from 'containers/components/modals/modal-body';
 
 const DeleteAccountProperty = (props) => {
     const dispatch = useDispatch();

@@ -7,8 +7,8 @@
 import React, { useCallback } from 'react';
 import {useDispatch} from 'react-redux';
 import {NotificationManager} from "react-notifications";
-import { setBodyModalParamsAction } from '../../../../modules/modals';
-import ModalBody from '../../../components/modals/modal-body';
+import { setBodyModalParamsAction } from 'modules/modals';
+import ModalBody from 'containers/components/modals/modal-body';
 import CreateShufflngForm from './form';
 
 const CreateShuffling = ({ processForm, closeModal }) => {

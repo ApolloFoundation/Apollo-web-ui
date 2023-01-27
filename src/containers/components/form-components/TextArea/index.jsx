@@ -1,5 +1,4 @@
 import React from 'react';
-import { useField } from 'formik';
 
 const CustomTextArea = ({
   label, name, placeholder, note, className, idGroup, rows, cols, labelStyle, onChange, onBlur, value, ...rest

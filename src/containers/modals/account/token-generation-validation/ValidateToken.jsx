@@ -2,10 +2,10 @@
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
-import { validateTokenAction } from "../../../../actions/account";
-import ModalBody from '../../../components/modals/modal-body';
-import CustomTextArea from '../../../components/form-components/TextArea/TextAreaWithFormik';
-import CustomInput from '../../../components/custom-input/CustomInputWithFormik';
+import { validateTokenAction } from "actions/account";
+import ModalBody from 'containers/components/modals/modal-body';
+import CustomTextArea from 'containers/components/form-components/TextArea/TextAreaWithFormik';
+import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
 
 export const ValidateToken = ({ closeModal }) => {
   const dispatch = useDispatch();

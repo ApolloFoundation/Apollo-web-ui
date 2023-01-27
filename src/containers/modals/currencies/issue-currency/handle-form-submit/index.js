@@ -1,5 +1,5 @@
 import { NotificationManager } from 'react-notifications';
-import { setBodyModalParamsAction, IS_MODAL_PROCESSING } from '../../../../../modules/modals';
+import { setBodyModalParamsAction, IS_MODAL_PROCESSING } from 'modules/modals';
 
 const { BigInteger } = require('jsbn');
 

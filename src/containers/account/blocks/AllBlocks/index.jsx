@@ -1,10 +1,10 @@
 import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {NotificationManager} from "react-notifications";
-import { getBlocksAction, getBlockAction } from "../../../../actions/blocks";
-import TopPageBlocks from '../../../components/tob-page-blocks';
-import { getAccountSelector, getBlockTimeSelector, getDecimalsSelector } from '../../../../selectors';
-import { TableLoader } from '../../../components/TableLoader';
+import { getBlocksAction, getBlockAction } from "actions/blocks";
+import TopPageBlocks from 'containers/components/tob-page-blocks';
+import { getAccountSelector, getBlockTimeSelector, getDecimalsSelector } from 'selectors';
+import { TableLoader } from 'containers/components/TableLoader';
 import Block from '../block';
 import { headersList } from './headersList';
 

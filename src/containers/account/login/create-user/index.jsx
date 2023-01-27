@@ -8,8 +8,8 @@ import React, {
 } from 'react';
 import { useDispatch } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
-import { getAccountDataAction } from '../../../../actions/login';
-import ButtonTabs from '../../../components/button-tabs';
+import { getAccountDataAction } from 'actions/login';
+import ButtonTabs from 'containers/components/button-tabs';
 import VaultWalletForm from './forms/vaultWalletForm';
 import StandartWalletForm from './forms/standardWalletForm';
 import CreateAccount from './forms/createAccountForm';

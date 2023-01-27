@@ -7,10 +7,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import {useDispatch, useSelector, shallowEqual} from 'react-redux';
 import classNames from 'classnames';
-import  {getDGSGoodAction} from "../../../../actions/marketplace";
-import config from '../../../../config'
-import ModalBody from '../../../components/modals/modal-body';
-import { getModalDataSelector } from '../../../../selectors';
+import  {getDGSGoodAction} from "actions/marketplace";
+import config from 'config'
+import ModalBody from 'containers/components/modals/modal-body';
+import { getModalDataSelector } from 'selectors';
 
 const MarketplaceImage = (props) => {
     const dispatch = useDispatch();

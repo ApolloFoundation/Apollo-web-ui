@@ -1,9 +1,9 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {getAssetAction} from "../../../../actions/assets";
-import {setBodyModalParamsAction} from "../../../../modules/modals";
-import {getTransactionAction} from "../../../../actions/transactions";
-import { getConstantsSelector } from "../../../../selectors";
+import {getAssetAction} from "actions/assets";
+import {setBodyModalParamsAction} from "modules/modals";
+import {getTransactionAction} from "actions/transactions";
+import { getConstantsSelector } from "selectors";
 
 
 class AskOrderPlacement extends Component {

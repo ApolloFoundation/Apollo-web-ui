@@ -1,6 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
-import InfoBox from '../info-box';
+import InfoBox from 'containers/components/info-box';
 
 const ContentLoader = ({
   noPaddingOnTheSides, noPaddingTop, className,

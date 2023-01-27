@@ -6,8 +6,8 @@
 
 import React, { useCallback } from 'react';
 import {useDispatch} from 'react-redux';
-import {getShards} from '../../../../actions/sharding';
-import ModalBody from "../../../components/modals/modal-body";
+import {getShards} from 'actions/sharding';
+import ModalBody from "containers/components/modals/modal-body";
 import { TableLoader } from 'containers/components/TableLoader';
 import { ShardingInfoItem } from './ShardingInfoItem';
 

@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import { getPollResultAction, getPollVotesAction } from '../../../../actions/polls';
-import VoteResultItem from '../../../account/followed-polls/vote-result/';
-import PollRequestItem from  '../../../account/followed-polls/poll-request/';
-import ModalBody from '../../../components/modals/modal-body';
-import TabContaier from '../../../components/tabulator/tab-container';
-import TabulationBody from '../../../components/tabulator/tabuator-body';
-import CustomTable from '../../../components/tables/table';
-import { getAccountSelector, getModalDataSelector } from '../../../../selectors';
+import { getPollResultAction, getPollVotesAction } from 'actions/polls';
+import VoteResultItem from 'containers/account/followed-polls/vote-result/';
+import PollRequestItem from  'containers/account/followed-polls/poll-request/';
+import ModalBody from 'containers/components/modals/modal-body';
+import TabContaier from 'containers/components/tabulator/tab-container';
+import TabulationBody from 'containers/components/tabulator/tabuator-body';
+import CustomTable from 'containers/components/tables/table';
+import { getAccountSelector, getModalDataSelector } from 'selectors';
 
 class PollResults extends Component {
 

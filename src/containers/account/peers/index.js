@@ -5,13 +5,13 @@
 
 
 import React from 'react';
-import SiteHeader from '../../components/site-header'
 import {connect} from 'react-redux';
-import {getPeerAction, getPeersAction, getPeersInfoAction} from "../../../actions/peers";
-import {setBodyModalParamsAction} from "../../../modules/modals";
-import CustomTable from '../../components/tables/table';
-import TopPageBlocks from '../../components/tob-page-blocks';
-import { getIsLocalhostSelector } from '../../../selectors';
+import SiteHeader from 'containers/components/site-header'
+import {getPeerAction, getPeersAction, getPeersInfoAction} from "actions/peers";
+import {setBodyModalParamsAction} from "modules/modals";
+import CustomTable from 'containers/components/tables/table';
+import TopPageBlocks from 'containers/components/tob-page-blocks';
+import { getIsLocalhostSelector } from 'selectors';
 import Peer from './peer'
 
 const mapStateToProps = state => ({

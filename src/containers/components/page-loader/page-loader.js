@@ -6,8 +6,8 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import { getLoginProblemSelector } from '../../../selectors';
-import {getAccountDataAction} from '../../../actions/login';
+import { getLoginProblemSelector } from 'selectors';
+import {getAccountDataAction} from 'actions/login';
 
 const savedAccount = JSON.parse(localStorage.getItem('APLUserRS'))
 

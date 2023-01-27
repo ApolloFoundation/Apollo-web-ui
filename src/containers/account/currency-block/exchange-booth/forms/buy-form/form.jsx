@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form } from 'formik';
-import Button from '../../../../../components/button';
-import NumericInput from '../../../../../components/form-components/NumericInput';
+import Button from 'containers/components/button';
+import NumericInput from 'containers/components/form-components/NumericInput';
 
 export const BuyFormFields = ({ onChange, code, ticker, minimumSellRate, values }) => (
   <Form className="form-group-app">

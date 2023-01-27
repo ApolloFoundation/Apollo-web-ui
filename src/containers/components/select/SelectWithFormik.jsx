@@ -1,6 +1,6 @@
 import { useField } from 'formik';
 import React, { useCallback } from 'react';
-import CustomSelect from './index';
+import CustomSelect from './';
 
 export const SelectWithFormik = ({ name, ...rest}) => {
   const [field, _, helpers] = useField(name);

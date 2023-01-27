@@ -7,9 +7,9 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
-import { setBodyModalParamsAction } from '../../../../../modules/modals';
-import { getCurrencyTypes } from '../../../../../modules/currencies';
-import { getActualBlockSelector } from '../../../../../selectors';
+import { setBodyModalParamsAction } from 'modules/modals';
+import { getCurrencyTypes } from 'modules/currencies';
+import { getActualBlockSelector } from 'selectors';
 
 export default function Currency(props) {
   const dispatch = useDispatch();

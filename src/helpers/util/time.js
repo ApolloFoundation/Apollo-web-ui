@@ -4,9 +4,7 @@
  ******************************************************************************/
 
 
-import axios from 'axios';
-import config from '../../config'
-import {getLocale} from "../internationalisation";
+import {getLocale} from "helpers/internationalisation";
 
 const EPOCH_BEGINNING = 1385294400000;
 

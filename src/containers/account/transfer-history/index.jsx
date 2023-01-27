@@ -5,10 +5,10 @@
 
 import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAccountRsSelector } from '../../../selectors';
-import { getTransferHistory } from '../../../actions/assets';
-import SiteHeader from '../../components/site-header';
-import { TableLoader } from '../../components/TableLoader';
+import { getAccountRsSelector } from 'selectors';
+import { getTransferHistory } from 'actions/assets';
+import SiteHeader from 'containers/components/site-header';
+import { TableLoader } from 'containers/components/TableLoader';
 import TransferHistoryItem from './transfer-history-item';
 
 export default function TransferHistory() {

@@ -4,7 +4,6 @@
  ******************************************************************************/
 
 
-import utils from './utils';
 const DEFAULT_PREFIX = "APL";
 
 function AplAddress(prefix = DEFAULT_PREFIX) {

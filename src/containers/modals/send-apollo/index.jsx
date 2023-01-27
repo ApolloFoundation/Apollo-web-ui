@@ -6,22 +6,20 @@
 import React, { useState, useCallback } from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
-import { setBodyModalParamsAction } from '../../../modules/modals';
+import { setBodyModalParamsAction } from 'modules/modals';
 import {
   getAccountSelector,
   getDecimalsSelector,
   getModalDataSelector,
   getTickerSelector
-} from '../../../selectors';
-import ModalBody from '../../components/modals/modal-body';
-import SendApolloForm from './form';
+} from 'selectors';
+import ModalBody from 'containers/components/modals/modal-body';
 import {PrivateTransactionConfirm} from './PrivateTransactionConfirm/PrivateTransactionConfirm';
+import SendApolloForm from './form';
 
 export default function SendApollo({ closeModal, processForm }) {
   const [ isShowNotification, setIsShowNotification ] = useState(false);
   const dispatch = useDispatch();
-
-  const [alias, setAlias] = useState(null);
 
   const modalData = useSelector(getModalDataSelector, shallowEqual);
   const account = useSelector(getAccountSelector);
@@ -45,7 +43,7 @@ export default function SendApollo({ closeModal, processForm }) {
     }
 
     if (values.alias) {
-      data.recipient = alias;
+      data.recipient = values.alias;
     }
 
     processForm({ decimals, ...data }, 'sendMoney', 'Transaction has been submitted!', res => {
@@ -60,11 +58,7 @@ export default function SendApollo({ closeModal, processForm }) {
 
       NotificationManager.success('Transaction has been submitted!', null, 5000);
     });
-  }, [account, alias, closeModal, decimals, dispatch, processForm]);
-
-  const onChosenTransactionOnAlias = () => setAlias(null);
-
-  const handelChangeAlias = ({ value }) => setAlias(value);
+  }, [account, closeModal, decimals, dispatch, processForm]);
 
   const handleShowNotification = (value) => () => {
     setIsShowNotification(value);
@@ -83,14 +77,11 @@ export default function SendApollo({ closeModal, processForm }) {
       initialValues={{
         recipient: (modalData && modalData.recipient) || '',
         amountATM: (modalData && modalData.amountATM) || '',
-        encrypt_message: true,
       }}
       isLoadValue
     >
       {isShowNotification && <PrivateTransactionConfirm onClose={handleShowNotification(false)} />}
       <SendApolloForm
-        onChangeAlias={handelChangeAlias}
-        onChosenTransactionOnAlias={onChosenTransactionOnAlias}
         onPrivateTransactionChange={handleShowNotification}
         isShowPrivateTransaction={isShowNotification}
         ticker={ticker}

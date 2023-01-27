@@ -5,9 +5,9 @@
 
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDecimalsSelector } from '../../../../../../../selectors';
-import { getBlockAction } from '../../../../../../../actions/blocks';
-import { setBodyModalParamsAction } from '../../../../../../../modules/modals';
+import { getDecimalsSelector } from 'selectors';
+import { getBlockAction } from 'actions/blocks';
+import { setBodyModalParamsAction } from 'modules/modals';
 
 export default function ExchangeItem({ decimals, height, subtype, rateATM, units, }) {
   const dispatch = useDispatch();

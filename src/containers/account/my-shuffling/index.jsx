@@ -6,13 +6,13 @@
 
 import React, { useCallback } from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import SiteHeader from '../../components/site-header';
-import { TableLoader } from '../../components/TableLoader';
-import {getAccountShufflingsAction} from '../../../actions/shuffling';
-import {getTransactionAction} from '../../../actions/transactions';
-import {setBodyModalParamsAction} from '../../../modules/modals';
-import { getAccountSelector } from '../../../selectors';
-import ShufflingItem from './shuffling-item/index'
+import SiteHeader from 'containers/components/site-header';
+import { TableLoader } from 'containers/components/TableLoader';
+import {getAccountShufflingsAction} from 'actions/shuffling';
+import {getTransactionAction} from 'actions/transactions';
+import {setBodyModalParamsAction} from 'modules/modals';
+import { getAccountSelector } from 'selectors';
+import ShufflingItem from './shuffling-item'
 
 const MyShufling = () => {
     const dispatch = useDispatch();

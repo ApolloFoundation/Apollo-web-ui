@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react';
 import { useDispatch } from "react-redux";
 import {NotificationManager} from "react-notifications";
-import submitForm from "../../../../../helpers/forms/forms";
-import ModalBody from "../../../../components/modals/modal-body";
-import CustomTextArea from "../../../../components/form-components/TextArea/TextAreaWithFormik";
+import submitForm from "helpers/forms/forms";
+import ModalBody from "containers/components/modals/modal-body";
+import CustomTextArea from "containers/components/form-components/TextArea/TextAreaWithFormik";
 
 export const ParseTransactionForm = ({ closeModal }) => {
   const dispatch = useDispatch();

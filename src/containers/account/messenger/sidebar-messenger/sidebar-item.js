@@ -1,6 +1,6 @@
 import React from 'react';
-import {formatTimestamp} from "../../../../helpers/util/time";
 import {connect} from 'react-redux';
+import {formatTimestamp} from "helpers/util/time";
 
 const SidebarMessage = (el) => (
     <div className="chat-box-item">
@@ -12,8 +12,6 @@ const SidebarMessage = (el) => (
         </div>
     </div>
 )
-
-// dangerouslySetInnerHTML={{__html: bottomBarPreText + el.currentSupply / Math.pow(10, el.decimals)}}
 
 const madDispatchToProps = dispatch => ({
     formatTimestamp: (time) => dispatch(formatTimestamp(time))

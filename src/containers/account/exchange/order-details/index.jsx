@@ -4,17 +4,17 @@ import React, {
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useRouteMatch, useHistory } from 'react-router-dom';
 import { NotificationManager } from 'react-notifications';
-import { currencyTypes, formatDivision } from '../../../../helpers/format';
-import { ONE_GWEI } from '../../../../constants/constants';
-import { ALL_STATUSES } from '../../../../constants/statuses';
+import { currencyTypes, formatDivision } from 'helpers/format';
+import { ALL_STATUSES } from 'constants/statuses';
+import { ONE_GWEI } from 'constants/constants';
 import {
   getAllContractStatus, getContractStatus, getOrderById,
-} from '../../../../actions/wallet';
-import SiteHeader from '../../../components/site-header';
-import ContentLoader from '../../../components/content-loader';
-import Button from '../../../components/button';
-import InfoBox from '../../../components/info-box';
-import { getAccountInfoSelector, getExchangeInfoSelector } from '../../../../selectors';
+} from 'actions/wallet';
+import SiteHeader from 'containers/components/site-header';
+import ContentLoader from 'containers/components/content-loader';
+import Button from 'containers/components/button';
+import InfoBox from 'containers/components/info-box';
+import { getAccountInfoSelector, getExchangeInfoSelector } from 'selectors';
 import { OrderDetailsForm } from './OrderDetailsForm';
 
 export default function OrderDetails() {

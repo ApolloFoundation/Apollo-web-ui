@@ -8,18 +8,17 @@ import React, {
 } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
-import { getMixerAccount } from '../../../actions/transactions';
-import submitForm from '../../../helpers/forms/forms';
-import ModalBody from '../../components/modals/modal-body';
+import { getMixerAccount } from 'actions/transactions';
+import ModalBody from 'containers/components/modals/modal-body';
 import {
   getConstantsSelector,
   getDecimalsSelector,
   getModalDataSelector,
   getTickerSelector
-} from '../../../selectors';
+} from 'selectors';
 import SendPrivateApolloForm from './form';
 
-export default function SendApolloPrivate({ closeModal }) {
+export default function SendApolloPrivate({ closeModal, processForm }) {
   const dispatch = useDispatch();
   const modalData= useSelector(getModalDataSelector, shallowEqual);
   const { mixerUrl, accountPrefix } = useSelector(getConstantsSelector, shallowEqual);
@@ -27,7 +26,6 @@ export default function SendApolloPrivate({ closeModal }) {
   const decimals = useSelector(getDecimalsSelector);
 
   const [useMixer, setUseMixer] = useState(false);
-  const [isPending, setIsPending] = useState(false);
   const [newMixerData, setNewMixerData] = useState(null);
 
   const handleGetMixerAccount = useCallback(async () => {
@@ -44,7 +42,6 @@ export default function SendApolloPrivate({ closeModal }) {
   }, [accountPrefix, mixerUrl]);
 
   const handleFormSubmit = useCallback(async values => {
-    if (!isPending) {
       if (!values.recipient) {
         NotificationManager.error('Recipient not specified.', 'Error', 5000);
         return;
@@ -88,24 +85,19 @@ export default function SendApolloPrivate({ closeModal }) {
         delete newValues.mixerAccount;
       }
 
-      setIsPending(true);
-
       const {
         duration, isMixer, mixerPublicKey, ...params
       } = newValues;
-
-      dispatch(await dispatch(submitForm.submitForm(params, 'sendMoneyPrivate', decimals)))
-        .done(privateTransaction => {
+      processForm(params, 'sendMoneyPrivate')
+        .then(privateTransaction => {
           if (privateTransaction && privateTransaction.errorCode) {
             NotificationManager.error(privateTransaction.errorDescription, 'Error', 5000);
           } else {
             NotificationManager.success('Private transaction has been submitted.', null, 5000);
             closeModal();
           }
-          setIsPending(false);
         });
-    }
-  }, [closeModal, decimals, dispatch, isPending]);
+  }, [closeModal, decimals, dispatch, processForm]);
 
   useEffect(() => {
     handleGetMixerAccount();
@@ -117,7 +109,6 @@ export default function SendApolloPrivate({ closeModal }) {
       closeModal={closeModal}
       handleFormSubmit={handleFormSubmit}
       isAdvanced
-      isPending={isPending}
       submitButtonName="Send"
       idGroup="send-private-money-modal-"
       initialValues={{

@@ -7,10 +7,10 @@
 import React, { useCallback, useEffect } from 'react';
 import {useDispatch} from 'react-redux';
 import {NotificationManager} from 'react-notifications';
-import SiteHeader from "../../components/site-header";
+import SiteHeader from "containers/components/site-header";
+import {getActiveShfflings} from 'actions/shuffling';
+import { TableLoader } from 'containers/components/TableLoader';
 import ShufflingItem from './shuffling-item';
-import {getActiveShfflings} from '../../../actions/shuffling';
-import { TableLoader } from '../../components/TableLoader';
 
 const ActiveShufflings = () => {
     const dispatch = useDispatch();

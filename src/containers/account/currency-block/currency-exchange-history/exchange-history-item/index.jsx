@@ -6,10 +6,10 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { setBodyModalParamsAction } from '../../../../../modules/modals';
-import { getDecimalsSelector } from '../../../../../selectors';
-import { useFormatTimestamp } from '../../../../../hooks/useFormatTimestamp';
-import { numberToLocaleString } from '../../../../../helpers/format';
+import { setBodyModalParamsAction } from 'modules/modals';
+import { getDecimalsSelector } from 'selectors';
+import { useFormatTimestamp } from 'hooks/useFormatTimestamp';
+import { numberToLocaleString } from 'helpers/format';
 
 export default function TradeHistoryItem(props) {
   const dispatch = useDispatch();

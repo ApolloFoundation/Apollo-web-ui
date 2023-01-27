@@ -2,8 +2,8 @@ import React, { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import classNames from 'classnames';
 import { NavLink } from "react-router-dom";
-import { useDataLoader } from "../../../../hooks/useDataLoader";
-import { getDataTagsAction } from "../../../../actions/datastorage";
+import { useDataLoader } from "hooks/useDataLoader";
+import { getDataTagsAction } from "actions/datastorage";
 
 export const DatastoregeTags = () => {
   const dispatch = useDispatch();

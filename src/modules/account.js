@@ -3,7 +3,7 @@
  *                                                                            *
  ***************************************************************************** */
 
-import { readFromLocalStorage } from "../actions/localStorage";
+import { readFromLocalStorage } from "actions/localStorage";
 
 export const LOAD_ACCOUNT = 'LOAD_ACCOUNT';
 export const RESET_ACCOUNT = 'RESET_ACCOUNT';

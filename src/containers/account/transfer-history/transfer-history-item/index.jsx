@@ -5,8 +5,8 @@
 
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { setBodyModalParamsAction } from '../../../../modules/modals';
-import { formatTimestamp } from '../../../../helpers/util/time';
+import { setBodyModalParamsAction } from 'modules/modals';
+import { formatTimestamp } from 'helpers/util/time';
 import { numberToLocaleString } from 'helpers/format';
 
 export default function TransferHistoryItem(props) {

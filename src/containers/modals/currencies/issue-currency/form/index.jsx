@@ -1,12 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useFormikContext } from 'formik';
-import NumericInput from '../../../../components/form-components/NumericInput';
-import TextualInputComponent from '../../../../components/form-components/TextualInput';
-import CheckboxFormInput from '../../../../components/check-button-input/CheckboxWithFormik';
-import CustomTextArea from '../../../../components/form-components/TextArea/TextAreaWithFormik';
-import BlockHeightInput from '../../../../components/form-components/BlockHeight/block-height-input1';
-import { getTickerSelector } from '../../../../../selectors';
+import NumericInput from 'containers/components/form-components/NumericInput';
+import TextualInputComponent from 'containers/components/form-components/TextualInput';
+import CheckboxFormInput from 'containers/components/check-button-input/CheckboxWithFormik';
+import CustomTextArea from 'containers/components/form-components/TextArea/TextAreaWithFormik';
+import BlockHeightInput from 'containers/components/form-components/BlockHeight/block-height-input1';
+import { getTickerSelector } from 'selectors';
 
 const checkboxes = [
   {
@@ -38,7 +38,7 @@ const checkboxes = [
 const IssueCurrencyForm = () => {
   const { values } = useFormikContext();
 
-  const ticker= useSelector(getTickerSelector);
+  const ticker = useSelector(getTickerSelector);
 
   return (
     <>

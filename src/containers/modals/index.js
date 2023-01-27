@@ -7,9 +7,9 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 import {connect} from 'react-redux';
 import classNames from 'classnames';
-import { closeModal } from '../../modules/modals';
-import ModalProvider from '../components/modals/modal-provider';
-import { getModalTypeSelector } from '../../selectors';
+import { closeModal } from 'modules/modals';
+import ModalProvider from 'containers/components/modals/modal-provider';
+import { getModalTypeSelector } from 'selectors';
 // Modals
 import PrivateTransactions from "./private-transaction";
 import SendApollo from "./send-apollo";
@@ -17,10 +17,10 @@ import SendApolloPrivate from "./send-apollo-private";
 import IssueAsset from "./issue/issue-asset"
 import InfoTransaction from './info-transaction/info-transaction';
 import { TransactionFail } from './transaction-fail';
-import InfoLedgerTransaction from './info-ledger-transaction/index';
+import InfoLedgerTransaction from './info-ledger-transaction';
 import InfoBlock from './info-block';
 import RawTransactionDetails from './send-apollo/raw-transaction-details';
-import { LoginSaveData } from './login-save-data/index';
+import { LoginSaveData } from './login-save-data';
 // Account
 import InfoAccount from './account/account/';
 import AccountDetails from './account/account-details/';
@@ -44,7 +44,7 @@ import AssetDistribution from './assets/view-asset-distribution';
 // Currency System
 import TransferCurrency from './currencies/transfer-currency';
 import OfferCurrency from './currencies/offer-currebcy';
-import ReserveCurrency from './currencies/ReserveCurrency/index';
+import ReserveCurrency from './currencies/ReserveCurrency';
 import IssueCurrency from './currencies/issue-currency';
 import ClaimCurrency from './currencies/claim-currency/';
 import BuyCurrency from './currencies/confirm-buy-request';
@@ -57,7 +57,7 @@ import PollResults from './voting-system/poll-results/';
 import UploadFile from './data-storage/uppload-file/';
 // Coin shuffling
 import CreateShuffling from './coin-shuffling/create-shuffling/';
-import JoinShuffling from './coin-shuffling/join-shuffling/index.jsx';
+import JoinShuffling from './coin-shuffling/join-shuffling';
 // Aliases
 import EditAlias from './aliases/edit-alias';
 import SellAlias from './aliases/sell-alias';
@@ -97,7 +97,7 @@ import ExportAccount from './account/ExportAccount/export-account'
 // scheduled transactins
 import ScheaduleCurrency from './scheaduled-transactions/scheaduled-currency'
 //exchange
-import LoginToExchange from './exchange/login/index.jsx';
+import LoginToExchange from './exchange/login';
 import LogoutExchange from './exchange/logout';
 import WithdrawCurrency from './exchange/withdraw-currency';
 import ConfirmCreateOffer from './exchange/confirm-create-offer';

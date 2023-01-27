@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { setBodyModalParamsAction } from '../../../../modules/modals';
-import Button from '../../../components/button';
+import { setBodyModalParamsAction } from 'modules/modals';
+import Button from 'containers/components/button';
 
 export default function AccountProperty(props) {
   const dispatch = useDispatch();

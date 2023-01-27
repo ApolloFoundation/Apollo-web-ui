@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector, shallowEqual} from 'react-redux';
 import { useFormikContext } from 'formik';
-import CheckboxFormInput from '../../../components/check-button-input/CheckboxWithFormik';
-import CustomInput from '../../../components/custom-input/CustomInputWithFormik';
-import crypto from "../../../../helpers/crypto/crypto";
-import { getModalDataSelector } from '../../../../selectors';
+import CheckboxFormInput from 'containers/components/check-button-input/CheckboxWithFormik';
+import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
+import crypto from "helpers/crypto/crypto";
+import { getModalDataSelector } from 'selectors';
 import { VaultWallet } from './VaultWallet';
 
 const JoinShufflingForm = ({ shuffling }) => {

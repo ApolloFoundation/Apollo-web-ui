@@ -7,11 +7,11 @@
 import React, { useCallback, useState } from 'react';
 import {useDispatch, useSelector, shallowEqual} from 'react-redux';
 import {NotificationManager} from "react-notifications";
-import InfoBox from '../../components/info-box';
-import submitForm from "../../../helpers/forms/forms";
-import TextalInput from '../../components/form-components/TextualInput';
-import ModalBody from '../../components/modals/modal-body';
-import { getModalDataSelector, getTickerSelector } from '../../../selectors';
+import InfoBox from 'containers/components/info-box';
+import submitForm from "helpers/forms/forms";
+import TextalInput from 'containers/components/form-components/TextualInput';
+import ModalBody from 'containers/components/modals/modal-body';
+import { getModalDataSelector, getTickerSelector } from 'selectors';
 
 const RemoveMonitor = (props) => {
     const dispatch = useDispatch();

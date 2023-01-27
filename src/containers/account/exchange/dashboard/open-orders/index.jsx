@@ -1,10 +1,10 @@
 import React, { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
-import { formatDivision } from '../../../../../helpers/format';
-import { setBodyModalParamsAction } from '../../../../../modules/modals';
-import { ONE_GWEI } from '../../../../../constants/constants';
-import CustomTable from '../../../../components/tables/table1';
+import { formatDivision } from 'helpers/format';
+import { setBodyModalParamsAction } from 'modules/modals';
+import CustomTable from 'containers/components/tables/table1';
+import { ONE_GWEI } from 'constants/constants';
 
 export default function OpenOrdersExchange(props) {
   const dispatch = useDispatch();

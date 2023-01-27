@@ -7,11 +7,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { NotificationManager } from "react-notifications";
-import  { getDGSGoodAction } from "../../../../actions/marketplace";
-import config from '../../../../config';
-import ModalBody from '../../../components/modals/modal-body';
-import { getAccountRsSelector, getModalDataSelector } from '../../../../selectors';
-import { useFormatTimestamp } from '../../../../hooks/useFormatTimestamp';
+import  { getDGSGoodAction } from "actions/marketplace";
+import config from 'config';
+import ModalBody from 'containers/components/modals/modal-body';
+import { getAccountRsSelector, getModalDataSelector } from 'selectors';
+import { useFormatTimestamp } from 'hooks/useFormatTimestamp';
 import Form from './form';
 
 const MarketplaceChangeQuantity = ({ closeModal, processForm }) => {

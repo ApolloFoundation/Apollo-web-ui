@@ -1,5 +1,5 @@
 import React from 'react';
-import { SelectWithFormik } from '../../select/SelectWithFormik';
+import { SelectWithFormik } from 'containers/components/select/SelectWithFormik';
 
 const CustomFormSelect = ({ defaultValue, options, label, name }) => (
     <div className="form-group mb-15">

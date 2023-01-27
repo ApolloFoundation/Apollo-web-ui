@@ -4,15 +4,15 @@ import {Link} from 'react-router-dom';
 import {NotificationManager} from "react-notifications";
 import {connect} from 'react-redux';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
-import {setBodyModalParamsAction} from '../../../../modules/modals';
+import {setBodyModalParamsAction} from 'modules/modals';
+import {getTransactionAction} from "actions/transactions";
+import {getBlockAction} from "actions/blocks";
+import {getAccountInfoAction} from "actions/account";
+import ApolloLogo from "assets/new_apl_icon_black.svg";
+import { getAccountRsSelector, getBlockchainStatusSelector } from 'selectors';
 import IconndeButton from '../iconned-button';
 import CurrentAccountIcon from '../current-account/current-account-icon';
 import MobieMenu from '../mobile-menu/';
-import {getTransactionAction} from "../../../../actions/transactions";
-import {getBlockAction} from "../../../../actions/blocks";
-import {getAccountInfoAction} from "../../../../actions/account";
-import ApolloLogo from "../../../../assets/new_apl_icon_black.svg";
-import { getAccountRsSelector, getBlockchainStatusSelector } from '../../../../selectors';
 import { InputSearchForm } from './InputSearch'
 
 class UserBox extends Component {

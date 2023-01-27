@@ -2,9 +2,9 @@ import React from 'react';
 import ChatItem from '../chat-item';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
-import ContentLoader from '../../../components/content-loader';
-import InfoBox from '../../../components/info-box';
-import { getChatMessagesSelector } from '../../../../selectors';
+import ContentLoader from 'containers/components/content-loader';
+import InfoBox from 'containers/components/info-box';
+import { getChatMessagesSelector } from 'selectors';
 // components
 import ChatForm from './chat-form';
 

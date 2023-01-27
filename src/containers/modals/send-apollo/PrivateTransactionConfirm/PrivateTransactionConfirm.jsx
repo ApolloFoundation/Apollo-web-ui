@@ -4,18 +4,17 @@
  ***************************************************************************** */
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import InfoBox from '../../../components/info-box';
-import Button from '../../../components/button';
-import { setBodyModalParamsAction } from '../../../../modules/modals';
+import { useFormikContext } from 'formik';
+import InfoBox from 'containers/components/info-box';
+import Button from 'containers/components/button';
+import { setBodyModalParamsAction } from 'modules/modals';
 import styles from './index.module.scss';
 
-// values prop goes from ModalBody by default
-export const PrivateTransactionConfirm = ({ onClose, values }) => {
+export const PrivateTransactionConfirm = ({ onClose }) => {
   const dispatch = useDispatch();
-
+  const { values } = useFormikContext();
   const handleAgree = () => {
-    const { privateTransaction, ...formValues } = values;
-    dispatch(setBodyModalParamsAction('SEND_APOLLO_PRIVATE', { ...formValues, feeATM: 5 }))
+    dispatch(setBodyModalParamsAction('SEND_APOLLO_PRIVATE', { ...values, feeATM: 5 }))
   };
 
   return (

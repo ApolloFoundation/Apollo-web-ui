@@ -4,7 +4,7 @@
  ******************************************************************************/
 
 
-import axios from "axios/index";
+import axios from "axios";
 import config from "../../config";
 import crypto from "../../helpers/crypto/crypto";
 import {NotificationManager} from 'react-notifications';

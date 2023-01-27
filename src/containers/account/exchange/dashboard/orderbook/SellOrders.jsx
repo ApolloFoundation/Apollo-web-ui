@@ -2,12 +2,12 @@ import React, {
   useEffect, useState, useCallback,
 } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
-import { getSellOpenOffers } from '../../../../../actions/wallet';
-import { setSelectedOrderInfo } from '../../../../../modules/modals';
-import { formatDivision } from '../../../../../helpers/format';
-import { ONE_GWEI } from '../../../../../constants/constants';
-import CustomTable from '../../../../components/tables/table1';
-import { getExchangeInfoSelector } from '../../../../../selectors';
+import { getSellOpenOffers } from 'actions/wallet';
+import { setSelectedOrderInfo } from 'modules/modals';
+import { formatDivision } from 'helpers/format';
+import CustomTable from 'containers/components/tables/table1';
+import { getExchangeInfoSelector } from 'selectors';
+import { ONE_GWEI } from 'constants/constants';
 
 export default function SellOrders({ currentCurrency, sellOrders, ticker }) {
   const dispatch = useDispatch();

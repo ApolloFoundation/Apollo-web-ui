@@ -6,13 +6,13 @@
 import React, { useState, useCallback } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import classNames from 'classnames';
-import { getAccountPropertiesAction } from '../../../actions/account/index';
-import { setBodyModalParamsAction } from '../../../modules/modals';
+import { getAccountPropertiesAction } from 'actions/account';
+import { setBodyModalParamsAction } from 'modules/modals';
+import SiteHeader from 'containers/components/site-header';
+import Button from 'containers/components/button';
+import { TableLoader } from 'containers/components/TableLoader';
+import { getAccountInfoSelector } from 'selectors';
 import AccountProperty from './acocunt-property';
-import SiteHeader from '../../components/site-header';
-import Button from '../../components/button';
-import { TableLoader } from '../../components/TableLoader';
-import { getAccountInfoSelector } from '../../../selectors';
 
 export default function AccountProperties() {
   const dispatch = useDispatch();

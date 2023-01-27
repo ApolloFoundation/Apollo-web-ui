@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import classNames from 'classnames';
 import {connect} from 'react-redux';
 import {NotificationManager} from "react-notifications";
-import {setBodyModalParamsAction} from '../../../../modules/modals';
-import {setForging, getForging} from '../../../../actions/login';
-import { readFromLocalStorage } from '../../../../actions/localStorage';
+import {setBodyModalParamsAction} from 'modules/modals';
+import {setForging, getForging} from 'actions/login';
+import { readFromLocalStorage } from 'actions/localStorage';
 import {
     get2FASelector,
     getAccountPublicKeySelector,
@@ -16,7 +16,7 @@ import {
     getModalDataSelector,
     getModalTypeSelector,
     getPassPhraseSelector
-} from '../../../../selectors';
+} from 'selectors';
 import { numberToLocaleString } from 'helpers/format';
 
 class ForgingBodyModalWindow extends Component {

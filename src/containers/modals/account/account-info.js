@@ -7,12 +7,12 @@
 import React, { useCallback, useState } from 'react';
 import {useDispatch, useSelector, shallowEqual} from 'react-redux';
 import {NotificationManager} from "react-notifications";
-import submitForm from "../../../helpers/forms/forms";
-import CustomInput from '../../components/custom-input/CustomInputWithFormik';
-import CustomTextArea from '../../components/form-components/TextArea/TextAreaWithFormik';
-import { getAccountInfoSelector } from '../../../selectors';
-import { FeeWrapper } from '../../components/form-components/FeeWrapper';
-import ModalBody from '../../components/modals/modal-body';
+import submitForm from "helpers/forms/forms";
+import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
+import CustomTextArea from 'containers/components/form-components/TextArea/TextAreaWithFormik';
+import { getAccountInfoSelector } from 'selectors';
+import { FeeWrapper } from 'containers/components/form-components/FeeWrapper';
+import ModalBody from 'containers/components/modals/modal-body';
 
 const  AccountInfo = (props) => {
     const dispatch = useDispatch();

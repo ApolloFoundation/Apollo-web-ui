@@ -1,10 +1,10 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {NotificationManager} from "react-notifications";
-import submitForm from "../../../../../helpers/forms/forms";
-import ModalBody from "../../../../components/modals/modal-body";
-import CustomTextArea from "../../../../components/form-components/TextArea/TextAreaWithFormik";
-import { getAccountPublicKeySelector } from '../../../../../selectors';
+import submitForm from "helpers/forms/forms";
+import ModalBody from "containers/components/modals/modal-body";
+import CustomTextArea from "containers/components/form-components/TextArea/TextAreaWithFormik";
+import { getAccountPublicKeySelector } from 'selectors';
 
 export const BroadcastTransactionForm = ({ closeModal }) => {
   const dispatch = useDispatch();

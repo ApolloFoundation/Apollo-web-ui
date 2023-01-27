@@ -9,12 +9,12 @@ import {NotificationManager} from "react-notifications";
 import {Link} from "react-router-dom";
 import {useDispatch, useSelector} from 'react-redux'
 import classNames from "classnames";
-import SiteHeader from '../../components/site-header'
-import InfoBox from "../../components/info-box";
-import {setBodyModalParamsAction} from "../../../modules/modals";
-import {getScheduledTransactions, deleteScheduledTransactionAction} from "../../../actions/scheduled-transactions";
-import ContentHendler from "../../components/content-hendler";
-import { getAdminPasswordSelector } from '../../../selectors';
+import SiteHeader from 'containers/components/site-header'
+import InfoBox from "containers/components/info-box";
+import {setBodyModalParamsAction} from "modules/modals";
+import {getScheduledTransactions, deleteScheduledTransactionAction} from "actions/scheduled-transactions";
+import ContentHendler from "containers/components/content-hendler";
+import { getAdminPasswordSelector } from 'selectors';
 import { ScheduleTransactionTable } from './ScheduleTransactionTable';
 
 const ScheduledTransactions = () => {

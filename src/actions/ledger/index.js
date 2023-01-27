@@ -4,7 +4,7 @@
  ******************************************************************************/
 
 
-import axios from 'axios/index';
+import axios from 'axios';
 import config from '../../config';
 import store from '../../store'
 import {processElGamalEncryption} from "../crypto";

@@ -2,9 +2,9 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom';
 import {NotificationManager} from 'react-notifications'
-import {setBodyModalParamsAction} from "../../../../modules/modals";
-import {stopMonitor} from "../../../../actions/monitors";
-import { getAdminPasswordSelector, getDecimalsSelector } from '../../../../selectors';
+import {setBodyModalParamsAction} from "modules/modals";
+import {stopMonitor} from "actions/monitors";
+import { getAdminPasswordSelector, getDecimalsSelector } from 'selectors';
 
 const mapStateToProps  = state => ({
     adminPassword: getAdminPasswordSelector(state),

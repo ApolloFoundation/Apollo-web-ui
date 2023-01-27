@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import { getModalDataSelector } from '../../../../selectors';
-import ModalBody from '../../../components/modals/modal-body';
+import { getModalDataSelector } from 'selectors';
+import ModalBody from 'containers/components/modals/modal-body';
 
 class InfoPopup extends React.Component {
 

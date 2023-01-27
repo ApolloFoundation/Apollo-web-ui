@@ -5,10 +5,10 @@
 
 import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getAccountCurrenciesAction } from '../../../../actions/currencies';
-import SiteHeader from '../../../components/site-header';
-import { getAccountRsSelector } from '../../../../selectors';
-import { TableLoader } from '../../../components/TableLoader';
+import { getAccountCurrenciesAction } from 'actions/currencies';
+import SiteHeader from 'containers/components/site-header';
+import { getAccountRsSelector } from 'selectors';
+import { TableLoader } from 'containers/components/TableLoader';
 import MyCurrencytemItem from './my-currency-item';
 
 export default function MyMadedCurrencies() {

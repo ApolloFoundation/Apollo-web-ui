@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
 import TransactionItem from './transaction-item';
-import ContentLoader from '../../../components/content-loader';
-import { getDashboardInfoSelector } from '../../../../selectors';
+import ContentLoader from 'containers/components/content-loader';
+import { getDashboardInfoSelector } from 'selectors';
 
 const MyTransactions = () => {
   const { dashboardTransactions } = useSelector(getDashboardInfoSelector, shallowEqual);

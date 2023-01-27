@@ -6,11 +6,11 @@
 
 import React, { useCallback } from 'react';
 import {useDispatch, useSelector, shallowEqual} from 'react-redux';
-import {setBodyModalParamsAction} from '../../../modules/modals';
-import {getAccountAssetsAction} from "../../../actions/assets";
-import { useDataLoader } from '../../../hooks/useDataLoader';
-import { getModalDataSelector } from '../../../selectors';
-import ModalBody from '../../components/modals/modal-body';
+import {setBodyModalParamsAction} from 'modules/modals';
+import {getAccountAssetsAction} from "actions/assets";
+import { useDataLoader } from 'hooks/useDataLoader';
+import { getModalDataSelector } from 'selectors';
+import ModalBody from 'containers/components/modals/modal-body';
 
 const AssetDistribution = (props) => {
     const dispatch = useDispatch();

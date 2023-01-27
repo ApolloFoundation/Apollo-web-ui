@@ -7,10 +7,10 @@
 import React, { useCallback } from 'react';
 import {useSelector, shallowEqual} from 'react-redux';
 import {NotificationManager} from "react-notifications";
-import ModalBody from '../../components/modals/modal-body';
-import TextualInputComponent from '../../components/form-components/TextualInput';
-import NumericInputComponent from '../../components/form-components/NumericInput';
-import { getModalDataSelector } from '../../../selectors';
+import ModalBody from 'containers/components/modals/modal-body';
+import TextualInputComponent from 'containers/components/form-components/TextualInput';
+import NumericInputComponent from 'containers/components/form-components/NumericInput';
+import { getModalDataSelector } from 'selectors';
 import { numberToLocaleString } from 'helpers/format';
 
 const DeleteShares = ({ closeModal, nameModal, processForm }) => {

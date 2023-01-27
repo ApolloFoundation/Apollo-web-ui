@@ -5,11 +5,11 @@
 
 import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { getTradesHistoryAction } from '../../../actions/assets';
-import SiteHeader from '../../components/site-header';
-import TradeHistoryItem from './trade-history-item/index';
-import { TableLoader } from '../../components/TableLoader';
-import { getAccountRsSelector } from '../../../selectors';
+import { getTradesHistoryAction } from 'actions/assets';
+import SiteHeader from 'containers/components/site-header';
+import { TableLoader } from 'containers/components/TableLoader';
+import { getAccountRsSelector } from 'selectors';
+import TradeHistoryItem from './trade-history-item';
 
 export default function TradeHistory() {
   const dispatch = useDispatch();

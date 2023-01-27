@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { getExchangesAction } from '../../../../../../actions/exchange-booth';
-import ExecutedItem from './executed-item';
+import { getExchangesAction } from 'actions/exchange-booth';
 import { TableLoader } from 'containers/components/TableLoader';
+import ExecutedItem from './executed-item';
 
 export default function ExecutedExcahngeTable({ currencyInfo }) {
   const dispatch = useDispatch();

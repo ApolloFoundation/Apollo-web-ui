@@ -1,10 +1,10 @@
 import React, { useMemo } from 'react';
 import { useSelector, useDispatch, shallowEqual} from 'react-redux';
 import { Link } from 'react-router-dom';
-import { getDashboardInfoSelector } from '../../../../selectors';
-import { setBodyModalParamsAction } from '../../../../modules/modals';
-import Button from '../../../components/button';
-import ContentLoader from '../../../components/content-loader';
+import { getDashboardInfoSelector } from 'selectors';
+import { setBodyModalParamsAction } from 'modules/modals';
+import Button from 'containers/components/button';
+import ContentLoader from 'containers/components/content-loader';
 
 export default function ActivePolls() {
   const dispatch = useDispatch();

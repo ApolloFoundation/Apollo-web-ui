@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { TableLoader } from '../../../../../components/TableLoader';
-import { getBuyOffersAction } from '../../../../../../actions/exchange-booth';
+import { TableLoader } from 'containers/components/TableLoader';
+import { getBuyOffersAction } from 'actions/exchange-booth';
 import OfferItem from '../../offer-item';
 
 const itemsPerPage = 5;

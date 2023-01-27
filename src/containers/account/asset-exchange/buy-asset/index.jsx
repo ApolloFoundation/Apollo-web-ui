@@ -2,8 +2,8 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useFormik, FormikProvider, Form } from 'formik';
 import classNames from 'classnames';
-import NumericInput from '../../../components/form-components/NumericInput'
-import { getBalanceATMSelector } from '../../../../selectors';
+import NumericInput from 'containers/components/form-components/NumericInput'
+import { getBalanceATMSelector } from 'selectors';
 const bigInteger = require('jsbn').BigInteger;
 
 const BuyAsset = ({ asset, decimals, ticker, onSubmit }) => {

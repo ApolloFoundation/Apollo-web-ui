@@ -1,5 +1,5 @@
 import {NotificationManager} from 'react-notifications';
-import submitForm from '../../../../helpers/forms/forms';
+import submitForm from 'helpers/forms/forms';
 
 export const handleSendMessageFormSubmit = ({
     recipient, resetForm, messageToEncrypt, message, textareaCount, ...values

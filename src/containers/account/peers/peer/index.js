@@ -6,7 +6,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import { getIsLocalhostSelector } from '../../../../selectors';
+import { getIsLocalhostSelector } from 'selectors';
 
 const mapStateToProps = state => ({
     isLocalhost: getIsLocalhostSelector(state),

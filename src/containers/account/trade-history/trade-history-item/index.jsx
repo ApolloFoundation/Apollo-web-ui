@@ -7,9 +7,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
-import {setBodyModalParamsAction} from "../../../../modules/modals";
-import {formatTimestamp} from "../../../../helpers/util/time";
-import { getDecimalsSelector } from '../../../../selectors';
+import {setBodyModalParamsAction} from "modules/modals";
+import {formatTimestamp} from "helpers/util/time";
+import { getDecimalsSelector } from 'selectors';
 
 const TradeHistoryItem = ({ ...transfer }) => {
     const dispatch = useDispatch();

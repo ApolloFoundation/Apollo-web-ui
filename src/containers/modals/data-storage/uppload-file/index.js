@@ -8,9 +8,9 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { NotificationManager } from "react-notifications";
 import i18n from 'i18next';
-import {getDataTagsAction} from "../../../../actions/datastorage";
-import submitForm from '../../../../helpers/forms/forms';
-import ModalBody from '../../../components/modals/modal-body';
+import {getDataTagsAction} from "actions/datastorage";
+import submitForm from 'helpers/forms/forms';
+import ModalBody from 'containers/components/modals/modal-body';
 import UpploadFileForm from './form';
 
 const UploadFile = ({ closeModal }) => {

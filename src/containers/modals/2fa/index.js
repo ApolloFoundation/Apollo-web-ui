@@ -6,11 +6,11 @@
 import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
-import { confirm2FAActon } from '../../../actions/account';
-import InfoBox from '../../components/info-box';
-import CustomInput from '../../components/custom-input/CustomInputWithFormik';
-import { getModalDataSelector } from '../../../selectors';
-import ModalBody from '../../components/modals/modal-body';
+import { confirm2FAActon } from 'actions/account';
+import InfoBox from 'containers/components/info-box';
+import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
+import { getModalDataSelector } from 'selectors';
+import ModalBody from 'containers/components/modals/modal-body';
 
 const Confirm2FA = (props) => {
   const dispatch = useDispatch();

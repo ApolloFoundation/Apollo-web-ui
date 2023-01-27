@@ -1,6 +1,6 @@
 import React from 'react';
-import CustomInput from '../../../components/custom-input/CustomInputWithFormik';
-import CustomSelect from '../../../components/form-components/CustomSelect';
+import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
+import CustomSelect from 'containers/components/form-components/CustomSelect';
 import { AliasFields } from 'containers/components/form-components/AliasFields';
 
 const AddAliasForm = ({ aliasTypeData }) => (

@@ -5,10 +5,10 @@
 
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setBodyModalParamsAction } from '../../../../modules/modals';
-import crypto from '../../../../helpers/crypto/crypto';
-import converters from '../../../../helpers/converters';
-import { getDecimalsSelector } from '../../../../selectors';
+import { setBodyModalParamsAction } from 'modules/modals';
+import crypto from 'helpers/crypto/crypto';
+import converters from 'helpers/converters';
+import { getDecimalsSelector } from 'selectors';
 
 export default function Asset(props) {
   const dispatch = useDispatch();

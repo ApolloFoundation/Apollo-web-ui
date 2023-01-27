@@ -7,10 +7,10 @@
 import React, { useCallback, useState } from 'react';
 import {useSelector, shallowEqual} from 'react-redux';
 import {NotificationManager} from "react-notifications";
-import InfoBox from '../../components/info-box';
-import CustomInput from '../../components/custom-input/CustomInputWithFormik';
-import { getModalDataSelector, getAccountPublicKeySelector } from '../../../selectors';
-import ModalBody from '../../components/modals/modal-body';
+import InfoBox from 'containers/components/info-box';
+import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
+import { getModalDataSelector, getAccountPublicKeySelector } from 'selectors';
+import ModalBody from 'containers/components/modals/modal-body';
 
 const BlacklistPeer = (props) => {
     const modalData = useSelector(getModalDataSelector, shallowEqual);

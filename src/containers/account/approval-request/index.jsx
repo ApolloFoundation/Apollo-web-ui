@@ -6,11 +6,11 @@
 
 import React, { useCallback } from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import SiteHeader from '../../components/site-header'
-import {getApprovesAction} from "../../../actions/approval-requests";
-import { getAccountSelector } from '../../../selectors';
-import { TableLoader } from '../../components/TableLoader';
-import Transaction from "./transaction/index";
+import SiteHeader from 'containers/components/site-header'
+import { TableLoader } from 'containers/components/TableLoader';
+import {getApprovesAction} from "actions/approval-requests";
+import { getAccountSelector } from 'selectors';
+import Transaction from "./transaction";
 
 const ApprovalRequests = () => {
     const dispatch = useDispatch();

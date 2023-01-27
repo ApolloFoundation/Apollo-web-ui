@@ -2,14 +2,14 @@ import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import QRCode from "qrcode.react";
 import {NotificationManager} from "react-notifications";
-import submitForm from "../../../../../helpers/forms/forms";
-import {signBytesArrayAPL} from "../../../../../helpers/converters";
-import ModalBody from "../../../../components/modals/modal-body";
-import CustomTextArea from "../../../../components/form-components/TextArea/TextAreaWithFormik";
-import CheckboxFormInput from "../../../../components/check-button-input/CheckboxWithFormik";
-import InfoBox from '../../../../components/info-box';
-import { getAccountPublicKeySelector } from '../../../../../selectors';
-import CustomInput from '../../../../components/custom-input/CustomInputWithFormik';
+import submitForm from "helpers/forms/forms";
+import {signBytesArrayAPL} from "helpers/converters";
+import ModalBody from "containers/components/modals/modal-body";
+import CustomTextArea from "containers/components/form-components/TextArea/TextAreaWithFormik";
+import CheckboxFormInput from "containers/components/check-button-input/CheckboxWithFormik";
+import InfoBox from 'containers/components/info-box';
+import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
+import { getAccountPublicKeySelector } from 'selectors';
 
 export const SignTransactionForm = ({ setState, state, closeModal }) => {
   const dispatch = useDispatch();
@@ -57,6 +57,12 @@ export const SignTransactionForm = ({ setState, state, closeModal }) => {
       isPour
       isDisableSecretPhrase
       submitButtonName='Sign Transaction'
+      initialValues={{
+        signBytes: '',
+        signJson: '',
+        signValidate: false,
+        secretPhrase: '',
+      }}
     >
         <CustomTextArea
             label='Unsigned Transaction Bytes'

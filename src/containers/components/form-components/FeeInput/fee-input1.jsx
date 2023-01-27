@@ -1,7 +1,7 @@
 import React from 'react';
 import cn from 'classnames';
-import CheckboxFormInput from '../../check-button-input/CheckboxWithFormik';
-import CustomInput from '../../custom-input/CustomInputWithFormik';
+import CheckboxFormInput from 'containers/components/check-button-input/CheckboxWithFormik';
+import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
 import styles from './index.module.scss';
 
 const FeeInput = ({
@@ -37,6 +37,7 @@ const FeeInput = ({
                 name="isCustomFee"
                 label="Custom fee"
                 id={`${idGroup}-isCustomFee`}
+                defaultValue={false}
               />
             )}
           </CustomInput>

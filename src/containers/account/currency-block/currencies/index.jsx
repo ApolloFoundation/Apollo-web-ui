@@ -5,11 +5,11 @@
 
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAccountSelector } from '../../../../selectors';
-import { getAllCurrenciesAction } from '../../../../actions/currencies';
-import SiteHeader from '../../../components/site-header';
+import { getAccountSelector } from 'selectors';
+import { getAllCurrenciesAction } from 'actions/currencies';
+import SiteHeader from 'containers/components/site-header';
+import { TableLoader } from 'containers/components/TableLoader';
 import Currency from './currency';
-import { TableLoader } from '../../../components/TableLoader';
 
 export default function Currencies() {
   const dispatch = useDispatch();

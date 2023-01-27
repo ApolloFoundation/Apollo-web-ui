@@ -3,8 +3,8 @@ import React, {
 } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
-import { setCurrentCurrencyAction } from '../../../../modules/exchange';
-import { setBodyModalParamsAction, resetTrade } from '../../../../modules/modals';
+import { setCurrentCurrencyAction } from 'modules/exchange';
+import { setBodyModalParamsAction, resetTrade } from 'modules/modals';
 import {
   getBuyOpenOffers,
   getCurrencyBalance,
@@ -12,13 +12,13 @@ import {
   getPlotBuyOpenOffers,
   getPlotSellOpenOffers,
   getSellOpenOffers,
-} from '../../../../actions/wallet';
-import TwitterBanner from '../../../../assets/banner-small.png';
-import SiteHeader from '../../../components/site-header';
-import InfoBox from '../../../components/info-box';
-import { useExchangeWalletConverts } from '../../../../hooks/useExchangeWalletConverts';
-import { readFromLocalStorage } from '../../../../actions/localStorage';
-import { getAccountInfoSelector, getExchangeInfoSelector } from '../../../../selectors';
+} from 'actions/wallet';
+import TwitterBanner from 'assets/banner-small.png';
+import SiteHeader from 'containers/components/site-header';
+import InfoBox from 'containers/components/info-box';
+import { useExchangeWalletConverts } from 'hooks/useExchangeWalletConverts';
+import { readFromLocalStorage } from 'actions/localStorage';
+import { getAccountInfoSelector, getExchangeInfoSelector } from 'selectors';
 import TradeHistoryExchange from './trade-history';
 import TradeApollo from './trade-apollo';
 import OpenOrders from './open-orders';

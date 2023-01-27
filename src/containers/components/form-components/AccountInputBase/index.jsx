@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import IMask from 'imask';
 import { useSelector } from 'react-redux';
 import classNames from 'classnames';
-import { getTickerSelector } from '../../../../selectors';
+import { getTickerSelector } from 'selectors';
 
 export const AccountInputBase = ({ onChange, className, ...props }) => {
   const ref = useRef(null);

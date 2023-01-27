@@ -1,17 +1,17 @@
 import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
-import { setAccountPassphrase } from '../../../../modules/account';
-import { cancelOffer } from "../../../../actions/wallet";
-import ModalBody from '../../../components/modals/modal-body';
-import TextualInputComponent from '../../../components/form-components/TextualInput';
-import InfoBox from "../../../components/info-box";
+import { setAccountPassphrase } from 'modules/account';
+import { cancelOffer } from "actions/wallet";
+import ModalBody from 'containers/components/modals/modal-body';
+import TextualInputComponent from 'containers/components/form-components/TextualInput';
+import InfoBox from "containers/components/info-box";
 import {
     getAccountSelector,
     getDecimalsSelector,
     getModalDataSelector,
     getTickerSelector
-} from '../../../../selectors';
+} from 'selectors';
 
 const ConfirmCancelOffer = ({ closeModal, nameModal }) =>  {
     const dispatch = useDispatch();

@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { getActualBlockSelector } from '../../../../selectors';
+import { getActualBlockSelector } from 'selectors';
 
 const SideBarItem = ({ actualBlock, finishHeight, name }) => {
   const blocksLeft = parseInt(finishHeight) - parseInt(actualBlock);

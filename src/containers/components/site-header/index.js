@@ -8,9 +8,9 @@ import React from "react";
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import {NotificationManager} from "react-notifications";
-import {setBodyModalParamsAction, setBodyModalType} from "../../../modules/modals";
-import {switchAccountAction} from "../../../actions/account";
-import {getForging, setForging} from '../../../actions/login';
+import {setBodyModalParamsAction, setBodyModalType} from "modules/modals";
+import {switchAccountAction} from "actions/account";
+import {getForging, setForging} from 'actions/login';
 import {
     get2FASelector,
     getAccountPublicKeySelector,
@@ -26,8 +26,8 @@ import {
     getModalTypeSelector,
     getPassPhraseSelector,
     getSettingsSelector
-} from "../../../selectors";
-import { readFromLocalStorage } from "../../../actions/localStorage";
+} from "selectors";
+import { readFromLocalStorage } from "actions/localStorage";
 import PageTitleBox from './page-title-box';
 import UserBox from './user-box';
 import CurrentAccount from './current-account';

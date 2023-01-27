@@ -5,9 +5,9 @@
 
 
 import React from 'react';
-import ModalBody from '../../../components/modals/modal-body';
-import TabulationBody from '../../../components/tabulator/tabuator-body';
-import TabContaier from '../../../components/tabulator/tab-container';
+import ModalBody from 'containers/components/modals/modal-body';
+import TabulationBody from 'containers/components/tabulator/tabuator-body';
+import TabContaier from 'containers/components/tabulator/tab-container';
 import { GenerateToken } from './GenerateToken';
 import { ValidateToken } from './ValidateToken';
 

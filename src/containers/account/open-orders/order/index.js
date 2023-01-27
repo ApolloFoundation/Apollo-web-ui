@@ -7,10 +7,10 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router-dom'
-import {setBodyModalParamsAction} from "../../../../modules/modals";
-import {getTransactionAction} from "../../../../actions/transactions";
-import {getOrderInfoAction} from "../../../../actions/open-orders";
-import { getDecimalsSelector } from '../../../../selectors';
+import {setBodyModalParamsAction} from "modules/modals";
+import {getTransactionAction} from "actions/transactions";
+import {getOrderInfoAction} from "actions/open-orders";
+import { getDecimalsSelector } from 'selectors';
 
 class OrderItem extends React.Component {
     state = {

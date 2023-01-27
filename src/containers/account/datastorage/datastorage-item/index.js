@@ -6,8 +6,8 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {setBodyModalParamsAction} from "../../../../modules/modals";
-import config from '../../../../config';
+import {setBodyModalParamsAction} from "modules/modals";
+import config from 'config';
 
 const mapDispatchToProps = dispatch => ({
     setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),

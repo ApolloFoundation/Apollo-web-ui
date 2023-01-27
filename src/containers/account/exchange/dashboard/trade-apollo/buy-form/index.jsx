@@ -2,16 +2,16 @@ import React, { useState, useCallback } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { Formik } from 'formik';
 import { NotificationManager } from 'react-notifications';
-import { currencyTypes, multiply, numberToLocaleString } from '../../../../../../helpers/format';
-import { createOffer } from '../../../../../../actions/wallet';
-import { ONE_GWEI } from '../../../../../../constants/constants';
+import { currencyTypes, multiply, numberToLocaleString } from 'helpers/format';
+import { createOffer } from 'actions/wallet';
+import { ONE_GWEI } from 'constants/constants';
 import {
   setBodyModalParamsAction, resetTrade, setSelectedOrderInfo,
-} from '../../../../../../modules/modals';
-import BuyForm from './form';
+} from 'modules/modals';
 import {
   getAccountInfoSelector, getDashboardInfoSelector, getExchangeInfoSelector
-} from '../../../../../../selectors';
+} from 'selectors';
+import BuyForm from './form';
 
 const feeATM = 200000000;
 

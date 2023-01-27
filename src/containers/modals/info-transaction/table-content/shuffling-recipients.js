@@ -1,9 +1,9 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {setBodyModalParamsAction} from "../../../../modules/modals";
-import {getTransactionsID} from "../../../../actions/transactions/index";
-import {getShufflingAction} from "../../../../actions/shuffling";
-import {getTransactionAction} from "../../../../actions/transactions";
+import {setBodyModalParamsAction} from "modules/modals";
+import {getTransactionsID} from "actions/transactions";
+import {getShufflingAction} from "actions/shuffling";
+import {getTransactionAction} from "actions/transactions";
 
 class ShufflingRecipients extends Component {
 	componentDidMount = () => {

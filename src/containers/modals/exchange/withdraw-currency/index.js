@@ -1,10 +1,10 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import { useSelector, useDispatch, shallowEqual} from 'react-redux';
 import {NotificationManager} from 'react-notifications';
-import { walletWithdraw} from '../../../../actions/wallet';
-import {currencyTypes} from '../../../../helpers/format';
-import { getAccountSelector, getConstantsSelector, getModalDataSelector } from '../../../../selectors';
-import ModalBody from '../../../components/modals/modal-body';
+import { walletWithdraw} from 'actions/wallet';
+import {currencyTypes} from 'helpers/format';
+import { getAccountSelector, getConstantsSelector, getModalDataSelector } from 'selectors';
+import ModalBody from 'containers/components/modals/modal-body';
 import { WithdrawForm } from './form';
 import { WithdrawCurrencyFee } from './WithdrawCurrencyFee';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDecimalsSelector, getTickerSelector } from '../../../../../../selectors';
-import { setBodyModalParamsAction } from '../../../../../../modules/modals';
+import { getDecimalsSelector, getTickerSelector } from 'selectors';
+import { setBodyModalParamsAction } from 'modules/modals';
 
 const Goods = ({
   name, goods, quantity, priceATM,

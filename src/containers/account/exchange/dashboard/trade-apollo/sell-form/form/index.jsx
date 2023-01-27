@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import { Form, useFormikContext } from 'formik';
-import { ONE_GWEI } from '../../../../../../../constants/constants';
-import { multiply, division, numberToLocaleString } from '../../../../../../../helpers/format';
-import Button from '../../../../../../components/button';
-import NumericInput from '../../../../../../components/form-components/NumericInput';
-import CustomInput from '../../../../../../components/custom-input/CustomInputWithFormik';
-import { InputRangeWithFormik } from '../../../../../../components/input-range/InputRangeWithFormik';
-import CustomSelect from '../../../../../../components/form-components/CustomSelect';
-import { getModalsSelector } from '../../../../../../../selectors';
+import { multiply, division, numberToLocaleString } from 'helpers/format';
+import Button from 'containers/components/button';
+import NumericInput from 'containers/components/form-components/NumericInput';
+import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
+import { InputRangeWithFormik } from 'containers/components/input-range/InputRangeWithFormik';
+import CustomSelect from 'containers/components/form-components/CustomSelect';
+import { getModalsSelector } from 'selectors';
+import { ONE_GWEI } from 'constants/constants';
 
 export default function SellForm(props) {
   const { values, setFieldValue, setValues } = useFormikContext();

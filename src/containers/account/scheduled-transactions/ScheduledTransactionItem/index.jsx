@@ -1,11 +1,11 @@
 import React from 'react';
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import {NotificationManager} from "react-notifications";
-import { useFormatTimestamp } from "../../../../hooks/useFormatTimestamp";
-import { setBodyModalParamsAction } from "../../../../modules/modals";
-import { getAccountInfoSelector } from "../../../../selectors";
-import { getBlockAction } from '../../../../actions/blocks';
-import { formatTransactionType } from '../../../../actions/transactions';
+import { useFormatTimestamp } from "hooks/useFormatTimestamp";
+import { setBodyModalParamsAction } from "modules/modals";
+import { getAccountInfoSelector } from "selectors";
+import { getBlockAction } from 'actions/blocks';
+import { formatTransactionType } from 'actions/transactions';
 
 export const ScheduledTransactionItem = (props) => {
   const dispatch = useDispatch();

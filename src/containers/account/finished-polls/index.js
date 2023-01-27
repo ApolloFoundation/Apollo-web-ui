@@ -6,9 +6,9 @@
 
 import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import SiteHeader from  '../../components/site-header';
-import {getpollsAction} from "../../../actions/polls";
-import { TableLoader } from '../../components/TableLoader';
+import SiteHeader from  'containers/components/site-header';
+import {getpollsAction} from "actions/polls";
+import { TableLoader } from 'containers/components/TableLoader';
 import FinishedpollsItem from "./finished-pools-item";
 
 const Finishedpolls = () => {

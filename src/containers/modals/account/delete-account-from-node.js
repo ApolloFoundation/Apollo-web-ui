@@ -7,13 +7,13 @@
 import React, { useCallback } from 'react';
 import {useSelector, shallowEqual} from 'react-redux';
 import {NotificationManager} from 'react-notifications';
-import {removeAccountAction} from '../../../actions/account';
-import InfoBox from '../../components/info-box';
-import ModalBody from "../../components/modals/modal-body";
-import AccountRSFormInput from "../../components/form-components/AccountRS";
+import {removeAccountAction} from 'actions/account';
+import InfoBox from 'containers/components/info-box';
+import ModalBody from "containers/components/modals/modal-body";
+import AccountRSFormInput from "containers/components/form-components/AccountRS";
+import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
 import { useDownloadFile } from './ExportAccount/useDownloadFIle';
 import { getModalDataSelector } from 'selectors';
-import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
 
 const DeleteAccountFromWebNode = (props) => {
     const modalData = useSelector(getModalDataSelector, shallowEqual);

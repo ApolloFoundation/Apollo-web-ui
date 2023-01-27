@@ -10,13 +10,13 @@ import { processAccountIDtoRS } from 'apl-web-crypto';
 import QR from 'qrcode';
 import QRCode from 'qrcode.react';
 import jsPDF from 'jspdf';
-import { getAccountInfoAction, getPhasingOnlyControl } from '../../../../actions/account';
-import { setBodyModalParamsAction } from '../../../../modules/modals';
-import ContentLoader from '../../../components/content-loader';
-import Button from '../../../components/button';
-import ModalBody from '../../../components/modals/modal-body';
-import TabulationBody from '../../../components/tabulator/tabuator-body';
-import TabContaier from '../../../components/tabulator/tab-container';
+import { getAccountInfoAction, getPhasingOnlyControl } from 'actions/account';
+import { setBodyModalParamsAction } from 'modules/modals';
+import ContentLoader from 'containers/components/content-loader';
+import Button from 'containers/components/button';
+import ModalBody from 'containers/components/modals/modal-body';
+import TabulationBody from 'containers/components/tabulator/tabuator-body';
+import TabContaier from 'containers/components/tabulator/tab-container';
 import {
   getAccountRsSelector,
   getAccountSelector,
@@ -27,7 +27,7 @@ import {
   getDecimalsSelector,
   getModalDataSelector,
   getTickerSelector
-} from '../../../../selectors';
+} from 'selectors';
 import './styles.scss';
 
 class AccountDetails extends React.Component {

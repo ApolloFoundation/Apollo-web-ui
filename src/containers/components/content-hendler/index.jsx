@@ -1,6 +1,6 @@
 import React from 'react';
-import InfoBox from '../info-box';
-import ContentLoader from '../content-loader';
+import InfoBox from 'containers/components/info-box';
+import ContentLoader from 'containers/components/content-loader';
 
 const ContentHendler = ({
   items, children, className, emptyMessage,

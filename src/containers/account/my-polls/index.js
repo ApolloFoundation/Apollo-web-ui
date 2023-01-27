@@ -6,12 +6,12 @@
 
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import SiteHeader from '../../components/site-header'
-import { getMyPollsAction } from '../../../actions/polls';
+import SiteHeader from 'containers/components/site-header'
+import { getMyPollsAction } from 'actions/polls';
+import { setBodyModalParamsAction } from "modules/modals";
+import { getAccountSelector } from 'selectors';
+import { TableLoader } from 'containers/components/TableLoader';
 import PoolItem from '../active-polls/pool-item';
-import { setBodyModalParamsAction } from "../../../modules/modals";
-import { getAccountSelector } from '../../../selectors';
-import { TableLoader } from '../../components/TableLoader';
 
 const MyVotes = () => {
     const dispatch = useDispatch();

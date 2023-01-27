@@ -1,5 +1,5 @@
 import React from 'react';
-import { getAccountLedgerAction } from '../../../../../../actions/ledger';
+import { getAccountLedgerAction } from 'actions/ledger';
 import { AccountTableBase } from '..';
 import Entry from './ledger-entry';
 

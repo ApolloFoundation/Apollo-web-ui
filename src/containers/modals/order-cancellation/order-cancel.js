@@ -7,11 +7,11 @@
 import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import {NotificationManager} from "react-notifications";
-import submitForm from "../../../helpers/forms/forms";
-import InfoBox from "../../components/info-box";
-import crypto from "../../../helpers/crypto/crypto";
-import { getModalDataSelector } from '../../../selectors';
-import ModalBody from '../../components/modals/modal-body';
+import submitForm from "helpers/forms/forms";
+import InfoBox from "containers/components/info-box";
+import crypto from "helpers/crypto/crypto";
+import { getModalDataSelector } from 'selectors';
+import ModalBody from 'containers/components/modals/modal-body';
 
 const OrderCancel = ({ closeModal }) => {
     const dispatch = useDispatch();

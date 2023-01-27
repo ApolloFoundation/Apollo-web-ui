@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from "react-redux";
-import { setBodyModalParamsAction } from '../../../../../modules/modals';
+import { setBodyModalParamsAction } from 'modules/modals';
 
 export const CurrencyButtonMenu = ({ currencyInfo, isGoBack, goBack }) => {
   const dispatch = useDispatch();

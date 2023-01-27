@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDecimalsSelector } from '../../../../../../selectors';
+import { getDecimalsSelector } from 'selectors';
 import { formatTimestamp } from 'helpers/util/time';
 import { setBodyModalParamsAction } from 'modules/modals';
 import { numberToLocaleString } from 'helpers/format';
