@@ -7,13 +7,13 @@
 import axios from "axios";
 import config from "../../config";
 
-export const getApprovesAction = account => dispatch => {
+export const getApprovesAction = ({account, firstIndex, lastIndex}) => dispatch => {
     return axios.get(config.api.serverUrl, {
         params: {
             requestType: 'getVoterPhasedTransactions',
             account,
-            firstIndex: 0,
-            lastIndex: 15,
+            firstIndex,
+            lastIndex,
             random: Math.random(),
         }
     })

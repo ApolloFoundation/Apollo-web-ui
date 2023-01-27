@@ -1,16 +1,14 @@
 import React from 'react';
 import cn from 'classnames';
-import { useField } from 'formik';
 
 import styles from './styles.module.scss';
 
 export default function CustomInput(props) {
   const {
-    label, className, type, disableArrows, disabled, id, children, onChange,
-    maxValue, minValue, step, isSpecialSymbols, name, placeholder,
+    label, className, type, disableArrows, disabled, id, children, onChange, value,
+    maxValue, minValue, step, isSpecialSymbols, name, placeholder, classNameWrapper, ...rest
   } = props;
-  const [field, , helpers] = useField(name);
-  const { setValue } = helpers;
+
   const isNumberInput = (type === 'tel' || type === 'float') && !disabled && !disableArrows;
 
   const parseValue = value => {
@@ -41,49 +39,53 @@ export default function CustomInput(props) {
 
   const handleClickUp = () => {
     if (!disabled) {
-      let value = field.value !== '' ? parseFloat(field.value) : 0;
+      let newValue = value !== '' ? parseFloat(value) : 0;
       const newStep = step || 1;
-      value += newStep;
+      newValue += newStep;
 
-      if (maxValue !== undefined && value > parseFloat(maxValue)) {
-        value = maxValue;
+      if (maxValue !== undefined && newValue > parseFloat(maxValue)) {
+        newValue = maxValue;
       }
 
-      setValue(value);
+      onChange(newValue);
     }
   };
 
   const handleClickDown = () => {
     if (!disabled) {
-      let value = field.value !== '' ? parseFloat(field.value) : 0;
-      if (value > 0) {
+      let newValue = value !== '' ? parseFloat(value) : 0;
+      if (newValue > 0) {
         const newStep = step || 1;
-        value -= newStep;
-        if (value < 0) value = 0;
-        if (minValue !== undefined && value < parseFloat(minValue)) {
-          value = minValue;
+        newValue -= newStep;
+        if (newValue < 0) newValue = 0;
+        if (minValue !== undefined && newValue < parseFloat(minValue)) {
+          newValue = minValue;
         }
 
-        setValue(value);
+        onChange(newValue);
       }
     }
   };
 
   const handleChange = ({ target: { value } }) => {
     const parsedValue = parseValue(value);
-    if (onChange) onChange(parsedValue);
-    setValue(parsedValue);
+    onChange(parsedValue);
   };
 
   return (
-    <div className="form-group mb-0">
-      <label htmlFor={field.name}>
+    <div className={cn("form-group", classNameWrapper, {
+        'mb-15': type !== 'hidden',
+        [styles.hidden]: type === 'hidden',
+      })}
+    >
+      <label htmlFor={id}>
         {label}
       </label>
       <div className={cn('input-text-wrap', { 'input-text-number-wrap': isNumberInput })}>
         <div className={styles['input-wrapper']}>
           <input
-            {...field}
+            name={name}
+            value={value}
             disabled={disabled}
             type={type}
             id={id}
@@ -91,9 +93,10 @@ export default function CustomInput(props) {
             placeholder={placeholder}
             className={`form-control ${className}`}
             autoComplete="on"
+            {...rest}
           />
           {isNumberInput && (
-            <div className="input-number-wrap">
+            <div className={styles.inputNumberWrap}>
               <div className="input-number-up" onClick={handleClickUp} />
               <div className="input-number-down" onClick={handleClickDown} />
             </div>

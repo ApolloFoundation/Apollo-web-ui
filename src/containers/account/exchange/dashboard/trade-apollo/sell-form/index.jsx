@@ -1,13 +1,16 @@
 import React, { useState, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { Formik } from 'formik';
 import { NotificationManager } from 'react-notifications';
-import { currencyTypes, multiply } from '../../../../../../helpers/format';
-import { createOffer } from '../../../../../../actions/wallet';
-import { ONE_GWEI } from '../../../../../../constants';
+import { currencyTypes, multiply, numberToLocaleString } from 'helpers/format';
+import { createOffer } from 'actions/wallet';
+import { ONE_GWEI } from 'constants/constants';
 import {
   setBodyModalParamsAction, resetTrade, setSelectedOrderInfo,
-} from '../../../../../../modules/modals';
+} from 'modules/modals';
+import {
+  getAccountInfoSelector, getDashboardInfoSelector, getExchangeInfoSelector
+} from 'selectors';
 import SellForm from './form';
 
 const feeATM = 200000000;
@@ -15,9 +18,9 @@ const feeATM = 200000000;
 export default function SellFormWrapper(props) {
   const dispatch = useDispatch();
 
-  const { dashboardAccoountInfo } = useSelector(state => state.dashboard);
-  const { currentCurrency } = useSelector(state => state.exchange);
-  const { unconfirmedBalanceATM: balanceAPL, account, passPhrase } = useSelector(state => state.account);
+  const { dashboardAccoountInfo } = useSelector(getDashboardInfoSelector, shallowEqual);
+  const { currentCurrency } = useSelector(getExchangeInfoSelector, shallowEqual);
+  const { unconfirmedBalanceATM: balanceAPL, account, passPhrase } = useSelector(getAccountInfoSelector, shallowEqual);
 
   const { currency } = currentCurrency;
 
@@ -53,7 +56,7 @@ export default function SellFormWrapper(props) {
             isError = true;
           }
           if (+ethFee > +values.walletAddress.value.balances.eth) {
-            NotificationManager.error(`To sell ${ticker} you need to have at least ${ethFee.toLocaleString('en', {
+            NotificationManager.error(`To sell ${ticker} you need to have at least ${numberToLocaleString(ethFee, {
               minimumFractionDigits: 0,
               maximumFractionDigits: 9,
             })} ETH on your balance to confirm transaction`, 'Error', 5000);
@@ -83,7 +86,7 @@ export default function SellFormWrapper(props) {
             sender: account,
             passphrase: passPhrase,
             feeATM,
-            walletAddress: values.walletAddress.value.address,
+            walletAddress: values.walletAddress.address,
           };
           if (passPhrase) {
             dispatch(createOffer(params)).then(() => {

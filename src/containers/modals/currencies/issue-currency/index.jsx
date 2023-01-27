@@ -4,8 +4,8 @@
  ***************************************************************************** */
 
 import React from 'react';
+import ModalBody from 'containers/components/modals/modal-body';
 import { handleFormSubmit } from './handle-form-submit';
-import ModalBody from '../../../components/modals/modal-body1';
 import IssueCurrencyForm from './form';
 
 export default function (props) {
@@ -34,6 +34,12 @@ export default function (props) {
         maxSupply: '',
         decimals: '',
         height: '',
+        type1: false,
+        type2: false,
+        type3: false,
+        type4: false,
+        type5: false,
+        type6: false,
       }}
     >
       <IssueCurrencyForm />

@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 import { Form, useFormikContext } from 'formik';
-import { multiply, division } from '../../../../../../../helpers/format';
-import { ONE_GWEI } from '../../../../../../../constants';
-import CustomInput from '../../../../../../components/custom-input';
-import Button from '../../../../../../components/button';
-import CustomSelect from '../../../../../../components/select/index1';
-import InputRange from '../../../../../../components/input-range/index1';
-import NumericInput from '../../../../../../components/form-components/numeric-input1';
-import getFullNumber from '../../../../../../../helpers/util/expancionalParser';
+import { multiply, division } from 'helpers/format';
+import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
+import Button from 'containers/components/button';
+import CustomSelect from 'containers/components/form-components/CustomSelect';
+import { InputRangeWithFormik } from 'containers/components/input-range/InputRangeWithFormik';
+import NumericInput from 'containers/components/form-components/NumericInput';
+import getFullNumber from 'helpers/util/expancionalParser';
+import { getExchangeInfoSelector, getModalsSelector } from 'selectors';
+import { ONE_GWEI } from 'constants/constants';
 
 export default function BuyForm(props) {
-  const { currentCurrency } = useSelector(state => state.exchange);
-  const { infoSelectedBuyOrder } = useSelector(state => state.modals);
+  const { currentCurrency } = useSelector(getExchangeInfoSelector, shallowEqual);
+  const { infoSelectedBuyOrder } = useSelector(getModalsSelector, shallowEqual);
 
   const { values, setFieldValue, setValues } = useFormikContext();
 
@@ -46,7 +47,7 @@ export default function BuyForm(props) {
         ((normalizePairRate * normalizeOfferAmount) * 100) / (balance || 1)
       ).toFixed(0);
       setValues({
-        walletAddress: walletsList && walletsList[0],
+        walletAddress: walletsList && walletsList[0]?.value,
         pairRate: normalizePairRate,
         offerAmount: normalizeOfferAmount,
         total: normalizeTotal,
@@ -56,7 +57,7 @@ export default function BuyForm(props) {
   }, [currency, infoSelectedBuyOrder, setValues, wallet, walletsList, passPhrase]);
 
   const currencyName = currency.toUpperCase();
-  let balance = values.walletAddress && values.walletAddress.value.balances[currency];
+  let balance = values.walletAddress && values.walletAddress.balances?.[currency];
   balance = currency === 'eth' ? balance - ethFee : balance;
   balance = balance < 0 ? 0 : balance;
 
@@ -65,20 +66,13 @@ export default function BuyForm(props) {
       className="form-group-app d-flex flex-column justify-content-between h-100 mb-0"
     >
       {walletsList && !!walletsList.length && (
-        <div className="form-group mb-3">
-          <label>
-            {currencyName}
-            {' '}
-            Wallet
-          </label>
           <CustomSelect
+            label={`${currencyName} Wallet`}
             className="form-control"
             name="walletAddress"
             options={walletsList}
           />
-        </div>
       )}
-      <div className="form-group mb-0">
         <NumericInput
           name="pairRate"
           label={`Price for 1 ${ticker}`}
@@ -95,9 +89,8 @@ export default function BuyForm(props) {
             setFieldValue('range', rangeValue);
             setFieldValue('total', multiply(amount, price));
           }}
-        />
-      </div>
-      <div className="form-group mb-0">
+          classNameWrapper="mb-2"
+          />
         <NumericInput
           name="offerAmount"
           label="I want to Buy"
@@ -114,9 +107,8 @@ export default function BuyForm(props) {
             setFieldValue('range', rangeValue === 'NaN' ? 0 : rangeValue);
             setFieldValue('total', multiply(amount, pairRate));
           }}
+          classNameWrapper="mb-2"
         />
-      </div>
-      <div className="form-group mb-0">
         <div className="input-group">
           <CustomInput
             name="total"
@@ -124,6 +116,7 @@ export default function BuyForm(props) {
             type="float"
             placeholder="I will pay"
             disabled
+            classNameWrapper="mb-0"
           >
             <div className="input-group-append">
               <span className="input-group-text">
@@ -131,7 +124,7 @@ export default function BuyForm(props) {
                   <span className="input-group-info-text">
                     <i className="zmdi zmdi-balance-wallet" />
                     &nbsp;
-                    {(getFullNumber(Number(values.walletAddress.value.balances[currency])))}
+                    {(getFullNumber(Number(values.walletAddress.balances?.[currency] ?? 0)))}
                     &nbsp;
                   </span>
                 )}
@@ -151,14 +144,14 @@ export default function BuyForm(props) {
           </small>
         </div>
         )}
-      </div>
       {values.walletAddress && (
-        <InputRange
+        <InputRangeWithFormik
           name="range"
           min={0}
           max={100}
           disabled={!values.pairRate || values.pairRate === '0' || values.pairRate === ''}
-          onChange={amount => {
+          onChange={e => {
+            const amount = e.target.value;
             const offerAmount = values.pairRate !== '0' ? division((amount * balance), (100 * values.pairRate), 10) : 0;
             const total = multiply(offerAmount, values.pairRate, 14);
 

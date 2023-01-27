@@ -6,11 +6,14 @@
 
 import React, { useCallback, useEffect, useState } from 'react';
 import {connect} from 'react-redux';
-import {setModalData, openPrevModal} from '../../../modules/modals';
-import {getLedgerEntryAction} from '../../../actions/ledger';
-import ModalBody from "../../components/modals/modal-body";
-import { useLoading } from '../../../hooks/useLoading';
-import ContentLoader from '../../components/content-loader';
+import {setModalData, openPrevModal} from 'modules/modals';
+import {getLedgerEntryAction} from 'actions/ledger';
+import ModalBody from "containers/components/modals/modal-body";
+import { useLoading } from 'hooks/useLoading';
+import ContentLoader from 'containers/components/content-loader';
+import {
+    getDecimalsSelector, getModalDataSelector, getModalHistorySelector, getPassPhraseSelector
+} from 'selectors';
 
 const InfoTransactions = (props) => {
     const [entry, setEntry] = useState({});
@@ -23,7 +26,7 @@ const InfoTransactions = (props) => {
     const handleGetData = useCallback(async () => {
         setLoadingTrue();
         let params = {
-            ledgerId: props.modalData.ledgerId,
+            ledgerId: props.modalData.ledgerId ? props.modalData.ledgerId : props.modalData,
         };
         
         if (props.modalData.eventType === 'PRIVATE_PAYMENT') {
@@ -103,10 +106,10 @@ const InfoTransactions = (props) => {
 }
 
 const mapStateToProps = state => ({
-    modalData: state.modals.modalData,
-    decimals: state.account.decimals,
-    modalsHistory: state.modals.modalsHistory,
-    passPhrase: state.account.passPhrase,
+    modalData: getModalDataSelector(state),
+    decimals: getDecimalsSelector(state),
+    modalsHistory: getModalHistorySelector(state),
+    passPhrase: getPassPhraseSelector(state),
 });
 
 const mapDispatchToProps = {

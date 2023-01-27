@@ -6,11 +6,13 @@
 import React, {
   useEffect, useCallback, useState,
 } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { useRouteMatch, useHistory } from 'react-router-dom';
-import { getAllCurrenciesAction, getCurrencyAction } from '../../../../actions/currencies';
-import { BlockUpdater } from '../../../block-subscriber';
-import { setBodyModalParamsAction } from '../../../../modules/modals';
+import { getAllCurrenciesAction, getCurrencyAction } from 'actions/currencies';
+import { BlockUpdater } from 'containers/block-subscriber';
+import { getAccountInfoSelector } from 'selectors';
+import SiteHeader from 'containers/components/site-header';
+import SidebarList from 'containers/components/sidebar-list';
 // Forms
 import BuyForm from './forms/buy-form';
 import SellForm from './forms/sell-form';
@@ -19,19 +21,17 @@ import OffersToBuyTable from './tables/offers-to-buy-table';
 import OffersToSellTable from './tables/offers-to-sell-table';
 import ExchangeRequestsTable from './tables/exchange-requests-table';
 import ExecutedExcahngeTable from './tables/executed-exchange-table';
-
-import SiteHeader from '../../../components/site-header';
-import SidebarList from '../../../components/sidebar-list';
-
 import SidebarCurrency from './sdiebar-item';
 import CurrencyInfoTable from './currency-info';
+import { CurrencyButtonMenu } from './CurrencyButtonMenu';
 
 export default function ExchangeBooth() {
   const dispatch = useDispatch();
-
   const {
     balanceATM, accountRS, decimals, ticker,
-  } = useSelector(state => state.account);
+  } = useSelector(getAccountInfoSelector, shallowEqual);
+  const match = useRouteMatch();
+  const history = useHistory();
 
   const [minimumBuyRate, setMinimumBuyRate] = useState(null);
   const [minimumSellRate, setMinimumSellRate] = useState(null);
@@ -40,9 +40,6 @@ export default function ExchangeBooth() {
   const [currencyInfo, setCurrencyInfo] = useState(null);
 
   const currentCurrency = currencyInfo && currencyInfo.currency;
-
-  const match = useRouteMatch();
-  const history = useHistory();
 
   const getCurrencies = useCallback(async reqParams => {
     const allCurrencies = await dispatch(getAllCurrenciesAction(reqParams));
@@ -102,8 +99,6 @@ export default function ExchangeBooth() {
   ]);
 
   const goBack = useCallback(() => {
-    // ! need check, for what need setState
-    // this.setState({ asset: null }, () => {
     history.push('/currencies');
   }, [history]);
 
@@ -123,34 +118,7 @@ export default function ExchangeBooth() {
     <div className="page-content">
       <SiteHeader pageTitle="Exchange booth">
         {dataCurrencies && (
-          <>
-            <button
-              type="button"
-              onClick={() => dispatch(setBodyModalParamsAction('OFFER_CURRENCY', currencyInfo))}
-              className="btn btn-green btn-sm"
-            >
-              Offer
-            </button>
-            <button
-              type="button"
-              onClick={() => dispatch(setBodyModalParamsAction('TRANSFER_CURRENCY', currencyInfo))}
-              style={{ marginLeft: 15 }}
-              className="btn btn-green btn-sm"
-            >
-              Transfer
-            </button>
-              {(window.innerWidth < 767 && isGoBack) && (
-                <button
-                  type="button"
-                  className="btn btn-default btn-sm ml-3"
-                  onClick={goBack}
-                >
-                  <i className="zmdi zmdi-long-arrow-left" />
-                  &nbsp;&nbsp;
-                  Back to list
-                </button>
-              )}
-          </>
+          <CurrencyButtonMenu isGoBack={isGoBack} goBack={goBack} currencyInfo={currencyInfo} />
         )}
       </SiteHeader>
       <div className="page-body container-fluid exchange-booth">
@@ -210,13 +178,8 @@ export default function ExchangeBooth() {
                         />
                       </div>
                     </div>
-                    <ExchangeRequestsTable
-                      account={accountRS}
-                      currencyInfo={currencyInfo}
-                    />
-                    <ExecutedExcahngeTable
-                      currencyInfo={currencyInfo}
-                    />
+                    <ExchangeRequestsTable account={accountRS} currencyInfo={currencyInfo} />
+                    <ExecutedExcahngeTable currencyInfo={currencyInfo} />
                   </div>
                 )}
               </>

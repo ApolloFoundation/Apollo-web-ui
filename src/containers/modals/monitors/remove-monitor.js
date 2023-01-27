@@ -4,168 +4,89 @@
  ******************************************************************************/
 
 
-import React from 'react';
-import {connect} from 'react-redux';
-import {setModalData, setBodyModalParamsAction, setAlert, saveSendModalState, openPrevModal} from '../../../modules/modals';
-import {sendTransactionAction} from '../../../actions/transactions';
-import {calculateFeeAction} from "../../../actions/forms";
-import AdvancedSettings from '../../components/advanced-transaction-settings';
-import classNames from 'classnames';
-import crypto from  '../../../helpers/crypto/crypto';
-import InputMask from 'react-input-mask';
-import AccountRS from '../../components/account-rs';
-
-import {Form, Text, TextArea, Checkbox} from 'react-form';
-import InfoBox from '../../components/info-box';
+import React, { useCallback, useState } from 'react';
+import {useDispatch, useSelector, shallowEqual} from 'react-redux';
 import {NotificationManager} from "react-notifications";
-import submitForm from "../../../helpers/forms/forms";
+import InfoBox from 'containers/components/info-box';
+import submitForm from "helpers/forms/forms";
+import TextalInput from 'containers/components/form-components/TextualInput';
+import ModalBody from 'containers/components/modals/modal-body';
+import { getModalDataSelector, getTickerSelector } from 'selectors';
 
-import BackForm from '../modal-form/modal-form-container';
-import InputForm from "../../components/input-form";
-
-class RemoveMonitor extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
-    handleFormSubmit = async values => {
-        console.warn("values", values);
-        if (!values.phrase) {
+const RemoveMonitor = (props) => {
+    const dispatch = useDispatch();
+    const modalData = useSelector(getModalDataSelector, shallowEqual);
+    const ticker = useSelector(getTickerSelector);
+    const [isPending, setIsPending] = useState(false);
+    const handleFormSubmit = useCallback(async values => {
+        setIsPending(true);
+        if (!values.secretPhrase) {
             NotificationManager.error("Secret phrase is required", "Error", 5000);
         }
 
         const toSend = {
             ...values,
-            property:  this.props.modalData.property,
-            recipient: this.props.modalData.recipient,
+            property:  modalData.property,
+            recipient: modalData.recipient,
         };
-        const res = await this.props.submitForm( toSend, "deleteAccountProperty");
+        const res = await dispatch(submitForm.submitForm( toSend, "deleteAccountProperty"));
         if (res.errorCode) {
             NotificationManager.error(res.errorDescription, 'Error', 5000)
         } else {
-            NotificationManager.success('Monitor has been started!', null, 5000);
-            this.props.closeModal();
-            setTimeout(() => {
-                this.props.modalData()
-            }, 1000);
+            NotificationManager.success('Monitor has been removed!', null, 5000);
+            props.closeModal();
         }
-    };
+        setIsPending(false);
+    }, [dispatch, modalData, props.closeModal]);
 
-    render() {
-        return (
-            <div className="modal-box">
-                <BackForm
-                    nameModal={this.props.nameModal}
-                    onSubmit={(values) => this.handleFormSubmit(values)}
-                    render={({
-                                 submitForm, values, addValue, removeValue, setValue, getFormState
-                             }) => (
-                        <form className="modal-form" onChange={() => this.props.saveSendModalState(values)} onSubmit={submitForm}>
-                            <div className="form-group-app">
-                                <button type="button" onClick={this.props.closeModal} className="exit"><i className="zmdi zmdi-close" /></button>
-
-                                <div className="form-title">
-                                    {this.props.modalsHistory.length > 1 &&
-                                    <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
-                                    }
-                                    <p>Remove Funding Monitor</p>
-                                </div>
-
-                                <InfoBox danger mt>
-                                    Your secret phrase will be sent to the server!
-                                </InfoBox>
-
-                                <div className="input-group-app offset-top display-block inline">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Control Property</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <div className="input-wrapper" style={{alignSelf: "center"}}>
-                                                {this.props.modalData.property ? this.props.modalData.property : '?'}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="input-group-app offset-top display-block inline">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Amount</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <div className="input-wrapper">
-                                                {this.props.modalData.recipient ? this.props.modalData.recipient : '?'}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="form-group row form-group-white mb-15">
-                                    <label className="col-sm-3 col-form-label">
-                                        Fee
-                                    </label>
-                                    <div
-                                        className="col-sm-9 input-group input-group-text-transparent input-group-sm">
-                                        <InputForm
-                                            defaultValue={(this.props.modalData && this.props.modalData.feeATM) ? this.props.modalData.feeATM : ''}
-                                            field="feeAPL"
-                                            placeholder="Amount"
-                                            type={"float"}
-                                            setValue={setValue}/>
-                                        <div className="input-group-append">
-                                            <span className="input-group-text">{this.props.ticker}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="input-group-app offset-top display-block inline">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Secret phrase</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <div className="input-wrapper">
-                                                <Text field="secretPhrase" type="password"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="btn-box align-buttons-inside absolute right-conner align-right">
-                                    <button
-                                        type={'button'}
-                                        onClick={() => this.props.closeModal()}
-                                        className="btn round round-top-left"
-                                    >
-                                        Cancel
-                                    </button>
-                                    <button
-                                        type="submit"
-                                        name={'closeModal'}
-                                        className="btn btn-right blue round round-bottom-right"
-                                    >
-                                        Remove
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    )}
-                >
-                </BackForm>
+    return (
+        <ModalBody
+            nameModal={props.nameModal}
+            handleFormSubmit={handleFormSubmit}
+            initialValues={{
+                feeATM: modalData.feeATM
+            }}
+            modalTitle="Remove Funding Monitor"
+            closeModal={props.closeModal}
+            submitButtonName="Remove"
+            isPending={isPending}
+        >
+            <InfoBox danger mt>
+                Your secret phrase will be sent to the server!
+            </InfoBox>
+            <div className="input-group-app offset-top display-block inline">
+                <div className="row">
+                    <div className="col-md-3">
+                        <label>Control Property</label>
+                    </div>
+                    <div className="col-md-9">
+                        <div className="input-wrapper" style={{alignSelf: "center"}}>
+                            {modalData?.property ?? '?'}
+                        </div>
+                    </div>
+                </div>
             </div>
-        );
-    }
+            <div className="input-group-app offset-top display-block inline mb-15">
+                <div className="row">
+                    <div className="col-md-3">
+                        <label>Recipient</label>
+                    </div>
+                    <div className="col-md-9">
+                        <div className="input-wrapper">
+                            {modalData?.recipientRS ?? '?'}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <TextalInput
+                name="feeATM"
+                placeholder="fee"
+                type="float"
+                label="Fee"
+                code={ticker}
+            />
+        </ModalBody>
+    );
 }
 
-const mapStateToProps = state => ({
-    modalsHistory: state.modals.modalsHistory,
-    modalData: state.modals.modalData,
-    ticker: state.account.ticker,
-});
-
-const mapDispatchToProps = dispatch => ({
-    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
-    validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
-    saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
-    openPrevModal: () => dispatch(openPrevModal())
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(RemoveMonitor);
+export default RemoveMonitor;

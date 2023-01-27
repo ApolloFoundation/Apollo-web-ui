@@ -4,69 +4,45 @@
  ******************************************************************************/
 
 
-import React from 'react';
-import {connect} from 'react-redux';
-import {setBodyModalParamsAction} from '../../../../modules/modals';
-
+import React, { useCallback } from 'react';
+import { useSelector, shallowEqual} from 'react-redux';
 import {NotificationManager} from "react-notifications";
-import submitForm from "../../../../helpers/forms/forms";
+import TextualInputComponent from 'containers/components/form-components/TextualInput';
+import ModalBody from 'containers/components/modals/modal-body';
+import { getModalDataSelector } from 'selectors';
+import { useAliasDataLoader } from '../useAliasDataLoader';
 
-import ModalBody from '../../../components/modals/modal-body';
-import DeleteAliasForm from './form';
-
-class DeleteAlias extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            activeTab: 0,
-            advancedState: false,
-
-            // submitting
-            passphraseStatus: false,
-            recipientStatus: false,
-            amountStatus: false,
-            feeStatus: false
-        };
-    }
-
-    handleFormSubmit = async (values) => {
-        values = {
+const DeleteAlias = ({ processForm, closeModal }) => {
+    const alias = useAliasDataLoader();
+    const modalData = useSelector(getModalDataSelector, shallowEqual);
+    const handleFormSubmit = useCallback((values) => {
+        const data = {
             ...values,
             priceATM: 0,
-            alias: this.props.modalData
+            alias: modalData
         };
 
-        this.props.processForm(values, 'deleteAlias', 'Alias has been deleted!', () => {
-            this.props.setBodyModalParamsAction(null, {});
+        processForm(data, 'deleteAlias', 'Alias has been deleted!', () => {
+            closeModal();
             NotificationManager.success('Alias has been deleted!', null, 5000);
         });
-    };
+    }, [processForm, modalData, closeModal]);
 
-    render() {
-        return (
-            <ModalBody
-                loadForm={this.loadForm}
-                modalTitle={'Delete Alias'}
-                isAdvanced={true}
-                isFee
-                closeModal={this.props.closeModal}
-                handleFormSubmit={(values) => this.handleFormSubmit(values)}
-                submitButtonName={'Delete Alias'}
-            >
-                <DeleteAliasForm />
-            </ModalBody>
-        );
-    }
+    return (
+        <ModalBody
+            modalTitle='Delete Alias'
+            isAdvanced
+            isFee
+            closeModal={closeModal}
+            handleFormSubmit={handleFormSubmit}
+            submitButtonName='Delete Alias'
+        >
+            <TextualInputComponent 
+                label='Alias'
+                text={alias ? alias.aliasName : ''}
+            />
+        </ModalBody>
+    );
 }
 
-const mapStateToProps = state => ({
-    modalData: state.modals.modalData,
-});
-
-const mapDispatchToProps = dispatch => ({
-    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
-    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(DeleteAlias);
+export default DeleteAlias;

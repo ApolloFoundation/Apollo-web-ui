@@ -4,66 +4,61 @@
  ***************************************************************************** */
 
 import React from 'react';
-import { connect } from 'react-redux';
-import { v4 as uuidv4 } from 'uuid';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { setBodyModalParamsAction } from '../../../../modules/modals';
-import { formatTimestamp } from '../../../../helpers/util/time';
-import { getTransactionAction } from '../../../../actions/transactions';
-
-const mapStateToProps = state => ({
-  actualBlock: state.account.actualBlock,
-  decimals: state.account.decimals,
-  balanceAPL: state.account.unconfirmedBalanceATM,
-});
-
-const mapDispatchToProps = dispatch => ({
-  setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-  formatTimestamp: time => dispatch(formatTimestamp(time)),
-  getTransaction: transaction => dispatch(getTransactionAction(transaction)),
-});
+import classNames from 'classnames';
+import { setBodyModalParamsAction } from 'modules/modals';
+import { formatTimestamp } from 'helpers/util/time';
+import { getAccountInfoSelector } from 'selectors';
 
 const PoolItem = props => {
-  const blocksLeft = parseInt(props.finishHeight) - parseInt(props.actualBlock);
-  let checkAction = false;
-  if (props.minBalanceModel === 1 && parseFloat(props.minBalance) >= (props.balanceAPL / props.decimals)) {
-    checkAction = true;
-  }
+  const dispatch = useDispatch();
+  const {decimals, actualBlock, unconfirmedBalanceATM} = useSelector(getAccountInfoSelector, shallowEqual);
+  const blocksLeft = parseInt(props.finishHeight) - parseInt(actualBlock);
+
+  let isDisableVoteButton = props.minBalanceModel === 1 && parseFloat(props.minBalance) >= (unconfirmedBalanceATM / decimals);
+
+  const handleInfoTransactionModal = () =>
+    dispatch(setBodyModalParamsAction('INFO_TRANSACTION', props.poll));
+
+  const handleInfoAccountModal = () =>
+    dispatch(setBodyModalParamsAction('INFO_ACCOUNT', props.account));
+
+  const handleCastVoteModal = () => dispatch(setBodyModalParamsAction('CAST_VOTE', props.poll));
+
+  const handlePollResultModal = () => dispatch(setBodyModalParamsAction('POLL_RESULTS', props.poll));
+
+  const handleTime = () => dispatch(formatTimestamp(props.timestamp));
+
   return (
-    <tr key={uuidv4()}>
-      <td key={uuidv4()} className="blue-link-text">
-        <a onClick={() => props.setBodyModalParamsAction('INFO_TRANSACTION', props.poll)}>{props.name}</a>
+    <tr>
+      <td>
+        <span className="blue-link-text" onClick={handleInfoTransactionModal}>{props.name}</span>
       </td>
-      <td key={uuidv4()} className="">
-        {' '}
+      <td>
         { (props.description.length > 100) ? `${props.description.slice(0, 100)}...` : props.description}
-        {' '}
       </td>
-      <td key={uuidv4()} className="blue-link-text">
-        <a onClick={() => props.setBodyModalParamsAction('INFO_ACCOUNT', props.account)}>
-          {' '}
+      <td>
+        <span className="blue-link-text" onClick={handleInfoAccountModal}>
           {props.accountRS}
-          {' '}
-        </a>
+        </span>
       </td>
-      <td key={uuidv4()} className="">
-        {props.formatTimestamp(props.timestamp)}
-      </td>
-      <td key={uuidv4()} className="">
+      <td>{handleTime()}</td>
+      <td className="">
         {blocksLeft || ''}
       </td>
-      <td key={uuidv4()} className="align-right">
+      <td className="align-right">
         <div className="btn-box inline">
           <button
             type="button"
-            onClick={() => props.setBodyModalParamsAction('CAST_VOTE', props.poll)}
-            className={`btn btn-default ${checkAction ? 'disabled' : ''}`}
+            onClick={handleCastVoteModal}
+            className={classNames('btn btn-default', { 'disabled':  isDisableVoteButton })}
           >
             Vote
           </button>
           <button
             type="button"
-            onClick={() => props.setBodyModalParamsAction('POLL_RESULTS', props.poll)}
+            onClick={handlePollResultModal}
             className="btn btn-default"
           >
             Results
@@ -75,4 +70,4 @@ const PoolItem = props => {
   );
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(PoolItem);
+export default PoolItem;

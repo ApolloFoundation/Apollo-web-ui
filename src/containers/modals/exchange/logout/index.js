@@ -1,73 +1,61 @@
-import React from 'react';
-import {withRouter} from 'react-router-dom'
-import {connect} from 'react-redux';
+import React, { useCallback, useState } from 'react';
+import { useHistory } from 'react-router-dom'
+import { useDispatch, useSelector} from 'react-redux';
 import {NotificationManager} from "react-notifications";
-import {logOutAction} from "../../../../actions/login";
-import {logout} from "../../../../actions/wallet";
-import ModalBody from '../../../components/modals/modal-body';
-import TextualInputComponent from '../../../components/form-components/textual-input';
+import {logOutAction} from "actions/login";
+import {logout} from "actions/wallet";
+import ModalBody from 'containers/components/modals/modal-body';
+import TextualInputComponent from 'containers/components/form-components/TextualInput';
+import { getAccountSelector } from 'selectors';
 
-class LogoutExchange extends React.Component {
-    constructor(props) {
-        super(props);
+const LogoutExchange = ({ closeModal, nameModal }) => {
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const account = useSelector(getAccountSelector);
+    const [isPending, setIsPending] = useState(false);
 
-        this.state = {
-            passphraseStatus: false
-        };
-
-        this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    }
-
-    handleFormSubmit(values) {
-        let passphrase = values.passphrase;
+    const handleFormSubmit = useCallback(({ passphrase }) => {
         if (!passphrase || passphrase.length === 0) {
             NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
             return;
         }
-        const params = {
-            accountid: this.props.account,
-            passphrase
-        };
-        this.props.logout(params).then((res) => {
+        setIsPending(true);
+        dispatch(
+            logout({
+                accountid: account,
+                passphrase,
+            })
+        ).then((res) => {
             if (!res.errorCode) {
-                logOutAction('simpleLogOut', this.props.history);
-                this.props.closeModal();
+                logOutAction('simpleLogOut', history);
+                closeModal();
             } 
+        }).finally(() => {
+            setIsPending(false);
         });
-    }
+    }, [dispatch, closeModal, account])
 
-    render() {
-        return (
-            <ModalBody
-                loadForm={this.loadForm}
-                modalTitle={'Logout'}
-                closeModal={this.props.closeModal}
-                handleFormSubmit={this.handleFormSubmit}
-                submitButtonName={'Confirm'}
-                isDisableSecretPhrase
-                nameModel={this.props.nameModal}
-            >
-                <p className='text-danger'>Warning:</p>
-                <p>Log out terminates the automated exchange. To continue with any exchange operations, logging in is required.</p>
-                <br />
-                <TextualInputComponent
-                    field={'passphrase'}
-                    type={'password'}
-                    label={'Secret Phrase'}
-                    placeholder={'Secret Phrase'}
-                />
-            </ModalBody>
-        );
-    }
+    return (
+        <ModalBody
+            modalTitle='Logout'
+            closeModal={closeModal}
+            handleFormSubmit={handleFormSubmit}
+            submitButtonName='Confirm'
+            isDisableSecretPhrase
+            nameModel={nameModal}
+            isPending={isPending}
+        >
+            <p className='text-danger'>Warning:</p>
+            <p>Log out terminates the automated exchange. To continue with any exchange operations, logging in is required.</p>
+            <br />
+            <TextualInputComponent
+                name='passphrase'
+                type='password'
+                label='Secret Phrase'
+                placeholder='Secret Phrase'
+            />
+        </ModalBody>
+    );
 }
 
-const mapStateToProps = state => ({
-    account: state.account.account,
-    publicKey: state.account.publicKey
-});
-
-const mapDispatchToProps = dispatch => ({
-    logout: (params) => dispatch(logout(params)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(LogoutExchange));
+export default LogoutExchange;

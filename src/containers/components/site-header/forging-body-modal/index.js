@@ -2,9 +2,22 @@ import React, {Component} from 'react';
 import classNames from 'classnames';
 import {connect} from 'react-redux';
 import {NotificationManager} from "react-notifications";
-import {setBodyModalParamsAction} from '../../../../modules/modals';
-import {setForging, getForging} from '../../../../actions/login';
-import { readFromLocalStorage } from '../../../../actions/localStorage';
+import {setBodyModalParamsAction} from 'modules/modals';
+import {setForging, getForging} from 'actions/login';
+import { readFromLocalStorage } from 'actions/localStorage';
+import {
+    get2FASelector,
+    getAccountPublicKeySelector,
+    getActualBlockSelector,
+    getDecimalsSelector,
+    getEffectiveBalanceAplSelector,
+    getForgedBalanceSelector,
+    getForgingStatusSelector,
+    getModalDataSelector,
+    getModalTypeSelector,
+    getPassPhraseSelector
+} from 'selectors';
+import { numberToLocaleString } from 'helpers/format';
 
 class ForgingBodyModalWindow extends Component {
 
@@ -112,7 +125,7 @@ class ForgingBodyModalWindow extends Component {
                             <p>
                                 {
                                     forgedBalanceATM &&
-                                    <label>Forged balance: {(forgedBalanceATM / decimals).toLocaleString('en')}&nbsp;APL</label>
+                                    <label>Forged balance: {numberToLocaleString(forgedBalanceATM / decimals)}&nbsp;APL</label>
                                 }
                             </p>
                             <div className="btn-block text-center d-sm-block d-md-none mt-2">
@@ -130,22 +143,22 @@ class ForgingBodyModalWindow extends Component {
 }
 
 const mapStateToProps = state => ({
-    forgingStatus: state.account.forgingStatus,
-    publicKey: state.account.publicKey,
-    forgedBalanceATM: state.account.forgedBalanceATM,
-    moalTtype: state.modals.modalType,
-    modalData: state.modals.modalData,
-    actualBlock: state.account.actualBlock,
-    secretPhrase: state.account.passPhrase,
-    is2FA: state.account.is2FA,
-    effectiveBalanceAPL: state.account.effectiveBalanceAPL,
-    decimals: state.account.decimals,
+    forgingStatus: getForgingStatusSelector(state),
+    publicKey: getAccountPublicKeySelector(state),
+    forgedBalanceATM: getForgedBalanceSelector(state),
+    moalTtype: getModalTypeSelector(state),
+    modalData: getModalDataSelector(state),
+    actualBlock: getActualBlockSelector(state),
+    secretPhrase: getPassPhraseSelector(state),
+    is2FA: get2FASelector(state),
+    effectiveBalanceAPL: getEffectiveBalanceAplSelector(state),
+    decimals: getDecimalsSelector(state),
 });
 
-const mapDispatchToProps = dispatch =>({
-    setBodyModalParamsAction: (type, value) => dispatch(setBodyModalParamsAction(type, value)),
-    setForging: (reqParams) => dispatch(setForging(reqParams)),
-    getForging: (reqParams) => dispatch(getForging(reqParams)),
-});
+const mapDispatchToProps = {
+    setBodyModalParamsAction,
+    setForging,
+    getForging,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ForgingBodyModalWindow);

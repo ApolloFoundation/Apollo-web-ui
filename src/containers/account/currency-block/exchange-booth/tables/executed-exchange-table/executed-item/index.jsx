@@ -3,28 +3,35 @@
  *                                                                            *
  ***************************************************************************** */
 
-import React from 'react';
+import React, { useMemo }from 'react';
 import { useDispatch } from 'react-redux';
-import { formatTimestamp } from '../../../../../../../helpers/util/time';
-import { setBodyModalParamsAction } from '../../../../../../../modules/modals';
+import { setBodyModalParamsAction } from 'modules/modals';
+import { useFormatTimestamp } from 'hooks/useFormatTimestamp';
+import { numberToLocaleString } from 'helpers/format';
 
-export default function ExecutedItem(props) {
+export default function ExecutedItem({
+  transaction, sellerRS, timestamp, buyerRS,
+  decimals, account, units, rateATM,
+}) {
   const dispatch = useDispatch();
-
-  const {
-    transaction, sellerRS, timestamp, buyerRS,
-    decimals, account, units, rateATM,
-  } = props;
+  const handleTime = useFormatTimestamp();
 
   const setModal = (data) => () => {
-    dispatch(setBodyModalParamsAction('INFO_ACCOUNT', data))
+    dispatch(setBodyModalParamsAction('INFO_ACCOUNT', data));
   }
+
+  const handleInfoTransactionModal = () => dispatch(setBodyModalParamsAction('INFO_TRANSACTION', transaction));
+  const rate = useMemo(() => (rateATM / (10 ** 8)) * (10 ** decimals), [decimals, rateATM]);
+  const total = useMemo(
+    () => (((rateATM / (10 ** 8)) * units) / (10 ** decimals)) * (10 ** decimals),
+    [rate, units, decimals]
+  );
 
   return (
     <tr>
       <td>
-        <span className="blue-link-text" onClick={() => dispatch(setBodyModalParamsAction('INFO_TRANSACTION', transaction))}>
-          {dispatch(formatTimestamp(timestamp))}
+        <span className="blue-link-text" onClick={handleInfoTransactionModal}>
+          {handleTime(timestamp)}
         </span>
       </td>
       <td onClick={setModal(sellerRS)}>
@@ -39,13 +46,13 @@ export default function ExecutedItem(props) {
         {(units / (10 ** decimals)).toFixed(8)}
       </td>
       <td className="align-right">
-        {((rateATM / (10 ** 8)) * (10 ** decimals)).toLocaleString('en', {
+        {numberToLocaleString (rate, {
           minimumFractionDigits: 2,
           maximumFractionDigits: 2,
         })}
       </td>
       <td className="align-right">
-        {((((rateATM / (10 ** 8)) * units) / (10 ** decimals)) * (10 ** decimals)).toLocaleString('ru', {
+        {numberToLocaleString(total, {
           minimumFractionDigits: 2,
           maximumFractionDigits: 2,
         })}

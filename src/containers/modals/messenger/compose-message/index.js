@@ -4,59 +4,54 @@
  ******************************************************************************/
 
 
-import React from 'react';
-import {connect} from 'react-redux';
-import {
-    setBodyModalParamsAction, 
-} from '../../../../modules/modals';
-import {handleFormSubmit} from './handleFormSubmit';
-
-// Form components
-
-import ModalBody from '../../../components/modals/modal-body';
+import React, { useCallback } from 'react';
+import { useSelector, shallowEqual } from 'react-redux';
+import { NotificationManager } from "react-notifications";
+import ModalBody from 'containers/components/modals/modal-body';
+import { getModalDataSelector } from 'selectors';
 import ComposeMessageForm from './form';
 
+const ComposeMessage = ({ closeModal, processForm }) => {
+    const modalData = useSelector(getModalDataSelector, shallowEqual);
 
-class ComposeMessage extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            activeTab: 0,
-            advancedState: false,
-
-            // submitting
-            passphraseStatus: false,
-            recipientStatus: false,
-            amountStatus: false,
-            feeStatus: false
+    const handleFormSubmit = useCallback(({ message, ...values}) => {
+        if (!values.recipient) {
+            NotificationManager.error('Recipient is required.', 'Error', 5000);
+            return;
         }
 
-    }
+        const data = {
+            ...values,
+        }
 
-    handleFormSubmit = (values) => handleFormSubmit.call(this.props, values)
+        if (values.messageToEncrypt) {
+            data.messageToEncrypt = values.message;
+        } else {
+            data.message = values.message;
+        }
 
-    render() {
-        return (
-            <ModalBody
-                modalTitle={'Send message'}
-                isAdvanced
-                isFee
-                closeModal={this.props.closeModal}
-                handleFormSubmit={(values) => this.handleFormSubmit(values)}
-                submitButtonName={'Send message'}
-            >
-                <ComposeMessageForm />
-            </ModalBody>
-        );
-    }
+        processForm(values, 'sendMessage', 'Message has been submitted', () => {
+            closeModal();
+            NotificationManager.success('Message has been submitted!', null, 5000);
+        })
+    }, [closeModal]);
+
+    return (
+        <ModalBody
+            modalTitle='Send message'
+            isAdvanced
+            isFee
+            closeModal={closeModal}
+            handleFormSubmit={handleFormSubmit}
+            submitButtonName='Send message'
+            initialValues={{
+                messageToEncrypt: true,
+                recipient:  modalData?.recipient ?? '',
+            }}
+        >
+            <ComposeMessageForm />
+        </ModalBody>
+    );
 }
 
-
-const mapStateToProps = state => ({
-	modalData: state.modals.modalData,
-	modalsHistory: state.modals.modalsHistory
-});
-
-
-export default connect(mapStateToProps)(ComposeMessage);
+export default ComposeMessage;

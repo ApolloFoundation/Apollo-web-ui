@@ -1,50 +1,27 @@
 import React from 'react';
+import AccountRsInput from 'containers/components/form-components/AccountRS';
+import TextualInputComponent from 'containers/components/form-components/TextualInput';
+import NumericInputComponent from 'containers/components/form-components/NumericInput';
+import CustomTextArea from 'containers/components/form-components/TextArea/TextAreaWithFormik';
+import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
 
-import {Text} from 'react-form';
-import AccountRsInput from '../../../components/form-components/account-rs';
-import TextualInputComponent from '../../../components/form-components/textual-input';
-import NumericInputComponent from '../../../components/form-components/numeric-input';
-import CustomTextArea from '../../../components/form-components/text-area';
-
-import {connect} from 'react-redux';
-
-const TransferAsset = ({setValue, values, modalData}) => (
+const TransferAsset = ({ modalData }) => (
     <>
-        <Text defaultValue={modalData.assetName} type="hidden" field={'name'}/>
-        <Text defaultValue={modalData.assetID} type="hidden" field={'asset'}/>
-
+        <CustomInput type="hidden" name='name'/>
+        <CustomInput type="hidden" name='asset'/>
         <TextualInputComponent
             isText
-            label={'Asset'}
+            label='Asset'
             text={`${modalData.assetName} - ${modalData.availableAssets} available`}
         />
-
-        <AccountRsInput
-            label={'Recipient'}
-            field={'recipient'}
-            setValue={setValue}
-        />      
-
-        <CustomTextArea
-            label={'Comment'}
-            field={'message'}
-            placeholder={'Comment'}
-            setValue={setValue}
-
-        />
-        
+        <AccountRsInput label='Recipient' name='recipient' />
+        <CustomTextArea label='Comment' name='message' placeholder='Comment' />
         <NumericInputComponent
-            label={'Quantity'}
-            placeholder={'Quantity'}
-            field={'quantityATU'}
-            defaultValue={modalData.quantityATU}
-            setValue={setValue}
+            label='Quantity'
+            placeholder='Quantity'
+            name='quantityATU'
         />
     </>
 )
 
-const mapStateToProps = state => ({
-    modalData: state.modals.modalData
-});
-
-export default connect(mapStateToProps)(TransferAsset);
+export default TransferAsset;

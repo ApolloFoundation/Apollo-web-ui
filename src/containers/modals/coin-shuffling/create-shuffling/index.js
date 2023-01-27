@@ -4,50 +4,24 @@
  ******************************************************************************/
 
 
-import React from 'react';
-import {connect} from 'react-redux';
-import {
-    setBodyModalParamsAction,
-} from '../../../../modules/modals';
-import {handleFormSubmit} from './handleFormSubmit';
-
-// Form components
-
-import ModalBody from '../../../components/modals/modal-body';
-import CreateShufflngForm from './form';
+import React, { useCallback } from 'react';
+import {useDispatch} from 'react-redux';
 import {NotificationManager} from "react-notifications";
+import { setBodyModalParamsAction } from 'modules/modals';
+import ModalBody from 'containers/components/modals/modal-body';
+import CreateShufflngForm from './form';
 
-const holdingTypeData = [
-    { value: 0, label: 'Apollo' },
-    { value: 1, label: 'Asset' },
-    { value: 2, label: 'Currency' },
-];
+const CreateShuffling = ({ processForm, closeModal }) => {
+    const dispatch = useDispatch();
 
-class CreateShuffling extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            activeTab: 0,
-            advancedState: false,
-
-            // submitting
-            passphraseStatus: false,
-            recipientStatus: false,
-            amountStatus: false,
-            feeStatus: false,
-        }
-
-    }
-
-    handleFormSubmit = (values) => {
-        values = {
+    const handleFormSubmit = useCallback((values) => {
+        const data = {
             ...values,
             amount: values.amount * 100000000,
             registrationPeriod: 1439
         };
 
-        this.props.processForm(values, 'shufflingCreate', 'Shuffling Created!', (res) => {
+        processForm(data, 'shufflingCreate', 'Shuffling Created!', (res) => {
             NotificationManager.success('Shuffling Created!', null, 5000);
 
             const reqParams = {
@@ -56,36 +30,24 @@ class CreateShuffling extends React.Component {
                 createNoneTransactionMethod: true
             };
 
-            this.props.processForm(reqParams, 'broadcastTransaction', 'Shuffling Created!', (broadcast) => {
-                this.props.setBodyModalParamsAction('START_SHUFFLING', {broadcast});
+            processForm(reqParams, 'broadcastTransaction', 'Shuffling Created!', (broadcast) => {
+                dispatch(setBodyModalParamsAction('START_SHUFFLING', {broadcast}));
             });
-        })
-    };
+        });
+    }, [dispatch, processForm]);
 
-    render() {
-        return (
-            <ModalBody
-                loadForm={this.loadForm}
-                modalTitle={'Create shuffling'}
-                isAdvanced
-                isFee
-                closeModal={this.props.closeModal}
-                handleFormSubmit={(values) => this.handleFormSubmit(values)}
-                submitButtonName={'Create shuffling'}
-            >
-                <CreateShufflngForm ticker={this.props.ticker} />
-            </ModalBody>
-
-        );
-    }
+    return (
+        <ModalBody
+            modalTitle='Create shuffling'
+            isAdvanced
+            isFee
+            closeModal={closeModal}
+            handleFormSubmit={handleFormSubmit}
+            submitButtonName='Create shuffling'
+        >
+            <CreateShufflngForm />
+        </ModalBody>
+    );
 }
 
-const mapStateToProps = state => ({
-  ticker: state.account.ticker,
-});
-
-const mapDispatchToProps = dispatch => ({
-    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(CreateShuffling);
+export default CreateShuffling;

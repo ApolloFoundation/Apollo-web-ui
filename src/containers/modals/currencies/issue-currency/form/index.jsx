@@ -1,44 +1,44 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useFormikContext } from 'formik';
+import NumericInput from 'containers/components/form-components/NumericInput';
+import TextualInputComponent from 'containers/components/form-components/TextualInput';
+import CheckboxFormInput from 'containers/components/check-button-input/CheckboxWithFormik';
+import CustomTextArea from 'containers/components/form-components/TextArea/TextAreaWithFormik';
+import BlockHeightInput from 'containers/components/form-components/BlockHeight/block-height-input1';
+import { getTickerSelector } from 'selectors';
 
-import NumericInput from '../../../../components/form-components/numeric-input1';
-import TextualInputComponent from '../../../../components/form-components/textual-input1';
-import CheckboxFormInput from '../../../../components/check-button-input';
-import CustomTextArea from '../../../../components/form-components/text-area1';
-import BlockHeightInput from '../../../../components/form-components/block-height-input1';
+const checkboxes = [
+  {
+    label: 'Exchangeable',
+    name: 'type1',
+  },
+  {
+    label: 'Controllable',
+    name: 'type2',
+  },
+  {
+    label: 'Reservable',
+    name: 'type3',
+  },
+  {
+    label: 'Claimable',
+    name: 'type4',
+  },
+  {
+    label: 'Mintable',
+    name: 'type5',
+  },
+  {
+    label: 'Non-Shuffleable',
+    name: 'type6',
+  },
+];
 
 const IssueCurrencyForm = () => {
   const { values } = useFormikContext();
 
-  const { ticker } = useSelector(state => state.account);
-
-  const checkboxes = [
-    {
-      label: 'Exchangeable',
-      name: 'type1',
-    },
-    {
-      label: 'Controllable',
-      name: 'type2',
-    },
-    {
-      label: 'Reservable',
-      name: 'type3',
-    },
-    {
-      label: 'Claimable',
-      name: 'type4',
-    },
-    {
-      label: 'Mintable',
-      name: 'type5',
-    },
-    {
-      label: 'Non-Shuffleable',
-      name: 'type6',
-    },
-  ];
+  const ticker = useSelector(getTickerSelector);
 
   return (
     <>
@@ -62,8 +62,10 @@ const IssueCurrencyForm = () => {
       />
       {checkboxes.map(({ label, name }) => (
         <CheckboxFormInput
+          key={name}
           label={label}
           name={name}
+          id={name}
         />
       ))}
       {values.type3 && (

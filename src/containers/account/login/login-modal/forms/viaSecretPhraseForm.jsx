@@ -3,12 +3,12 @@ import { useDispatch } from 'react-redux';
 import cn from 'classnames';
 import { Form, Formik } from 'formik';
 import { NotificationManager } from 'react-notifications';
-import { getAccountDataBySecretPhrasseAction, getAccountDataAction } from '../../../../../actions/login';
-import InfoBox from '../../../../components/info-box';
-import CustomInput from '../../../../components/custom-input';
-import Button from '../../../../components/button';
-import AccountRS from '../../../../components/account-rs/index1';
-import { Switcher } from '../../../../components/form-components/switcher/switcher';
+import { getAccountDataBySecretPhrasseAction, getAccountDataAction } from 'actions/login';
+import InfoBox from 'containers/components/info-box';
+import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
+import Button from 'containers/components/button';
+import { AccountRSWithFormik } from 'containers/components/account-rs/AccountRSWithFormik';
+import { Switcher } from 'containers/components/form-components/switcher/switcher';
 import './standartForm.scss';
 
 export default function SecretPhraseForm({ activeTab }) {
@@ -77,7 +77,7 @@ export default function SecretPhraseForm({ activeTab }) {
           ) :(
             <div className="input-group-app user">
               <label htmlFor="Account_id">Enter your ID or choose from saved</label>
-              <AccountRS
+              <AccountRSWithFormik
                 name="accountRS"
                 placeholder="Account ID"
                 id="Account_id"

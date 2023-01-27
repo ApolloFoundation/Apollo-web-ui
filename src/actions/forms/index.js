@@ -53,4 +53,5 @@ export const processForm = async (params, requestType, successMesage, successCal
       errorCallback(res);
     }
   }
+  return res;
 };

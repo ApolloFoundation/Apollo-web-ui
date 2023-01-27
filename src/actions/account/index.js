@@ -8,7 +8,7 @@ import queryString from 'query-string';
 import QRCode from 'qrcode';
 import jsPDF from 'jspdf';
 import { NotificationManager } from 'react-notifications';
-import { login, setShareMessage, setTicker } from '../../modules/account';
+import { login, setTicker } from '../../modules/account';
 import { setBodyModalParamsAction } from '../../modules/modals';
 import { getTransactionsAction } from '../transactions';
 import { getAccountLedgerAction } from '../ledger';
@@ -21,7 +21,7 @@ import { makeLoginReq } from '../login';
 import { processElGamalEncryption } from '../crypto';
 import { handleFetch } from '../../helpers/fetch';
 import utils from '../../helpers/util/utils';
-import submitForm from '../../helpers/forms/forms';
+import submitForm, { sendRequest } from '../../helpers/forms/forms';
 import store from '../../store';
 import config from '../../config';
 import cancelAxiosRequest from '../../helpers/cancelToken';
@@ -147,14 +147,6 @@ export function getAccountPropertiesAction(reqParams) {
     });
 }
 
-export function loginWithShareMessage(account, transaction) {
-  return dispatch => {
-    dispatch(setShareMessage({ isShareMessage: true, shareMessageTransaction: transaction }));
-    makeLoginReq(dispatch, { account });
-    dispatch(setBodyModalParamsAction('INFO_TRANSACTION', transaction));
-  };
-}
-
 export const getPhasingOnlyControl = reqParams => axios.get(config.api.serverUrl, {
   params: {
     requestType: 'getPhasingOnlyControl',
@@ -197,7 +189,7 @@ export const confirm2FAActon = async requestParams => store.dispatch(await submi
 
 export const importAccountAction = async requestParams => store.dispatch(await submitForm.submitForm(requestParams, 'importKey'));
 
-export const importAccountActionViaFile = async requestParams => store.dispatch(await submitForm.submitForm(requestParams, 'importKeyViaFile'));
+export const importAccountActionViaFile = (data) => store.dispatch(sendRequest('importKeyViaFile', data));
 
 export const createAccountAction = async requestParams => store.dispatch(await submitForm.submitForm(requestParams, 'exportKey'));
 

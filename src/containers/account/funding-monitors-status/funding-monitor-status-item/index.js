@@ -1,21 +1,21 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {setBodyModalParamsAction} from "modules/modals";
 
-import {setBodyModalParamsAction} from "../../../../modules/modals";
 
-
-const mapDispatchToProps = dispatch => ({
-    setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data))
-})
+const mapDispatchToProps = {
+    setBodyModalParamsAction
+}
 
 const FundingMonitorItem = (props) => (
     <tr>
-        <td className={'blue-link-text'}>
-            <a
+        <td>
+            <span 
+                className='blue-link-text'
                 onClick={() => props.setBodyModalParamsAction('INFO_ACCOUNT', props.recipient)}
             >
                 {props.recipientRS}
-            </a>
+            </span>
         </td>
         <td>
             {props.property}
@@ -25,10 +25,11 @@ const FundingMonitorItem = (props) => (
         </td>
         <td className="align-right">
             <div className="btn-box inline">
-                <a className={'btn btn-default'}
+                <a className='btn btn-default'
                    onClick={() => props.setBodyModalParamsAction('REMOVE_MONITOR', {
                        recipient: props.recipient,
                        property: props.property,
+                       recipientRS: props.recipientRS,
                    })}
                 >
                     Remove

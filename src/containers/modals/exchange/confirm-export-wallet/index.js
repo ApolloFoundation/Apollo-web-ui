@@ -1,11 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {NotificationManager} from "react-notifications";
-import {setBodyModalParamsAction, setModalData, setModalType} from '../../../../modules/modals';
-import {setAccountPassphrase} from '../../../../modules/account';
-import {exportWallet} from "../../../../actions/wallet";
-import ModalBody from '../../../components/modals/modal-body';
-import util from "../../../../helpers/util/utils";
+import {setAccountPassphrase} from 'modules/account';
+import {exportWallet} from "actions/wallet";
+import ModalBody from 'containers/components/modals/modal-body';
+import util from "helpers/util/utils";
+import {
+    get2FASelector, getAccountSelector, getModalDataSelector, getPassPhraseSelector
+} from 'selectors';
 
 class ConfirmExportWallet extends React.Component {
     downloadSecretFile = React.createRef();
@@ -28,9 +30,8 @@ class ConfirmExportWallet extends React.Component {
                     return;
                 }
             }
-
             const params = {
-                ...this.props.modalData.params,
+                ...this.props.modalData,
                 ...values,
                 passphrase,
                 account: this.props.account,
@@ -150,20 +151,16 @@ class ConfirmExportWallet extends React.Component {
     }
 }
 
-const mapStateToProps = ({account, modals}) => ({
-    modalData: modals.modalData,
-    account: account.account,
-    passPhrase: account.passPhrase,
-    is2FA: account.is2FA,
+const mapStateToProps = (state) => ({
+    modalData: getModalDataSelector(state),
+    account: getAccountSelector(state),
+    passPhrase: getPassPhraseSelector(state),
+    is2FA: get2FASelector(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-    exportWallet: (params) => dispatch(exportWallet(params)),
-    setModalData: (data) => dispatch(setModalData(data)),
-    setModalType: (passphrase) => dispatch(setModalType(passphrase)),
-    setBodyModalParamsAction: (passphrase) => dispatch(setBodyModalParamsAction(passphrase)),
-    setAccountPassphrase: (passphrase) => dispatch(setAccountPassphrase(passphrase)),
-
-});
+const mapDispatchToProps = {
+    exportWallet,
+    setAccountPassphrase,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ConfirmExportWallet);

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { setBodyModalParamsAction } from '../../../../modules/modals';
+import { setBodyModalParamsAction } from 'modules/modals';
 
 const AssetItem = ({
   asset,

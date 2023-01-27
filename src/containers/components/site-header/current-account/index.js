@@ -4,10 +4,12 @@ import classNames from 'classnames';
 import { NavLink, withRouter } from 'react-router-dom'
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { NotificationManager } from "react-notifications";
-
-import { logOutAction } from "../../../../actions/login";
-import { setBodyModalParamsAction } from '../../../../modules/modals';
-import { readFromLocalStorage } from '../../../../actions/localStorage';
+import { logOutAction } from "actions/login";
+import { setBodyModalParamsAction } from 'modules/modals';
+import { readFromLocalStorage } from 'actions/localStorage';
+import {
+    getAccountPublicKeySelector, getAccountRsSelector, getAccountSelector, getForgingStatusSelector
+} from 'selectors';
 
 class CurrentAccount extends React.Component {
     refContactsList = React.createRef();
@@ -237,10 +239,10 @@ class CurrentAccount extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    account: state.account.account,
-    accountRS: state.account.accountRS,
-    publicKey: state.account.publicKey,
-    forgingStatus: state.account.forgingStatus,
+    account: getAccountSelector(state),
+    accountRS: getAccountRsSelector(state),
+    publicKey: getAccountPublicKeySelector(state),
+    forgingStatus: getForgingStatusSelector(state),
 });
 
 const mapDispatchToProps = {

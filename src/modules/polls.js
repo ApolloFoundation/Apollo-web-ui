@@ -1,4 +1,4 @@
-import {getpollAction} from '../actions/polls';
+import {getpollAction} from 'actions/polls';
 
 const initState = {
     followedPolls: []

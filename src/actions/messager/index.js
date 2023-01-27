@@ -270,8 +270,8 @@ const formatMessages = transactionMessages => {
                         null;
 
                     const transaction = transactionData.transaction;
-                    const messageIsPrunable = el.messageIsPrunable;
-                    const decryptedMessage = el.decryptedMessage;
+                    const messageIsPrunable = el?.messageIsPrunable;
+                    const decryptedMessage = el?.decryptedMessage;
                     const {recipient, sender, recipientRS ,senderRS, timestamp, attachment} = transactionData;
                 
                     return {

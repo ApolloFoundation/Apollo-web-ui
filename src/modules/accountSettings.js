@@ -4,7 +4,7 @@
  ******************************************************************************/
 
 
-import {readFromLocalStorage, writeToLocalStorage} from "../actions/localStorage";
+import {readFromLocalStorage, writeToLocalStorage} from "actions/localStorage";
 
 export const LOAD_ACCOUNT_SETTINGS = "LOAD_ACCOUNT_SETTINGS";
 
@@ -84,5 +84,8 @@ export const getSavedAccountSettingsAction = () => dispatch => {
     dispatch({
         type: LOAD_ACCOUNT_SETTINGS,
         settings
+    });
+    dispatch({
+        type: 'SET_ADMIN_PASSWORD',
     })
 };

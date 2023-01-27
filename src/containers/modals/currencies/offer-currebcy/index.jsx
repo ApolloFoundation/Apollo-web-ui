@@ -6,23 +6,22 @@
 import React, {
   useState, useEffect, useCallback,
 } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
-import { getAccountCurrenciesAction } from '../../../../actions/currencies';
+import { getAccountCurrenciesAction } from 'actions/currencies';
+import ModalBody from 'containers/components/modals/modal-body';
+import NumericInput from 'containers/components/form-components/NumericInput';
+import TextualInputComponent from 'containers/components/form-components/TextualInput';
+import BlockHeightInput from 'containers/components/form-components/BlockHeight/block-height-input1';
+import { getAccountSelector, getModalDataSelector, getTickerSelector } from 'selectors';
 import { handleFormSubmit } from './handle-form-submit';
 
-import ModalBody from '../../../components/modals/modal-body1';
-import NumericInput from '../../../components/form-components/numeric-input1';
-import TextualInputComponent from '../../../components/form-components/textual-input1';
-import BlockHeightInput from '../../../components/form-components/block-height-input1';
-
-export default function OfferCurrency(props) {
+export default function OfferCurrency({ closeModal }) {
   const dispatch = useDispatch();
 
-  const { modalData } = useSelector(state => state.modals);
-  const { account, ticker } = useSelector(state => state.account);
-
-  const { closeModal } = props;
+  const modalData = useSelector(getModalDataSelector, shallowEqual);
+  const ticker = useSelector(getTickerSelector);
+  const account = useSelector(getAccountSelector);
 
   const [currencyAvailable, setCurrencyAvailable] = useState(null);
   const [dataCurrency, setDataCurrency] = useState(null);

@@ -4,90 +4,49 @@
  ******************************************************************************/
 
 
-import React from 'react';
-import {connect} from 'react-redux';
-import {setBodyModalParamsAction, setModalData} from '../../../../modules/modals';
-
-import {getAliasAction} from '../../../../actions/aliases/';
+import React, { useCallback } from 'react';
 import {NotificationManager} from "react-notifications";
-import submitForm from "../../../../helpers/forms/forms";
-
-import ModalBody from '../../../components/modals/modal-body';
+import ModalBody from 'containers/components/modals/modal-body';
+import { useAliasDataLoader } from '../useAliasDataLoader';
 import EditAliasForm from './form';
 
-class EditAlias extends React.Component {
-    constructor(props) {
-        super(props);
+const typeData = [
+    { value: 'uri',     label: 'URI' },
+    { value: 'account', label: 'Account' },
+    { value: 'general', label: 'Other' },
+];
 
-        this.handleFormSubmit = this.handleFormSubmit.bind(this);
+const EditAlias = ({ closeModal, processForm }) => {
+    const alias = useAliasDataLoader();
 
-        this.state = {
-            activeTab: 0,
-            advancedState: false,
-            inputType: 'uri',
-
-            // submitting
-            passphraseStatus: false,
-            recipientStatus: false,
-            amountStatus: false,
-            feeStatus: false
-        };
-    }
-
-    componentDidMount = () => {
-        this.getAlias();
-    };
-
-    async handleFormSubmit(values) {
-
-        values = {
+    const handleFormSubmit = useCallback((values) => {
+        const data = {
             ...values,
-            aliasName: this.state.alias.aliasName,
+            aliasName: alias.aliasName,
         };
 
-
-        this.props.processForm(values, 'setAlias', 'Alias has been edited!', () => {
-            this.props.setBodyModalParamsAction(null, {});
+        processForm(data, 'setAlias', 'Alias has been edited!', () => {
+            closeModal();
             NotificationManager.success('Alias has been edited!', null, 5000);
         });
-    }
+    }, [closeModal, alias?.aliasName])
 
-    getAlias = async () => {
-        const alias = await this.props.getAliasAction({alias: this.props.modalData});
-
-        if (alias) {
-            this.setState({
-                alias
-            });
-        }
-    };
-
-    render() {
-        return (
-            <ModalBody
-                loadForm={this.loadForm}
-                modalTitle={'Edit Alias'}
-                isAdvanced={true}
-                isFee
-                closeModal={this.props.closeModal}
-                handleFormSubmit={(values) => this.handleFormSubmit(values)}
-                submitButtonName={'Edit Alias'}
-            >
-                <EditAliasForm />
-            </ModalBody>
-        );
-    }
+    return (
+        <ModalBody
+            modalTitle='Edit Alias'
+            isAdvanced
+            isFee
+            closeModal={closeModal}
+            handleFormSubmit={handleFormSubmit}
+            submitButtonName='Edit Alias'
+            initialValues={{
+                type: typeData[0].value,
+                aliasURI: '',
+            }}
+        >
+            <EditAliasForm alias={alias} typeData={typeData} />
+        </ModalBody>
+    );
 }
 
-const mapStateToProps = state => ({
-    modalData: state.modals.modalData
-});
-
-const mapDispatchToProps = dispatch => ({
-    setModalData: (data) => dispatch(setModalData(data)),
-    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
-    getAliasAction: (requestParams) => dispatch(getAliasAction(requestParams)),
-    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(EditAlias);
+export default EditAlias;

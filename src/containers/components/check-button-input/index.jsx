@@ -1,39 +1,22 @@
-import React, { useCallback, useEffect } from 'react';
-import { useField } from 'formik';
+import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 import './styles.scss';
 
 const CheckboxFormInput = props => {
   const {
-    label, name, id, className, disabled, onChange, value,
+    label, name, id, className, disabled, onChange, isTopOffset, checked, value, ...rest
   } = props;
-
-  const [field, , helpers] = useField({
-    name, id, type: 'checkbox', disabled,
-  });
-  
-  const { setValue } = helpers;
-
-  const handleChange = useCallback(({ target: { checked } }) => {
-    setValue(checked);
-    if (onChange) onChange();
-  }, [onChange, setValue]);
-
-  useEffect(() => {
-    if (typeof value !== undefined) {
-      helpers.setValue(value);
-    }
-  }, [value]);
-
   return (
-    <div className={cn('checkbox-group mb-15', className)}>
+    <div className={cn('checkbox-group mb-15', className, { 'checkbox-group--top': isTopOffset})}>
       <input
-        {...field}
+        {...rest}
+        checked={checked}
+        name={name}
+        onChange={onChange}
         type="checkbox"
         className="checkbox"
         disabled={disabled}
-        onChange={handleChange}
         id={id}
       />
       <label
@@ -47,7 +30,6 @@ const CheckboxFormInput = props => {
 };
 
 PropTypes.propTypes = {
-  checkboxes: PropTypes.Array,
   label: PropTypes.string,
   className: PropTypes.string,
 };

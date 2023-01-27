@@ -4,7 +4,7 @@
  ******************************************************************************/
 
 
-import axios from 'axios/index';
+import axios from 'axios';
 import {NotificationManager} from "react-notifications";
 import config from '../../config';
 import {GET, handleFetch} from "../../helpers/fetch";

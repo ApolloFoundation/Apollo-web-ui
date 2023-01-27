@@ -7,26 +7,34 @@
 import React from "react";
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
-
-import {setPageEvents} from '../../../modules/account';
-import {setBodyModalParamsAction, setBodyModalType, setModalData, setModalType} from "../../../modules/modals";
-import {getAccountInfoAction, switchAccountAction} from "../../../actions/account";
-import {getForging, setForging} from '../../../actions/login';
-import {getTransactionAction} from "../../../actions/transactions";
-import {getBlockAction} from "../../../actions/blocks";
-import crypto from '../../../helpers/crypto/crypto';
-// Demo styles, see 'Styles' section below for some notes on use.
-import 'react-accessible-accordion/dist/fancy-example.css';
 import {NotificationManager} from "react-notifications";
-
-import { readFromLocalStorage } from "../../../actions/localStorage";
+import {setBodyModalParamsAction, setBodyModalType} from "modules/modals";
+import {switchAccountAction} from "actions/account";
+import {getForging, setForging} from 'actions/login';
+import {
+    get2FASelector,
+    getAccountPublicKeySelector,
+    getAccountRsSelector,
+    getAccountSelector,
+    getBlockchainStatusSelector,
+    getBodyModalTypeSelector,
+    getEffectiveBalanceAplSelector,
+    getForgedBalanceSelector,
+    getForgingStatusSelector,
+    getIsLocalhostSelector,
+    getModalDataSelector,
+    getModalTypeSelector,
+    getPassPhraseSelector,
+    getSettingsSelector
+} from "selectors";
+import { readFromLocalStorage } from "actions/localStorage";
 import PageTitleBox from './page-title-box';
-
 import UserBox from './user-box';
-
 import CurrentAccount from './current-account';
 import Settings from './settings';
 
+// Demo styles, see 'Styles' section below for some notes on use.
+import 'react-accessible-accordion/dist/fancy-example.css';
 import './SiteHeader.scss';
 import './BodyModals.scss';
 
@@ -77,10 +85,6 @@ class SiteHeader extends React.Component {
             this.setState({searching: false});
         }, 4000);
     }
-
-    // componentWillReceiveProps = (newState) => {
-    //     this.setState({forgingStatus: newState.forgingStatus});
-    // }
 
     // componentDidUpdate = () => {
     //     if (!this.state.forgingStatus && this.props.account) {
@@ -214,7 +218,7 @@ class SiteHeader extends React.Component {
                         isActive={bodyModalType === "ACCOUNT_BODY_MODAL"}
                         closeMenu={this.closeMenu}
                     />
-                    <Settings isActive={bodyModalType === "SETTINGS_BODY_MODAL"} closeMenu={this.closeMenu}/>
+                    <Settings isLocalhost={this.props.isLocalhost} isActive={bodyModalType === "SETTINGS_BODY_MODAL"} closeMenu={this.closeMenu}/>
                 </div>
             </>
         );
@@ -222,36 +226,28 @@ class SiteHeader extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    account: state.account.account,
-    accountRS: state.account.accountRS,
-    forgingStatus: state.account.forgingStatus,
-    publicKey: state.account.publicKey,
-    forgedBalanceATM: state.account.forgedBalanceATM,
-    moalTtype: state.modals.modalType,
-    modalData: state.modals.modalData,
-    bodyModalType: state.modals.bodyModalType,
-    secretPhrase: state.account.passPhrase,
-    settings: state.accountSettings,
-    appState: state.account.blockchainStatus,
-    isLocalhost: state.account.isLocalhost,
-    is2FA: state.account.is2FA,
-    effectiveBalanceAPL: state.account.effectiveBalanceAPL,
+    account: getAccountSelector(state),
+    accountRS: getAccountRsSelector(state),
+    forgingStatus: getForgingStatusSelector(state),
+    publicKey: getAccountPublicKeySelector(state),
+    forgedBalanceATM: getForgedBalanceSelector(state),
+    moalTtype: getModalTypeSelector(state),
+    modalData: getModalDataSelector(state),
+    bodyModalType: getBodyModalTypeSelector(state),
+    secretPhrase: getPassPhraseSelector(state),
+    settings: getSettingsSelector(state),
+    appState: getBlockchainStatusSelector(state),
+    isLocalhost: getIsLocalhostSelector(state),
+    is2FA: get2FASelector(state),
+    effectiveBalanceAPL: getEffectiveBalanceAplSelector(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-    setPageEvents: (prevent) => dispatch(setPageEvents(prevent)),
-    setModalType: (prevent) => dispatch(setModalType(prevent)),
-    setBodyModalType: (prevent) => dispatch(setBodyModalType(prevent)),
-    getAccountInfoAction: (reqParams) => dispatch(getAccountInfoAction(reqParams)),
-    setForging: (reqParams) => dispatch(setForging(reqParams)),
-    validatePassphrse: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
-    getTransactionAction: (reqParams) => dispatch(getTransactionAction(reqParams)),
-    getBlockAction: (reqParams) => dispatch(getBlockAction(reqParams)),
-    setModalData: (reqParams) => dispatch(setModalData(reqParams)),
-    getForging: (reqParams) => dispatch(getForging(reqParams)),
-    switchAccountAction: (requestParams, history) => dispatch(switchAccountAction(requestParams, history)),
-    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-});
-
+const mapDispatchToProps = {
+    setBodyModalType,
+    setForging,
+    getForging,
+    switchAccountAction,
+    setBodyModalParamsAction,
+};
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SiteHeader));

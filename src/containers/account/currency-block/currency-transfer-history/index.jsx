@@ -3,79 +3,34 @@
  *                                                                            *
  ***************************************************************************** */
 
-import React, {
-  useEffect, useState, useCallback,
-} from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getTransferHistory } from '../../../../actions/currencies';
-import { BlockUpdater } from '../../../block-subscriber';
-import SiteHeader from '../../../components/site-header';
-import CustomTable from '../../../components/tables/table1';
+import { getAccountRsSelector } from 'selectors';
+import { TableLoader } from 'containers/components/TableLoader';
+import { getTransferHistory } from 'actions/currencies';
+import SiteHeader from 'containers/components/site-header';
 import TransferHistoryItem from './transfer-history-item';
 
 export default function TransferHistoryCurrency() {
   const dispatch = useDispatch();
+  const accountRS = useSelector(getAccountRsSelector);
 
-  const { accountRS } = useSelector(state => state.account);
+  const getAssets = useCallback(async ({ firstIndex, lastIndex }) => {
+    const newTransfers = await dispatch(getTransferHistory({
+      account: accountRS,
+      firstIndex,
+      lastIndex
+    }));
 
-  const [transfers, setTransfers] = useState(null);
-  const [pagination, setPagination] = useState({
-    page: 1,
-    firstIndex: 0,
-    lastIndex: 15,
-  });
-
-  const getAssets = useCallback(async requestParams => {
-    const newTransfers = await dispatch(getTransferHistory(
-      { account: accountRS, ...requestParams },
-    ));
-
-    setPagination(requestParams);
-
-    if (newTransfers) {
-      setTransfers(newTransfers.transfers);
-    }
+    return newTransfers?.transfers ?? [];
   }, [accountRS, dispatch]);
-
-  const listener = useCallback(data => {
-    console.warn('height in dashboard', data);
-    console.warn('updating dashboard');
-    getAssets({
-      firstIndex: pagination.firstIndex,
-      lastIndex: pagination.lastIndex,
-    });
-  }, [getAssets, pagination.firstIndex, pagination.lastIndex]);
-
-  const onPaginate = useCallback(page => {
-    const reqParams = {
-      // !must be accont! don`t accRS
-      page,
-      firstIndex: page * 15 - 15,
-      lastIndex: page * 15,
-    };
-
-    getAssets(reqParams);
-  }, [getAssets]);
-
-  useEffect(() => {
-    getAssets({
-      firstIndex: pagination.firstIndex,
-      lastIndex: pagination.lastIndex,
-    });
-  }, []);
-
-  useEffect(() => {
-    BlockUpdater.on('data', data => listener(data));
-
-    return () => BlockUpdater.removeAllListeners('data', listener);
-  }, [listener]);
 
   return (
     <div className="page-content">
       <SiteHeader pageTitle="Transfer History" />
       <div className="page-body container-fluid">
-        <CustomTable
-          header={[
+        <TableLoader
+          headersList={[
             {
               name: 'Transaction',
               alignRight: false,
@@ -97,14 +52,9 @@ export default function TransferHistoryCurrency() {
             },
           ]}
           emptyMessage="No transfer history found."
-          page={pagination.page}
           className="mb-3"
           TableRowComponent={TransferHistoryItem}
-          tableData={transfers}
-          isPaginate
-          previousHendler={() => onPaginate(pagination.page - 1)}
-          nextHendler={() => onPaginate(pagination.page + 1)}
-          itemsPerPage={15}
+          dataLoaderCallback={getAssets}
         />
       </div>
     </div>

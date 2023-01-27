@@ -1,10 +1,10 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import {getAssetAction} from "../../../../actions/assets";
-import {setBodyModalParamsAction} from "../../../../modules/modals";
-import {getTransactionAction} from "../../../../actions/transactions";
+import {getAssetAction} from "actions/assets";
+import {setBodyModalParamsAction} from "modules/modals";
+import {getTransactionAction} from "actions/transactions";
+import { getConstantsSelector } from "selectors";
 
-// this.props.setBodyModalParamsAction('INFO_TRANSACTION', transaction)
 class AssetTransfer extends Component {
 	componentDidMount = () => {
 		this.getCurrency();
@@ -79,14 +79,13 @@ class AssetTransfer extends Component {
 }
 
 const mapStateToProps = state => ({
-	constants: state.account.constants,
+	constants: getConstantsSelector(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-	getAssetAction: (reqParams) => dispatch(getAssetAction(reqParams)),
-	setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-	getTransactionAction: (requestParams) => dispatch(getTransactionAction(requestParams)),
-});
-
+const mapDispatchToProps = {
+	getAssetAction,
+	setBodyModalParamsAction,
+	getTransactionAction,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(AssetTransfer)

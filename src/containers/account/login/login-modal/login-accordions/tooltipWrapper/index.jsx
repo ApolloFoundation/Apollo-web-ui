@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
-import Checked from '../../../../../../assets/check-icon.png';
-import Minus from '../../../../../../assets/minus-icon.png';
+import Checked from 'assets/check-icon.png';
+import Minus from 'assets/minus-icon.png';
 
 import styles from './index.module.scss';
 

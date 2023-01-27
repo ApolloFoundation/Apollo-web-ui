@@ -4,57 +4,36 @@
  ******************************************************************************/
 
 
-import React from 'react';
-import {connect} from 'react-redux';
-import {getDataTagsAction} from "../../../../actions/datastorage";
-import {setBodyModalParamsAction, setModalData, saveSendModalState, openPrevModal} from '../../../../modules/modals';
-import InputForm from '../../../components/input-form';
-import InfoBox from '../../../components/info-box';
-import {Form, Text, TextArea} from 'react-form';
-
-import submitForm from '../../../../helpers/forms/forms';
-import {NotificationManager} from "react-notifications";
-
-
-// Form components
-
-import ModalBody from '../../../components/modals/modal-body';
-
+import React, { useCallback, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { NotificationManager } from "react-notifications";
+import i18n from 'i18next';
+import {getDataTagsAction} from "actions/datastorage";
+import ModalBody from 'containers/components/modals/modal-body';
 import UpploadFileForm from './form';
 
-class UploadFile extends React.Component {
-    constructor(props) {
-        super(props);
+const UploadFile = ({ closeModal, processForm }) => {
+    const dispatch = useDispatch();
+    const [dataTags, setDataTags] = useState(null);
+    const [selectTags, setSelectTags] = useState([]);
 
-        this.state = {
-            activeTab: 0,
-            advancedState: false,
-            dataTags: null,
-            selectTags: [],
+    useEffect(() => {
+        getDataTags();
+    }, [getDataTags]);
 
-            // submitting
-            passphraseStatus: false,
-            recipientStatus: false,
-            amountStatus: false,
-            feeStatus: false
-        }
-
-    }
-
-    componentDidMount() {
-        this.getDataTags();
-    }
-
-    getDataTags = async (reqParams) => {
-        const allTaggedData = await this.props.getDataTagsAction(reqParams);
+    const getDataTags = useCallback(async () => {
+        const allTaggedData = await dispatch(getDataTagsAction());
         if (allTaggedData) {
-            this.setState({
-                dataTags: allTaggedData.tags
-            })
+            const tags = allTaggedData.tags.map(tags => ({
+                value: tags.count,
+                label: tags.tag,
+            }));
+            setDataTags(tags);
         }
-    };
+    }, [dispatch, setDataTags]);
 
-    handleChangeTags = (newValue, actionMeta) => {
+    const handleChangeTags = useCallback((newValue) => {
+        if (!newValue) return;
         if(newValue.length > 3) {
             NotificationManager.error('You can add only 5 tags for the product', 'Error', 5000);
             return
@@ -67,72 +46,52 @@ class UploadFile extends React.Component {
             NotificationManager.error('Tag name must be no less than 3 symbols', 'Error', 5000);
             return
         }
-        this.setState({selectTags: newValue});
-    };
+        setSelectTags(newValue);
+    }, [setSelectTags]);
 
-    handleFormSubmit = async(values) => {
-        if (!this.state.isPending) {
-            this.setState({isPending: true});
-            const tags = values.tags ? values.tags.map(({label}) => label).join(', ') : null;
-            const res = await this.props.submitForm({...values, tags}, 'uploadTaggedData');
-            if (res && res.errorCode) {
-                NotificationManager.error(res.errorDescription, 'Error', 5000)
-            } else {
-                this.props.setBodyModalParamsAction(null, {});
-                NotificationManager.success('File has been submitted!', null, 5000);
-            }
-            this.setState({isPending: false});
+    const handleFormSubmit = useCallback(async(values) => {
+        if (!values.file) {
+            NotificationManager.error(i18n.t("error_no_file_chosen"), 'Error', 5000);
+            return;
         }
-    };
-
-    render() {
-        const {dataTags, isPending, selectTags} = this.state;
-        return (
-            <ModalBody
-                loadForm={this.loadForm}
-                modalTitle={'Upload file'}
-                isAdvanced={true}
-                isFee
-                closeModal={this.props.closeModal}
-                handleFormSubmit={(values) => this.handleFormSubmit(values)}
-                submitButtonName={'Upload file'}
-                isPending={isPending}
-            >
-                {dataTags ? (
-                    <UpploadFileForm
-                        onChange={this.handleChangeTags}
-                        value={selectTags}
-                        dataTags={dataTags.map(tags => ({
-                            value: tags.count,
-                            label: tags.tag,
-                        }))}
-                    />
-                ) : (
-                    <div className={'align-items-center loader-box'}>
-                        <div className="ball-pulse">
-                            <div/>
-                            <div/>
-                            <div/>
-                        </div>
-                    </div>
-                )}
-            </ModalBody>
+        const tags = values.tags ? values.tags.map(({label}) => label).join(', ') : null;
+        const res = await processForm({
+                ...values, tags
+            }, 
+            'uploadTaggedData'
         );
-    }
+        if (res && !res.errorCode) {
+            closeModal();
+            NotificationManager.success('File has been submitted!', null, 5000);
+        }
+    }, [closeModal, processForm]);
+
+    return (
+        <ModalBody
+            modalTitle='Upload file'
+            isAdvanced
+            isFee
+            closeModal={closeModal}
+            handleFormSubmit={handleFormSubmit}
+            submitButtonName='Upload file'
+        >
+            {dataTags ? (
+                <UpploadFileForm
+                    onChange={handleChangeTags}
+                    value={selectTags}
+                    dataTags={dataTags}
+                />
+            ) : (
+                <div className={'align-items-center loader-box'}>
+                    <div className="ball-pulse">
+                        <div/>
+                        <div/>
+                        <div/>
+                    </div>
+                </div>
+            )}
+        </ModalBody>
+    );
 }
 
-const mapStateToProps = state => ({
-    modalData: state.modals.modalData,
-    modalsHistory: state.modals.modalsHistory,
-});
-
-const mapDispatchToProps = dispatch => ({
-    setModalData: (data) => dispatch(setModalData(data)),
-    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
-    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-    saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
-    openPrevModal: () => dispatch(openPrevModal()),
-    getDataTagsAction: (reqParams) => dispatch(getDataTagsAction(reqParams)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(UploadFile);
+export default UploadFile;

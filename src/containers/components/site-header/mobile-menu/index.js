@@ -8,8 +8,9 @@ import {
 } from "react-accessible-accordion";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setBodyModalParamsAction } from "../../../../modules/modals";
-import smcAddress from "../../../../smc.json";
+import { setBodyModalParamsAction } from "modules/modals";
+import { getChainIdSelector } from "selectors";
+import smcAddress from "smc.json";
 
 const getNavLinkClass = (path) => {
   return path.some((i) => window.location.pathname === i) ? "active" : "";
@@ -17,9 +18,7 @@ const getNavLinkClass = (path) => {
 
 const MobileMenu = ({ closeMenu }) => {
   const dispatch = useDispatch();
-  const chainId = useSelector(
-    (state) => state.account.blockchainStatus.chainId
-  );
+  const chainId = useSelector(getChainIdSelector);
   const [smartContractAddress, setSmartContractAddress] = useState("#");
 
   useEffect(() => {

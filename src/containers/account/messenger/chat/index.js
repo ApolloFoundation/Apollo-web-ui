@@ -1,30 +1,14 @@
 import React from 'react';
 import ChatItem from '../chat-item';
 import {connect} from 'react-redux';
-import ContentLoader from '../../../components/content-loader';
-import InfoBox from '../../../components/info-box';
 import {withRouter} from 'react-router-dom';
+import ContentLoader from 'containers/components/content-loader';
+import InfoBox from 'containers/components/info-box';
+import { getChatMessagesSelector } from 'selectors';
 // components
 import ChatForm from './chat-form';
 
 class Chat extends React.Component {
-    state = {
-        textareaCount: 0,
-        form: null
-    };
-
-    componentDidUpdate(prevProps) {
-        if (this.props.match.params.chat !== prevProps.match.params.chat && this.state.form) {
-            this.state.form.resetAll();
-        }
-    }
-
-    getFormApi = (form) => {
-        this.setState({
-            form
-        })
-    };
-
     render() {
         const {chatMessages, match: {params: {chat}}} = this.props;
 
@@ -40,9 +24,9 @@ class Chat extends React.Component {
                         <>
                             <div className="chatting-box">
                                 {chatMessages ? (
-                                    chatMessages.map((el, index) => (
+                                    chatMessages.map((el) => (
                                         <ChatItem
-                                            key={index}
+                                            key={el.recipientRS}
                                             {...el}
                                         />
                                     ))
@@ -50,10 +34,7 @@ class Chat extends React.Component {
                                     <ContentLoader/>
                                 )}
                             </div>
-                            <ChatForm
-                                getFormApi={this.getFormApi}
-                                form={this.state.form}
-                            />
+                            <ChatForm />
                         </>
                     ) : (
                         <InfoBox>
@@ -67,7 +48,7 @@ class Chat extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    chatMessages: state.messages.chatMessages
+    chatMessages: getChatMessagesSelector(state),
 });
 
 

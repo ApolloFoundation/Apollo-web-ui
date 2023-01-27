@@ -1,45 +1,37 @@
 import {NotificationManager} from 'react-notifications';
-import submitForm from '../../../../helpers/forms/forms';
+import submitForm from 'helpers/forms/forms';
 
-export const handleSendMessageFormSubmit = (values) => {
-    return async (dispatch, getState) => {
-        const {account: {account, puplicKey}} = getState();
-        const {recipient, resetForm} = values;
-
-        delete values.resetForm;
-
-        if (!values.message || values.message.length === 0 || !(/\S/.test(values.message))) {
+export const handleSendMessageFormSubmit = ({
+    recipient, resetForm, messageToEncrypt, message, textareaCount, ...values
+}) => {
+    return async (dispatch) => {
+        if (!message || message.length === 0 || !(/\S/.test(message))) {
             NotificationManager.error('Please write your message.', 'Error', 5000);
             return;
         }
 
-        if (values.message.length > 100) {
+        if (message.length > 100) {
             NotificationManager.error('Message must not exceed 100 characters.', 'Error', 5000);
             return;
         }
 
-        if (values.messageToEncrypt) {
-            values = {
-                ...values,
-                messageToEncrypt: values.message,
-                // message: null
-            };
-            delete values.message;
-        }
-    
         if (!values.secretPhrase) {
             NotificationManager.error('Enter secret phrase.', 'Error', 5000);
             return;
         }
-    
-        const secretPhrase = JSON.parse(JSON.stringify(values.secretPhrase));
-        // delete values.secretPhrase;
+
+        let data = { ...values };
+
+        if (messageToEncrypt) {
+            data.messageToEncrypt = message;
+        } else {
+            data.message = message;
+        }
     
         const res = await dispatch(submitForm.submitForm({
-            ...values,
+            ...data,
             recipient,
-            secretPhrase,
-            feeATM: 4
+            feeATM: 4,
         }, 'sendMessage'));
     
         if (res && res.errorCode) {
@@ -48,6 +40,5 @@ export const handleSendMessageFormSubmit = (values) => {
             resetForm();
             NotificationManager.success('Message has been submitted!', null, 5000);
         }
-        return;
     }
 };

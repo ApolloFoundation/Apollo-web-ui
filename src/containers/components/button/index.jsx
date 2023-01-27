@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
-import { ReactComponent as ArrowRight } from '../../../assets/arrow-right.svg';
+import { ReactComponent as ArrowRight } from 'assets/arrow-right.svg';
 
 import './styles.scss';
 

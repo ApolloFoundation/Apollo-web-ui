@@ -4,12 +4,12 @@
  ***************************************************************************** */
 
 import React, { useCallback } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { setBodyModalParamsAction } from '../../../../../modules/modals';
-import { getCurrencyTypes } from '../../../../../modules/currencies';
-import { bigIntDecimalsDivision } from '../../../../../helpers/util/utils';
+import classNames from 'classnames';
+import { setBodyModalParamsAction } from 'modules/modals';
+import { getCurrencyTypes } from 'modules/currencies';
+import { bigIntDecimalsDivision } from 'helpers/util/utils';
 
 export default function MyCurrencytemItem(props) {
   const dispatch = useDispatch();
@@ -33,10 +33,19 @@ export default function MyCurrencytemItem(props) {
     );
   }, [dispatch, code, currency, accountRS]);
 
+  const handleInfoTransactionModal = () =>
+    dispatch(setBodyModalParamsAction('INFO_TRANSACTION', currency));
+
+  const handleOfferCurrencyModal = () =>
+    dispatch(setBodyModalParamsAction('OFFER_CURRENCY', { code, currency }));
+
+  const handleClaimCurrencyModal = () =>
+    dispatch(setBodyModalParamsAction('CLAIM_CURRENCY', currency));
+
   return (
     <tr>
       <td>
-        <span className="blue-link-text" onClick={() => dispatch(setBodyModalParamsAction('INFO_TRANSACTION', currency))}>
+        <span className="blue-link-text" onClick={handleInfoTransactionModal}>
           {code}
         </span>
       </td>
@@ -58,15 +67,15 @@ export default function MyCurrencytemItem(props) {
           </button>
           <button
             type="button"
-            onClick={() => dispatch(setBodyModalParamsAction('OFFER_CURRENCY', { code, currency }))}
+            onClick={handleOfferCurrencyModal}
             className="btn btn-default"
           >
             Offer
           </button>
           <button
             type="button"
-            onClick={() => dispatch(setBodyModalParamsAction('CLAIM_CURRENCY', currency))}
-            className={`btn btn-default ${isClaimable ? '' : 'disabled'}`}
+            onClick={handleClaimCurrencyModal}
+            className={classNames('btn btn-default', { 'disabled': isClaimable })}
           >
             Claim
           </button>

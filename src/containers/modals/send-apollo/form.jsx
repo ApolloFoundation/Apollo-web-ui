@@ -1,21 +1,24 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { processAccountRStoID } from 'apl-web-crypto';
-import { searchAliases } from '../../../actions/aliases';
-import CustomTextArea from '../../components/form-components/text-area1';
-import AutoComplete from '../../components/auto-complete';
-import CheckboxFormInput from '../../components/check-button-input';
-import AccountRSForm from '../../components/form-components/account-rs1';
-import NumericInput from '../../components/form-components/numeric-input1';
+import { useFormikContext } from 'formik';
+import { searchAliases } from 'actions/aliases';
+import AutoComplete from 'containers/components/auto-complete';
+import { CheckboxWithFormik } from 'containers/components/check-button-input/CheckboxWithFormik';
+import CheckboxFormInputPure from 'containers/components/check-button-input';
+import AccountRSForm from 'containers/components/form-components/AccountRS';
+import NumericInput from 'containers/components/form-components/NumericInput';
+import { MessageInputs } from 'containers/components/form-components/MessageInputs';
 
 const newAliasValidation = /APL-[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{5}/;
 const oldAliasValidation = /^acct:(APL-[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{5})@apl$/i;
 
 export default function SendMoneyForm({
-  values, idGroup, onChangeAlias, onChosenTransactionOnAlias, onPrivateTransactionChange, ticker,
+  idGroup, onPrivateTransactionChange, ticker,
   isShowPrivateTransaction,
 }) {
   const dispatch = useDispatch();
+  const { values, setFieldValue } = useFormikContext();
 
   const getAliasOptions = aliases => aliases.filter(({ aliasURI }) => {
     const exchangeAlias = oldAliasValidation.test(aliasURI)
@@ -35,25 +38,30 @@ export default function SendMoneyForm({
     });
   });
 
+  const handleAliasChange = ({ value }) => {
+    setFieldValue('alias', value);
+  }
+
   return (
     <>
-      {!values.alias && (
+      {!values.aliasCheckbox && (
         <AccountRSForm
           name="recipient"
           label="Recipient"
           placeholder="Recipient"
         />
       )}
-      <CheckboxFormInput
-        onChange={onChosenTransactionOnAlias}
-        name="alias"
+      <CheckboxWithFormik
+        name="aliasCheckbox"
+        id="aliasCheckbox"
         label="Use alias?"
+        defaultValue={false}
       />
-      {values.alias && (
+      {values.aliasCheckbox && (
         <AutoComplete
           placeholder="Alias"
           label="Alias"
-          onChange={onChangeAlias}
+          onChange={handleAliasChange}
           loadOptions={alias => dispatch(searchAliases({ aliasPrefix: alias }))
             .then(({ aliases }) => getAliasOptions(aliases))}
         />
@@ -66,34 +74,13 @@ export default function SendMoneyForm({
         placeholder={`Amount ${ticker}`}
         idGroup={idGroup}
       />
-      <CheckboxFormInput 
+      <CheckboxFormInputPure
         label="Send Privately"
-        name='privateTransaction'
         onChange={onPrivateTransactionChange(true)}
-        value={isShowPrivateTransaction}
+        checked={isShowPrivateTransaction}
         id="open-private-transaction-from-modal"
       />
-      <CheckboxFormInput
-        name="add_message"
-        label="Add a message?"
-      />
-      {values.add_message && (
-        <>
-          <CustomTextArea
-            name="message"
-            label="Message"
-            placeholder="Message"
-          />
-          <CheckboxFormInput
-            name="encrypt_message"
-            label="Encrypt Message"
-          />
-          <CheckboxFormInput
-            name="permanent_message"
-            label="Message is Never Deleted"
-          />
-        </>
-      )}
+      <MessageInputs idGroup="SendMoneyForm" />
     </>
   );
 }

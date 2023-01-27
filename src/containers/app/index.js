@@ -11,18 +11,18 @@ import {
 import {NotificationContainer} from 'react-notifications';
 import classNames from 'classnames';
 import ReactHintFactory from 'react-hint';
-import { getConstantsAction, isLoggedIn, getUpdateStatus } from '../../actions/login';
-import { getCurrentTicker } from '../../actions/account';
-import { loadConstants, setPageEvents } from '../../modules/account';
-import { setBodyModalParamsAction, setBodyModalType } from '../../modules/modals';
+import { getConstantsAction, isLoggedIn, getUpdateStatus } from 'actions/login';
+import { getCurrentTicker } from 'actions/account';
+import { loadConstants, setPageEvents } from 'modules/account';
+import { setBodyModalParamsAction, setBodyModalType } from 'modules/modals';
 import { version } from '../../../package.json';
 // components
-import PageLoader from '../components/page-loader/page-loader';
-import SideBar from '../components/sidebar';
-import ModalWindow from '../modals';
-import AlertBox from '../components/alert-box';
-import BlocksDownloader from '../components/blocks-downloader';
-import { getSavedAccountSettingsAction } from '../../modules/accountSettings';
+import PageLoader from 'containers/components/page-loader/page-loader';
+import SideBar from 'containers/components/sidebar';
+import ModalWindow from 'containers/modals';
+import AlertBox from 'containers/components/alert-box';
+import BlocksDownloader from 'containers/components/blocks-downloader';
+import { getSavedAccountSettingsAction } from 'modules/accountSettings';
 // pages components
 import Dashboard from '../account/dashboard';
 import Ledger from '../account/ledger';
@@ -39,10 +39,9 @@ import MyPandingOrders from '../account/my-panding-orders';
 import PurchasdProucts from '../account/purchased-proucts';
 import MyCompletedOrders from '../account/my-completed-orders';
 import Activepolls from '../account/active-polls';
-import AccountProperties from '../account/account-properties/index1';
+import AccountProperties from '../account/account-properties';
 import Assets from '../account/assets';
-import ApprovalRequest from '../account/approval-request/index1';
-import ApprovalRequestAssets from '../account/approval-request-assets';
+import ApprovalRequest from '../account/approval-request';
 import AssetExchange from '../account/asset-exchange';
 import Aliases from '../account/aliases';
 import SearchAliases from '../account/search-aliases';
@@ -81,13 +80,21 @@ import OrderHistory from '../account/exchange/order-history';
 import OrderDetails from '../account/exchange/order-details';
 import ChooseWallet from '../account/exchange/choose-wallet';
 
+import {
+  getAccountSelector,
+  getBlockchainStatusSelector,
+  getBlockPageBodySelector,
+  getBodyModalTypeSelector,
+  getConstantsSelector,
+  getIsLocalhostSelector,
+  getLoadingSelector,
+  getModalTypeSelector
+} from '../../selectors';
+import { startBlockPullingAction } from '../../actions/blocks';
+
+import './window';
 import './App.scss';
 import './fonts.scss';
-
-import urlHelper from '../../helpers/util/urlParser';
-import { startBlockPullingAction } from '../../actions/blocks';
-import { loginWithShareMessage } from '../../actions/account';
-import './window';
 
 const ReactHint = ReactHintFactory(React);
 
@@ -105,7 +112,6 @@ class App extends React.Component {
       getCurrentTicker();
 
       getSavedAccountSettings();
-      this.checkUrl();
       getUpdateStatus();
       if (!this.shareMessage) {
           isLoggedIn(this.props.history);
@@ -144,16 +150,6 @@ class App extends React.Component {
     }
 
     state = { isMounted: false };
-
-    checkUrl = () => {
-      const params = urlHelper.parseUrl();
-      if (params.isShareMessage) {
-        this.shareMessage = true;
-        const { account } = params;
-        const { transaction } = params;
-        this.props.loginWithShareMessage(account, transaction);
-      }
-    };
 
     onRenderContent = (target, content) => {
       let { catId } = target.dataset;
@@ -256,7 +252,6 @@ class App extends React.Component {
         <Route exact path="/my-shuffling" component={MyCurrencies} />
         <Route exact path="/account-properties" component={AccountProperties} />
         <Route exact path="/approval-request" component={ApprovalRequest} />
-        <Route exact path="/approval-request-assets" component={ApprovalRequestAssets} />
         <Route exact path="/asset-exchange/:asset" component={AssetExchange} />
         <Route exact path="/asset-exchange" component={AssetExchange} />
         <Route exact path="/all-assets" component={Assets} />
@@ -342,7 +337,7 @@ class App extends React.Component {
               'hide-page-body': this.props.bodyModalType,
             })}
           >
-            {this.props.blockchainStatus && (
+            {this.props.appState && (
             <BlocksDownloader />
             )}
 
@@ -389,17 +384,15 @@ class App extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  account: state.account.account,
-  loading: state.account.loading,
-  blockPageBody: state.account.blockPageBody,
-  constants: state.account.constants,
-  appState: state.account.blockchainStatus,
-
+  account:  getAccountSelector(state),
+  loading: getLoadingSelector(state),
+  blockPageBody: getBlockPageBodySelector(state),
+  constants: getConstantsSelector(state),
+  appState: getBlockchainStatusSelector(state),
   // modals
-  modalType: state.modals.modalType,
-  isLocalhost: state.account.isLocalhost,
-  blockchainStatus: state.account.blockchainStatus,
-  bodyModalType: state.modals.bodyModalType,
+  modalType: getModalTypeSelector(state),
+  isLocalhost:  getIsLocalhostSelector(state),
+  bodyModalType: getBodyModalTypeSelector(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -408,7 +401,6 @@ const mapDispatchToProps = dispatch => ({
     getCurrentTicker: () => dispatch(getCurrentTicker()),
     getConstantsAction: () => dispatch(getConstantsAction()),
     getSavedAccountSettings: () => dispatch(getSavedAccountSettingsAction()),
-    loginWithShareMessage: (account, transaction) => dispatch(loginWithShareMessage(account, transaction)),
     loadConstants: () => dispatch(loadConstants()),
 
     //modals

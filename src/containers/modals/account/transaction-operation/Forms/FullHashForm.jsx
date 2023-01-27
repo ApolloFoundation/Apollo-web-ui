@@ -1,0 +1,49 @@
+import React, { useCallback } from 'react';
+import {NotificationManager} from "react-notifications";
+import ModalBody from "containers/components/modals/modal-body";
+import CustomTextArea from "containers/components/form-components/TextArea/TextAreaWithFormik";
+import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
+
+export const FullHashForm = ({ closeModal, processForm }) => {
+  const handleFormSubmit = useCallback(async (values) => {
+    const toSendCalculate = {
+      unsignedTransactionBytes: values.calculateBytes,
+      unsignedTransactionJSON: values.calculateJson,
+      signatureHash: values.calculateHash,
+      feeATM: 0,
+      random: Math.random()
+    };
+    const res = await processForm(toSendCalculate, "calculateFullHash");
+    if (!res.errorCode) {
+      NotificationManager.success("Hash calculated", null, 5000);
+    }
+  }, [processForm])
+
+  return (
+    <ModalBody
+        closeModal={closeModal}
+        handleFormSubmit={handleFormSubmit}
+        isDisabe2FA
+        isPour
+        isDisableSecretPhrase
+        submitButtonName='Calculate Full Hash'
+    >
+        <CustomTextArea
+            label='Unsigned Transaction Bytes'
+            name='calculateBytes'
+            placeholder='Unsigned Transaction Bytes'
+        />
+        <CustomTextArea
+            label='Unsigned Transaction JSON'
+            name='calculateJson'
+            placeholder='Unsigned Transaction JSON'
+        />
+        <CustomInput
+            label='Signature Hash'
+            name="calculateHash"
+            placeholder="Signature Hash"
+            type="text"
+        />
+    </ModalBody>
+  );
+}

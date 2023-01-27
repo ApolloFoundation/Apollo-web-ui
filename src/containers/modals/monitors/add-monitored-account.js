@@ -1,186 +1,82 @@
-import React from 'react';
-import BackForm from "../modal-form/modal-form-container";
-import {Text} from "react-form";
-import {connect} from 'react-redux';
-import submitForm from '../../../helpers/forms/forms';
+import React, { useCallback, useState } from 'react';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import submitForm from 'helpers/forms/forms';
+import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
+import ModalBody from 'containers/components/modals/modal-body';
+import TextualInputComponent from 'containers/components/form-components/TextualInput';
+import { getModalDataSelector, getTickerSelector } from 'selectors';
 
-const mapStateToProps = state => ({
-    modalData : state.modals.modalData
-})
+const AddMonitoredAccount = (props) =>  {
+    const dispatch = useDispatch();
+    const modalData = useSelector(getModalDataSelector, shallowEqual);
+    const ticker = useSelector(getTickerSelector);
+    const [isPending, setIsPending] = useState();
 
-const mapDispatchToProps = dispatch => ({
-    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType))
-})
-
-class AddMonitoredAccount extends React.Component {
-
-
-    handleFormSubmit = async (values) => {
-
-        values = {
-            ...values,
-            property: this.props.modalData.property ? this.props.modalData.property : ''
+    const handleFormSubmit = useCallback(async (data) => {
+        setIsPending(true);
+        const values = {
+            ...data,
+            property: modalData?.property ?? ''
         }
 
-        this.props.submitForm(values, 'setAccountProperty')
-            .then((data) => {
-                console.log(data);
+        dispatch(submitForm.submitForm(values, 'setAccountProperty'))
+            .then(props.closeModal)
+            .finally(() => {
+                setIsPending(false);
             })
-    }
+    }, [props.closeModal, dispatch, modalData.property])
 
 
-    render () {
-        return (
-            <div className="modal-box">
-                <BackForm
-                    nameModal={this.props.nameModal}
-                    onSubmit={(values) => this.handleFormSubmit(values)}
-                    render={({
-                                 submitForm, values, addValue, removeValue, setValue, getFormState
-                             }) => (
-                        <form className="modal-form" onSubmit={submitForm}>
-                            <div className="form-group-app">
-                                <button type="button" onClick={this.props.closeModal} className="exit"><i className="zmdi zmdi-close" /></button>
-
-                                <div className="form-title">
-                                    {
-                                        this.props.modalsHistory &&
-                                        this.props.modalsHistory.length > 1 &&
-                                    <div className={"backMy"} onClick={() => {this.props.openPrevModal()}}></div>
-                                    }
-                                    <p>Start Funding Monitor</p>
-                                </div>
-
-                                <div className="input-group-app offset-top display-block inline">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Property</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <div className="input-wrapper">
-                                                {this.props.modalData.property ? this.props.modalData.property : '?'}
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="input-group-app offset-top display-block inline">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Recipient</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <div className="input-wrapper">
-                                                <Text
-
-                                                    field={'recipient'}
-                                                    placeholder={'Recipient Account'}
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="input-group-app offset-top display-block inline">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Amount</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <div className="input-wrapper">
-                                                <Text
-
-                                                    field={'amount'}
-                                                    placeholder={'Amount'}
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="input-group-app offset-top display-block inline">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Threshold</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <div className="input-wrapper">
-                                                <Text
-
-                                                    field={'threshold'}
-                                                    placeholder={'Threshold'}
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="input-group-app offset-top display-block inline">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Interval</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <div className="input-wrapper">
-                                                <Text
-
-                                                    field={'interval'}
-                                                    placeholder={'Interval'}
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="input-group-app offset-top display-block inline">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Fee</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <div className="input-wrapper">
-                                                <Text
-                                                    field={'feeAPL'}
-                                                    placeholder={'Amount'}
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="input-group-app offset-top display-block inline">
-                                    <div className="row">
-                                        <div className="col-md-3">
-                                            <label>Secret Phrase</label>
-                                        </div>
-                                        <div className="col-md-9">
-                                            <div className="input-wrapper">
-                                                <Text
-
-                                                    field={'secretPhrase'}
-                                                    placeholder={'Secret Phrase'}
-                                                />
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="btn-box right-conner align-right form-footer">
-                                    <button
-                                        type={'button'}
-                                        onClick={() => this.props.closeModal()}
-                                        className="btn round round-top-left"
-                                    >
-                                        Cancel
-                                    </button>
-                                    <button
-                                        type="submit"
-                                        name={'closeModal'}
-                                        className="btn btn-right blue round round-bottom-right"
-                                    >
-                                        Add
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                        )}
-                    />
+    return (
+        <ModalBody
+            nameModal={props.nameModal}
+            handleFormSubmit={handleFormSubmit}
+            modalTitle="Start Funding Monitor"
+            submitButtonName="Add"
+            closeModal={props.closeModal}
+            isPending={isPending}
+        >
+            <div className="input-group-app offset-top display-block inline mb-2">
+                <div className="row">
+                    <div className="col-md-3">
+                        <label>Property</label>
+                    </div>
+                    <div className="col-md-9">
+                        <div className="input-wrapper">
+                            {modalData?.property ?? '?'}
+                        </div>
+                    </div>
+                </div>
             </div>
-        );
-    }
+            <CustomInput
+                label="Recipient"
+                name="recipient"
+                placeholder='Recipient Account'
+            />
+            <CustomInput
+                label="Amount"
+                name="amount"
+                placeholder='Amount'
+            />
+            <CustomInput
+                label="Threshold"
+                name="threshold"
+                placeholder='Threshold'
+            />
+            <CustomInput
+                label="Interval"
+                name="interval"
+                placeholder='Interval'
+            />
+            <TextualInputComponent
+                label="Fee"
+                name="feeATM"
+                placeholder='Amount'
+                code={ticker}
+                type="float"
+            />
+        </ModalBody>
+    );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(AddMonitoredAccount);
+export default AddMonitoredAccount;

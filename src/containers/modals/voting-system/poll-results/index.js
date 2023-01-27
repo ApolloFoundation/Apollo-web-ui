@@ -1,18 +1,13 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-
-import {
-    getpollAction,
-    getPollResultAction,
-    getPollVotesAction
-} from '../../../../actions/polls';
-
-import VoteResultItem from '../../../account/followed-polls/vote-result/';
-import PollRequestItem from  '../../../account/followed-polls/poll-request/';
-import ModalBody from '../../../components/modals/modal-body';
-import TabContaier from '../../../components/tabulator/tab-container';
-import TabulationBody from '../../../components/tabulator/tabuator-body';
-import CustomTable from '../../../components/tables/table';
+import { getPollResultAction, getPollVotesAction } from 'actions/polls';
+import VoteResultItem from 'containers/account/followed-polls/vote-result/';
+import PollRequestItem from  'containers/account/followed-polls/poll-request/';
+import ModalBody from 'containers/components/modals/modal-body';
+import TabContaier from 'containers/components/tabulator/tab-container';
+import TabulationBody from 'containers/components/tabulator/tabuator-body';
+import CustomTable from 'containers/components/tables/table';
+import { getAccountSelector, getModalDataSelector } from 'selectors';
 
 class PollResults extends Component {
 
@@ -112,15 +107,13 @@ class PollResults extends Component {
 }
 
 const mapStateToProps = state => ({
-    account: state.account.account,
-    modalData: state.modals.modalData
-
+    account: getAccountSelector(state),
+    modalData: getModalDataSelector(state)
 })
 
-const mapDispatchToProps = dispatch => ({
-    getpollAction       : (reqParams) => dispatch(getpollAction(reqParams)),
-    getPollResultAction : (reqParams) => dispatch(getPollResultAction(reqParams)),
-    getPollVotesAction  : (reqParams) => dispatch(getPollVotesAction(reqParams)),
-})
+const mapDispatchToProps = {
+    getPollResultAction,
+    getPollVotesAction,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(PollResults);

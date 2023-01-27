@@ -5,22 +5,21 @@
 
 
 import React from 'react';
-import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {connect} from 'react-redux'
-import {formatTimestamp} from "../../../../helpers/util/time";
-import {formatTransactionType} from "../../../../actions/transactions";
-import {getBlockAction} from "../../../../actions/blocks";
+import {setBodyModalParamsAction} from "modules/modals";
+import {formatTimestamp} from "helpers/util/time";
+import {formatTransactionType} from "actions/transactions";
+import { getConstantsSelector, getDecimalsSelector } from 'selectors';
 
 const mapStateToProps = state => ({
-    constants: state.account.constants,
-    decimals: state.account.decimals,
+    constants: getConstantsSelector(state),
+    decimals: getDecimalsSelector(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-    getBlockAction: (data) => dispatch(getBlockAction(data)),
-    formatTimestamp: (timestamp, date_only, isAbsoluteTime) => dispatch(formatTimestamp(timestamp, date_only, isAbsoluteTime))
-});
+const mapDispatchToProps = {
+    setBodyModalParamsAction,
+    formatTimestamp
+};
 
 class Transaction extends React.Component {
     getBlock = async (blockHeight) => {
@@ -35,7 +34,6 @@ class Transaction extends React.Component {
             type,
             transaction,
             constants,
-            setTransactionInfo,
             formatTimestamp,
             timestamp,
             sender,

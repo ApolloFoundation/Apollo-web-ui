@@ -1,5 +1,5 @@
 import React from 'react';
-import normalizeDeadline from '../../../helpers/normalizeTime';
+import normalizeDeadline from 'helpers/normalizeTime';
 import './style.scss';
 
 const SimpleProgressBar = ({contractOrder: {deadlineToReply, contractStatus}, blockTime, status}) => {

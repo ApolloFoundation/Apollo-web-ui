@@ -1,76 +1,31 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { getBlockAction } from '../../../../../../actions/blocks';
-import { getAccountExchangeAction } from '../../../../../../actions/exchange-booth';
-import { setBodyModalParamsAction } from '../../../../../../modules/modals';
-import CustomTable from '../../../../../components/tables/table1';
+import { TableLoader } from 'containers/components/TableLoader';
+import { getAccountExchangeAction } from 'actions/exchange-booth';
 import ExchangeItem from './exchange-item';
 
-const itemsPerPage = 5;
-
-export default function ExchangeRequestsTable(props) {
+export default function ExchangeRequestsTable({ account, currencyInfo }) {
   const dispatch = useDispatch();
-
-  const { account, currencyInfo } = props;
-
   const { decimals, currency } = currencyInfo;
 
-  const [exchangeRequest, setExchangeRequest] = useState(null);
-  const [pagination, setPagination] = useState({
-    page: 1,
-    firstIndex: 0,
-    lastIndex: itemsPerPage,
-  });
-
-  const getAccountExchanges = useCallback(async currPagination => {
-    let selectedCurrPagination = currPagination;
-
-    if (!selectedCurrPagination) {
-      selectedCurrPagination = pagination;
-    }
+  const getAccountExchanges = useCallback(async ({ firstIndex, lastIndex }) => {
     const accountExchanges = await dispatch(getAccountExchangeAction({
       currency,
       account,
-      ...selectedCurrPagination,
+      firstIndex,
+      lastIndex,
     }));
 
-    const { exchangeRequests } = accountExchanges;
-
-    setExchangeRequest(exchangeRequests);
-    setPagination(selectedCurrPagination);
-  }, [account, currency, dispatch, pagination]);
-
-  const getBlock = useCallback(async blockHeight => {
-    const block = await dispatch(getBlockAction({ height: blockHeight }));
-
-    if (block) {
-      dispatch(setBodyModalParamsAction('INFO_BLOCK', block));
-    }
-  }, [dispatch]);
-
-  const onPaginate = useCallback(page => {
-    const currPagination = {
-      page,
-      firstIndex: page * itemsPerPage - itemsPerPage,
-      lastIndex: page * itemsPerPage,
-    };
-
-    getAccountExchanges(currPagination);
-  }, [getAccountExchanges]);
-
-  useEffect(() => {
-    getAccountExchanges();
-  }, [currencyInfo]);
+    return accountExchanges?.exchangeRequests ?? [];
+  }, [account, currency, dispatch]);
 
   return (
     <div className="col-md-12 pr-0 pb-3">
       <div className="card h-auto">
-        <div className="card-title">
-          Exchange requests
-        </div>
+        <div className="card-title">Exchange requests</div>
         <div className="card-body h-auto">
-          <CustomTable
-            header={[
+          <TableLoader
+            headersList={[
               {
                 name: 'Height',
                 alignRight: false,
@@ -91,16 +46,11 @@ export default function ExchangeRequestsTable(props) {
             className="p-0"
             emptyMessage="No exchange requests found."
             TableRowComponent={ExchangeItem}
-            tableData={exchangeRequest}
             passProps={{
               decimals,
-              setBlockInfo: getBlock,
             }}
-            isPaginate
-            itemsPerPage={itemsPerPage}
-            page={pagination.page}
-            previousHendler={() => onPaginate('exchangeRequest', pagination.page - 1)}
-            nextHendler={() => onPaginate('exchangeRequest', pagination.page + 1)}
+            dataLoaderCallback={getAccountExchanges}
+            itemsPerPage={5}
           />
         </div>
       </div>

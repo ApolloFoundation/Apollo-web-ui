@@ -25,7 +25,7 @@ import {
 import { currencyTypes } from '../../helpers/format';
 
 export function getWallets(requestParams) {
-  return dispatch => handleFetch(`${config.api.server}/rest/keyStore/accountInfo`, POST, requestParams, true)
+  return dispatch => handleFetch(`${config.api.server}/rest/keyStore/accountInfo`, POST, requestParams)
     .then(async res => {
       if (!res.errorCode) {
         dispatch(setWallets(res));
@@ -45,7 +45,7 @@ export function getContractStatus(requestParams) {
       const { account } = getState().account;
       requestParams.accountId = account;
     }
-    return handleFetch(`${config.api.server}/rest/dex/contracts`, GET, requestParams, true)
+    return handleFetch(`${config.api.server}/rest/dex/contracts`, GET, requestParams)
       .then(res => {
         if (!res.errorCode) {
           dispatch(setContractStatus(res));
@@ -65,7 +65,7 @@ export function getAllContractStatus(requestParams) {
       const { account } = getState().account;
       requestParams.accountId = account;
     }
-    return handleFetch(`${config.api.server}/rest/dex/all-contracts`, GET, requestParams, true)
+    return handleFetch(`${config.api.server}/rest/dex/all-contracts`, GET, requestParams)
       .then(res => {
         if (!res.errorCode) {
           dispatch(setAllContractStatus(res));
@@ -80,7 +80,7 @@ export function getAllContractStatus(requestParams) {
 }
 
 export function logout(requestParams) {
-  return () => handleFetch(`${config.api.server}/rest/dex/flush`, GET, requestParams, true)
+  return () => handleFetch(`${config.api.server}/rest/dex/flush`, GET, requestParams)
     .then(res => {
       if (res.errorCode) {
         NotificationManager.error(res.errorDescription, 'Error', 5000);
@@ -92,7 +92,7 @@ export function logout(requestParams) {
 }
 
 export function getCurrencyBalance(requestParams) {
-  return () => handleFetch(`${config.api.server}/rest/dex/balance`, GET, requestParams, true)
+  return () => handleFetch(`${config.api.server}/rest/dex/balance`, GET, requestParams)
     .then(res => {
       if (!res.errorCode) {
         return res;
@@ -104,7 +104,7 @@ export function getCurrencyBalance(requestParams) {
 }
 
 export function walletWithdraw(requestParams) {
-  return () => handleFetch(`${config.api.server}/rest/dex/withdraw`, POST, requestParams, true)
+  return () => handleFetch(`${config.api.server}/rest/dex/withdraw`, POST, requestParams)
     .then(async res => {
       if (!res.errorCode) {
         return res;
@@ -133,7 +133,7 @@ export function createOffer(requestParams) {
     ...requestParams,
     amountOfTime: 86400,
   };
-  return dispatch => handleFetch(`${config.api.server}/rest/dex/offer`, POST, params, true)
+  return dispatch => handleFetch(`${config.api.server}/rest/dex/offer`, POST, params)
     .then(async res => {
       if (!res.errorCode) {
         NotificationManager.success('Your offer has been created!', null, 5000);
@@ -151,7 +151,7 @@ export function createOffer(requestParams) {
 }
 
 export function cancelOffer(requestParams) {
-  return dispatch => handleFetch(`${config.api.server}/rest/dex/offer/cancel`, POST, requestParams, true)
+  return dispatch => handleFetch(`${config.api.server}/rest/dex/offer/cancel`, POST, requestParams)
     .then(async res => {
       if (!res.errorCode) {
         NotificationManager.success('Your offer has been canceled!', null, 5000);
@@ -168,7 +168,7 @@ export function cancelOffer(requestParams) {
 }
 
 export function getOrderById(orderId) {
-  return () => handleFetch(`${config.api.server}/rest/dex/orders/${orderId}`, GET, null, true)
+  return () => handleFetch(`${config.api.server}/rest/dex/orders/${orderId}`, GET, null)
     .then(async res => {
       if (!res.errorCode) {
         return res;
@@ -181,7 +181,7 @@ export function getOrderById(orderId) {
 }
 
 export function getOpenOrders(requestParams) {
-  return () => handleFetch(`${config.api.server}/rest/dex/offers`, GET, requestParams, true)
+  return () => handleFetch(`${config.api.server}/rest/dex/offers`, GET, requestParams)
     .then(async res => {
       if (!res.errorCode) {
         return res;
@@ -337,7 +337,7 @@ export const getMyOfferHistory = options => async (dispatch, getState) => {
 };
 
 export function getTransactionFee() {
-  return () => handleFetch(`${config.api.server}/rest/dex/ethInfo`, GET, null, true)
+  return () => handleFetch(`${config.api.server}/rest/dex/ethInfo`, GET, null, )
     .then(async res => {
       if (!res.errorCode) {
         return res;
@@ -363,7 +363,7 @@ export function getIdaxPair(requestParams) {
 }
 
 export function exportWallet(requestParams) {
-  return () => handleFetch(`${config.api.server}/rest/keyStore/eth`, POST, requestParams, true)
+  return () => handleFetch(`${config.api.server}/rest/keyStore/eth`, POST, requestParams, )
     .then(async res => {
       if (!res.errorCode) {
         return res;

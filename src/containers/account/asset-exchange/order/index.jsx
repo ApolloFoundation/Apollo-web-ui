@@ -4,11 +4,11 @@
  ***************************************************************************** */
 
 import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import { connect } from 'react-redux';
-import { setBodyModalParamsAction } from '../../../../modules/modals';
-import { getTransactionAction } from '../../../../actions/transactions';
-import { getOrderInfoAction } from '../../../../actions/open-orders';
+import { setBodyModalParamsAction } from 'modules/modals';
+import { getTransactionAction } from 'actions/transactions';
+import { getOrderInfoAction } from 'actions/open-orders';
+import { getDecimalsSelector } from 'selectors';
 
 class OrderItem extends React.Component {
     state = { orderInfo: {} };
@@ -31,7 +31,7 @@ class OrderItem extends React.Component {
     render() {
       const { orderInfo } = this.state;
       return (
-        <tr key={uuidv4()}>
+        <tr>
           <td className="align-left blue-link-text">
             {orderInfo.name}
           </td>
@@ -46,7 +46,7 @@ class OrderItem extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  currentCoinDecimals: state.account.decimals,
+  currentCoinDecimals: getDecimalsSelector(state),
 });
 
 const mapDispatchToProps = dispatch => ({

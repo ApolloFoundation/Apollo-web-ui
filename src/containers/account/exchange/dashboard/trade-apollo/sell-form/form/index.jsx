@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 import { Form, useFormikContext } from 'formik';
-import { ONE_GWEI } from '../../../../../../../constants';
-import { multiply, division } from '../../../../../../../helpers/format';
-import Button from '../../../../../../components/button';
-import NumericInput from '../../../../../../components/form-components/numeric-input1';
-import CustomInput from '../../../../../../components/custom-input';
-import InputRange from '../../../../../../components/input-range/index1';
-import CustomSelect from '../../../../../../components/select/index1';
+import { multiply, division, numberToLocaleString } from 'helpers/format';
+import Button from 'containers/components/button';
+import NumericInput from 'containers/components/form-components/NumericInput';
+import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
+import { InputRangeWithFormik } from 'containers/components/input-range/InputRangeWithFormik';
+import CustomSelect from 'containers/components/form-components/CustomSelect';
+import { getModalsSelector } from 'selectors';
+import { ONE_GWEI } from 'constants/constants';
 
 export default function SellForm(props) {
   const { values, setFieldValue, setValues } = useFormikContext();
 
-  const { infoSelectedSellOrder } = useSelector(state => state.modals);
+  const { infoSelectedSellOrder } = useSelector(getModalsSelector, shallowEqual);
 
   const {
     wallet, isPending, currency, dashboardAccoountInfo, balanceAPL, decimals, ticker,
@@ -44,7 +45,7 @@ export default function SellForm(props) {
       const normalizeTotal = !total ? 0 : division(total, 10 ** 18, 9);
       const rangeValue = ((normalizeOfferAmount * 100) / balanceFormat).toFixed(0);
       setValues({
-        walletAddress: walletsList && walletsList[0],
+        walletAddress: walletsList && walletsList[0].value,
         pairRate: normalizePairRate,
         offerAmount: normalizeOfferAmount,
         total: normalizeTotal,
@@ -61,20 +62,14 @@ export default function SellForm(props) {
   return (
     <Form className="form-group-app d-flex flex-column justify-content-between h-100 mb-0">
       {walletsList && !!walletsList.length && (
-        <div className="form-group mb-3">
-          <label>
-            {currencyName}
-            {' '}
-            Wallet
-          </label>
           <CustomSelect
+            label={`${currencyName} Wallet`}
             className="form-control"
             name="walletAddress"
             options={walletsList}
           />
-        </div>
       )}
-      <div className="form-group mb-0">
+      <div className="form-group  mb-0">
         <NumericInput
           name="pairRate"
           label={`Price for 1 ${ticker}`}
@@ -93,6 +88,7 @@ export default function SellForm(props) {
             }
             setFieldValue('total', multiply(amount, price));
           }}
+          classNameWrapper="mb-0"
         />
       </div>
       <div className="form-group mb-0">
@@ -122,7 +118,7 @@ export default function SellForm(props) {
                   <span className="input-group-info-text">
                     <i className="zmdi zmdi-balance-wallet" />
                     &nbsp;
-                    {balanceFormat.toLocaleString('en', {
+                    {numberToLocaleString(balanceFormat, {
                       minimumFractionDigits: 3,
                       maximumFractionDigits: 3,
                     })}
@@ -145,14 +141,16 @@ export default function SellForm(props) {
           type="float"
           placeholder="I will pay"
           disabled
+          classNameWrapper='mb-0'
         />
       </div>
       {values.walletAddress && (
-        <InputRange
+        <InputRangeWithFormik
           name="range"
           min={0}
           max={100}
-          onChange={amount => {
+          onChange={e => {
+            const amount = e.target.value;
             const offerAmount = values.pairRate !== '0' ? ((amount * balanceFormat) / 100).toFixed(3) : 0;
             const total = multiply(offerAmount, values.pairRate, 14);
 

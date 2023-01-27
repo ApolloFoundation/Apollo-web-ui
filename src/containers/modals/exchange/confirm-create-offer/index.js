@@ -1,11 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {NotificationManager} from "react-notifications";
-import {setModalData, setModalType, setBodyModalParamsAction} from '../../../../modules/modals';
-import {setAccountPassphrase} from '../../../../modules/account';
-import {createOffer} from "../../../../actions/wallet";
-import ModalBody from '../../../components/modals/modal-body';
-import TextualInputComponent from '../../../components/form-components/textual-input';
+import {setAccountPassphrase} from 'modules/account';
+import {createOffer} from "actions/wallet";
+import ModalBody from 'containers/components/modals/modal-body';
+import TextualInputComponent from 'containers/components/form-components/TextualInput';
+import {
+    getAccountPublicKeySelector, getAccountRsSelector, getModalDataSelector
+} from 'selectors';
 
 class ConfirmCreateOffer extends React.Component {
     constructor(props) {
@@ -56,10 +58,10 @@ class ConfirmCreateOffer extends React.Component {
                 nameModel={this.props.nameModal}
             >
                 <TextualInputComponent
-                    field={'passphrase'}
-                    type={'password'}
-                    label={'Secret Phrase'}
-                    placeholder={'Secret Phrase'}
+                    name='passphrase'
+                    type='password'
+                    label='Secret Phrase'
+                    placeholder='Secret Phrase'
                 />
             </ModalBody>
         );
@@ -67,18 +69,14 @@ class ConfirmCreateOffer extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    modalData: state.modals.modalData,
-    accountRS: state.account.accountRS,
-    publicKey: state.account.publicKey
+    modalData: getModalDataSelector(state),
+    accountRS: getAccountRsSelector(state),
+    publicKey: getAccountPublicKeySelector(state)
 });
 
-const mapDispatchToProps = dispatch => ({
-    createOffer: (params) => dispatch(createOffer(params)),
-    setModalData: (data) => dispatch(setModalData(data)),
-    setModalType: (passphrase) => dispatch(setModalType(passphrase)),
-    setBodyModalParamsAction: (passphrase) => dispatch(setBodyModalParamsAction(passphrase)),
-    setAccountPassphrase: (passphrase) => dispatch(setAccountPassphrase(passphrase)),
-
-});
+const mapDispatchToProps = {
+    createOffer,
+    setAccountPassphrase,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ConfirmCreateOffer);

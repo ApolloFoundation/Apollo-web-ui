@@ -1,8 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Pie from '../pie-diagram';
-
-import { setBodyModalParamsAction } from '../../../../modules/modals';
+import { setBodyModalParamsAction } from 'modules/modals';
+import {
+  getDecimalsSelector, getUnconfirmedBalanceATMSelector
+} from 'selectors';
 
 const PollDescription = ({
   colors, poll, pollResults, setBodyModalParamsAction, balanceAPL, decimals,
@@ -79,10 +81,12 @@ const PollDescription = ({
 };
 
 const mapStateToProps = state => ({
-  decimals: state.account.decimals,
-  balanceAPL: state.account.unconfirmedBalanceATM,
+  decimals: getDecimalsSelector(state),
+  balanceAPL: getUnconfirmedBalanceATMSelector(state),
 });
 
-const mapDispatchToProps = dispatch => ({ setBodyModalParamsAction: (type, data) => dispatch(setBodyModalParamsAction(type, data)) });
+const mapDispatchToProps = {
+  setBodyModalParamsAction,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(PollDescription);

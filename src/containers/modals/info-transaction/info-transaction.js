@@ -7,19 +7,27 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import classNames from 'classnames';
-import {openPrevModal, setBodyModalParamsAction, setModalData} from '../../../modules/modals';
-import {getTransactionAction} from "../../../actions/transactions";
-import {formatTimestamp} from "../../../helpers/util/time";
+import {openPrevModal, setBodyModalParamsAction, setModalData} from 'modules/modals';
+import {getTransactionAction} from "actions/transactions";
+import {formatTimestamp} from "helpers/util/time";
 import InfoTransactionTable from "./info-transoction-table"
-import {getAccountInfoAction} from "../../../actions/account";
-import TabulationBody from '../../components/tabulator/tabuator-body';
-import TabContaier from '../../components/tabulator/tab-container';
-import ModalBody from "../../components/modals/modal-body";
-import ContentLoader from "../../components/content-loader";
-import InfoBox from "../../components/info-box";
-import {getCurrencyAction} from "../../../actions/currencies";
+import {getAccountInfoAction} from "actions/account";
+import TabulationBody from 'containers/components/tabulator/tabuator-body';
+import TabContaier from 'containers/components/tabulator/tab-container';
+import ModalBody from "containers/components/modals/modal-body";
+import ContentLoader from "containers/components/content-loader";
+import InfoBox from "containers/components/info-box";
+import {getCurrencyAction} from "actions/currencies";
+import {
+    getAccountRsSelector,
+    getConstantsSelector,
+    getDecimalsSelector,
+    getModalDataSelector,
+    getModalHistorySelector,
+    getModalTypeSelector
+} from 'selectors';
 
-
+// TODO add code splitting
 class InfoLedgerTransaction extends React.Component {
     state = {
         isPending: true,
@@ -445,12 +453,12 @@ class InfoLedgerTransaction extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    accountRS: state.account.accountRS,
-    decimals: state.account.decimals,
-    modalType: state.modals.modalType,
-    modalData: state.modals.modalData,
-    modalsHistory: state.modals.modalsHistory,
-    constants: state.account.constants,
+    accountRS: getAccountRsSelector(state),
+    decimals: getDecimalsSelector(state),
+    modalType: getModalTypeSelector(state),
+    modalData: getModalDataSelector(state),
+    modalsHistory: getModalHistorySelector(state),
+    constants: getConstantsSelector(state),
 });
 
 const mapDispatchToProps = {

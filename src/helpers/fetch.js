@@ -1,27 +1,30 @@
 // import fetch from 'isomorphic-fetch';
 import qs from 'query-string';
-import { processElGamalEncryption } from '../actions/crypto';
+import { processElGamalEncryption } from 'actions/crypto';
 
 export const GET = 'GET';
 export const POST = 'POST';
 export const DELETE = 'DELETE';
 
-export const handleFetch = async (url, method, value = null, typeOfRequest, isJson = false) => {
+export const handleFetch = async (url, method, value = null, requestOptions = {}) => {
   let queryPath = url;
+  const { requestType, isJson = false, isPrahseAlreadyEncrypt = false } = requestOptions;
   const contentType = isJson ? 'application/json' : 'application/x-www-form-urlencoded;charset=UTF-8';
   const options = {
     method,
     headers: { 
-      'Content-Type': contentType,
+      'Content-Type':  contentType,
     },
   };
   if (value !== null) {
     const data = { ...value };
-    if (data.passphrase) {
-      data.passphrase = await processElGamalEncryption(data.passphrase, typeOfRequest);
-      delete data.secretPhrase;
-    } else if (data.secretPhrase) {
-      data.secretPhrase = await processElGamalEncryption(data.secretPhrase, typeOfRequest);
+    if (!isPrahseAlreadyEncrypt) {
+      if (data.passphrase) {
+        data.passphrase = await processElGamalEncryption(data.passphrase);
+        delete data.secretPhrase;
+      } else if (data.secretPhrase) {
+        data.secretPhrase = await processElGamalEncryption(data.secretPhrase);
+      }
     }
 
     if (method === GET) {

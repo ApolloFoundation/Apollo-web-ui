@@ -1,12 +1,11 @@
 import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import { connect } from 'react-redux';
-import { setBodyModalParamsAction } from '../../../../modules/modals';
+import { setBodyModalParamsAction } from 'modules/modals';
 
 const VoteResult = ({
   votes, voter, voterRS, setBodyModalParamsAction,
 }) => (
-  <tr key={uuidv4()}>
+  <tr>
     <td className="blue-link-text">
       <a onClick={() => setBodyModalParamsAction('INFO_ACCOUNT', voter)}>
         {' '}
@@ -14,14 +13,14 @@ const VoteResult = ({
         {' '}
       </a>
     </td>
-    {votes && votes.map((subEl, subIndex) => {
+    {votes && votes.map((subEl, index) => {
       if (subEl.length) {
         return (
-          <td key={uuidv4()} className="align-right">{subEl}</td>
+          <td key={index} className="align-right">{subEl}</td>
         );
       }
       return (
-        <td key={uuidv4()} className="align-right">-</td>
+        <td key={index} className="align-right">-</td>
       );
     })}
   </tr>

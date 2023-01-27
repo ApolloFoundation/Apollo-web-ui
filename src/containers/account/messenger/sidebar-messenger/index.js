@@ -1,7 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
-import SidebarList from '../../../components/sidebar-list';
+import { getChatsSelector } from 'selectors';
+import SidebarList from 'containers/components/sidebar-list';
 import SidebarMessage from './sidebar-item';
 
 const SidebarMessages = ({chats}) => (
@@ -15,7 +16,7 @@ const SidebarMessages = ({chats}) => (
 );
 
 const mapStateToProps = state => ({
-    chats: state.messages.chats
+    chats: getChatsSelector(state),
 });
 
 export default connect(mapStateToProps)(withRouter(SidebarMessages));

@@ -1,30 +1,30 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
-import { setAccountPassphrase } from '../../../../modules/account';
-import { getWallets } from '../../../../actions/wallet';
-import ModalBody from '../../../components/modals/modal-body';
-import TextualInputComponent from '../../../components/form-components/textual-input';
+import { setAccountPassphrase } from 'modules/account';
+import { getWallets } from 'actions/wallet';
+import ModalBody from 'containers/components/modals/modal-body';
+import TextualInputComponent from 'containers/components/form-components/TextualInput';
+import { getAccountRsSelector } from 'selectors';
 
-export default function LoginToExchange(props) {
+export default function LoginToExchange({ closeModal, nameModal }) {
   const dispatch = useDispatch();
+  const accountRS = useSelector(getAccountRsSelector);
+  const [isPending, setIsPending] = useState(false);
 
-  const { closeModal, nameModal } = props;
-
-  const { accountRS } = useSelector(state => state.account);
-
-  const handleFormSubmit = useCallback(async values => {
-    const { passphrase } = values;
+  const handleFormSubmit = useCallback(async ({ passphrase }) => {
     if (!passphrase || passphrase.length === 0) {
       NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
       return;
     }
+    setIsPending(true);
 
     const params = {
       account: accountRS,
       passphrase,
     };
     const wallets = await dispatch(getWallets(params));
+    setIsPending(false);
     if (wallets) {
       dispatch(setAccountPassphrase(passphrase));
       closeModal();
@@ -39,9 +39,10 @@ export default function LoginToExchange(props) {
       submitButtonName="Enter"
       isDisableSecretPhrase
       nameModel={nameModal}
+      isPending={isPending}
     >
       <TextualInputComponent
-        field="passphrase"
+        name="passphrase"
         type="password"
         label="Secret Phrase"
         placeholder="Secret Phrase"

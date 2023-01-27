@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { getActualBlockSelector } from 'selectors';
 
 const SideBarItem = ({ actualBlock, finishHeight, name }) => {
   const blocksLeft = parseInt(finishHeight) - parseInt(actualBlock);
@@ -25,6 +26,6 @@ const SideBarItem = ({ actualBlock, finishHeight, name }) => {
   );
 };
 
-const mapStateToProps = state => ({ actualBlock: state.account.actualBlock });
+const mapStateToProps = state => ({ actualBlock: getActualBlockSelector(state) });
 
 export default connect(mapStateToProps)(SideBarItem);

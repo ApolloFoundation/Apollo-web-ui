@@ -2,8 +2,8 @@ import React from 'react';
 import classNames from 'classnames';
 import {connect} from 'react-redux';
 import {NavLink} from 'react-router-dom';
-import {setBodyModalParamsAction} from '../../../../modules/modals';
-import util from '../../../../helpers/util/utils';
+import {setBodyModalParamsAction} from 'modules/modals';
+import util from 'helpers/util/utils';
 
 const Settings = ({setBodyModalParamsAction, isLocalhost, isActive, closeMenu}) => (
     <div className={classNames({
@@ -96,8 +96,8 @@ const Settings = ({setBodyModalParamsAction, isLocalhost, isActive, closeMenu}) 
     </div>
 )
 
-const mapStateToProps = dispatch => ({
-    setBodyModalParamsAction: (type, value) => dispatch(setBodyModalParamsAction(type, value))
-})
+const mapDispatchToProps = {
+    setBodyModalParamsAction
+};
 
-export default connect(null, mapStateToProps)(Settings);
+export default connect(null, mapDispatchToProps)(Settings);

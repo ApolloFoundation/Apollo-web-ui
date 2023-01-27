@@ -4,113 +4,68 @@
  ***************************************************************************** */
 
 import React, {
-  useState, useCallback, useEffect, Suspense,
+  useState, useCallback, useEffect, useRef
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
-import { getAccountLedgerAction } from '../../../actions/ledger';
-import { setModalCallback, setModalType } from '../../../modules/modals';
-import { BlockUpdater } from '../../block-subscriber';
-import SiteHeader from '../../components/site-header';
-import CustomTable from '../../components/tables/table1';
-import Button from '../../components/button';
+import { getAccountLedgerAction } from 'actions/ledger';
+import { setModalCallback } from 'modules/modals';
+import SiteHeader from 'containers/components/site-header';
+import {
+  getAccountSelector,
+  getBlockchainStatusSelector,
+  getPassPhraseSelector
+} from 'selectors';
+import { TableLoader } from 'containers/components/TableLoader';
+import { PrivateTransactionButton } from './PrivateTransationButton';
 import Entry from './entry';
 
 export default function Ledger() {
   const dispatch = useDispatch();
+  const blockchainStatus = useSelector(getBlockchainStatusSelector);
+  const account = useSelector(getAccountSelector);
+  const passPhrase = useSelector(getPassPhraseSelector);
 
-  const { account, blockchainStatus } = useSelector(state => state.account);
-
-  const [page, setPage] = useState(1);
-  const [firstIndex, setFirstIndex] = useState(0);
-  const [lastIndex, setLastIndex] = useState(15);
-  const [ledger, setLedger] = useState(null);
-  const [isError, setIsError] = useState(null);
   const [isPrivate, setIsPrivate] = useState(null);
-  const [passphrase, setPassphrase] = useState(null);
+  const ref = useRef({
+    showPrivateOnce: true,
+  });
 
-  const getAccountLedger = useCallback(async requestParams => {
-    const accLedger = await dispatch(getAccountLedgerAction(requestParams));
+  const handlePrivateTransaction = () => setIsPrivate(true);
+
+  const getAccountLedger = useCallback(async ({ firstIndex, lastIndex }) => {
+    const params = {
+      firstIndex,
+      lastIndex,
+      account,
+      includeHoldingInfo: true,
+    }
+
+    if (isPrivate) params.secretPhrase = passPhrase;
+
+    const accLedger = await dispatch(getAccountLedgerAction(params));
     if (accLedger) {
       if (accLedger.errorCode) {
-        if (!isError) {
-          NotificationManager.error(accLedger.errorDescription, 'Error', 900000);
-        }
-        setIsError(true);
-      } else {
-        if (!isPrivate && !!accLedger.serverPublicKey) {
-          setIsPrivate(true);
-          NotificationManager.success('You are watching private entries.', null, 900000);
-        }
-        setLedger(accLedger.entries);
-        setIsError(false);
+        NotificationManager.error(accLedger.errorDescription, 'Error', 900000);
+        return [];
       }
+      if (accLedger.serverPublicKey && ref.current.showPrivateOnce) {
+        ref.current.showPrivateOnce = false;
+        NotificationManager.success('You are watching private entries.', null, 900000);
+      }
+      return accLedger.entries ?? [];
     }
-  }, [dispatch, isError, isPrivate]);
-
-  const listener = useCallback(() => {
-    getAccountLedger({
-      account,
-      firstIndex,
-      lastIndex,
-      ...passphrase,
-      includeHoldingInfo: true,
-    });
-  }, [account, firstIndex, getAccountLedger, lastIndex, passphrase]);
-
-  const getPrivateEntries = useCallback(data => {
-    const reqParams = {
-      account,
-      firstIndex,
-      lastIndex,
-      includeHoldingInfo: true,
-      ...data,
-    };
-
-    if (data) setPassphrase(data);
-    getAccountLedger(reqParams);
-  }, [account, firstIndex, getAccountLedger, lastIndex]);
-
-  const onPaginate = useCallback(currPage => {
-    const reqParams = {
-      page: currPage,
-      account,
-      firstIndex: currPage * 15 - 15,
-      lastIndex: currPage * 15,
-      includeHoldingInfo: true,
-      ...passphrase,
-    };
-
-    setPage(currPage);
-    setFirstIndex(reqParams.firstIndex);
-    setLastIndex(reqParams.lastIndex);
-    getAccountLedger(reqParams);
-  }, [account, getAccountLedger, passphrase]);
+    return [];
+  }, [dispatch, isPrivate, passPhrase, account]);
 
   useEffect(() => {
-    getAccountLedger({
-      account,
-      firstIndex,
-      lastIndex,
-      includeHoldingInfo: true,
-    });
-    dispatch(setModalCallback(getPrivateEntries));
-    BlockUpdater.on('data', listener);
-
-    return () => BlockUpdater.removeListener('data', listener);
-  }, [account, dispatch, listener]);
+    dispatch(setModalCallback(handlePrivateTransaction));
+  }, []);
 
   return (
-    <Suspense fallback="loading">
       <div className="page-content">
         <SiteHeader pageTitle="Account ledger">
-          <Button
-            size="sm"
-            color="green"
-            disabled={isPrivate}
-            onClick={() => dispatch(setModalType('PrivateTransactions'))}
-            name="Show private transactions"
-          />
+          <PrivateTransactionButton isPrivate={isPrivate} />
         </SiteHeader>
         <div className="page-body container-fluid">
           <div>
@@ -124,8 +79,8 @@ export default function Ledger() {
               </span>
             </div>
             )}
-            <CustomTable
-              header={[
+            <TableLoader
+              headersList={[
                 {
                   name: 'Date',
                   alignRight: false,
@@ -149,20 +104,13 @@ export default function Ledger() {
                   alignRight: true,
                 },
               ]}
-              keyField="ledgerId"
               className="no-min-height mb-3"
               emptyMessage="No ledger found."
               TableRowComponent={Entry}
-              tableData={ledger}
-              isPaginate
-              page={page}
-              previousHendler={() => onPaginate(page - 1)}
-              nextHendler={() => onPaginate(page + 1)}
-              itemsPerPage={15}
+              dataLoaderCallback={getAccountLedger}
             />
           </div>
         </div>
       </div>
-    </Suspense>
   );
 }

@@ -1,53 +1,47 @@
 import React from 'react';
-import TextualInputComponent from '../../../components/form-components/textual-input';
-import MultiSelect from '../../../components/multi-select';
-import CustomTextArea from '../../../components/form-components/text-area';
-import FileInput from '../../../components/form-components/file-input';
+import { shallowEqual, useSelector } from 'react-redux';
+import TextualInputComponent from 'containers/components/form-components/TextualInput';
+import MultiSelect from 'containers/components/multi-select';
+import CustomTextArea from 'containers/components/form-components/TextArea/TextAreaWithFormik';
+import FileInput from 'containers/components/form-components/FIleInput';
+import { getConstantsSelector } from 'selectors';
 
 
-const UpploadFileForm = ({ setValue, dataTags = [], value, onChange }) => {
+const UpploadFileForm = ({  dataTags = [], onChange }) => {
+    const constants = useSelector(getConstantsSelector, shallowEqual);
     return (
     <>
         <TextualInputComponent 
-            label={'Name'}
-            field="name"
+            label='Name'
+            name="name"
             placeholder="Name"
-            type={"text"}
-            setValue={setValue}
+            type="text"
         />
-
         <CustomTextArea
-            label={'Description'} 
-            field={'description'} 
-            placeholder={'Description'}
-            setValue={setValue}
+            label='Description'
+            name='description'
+            placeholder='Description'
         />
-
         <MultiSelect
-            label={'Tags'}
+            label='Tags'
             options={dataTags}
             isClearable={false}
-            field="tags"
-            setValue={setValue}
-            value={value}
+            name="tags"
             onChange={onChange}
-            isClearable={false}
-            placeholder={'Tags'}
+            isClearable
+            placeholder='Tags'
         />
-
         <TextualInputComponent 
-            label={'Channel'}
-            field="channel"
+            label='Channel'
+            name="channel"
             placeholder="Channel"
-            type={"text"}
-            setValue={setValue}
+            type="text"
         />
-
         <FileInput
-            label={'File'}
-            maxSize={40000}
-            setValue={setValue}
-            accept={"*"}
+            label='File'
+            maxSize={constants?.MAX_TAGGED_DATA_DATA_LENGTH ?? 40000}
+            accept="*"
+            name="file"
         />
     </>
 )};

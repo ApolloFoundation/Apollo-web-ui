@@ -4,122 +4,64 @@
  ******************************************************************************/
 
 
-import React from 'react';
-import {connect} from 'react-redux';
-import {setBodyModalParamsAction, setModalData} from '../../../../modules/modals';
-
-import {getAliasAction} from "../../../../actions/aliases";
-import submitForm from "../../../../helpers/forms/forms";
+import React, { useCallback } from 'react';
+import { useSelector} from 'react-redux';
 import {NotificationManager} from "react-notifications";
+import TabulationBody from 'containers/components/tabulator/tabuator-body';
+import TabContaier from 'containers/components/tabulator/tab-container';
+import ModalBody from 'containers/components/modals/modal-body';
+import { getTickerSelector } from 'selectors';
+import { useAliasDataLoader } from '../useAliasDataLoader';
+import { ToSpecificAccount } from './Tabs/ToSpecificAccount';
+import { ToAnyoneAccount } from './Tabs/ToAnyoneAccount';
 
-import SellAliasForm from './form';
-import ModalBody from '../../../components/modals/modal-body';
+const SellAlias = (props) => {
+    const alias = useAliasDataLoader();
+    const ticker = useSelector(getTickerSelector);
 
-class SellAlias extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.handleFormSubmit = this.handleFormSubmit.bind(this);
-
-        this.state = {
-            activeTab: 0,
-            activeForm: 0, 
-            advancedState: false,
-
-            // submitting
-            passphraseStatus: false,
-            recipientStatus: false,
-            amountStatus: false,
-            feeStatus: false,
-        };
-
-    }
-
-    componentDidMount = () => {
-        this.getAlias();
-    };
-
-    getAlias = async () => {
-        const alias = await this.props.getAliasAction({alias: this.props.modalData});
-
-        if (alias) {
-            this.setState({
-                alias
-            });
-        }
-    };
-
-    async handleFormSubmit(values) {
-        
-        switch (this.state.activeForm) {
-            case 0: 
-                values = {...this.state.sellToSpeciffic};
-                break;
-
-            case 1: 
-                values = {...this.state.sellToAll};
-                break;
-            
-            default : return; 
-        }
-
-        values = {
+    const handleFormSubmit = useCallback(async (values) => {
+        const data = {
             ...values,
-            aliasName: this.state.alias.aliasName,
-        };
-
-        console.log(this.state.activeForm)
-
-        this.props.processForm(values, 'sellAlias', 'Alias has been listed!', () => {
-            this.props.setBodyModalParamsAction(null, {});
+            aliasName: alias.aliasName,
+        }
+        
+        props.processForm(data, 'sellAlias', 'Alias has been listed!', () => {
+            props.closeModal();
             NotificationManager.success('Alias has been listed!', null, 5000);
         });
-    }
+    }, [alias, props.processForm, props.closeModal]);
 
-    onFocus = (activeForm) => {
-        this.setState({
-            activeForm
-        })
-    }
+    return (
+        <ModalBody
+            modalTitle='Sell Alias'
+            submitButtonName='Sell Alias'
+            closeModal={props.closeModal}
+            isDisableSecretPhrase
+            isAdvanced
+            isAdvancedWhite
+            isDisableFormFooter
+        >
+            <TabulationBody className='p-0'>
+                <TabContaier sectionName='Sell alias to Specific Account'>
+                    <ToSpecificAccount
+                        ticker={ticker}
+                        alias={alias}
+                        closeModal={props.closeModal}
+                        onSubmit={handleFormSubmit}
+                    />
+                </TabContaier>
 
-    handleSellAlias = ({values}, field) => {
-        this.setState({
-            [field]: values
-        });
-    }
-
-    render() {
-        return (
-            <ModalBody
-                modalTitle={'Sell Alias'}
-                handleFormSubmit={(values) => this.handleFormSubmit(values)}
-                submitButtonName={'Sell Alias'}
-                isDisableSecretPhrase
-                closeModal={this.props.closeModal}
-                isAdvanced={true}
-                isAdvancedWhite
-            >
-                <SellAliasForm
-                    handleSellAlias={this.handleSellAlias} 
-                    onFocus={this.onFocus}
-                    alias={this.state.alias}
-                    closeModal={this.props.closeModal} 
-                    handleFormSubmit={this.handleFormSubmit} 
-                />
-            </ModalBody>
-        );
-    }
+                <TabContaier sectionName='Sell to Anyone'>
+                    <ToAnyoneAccount
+                        ticker={ticker}
+                        alias={alias}
+                        closeModal={props.closeModal}
+                        onSubmit={handleFormSubmit}
+                    />
+                </TabContaier>
+            </TabulationBody>
+        </ModalBody>
+    );
 }
 
-const mapStateToProps = state => ({
-    modalData: state.modals.modalData
-});
-
-const mapDispatchToProps = dispatch => ({
-    setModalData: (data) => dispatch(setModalData(data)),
-    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
-    getAliasAction: (requestParams) => dispatch(getAliasAction(requestParams)),
-    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(SellAlias);
+export default SellAlias;

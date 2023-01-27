@@ -4,24 +4,27 @@
  ***************************************************************************** */
 
 import React, { useState, useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
-import { setBodyModalParamsAction } from '../../../modules/modals';
-import ModalBody from '../../components/modals/modal-body1';
-import SendApolloForm from './form';
+import { setBodyModalParamsAction } from 'modules/modals';
+import {
+  getAccountSelector,
+  getDecimalsSelector,
+  getModalDataSelector,
+  getTickerSelector
+} from 'selectors';
+import ModalBody from 'containers/components/modals/modal-body';
 import {PrivateTransactionConfirm} from './PrivateTransactionConfirm/PrivateTransactionConfirm';
+import SendApolloForm from './form';
 
-export default function SendApollo(props) {
+export default function SendApollo({ closeModal, processForm }) {
   const [ isShowNotification, setIsShowNotification ] = useState(false);
   const dispatch = useDispatch();
 
-  const { closeModal, processForm } = props;
-
-  const [alias, setAlias] = useState(null);
-
-  const { modalData } = useSelector(state => state.modals);
-
-  const { account, ticker, decimals } = useSelector(state => state.account);
+  const modalData = useSelector(getModalDataSelector, shallowEqual);
+  const account = useSelector(getAccountSelector);
+  const ticker = useSelector(getTickerSelector);
+  const decimals = useSelector(getDecimalsSelector);
 
   const handleFormSubmit = useCallback(async values => {
     const { privateTransaction, ...data } = values;
@@ -40,10 +43,8 @@ export default function SendApollo(props) {
     }
 
     if (values.alias) {
-      data.recipient = alias;
+      data.recipient = values.alias;
     }
-
-    // export const processForm = (values, requestType, successMesage, successCallback) => {
 
     processForm({ decimals, ...data }, 'sendMoney', 'Transaction has been submitted!', res => {
       if (res.broadcasted === false) {
@@ -52,17 +53,12 @@ export default function SendApollo(props) {
           result: res,
         }));
       } else {
-        dispatch(setBodyModalParamsAction(null, {}));
         closeModal();
       }
 
       NotificationManager.success('Transaction has been submitted!', null, 5000);
     });
-  }, [account, alias, closeModal, decimals, dispatch, processForm]);
-
-  const onChosenTransactionOnAlias = () => setAlias(null);
-
-  const handelChangeAlias = ({ value }) => setAlias(value);
+  }, [account, closeModal, decimals, dispatch, processForm]);
 
   const handleShowNotification = (value) => () => {
     setIsShowNotification(value);
@@ -81,13 +77,11 @@ export default function SendApollo(props) {
       initialValues={{
         recipient: (modalData && modalData.recipient) || '',
         amountATM: (modalData && modalData.amountATM) || '',
-        encrypt_message: true,
       }}
+      isLoadValue
     >
       {isShowNotification && <PrivateTransactionConfirm onClose={handleShowNotification(false)} />}
       <SendApolloForm
-        onChangeAlias={handelChangeAlias}
-        onChosenTransactionOnAlias={onChosenTransactionOnAlias}
         onPrivateTransactionChange={handleShowNotification}
         isShowPrivateTransaction={isShowNotification}
         ticker={ticker}

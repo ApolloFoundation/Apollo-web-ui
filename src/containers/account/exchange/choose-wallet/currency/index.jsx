@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { setBodyModalParamsAction } from '../../../../../modules/modals';
+import { setBodyModalParamsAction } from 'modules/modals';
 
 export default function CurrencyDescriptionComponent(props) {
   const dispatch = useDispatch();

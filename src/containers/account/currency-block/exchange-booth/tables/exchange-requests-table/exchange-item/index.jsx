@@ -4,19 +4,28 @@
  ***************************************************************************** */
 
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getDecimalsSelector } from 'selectors';
+import { getBlockAction } from 'actions/blocks';
+import { setBodyModalParamsAction } from 'modules/modals';
 
-export default function ExchangeItem(props) {
-  const {
-    setBlockInfo, decimals, height, subtype, rateATM, units,
-  } = props;
+export default function ExchangeItem({ decimals, height, subtype, rateATM, units, }) {
+  const dispatch = useDispatch();
 
-  const { decimals: currentCoinDecimals } = useSelector(state => state.account);
+  const currentCoinDecimals = useSelector(getDecimalsSelector);
+
+  const getBlock = async () => {
+    const block = await dispatch(getBlockAction({ height }));
+
+    if (block) {
+      dispatch(setBodyModalParamsAction('INFO_BLOCK', block));
+    }
+  };
 
   return (
     <tr>
       <td>
-        <span className="blue-link-text" onClick={() => setBlockInfo('INFO_BLOCK', height)}>
+        <span className="blue-link-text" onClick={getBlock}>
           {height}
         </span>
       </td>

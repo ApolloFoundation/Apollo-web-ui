@@ -4,145 +4,135 @@
  ******************************************************************************/
 
 
-import React from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { v4 as uuidv4 } from 'uuid';
 
-class Pie extends React.Component{
+const Pie = (props) => {
+    let hole = props.hole,
+        radius = props.radius,
+        diameter = radius * 2,
+        sum, startAngle;
 
-    render () {
-        var colors = this.props.colors,
-            colorsLength = colors.length,
-            labels = this.props.labels,
-            hole = this.props.hole,
-            radius = this.props.radius,
-            diameter = radius * 2,
-            sum, startAngle, d = null;
+    sum = props.data.reduce(function (carry, current) { return carry + current }, 0);
+    startAngle = 0;
 
-        sum = this.props.data.reduce(function (carry, current) { return carry + current }, 0);
-        startAngle = 0;
+    return (
+        <svg
+            width={ diameter }
+            height={ diameter }
+            viewBox={ '0 0 ' + diameter + ' ' + diameter }
+            xmlns="http://www.w3.org/2000/svg"
+            version="1.1"
+        >
+            { props.data.map((slice, sliceIndex) => {
+                let angle, nextAngle, percent;
 
-        return (
-            <svg
-                width={ diameter }
-                height={ diameter }
-                viewBox={ '0 0 ' + diameter + ' ' + diameter }
-                xmlns="http://www.w3.org/2000/svg"
-                version="1.1"
-            >
-                { this.props.data.map((slice, sliceIndex) => {
-                    var angle, nextAngle, percent;
+                nextAngle = startAngle;
+                angle = (slice / sum) * 360;
+                percent = (slice / sum) * 100;
+                startAngle += angle;
 
-                    nextAngle = startAngle;
-                    angle = (slice / sum) * 360;
-                    percent = (slice / sum) * 100;
-                    startAngle += angle;
-
-                    return <Slice
-                        vote={this.props.votes[sliceIndex]}
-                        key={uuidv4()}
-                        value={ slice }
-                        percent={ true }
-                        percentValue={ percent.toFixed(1) }
-                        startAngle={ nextAngle }
-                        angle={ angle }
-                        radius={ radius }
-                        hole={ radius - hole }
-                        trueHole={ hole }
-                        showLabel='label'
-                        stroke={ this.props.stroke }
-                        strokeWidth={ this.props.strokeWidth }
-                        startColorGradient={this.props.colors[sliceIndex].startColorGradient}
-                        stopColorGradient={this.props.colors[sliceIndex].stopColorGradient}
-                    />
-                }) }
-
-            </svg>
-        );
-    }
+                return <Slice
+                    key={props.votes[sliceIndex]}
+                    vote={props.votes[sliceIndex]}
+                    value={ slice }
+                    percent
+                    percentValue={ percent.toFixed(1) }
+                    startAngle={ nextAngle }
+                    angle={ angle }
+                    radius={ radius }
+                    hole={ radius - hole }
+                    trueHole={ hole }
+                    showLabel='label'
+                    stroke={props.stroke }
+                    strokeWidth={props.strokeWidth }
+                    startColorGradient={props.colors[sliceIndex].startColorGradient}
+                    stopColorGradient={props.colors[sliceIndex].stopColorGradient}
+                />
+            }) }
+        </svg>
+    );
 }
 
 
-class Slice extends React.Component {
-    constructor(props) {
-        super(props);
+const Slice = (props) => {
+    const [state, setState] = useState({
+        path: '',
+        x: 0,
+        y: 0
+    });
 
-        this.state = {
-            path: '',
-            x: 0,
-            y: 0
-        };
-    }
+    const animate = useCallback(() => {
+        draw(props.angle);
+    }, [props.angle, draw]);
 
-    componentWillReceiveProps () {
-        this.setState({path: ''});
-        this.animate();
-    }
+    const draw = useCallback((s) => {
+        const { startAngle, radius, hole, angle, showLabel, trueHole } = props;
+        let path = [], a, b, c, step;
 
-    componentDidMount() {
-        this.animate();
-    }
-    animate() {
-        var p = this.props;
+        step = angle / (37.5 / 2);
 
-        this.draw(p.angle);
-    }
-
-    draw(s) {
-        var p = this.props, path = [], a, b, c, step;
-
-        step = p.angle / (37.5 / 2);
-
-        if (s + step > p.angle) {
-            s = p.angle;
+        if (s + step > angle) {
+            s = angle;
         }
 
         // Get angle points
-        a = getAnglePoint(p.startAngle, p.startAngle + s, p.radius, p.radius, p.radius);
-        b = getAnglePoint(p.startAngle, p.startAngle + s, p.radius - p.hole, p.radius, p.radius);
+        a = getAnglePoint(startAngle, startAngle + s, radius, radius, radius);
+        b = getAnglePoint(startAngle, startAngle + s, radius - hole, radius, radius);
 
         path.push('M' + a.x1 + ',' + a.y1);
-        path.push('A' + p.radius + ',' + p.radius + ' 0 ' + (s > 180 ? 1 : 0) + ',1 ' + a.x2 + ',' + (s === 360 ? 149 : a.y2));
+        path.push('A' + radius + ',' + radius + ' 0 ' + (s > 180 ? 1 : 0) + ',1 ' + a.x2 + ',' + (s === 360 ? 149 : a.y2));
         path.push('L' + b.x2 + ',' + b.y2);
-        path.push('A' + (p.radius - p.hole) + ',' + (p.radius - p.hole) + ' 0 ' + (s > 180 ? 1 : 0) + ',0 ' + b.x1 + ',' + b.y1);
+        path.push('A' + (radius - hole) + ',' + (radius - hole) + ' 0 ' + (s > 180 ? 1 : 0) + ',0 ' + b.x1 + ',' + b.y1);
 
         // Close
         path.push('Z');
 
-        this.setState({path: path.join(' ')});
+        setState(prevState => ({
+            ...prevState,
+            path: path.join(' ')
+        }));
 
-        if (p.showLabel) {
-            c = getAnglePoint(p.startAngle, p.startAngle + (p.angle / 2), (p.radius / 2 + p.trueHole / 2), p.radius, p.radius);
+        if (showLabel) {
+            c = getAnglePoint(startAngle, startAngle + (angle / 2), (radius / 2 + trueHole / 2), radius, radius);
 
-            this.setState({
+            setState(prevProps => ({
+                ...prevProps,
                 x: c.x2,
                 y: c.y2
-            });
+            }));
         }
-    }
+    }, [props.startAngle, props.radius, props.hole, props.angle, props.showLabel, props.trueHole]);
 
-    render() {
-        const id = uuidv4();
-        return (
-            <g overflow="hidden">
-                <linearGradient id={id}>
-                    <stop stopColor={this.props.startColorGradient}/>
-                    <stop offset='100%' stopColor={this.props.stopColorGradient}/>
-                </linearGradient>
-                <path
-                    d={this.state.path}
-                    fill={'url(#' + id.toString() + ')'}
-                    stroke='white'
-                    strokeWidth={3}
-                />
-                {this.props.showLabel && this.props.percentValue > 5 ?
-                    <text className="displayedText" x={this.state.x} y={this.state.y} fill="#fff" textAnchor="middle">
-                        {this.props.percent ? this.props.percentValue + '%' : this.props.value}
-                    </text>
+    useEffect(() => {
+        setState(prevState => ({
+            ...prevState,
+            path: '',
+        }));
+        animate();
+    }, [animate]);
 
-                    : null}
-            </g>
-        );
-    }
+    const id = uuidv4();
+    return (
+        <g overflow="hidden">
+            <linearGradient id={id}>
+                <stop stopColor={props.startColorGradient}/>
+                <stop offset='100%' stopColor={props.stopColorGradient}/>
+            </linearGradient>
+            <path
+                d={state.path}
+                fill={'url(#' + id.toString() + ')'}
+                stroke='white'
+                strokeWidth={3}
+            />
+            {props.showLabel && props.percentValue > 5 ?
+                <text className="displayedText" x={state.x} y={state.y} fill="#fff" textAnchor="middle">
+                    {props.percent ? props.percentValue + '%' : props.value}
+                </text>
+
+                : null}
+        </g>
+    );
 }
 
 function getAnglePoint(startAngle, endAngle, radius, x, y) {
@@ -154,10 +144,6 @@ function getAnglePoint(startAngle, endAngle, radius, x, y) {
     y2 = y + radius * Math.sin(Math.PI * endAngle / 180);
 
     return { x1, y1, x2, y2 };
-}
-
-function getRandomInt(min, max) {
-    return Math.floor(Math.random() * (max - min)) + min;
 }
 
 export default Pie;

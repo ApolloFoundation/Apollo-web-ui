@@ -4,127 +4,84 @@
  ******************************************************************************/
 
 
-import React from "react";
-import {connect} from "react-redux";
-import SiteHeader from "../../components/site-header";
-import {BlockUpdater} from "../../block-subscriber";
-import {getGeneratorsAction} from "../../../actions/generators";
-import {formatTimestamp} from "../../../helpers/util/time";
-import Generator from "../../../actions/generators/generator";
+import React, { useCallback, useState } from "react";
+import {useDispatch} from "react-redux";
+import SiteHeader from "containers/components/site-header";
+import {getGeneratorsAction} from "actions/generators";
+import Generator from "actions/generators/generator";
+import TopPageBlocks from 'containers/components/tob-page-blocks';
+import { useFormatTimestamp } from "hooks/useFormatTimestamp";
+import { TableLoader } from "containers/components/TableLoader";
 
-import CustomTable from '../../components/tables/table';
-import TopPageBlocks from '../../components/tob-page-blocks';
-
-class Generators extends React.Component {
-    state = {
-        generators: [],
+const Generators = () =>  {
+    const dispatch = useDispatch();
+    const handleTime = useFormatTimestamp();
+    const [state, setState] = useState({
         lastBlockTime: "",
         height: "",
         timestamp: 0,
         activeForgers: 0,
-    };
+    });
 
-    formDate = date => {
-        if (!date) return "";
-        const lastUpdDate = new Date(Date.now() - date);
-        const month = lastUpdDate.getMonth();
-        const day = lastUpdDate.getDay();
-        const year = lastUpdDate.getFullYear();
-        const time = lastUpdDate.getHours() + ":" + lastUpdDate.getMinutes() + ":" + lastUpdDate.getSeconds();
-        return `${month}/${day}/${year} ${time}`;
-    };
-
-    listener = data => {
-        this.getGenerators();
-    };
-
-    componentDidMount = () => {
-        this.getGenerators();
-        BlockUpdater.on("data", this.listener);
-    };
-
-    componentWillUnmount() {
-        BlockUpdater.removeListener("data", this.listener)
-    }
-
-    getGenerators = () => this.props.getGeneratorsAction()
+    const getGenerators = useCallback(() => dispatch(getGeneratorsAction())
         .then(generators => {
-            if (generators) {
-                this.setState({
-                    generators: generators.generators,
-                    lastBlockTime: this.props.formatTimestamp(generators.timestamp),
-                    height: generators.height,
-                    activeForgers: generators.activeCount,
-                    timestamp: generators.timestamp
-                });
-            }
-        });
+            setState({
+                height: generators.height,
+                activeForgers: generators.activeCount,
+                timestamp: generators.timestamp,
+                lastBlockTime: handleTime(generators.timestamp),
+            })
+            return generators?.generators ?? [];
+        }), [dispatch, handleTime]);
 
-    render() {
-        return (
-            <div className="page-content">
-                <SiteHeader
-                    pageTitle={'Generators'}
-                />
-                <div className="page-body container-fluid">
-
-                    <div className="">
-                        <TopPageBlocks
-                            cards={[
-                                {
-                                    label: 'Last Block',
-                                    value: this.state.lastBlockTime
-                                }, {
-                                    label: 'Height',
-                                    value: this.state.height
-                                }, {
-                                    label: 'Active Forgers',
-                                    value: this.state.activeForgers
-                                }
-                            ]}
-                        />
-                        <div className="info-box info">
-                            Information in this table is delayed by up to 30 seconds, use the desktop wallet for more up
-                            to date information.
-                        </div>
-                        <CustomTable
-                            header={[
-                                {
-                                    name: 'Account',
-                                    alignRight: false
-                                }, {
-                                    name: 'Effective Balance',
-                                    alignRight: true
-                                }, {
-                                    name: 'Hit Time',
-                                    alignRight: true
-                                }, {
-                                    name: 'Deadline',
-                                    alignRight: true
-                                }
-                            ]}
-                            TableRowComponent={Generator}
-                            tableData={this.state.generators}
-                            isPaginate
-                            page={this.state.page}
-                            className={'mb-3'}
-                            emptyMessage={'Active generators not yet initialized.'}
-                        />
-
+    return (
+        <div className="page-content">
+            <SiteHeader pageTitle='Generators' />
+            <div className="page-body container-fluid">
+                <div className="">
+                    <TopPageBlocks
+                        cards={[
+                            {
+                                label: 'Last Block',
+                                value: state.lastBlockTime
+                            }, {
+                                label: 'Height',
+                                value: state.height
+                            }, {
+                                label: 'Active Forgers',
+                                value: state.activeForgers
+                            }
+                        ]}
+                    />
+                    <div className="info-box info">
+                        Information in this table is delayed by up to 30 seconds, use the desktop wallet for more up
+                        to date information.
                     </div>
+                    <TableLoader
+                        headersList={[
+                            {
+                                name: 'Account',
+                                alignRight: false
+                            }, {
+                                name: 'Effective Balance',
+                                alignRight: true
+                            }, {
+                                name: 'Hit Time',
+                                alignRight: true
+                            }, {
+                                name: 'Deadline',
+                                alignRight: true
+                            }
+                        ]}
+                        TableRowComponent={Generator}
+                        className='mb-3'
+                        emptyMessage='Active generators not yet initialized.'
+                        dataLoaderCallback={getGenerators}
+                    />
                 </div>
             </div>
-        )
-    }
+        </div>
+    )
 }
 
-const mapStateToProps = state => ({
-    epochB: state.account.constants.epochBeginning,
-});
-
-const mapDispatchToProps = dispatch => ({
-    getGeneratorsAction: () => dispatch(getGeneratorsAction()),
-    formatTimestamp: time => dispatch(formatTimestamp(time))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Generators);
+export default Generators;

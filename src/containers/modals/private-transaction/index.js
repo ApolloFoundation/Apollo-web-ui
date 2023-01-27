@@ -4,81 +4,48 @@
  ******************************************************************************/
 
 
-import React from 'react';
-import {connect} from 'react-redux';
-import {setModalData, setModalType, setBodyModalParamsAction, saveSendModalState, openPrevModal} from '../../../modules/modals';
+import React, { useCallback } from 'react';
+import {useDispatch} from 'react-redux';
+import {setModalData} from 'modules/modals';
+import crypto from  'helpers/crypto/crypto';
+import ModalBody from 'containers/components/modals/modal-body';
+import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
 
-import crypto from  '../../../helpers/crypto/crypto';
+const PrivateTransactions = ({ closeModal, nameModal }) => {
+    const dispatch = useDispatch();
 
-import ModalBody             from '../../components/modals/modal-body';
-import TextualInputComponent from '../../components/form-components/textual-input';
+    const handleFormSubmit = useCallback( async ({ passphrase }) => {
+        const isPassphrase = await dispatch(crypto.validatePassphrase(passphrase));
 
-
-class PrivateTransactions extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            passphraseStatus: false
-        }
-    }
-
-    validatePassphrase = async (passphrase) => {
-        return await this.props.validatePassphrase(passphrase);
-    }
-
-    handleFormSubmit = async (params) => {
-        const isPassphrase = await this.validatePassphrase(params.passphrase);
-
-        var data = {
-            passphrase: params.passphrase
-        };
+        const data = {};
 
         if (isPassphrase) {
-            delete data.passphrase;
-            data.secretPhrase = params.passphrase;
+            data.secretPhrase = passphrase;
+        } else {
+            data.passphrase = passphrase;
         }
 
-        this.props.setModalData(data);
-        this.props.setBodyModalParamsAction(null, null);
-    }
+        dispatch(setModalData(data));
+        closeModal();
+    }, [dispatch, closeModal]);
 
-    render() {
-        return (
-            <ModalBody
-                loadForm={this.loadForm}
-                modalTitle={'Show private transactions'}
-                closeModal={this.props.closeModal}
-                handleFormSubmit={(values) => this.handleFormSubmit(values)}
-                submitButtonName={'Submit'}
-                isDisableSecretPhrase
-                nameModel={this.props.nameModal}
-            >
-
-                <TextualInputComponent
-                    field={'passphrase'}
-                    type={'password'}
-                    label={'Secret Phrase'}
-                    placeholder={'Secret Phrase'}
-                />
-
-            </ModalBody>
-        );
-    }
+    return (
+        <ModalBody
+            modalTitle='Show private transactions'
+            closeModal={closeModal}
+            handleFormSubmit={handleFormSubmit}
+            submitButtonName='Submit'
+            isDisableSecretPhrase
+            nameModel={nameModal}
+        >
+            <CustomInput
+                name='passphrase'
+                type='password'
+                label='Secret Phrase'
+                placeholder='Secret Phrase'
+            />
+        </ModalBody>
+    );
 }
 
-const mapStateToProps = state => ({
-    publicKey: state.account.publicKey,
-    modalsHistory: state.modals.modalsHistory,
-});
-
-const mapDispatchToProps = dispatch => ({
-    setModalData: (data) => dispatch(setModalData(data)),
-    setModalType: (passphrase) => dispatch(setModalType(passphrase)),
-    setBodyModalParamsAction: (passphrase) => dispatch(setBodyModalParamsAction(passphrase)),
-    validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
-    saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
-	openPrevModal: () => dispatch(openPrevModal()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(PrivateTransactions);
+export default PrivateTransactions;

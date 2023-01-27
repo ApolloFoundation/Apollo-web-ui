@@ -9,17 +9,20 @@ import { NavLink, Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {Scrollbars} from 'react-custom-scrollbars';
 import classNames from 'classnames'
-import {setModalType} from '../../../modules/modals';
-import ApolloLogo from '../../../assets/new_apl_icon_black.svg';
-import smcAddress from '../../../smc.json';
+import {setModalType} from 'modules/modals';
+import ApolloLogo from 'assets/new_apl_icon_black.svg';
+import smcAddress from 'smc.json';
+import {
+	getChainIdSelector, getModalTypeSelector, getNotificationSelector, getSettingsSelector
+} from 'selectors';
 import * as routes from './routesMenu';
 import './Sidebar.scss';
 
 const mapStateToProps = state => ({
-	modalType: state.modals.modalType,
-	settings: state.accountSettings,
-	notifications: state.account.notifications,
-	chainId: state.account.blockchainStatus.chainId,
+	modalType: getModalTypeSelector(state),
+	settings: getSettingsSelector(state),
+	notifications: getNotificationSelector(state),
+	chainId: getChainIdSelector(state),
 });
 
 const mapDispatchToProps = {

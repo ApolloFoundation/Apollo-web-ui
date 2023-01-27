@@ -1,50 +1,43 @@
 import React from 'react';
-import {connect} from 'react-redux';
-import NummericInputForm from '../../../components/form-components/numeric-input';
-import InputForm from "../../../components/input-form";
+import { useFormikContext } from 'formik';
+import TextualInput from 'containers/components/form-components/TextualInput';
+import CustomSelect from 'containers/components/form-components/CustomSelect';
+import NumericInput from 'containers/components/form-components/NumericInput';
 
-const WithdrawForm = ({values, setValue, modalData, idGroup}) => (
-    <>
-        <div className="form-group row form-group-white mb-15">
-            <label className="col-sm-3 col-form-label">
-                From
-            </label>
-            <div className="col-sm-9">
-                <InputForm
-                    defaultValue={modalData.address}
-                    field="from"
-                    placeholder="From"
-                    setValue={setValue}
+export const WithdrawForm = ({ typeData }) => {
+    const { values } = useFormikContext();
+    const currencyFormat = values.asset?.currency?.toUpperCase();
+
+    return (
+        <>
+            <TextualInput
+                name="fromAddress"
+                placeholder={`${currencyFormat} Wallet`}
+                type="text"
+                disabled
+                label="From"
+            />
+            <TextualInput
+                name="toAddress"
+                placeholder={`${currencyFormat} Wallet`}
+                type="text"
+                label="To"
+            />
+            {values.asset && (
+                <CustomSelect
+                    options={typeData}
+                    label='Wallet'
+                    name='asset'
+                    label="Wallet"
                 />
-            </div>
-        </div>
-        <div className="form-group row form-group-white mb-15">
-            <label className="col-sm-3 col-form-label">
-                To
-            </label>
-            <div className="col-sm-9">
-                <InputForm
-                    field="to"
-                    placeholder="To"
-                    setValue={setValue}
-                />
-            </div>
-        </div>
-        <NummericInputForm
-            field={'amount'}
-            counterLabel={modalData.currency.toUpperCase()}
-            type={'tel'}
-            label={'Amount'}
-            placeholder={'Amount'}
-            setValue={setValue}
-            idGroup={idGroup}
-        />
-    </>
-);
-
-const mapStateToProps = state => ({
-    modalData: state.modals.modalData
-});
-
-
-export default connect(mapStateToProps)(WithdrawForm);
+            )}
+            <NumericInput
+                name="amount"
+                placeholder="Amount"
+                type="float"
+                label="Amount"
+                counterLabel={currencyFormat}
+            />
+        </>
+    );
+}

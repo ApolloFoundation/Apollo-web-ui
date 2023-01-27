@@ -1,9 +1,9 @@
 import React, { useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
-import { getBlockAction } from '../../../../../actions/blocks';
-import { setBodyModalParamsAction } from '../../../../../modules/modals';
-
+import { getBlockAction } from 'actions/blocks';
+import { setBodyModalParamsAction } from 'modules/modals';
+import { getAccountInfoSelector } from 'selectors';
 import './style.scss';
 
 const infoAboutStep = {
@@ -13,12 +13,9 @@ const infoAboutStep = {
   3: 'Step 4',
 };
 
-export default function ContractStatusItem(props) {
+export default function ContractStatusItem({ contracts, label, isContractHistory }) {
   const dispatch = useDispatch();
-
-  const { contracts, label, isContractHistory } = props;
-
-  const account = useSelector(state => state.account);
+  const account = useSelector(getAccountInfoSelector, shallowEqual);
 
   const getBlock = useCallback(async blockHeight => {
     const requestParams = { height: blockHeight };

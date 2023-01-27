@@ -1,28 +1,27 @@
 import React, { useState, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { Formik } from 'formik';
 import { NotificationManager } from 'react-notifications';
-import { currencyTypes, multiply } from '../../../../../../helpers/format';
-import { createOffer } from '../../../../../../actions/wallet';
-import { ONE_GWEI } from '../../../../../../constants';
+import { currencyTypes, multiply, numberToLocaleString } from 'helpers/format';
+import { createOffer } from 'actions/wallet';
+import { ONE_GWEI } from 'constants/constants';
 import {
   setBodyModalParamsAction, resetTrade, setSelectedOrderInfo,
-} from '../../../../../../modules/modals';
+} from 'modules/modals';
+import {
+  getAccountInfoSelector, getDashboardInfoSelector, getExchangeInfoSelector
+} from 'selectors';
 import BuyForm from './form';
 
 const feeATM = 200000000;
 
-export default function BuyFormWrapper(props) {
+export default function BuyFormWrapper({ wallet, handleLoginModal, ethFee, ticker }) {
   const dispatch = useDispatch();
-  const { currentCurrency } = useSelector(state => state.exchange);
-  const { dashboardAccoountInfo } = useSelector(state => state.dashboard);
-  const { unconfirmedBalanceATM: balanceAPL, account, passPhrase } = useSelector(state => state.account);
+  const { currentCurrency } = useSelector(getExchangeInfoSelector, shallowEqual);
+  const { dashboardAccoountInfo } = useSelector(getDashboardInfoSelector, shallowEqual);
+  const { unconfirmedBalanceATM: balanceAPL, account, passPhrase } = useSelector(getAccountInfoSelector, shallowEqual);
 
   const { currency } = currentCurrency;
-
-  const {
-    wallet, handleLoginModal, ethFee, ticker,
-  } = props;
 
   const [isPending, setIsPending] = useState(false);
 
@@ -43,7 +42,7 @@ export default function BuyFormWrapper(props) {
       if (wallet) {
         if (newValues.offerAmount > 0 && newValues.pairRate > 0) {
           const balance = newValues.walletAddress
-            && newValues.walletAddress.value.balances[currency];
+            && newValues.walletAddress.balances[currency];
           let isError = false;
           if (newValues.pairRate < 0.000000001) {
             NotificationManager.error(`Price must be more then 0.000000001 ${currency.toUpperCase()}`, 'Error', 5000);
@@ -53,7 +52,7 @@ export default function BuyFormWrapper(props) {
             NotificationManager.error(`You can buy more then 0.001 ${ticker}`, 'Error', 5000);
             isError = true;
           }
-          if (!newValues.walletAddress || !newValues.walletAddress.value.balances) {
+          if (!newValues.walletAddress || !newValues.walletAddress.balances) {
             NotificationManager.error('Please select wallet address', 'Error', 5000);
             isError = true;
           }
@@ -62,7 +61,7 @@ export default function BuyFormWrapper(props) {
             isError = true;
           }
           if (+ethFee > +newValues.walletAddress.value.balances.eth) {
-            NotificationManager.error(`To buy ${ticker} you need to have at least ${ethFee.toLocaleString('en', {
+            NotificationManager.error(`To buy ${ticker} you need to have at least ${numberToLocaleString(ethFee, {
               minimumFractionDigits: 0,
               maximumFractionDigits: 9,
             })} ETH on your balance to confirm transaction`, 'Error', 5000);
@@ -74,7 +73,7 @@ export default function BuyFormWrapper(props) {
           }
           const pairRate = Math.round(multiply(newValues.pairRate, ONE_GWEI));
           const offerAmount = newValues.offerAmount * ONE_GWEI;
-          const balanceETH = parseFloat(newValues.walletAddress.value.balances[currency]);
+          const balanceETH = parseFloat(newValues.walletAddress.balances[currency]);
           const currentBalanceAPL = (dashboardAccoountInfo && dashboardAccoountInfo.unconfirmedBalanceATM)
             ? parseFloat(dashboardAccoountInfo.unconfirmedBalanceATM)
             : parseFloat(balanceAPL);
@@ -104,7 +103,7 @@ export default function BuyFormWrapper(props) {
             sender: account,
             passphrase: passPhrase,
             feeATM,
-            walletAddress: newValues.walletAddress.value.address,
+            walletAddress: newValues.walletAddress.address,
           };
           if (passPhrase) {
             dispatch(createOffer(params)).then(() => {

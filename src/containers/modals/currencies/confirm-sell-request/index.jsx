@@ -4,20 +4,17 @@
  ***************************************************************************** */
 
 import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
-import { setBodyModalParamsAction } from '../../../../modules/modals';
-import TextualInputComponent from '../../../components/form-components/textual-input1';
-import ModalBody from '../../../components/modals/modal-body1';
+import TextualInputComponent from 'containers/components/form-components/TextualInput';
+import ModalBody from 'containers/components/modals/modal-body';
+import { getModalDataSelector, getTickerSelector } from 'selectors';
 
-export default function SellCurrency(props) {
+export default function SellCurrency({ processForm, closeModal, nameModal }) {
   const dispatch = useDispatch();
 
-  const { processForm, closeModal, nameModal } = props;
-
-  const { modalData } = useSelector(state => state.modals);
-
-  const { ticker } = useSelector(state => state.account);
+  const modalData = useSelector(getModalDataSelector, shallowEqual);
+  const ticker = useSelector(getTickerSelector);
 
   const handleFormSubmit = useCallback(async values => {
     const data = {
@@ -28,10 +25,10 @@ export default function SellCurrency(props) {
     };
 
     processForm(data, 'currencySell', 'The sell order has been submitted!', () => {
-      dispatch(setBodyModalParamsAction(null, {}));
+      closeModal();
       NotificationManager.success('The sell order has been submitted!', null, 5000);
     });
-  }, [dispatch, modalData, processForm]);
+  }, [dispatch, modalData, processForm, closeModal]);
 
   return (
     <ModalBody

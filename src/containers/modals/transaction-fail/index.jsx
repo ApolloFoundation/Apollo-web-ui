@@ -1,9 +1,10 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import ModalBody from "../../components/modals/modal-body";
+import { useSelector, shallowEqual } from 'react-redux';
+import { getModalDataSelector } from 'selectors';
+import ModalBody from "containers/components/modals/modal-body";
 
 export const TransactionFail = ({ closeModal }) => {
-  const transaction = useSelector(state =>  state.modals.modalData)
+  const transaction = useSelector(getModalDataSelector, shallowEqual);
   return (
     <ModalBody
       modalTitle={`Transaction fail info`}
@@ -28,7 +29,7 @@ export const TransactionFail = ({ closeModal }) => {
                   Error message:
               </td>
               <td>
-                  {transaction.errorMessage || 'some error message'}
+                  {transaction.errorMessage || 'some error'}
               </td>
             </tr>
           </tbody>

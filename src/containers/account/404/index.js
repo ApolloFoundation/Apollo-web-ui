@@ -5,8 +5,8 @@
 
 
 import React from 'react';
-import SiteHeader from '../../components/site-header'
-import InfoBox from '../../components/info-box';
+import SiteHeader from 'containers/components/site-header'
+import InfoBox from 'containers/components/info-box';
 
 class UnknownPage extends React.Component {
     render () {

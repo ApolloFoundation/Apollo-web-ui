@@ -2,23 +2,22 @@ import React, {
   useEffect, useCallback, useState,
 } from 'react';
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { formatDivision } from '../../../../../helpers/format';
-import { ONE_GWEI } from '../../../../../constants';
-import { BlockUpdater } from '../../../../block-subscriber';
-import { getMyTradeHistory } from '../../../../../actions/wallet';
-import ArrowUp from '../../../../../assets/arrow-up.png';
-import ArrowDown from '../../../../../assets/arrow-down.png';
-import CustomTable from '../../../../components/tables/table1';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+import { formatDivision } from 'helpers/format';
+import { BlockUpdater } from 'containers/block-subscriber';
+import { getMyTradeHistory } from 'actions/wallet';
+import ArrowUp from 'assets/arrow-up.png';
+import ArrowDown from 'assets/arrow-down.png';
+import CustomTable from 'containers/components/tables/table1';
+import { getExchangeInfoSelector } from 'selectors';
+import { ONE_GWEI } from 'constants/constants';
 
 const itemsPerPage = 15;
 
-export default function TradeHistoryExchange(props) {
+export default function TradeHistoryExchange({ currentCurrency, ticker }) {
   const dispatch = useDispatch();
 
-  const { currentCurrency, ticker } = props;
-
-  const { myTradeHistory } = useSelector(state => state.exchange);
+  const { myTradeHistory } = useSelector(getExchangeInfoSelector, shallowEqual);
 
   const [currentPaggination, setCurrentPaggination] = useState({
     page: 1,

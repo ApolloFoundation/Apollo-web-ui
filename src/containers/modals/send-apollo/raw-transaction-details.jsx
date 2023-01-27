@@ -4,22 +4,17 @@
  ***************************************************************************** */
 
 import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Formik, Form } from 'formik';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
-import {
-  setBodyModalParamsAction, saveSendModalState, openPrevModal,
-} from '../../../modules/modals';
-import CustomInput from '../../components/custom-input';
-import CustomButton from '../../components/button';
-import CustomTextArea from '../../components/form-components/text-area1';
+import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
+import CustomTextArea from 'containers/components/form-components/TextArea/TextAreaWithFormik';
+import ModalBody from 'containers/components/modals/modal-body';
+import { getModalDataSelector } from 'selectors';
 
-export default function RawTransactionDetails(props) {
+export default function RawTransactionDetails({ closeModal, processForm }) {
   const dispatch = useDispatch();
 
-  const { modalData, modalsHistory } = useSelector(state => state.modals);
-
-  const { closeModal, processForm } = props;
+  const modalData = useSelector(getModalDataSelector, shallowEqual);
 
   const handleFormSubmit = useCallback(async values => {
     const data = {
@@ -31,14 +26,13 @@ export default function RawTransactionDetails(props) {
     };
 
     processForm(data, 'broadcastTransaction', 'Transaction has been submitted!', () => {
-      dispatch(setBodyModalParamsAction(null, {}));
+      closeModal();
       NotificationManager.success('Transaction has been submitted!', null, 5000);
     });
-  }, [dispatch, modalData, processForm]);
+  }, [dispatch, modalData, processForm, closeModal]);
 
   return (
-    <div className="modal-box">
-      <Formik
+      <ModalBody
         initialValues={{
           transactionJSON: (
             modalData && modalData.result && JSON.stringify(modalData.result.transactionJSON)
@@ -53,28 +47,15 @@ export default function RawTransactionDetails(props) {
             modalData && modalData.result && modalData.result.fullHash
           ) || '',
         }}
+        handleFormSubmit={handleFormSubmit}
+        modalTitle="Raw Transaction Details"
+        submitButtonName={!modalData?.result?.signatureHash && "Broadcast"}
+        closeModal={closeModal}
+        isDisableSecretPhrase
         enableReinitialize
-        onSubmit={handleFormSubmit}
       >
-        {({ values }) => (
-          <Form
-            className="modal-form modal-send-apollo"
-            onChange={() => dispatch(saveSendModalState(values))}
-          >
             {modalData && modalData.request && (
-              <div className="form-group-app">
-                <button type="button" onClick={closeModal} className="exit">
-                  <i className="zmdi zmdi-close" />
-                </button>
-                <div className="form-title">
-                  {modalsHistory.length > 1 && (
-                    <div
-                      className="backMy"
-                      onClick={() => dispatch(openPrevModal())}
-                    />
-                  )}
-                  <p>Raw Transaction Details</p>
-                </div>
+              <>
                 {(!modalData.result.signatureHash && modalData.result.unsignedTransactionBytes) && (
                   <div className="form-group row form-group-white mb-15 col-sm-12">
                     <CustomTextArea
@@ -137,26 +118,8 @@ export default function RawTransactionDetails(props) {
                       />
                     </div>
                   )}
-                <div className="btn-box align-buttons-inside absolute right-conner align-right">
-                  <CustomButton
-                    onClick={closeModal}
-                    color="transparent"
-                    className={`btn round round-top-left ${modalData.result.signatureHash ? 'round-bottom-right' : ''} bg-none`}
-                    name="Close"
-                  />
-                  {!modalData.result.signatureHash && (
-                    <CustomButton
-                      type="submit"
-                      className="btn btn-right blue round round-bottom-right bg-none"
-                      name="Broadcast"
-                    />
-                  )}
-                </div>
-              </div>
+              </>
             )}
-          </Form>
-        )}
-      </Formik>
-    </div>
+      </ModalBody>
   );
 }

@@ -1,13 +1,14 @@
 import React, {Component} from "react";
-import {formatTransactionType} from "../../../actions/transactions";
+import {formatTransactionType} from "actions/transactions";
 import {connect} from "react-redux";
-import {readMessageAction} from '../../../actions/messager/'
-import crypto from '../../../helpers/crypto/crypto';
-import {setBodyModalParamsAction} from '../../../modules/modals';
-import {Form, Text} from 'react-form';
+import {readMessageAction} from 'actions/messager/'
+import crypto from 'helpers/crypto/crypto';
+import {Form, Formik, Field} from 'formik';
 import {NotificationManager} from 'react-notifications';
-import {setAccountPassphrase} from '../../../modules/account';
-
+import {setAccountPassphrase} from 'modules/account';
+import {
+	getAccountSelector, getDecimalsSelector, getPassPhraseSelector, getTickerSelector
+} from "selectors";
 import CurrencyIssuance from "./table-content/currency-issuance";
 import BuyCurrency from "./table-content/exchange-buy";
 import SellCurrency from "./table-content/exchange-sell";
@@ -44,7 +45,7 @@ import AskOrderPlacement from "./table-content/ask-order-placement";
 import BigOrderPlacement from "./table-content/big-order-placement";
 
 import CriticalUpdate from "./table-content/critical-update";
-
+// TODO add code spliting
 
 class InfoTransactionTable extends Component {
 
@@ -102,19 +103,15 @@ class InfoTransactionTable extends Component {
 	};
 
 	decryptMessageComponent = () => (
-		<Form
-			onSubmit={(values) => this.showPrivateTransactions(values)}
-			render={({
-						 submitForm, values, addValue, removeValue, setValue, getFormState
-					 }) => (
-				<form
-					className="form-group-app"
-					onSubmit={submitForm}
-				>
+		<Formik
+			initialValues={{ secretPhrase: '' }}
+			onSubmit={this.showPrivateTransactions}
+		>
+				<Form className="form-group-app">
 					<div className="d-flex">
-						<Text
+						<Field
 							className="mr-3"
-							field="secretPhrase"
+							name="secretPhrase"
 							placeholder="Secret phrase"
 							type="password"
 						/>
@@ -122,9 +119,8 @@ class InfoTransactionTable extends Component {
 							Submit
 						</button>
 					</div>
-				</form>
-			)}
-		/>
+				</Form>
+		</Formik>
 	);
 
 	render() {
@@ -301,17 +297,16 @@ class InfoTransactionTable extends Component {
 }
 
 const mapStateToProps = state => ({
-	secretPhrase: state.account.passPhrase,
-	account: state.account.account,
-	decimals: state.account.decimals,
-	ticker: state.account.ticker,
+	secretPhrase: getPassPhraseSelector(state),
+	account: getAccountSelector(state),
+	decimals: getDecimalsSelector(state),
+	ticker: getTickerSelector(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-	readMessageAction: (requestParams) => dispatch(readMessageAction(requestParams)),
-	validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
-	setAccountPassphrase: (passphrase) => dispatch(setAccountPassphrase(passphrase)),
-	setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-});
+const mapDispatchToProps = {
+	readMessageAction,
+	validatePassphrase: crypto.validatePassphrase,
+	setAccountPassphrase,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(InfoTransactionTable);

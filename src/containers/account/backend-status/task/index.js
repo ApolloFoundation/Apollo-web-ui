@@ -6,7 +6,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {formatTimestamp} from "../../../../helpers/util/time";
+import {formatTimestamp} from "helpers/util/time";
 
 const Peer = (props) => (
     <tr>

@@ -1,86 +1,102 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { Form } from 'react-form';
+import { useSelector } from 'react-redux';
+import { useFormik, FormikProvider, Form } from 'formik';
 import classNames from 'classnames';
-import NummericInput from '../../../components/form-components/numeric-input';
+import NumericInput from 'containers/components/form-components/NumericInput'
+import { getBalanceATMSelector } from 'selectors';
+const bigInteger = require('jsbn').BigInteger;
 
-const BuyAsset = ({
-  balanceATM, asset, handleTotalValue, handleBuyOrders, getFormApi, decimals, ticker,
-}) => (
-  <div className="card green">
-    <div className="card-title card-title-lg d-flex justify-content-between align-items-center">
-      Buy
-      {' '}
-      {asset.name}
-      <span>
-        Balance:
-        {(balanceATM / decimals).toLocaleString('en', {
-          minimumFractionDigits: asset.decimals,
-          maximumFractionDigits: asset.decimals,
-        })}
-        {' '}
-        {ticker}
-      </span>
+const BuyAsset = ({ asset, decimals, ticker, onSubmit }) => {
+  const balanceATM = useSelector(getBalanceATMSelector)
+
+  const formik = useFormik({
+    initialValues: {
+      quantity: '',
+      priceATM: '',
+      total: '',
+    },
+    onSubmit,
+  });
+
+  const handleValue = (v2) => (v1) => {
+    if (v1 && v2) {
+      let result = (new bigInteger(v1).multiply(new bigInteger(v2)));
+
+      if (result && Array.isArray(result.value)) {
+          result = result.value.reverse().reduce((a, b) => {
+              return a.toString() + b.toString()
+          });
+      } 
+      formik.setFieldValue('total', result.toString());
+    } else {
+      formik.setFieldValue('total', 0);
+    }
+  }
+
+  return (
+    <div className="col-xl-6 col-md-12 pr-0 pb-3">
+      <div className="card green">
+        <div className="card-title card-title-lg d-flex justify-content-between align-items-center">
+          {`Buy ${asset.name}`}
+          <span>
+            Balance:
+            {(balanceATM / decimals).toLocaleString('en', {
+              minimumFractionDigits: asset.decimals,
+              maximumFractionDigits: asset.decimals,
+            })}
+            {' '}
+            {ticker}
+          </span>
+        </div>
+        <div className="card-body">
+              <FormikProvider value={formik}>
+                <Form>
+                  <div className="form-group-app">
+                    <NumericInput
+                      label="Quantity"
+                      placeholder="Quantity"
+                      type="tel"
+                      name="quantity"
+                      onChange={handleValue(formik.values.priceATM)}
+                      counterLabel={asset.name}
+                      classNameWrapper="mb-2"
+                    />
+                    <NumericInput
+                      label="Price"
+                      placeholder="Price"
+                      type="tel"
+                      name="priceATM"
+                      onChange={handleValue(formik.values.quantity)}
+                      counterLabel={`${ticker} / ${asset.name}`}
+                      classNameWrapper="mb-2"
+                    />
+                    <NumericInput
+                      label="Total"
+                      placeholder="Total"
+                      type="tel"
+                      name="total"
+                      counterLabel={asset.name}
+                      disabled
+                      classNameWrapper="mb-0"
+                    />
+                    <button
+                      type="submit"
+                      className={classNames({
+                        'btn btn-lg btn-green submit-button': true,
+                        disabled: !formik.values.total,
+                      })}
+                    >
+                      <span className="button-text">
+                        {`Buy ${ticker} > ${asset.name}`}
+                      </span>
+                    </button>
+                  </div>
+                </Form>
+              </FormikProvider>
+        </div>
+      </div>
     </div>
-    <div className="card-body">
-      <Form
-        getApi={getFormApi}
-        onSubmit={values => handleBuyOrders(values)}
-        render={({
-          submitForm, values, addValue, removeValue, setValue, getFormState,
-        }) => (
-          <form onSubmit={submitForm}>
-            <div className="form-group-app">
-              <NummericInput
-                setValue={setValue}
-                label="Quantity"
-                field="quantity"
-                type="tel"
-                placeholder="Quantity"
-                onChange={value => handleTotalValue(setValue, value, values.priceATM)}
-                counterLabel={asset.name}
-              />
-              <NummericInput
-                setValue={setValue}
-                label="Price"
-                field="priceATM"
-                type="tel"
-                placeholder="Price"
-                onChange={value => handleTotalValue(setValue, value, values.quantity)}
-                counterLabel={`${ticker} / ${asset.name}`}
-              />
-              <NummericInput
-                setValue={setValue}
-                label="Total"
-                field="total"
-                type="tel"
-                placeholder="Total"
-                counterLabel={asset.name}
-                disabled
-              />
-              <button
-                type="submit"
-                className={classNames({
-                  'btn btn-lg btn-green submit-button': true,
-                  disabled: !values.total,
-                })}
-              >
-                <span className="button-text">
-                  Buy (
-                  {ticker}
-                  {' > '}
-                  {asset.name}
-                  )
-                </span>
-              </button>
-            </div>
-          </form>
-        )}
-      />
-    </div>
-  </div>
-);
+  );
+}
 
-const mapStateToProps = state => ({ balanceATM: state.account.balanceATM });
-
-export default connect(mapStateToProps)(BuyAsset);
+export default BuyAsset;

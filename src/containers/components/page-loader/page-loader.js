@@ -6,7 +6,8 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {getAccountDataAction} from '../../../actions/login';
+import { getLoginProblemSelector } from 'selectors';
+import {getAccountDataAction} from 'actions/login';
 
 const savedAccount = JSON.parse(localStorage.getItem('APLUserRS'))
 
@@ -38,11 +39,11 @@ const PageLoader = ({loginProblem, getAccountDataAction}) => (
 )
 
 const mapStateToProps = state => ({
-    loginProblem: state.account.loginProblem
+    loginProblem: getLoginProblemSelector(state),
 })
 
-const mapDispatchToProps = disaptch => ({
-    getAccountDataAction: (savedAccount) => disaptch(getAccountDataAction({account: savedAccount}))
-})
+const mapDispatchToProps = {
+    getAccountDataAction
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(PageLoader);

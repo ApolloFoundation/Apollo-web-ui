@@ -5,8 +5,7 @@
 
 import React from 'react';
 import classNames from 'classnames';
-
-import { useSingleAccordionItem } from '../../../../hooks/useSingleAccordionItem';
+import { useSingleAccordionItem } from 'hooks/useSingleAccordionItem';
 import { VaultAccordion } from './login-accordions/vault-wallet/vault';
 import { StandartWallet } from './login-accordions/standart-wallet';
 import styles from './index.module.scss';

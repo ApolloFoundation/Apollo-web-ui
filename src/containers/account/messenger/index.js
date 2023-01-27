@@ -5,17 +5,17 @@
 
 
 import React from 'react';
-import SiteHeader from '../../components/site-header';
 import {connect} from 'react-redux';
 import {withRouter} from "react-router-dom";
-import './Messenger.scss';
-import {BlockUpdater} from "../../block-subscriber/index";
-import {getChatsPerPage, getChatHistory, resetChatHistory} from "../../../actions/messager";
-
-import {setBodyModalParamsAction} from "../../../modules/modals";
+import {BlockUpdater} from "containers/block-subscriber";
+import SiteHeader from 'containers/components/site-header';
+import {getChatsPerPage, getChatHistory, resetChatHistory} from "actions/messager";
+import {setBodyModalParamsAction} from "modules/modals";
+import SidebarContentPage from 'containers/components/sidebar-content-page';
+import { getAccountSelector, getPassPhraseSelector } from 'selectors';
 import Chat from './chat';
 import SidebarMessages from './sidebar-messenger';
-import SidebarContentPage from '../../components/sidebar-content-page';
+import './Messenger.scss';
 
 class Messenger extends React.PureComponent {
     listener = () => this.props.getChatHistory({account2: this.props.match.params.chat});
@@ -66,8 +66,8 @@ class Messenger extends React.PureComponent {
 }
 
 const mapStateToProps = state => ({
-	account: state.account.account,
-    passPhrase: state.account.passPhrase,
+	account: getAccountSelector(state),
+    passPhrase: getPassPhraseSelector(state),
 });
 
 const mapDispatchToProps = {

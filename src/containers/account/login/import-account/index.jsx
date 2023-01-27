@@ -4,20 +4,22 @@
  ***************************************************************************** */
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { Form, Formik } from 'formik';
 import { NotificationManager } from 'react-notifications';
 import classNames from 'classnames';
-import { saveSendModalState } from '../../../../modules/modals';
-import { importAccountAction, importAccountActionViaFile } from '../../../../actions/account';
-import CustomInput from '../../../components/custom-input';
-import InfoBox from '../../../components/info-box';
-import InputUpload from '../../../components/input-upload';
-import ButtonTabs from '../../../components/button-tabs';
-import Button from '../../../components/button';
+import i18n from 'i18next';
+import { saveSendModalState } from 'modules/modals';
+import { importAccountAction, importAccountActionViaFile } from 'actions/account';
+import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
+import InfoBox from 'containers/components/info-box';
+import InputUpload from 'containers/components/form-components/FIleInput';
+import ButtonTabs from 'containers/components/button-tabs';
+import Button from 'containers/components/button';
+import RedTriangle from 'assets/red-triangle.svg';
+import { getConstantsSelector } from 'selectors';
 import ErrorWrapper from './error-wrapper';
-import RedTriangle from '../../../../assets/red-triangle.svg';
 import styles from './index.module.scss';
 
 const formats = {
@@ -38,27 +40,29 @@ const tabs = [
 
 export default function ImportAccount(props) {
   const dispatch = useDispatch();
-
+  const constants = useSelector(getConstantsSelector, shallowEqual);
   const { account, handleClose } = props;
 
-  const [format, setFormat] = useState('file');
+  const [format, setFormat] = useState(formats.file);
   const [isGenerated, setIsGenerated] = useState(false);
   const [importAccount, setImportAccount] = useState(false);
   const [isError, setIsError] = useState(false); 
 
   const handleFormSubmit = useCallback(async values => {
     const {
-      secretBytes, passPhrase, sender, deadline,
+      secretBytes, passPhrase, keyStore,
     } = values;
     let newImportAccount = null;
     if (format === formats.text) {
-      newImportAccount = await importAccountAction({
-        secretBytes, sender, deadline,
-      });
-    } else if (format === formats.file) {
-      newImportAccount = await importAccountActionViaFile({
-        passPhrase, sender, deadline,
-      });
+      newImportAccount = await importAccountAction({ secretBytes, passPhrase });
+    } 
+    if (format === formats.file) {
+      if (!keyStore) {
+        setIsError(true);
+        NotificationManager.error(i18n.t("error_no_file_chosen"), 'Error', 5000);
+        return;
+      }
+      newImportAccount = await importAccountActionViaFile({ passPhrase, keyStore });
     }
 
     if (newImportAccount && newImportAccount.errorCode) {
@@ -147,7 +151,13 @@ export default function ImportAccount(props) {
                       <label htmlFor="file">
                         Your account secret file
                       </label>
-                      <InputUpload accept=".apl" id="file" />
+                      <InputUpload
+                        accept=".apl"
+                        id="file"
+                        name="keyStore" 
+                        maxSize={constants?.maxImportSecretFileLength || 1000}
+                        hidenMaxSize
+                      />
                     </div>
                   </>
                 )}

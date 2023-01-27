@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Formik } from 'formik';
-import CustomInput from '../../../../components/custom-input';
-import Button from '../../../../components/button';
+import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
+import Button from 'containers/components/button';
 
 export default function CreateAccount(props) {
   const { isPending, onSubmit } = props;

@@ -5,26 +5,25 @@
 
 
 import React from 'react';
-import SiteHeader from '../../components/site-header'
 import {connect} from 'react-redux';
-import {getPeerAction, getPeersAction, getPeersInfoAction} from "../../../actions/peers";
-import {setBodyModalParamsAction} from "../../../modules/modals";
-
+import SiteHeader from 'containers/components/site-header'
+import {getPeerAction, getPeersAction, getPeersInfoAction} from "actions/peers";
+import {setBodyModalParamsAction} from "modules/modals";
+import CustomTable from 'containers/components/tables/table';
+import TopPageBlocks from 'containers/components/tob-page-blocks';
+import { getIsLocalhostSelector } from 'selectors';
 import Peer from './peer'
-import CustomTable from '../../components/tables/table';
-import TopPageBlocks from '../../components/tob-page-blocks';
-
 
 const mapStateToProps = state => ({
-    isLocalhost: state.account.isLocalhost
+    isLocalhost: getIsLocalhostSelector(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-    getPeersAction: (requestParams) => dispatch(getPeersAction(requestParams)),
-    getPeerAction: peerAddress => dispatch(getPeerAction(peerAddress)),
-    getPeersInfoAction: (requestParams) => dispatch(getPeersInfoAction(requestParams)),
-    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-});
+const mapDispatchToProps = {
+    getPeersAction,
+    getPeerAction,
+    getPeersInfoAction,
+    setBodyModalParamsAction,
+};
 
 class Peers extends React.Component {
     state = {

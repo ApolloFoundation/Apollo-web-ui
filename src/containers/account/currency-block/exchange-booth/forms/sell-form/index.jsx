@@ -1,13 +1,14 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { Formik, Form } from 'formik';
+import { Formik } from 'formik';
 import { NotificationManager } from 'react-notifications';
-import { setBodyModalParamsAction } from '../../../../../../modules/modals';
-import Button from '../../../../../components/button';
-import NummericInput from '../../../../../components/form-components/numeric-input1';
+import { setBodyModalParamsAction } from 'modules/modals';
+import { numberToLocaleString } from 'helpers/format';
+import { SellFormFields }from './form';
 
 export default function SellForm(props) {
   const dispatch = useDispatch();
+  const ref = useRef({});
 
   const {
     minimumBuyRate, currencyInfo, balanceSell, ticker, currentCoinDecimals,
@@ -15,7 +16,7 @@ export default function SellForm(props) {
 
   const { code, decimals, currency } = currencyInfo;
 
-  const handleMinimumSellRate = useCallback(values => {
+  const handleSubmit = useCallback(values => {
     const normalizedValues = {
       ...values,
       code,
@@ -30,6 +31,25 @@ export default function SellForm(props) {
     }
   }, [code, currency, decimals, dispatch]);
 
+  const handleUnitChange = (values, setFieldValue) => e => {
+    if (!e.target) {
+      setFieldValue('rateATM', Math.round(
+        ((minimumBuyRate / currentCoinDecimals) * (10 ** decimals)) * +e,
+      ));
+    } else {
+      setFieldValue('rateATM', Math.round(
+        ((minimumBuyRate / currentCoinDecimals) * (10 ** decimals)) * +values.units
+      ));
+    }
+  }
+
+  useEffect(() => {
+    if (ref.current) {
+      ref.current.setFieldValue('effectiveRate', Math.round((minimumBuyRate / currentCoinDecimals) * (10 ** decimals)))
+      ref.current.setFieldValue('maximumRate', Math.round((minimumBuyRate / currentCoinDecimals) * (10 ** decimals)))
+    }
+  }, [minimumBuyRate, ref.current, decimals, currentCoinDecimals]);
+
   return (
     <div className="col-xl-6 col-md-12 pr-0 mb-3">
       <div className="card green">
@@ -39,7 +59,7 @@ export default function SellForm(props) {
           {code}
           <span>
             Balance:
-            {balanceSell.toLocaleString('en')}
+            {numberToLocaleString(balanceSell)}
             {' '}
             {code}
           </span>
@@ -52,87 +72,19 @@ export default function SellForm(props) {
               units: 0,
               rateATM: '',
             }}
-            onSubmit={handleMinimumSellRate}
+            onSubmit={handleSubmit}
           >
-            {({ values, setFieldValue }) => (
-              <Form className="form-group-app">
-                <NummericInput
-                  label="Units"
-                  name="units"
-                  type="float"
-                  placeholder="Units"
-                  onChange={e => {
-                    if (!e.target) {
-                      setFieldValue('rateATM', Math.round(
-                        ((minimumBuyRate / currentCoinDecimals) * (10 ** decimals)) * +e,
-                      ));
-                    } else {
-                      setFieldValue('rateATM', Math.round(((minimumBuyRate / currentCoinDecimals) * (10 ** decimals)) * +values.units));
-                    }
-                  }}
-                  counterLabel={code}
+            {({ values, setFieldValue }) => {
+              ref.current.setFieldValue = setFieldValue;
+              return (
+                <SellFormFields
+                  onChange={handleUnitChange(values, setFieldValue)}
+                  code={code}
+                  ticker={ticker}
+                  minimumBuyRate={minimumBuyRate}
+                  values={values}
                 />
-                {!!minimumBuyRate && (
-                  <NummericInput
-                    label="Maximum Rate"
-                    name="maximumRate"
-                    type="float"
-                    placeholder="Quantity"
-                    disableArrows
-                    disabled
-                    onChange={e => {
-                      if (!e.target) {
-                        setFieldValue('rateATM', Math.round(
-                          ((minimumBuyRate / currentCoinDecimals) * (10 ** decimals)) * +e,
-                        ));
-                      } else {
-                        setFieldValue('rateATM', Math.round(
-                          ((minimumBuyRate / currentCoinDecimals) * (10 ** decimals)) * +values.units,
-                        ));
-                      }
-                    }}
-                    counterLabel={`${ticker}/${code}`}
-                  />
-                )}
-                {!!minimumBuyRate && (
-                  <NummericInput
-                    label="Effective Rate"
-                    name="maximumRate"
-                    type="float"
-                    placeholder="Quantity"
-                    disableArrows
-                    disabled
-                    onChange={e => {
-                      if (!e.target) {
-                        setFieldValue('rateATM', Math.round(
-                          ((minimumBuyRate / currentCoinDecimals) * (10 ** decimals)) * +e,
-                        ));
-                      } else {
-                        setFieldValue('rateATM', Math.round(
-                          ((minimumBuyRate / currentCoinDecimals) * (10 ** decimals)) * +values.units,
-                        ));
-                      }
-                    }}
-                    counterLabel={`${ticker}/${code}`}
-                  />
-                )}
-                <NummericInput
-                  label="Total"
-                  name="rateATM"
-                  type="tel"
-                  placeholder="Price"
-                  counterLabel={ticker}
-                  disabled
-                />
-                <Button
-                  type="submit"
-                  size="lg"
-                  name={`Buy (${code} > ${ticker})`}
-                  disabled={!(+values.rateATM)}
-                  color="green"
-                />
-              </Form>
-            )}
+            )}}
           </Formik>
         </div>
       </div>

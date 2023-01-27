@@ -4,62 +4,51 @@
  ******************************************************************************/
 
 
-import React from 'react';
-import {connect} from 'react-redux';
-import submitForm from "../../../../helpers/forms/forms";
-
-import {handleFormSubmit} from "./handleFormSubmit";
-
-import ModalBody from '../../../components/modals/modal-body';
+import React, { useCallback } from 'react';
+import { shallowEqual, useSelector } from 'react-redux';
+import {NotificationManager} from 'react-notifications';
+import i18n from 'i18next';
+import ModalBody from 'containers/components/modals/modal-body';
+import { getConstantsSelector, getTickerSelector } from 'selectors';
 import ListProductForSaleFrom from './form';
 
-class ListProductForSale extends React.Component {
-    constructor(props) {
-        super(props);
+const ListProductForSale = ({ processForm, closeModal }) => {
+    const ticker = useSelector(getTickerSelector);
+    const constants = useSelector(getConstantsSelector, shallowEqual);
 
-        this.state = {
-            activeTab: 0,
-            advancedState: false,
-
-            // submitting
-            passphraseStatus: false,
-            recipientStatus: false,
-            amountStatus: false,
-            feeStatus: false,
-            prePreviewImage: null
+    const handleFormSubmit = useCallback((values) => {
+        if (!values.secretPhrase || values.secretPhrase.length === 0) {
+            NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
+            return;
         }
-    }
+        if (!values.quantity || parseFloat(values.quantity) === 0) {
+            NotificationManager.error('Quantity is required.', 'Error', 5000);
+            return;
+        }
+        if (!values.messageFile) {
+            NotificationManager.error(i18n.t("error_no_file_chosen"), 'Error', 5000);
+            return;
+        }
+    
+        processForm({ ...values }, 'dgsListing', 'Product has been listed!',() => {
+            closeModal();
+            NotificationManager.success('Product has been listed!', null, 5000);
+        })
+    }, [processForm, closeModal]);
 
-    handleFormSubmit = (values) => handleFormSubmit.call(this.props, values);
+    return (
+        <ModalBody
+            modalTitle='List Product For Sale'
+            isAdvanced
+            isFee
+            closeModal={closeModal}
+            handleFormSubmit={handleFormSubmit}
+            submitButtonName='List Product'
+        >
+            <ListProductForSaleFrom ticker={ticker} maxSize={constants?.maxPrunableMessageLength} />
+        </ModalBody>
 
-    render() {
-        return (
-            <ModalBody
-                loadForm={this.loadForm}
-                modalTitle={'List Product For Sale'}
-                isAdvanced
-                isFee
-                closeModal={this.props.closeModal}
-                handleFormSubmit={(values) => this.handleFormSubmit(values)}
-                submitButtonName={'List Product'}
-            >
-                <ListProductForSaleFrom ticker={this.props.ticker} />
-            </ModalBody>
-
-        );
-    }
+    );
 }
 
-
-const mapStateToProps = state => ({
-    modalData: state.modals.modalData,
-    ticker: state.account.ticker,
-    publicKey: state.account.publicKey,
-});
-
-const mapDispatchToProps = dispatch => ({
-    handleFormSubmit : (values) => dispatch(handleFormSubmit(values)),
-    submitForm : (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ListProductForSale);
+export default ListProductForSale;

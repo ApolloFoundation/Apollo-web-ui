@@ -3,73 +3,29 @@
  *                                                                            *
  ***************************************************************************** */
 
-import React, {
-  useEffect, useCallback, useState,
-} from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllCurrenciesAction } from '../../../../actions/currencies';
-import { BlockUpdater } from '../../../block-subscriber';
-import SiteHeader from '../../../components/site-header';
-import CustomTable from '../../../components/tables/table1';
+import { getAccountSelector } from 'selectors';
+import { getAllCurrenciesAction } from 'actions/currencies';
+import SiteHeader from 'containers/components/site-header';
+import { TableLoader } from 'containers/components/TableLoader';
 import Currency from './currency';
 
 export default function Currencies() {
   const dispatch = useDispatch();
+  const account = useSelector(getAccountSelector);
 
-  const { account } = useSelector(state => state.account);
-
-  const [pagination, setPagination] = useState({
-    page: 1,
-    firstIndex: 0,
-    lastIndex: 15,
-  });
-
-  const [dataCurrencies, setDataCurrencies] = useState(null);
-
-  const getCurrencie = useCallback(async reqParams => {
-    const allCurrencies = await dispatch(getAllCurrenciesAction({ account, ...reqParams }));
-    if (allCurrencies) {
-      const newPagination = { ...pagination, ...reqParams };
-      setDataCurrencies(allCurrencies.currencies);
-      setPagination(newPagination);
-    }
-  }, [dispatch]);
-
-  const listener = useCallback(() => {
-    getCurrencie({
-      page: pagination.page,
-      firstIndex: pagination.firstIndex,
-      lastIndex: pagination.lastIndex,
-    });
-  }, [getCurrencie, pagination.firstIndex, pagination.lastIndex]);
-
-  const onPaginate = useCallback(currPage => {
-    getCurrencie({
-      page: currPage,
-      firstIndex: currPage * 15 - 15,
-      lastIndex: currPage * 15,
-    });
-  }, [getCurrencie]);
-
-  useEffect(() => {
-    getCurrencie({
-      firstIndex: pagination.firstIndex,
-      lastIndex: pagination.lastIndex,
-    });
-  }, []);
-
-  useEffect(() => {
-    BlockUpdater.on('data', listener);
-
-    return () => BlockUpdater.removeListener('data', listener);
-  }, [listener]);
+  const getCurrencie = useCallback(async ({ firstIndex, lastIndex }) => {
+    const allCurrencies = await dispatch(getAllCurrenciesAction({ account, firstIndex, lastIndex }));
+    return allCurrencies?.currencies ?? [];
+  }, [dispatch, account]);
 
   return (
     <div className="page-content">
       <SiteHeader pageTitle="Currencies" />
       <div className="page-body container-fluid">
-        <CustomTable
-          header={[
+        <TableLoader
+          headersList={[
             {
               name: 'Code',
               alignRight: false,
@@ -91,14 +47,9 @@ export default function Currencies() {
             },
           ]}
           className="mb-3"
-          page={pagination.page}
           TableRowComponent={Currency}
-          tableData={dataCurrencies}
-          isPaginate
-          previousHendler={() => onPaginate(pagination.page - 1)}
-          nextHendler={() => onPaginate(pagination.page + 1)}
           emptyMessage="No currencies found."
-          itemsPerPage={15}
+          dataLoaderCallback={getCurrencie}
         />
       </div>
     </div>
