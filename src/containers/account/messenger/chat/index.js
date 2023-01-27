@@ -1,9 +1,10 @@
 import React from 'react';
 import ChatItem from '../chat-item';
 import {connect} from 'react-redux';
+import {withRouter} from 'react-router-dom';
 import ContentLoader from '../../../components/content-loader';
 import InfoBox from '../../../components/info-box';
-import {withRouter} from 'react-router-dom';
+import { getChatMessagesSelector } from '../../../../selectors';
 // components
 import ChatForm from './chat-form';
 
@@ -47,7 +48,7 @@ class Chat extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    chatMessages: state.messages.chatMessages
+    chatMessages: getChatMessagesSelector(state),
 });
 
 

@@ -9,10 +9,11 @@ import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import { setBodyModalParamsAction } from '../../../../../modules/modals';
 import { getCurrencyTypes } from '../../../../../modules/currencies';
+import { getActualBlockSelector } from '../../../../../selectors';
 
 export default function Currency(props) {
   const dispatch = useDispatch();
-  const actualBlock = useSelector(state => state.account.actualBlock);
+  const actualBlock = useSelector(getActualBlockSelector);
 
   const {
     currency, code, type, types, decimals,

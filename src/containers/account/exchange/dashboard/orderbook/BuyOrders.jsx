@@ -1,21 +1,20 @@
 import React, {
   useEffect, useCallback, useState,
 } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { getBuyOpenOffers } from '../../../../../actions/wallet';
 import { setSelectedOrderInfo } from '../../../../../modules/modals';
 import { formatDivision } from '../../../../../helpers/format';
 import { ONE_GWEI } from '../../../../../constants/constants';
 import CustomTable from '../../../../components/tables/table1';
+import { getExchangeInfoSelector } from '../../../../../selectors';
 
-export default function BuyOrders(props) {
+export default function BuyOrders({ currentCurrency, buyOrders, ticker }) {
   const dispatch = useDispatch();
-
-  const { currentCurrency, buyOrders, ticker } = props;
 
   const [currency, setCurrency] = useState(null);
 
-  const { buyOrdersPagination: ordersPagination } = useSelector(state => state.exchange);
+  const { buyOrdersPagination: ordersPagination } = useSelector(getExchangeInfoSelector, shallowEqual);
 
   const onPaginate = useCallback(page => {
     const pagination = {

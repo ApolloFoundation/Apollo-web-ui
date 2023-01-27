@@ -10,16 +10,24 @@ import { processAccountIDtoRS } from 'apl-web-crypto';
 import QR from 'qrcode';
 import QRCode from 'qrcode.react';
 import jsPDF from 'jspdf';
-import {
-  getAccountAction, switchAccountAction, getAccountInfoAction, getPhasingOnlyControl,
-} from '../../../../actions/account';
-import { setModalData, setBodyModalParamsAction } from '../../../../modules/modals';
-import { getTransactionAction } from '../../../../actions/transactions';
+import { getAccountInfoAction, getPhasingOnlyControl } from '../../../../actions/account';
+import { setBodyModalParamsAction } from '../../../../modules/modals';
 import ContentLoader from '../../../components/content-loader';
 import Button from '../../../components/button';
 import ModalBody from '../../../components/modals/modal-body';
 import TabulationBody from '../../../components/tabulator/tabuator-body';
 import TabContaier from '../../../components/tabulator/tab-container';
+import {
+  getAccountRsSelector,
+  getAccountSelector,
+  getActualBlockSelector,
+  getCurrentLeasingHeightFromSelector,
+  getCurrentLeasingHeightToSelector,
+  getCurrentLesseeSelector,
+  getDecimalsSelector,
+  getModalDataSelector,
+  getTickerSelector
+} from '../../../../selectors';
 import './styles.scss';
 
 class AccountDetails extends React.Component {
@@ -267,26 +275,20 @@ class AccountDetails extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  modalData: state.modals.modalData,
-  account: state.account.account,
-  ticker: state.account.ticker,
-  decimals: state.account.decimals,
-  accountRS: state.account.accountRS,
-  actualBlock: state.account.actualBlock,
-  currentLessee: state.account.currentLessee,
-  currentLeasingHeightFrom: state.account.currentLeasingHeightFrom,
-  currentLeasingHeightTo: state.account.currentLeasingHeightTo,
+  modalData: getModalDataSelector(state),
+  account: getAccountSelector(state),
+  ticker: getTickerSelector(state),
+  decimals: getDecimalsSelector(state),
+  accountRS: getAccountRsSelector(state),
+  actualBlock: getActualBlockSelector(state),
+  currentLessee: getCurrentLesseeSelector(state),
+  currentLeasingHeightFrom: getCurrentLeasingHeightFromSelector(state),
+  currentLeasingHeightTo: getCurrentLeasingHeightToSelector(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-  setModalData: data => setModalData(data),
-  getTransactionAction: data => dispatch(getTransactionAction(data)),
-  setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-  getAccountInfoAction: account => dispatch(getAccountInfoAction(account)),
-  // getAccountData
-  getAccountAction: requestParams => dispatch(getAccountAction(requestParams)),
-  switchAccountAction: (requestParams, history) => dispatch(switchAccountAction(requestParams, history)),
-
-});
+const mapDispatchToProps ={
+  setBodyModalParamsAction,
+  getAccountInfoAction,
+};
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AccountDetails));

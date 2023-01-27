@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { getSpecificAccountAssetsAction } from '../../../../../../actions/assets';
 import { TableLoader } from '../../../../../components/TableLoader';
 import { getModalDataSelector } from '../../../../../../selectors';
@@ -32,7 +32,7 @@ const headersList = [
 
 export const AssetsTable = () => {
   const dispatch = useDispatch();
-  const modalData = useSelector(getModalDataSelector);
+  const modalData = useSelector(getModalDataSelector, shallowEqual);
 
   const handleLoadData = useCallback(async ({ firstIndex, lastIndex }) => {
     const res = await dispatch(getSpecificAccountAssetsAction({

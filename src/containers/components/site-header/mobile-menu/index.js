@@ -9,6 +9,7 @@ import {
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setBodyModalParamsAction } from "../../../../modules/modals";
+import { getChainIdSelector } from "../../../../selectors";
 import smcAddress from "../../../../smc.json";
 
 const getNavLinkClass = (path) => {
@@ -17,9 +18,7 @@ const getNavLinkClass = (path) => {
 
 const MobileMenu = ({ closeMenu }) => {
   const dispatch = useDispatch();
-  const chainId = useSelector(
-    (state) => state.account.blockchainStatus.chainId
-  );
+  const chainId = useSelector(getChainIdSelector);
   const [smartContractAddress, setSmartContractAddress] = useState("#");
 
   useEffect(() => {

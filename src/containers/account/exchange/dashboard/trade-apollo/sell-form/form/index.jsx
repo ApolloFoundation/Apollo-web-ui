@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { shallowEqual, useSelector } from 'react-redux';
 import { Form, useFormikContext } from 'formik';
 import { ONE_GWEI } from '../../../../../../../constants/constants';
 import { multiply, division, numberToLocaleString } from '../../../../../../../helpers/format';
@@ -8,11 +8,12 @@ import NumericInput from '../../../../../../components/form-components/NumericIn
 import CustomInput from '../../../../../../components/custom-input/CustomInputWithFormik';
 import { InputRangeWithFormik } from '../../../../../../components/input-range/InputRangeWithFormik';
 import CustomSelect from '../../../../../../components/form-components/CustomSelect';
+import { getModalsSelector } from '../../../../../../../selectors';
 
 export default function SellForm(props) {
   const { values, setFieldValue, setValues } = useFormikContext();
 
-  const { infoSelectedSellOrder } = useSelector(state => state.modals);
+  const { infoSelectedSellOrder } = useSelector(getModalsSelector, shallowEqual);
 
   const {
     wallet, isPending, currency, dashboardAccoountInfo, balanceAPL, decimals, ticker,

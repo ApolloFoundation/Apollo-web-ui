@@ -1,10 +1,9 @@
 import React, {Component} from "react";
+import {connect} from "react-redux";
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {getTransactionsID} from "../../../../actions/transactions/index";
-import {connect} from "react-redux";
 import {getShufflingAction} from "../../../../actions/shuffling";
 import {getTransactionAction} from "../../../../actions/transactions";
-
 
 class ShufflingRecipients extends Component {
 	componentDidMount = () => {
@@ -87,14 +86,11 @@ class ShufflingRecipients extends Component {
 	}
 }
 
-const mapStateToProps = state => ({
-});
+const mapDispatchToProps = {
+	getShufflingAction,
+	setBodyModalParamsAction,
+	getTransactionsID,
+	getTransactionAction,
+};
 
-const mapDispatchToProps = dispatch => ({
-	getShufflingAction: (reqParams) => dispatch(getShufflingAction(reqParams)),
-	setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-	getTransactionsID: (publicKey) => dispatch(getTransactionsID(publicKey)),
-	getTransactionAction: (requestParams) => dispatch(getTransactionAction(requestParams)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ShufflingRecipients);
+export default connect(null, mapDispatchToProps)(ShufflingRecipients);

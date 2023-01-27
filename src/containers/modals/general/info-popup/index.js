@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import { getModalDataSelector } from '../../../../selectors';
 import ModalBody from '../../../components/modals/modal-body';
 
 class InfoPopup extends React.Component {
@@ -35,7 +36,7 @@ class InfoPopup extends React.Component {
 }
 
 const mapStateToProps = state => ({
-    modalData: state.modals.modalData,
+    modalData: getModalDataSelector(state),
 });
 
 export default connect(mapStateToProps, null)(InfoPopup);

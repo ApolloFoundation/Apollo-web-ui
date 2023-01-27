@@ -15,7 +15,7 @@ const holdingTypeData = [
     // { value: 2, label: 'Currency' },
 ];
 
-const CreateShufflngForm = (props) => {
+const CreateShufflngForm = () => {
     const ticker = useSelector(getTickerSelector);
 
     const { values } = useFormikContext();

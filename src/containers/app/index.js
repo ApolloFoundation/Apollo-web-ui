@@ -80,11 +80,21 @@ import OrderHistory from '../account/exchange/order-history';
 import OrderDetails from '../account/exchange/order-details';
 import ChooseWallet from '../account/exchange/choose-wallet';
 
+import {
+  getAccountSelector,
+  getBlockchainStatusSelector,
+  getBlockPageBodySelector,
+  getBodyModalTypeSelector,
+  getConstantsSelector,
+  getIsLocalhostSelector,
+  getLoadingSelector,
+  getModalTypeSelector
+} from '../../selectors';
+import { startBlockPullingAction } from '../../actions/blocks';
+
+import './window';
 import './App.scss';
 import './fonts.scss';
-
-import { startBlockPullingAction } from '../../actions/blocks';
-import './window';
 
 const ReactHint = ReactHintFactory(React);
 
@@ -327,7 +337,7 @@ class App extends React.Component {
               'hide-page-body': this.props.bodyModalType,
             })}
           >
-            {this.props.blockchainStatus && (
+            {this.props.appState && (
             <BlocksDownloader />
             )}
 
@@ -374,17 +384,15 @@ class App extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  account: state.account.account,
-  loading: state.account.loading,
-  blockPageBody: state.account.blockPageBody,
-  constants: state.account.constants,
-  appState: state.account.blockchainStatus,
-
+  account:  getAccountSelector(state),
+  loading: getLoadingSelector(state),
+  blockPageBody: getBlockPageBodySelector(state),
+  constants: getConstantsSelector(state),
+  appState: getBlockchainStatusSelector(state),
   // modals
-  modalType: state.modals.modalType,
-  isLocalhost: state.account.isLocalhost,
-  blockchainStatus: state.account.blockchainStatus,
-  bodyModalType: state.modals.bodyModalType,
+  modalType: getModalTypeSelector(state),
+  isLocalhost:  getIsLocalhostSelector(state),
+  bodyModalType: getBodyModalTypeSelector(state),
 });
 
 const mapDispatchToProps = dispatch => ({

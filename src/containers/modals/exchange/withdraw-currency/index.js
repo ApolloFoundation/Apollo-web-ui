@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState } from 'react';
-import { useSelector, useDispatch} from 'react-redux';
+import { useSelector, useDispatch, shallowEqual} from 'react-redux';
 import {NotificationManager} from 'react-notifications';
 import { walletWithdraw} from '../../../../actions/wallet';
 import {currencyTypes} from '../../../../helpers/format';
@@ -11,8 +11,8 @@ import { WithdrawCurrencyFee } from './WithdrawCurrencyFee';
 const WithdrawCurrency = ({ closeModal,  }) => {
     const dispatch = useDispatch();
     const [isPending, setIsPending] = useState(false);
-    const modalData = useSelector(getModalDataSelector);
-    const constants = useSelector(getConstantsSelector);
+    const modalData = useSelector(getModalDataSelector, shallowEqual);
+    const constants = useSelector(getConstantsSelector, shallowEqual);
     const account = useSelector(getAccountSelector);
 
     const handleFormSubmit = useCallback(async ({ secretPhrase, asset, ...values }) => {

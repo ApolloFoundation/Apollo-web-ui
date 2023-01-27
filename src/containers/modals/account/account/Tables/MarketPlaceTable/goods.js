@@ -1,13 +1,14 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { getDecimalsSelector, getTickerSelector } from '../../../../../../selectors';
 import { setBodyModalParamsAction } from '../../../../../../modules/modals';
 
 const Goods = ({
   name, goods, quantity, priceATM,
 }) => {
   const dispatch = useDispatch();
-
-  const { decimals, ticker } = useSelector(state => state.account);
+  const decimals = useSelector(getDecimalsSelector);
+  const ticker = useSelector(getTickerSelector);
 
   return (
     <tr className="marketplace-tab-item">

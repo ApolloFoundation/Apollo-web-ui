@@ -1,5 +1,5 @@
 import React, { useMemo, useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
 import { formatTimestamp } from '../../../../helpers/util/time';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
@@ -8,6 +8,7 @@ import { readFromLocalStorage } from '../../../../actions/localStorage';
 import { ReactComponent as ClockIcon } from '../../../../assets/clock-icon.svg';
 import ContentLoader from '../../../components/content-loader';
 import Button from '../../../components/button';
+import { getAccountInfoSelector } from '../../../../selectors';
 
 export default function BlockchainStatus() {
   const dispatch = useDispatch();
@@ -15,7 +16,7 @@ export default function BlockchainStatus() {
   const {
     effectiveBalanceAPL, passPhrase: secretPhrase, is2FA, actualBlock,
     timestamp, blockchainStatus, forgingStatus, accountRS,
-  } = useSelector(state => state.account);
+  } = useSelector(getAccountInfoSelector, shallowEqual);
 
   const setForgingData = action => ({
     getStatus: action,

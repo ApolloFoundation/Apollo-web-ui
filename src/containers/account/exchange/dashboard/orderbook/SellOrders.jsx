@@ -1,19 +1,18 @@
 import React, {
   useEffect, useState, useCallback,
 } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { getSellOpenOffers } from '../../../../../actions/wallet';
 import { setSelectedOrderInfo } from '../../../../../modules/modals';
 import { formatDivision } from '../../../../../helpers/format';
 import { ONE_GWEI } from '../../../../../constants/constants';
 import CustomTable from '../../../../components/tables/table1';
+import { getExchangeInfoSelector } from '../../../../../selectors';
 
-export default function SellOrders(props) {
+export default function SellOrders({ currentCurrency, sellOrders, ticker }) {
   const dispatch = useDispatch();
 
-  const { sellOrdersPagination: ordersPagination } = useSelector(state => state.exchange);
-
-  const { currentCurrency, sellOrders, ticker } = props;
+  const { sellOrdersPagination: ordersPagination } = useSelector(getExchangeInfoSelector, shallowEqual);
 
   const [currency, setCurrency] = useState(null);
 

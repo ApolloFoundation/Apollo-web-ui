@@ -1,7 +1,7 @@
 import React, {
   useCallback, useState, useEffect,
 } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
 import { setCurrentCurrencyAction } from '../../../../modules/exchange';
 import { setBodyModalParamsAction, resetTrade } from '../../../../modules/modals';
@@ -18,6 +18,7 @@ import SiteHeader from '../../../components/site-header';
 import InfoBox from '../../../components/info-box';
 import { useExchangeWalletConverts } from '../../../../hooks/useExchangeWalletConverts';
 import { readFromLocalStorage } from '../../../../actions/localStorage';
+import { getAccountInfoSelector, getExchangeInfoSelector } from '../../../../selectors';
 import TradeHistoryExchange from './trade-history';
 import TradeApollo from './trade-apollo';
 import OpenOrders from './open-orders';
@@ -28,12 +29,12 @@ export default function Exchange() {
   const dispatch = useDispatch();
   const { converWallets } = useExchangeWalletConverts();
 
-  const { wallets, ticker } = useSelector(state => state.account);
+  const { wallets, ticker } = useSelector(getAccountInfoSelector, shallowEqual);
 
   const {
     currencies, currentCurrency, buyOrders, sellOrders,
     plotBuyOrders, plotSellOrders, myOrders,
-  } = useSelector(state => state.exchange);
+  } = useSelector(getExchangeInfoSelector, shallowEqual);
 
   const [currWallets, setCurrWallets] = useState(null);
 

@@ -5,7 +5,7 @@
 
 
 import React, { useCallback, useEffect, useState } from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch, useSelector, shallowEqual} from 'react-redux';
 import {getBlockAction} from "../../../../actions/blocks";
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../../helpers/forms/forms";
@@ -20,7 +20,7 @@ const JoinShuffling = ({ closeModal }) => {
     const dispatch = useDispatch();
     const [shuffling, setShuffling] = useState(null);
     const [isPending, setIsPending] = useState(false);
-    const modalData = useSelector(getModalDataSelector);
+    const modalData = useSelector(getModalDataSelector, shallowEqual);
 
     const handleFormSubmit = useCallback(async(values) => {
         setIsPending(true);

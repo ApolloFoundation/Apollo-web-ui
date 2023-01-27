@@ -1,8 +1,7 @@
 import React, {Component} from "react";
 import {connect} from 'react-redux';
+import { getConstantsSelector } from "../../../../selectors";
 import {getCurrencyAction} from "../../../../actions/currencies";
-import {formatTimestamp} from "../../../../helpers/util/time";
-
 
 class CurrencyTransfer extends Component {
 
@@ -52,12 +51,11 @@ class CurrencyTransfer extends Component {
 }
 
 const mapStateToProps = state => ({
-    constants: state.account.constants,
+    constants: getConstantsSelector(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-    getCurrencyAction: (reqParams) => dispatch(getCurrencyAction(reqParams)),
-});
-
+const mapDispatchToProps = {
+    getCurrencyAction
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(CurrencyTransfer)

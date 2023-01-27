@@ -8,12 +8,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
 import crypto from '../../../../helpers/crypto/crypto';
 import converters from '../../../../helpers/converters';
-import { getAccountInfoSelector } from '../../../../selectors';
+import { getDecimalsSelector } from '../../../../selectors';
 
 export default function Asset(props) {
   const dispatch = useDispatch();
 
-  const { decimals } = useSelector(getAccountInfoSelector);
+  const decimals = useSelector(getDecimalsSelector);
 
   const {
     entry, publicKey, privateKey, sharedKey,

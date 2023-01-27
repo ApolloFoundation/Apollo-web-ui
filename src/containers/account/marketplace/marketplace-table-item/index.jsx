@@ -5,13 +5,14 @@
 
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { getDecimalsSelector, getTickerSelector } from '../../../../selectors';
 import { numberToLocaleString } from 'helpers/format';
 import { setBodyModalParamsAction } from 'modules/modals';
 
 const MarketplaceTableItem = props => {
   const dispatch = useDispatch();
-  const decimals = useSelector(state => state.account.decimals);
-  const ticker = useSelector(state => state.account.ticker);
+  const decimals = useSelector(getDecimalsSelector);
+  const ticker = useSelector(getTickerSelector);
 
   const handleInfoTransation = () => dispatch(setBodyModalParamsAction('INFO_TRANSACTION', props.goods));
 

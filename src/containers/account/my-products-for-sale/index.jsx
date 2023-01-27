@@ -11,10 +11,11 @@ import SiteHeader from  '../../components/site-header'
 import {setBodyModalParamsAction } from "../../../modules/modals";
 import {getDGSGoodsAction} from "../../../actions/marketplace";
 import { TableLoader } from '../../components/TableLoader';
+import { getAccountSelector } from '../../../selectors';
 
 const MyProductsForSale = () => {
     const dispatch = useDispatch();
-    const account = useSelector(state => state.account.account);
+    const account = useSelector(getAccountSelector);
 
     const getDGSGoods = useCallback(async ({ firstIndex, lastIndex }) => {
         const { goods } = await dispatch(getDGSGoodsAction({

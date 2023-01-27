@@ -5,14 +5,14 @@
 
 
 import React, { useCallback } from 'react';
-import {useSelector} from 'react-redux';
+import {useSelector, shallowEqual} from 'react-redux';
 import {NotificationManager} from "react-notifications";
 import ModalBody from '../../../components/modals/modal-body';
 import { getModalDataSelector } from '../../../../selectors';
 import TransferAssetFrom from './form';
 
 const TransferAsset = ({ processForm, closeModal, nameModal }) => {
-    const modalData = useSelector(getModalDataSelector);
+    const modalData = useSelector(getModalDataSelector, shallowEqual);
     const handleFormSubmit = useCallback(async(values) => {
         const data = {
             ...values,

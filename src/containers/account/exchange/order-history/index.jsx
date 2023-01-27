@@ -1,7 +1,7 @@
 import React, {
   useCallback, useState, useEffect,
 } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { ALL_STATUSES } from '../../../../constants/statuses';
 import { ONE_GWEI } from '../../../../constants/constants';
@@ -14,13 +14,14 @@ import SiteHeader from '../../../components/site-header';
 import InfoBox from '../../../components/info-box';
 import Button from '../../../components/button';
 import { readFromLocalStorage } from '../../../../actions/localStorage';
+import { getAccountInfoSelector, getExchangeInfoSelector } from '../../../../selectors';
 
 export default function OrderHistory() {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const { wallets, ticker } = useSelector(state => state.account);
-  const { myOrderHistory } = useSelector(state => state.exchange);
+  const { wallets, ticker } = useSelector(getAccountInfoSelector, shallowEqual);
+  const { myOrderHistory } = useSelector(getExchangeInfoSelector, shallowEqual);
 
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(1);

@@ -5,7 +5,7 @@
 
 
 import React, { useCallback, useEffect, useState } from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch, useSelector, shallowEqual} from 'react-redux';
 import {getDGSGoodAction} from "../../../../actions/marketplace";
 import classNames from 'classnames';
 import config from '../../../../config';
@@ -17,7 +17,7 @@ import { useFormatTimestamp } from '../../../../hooks/useFormatTimestamp';
 const MarketplaceProductDetails = ({ closeModal }) => {
     const dispatch = useDispatch();
     const [goods, setGoods] = useState(null);
-    const modalData = useSelector(getModalDataSelector);
+    const modalData = useSelector(getModalDataSelector, shallowEqual);
     const decimals = useSelector(getDecimalsSelector);
     const ticker = useSelector(getTickerSelector);
     const format = useFormatTimestamp();

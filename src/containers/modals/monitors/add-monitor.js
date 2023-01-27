@@ -5,7 +5,7 @@
 
 
 import React, { useCallback } from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch, useSelector, shallowEqual} from 'react-redux';
 import InfoBox from '../../components/info-box';
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../helpers/forms/forms";
@@ -15,7 +15,7 @@ import ModalBody from '../../components/modals/modal-body';
 
 const AddMonitor = (props) => {
     const dispatch = useDispatch();
-    const modalData = useSelector(getModalDataSelector);
+    const modalData = useSelector(getModalDataSelector, shallowEqual);
 
     const handleFormSubmit = useCallback(async values => {
         if (!values.secretPhrase) {

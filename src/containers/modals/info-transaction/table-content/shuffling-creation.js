@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {getShufflingAction} from "../../../../actions/shuffling";
 import {connect} from "react-redux";
 import {setBodyModalParamsAction} from "../../../../modules/modals";
+import { getConstantsSelector } from "../../../../selectors";
 
 function Stage (number) {
 	if(number === "0"){
@@ -13,17 +14,12 @@ function Stage (number) {
 	}else if (number === "5") {
 	    return 'Done';
 	}
-
 }
 
 class ShufflingCreation extends Component {
-	constructor(props) {
-		super(props);
-
-		this.state = {
-			shuffling: null
-		};
-	}
+	state = {
+		shuffling: null
+	};
 
 	getShuffling = async () => {
 		const shuffling = await this.props.getShufflingAction({
@@ -108,13 +104,12 @@ class ShufflingCreation extends Component {
 
 
 const mapStateToProps = state => ({
-	constants: state.account.constants,
+	constants: getConstantsSelector(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-	setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-	getShufflingAction: (reqParams) => dispatch(getShufflingAction(reqParams)),
-});
-
+const mapDispatchToProps = {
+	setBodyModalParamsAction,
+	getShufflingAction,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ShufflingCreation);

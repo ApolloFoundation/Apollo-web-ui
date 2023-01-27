@@ -7,6 +7,7 @@ import AdvancedSettings from '../advanced-transaction-settings';
 import {openPrevModal, saveSendModalState} from "../../../modules/modals";
 import BackForm from '../../modals/modal-form/modal-form-container';
 import { FeeWrapper } from '../form-components/FeeWrapper';
+import { getModalDataSelector, getModalHistorySelector } from '../../../selectors';
 import { ModalBodyMarketplace } from './ModalBodyMarketplace'
 
 
@@ -117,8 +118,8 @@ const ModalBody = (props) => {
 }
 
 const mapStateToProps = state => ({
-    modalData: state.modals.modalData,
-    modalsHistory: state.modals.modalsHistory,
+    modalData: getModalDataSelector(state),
+    modalsHistory: getModalHistorySelector(state),
 });
 
 const mapDispatchToProps = {

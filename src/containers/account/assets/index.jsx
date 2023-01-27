@@ -3,7 +3,8 @@
  *                                                                            *
  ***************************************************************************** */
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
+import { getAssetsSelector } from '../../../selectors';
 import { getAssets } from '../../../modules/assets';
 import SiteHeader from '../../components/site-header';
 import CustomTable from '../../components/tables/table1';
@@ -12,7 +13,7 @@ import AssetItem from './asset-item';
 export default function Assets() {
   const dispatch = useDispatch();
 
-  const { assets, assetsPage } = useSelector(state => state.assets);
+  const { assets, assetsPage } = useSelector(getAssetsSelector, shallowEqual);
 
   useEffect(() => {
     dispatch(getAssets());

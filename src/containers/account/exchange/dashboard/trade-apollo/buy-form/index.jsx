@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { Formik } from 'formik';
 import { NotificationManager } from 'react-notifications';
 import { currencyTypes, multiply, numberToLocaleString } from '../../../../../../helpers/format';
@@ -9,20 +9,19 @@ import {
   setBodyModalParamsAction, resetTrade, setSelectedOrderInfo,
 } from '../../../../../../modules/modals';
 import BuyForm from './form';
+import {
+  getAccountInfoSelector, getDashboardInfoSelector, getExchangeInfoSelector
+} from '../../../../../../selectors';
 
 const feeATM = 200000000;
 
-export default function BuyFormWrapper(props) {
+export default function BuyFormWrapper({ wallet, handleLoginModal, ethFee, ticker }) {
   const dispatch = useDispatch();
-  const { currentCurrency } = useSelector(state => state.exchange);
-  const { dashboardAccoountInfo } = useSelector(state => state.dashboard);
-  const { unconfirmedBalanceATM: balanceAPL, account, passPhrase } = useSelector(state => state.account);
+  const { currentCurrency } = useSelector(getExchangeInfoSelector, shallowEqual);
+  const { dashboardAccoountInfo } = useSelector(getDashboardInfoSelector, shallowEqual);
+  const { unconfirmedBalanceATM: balanceAPL, account, passPhrase } = useSelector(getAccountInfoSelector, shallowEqual);
 
   const { currency } = currentCurrency;
-
-  const {
-    wallet, handleLoginModal, ethFee, ticker,
-  } = props;
 
   const [isPending, setIsPending] = useState(false);
 

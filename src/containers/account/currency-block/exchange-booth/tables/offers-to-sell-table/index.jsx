@@ -23,7 +23,7 @@ export default function OffersToSellTable({ currencyInfo, setMinimumSellRate }) 
 
     const values = Math.min(...offers.map(el => el.rateATM));
 
-    const minRate = offers.length && Number.isFinite(values) ? values : 0; 
+    const minRate = offers.length && Number.isFinite(values) ? values : '0'; 
     setMinimumSellRate(minRate);
     return offers;
   }, [currency, dispatch, setMinimumSellRate]);

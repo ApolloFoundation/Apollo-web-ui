@@ -6,6 +6,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
+import { getAccountSelector, getDecimalsSelector } from '../../../../selectors';
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 
 const Alias = (props) => {
@@ -64,12 +65,12 @@ const Alias = (props) => {
 }
 
 const mapStateToProps = state => ({
-    account: state.account.account,
-    decimals: state.account.decimals,
+    account: getAccountSelector(state),
+    decimals: getDecimalsSelector(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-});
+const mapDispatchToProps = {
+    setBodyModalParamsAction,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Alias);

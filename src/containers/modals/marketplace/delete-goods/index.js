@@ -5,7 +5,7 @@
 
 
 import React, { useCallback, useEffect, useState } from 'react';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch, useSelector, shallowEqual} from 'react-redux';
 import {NotificationManager} from "react-notifications";
 import {getDGSGoodAction} from "../../../../actions/marketplace";
 import config from '../../../../config';
@@ -21,7 +21,7 @@ const MarketplaceDelete = ({ closeModal }) =>  {
     const [goods, setGoods] = useState(null);
     const [isPending, setIsPending] = useState(false);
 
-    const modalData = useSelector(getModalDataSelector);
+    const modalData = useSelector(getModalDataSelector, shallowEqual);
     const account = useSelector(getAccountRsSelector);
     const format = useFormatTimestamp();
 

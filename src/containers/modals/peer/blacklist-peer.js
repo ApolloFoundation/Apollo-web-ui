@@ -5,7 +5,7 @@
 
 
 import React, { useCallback, useState } from 'react';
-import {useSelector} from 'react-redux';
+import {useSelector, shallowEqual} from 'react-redux';
 import {NotificationManager} from "react-notifications";
 import InfoBox from '../../components/info-box';
 import CustomInput from '../../components/custom-input/CustomInputWithFormik';
@@ -13,7 +13,7 @@ import { getModalDataSelector, getAccountPublicKeySelector } from '../../../sele
 import ModalBody from '../../components/modals/modal-body';
 
 const BlacklistPeer = (props) => {
-    const modalData = useSelector(getModalDataSelector);
+    const modalData = useSelector(getModalDataSelector, shallowEqual);
     const publicKey = useSelector(getAccountPublicKeySelector);
     const [isPending, setIsPending] = useState(false);
 

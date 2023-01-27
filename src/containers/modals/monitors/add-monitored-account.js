@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import submitForm from '../../../helpers/forms/forms';
 import CustomInput from '../../components/custom-input/CustomInputWithFormik';
 import ModalBody from '../../components/modals/modal-body';
@@ -8,7 +8,7 @@ import { getModalDataSelector, getTickerSelector } from '../../../selectors';
 
 const AddMonitoredAccount = (props) =>  {
     const dispatch = useDispatch();
-    const modalData = useSelector(getModalDataSelector);
+    const modalData = useSelector(getModalDataSelector, shallowEqual);
     const ticker = useSelector(getTickerSelector);
     const [isPending, setIsPending] = useState();
 

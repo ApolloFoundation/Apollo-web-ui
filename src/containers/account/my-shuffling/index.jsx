@@ -10,9 +10,9 @@ import SiteHeader from '../../components/site-header';
 import { TableLoader } from '../../components/TableLoader';
 import {getAccountShufflingsAction} from '../../../actions/shuffling';
 import {getTransactionAction} from '../../../actions/transactions';
-import ShufflingItem from './shuffling-item/index'
 import {setBodyModalParamsAction} from '../../../modules/modals';
 import { getAccountSelector } from '../../../selectors';
+import ShufflingItem from './shuffling-item/index'
 
 const MyShufling = () => {
     const dispatch = useDispatch();

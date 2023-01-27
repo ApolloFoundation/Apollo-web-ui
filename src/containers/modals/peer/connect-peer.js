@@ -5,7 +5,7 @@
 
 
 import React, { useCallback, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../helpers/forms/forms";
 import TextualInput from '../../components/form-components/TextualInput';
@@ -15,7 +15,7 @@ import { getModalDataSelector } from '../../../selectors';
 const ConnectPeer = ({ closeModal }) => {
     const dispatch = useDispatch();
     const [isPending, setIsPending] = useState(false);
-    const modalData = useSelector(getModalDataSelector);
+    const modalData = useSelector(getModalDataSelector, shallowEqual);
 
     const handleFormSubmit = useCallback(async (values) => {
         setIsPending(true);

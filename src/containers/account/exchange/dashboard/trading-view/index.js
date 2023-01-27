@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
+import { getExchangeCurrencySelector, getTickerSelector } from '../../../../../selectors';
 import config from '../../../../../config';
 import './index.scss';
 
@@ -99,9 +100,9 @@ class TradingView extends React.PureComponent {
 	}
 }
 
-const mapStateToProps = ({exchange, account}) => ({
-    currency: exchange.currentCurrency.currency,
-    ticker: account.ticker,
+const mapStateToProps = (state) => ({
+    currency: getExchangeCurrencySelector(state),
+    ticker: getTickerSelector(state),
 });
 
 export default connect(mapStateToProps, null)(TradingView)

@@ -1,7 +1,8 @@
 import React, {
   useState, useCallback, useEffect,
 } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+import { getDecimalsSelector, getModalsSelector } from '../../../../../selectors';
 import { getTransactionFee } from '../../../../../actions/wallet';
 import { setTypeOfTrade, resetTrade } from '../../../../../modules/modals';
 import BuyForm from './buy-form';
@@ -10,13 +11,11 @@ import SellForm from './sell-form';
 const feeATM = 200000000;
 const ethMinTxFee = 0.002;
 
-export default function TradeApollo(props) {
+export default function TradeApollo({ wallet, handleLoginModal, ticker }) {
   const dispatch = useDispatch();
 
-  const { typeOfTrade } = useSelector(state => state.modals);
-  const { decimals } = useSelector(state => state.account);
-
-  const { wallet, handleLoginModal, ticker } = props;
+  const { typeOfTrade } = useSelector(getModalsSelector, shallowEqual);
+  const decimals = useSelector(getDecimalsSelector);
 
   const [maxFee, setMaxFee] = useState();
 

@@ -1,12 +1,13 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import {useParams} from 'react-router-dom';
-import {connect} from 'react-redux';
-import {handleSendMessageFormSubmit} from './handleFormSubmit';
-import classNames from "classnames";
 import { Form, FormikProvider, useFormik } from 'formik';
-import CustomTextArea from 'containers/components/form-components/TextArea/TextAreaWithFormik';
-import CheckboxFormInput from 'containers/components/check-button-input/CheckboxWithFormik';
-import TextualInputComponent from 'containers/components/form-components/TextualInput';
+import {connect} from 'react-redux';
+import classNames from "classnames";
+import CustomTextArea from '../../../components/form-components/TextArea/TextAreaWithFormik';
+import CheckboxFormInput from '../../../components/check-button-input/CheckboxWithFormik';
+import TextualInputComponent from '../../../components/form-components/TextualInput';
+import { get2FASelector } from '../../../../selectors';
+import {handleSendMessageFormSubmit} from './handleFormSubmit';
 import styles from './index.module.scss';
 
 const ChatForm = (props) => {
@@ -114,7 +115,7 @@ const mapDispatchToProps = {
 };
 
 const mapStateToProps = state => ({
-    is2FA: state.account.is2FA
+    is2FA: get2FASelector(state),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatForm);

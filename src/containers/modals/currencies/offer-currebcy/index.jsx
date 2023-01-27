@@ -6,7 +6,7 @@
 import React, {
   useState, useEffect, useCallback,
 } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
 import { getAccountCurrenciesAction } from '../../../../actions/currencies';
 import ModalBody from '../../../components/modals/modal-body';
@@ -19,7 +19,7 @@ import { handleFormSubmit } from './handle-form-submit';
 export default function OfferCurrency({ closeModal }) {
   const dispatch = useDispatch();
 
-  const modalData = useSelector(getModalDataSelector);
+  const modalData = useSelector(getModalDataSelector, shallowEqual);
   const ticker = useSelector(getTickerSelector);
   const account = useSelector(getAccountSelector);
 

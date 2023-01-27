@@ -4,7 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setBodyModalParamsAction } from '../../../modules/modals';
 import { getDashboardData } from '../../../actions/dashboard';
 import SiteHeader from '../../components/site-header';
-
+import TwitterBanner from "../../../assets/dashboard-safe.jpeg";
+import InfoBanner from "../../../assets/dashboard-knox.jpeg";
+import { getAccountSelector, getActualBlockSelector } from '../../../selectors';
 import TotalBalance from './total-balance';
 import MyTransactions from './my-transactions';
 import BlockchainStatus from './blockchain-status';
@@ -13,17 +15,11 @@ import StayInTouch from './stay-in-touch';
 import ActivePolls from './active-polls';
 import InfoStatistic from './info-statistic';
 
-import TwitterBanner from "../../../assets/dashboard-safe.jpeg";
-import InfoBanner from "../../../assets/dashboard-knox.jpeg";
-
-export default function Dashboard(props) {
+export default function Dashboard({ isShareMessage, shareMessageTransaction }) {
   const dispatch = useDispatch();
 
-  const {
-    actualBlock, account, decimals, ticker,
-  } = useSelector(state => state.account);
-
-  const { isShareMessage, shareMessageTransaction } = props;
+  const actualBlock = useSelector(getActualBlockSelector);
+  const account = useSelector(getAccountSelector);
 
   useEffect(() => {
     if (isShareMessage) {
@@ -46,10 +42,7 @@ export default function Dashboard(props) {
           <div className="cards-wrap row">
             <div className="col-lg-3 col-md-4 col-sm-12 p-0">
               <div className="d-flex flex-column">
-                <TotalBalance
-                  decimals={decimals}
-                  ticker={ticker}
-                />
+                <TotalBalance />
                 <MyTransactions />
               </div>
             </div>

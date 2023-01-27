@@ -4,7 +4,7 @@
  ***************************************************************************** */
 
 import React, { useState, useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
 import { setBodyModalParamsAction } from '../../../modules/modals';
 import {
@@ -23,7 +23,7 @@ export default function SendApollo({ closeModal, processForm }) {
 
   const [alias, setAlias] = useState(null);
 
-  const modalData = useSelector(getModalDataSelector);
+  const modalData = useSelector(getModalDataSelector, shallowEqual);
   const account = useSelector(getAccountSelector);
   const ticker = useSelector(getTickerSelector);
   const decimals = useSelector(getDecimalsSelector);

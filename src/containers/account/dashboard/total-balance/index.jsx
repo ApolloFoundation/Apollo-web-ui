@@ -1,17 +1,21 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
 import ContentLoader from '../../../components/content-loader';
+import {
+  getDashboardInfoSelector,
+  getDecimalsSelector,
+  getTickerSelector
+} from '../../../../selectors';
 import { numberToLocaleString } from 'helpers/format';
 
-const TotalBalance = props => {
+const TotalBalance = () => {
   const dispatch = useDispatch();
-
-  const { decimals, ticker } = props;
-
-  const { dashboardAccoountInfo } = useSelector(state => state.dashboard);
+  const decimals = useSelector(getDecimalsSelector);
+  const ticker = useSelector(getTickerSelector);
+  const { dashboardAccoountInfo } = useSelector(getDashboardInfoSelector, shallowEqual);
 
   const balanceAPL = (dashboardAccoountInfo && dashboardAccoountInfo.unconfirmedBalanceATM)
     ? numberToLocaleString(dashboardAccoountInfo.unconfirmedBalanceATM / decimals, {

@@ -4,7 +4,7 @@
  ***************************************************************************** */
 
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { Link } from 'react-router-dom';
 import classNames from 'classnames';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
@@ -13,7 +13,7 @@ import { getAccountInfoSelector } from '../../../../selectors';
 
 const PoolItem = props => {
   const dispatch = useDispatch();
-  const {decimals, actualBlock, unconfirmedBalanceATM} = useSelector(getAccountInfoSelector);
+  const {decimals, actualBlock, unconfirmedBalanceATM} = useSelector(getAccountInfoSelector, shallowEqual);
   const blocksLeft = parseInt(props.finishHeight) - parseInt(actualBlock);
 
   let isDisableVoteButton = props.minBalanceModel === 1 && parseFloat(props.minBalance) >= (unconfirmedBalanceATM / decimals);

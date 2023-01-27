@@ -6,9 +6,10 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
+import { getIsLocalhostSelector } from '../../../../selectors';
 
 const mapStateToProps = state => ({
-    isLocalhost: state.account.isLocalhost,
+    isLocalhost: getIsLocalhostSelector(state),
 });
 
 const Peer = (props) => (

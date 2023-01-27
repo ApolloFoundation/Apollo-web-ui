@@ -4,7 +4,7 @@
  ***************************************************************************** */
 
 import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
 import CustomInput from '../../components/custom-input/CustomInputWithFormik';
 import CustomTextArea from '../../components/form-components/TextArea/TextAreaWithFormik';
@@ -14,7 +14,7 @@ import { getModalDataSelector } from '../../../selectors';
 export default function RawTransactionDetails({ closeModal, processForm }) {
   const dispatch = useDispatch();
 
-  const modalData = useSelector(getModalDataSelector);
+  const modalData = useSelector(getModalDataSelector, shallowEqual);
 
   const handleFormSubmit = useCallback(async values => {
     const data = {

@@ -6,27 +6,23 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {setModalData, setModalType, setBodyModalParamsAction, saveSendModalState, openPrevModal} from '../../../modules/modals';
+import {setModalType } from '../../../modules/modals';
 import {setAccountPassphrase} from '../../../modules/account';
 import crypto from  '../../../helpers/crypto/crypto';
-
 import ModalBody from '../../components/modals/modal-body';
 import { writeToLocalStorage } from '../../../actions/localStorage';
+import { getAccountPublicKeySelector, getModalHistorySelector } from '../../../selectors';
 
 const mapStateToProps = state => ({
-    publicKey: state.account.publicKey,
-    modalsHistory: state.modals.modalsHistory,
+    publicKey: getAccountPublicKeySelector(state),
+    modalsHistory: getModalHistorySelector(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-    setModalData: (data) => dispatch(setModalData(data)),
-    setModalType: (passphrase) => dispatch(setModalType(passphrase)),
-    setBodyModalParamsAction: (passphrase) => dispatch(setBodyModalParamsAction(passphrase)),
-    validatePassphrase: (passphrase) => dispatch(crypto.validatePassphrase(passphrase)),
-    setAccountPassphrase: (passphrase) => dispatch(setAccountPassphrase(passphrase)),
-    saveSendModalState: (Params) => dispatch(saveSendModalState(Params)),
-	openPrevModal: () => dispatch(openPrevModal()),
-});
+const mapDispatchToProps = {
+    setModalType,
+    validatePassphrase: crypto.validatePassphrase,
+    setAccountPassphrase,
+};
 class DecryptMessage extends React.Component {
     state = {
         passphraseStatus: false

@@ -22,13 +22,14 @@ import PollDescription from './poll-description';
 import {getAssetAction} from "../../../actions/assets";
 import {getCurrencyAction} from "../../../actions/currencies";
 import ContentLoader from "../../components/content-loader";
+import { getFollowedPollsSelector } from '../../../selectors';
 import SidebarItem from './sidebar-item';
 import PollRequest from  './poll-request';
 import '../messenger/Messenger.scss';
 import './FollowedPools.css';
 
 const mapStateToProps = state => ({
-    followedPolls: state.polls.followedPolls
+    followedPolls: getFollowedPollsSelector(state),
 });
 
 const mapDispatchToProps = {

@@ -1,6 +1,6 @@
 import { TableLoader } from 'containers/components/TableLoader';
 import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch, useSelector, shallowEqual } from "react-redux"
 import { getModalDataSelector } from 'selectors';
 
 export const AccountTableBase = ({
@@ -12,7 +12,7 @@ export const AccountTableBase = ({
   keyField
 }) => {
   const dispatch = useDispatch();
-  const modalData = useSelector(getModalDataSelector);
+  const modalData = useSelector(getModalDataSelector, shallowEqual);
 
   const handleLoadData = useCallback(async ({ firstIndex, lastIndex }) => {
     const res = await dispatch(actionCallback({

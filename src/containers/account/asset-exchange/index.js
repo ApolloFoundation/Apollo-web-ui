@@ -5,7 +5,7 @@
 
 
 import React, { useCallback, useEffect, useState } from 'react';
-import { useDispatch, useSelector} from 'react-redux';
+import { useDispatch, useSelector, shallowEqual} from 'react-redux';
 import SiteHeader from '../../components/site-header'
 import {Link} from 'react-router-dom';
 import {getAssetAction, getSpecificAccountAssetsAction} from "../../../actions/assets";
@@ -30,7 +30,7 @@ const AssetExchange = (props) => {
         decimals,
         ticker,
         assetBalances,
-    } = useSelector(getAccountInfoSelector);
+    } = useSelector(getAccountInfoSelector, shallowEqual);
     const [state, setState] = useState({
         asset: null,
         assets: null,

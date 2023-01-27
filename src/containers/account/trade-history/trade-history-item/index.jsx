@@ -9,11 +9,11 @@ import { Link } from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {formatTimestamp} from "../../../../helpers/util/time";
-import { getAccountInfoSelector } from '../../../../selectors';
+import { getDecimalsSelector } from '../../../../selectors';
 
 const TradeHistoryItem = ({ ...transfer }) => {
     const dispatch = useDispatch();
-    const { decimals } = useSelector(getAccountInfoSelector);
+    const decimals = useSelector(getDecimalsSelector);
 
     const handleTime = (time) => dispatch(formatTimestamp(time));
 

@@ -5,7 +5,7 @@
 
 
 import React, { useCallback } from 'react';
-import {useSelector} from 'react-redux';
+import {useSelector, shallowEqual} from 'react-redux';
 import {NotificationManager} from 'react-notifications';
 import {removeAccountAction} from '../../../actions/account';
 import InfoBox from '../../components/info-box';
@@ -16,7 +16,7 @@ import { getModalDataSelector } from 'selectors';
 import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
 
 const DeleteAccountFromWebNode = (props) => {
-    const modalData = useSelector(getModalDataSelector);
+    const modalData = useSelector(getModalDataSelector, shallowEqual);
     const downloadFile = useDownloadFile(modalData);
 
     const handleFormSubmit = useCallback(async (values) => {

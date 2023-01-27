@@ -5,7 +5,7 @@
 
 
 import React, { useCallback } from 'react';
-import {useSelector} from 'react-redux';
+import {useSelector, shallowEqual} from 'react-redux';
 import {NotificationManager} from "react-notifications";
 import ModalBody from '../../components/modals/modal-body';
 import TextualInputComponent from '../../components/form-components/TextualInput';
@@ -18,9 +18,9 @@ import {
 import CustomInput from '../../components/custom-input/CustomInputWithFormik';
 
 const BuyAsset = ({ processForm, closeModal, nameModal }) => {
-    const modalData = useSelector(getModalDataSelector);
+    const modalData = useSelector(getModalDataSelector, shallowEqual);
     const decimals = useSelector(getDecimalsSelector);
-    const modalCallback = useSelector(getModalCallbackSelector);
+    const modalCallback = useSelector(getModalCallbackSelector, shallowEqual);
     const ticker = useSelector(getTickerSelector);
 
     const handleFormSubmit = useCallback((values) => {

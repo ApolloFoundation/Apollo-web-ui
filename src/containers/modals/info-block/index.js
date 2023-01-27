@@ -4,7 +4,7 @@
  ***************************************************************************** */
 
 import React, { useCallback, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { getBlockAction } from '../../../actions/blocks';
 import Transaction from '../../account/transactions/transaction';
 import CustomTable from '../../components/tables/table';
@@ -21,7 +21,7 @@ const InfoBlock = () => {
   const dispatch = useDispatch();
   const [blockInfo, setBlockInfo] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  const modalData = useSelector(getModalDataSelector); 
+  const modalData = useSelector(getModalDataSelector, shallowEqual); 
   const decimals = useSelector(getDecimalsSelector);
   const formatTimestamp = useFormatTimestamp();
 
@@ -43,7 +43,7 @@ const InfoBlock = () => {
 
   return (
     <ModalBody
-      modalTitle={`Block ${blockInfo?.block} (${blockInfo?.height}) info`}
+      modalTitle={`Block ${blockInfo?.block ?? ''} (${blockInfo?.height ?? ''}) info`}
       isXWide
       isDisableFormFooter
       isDisableSecretPhrase

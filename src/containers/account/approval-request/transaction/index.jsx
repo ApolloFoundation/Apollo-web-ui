@@ -12,7 +12,7 @@ import { useFormatTimestamp } from '../../../../hooks/useFormatTimestamp';
 
 export default function Transaction(props) {
   const dispatch = useDispatch();
-  const { decimals } = useSelector(getDecimalsSelector);
+  const decimals = useSelector(getDecimalsSelector);
   const handleTime = useFormatTimestamp();
 
   const {

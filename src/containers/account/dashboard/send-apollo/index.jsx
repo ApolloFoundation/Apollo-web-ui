@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { Form, Formik } from 'formik';
 import { NotificationManager } from 'react-notifications';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
@@ -11,13 +11,14 @@ import ContentLoader from '../../../components/content-loader';
 import CustomInput from '../../../components/custom-input/CustomInputWithFormik';
 import Button from '../../../components/button';
 import FeeInputForm from '../../../components/form-components/FeeInput/fee-input1';
+import { getDashboardInfoSelector } from '../../../../selectors';
 
 export default function SendApollo() {
   const dispatch = useDispatch();
 
   const [actionType, setActionType] = useState(0);
 
-  const { dashboardAccoountInfo } = useSelector(state => state.dashboard);
+  const { dashboardAccoountInfo } = useSelector(getDashboardInfoSelector, shallowEqual);
 
   const submitForm = useCallback(({
     type, recipient, amountATM, feeATM,

@@ -1,5 +1,5 @@
 import React, { useMemo, useCallback } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import classNamse from 'classnames';
 import { formatTimestamp } from '../../../../../helpers/util/time';
 import { formatTransactionType } from '../../../../../actions/transactions';
@@ -7,6 +7,7 @@ import { setBodyModalParamsAction } from '../../../../../modules/modals';
 import { Tooltip } from '../../../../components/tooltip';
 import { ReactComponent as ArrowIcon } from '../../../../../assets/arrow-right-long.svg';
 import IconRed from '../../../../../assets/red-triangle.svg';
+import { getAccountInfoSelector } from '../../../../../selectors';
 
 export default function TransactionItem(props) {
   const dispatch = useDispatch();
@@ -18,7 +19,7 @@ export default function TransactionItem(props) {
 
   const {
     constants, actualBlock, account, accountRS, decimals,
-  } = useSelector(state => state.account);
+  } = useSelector(getAccountInfoSelector, shallowEqual);
 
   const hasSubtype = !!constants.transactionTypes
     && constants.transactionTypes[type].subtypes[subtype];

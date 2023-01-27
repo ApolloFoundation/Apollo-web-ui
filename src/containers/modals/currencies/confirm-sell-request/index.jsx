@@ -4,7 +4,7 @@
  ***************************************************************************** */
 
 import React, { useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
 import TextualInputComponent from '../../../components/form-components/TextualInput';
@@ -16,7 +16,7 @@ export default function SellCurrency(props) {
 
   const { processForm, closeModal, nameModal } = props;
 
-  const modalData = useSelector(getModalDataSelector);
+  const modalData = useSelector(getModalDataSelector, shallowEqual);
   const ticker = useSelector(getTickerSelector);
 
   const handleFormSubmit = useCallback(async values => {

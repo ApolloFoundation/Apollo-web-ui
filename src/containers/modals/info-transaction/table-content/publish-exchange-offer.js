@@ -1,8 +1,8 @@
 import React, {Component} from "react";
-import {getShufflingAction} from "../../../../actions/shuffling";
 import {connect} from 'react-redux';
 import {getCurrencyAction, getExchangesByOfferRequest, getOfferRequest} from "../../../../actions/currencies";
 import {formatTimestamp} from "../../../../helpers/util/time";
+import { getConstantsSelector } from "../../../../selectors";
 
 
 class CurrencyExchangeOffer extends Component {
@@ -78,7 +78,6 @@ class CurrencyExchangeOffer extends Component {
 
         return(
             <React.Fragment>
-
                 {
                     this.state.currency &&
                     this.state.currency.code &&
@@ -179,22 +178,18 @@ class CurrencyExchangeOffer extends Component {
                         <td>{totalExchanges} {this.props.ticker}</td>
                     </tr>
                 }
-
-
             </React.Fragment>
         );
     }
 }
 
 const mapStateToProps = state => ({
-    constants: state.account.constants,
+    constants: getConstantsSelector(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-    getCurrencyAction: (reqParams) => dispatch(getCurrencyAction(reqParams)),
-    formatTimestamp: (timestamp, date_only, isAbsoluteTime) => dispatch(formatTimestamp(timestamp, date_only, isAbsoluteTime)),
-
-});
-
+const mapDispatchToProps = {
+    getCurrencyAction,
+    formatTimestamp,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(CurrencyExchangeOffer)

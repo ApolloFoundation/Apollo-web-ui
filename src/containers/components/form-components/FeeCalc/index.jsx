@@ -4,11 +4,17 @@ import { useSelector } from 'react-redux';
 import { useFormikContext } from 'formik';
 import InputForm from '../../custom-input/CustomInputWithFormik';
 import { calculateFeeAction } from "../../../../actions/forms";
-import { getAccountInfoSelector } from '../../../../selectors';
+import {
+    getAccountPublicKeySelector,
+    getDecimalsSelector,
+    getTickerSelector
+} from '../../../../selectors';
 
 const FeeCalc = ({ requestType }) => {
     const formik = useFormikContext();
-    const { publicKey,decimals,ticker } = useSelector(getAccountInfoSelector);
+    const publicKey = useSelector(getAccountPublicKeySelector);
+    const decimals = useSelector(getDecimalsSelector);
+    const ticker = useSelector(getTickerSelector);
 
     const calculateFee = async () => {
         const { secretPhrase, passphrase, ...values } = formik.values;

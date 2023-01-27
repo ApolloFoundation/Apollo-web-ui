@@ -7,13 +7,13 @@ import React, { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAccountCurrenciesAction } from '../../../../actions/currencies';
 import SiteHeader from '../../../components/site-header';
-import { getAccountInfoSelector } from '../../../../selectors';
+import { getAccountRsSelector } from '../../../../selectors';
 import { TableLoader } from '../../../components/TableLoader';
 import MyCurrencytemItem from './my-currency-item';
 
 export default function MyMadedCurrencies() {
   const dispatch = useDispatch();
-  const { accountRS } = useSelector(getAccountInfoSelector);
+  const accountRS = useSelector(getAccountRsSelector);
 
   const getExchanges = useCallback(async ({ firstIndex, lastIndex }) => {
     const exchanges = (await dispatch(getAccountCurrenciesAction({

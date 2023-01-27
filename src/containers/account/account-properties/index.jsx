@@ -4,7 +4,7 @@
  ***************************************************************************** */
 
 import React, { useState, useCallback } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import classNames from 'classnames';
 import { getAccountPropertiesAction } from '../../../actions/account/index';
 import { setBodyModalParamsAction } from '../../../modules/modals';
@@ -16,7 +16,7 @@ import { getAccountInfoSelector } from '../../../selectors';
 
 export default function AccountProperties() {
   const dispatch = useDispatch();
-  const { account } = useSelector(getAccountInfoSelector);
+  const { account } = useSelector(getAccountInfoSelector, shallowEqual);
 
   const [state, setState] = useState({
     incoming: true,

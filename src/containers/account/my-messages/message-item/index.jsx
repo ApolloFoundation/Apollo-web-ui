@@ -5,8 +5,8 @@
 
 
 import React, { useCallback, useEffect, useState } from 'react';
-import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {useDispatch, useSelector} from 'react-redux';
+import {setBodyModalParamsAction} from "../../../../modules/modals";
 import {formatTimestamp} from "../../../../helpers/util/time";
 import submitForm from "../../../../helpers/forms/forms";
 import { getPassPhraseSelector } from '../../../../selectors';
@@ -14,6 +14,7 @@ import { getPassPhraseSelector } from '../../../../selectors';
 const MessageItem = (props) => {
     const dispatch = useDispatch();
     const passPhrase = useSelector(getPassPhraseSelector);
+    // don't use previous
     const [state, setState] = useState({
         message: null
     });
