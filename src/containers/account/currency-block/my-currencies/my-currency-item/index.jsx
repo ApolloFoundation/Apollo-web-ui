@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import classNames from 'classnames';
 import { setBodyModalParamsAction } from 'modules/modals';
 import { getCurrencyTypes } from 'modules/currencies';
+import { bigIntDecimalsDivision } from 'helpers/util/utils';
 
 export default function MyCurrencytemItem(props) {
   const dispatch = useDispatch();
@@ -50,7 +51,9 @@ export default function MyCurrencytemItem(props) {
       </td>
       <td>{name}</td>
       <td className="" dangerouslySetInnerHTML={{ __html: currencyTypes }} />
-      <td className="align-right">{unconfirmedUnits / (10 ** decimals)}</td>
+      <td className="align-right">
+        {bigIntDecimalsDivision(unconfirmedUnits, decimals)}
+      </td>
       <td className="align-right">
         <div className="btn-box inline">
           <Link to={`/exchange-booth/${code}`} className="btn btn-default">Exchange</Link>

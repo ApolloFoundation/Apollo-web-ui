@@ -12,6 +12,7 @@ import { Tooltip } from 'containers/components/tooltip';
 import RedIcon from 'assets/red-triangle.svg'
 import { useFormatTimestamp } from 'hooks/useFormatTimestamp';
 import styles from './index.module.scss';
+import { bigIntDecimalsDivision } from 'helpers/util/utils';
 
 export default function TransferHistoryItem(props) {
   const dispatch = useDispatch();
@@ -30,18 +31,6 @@ export default function TransferHistoryItem(props) {
       setCurrency(attachment);
     })
   }, [dispatch, transfer]);
-
-  const unitsHandler = useCallback(() => {
-    const result = units / (10 ** decimals);
-    if(result > 1e-7) return result;
-    
-    return result.toFixed(decimals);
-  }, [units, decimals]);
-
-  const handleAccountInfoModal = (data) => () =>
-    dispatch(setBodyModalParamsAction('INFO_ACCOUNT', data));
-
-  const handleTransactionInfo = () => dispatch(setBodyModalParamsAction('INFO_TRANSACTION', transfer));
 
   const name = code ? (
     <Link to={"/exchange-booth/" + code}>{code}</Link>
@@ -64,6 +53,11 @@ export default function TransferHistoryItem(props) {
     </Tooltip>
   );
 
+  const handleAccountInfoModal = (data) => () =>
+    dispatch(setBodyModalParamsAction('INFO_ACCOUNT', data));
+
+  const handleTransactionInfo = () => dispatch(setBodyModalParamsAction('INFO_TRANSACTION', transfer));
+
   return (
     <tr>
       <td>
@@ -75,7 +69,7 @@ export default function TransferHistoryItem(props) {
         {name}
       </td>
       <td className="">{handleTime(timestamp)}</td>
-      <td className="align-right">{unitsHandler()} {unitsTooltip}</td>
+      <td className="align-right">{bigIntDecimalsDivision(units, decimals)} {unitsTooltip}</td>
       <td>
         <span className="blue-link-text" onClick={handleAccountInfoModal(recipient)}>
           {recipientRS}

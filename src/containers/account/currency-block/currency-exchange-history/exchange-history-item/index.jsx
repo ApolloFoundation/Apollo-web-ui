@@ -10,6 +10,7 @@ import { setBodyModalParamsAction } from 'modules/modals';
 import { getDecimalsSelector } from 'selectors';
 import { useFormatTimestamp } from 'hooks/useFormatTimestamp';
 import { numberToLocaleString } from 'helpers/format';
+import { bigIntDecimalsDivision } from 'helpers/util/utils';
 
 export default function TradeHistoryItem(props) {
   const dispatch = useDispatch();
@@ -52,7 +53,7 @@ export default function TradeHistoryItem(props) {
           </span>
         </td>
         <td className="align-right">
-          {(props.units / (10 ** props.decimals)).toFixed(2)}
+          {bigIntDecimalsDivision(props.transfer.units, props.transfer.decimals)}
         </td>
         <td className="align-right">
           {numberToLocaleString(parseFloat(props.rateATM))}

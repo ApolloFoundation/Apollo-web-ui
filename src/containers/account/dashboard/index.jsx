@@ -5,7 +5,7 @@ import { setBodyModalParamsAction } from 'modules/modals';
 import { getDashboardData } from 'actions/dashboard';
 import SiteHeader from '../../components/site-header';
 import TwitterBanner from "assets/dashboard-safe.jpeg";
-import InfoBanner from "assets/dashboard-knox.jpeg";
+import InfoBanner from "assets/dashboard-Invest-APL.jpg";
 import { getAccountSelector, getActualBlockSelector } from 'selectors';
 import TotalBalance from './total-balance';
 import MyTransactions from './my-transactions';
@@ -62,7 +62,7 @@ export default function Dashboard({ isShareMessage, shareMessageTransaction }) {
                   </div>
                   <div className="wrap-card-square-xl">
                     <a
-                      href="https://www.knox.exchange"
+                      href="https://instantinvest.co/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="card card-square card-xl dashboard-tooltip-card"
