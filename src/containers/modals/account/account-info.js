@@ -5,7 +5,7 @@
 
 
 import React, { useCallback } from 'react';
-import {useDispatch, useSelector, shallowEqual} from 'react-redux';
+import {useSelector, shallowEqual} from 'react-redux';
 import {NotificationManager} from "react-notifications";
 import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
 import CustomTextArea from 'containers/components/form-components/TextArea/TextAreaWithFormik';
@@ -14,8 +14,6 @@ import { FeeWrapper } from 'containers/components/form-components/FeeWrapper';
 import ModalBody from 'containers/components/modals/modal-body';
 
 const  AccountInfo = (props) => {
-    const dispatch = useDispatch();
-
     const accountInfo = useSelector(getAccountInfoSelector, shallowEqual);
 
     const handleFormSubmit = useCallback(async (values) => {
@@ -27,7 +25,7 @@ const  AccountInfo = (props) => {
             props.closeModal();
             NotificationManager.success('Account info has been submitted!', null, 5000);
         }
-    }, [dispatch, props.closeModal, props.processForm]);
+    }, [props.closeModal, props.processForm]);
 
     return (
         <ModalBody
