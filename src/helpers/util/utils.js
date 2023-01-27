@@ -54,12 +54,10 @@ function isFileEncryptionSupported() {
 function isRequestTypeEnabled(requestType) {
   return (dispatch, getState) => {
     const { account } = getState();
-    console.log("🚀 ~ file: utils.js:57 ~ return ~ account", account)
 
     if (requestType.indexOf('+') > 0) {
       requestType = requestType.substring(0, requestType.indexOf('+'));
     }
-    console.log("🚀 ~ file: utils.js:64 ~ return ~ account.requestTypes", account.requestTypes)
     return !!account.requestTypes[requestType];
   };
 }

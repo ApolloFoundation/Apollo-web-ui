@@ -52,7 +52,6 @@ const UploadFile = ({ closeModal }) => {
     }, [setSelectTags]);
 
     const handleFormSubmit = useCallback(async(values) => {
-        console.log("🚀 ~ file: index.js:55 ~ handleFormSubmit ~ values", values)
         if (!isPending) {
             if (!values.file) {
                 NotificationManager.error(i18n.t("error_no_file_chosen"), 'Error', 5000);
