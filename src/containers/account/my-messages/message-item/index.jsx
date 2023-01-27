@@ -45,7 +45,7 @@ const MessageItem = (props) => {
 
     useEffect(() => {
         decryptMessage(passPhrase);
-    }, [passPhrase]);
+    }, [passPhrase, decryptMessage]);
 
         const {
             publicMessage,

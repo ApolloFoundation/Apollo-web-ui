@@ -2,7 +2,7 @@ import React from 'react';
 import ContentHendler from '../content-hendler';
 import classNames from 'classnames';
 
-import MarketplaceItem from "../../account/marketplace/marketplace-card/index";
+import MarketplaceItem from "../../account/marketplace/marketplace-card";
 
 const MarketplaceColumnTable = ({data, page, itemsPerPage = 15, onPaginate, deliver, emptyMessage, ...props}) => (
     <>

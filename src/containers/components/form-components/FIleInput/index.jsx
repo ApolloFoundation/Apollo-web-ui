@@ -27,9 +27,9 @@ const FileInput = ({ label, type, accept, maxSize, showPreview }) => {
         setFileData(file);
     }, [showPreview, formik.setFieldValue]);
 
-    const handleFileRejected = useCallback(() => {
+    const handleFileRejected = () => {
         setFileData(null);
-    }, []);
+    };
 
     return (
         <div className="form-group mb-15">

@@ -95,20 +95,6 @@ const PollForm = ({ idGroup, ticker, votingModelData }) => {
                                             </span>
                                         </div>
                                     </TextComponent>
-                                    
-                                    // <Field
-                                    //     key={`${answer}-${index}`}
-                                    //     name={`answers[${index}]`}
-                                    //     className="mb-0"
-                                    //     placeholder='Answer'
-                                    //     icon={
-                                    //         <span className="input-group-text">
-                                    //             <i className="zmdi zmdi-minus-circle cursor-pointer"/>
-                                    //         </span>
-                                    //     }
-                                    //     onIconClick={removeAnswer(remove, values.answers, index)}
-                                    //     component={TextComponentWithIcon}
-                                    // />
                                 ))}
                                 <div className="mb-15">
                                     <button

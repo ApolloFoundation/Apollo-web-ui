@@ -3,8 +3,7 @@
  *                                                                            *
  ***************************************************************************** */
 
-import React, { useEffect } from 'react';
-import { useField } from 'formik';
+import React, { useCallback } from 'react';
 import Select from 'react-select';
 
 import './Select.scss';
@@ -12,9 +11,10 @@ import './Select.scss';
 export default function CustomSelect({
   options, name, defaultValue, onChange, value, onBlur,
 }) {
-  const handleChange = ({ value }) => {
+
+  const handleChange = useCallback(({ value }) => {
     if (onChange) onChange(value);
-  };
+  }, [onChange]);
 
   return (
     <Select

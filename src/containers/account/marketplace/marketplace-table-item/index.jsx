@@ -6,7 +6,8 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDecimalsSelector, getTickerSelector } from '../../../../selectors';
-import { setBodyModalParamsAction } from '../../../../modules/modals';
+import { numberToLocaleString } from 'helpers/format';
+import { setBodyModalParamsAction } from 'modules/modals';
 
 const MarketplaceTableItem = props => {
   const dispatch = useDispatch();
@@ -32,7 +33,7 @@ const MarketplaceTableItem = props => {
         <a>{props.quantity}</a>
       </td>
       <td className="align-right">
-        {Math.floor(props.priceATM / decimals).toLocaleString('it')}
+        {numberToLocaleString(Math.floor(props.priceATM / decimals))}
         {' '}
         {ticker}
       </td>

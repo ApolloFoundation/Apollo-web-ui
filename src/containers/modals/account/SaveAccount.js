@@ -4,7 +4,7 @@
  ******************************************************************************/
 
 
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
 import {NotificationManager} from "react-notifications";
 import AccountRS from '../../components/form-components/AccountRS';
@@ -18,7 +18,7 @@ const AddAccount = (props) => {
     const [isPending, setIsPending] = useState(false);
     const modalData = useSelector(getModalDataSelector, shallowEqual);
 
-    const handleFormSubmit = async(data) => {
+    const handleFormSubmit = useCallback(async(data) => {
         if (!isPending) {
             const values = { ...data };
             setIsPending(true);
@@ -57,7 +57,7 @@ const AddAccount = (props) => {
 
             setIsPending(false);
         }
-    };
+    }, [props.closeModal, isPending]);
 
     return (
         <ModalBody

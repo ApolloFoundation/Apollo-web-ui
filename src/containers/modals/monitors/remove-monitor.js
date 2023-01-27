@@ -61,7 +61,7 @@ const RemoveMonitor = (props) => {
                     </div>
                     <div className="col-md-9">
                         <div className="input-wrapper" style={{alignSelf: "center"}}>
-                            {modalData.property ? modalData.property : '?'}
+                            {modalData?.property ?? '?'}
                         </div>
                     </div>
                 </div>
@@ -73,7 +73,7 @@ const RemoveMonitor = (props) => {
                     </div>
                     <div className="col-md-9">
                         <div className="input-wrapper">
-                            {modalData.recipientRS ? modalData.recipientRS : '?'}
+                            {modalData?.recipientRS ?? '?'}
                         </div>
                     </div>
                 </div>

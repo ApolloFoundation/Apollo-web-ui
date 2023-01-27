@@ -15,7 +15,7 @@ import { useAliasDataLoader } from '../useAliasDataLoader';
 const DeleteAlias = ({ processForm, closeModal }) => {
     const alias = useAliasDataLoader();
     const modalData = useSelector(getModalDataSelector, shallowEqual);
-    const handleFormSubmit = useCallback(async (values) => {
+    const handleFormSubmit = useCallback((values) => {
         const data = {
             ...values,
             priceATM: 0,
