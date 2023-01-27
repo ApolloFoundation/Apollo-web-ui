@@ -23,7 +23,7 @@ const BuyAsset = ({ processForm, closeModal, nameModal }) => {
     const modalCallback = useSelector(getModalCallbackSelector);
     const ticker = useSelector(getTickerSelector);
 
-    const handleFormSubmit = useCallback(async (values) => {
+    const handleFormSubmit = useCallback((values) => {
         const data = {
             ...values,
             asset: modalData.assetInfo.asset,

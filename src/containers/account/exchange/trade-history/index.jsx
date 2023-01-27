@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ALL_STATUSES } from '../../../../constants/statuses';
-import { ONE_GWEI } from '../../../../constants';
+import { ONE_GWEI } from '../../../../constants/constants';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
 import { getMyTradeHistory } from '../../../../actions/wallet';
 import { formatDivision, currencyTypes } from '../../../../helpers/format';

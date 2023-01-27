@@ -51,7 +51,7 @@ const DeleteAccountProperty = (props) => {
                     </label>
                     <div>
                         <span>
-                            {(modalData && modalData.setterRS) ? modalData.setterRS : '-'}
+                            {modalData?.setterRS ?? '-'}
                         </span>
                     </div>
                 </div>
@@ -61,7 +61,7 @@ const DeleteAccountProperty = (props) => {
                     </label>
                     <div>
                         <span>
-                            {(modalData && modalData.recipientRS) ? modalData.recipientRS : '-'}
+                            {modalData?.recipientRS ?? '-'}
                         </span>
                     </div>
                 </div>
@@ -71,7 +71,7 @@ const DeleteAccountProperty = (props) => {
                     </label>
                     <div>
                         <span>
-                            {(modalData && modalData.property) ? modalData.property : '-'}
+                            {modalData?.property ?? '-'}
                         </span>
                     </div>
                 </div>

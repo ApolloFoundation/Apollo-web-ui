@@ -19,7 +19,7 @@ const typeData = [
 const EditAlias = ({ closeModal, processForm }) => {
     const alias = useAliasDataLoader();
 
-    const handleFormSubmit = useCallback(async (values) => {
+    const handleFormSubmit = useCallback((values) => {
         const data = {
             ...values,
             aliasName: alias.aliasName,

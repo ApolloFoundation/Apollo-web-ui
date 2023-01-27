@@ -2,6 +2,7 @@ import React from 'react';
 import { useFormik, Form, FormikProvider } from "formik";
 import { useDispatch } from 'react-redux';
 import {NotificationManager} from 'react-notifications';
+import { FAUCET_APL_AMOUNT } from 'constants/constants';
 import InfoBox from '../../components/info-box';
 import AccountRS from '../../components/account-rs';
 import {getCoins} from '../../../actions/faucet';
@@ -27,7 +28,7 @@ export const FaucetForm = () => {
 
     if (result) {
         if (result.success) {
-          NotificationManager.success('Success! Sent 30,000 APL to your address', null, 5000);
+          NotificationManager.success(`Success! Sent ${FAUCET_APL_AMOUNT} APL to your address`, null, 5000);
           formik.handleReset();
         } else {
           NotificationManager.error(result.message, 'Error', 5000);

@@ -70,7 +70,7 @@ const MyProductsForSale = () => {
             <div className="page-body container-fluid">
                 <div className='marketplace'>
                     <div className='row'>
-                        {state.getDGSGoods && state.getDGSGoods.length ? (
+                        {Boolean(state.getDGSGoods?.length) ? (
                             <MarketplaceColumnTable
                                 data={state.getDGSGoods}
                                 page={state.page}
