@@ -10,16 +10,14 @@ import {NotificationManager} from "react-notifications";
 import {getDGSGoodAction} from "actions/marketplace";
 import config from 'config';
 import ModalBody from 'containers/components/modals/modal-body';
-import submitForm from "helpers/forms/forms";
 import crypto from "helpers/crypto/crypto";
 import { getAccountRsSelector, getModalDataSelector } from 'selectors';
 import { useFormatTimestamp } from 'hooks/useFormatTimestamp';
 import Form from './form';
 
-const MarketplaceDelete = ({ closeModal }) =>  {
+const MarketplaceDelete = ({ closeModal, processForm }) =>  {
     const dispatch = useDispatch();
     const [goods, setGoods] = useState(null);
-    const [isPending, setIsPending] = useState(false);
 
     const modalData = useSelector(getModalDataSelector, shallowEqual);
     const account = useSelector(getAccountRsSelector);
@@ -36,7 +34,6 @@ const MarketplaceDelete = ({ closeModal }) =>  {
     }, [modalData, dispatch]);
 
     const handleFormSubmit = useCallback(async (values) => {
-        setIsPending(true);
         const publicKey = await crypto.getPublicKeyAPL(values.secretPhrase, false);
 
         const data = {
@@ -47,15 +44,12 @@ const MarketplaceDelete = ({ closeModal }) =>  {
             publicKey,
         };
 
-        const res = await dispatch(submitForm.submitForm( data, 'dgsDelisting'));
-        if (res.errorCode) {
-            NotificationManager.error(res.errorDescription, 'Error', 5000);
-        } else {
+        const res = await processForm( data, 'dgsDelisting');
+        if (res && !res.errorCode) {
             closeModal();
             NotificationManager.success('The marketplace item has been deleted successfully!', null, 5000);
         }
-        setIsPending(false);
-    }, [closeModal, goods, dispatch, account]);
+    }, [closeModal, goods, processForm, account]);
 
     useEffect(() => {
         handleImageLoadint();
@@ -75,7 +69,6 @@ const MarketplaceDelete = ({ closeModal }) =>  {
                 description: goods?.description ?? null,
             }}
             submitButtonName="Delete"
-            isPending={isPending}
         >
             <Form goods={goods} formatTimestamp={format}/>
         </ModalBody>

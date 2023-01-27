@@ -11,8 +11,7 @@ import TabContaier from 'containers/components/tabulator/tab-container';
 import { GenerateToken } from './GenerateToken';
 import { ValidateToken } from './ValidateToken';
 
-
-const TokenGenerationValidation = ({ closeModal }) => (
+const TokenGenerationValidation = ({ closeModal, processForm }) => (
     <ModalBody
         modalTitle='Token generation / validation'
         closeModal={closeModal}
@@ -21,7 +20,7 @@ const TokenGenerationValidation = ({ closeModal }) => (
     >
         <TabulationBody className='p-0'>
             <TabContaier sectionName='Generate token'>
-                <GenerateToken closeModal={closeModal} />
+                <GenerateToken closeModal={closeModal} processForm={processForm} />
             </TabContaier>
             <TabContaier sectionName='Validate token'>
                 <ValidateToken closeModal={closeModal} />

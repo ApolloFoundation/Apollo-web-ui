@@ -11,7 +11,6 @@ import {getForging} from 'actions/login';
 import CheckboxFormInput from 'containers/components/check-button-input/CheckboxWithFormik';
 import {setAccountPassphrase} from "modules/account";
 import ModalBody from 'containers/components/modals/modal-body';
-import submitForm from 'helpers/forms/forms'
 import InfoBox from 'containers/components/info-box';
 import { writeToLocalStorage } from 'actions/localStorage';
 import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
@@ -50,7 +49,7 @@ const ConfirmForging = (props) => {
             account,
             ...params
         };
-        const forging = await dispatch(submitForm.submitForm(requestParams, actionData));
+        const forging = await props.processForm(requestParams, actionData);
 
         if (forging) {
             if (!forging.errorCode) {
@@ -61,16 +60,15 @@ const ConfirmForging = (props) => {
                 }
 
                 if (params.isSavePassphrase) {
-                    writeToLocalStorage('secretPhrase', passphrase.toString());
+                    writeToLocalStorage('secretPhrase', passphrase ?? params.passphrase);
                 }
                 dispatch(setAccountPassphrase(passphrase));
                 action.handleSuccess(forgingStatus);
+                console.log('work')
                 props.closeModal();
-            } else {
-                NotificationManager.error(forging.errorDescription, 'Error', 5000);
             }
         }
-    }, [dispatch, balanceATM, decimals, account, passPhrase, checkPassphrase, props.closeModal, action]);
+    }, [dispatch, balanceATM, decimals, account, passPhrase, checkPassphrase, props.closeModal, action, props.processForm]);
 
     const forgingAction = action && action.getStatus === 'startForging' ? 'start' : 'stop';
     const passphrase = checkPassphrase();

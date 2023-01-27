@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector} from 'react-redux';
 import {NotificationManager} from "react-notifications";
@@ -12,12 +12,14 @@ const LogoutExchange = ({ closeModal, nameModal }) => {
     const dispatch = useDispatch();
     const history = useHistory();
     const account = useSelector(getAccountSelector);
+    const [isPending, setIsPending] = useState(false);
 
     const handleFormSubmit = useCallback(({ passphrase }) => {
         if (!passphrase || passphrase.length === 0) {
             NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
             return;
         }
+        setIsPending(true);
         dispatch(
             logout({
                 accountid: account,
@@ -28,6 +30,8 @@ const LogoutExchange = ({ closeModal, nameModal }) => {
                 logOutAction('simpleLogOut', history);
                 closeModal();
             } 
+        }).finally(() => {
+            setIsPending(false);
         });
     }, [dispatch, closeModal, account])
 
@@ -39,6 +43,7 @@ const LogoutExchange = ({ closeModal, nameModal }) => {
             submitButtonName='Confirm'
             isDisableSecretPhrase
             nameModel={nameModal}
+            isPending={isPending}
         >
             <p className='text-danger'>Warning:</p>
             <p>Log out terminates the automated exchange. To continue with any exchange operations, logging in is required.</p>

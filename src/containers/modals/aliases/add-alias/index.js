@@ -4,10 +4,8 @@
  ******************************************************************************/
 
 
-import React, { useCallback, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useCallback } from 'react';
 import {NotificationManager} from "react-notifications";
-import submitForm from "helpers/forms/forms";
 import ModalBody from 'containers/components/modals/modal-body';
 import AddAliasForm from './form';
 
@@ -17,23 +15,15 @@ const aliasTypeData = [
     { value: 'general', label: 'Other' },
 ];
 
-const AddAlias = ({ closeModal }) => {
-    const dispatch = useDispatch();
-    const [isPending, setIsPending] = useState(false);
+const AddAlias = ({ closeModal, processForm }) => {
 
     const handleFormSubmit = useCallback(async (values) => {
-        if (!isPending) {
-            setIsPending(true);
-            const res = await dispatch(submitForm.submitForm({ ...values }, 'setAlias'));
-            if (!res || res.errorCode) {
-                setIsPending(false);
-                NotificationManager.error(res.errorDescription, 'Error', 5000)
-            } else {
-                closeModal();
-                NotificationManager.success('Alias has been listed!', null, 5000);
-            }
+        const res = await processForm({ ...values }, 'setAlias');
+        if (res && !res.errorCode) {
+            closeModal();
+            NotificationManager.success('Alias has been listed!', null, 5000);
         }
-    }, [dispatch, closeModal, isPending]);
+    }, [closeModal, processForm]);
 
     return (
         <ModalBody
@@ -41,7 +31,6 @@ const AddAlias = ({ closeModal }) => {
             isAdvanced
             isFee
             closeModal={closeModal}
-            isPending={isPending}
             handleFormSubmit={handleFormSubmit}
             submitButtonName='Add Alias'
             idGroup="add-alias-fee"

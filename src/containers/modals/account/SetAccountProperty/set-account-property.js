@@ -4,33 +4,23 @@
  ******************************************************************************/
 
 
-import React, { useCallback, useState } from 'react';
-import { useDispatch, useSelector, shallowEqual} from 'react-redux';
+import React, { useCallback } from 'react';
+import { useSelector, shallowEqual} from 'react-redux';
 import {NotificationManager} from "react-notifications";
-import submitForm from "helpers/forms/forms";
 import ModalBody from "containers/components/modals/modal-body";
 import { getModalDataSelector } from 'selectors';
 import SetAccountPropertyForm from "./set-account-property-form";
 
 const SetAccountProperty = (props) => {
-    const dispatch = useDispatch();
-    const [isPending, setIsPending] = useState(false);
     const modalData = useSelector(getModalDataSelector, shallowEqual);
 
     const handleFormSubmit = useCallback(async (values) => {
-        if (!isPending) {
-            setIsPending(true);
-
-            const res = await dispatch(submitForm.submitForm({ ...values }, 'setAccountProperty'));
-            if (res.errorCode) {
-                NotificationManager.error(res.errorDescription, 'Error', 5000)
-            } else {
-                props.closeModal();
-                NotificationManager.success('Account property has been saved!', null, 5000);
-            }
-            setIsPending(false);
+        const res = await props.processForm({ ...values }, 'setAccountProperty');
+        if (!res.errorCode) {
+            props.closeModal();
+            NotificationManager.success('Account property has been saved!', null, 5000);
         }
-    }, [dispatch, props.closeModal])
+    }, [props.closeModal, props.processForm])
 
     return (
         <ModalBody
@@ -40,7 +30,6 @@ const SetAccountProperty = (props) => {
             submitButtonName='Set Property'
             isFee
             idGroup='set-account-property-'
-            isPending={isPending}
             initialValues={{
                 feeATM: 1,
                 property: modalData.property,

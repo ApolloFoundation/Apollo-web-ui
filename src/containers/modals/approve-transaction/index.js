@@ -6,8 +6,6 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {setBodyModalParamsAction} from 'modules/modals';
-import submitForm from "helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
 import crypto from "helpers/crypto/crypto";
 import ModalBody from 'containers/components/modals/modal-body';
@@ -39,7 +37,7 @@ class ApproveTransaction extends React.Component {
                 isFee
                 closeModal={this.props.closeModal}
                 handleFormSubmit={this.handleFormSubmit}
-                submitButtonName={'Approve Transaction'}
+                submitButtonName='Approve Transaction'
             />
         );
     }
@@ -50,9 +48,4 @@ const mapStateToProps = state => ({
     modalsHistory: getModalHistorySelector(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-    submitForm: (data, requestType) => dispatch(submitForm.submitForm(data, requestType)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ApproveTransaction);
+export default connect(mapStateToProps)(ApproveTransaction);

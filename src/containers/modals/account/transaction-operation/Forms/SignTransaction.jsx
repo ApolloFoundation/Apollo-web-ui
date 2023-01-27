@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import QRCode from "qrcode.react";
 import {NotificationManager} from "react-notifications";
@@ -14,12 +14,14 @@ import { getAccountPublicKeySelector } from 'selectors';
 export const SignTransactionForm = ({ setState, state, closeModal }) => {
   const dispatch = useDispatch();
   const publicKey = useSelector(getAccountPublicKeySelector);
+  const [isPending, setIsPending] = useState(false);
 
   const  handleFormSubmit = useCallback(async (values) => {
     if (!values.secretPhrase) {
         NotificationManager.error("Secret phrase is required", "Error", 5000);
         return;
     }
+    setIsPending(true);
     setState(prevState => ({
         ...prevState,
         showSignature: false
@@ -47,6 +49,7 @@ export const SignTransactionForm = ({ setState, state, closeModal }) => {
             signedBytesSignature: signature,
         }));
     }
+    setIsPending(false);
   }, [dispatch]);
 
   return (
@@ -57,6 +60,7 @@ export const SignTransactionForm = ({ setState, state, closeModal }) => {
       isPour
       isDisableSecretPhrase
       submitButtonName='Sign Transaction'
+      isPending={isPending}
       initialValues={{
         signBytes: '',
         signJson: '',

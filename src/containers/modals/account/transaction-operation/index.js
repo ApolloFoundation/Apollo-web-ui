@@ -13,7 +13,7 @@ import { BroadcastTransactionForm } from './Forms/BroadcatTransactionForm';
 import { FullHashForm } from './Forms/FullHashForm';
 import { ParseTransactionForm } from './Forms/ParseTransactionForm'
 
-const TransactionOperations = ({ closeModal }) => {
+const TransactionOperations = ({ closeModal, processForm }) => {
     const [state, setState] = useState({
         activeTab: 0,
         showSignature: false,
@@ -48,13 +48,13 @@ const TransactionOperations = ({ closeModal }) => {
                     />
                 </TabContaier>
                 <TabContaier sectionName='Broadcast transaction'>
-                    <BroadcastTransactionForm closeModal={closeModal} />
+                    <BroadcastTransactionForm closeModal={closeModal} processForm={processForm} />
                 </TabContaier>
                 <TabContaier sectionName='Parse transaction'>
-                    <ParseTransactionForm closeModal={closeModal} />
+                    <ParseTransactionForm closeModal={closeModal} processForm={processForm} />
                 </TabContaier>
                 <TabContaier sectionName='Calculate full hash'>
-                    <FullHashForm closeModal={closeModal} />
+                    <FullHashForm closeModal={closeModal} processForm={processForm} />
                 </TabContaier>
             </TabulationBody>
         </ModalBody>
