@@ -1,15 +1,13 @@
 import React, { useCallback, useState } from 'react';
 import QRCode from 'qrcode.react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
 import CustomTextArea from 'containers/components/form-components/TextArea/TextAreaWithFormik';
 import InfoBox from 'containers/components/info-box'
 import ModalBody from 'containers/components/modals/modal-body';
-import submitForm from "helpers/forms/forms";
 import { getAccountSelector } from 'selectors';
 
-export const GenerateToken = ({ closeModal }) => {
-  const dispatch = useDispatch();
+export const GenerateToken = ({ closeModal, processForm }) => {
   const account = useSelector(getAccountSelector);
   const [generatedToken, setGeneratedToken] = useState(null)
 
@@ -23,19 +21,17 @@ export const GenerateToken = ({ closeModal }) => {
         return;
     }
 
-    const res = await dispatch(submitForm.submitForm({
+    const res = await processForm({
         requestType: 'generateToken',
         secretPhrase: values.secretPhrase,
         website: values.data,
         account,
-    }, 'generateToken'));
+    }, 'generateToken');
 
-    if (res.errorCode) {
-        NotificationManager.error(res.errorDescription, 'Error', 5000)
-    } else {
-      setGeneratedToken(res.token);
+    if (!res.errorCode) {
+        setGeneratedToken(res.token);
     }
-  }, [dispatch]);
+  }, [processForm]);
   
   return (
     <ModalBody

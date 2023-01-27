@@ -1,5 +1,5 @@
 
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
 import { validateTokenAction } from "actions/account";
@@ -9,8 +9,10 @@ import CustomInput from 'containers/components/custom-input/CustomInputWithFormi
 
 export const ValidateToken = ({ closeModal }) => {
   const dispatch = useDispatch();
+  const [isPending, setIsPending] = useState(false);
 
   const handleValidateToken = useCallback(async (values) => {
+    setIsPending(true);
     const validateToken = await dispatch(validateTokenAction({
         token: values.token,
         website: values.website
@@ -23,6 +25,7 @@ export const ValidateToken = ({ closeModal }) => {
             NotificationManager.error('Token is invalid!')
         }
     }
+    setIsPending(false);
   },[dispatch])
 
   return (
@@ -34,6 +37,7 @@ export const ValidateToken = ({ closeModal }) => {
         isPour
         isDisableSecretPhrase
         submitButtonName='Validate'
+        isPending={isPending}
     >
         <CustomTextArea
             label='Data'
