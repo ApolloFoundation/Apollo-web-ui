@@ -66,8 +66,6 @@ const ConfirmForging = (props) => {
                 action.handleSuccess(forgingStatus);
                 console.log('work')
                 props.closeModal();
-            } else {
-                NotificationManager.error(forging.errorDescription, 'Error', 5000);
             }
         }
     }, [dispatch, balanceATM, decimals, account, passPhrase, checkPassphrase, props.closeModal, action, props.processForm]);

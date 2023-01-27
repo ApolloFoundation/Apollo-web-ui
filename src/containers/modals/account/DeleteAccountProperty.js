@@ -19,9 +19,7 @@ const DeleteAccountProperty = (props) => {
             ...values,
             ...modalData,
         }, 'deleteAccountProperty');
-        if (res && res.errorCode) {
-            NotificationManager.error(res.errorDescription, 'Error', 5000)
-        } else {
+        if (res && !res.errorCode) {
             props.closeModal();
             NotificationManager.success('Account property has been deleted!', null, 5000);
         }

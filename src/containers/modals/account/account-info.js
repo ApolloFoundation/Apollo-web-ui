@@ -19,9 +19,7 @@ const  AccountInfo = (props) => {
     const handleFormSubmit = useCallback(async (values) => {
         const res = await props.processForm({ ...values }, 'setAccountInfo');
 
-        if (res && res.errorCode) {
-            NotificationManager.error(res.errorDescription, 'Error', 5000)
-        } else {
+        if (res && !res.errorCode) {
             props.closeModal();
             NotificationManager.success('Account info has been submitted!', null, 5000);
         }
