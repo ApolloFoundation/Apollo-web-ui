@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {onDisconnectClick, onSendClick, onConnectClick} from '../../../modules/transport';
-import {setBodyModalParamsAction} from '../../../modules/modals';
+import {onDisconnectClick, onSendClick, onConnectClick} from 'modules/transport';
+import {setBodyModalParamsAction} from 'modules/modals';
 
 const Transport = ({connectionStatus, connectionProperties, onSendClick, onDisconnectClick, onConnectClick, setBodyModalParamsAction}) => {
     const STARTREQUEST = {

@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import { getAccountNameSelector, getAccountPublicKeySelector } from '../../../../selectors';
+import { getAccountNameSelector, getAccountPublicKeySelector } from 'selectors';
 
 const CurrentAccountIcon = ({ name, publicKey }) => (
     <>

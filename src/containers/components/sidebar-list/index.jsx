@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter, Link } from 'react-router-dom';
 import cn from 'classnames';
 
-import ContentLoader from '../content-loader';
+import ContentLoader from 'containers/components/content-loader';
 
 const SidebarContent = ({
   emptyMessage, baseUrl, data, element, location, Component, currentItem, isLoading,

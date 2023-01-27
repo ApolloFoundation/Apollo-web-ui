@@ -3,8 +3,7 @@
  *                                                                            *
  ***************************************************************************** */
 
-import React, { useEffect } from 'react';
-import { useField } from 'formik';
+import React from 'react';
 import Select from 'react-select';
 
 import './Select.scss';

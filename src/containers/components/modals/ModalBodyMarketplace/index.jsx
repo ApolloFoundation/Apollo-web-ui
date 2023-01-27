@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import classNames from 'classnames';
-import { getDecimalsSelector, getTickerSelector } from '../../../../selectors';
+import { getDecimalsSelector, getTickerSelector } from 'selectors';
 
 export const ModalBodyMarketplace = ({
   marketplace,

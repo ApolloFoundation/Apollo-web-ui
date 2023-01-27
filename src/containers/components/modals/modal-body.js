@@ -1,12 +1,12 @@
 import React from 'react';
 import classNames from 'classnames';
 import {connect} from 'react-redux';
-import FormFooter from '../form-components/FormButtons';
-import ModalFooter from '../modal-footer';
-import {openPrevModal, saveSendModalState} from "../../../modules/modals";
-import BackForm from '../../modals/modal-form/modal-form-container';
-import { FeeWrapper } from '../form-components/FeeWrapper';
-import { getModalDataSelector, getModalHistorySelector, getModalTypeSelector } from '../../../selectors';
+import FormFooter from 'containers/components/form-components/FormButtons';
+import ModalFooter from 'containers/components/modal-footer';
+import {openPrevModal, saveSendModalState} from "modules/modals";
+import BackForm from 'containers/modals/modal-form/modal-form-container';
+import { FeeWrapper } from 'containers/components/form-components/FeeWrapper';
+import { getModalDataSelector, getModalHistorySelector, getModalTypeSelector } from 'selectors';
 import { ModalBodyMarketplace } from './ModalBodyMarketplace'
 
 
