@@ -1,7 +1,8 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { formatTimestamp } from '../../../../../../helpers/util/time';
-import { setBodyModalParamsAction } from '../../../../../../modules/modals';
+import { formatTimestamp } from 'helpers/util/time';
+import { setBodyModalParamsAction } from 'modules/modals';
+import { numberToLocaleString } from 'helpers/format';
 
 const Entry = ({
   event, eventType, timestamp, change, holdingType,
@@ -37,7 +38,7 @@ const Entry = ({
       </td>
       <td className="align-right">
         {holdingType === 'UNCONFIRMED_APL_BALANCE' && balance > 0
-        && (balance / decimals).toLocaleString('en')}
+        && numberToLocaleString(balance / decimals)}
       </td>
       <td className="align-right">
         {holdingInfo && holdingInfo.name}
@@ -52,9 +53,9 @@ const Entry = ({
       <td className="align-right">
         {holdingType === 'UNCONFIRMED_CURRENCY_BALANCE'
         && holdingInfo && holdingInfo.name
-        && (balance / 1).toLocaleString('en')}
+        && numberToLocaleString(balance)}
         {holdingType === 'UNCONFIRMED_ASSET_BALANCE'
-        && (balance / decimals).toLocaleString('en')}
+        && numberToLocaleString(balance / decimals)}
       </td>
     </tr>
   );

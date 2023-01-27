@@ -49,7 +49,7 @@ const JoinShuffling = ({ closeModal }) => {
         }
     }, [closeModal, modalData?.broadcast?.fullHash, shuffling?.shufflingFullHash]);
 
-    const getShuffling = async () => {
+    const getShuffling = useCallback(async () => {
         const shuffling = await dispatch(getShufflingAction({
             shuffling: modalData,
         }));
@@ -57,7 +57,7 @@ const JoinShuffling = ({ closeModal }) => {
         if (shuffling) {
             setShuffling(shuffling);
         }
-    };
+    }, [dispatch, modalData]);
 
     const setRegisterUntil = () => {
         dispatch(getBlockAction());

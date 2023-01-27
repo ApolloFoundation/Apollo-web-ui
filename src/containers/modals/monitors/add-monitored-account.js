@@ -16,7 +16,7 @@ const AddMonitoredAccount = (props) =>  {
         setIsPending(true);
         const values = {
             ...data,
-            property: modalData.property ? modalData.property : ''
+            property: modalData?.property ?? ''
         }
 
         dispatch(submitForm.submitForm(values, 'setAccountProperty'))
@@ -43,7 +43,7 @@ const AddMonitoredAccount = (props) =>  {
                     </div>
                     <div className="col-md-9">
                         <div className="input-wrapper">
-                            {modalData.property ? modalData.property : '?'}
+                            {modalData?.property ?? '?'}
                         </div>
                     </div>
                 </div>

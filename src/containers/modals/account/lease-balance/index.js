@@ -10,7 +10,7 @@ import ModalBody from '../../../components/modals/modal-body';
 import LeaseBalanceForm from './lease-balance-form';
 
 const  LeaseBalance = (props) => {
-    const handleFormSubmit = useCallback(async (values) => {
+    const handleFormSubmit = useCallback((values) => {
         props.processForm(values, 'leaseBalance', 'Product has been listed!', () => {
             props.closeModal();
             NotificationManager.success('Lease has been submitted!', null, 5000);

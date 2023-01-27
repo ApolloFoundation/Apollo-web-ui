@@ -23,10 +23,6 @@ export const Settings2FAForm = ({ account, setState, getAccountInfo }) => {
     onSubmit: handleSubmit2FA,
   })
 
-  function handleSubmit2FA (values) {
-    account.is2FA ? disable2fa(values) : getQRCode(values);
-  }
-
   const disable2fa = async (values) => {
     if (!values.account) {
       NotificationManager.error('Account ID is not specified.', 'Error', 5000);
@@ -79,6 +75,10 @@ export const Settings2FAForm = ({ account, setState, getAccountInfo }) => {
       }));
     }
   };
+
+  function handleSubmit2FA (values) {
+    account.is2FA ? disable2fa(values) : getQRCode(values);
+  }
 
   return (
     <FormikProvider value={formik}>

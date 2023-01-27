@@ -13,6 +13,7 @@ import {searchDGSGoodsAction} from "../../../actions/marketplace";
 import InfoBox from "../../components/info-box";
 import { Pagination } from '../../components/pagination';
 import {useDataLoader} from '../../../hooks/useDataLoader';
+import { MARKETPLACE_REG_EXP } from '../../../constants/constants';
 
 const itemsPerPage = 8;
 
@@ -20,7 +21,7 @@ const  MarketplaceSearch = (props) => {
     const dispatch = useDispatch();
 
     const getDGSGoods = useCallback(async ({ firstIndex, lastIndex }) => {
-        const searchingBy = /^APL-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{4}-[A-Z0-9_]{5}/.test(props.match.params.tag) ?
+        const searchingBy = MARKETPLACE_REG_EXP.test(props.match.params.tag) ?
             {
                 seller: props.match.params.tag ?? null,
                 requestType: 'getDGSGoods',

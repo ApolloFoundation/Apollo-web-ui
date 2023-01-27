@@ -2,9 +2,9 @@ import React, { useState, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Formik } from 'formik';
 import { NotificationManager } from 'react-notifications';
-import { currencyTypes, multiply } from '../../../../../../helpers/format';
+import { currencyTypes, multiply, numberToLocaleString } from '../../../../../../helpers/format';
 import { createOffer } from '../../../../../../actions/wallet';
-import { ONE_GWEI } from '../../../../../../constants';
+import { ONE_GWEI } from '../../../../../../constants/constants';
 import {
   setBodyModalParamsAction, resetTrade, setSelectedOrderInfo,
 } from '../../../../../../modules/modals';
@@ -29,7 +29,6 @@ export default function BuyFormWrapper(props) {
   const setPending = useCallback((value = true) => { setIsPending(value); }, []);
 
   const handleFormSubmit = useCallback( async (newValues) => {
-    console.log("🚀 ~ file: index.jsx:32 ~ handleFormSubmit ~ newValues", newValues)
     if (!isPending) {
       const pairRateInfo = multiply(newValues.pairRate, ONE_GWEI);
       const offerAmountInfo = multiply(newValues.offerAmount, ONE_GWEI);
@@ -62,8 +61,8 @@ export default function BuyFormWrapper(props) {
             NotificationManager.error(`You need more ${currency.toUpperCase()}. Please check your wallet balance.`, 'Error', 5000);
             isError = true;
           }
-          if (+ethFee > +newValues.walletAddress.balances.eth) {
-            NotificationManager.error(`To buy ${ticker} you need to have at least ${ethFee.toLocaleString('en', {
+          if (+ethFee > +newValues.walletAddress.value.balances.eth) {
+            NotificationManager.error(`To buy ${ticker} you need to have at least ${numberToLocaleString(ethFee, {
               minimumFractionDigits: 0,
               maximumFractionDigits: 9,
             })} ETH on your balance to confirm transaction`, 'Error', 5000);

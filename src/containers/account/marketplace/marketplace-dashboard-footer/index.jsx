@@ -56,10 +56,6 @@ const MarketplaceDashboardFooter = () => {
 
     useEffect(() => {
         updateData();
-        BlockUpdater.on('data', updateData);
-        return () => {
-            BlockUpdater.removeListener('data', updateData);
-        }
     }, [updateData]);
 
     return (
