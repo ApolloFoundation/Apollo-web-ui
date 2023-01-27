@@ -7,6 +7,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { NotificationManager } from "react-notifications";
+import i18n from 'i18next';
 import {getDataTagsAction} from "../../../../actions/datastorage";
 import submitForm from '../../../../helpers/forms/forms';
 import ModalBody from '../../../components/modals/modal-body';
@@ -52,6 +53,10 @@ const UploadFile = ({ closeModal }) => {
 
     const handleFormSubmit = useCallback(async(values) => {
         if (!isPending) {
+            if (!values.file) {
+                NotificationManager.error(i18n.t("error_no_file_chosen"), 'Error', 5000);
+                return;
+            }
             setIsPending(true);
             const tags = values.tags ? values.tags.map(({label}) => label).join(', ') : null;
             const res = await dispatch(submitForm.submitForm({

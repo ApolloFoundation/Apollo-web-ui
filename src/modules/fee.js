@@ -3,8 +3,8 @@ const initState = {
     minFeeAmount: 1000
 };
 
-const SET_FEE_ALERT        = 'SET_FEE_ALERT';
-const SET_MIN_ALERT_AMOUNT = 'SET_MIN_ALERT_AMOUNT';
+export const SET_FEE_ALERT        = 'SET_FEE_ALERT';
+export const SET_MIN_ALERT_AMOUNT = 'SET_MIN_ALERT_AMOUNT';
 
 export default (state = initState, action) => {
     switch (action.type) {

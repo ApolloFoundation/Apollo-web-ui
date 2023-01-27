@@ -7,7 +7,6 @@
 import React, { useCallback, useState } from 'react';
 import {useDispatch, useSelector, shallowEqual} from 'react-redux';
 import {NotificationManager} from "react-notifications";
-import {setBodyModalParamsAction} from '../../../modules/modals';
 import submitForm from "../../../helpers/forms/forms";
 import CustomInput from '../../components/custom-input/CustomInputWithFormik';
 import CustomTextArea from '../../components/form-components/TextArea/TextAreaWithFormik';
@@ -32,12 +31,12 @@ const  AccountInfo = (props) => {
             if (res && res.errorCode) {
                 NotificationManager.error(res.errorDescription, 'Error', 5000)
             } else {
-                dispatch(setBodyModalParamsAction(null, {}));
+                props.closeModal();
                 NotificationManager.success('Account info has been submitted!', null, 5000);
             }
             setState({ isPending: false });
         }
-    }, [dispatch, state.isPending]);
+    }, [dispatch, state.isPending, props.closeModal]);
 
     return (
         <ModalBody

@@ -14,7 +14,7 @@ const typeValues = {
 };
 
 export function handleFormSubmit(values) {
-  const { processForm, store: { dispatch, getState } } = this;
+  const { processForm, store: { dispatch, getState }, closeModal } = this;
   const { account: { publicKey } } = getState();
 
   if (!values.secretPhrase || values.secretPhrase.length === 0) {
@@ -79,8 +79,7 @@ export function handleFormSubmit(values) {
       type: IS_MODAL_PROCESSING,
       payload: false,
     });
-
-    dispatch(setBodyModalParamsAction(null, {}));
+    closeModal();
     NotificationManager.success('Issue currency request has been submitted!', null, 5000);
   });
 }

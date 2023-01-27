@@ -29,7 +29,7 @@ export const TransactionFail = ({ closeModal }) => {
                   Error message:
               </td>
               <td>
-                  {transaction.errorMessage || 'some error message'}
+                  {transaction.errorMessage || 'some error'}
               </td>
             </tr>
           </tbody>

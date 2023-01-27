@@ -6,15 +6,12 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
-import { setBodyModalParamsAction } from '../../../../modules/modals';
 import ModalBody from '../../../components/modals/modal-body';
 import TextualInputComponent from '../../../components/form-components/TextualInput';
 import { getModalDataSelector, getTickerSelector } from '../../../../selectors';
 
-export default function BuyCurrency(props) {
+export default function BuyCurrency({ processForm, closeModal, nameModal }) {
   const dispatch = useDispatch();
-
-  const { processForm, closeModal, nameModal } = props;
 
   const modalData= useSelector(getModalDataSelector, shallowEqual);
   const ticker = useSelector(getTickerSelector);
@@ -28,10 +25,10 @@ export default function BuyCurrency(props) {
     };
 
     processForm(data, 'currencyBuy', 'The buy order has been submitted!', () => {
-      dispatch(setBodyModalParamsAction(null, {}));
+      closeModal();
       NotificationManager.success('The buy order has been submitted!', null, 5000);
     });
-  }, [dispatch, modalData, processForm]);
+  }, [dispatch, modalData, processForm, closeModal]);
 
   return (
     <ModalBody

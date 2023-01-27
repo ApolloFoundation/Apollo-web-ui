@@ -1,11 +1,14 @@
 import React from 'react';
+import { shallowEqual, useSelector } from 'react-redux';
 import TextualInputComponent from '../../../components/form-components/TextualInput';
 import MultiSelect from '../../../components/multi-select/index1';
 import CustomTextArea from '../../../components/form-components/TextArea/TextAreaWithFormik';
 import FileInput from '../../../components/form-components/FIleInput';
+import { getConstantsSelector } from '../../../../selectors';
 
 
 const UpploadFileForm = ({  dataTags = [], onChange }) => {
+    const constants = useSelector(getConstantsSelector, shallowEqual);
     return (
     <>
         <TextualInputComponent 
@@ -14,13 +17,11 @@ const UpploadFileForm = ({  dataTags = [], onChange }) => {
             placeholder="Name"
             type="text"
         />
-
         <CustomTextArea
             label='Description'
             name='description'
             placeholder='Description'
         />
-
         <MultiSelect
             label='Tags'
             options={dataTags}
@@ -30,17 +31,15 @@ const UpploadFileForm = ({  dataTags = [], onChange }) => {
             isClearable
             placeholder='Tags'
         />
-
         <TextualInputComponent 
             label='Channel'
             name="channel"
             placeholder="Channel"
             type="text"
         />
-
         <FileInput
             label='File'
-            maxSize={40000}
+            maxSize={constants?.MAX_TAGGED_DATA_DATA_LENGTH ?? 40000}
             accept="*"
             name="file"
         />

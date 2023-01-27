@@ -1,7 +1,9 @@
 import {NotificationManager} from 'react-notifications';
 import submitForm from '../../../../helpers/forms/forms';
 
-export const handleSendMessageFormSubmit = ({ recipient, resetForm, messageToEncrypt, message, ...values }) => {
+export const handleSendMessageFormSubmit = ({
+    recipient, resetForm, messageToEncrypt, message, textareaCount, ...values
+}) => {
     return async (dispatch) => {
         if (!message || message.length === 0 || !(/\S/.test(message))) {
             NotificationManager.error('Please write your message.', 'Error', 5000);
@@ -18,22 +20,18 @@ export const handleSendMessageFormSubmit = ({ recipient, resetForm, messageToEnc
             return;
         }
 
-        let data = {};
+        let data = { ...values };
 
-        if (values.messageToEncrypt) {
-            data = {
-                ...values,
-                messageToEncrypt: message,
-            };
+        if (messageToEncrypt) {
+            data.messageToEncrypt = message;
+        } else {
+            data.message = message;
         }
-    
-        const secretPhrase = JSON.parse(JSON.stringify(values.secretPhrase));
     
         const res = await dispatch(submitForm.submitForm({
             ...data,
             recipient,
-            secretPhrase,
-            feeATM: 4
+            feeATM: 4,
         }, 'sendMessage'));
     
         if (res && res.errorCode) {

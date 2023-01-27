@@ -7,7 +7,6 @@
 import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { NotificationManager } from "react-notifications";
-import { setBodyModalParamsAction } from '../../../modules/modals';
 import submitForm from "../../../helpers/forms/forms";
 import FeeCalc from '../../components/form-components/FeeCalc';
 import { getModalDataSelector } from '../../../selectors';
@@ -28,12 +27,12 @@ const DeleteAccountProperty = (props) => {
             if (res && res.errorCode) {
                 NotificationManager.error(res.errorDescription, 'Error', 5000)
             } else {
-                dispatch(setBodyModalParamsAction(null, {}));
+                props.closeModal();
                 NotificationManager.success('Account property has been deleted!', null, 5000);
             }
             setIsPending(false);
         }
-    }, [dispatch, isPending, modalData]);
+    }, [dispatch, isPending, modalData, props.closeModal]);
 
     return (
         <ModalBody

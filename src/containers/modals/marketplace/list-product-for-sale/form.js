@@ -4,7 +4,7 @@ import CustomTextArea from '../../../components/form-components/TextArea/TextAre
 import NumericInputComponent from '../../../components/form-components/NumericInput';
 import FileInput from '../../../components/form-components/FIleInput';
 
-const ListProductForSaleFrom = ({ ticker }) => (
+const ListProductForSaleFrom = ({ ticker, maxSize }) => (
     <>
         <TextualInputComponent
             label='Name'
@@ -36,10 +36,11 @@ const ListProductForSaleFrom = ({ ticker }) => (
             placeholder='Quantity'
         />
         <FileInput
+            name="messageFile"
             label='Image'
             type='image/jpeg, image/jpg, image/png'
             showPreview
-            maxSize={40000}
+            maxSize={maxSize ?? 40000}
         />
     </>
 );

@@ -8,7 +8,6 @@ import React, {
 } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
-import { setBodyModalParamsAction } from '../../../modules/modals';
 import { getMixerAccount } from '../../../actions/transactions';
 import submitForm from '../../../helpers/forms/forms';
 import ModalBody from '../../components/modals/modal-body';
@@ -102,7 +101,6 @@ export default function SendApolloPrivate({ closeModal }) {
           } else {
             NotificationManager.success('Private transaction has been submitted.', null, 5000);
             closeModal();
-            dispatch(setBodyModalParamsAction(null, {}));
           }
           setIsPending(false);
         });

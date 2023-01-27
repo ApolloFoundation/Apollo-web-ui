@@ -37,6 +37,7 @@ const DeleteAccountFromWebNode = (props) => {
             closeModal={props.closeModal}
             handleFormSubmit={handleFormSubmit}
             submitButtonName='Delete'
+            isDisableSecretPhrase
         >
             <InfoBox attentionLeft>
                 <p className='mb-3'>

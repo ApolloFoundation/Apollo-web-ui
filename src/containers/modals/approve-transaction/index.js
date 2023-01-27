@@ -14,24 +14,6 @@ import ModalBody from '../../components/modals/modal-body';
 import { getModalDataSelector, getModalHistorySelector } from '../../../selectors';
 
 class ApproveTransaction extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            activeTab: 0,
-            advancedState: false,
-
-            // submitting
-            passphraseStatus: false,
-            recipientStatus: false,
-            amountStatus: false,
-            feeStatus: false,
-
-            answers: [''],
-            currency: '-',
-            asset: 'Not Existing',
-        }
-    }
-
     handleFormSubmit = async (values) => {
         const {transaction} = this.props.modalData;
         values.publicKey = await crypto.getPublicKeyAPL(values.secretPhrase);
@@ -44,7 +26,7 @@ class ApproveTransaction extends React.Component {
         }
 
         this.props.processForm(values, "approveTransaction", 'Transaction has been approved!', () => {
-            this.props.setBodyModalParamsAction(null, {});
+            this.props.closeModal();
             NotificationManager.success('Transaction has been approved!', null, 5000);
         });
     };
@@ -52,12 +34,11 @@ class ApproveTransaction extends React.Component {
     render() {
         return (
             <ModalBody
-                loadForm={this.loadForm}
-                modalTitle={'Approve Transaction'}
+                modalTitle='Approve Transaction'
                 isAdvanced
                 isFee
                 closeModal={this.props.closeModal}
-                handleFormSubmit={(values) => this.handleFormSubmit(values)}
+                handleFormSubmit={this.handleFormSubmit}
                 submitButtonName={'Approve Transaction'}
             />
         );
