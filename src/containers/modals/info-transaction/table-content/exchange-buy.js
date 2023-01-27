@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import {connect} from 'react-redux';
-import {getCurrencyAction, getExchangesByExchangeRequest} from "../../../../actions/currencies";
-import {formatTimestamp} from "../../../../helpers/util/time";
-import { getConstantsSelector } from "../../../../selectors";
+import {getCurrencyAction, getExchangesByExchangeRequest} from "actions/currencies";
+import {formatTimestamp} from "helpers/util/time";
+import { getConstantsSelector } from "selectors";
 
 class BuyCurrency extends Component {
 

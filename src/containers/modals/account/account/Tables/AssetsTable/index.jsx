@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
-import { getSpecificAccountAssetsAction } from '../../../../../../actions/assets';
-import { TableLoader } from '../../../../../components/TableLoader';
-import { getModalDataSelector } from '../../../../../../selectors';
+import { getSpecificAccountAssetsAction } from 'actions/assets';
+import { TableLoader } from 'containers/components/TableLoader';
+import { getModalDataSelector } from 'selectors';
 import Asset from './asset';
 
 const headersList = [

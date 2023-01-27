@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react"
-import {BlockUpdater} from "../containers/block-subscriber";
+import {BlockUpdater} from "containers/block-subscriber";
 
 const initialPagination = (perPage) => ({
   page: 1,

@@ -1,6 +1,6 @@
 import React from 'react';
-import ModalTransaction from '../../../../../account/modalTransactions/transaction';
-import { getTransactionsAction } from '../../../../../../actions/transactions';
+import ModalTransaction from 'containers/account/modalTransactions/transaction';
+import { getTransactionsAction } from 'actions/transactions';
 import { AccountTableBase } from '..';
 
 const headersList = [

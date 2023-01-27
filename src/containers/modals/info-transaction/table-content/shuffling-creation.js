@@ -1,8 +1,8 @@
 import React, {Component} from "react";
-import {getShufflingAction} from "../../../../actions/shuffling";
+import {getShufflingAction} from "actions/shuffling";
 import {connect} from "react-redux";
-import {setBodyModalParamsAction} from "../../../../modules/modals";
-import { getConstantsSelector } from "../../../../selectors";
+import {setBodyModalParamsAction} from "modules/modals";
+import { getConstantsSelector } from "selectors";
 
 function Stage (number) {
 	if(number === "0"){

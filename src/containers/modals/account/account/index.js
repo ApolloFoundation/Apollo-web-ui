@@ -7,11 +7,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import {useDispatch, useSelector, shallowEqual} from 'react-redux';
 import {useHistory} from "react-router-dom";
-import {getAccountInfoAction, switchAccountAction} from "../../../../actions/account";
-import TabulationBody from '../../../components/tabulator/tabuator-body';
-import TabContaier from '../../../components/tabulator/tab-container';
-import ModalBody from '../../../components/modals/modal-body';
-import { getAccountInfoSelector, getModalDataSelector } from '../../../../selectors';
+import {getAccountInfoAction, switchAccountAction} from "actions/account";
+import TabulationBody from 'containers/components/tabulator/tabuator-body';
+import TabContaier from 'containers/components/tabulator/tab-container';
+import ModalBody from 'containers/components/modals/modal-body';
+import { getAccountInfoSelector, getModalDataSelector } from 'selectors';
 import { TransactionTable } from './Tables/TransactionTable';
 import { LedgerTable } from './Tables/LedgerTable';
 import { AssetsTable } from './Tables/AssetsTable';

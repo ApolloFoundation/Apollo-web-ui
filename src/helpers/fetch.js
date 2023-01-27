@@ -1,6 +1,6 @@
 // import fetch from 'isomorphic-fetch';
 import qs from 'query-string';
-import { processElGamalEncryption } from '../actions/crypto';
+import { processElGamalEncryption } from 'actions/crypto';
 
 export const GET = 'GET';
 export const POST = 'POST';

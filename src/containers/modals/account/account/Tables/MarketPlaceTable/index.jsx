@@ -1,5 +1,5 @@
 import React from 'react';
-import { getDGSGoodsAction } from '../../../../../../actions/marketplace';
+import { getDGSGoodsAction } from 'actions/marketplace';
 import { AccountTableBase } from '..';
 import Goods from './goods';
 

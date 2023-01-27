@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getModalDataSelector } from "../../../selectors";
-import { getAliasAction } from "../../../actions/aliases";
+import { getModalDataSelector } from "selectors";
+import { getAliasAction } from "actions/aliases";
 
 export const useAliasDataLoader = () => {
   const dispatch = useDispatch();

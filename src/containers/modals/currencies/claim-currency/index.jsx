@@ -8,11 +8,11 @@ import React, {
 } from 'react';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
-import { getCurrencyAction, getAccountCurrenciesAction } from '../../../../actions/currencies';
-import TextualInputComponent from '../../../components/form-components/TextualInput';
-import FormRowText from '../../../components/form-components/FormTextRow';
-import ModalBody from '../../../components/modals/modal-body';
-import { getAccountSelector, getModalDataSelector, getTickerSelector } from '../../../../selectors';
+import { getCurrencyAction, getAccountCurrenciesAction } from 'actions/currencies';
+import TextualInputComponent from 'containers/components/form-components/TextualInput';
+import FormRowText from 'containers/components/form-components/FormTextRow';
+import ModalBody from 'containers/components/modals/modal-body';
+import { getAccountSelector, getModalDataSelector, getTickerSelector } from 'selectors';
 
 export default function ClaimCurrency(props) {
   const dispatch = useDispatch();

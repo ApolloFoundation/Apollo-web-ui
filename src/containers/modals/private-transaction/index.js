@@ -6,10 +6,10 @@
 
 import React, { useCallback } from 'react';
 import {useDispatch} from 'react-redux';
-import {setModalData} from '../../../modules/modals';
-import crypto from  '../../../helpers/crypto/crypto';
-import ModalBody from '../../components/modals/modal-body';
-import CustomInput from '../../components/custom-input/CustomInputWithFormik';
+import {setModalData} from 'modules/modals';
+import crypto from  'helpers/crypto/crypto';
+import ModalBody from 'containers/components/modals/modal-body';
+import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
 
 const PrivateTransactions = ({ closeModal, nameModal }) => {
     const dispatch = useDispatch();

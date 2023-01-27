@@ -6,21 +6,21 @@
 import i18n from 'i18next';
 import axios from 'axios';
 import {NotificationManager} from "react-notifications";
-import util from '../../helpers/util/utils';
-import crypto from '../crypto/crypto';
-import config from '../../config';
-import converters from '../converters'
-import AplAddress from '../util/apladres'
-import {processElGamalEncryption} from '../../actions/crypto';
-import { handleFetch } from '../../helpers/fetch';
-import { SET_FEE_ALERT } from '../../modules/fee';
+import util from 'helpers/util/utils';
+import crypto from 'helpers/crypto/crypto';
+import converters from 'helpers/converters'
+import AplAddress from 'helpers/util/apladres'
+import {processElGamalEncryption} from 'actions/crypto';
+import { handleFetch } from 'helpers/fetch';
+import { SET_FEE_ALERT } from 'modules/fee';
 import {
     IS_MODAL_PROCESSING,
     SET_AMOUNT_WARNING,
     SET_ASSET_WARNING,
     SET_CURRENCY_WARNING,
     SET_FEE_WARNING
-} from '../../modules/modals';
+} from 'modules/modals';
+import config from 'config';
 
 // request which use FormData objects
 const formDataRequestList = ['importKeyViaFile', 'dgsListing', 'uploadTaggedData'];

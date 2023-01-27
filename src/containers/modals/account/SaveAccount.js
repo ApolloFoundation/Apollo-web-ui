@@ -7,12 +7,12 @@
 import React, { useState } from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
 import {NotificationManager} from "react-notifications";
-import AccountRS from '../../components/form-components/AccountRS';
-import { readFromLocalStorage, writeToLocalStorage } from '../../../actions/localStorage';
-import CustomInput from '../../components/custom-input/CustomInputWithFormik';
-import CustomTextArea from '../../components/form-components/TextArea/TextAreaWithFormik';
-import ModalBody from '../../components/modals/modal-body';
-import { getModalDataSelector } from '../../../selectors';
+import AccountRS from 'containers/components/form-components/AccountRS';
+import { readFromLocalStorage, writeToLocalStorage } from 'actions/localStorage';
+import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
+import CustomTextArea from 'containers/components/form-components/TextArea/TextAreaWithFormik';
+import ModalBody from 'containers/components/modals/modal-body';
+import { getModalDataSelector } from 'selectors';
 
 const AddAccount = (props) => {
     const [isPending, setIsPending] = useState(false);

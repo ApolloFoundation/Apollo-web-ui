@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import { getConstantsSelector } from "../../../../selectors";
-import {getAssetAction} from "../../../../actions/assets";
-import {setBodyModalParamsAction} from "../../../../modules/modals";
+import { getConstantsSelector } from "selectors";
+import {getAssetAction} from "actions/assets";
+import {setBodyModalParamsAction} from "modules/modals";
 
 
 class AssetIssuance extends Component {

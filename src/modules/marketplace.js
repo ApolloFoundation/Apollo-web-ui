@@ -1,11 +1,9 @@
-import store from '../store';
-import {getDGSGoodsAction,
+import {
     getDGSTagCountAction,
     getDGSPurchaseCountAction,
     getDGSGoodsCountAction,
     getDGSPurchasesAction,
-    getDGSTagsAction,
-} from '../actions/marketplace'
+} from 'actions/marketplace'
 
 const initState = {}
 

@@ -6,14 +6,14 @@
 
 import React, { useCallback, useEffect, useState } from 'react';
 import {connect} from 'react-redux';
-import {setModalData, openPrevModal} from '../../../modules/modals';
-import {getLedgerEntryAction} from '../../../actions/ledger';
-import ModalBody from "../../components/modals/modal-body";
-import { useLoading } from '../../../hooks/useLoading';
-import ContentLoader from '../../components/content-loader';
+import {setModalData, openPrevModal} from 'modules/modals';
+import {getLedgerEntryAction} from 'actions/ledger';
+import ModalBody from "containers/components/modals/modal-body";
+import { useLoading } from 'hooks/useLoading';
+import ContentLoader from 'containers/components/content-loader';
 import {
     getDecimalsSelector, getModalDataSelector, getModalHistorySelector, getPassPhraseSelector
-} from '../../../selectors';
+} from 'selectors';
 
 const InfoTransactions = (props) => {
     const [entry, setEntry] = useState({});

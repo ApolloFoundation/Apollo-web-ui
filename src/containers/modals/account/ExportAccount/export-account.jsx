@@ -7,10 +7,10 @@
 import React, { useCallback, useRef, useState } from 'react';
 import {useDispatch} from 'react-redux';
 import {NotificationManager} from 'react-notifications';
-import util from "../../../../helpers/util/utils";
-import {exportAccount} from '../../../../actions/account';
-import InfoBox from '../../../components/info-box';
-import ModalBody from "../../../components/modals/modal-body";
+import util from "helpers/util/utils";
+import {exportAccount} from 'actions/account';
+import InfoBox from 'containers/components/info-box';
+import ModalBody from "containers/components/modals/modal-body";
 import { ExportAccountForm } from './Form';
 import { AccountKeySeedData } from './AccountKeySeedData';
 import { useDownloadFile } from './useDownloadFIle';

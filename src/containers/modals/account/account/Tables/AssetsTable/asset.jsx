@@ -9,8 +9,8 @@ import { useHistory } from 'react-router-dom';
 import {
   getAskOrders as getAskOrdersAction,
   getBidOrders as getBidOrdersAction,
-} from '../../../../../../actions/marketplace';
-import { setBodyModalParamsAction } from '../../../../../../modules/modals';
+} from 'actions/marketplace';
+import { setBodyModalParamsAction } from 'modules/modals';
 
 const AssetItem = ({ asset, decimals, name, unconfirmedQuantityATU, quantityATU }) => {
   const dispatch = useDispatch();

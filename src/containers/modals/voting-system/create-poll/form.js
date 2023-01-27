@@ -1,12 +1,12 @@
 import React from 'react';
 import { FieldArray, useFormikContext } from 'formik';
-import TextualInputComponent from '../../../components/form-components/TextualInput';
-import CustomTextArea from '../../../components/form-components/TextArea/TextAreaWithFormik';
-import CustomFormSelect from '../../../components/form-components/CustomSelect';
-import BlockHeightInput from '../../../components/form-components/BlockHeight/block-height-input1';
-import { AssetInput } from '../../../components/form-components/AssetInput';
-import CurrencyInput from '../../../components/form-components/CurrencyInput';
-import TextComponent from '../../../components/custom-input/CustomInputWithFormik';
+import TextualInputComponent from 'containers/components/form-components/TextualInput';
+import CustomTextArea from 'containers/components/form-components/TextArea/TextAreaWithFormik';
+import CustomFormSelect from 'containers/components/form-components/CustomSelect';
+import BlockHeightInput from 'containers/components/form-components/BlockHeight/block-height-input1';
+import { AssetInput } from 'containers/components/form-components/AssetInput';
+import CurrencyInput from 'containers/components/form-components/CurrencyInput';
+import TextComponent from 'containers/components/custom-input/CustomInputWithFormik';
 
 const PollForm = ({ idGroup, ticker, votingModelData }) => {
     const { values } = useFormikContext();

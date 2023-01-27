@@ -6,12 +6,12 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {setBodyModalParamsAction} from '../../../modules/modals';
-import submitForm from "../../../helpers/forms/forms";
+import {setBodyModalParamsAction} from 'modules/modals';
+import submitForm from "helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
-import crypto from "../../../helpers/crypto/crypto";
-import ModalBody from '../../components/modals/modal-body';
-import { getModalDataSelector, getModalHistorySelector } from '../../../selectors';
+import crypto from "helpers/crypto/crypto";
+import ModalBody from 'containers/components/modals/modal-body';
+import { getModalDataSelector, getModalHistorySelector } from 'selectors';
 
 class ApproveTransaction extends React.Component {
     handleFormSubmit = async (values) => {

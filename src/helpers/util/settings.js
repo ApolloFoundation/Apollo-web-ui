@@ -4,9 +4,9 @@
  ******************************************************************************/
 
 
-import {readFromLocalStorage} from "../../actions/localStorage";
-import {storageSelect} from '../../actions/localStorage'
-import {storageInsert} from '../../actions/localStorage'
+import {readFromLocalStorage} from "actions/localStorage";
+import {storageSelect} from 'actions/localStorage'
+import {storageInsert} from 'actions/localStorage'
 import async from './async'
 
 import {DEFAULT_COLORS} from '../internationalisation/languages-data';

@@ -7,9 +7,9 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 import {connect} from 'react-redux';
 import classNames from 'classnames';
-import { closeModal } from '../../modules/modals';
-import ModalProvider from '../components/modals/modal-provider';
-import { getModalTypeSelector } from '../../selectors';
+import { closeModal } from 'modules/modals';
+import ModalProvider from 'containers/components/modals/modal-provider';
+import { getModalTypeSelector } from 'selectors';
 // Modals
 import PrivateTransactions from "./private-transaction";
 import SendApollo from "./send-apollo";

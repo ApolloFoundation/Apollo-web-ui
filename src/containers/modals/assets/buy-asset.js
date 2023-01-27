@@ -7,15 +7,15 @@
 import React, { useCallback } from 'react';
 import {useSelector, shallowEqual} from 'react-redux';
 import {NotificationManager} from "react-notifications";
-import ModalBody from '../../components/modals/modal-body';
-import TextualInputComponent from '../../components/form-components/TextualInput';
+import ModalBody from 'containers/components/modals/modal-body';
+import TextualInputComponent from 'containers/components/form-components/TextualInput';
 import {
     getDecimalsSelector,
     getModalDataSelector,
     getModalCallbackSelector,
     getTickerSelector
-} from '../../../selectors';
-import CustomInput from '../../components/custom-input/CustomInputWithFormik';
+} from 'selectors';
+import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
 
 const BuyAsset = ({ processForm, closeModal, nameModal }) => {
     const modalData = useSelector(getModalDataSelector, shallowEqual);

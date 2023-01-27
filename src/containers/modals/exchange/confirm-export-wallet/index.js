@@ -1,13 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {NotificationManager} from "react-notifications";
-import {setAccountPassphrase} from '../../../../modules/account';
-import {exportWallet} from "../../../../actions/wallet";
-import ModalBody from '../../../components/modals/modal-body';
-import util from "../../../../helpers/util/utils";
+import {setAccountPassphrase} from 'modules/account';
+import {exportWallet} from "actions/wallet";
+import ModalBody from 'containers/components/modals/modal-body';
+import util from "helpers/util/utils";
 import {
     get2FASelector, getAccountSelector, getModalDataSelector, getPassPhraseSelector
-} from '../../../../selectors';
+} from 'selectors';
 
 class ConfirmExportWallet extends React.Component {
     downloadSecretFile = React.createRef();

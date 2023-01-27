@@ -1,8 +1,8 @@
 import React from 'react';
-import TextualInputComponent from '../../../components/form-components/TextualInput';
-import CustomTextArea from '../../../components/form-components/TextArea/TextAreaWithFormik';
-import NumericInputComponent from '../../../components/form-components/NumericInput';
-import FileInput from '../../../components/form-components/FIleInput';
+import TextualInputComponent from 'containers/components/form-components/TextualInput';
+import CustomTextArea from 'containers/components/form-components/TextArea/TextAreaWithFormik';
+import NumericInputComponent from 'containers/components/form-components/NumericInput';
+import FileInput from 'containers/components/form-components/FIleInput';
 
 const ListProductForSaleFrom = ({ ticker, maxSize }) => (
     <>

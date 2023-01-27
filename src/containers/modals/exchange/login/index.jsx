@@ -1,11 +1,11 @@
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
-import { setAccountPassphrase } from '../../../../modules/account';
-import { getWallets } from '../../../../actions/wallet';
-import ModalBody from '../../../components/modals/modal-body';
-import TextualInputComponent from '../../../components/form-components/TextualInput';
-import { getAccountRsSelector } from '../../../../selectors';
+import { setAccountPassphrase } from 'modules/account';
+import { getWallets } from 'actions/wallet';
+import ModalBody from 'containers/components/modals/modal-body';
+import TextualInputComponent from 'containers/components/form-components/TextualInput';
+import { getAccountRsSelector } from 'selectors';
 
 export default function LoginToExchange({ closeModal, nameModal }) {
   const dispatch = useDispatch();

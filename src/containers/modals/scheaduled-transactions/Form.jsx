@@ -1,12 +1,12 @@
 import React, { useEffect,  } from 'react';
 import { useFormikContext } from "formik";
-import NumericInput from "../../components/form-components/NumericInput";
-import AccountRS from '../../components/form-components/AccountRS';
-import CurrencyInput from '../../components/form-components/CurrencyInput';
-import FeeInput from '../../components/form-components/FeeInput/fee-input1';
+import NumericInput from "containers/components/form-components/NumericInput";
+import AccountRS from 'containers/components/form-components/AccountRS';
+import CurrencyInput from 'containers/components/form-components/CurrencyInput';
+import FeeInput from 'containers/components/form-components/FeeInput/fee-input1';
 import { useDispatch, useSelector } from 'react-redux';
-import {getCurrencyAction} from "../../../actions/currencies";
-import { getTickerSelector } from '../../../selectors';
+import {getCurrencyAction} from "actions/currencies";
+import { getTickerSelector } from 'selectors';
 
 export const Form = () => {
   const dispatch = useDispatch();

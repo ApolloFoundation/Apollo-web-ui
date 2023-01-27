@@ -1,8 +1,8 @@
 import React, { useCallback } from 'react';
 import { useSelector, shallowEqual} from 'react-redux';
 import {NotificationManager} from "react-notifications";
-import ModalBody from '../../components/modals/modal-body';
-import { getAdminPasswordSelector, getModalDataSelector } from '../../../selectors';
+import ModalBody from 'containers/components/modals/modal-body';
+import { getAdminPasswordSelector, getModalDataSelector } from 'selectors';
 import { Form } from './Form';
 
 const ScheaduleCurrency = ({ processForm, closeModal }) => {

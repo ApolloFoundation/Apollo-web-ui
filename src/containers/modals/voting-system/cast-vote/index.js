@@ -6,13 +6,13 @@
 
 import React, { useCallback, useState, useEffect } from 'react';
 import {useDispatch, useSelector, shallowEqual} from 'react-redux';
-import submitForm from "../../../../helpers/forms/forms";
+import submitForm from "helpers/forms/forms";
 import {NotificationManager} from "react-notifications";
-import {getpollAction} from "../../../../actions/polls";
-import {getAssetAction} from "../../../../actions/assets";
-import {getCurrencyAction} from "../../../../actions/currencies";
-import ModalBody from '../../../components/modals/modal-body';
-import { getModalDataSelector } from '../../../../selectors';
+import {getpollAction} from "actions/polls";
+import {getAssetAction} from "actions/assets";
+import {getCurrencyAction} from "actions/currencies";
+import ModalBody from 'containers/components/modals/modal-body';
+import { getModalDataSelector } from 'selectors';
 import CastVoteForm   from './form';
 
 const CastPoll = ({ closeModal, nameModal }) => {

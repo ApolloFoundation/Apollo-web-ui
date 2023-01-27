@@ -1,8 +1,8 @@
 import React, { forwardRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setBodyModalParamsAction } from '../../../../modules/modals';
-import { getAccountRsSelector } from '../../../../selectors';
-import InfoBox from '../../../components/info-box';
+import { setBodyModalParamsAction } from 'modules/modals';
+import { getAccountRsSelector } from 'selectors';
+import InfoBox from 'containers/components/info-box';
 
 export const AccountKeySeedData = forwardRef((
   { accountKeySeedData, downloadFile, closeModal },

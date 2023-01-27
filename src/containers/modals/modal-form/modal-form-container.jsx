@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
 import { FormikProvider, useFormik, Form } from 'formik';
-import { getModalsSelector } from '../../../selectors';
+import { getModalsSelector } from 'selectors';
 
 function BackForm({ nameModal, onSubmit, children, className, initialValues = {}, isLoadValue, enableReinitialize }) {
   const { modalsHistory, modalData } = useSelector(getModalsSelector, shallowEqual);

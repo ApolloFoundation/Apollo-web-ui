@@ -1,10 +1,10 @@
 import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
-import submitForm from '../../../helpers/forms/forms';
-import CustomInput from '../../components/custom-input/CustomInputWithFormik';
-import ModalBody from '../../components/modals/modal-body';
-import TextualInputComponent from '../../components/form-components/TextualInput';
-import { getModalDataSelector, getTickerSelector } from '../../../selectors';
+import submitForm from 'helpers/forms/forms';
+import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
+import ModalBody from 'containers/components/modals/modal-body';
+import TextualInputComponent from 'containers/components/form-components/TextualInput';
+import { getModalDataSelector, getTickerSelector } from 'selectors';
 
 const AddMonitoredAccount = (props) =>  {
     const dispatch = useDispatch();

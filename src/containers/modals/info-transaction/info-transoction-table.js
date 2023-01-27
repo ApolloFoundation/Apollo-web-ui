@@ -1,14 +1,14 @@
 import React, {Component} from "react";
-import {formatTransactionType} from "../../../actions/transactions";
+import {formatTransactionType} from "actions/transactions";
 import {connect} from "react-redux";
-import {readMessageAction} from '../../../actions/messager/'
-import crypto from '../../../helpers/crypto/crypto';
+import {readMessageAction} from 'actions/messager/'
+import crypto from 'helpers/crypto/crypto';
 import {Form, Formik, Field} from 'formik';
 import {NotificationManager} from 'react-notifications';
-import {setAccountPassphrase} from '../../../modules/account';
+import {setAccountPassphrase} from 'modules/account';
 import {
 	getAccountSelector, getDecimalsSelector, getPassPhraseSelector, getTickerSelector
-} from "../../../selectors";
+} from "selectors";
 import CurrencyIssuance from "./table-content/currency-issuance";
 import BuyCurrency from "./table-content/exchange-buy";
 import SellCurrency from "./table-content/exchange-sell";

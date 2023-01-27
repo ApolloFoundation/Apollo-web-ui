@@ -1,8 +1,8 @@
 import React from 'react';
 import { useFormikContext } from 'formik';
-import AccountRSFormInput from '../../../components/form-components/AccountRS';
-import CustomInput from '../../../components/custom-input/CustomInputWithFormik';
-import CustomSelect from '../../../components/form-components/CustomSelect';
+import AccountRSFormInput from 'containers/components/form-components/AccountRS';
+import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
+import CustomSelect from 'containers/components/form-components/CustomSelect';
 
 const AddAliasForm = ({ aliasTypeData }) => {
     const { values } = useFormikContext();

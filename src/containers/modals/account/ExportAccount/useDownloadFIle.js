@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import {NotificationManager} from 'react-notifications';
-import util from "../../../../helpers/util/utils";
+import util from "helpers/util/utils";
 
 export const useDownloadFile = (accountKeySeedData) => {
   const writeFile = useCallback(() => {

@@ -1,12 +1,12 @@
 import React from 'react';
 import { useFormikContext } from 'formik';
 import { useSelector } from 'react-redux';
-import CustomFormSelect from '../../../components/select';
-import NumericInputComponent from '../../../components/form-components/NumericInput';
-import { AssetInput } from '../../../components/form-components/AssetInput';
-import CurrencyInput from '../../../components/form-components/CurrencyInput';
-import BlockHeightInput from '../../../components/form-components/BlockHeight/block-height-input1';
-import { getTickerSelector } from '../../../../selectors';
+import CustomFormSelect from 'containers/components/select';
+import NumericInputComponent from 'containers/components/form-components/NumericInput';
+import { AssetInput } from 'containers/components/form-components/AssetInput';
+import CurrencyInput from 'containers/components/form-components/CurrencyInput';
+import BlockHeightInput from 'containers/components/form-components/BlockHeight/block-height-input1';
+import { getTickerSelector } from 'selectors';
 
 
 const holdingTypeData = [

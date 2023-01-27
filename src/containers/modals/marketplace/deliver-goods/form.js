@@ -1,7 +1,7 @@
 import React from 'react';
-import TextualInput from '../../../components/form-components/TextualInput';
-import NumericInput from '../../../components/form-components/NumericInput';
-import TextArea from '../../../components/form-components/TextArea/TextAreaWithFormik';
+import TextualInput from 'containers/components/form-components/TextualInput';
+import NumericInput from 'containers/components/form-components/NumericInput';
+import TextArea from 'containers/components/form-components/TextArea/TextAreaWithFormik';
 
 const Form = ({ goods, formatTimestamp, decimals, ticker }) => (
     <>

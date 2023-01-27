@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
 import { useFormikContext } from 'formik';
-import utils from '../../../../../helpers/util/utils';
-import TextualInputComponent from '../../../../components/form-components/TextualInput';
-import { getModalDataSelector } from '../../../../../selectors';
+import utils from 'helpers/util/utils';
+import TextualInputComponent from 'containers/components/form-components/TextualInput';
+import { getModalDataSelector } from 'selectors';
 
 export default function ReserveCurrencyForm() {
   const modalData = useSelector(getModalDataSelector, shallowEqual);

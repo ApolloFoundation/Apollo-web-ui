@@ -1,8 +1,8 @@
 import React from 'react';
 import { useSelector, shallowEqual } from 'react-redux';
-import ModalBody from '../../../components/modals/modal-body';
-import TextualInputComponent from '../../../components/form-components/TextualInput';
-import { getModalDataSelector } from '../../../../selectors';
+import ModalBody from 'containers/components/modals/modal-body';
+import TextualInputComponent from 'containers/components/form-components/TextualInput';
+import { getModalDataSelector } from 'selectors';
 
 const SelectOrder = ({ closeModal }) => {
     const modalData = useSelector(getModalDataSelector, shallowEqual);

@@ -7,10 +7,10 @@
 import React, { useCallback, useState } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import {NotificationManager} from "react-notifications";
-import submitForm from "../../../helpers/forms/forms";
-import TextualInput from '../../components/form-components/TextualInput';
-import ModalBody from '../../components/modals/modal-body';
-import { getModalDataSelector } from '../../../selectors';
+import submitForm from "helpers/forms/forms";
+import TextualInput from 'containers/components/form-components/TextualInput';
+import ModalBody from 'containers/components/modals/modal-body';
+import { getModalDataSelector } from 'selectors';
 
 const ConnectPeer = ({ closeModal }) => {
     const dispatch = useDispatch();

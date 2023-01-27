@@ -1,5 +1,5 @@
 import React from 'react';
-import { getTradesAction } from '../../../../../../actions/trade-history';
+import { getTradesAction } from 'actions/trade-history';
 import { AccountTableBase } from '..';
 import Trade from './trade';
 

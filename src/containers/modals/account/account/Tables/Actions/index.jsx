@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import classNames from 'classnames';
-import { setBodyModalParamsAction } from '../../../../../../modules/modals';
+import { setBodyModalParamsAction } from 'modules/modals';
 
 export const Actions = ({ recipient, account }) => {
   const dispatch = useDispatch();

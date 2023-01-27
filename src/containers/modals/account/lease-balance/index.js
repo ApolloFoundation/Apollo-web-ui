@@ -6,7 +6,7 @@
 
 import React, { useCallback } from 'react';
 import {NotificationManager} from "react-notifications";
-import ModalBody from '../../../components/modals/modal-body';
+import ModalBody from 'containers/components/modals/modal-body';
 import LeaseBalanceForm from './lease-balance-form';
 
 const  LeaseBalance = (props) => {

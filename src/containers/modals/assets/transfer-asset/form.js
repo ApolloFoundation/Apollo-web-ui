@@ -1,9 +1,9 @@
 import React from 'react';
-import AccountRsInput from '../../../components/form-components/AccountRS';
-import TextualInputComponent from '../../../components/form-components/TextualInput';
-import NumericInputComponent from '../../../components/form-components/NumericInput';
-import CustomTextArea from '../../../components/form-components/TextArea/TextAreaWithFormik';
-import CustomInput from '../../../components/custom-input/CustomInputWithFormik';
+import AccountRsInput from 'containers/components/form-components/AccountRS';
+import TextualInputComponent from 'containers/components/form-components/TextualInput';
+import NumericInputComponent from 'containers/components/form-components/NumericInput';
+import CustomTextArea from 'containers/components/form-components/TextArea/TextAreaWithFormik';
+import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
 
 const TransferAsset = ({ modalData }) => (
     <>

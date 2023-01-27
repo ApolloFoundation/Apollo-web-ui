@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useFormikContext } from 'formik';
-import CustomFormSelect from '../../../components/form-components/CustomSelect';
-import TextualInputComponent from '../../../components/form-components/TextualInput';
-import AccountRSFormInput from '../../../components/form-components/AccountRS';
+import CustomFormSelect from 'containers/components/form-components/CustomSelect';
+import TextualInputComponent from 'containers/components/form-components/TextualInput';
+import AccountRSFormInput from 'containers/components/form-components/AccountRS';
 
 const EditAliasForm = ({ alias, typeData }) => {
     const { values, setFieldValue } = useFormikContext();

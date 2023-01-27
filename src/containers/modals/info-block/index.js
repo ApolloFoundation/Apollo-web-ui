@@ -13,7 +13,7 @@ import ModalBody from 'containers/components/modals/modal-body';
 import ContentLoader from 'containers/components/content-loader';
 import { getDecimalsSelector, getModalDataSelector } from 'selectors';
 import { useFormatTimestamp } from 'hooks/useFormatTimestamp';
-import Transaction from '../../account/transactions/transaction';
+import Transaction from 'containers/account/transactions/transaction';
 import { BlockDetails } from './BlockDetails';
 import './index.scss';
 

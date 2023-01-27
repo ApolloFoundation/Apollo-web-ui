@@ -1,13 +1,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {NotificationManager} from "react-notifications";
-import {setAccountPassphrase} from '../../../../modules/account';
-import {createOffer} from "../../../../actions/wallet";
-import ModalBody from '../../../components/modals/modal-body';
-import TextualInputComponent from '../../../components/form-components/TextualInput';
+import {setAccountPassphrase} from 'modules/account';
+import {createOffer} from "actions/wallet";
+import ModalBody from 'containers/components/modals/modal-body';
+import TextualInputComponent from 'containers/components/form-components/TextualInput';
 import {
     getAccountPublicKeySelector, getAccountRsSelector, getModalDataSelector
-} from '../../../../selectors';
+} from 'selectors';
 
 class ConfirmCreateOffer extends React.Component {
     constructor(props) {

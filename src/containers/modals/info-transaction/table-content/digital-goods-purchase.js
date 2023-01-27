@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {connect} from "react-redux";
-import submitForm from "../../../../helpers/forms/forms";
+import submitForm from "helpers/forms/forms";
 
 class DigitalGoodsPurchase extends Component {
 

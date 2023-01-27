@@ -8,12 +8,12 @@ import React, {
 } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
-import { getAccountCurrenciesAction } from '../../../../actions/currencies';
-import ModalBody from '../../../components/modals/modal-body';
-import NumericInput from '../../../components/form-components/NumericInput';
-import TextualInputComponent from '../../../components/form-components/TextualInput';
-import BlockHeightInput from '../../../components/form-components/BlockHeight/block-height-input1';
-import { getAccountSelector, getModalDataSelector, getTickerSelector } from '../../../../selectors';
+import { getAccountCurrenciesAction } from 'actions/currencies';
+import ModalBody from 'containers/components/modals/modal-body';
+import NumericInput from 'containers/components/form-components/NumericInput';
+import TextualInputComponent from 'containers/components/form-components/TextualInput';
+import BlockHeightInput from 'containers/components/form-components/BlockHeight/block-height-input1';
+import { getAccountSelector, getModalDataSelector, getTickerSelector } from 'selectors';
 import { handleFormSubmit } from './handle-form-submit';
 
 export default function OfferCurrency({ closeModal }) {

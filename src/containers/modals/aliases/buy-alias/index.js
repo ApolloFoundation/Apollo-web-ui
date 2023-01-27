@@ -7,9 +7,9 @@
 import React, { useCallback } from 'react';
 import {useSelector, shallowEqual} from 'react-redux';
 import {NotificationManager} from "react-notifications";
-import TextualInputComponent from '../../../components/form-components/TextualInput';
-import ModalBody from '../../../components/modals/modal-body';
-import { getDecimalsSelector, getModalDataSelector, getTickerSelector } from '../../../../selectors';
+import TextualInputComponent from 'containers/components/form-components/TextualInput';
+import ModalBody from 'containers/components/modals/modal-body';
+import { getDecimalsSelector, getModalDataSelector, getTickerSelector } from 'selectors';
 
 const GetAlias = ({ processForm, closeModal }) => {
     const ticker = useSelector(getTickerSelector);
