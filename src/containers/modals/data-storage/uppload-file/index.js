@@ -9,15 +9,13 @@ import { useDispatch } from 'react-redux';
 import { NotificationManager } from "react-notifications";
 import i18n from 'i18next';
 import {getDataTagsAction} from "actions/datastorage";
-import submitForm from 'helpers/forms/forms';
 import ModalBody from 'containers/components/modals/modal-body';
 import UpploadFileForm from './form';
 
-const UploadFile = ({ closeModal }) => {
+const UploadFile = ({ closeModal, processForm }) => {
     const dispatch = useDispatch();
     const [dataTags, setDataTags] = useState(null);
     const [selectTags, setSelectTags] = useState([]);
-    const [isPending, setIsPending] = useState(false);
 
     useEffect(() => {
         getDataTags();
@@ -52,27 +50,21 @@ const UploadFile = ({ closeModal }) => {
     }, [setSelectTags]);
 
     const handleFormSubmit = useCallback(async(values) => {
-        if (!isPending) {
-            if (!values.file) {
-                NotificationManager.error(i18n.t("error_no_file_chosen"), 'Error', 5000);
-                return;
-            }
-            setIsPending(true);
-            const tags = values.tags ? values.tags.map(({label}) => label).join(', ') : null;
-            const res = await dispatch(submitForm.submitForm({
-                    ...values, tags
-                }, 
-                'uploadTaggedData'
-            ));
-            if (res && res.errorCode) {
-                NotificationManager.error(res.errorDescription, 'Error', 5000)
-            } else {
-                closeModal();
-                NotificationManager.success('File has been submitted!', null, 5000);
-            }
-            setIsPending(false);
+        if (!values.file) {
+            NotificationManager.error(i18n.t("error_no_file_chosen"), 'Error', 5000);
+            return;
         }
-    }, [closeModal, isPending, setIsPending, dispatch]);
+        const tags = values.tags ? values.tags.map(({label}) => label).join(', ') : null;
+        const res = await processForm({
+                ...values, tags
+            }, 
+            'uploadTaggedData'
+        );
+        if (res && !res.errorCode) {
+            closeModal();
+            NotificationManager.success('File has been submitted!', null, 5000);
+        }
+    }, [closeModal, processForm]);
 
     return (
         <ModalBody
@@ -82,7 +74,6 @@ const UploadFile = ({ closeModal }) => {
             closeModal={closeModal}
             handleFormSubmit={handleFormSubmit}
             submitButtonName='Upload file'
-            isPending={isPending}
         >
             {dataTags ? (
                 <UpploadFileForm
