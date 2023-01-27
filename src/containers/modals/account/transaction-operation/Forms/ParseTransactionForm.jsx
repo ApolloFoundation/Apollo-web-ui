@@ -1,13 +1,9 @@
 import React, { useCallback } from 'react';
-import { useDispatch } from "react-redux";
 import {NotificationManager} from "react-notifications";
-import submitForm from "helpers/forms/forms";
 import ModalBody from "containers/components/modals/modal-body";
 import CustomTextArea from "containers/components/form-components/TextArea/TextAreaWithFormik";
 
-export const ParseTransactionForm = ({ closeModal }) => {
-  const dispatch = useDispatch();
-
+export const ParseTransactionForm = ({ closeModal, processForm }) => {
   const handleFormSubmit = useCallback(async (values) => {
     const toSendParse = {
         transactionBytes: values.parseBytes,
@@ -15,13 +11,11 @@ export const ParseTransactionForm = ({ closeModal }) => {
         feeATM: 0,
         random: Math.random()
     };
-    const res = await dispatch(submitForm.submitForm(toSendParse, "parseTransaction"));
-    if (res.errorCode) {
-        NotificationManager.error(res.errorDescription, "Error", 5000)
-    } else {
+    const res = await processForm(toSendParse, "parseTransaction");
+    if (!res.errorCode) {
         NotificationManager.success("Transaction parsed!", null, 5000);
     }
-  }, [dispatch]);
+  }, [processForm]);
   
   return (
     <ModalBody
