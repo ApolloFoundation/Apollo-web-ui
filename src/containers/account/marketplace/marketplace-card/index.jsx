@@ -13,6 +13,7 @@ import {formatTimestamp} from "../../../../helpers/util/time";
 import utils from "../../../../helpers/util/utils";
 import config from '../../../../config';
 import { getDecimalsSelector, getTickerSelector } from '../../../../selectors';
+import { numberToLocaleString } from 'helpers/format';
 
 const MarketplaceItem = (props) => {
     const dispatch = useDispatch();
@@ -22,7 +23,7 @@ const MarketplaceItem = (props) => {
 
     const handlePrice = () => {
         const result = props.priceATM / decimals;
-        return result.toLocaleString('en', {
+        return numberToLocaleString(result, {
             minimumFractionDigits: 2,
             maximumFractionDigits: 20,
             useGrouping: false,

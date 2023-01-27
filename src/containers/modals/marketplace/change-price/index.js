@@ -38,7 +38,7 @@ const MarketplaceChangePrice = ({ closeModal, processForm }) => {
         }
     }, [dispatch, modalData]);
 
-    const handleFormSubmit = useCallback(async (values) => {
+    const handleFormSubmit = useCallback((values) => {
         const data = {
             ...values,
             priceATM: parseInt(values.priceATM),

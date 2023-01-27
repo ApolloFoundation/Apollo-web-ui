@@ -4,7 +4,7 @@ import React, {
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { formatDivision } from '../../../../../helpers/format';
-import { ONE_GWEI } from '../../../../../constants';
+import { ONE_GWEI } from '../../../../../constants/constants';
 import { BlockUpdater } from '../../../../block-subscriber';
 import { getMyTradeHistory } from '../../../../../actions/wallet';
 import ArrowUp from '../../../../../assets/arrow-up.png';

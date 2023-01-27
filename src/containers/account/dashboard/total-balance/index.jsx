@@ -9,6 +9,7 @@ import {
   getDecimalsSelector,
   getTickerSelector
 } from '../../../../selectors';
+import { numberToLocaleString } from 'helpers/format';
 
 const TotalBalance = () => {
   const dispatch = useDispatch();
@@ -17,7 +18,7 @@ const TotalBalance = () => {
   const { dashboardAccoountInfo } = useSelector(getDashboardInfoSelector, shallowEqual);
 
   const balanceAPL = (dashboardAccoountInfo && dashboardAccoountInfo.unconfirmedBalanceATM)
-    ? (dashboardAccoountInfo.unconfirmedBalanceATM / decimals).toLocaleString('en-GB', {
+    ? numberToLocaleString(dashboardAccoountInfo.unconfirmedBalanceATM / decimals, {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
     })

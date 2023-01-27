@@ -2,6 +2,7 @@ import React from 'react';
 import TextualInput from '../../../components/form-components/TextualInput';
 import NumericInput from '../../../components/form-components/NumericInput';
 import TextArea from '../../../components/form-components/TextArea/TextAreaWithFormik';
+import { numberToLocaleString } from 'helpers/format';
 
 const Form = ({ goods, formatTimestamp, decimals, ticker }) => (
     <>
@@ -22,7 +23,7 @@ const Form = ({ goods, formatTimestamp, decimals, ticker }) => (
                 />
                 <TextualInput
                     label="Current price:"
-                    text={`${(goods.priceATM / decimals).toLocaleString('en')} ${ticker}`}
+                    text={`${numberToLocaleString(goods.priceATM / decimals)} ${ticker}`}
                 />
                 <TextArea
                     label="Data"

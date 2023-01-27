@@ -95,3 +95,7 @@ export const currencyTypes = {
   eth: 1,
   pax: 2,
 };
+
+export const numberToLocaleString = (
+  number, options= {}, locale = 'en'
+)  => (+number).toLocaleString(locale, options);

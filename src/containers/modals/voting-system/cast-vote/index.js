@@ -24,23 +24,24 @@ const CastPoll = ({ closeModal, nameModal }) => {
     const [isPending, setIsPending] = useState(false);
     const modalData = useSelector(getModalDataSelector, shallowEqual);
 
-    const getAsset = async (asset) => {
+   
+    const getAsset = useCallback(async (asset) => {
         const res = await dispatch(getAssetAction({ asset }));
 
         if (res && !res.errorCode) {
             setAsset(res);
         }
-    }
+    }, [dispatch])
 
-    const getCurrency = async (currency) => {
+    const getCurrency = useCallback(async (currency) => {
         const res = await dispatch(getCurrencyAction({ currency }));
 
         if (res && !res.errorCode) {
             setCurrency(res);
         }
-    }
+    }, [dispatch]);
 
-    const getPoll = async () => {
+    const getPoll = useCallback(async () => {
         const poll = await dispatch(getpollAction({
             poll: modalData
         }));
@@ -61,7 +62,7 @@ const CastPoll = ({ closeModal, nameModal }) => {
             getAsset(poll.holding);
             getCurrency(poll.holding);
         }
-    };
+    }, [dispatch]);
 
     const handleFormSubmit = useCallback(async({ feeATM, secretPhrase, ...votesUnhandlered }) => {
         if (!isPending) {
@@ -108,7 +109,7 @@ const CastPoll = ({ closeModal, nameModal }) => {
 
     useEffect(() => {
         getPoll();
-    }, []);
+    }, [getPoll]);
 
     const assetHint    = asset    ? `This vote is based on the balance of asset: ${asset.asset}. If you do not have enough of this asset, your vote will not be counted.` : null;
     const currencyHint = currency ? `This vote is based on the balance of asset: ${currency.currency}. If you do not have enough of this currency, your vote will not be counted.` : null;

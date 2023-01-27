@@ -4,7 +4,7 @@ import React, {
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { ALL_STATUSES } from '../../../../constants/statuses';
-import { ONE_GWEI } from '../../../../constants';
+import { ONE_GWEI } from '../../../../constants/constants';
 import { setBodyModalParamsAction } from '../../../../modules/modals';
 import { getMyOfferHistory } from '../../../../actions/wallet';
 import { BlockUpdater } from '../../../block-subscriber';

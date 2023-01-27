@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {NotificationManager} from "react-notifications";
 import submitForm from "../../../../../helpers/forms/forms";
@@ -10,7 +10,7 @@ export const BroadcastTransactionForm = ({ closeModal }) => {
   const dispatch = useDispatch();
   const publicKey = useSelector(getAccountPublicKeySelector);
 
-  const  handleFormSubmit = async (values) => {
+  const  handleFormSubmit = useCallback(async (values) => {
     const toSendBroadcast = {
         transactionBytes: values.broadcastBytes,
         transactionJSON: values.broadcastJson,
@@ -25,7 +25,7 @@ export const BroadcastTransactionForm = ({ closeModal }) => {
     } else {
         NotificationManager.success("Transaction broadcasted!", null, 5000);
     }
-  };
+  }, [dispatch]);
 
   return (
     <ModalBody

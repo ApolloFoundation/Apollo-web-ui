@@ -8,7 +8,7 @@ import {
   createAccountAction, generateAccountAction, generatePDF,
 } from '../../../../../actions/account';
 import ContentLoader from '../../../../components/content-loader';
-import CheckboxFormInput from '../../../../components/check-button-input/CheckboxWithFormik';
+import CheckboxFormInput from '../../../../components/check-button-input';
 import CustomInput from '../../../../components/custom-input/CustomInputWithFormik';
 import Button from '../../../../components/button';
 import InfoBox from '../../../../components/info-box';
@@ -84,6 +84,10 @@ export default function VaultWalletForm(props) {
     setSelectedOption(0);
   }, [setIsValidating, setSelectedOption]);
 
+  const handleCustomPhraseChange = useCallback(() => {
+    setIsCustomPassphraseTextarea(value => !value);
+  },[setIsCustomPassphraseTextarea]);
+
   return (
     <Formik
       initialValues={{
@@ -131,10 +135,11 @@ export default function VaultWalletForm(props) {
                   randomly generated secret phrase.
                 </InfoBox>
                 <CheckboxFormInput
-                  id="isCustomPassphrase"
+                  id="isCustomPassphraseLoginPage"
                   name="isCustomPassphrase"
                   label="Use custom secret phrase"
-                  onChange={() => setIsCustomPassphraseTextarea(!isCustomPassphraseTextarea)}
+                  checked={isCustomPassphraseTextarea}
+                  onChange={handleCustomPhraseChange}
                 />
                 {isCustomPassphraseTextarea && (
                   <CustomInput
