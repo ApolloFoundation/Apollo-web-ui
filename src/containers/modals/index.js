@@ -26,7 +26,7 @@ import InfoAccount from './account/account/';
 import AccountDetails from './account/account-details/';
 import LeaseBalance from './account/lease-balance/';
 import TokenGenerationValidation from './account/token-generation-validation/';
-import HashCalculation from './account/hash-calculation';
+import HashCalculation from './account/HashCalculation';
 import TransactionOperations from './account/transaction-operation';
 import ApolloAbout from './about';
 import AccountInfo from './account/account-info';
