@@ -8,7 +8,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import {useDispatch, useSelector, shallowEqual} from 'react-redux';
 import {NotificationManager} from "react-notifications";
 import {getBlockAction} from "actions/blocks";
-import submitForm from "helpers/forms/forms";
 import {getShufflingAction} from "actions/shuffling";
 import crypto from "helpers/crypto/crypto";
 import {processElGamalEncryption} from "actions/crypto";
@@ -16,14 +15,12 @@ import ModalBody from "containers/components/modals/modal-body";
 import { getModalDataSelector } from 'selectors';
 import JoinShufflingForm from "./form";
 
-const JoinShuffling = ({ closeModal }) => {
+const JoinShuffling = ({ closeModal, processForm }) => {
     const dispatch = useDispatch();
     const [shuffling, setShuffling] = useState(null);
-    const [isPending, setIsPending] = useState(false);
     const modalData = useSelector(getModalDataSelector, shallowEqual);
 
     const handleFormSubmit = useCallback(async(values) => {
-        setIsPending(true);
         const data = {
             shufflingFullHash: modalData?.broadcast?.fullHash ?? shuffling?.shufflingFullHash,
             secretPhrase: values.secretPhrase,
@@ -39,15 +36,12 @@ const JoinShuffling = ({ closeModal }) => {
             data.recipientPublicKey = await crypto.getPublicKeyAPL(values.recipientSecretPhrase, false);
         }
 
-        const res = await dispatch(submitForm.submitForm(data, 'startShuffler'));
-        if (res.errorCode) {
-            NotificationManager.error(res.errorDescription, 'Error', 5000);
-            setIsPending(false);
-        } else {
+        const res = await processForm(data, 'startShuffler');
+        if (!res.errorCode) {
             closeModal();
             NotificationManager.success('Shuffling Started!', null, 5000);
         }
-    }, [closeModal, modalData?.broadcast?.fullHash, shuffling?.shufflingFullHash]);
+    }, [closeModal, modalData?.broadcast?.fullHash, shuffling?.shufflingFullHash, processForm]);
 
     const getShuffling = useCallback(async () => {
         const shuffling = await dispatch(getShufflingAction({
@@ -79,7 +73,6 @@ const JoinShuffling = ({ closeModal }) => {
             isFee
             submitButtonName='Start Shuffling'
             idGroup='send-money-modal-'
-            isPending={isPending}
             initialValues={{
                 isVaultWallet: false,
                 recipientSecretPhrase: '',
