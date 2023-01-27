@@ -10,7 +10,6 @@ import config from 'config';
 import Form from './form';
 import ModalBody from 'containers/components/modals/modal-body';
 import {NotificationManager} from "react-notifications";
-import submitForm from "helpers/forms/forms";
 import {
     getAccountRsSelector,
     getDecimalsSelector,
@@ -20,10 +19,9 @@ import {
 import { useFormatTimestamp } from 'hooks/useFormatTimestamp';
 import {getDGSPurchaseAction} from "actions/marketplace";
 
-const MarketplaceDeliver = ({ closeModal }) => {
+const MarketplaceDeliver = ({ closeModal, processForm }) => {
     const dispatch = useDispatch();
     const [goods, setGoods] = useState(null);
-    const [isPending, setIsPending] = useState(false);
 
     const modalData = useSelector(getModalDataSelector, shallowEqual);
     const account = useSelector(getAccountRsSelector);
@@ -42,7 +40,6 @@ const MarketplaceDeliver = ({ closeModal }) => {
     }, [dispatch, modalData]);
 
     const handleFormSubmit = useCallback(async (values) => {
-        setIsPending(true);
         const data = {
             ...values,
             discountATM: values.discountATM * decimals,
@@ -51,15 +48,12 @@ const MarketplaceDeliver = ({ closeModal }) => {
             recipient: account,
         };
 
-        const res = await dispatch(submitForm.submitForm( data, 'dgsDelivery'));
-        if (res.errorCode) {
-            NotificationManager.error(res.errorDescription, 'Error', 5000)
-        } else {
+        const res = await processForm( data, 'dgsDelivery');
+        if (res && !res.errorCode) {
             closeModal();
             NotificationManager.success('Goods has been purchased!', null, 5000);
         }
-        setIsPending(false);
-    }, [dispatch, closeModal, decimals, account, goods]);
+    }, [closeModal, decimals, account, goods, processForm]);
 
     useEffect(() => {
         handleImageLoadint();
@@ -82,7 +76,6 @@ const MarketplaceDeliver = ({ closeModal }) => {
             initialValues={{
                 discountATM: 1,
             }}
-            isPending={isPending}
         >
             <Form goods={goods} decimals={decimals} ticker={ticker} formatTimestamp={format} />
         </ModalBody>
