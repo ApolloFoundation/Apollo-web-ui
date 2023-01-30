@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 import InfoBox from 'containers/components/info-box';
+import { BallPulse } from '../BallPulse';
 
 const ContentLoader = ({
   noPaddingOnTheSides, noPaddingTop, className,
@@ -20,11 +21,7 @@ const ContentLoader = ({
         white,
       })}
     >
-      <div className="ball-pulse">
-        <div />
-        <div />
-        <div />
-      </div>
+      <BallPulse />
     </div>
   </InfoBox>
 );

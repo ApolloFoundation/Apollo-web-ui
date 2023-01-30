@@ -1,6 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 import {connect} from 'react-redux';
+import { BallPulse } from 'containers/components/BallPulse';
+import { getIsModalProcessingSelector } from 'selectors';
 
 const FormButtons = ({
     idGroup, 
@@ -8,7 +10,7 @@ const FormButtons = ({
     isPending, 
     isDisabled, 
     closeModal,
-    isMomalProcessing,
+    isModalProcessing,
     isClosing,
     cancelButtonName,
 }) => (
@@ -30,18 +32,14 @@ const FormButtons = ({
                 id={`${idGroup}submit-button`}
                 className={classNames({
                     "btn btn-green" : true,
-                    "disabled": isDisabled || isMomalProcessing || isPending,
-                    "loading": isMomalProcessing || isPending
+                    "disabled": isDisabled || isModalProcessing || isPending,
+                    "loading": isModalProcessing || isPending
                 })}
             >
                 <div
                     className="button-loader"
                 >
-                    <div className="ball-pulse">
-                        <div />
-                        <div />
-                        <div />
-                    </div>
+                    <BallPulse />
                 </div>
                 <span className={'button-text'}>
                     {submitButtonName}
@@ -53,7 +51,7 @@ const FormButtons = ({
 )
 
 const mapStateToProps = state => ({
-    isMomalProcessing: state.modals.isMomalProcessing,
+    isModalProcessing: getIsModalProcessingSelector(state),
 })
 
 export default connect(mapStateToProps)(FormButtons);

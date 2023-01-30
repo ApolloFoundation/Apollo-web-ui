@@ -2,8 +2,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
+import { BallPulse } from 'containers/components/BallPulse';
 import { ReactComponent as ArrowRight } from 'assets/arrow-right.svg';
-
 import './styles.scss';
 
 export default function Button(props) {
@@ -21,11 +21,7 @@ export default function Button(props) {
     >
       {isLoading && (
         <div className="button-loader">
-          <div className="ball-pulse">
-            <div />
-            <div />
-            <div />
-          </div>
+          <BallPulse />
         </div>
       )}
       <span className="button-text">{name}</span>

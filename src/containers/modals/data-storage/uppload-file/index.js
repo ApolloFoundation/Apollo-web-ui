@@ -10,6 +10,7 @@ import { NotificationManager } from "react-notifications";
 import i18n from 'i18next';
 import {getDataTagsAction} from "actions/datastorage";
 import ModalBody from 'containers/components/modals/modal-body';
+import { BallPulse } from 'containers/components/BallPulse';
 import UpploadFileForm from './form';
 
 const UploadFile = ({ closeModal, processForm }) => {
@@ -83,11 +84,7 @@ const UploadFile = ({ closeModal, processForm }) => {
                 />
             ) : (
                 <div className={'align-items-center loader-box'}>
-                    <div className="ball-pulse">
-                        <div/>
-                        <div/>
-                        <div/>
-                    </div>
+                    <BallPulse />
                 </div>
             )}
         </ModalBody>

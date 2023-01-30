@@ -160,7 +160,7 @@ export default (state = initialState, action) => {
     case IS_MODAL_PROCESSING:
       return {
         ...state,
-        isMomalProcessing: action.payload,
+        isModalProcessing: action.payload,
       };
 
     case SET_SELECTED_BUY_ORDER_INFO:

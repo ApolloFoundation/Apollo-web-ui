@@ -1,5 +1,6 @@
 import React from 'react';
 import normalizeDeadline from 'helpers/normalizeTime';
+import { BallPulse } from 'containers/components/BallPulse';
 import './style.scss';
 
 const SimpleProgressBar = ({contractOrder: {deadlineToReply, contractStatus}, blockTime, status}) => {
@@ -36,11 +37,7 @@ const SimpleProgressBar = ({contractOrder: {deadlineToReply, contractStatus}, bl
                             Max waiting time for end of point: {normalizeDeadline(deadlineToReply, blockTime)}
                         </div>
                     :   <div className={'align-items-center loader-box'}>
-                            <div className="ball-pulse">
-                                <div/>
-                                <div/>
-                                <div/>
-                            </div>
+                            <BallPulse />
                         </div>
                     )}
             </div>

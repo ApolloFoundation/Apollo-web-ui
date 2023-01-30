@@ -12,6 +12,7 @@ import CheckboxFormInput from 'containers/components/check-button-input/Checkbox
 import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
 import Button from 'containers/components/button';
 import InfoBox from 'containers/components/info-box';
+import { BallPulse } from 'containers/components/BallPulse';
 
 export default function VaultWalletForm(props) {
   const {
@@ -263,11 +264,7 @@ export default function VaultWalletForm(props) {
                       style={{ width: 121.5 }}
                       className="btn btn-right blue round round-top-left round-bottom-right"
                     >
-                      <div className="ball-pulse">
-                        <div />
-                        <div />
-                        <div />
-                      </div>
+                      <BallPulse />
                     </div>
                   ) : (
                     <Button

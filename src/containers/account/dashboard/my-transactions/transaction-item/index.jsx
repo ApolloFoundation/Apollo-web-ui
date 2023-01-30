@@ -7,7 +7,14 @@ import { setBodyModalParamsAction } from 'modules/modals';
 import { Tooltip } from 'containers/components/tooltip';
 import { ReactComponent as ArrowIcon } from 'assets/arrow-right-long.svg';
 import { getAccountInfoSelector } from 'selectors';
+import { BallPulse } from 'containers/components/BallPulse';
 import IconRed from 'assets/red-triangle.svg';
+
+const marketplaceTypes = [
+  'DIGITAL GOODS DELISTING', 'DIGITAL GOODS PURCHASE', 'DIGITAL GOODS PRICE CHANGE',
+  'DIGITAL GOODS LISTING', 'DIGITAL GOODS QUANTITY CHANGE',
+];
+
 
 export default function TransactionItem(props) {
   const dispatch = useDispatch();
@@ -28,10 +35,6 @@ export default function TransactionItem(props) {
   const newSenderRS = (senderRS && senderRS === accountRS) ? 'You' : senderRS;
   const newRecipientRS = (recipientRS && recipientRS === accountRS) ? 'You' : recipientRS;
   const transactionType = hasSubtype && formatTransactionType(constants.transactionTypes[type].subtypes[subtype].name);
-  const marketplaceTypes = [
-    'DIGITAL GOODS DELISTING', 'DIGITAL GOODS PURCHASE', 'DIGITAL GOODS PRICE CHANGE',
-    'DIGITAL GOODS LISTING', 'DIGITAL GOODS QUANTITY CHANGE',
-  ];
 
   const transactionTypeContent = useCallback(condition => {
     if (condition) {
@@ -94,11 +97,7 @@ export default function TransactionItem(props) {
             <div className="transaction-confirmation">
               <span>Confirmation:&nbsp;</span>
               {actualBlock < height ? (
-                <div className="ball-pulse">
-                  <div />
-                  <div />
-                  <div />
-                </div>
+                <BallPulse />
               ) : (
                 confirmations
               )}

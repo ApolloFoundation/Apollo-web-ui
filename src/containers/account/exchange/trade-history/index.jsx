@@ -13,6 +13,7 @@ import InfoBox from 'containers/components/info-box';
 import { readFromLocalStorage } from 'actions/localStorage';
 import { getAccountInfoSelector, getExchangeInfoSelector } from 'selectors';
 import { ONE_GWEI } from 'constants/constants';
+import { BallPulse } from 'containers/components/BallPulse';
 
 export default function TradeHistory() {
   const dispatch = useDispatch();
@@ -179,11 +180,7 @@ export default function TradeHistory() {
                 />
               ) : (
                 <div className="align-items-center loader-box">
-                  <div className="ball-pulse">
-                    <div />
-                    <div />
-                    <div />
-                  </div>
+                  <BallPulse />
                 </div>
               )}
           </div>

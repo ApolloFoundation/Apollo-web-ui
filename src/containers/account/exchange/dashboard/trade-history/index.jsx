@@ -11,6 +11,7 @@ import ArrowDown from 'assets/arrow-down.png';
 import CustomTable from 'containers/components/tables/table1';
 import { getExchangeInfoSelector } from 'selectors';
 import { ONE_GWEI } from 'constants/constants';
+import { BallPulse } from 'containers/components/BallPulse';
 
 const itemsPerPage = 15;
 
@@ -117,11 +118,7 @@ export default function TradeHistoryExchange({ currentCurrency, ticker }) {
             )
             : (
               <div className="align-items-center loader-box">
-                <div className="ball-pulse">
-                  <div />
-                  <div />
-                  <div />
-                </div>
+                <BallPulse />
               </div>
             )}
         </div>

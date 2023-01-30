@@ -7,6 +7,7 @@ import CustomTextArea from 'containers/components/form-components/TextArea/TextA
 import CheckboxFormInput from 'containers/components/check-button-input/CheckboxWithFormik';
 import TextualInputComponent from 'containers/components/form-components/TextualInput';
 import { get2FASelector } from 'selectors';
+import { BallPulse } from 'containers/components/BallPulse';
 import {handleSendMessageFormSubmit} from './handleFormSubmit';
 import styles from './index.module.scss';
 
@@ -98,13 +99,9 @@ const ChatForm = (props) => {
                                 })}
                             >
                                 <div className="button-loader">
-                                    <div className="ball-pulse">
-                                        <div/>
-                                        <div/>
-                                        <div/>
-                                    </div>
+                                    <BallPulse />
                                 </div>
-                                <span className={'button-text'}>Send Message</span>
+                                <span className='button-text'>Send Message</span>
                             </button>
                         </div>
                     </div>
