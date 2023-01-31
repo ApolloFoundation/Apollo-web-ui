@@ -20,8 +20,6 @@ export default function TransferCurrency({ closeModal }) {
   const handleSubmit = useCallback(values => {
     const data = {
       ...values,
-      currency: modalData.currency,
-      decimals: modalData.decimals
     };
     dispatch(handleFormSubmit(data));
   }, [dispatch, modalData]);
@@ -38,6 +36,9 @@ export default function TransferCurrency({ closeModal }) {
         code: modalData.code,
         recipient: modalData.recipient,
         units: '',
+        // decimals and currency fields for CurrenCYInput component and important to add their to the initial form values
+        currency: '',
+        decimals: '',
       }}
     >
       <CurrencyInput

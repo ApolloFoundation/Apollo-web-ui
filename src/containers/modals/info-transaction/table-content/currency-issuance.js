@@ -1,20 +1,12 @@
 import React, {Component} from "react";
 
 
-function hashAlgorithm (value) {
-	if(value === 2){
-		return "2:SHA256";
-	} else if (value === 3) {
-		return "3:SHA3";
-	} else if (value === 5) {
-		return "5:SCRYPT";
-	} else if (value === 25) {
-		return "25:Keccak25";
-	} else {
-		return "-"
-	}
+const hashAlgorithm = {
+	2: "2:SHA256",
+	3: "3:SHA3",
+	5: "5:SCRYPT",
+	25: "25:Keccak25",
 }
-
 
 export default class CurrencyIssuance extends Component {
     render() {
@@ -89,7 +81,7 @@ export default class CurrencyIssuance extends Component {
 	            {this.props.transaction.attachment.hasOwnProperty("algorithm") &&
 	            <tr>
 		            <td>Algorithm:</td>
-		            <td>{hashAlgorithm(this.props.transaction.attachment.algorithm)}</td>
+		            <td>{hashAlgorithm[this.props.transaction.attachment.algorithm] ?? '-'}</td>
 	            </tr>
 	            }
 	            {this.props.transaction.attachment.hasOwnProperty("initialSupply") &&
