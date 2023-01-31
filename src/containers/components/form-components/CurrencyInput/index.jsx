@@ -1,26 +1,24 @@
-import React, {
-  useCallback, useState, useEffect,
-} from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { useFormikContext } from 'formik';
 import { getCurrencyAction } from 'actions/currencies';
 import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
 
-export default function CurrencyInput(props) {
+export default function CurrencyInput({ name, disabled, code }) {
   const dispatch = useDispatch();
-
-  const [currency, setCurrency] = useState('-');
-
-  const { name, disabled, code } = props;
+  const formik = useFormikContext();
 
   const getCurrency = useCallback(async reqParams => {
     const result = await dispatch(getCurrencyAction(reqParams));
 
     if (result) {
-      setCurrency(result.currency);
+      // these field important for transfer currecy modal
+      formik.setFieldValue('currency', result.currency);
+      formik.setFieldValue('decimals', result.decimals);
     } else {
-      setCurrency('-');
+      formik.setFieldValue('currency', '-');
     }
-  }, [dispatch]);
+  }, [dispatch, formik.setFieldValue]);
 
   const handleChange = useCallback((code) => {
     getCurrency({ code })
@@ -43,7 +41,7 @@ export default function CurrencyInput(props) {
       <div className="input-group-append">
         <span className="input-group-text">
           ID:
-          {currency}
+          {formik.values.currency ?? '-'}
         </span>
       </div>
     </CustomInput>
