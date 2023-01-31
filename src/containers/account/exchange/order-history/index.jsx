@@ -12,6 +12,7 @@ import CustomTable from 'containers/components/tables/table1';
 import SiteHeader from 'containers/components/site-header';
 import InfoBox from 'containers/components/info-box';
 import Button from 'containers/components/button';
+import { BallPulse } from 'containers/components/BallPulse';
 import { readFromLocalStorage } from 'actions/localStorage';
 import { getAccountInfoSelector, getExchangeInfoSelector } from 'selectors';
 import { ONE_GWEI } from 'constants/constants';
@@ -194,11 +195,7 @@ export default function OrderHistory() {
                 />
               ) : (
                 <div className="align-items-center loader-box">
-                  <div className="ball-pulse">
-                    <div />
-                    <div />
-                    <div />
-                  </div>
+                  <BallPulse />
                 </div>
               )}
           </div>

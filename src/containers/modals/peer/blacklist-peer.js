@@ -4,7 +4,7 @@
  ******************************************************************************/
 
 
-import React, { useCallback, useState } from 'react';
+import React, { useCallback } from 'react';
 import {useSelector, shallowEqual} from 'react-redux';
 import {NotificationManager} from "react-notifications";
 import InfoBox from 'containers/components/info-box';
@@ -15,25 +15,20 @@ import ModalBody from 'containers/components/modals/modal-body';
 const BlacklistPeer = (props) => {
     const modalData = useSelector(getModalDataSelector, shallowEqual);
     const publicKey = useSelector(getAccountPublicKeySelector);
-    const [isPending, setIsPending] = useState(false);
 
-    const handleFormSubmit = useCallback(async (values) => {
-        if (!isPending) {
-            setIsPending(true);
-            const toSend = {
-                adminPassword: values.adminPass,
-                peer: modalData,
-                publicKey,
-                ecBlockHeight: 0
-            };
+    const handleFormSubmit = useCallback((values) => {
+        const toSend = {
+            adminPassword: values.adminPass,
+            peer: modalData,
+            publicKey,
+            ecBlockHeight: 0
+        };
 
-            await props.processForm(toSend, 'blacklistPeer', 'Peer has been blacklisted', () => {
-                NotificationManager.success('Peer has been blacklisted!', null, 5000);
-                props.closeModal();
-            });
-            setIsPending(false);
-        }
-    }, [isPending, modalData, props.closeModal, props.processForm]);
+        props.processForm(toSend, 'blacklistPeer', 'Peer has been blacklisted', () => {
+            NotificationManager.success('Peer has been blacklisted!', null, 5000);
+            props.closeModal();
+        });
+    }, [modalData, props.closeModal, props.processForm]);
 
     return (
         <ModalBody
@@ -44,7 +39,6 @@ const BlacklistPeer = (props) => {
             submitButtonName="Yes"
             cancelButtonName="No"
             isDisableSecretPhrase
-            isPending={isPending}
         >
             <InfoBox className='light-info'>
                 <ul className='marked-list'>

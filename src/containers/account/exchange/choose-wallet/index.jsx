@@ -12,6 +12,7 @@ import InfoBox from 'containers/components/info-box';
 import { useExchangeWalletConverts } from 'hooks/useExchangeWalletConverts';
 import { readFromLocalStorage } from 'actions/localStorage';
 import { getAccountInfoSelector } from 'selectors';
+import { BallPulse } from 'containers/components/BallPulse';
 import CurrencyDescriptionComponent from './currency';
 
 export default function ChooseWallet() {
@@ -133,11 +134,7 @@ export default function ChooseWallet() {
           ? renderContent
           : (
             <div className="align-items-center loader-box">
-              <div className="ball-pulse">
-                <div />
-                <div />
-                <div />
-              </div>
+              <BallPulse />
             </div>
           )}
       </div>

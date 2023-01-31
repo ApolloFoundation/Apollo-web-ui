@@ -46,3 +46,4 @@ export const getAccountNameSelector = state => state.account.name;
 export const getCurrentLesseeSelector = state => state.account.currentLessee;
 export const getCurrentLeasingHeightFromSelector = state => state.account.currentLeasingHeightFrom;
 export const getCurrentLeasingHeightToSelector = state => state.account.currentLeasingHeightTo;
+export const getIsModalProcessingSelector = state => state.modals.isModalProcessing;
