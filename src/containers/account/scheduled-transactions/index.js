@@ -43,7 +43,7 @@ const ScheduledTransactions = () => {
                 errorCode: scheduledTransactions.errorCode,
             });
         }
-    }, [ adminPassword]);
+    }, [adminPassword]);
 
     const deleteScheduledTransaction = (transaction) => async () => {
         const deleteTransacrtio = await dispatch(

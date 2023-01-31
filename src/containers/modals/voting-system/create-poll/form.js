@@ -56,7 +56,11 @@ const PollForm = ({ idGroup, ticker, votingModelData }) => {
             )}
 
             {values.votingModel === 3 && (
-                <CurrencyInput name='holding' id={idGroup} />
+                <CurrencyInput
+                    currencyCodeName="holdingCode"
+                    currencyIdName='holding'
+                    id={idGroup}
+                />
             )}
 
             {values.votingModel !== 0 && (

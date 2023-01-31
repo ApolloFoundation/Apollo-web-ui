@@ -42,10 +42,11 @@ export default function TransferCurrency({ closeModal }) {
       }}
     >
       <CurrencyInput
-        name="code"
+        currencyCodeName="code"
+        currencyIdName="currency"
+        currencyDecimalsName="decimals"
         placeholder="Code"
         code={modalData.code}
-        disabled={!modalData}
       />
       <AccountRSFormInput
         name="recipient"
