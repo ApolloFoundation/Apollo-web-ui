@@ -22,7 +22,7 @@ export const processForm = async (params, requestType, successMesage, successCal
   const res = await dispatch(submitForm.submitForm(values, requestType));
 
   if (res) {
-    if (res.hasOwnProperty('errorCode')) {
+    if (res.errorCode) {
       dispatch({
         type: IS_MODAL_PROCESSING,
         payload: false,
