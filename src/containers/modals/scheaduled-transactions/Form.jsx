@@ -17,8 +17,6 @@ export const Form = () => {
     if (formik.values.code) {
       dispatch(getCurrencyAction({ code: formik.values.code }))
         .then(result => {
-          formik.setFieldValue('currency', result?.currency);
-          formik.setFieldValue('currencyDecimals', result?.decimals);
           formik.setFieldValue('holding', result?.currency ?? '');
           formik.setFieldValue('create_poll_ms_id', result?.currency ?? '');
         });
@@ -29,7 +27,9 @@ export const Form = () => {
     <>
       <CurrencyInput
         label="Currency code"
-        name="code"
+        currencyCodeName="code"
+        currencyIdName="currency"
+        currencyDecimalsName="currencyDecimals"
         placeholder="Code"
       />
       <NumericInput

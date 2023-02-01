@@ -35,8 +35,12 @@ const CreateShufflngForm = () => {
                 placeholder='Amount'
                 type='tel'
             />
-            { values.holdingType === 1 && <AssetInput name='holding' /> }
-            { values.holdingType === 2 && <CurrencyInput name='holding' /> }
+            { /* 
+                now holdingType 1 or 2 are not availables.
+                if it's return may need to update CurrencyInput component 
+            */ }
+            {/* { values.holdingType === 1 && <AssetInput name='holding' /> }
+            { values.holdingType === 2 && <CurrencyInput name='holding' /> } */}
             {
                 (values.holdingType === 1 || values.holdingType === 2) &&
                 <NumericInputComponent

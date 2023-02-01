@@ -10,7 +10,7 @@ export const AssetInput = ({ name }) => {
     const [asset, setAsset] = useState();
 
     const getAsset = useCallback(async () => {
-        const res = await dispatch(getAssetAction(values[name]));
+        const res = await dispatch(getAssetAction({ asset: values[name] }));
         setAsset(res);
     }, [dispatch, name, values[name]])
 
