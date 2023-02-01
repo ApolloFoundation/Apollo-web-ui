@@ -99,12 +99,9 @@ export const TransactionDetails = ({ transaction, decimals, parsedSignatures }) 
                   <tr>
                       <td>Amount ATM:</td>
                       <td>
-                          {
-                              (transaction.amountATM === "0" && transaction.attachment.priceATM) ?
-                                  transaction.attachment.priceATM / decimals
-                                  :
-                                  transaction.amountATM / decimals
-                          }
+                            {(transaction.amountATM === "0" && transaction.attachment.priceATM) ?
+                                transaction.attachment.priceATM : transaction.amountATM
+                            }
                       </td>
                   </tr>
               }
