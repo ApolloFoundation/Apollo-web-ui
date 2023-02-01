@@ -2,7 +2,6 @@ import React from 'react';
 import { useFormatTimestamp } from 'hooks/useFormatTimestamp';
 
 export const TransactionDetails = ({ transaction, decimals, parsedSignatures }) => {
-  console.log("🚀 ~ file: TransactionDetails.jsx:5 ~ TransactionDetails ~ transaction", transaction)
   const formatTimestamp = useFormatTimestamp();
   
   return (
