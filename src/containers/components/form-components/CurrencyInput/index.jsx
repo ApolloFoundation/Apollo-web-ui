@@ -20,7 +20,9 @@ export default function CurrencyInput({
     if (result) {
       // these field important for transfer currecy modal
       formik.setFieldValue(currencyIdName, result.currency);
-      formik.setFieldValue(currencyDecimalsName, result.decimals);
+      if (currencyDecimalsName) {
+        formik.setFieldValue(currencyDecimalsName, result.decimals);
+      }
     } else {
       formik.setFieldValue(currencyIdName, '-');
     }
