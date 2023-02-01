@@ -2,6 +2,7 @@ import React from 'react';
 import { useFormatTimestamp } from 'hooks/useFormatTimestamp';
 
 export const TransactionDetails = ({ transaction, decimals, parsedSignatures }) => {
+  console.log("🚀 ~ file: TransactionDetails.jsx:5 ~ TransactionDetails ~ transaction", transaction)
   const formatTimestamp = useFormatTimestamp();
   
   return (
@@ -99,12 +100,9 @@ export const TransactionDetails = ({ transaction, decimals, parsedSignatures }) 
                   <tr>
                       <td>Amount ATM:</td>
                       <td>
-                          {
-                              (transaction.amountATM === "0" && transaction.attachment.priceATM) ?
-                                  transaction.attachment.priceATM / decimals
-                                  :
-                                  transaction.amountATM / decimals
-                          }
+                            {(transaction.amountATM === "0" && transaction.attachment.priceATM) ?
+                                transaction.attachment.priceATM : transaction.amountATM
+                            }
                       </td>
                   </tr>
               }
