@@ -4,15 +4,15 @@
  ***************************************************************************** */
 
 import React, {
-  useEffect, useCallback, useState, useMemo,
+  useEffect, useCallback, useState,
 } from 'react';
 import { useDispatch } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
 import { getAccountDataAction } from 'actions/login';
 import ButtonTabs from 'containers/components/button-tabs';
-import VaultWalletForm from './forms/vaultWalletForm';
+import VaultWalletForm from './Tabs/VaultWalletForm';
 import StandartWalletForm from './Tabs/StandardWalletTab';
-import CreateAccount from './forms/createAccountForm';
+import LoginForm from './LoginForm';
 
 const tabs = [
   {
@@ -31,6 +31,8 @@ export default function CreateUser({ account, closeModal, handleClose }) {
 
   const [activeTab, setActiveTab] = useState(0);
   const [isPending, setIsPending] = useState(false);
+  // this state need for compare user insert data at login form to the app
+  // also this data add info about view (we are still showing generated account form or switch to login form)
   const [accountData, setAccountData] = useState(null);
 
   const handleFormSubmit = useCallback(values => {
@@ -51,34 +53,6 @@ export default function CreateUser({ account, closeModal, handleClose }) {
     }
   }, [account, closeModal]);
 
-  const content = useMemo(() => {
-    if (accountData) {
-      return (
-        <CreateAccount
-          onSubmit={handleFormSubmit}
-          isPending={isPending}
-        />
-      );
-    } 
-    return (
-      <div className="form-tabulator no-padding">
-        <ButtonTabs
-          tabs={tabs}
-          onClick={setActiveTab}
-          isActive={activeTab}
-        />
-        <VaultWalletForm
-          activeTab={activeTab}
-          setAccountData={setAccountData}
-        />
-        <StandartWalletForm
-          activeTab={activeTab}
-          setAccountData={setAccountData}
-        />
-      </div>
-    );
-  }, [activeTab, handleFormSubmit, isPending]);
-
   return (
     <div className="dark-card">
       <span onClick={handleClose} className="exit">
@@ -87,7 +61,7 @@ export default function CreateUser({ account, closeModal, handleClose }) {
       <p className="title">Create New Wallet</p>
       {accountData ?
         // form where user insert generated secretPhase. We compare it with generated data and do logic by accunt id
-        <CreateAccount onSubmit={handleFormSubmit} isPending={isPending} /> 
+        <LoginForm onSubmit={handleFormSubmit} isPending={isPending} /> 
         : (
         <div className="form-tabulator no-padding">
           <ButtonTabs
@@ -106,7 +80,6 @@ export default function CreateUser({ account, closeModal, handleClose }) {
             setAccountData={setAccountData}
           />
         </div>
-
       )}
     </div>
   );

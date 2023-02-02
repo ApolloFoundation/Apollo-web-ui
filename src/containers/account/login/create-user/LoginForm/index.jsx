@@ -3,7 +3,7 @@ import { Form, Formik } from 'formik';
 import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
 import Button from 'containers/components/button';
 
-export default function CreateAccount(props) {
+export default function LoginForm(props) {
   const { isPending, onSubmit } = props;
 
   return (
