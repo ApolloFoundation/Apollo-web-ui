@@ -4,7 +4,7 @@
  ******************************************************************************/
 
 
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import {useSelector, shallowEqual} from 'react-redux';
 import {NotificationManager} from 'react-notifications';
 import {removeAccountAction} from 'actions/account';
@@ -16,10 +16,12 @@ import { useDownloadFile } from './ExportAccount/useDownloadFIle';
 import { getModalDataSelector } from 'selectors';
 
 const DeleteAccountFromWebNode = (props) => {
+    const [isPending, setIsPending] = useState();
     const modalData = useSelector(getModalDataSelector, shallowEqual);
     const downloadFile = useDownloadFile(modalData);
 
     const handleFormSubmit = useCallback(async (values) => {
+        setIsPending(true);
         const accountKeySeedData = await removeAccountAction(values);
 
         if (accountKeySeedData && !accountKeySeedData.errorCode) {
@@ -29,6 +31,7 @@ const DeleteAccountFromWebNode = (props) => {
         } else {
             NotificationManager.error(accountKeySeedData.errorDescription, 'Error', 5000);
         }
+        setIsPending(false);
     }, [props.closeModal]);
 
     return (
@@ -37,6 +40,7 @@ const DeleteAccountFromWebNode = (props) => {
             closeModal={props.closeModal}
             handleFormSubmit={handleFormSubmit}
             submitButtonName='Delete'
+            isPending={isPending}
             isDisableSecretPhrase
         >
             <InfoBox attentionLeft>

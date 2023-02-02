@@ -19,6 +19,7 @@ const ExportAccount = (props) => {
     const dispatch = useDispatch();
     const downloadSecretFile = useRef();
     const [accountKeySeedData, setAccountKeySeedData] = useState(null);
+    const [isPending, setIsPending] = useState(false);
     const downloadFile = useDownloadFile(accountKeySeedData);
 
     const finish = useCallback(async (base64, account) => {
@@ -35,6 +36,7 @@ const ExportAccount = (props) => {
     }, [downloadSecretFile.current]);
 
     const handleFormSubmit = useCallback(async (values) => {
+        setIsPending(true);
         const accountKeySeedData = await dispatch(exportAccount(values));
 
         if (accountKeySeedData) {
@@ -49,6 +51,7 @@ const ExportAccount = (props) => {
                 NotificationManager.error(accountKeySeedData.errorDescription, 'Error', 5000);
             }
         }
+        setIsPending(false);
     }, [dispatch, downloadSecretFile.current]);
 
     return (
@@ -58,6 +61,7 @@ const ExportAccount = (props) => {
             handleFormSubmit={handleFormSubmit}
             isDisableSecretPhrase
             submitButtonName={!accountKeySeedData && 'Export'}
+            isPending={isPending}
         >
             <InfoBox className={'light-info'}>
                 <ul className={'marked-list'}>
