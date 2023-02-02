@@ -421,6 +421,7 @@ const checkPhrase = (data, requestType) => async (dispatch, getState) => {
         ...defaultData,
         sender: account.account,
     };
+    console.log("🚀 ~ file: forms.js:421 ~ submitForm ~ data", data)
 
     data = checkEncryptMessage(data);
     data = chechCreateNoneTransactionMethod(data, account.account);
