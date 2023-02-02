@@ -33,10 +33,6 @@ export default function CreateUser({ account, closeModal, handleClose }) {
   const [isPending, setIsPending] = useState(false);
   const [accountData, setAccountData] = useState(null);
 
-  const handleTab = useCallback(selectTab => {
-    setActiveTab(selectTab);
-  }, []);
-
   const handleFormSubmit = useCallback(values => {
     if(values.secretPhrase !== accountData.secretPhrase) {
       NotificationManager.error('Incorrect secret phrase!', 'Error', 5000);
@@ -89,7 +85,8 @@ export default function CreateUser({ account, closeModal, handleClose }) {
         <i className="zmdi zmdi-close" />
       </span>
       <p className="title">Create New Wallet</p>
-      {accountData ? 
+      {accountData ?
+        // form where user insert generated secretPhase. We compare it with generated data and do logic by accunt id
         <CreateAccount onSubmit={handleFormSubmit} isPending={isPending} /> 
         : (
         <div className="form-tabulator no-padding">
@@ -98,10 +95,12 @@ export default function CreateUser({ account, closeModal, handleClose }) {
             onClick={setActiveTab}
             isActive={activeTab}
           />
+          {/** generate vault wallet */}
           <VaultWalletForm
             activeTab={activeTab}
             setAccountData={setAccountData}
           />
+          {/** generate standart wallet */}
           <StandartWalletForm
             activeTab={activeTab}
             setAccountData={setAccountData}
