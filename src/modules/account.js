@@ -21,6 +21,7 @@ export const SET_CURRENT_BLOCK = 'SET_CURRENT_BLOCK';
 export const SET_ADMIN_PASSWORD = 'SET_ADMIN_PASSWORD';
 export const SET_WALLETS = 'SET_WALLETS';
 export const SET_BLOCKCHAIN_SETTINGS = 'SET_BLOCKCHAIN_SETTINGS';
+export const SET_ACTUAL_BLOCK = 'SET_ACTUAL_BLOCK';
 
 const initialState = {
   blockchainStatus: {},
@@ -149,7 +150,7 @@ export default (state = initialState, action) => {
         ...state,
         blockchainStatus: action.payload,
       };
-    case 'SET_ACTUAL_BLOCK':
+    case SET_ACTUAL_BLOCK:
       return {
         ...state,
         actualBlock: action.payload.actualBlock,
@@ -246,3 +247,8 @@ export const setWallets = wallets => dispatch => {
     payload: wallets,
   });
 };
+
+export const setActualBlockAction = (data) =>({
+  type: SET_ACTUAL_BLOCK,
+  payload: data,
+})

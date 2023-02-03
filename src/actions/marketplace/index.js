@@ -4,12 +4,11 @@
  ******************************************************************************/
 
 
-import config from '../../config';
 import axios from 'axios';
-import store from "../../store";
-import {getAssetAction} from "../assets";
-import {processElGamalEncryption} from "../crypto";
-import cancelAxiosRequest from '../../helpers/cancelToken';
+import cancelAxiosRequest from 'helpers/cancelToken';
+import {getAssetAction} from "actions/assets";
+import {processElGamalEncryption} from "actions/crypto";
+import config from '../../config';
 
 export function getDGSGoodsAction(reqParams) {
     return dispatch => {
@@ -224,7 +223,7 @@ export function getAskOrders(reqParams) {
             .then(async (res) => {
                 if (!res.data.errorCode) {
                     const assets = res.data.askOrders.map((el, index) => {
-                        return store.dispatch(getAssetAction({
+                        return dispatch(getAssetAction({
                             asset: el.asset
                         }))
                     });
@@ -251,7 +250,7 @@ export function getBidOrders(reqParams) {
             .then(async (res) => {
                 if (!res.data.errorCode) {
                     const assets = res.data.bidOrders.map((el, index) => {
-                        return store.dispatch(getAssetAction({
+                        return dispatch(getAssetAction({
                             asset: el.asset
                         }))
                     });

@@ -24,7 +24,7 @@ class BuyCurrency extends Component {
     };
 
     getExchangeOffers = async () => {
-        const exchanges = await getExchangesByExchangeRequest({transaction: this.props.transaction.transaction});
+        const exchanges = await this.props.getExchangesByExchangeRequest({transaction: this.props.transaction.transaction});
 
         if (exchanges) {
             this.setState({
@@ -161,6 +161,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
     getCurrencyAction,
     formatTimestamp,
+    getExchangesByExchangeRequest,
 };
 
 

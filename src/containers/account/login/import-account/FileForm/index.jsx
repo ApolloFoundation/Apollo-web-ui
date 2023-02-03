@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { shallowEqual, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
 import { Form, Formik } from 'formik';
 import i18n from 'i18next';
@@ -12,6 +12,7 @@ import { getConstantsSelector } from 'selectors';
 import styles from '../index.module.scss';
 
 export const FileForm = ({ handleClose }) => {
+  const dispatch = useDispatch();
   const constants = useSelector(getConstantsSelector, shallowEqual);
   const [isError, setIsError] = useState(false);
 
@@ -23,7 +24,7 @@ export const FileForm = ({ handleClose }) => {
     }
     setIsError(false);
 
-    const newImportAccount = await importAccountActionViaFile({ passPhrase, keyStore });
+    const newImportAccount = await dispatch(importAccountActionViaFile({ passPhrase, keyStore }));
 
     if (newImportAccount && newImportAccount.errorCode) {
       NotificationManager.error(newImportAccount.errorDescription, 'Error', 5000);
@@ -31,7 +32,7 @@ export const FileForm = ({ handleClose }) => {
       NotificationManager.success('Your account imported successfully!', null, 5000);
       handleClose();
     }
-  }, [handleClose]);
+  }, [dispatch, handleClose]);
 
   return (
     <Formik

@@ -26,7 +26,7 @@ class CurrencyExchangeOffer extends Component {
     }
 
     getExchangeOffers = async () => {
-        const exchanges = await getExchangesByOfferRequest({offer: this.props.transaction.transaction});
+        const exchanges = await this.props.getExchangesByOfferRequest({offer: this.props.transaction.transaction});
 
         if (exchanges) {
             this.setState({
@@ -36,7 +36,7 @@ class CurrencyExchangeOffer extends Component {
     }
 
     getOfferRequest = async () => {
-        const exchanges = await getOfferRequest({offer: this.props.transaction.transaction});
+        const exchanges = await this.props.getOfferRequest({offer: this.props.transaction.transaction});
 
         if (exchanges) {
             this.setState({
@@ -190,6 +190,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
     getCurrencyAction,
     formatTimestamp,
+    getExchangesByOfferRequest,
+    getOfferRequest,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(CurrencyExchangeOffer)

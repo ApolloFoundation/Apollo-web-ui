@@ -6,8 +6,9 @@
 
 import React from "react";
 import {connect} from "react-redux";
-import {getBackendStatus, startBlockPullingAction} from "actions/blocks";
+import {getBackendStatus, startBlockPullingAction } from "actions/blocks";
 import {loadBlockchainStatus} from "actions/login";
+import { setActualBlockAction } from 'modules/account';
 import store from 'store';
 
 const EventEmitter = require("events").EventEmitter;
@@ -37,19 +38,16 @@ class BlockSubscriber extends React.Component {
     updateBlock = async () => {
         if (!this.state.isPending) {
             this.setState({isPending: true});
-            Promise.all([this.props.getBackendStatus(), startBlockPullingAction()])
+            Promise.all([this.props.getBackendStatus(), this.props.startBlockPullingAction()])
                 .then((values) => {
                     const blockData = values[1];
                     if (blockData) {
                         const currHeight = blockData.height;
 
-                        store.dispatch({
-                            type: 'SET_ACTUAL_BLOCK',
-                            payload: {
-                                actualBlock: currHeight,
-                                timestamp: blockData.timestamp,
-                            }
-                        });
+                        this.props.setActualBlockAction({
+                            actualBlock: currHeight,
+                            timestamp: blockData.timestamp
+                        })
 
                         if (currHeight > this.prevHeight) {
                             this.prevHeight = currHeight;
@@ -75,9 +73,11 @@ class BlockSubscriber extends React.Component {
     }
 }
 
-const mapDispatchToProps = dispatch => ({
-    getBackendStatus: () => dispatch(getBackendStatus()),
-    loadBlockchainStatus: () => dispatch(loadBlockchainStatus()),
-});
+const mapDispatchToProps = {
+    getBackendStatus,
+    loadBlockchainStatus,
+    startBlockPullingAction,
+    setActualBlockAction,
+};
 
 export default connect(null, mapDispatchToProps)(BlockSubscriber)

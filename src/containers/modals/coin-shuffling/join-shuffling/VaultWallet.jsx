@@ -4,8 +4,10 @@ import {CopyToClipboard} from "react-copy-to-clipboard";
 import {NotificationManager} from "react-notifications";
 import InfoBox from "containers/components/info-box";
 import {generateAccountAction} from "actions/account";
+import { useDispatch } from 'react-redux';
 
 export const VaultWallet = () => {
+  const dispatch = useDispatch();
   const [vaultWallet, setVaultWallet] = useState(null);
   const { values, setFieldValue } = useFormikContext();
 
@@ -16,7 +18,7 @@ export const VaultWallet = () => {
 
   const handleVaultWalletCondition = useCallback(async (condition) => {
     if (condition) {
-        const vaultWallet = await generateAccountAction({});
+        const vaultWallet = await dispatch(generateAccountAction({}));
 
         if (vaultWallet) {
           setVaultWallet({
@@ -30,7 +32,7 @@ export const VaultWallet = () => {
     }
     setVaultWallet(null);
     setFieldValue('publicKey', '');
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     handleVaultWalletCondition(values.isVaultWallet);

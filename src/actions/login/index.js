@@ -99,7 +99,7 @@ export function isLoggedIn(history) {
 }
 
 export function getUpdateStatus() {
-    return axios.get(config.api.serverUrl, {
+    return () => axios.get(config.api.serverUrl, {
         params: {
             requestType: 'getUpdateStatus',
         }
@@ -226,11 +226,6 @@ export function setForging(requestType) {
         const secretString = readFromLocalStorage('secretPhrase')
         const passpPhrase = secretString ? JSON.parse(secretString) : account.passPhrase;
         const forgingStatus = dispatch(crypto.validatePassphrase(passpPhrase));
-
-        // dispatch({
-        //     type: 'SET_PASSPHRASE',
-        //     payload: passpPhrase
-        // });
 
         return Promise.resolve(forgingStatus)
             .then((isPassphrase) => {

@@ -29,7 +29,7 @@ const Confirm2FA = (props) => {
           account: modalData.account,
         };
 
-        const confirm = await confirm2FAActon(data);
+        const confirm = await dispatch(confirm2FAActon(data));
 
         if (confirm) {
           if (confirm.errorCode) {
@@ -45,7 +45,7 @@ const Confirm2FA = (props) => {
         }
         setState({ isPending: false });
       }
-    }, [dispatch, props.closeModal, dispatch, modalData.passphrase, modalData.account, state.isPending]);
+    }, [dispatch, props.closeModal, modalData.passphrase, modalData.account, state.isPending]);
 
   return (
       <ModalBody

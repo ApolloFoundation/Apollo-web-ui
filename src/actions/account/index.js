@@ -22,7 +22,6 @@ import { processElGamalEncryption } from '../crypto';
 import { handleFetch } from '../../helpers/fetch';
 import utils from '../../helpers/util/utils';
 import submitForm, { sendRequest } from '../../helpers/forms/forms';
-import store from '../../store';
 import config from '../../config';
 import cancelAxiosRequest from '../../helpers/cancelToken';
 
@@ -160,7 +159,7 @@ export const getPhasingOnlyControl = reqParams => axios.get(config.api.serverUrl
 
 export function exportAccount(requestParams) {
   return async () => {
-    const data = requestParams;
+    const data = { ...requestParams };
     if (data.passPhrase) data.passPhrase = await processElGamalEncryption(data.passPhrase);
     else if (data.secretPhrase) data.secretPhrase = await processElGamalEncryption(data.secretPhrase);
 
@@ -179,21 +178,24 @@ export function exportAccount(requestParams) {
   };
 }
 
-export const generateAccountAction = async requestParams => store.dispatch(await submitForm.submitForm(requestParams, 'generateAccount'));
+export const generateAccountAction = requestParams => dispatch =>
+  dispatch(submitForm.submitForm(requestParams, 'generateAccount'));
 
-export const enable2FAActon = async requestParams => store.dispatch(await submitForm.submitForm(requestParams, 'enable2FA'));
+export const enable2FAActon = requestParams => dispatch =>
+  dispatch(submitForm.submitForm(requestParams, 'enable2FA'));
 
-export const disable2FAActon = async requestParams => store.dispatch(await submitForm.submitForm(requestParams, 'disable2FA'));
+export const disable2FAActon = requestParams => dispatch =>
+  dispatch(submitForm.submitForm(requestParams, 'disable2FA'));
 
-export const confirm2FAActon = async requestParams => store.dispatch(await submitForm.submitForm(requestParams, 'confirm2FA'));
+export const confirm2FAActon = requestParams => dispatch => dispatch(submitForm.submitForm(requestParams, 'confirm2FA'));
 
-export const importAccountAction = async requestParams => store.dispatch(await submitForm.submitForm(requestParams, 'importKey'));
+export const importAccountAction = requestParams => dispatch => dispatch(submitForm.submitForm(requestParams, 'importKey'));
 
-export const importAccountActionViaFile = (data) => store.dispatch(sendRequest('importKeyViaFile', data));
+export const importAccountActionViaFile = data => dispatch => dispatch(sendRequest('importKeyViaFile', data));
 
-export const createAccountAction = async requestParams => store.dispatch(await submitForm.submitForm(requestParams, 'exportKey'));
+export const createAccountAction = requestParams => dispatch => dispatch(submitForm.submitForm(requestParams, 'exportKey'));
 
-export const removeAccountAction = async requestParams => store.dispatch(await submitForm.submitForm(requestParams, 'deleteKey'));
+export const removeAccountAction = requestParams => dispatch => dispatch(submitForm.submitForm(requestParams, 'deleteKey'));
 
 export const generatePDF = args => {
   const today = new Date();

@@ -5,7 +5,7 @@
 
 
 import React, { useCallback, useState } from 'react';
-import {useSelector, shallowEqual} from 'react-redux';
+import {useSelector, shallowEqual, useDispatch} from 'react-redux';
 import {NotificationManager} from 'react-notifications';
 import {removeAccountAction} from 'actions/account';
 import InfoBox from 'containers/components/info-box';
@@ -16,13 +16,14 @@ import { useDownloadFile } from './ExportAccount/useDownloadFIle';
 import { getModalDataSelector } from 'selectors';
 
 const DeleteAccountFromWebNode = (props) => {
+    const dispatch = useDispatch();
     const [isPending, setIsPending] = useState();
     const modalData = useSelector(getModalDataSelector, shallowEqual);
     const downloadFile = useDownloadFile(modalData);
 
     const handleFormSubmit = useCallback(async (values) => {
         setIsPending(true);
-        const accountKeySeedData = await removeAccountAction(values);
+        const accountKeySeedData = await dispatch(removeAccountAction(values));
 
         if (accountKeySeedData && !accountKeySeedData.errorCode) {
             NotificationManager.success('Your account was successfully removed from this web node.', null, 5000);
@@ -32,7 +33,7 @@ const DeleteAccountFromWebNode = (props) => {
             NotificationManager.error(accountKeySeedData.errorDescription, 'Error', 5000);
         }
         setIsPending(false);
-    }, [props.closeModal]);
+    }, [props.closeModal, dispatch]);
 
     return (
         <ModalBody

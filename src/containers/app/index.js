@@ -13,8 +13,6 @@ import classNames from 'classnames';
 import ReactHintFactory from 'react-hint';
 import { getConstantsAction, isLoggedIn, getUpdateStatus } from 'actions/login';
 import { getCurrentTicker } from 'actions/account';
-import { loadConstants, setPageEvents } from 'modules/account';
-import { setBodyModalParamsAction, setBodyModalType } from 'modules/modals';
 import { version } from '../../../package.json';
 // components
 import PageLoader from 'containers/components/page-loader/page-loader';
@@ -90,7 +88,6 @@ import {
   getLoadingSelector,
   getModalTypeSelector
 } from '../../selectors';
-import { startBlockPullingAction } from '../../actions/blocks';
 
 import './window';
 import './App.scss';
@@ -112,7 +109,7 @@ class App extends React.Component {
       getCurrentTicker();
 
       getSavedAccountSettings();
-      getUpdateStatus();
+      this.props.getUpdateStatus();
       if (!this.shareMessage) {
           isLoggedIn(this.props.history);
       }
@@ -395,18 +392,12 @@ const mapStateToProps = state => ({
   bodyModalType: getBodyModalTypeSelector(state),
 });
 
-const mapDispatchToProps = dispatch => ({
-    isLoggedIn: (history) => dispatch(isLoggedIn(history)),
-    setPageEvents: () => dispatch(setPageEvents()),
-    getCurrentTicker: () => dispatch(getCurrentTicker()),
-    getConstantsAction: () => dispatch(getConstantsAction()),
-    getSavedAccountSettings: () => dispatch(getSavedAccountSettingsAction()),
-    loadConstants: () => dispatch(loadConstants()),
-
-    //modals
-    setBodyModalType: () => dispatch(setBodyModalType()),
-    setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-    startBlockPullingAction: () => dispatch(startBlockPullingAction())
-});
+const mapDispatchToProps = {
+    isLoggedIn,
+    getCurrentTicker,
+    getConstantsAction,
+    getUpdateStatus,
+    getSavedAccountSettings: getSavedAccountSettingsAction,
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(App));

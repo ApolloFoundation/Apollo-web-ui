@@ -15,6 +15,32 @@ import {getActiveShfflings, getShufflingAction} from "../../actions/shuffling";
 import {getpollsAction} from "../../actions/polls";
 import {getAccountInfoAction} from "../../actions/account";
 
+const calculateCurrencies = (currencies) => {
+    return {
+        count: currencies.length,
+        total: (currencies.length && currencies.map((el) => {
+            return parseInt(el.unconfirmedUnits, 10) / Math.pow(10, el.decimals)
+        }).reduce((a,b) => {
+            return a + b
+        })) || 0
+    }
+}
+
+const calculateAssets =  (assets) => async dispatch => {
+    return {
+        count: assets.length,
+        total: (assets.length && assets.map((el) => {
+            return parseInt(el.unconfirmedQuantityATU, 10) / Math.pow(10, el.decimals)
+        }).reduce((a,b) => {
+            return a + b
+        })) || 0,
+        distribution: (assets.length && await Promise.all(assets.map((el) => {
+            const {asset} = el;
+            return dispatch(getAssetAction({asset}))
+        }))) || []
+    }
+}
+
 export const getDashboardData = () => (dispatch, getState) => {
     const {account: {account}} = getState();
 
@@ -151,28 +177,4 @@ export const getDashboardData = () => (dispatch, getState) => {
         });
 };
 
-var calculateCurrencies = (currencies) => {
-    return {
-        count: currencies.length,
-        total: (currencies.length && currencies.map((el) => {
-            return parseInt(el.unconfirmedUnits, 10) / Math.pow(10, el.decimals)
-        }).reduce((a,b) => {
-            return a + b
-        })) || 0
-    }
-}
 
-var calculateAssets =  (assets) => async dispatch => {
-    return {
-        count: assets.length,
-        total: (assets.length && assets.map((el) => {
-            return parseInt(el.unconfirmedQuantityATU, 10) / Math.pow(10, el.decimals)
-        }).reduce((a,b) => {
-            return a + b
-        })) || 0,
-        distribution: (assets.length && await Promise.all(assets.map((el) => {
-            const {asset} = el;
-            return dispatch(getAssetAction({asset}))
-        }))) || []
-    }
-}

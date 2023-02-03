@@ -89,7 +89,7 @@ export function getBlockAction(requestParams) {
     }
 }
 
-export const startBlockPullingAction = () => axios.get(config.api.serverUrl, {
+export const startBlockPullingAction = () => () => axios.get(config.api.serverUrl, {
     params: {
         requestType: 'getBlock'
     }
@@ -101,7 +101,7 @@ export const startBlockPullingAction = () => axios.get(config.api.serverUrl, {
 
     });
 
-export const getNextBlockGeneratorsAction = (reqParams) => axios.get(config.api.serverUrl, {
+export const getNextBlockGeneratorsAction = (reqParams) => () => axios.get(config.api.serverUrl, {
     params: {
         requestType: 'getNextBlockGenerators',
         ...reqParams
