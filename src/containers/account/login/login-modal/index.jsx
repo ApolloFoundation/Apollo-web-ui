@@ -8,6 +8,7 @@ import classNames from 'classnames';
 import { useSingleAccordionItem } from 'hooks/useSingleAccordionItem';
 import { VaultAccordion } from './login-accordions/vault-wallet/vault';
 import { StandartWallet } from './login-accordions/standart-wallet';
+import { SECTIONS } from '../constants';
 import styles from './index.module.scss';
 import '../Login.css';
 
@@ -24,14 +25,14 @@ export default function LoginModal({ handleModal }) {
       <div className={styles.line}>Or</div>
       <div
         className={classNames("button-block", styles.buttonIcon)}
-        onClick={() => handleModal('IMPORT_ACCOUNT')}
+        onClick={() => handleModal(SECTIONS.IMPORT_ACCOUNT)}
       >
         <span className="title">Advanced user?</span>
         <span className="sub-title">Import Vault Wallet</span>
       </div>
       <div
         className="button-block"
-        onClick={() => handleModal('CREATE_USER')}
+        onClick={() => handleModal(SECTIONS.CREATE_USER)}
       >
         <span className="title">New user?</span>
         <span className="sub-title">Create Apollo Wallet</span>

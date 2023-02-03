@@ -11,7 +11,7 @@ import { AccountRSWithFormik } from 'containers/components/account-rs/AccountRSW
 import { Switcher } from 'containers/components/form-components/switcher/switcher';
 import './standartForm.scss';
 
-export default function SecretPhraseForm({ activeTab }) {
+export default function SecretPhraseForm() {
   const dispatch = useDispatch();
   
   const [showPhrase, setShowPhraze] = useState(false);

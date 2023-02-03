@@ -2,15 +2,13 @@ import React from 'react';
 import classNames from 'classnames';
 import Checked from 'assets/check-icon.png';
 import Minus from 'assets/minus-icon.png';
-
 import styles from './index.module.scss';
 
 export const TooltipWrapper = ({ list }) => {
-
-  const renderItem = ({iconChecked, text}, index) => { 
+  const renderItem = ({iconChecked, text}) => { 
     const icon = iconChecked ? Checked : Minus;
     return (
-      <li key={index.toString()} className={styles.tooltipWrapperItem}>
+      <li key={text} className={styles.tooltipWrapperItem}>
         <img 
           src={icon}
           alt='item'
