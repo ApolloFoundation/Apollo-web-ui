@@ -12,7 +12,7 @@
  import InfoBox from 'containers/components/info-box';
  import Button from 'containers/components/button';
  
-export const SecretKeyForm = ({ handleClose, isActive }) => {
+export const SecretKeyForm = ({ handleClose }) => {
   const [importAccount, setImportAccount] = useState(null);
 
   const handleFormSubmit = useCallback(async ({ secretBytes, passPhrase }) => {
@@ -24,8 +24,6 @@ export const SecretKeyForm = ({ handleClose, isActive }) => {
     }
     setImportAccount(newImportAccount);
   }, []);
-
-  if (!isActive) return null;
 
   return (
     <Formik

@@ -11,7 +11,7 @@ import RedTriangle from 'assets/red-triangle.svg';
 import { getConstantsSelector } from 'selectors';
 import styles from '../index.module.scss';
 
-export const FileForm = ({ handleClose, isActive }) => {
+export const FileForm = ({ handleClose }) => {
   const constants = useSelector(getConstantsSelector, shallowEqual);
   const [isError, setIsError] = useState(false);
 
@@ -32,8 +32,6 @@ export const FileForm = ({ handleClose, isActive }) => {
       handleClose();
     }
   }, [handleClose]);
-
-  if (!isActive) return null;
 
   return (
     <Formik
