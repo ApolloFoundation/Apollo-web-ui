@@ -21,16 +21,16 @@ export const getFundingMonitorsAction = (requestParams) => {
     }
 };
 
-export const startMonitor = async (reqParams) => {
+export const startMonitor = (reqParams) => async (dispatch) => {
     let data = reqParams;
     if (data.passphrase) data.passphrase = await processElGamalEncryption(data.passphrase);
     else if (data.secretPhrase) data.secretPhrase = await processElGamalEncryption(data.secretPhrase);
-    return store.dispatch(await submitForm.submitForm(data, 'startFundingMonitor'))
+    return dispatch(await submitForm.submitForm(data, 'startFundingMonitor'))
 }
 
-export const stopMonitor = async (reqParams) => {
+export const stopMonitorThunk = (reqParams) => async (dispatch) => {
     let data = reqParams;
     if (data.passphrase) data.passphrase = await processElGamalEncryption(data.passphrase);
     else if (data.secretPhrase) data.secretPhrase = await processElGamalEncryption(data.secretPhrase);
-    return store.dispatch(await submitForm.submitForm(data, 'stopFundingMonitor'))
+    return dispatch(await submitForm.submitForm(data, 'stopFundingMonitor'))
 }

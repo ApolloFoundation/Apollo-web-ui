@@ -5,12 +5,12 @@
 
 
 import axios from 'axios';
-import config from '../../config'
-import converters from '../../helpers/converters';
-import submitForm from '../../helpers/forms/forms'
-import state from '../../store'
-import {processElGamalEncryption} from "../crypto";
-import cancelAxiosRequest from '../../helpers/cancelToken';
+import converters from 'helpers/converters';
+import submitForm from 'helpers/forms/forms'
+import {processElGamalEncryption} from "actions/crypto";
+import cancelAxiosRequest from 'helpers/cancelToken';
+import store from 'store'
+import config from 'config'
 
 export function getMessages (reqParams) {
     return dispatch => {
@@ -303,7 +303,7 @@ const handleAcount = (fn, params) => (dispatch, getState) =>{
         }
     }
     
-    const unsubscribe = state.subscribe(handleAccounChange);
+    const unsubscribe = store.subscribe(handleAccounChange);
 
     return handleAccounChange
 }

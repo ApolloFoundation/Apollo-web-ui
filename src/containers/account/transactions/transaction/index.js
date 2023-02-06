@@ -7,7 +7,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import classNames from 'classnames';
 import { setBodyModalParamsAction } from 'modules/modals';
-import { formatTransactionType, getPhasingTransactionVoters } from 'actions/transactions';
+import { formatTransactionType, getPhasingTransactionVotersThunk } from 'actions/transactions';
 import { getBlockAction } from 'actions/blocks';
 import { Tooltip } from 'containers/components/tooltip';
 import IconRed from 'assets/red-triangle.svg';
@@ -31,7 +31,7 @@ const Transaction = (props) => {
     } = props;
 
     const getPhasingTransactionInfo = useCallback(async () => {
-      const phasing = await getPhasingTransactionVoters({ transaction: props.transaction });
+      const phasing = await dispatch(getPhasingTransactionVotersThunk({ transaction: props.transaction }));
 
       if (phasing) {
         setState({
@@ -39,7 +39,7 @@ const Transaction = (props) => {
           transaction: props.transaction,
         });
       }
-    }, [props.transaction]);
+    }, [props.transaction, dispatch]);
 
     const getBlock = (blockHeight) => async () => {
       const block = await dispatch(getBlockAction({ height: blockHeight }));

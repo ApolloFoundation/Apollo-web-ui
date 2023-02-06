@@ -8,7 +8,7 @@ import React, {
 } from 'react';
 import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
-import { getMixerAccount } from 'actions/transactions';
+import { getMixerAccountThunk } from 'actions/transactions';
 import ModalBody from 'containers/components/modals/modal-body';
 import {
   getConstantsSelector,
@@ -31,7 +31,7 @@ export default function SendApolloPrivate({ closeModal, processForm }) {
   const handleGetMixerAccount = useCallback(async () => {
     if (!mixerUrl) return;
 
-    const mixerData = await getMixerAccount(mixerUrl);
+    const mixerData = await dispatch(getMixerAccountThunk(mixerUrl));
 
     if (mixerData && mixerData.rsId) {
       const mixerAccount = mixerData.rsId;
@@ -39,7 +39,7 @@ export default function SendApolloPrivate({ closeModal, processForm }) {
       setNewMixerData(mixerData);
       setUseMixer(true);
     }
-  }, [accountPrefix, mixerUrl]);
+  }, [dispatch, accountPrefix, mixerUrl]);
 
   const handleFormSubmit = useCallback(async values => {
       if (!values.recipient) {

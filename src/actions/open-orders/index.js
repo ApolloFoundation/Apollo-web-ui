@@ -5,9 +5,8 @@
 
 
 import axios from "axios";
-import config from "../../config";
-import store from '../../store'
-import {getAssetAction} from "../assets";
+import {getAssetAction} from "actions/assets";
+import config from "config";
 
 export const getSellOrdersAction = reqParams => dispatch =>
     axios.get(config.api.serverUrl, {
@@ -19,15 +18,13 @@ export const getSellOrdersAction = reqParams => dispatch =>
     })
         .then(async (res) => {
             if (!res.data.errorCode) {
-                const assets = res.data.askOrders.map((el, index) => {
-                    return store.dispatch(getAssetAction({
+                const assets = res.data.askOrders.map((el) => {
+                    return dispatch(getAssetAction({
                         asset: el.asset
                     }))
                 });
 
                 return {assets: await Promise.all(assets), orders: res.data.askOrders};
-
-
             }
 });
 
@@ -56,8 +53,8 @@ export const getBuyOrdersAction = reqParams => dispatch =>
     })
         .then(async (res) => {
             if (!res.data.errorCode) {
-                const assets = res.data.bidOrders.map((el, index) => {
-                    return store.dispatch(getAssetAction({
+                const assets = res.data.bidOrders.map((el) => {
+                    return dispatch(getAssetAction({
                         asset: el.asset
                     }))
                 });

@@ -1,5 +1,5 @@
 import Cookies from 'universal-cookie';
-import { fromUrl, parseDomain } from 'parse-domain';
+import { parseDomain } from 'parse-domain';
 
 const cookies = new Cookies();
 

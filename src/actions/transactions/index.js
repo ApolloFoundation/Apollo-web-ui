@@ -5,12 +5,11 @@
 
 
 import axios from 'axios';
-// import fetch from 'fetch';
-import config from '../../config';
 import queryString from 'query-string';
 import {NotificationManager} from "react-notifications";
-import {processElGamalEncryption} from "../crypto";
-import cancelAxiosRequest from '../../helpers/cancelToken';
+import config from 'config';
+import {processElGamalEncryption} from "actions/crypto";
+import cancelAxiosRequest from 'helpers/cancelToken';
 
 export function getTransactionsAction(requestParams) {
     return async (dispatch) => {
@@ -111,7 +110,7 @@ export function getTransactionAction(requestParams) {
     }
 }
 
-export const getMixerAccount = mixerUrl => {
+export const getMixerAccountThunk = mixerUrl => () => {
     return axios.get(mixerUrl)
         .then((res) => {
             res = res.data;
@@ -149,7 +148,7 @@ export function getPrivateTransactionAction(requestParams) {
     }
 }
 export function sendTransactionAction(requestParams) {
-    return async (getState) => {
+    return async (dispatch, getState) => {
         const { account } = getState();
         let data = {
             ...requestParams,
@@ -179,7 +178,7 @@ export function sendTransactionAction(requestParams) {
 }
 
 export function sendPrivateTransaction(requestParams) {
-    return async (getState) => {
+    return async (dispatch, getState) => {
         const { account } = getState();
         let data = {
             ...requestParams,
@@ -207,7 +206,7 @@ export function formatTransactionType(str){
     return (str).toUpperCase();
 }
 
-export const getPhasingTransactionVoters = (requestParams) => {
+export const getPhasingTransactionVotersThunk = (requestParams) => () => {
     return axios.get(config.api.serverUrl, {
         params: {
             requestType: 'getPhasingPolls',
