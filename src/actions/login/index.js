@@ -5,28 +5,25 @@
 
 
 import axios from "axios";
-import config from "../../config";
-import crypto from "../../helpers/crypto/crypto";
 import {NotificationManager} from 'react-notifications';
-
-import {INIT_TRANSACTION_TYPES} from '../../helpers/transaction-types/transaction-types';
-import {login, logout, loadConstants, startLoad, endLoad } from '../../modules/account';
-import {writeToLocalStorage, readFromLocalStorage, clearLocalStorage, deleteFromLocalStorage} from "../localStorage";
-import {getTransactionsAction} from "../transactions";
-import {updateStoreNotifications} from "../../modules/account";
-import submitForm from "../../helpers/forms/forms";
+import config from "config";
+import crypto from "helpers/crypto/crypto";
+import {INIT_TRANSACTION_TYPES} from 'helpers/transaction-types/transaction-types';
+import {login, logout, loadConstants, startLoad, endLoad, loadBlockchainStatusAction, setLoginProblemAction, getForgingAction } from 'modules/account';
+import {writeToLocalStorage, readFromLocalStorage, clearLocalStorage, deleteFromLocalStorage} from "actions/localStorage";
+import {getTransactionsAction} from "actions/transactions";
+import {updateStoreNotifications} from "modules/account";
+import submitForm from "helpers/forms/forms";
+import {setBodyModalParamsAction} from "modules/modals";
+import {setAccountPassphrase} from 'modules/account';
+import cancelAxiosRequest from 'helpers/cancelToken';
+import { dashboardAccountInfoAction } from "modules/dashboard";
 import store from '../../store'
-import {setBodyModalParamsAction} from "../../modules/modals";
-import {setAccountPassphrase} from '../../modules/account';
-import cancelAxiosRequest from '../../helpers/cancelToken';
 
 export function getAccountDataAction(requestParams) {
     return async dispatch => {
-        dispatch({
-            type: 'SET_LOGIN_PROBLEM',
-            payload: false
-        });
-        const loginStatus = (await dispatch(makeLoginReq(requestParams)));
+        dispatch(setLoginProblemAction(false));
+        const loginStatus = await dispatch(makeLoginReq(requestParams));
 
         if (loginStatus) {
             if (loginStatus.errorCode && !loginStatus.account) {
@@ -41,10 +38,7 @@ export function getAccountDataBySecretPhrasseAction(requestParams) {
 
         const accountRS = await (dispatch(crypto.getAccountIdAsyncApl(requestParams.secretPhrase)));
 
-        dispatch({
-            type: 'SET_PASSPHRASE',
-            payload: requestParams.secretPhrase
-        });
+        dispatch(setAccountPassphrase(requestParams.secretPhrase));
 
         writeToLocalStorage('secretPhrase', requestParams.secretPhrase);
 
@@ -143,10 +137,7 @@ export const updateAccount = (requestParams) => dispatch => {
             }
         })
         .catch(function (err) {
-            dispatch({
-                type: 'SET_LOGIN_PROBLEM',
-                payload: true
-            })
+            dispatch(setLoginProblemAction(true));
         });
 };
 
@@ -173,27 +164,24 @@ export const makeLoginReq = (requestParams) => (dispatch, getState) => {
                 if (res.data.account) {
                     writeToLocalStorage('APLUserRS', res.data.accountRS);
                     dispatch(updateNotifications())(res.data.accountRS);
+
                     dispatch(getConstantsAction());
-                    dispatch({
-                        type: 'SET_PASSPHRASE',
-                        payload: secret && JSON.parse(secret)
-                    });
-                    dispatch({
-                        type: 'SET_DASHBOARD_ACCOUNT_INFO',
-                        payload: res.data
-                    });
+
+                    dispatch(setAccountPassphrase(secret && JSON.parse(secret)));
+                    
+                    dispatch(dashboardAccountInfoAction(res.data));
+
                     dispatch(login(res.data));
+
                     dispatch(getForging());
+
                     dispatch(endLoad());
                 }
                 return res.data;
             }
         })
         .catch(function (err) {
-            dispatch({
-                type: 'SET_LOGIN_PROBLEM',
-                payload: true
-            })
+            dispatch(setLoginProblemAction(true));
         });
 }
 
@@ -211,10 +199,7 @@ export function getForging() {
             params: requestParams
         })
             .then((res) => {
-                dispatch({
-                    type: 'GET_FORGING',
-                    payload: res.data
-                });
+                dispatch(getForgingAction(res.data));
                 return res.data;
             })
     }
@@ -229,10 +214,7 @@ export function setForging(requestType) {
 
         return Promise.resolve(forgingStatus)
             .then((isPassphrase) => {
-                dispatch({
-                    type: 'SET_PASSPHRASE',
-                    payload: passpPhrase
-                });
+                dispatch(setAccountPassphrase(passpPhrase));
 
                 var requestParams;
                 if (isPassphrase) {
@@ -340,17 +322,13 @@ export function getConstantsAction() {
                 }
             })
             .catch(function (err) {
-                dispatch({
-                    type: 'SET_LOGIN_PROBLEM',
-                    payload: true
-                })
+                dispatch(setLoginProblemAction(true))
             });
     };
 }
 
 export function loadBlockchainStatus() {
-    return (dispatch, getState) => {
-        const {blockchainStatus} = getState().account;
+    return (dispatch) => {
         return axios.get(config.api.serverUrl, {
             params: {
                 requestType: 'getBlockchainStatus'
@@ -358,13 +336,7 @@ export function loadBlockchainStatus() {
         })
             .then((res) => {
                 if (!res.data.errorCode) {
-                    dispatch({
-                        type: "LOAD_BLOCKCHAIN_STATUS",
-                        payload: {
-                            ...blockchainStatus,
-                            ...res.data
-                        }
-                    });
+                    dispatch(loadBlockchainStatusAction(res.data));
                     return res.data;
                 }
             })

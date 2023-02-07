@@ -1,5 +1,6 @@
 import { NotificationManager } from 'react-notifications';
-import { setBodyModalParamsAction, IS_MODAL_PROCESSING } from 'modules/modals';
+import { setBodyModalParamsAction } from 'modules/modals';
+import { setModalProcessingTrueAction, setModalProcessingFalseAction } from 'actions/modals';
 import submitForm from 'helpers/forms/forms';
 
 export const handleFormSubmit = values => async dispatch => {
@@ -16,24 +17,14 @@ export const handleFormSubmit = values => async dispatch => {
     buyRateATM: values.buyRateATM * (10 ** (8 - decimals)),
   };
 
-  dispatch({
-    type: IS_MODAL_PROCESSING,
-    payload: true,
-  });
+  dispatch(setModalProcessingTrueAction);
 
   const res = await dispatch(submitForm.submitForm(data, 'publishExchangeOffer'));
   if (res && res.errorCode) {
-    dispatch({
-      type: IS_MODAL_PROCESSING,
-      payload: false,
-    });
-
+    dispatch(setModalProcessingFalseAction());
     NotificationManager.error(res.errorDescription, 'Error', 5000);
   } else {
-    dispatch({
-      type: IS_MODAL_PROCESSING,
-      payload: false,
-    });
+    dispatch(setModalProcessingFalseAction());
     dispatch(setBodyModalParamsAction(null, {}));
     NotificationManager.success('Transfer asset request has been submitted!', null, 5000);
   }

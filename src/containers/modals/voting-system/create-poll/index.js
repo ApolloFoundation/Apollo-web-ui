@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NotificationManager } from "react-notifications";
 import ModalBody from 'containers/components/modals/modal-body';
 import { getTickerSelector } from 'selectors';
-import { IS_MODAL_PROCESSING } from 'modules/modals';
 import PollForm from './form';
 
 const votingModelData = [
@@ -47,11 +46,6 @@ const CreatePoll = ({ processForm, nameModal, closeModal }) => {
         };
 
         processForm(reqParams, 'createPoll', 'Your vote has been created!', (res) => {
-            dispatch({
-                type: IS_MODAL_PROCESSING,
-                payload: false
-            });
-
             closeModal();
             NotificationManager.success('Your vote has been created!', null, 5000);
         });

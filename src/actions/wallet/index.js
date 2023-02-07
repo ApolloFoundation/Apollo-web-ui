@@ -23,6 +23,7 @@ import {
   handleFetch, GET, POST,
 } from 'helpers/fetch';
 import { currencyTypes } from 'helpers/format';
+import { dashboardAccountInfoAction } from 'modules/dashboard';
 
 export function getWallets(requestParams) {
   return dispatch => handleFetch(`${config.api.server}/rest/keyStore/accountInfo`, POST, requestParams)
@@ -122,10 +123,7 @@ export const updateOfferInfo = params => async dispatch => {
   dispatch(getPlotSellOpenOffers());
   dispatch(getMyOpenOffers());
   const accountInfo = await dispatch(getAccountInfoAction({ account: params.sender }));
-  dispatch({
-    type: 'SET_DASHBOARD_ACCOUNT_INFO',
-    payload: accountInfo,
-  });
+  dispatch(dashboardAccountInfoAction(accountInfo));
 };
 
 export function createOffer(requestParams) {

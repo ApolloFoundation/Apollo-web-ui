@@ -11,6 +11,7 @@ import {processElGamalEncryption} from "actions/crypto";
 import cancelAxiosRequest from 'helpers/cancelToken';
 import store from 'store'
 import config from 'config'
+import { setChatsAction, setChatMessageAction, setMessageAction } from 'modules/messages';
 
 export function getMessages (reqParams) {
     return dispatch => {
@@ -319,21 +320,16 @@ export const getMessagesPerpage = (reqPrams) => {
         const messages = await dispatch(getMessages({...reqPrams, account}));
         
         if (messages && !messages.errorCode) {
-            dispatch({
-                type: 'SET_MESSAGES',
-                payload: await dispatch(formatMessages(messages.transactions))
-            });
+            const formattedMessage = await dispatch(formatMessages(messages.transactions));
+            dispatch(setMessageAction(formattedMessage));
             return messages.transactions;
         }
     }
 };
 
-export const resetChatHistory = (reqParams) => {
-    return (dispatch, getState) => {
-        dispatch({
-            type: 'SET_CHAT_MESSAGES',
-            payload: null
-        });
+export const resetChatHistory = () => {
+    return (dispatch) => {
+        dispatch(setChatMessageAction(null));
     }
 };
 
@@ -342,10 +338,7 @@ export const getChatHistory = (reqParams) => {
         const {account: {account}} = getState();
 
         if (!reqParams) {
-            dispatch({
-                type: 'SET_CHAT_MESSAGES',
-                payload: null
-            });
+            dispatch(setChatMessageAction(null));
             return;
         }
 
@@ -359,10 +352,7 @@ export const getChatHistory = (reqParams) => {
                     dispatch(formatMessages(messages.chatHistory))
                     .then(data => {
                         if (messages && !messages.errorCode) {
-                            dispatch({
-                                type: 'SET_CHAT_MESSAGES',
-                                payload: data
-                            })
+                            dispatch(setChatMessageAction(data));
                         }
                     })
                 }
@@ -383,11 +373,7 @@ export const getChatsPerPage = () => {
                 chats = chats.chats.filter(el => {
                     return el.account !== '0'
                 });
-
-                dispatch({
-                    type: 'SET_CHATS',
-                    payload: chats
-                })
+                dispatch(setChatsAction(chats));
             })
     }
 }

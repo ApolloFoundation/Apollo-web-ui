@@ -4,6 +4,7 @@
  ***************************************************************************** */
 
 import store from '../store';
+import { setFeeAlertFalseAction } from './fee';
 
 export const SET_MODAL_TYPE = 'SET_MODAL_TYPE';
 export const SET_MODAL_DATA = 'SET_MODAL_DATA';
@@ -278,10 +279,7 @@ export const setBodyModalParamsAction = (type, data, valueForModal) => dispatch 
       payload: false,
     });
   } else {
-    dispatch({
-      type: 'SET_FEE_ALERT',
-      payload: false,
-    });
+    dispatch(setFeeAlertFalseAction());
     dispatch({
       type: SET_MODAL_TYPE,
       payload: type,
@@ -346,3 +344,18 @@ export const clearDashboardForm = form => {
     payload: form,
   });
 };
+
+export const setAmountWarningAction = (amount) => ({
+  type: SET_AMOUNT_WARNING,
+  payload: amount,
+});
+
+export const setFeeWarningAction = (amount) => ({
+  type: SET_FEE_WARNING,
+  payload: amount,
+});
+
+export const setCurrencyWarningAction = (amount) => ({
+  type: SET_CURRENCY_WARNING,
+  payload: amount,
+})

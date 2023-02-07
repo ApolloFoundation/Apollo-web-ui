@@ -4,9 +4,9 @@
  ***************************************************************************** */
 
 import { NotificationManager } from 'react-notifications';
-import { IS_MODAL_PROCESSING } from '../../modules/modals';
-import submitForm from '../../helpers/forms/forms';
-import store from '../../store';
+import submitForm from 'helpers/forms/forms';
+import { setModalProcessingTrueAction, setModalProcessingFalseAction } from 'actions/modals';
+import store from 'store';
 
 const { dispatch } = store;
 
@@ -14,19 +14,13 @@ export const calculateFeeAction = (requestParams, requestType) => dispatch(submi
 
 export const processForm = async (params, requestType, successMesage, successCallback, errorCallback) => {
   const { ...values } = params;
-  dispatch({
-    type: IS_MODAL_PROCESSING,
-    payload: true,
-  });
+  dispatch(setModalProcessingTrueAction());
 
   const res = await dispatch(submitForm.submitForm(values, requestType));
 
   if (res) {
     if (res.errorCode) {
-      dispatch({
-        type: IS_MODAL_PROCESSING,
-        payload: false,
-      });
+      dispatch(setModalProcessingFalseAction());
 
       if (errorCallback) {
         errorCallback(res);
@@ -34,20 +28,14 @@ export const processForm = async (params, requestType, successMesage, successCal
         NotificationManager.error(res.errorDescription, 'Error', 5000);
       }
     } else {
-      dispatch({
-        type: IS_MODAL_PROCESSING,
-        payload: false,
-      });
+      dispatch(setModalProcessingFalseAction());
 
       if (successCallback) {
         successCallback(res);
       }
     }
   } else {
-    dispatch({
-      type: IS_MODAL_PROCESSING,
-      payload: false,
-    });
+    dispatch(setModalProcessingFalseAction());
 
     if (errorCallback) {
       errorCallback(res);

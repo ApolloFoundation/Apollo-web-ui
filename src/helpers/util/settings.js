@@ -7,9 +7,9 @@
 import {readFromLocalStorage} from "actions/localStorage";
 import {storageSelect} from 'actions/localStorage'
 import {storageInsert} from 'actions/localStorage'
-import async from './async'
-
+import { setSetingsAction } from "modules/account";
 import {DEFAULT_COLORS} from '../internationalisation/languages-data';
+import async from './async'
 
 export const defaultSettings = {
     "submit_on_enter": "0",
@@ -31,25 +31,18 @@ export const defaultSettings = {
     "fake_entity_warning": "1"
 };
 
-export function getSettings(isAccountSpecific) {
+export function getSettings() {
     return (dispatch, getState) => {
         const {account} = getState();
 
         if (!account.account) {
-            dispatch({
-                type: 'SET_SETTINGS',
-                payload: defaultSettings
-            });
+            dispatch(setSetingsAction(defaultSettings));
             const language = readFromLocalStorage("language");
             if (language) {
-
-                dispatch({
-                    type: 'SET_SETTINGS',
-                    payload: {
-                        ...defaultSettings,
-                        language,
-                    }
-                });
+                dispatch(setSetingsAction({
+                    ...defaultSettings,
+                    language,
+                }));
             }
 
         // TODO implemenr internationalisation  
@@ -60,24 +53,16 @@ export function getSettings(isAccountSpecific) {
                         "id": "settings"
                     }], function (error, result) {
                         if (result && result.length) {
-                            dispatch({
-                                type: 'SET_SETTINGS',
-                                payload: {
-                                    ...defaultSettings,
-                                    ...JSON.parse(result[0].contents)
-                                }
-                            })
+                            dispatch(setSetingsAction({
+                                ...defaultSettings,
+                                ...JSON.parse(result[0].contents)
+                            }));
                         } else {
                             dispatch(storageInsert("data", "id", {
                                 id: "settings",
                                 contents: "{}"
                             }));
-                            dispatch({
-                                type: 'SET_SETTINGS',
-                                payload: {
-                                    ...defaultSettings
-                                }
-                            })
+                            dispatch(setSetingsAction(defaultSettings));
                         }
                         for (var setting in account.defaultSettings) {
                             if (!account.defaultSettings.hasOwnProperty(setting)) {
