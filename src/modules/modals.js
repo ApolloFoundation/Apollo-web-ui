@@ -3,7 +3,6 @@
  *                                                                            *
  ***************************************************************************** */
 
-import store from '../store';
 import { setFeeAlertFalseAction } from './fee';
 
 export const SET_MODAL_TYPE = 'SET_MODAL_TYPE';
@@ -248,10 +247,6 @@ export const closeModal = () => dispatch => {
 };
 
 export const setModalType = reqParams => dispatch => {
-  if (reqParams) {
-    document.querySelector('.modal-window').classList.add('active');
-  }
-
   dispatch({
     type: SET_MODAL_TYPE,
     payload: reqParams,
@@ -299,7 +294,6 @@ export const setModalData = (data, callback, params) => (dispatch, getState) => 
   const { modals } = getState();
 
   if (!data) {
-    document.querySelector('.modal-window').classList.remove('active');
     setTimeout(() => {
       dispatch({
         type: SET_MODAL_TYPE,
@@ -307,12 +301,12 @@ export const setModalData = (data, callback, params) => (dispatch, getState) => 
       });
     }, 300);
   } else {
-    document.querySelector('.modal-window').classList.remove('active');
     if (callback) {
       callback(params);
       return;
     }
     if (modals.modalCallback) modals.modalCallback(data);
+    
   }
 };
 
@@ -336,14 +330,10 @@ export const setAlert = (status, message) => dispatch => {
   }, 4000);
 };
 
-export const clearDashboardForm = form => {
-  const { dispatch } = store;
-
-  dispatch({
+export const clearDashboardForm = form  => ({
     type: SET_DASHBOARD_FORM,
     payload: form,
-  });
-};
+});
 
 export const setAmountWarningAction = (amount) => ({
   type: SET_AMOUNT_WARNING,
