@@ -1,5 +1,5 @@
 import { NotificationManager } from 'react-notifications';
-import { setBodyModalParamsAction, IS_MODAL_PROCESSING } from 'modules/modals';
+import { setModalProcessingFalseAction } from 'actions/modals';
 
 const { BigInteger } = require('jsbn');
 
@@ -75,10 +75,7 @@ export function handleFormSubmit(values) {
   delete data.type6;
 
   processForm(data, 'issueCurrency', 'Issue currency request has been submitted!', (res) => {
-    dispatch({
-      type: IS_MODAL_PROCESSING,
-      payload: false,
-    });
+    dispatch(setModalProcessingFalseAction());
     closeModal();
     NotificationManager.success('Issue currency request has been submitted!', null, 5000);
   });

@@ -6,6 +6,7 @@
  import React, { useState, useCallback } from 'react';
  import { CopyToClipboard } from 'react-copy-to-clipboard';
  import { Form, Formik } from 'formik';
+ import { useDispatch } from 'react-redux';
  import { NotificationManager } from 'react-notifications';
  import { importAccountAction } from 'actions/account';
  import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
@@ -13,17 +14,18 @@
  import Button from 'containers/components/button';
  
 export const SecretKeyForm = ({ handleClose }) => {
+  const dispatch = useDispatch();
   const [importAccount, setImportAccount] = useState(null);
 
   const handleFormSubmit = useCallback(async ({ secretBytes, passPhrase }) => {
-    const newImportAccount = await importAccountAction({ secretBytes, passPhrase });
+    const newImportAccount = await dispatch(importAccountAction({ secretBytes, passPhrase }));
 
     if (newImportAccount && newImportAccount.errorCode) {
       NotificationManager.error(newImportAccount.errorDescription, 'Error', 5000);
       return;
     }
     setImportAccount(newImportAccount);
-  }, []);
+  }, [dispatch]);
 
   return (
     <Formik

@@ -97,7 +97,7 @@ export function getTransferHistory(reqParams) {
     });
 }
 
-export const getExchangesByExchangeRequest = reqParams => axios.get(config.api.serverUrl, {
+export const getExchangesByExchangeRequest = reqParams => () => axios.get(config.api.serverUrl, {
   params: {
     requestType: 'getExchangesByExchangeRequest',
     ...reqParams,
@@ -109,7 +109,7 @@ export const getExchangesByExchangeRequest = reqParams => axios.get(config.api.s
     }
   });
 
-export const getExchangesByOfferRequest = reqParams => axios.get(config.api.serverUrl, {
+export const getExchangesByOfferRequest = reqParams => () => axios.get(config.api.serverUrl, {
   params: {
     requestType: 'getExchangesByOffer',
     ...reqParams,
@@ -121,7 +121,7 @@ export const getExchangesByOfferRequest = reqParams => axios.get(config.api.serv
     }
   });
 
-export const getOfferRequest = reqParams => axios.get(config.api.serverUrl, {
+export const getOfferRequest = reqParams => () => axios.get(config.api.serverUrl, {
   params: {
     requestType: 'getOffer',
     ...reqParams,

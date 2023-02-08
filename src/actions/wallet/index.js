@@ -4,10 +4,10 @@
  ***************************************************************************** */
 
 import { NotificationManager } from 'react-notifications';
-import config from '../../config';
-import { writeToLocalStorage } from '../localStorage';
-import { getAccountInfoAction } from '../account';
-import { setWallets } from '../../modules/account';
+import config from 'config';
+import { writeToLocalStorage } from 'actions/localStorage';
+import { getAccountInfoAction } from 'actions/account';
+import { setWallets } from 'modules/account';
 import {
   setBuyOrdersAction,
   setSellOrdersAction,
@@ -18,11 +18,12 @@ import {
   setMyOrderHistoryAction,
   setContractStatus,
   setAllContractStatus,
-} from '../../modules/exchange';
+} from 'modules/exchange';
 import {
   handleFetch, GET, POST,
-} from '../../helpers/fetch';
-import { currencyTypes } from '../../helpers/format';
+} from 'helpers/fetch';
+import { currencyTypes } from 'helpers/format';
+import { dashboardAccountInfoAction } from 'modules/dashboard';
 
 export function getWallets(requestParams) {
   return dispatch => handleFetch(`${config.api.server}/rest/keyStore/accountInfo`, POST, requestParams)
@@ -122,10 +123,7 @@ export const updateOfferInfo = params => async dispatch => {
   dispatch(getPlotSellOpenOffers());
   dispatch(getMyOpenOffers());
   const accountInfo = await dispatch(getAccountInfoAction({ account: params.sender }));
-  dispatch({
-    type: 'SET_DASHBOARD_ACCOUNT_INFO',
-    payload: accountInfo,
-  });
+  dispatch(dashboardAccountInfoAction(accountInfo));
 };
 
 export function createOffer(requestParams) {
@@ -229,7 +227,7 @@ export const getSellOpenOffers = (currency, options) => async (dispatch, getStat
   dispatch(setSellOrdersAction(currency, sellOrders, options));
 };
 
-export const getPlotBuyOpenOffers = (currency, options) => async (dispatch, getState) => {
+export const getPlotBuyOpenOffers = (currency) => async (dispatch, getState) => {
   if (!currency) currency = getState().exchange.currentCurrency.currency;
   const params = {
     orderType: 0,
@@ -244,7 +242,7 @@ export const getPlotBuyOpenOffers = (currency, options) => async (dispatch, getS
   dispatch(setPlotBuyOrdersAction(currency, buyOrders));
 };
 
-export const getPlotSellOpenOffers = (currency, options) => async (dispatch, getState) => {
+export const getPlotSellOpenOffers = (currency) => async (dispatch, getState) => {
   if (!currency) currency = getState().exchange.currentCurrency.currency;
   const params = {
     orderType: 1,

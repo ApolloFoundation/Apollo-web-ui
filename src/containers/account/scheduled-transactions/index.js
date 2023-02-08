@@ -12,7 +12,7 @@ import classNames from "classnames";
 import SiteHeader from 'containers/components/site-header'
 import InfoBox from "containers/components/info-box";
 import {setBodyModalParamsAction} from "modules/modals";
-import {getScheduledTransactions, deleteScheduledTransactionAction} from "actions/scheduled-transactions";
+import {getScheduledTransactionsThunk, deleteScheduledTransactionAction} from "actions/scheduled-transactions";
 import ContentHendler from "containers/components/content-hendler";
 import { getAdminPasswordSelector } from 'selectors';
 import { ScheduleTransactionTable } from './ScheduleTransactionTable';
@@ -26,9 +26,9 @@ const ScheduledTransactions = () => {
     })
 
     const getScheduledTransactionsRequest = useCallback(async () => {
-        const scheduledTransactions = await getScheduledTransactions({
+        const scheduledTransactions = await dispatch(getScheduledTransactionsThunk({
             adminPassword,
-        });
+        }));
         
         if (scheduledTransactions && !scheduledTransactions.errorCode) {
             setState({

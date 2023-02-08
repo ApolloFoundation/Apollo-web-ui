@@ -21,6 +21,7 @@ export const SET_CURRENT_BLOCK = 'SET_CURRENT_BLOCK';
 export const SET_ADMIN_PASSWORD = 'SET_ADMIN_PASSWORD';
 export const SET_WALLETS = 'SET_WALLETS';
 export const SET_BLOCKCHAIN_SETTINGS = 'SET_BLOCKCHAIN_SETTINGS';
+export const SET_ACTUAL_BLOCK = 'SET_ACTUAL_BLOCK';
 
 const initialState = {
   blockchainStatus: {},
@@ -147,9 +148,12 @@ export default (state = initialState, action) => {
     case LOAD_BLOCKCHAIN_STATUS:
       return {
         ...state,
-        blockchainStatus: action.payload,
+        blockchainStatus: {
+          ...state.blockchainStatus,
+          ...action.payload
+        },
       };
-    case 'SET_ACTUAL_BLOCK':
+    case SET_ACTUAL_BLOCK:
       return {
         ...state,
         actualBlock: action.payload.actualBlock,
@@ -174,11 +178,13 @@ export const setTicker = reqParams => dispatch => {
   });
 };
 
+export const loadAccountAction = (loadAccountData) => ({
+  type: LOAD_ACCOUNT,
+  payload: loadAccountData,
+})
+
 export const login = reqParams => dispatch => {
-  dispatch({
-    type: LOAD_ACCOUNT,
-    payload: reqParams,
-  });
+  dispatch(loadAccountAction(reqParams));
 };
 export const logout = () => dispatch => {
   dispatch({ type: RESET_ACCOUNT });
@@ -189,12 +195,10 @@ export const loadConstants = constants => ({
   payload: constants,
 });
 
-export const setSetings = settings => dispatch => {
-  dispatch({
-    type: SET_SETTINGS,
-    payload: settings,
-  });
-};
+export const setSetingsAction = settings => ({
+  type: SET_SETTINGS,
+  payload: settings,
+});
 
 export const updateStoreNotifications = notifications => dispatch => {
   dispatch({
@@ -235,14 +239,29 @@ export const setAccountPassphrase = passPhrase => dispatch => {
   });
 };
 
-export const getState = () => (dispatch, getStore) => {
-  const { account } = getStore();
-  return account;
-};
-
 export const setWallets = wallets => dispatch => {
   dispatch({
     type: SET_WALLETS,
     payload: wallets,
   });
 };
+
+export const setActualBlockAction = (data) =>({
+  type: SET_ACTUAL_BLOCK,
+  payload: data,
+})
+
+export const loadBlockchainStatusAction = (data) => ({
+  type: LOAD_BLOCKCHAIN_STATUS,
+  payload: data,
+});
+
+export const setLoginProblemAction = (isLoginProblem) => ({
+  type: SET_LOGIN_PROBLEM,
+  payload: isLoginProblem,
+});
+
+export const getForgingAction = (forgingData) => ({
+  type: GET_FORGING,
+  payload: forgingData,
+});

@@ -4,8 +4,8 @@
  ******************************************************************************/
 
 import {NotificationManager} from "react-notifications";
-import config from '../../config';
-import {handleFetch, GET} from "../../helpers/fetch";
+import config from 'config';
+import {handleFetch, GET} from "helpers/fetch";
 
 export function getShards(requestParams) {
     return () => {

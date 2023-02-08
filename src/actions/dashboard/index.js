@@ -1,19 +1,58 @@
 import { batch } from "react-redux";
-import {getBlockAction} from "../../actions/blocks";
-import {getTransactionsAction} from "../../actions/transactions";
-import {getAccountCurrenciesAction} from "../../actions/currencies";
+import {getBlockAction} from "actions/blocks";
+import {getTransactionsAction} from "actions/transactions";
+import {getAccountCurrenciesAction} from "actions/currencies";
 import {
     getDGSPurchasesAction,
     getDGSGoodsAction,
 	getDGSPendingPurchases
-} from "../../actions/marketplace";
-import {getAccountAssetsAction, getAssetAction} from '../../actions/assets'
-import {getAliasesCountAction} from '../../actions/aliases'
-import {getMessages} from "../../actions/messager";
-import {getAllTaggedDataAction} from "../../actions/datastorage";
-import {getActiveShfflings, getShufflingAction} from "../../actions/shuffling";
-import {getpollsAction} from "../../actions/polls";
-import {getAccountInfoAction} from "../../actions/account";
+} from "actions/marketplace";
+import {getAccountAssetsAction, getAssetAction} from 'actions/assets'
+import {getAliasesCountAction} from 'actions/aliases'
+import {getMessages} from "actions/messager";
+import {getAllTaggedDataAction} from "actions/datastorage";
+import {getActiveShfflings, getShufflingAction} from "actions/shuffling";
+import {getpollsAction} from "actions/polls";
+import {getAccountInfoAction} from "actions/account";
+import {
+    dashboardAliasCountAction,
+    dashboardCurrenciesAction,
+    dashboardDGSGoodsAction,
+    dashboardTransactionsAction,
+    dashbaordMessageCountAction,
+    dashboardTagDataAction,
+    dashbaordActiveShufflinfAction,
+    dashboardPollsAction,
+    dashboardAccountInfoAction,
+    dashboardAssetsAction
+} from "modules/dashboard";
+import { loadAccountAction } from "modules/account";
+
+const calculateCurrencies = (currencies) => {
+    return {
+        count: currencies.length,
+        total: (currencies.length && currencies.map((el) => {
+            return parseInt(el.unconfirmedUnits, 10) / Math.pow(10, el.decimals)
+        }).reduce((a,b) => {
+            return a + b
+        })) || 0
+    }
+}
+
+const calculateAssets =  (assets) => async dispatch => {
+    return {
+        count: assets.length,
+        total: (assets.length && assets.map((el) => {
+            return parseInt(el.unconfirmedQuantityATU, 10) / Math.pow(10, el.decimals)
+        }).reduce((a,b) => {
+            return a + b
+        })) || 0,
+        distribution: (assets.length && await Promise.all(assets.map((el) => {
+            const {asset} = el;
+            return dispatch(getAssetAction({asset}))
+        }))) || []
+    }
+}
 
 export const getDashboardData = () => (dispatch, getState) => {
     const {account: {account}} = getState();
@@ -94,85 +133,35 @@ export const getDashboardData = () => (dispatch, getState) => {
             const [numberOfGoods, numberOfPurchases, totalPurchases] = dgsGoods;
             batch(() => {
                 if (transactions) {
-                    dispatch({
-                        type: 'SET_DASHBOARD_TRANSACTIONS',
-                        payload: transactions.transactions
-                    });
+                    dispatch(dashboardTransactionsAction(transactions.transactions));
                 }
-                dispatch({
-                    type: 'SET_DASHBOARD_CURRENCIES',
-                    payload: calculateCurrencies(currencies.accountCurrencies)
-                });
-                dispatch({
-                    type: 'SET_DASHBOARD_ALIASES_COUNT',
-                    payload: aliaseesCount.numberOfAliases
-                });
-                dispatch({
-                    type: 'SET_DASHBOARD_DGS_GOODS',
-                    payload: {
-                        numberOfGoods : numberOfGoods.goods ? numberOfGoods.goods.length : null,
-                        numberOfPurchases : numberOfPurchases.purchases ? numberOfPurchases.purchases.length : null,
-                        totalPurchases : totalPurchases.purchases ? totalPurchases.purchases.length : null
-                    }
-                });
-                dispatch({
-                    type: 'SET_DASHBOARD_MESSAGES_COUNT',
-                    payload: messages?.transactions.length
-                });
-                dispatch({
-                    type: 'SET_DASHBOARD_TAGGEDDATA',
-                    payload: taggetData.data.length
-                });
-                dispatch({
-                    type: 'SET_DASHBOARD_ACTIVE_SHUFFLING',
-                    payload: activeShuffling.shufflings.length
-                });
-                dispatch({
-                    type: 'SET_DASHBOARD_POSSL',
-                    payload: activePolls.polls
-                });
-                dispatch({
-                    type: 'SET_DASHBOARD_ACCOUNT_INFO',
-                    payload: accountInfo,
-                });
-                dispatch({
-                    type: 'LOAD_ACCOUNT',
-                    payload: accountInfo,
-                });
+
+                dispatch(dashboardCurrenciesAction(calculateCurrencies(currencies.accountCurrencies)));
+
+                dispatch(dashboardAliasCountAction(aliaseesCount.numberOfAliases));
+
+                dispatch(dashboardDGSGoodsAction({
+                    numberOfGoods : numberOfGoods?.goods?.length ?? null,
+                    numberOfPurchases : numberOfPurchases?.purchases?.length ?? null,
+                    totalPurchases : totalPurchases?.purchases?.length ?? null
+                }));
+
+                dispatch(dashbaordMessageCountAction(messages?.transactions.length))
+
+                dispatch(dashboardTagDataAction(taggetData?.data.length));
+
+                dispatch(dashbaordActiveShufflinfAction(activeShuffling?.shufflings.length));
+
+                dispatch(dashboardPollsAction(activePolls.polls));
+                dispatch(dashboardAccountInfoAction(accountInfo));
+                dispatch(loadAccountAction(accountInfo));
             });
 
             return dispatch(calculateAssets(accountAssets.accountAssets));
         })
         .then((accountAssetsData) => {
-            dispatch({
-                type: 'SET_DASHBOARD_ASSETS',
-                payload: accountAssetsData
-            });
+            dispatch(dashboardAssetsAction(accountAssetsData));
         });
 };
 
-var calculateCurrencies = (currencies) => {
-    return {
-        count: currencies.length,
-        total: (currencies.length && currencies.map((el) => {
-            return parseInt(el.unconfirmedUnits, 10) / Math.pow(10, el.decimals)
-        }).reduce((a,b) => {
-            return a + b
-        })) || 0
-    }
-}
 
-var calculateAssets =  (assets) => async dispatch => {
-    return {
-        count: assets.length,
-        total: (assets.length && assets.map((el) => {
-            return parseInt(el.unconfirmedQuantityATU, 10) / Math.pow(10, el.decimals)
-        }).reduce((a,b) => {
-            return a + b
-        })) || 0,
-        distribution: (assets.length && await Promise.all(assets.map((el) => {
-            const {asset} = el;
-            return dispatch(getAssetAction({asset}))
-        }))) || []
-    }
-}

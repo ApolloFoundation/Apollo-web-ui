@@ -27,3 +27,17 @@ export default (state = initState, action)  => {
     }
 }
 
+export const setMessageAction = (message) => ({
+    type: SET_MESSAGES,
+    payload: message
+});
+
+export const setChatMessageAction = (message) => ({
+    type: SET_CHAT_MESSAGES,
+    payload: message,
+});
+
+export const setChatsAction = (chat) => ({
+    type: SET_CHATS,
+    payload: chat,
+});

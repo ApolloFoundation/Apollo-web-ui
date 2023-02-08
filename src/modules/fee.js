@@ -21,3 +21,13 @@ export default (state = initState, action) => {
         default: return state
     }
 }
+
+export const setFeeAlertTrueAction = () => ({
+    type: SET_FEE_ALERT,
+    payload: true,
+});
+
+export const setFeeAlertFalseAction = () => ({
+    type: SET_FEE_ALERT,
+    payload: false,
+});

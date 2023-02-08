@@ -6,9 +6,10 @@
 
 import axios from 'axios';
 import {NotificationManager} from "react-notifications";
-import config from '../../config';
-import {GET, handleFetch} from "../../helpers/fetch";
-import cancelAxiosRequest from '../../helpers/cancelToken';
+import config from 'config';
+import cancelAxiosRequest from 'helpers/cancelToken';
+import {GET, handleFetch} from "helpers/fetch";
+import { loadBlockchainStatusAction } from 'modules/account';
 
 export function getBlocksAction(requestParams) {
     return dispatch => {
@@ -89,7 +90,7 @@ export function getBlockAction(requestParams) {
     }
 }
 
-export const startBlockPullingAction = () => axios.get(config.api.serverUrl, {
+export const startBlockPullingAction = () => () => axios.get(config.api.serverUrl, {
     params: {
         requestType: 'getBlock'
     }
@@ -101,7 +102,7 @@ export const startBlockPullingAction = () => axios.get(config.api.serverUrl, {
 
     });
 
-export const getNextBlockGeneratorsAction = (reqParams) => axios.get(config.api.serverUrl, {
+export const getNextBlockGeneratorsAction = (reqParams) => () => axios.get(config.api.serverUrl, {
     params: {
         requestType: 'getNextBlockGenerators',
         ...reqParams
@@ -115,18 +116,11 @@ export const getNextBlockGeneratorsAction = (reqParams) => axios.get(config.api.
     });
 
 export function getBackendStatus(requestParams) {
-    return (dispatch, getState) => {
-        const { blockchainStatus } = getState().account;
+    return (dispatch) => {
         return handleFetch(`${config.api.server}/rest/control/status`, GET, requestParams)
             .then((res) => {
                 if (!res.errorCode) {
-                    dispatch({
-                        type: "LOAD_BLOCKCHAIN_STATUS",
-                        payload: {
-                            ...blockchainStatus,
-                            status: res
-                        }
-                    });
+                    dispatch(loadBlockchainStatusAction(res))
                     return res;
                 } else {
                     NotificationManager.error(res.errorDescription, 'Error', 5000);

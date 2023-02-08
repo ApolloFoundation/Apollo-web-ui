@@ -5,12 +5,13 @@
 
 
 import axios from 'axios';
-import config from '../../config'
-import converters from '../../helpers/converters';
-import submitForm from '../../helpers/forms/forms'
-import state from '../../store'
-import {processElGamalEncryption} from "../crypto";
-import cancelAxiosRequest from '../../helpers/cancelToken';
+import converters from 'helpers/converters';
+import submitForm from 'helpers/forms/forms'
+import {processElGamalEncryption} from "actions/crypto";
+import cancelAxiosRequest from 'helpers/cancelToken';
+import store from 'store'
+import config from 'config'
+import { setChatsAction, setChatMessageAction, setMessageAction } from 'modules/messages';
 
 export function getMessages (reqParams) {
     return dispatch => {
@@ -104,7 +105,7 @@ export function getMessengerChats(transactions) {
         let result = [];
 
         if (transactions) {
-            allTransactions.map((el, index) => {
+            allTransactions.map((el) => {
 
                 if (el.recipient === account.account) {
                     result.push({
@@ -130,6 +131,12 @@ function removeDuplicates(myArr, prop) {
         return arr.map(mapObj => mapObj[prop]).indexOf(obj[prop]) === pos;
     });
 }
+
+const isTextMessage = function(transaction) {
+    return transaction.goodsIsText || transaction.attachment.messageIsText ||
+        (transaction.attachment.encryptedMessage && transaction.attachment.encryptedMessage.isText) ||
+        (transaction.attachment.encryptToSelfMessage && transaction.attachment.encryptToSelfMessage.isText);
+};
 
 export function getMessage(message) {
     return dispatch  => {
@@ -201,8 +208,7 @@ export function getMessage(message) {
     }
 }
 
-export const getChatsAction = (account) => {
-
+export const getChatsAction = (account) => (dispatch) => {
     return axios.get(config.api.serverUrl,{
         params: {
             requestType: 'getChats',
@@ -217,8 +223,8 @@ export const getChatsAction = (account) => {
 }
 
 
-export const getChatHistoryAction = (requestParams) => {
-    const {account} = state.getState();
+export const getChatHistoryAction = (requestParams) => (dispatch, getState) => {
+    const {account} = getState();
 
     return axios.get(config.api.serverUrl, {
         params: {
@@ -235,12 +241,6 @@ export const getChatHistoryAction = (requestParams) => {
             }
         })
 }
-
-const isTextMessage = function(transaction) {
-    return transaction.goodsIsText || transaction.attachment.messageIsText ||
-        (transaction.attachment.encryptedMessage && transaction.attachment.encryptedMessage.isText) ||
-        (transaction.attachment.encryptToSelfMessage && transaction.attachment.encryptToSelfMessage.isText);
-};
 
 const decryptMessage = (data, passPhrase) => {
     return async(dispatch) => {
@@ -293,11 +293,10 @@ const formatMessages = transactionMessages => {
 }
 
 
-const handleAcount = (fn, params) => {
-    var handleAccounChange = () => {
+const handleAcount = (fn, params) => (dispatch, getState) =>{
+    const handleAccounChange = () => {
 
-        const {account : {account}} = state.getState()
-        const {dispatch} = state;
+        const {account : {account}} = getState()
     
         if (account) {
             dispatch(fn(params));
@@ -305,7 +304,7 @@ const handleAcount = (fn, params) => {
         }
     }
     
-    const unsubscribe = state.subscribe(handleAccounChange);
+    const unsubscribe = store.subscribe(handleAccounChange);
 
     return handleAccounChange
 }
@@ -315,27 +314,22 @@ export const getMessagesPerpage = (reqPrams) => {
         const {account: {account}} = getState();
 
         if (!account) {
-            return handleAcount(getMessagesPerpage, {firstIndex: 0, lastIndex: 15})();
+            return dispatch(handleAcount(getMessagesPerpage, {firstIndex: 0, lastIndex: 15}));
         }
     
         const messages = await dispatch(getMessages({...reqPrams, account}));
         
         if (messages && !messages.errorCode) {
-            dispatch({
-                type: 'SET_MESSAGES',
-                payload: await dispatch(formatMessages(messages.transactions))
-            });
+            const formattedMessage = await dispatch(formatMessages(messages.transactions));
+            dispatch(setMessageAction(formattedMessage));
             return messages.transactions;
         }
     }
 };
 
-export const resetChatHistory = (reqParams) => {
-    return (dispatch, getState) => {
-        dispatch({
-            type: 'SET_CHAT_MESSAGES',
-            payload: null
-        });
+export const resetChatHistory = () => {
+    return (dispatch) => {
+        dispatch(setChatMessageAction(null));
     }
 };
 
@@ -344,27 +338,21 @@ export const getChatHistory = (reqParams) => {
         const {account: {account}} = getState();
 
         if (!reqParams) {
-            dispatch({
-                type: 'SET_CHAT_MESSAGES',
-                payload: null
-            });
+            dispatch(setChatMessageAction(null));
             return;
         }
 
         if (!account) {
-            return handleAcount(getChatHistory, reqParams)();
+            return dispatch(handleAcount(getChatHistory, reqParams));
         }
 
-        getChatHistoryAction(reqParams)
+        dispatch(getChatHistoryAction(reqParams))
             .then(messages => {
                 if (messages && messages.chatHistory) {
                     dispatch(formatMessages(messages.chatHistory))
                     .then(data => {
                         if (messages && !messages.errorCode) {
-                            dispatch({
-                                type: 'SET_CHAT_MESSAGES',
-                                payload: data
-                            })
+                            dispatch(setChatMessageAction(data));
                         }
                     })
                 }
@@ -377,19 +365,15 @@ export const getChatsPerPage = () => {
         const {account: {account}} = getState();
 
         if (!account) {
-            return handleAcount(getChatsPerPage, {account})();
+            return dispatch(handleAcount(getChatsPerPage, {account}));
         }
 
-        getChatsAction({account})
+        dispatch(getChatsAction({account}))
             .then(chats => {
                 chats = chats.chats.filter(el => {
                     return el.account !== '0'
                 });
-
-                dispatch({
-                    type: 'SET_CHATS',
-                    payload: chats
-                })
+                dispatch(setChatsAction(chats));
             })
     }
 }

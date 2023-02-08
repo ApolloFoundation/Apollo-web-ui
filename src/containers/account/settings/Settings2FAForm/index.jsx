@@ -29,11 +29,11 @@ export const Settings2FAForm = ({ account, setState, getAccountInfo }) => {
       return;
     }
     // it is a redux action but some special)
-    const status = await disable2FAActon({
+    const status = await dispatch(disable2FAActon({
       passphrase: values.secretPhrase,
       account: values.account,
       code2FA: values.code2FA,
-    });
+    }));
 
     if (status.errorCode) {
       NotificationManager.error(status.errorDescription, null, 5000);
@@ -50,10 +50,10 @@ export const Settings2FAForm = ({ account, setState, getAccountInfo }) => {
       return;
     }
     // it is a redux action but some special)
-    const status = await enable2FAActon({
+    const status = await dispatch(enable2FAActon({
       passphrase: values.secretPhrase,
       account: values.account,
-    });
+    }));
 
     if (status.errorCode) {
       NotificationManager.error(status.errorDescription, null, 5000);

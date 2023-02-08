@@ -6,7 +6,7 @@
 
 import React, { useCallback, useEffect, useState } from 'react';
 import {connect} from 'react-redux';
-import {setModalData, openPrevModal} from 'modules/modals';
+import { openPrevModal} from 'modules/modals';
 import {getLedgerEntryAction} from 'actions/ledger';
 import ModalBody from "containers/components/modals/modal-body";
 import { useLoading } from 'hooks/useLoading';
@@ -113,7 +113,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-    setModalData,
     getLedgerEntryAction,
     openPrevModal,
 };

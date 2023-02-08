@@ -64,7 +64,6 @@ const ConfirmForging = (props) => {
                 }
                 dispatch(setAccountPassphrase(passphrase));
                 action.handleSuccess(forgingStatus);
-                console.log('work')
                 props.closeModal();
             }
         }

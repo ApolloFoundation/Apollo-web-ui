@@ -8,7 +8,7 @@ import React, { useCallback, useState } from "react";
 import {useDispatch} from "react-redux";
 import SiteHeader from "containers/components/site-header";
 import {getGeneratorsAction} from "actions/generators";
-import Generator from "actions/generators/generator";
+import Generator from "containers/account/generators/generator";
 import TopPageBlocks from 'containers/components/tob-page-blocks';
 import { useFormatTimestamp } from "hooks/useFormatTimestamp";
 import { TableLoader } from "containers/components/TableLoader";

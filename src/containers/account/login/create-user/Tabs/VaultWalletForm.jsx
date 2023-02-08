@@ -50,15 +50,15 @@ export default function VaultWalletForm({ activeTab, setAccountData }) {
       requestParams.passphrase = values.newAccountpassphrse;
     }
     
-    const geneatedAccount = await generateAccountAction(requestParams);
+    const geneatedAccount = await dispatch(generateAccountAction(requestParams));
     
     const passphrase = values.isCustomPassphrase ? values.newAccountpassphrse : geneatedAccount.passphrase;
     
     if (geneatedAccount) {
-      const newKeySeed = await createAccountAction({
+      const newKeySeed = await dispatch(createAccountAction({
         account: geneatedAccount.currencies[0].wallets[0].address,
         passphrase,
-      });
+      }));
 
       setAccountInfo({
         account: geneatedAccount.currencies[0].wallets[0].address,
@@ -67,7 +67,7 @@ export default function VaultWalletForm({ activeTab, setAccountData }) {
         keySeed: newKeySeed,
       });
     }
-  }, [setAccountInfo]);
+  }, [setAccountInfo, dispatch]);
 
   const handleNextStep = () => {
     dispatch(setModalType('SAVE_CREDENTIALS'));

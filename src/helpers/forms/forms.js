@@ -12,15 +12,14 @@ import converters from 'helpers/converters'
 import AplAddress from 'helpers/util/apladres'
 import {processElGamalEncryption} from 'actions/crypto';
 import { handleFetch } from 'helpers/fetch';
-import { SET_FEE_ALERT } from 'modules/fee';
+import { setFeeAlertFalseAction, setFeeAlertTrueAction } from 'modules/fee';
 import {
-    IS_MODAL_PROCESSING,
-    SET_AMOUNT_WARNING,
-    SET_ASSET_WARNING,
-    SET_CURRENCY_WARNING,
-    SET_FEE_WARNING
+    setAmountWarningAction,
+    setCurrencyWarningAction,
+    setFeeWarningAction,
 } from 'modules/modals';
 import config from 'config';
+import { setModalProcessingFalseAction } from 'actions/modals';
 
 // request which use FormData objects
 const formDataRequestList = ['importKeyViaFile', 'dgsListing', 'uploadTaggedData'];
@@ -357,21 +356,11 @@ const checkEncryptMessage = (data) => {
         'Attention',
         10000
       );
-  
-      dispatch({
-          type: SET_FEE_ALERT,
-          payload: true
-      });
-      dispatch({
-          type: IS_MODAL_PROCESSING,
-          payload: false
-      });
+      dispatch(setFeeAlertTrueAction());
+      dispatch(setModalProcessingFalseAction())
       return true;
     } else {
-      dispatch({
-          type: SET_FEE_ALERT,
-          payload: false
-      });
+      dispatch(setFeeAlertFalseAction());
     }
   }
   
@@ -495,23 +484,9 @@ export function sendRequest(requestType, data) {
         } else {
             url = config.api.serverUrl + "requestType=" + requestType;
         }
-  
-        dispatch({
-            type: SET_AMOUNT_WARNING,
-            payload: 0
-        });
-        dispatch({
-            type: SET_FEE_WARNING,
-            payload: 0
-        });
-        dispatch({
-            type: SET_ASSET_WARNING,
-            payload: 0
-        });
-        dispatch({
-            type: SET_CURRENCY_WARNING,
-            payload: 0
-        });
+        dispatch(setAmountWarningAction(0));
+        dispatch(setFeeWarningAction(0));
+        dispatch(setCurrencyWarningAction(0))
 
         if (formDataRequestList.includes(requestType)) {
             return filesRequestsHandling(data, requestType, url);

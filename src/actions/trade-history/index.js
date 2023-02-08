@@ -4,8 +4,8 @@
  ******************************************************************************/
 
 
-import config from '../../config';
 import axios from 'axios';
+import config from 'config';
 
 export function getTradesAction(reqParams) {
     return dispatch => {
