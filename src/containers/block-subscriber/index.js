@@ -9,7 +9,6 @@ import {connect} from "react-redux";
 import {getBackendStatus, startBlockPullingAction } from "actions/blocks";
 import {loadBlockchainStatus} from "actions/login";
 import { setActualBlockAction } from 'modules/account';
-import store from 'store';
 
 const EventEmitter = require("events").EventEmitter;
 export const BlockUpdater = new EventEmitter();
