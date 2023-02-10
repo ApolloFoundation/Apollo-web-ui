@@ -6,14 +6,14 @@
 
 import React, { useCallback, useEffect, useState } from 'react';
 import { useDispatch, useSelector, shallowEqual} from 'react-redux';
-import SiteHeader from '../../components/site-header'
 import {Link} from 'react-router-dom';
-import {getAssetAction, getSpecificAccountAssetsAction} from "../../../actions/assets";
-import {setBodyModalParamsAction, setModalCallback} from "../../../modules/modals";
-import InfoBox from '../../components/info-box';
-import {BlockUpdater} from "../../block-subscriber";
-import SidebarList from '../../components/sidebar-list';
-import { getAccountInfoSelector } from '../../../selectors';
+import SiteHeader from 'containers/components/site-header'
+import {getAssetAction, getSpecificAccountAssetsAction} from "actions/assets";
+import {setBodyModalParamsAction, setModalCallback} from "modules/modals";
+import InfoBox from 'containers/components/info-box';
+import {BlockUpdater} from "containers/block-subscriber";
+import SidebarList from 'containers/components/sidebar-list';
+import { getAccountInfoSelector } from 'selectors';
 import OffersToBuy from './offers-to-buy';
 import OffersToSell from './offers-to-sell';
 import BuyAsset from './buy-asset';
