@@ -26,6 +26,7 @@ class CurrentAccount extends React.Component {
         if(contactList) {
             this.setState({
                 contacts: JSON.parse(contactList),
+                isContacts: true,
             });
         }
     }
@@ -67,15 +68,13 @@ class CurrentAccount extends React.Component {
 
         return (
             <div
-                className={classNames({
-                    "no-padding": true,
-                    "account-body-modal-window": true,
-                    "account-body-modal": true,
+                className={classNames(
+                    "no-padding account-body-modal-window account-body-modal settings-menu settings-bar stop",
+                    {
                     "active": isActive,
-                    "settings-menu": true,
-                    "settings-bar": true,
-                    "stop": true,
-                })}>
+                    }
+                )}
+            >
                 <div className="form-group-app">
                     <div className="form-title">
                         <button type="button" onClick={closeMenu} className="exit current-account">
@@ -83,42 +82,21 @@ class CurrentAccount extends React.Component {
                         </button>
                         <p>Current account</p>
                     </div>
-                    {
-                        !publicKey &&
-                        <div className="form-sub-title">
-                            Not verified profile<br/>
-                            <CopyToClipboard
-                                text={accountRS}
-                                onCopy={() => {
-                                    NotificationManager.success('The account has been copied to clipboard.')
-                                }}
+                    <div className="form-sub-title">
+                        {publicKey ? 'Verified profile' : 'Not verified profile'}<br/>
+                        <CopyToClipboard
+                            text={accountRS}
+                            onCopy={() => {
+                                NotificationManager.success('The account has been copied to clipboard.')
+                            }}
+                        >
+                            <a
+                                className="user-account-rs blue-text d-block"
                             >
-                                <a
-                                    className="user-account-rs blue-text d-block"
-                                >
-                                    {accountRS}
-                                </a>
-                            </CopyToClipboard>
-                        </div>
-                    }
-                    {
-                        publicKey &&
-                        <div className="form-sub-title">
-                            Verified profile<br/>
-                            <CopyToClipboard
-                                text={accountRS}
-                                onCopy={() => {
-                                    NotificationManager.success('The account has been copied to clipboard.')
-                                }}
-                            >
-                                <a
-                                    className="user-account-rs blue-text"
-                                >
-                                    {accountRS}
-                                </a>
-                            </CopyToClipboard>
-                        </div>
-                    }
+                                {accountRS}
+                            </a>
+                        </CopyToClipboard>
+                    </div>
                     <div className="form-body">
                         <div className="input-section">
                             <div className="row" style={{position: 'relative'}}>
