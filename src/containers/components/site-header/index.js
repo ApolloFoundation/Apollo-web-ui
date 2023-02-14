@@ -32,17 +32,10 @@ import './SiteHeader.scss';
 import './BodyModals.scss';
 
 class SiteHeader extends React.Component {
-    constructor(props) {
-        super(props);
-
-        const contactsString = readFromLocalStorage('APLContacts');
-
-        this.state = {
-            menuShow: false,
-            showTitleForginMenu: false,
-        };
-
-    }
+    state = {
+        menuShow: false,
+        showTitleForginMenu: false,
+    };
 
     showMenu = () => {
         this.setState({menuShow: !this.state.menuShow});
@@ -92,7 +85,6 @@ class SiteHeader extends React.Component {
             children,
             dashboardPage,
             history,
-            modalType,
         } = this.props;
         const {
             menuShow,
@@ -132,8 +124,7 @@ class SiteHeader extends React.Component {
                         closeMenu={this.closeMenu}
                     />
                     <Settings
-                        isLocalhost={this.props.isLocalhost}
-                        isActive={modalType === "SETTINGS_BODY_MODAL"}
+                        isActive={bodyModalType === "SETTINGS_BODY_MODAL"}
                         closeMenu={this.closeMenu}
                     />
                 </div>
