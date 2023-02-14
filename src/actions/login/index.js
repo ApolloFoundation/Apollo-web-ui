@@ -18,7 +18,6 @@ import {setBodyModalParamsAction} from "modules/modals";
 import {setAccountPassphrase} from 'modules/account';
 import cancelAxiosRequest from 'helpers/cancelToken';
 import { dashboardAccountInfoAction } from "modules/dashboard";
-import store from '../../store'
 
 export function getAccountDataAction(requestParams) {
     return async dispatch => {
@@ -243,7 +242,7 @@ export const LOGOUT_TYPE = {
 }
 
 export function logOutAction(action, history) {
-    return async (dispatch) => {
+    return async (dispatch, getState) => {
         // cancel request from getDashboardData if it was trigger before we logout
         cancelAxiosRequest.cancelRequests();
 
@@ -268,18 +267,18 @@ export function logOutAction(action, history) {
                 };
 
                 deleteFromLocalStorage('wallets');
-                const {account} = store.getState();
+                const { account } = getState();
                 const secret = readFromLocalStorage('secretPhrase');
                 const passPhrase = secret ? JSON.parse(secret) : account.passPhrase;
                 if (account.forgingStatus && !account.forgingStatus.errorCode && (!passPhrase || account.is2FA)) {
-                    store.dispatch(setBodyModalParamsAction('CONFIRM_FORGING', {
+                    dispatch(setBodyModalParamsAction('CONFIRM_FORGING', {
                         getStatus: 'stopForging',
                         handleSuccess: () => handleLogout()
                     }));
                     return;
                 }
 
-                const forging = await store.dispatch(setForging({requestType: 'stopForging'}));
+                const forging = await dispatch(setForging({requestType: 'stopForging'}));
 
                 if (!account.effectiveBalanceAPL || account.effectiveBalanceAPL < 1000) {
                     handleLogout();
@@ -287,7 +286,7 @@ export function logOutAction(action, history) {
                 }
 
                 if (forging.errorCode === 22 || forging.errorCode === 4 || forging.errorCode === 8 || forging.errorCode === 3) {
-                    store.dispatch(setBodyModalParamsAction('CONFIRM_FORGING', {
+                    dispatch(setBodyModalParamsAction('CONFIRM_FORGING', {
                         getStatus: 'stopForging',
                         handleSuccess: () => handleLogout()
                     }));
