@@ -25,16 +25,13 @@ const CurrentAccount = ({ isActive, setBodyModalParamsAction, closeMenu }) => {
 
     const handleAccountModal = () => dispatch(setBodyModalParamsAction('INFO_ACCOUNT', account));
 
-    const handleLogout = (type) =>  () => dispatch(logOutAction(type, history))
+    const handleLogout = (type) =>  () => dispatch(logOutAction(type, history));
+
+    if (!isActive) return null;
 
     return (
         <div
-            className={classNames(
-                "no-padding account-body-modal-window account-body-modal settings-menu settings-bar stop",
-                {
-                    "active": isActive,
-                }
-            )}
+            className="no-padding account-body-modal-window account-body-modal settings-menu settings-bar stop active"
         >
             <div className="form-group-app">
                 <div className="form-title">

@@ -1,5 +1,4 @@
 import React from 'react';
-import classNames from 'classnames';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { setBodyModalParamsAction } from 'modules/modals';
@@ -35,12 +34,10 @@ const Settings = ({ isActive, closeMenu }) => {
         dispatch(setBodyModalParamsAction('SHARDING_INFO'));
     }
 
+    if (!isActive) return null;
+
     return (
-    <div className={classNames(
-            "settings-bar settings-menu account-body-modal settings-body-modal-window", {
-            "active": isActive,
-        })}
-    >
+    <div className="settings-bar settings-menu account-body-modal settings-body-modal-window active">
         <div className="options-col">
             <ul>
                 <li><NavLink activeClass='active' className="option" to="/blocks">Blocks</NavLink></li>

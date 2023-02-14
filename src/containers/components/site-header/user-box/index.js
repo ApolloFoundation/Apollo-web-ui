@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import classNames from 'classnames';
 import { Link } from 'react-router-dom';
 import { NotificationManager } from "react-notifications";
-import { useDispatch, useSelector } from 'react-redux';
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { setBodyModalParamsAction } from "modules/modals";
 import ApolloLogo from "assets/new_apl_icon_black.svg";
@@ -15,7 +15,7 @@ import { InputSearchForm } from './InputSearch'
 const UserBox = ({setBodyModalType, menuShow, showMenu, closeMenu}) => {
     const dispatch = useDispatch();
     const accountRS = useSelector(getAccountRsSelector);
-    const appState = useSelector(getBlockchainStatusSelector);
+    const appState = useSelector(getBlockchainStatusSelector, shallowEqual);
     const [searching, setSearching] = useState(false);
 
     const handleSendApollo = () => dispatch(setBodyModalParamsAction('SEND_APOLLO'));
