@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom'
 import { useDispatch, useSelector} from 'react-redux';
 import {NotificationManager} from "react-notifications";
-import {logOutAction} from "actions/login";
+import {logOutAction, LOGOUT_TYPE} from "actions/login";
 import {logout} from "actions/wallet";
 import ModalBody from 'containers/components/modals/modal-body';
 import TextualInputComponent from 'containers/components/form-components/TextualInput';
@@ -27,7 +27,7 @@ const LogoutExchange = ({ closeModal, nameModal }) => {
             })
         ).then((res) => {
             if (!res.errorCode) {
-                logOutAction('simpleLogOut', history);
+                dispatch(logOutAction(LOGOUT_TYPE.SIMPLE, history));
                 closeModal();
             } 
         }).finally(() => {
