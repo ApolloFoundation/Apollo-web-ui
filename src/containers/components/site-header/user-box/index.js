@@ -1,13 +1,10 @@
-import React, {Component} from 'react';
+import React, { useState } from 'react';
 import classNames from 'classnames';
-import {Link} from 'react-router-dom';
-import {NotificationManager} from "react-notifications";
-import {connect} from 'react-redux';
-import {CopyToClipboard} from 'react-copy-to-clipboard';
-import {setBodyModalParamsAction} from 'modules/modals';
-import {getTransactionAction} from "actions/transactions";
-import {getBlockAction} from "actions/blocks";
-import {getAccountInfoAction} from "actions/account";
+import { Link } from 'react-router-dom';
+import { NotificationManager } from "react-notifications";
+import { shallowEqual, useDispatch, useSelector } from 'react-redux';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { setBodyModalParamsAction } from "modules/modals";
 import ApolloLogo from "assets/new_apl_icon_black.svg";
 import { getAccountRsSelector, getBlockchainStatusSelector } from 'selectors';
 import IconndeButton from '../iconned-button';
@@ -15,160 +12,100 @@ import CurrentAccountIcon from '../current-account/current-account-icon';
 import MobieMenu from '../mobile-menu/';
 import { InputSearchForm } from './InputSearch'
 
-class UserBox extends Component {
-    refSearchInput = React.createRef();
-    state = {};
+const UserBox = ({setBodyModalType, menuShow, showMenu, closeMenu}) => {
+    const dispatch = useDispatch();
+    const accountRS = useSelector(getAccountRsSelector);
+    const appState = useSelector(getBlockchainStatusSelector, shallowEqual);
+    const [searching, setSearching] = useState(false);
 
-    componentDidMount() {
-        document.addEventListener('mousedown', this.handleClickOutside);
-    }
+    const handleSendApollo = () => dispatch(setBodyModalParamsAction('SEND_APOLLO'));
 
-    componentWillUnmount() {
-        document.removeEventListener('mousedown', this.handleClickOutside);
-    }
+    const handleGeneralInfoModal = () => dispatch(setBodyModalParamsAction('GENERAL_INFO'));
+    
+    const handleInfoNetworkModal = () => dispatch(setBodyModalParamsAction('INFO_NETWORK'));
+    
+    const handleLogoutExchangeModal = () => dispatch(setBodyModalParamsAction('LOGOUT_EXCHANGE'));
+    // action from index file
+    const handleModalSettings = () => setBodyModalType('SETTINGS_BODY_MODAL');
+    const handleAccount = () => setBodyModalType('ACCOUNT_BODY_MODAL');
 
-    handleClickOutside = (event) => {
-        if (this.state.searching && this.refSearchInput && !this.refSearchInput.current.contains(event.target)) {
-            this.setState({
-                searching: false
-            });
-        }
-    };
+    const handleNotify = () => NotificationManager.success('The account has been copied to clipboard.')
 
-    handleSubmit = (values) => {
-        if(!this.state.searching) {
-            this.setState({
-                searching: true,
-            })
-        } else {
-            this.handleSearchind(values);
-        }
-    }
-
-    handleSearchind = async (values) => {
-        const transaction = this.props.getTransactionAction({transaction: values.value});
-        const block = this.props.getBlockAction({block: values.value});
-        const account = this.props.getAccountInfoAction({account: values.value});
-
-        Promise.all([transaction, block, account])
-            .then((res) => {
-                const modals = ['INFO_TRANSACTION', 'INFO_BLOCK', 'INFO_ACCOUNT'];
-
-                // check result for some objects instead of undefined
-                const result = res.find((el, index) => {
-                    if (el) {
-                        const payload = index < 2 ? el : el.account;
-                        this.props.setBodyModalParamsAction(modals[index], payload);
-                        return el;
-                    }
-                });
-
-                // if every element of response are undefined we make error notification about it
-                if (!result) {
-                    NotificationManager.error('Invalid search properties.', null, 5000);
-                }
-            });
-    };
-
-    render() {
-        const {setBodyModalType, setBodyModalParamsAction, menuShow, showMenu, closeMenu} = this.props;
-
-        return (
-            (
-                <div className={classNames({
-                    "user-search-box": true,
-                    "searching": this.state.searching
-                })}>
-                    <Link className="logo" to={"/"}>
-                        <img src={ApolloLogo} alt={''}/>
-                    </Link>
-                    <div className='search-bar'>
-                        <div className="user-account-actions">
-                            <CopyToClipboard
-                                text={this.props.accountRS}
-                                onCopy={() => 
-                                    NotificationManager.success('The account has been copied to clipboard.')
-                                }
-                            >
-                                <a className="user-account-rs">
-                                    {this.props.accountRS}
-                                </a>
-                            </CopyToClipboard>
-
-                            <IconndeButton
-                                className={'d-none d-sm-flex text-ellipsis'}
-                                id={'open-send-apollo-modal-window'}
-                                icon={<i className="zmdi zmdi-alert-circle"/>}
-                                text={'Support'}
-                                action={'https://support.apollocurrency.com/support/home'}
-                                link
-                            />
-
-                            <IconndeButton
-                                id={'open-send-apollo-modal-window'}
-                                icon={<i className="zmdi zmdi-balance-wallet"/>}
-                                action={() => setBodyModalParamsAction('SEND_APOLLO')}
-                            />
-
-                            <IconndeButton
-                                id={'open-settings-window'}
-                                icon={<i className="zmdi zmdi stop zmdi-settings"/>}
-                                action={() => setBodyModalType('SETTINGS_BODY_MODAL')}
-                            />
-
-                            <IconndeButton
-                                id={'open-about-apollo'}
-                                icon={<i className="zmdi zmdi-help"/>}
-                                action={() => setBodyModalParamsAction('GENERAL_INFO')}
-                            />
-
-                            {this.props.appState && (
-                                <IconndeButton
-                                    id={'open-info-apollo'}
-                                    icon={<i className="zmdi zmdi-info"/>}
-                                    action={() => setBodyModalParamsAction('INFO_NETWORK')}
-                                />
-                            )}
-                            <InputSearchForm ref={this.refSearchInput} onSubmit={this.handleSubmit} />
-                        </div>
-                    </div>
-                    {window.location.pathname === '/dex' && <IconndeButton
-                        className={'logout-button'}
-                        id={'open-about-apollo'}
-                        icon={<i className="zmdi zmdi-power"/>}
-                        action={() => setBodyModalParamsAction('LOGOUT_EXCHANGE')}
-                    />}
-                    <div
-                        className="user-box cursor-pointer"
-                        onClick={(e) => setBodyModalType('ACCOUNT_BODY_MODAL', e)}
+    return (
+        <div className={
+            classNames('user-search-box', {
+                "searching": searching
+            })}
+        >
+            <Link className="logo" to="/">
+                <img src={ApolloLogo} alt=''/>
+            </Link>
+            <div className='search-bar'>
+                <div className="user-account-actions">
+                    <CopyToClipboard
+                        text={accountRS}
+                        onCopy={handleNotify}
                     >
-                        <CurrentAccountIcon/>
-                    </div>
-                    <div
-                        className={classNames('burger-mobile', { 'menu-open':  menuShow})}
-                        onClick={showMenu}
-                    >
-                        <div className="line"/>
-                    </div>
-                    <div className={classNames('mobile-nav', { 'show':  menuShow})}>
-                        <MobieMenu closeMenu={closeMenu}/>
-                    </div>
+                        <a className="user-account-rs">
+                            {accountRS}
+                        </a>
+                    </CopyToClipboard>
+                    <IconndeButton
+                        className='d-none d-sm-flex text-ellipsis'
+                        id='open-send-apollo-modal-window'
+                        icon={<i className="zmdi zmdi-alert-circle"/>}
+                        text='Support'
+                        action={'https://support.apollocurrency.com/support/home'}
+                        link
+                    />
+                    <IconndeButton
+                        id={'open-send-apollo-modal-window'}
+                        icon={<i className="zmdi zmdi-balance-wallet"/>}
+                        action={handleSendApollo}
+                    />
+                    <IconndeButton
+                        id='open-settings-window'
+                        icon={<i className="zmdi zmdi stop zmdi-settings"/>}
+                        action={handleModalSettings}
+                    />
+                    <IconndeButton
+                        id='open-about-apollo'
+                        icon={<i className="zmdi zmdi-help"/>}
+                        action={handleGeneralInfoModal}
+                    />
+                    {appState && (
+                        <IconndeButton
+                            id='open-info-apollo'
+                            icon={<i className="zmdi zmdi-info"/>}
+                            action={handleInfoNetworkModal}
+                        />
+                    )}
+                    <InputSearchForm setSearching={setSearching} searching={searching} />
                 </div>
-            )
-        )
-    }
+            </div>
+            {window.location.pathname === '/dex' && <IconndeButton
+                className='logout-button'
+                id='open-about-apollo'
+                icon={<i className="zmdi zmdi-power"/>}
+                action={handleLogoutExchangeModal}
+            />}
+            <div
+                className="user-box cursor-pointer"
+                onClick={handleAccount}
+            >
+                <CurrentAccountIcon/>
+            </div>
+            <div
+                className={classNames('burger-mobile', { 'menu-open':  menuShow})}
+                onClick={showMenu}
+            >
+                <div className="line"/>
+            </div>
+            <div className={classNames('mobile-nav', { 'show':  menuShow})}>
+                <MobieMenu closeMenu={closeMenu}/>
+            </div>
+        </div>
+    )
 }
 
-const mapStateToProps = state => ({
-    accountRS: getAccountRsSelector(state),
-    appState: getBlockchainStatusSelector(state),
-});
-
-const mapDispatchToProps = {
-    setBodyModalParamsAction,
-    getTransactionAction,
-    getBlockAction,
-    getAccountInfoAction,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(UserBox)
+export default UserBox;

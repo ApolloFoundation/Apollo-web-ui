@@ -18,7 +18,6 @@ import {setBodyModalParamsAction} from "modules/modals";
 import {setAccountPassphrase} from 'modules/account';
 import cancelAxiosRequest from 'helpers/cancelToken';
 import { dashboardAccountInfoAction } from "modules/dashboard";
-import store from '../../store'
 
 export function getAccountDataAction(requestParams) {
     return async dispatch => {
@@ -236,74 +235,80 @@ export function setForging(requestType) {
     }
 }
 
-export async function logOutAction(action, history) {
-    const {dispatch} = store;
+export const LOGOUT_TYPE = {
+    SIMPLE: 'simpleLogOut',
+    STOP_FORGING: 'logOutStopForging',
+    CLEAR_USER_DATA: 'logoutClearUserData',
+}
 
-    // cancel request from getDashboardData if it was trigger before we logout
-    cancelAxiosRequest.cancelRequests();
+export function logOutAction(action, history) {
+    return async (dispatch, getState) => {
+        // cancel request from getDashboardData if it was trigger before we logout
+        cancelAxiosRequest.cancelRequests();
 
-    switch (action) {
-        case('simpleLogOut'):
-            deleteFromLocalStorage('APLUserRS');
-            deleteFromLocalStorage('secretPhrase');
-            deleteFromLocalStorage('wallets');
-            dispatch(logout());
-            dispatch(setAccountPassphrase(null));
-
-            history.push('/login');
-            return;
-        case('logOutStopForging'):
-            const handleLogout = () => {
+        switch (action) {
+            case(LOGOUT_TYPE.SIMPLE):
                 deleteFromLocalStorage('APLUserRS');
                 deleteFromLocalStorage('secretPhrase');
                 deleteFromLocalStorage('wallets');
                 dispatch(logout());
+                dispatch(setAccountPassphrase(null));
 
                 history.push('/login');
-            };
-
-            deleteFromLocalStorage('wallets');
-            const {account} = store.getState();
-            const secret = readFromLocalStorage('secretPhrase');
-            const passPhrase = secret ? JSON.parse(secret) : account.passPhrase;
-            if (account.forgingStatus && !account.forgingStatus.errorCode && (!passPhrase || account.is2FA)) {
-                store.dispatch(setBodyModalParamsAction('CONFIRM_FORGING', {
-                    getStatus: 'stopForging',
-                    handleSuccess: () => handleLogout()
-                }));
                 return;
-            }
+            case(LOGOUT_TYPE.STOP_FORGING):
+                const handleLogout = () => {
+                    deleteFromLocalStorage('APLUserRS');
+                    deleteFromLocalStorage('secretPhrase');
+                    deleteFromLocalStorage('wallets');
+                    dispatch(logout());
 
-            const forging = await store.dispatch(setForging({requestType: 'stopForging'}));
+                    history.push('/login');
+                };
 
-            if (!account.effectiveBalanceAPL || account.effectiveBalanceAPL < 1000) {
-                handleLogout();
-                return;
-            }
+                deleteFromLocalStorage('wallets');
+                const { account } = getState();
+                const secret = readFromLocalStorage('secretPhrase');
+                const passPhrase = secret ? JSON.parse(secret) : account.passPhrase;
+                if (account.forgingStatus && !account.forgingStatus.errorCode && (!passPhrase || account.is2FA)) {
+                    dispatch(setBodyModalParamsAction('CONFIRM_FORGING', {
+                        getStatus: 'stopForging',
+                        handleSuccess: () => handleLogout()
+                    }));
+                    return;
+                }
 
-            if (forging.errorCode === 22 || forging.errorCode === 4 || forging.errorCode === 8 || forging.errorCode === 3) {
-                store.dispatch(setBodyModalParamsAction('CONFIRM_FORGING', {
-                    getStatus: 'stopForging',
-                    handleSuccess: () => handleLogout()
-                }));
-            }
+                const forging = await dispatch(setForging({requestType: 'stopForging'}));
 
-            if (!forging.errorCode){
-                if (forging) {
+                if (!account.effectiveBalanceAPL || account.effectiveBalanceAPL < 1000) {
                     handleLogout();
+                    return;
+                }
+
+                if (forging.errorCode === 22 || forging.errorCode === 4 || forging.errorCode === 8 || forging.errorCode === 3) {
+                    dispatch(setBodyModalParamsAction('CONFIRM_FORGING', {
+                        getStatus: 'stopForging',
+                        handleSuccess: () => handleLogout()
+                    }));
+                }
+
+                if (!forging.errorCode){
+                    if (forging) {
+                        handleLogout();
+                    }
+                    return;
                 }
                 return;
-            }
-            return;
-        case('logoutClearUserData'):
-            clearLocalStorage();
-            dispatch(setAccountPassphrase(null))
-            dispatch(logout());
+            case(LOGOUT_TYPE.CLEAR_USER_DATA):
+                clearLocalStorage();
+                dispatch(setAccountPassphrase(null))
+                dispatch(logout());
 
-            history.push('/login');
-            return;
-        default:
-            return;
+                history.push('/login');
+                return;
+            default:
+                return;
+        }
     }
 }
 
