@@ -29,6 +29,8 @@ const UserBox = ({setBodyModalType, menuShow, showMenu, closeMenu}) => {
     const handleModalSettings = () => setBodyModalType('SETTINGS_BODY_MODAL');
     const handleAccount = () => setBodyModalType('ACCOUNT_BODY_MODAL');
 
+    const handleNotify = () => NotificationManager.success('The account has been copied to clipboard.')
+
     return (
         <div className={
             classNames('user-search-box', {
@@ -42,9 +44,7 @@ const UserBox = ({setBodyModalType, menuShow, showMenu, closeMenu}) => {
                 <div className="user-account-actions">
                     <CopyToClipboard
                         text={accountRS}
-                        onCopy={() => 
-                            NotificationManager.success('The account has been copied to clipboard.')
-                        }
+                        onCopy={handleNotify}
                     >
                         <a className="user-account-rs">
                             {accountRS}
