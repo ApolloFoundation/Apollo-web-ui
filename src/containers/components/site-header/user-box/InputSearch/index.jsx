@@ -67,24 +67,22 @@ export const InputSearchForm = ({ searching, setSearching }) => {
 
   return (
     <FormikProvider value={formik}>
-      <Form>
-        <div ref={refSearchInput} className='searching-window-wrap'>
-            <div className='searching-window-slide'> 
-                <div className='searching-window-icon'>
-                  <IconndeButton
-                      id='open-search-transaction'
-                      icon={<i className="zmdi zmdi-search"/>}
-                      action={formik.handleSubmit}
-                  />
-                </div>
-                <Field
-                  name='value'
-                  className="searching-window"
-                  type="text"
-                  placeholder="Enter Transaction/Account ID/Block ID"
+      <Form ref={refSearchInput} className='searching-window-wrap'>
+          <div className='searching-window-slide'> 
+              <div className='searching-window-icon'>
+                <IconndeButton
+                    id='open-search-transaction'
+                    icon={<i className="zmdi zmdi-search"/>}
+                    action={formik.handleSubmit}
                 />
-            </div>
-        </div>
+              </div>
+              <Field
+                name='value'
+                className="searching-window"
+                type="text"
+                placeholder="Enter Transaction/Account ID/Block ID"
+              />
+          </div>
       </Form>
     </FormikProvider>
   );
