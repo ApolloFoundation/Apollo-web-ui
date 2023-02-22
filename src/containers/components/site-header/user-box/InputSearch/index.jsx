@@ -1,5 +1,5 @@
 import React, { useRef, useCallback, useEffect } from 'react';
-import { Field, FormikProvider, useFormik } from 'formik';
+import { Field, FormikProvider, Form, useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { NotificationManager } from "react-notifications";
 import { getTransactionAction } from "actions/transactions";
@@ -67,23 +67,25 @@ export const InputSearchForm = ({ searching, setSearching }) => {
 
   return (
     <FormikProvider value={formik}>
-      <div ref={refSearchInput} className='searching-window-wrap'>
-          <div className='searching-window-slide'> 
-              <div className='searching-window-icon'>
-                <IconndeButton
-                    id='open-search-transaction'
-                    icon={<i className="zmdi zmdi-search"/>}
-                    action={formik.handleSubmit}
+      <Form>
+        <div ref={refSearchInput} className='searching-window-wrap'>
+            <div className='searching-window-slide'> 
+                <div className='searching-window-icon'>
+                  <IconndeButton
+                      id='open-search-transaction'
+                      icon={<i className="zmdi zmdi-search"/>}
+                      action={formik.handleSubmit}
+                  />
+                </div>
+                <Field
+                  name='value'
+                  className="searching-window"
+                  type="text"
+                  placeholder="Enter Transaction/Account ID/Block ID"
                 />
-              </div>
-              <Field
-                name='value'
-                className="searching-window"
-                type="text"
-                placeholder="Enter Transaction/Account ID/Block ID"
-              />
-          </div>
-      </div>
+            </div>
+        </div>
+      </Form>
     </FormikProvider>
   );
 }
