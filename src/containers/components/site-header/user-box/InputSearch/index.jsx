@@ -1,5 +1,5 @@
 import React, { useRef, useCallback, useEffect } from 'react';
-import { Field, FormikProvider, useFormik } from 'formik';
+import { Field, FormikProvider, Form, useFormik } from 'formik';
 import { useDispatch } from 'react-redux';
 import { NotificationManager } from "react-notifications";
 import { getTransactionAction } from "actions/transactions";
@@ -67,7 +67,7 @@ export const InputSearchForm = ({ searching, setSearching }) => {
 
   return (
     <FormikProvider value={formik}>
-      <div ref={refSearchInput} className='searching-window-wrap'>
+      <Form ref={refSearchInput} className='searching-window-wrap'>
           <div className='searching-window-slide'> 
               <div className='searching-window-icon'>
                 <IconndeButton
@@ -83,7 +83,7 @@ export const InputSearchForm = ({ searching, setSearching }) => {
                 placeholder="Enter Transaction/Account ID/Block ID"
               />
           </div>
-      </div>
+      </Form>
     </FormikProvider>
   );
 }
