@@ -53,7 +53,7 @@ export default function TradeHistoryItem(props) {
           </span>
         </td>
         <td className="align-right">
-          {bigIntDecimalsDivision(props.transfer.units, props.transfer.decimals)}
+          {bigIntDecimalsDivision(props.units, props.decimals)}
         </td>
         <td className="align-right">
           {numberToLocaleString(parseFloat(props.rateATM))}

@@ -6,7 +6,7 @@ import { setBodyModalParamsAction } from 'modules/modals';
 export const Actions = ({ recipient, account }) => {
   const dispatch = useDispatch();
 
-  const handleSendApollo = () => dispatch(setBodyModalParamsAction('SEND_APOLLO', {recipient}, {recipient}));
+  const handleSendApollo = () => dispatch(setBodyModalParamsAction('SEND_APOLLO', {recipient, feeATM: "1"}, {recipient}));
 
   const handleTransferCurrency = () =>
     dispatch(setBodyModalParamsAction('TRANSFER_CURRENCY', {recipient}, {recipient}));

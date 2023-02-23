@@ -8,15 +8,16 @@ import { readFromLocalStorage } from 'actions/localStorage';
 import { ReactComponent as ClockIcon } from 'assets/clock-icon.svg';
 import ContentLoader from 'containers/components/content-loader';
 import Button from 'containers/components/button';
-import { getAccountInfoSelector } from 'selectors';
+import { getAccountInfoSelector, getEffectiveBalanceCalculateSelector } from 'selectors';
 
 export default function BlockchainStatus() {
   const dispatch = useDispatch();
 
   const {
-    effectiveBalanceAPL, passPhrase: secretPhrase, is2FA, actualBlock,
+    passPhrase: secretPhrase, is2FA, actualBlock,
     timestamp, blockchainStatus, forgingStatus, accountRS,
   } = useSelector(getAccountInfoSelector, shallowEqual);
+  const effectiveBalanceAPL = useSelector(getEffectiveBalanceCalculateSelector)
 
   const setForgingData = action => ({
     getStatus: action,

@@ -6,23 +6,21 @@ import { setBodyModalParamsAction } from 'modules/modals';
 import ContentLoader from 'containers/components/content-loader';
 import {
   getDashboardInfoSelector,
-  getDecimalsSelector,
+  getEffectiveBalanceCalculateSelector,
   getTickerSelector
 } from 'selectors';
 import { numberToLocaleString } from 'helpers/format';
 
 const TotalBalance = () => {
   const dispatch = useDispatch();
-  const decimals = useSelector(getDecimalsSelector);
   const ticker = useSelector(getTickerSelector);
+  const balance = useSelector(getEffectiveBalanceCalculateSelector);
   const { dashboardAccoountInfo } = useSelector(getDashboardInfoSelector, shallowEqual);
 
-  const balanceAPL = (dashboardAccoountInfo && dashboardAccoountInfo.unconfirmedBalanceATM)
-    ? numberToLocaleString(dashboardAccoountInfo.unconfirmedBalanceATM / decimals, {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    })
-    : 0;
+  const balanceAPL = numberToLocaleString(balance,  {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
 
   return (
     <div className="card card-primary card-h-195">

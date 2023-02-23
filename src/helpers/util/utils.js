@@ -13,6 +13,13 @@
   return res.toFixed();
 }
 
+export function bigIntDivision (num1, num2) {
+  const num = new BigNumber(num1);
+  const div = new BigNumber(num2);
+  const res =  num.dividedBy(div);
+  return res.toFixed();
+}
+
 function normalizeTicker(ticker) {
   return (ticker === 'Apollo' ? 'APL' : ticker.toUpperCase());
 }
@@ -322,6 +329,11 @@ function parseStringBySpace(str) {
   return parsedStr;
 }
 
+// return false if it isn't available
+function checkEthNodeAvailable (wallets) {
+  return !(wallets?.balances?.pax === null && wallets?.balances?.eth === null);
+}
+
 export default {
   isNumericAccount,
   isRsAccount,
@@ -337,4 +349,5 @@ export default {
   isDesktopApp,
   parseStringBySpace,
   normalizeTicker,
+  checkEthNodeAvailable,
 };

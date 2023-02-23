@@ -4,84 +4,69 @@
  ******************************************************************************/
 
 
-import React from 'react';
-import {connect} from 'react-redux';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useDispatch, useSelector} from 'react-redux';
 import {Link} from 'react-router-dom'
 import {setBodyModalParamsAction} from "modules/modals";
-import {getTransactionAction} from "actions/transactions";
 import {getOrderInfoAction} from "actions/open-orders";
 import { getDecimalsSelector } from 'selectors';
+import { bigIntDecimalsDivision, bigIntDivision } from 'helpers/util/utils';
 
-class OrderItem extends React.Component {
-    state = {
-        orderInfo: {}
-    };
+const OrderItem = (props) => {
+    const dispatch = useDispatch();
+    const currentCoinDecimals = useSelector(getDecimalsSelector);
+    const [orderInfo, setOrderInfo] = useState({});
 
-    getTransactionInfo = async transaction => {
-        return await this.props.getTransactionAction({
-            transaction,
-            random: Math.random()
-        })
-    };
-
-    componentDidMount() {
-        this.getOrderInfo();
+    const handleCancelOrderModal = () => {
+        dispatch(setBodyModalParamsAction("CANCEL_ORDER", {...props, type: props.type, currentCoinDecimals }))
     }
 
-    getOrderInfo = () => {
-        this.props.getOrderInfo(this.props.asset).then(res => {
-            this.setState({
-                orderInfo: res ? res : {}
-            })
-        });
-    };
+    const getOrderInfo = useCallback(() => {
+        dispatch(getOrderInfoAction(props.asset))
+            .then(res => setOrderInfo(res ?? {}));
+    }, [props.asset, dispatch]);
 
-    render() {
-        const {orderInfo} = this.state;
-        return (
-            <tr>
-                <td
-                    className="align-left blue-link-text"
-                >
-                    <Link
-                        to={`/asset-exchange/${orderInfo.asset}`}
+    useEffect(() => {
+        getOrderInfo();
+    }, [getOrderInfo]);
+
+    const price = useMemo(() => {
+        const num1 = bigIntDivision((props.quantityATU * props.priceATM), currentCoinDecimals);
+        const num2 = bigIntDecimalsDivision(props.quantityATU, props.decimals);
+        return bigIntDivision(num1, num2);
+    }, [props.quantityATU, props.priceATM, currentCoinDecimals, props.quantityATU, props.decimals]);
+
+    const total = useMemo(() => bigIntDivision(props.quantityATU * props.priceATM, currentCoinDecimals),
+        [props.quantityATU, props.priceATM, currentCoinDecimals]
+    );
+
+    return (
+        <tr>
+            <td className="align-left blue-link-text">
+                <Link to={`/asset-exchange/${orderInfo.asset}`}>
+                    {orderInfo.name}
+                </Link>
+            </td>
+            <td className="align-left">
+                {bigIntDecimalsDivision(props.quantityATU, props.decimals)}
+            </td>
+            <td>{price}</td>
+
+            <td>{total}</td>
+            <td className="align-right">
+                <div className="btn-box inline">
+                    <button
+                        type='button'
+                        className='btn btn-default'
+                        onClick={handleCancelOrderModal}
                     >
-                        {orderInfo.name}
-                    </Link>
-                </td>
-                <td
-                    className="align-left"
-                >
-                    {this.props.quantityATU / Math.pow(10, this.props.decimals)}
-                </td>
-                <td>{((this.props.quantityATU * this.props.priceATM) /  this.props.currentCoinDecimals) / (this.props.quantityATU / Math.pow(10, this.props.decimals))}</td>
+                        Cancel
+                    </button>
+                </div>
 
-                <td>{(this.props.quantityATU * this.props.priceATM) /  this.props.currentCoinDecimals}</td>
-                <td className="align-right">
-                    <div className="btn-box inline">
-                        <button
-                            type={'button'}
-                            className={'btn btn-default'}
-                            onClick={() => this.props.setBodyModalParamsAction("CANCEL_ORDER", {...this.props, type: this.props.type})}
-                        >
-                            Cancel
-                        </button>
-                    </div>
-
-                </td>
-            </tr>
-        );
-    }
+            </td>
+        </tr>
+    );
 }
 
-const mapStateToProps = state => ({
-  currentCoinDecimals: getDecimalsSelector(state),
-});
-
-const mapDispatchToProps = {
-    setBodyModalParamsAction,
-    getTransactionAction,
-    getOrderInfo: getOrderInfoAction,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(OrderItem);
+export default OrderItem;
