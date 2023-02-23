@@ -11,6 +11,7 @@ import {
 import {
   getAccountInfoSelector, getDashboardInfoSelector, getExchangeInfoSelector
 } from 'selectors';
+import utils from 'helpers/util/utils'
 import BuyForm from './form';
 
 const feeATM = 200000000;
@@ -28,6 +29,10 @@ export default function BuyFormWrapper({ wallet, handleLoginModal, ethFee, ticke
   const setPending = useCallback((value = true) => { setIsPending(value); }, []);
 
   const handleFormSubmit = useCallback( async (newValues) => {
+    if (!utils.checkEthNodeAvailable(newValues.walletAddress)) {
+      NotificationManager.error("Ethereum's node isn't available now. Please, try later", 'Error', 5000);
+      return;
+    }
     if (!isPending) {
       const pairRateInfo = multiply(newValues.pairRate, ONE_GWEI);
       const offerAmountInfo = multiply(newValues.offerAmount, ONE_GWEI);

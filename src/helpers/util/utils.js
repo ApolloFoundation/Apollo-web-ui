@@ -322,6 +322,11 @@ function parseStringBySpace(str) {
   return parsedStr;
 }
 
+// return false if it isn't available
+function checkEthNodeAvailable (wallets) {
+  return !(wallets?.balances?.pax === null && wallets?.balances?.eth === null);
+}
+
 export default {
   isNumericAccount,
   isRsAccount,
@@ -337,4 +342,5 @@ export default {
   isDesktopApp,
   parseStringBySpace,
   normalizeTicker,
+  checkEthNodeAvailable,
 };
