@@ -8,10 +8,11 @@ import { logOutAction, LOGOUT_TYPE } from "actions/login";
 import {
     getAccountPublicKeySelector, getAccountRsSelector, getAccountSelector, getForgingStatusSelector
 } from 'selectors';
+import { setBodyModalParamsAction } from 'modules/modals';
 import { ContactsList } from './ContactList';
 import styles from './index.module.scss';
 
-const CurrentAccount = ({ isActive, setBodyModalParamsAction, closeMenu }) => {
+const CurrentAccount = ({ isActive, closeMenu }) => {
     const dispatch = useDispatch();
     const history = useHistory();
     const publicKey = useSelector(getAccountPublicKeySelector);
