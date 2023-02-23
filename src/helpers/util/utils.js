@@ -13,6 +13,13 @@
   return res.toFixed();
 }
 
+export function bigIntDivision (num1, num2) {
+  const num = new BigNumber(num1);
+  const div = new BigNumber(num2);
+  const res =  num.dividedBy(div);
+  return res.toFixed();
+}
+
 function normalizeTicker(ticker) {
   return (ticker === 'Apollo' ? 'APL' : ticker.toUpperCase());
 }
