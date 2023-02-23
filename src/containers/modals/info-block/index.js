@@ -17,7 +17,7 @@ import Transaction from 'containers/account/transactions/transaction';
 import { BlockDetails } from './BlockDetails';
 import './index.scss';
 
-const InfoBlock = () => {
+const InfoBlock = ({ closeModal }) => {
   const dispatch = useDispatch();
   const [blockInfo, setBlockInfo] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -47,6 +47,7 @@ const InfoBlock = () => {
       isXWide
       isDisableFormFooter
       isDisableSecretPhrase
+      closeModal={closeModal}
     >
       {isLoading && <ContentLoader />}
       {!isLoading && !blockInfo && (
