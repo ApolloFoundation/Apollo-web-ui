@@ -52,7 +52,11 @@ const  MarketplaceSearch = (props) => {
     return (
         <div className="page-content">
             <SiteHeader
-                pageTitle={`Search "${props.match.params.tag ?? ''}"`}
+                pageTitle={ 
+                    <div>
+                        Search "{<small>{props.match.params.tag ?? ''}"</small>}
+                    </div>
+                }
                 showPrivateTransactions='ledger'
             >
                 <Link
