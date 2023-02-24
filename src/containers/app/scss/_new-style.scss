@@ -1,5 +1,7 @@
+@use "sass:math";
+
 $card-margin: 8px;
-$img-ratio-xl: 564/1140;
+$img-ratio-xl: math.div(564, 1140);
 
 .dashboard, .exchange {
 	color: #3D5A7E;

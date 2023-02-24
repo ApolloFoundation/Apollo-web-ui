@@ -48,6 +48,7 @@
     "redux": "4.0.5",
     "redux-thunk": "2.3.0",
     "regenerator-runtime": "0.13.5",
+    "sass": "1.58.3",
     "secure-web-storage": "1.0.2",
     "universal-cookie": "4.0.4",
     "uuid": "8.0.0"
@@ -55,8 +56,8 @@
   "homepage": "/",
   "main": "src/index.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "react-scripts --openssl-legacy-provider start",
+    "build": "react-scripts --openssl-legacy-provider build",
     "react-start": "BROWSER=none react-scripts start",
     "pack": "build --dir",
     "dist": "npm run build && build",
@@ -70,7 +71,6 @@
     "eslint-config-airbnb": "18.1.0",
     "eslint-plugin-react": "7.19.0",
     "eslint-plugin-react-hooks": "4.0.2",
-    "node-sass": "4.13.0",
     "path": "0.12.7",
     "sanitize-filename": "1.6.3"
   },
