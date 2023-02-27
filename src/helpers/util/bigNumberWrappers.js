@@ -1,5 +1,16 @@
 import BigNumber from "bignumber.js";
 
+const fmt = {
+  prefix: '',
+  decimalSeparator: '.',
+  groupSeparator: ',',
+  groupSize: 0,
+  secondaryGroupSize: 0,
+  fractionGroupSeparator: ' ',
+  fractionGroupSize: 0,
+  suffix: ''
+}
+
 export function createBigNumber(number) {
   return number instanceof BigNumber ? number : new BigNumber(number);
 }
@@ -14,8 +25,17 @@ export function bigIntToFixed (number, toFixed = 0) {
   return number.toFixed(toFixed);
 }
 
-export function bigIntToString (bigIntNum) {
-  return bigIntNum.toFormat()
+export function bigIntFormat (bigIntNum, options = {}, floatLength = 0, ) {
+  // if (floatLength !== undefined) {
+  //   return bigIntNum.toFormat(floatLength, {
+  //     ...fmt,
+  //     ...options,
+  //   })
+  // }
+  return bigIntNum.toFormat({
+    ...fmt,
+    ...options,
+  }) 
 }
 
 export function bigIntDivision (num1, num2) {

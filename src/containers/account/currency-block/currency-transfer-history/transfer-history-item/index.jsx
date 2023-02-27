@@ -11,8 +11,8 @@ import { getTransactionAction } from 'actions/transactions';
 import { Tooltip } from 'containers/components/tooltip';
 import RedIcon from 'assets/red-triangle.svg'
 import { useFormatTimestamp } from 'hooks/useFormatTimestamp';
+import { bigIntDecimalsDivision, bigIntFormat } from 'helpers/util/bigNumberWrappers';
 import styles from './index.module.scss';
-import { bigIntDecimalsDivision, bigIntToString } from 'helpers/util/bigNumberWrappers';
 
 export default function TransferHistoryItem(props) {
   const dispatch = useDispatch();
@@ -58,8 +58,6 @@ export default function TransferHistoryItem(props) {
 
   const handleTransactionInfo = () => dispatch(setBodyModalParamsAction('INFO_TRANSACTION', transfer));
 
-  console.log(bigIntDecimalsDivision(units, decimals).toFormat(), bigIntDecimalsDivision(units, decimals).toString())
-
   return (
     <tr>
       <td>
@@ -71,7 +69,7 @@ export default function TransferHistoryItem(props) {
         {name}
       </td>
       <td className="">{handleTime(timestamp)}</td>
-      <td className="align-right">{bigIntToString(bigIntDecimalsDivision(units, decimals))} {unitsTooltip}</td>
+      <td className="align-right">{bigIntFormat(bigIntDecimalsDivision(units, decimals))} {unitsTooltip}</td>
       <td>
         <span className="blue-link-text" onClick={handleAccountInfoModal(recipient)}>
           {recipientRS}
