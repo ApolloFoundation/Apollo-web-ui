@@ -3,7 +3,7 @@
  *                                                                            *
  ***************************************************************************** */
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setBodyModalParamsAction } from 'modules/modals';
@@ -12,7 +12,7 @@ import { Tooltip } from 'containers/components/tooltip';
 import RedIcon from 'assets/red-triangle.svg'
 import { useFormatTimestamp } from 'hooks/useFormatTimestamp';
 import styles from './index.module.scss';
-import { bigIntDecimalsDivision } from 'helpers/util/utils';
+import { bigIntDecimalsDivision, bigIntToString } from 'helpers/util/bigNumberWrappers';
 
 export default function TransferHistoryItem(props) {
   const dispatch = useDispatch();
@@ -58,6 +58,8 @@ export default function TransferHistoryItem(props) {
 
   const handleTransactionInfo = () => dispatch(setBodyModalParamsAction('INFO_TRANSACTION', transfer));
 
+  console.log(bigIntDecimalsDivision(units, decimals).toFormat(), bigIntDecimalsDivision(units, decimals).toString())
+
   return (
     <tr>
       <td>
@@ -69,7 +71,7 @@ export default function TransferHistoryItem(props) {
         {name}
       </td>
       <td className="">{handleTime(timestamp)}</td>
-      <td className="align-right">{bigIntDecimalsDivision(units, decimals)} {unitsTooltip}</td>
+      <td className="align-right">{bigIntToString(bigIntDecimalsDivision(units, decimals))} {unitsTooltip}</td>
       <td>
         <span className="blue-link-text" onClick={handleAccountInfoModal(recipient)}>
           {recipientRS}

@@ -4,10 +4,12 @@
  ***************************************************************************** */
 
 import React, { useMemo }from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setBodyModalParamsAction } from 'modules/modals';
 import { useFormatTimestamp } from 'hooks/useFormatTimestamp';
 import { numberToLocaleString } from 'helpers/format';
+import { bigIntDecimalsDivision, bigIntDivision, bigIntMultiply } from 'helpers/util/bigNumberWrappers';
+import { getDecimalsSelector } from 'selectors';
 
 export default function ExecutedItem({
   transaction, sellerRS, timestamp, buyerRS,
@@ -15,16 +17,25 @@ export default function ExecutedItem({
 }) {
   const dispatch = useDispatch();
   const handleTime = useFormatTimestamp();
+  const currentCoinDecimals = useSelector(getDecimalsSelector);
 
   const setModal = (data) => () => {
     dispatch(setBodyModalParamsAction('INFO_ACCOUNT', data));
   }
 
   const handleInfoTransactionModal = () => dispatch(setBodyModalParamsAction('INFO_TRANSACTION', transaction));
-  const rate = useMemo(() => (rateATM / (10 ** 8)) * (10 ** decimals), [decimals, rateATM]);
+  const rate = useMemo(() => {
+    const base = bigIntDivision(rateATM, currentCoinDecimals);
+    return bigIntMultiply (base, 10 ** decimals);
+  }, [decimals, rateATM]);
   const total = useMemo(
-    () => (((rateATM / (10 ** 8)) * units) / (10 ** decimals)) * (10 ** decimals),
-    [rate, units, decimals]
+    () => {
+      const base = bigIntDivision(rateATM, currentCoinDecimals);
+      const baseMultiply = bigIntMultiply(base, units);
+      const decimalsBase = 10 ** decimals;
+      const totalUnits = bigIntMultiply(baseMultiply, decimalsBase);
+      return  bigIntDivision(totalUnits, decimalsBase);
+    }, [rate, units, decimals]
   );
 
   return (
@@ -43,7 +54,7 @@ export default function ExecutedItem({
         </span>
       </td>
       <td className="align-right">
-        {(units / (10 ** decimals)).toFixed(8)}
+        {bigIntDecimalsDivision(units, decimals, 8)}
       </td>
       <td className="align-right">
         {numberToLocaleString (rate, {

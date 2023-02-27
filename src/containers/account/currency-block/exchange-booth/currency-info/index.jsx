@@ -1,5 +1,5 @@
 import React from 'react';
-import { bigIntDecimalsDivision } from '../../../../../helpers/util/utils';
+import { bigIntDecimalsDivision, bigIntToFixed } from 'helpers/util/bigNumberWrappers';
 
 export default function CurrencyInfo(props) {
   const {
@@ -22,7 +22,7 @@ export default function CurrencyInfo(props) {
                 Current supply:
               </label>
               <div>
-                {bigIntDecimalsDivision(currentSupply, decimals)}
+                {bigIntToFixed(bigIntDecimalsDivision(currentSupply, decimals))}
                 {' '}
                 {code}
               </div>
@@ -32,7 +32,7 @@ export default function CurrencyInfo(props) {
                 Initial supply:
               </label>
               <div>
-                {bigIntDecimalsDivision(maxSupply, decimals)}
+                {bigIntToFixed(bigIntDecimalsDivision(maxSupply, decimals))}
                 {' '}
                 {code}
               </div>

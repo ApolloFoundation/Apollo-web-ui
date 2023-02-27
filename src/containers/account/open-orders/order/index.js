@@ -10,7 +10,7 @@ import {Link} from 'react-router-dom'
 import {setBodyModalParamsAction} from "modules/modals";
 import {getOrderInfoAction} from "actions/open-orders";
 import { getDecimalsSelector } from 'selectors';
-import { bigIntDecimalsDivision, bigIntDivision } from 'helpers/util/utils';
+import { bigIntDecimalsDivision, bigIntDivision } from 'helpers/util/bigNumberWrappers';
 
 const OrderItem = (props) => {
     const dispatch = useDispatch();
@@ -40,6 +40,7 @@ const OrderItem = (props) => {
         [props.quantityATU, props.priceATM, currentCoinDecimals]
     );
 
+    // TODO update bigint
     return (
         <tr>
             <td className="align-left blue-link-text">
@@ -48,7 +49,7 @@ const OrderItem = (props) => {
                 </Link>
             </td>
             <td className="align-left">
-                {bigIntDecimalsDivision(props.quantityATU, props.decimals)}
+                {bigIntDivision(bigIntDecimalsDivision(props.quantityATU, props.decimals))}
             </td>
             <td>{price}</td>
 
