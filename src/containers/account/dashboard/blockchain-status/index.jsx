@@ -25,7 +25,7 @@ export default function BlockchainStatus() {
   });
 
   const handleSetForging = useCallback(async action => {
-    if (!effectiveBalanceAPL || effectiveBalanceAPL < 1000) {
+    if (!effectiveBalanceAPL || +effectiveBalanceAPL < 1000) {
       NotificationManager.error('Your effective balance must be greater than 1000 APL to forge.', 'Error', 5000);
       return;
     }

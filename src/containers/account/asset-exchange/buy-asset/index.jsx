@@ -4,6 +4,7 @@ import { useFormik, FormikProvider, Form } from 'formik';
 import classNames from 'classnames';
 import NumericInput from 'containers/components/form-components/NumericInput'
 import { getBalanceATMSelector } from 'selectors';
+import { bigIntDivision, bigIntFormat } from 'helpers/util/bigNumberWrappers';
 const bigInteger = require('jsbn').BigInteger;
 
 const BuyAsset = ({ asset, decimals, ticker, onSubmit }) => {
@@ -40,10 +41,9 @@ const BuyAsset = ({ asset, decimals, ticker, onSubmit }) => {
           {`Buy ${asset.name}`}
           <span>
             Balance:
-            {(balanceATM / decimals).toLocaleString('en', {
-              minimumFractionDigits: asset.decimals,
-              maximumFractionDigits: asset.decimals,
-            })}
+            {bigIntFormat(bigIntDivision(balanceATM, decimals), { 
+              groupSize: 3,
+             })}
             {' '}
             {ticker}
           </span>

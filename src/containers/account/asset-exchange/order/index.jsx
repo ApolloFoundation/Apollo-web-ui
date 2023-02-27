@@ -3,56 +3,43 @@
  *                                                                            *
  ***************************************************************************** */
 
-import React from 'react';
-import { connect } from 'react-redux';
-import { setBodyModalParamsAction } from 'modules/modals';
-import { getTransactionAction } from 'actions/transactions';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { getOrderInfoAction } from 'actions/open-orders';
 import { getDecimalsSelector } from 'selectors';
+import { bigIntDecimalsDivision, bigIntDivision, bigIntFormat, bigIntMultiply } from 'helpers/util/bigNumberWrappers';
 
-class OrderItem extends React.Component {
-    state = { orderInfo: {} };
+const OrderItem = ({ asset, quantityATU, decimals, priceATM }) => {
+  const dispatch = useDispatch();
+  const [orderInfo, setOrderInfo] = useState({});
+  const currentCoinDecimals = useSelector(getDecimalsSelector);
 
-    componentDidMount() {
-      this.getOrderInfo();
-    }
-
-    getTransactionInfo = async transaction => await this.props.getTransactionAction({
-      transaction,
-      random: Math.random(),
-    });
-
-    getOrderInfo = () => {
-      this.props.getOrderInfo(this.props.asset).then(res => {
-        this.setState({ orderInfo: res || {} });
+  const getOrderInfo = useCallback(() => {
+    dispatch(getOrderInfoAction(asset))
+      .then(res => {
+        setOrderInfo(res || {});
       });
-    };
+  }, [dispatch, asset]);
 
-    render() {
-      const { orderInfo } = this.state;
-      return (
-        <tr>
-          <td className="align-left blue-link-text">
-            {orderInfo.name}
-          </td>
-          <td className="align-left">
-            {this.props.quantityATU / (10 ** this.props.decimals)}
-          </td>
-          <td>{((this.props.quantityATU * this.props.priceATM) / this.props.currentCoinDecimals) / (this.props.quantityATU / (10 ** this.props.decimals))}</td>
-          <td>{(this.props.quantityATU * this.props.priceATM) / this.props.currentCoinDecimals}</td>
-        </tr>
-      );
-    }
+  useEffect(() => {
+    getOrderInfo();
+  }, [getOrderInfo]);
+
+  const base = useMemo(() => bigIntDecimalsDivision(quantityATU, decimals), [quantityATU, decimals]);
+  const baseMultiply = useMemo(() => bigIntMultiply(quantityATU, priceATM),[quantityATU, priceATM]);
+  const total = useMemo(() => bigIntDivision(baseMultiply, currentCoinDecimals), [baseMultiply, currentCoinDecimals])
+  const price = useMemo(() => bigIntDivision(total, base), [base, total]);
+
+  return (
+    <tr>
+      <td className="align-left blue-link-text">
+        {orderInfo.name}
+      </td>
+      <td className="align-left">{bigIntFormat(base)}</td>
+      <td>{bigIntFormat(price)}</td>
+      <td>{bigIntFormat(total)}</td>
+    </tr>
+  );
 }
 
-const mapStateToProps = state => ({
-  currentCoinDecimals: getDecimalsSelector(state),
-});
-
-const mapDispatchToProps = dispatch => ({
-  setBodyModalParamsAction: (type, data, valueForModal) => dispatch(setBodyModalParamsAction(type, data, valueForModal)),
-  getTransactionAction: reqParams => dispatch(getTransactionAction(reqParams)),
-  getOrderInfo: order => dispatch(getOrderInfoAction(order)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(OrderItem);
+export default OrderItem;

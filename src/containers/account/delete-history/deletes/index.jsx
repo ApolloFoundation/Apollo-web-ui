@@ -9,6 +9,7 @@ import {useDispatch} from 'react-redux';
 import {setBodyModalParamsAction} from "modules/modals";
 import {formatTimestamp} from "helpers/util/time";
 import {getTransactionAction} from "actions/transactions";
+import { bigIntDecimalsDivision, bigIntFormat } from 'helpers/util/bigNumberWrappers';
 
 export const DeleteItem = (props) => {
     const dispatch = useDispatch();
@@ -35,7 +36,7 @@ export const DeleteItem = (props) => {
             </td>
             <td className="align-left">{props.name}</td>
             <td>{handleTime()}</td>
-            <td className="align-right">{props.quantityATU / Math.pow(10, props.decimals)}</td>
+            <td className="align-right">{bigIntFormat(bigIntDecimalsDivision(props.quantityATU, props.decimals))}</td>
         </tr>
     );
 }

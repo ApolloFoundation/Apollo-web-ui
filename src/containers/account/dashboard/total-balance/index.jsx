@@ -10,6 +10,7 @@ import {
   getTickerSelector
 } from 'selectors';
 import { numberToLocaleString } from 'helpers/format';
+import { bigIntFormat } from 'helpers/util/bigNumberWrappers';
 
 const TotalBalance = () => {
   const dispatch = useDispatch();

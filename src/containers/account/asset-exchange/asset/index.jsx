@@ -9,6 +9,7 @@ import { setBodyModalParamsAction } from 'modules/modals';
 import crypto from 'helpers/crypto/crypto';
 import converters from 'helpers/converters';
 import { getDecimalsSelector } from 'selectors';
+import { bigIntDivision, bigIntFormat } from 'helpers/util/bigNumberWrappers';
 
 export default function Asset(props) {
   const dispatch = useDispatch();
@@ -62,9 +63,9 @@ export default function Asset(props) {
             </td>
             <td className="align-right">
               -
-              {entryData.change / decimals}
+              {bigIntFormat(bigIntDivision(entryData.change, decimals))}
             </td>
-            <td>{(entryData.balance / decimals).toFixed(2)}</td>
+            <td>{bigIntFormat(bigIntDivision(entryData.balance, decimals))}</td>
             <td>
               <a></a>
             </td>

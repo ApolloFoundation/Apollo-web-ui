@@ -9,6 +9,7 @@ import { setBodyModalParamsAction } from 'modules/modals';
 import { getTransactionAction } from 'actions/transactions';
 import { getDecimalsSelector } from 'selectors';
 import { useFormatTimestamp } from 'hooks/useFormatTimestamp';
+import { bigIntDivision, bigIntFormat } from 'helpers/util/bigNumberWrappers';
 
 export default function Transaction(props) {
   const dispatch = useDispatch();
@@ -43,8 +44,8 @@ export default function Transaction(props) {
         </a>
       </td>
       <td className="align-right">Ordinary Payment</td>
-      <td className="align-right">{amountATM / decimals}</td>
-      <td>{feeATM / decimals}</td>
+      <td className="align-right">{bigIntFormat(bigIntDivision(amountATM, decimals))}</td>
+      <td>{bigIntFormat(bigIntDivision(feeATM, decimals))}</td>
       <td className="blue-link-text align-right">
         <a onClick={handleInfoAccountModal}>
           {senderRS}
