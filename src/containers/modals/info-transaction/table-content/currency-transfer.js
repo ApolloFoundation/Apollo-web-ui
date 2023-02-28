@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {connect} from 'react-redux';
 import { getConstantsSelector } from "selectors";
 import {getCurrencyAction} from "actions/currencies";
+import { bigIntDecimalsDivision, bigIntFormat } from "helpers/util/bigNumberWrappers";
 
 class CurrencyTransfer extends Component {
 
@@ -40,11 +41,9 @@ class CurrencyTransfer extends Component {
                     this.props.transaction &&
                     <tr>
                         <td>Units:</td>
-                        <td>{this.props.transaction.attachment.units / Math.pow(10, this.state.currency.decimals)}</td>
+                        <td>{bigIntFormat(bigIntDecimalsDivision(this.props.transaction.attachment.units, this.state.currency.decimals))}</td>
                     </tr>
                 }
-
-
             </React.Fragment>
         );
     }

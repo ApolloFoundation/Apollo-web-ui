@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import {getCurrencyAction, getExchangesByExchangeRequest} from "actions/currencies";
 import {formatTimestamp} from "helpers/util/time";
 import { getConstantsSelector } from "selectors";
+import { bigIntDecimalsDivision, bigIntFormat, bigIntMultiply, bigIntSum } from "helpers/util/bigNumberWrappers";
 
 class BuyCurrency extends Component {
 
@@ -39,23 +40,25 @@ class BuyCurrency extends Component {
                 return el.units;
             })
                 .reduce((a,b) => {
-                    return parseInt(a) + parseInt(b)
-                })
+                    return bigIntSum(a, b)
+                }, 0)
 
-            return sum / Math.pow(10, this.state.currency.decimals);
+            return bigIntFormat(bigIntDecimalsDivision(sum, this.state.currency.decimals));
         }
     };
 
     getTotalFromExchanges = (exchanges) => {
         if (exchanges && this.state.currency) {
             let sum = exchanges.map((el) => {
-                return parseInt(el.units / Math.pow(10, this.state.currency.decimals)) * parseInt(el.rateATM / Math.pow(10, this.state.currency.decimals));
+                const a = bigIntDecimalsDivision(el.units, this.state.currency.decimals);
+                const b = bigIntDecimalsDivision(el.rateATM, this.state.currency.decimals);
+                return bigIntMultiply(a,b);
             })
                 .reduce((a,b) => {
-                    return parseInt(a) + parseInt(b)
-                })
+                    return bigIntSum(a,b)
+                }, 0);
 
-            return sum;
+            return bigIntFormat(sum);
         }
     };
 
@@ -80,7 +83,7 @@ class BuyCurrency extends Component {
                     this.props.transaction &&
                     <tr>
                         <td>Units:</td>
-                        <td>{this.props.transaction.attachment.units / Math.pow(10, this.state.currency.decimals)}</td>
+                        <td>{bigIntFormat(bigIntDecimalsDivision(this.props.transaction.attachment.units, this.state.currency.decimals))}</td>
                     </tr>
                 }
                 {
@@ -112,14 +115,15 @@ class BuyCurrency extends Component {
                                         <tbody>
                                         {
                                             this.state.exchanges.map((el) => {
-                                                const units = parseInt(el.units) / Math.pow(10, this.state.currency.decimals)
-                                                const rate  = parseInt(el.rateATM) / Math.pow(10, this.state.currency.decimals)
+                                                const units = bigIntDecimalsDivision(el.units, this.state.currency.decimals);
+                                                const rate  = bigIntDecimalsDivision(el.rateATM, this.state.currency.decimals);
+                                                const total = bigIntMultiply(units, rate);    
                                                 return (
                                                     <tr>
                                                         <td>{this.props.formatTimestamp(el.timestamp)}</td>
-                                                        <td>{units}</td>
-                                                        <td>{units}</td>
-                                                        <td>{units * rate}</td>
+                                                        <td>{bigIntFormat(units)}</td>
+                                                        <td>{bigIntFormat(rate)}</td>
+                                                        <td>{bigIntFormat(total)}</td>
                                                     </tr>
                                                 );
                                             })

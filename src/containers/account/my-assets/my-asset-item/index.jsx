@@ -84,15 +84,16 @@ const MyAssetItem = ({ asset, decimals, name, unconfirmedQuantityATU, quantityAT
         [decimals, state.lowestAskOrder]
     );
     const highest = useMemo(
-        () => state.highestBidOrder ? bigIntMultiply(bigIntDecimalsDivision(state.highestBidOrder, 8), Math.pow(10, decimals)) : null,
+        () => state.highestBidOrder ? bigIntMultiply(
+                bigIntDecimalsDivision(state.highestBidOrder, 8), 
+                Math.pow(10, decimals)
+            ) : null,
         [decimals, state.highestBidOrder]
     );
     const valInCoin = useMemo(
         () => highest ? bigIntFormat(bigIntMultiply(highest, bigIntDecimalsDivision(quantityATU, decimals))) : null,
         [decimals, quantityATU, highest]
     );
-
-    console.log(highest && bigIntFormat(highest), highest)
 
     return (
         <tr>
@@ -141,13 +142,13 @@ const MyAssetItem = ({ asset, decimals, name, unconfirmedQuantityATU, quantityAT
                 }
             </td>
             <td className="align-right">
-                {/* {
+                {
                     checkIsValidBignumber(highest) &&
                     numberToLocaleString(bigIntFormat(valInCoin), {
                         minimumFractionDigits: decimals,
                         maximumFractionDigits: decimals
                     })
-                } */}
+                }
             </td>
             <td className="align-right">
                 {!info && (

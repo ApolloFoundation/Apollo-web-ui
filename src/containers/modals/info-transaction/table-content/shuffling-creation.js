@@ -3,6 +3,7 @@ import {getShufflingAction} from "actions/shuffling";
 import {connect} from "react-redux";
 import {setBodyModalParamsAction} from "modules/modals";
 import { getConstantsSelector } from "selectors";
+import { bigIntDivision, bigIntFormat } from "helpers/util/bigNumberWrappers";
 
 function Stage (number) {
 	if(number === "0"){
@@ -54,7 +55,7 @@ class ShufflingCreation extends Component {
 	            {this.props.transaction.attachment.hasOwnProperty("amount") &&
 	            <tr>
 		            <td>Amount:</td>
-		            <td>{this.props.transaction.attachment.amount / this.props.decimals} {this.props.ticker}</td>
+		            <td>{bigIntFormat(bigIntDivision(this.props.transaction.attachment.amount, this.props.decimals))} {this.props.ticker}</td>
 	            </tr>
 	            }
 	            {this.props.transaction.attachment.hasOwnProperty("holding") &&

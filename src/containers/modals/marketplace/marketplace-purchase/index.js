@@ -17,6 +17,7 @@ import {
     getTickerSelector
 } from 'selectors';
 import Form from './form';
+import { bigIntDivision, bigIntFormat } from 'helpers/util/bigNumberWrappers';
 
 const MarketplacePurchase = ({ closeModal, processForm }) => {
     const dispatch = useDispatch();
@@ -58,7 +59,7 @@ const MarketplacePurchase = ({ closeModal, processForm }) => {
 
         const data = {
             ...values,
-            priceATM: parseInt(goods.priceATM) / decimals,
+            priceATM: bigIntFormat(bigIntDivision(goods.priceATM, decimals)),
             goods: goods.goods,
             recipient: account,
         };

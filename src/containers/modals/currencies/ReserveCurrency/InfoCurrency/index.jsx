@@ -1,4 +1,5 @@
 import React from 'react';
+import { bigIntDecimalsDivision, bigIntFormat } from 'helpers/util/bigNumberWrappers';
 
 export const InfoCurrency = ({ modalData, }) => (
   <>
@@ -7,7 +8,7 @@ export const InfoCurrency = ({ modalData, }) => (
         Reserve supply
       </label>
       <div>
-        <span>{modalData.reserveSupply / (10 ** modalData.decimals)}</span>
+        <span>{bigIntFormat(bigIntDecimalsDivision(modalData.reserveSupply, modalData.decimals))}</span>
       </div>
     </div>
     <div className="form-group mb-15">
@@ -16,7 +17,7 @@ export const InfoCurrency = ({ modalData, }) => (
       </label>
       <div>
         <span>
-          {modalData.initialSupply / (10 ** modalData.decimals)}
+          {bigIntFormat(bigIntDecimalsDivision(modalData.initialSupply, modalData.decimals))}
         </span>
       </div>
     </div>
@@ -26,7 +27,7 @@ export const InfoCurrency = ({ modalData, }) => (
       </label>
       <div>
         <span>
-          {modalData.minReservePerUnitATM / (10 ** modalData.decimals)}
+          {bigIntFormat(bigIntDecimalsDivision(modalData.minReservePerUnitATM, modalData.decimals))}
         </span>
       </div>
     </div>
@@ -36,7 +37,7 @@ export const InfoCurrency = ({ modalData, }) => (
       </label>
       <div>
         <span>
-          {modalData.currentReservePerUnitATM / (10 ** modalData.decimals)}
+          {bigIntFormat(bigIntDecimalsDivision(modalData.currentReservePerUnitATM, modalData.decimals))}
         </span>
       </div>
     </div>

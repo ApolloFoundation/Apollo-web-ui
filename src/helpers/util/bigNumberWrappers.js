@@ -16,7 +16,7 @@ export function createBigNumber(number) {
 }
 
 export function checkIsValidBignumber (number) {
-  return BigNumber.isBigNumber(number) && !BigNumber.isNaN(number);
+  return BigNumber.isBigNumber(number) && !number.isNaN();
 }
 
 export function bigIntDecimalsDivision (number, decimals) {
@@ -30,7 +30,7 @@ export function bigIntToFixed (number, toFixed = 0) {
 }
 
 export function bigIntFormat (bigIntNum, options = {}) {
-  if (!checkIsValidBignumber) return null;
+  if (!BigNumber.isBigNumber(bigIntNum)) return null;
   return bigIntNum.toFormat({
     ...fmt,
     ...options,
@@ -52,4 +52,10 @@ export function bigIntMultiply (num1, num2) {
  const num = createBigNumber(num1);
  const mul = createBigNumber(num2);
  return num.multipliedBy(mul);
+}
+
+export function bigIntSum (num1, num2) {
+  const number = createBigNumber(num1);
+  const plus = createBigNumber(num2);
+  return number.plus(plus);
 }

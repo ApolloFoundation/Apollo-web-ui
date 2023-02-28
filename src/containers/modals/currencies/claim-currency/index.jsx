@@ -13,6 +13,7 @@ import TextualInputComponent from 'containers/components/form-components/Textual
 import FormRowText from 'containers/components/form-components/FormTextRow';
 import ModalBody from 'containers/components/modals/modal-body';
 import { getAccountSelector, getModalDataSelector, getTickerSelector } from 'selectors';
+import { bigIntDecimalsDivision, bigIntFormat } from 'helpers/util/bigNumberWrappers';
 
 export default function ClaimCurrency(props) {
   const dispatch = useDispatch();
@@ -61,9 +62,9 @@ export default function ClaimCurrency(props) {
       {dataAccountCurrecny && dataCurrency && (
         <FormRowText
           text={`Number of units to claim
-            ${dataAccountCurrecny.currentSupply / (10 ** dataAccountCurrecny.decimals)}
+            ${bigIntFormat(bigIntDecimalsDivision(dataAccountCurrecny.currentSupply, dataAccountCurrecny.decimals))}
             Claim rate
-            ${dataAccountCurrecny.currentReservePerUnitATM / (10 ** dataAccountCurrecny.decimals)}
+            ${bigIntFormat(bigIntDecimalsDivision(dataAccountCurrecny.currentReservePerUnitATM, dataAccountCurrecny.decimals))}
             [${ticker}/${dataCurrency.code}]`}
         />
       )}

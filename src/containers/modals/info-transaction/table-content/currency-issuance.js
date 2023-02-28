@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-
+import { bigIntDivision, bigIntFormat } from "helpers/util/bigNumberWrappers";
 
 const hashAlgorithm = {
 	2: "2:SHA256",
@@ -63,7 +63,7 @@ export default class CurrencyIssuance extends Component {
 	            {this.props.transaction.attachment.hasOwnProperty("minReservePerUnitATM") &&
 	            <tr>
 		            <td>Minimum Reserve Per Unit:</td>
-		            <td>{this.props.transaction.attachment.minReservePerUnitATM / this.props.decimals} {this.props.ticker}</td>
+		            <td>{bigIntFormat(bigIntDivision(this.props.transaction.attachment.minReservePerUnitATM, this.props.decimals))} {this.props.ticker}</td>
 	            </tr>
 	            }
 	            {this.props.transaction.attachment.hasOwnProperty("minDifficulty") &&

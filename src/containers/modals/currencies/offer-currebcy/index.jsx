@@ -14,6 +14,7 @@ import NumericInput from 'containers/components/form-components/NumericInput';
 import TextualInputComponent from 'containers/components/form-components/TextualInput';
 import BlockHeightInput from 'containers/components/form-components/BlockHeight/block-height-input1';
 import { getAccountSelector, getModalDataSelector, getTickerSelector } from 'selectors';
+import { bigIntDecimalsDivision, bigIntFormat } from 'helpers/util/bigNumberWrappers';
 import { handleFormSubmit } from './handle-form-submit';
 
 export default function OfferCurrency({ closeModal }) {
@@ -45,7 +46,7 @@ export default function OfferCurrency({ closeModal }) {
     }));
 
     if (currency && currency.unconfirmedUnits) {
-      setCurrencyAvailable(currency.unconfirmedUnits / (10 ** currency.decimals));
+      setCurrencyAvailable(bigIntFormat(bigIntDecimalsDivision(currency.unconfirmedUnits, currency.decimals)));
       setDataCurrency(currency);
     } else {
       setCurrencyAvailable(null);

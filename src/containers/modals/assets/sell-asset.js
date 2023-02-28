@@ -9,6 +9,7 @@ import {useSelector, shallowEqual} from 'react-redux';
 import {NotificationManager} from "react-notifications";
 import ModalBody from 'containers/components/modals/modal-body';
 import TextualInputComponent from 'containers/components/form-components/TextualInput';
+import { bigIntDecimalsDivision, bigIntFormat, bigIntMultiply } from 'helpers/util/bigNumberWrappers';
 import {
     getDecimalsSelector,
     getModalCallbackSelector,
@@ -26,8 +27,8 @@ const SellAsset = ({ closeModal, processForm, nameModal }) => {
         const data = {
             ...values,
             asset: modalData.assetInfo.asset,
-            priceOrder: modalData.priceATM * (decimals / Math.pow(10, modalData.assetInfo.decimals)),
-            quantityOrder: (modalData.quantityATU * Math.pow(10, modalData.assetInfo.decimals)),
+            priceOrder: bigIntFormat(bigIntMultiply(modalData.priceATM, bigIntDecimalsDivision(decimals, modalData.assetInfo.decimals))),
+            quantityOrder: bigIntFormat(bigIntMultiply(modalData.quantityATU, Math.pow(10, modalData.assetInfo.decimals))),
             name: modalData?.assetInfo?.name,
             asset: modalData?.assetInfo?.asset,
             quantityATU: modalData?.quantityATU,

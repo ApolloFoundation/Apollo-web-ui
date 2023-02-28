@@ -16,6 +16,7 @@ import {
     getTickerSelector
 } from 'selectors';
 import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
+import { bigIntDecimalsDivision, bigIntDivision, bigIntFormat, bigIntMultiply } from 'helpers/util/bigNumberWrappers';
 
 const BuyAsset = ({ processForm, closeModal, nameModal }) => {
     const modalData = useSelector(getModalDataSelector, shallowEqual);
@@ -27,8 +28,8 @@ const BuyAsset = ({ processForm, closeModal, nameModal }) => {
         const data = {
             ...values,
             asset: modalData.assetInfo.asset,
-            priceOrder: modalData.priceATM * (decimals / Math.pow(10, modalData.assetInfo.decimals)),
-            quantityOrder: (modalData.quantityATU * Math.pow(10, modalData.assetInfo.decimals))
+            priceOrder: bigIntFormat(bigIntMultiply(modalData.priceATM, bigIntDecimalsDivision(decimals, modalData.assetInfo.decimals))),
+            quantityOrder: bigIntFormat(bigIntMultiply(modalData.quantityATU, Math.pow(10, modalData.assetInfo.decimals))),
         };
 
         processForm(data, 'placeBidOrder', 'The buy order has been submitted!', () => {
@@ -71,7 +72,7 @@ const BuyAsset = ({ processForm, closeModal, nameModal }) => {
             <CustomInput defaultValue={quantityATU} placeholder='Quantity' type="hidden" name='quantityATU' />
             <TextualInputComponent
                 label='Order Description'
-                text={`Buy ${quantityATU} ${name} assets at ${total / quantityATU} ${ticker} each.`}
+                text={`Buy ${quantityATU} ${name} assets at ${bigIntFormat(bigIntDivision(total, quantityATU))} ${ticker} each.`}
             />
             <TextualInputComponent
                 label='Total'

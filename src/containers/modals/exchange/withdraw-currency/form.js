@@ -28,7 +28,6 @@ export const WithdrawForm = ({ typeData }) => {
                     options={typeData}
                     label='Wallet'
                     name='asset'
-                    label="Wallet"
                 />
             )}
             <NumericInput

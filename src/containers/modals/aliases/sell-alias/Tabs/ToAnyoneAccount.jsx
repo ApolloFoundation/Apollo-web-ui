@@ -11,7 +11,6 @@ export const ToAnyoneAccount = ({ onSubmit, closeModal, alias }) => (
     isFee
     isPour
     idGroup='sell-alias-anyone-modal-'
-    submitButtonName='Sell Alias'
     initialValues={{
       priceATM: 0,
       add_message: false,

@@ -14,6 +14,7 @@ import ContentLoader from 'containers/components/content-loader';
 import {
     getDecimalsSelector, getModalDataSelector, getModalHistorySelector, getPassPhraseSelector
 } from 'selectors';
+import { bigIntDivision, bigIntFormat } from 'helpers/util/bigNumberWrappers';
 
 const InfoTransactions = (props) => {
     const [entry, setEntry] = useState({});
@@ -90,11 +91,11 @@ const InfoTransactions = (props) => {
                                 </tr>
                                 <tr>
                                     <td>Change:</td>
-                                    <td>{entry.change / props.decimals}</td>
+                                    <td>{bigIntFormat(bigIntDivision(entry.change, props.decimals))}</td>
                                 </tr>
                                 <tr>
                                     <td>Balance:</td>
-                                    <td>{Math.round(entry.balance / props.decimals)}</td>
+                                    <td>{bigIntFormat(bigIntDivision(entry.balance, props.decimals))}</td>
                                 </tr>
                             </tbody>
                         }
