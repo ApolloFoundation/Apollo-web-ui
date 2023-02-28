@@ -12,6 +12,7 @@ import {
   getBidOrders as getBidOrdersAction,
 } from 'actions/marketplace';
 import { setBodyModalParamsAction } from 'modules/modals';
+import { bigIntDecimalsDivision, bigIntDivision, bigIntFormat, bigIntMultiply, checkIsValidBignumber } from 'helpers/util/bigNumberWrappers';
 
 const AssetItem = ({ asset, decimals, name, unconfirmedQuantityATU, quantityATU }) => {
   const dispatch = useDispatch();
@@ -54,15 +55,15 @@ const AssetItem = ({ asset, decimals, name, unconfirmedQuantityATU, quantityATU 
   };
 
   const lowest = useMemo(
-    () =>  state.lowestAskOrder / Math.pow(10, 8) * Math.pow(10, decimals),
+    () =>  state.lowestAskOrder ? bigIntMultiply(bigIntDecimalsDivision(state.lowestAskOrder, 8), Math.pow(10, decimals)) : null,
     [decimals, state.lowestAskOrder]
   );
   const highest = useMemo(
-      () => state.highestBidOrder / Math.pow(10, 8) * Math.pow(10, decimals),
+      () =>  state.highestBidOrder ? bigIntMultiply(bigIntDecimalsDivision(state.highestBidOrder, 8), Math.pow(10, decimals)) : null,  
       [decimals, state.highestBidOrder]
   );
   const valInCoin = useMemo(
-      () => highest * (quantityATU / Math.pow(10, decimals)),
+      () => highest ? bigIntMultiply(highest, bigIntDecimalsDivision(quantityATU, decimals)) : null,
       [decimals, quantityATU, highest]
   );
 
@@ -77,24 +78,27 @@ const AssetItem = ({ asset, decimals, name, unconfirmedQuantityATU, quantityATU 
         </span>
       </td>
       <td>
-        {(unconfirmedQuantityATU / Math.pow(10, decimals)).toLocaleString('en', {
+        {numberToLocaleString(bigIntFormat(bigIntDecimalsDivision(unconfirmedQuantityATU, decimals)), {
           minimumFractionDigits: decimals,
           maximumFractionDigits: decimals,
         })}
       </td>
       <td>
-        {(quantityATU / Math.pow(10, decimals)).toLocaleString('en', {
+        {numberToLocaleString(bigIntFormat(bigIntDecimalsDivision(quantityATU, decimals)), {
           minimumFractionDigits: decimals,
           maximumFractionDigits: decimals,
         })}
       </td>
       <td>
-        {((parseInt(unconfirmedQuantityATU) / parseInt(quantityATU)) * 100).toFixed(2)}
+        {numberToLocaleString(bigIntFormat(bigIntMultiply(bigIntDivision(unconfirmedQuantityATU, quantityATU), 100)), {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })}
         &nbsp;%
       </td>
       <td>
         {
-          !!lowest
+          checkIsValidBignumber(lowest)
           && numberToLocaleString(lowest, {
             minimumFractionDigits: decimals,
             maximumFractionDigits: decimals,
@@ -103,7 +107,7 @@ const AssetItem = ({ asset, decimals, name, unconfirmedQuantityATU, quantityATU 
       </td>
       <td>
         {
-          !!highest
+          checkIsValidBignumber(highest)
           && numberToLocaleString(highest, {
             minimumFractionDigits: decimals,
             maximumFractionDigits: decimals,
@@ -112,7 +116,7 @@ const AssetItem = ({ asset, decimals, name, unconfirmedQuantityATU, quantityATU 
       </td>
       <td>
         {
-          !!highest
+          checkIsValidBignumber(highest)
           && numberToLocaleString(valInCoin, {
             minimumFractionDigits: decimals,
             maximumFractionDigits: decimals,

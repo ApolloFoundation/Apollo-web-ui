@@ -37,6 +37,11 @@ export function bigIntFormat (bigIntNum, options = {}) {
   }) 
 }
 
+export function bigIntFormatLength (bigIntNum, length) {
+  if (!checkIsValidBignumber) return null;
+  return bigIntNum.toFormat(length);
+}
+
 export function bigIntDivision (num1, num2) {
  const num = createBigNumber(num1);
  const div = createBigNumber(num2);

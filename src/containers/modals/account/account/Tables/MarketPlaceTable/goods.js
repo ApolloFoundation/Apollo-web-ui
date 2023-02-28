@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDecimalsSelector, getTickerSelector } from 'selectors';
 import { setBodyModalParamsAction } from 'modules/modals';
+import { bigIntDivision, bigIntFormat } from 'helpers/util/bigNumberWrappers';
 
 const Goods = ({
   name, goods, quantity, priceATM,
@@ -10,17 +11,19 @@ const Goods = ({
   const decimals = useSelector(getDecimalsSelector);
   const ticker = useSelector(getTickerSelector);
 
+  const handleModal = () => {
+    dispatch(setBodyModalParamsAction('MARKETPLACE_PURCHASE', goods));
+  }
+
   return (
     <tr className="marketplace-tab-item">
       <td className="blue-link-text">
-        <a onClick={() => dispatch(setBodyModalParamsAction('MARKETPLACE_PURCHASE', goods))}>
+        <a onClick={handleModal}>
           {name}
         </a>
       </td>
       <td>
-        {priceATM / decimals}
-        {' '}
-        {ticker}
+        {`${bigIntFormat(bigIntDivision(priceATM, decimals))} ${ticker}`}
       </td>
       <td>{quantity}</td>
     </tr>

@@ -92,6 +92,7 @@ const MyAssetItem = ({ asset, decimals, name, unconfirmedQuantityATU, quantityAT
         [decimals, quantityATU, highest]
     );
 
+    console.log(highest && bigIntFormat(highest), highest)
 
     return (
         <tr>
@@ -124,7 +125,7 @@ const MyAssetItem = ({ asset, decimals, name, unconfirmedQuantityATU, quantityAT
             <td className="align-right">
                 {
                     checkIsValidBignumber(lowest) &&
-                    numberToLocaleString(lowest, {
+                    numberToLocaleString(bigIntFormat(lowest), {
                         minimumFractionDigits: decimals,
                         maximumFractionDigits: decimals
                     })
@@ -140,13 +141,13 @@ const MyAssetItem = ({ asset, decimals, name, unconfirmedQuantityATU, quantityAT
                 }
             </td>
             <td className="align-right">
-                {
+                {/* {
                     checkIsValidBignumber(highest) &&
-                    numberToLocaleString(valInCoin, {
+                    numberToLocaleString(bigIntFormat(valInCoin), {
                         minimumFractionDigits: decimals,
                         maximumFractionDigits: decimals
                     })
-                }
+                } */}
             </td>
             <td className="align-right">
                 {!info && (
