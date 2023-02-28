@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import { setBodyModalParamsAction } from 'modules/modals';
 import { formatTimestamp } from 'helpers/util/time';
 import { numberToLocaleString } from 'helpers/format';
+import { bigIntDecimalsDivision, bigIntFormat } from 'helpers/util/bigNumberWrappers';
 
 export default function TransferHistoryItem(props) {
   const dispatch = useDispatch();
@@ -34,7 +35,7 @@ export default function TransferHistoryItem(props) {
       </td>
       <td className="">{dispatch(formatTimestamp(timestamp))}</td>
       <td className="align-right">
-        {numberToLocaleString((quantityATU / (10 ** decimals)), {
+        {numberToLocaleString(bigIntFormat(bigIntDecimalsDivision(quantityATU, decimals)), {
           minimumFractionDigits: decimals,
           maximumFractionDigits: decimals,
         })}

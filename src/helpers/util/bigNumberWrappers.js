@@ -12,7 +12,11 @@ const fmt = {
 }
 
 export function createBigNumber(number) {
-  return number instanceof BigNumber ? number : new BigNumber(number);
+  return BigNumber.isBigNumber(number) ? number : new BigNumber(number);
+}
+
+export function checkIsValidBignumber (number) {
+  return BigNumber.isBigNumber(number) && !BigNumber.isNaN(number);
 }
 
 export function bigIntDecimalsDivision (number, decimals) {
@@ -25,13 +29,8 @@ export function bigIntToFixed (number, toFixed = 0) {
   return number.toFixed(toFixed);
 }
 
-export function bigIntFormat (bigIntNum, options = {}, floatLength = 0, ) {
-  // if (floatLength !== undefined) {
-  //   return bigIntNum.toFormat(floatLength, {
-  //     ...fmt,
-  //     ...options,
-  //   })
-  // }
+export function bigIntFormat (bigIntNum, options = {}) {
+  if (!checkIsValidBignumber) return null;
   return bigIntNum.toFormat({
     ...fmt,
     ...options,

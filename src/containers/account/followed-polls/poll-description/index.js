@@ -65,7 +65,7 @@ const PollDescription = ({
       >
         {colors.length > 0 && pollResults && poll.options && pollResults.results && (
           <Pie
-            data={pollResults.results.map((el, index) => parseInt(el.result) || 0.05)}
+            data={pollResults.results.map((el) => parseInt(el.result) || 0.05)}
             votes={poll.options}
             radius={150}
             hole={0}

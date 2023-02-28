@@ -13,6 +13,7 @@ import CustomTable from 'containers/components/tables/table';
 import TopPageBlocks from 'containers/components/tob-page-blocks';
 import { getIsLocalhostSelector } from 'selectors';
 import Peer from './peer'
+import { bigIntDivision, bigIntFormat } from 'helpers/util/bigNumberWrappers';
 
 const mapStateToProps = state => ({
     isLocalhost: getIsLocalhostSelector(state),
@@ -108,7 +109,7 @@ class Peers extends React.Component {
                                         value: peersInfo.upToDatePeers || 0
                                     },{
                                         label: 'Up-to-date Peers',
-                                        value: peersInfo.connectedPeers / peersInfo.peersVolume || 0
+                                        value: bigIntFormat(bigIntDivision(peersInfo.connectedPeers, peersInfo.peersVolume)) || 0
                                     }
                                 ]}
                             />

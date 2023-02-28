@@ -5,6 +5,7 @@ import {NotificationManager} from 'react-notifications'
 import {setBodyModalParamsAction} from "modules/modals";
 import {stopMonitorThunk} from "actions/monitors";
 import { getAdminPasswordSelector, getDecimalsSelector } from 'selectors';
+import { bigIntDivision, bigIntFormat } from 'helpers/util/bigNumberWrappers';
 
 const MonitorItem = (props) => {
     const dispatch = useDispatch();
@@ -44,10 +45,10 @@ const MonitorItem = (props) => {
                 {props.property ?? '?'}
             </td>
             <td className='align-right'>
-                {props.amount ? props.amount/decimals : '?'}
+                {props.amount ? bigIntFormat(bigIntDivision(props.amount, decimals)) : '?'}
             </td>
             <td>
-                {props.threshold ? props.threshold/decimals : '?'}
+                {props.threshold ? bigIntFormat(bigIntDivision(props.threshold, decimals)) : '?'}
             </td>
             <td>
                 {props.interval ?? '?'}

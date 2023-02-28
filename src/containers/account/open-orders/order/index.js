@@ -10,7 +10,7 @@ import {Link} from 'react-router-dom'
 import {setBodyModalParamsAction} from "modules/modals";
 import {getOrderInfoAction} from "actions/open-orders";
 import { getDecimalsSelector } from 'selectors';
-import { bigIntDecimalsDivision, bigIntDivision } from 'helpers/util/bigNumberWrappers';
+import { bigIntDecimalsDivision, bigIntDivision, bigIntFormat, bigIntMultiply } from 'helpers/util/bigNumberWrappers';
 
 const OrderItem = (props) => {
     const dispatch = useDispatch();
@@ -31,16 +31,15 @@ const OrderItem = (props) => {
     }, [getOrderInfo]);
 
     const price = useMemo(() => {
-        const num1 = bigIntDivision((props.quantityATU * props.priceATM), currentCoinDecimals);
+        const num1 = bigIntDivision(bigIntMultiply(props.quantityATU, props.priceATM), currentCoinDecimals);
         const num2 = bigIntDecimalsDivision(props.quantityATU, props.decimals);
         return bigIntDivision(num1, num2);
     }, [props.quantityATU, props.priceATM, currentCoinDecimals, props.quantityATU, props.decimals]);
 
-    const total = useMemo(() => bigIntDivision(props.quantityATU * props.priceATM, currentCoinDecimals),
+    const total = useMemo(() => bigIntDivision(bigIntMultiply(props.quantityATU, props.priceATM), currentCoinDecimals),
         [props.quantityATU, props.priceATM, currentCoinDecimals]
     );
 
-    // TODO update bigint
     return (
         <tr>
             <td className="align-left blue-link-text">
@@ -49,11 +48,10 @@ const OrderItem = (props) => {
                 </Link>
             </td>
             <td className="align-left">
-                {bigIntDivision(bigIntDecimalsDivision(props.quantityATU, props.decimals))}
+                {bigIntFormat(bigIntDivision(bigIntDecimalsDivision(props.quantityATU, props.decimals)))}
             </td>
-            <td>{price}</td>
-
-            <td>{total}</td>
+            <td>{bigIntFormat(price)}</td>
+            <td>{bigIntFormat(total)}</td>
             <td className="align-right">
                 <div className="btn-box inline">
                     <button
