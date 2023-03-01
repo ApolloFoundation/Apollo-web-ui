@@ -3,7 +3,7 @@ import React, {
 } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
-import { formatDivision } from 'helpers/format';
+import { numberToLocaleString } from 'helpers/format';
 import { BlockUpdater } from 'containers/block-subscriber';
 import { getMyTradeHistory } from 'actions/wallet';
 import ArrowUp from 'assets/arrow-up.png';
@@ -12,6 +12,7 @@ import CustomTable from 'containers/components/tables/table1';
 import { getExchangeInfoSelector } from 'selectors';
 import { ONE_GWEI } from 'constants/constants';
 import { BallPulse } from 'containers/components/BallPulse';
+import { bigIntDecimalsDivision, bigIntDivision, bigIntFormat, bigIntMultiply } from 'helpers/util/bigNumberWrappers';
 
 const itemsPerPage = 15;
 
@@ -91,9 +92,19 @@ export default function TradeHistoryExchange({ currentCurrency, ticker }) {
                 tableData={myTradeHistory[currentCurrency.currency]}
                 emptyMessage="No trade history found."
                 TableRowComponent={tableProps => {
-                  const pairRate = formatDivision(tableProps.pairRate, ONE_GWEI, 9);
-                  const offerAmount = formatDivision(tableProps.offerAmount, ONE_GWEI, 9);
-                  const total = formatDivision(tableProps.pairRate * tableProps.offerAmount, 10 ** 18, 9);
+                  const pairRate = numberToLocaleString(bigIntFormat(bigIntDivision(tableProps.pairRate, ONE_GWEI)), {
+                    minimumFractionDigits: 9,
+                    maximumFractionDigits: 9,
+                  })
+                  const offerAmount = numberToLocaleString(bigIntFormat(bigIntDivision(tableProps.offerAmount, ONE_GWEI)), {
+                    minimumFractionDigits: 9,
+                    maximumFractionDigits: 9,
+                  })
+                  const total = bigIntMultiply(tableProps.pairRate, tableProps.offerAmount);
+                  const totalFormat = numberToLocaleString(bigIntFormat(bigIntDecimalsDivision(total, 18)), {
+                    minimumFractionDigits: 9,
+                    maximumFractionDigits: 9,
+                  });
                   return (
                     <tr>
                       <td>
@@ -105,7 +116,7 @@ export default function TradeHistoryExchange({ currentCurrency, ticker }) {
                         {pairRate}
                       </td>
                       <td>{offerAmount}</td>
-                      <td>{total}</td>
+                      <td>{totalFormat}</td>
                     </tr>
                   );
                 }}

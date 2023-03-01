@@ -1,10 +1,11 @@
 import React, { useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
-import { formatDivision } from 'helpers/format';
 import { setBodyModalParamsAction } from 'modules/modals';
 import CustomTable from 'containers/components/tables/table1';
 import { ONE_GWEI } from 'constants/constants';
+import { bigIntDecimalsDivision, bigIntDivision, bigIntMultiply, bigIntFormat } from 'helpers/util/bigNumberWrappers';
+import { numberToLocaleString } from 'helpers/format';
 
 export default function OpenOrdersExchange(props) {
   const dispatch = useDispatch();
@@ -64,9 +65,19 @@ export default function OpenOrdersExchange(props) {
             tableData={myOrders}
             emptyMessage="No open orders found."
             TableRowComponent={tableProps => {
-              const pairRate = formatDivision(tableProps.pairRate, ONE_GWEI, 9);
-              const offerAmount = formatDivision(tableProps.offerAmount, ONE_GWEI, 9);
-              const total = formatDivision(tableProps.pairRate * tableProps.offerAmount, 10 ** 18, 9);
+              const pairRate = numberToLocaleString(bigIntFormat(bigIntDivision(tableProps.pairRate, ONE_GWEI)), {
+                minimumFractionDigits: 9,
+                maximumFractionDigits: 9,
+              });
+              const offerAmount = numberToLocaleString(bigIntFormat(bigIntDivision(tableProps.offerAmount, ONE_GWEI)), {
+                minimumFractionDigits: 9,
+                maximumFractionDigits: 9,
+              });
+              const total = numberToLocaleString(bigIntFormat(bigIntDecimalsDivision(bigIntMultiply(tableProps.pairRate, tableProps.offerAmount), 18)), {
+                minimumFractionDigits: 9,
+                maximumFractionDigits: 9,
+              });
+              
               return (
                 <tr>
                   <td className={`${tableProps.type === 0 ? 'text-success' : 'text-danger'}`}>{pairRate}</td>

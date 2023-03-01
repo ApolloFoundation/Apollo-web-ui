@@ -40,6 +40,7 @@ const OrderItem = (props) => {
         [props.quantityATU, props.priceATM, currentCoinDecimals]
     );
 
+
     return (
         <tr>
             <td className="align-left blue-link-text">
@@ -48,7 +49,7 @@ const OrderItem = (props) => {
                 </Link>
             </td>
             <td className="align-left">
-                {bigIntFormat(bigIntDivision(bigIntDecimalsDivision(props.quantityATU, props.decimals)))}
+                {bigIntFormat(bigIntDecimalsDivision(props.quantityATU, props.decimals))}
             </td>
             <td>{bigIntFormat(price)}</td>
             <td>{bigIntFormat(total)}</td>

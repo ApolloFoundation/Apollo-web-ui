@@ -22,7 +22,7 @@ import {
     getBalanceATMSelector,
     getModalDataSelector,
 } from 'selectors';
-import { bigIntDecimalsDivision, bigIntFormat } from 'helpers/util/bigNumberWrappers';
+import { bigIntDivision, bigIntFormat } from 'helpers/util/bigNumberWrappers';
 
 const ConfirmForging = (props) => {
     const dispatch = useDispatch();
@@ -38,7 +38,7 @@ const ConfirmForging = (props) => {
     , [passPhrase]);
 
     const handleFormSubmit = useCallback(async (params) => {
-        if (!balanceATM || +bigIntFormat(bigIntDecimalsDivision(balanceATM, decimals)) < 1000) {
+        if (!balanceATM || +bigIntFormat(bigIntDivision(balanceATM, decimals)) < 1000) {
             NotificationManager.error('Your effective balance must be greater than 1000 APL to forge.', 'Error', 5000);
             return;
         }

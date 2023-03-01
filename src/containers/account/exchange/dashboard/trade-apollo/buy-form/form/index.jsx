@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { shallowEqual, useSelector } from 'react-redux';
 import { Form, useFormikContext } from 'formik';
-import { multiply, division } from 'helpers/format';
+import { numberToLocaleString } from 'helpers/format';
 import CustomInput from 'containers/components/custom-input/CustomInputWithFormik';
 import Button from 'containers/components/button';
 import CustomSelect from 'containers/components/form-components/CustomSelect';
@@ -10,6 +10,13 @@ import NumericInput from 'containers/components/form-components/NumericInput';
 import getFullNumber from 'helpers/util/expancionalParser';
 import { getExchangeInfoSelector, getModalsSelector } from 'selectors';
 import { ONE_GWEI } from 'constants/constants';
+import { bigIntDecimalsDivision, bigIntDivision, bigIntFormat, bigIntFormatLength, bigIntMultiply } from 'helpers/util/bigNumberWrappers';
+
+const handleRange = (amount, price, balance) => bigIntFormatLength(
+    bigIntDivision(
+      bigIntMultiply(bigIntMultiply(amount, price), 100),
+      balance
+    ), 0)
 
 export default function BuyForm(props) {
   const { currentCurrency } = useSelector(getExchangeInfoSelector, shallowEqual);
@@ -40,17 +47,25 @@ export default function BuyForm(props) {
     if (infoSelectedBuyOrder) {
       const { pairRate, offerAmount, total } = infoSelectedBuyOrder;
       const balance = wallet && +wallet[0].balances[currency];
-      const normalizePairRate = !pairRate ? 0 : division(pairRate, ONE_GWEI, 9);
-      const normalizeOfferAmount = !offerAmount ? 0 : division(offerAmount, ONE_GWEI, 9);
-      const normalizeTotal = !total ? 0 : division(total, 10 ** 18, 9);
-      const rangeValue = (
-        ((normalizePairRate * normalizeOfferAmount) * 100) / (balance || 1)
-      ).toFixed(0);
+      const normalizePairRate = !pairRate ? 0 : bigIntFormat(bigIntDivision(pairRate, ONE_GWEI));
+      const normalizeOfferAmount = !offerAmount ? 0 : bigIntFormat(bigIntDivision(offerAmount, ONE_GWEI));
+      const normalizeTotal = !total ? 0 : bigIntFormat(bigIntDecimalsDivision(total, 18));
+      const rangeValue = handleRange(normalizePairRate, normalizeOfferAmount, balance || 1)
+      
       setValues({
         walletAddress: walletsList && walletsList[0]?.value,
-        pairRate: normalizePairRate,
-        offerAmount: normalizeOfferAmount,
-        total: normalizeTotal,
+        pairRate: numberToLocaleString(normalizePairRate, {
+          minimumFractionDigits: 9,
+          maximumFractionDigits: 9,
+        }),
+        offerAmount: numberToLocaleString(normalizeOfferAmount, {
+          minimumFractionDigits: 9,
+          maximumFractionDigits: 9,
+        }),
+        total: numberToLocaleString(normalizeTotal, {
+          minimumFractionDigits: 9,
+          maximumFractionDigits: 9,
+        }),
         range: rangeValue > 100 ? 100 : rangeValue,
       });
     }
@@ -82,12 +97,15 @@ export default function BuyForm(props) {
           placeholder={`Price for 1 ${ticker}`}
           onChange={price => {
             const amount = values.offerAmount || 0;
-            let rangeValue = (((amount * price) * 100) / (balance || 1)).toFixed(0);
+            let rangeValue = handleRange(amount, price, balance || 1);
             if (rangeValue > 100) rangeValue = 100;
 
             setFieldValue('offerAmount', amount);
             setFieldValue('range', rangeValue);
-            setFieldValue('total', multiply(amount, price));
+            setFieldValue('total',  numberToLocaleString(bigIntFormat(bigIntMultiply(amount, price))), {
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 10,
+            });
           }}
           classNameWrapper="mb-2"
           />
@@ -100,12 +118,15 @@ export default function BuyForm(props) {
           placeholder="I want to Buy"
           onChange={amount => {
             const pairRate = values.pairRate || 0;
-            let rangeValue = (((amount * pairRate) * 100) / balance).toFixed(0);
+            let rangeValue = handleRange(amount, pairRate, balance);
             if (rangeValue > 100) rangeValue = 100;
 
             setFieldValue('offerAmount', amount);
             setFieldValue('range', rangeValue === 'NaN' ? 0 : rangeValue);
-            setFieldValue('total', multiply(amount, pairRate));
+            setFieldValue('total', numberToLocaleString(bigIntFormat(bigIntMultiply(amount, pairRate))), {
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 10,
+            })
           }}
           classNameWrapper="mb-2"
         />
@@ -152,8 +173,18 @@ export default function BuyForm(props) {
           disabled={!values.pairRate || values.pairRate === '0' || values.pairRate === ''}
           onChange={e => {
             const amount = e.target.value;
-            const offerAmount = values.pairRate !== '0' ? division((amount * balance), (100 * values.pairRate), 10) : 0;
-            const total = multiply(offerAmount, values.pairRate, 14);
+            const offerAmount = values.pairRate !== '0' ? 
+              numberToLocaleString(bigIntFormat(bigIntDivision(
+                bigIntMultiply(amount, balance),
+                bigIntMultiply(100, values.pairRate)
+              )), {
+                minimumFractionDigits: 10,
+                maximumFractionDigits: 10,
+              }) : 0;
+            const total = numberToLocaleString(bigIntFormat(bigIntMultiply(offerAmount, values.pairRate)), {
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 14,
+            })
 
             setFieldValue('offerAmount', offerAmount);
             setFieldValue('total', total);
