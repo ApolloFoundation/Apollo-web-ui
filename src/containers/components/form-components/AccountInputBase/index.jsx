@@ -37,7 +37,6 @@ export const AccountInputBase = ({ onChange, className, ...props }) => {
       ref={ref}
       autoComplete="off" 
       className={classNames("form-control", className)}
-      onPaste={(val) => console.log(val.target.value, val.currentTarget.value)}
     />
   );
 }
