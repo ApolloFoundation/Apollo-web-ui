@@ -1,3 +1,5 @@
+import { bigIntDivision, bigIntFormat } from "helpers/util/bigNumberWrappers";
+
 export const getAccountSelector = state => state.account.account;
 export const getAccountRsSelector = state => state.account.accountRS;
 export const getPassPhraseSelector = state => state.account.passPhrase;
@@ -51,5 +53,6 @@ export const getIsModalProcessingSelector = state => state.modals.isModalProcess
 export const getEffectiveBalanceCalculateSelector = state => {
   const { dashboardAccoountInfo } = getDashboardInfoSelector(state);
   const decimals = getDecimalsSelector(state);
-  return dashboardAccoountInfo.unconfirmedBalanceATM ? dashboardAccoountInfo.unconfirmedBalanceATM / decimals : 0;
+  return dashboardAccoountInfo.unconfirmedBalanceATM 
+    ? bigIntFormat(bigIntDivision(dashboardAccoountInfo.unconfirmedBalanceATM, decimals)) : 0;
 }

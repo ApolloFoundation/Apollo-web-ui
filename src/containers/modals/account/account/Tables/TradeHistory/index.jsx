@@ -29,7 +29,7 @@ export const TradeHistoryTable = () => (
   <AccountTableBase
     headersList={headersList}
     className='no-min-height transparent'
-    emptyMessage="This account doesn\'t have any assets"
+    emptyMessage="This account doesn't have any assets"
     TableRowComponent={Trade}
     actionCallback={getTradesAction}
     keyField="trades"

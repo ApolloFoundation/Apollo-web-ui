@@ -6,6 +6,7 @@ import { setBodyModalParamsAction } from "modules/modals";
 import { getAccountInfoSelector } from "selectors";
 import { getBlockAction } from 'actions/blocks';
 import { formatTransactionType } from 'actions/transactions';
+import { bigIntDivision, bigIntFormat } from 'helpers/util/bigNumberWrappers';
 
 export const ScheduledTransactionItem = (props) => {
   const dispatch = useDispatch();
@@ -50,11 +51,11 @@ export const ScheduledTransactionItem = (props) => {
       <td className="align-right">
         {
           (props.amountATM === '0' && props.attachment.priceATM && props.attachment.priceATM !== '0')
-            ? props.attachment.priceATM / decimals
-            : props.amountATM / decimals
+            ? bigIntFormat(bigIntDivision(props.attachment.priceATM, decimals))
+            : bigIntFormat(bigIntDivision(props.amountATM, decimals))
         }
       </td>
-      <td className="align-right">{props.feeATM / decimals}</td>
+      <td className="align-right">{bigIntFormat(bigIntDivision(props.feeATM, decimals))}</td>
       <td>
         <span className="blue-link-text" onClick={handleInfoAccountModal}>
           {props.senderRS}

@@ -7,7 +7,7 @@ import { ALL_STATUSES } from 'constants/statuses';
 import { setBodyModalParamsAction } from 'modules/modals';
 import { getMyOfferHistory } from 'actions/wallet';
 import { BlockUpdater } from 'containers/block-subscriber';
-import { formatDivision, currencyTypes } from 'helpers/format';
+import { formatDivision, currencyTypes, numberToLocaleString } from 'helpers/format';
 import CustomTable from 'containers/components/tables/table1';
 import SiteHeader from 'containers/components/site-header';
 import InfoBox from 'containers/components/info-box';
@@ -16,6 +16,7 @@ import { BallPulse } from 'containers/components/BallPulse';
 import { readFromLocalStorage } from 'actions/localStorage';
 import { getAccountInfoSelector, getExchangeInfoSelector } from 'selectors';
 import { ONE_GWEI } from 'constants/constants';
+import { bigIntDecimalsDivision, bigIntDivision, bigIntFormat, bigIntMultiply } from 'helpers/util/bigNumberWrappers';
 
 export default function OrderHistory() {
   const dispatch = useDispatch();
@@ -129,9 +130,18 @@ export default function OrderHistory() {
                   TableRowComponent={props => {
                     const statusName = ALL_STATUSES[props.status];
                     const typeName = props.type ? 'SELL' : 'BUY';
-                    const pairRate = formatDivision(props.pairRate, ONE_GWEI, 9);
-                    const offerAmount = formatDivision(props.offerAmount, ONE_GWEI, 9);
-                    const total = formatDivision(props.pairRate * props.offerAmount, 10 ** 18, 9);
+                    const pairRate = numberToLocaleString(bigIntFormat(bigIntDivision(props.pairRate, ONE_GWEI)), {
+                      minimumFractionDigits: 9,
+                      maximumFractionDigits: 9,
+                    });
+                    const offerAmount = numberToLocaleString(bigIntFormat(bigIntDivision(props.offerAmount, ONE_GWEI)), {
+                      minimumFractionDigits: 9,
+                      maximumFractionDigits: 9,
+                    });
+                    const total = numberToLocaleString(bigIntFormat(bigIntDecimalsDivision(bigIntMultiply(props.pairRate, props.offerAmount), 18)), {
+                      minimumFractionDigits: 9,
+                      maximumFractionDigits: 9,
+                    });
                     const currency = props.pairCurrency;
                     const type = Object.keys(currencyTypes).find(key => currencyTypes[key] === currency).toUpperCase();
                     let trProps = '';

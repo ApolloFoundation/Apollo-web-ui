@@ -1,4 +1,5 @@
 import React from 'react';
+import { bigIntDecimalsDivision, bigIntFormat } from 'helpers/util/bigNumberWrappers';
 
 const SidebatAsset = el => (
   <div className="chat-box-item">
@@ -6,8 +7,7 @@ const SidebatAsset = el => (
       {el ? el.name : ''}
     </div>
     <div className="chat-date">
-      Quantity:&nbsp;
-      {(el.quantityATU / (10 ** el.decimals)).toFixed(el.decimals)}
+      {`Quantity: ${bigIntFormat(bigIntDecimalsDivision(el.quantityATU, el.decimals))}`}
     </div>
   </div>
 );

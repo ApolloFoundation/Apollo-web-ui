@@ -9,6 +9,9 @@ import { InputRangeWithFormik } from 'containers/components/input-range/InputRan
 import CustomSelect from 'containers/components/form-components/CustomSelect';
 import { getModalsSelector } from 'selectors';
 import { ONE_GWEI } from 'constants/constants';
+import { bigIntDecimalsDivision, bigIntDivision, bigIntFormat, bigIntFormatLength, bigIntMultiply } from 'helpers/util/bigNumberWrappers';
+
+const handleRange = (amount, balance) => bigIntFormatLength(bigIntDivision(bigIntMultiply(amount, 100), balance),0);
 
 export default function SellForm(props) {
   const { values, setFieldValue, setValues } = useFormikContext();
@@ -40,15 +43,25 @@ export default function SellForm(props) {
   useEffect(() => {
     if (infoSelectedSellOrder) {
       const { pairRate, offerAmount, total } = infoSelectedSellOrder;
-      const normalizePairRate = !pairRate ? 0 : division(pairRate, ONE_GWEI, 9);
-      const normalizeOfferAmount = !offerAmount ? 0 : division(offerAmount, ONE_GWEI, 9);
-      const normalizeTotal = !total ? 0 : division(total, 10 ** 18, 9);
-      const rangeValue = ((normalizeOfferAmount * 100) / balanceFormat).toFixed(0);
+      const normalizePairRate = !pairRate ? 0 : bigIntDivision(pairRate, ONE_GWEI);
+      const normalizeOfferAmount = !offerAmount ? 0 : bigIntDivision((offerAmount, ONE_GWEI));
+      const normalizeTotal = !total ? 0 : bigIntDecimalsDivision(total, 18);
+      const rangeValue = handleRange(normalizeOfferAmount, balanceFormat);
+      
       setValues({
         walletAddress: walletsList && walletsList[0]?.value,
-        pairRate: normalizePairRate,
-        offerAmount: normalizeOfferAmount,
-        total: normalizeTotal,
+        pairRate: numberToLocaleString(bigIntFormat(normalizePairRate), {
+          minimumFractionDigits: 9,
+          maximumFractionDigits: 9,
+        }),
+        offerAmount: numberToLocaleString(bigIntFormat(normalizeOfferAmount), {
+          minimumFractionDigits: 9,
+          maximumFractionDigits: 9,
+        }),
+        total: numberToLocaleString(bigIntFormat(normalizeTotal), {
+          minimumFractionDigits: 9,
+          maximumFractionDigits: 9,
+        }),
         range: rangeValue > 100 ? 100 : rangeValue,
       });
     }
@@ -83,10 +96,13 @@ export default function SellForm(props) {
               if (amount > balanceFormat) {
                 amount = balanceFormat;
               }
-              const rangeValue = ((amount * 100) / balanceFormat).toFixed(0);
+              const rangeValue = handleRange(amount, balanceFormat);
               setFieldValue('range', numberTypes[rangeValue] || rangeValue);
             }
-            setFieldValue('total', multiply(amount, price));
+            setFieldValue('total', numberToLocaleString(bigIntFormat(bigIntMultiply(amount, price)),{
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 10,
+            }));
           }}
           classNameWrapper="mb-0"
         />
@@ -106,10 +122,13 @@ export default function SellForm(props) {
                 if (+newAmount > +balanceFormat) {
                   newAmount = balanceFormat;
                 }
-                const rangeValue = ((newAmount * 100) / balanceFormat).toFixed(0);
+                const rangeValue = handleRange(newAmount, balanceFormat);
                 setFieldValue('range', numberTypes[rangeValue] || rangeValue);
               }
-              setFieldValue('total', multiply(newAmount, pairRate));
+              setFieldValue('total', numberToLocaleString(bigIntFormat(bigIntMultiply(newAmount, pairRate)),{
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 10,
+              }));
             }}
           >
             <div className="input-group-append">
@@ -151,10 +170,12 @@ export default function SellForm(props) {
           max={100}
           onChange={e => {
             const amount = e.target.value;
-            const offerAmount = values.pairRate !== '0' ? ((amount * balanceFormat) / 100).toFixed(3) : 0;
-            const total = multiply(offerAmount, values.pairRate, 14);
-
-            setFieldValue('offerAmount', offerAmount);
+            const offerAmount = values.pairRate !== '0' ? bigIntDivision(bigIntMultiply(amount, balanceFormat), 100) : 0;
+            const total = numberToLocaleString(bigIntFormat(bigIntMultiply(offerAmount, values.pairRate)), {
+              minimumFractionDigits: 0,
+              maximumFractionDigits: 14,
+            });
+            setFieldValue('offerAmount', bigIntFormatLength(offerAmount, 3));
             setFieldValue('total', total);
           }}
         />

@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import { setBodyModalParamsAction } from "modules/modals";
+import { bigIntDecimalsDivision, bigIntFormat } from 'helpers/util/bigNumberWrappers';
 
 export const AssetDescription = ({ asset }) => {
   const dispatch = useDispatch();
@@ -27,7 +28,7 @@ export const AssetDescription = ({ asset }) => {
                           Total available:
                       </label>
                       <div>
-                          {(asset.quantityATU / Math.pow(10, asset.decimals)).toFixed(asset.decimals)} {asset.name}
+                          {bigIntFormat(bigIntDecimalsDivision(asset.quantityATU, asset.decimals))} {asset.name}
                       </div>
                   </p>
                   <p className='mb-3'>

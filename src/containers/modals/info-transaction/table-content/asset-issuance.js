@@ -3,7 +3,7 @@ import {connect} from "react-redux";
 import { getConstantsSelector } from "selectors";
 import {getAssetAction} from "actions/assets";
 import {setBodyModalParamsAction} from "modules/modals";
-
+import { bigIntDivision, bigIntFormat } from "helpers/util/bigNumberWrappers";
 
 class AssetIssuance extends Component {
 	componentDidMount = () => {
@@ -47,13 +47,13 @@ class AssetIssuance extends Component {
 				{this.state.asset &&
 				<tr>
 					<td>Initial Quantity:</td>
-					<td>{this.state.asset && this.state.asset.initialQuantityATU / this.props.decimals}</td>
+					<td>{this.state.asset && bigIntFormat(bigIntDivision(this.state.asset.initialQuantityATU, this.props.decimals))}</td>
 				</tr>
 				}
 				{this.props.transaction.attachment.hasOwnProperty("quantityATU") &&
 				<tr>
 					<td>Quantity:</td>
-					<td>{this.props.transaction.attachment.quantityATU / this.props.decimals}</td>
+					<td>{bigIntFormat(bigIntDivision(this.props.transaction.attachment.quantityATU, this.props.decimals))}</td>
 				</tr>
 				}
 				{this.props.transaction.senderRS &&

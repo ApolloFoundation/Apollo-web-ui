@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import { bigIntDivision, bigIntFormat } from "helpers/util/bigNumberWrappers";
 
 export default class DigitalGoodsListing extends Component {
 
@@ -16,7 +17,7 @@ export default class DigitalGoodsListing extends Component {
                 </tr>
                 <tr>
                     <td>Price:</td>
-                    <td>{atch.priceATM / this.props.decimals}</td>
+                    <td>{bigIntFormat(bigIntDivision(atch.priceATM, this.props.decimals))}</td>
                 </tr>
                 <tr>
                     <td>Quantity:</td>

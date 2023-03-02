@@ -18,6 +18,7 @@ import {
 } from 'selectors';
 import { useFormatTimestamp } from 'hooks/useFormatTimestamp';
 import {getDGSPurchaseAction} from "actions/marketplace";
+import { bigIntDivision, bigIntFormat, bigIntMultiply } from 'helpers/util/bigNumberWrappers';
 
 const MarketplaceDeliver = ({ closeModal, processForm }) => {
     const dispatch = useDispatch();
@@ -42,8 +43,8 @@ const MarketplaceDeliver = ({ closeModal, processForm }) => {
     const handleFormSubmit = useCallback(async (values) => {
         const data = {
             ...values,
-            discountATM: values.discountATM * decimals,
-            priceATM: parseInt(goods.priceATM) / decimals,
+            discountATM: bigIntFormat(bigIntMultiply(values.discountATM, decimals)),
+            priceATM: bigIntFormat(bigIntDivision(goods.priceATM, decimals)),
             purchase: goods.purchase,
             recipient: account,
         };

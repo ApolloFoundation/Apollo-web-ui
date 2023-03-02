@@ -11,6 +11,7 @@ import {getAccountAssetsAction} from "actions/assets";
 import { useDataLoader } from 'hooks/useDataLoader';
 import { getModalDataSelector } from 'selectors';
 import ModalBody from 'containers/components/modals/modal-body';
+import { bigIntDecimalsDivision, bigIntDivision, bigIntFormat, bigIntFormatLength, bigIntMultiply } from 'helpers/util/bigNumberWrappers';
 
 const AssetDistribution = (props) => {
     const dispatch = useDispatch();
@@ -56,8 +57,10 @@ const AssetDistribution = (props) => {
                                                 {el.accountRS}
                                             </span>
                                         </td>
-                                        <td>{el.quantityATU / Math.pow(10, modalData.decimals)}</td>
-                                        <td className="align-right">{(el.quantityATU / modalData.totalAvailable) * 100} %</td>
+                                        <td>{bigIntFormat(bigIntDecimalsDivision(el.quantityATU, modalData.decimals))}</td>
+                                        <td className="align-right">
+                                            {bigIntFormatLength(bigIntMultiply(bigIntDivision(el.quantityATU, modalData.totalAvailable), 100), 2)} %
+                                        </td>
                                     </tr>
                                 ))
                             }

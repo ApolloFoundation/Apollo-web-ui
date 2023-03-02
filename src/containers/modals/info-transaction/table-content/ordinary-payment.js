@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import { bigIntDivision, bigIntFormat, bigIntFormatLength } from "helpers/util/bigNumberWrappers";
 
 export default class OrdinaryPayment extends Component {
     render() {
@@ -7,13 +8,13 @@ export default class OrdinaryPayment extends Component {
 	            {this.props.transaction.amountATM &&
 	            <tr>
 		            <td>Amount:</td>
-		            <td>{new Number(this.props.transaction.amountATM / this.props.decimals).toFixed(8)}</td>
+		            <td>{bigIntFormatLength(bigIntDivision(this.props.transaction.amountATM, this.props.decimals))}</td>
 	            </tr>
 	            }
 	            {this.props.transaction.feeATM &&
 	            <tr>
 		            <td>Fee:</td>
-		            <td>{this.props.transaction.feeATM / this.props.decimals}</td>
+		            <td>{bigIntFormat(bigIntDivision(this.props.transaction.feeATM, this.props.decimals))}</td>
 	            </tr>
 	            }
 	            {this.props.transaction.senderRS &&

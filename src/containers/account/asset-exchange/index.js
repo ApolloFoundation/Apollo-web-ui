@@ -14,6 +14,7 @@ import InfoBox from 'containers/components/info-box';
 import {BlockUpdater} from "containers/block-subscriber";
 import SidebarList from 'containers/components/sidebar-list';
 import { getAccountInfoSelector } from 'selectors';
+import { bigIntDecimalsDivision, bigIntFormat } from 'helpers/util/bigNumberWrappers';
 import OffersToBuy from './offers-to-buy';
 import OffersToSell from './offers-to-sell';
 import BuyAsset from './buy-asset';
@@ -214,15 +215,14 @@ const AssetExchange = (props) => {
                                             <div className="chat-box-item">
                                                 <div className="chat-box-rs">{el?.name ?? ""}</div>
                                                 <div className="chat-date">
-                                                    Quantity:&nbsp;{(el.quantityATU / Math.pow(10, el.decimals)).toFixed(el.decimals)}
+                                                    {`Quantity: ${bigIntFormat(bigIntDecimalsDivision(el.quantityATU, el.decimals))}`}
                                                 </div>
                                             </div>
                                         </Link>
                                     ))
                                 }
                                 {
-                                    state.accountAssets &&
-                                    !(!!state.accountAssets.length) &&
+                                    state.accountAssets && !state.accountAssets.length &&
                                     <InfoBox>No assets found.</InfoBox>
                                 }
                             </div>

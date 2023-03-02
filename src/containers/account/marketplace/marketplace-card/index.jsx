@@ -14,6 +14,7 @@ import utils from "helpers/util/utils";
 import config from 'config';
 import { getDecimalsSelector, getTickerSelector } from 'selectors';
 import { numberToLocaleString } from 'helpers/format';
+import { bigIntDivision, bigIntFormat } from 'helpers/util/bigNumberWrappers';
 
 const MarketplaceItem = (props) => {
     const dispatch = useDispatch();
@@ -22,7 +23,7 @@ const MarketplaceItem = (props) => {
     const tagsArr = utils.parseStringBySpace(props.tags);
 
     const handlePrice = () => {
-        const result = props.priceATM / decimals;
+        const result = bigIntFormat(bigIntDivision(props.priceATM, decimals));
         return numberToLocaleString(result, {
             minimumFractionDigits: 2,
             maximumFractionDigits: 20,

@@ -9,7 +9,7 @@ import { useDispatch } from 'react-redux';
 import classNames from 'classnames';
 import { setBodyModalParamsAction } from 'modules/modals';
 import { getCurrencyTypes } from 'modules/currencies';
-import { bigIntDecimalsDivision } from 'helpers/util/utils';
+import { bigIntDecimalsDivision, bigIntFormat } from 'helpers/util/bigNumberWrappers';
 
 export default function MyCurrencytemItem(props) {
   const dispatch = useDispatch();
@@ -52,7 +52,7 @@ export default function MyCurrencytemItem(props) {
       <td>{name}</td>
       <td className="" dangerouslySetInnerHTML={{ __html: currencyTypes }} />
       <td className="align-right">
-        {bigIntDecimalsDivision(unconfirmedUnits, decimals)}
+        {bigIntFormat(bigIntDecimalsDivision(unconfirmedUnits, decimals))}
       </td>
       <td className="align-right">
         <div className="btn-box inline">

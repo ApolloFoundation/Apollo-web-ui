@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {setBodyModalParamsAction } from "modules/modals";
 import { formatTimestamp } from "helpers/util/time";
 import { getDecimalsSelector } from 'selectors';
+import { bigIntDecimalsDivision, bigIntFormat } from 'helpers/util/bigNumberWrappers';
 
 const Block = (props) => {
     const dispatch = useDispatch();
@@ -42,8 +43,8 @@ const Block = (props) => {
             <td className="align-right">
                 <p>{handleTime()}</p>
             </td>
-            <td className="align-right">{totalAmountATM / decimals}</td>
-            <td className="align-right">{totalFeeATM / decimals}</td>
+            <td className="align-right">{bigIntFormat(bigIntDecimalsDivision(totalAmountATM, decimals))}</td>
+            <td className="align-right">{bigIntFormat(bigIntDecimalsDivision(totalFeeATM, decimals))}</td>
             <td className="align-right">{numberOfTransactions}</td>
             <td className="blue-link-text">
                 <a onClick={handleInfoAccountModal}>{generatorRS}</a>

@@ -4,7 +4,6 @@ import {shallowEqual, useDispatch, useSelector} from 'react-redux';
 import {getDGSGoodsAction, getDGSPurchasesAction} from 'actions/marketplace';
 import InfoBox from 'containers/components/info-box';
 import ContentLoader from 'containers/components/content-loader';
-import {BlockUpdater} from "containers/block-subscriber";
 import { getTotalPurchasedProductsSelector } from 'selectors';
 import MarketplaceItem from '../marketplace-card';
 

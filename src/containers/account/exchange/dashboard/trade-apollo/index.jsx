@@ -7,6 +7,7 @@ import { getTransactionFee } from 'actions/wallet';
 import { setTypeOfTrade, resetTrade } from 'modules/modals';
 import BuyForm from './buy-form';
 import SellForm from './sell-form';
+import { bigIntDivision, bigIntFormat } from 'helpers/util/bigNumberWrappers';
 
 const feeATM = 200000000;
 const ethMinTxFee = 0.002;
@@ -42,7 +43,7 @@ export default function TradeApollo({ wallet, handleLoginModal, ticker }) {
         <div className="title">Trade Apollo</div>
         <span className="sub-title">
           Fee:
-          {feeATM / decimals}
+          {bigIntFormat(bigIntDivision(feeATM, decimals))}
           {' '}
           {ticker}
         </span>

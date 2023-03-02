@@ -31,7 +31,7 @@ const WithdrawCurrency = ({ closeModal,  }) => {
 
         const { gasLimitEth, gasLimitERC20 } = constants;
         const { balances } = modalData;
-
+        // TODO update calculates
         const gasLimit = asset.currency === 'eth' ? gasLimitEth : gasLimitERC20;
         const maxFee = values.transferFee * gasLimit * 0.000000001;
         const balance = parseFloat(asset.balance);

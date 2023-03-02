@@ -13,6 +13,7 @@ import { Tooltip } from 'containers/components/tooltip';
 import IconRed from 'assets/red-triangle.svg';
 import { useFormatTimestamp } from 'hooks/useFormatTimestamp';
 import { getAccountInfoSelector } from 'selectors';
+import { bigIntDivision, bigIntFormat } from 'helpers/util/bigNumberWrappers';
 import styles from './index.module.scss';
 
 const Transaction = (props) => {
@@ -96,8 +97,8 @@ const Transaction = (props) => {
           <td className="align-right">
             {
               (amountATM === '0' && attachment.priceATM && attachment.priceATM !== '0')
-                ? attachment.priceATM / decimals
-                : amountATM / decimals
+                ? bigIntFormat(bigIntDivision(attachment.priceATM, decimals))
+                : bigIntFormat(bigIntDivision(amountATM, decimals))
             }
           </td>
           <td className="align-right">

@@ -10,6 +10,7 @@ import {NotificationManager} from "react-notifications";
 import TextualInputComponent from 'containers/components/form-components/TextualInput';
 import ModalBody from 'containers/components/modals/modal-body';
 import { getDecimalsSelector, getModalDataSelector, getTickerSelector } from 'selectors';
+import { bigIntDivision, bigIntFormat } from 'helpers/util/bigNumberWrappers';
 
 const GetAlias = ({ processForm, closeModal }) => {
     const ticker = useSelector(getTickerSelector);
@@ -55,7 +56,7 @@ const GetAlias = ({ processForm, closeModal }) => {
             submitButtonName='Buy Alias'
             initialValues={{
                 aliasName: modalData.aliasName,
-                priceATM: modalData.priceATM / decimals,
+                priceATM: bigIntFormat(bigIntDivision(modalData.priceATM, decimals)),
             }}
         >
             <TextualInputComponent

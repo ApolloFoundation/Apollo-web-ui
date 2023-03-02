@@ -29,6 +29,7 @@ import {
   getTickerSelector
 } from 'selectors';
 import './styles.scss';
+import { bigIntDivision, bigIntFormat, bigIntFormatLength } from 'helpers/util/bigNumberWrappers';
 
 class AccountDetails extends React.Component {
   constructor(props) {
@@ -135,7 +136,7 @@ class AccountDetails extends React.Component {
                             <tr>
                               <td className="no-brake">Balance:</td>
                               <td>
-                                {this.state.account.balanceATM ? (this.state.account.balanceATM / decimals).toFixed(2) : '0'}
+                                {this.state.account.balanceATM ? bigIntFormatLength(bigIntDivision(this.state.account.balanceATM, decimals), 2) : '0'}
                                 {' '}
                                 {ticker}
                               </td>
@@ -143,7 +144,8 @@ class AccountDetails extends React.Component {
                             <tr>
                               <td className="no-brake">Available Balance:</td>
                               <td>
-                                {this.state.account.unconfirmedBalanceATM ? (this.state.account.unconfirmedBalanceATM / decimals).toFixed(2) : '0'}
+                                {this.state.account.unconfirmedBalanceATM 
+                                  ? bigIntFormatLength(bigIntDivision(this.state.account.unconfirmedBalanceATM, decimals), 2) : '0'}
                                 {' '}
                                 {ticker}
                               </td>
@@ -151,7 +153,8 @@ class AccountDetails extends React.Component {
                             <tr>
                               <td className="no-brake">Guaranteed Balance:</td>
                               <td>
-                                {this.state.account.guaranteedBalanceATM ? (this.state.account.guaranteedBalanceATM / decimals).toFixed(2) : '0'}
+                                {this.state.account.guaranteedBalanceATM
+                                  ? bigIntFormatLength(bigIntDivision(this.state.account.guaranteedBalanceATM, decimals), 2) : '0'}
                                 {' '}
                                 {ticker}
                               </td>
@@ -167,7 +170,7 @@ class AccountDetails extends React.Component {
                             <tr>
                               <td className="no-brake">Forged Balance:</td>
                               <td>
-                                {this.state.account.forgedBalanceATM ? (this.state.account.forgedBalanceATM / decimals).toFixed(2) : '0'}
+                                {this.state.account.forgedBalanceATM ? bigIntFormatLength(bigIntDivision(this.state.account.forgedBalanceATM, decimals), 2) : '0'}
                                 {' '}
                                 {ticker}
                               </td>

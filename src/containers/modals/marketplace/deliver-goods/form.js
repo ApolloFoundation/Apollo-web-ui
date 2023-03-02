@@ -3,6 +3,7 @@ import TextualInput from 'containers/components/form-components/TextualInput';
 import NumericInput from 'containers/components/form-components/NumericInput';
 import TextArea from 'containers/components/form-components/TextArea/TextAreaWithFormik';
 import { numberToLocaleString } from 'helpers/format';
+import { bigIntDivision, bigIntFormat } from 'helpers/util/bigNumberWrappers';
 
 const Form = ({ goods, formatTimestamp, decimals, ticker }) => (
     <>
@@ -23,7 +24,7 @@ const Form = ({ goods, formatTimestamp, decimals, ticker }) => (
                 />
                 <TextualInput
                     label="Current price:"
-                    text={`${numberToLocaleString(goods.priceATM / decimals)} ${ticker}`}
+                    text={`${numberToLocaleString(bigIntFormat(bigIntDivision(goods.priceATM, decimals)))} ${ticker}`}
                 />
                 <TextArea
                     label="Data"

@@ -10,7 +10,7 @@ import classNames from 'classnames';
 import { setBodyModalParamsAction } from 'modules/modals';
 import { getCurrencyTypes } from 'modules/currencies';
 import { getActualBlockSelector } from 'selectors';
-import { bigIntDecimalsDivision } from 'helpers/util/utils';
+import { bigIntDecimalsDivision, bigIntFormat } from 'helpers/util/bigNumberWrappers';
 
 export default function Currency(props) {
   const dispatch = useDispatch();
@@ -41,8 +41,8 @@ export default function Currency(props) {
       </td>
       <td>{name}</td>
       <td className="" dangerouslySetInnerHTML={{ __html: currencyTypes }} />
-      <td className="align-right">{bigIntDecimalsDivision(currentSupply, decimals)}</td>
-      <td className="align-right">{bigIntDecimalsDivision(maxSupply, decimals)}</td>
+      <td className="align-right">{bigIntFormat(bigIntDecimalsDivision(currentSupply, decimals))}</td>
+      <td className="align-right">{bigIntFormat(bigIntDecimalsDivision(maxSupply, decimals))}</td>
       <td className="align-right">
         <div className="btn-box inline">
           <Link to={`/exchange-booth/${code}`} className="btn btn-default">Exchange</Link>

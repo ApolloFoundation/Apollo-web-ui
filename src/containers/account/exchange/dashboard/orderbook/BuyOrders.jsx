@@ -4,10 +4,11 @@ import React, {
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { getBuyOpenOffers } from 'actions/wallet';
 import { setSelectedOrderInfo } from 'modules/modals';
-import { formatDivision } from 'helpers/format';
 import CustomTable from 'containers/components/tables/table1';
 import { getExchangeInfoSelector } from 'selectors';
 import { ONE_GWEI } from 'constants/constants';
+import { bigIntDecimalsDivision, bigIntDivision, bigIntFormat, bigIntFormatLength, bigIntMultiply } from 'helpers/util/bigNumberWrappers';
+import { numberToLocaleString } from 'helpers/format';
 
 export default function BuyOrders({ currentCurrency, buyOrders, ticker }) {
   const dispatch = useDispatch();
@@ -57,10 +58,19 @@ export default function BuyOrders({ currentCurrency, buyOrders, ticker }) {
       tableData={buyOrders}
       emptyMessage="No buy orders found."
       TableRowComponent={tableProps => {
-        const pairRate = formatDivision(tableProps.pairRate, ONE_GWEI, 9);
-        const offerAmount = formatDivision(tableProps.offerAmount, ONE_GWEI, 9);
-        const total = tableProps.pairRate * tableProps.offerAmount;
-        const totalFormat = formatDivision(total, 10 ** 18, 9);
+        const pairRate = numberToLocaleString(bigIntFormat(bigIntDivision(tableProps.pairRate, ONE_GWEI)), {
+          minimumFractionDigits: 9,
+          maximumFractionDigits: 9,
+        })
+        const offerAmount = numberToLocaleString(bigIntFormat(bigIntDivision(tableProps.offerAmount, ONE_GWEI)), {
+          minimumFractionDigits: 9,
+          maximumFractionDigits: 9,
+        })
+        const total = bigIntMultiply(tableProps.pairRate, tableProps.offerAmount);
+        const totalFormat = numberToLocaleString(bigIntFormat(bigIntDecimalsDivision(total, 18)), {
+          minimumFractionDigits: 9,
+          maximumFractionDigits: 9,
+        });
         return (
           <tr
             onClick={() => dispatch(setSelectedOrderInfo({

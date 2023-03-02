@@ -9,6 +9,7 @@ import { ReactComponent as ArrowIcon } from 'assets/arrow-right-long.svg';
 import { getAccountInfoSelector } from 'selectors';
 import { BallPulse } from 'containers/components/BallPulse';
 import IconRed from 'assets/red-triangle.svg';
+import { bigIntDecimalsDivision, bigIntDivision, bigIntFormat } from 'helpers/util/bigNumberWrappers';
 
 const marketplaceTypes = [
   'DIGITAL GOODS DELISTING', 'DIGITAL GOODS PURCHASE', 'DIGITAL GOODS PRICE CHANGE',
@@ -134,7 +135,7 @@ export default function TransactionItem(props) {
                   <span className="price__lg">Price for </span>
                   <span className="price__md">Listing:</span>
                   -
-                  {feeATM / decimals}
+                  {bigIntFormat(bigIntDivision(feeATM, decimals))}
                 </div>
               )}
             </div>

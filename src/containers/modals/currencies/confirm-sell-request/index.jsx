@@ -8,20 +8,22 @@ import { useDispatch, useSelector, shallowEqual } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
 import TextualInputComponent from 'containers/components/form-components/TextualInput';
 import ModalBody from 'containers/components/modals/modal-body';
-import { getModalDataSelector, getTickerSelector } from 'selectors';
+import { getDecimalsSelector, getModalDataSelector, getTickerSelector } from 'selectors';
+import { bigIntDecimalsDivision, bigIntDivision, bigIntFormat, bigIntMultiply } from 'helpers/util/bigNumberWrappers';
 
 export default function SellCurrency({ processForm, closeModal, nameModal }) {
   const dispatch = useDispatch();
 
   const modalData = useSelector(getModalDataSelector, shallowEqual);
   const ticker = useSelector(getTickerSelector);
+  const decimals = useSelector(getDecimalsSelector);
 
   const handleFormSubmit = useCallback(async values => {
     const data = {
       ...values,
       ...modalData,
-      rateATM: modalData.rateATM * ((10 ** 8) / (10 ** modalData.decimals)),
-      units: modalData.units * (10 ** modalData.decimals),
+      rateATM: bigIntFormat(bigIntMultiply(modalData.rateATM, bigIntDecimalsDivision(decimals, modalData.decimals))),
+      units: bigIntFormat(bigIntMultiply(modalData.units, (10 ** modalData.decimals))),
     };
 
     processForm(data, 'currencySell', 'The sell order has been submitted!', () => {
@@ -44,7 +46,7 @@ export default function SellCurrency({ processForm, closeModal, nameModal }) {
         <>
           <TextualInputComponent
             label="Order Description"
-            text={`Sell ${modalData.units} ${modalData.code} currencies at ${modalData.rateATM / modalData.units} ${ticker} each.`}
+            text={`Sell ${modalData.units} ${modalData.code} currencies at ${bigIntFormat(bigIntDivision(modalData.rateATM, modalData.units))} ${ticker} each.`}
           />
           <TextualInputComponent
             label="Total"

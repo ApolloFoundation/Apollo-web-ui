@@ -4,6 +4,7 @@ import {getAssetAction} from "actions/assets";
 import {setBodyModalParamsAction} from "modules/modals";
 import {getTransactionAction} from "actions/transactions";
 import { getConstantsSelector } from "selectors";
+import { bigIntDivision, bigIntFormat } from "helpers/util/bigNumberWrappers";
 
 class AssetDelete extends Component {
 	componentDidMount = () => {
@@ -54,7 +55,7 @@ class AssetDelete extends Component {
 	            {this.props.transaction.attachment.hasOwnProperty("quantityQNT") &&
 	            <tr>
 		            <td>Quantity:</td>
-		            <td>{this.props.transaction.attachment.quantityQNT / this.props.decimals}</td>
+		            <td>{bigIntFormat(bigIntDivision(this.props.transaction.attachment.quantityQNT, this.props.decimals))}</td>
 	            </tr>
 	            }
 	            {this.props.transaction.senderRS &&

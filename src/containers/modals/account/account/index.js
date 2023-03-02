@@ -20,6 +20,7 @@ import { CurrenciesTable } from './Tables/CurrenciesTable';
 import { MarketplaceTable } from './Tables/MarketPlaceTable';
 import { AliasesTable } from './Tables/AliasesTable';
 import { Actions } from './Tables/Actions';
+import { bigIntDecimalsDivision, bigIntFormat } from 'helpers/util/bigNumberWrappers';
 
 const InfoAccount = (props) => {
     const dispatch = useDispatch();
@@ -71,7 +72,7 @@ const InfoAccount = (props) => {
                         }
                     </div>
                     <div className="account-balance-text">Account has a balance
-                        of <strong>{Math.round(state.account.unconfirmedBalanceATM / Math.pow(10, 8))} {ticker}</strong>
+                        of <strong>{bigIntFormat(bigIntDecimalsDivision(state.account.unconfirmedBalanceATM, 8))} {ticker}</strong>
                     </div>
                 </>
             }

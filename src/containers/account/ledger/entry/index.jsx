@@ -11,6 +11,7 @@ import Button from 'containers/components/button';
 import { getDecimalsSelector } from 'selectors';
 import { useFormatTimestamp } from 'hooks/useFormatTimestamp';
 import { numberToLocaleString } from 'helpers/format';
+import { bigIntDecimalsDivision, bigIntDivision, bigIntFormat } from 'helpers/util/bigNumberWrappers';
 
 export default function Entry(props) {
   const dispatch = useDispatch();
@@ -59,14 +60,14 @@ export default function Entry(props) {
           </td>
           <td className="align-right">
             {holdingType === 'UNCONFIRMED_APL_BALANCE'
-              && numberToLocaleString(change / decimals, {
+              && numberToLocaleString(bigIntFormat(bigIntDivision(change, decimals)), {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 8,
               })}
           </td>
           <td className="align-right">
             {holdingType === 'UNCONFIRMED_APL_BALANCE' && balance > 0
-              && numberToLocaleString(balance / decimals, {
+              && numberToLocaleString(bigIntFormat(bigIntDivision(balance, decimals)), {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 8,
               })}
@@ -77,12 +78,12 @@ export default function Entry(props) {
           <td className="align-right">
             {holdingType === 'UNCONFIRMED_CURRENCY_BALANCE'
               && holdingInfo && holdingInfo.name
-              && numberToLocaleString(change / (10 ** holdingInfo.decimals), {
+              && numberToLocaleString(bigIntFormat(bigIntDecimalsDivision(change, holdingInfo.decimals)), {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 8,
               })}
             {holdingType === 'UNCONFIRMED_ASSET_BALANCE'
-              && numberToLocaleString(change / decimals, {
+              && numberToLocaleString(bigIntFormat(bigIntDivision(change, decimals)), {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 8,
               })}
@@ -90,12 +91,12 @@ export default function Entry(props) {
           <td className="align-right">
             {holdingType === 'UNCONFIRMED_CURRENCY_BALANCE'
               && holdingInfo && holdingInfo.name
-              && numberToLocaleString(balance / (10 ** holdingInfo.decimals), {
+              && numberToLocaleString(bigIntFormat(bigIntDecimalsDivision(balance, holdingInfo.decimals)), {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 8,
               })}
             {holdingType === 'UNCONFIRMED_ASSET_BALANCE'
-              && numberToLocaleString(balance / decimals, {
+              && numberToLocaleString(bigIntFormat(bigIntDivision(balance, decimals)), {
                 minimumFractionDigits: 2,
                 maximumFractionDigits: 8,
               })}

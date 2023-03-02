@@ -1,13 +1,14 @@
 import React from 'react';
 import classNames from 'classnames';
 import { useFormik, FormikProvider, Form } from 'formik';
-import { numberToLocaleString } from 'helpers/format';
-import NumericInput from 'containers/components/form-components/NumericInput'
+import NumericInput from 'containers/components/form-components/NumericInput';
+import { bigIntDecimalsDivision, bigIntFormat } from 'helpers/util/bigNumberWrappers';
 
 const bigInteger = require('jsbn').BigInteger;
 
 const SellAsset = ({ asset, accountAsset, ticker, onSubmit }) => {
-  const balance = !!accountAsset && !!accountAsset.unconfirmedQuantityATU ? (accountAsset.unconfirmedQuantityATU / (10 ** accountAsset.decimals)) : 0;
+  const balance = !!accountAsset && !!accountAsset.unconfirmedQuantityATU ?
+    bigIntFormat(bigIntDecimalsDivision(accountAsset.unconfirmedQuantityATU, accountAsset.decimals)) : 0;
 
   const formik = useFormik({
     initialValues: {
@@ -38,15 +39,7 @@ const SellAsset = ({ asset, accountAsset, ticker, onSubmit }) => {
       <div className="card green">
         <div className="card-title card-title-lg d-flex justify-content-between align-items-center">
           {`Sell ${asset.name}`}
-          <span>
-            Balance:
-            {numberToLocaleString(balance, {
-              minimumFractionDigits: asset.decimals,
-              maximumFractionDigits: asset.decimals,
-            })}
-            {' '}
-            {asset.name}
-          </span>
+          <span>{`Balance: ${balance} ${asset.name}`}</span>
         </div>
         <div className="card-body">
             <FormikProvider value={formik}>

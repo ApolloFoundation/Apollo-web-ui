@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getDecimalsSelector } from 'selectors';
 import { getBlockAction } from 'actions/blocks';
 import { setBodyModalParamsAction } from 'modules/modals';
+import { bigIntDecimalsDivision, bigIntDivision, bigIntMultiply, bigIntFormat } from 'helpers/util/bigNumberWrappers';
 
 export default function ExchangeItem({ decimals, height, subtype, rateATM, units, }) {
   const dispatch = useDispatch();
@@ -22,6 +23,11 @@ export default function ExchangeItem({ decimals, height, subtype, rateATM, units
     }
   };
 
+  const unitsCalculated = bigIntDecimalsDivision(units, decimals);
+  const rateBase = bigIntDivision(rateATM, currentCoinDecimals);
+  const rate = bigIntDecimalsDivision(rateBase, decimals);
+  const total = bigIntMultiply(unitsCalculated, rate)
+
   return (
     <tr>
       <td>
@@ -29,20 +35,10 @@ export default function ExchangeItem({ decimals, height, subtype, rateATM, units
           {height}
         </span>
       </td>
-      <td>
-        {subtype === 5 ? 'buy' : 'sell'}
-      </td>
-      <td className="align-right">
-        {(parseInt(units) / (10 ** decimals)).toFixed(8)}
-      </td>
-      <td className="align-right">
-        {((rateATM / currentCoinDecimals) * (10 ** decimals)).toFixed(2)}
-      </td>
-      <td className="align-right">
-        {(
-          ((parseInt(units) / (10 ** decimals))) * ((rateATM / currentCoinDecimals)) * (10 ** decimals)
-        ).toFixed(2)}
-      </td>
+      <td>{subtype === 5 ? 'buy' : 'sell'}</td>
+      <td className="align-right">{bigIntFormat(unitsCalculated)}</td>
+      <td className="align-right">{bigIntFormat(rate)}</td>
+      <td className="align-right">{bigIntFormat(total)}</td>
     </tr>
   );
 }

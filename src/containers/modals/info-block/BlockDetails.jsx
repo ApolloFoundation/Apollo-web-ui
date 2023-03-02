@@ -1,3 +1,4 @@
+import { bigIntDivision, bigIntFormat } from 'helpers/util/bigNumberWrappers';
 import React from 'react';
 
 export const BlockDetails = ({blockInfo, decimals, formatTimestamp}) => (
@@ -15,7 +16,7 @@ export const BlockDetails = ({blockInfo, decimals, formatTimestamp}) => (
         </tr>
         <tr>
           <td>Total Fee ATM:</td>
-          <td className="no-white-space break-word">{blockInfo.totalFeeATM / decimals}</td>
+          <td className="no-white-space break-word">{bigIntFormat(bigIntDivision(blockInfo.totalFeeATM, decimals))}</td>
         </tr>
         <tr>
           <td>Generation Signature:</td>
@@ -51,7 +52,7 @@ export const BlockDetails = ({blockInfo, decimals, formatTimestamp}) => (
         </tr>
         <tr>
           <td>Total Amount ATM:</td>
-          <td className="no-white-space break-word">{blockInfo.totalFeeATM / decimals}</td>
+          <td className="no-white-space break-word">{bigIntFormat(bigIntDivision(blockInfo.totalFeeATM, decimals))}</td>
         </tr>
         <tr>
           <td>Cumulative Difficulty:</td>
