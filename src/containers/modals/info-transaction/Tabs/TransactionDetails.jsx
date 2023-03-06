@@ -1,7 +1,7 @@
 import React from 'react';
 import { useFormatTimestamp } from 'hooks/useFormatTimestamp';
 
-export const TransactionDetails = ({ transaction, decimals, parsedSignatures }) => {
+export const TransactionDetails = ({ transaction, parsedSignatures }) => {
   const formatTimestamp = useFormatTimestamp();
   
   return (
@@ -42,7 +42,7 @@ export const TransactionDetails = ({ transaction, decimals, parsedSignatures }) 
               </tr>
               <tr>
                   <td>Fee ATM:</td>
-                  <td>{transaction.feeATM / decimals}</td>
+                  <td>{transaction.feeATM}</td>
               </tr>
               <tr>
                   <td>Transaction index:</td>

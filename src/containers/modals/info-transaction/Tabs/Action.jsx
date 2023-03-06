@@ -7,7 +7,7 @@ export const ActionTab = ({ transaction, recipientRS, currency }) => {
   const dispatch = useDispatch();
 
   const handleSendApollo = () =>
-    dispatch(setBodyModalParamsAction('SEND_APOLLO', {recipient: recipientRS}));
+    dispatch(setBodyModalParamsAction('SEND_APOLLO', {recipient: recipientRS, feeATM: "1"}));
 
   const handleComposeMessageModal = () =>
     dispatch(setBodyModalParamsAction('COMPOSE_MESSAGE', {recipient: recipientRS}));
