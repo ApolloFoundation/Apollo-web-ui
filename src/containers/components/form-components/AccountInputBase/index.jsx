@@ -19,11 +19,6 @@ export const AccountInputBase = ({ onChange, className, ...props }) => {
           return str.toUpperCase();
         },
     });
-    return () => {
-      if (maskRef.current) {
-        maskRef.current.destroy();
-      }
-    }
   }, [ticker]);
 
   useEffect(() => {
