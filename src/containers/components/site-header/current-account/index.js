@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import classNames from 'classnames';
 import { NavLink, useHistory } from 'react-router-dom'
@@ -10,6 +10,7 @@ import {
 } from 'selectors';
 import { setBodyModalParamsAction } from 'modules/modals';
 import { ContactsList } from './ContactList';
+import utils from 'helpers/util/utils';
 import styles from './index.module.scss';
 
 const CurrentAccount = ({ isActive, closeMenu }) => {
@@ -19,6 +20,7 @@ const CurrentAccount = ({ isActive, closeMenu }) => {
     const account =  useSelector(getAccountSelector);
     const accountRS =  useSelector(getAccountRsSelector);
     const forgingStatus =  useSelector(getForgingStatusSelector);
+    const [url, setUrl] = useState(null);
 
     const handleSetAccountInfoModal = () => {
         dispatch(setBodyModalParamsAction('SET_ACCOUNT_INFO', {}))
@@ -27,6 +29,12 @@ const CurrentAccount = ({ isActive, closeMenu }) => {
     const handleAccountModal = () => dispatch(setBodyModalParamsAction('INFO_ACCOUNT', account));
 
     const handleLogout = (type) =>  () => dispatch(logOutAction(type, history));
+
+    useEffect(() => {
+        utils
+            .generateQrCode(accountRS)
+            .then(setUrl);
+    }, [accountRS]);
 
     if (!isActive) return null;
 
@@ -41,18 +49,21 @@ const CurrentAccount = ({ isActive, closeMenu }) => {
                     </button>
                     <p>Current account</p>
                 </div>
-                <div className="form-sub-title">
-                    {publicKey ? 'Verified profile' : 'Not verified profile'}<br/>
-                    <CopyToClipboard
-                        text={accountRS}
-                        onCopy={() => {
-                            NotificationManager.success('The account has been copied to clipboard.')
-                        }}
-                    >
-                        <a className="user-account-rs blue-text d-block">
-                            {accountRS}
-                        </a>
-                    </CopyToClipboard>
+                <div className={styles.userNameBlock}>
+                    <div className="form-sub-title">
+                        {publicKey ? 'Verified profile' : 'Not verified profile'}<br/>
+                        <CopyToClipboard
+                            text={accountRS}
+                            onCopy={() => {
+                                NotificationManager.success('The account has been copied to clipboard.')
+                            }}
+                        >
+                            <a className="user-account-rs blue-text d-block">
+                                {accountRS}
+                            </a>
+                        </CopyToClipboard>
+                    </div>
+                    {url && <img className={styles.qrcode} src={url} />}
                 </div>
                 <div className="form-body">
                     <div className="input-section">

@@ -9,6 +9,7 @@ import CheckboxFormInputPure from 'containers/components/check-button-input';
 import AccountRSForm from 'containers/components/form-components/AccountRS';
 import NumericInput from 'containers/components/form-components/NumericInput';
 import { MessageInputs } from 'containers/components/form-components/MessageInputs';
+import { InputWithScaner } from 'containers/components/form-components/InputWithScaner';
 
 const newAliasValidation = /APL-[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{5}/;
 const oldAliasValidation = /^acct:(APL-[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{4}-[[A-Z0-9]{5})@apl$/i;
@@ -45,7 +46,7 @@ export default function SendMoneyForm({
   return (
     <>
       {!values.aliasCheckbox && (
-        <AccountRSForm
+        <InputWithScaner
           name="recipient"
           label="Recipient"
           placeholder="Recipient"

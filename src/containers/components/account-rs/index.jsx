@@ -18,7 +18,7 @@ export default function AccountRS(props) {
 
   const {
     onChange, exportAccountList, id, name, value,
-    disabled, placeholder, noContactList, ...rest
+    disabled, placeholder, noContactList, qrElement, ...rest
   } = props;
 
   const [isContacts, setIsContacts] = useState(false);
@@ -81,6 +81,10 @@ export default function AccountRS(props) {
         name={name}
         value={value}
       />
+      {qrElement && (
+        <div  className="input-group-append cursor-pointer">{qrElement}</div>
+
+      )}
       {!noContactList && (
         <div
           className="input-group-append cursor-pointer"
