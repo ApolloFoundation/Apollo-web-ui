@@ -92,6 +92,7 @@ import {
 import './window';
 import './App.scss';
 import './fonts.scss';
+import { ScannerQR } from 'containers/components/scanner';
 
 const ReactHint = ReactHintFactory(React);
 
@@ -299,8 +300,9 @@ class App extends React.Component {
 
       return (
         <div
-          className={classNames({ 'overflow-hidden': this.props.modalType })}
+          className={classNames('app', { 'overflow-hidden': this.props.modalType })}
         >
+          <ScannerQR />
           <NotificationContainer />
           <ModalWindow />
           <AlertBox />

@@ -1,0 +1,41 @@
+.scannerWrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 55;
+  display: none;
+}
+
+.scannerClose {
+  color: #FFF;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 50px;
+}
+
+.scannerCamera {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 50px;
+}
+
+.actionButtons {
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  transform: translateX(-50%);
+  font-size: 50px;
+}
+
+.scannerButton {
+  display: inline-block;
+  padding: 8px;
+  border-radius: 50%;
+  background: grey;
+}
