@@ -1,18 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import classNames from 'classnames';
 import { createPortal } from 'react-dom';
 import { useCordovaQRScanner } from 'hooks/useCordovaQRScanner';
 import styles from './index.module.scss';
 
 export const ScannerQR = () => {
+  const [status, setStatus] = useState({});
   const { onCloseQRScanner, onLightSwitch, onCameraChange, getStatus } = useCordovaQRScanner();
-  const [isLightAvaliable, setIsLightAvailable] = useState(false);
+
+  const handleStatusCheck = useCallback(() => {
+    getStatus().then(setStatus);
+  }, [getStatus]);
+
+  const handleCamera = () => {
+    onCameraChange();
+    handleStatusCheck();
+  }
+
+  const handleLight = () => {
+    onLightSwitch();
+    handleStatusCheck();
+  }
 
   useEffect(() => {
-    getStatus().then((res) => {
-      setIsLightAvailable(res.canEnableLight);
-    })
-  }, [getStatus])
+    handleStatusCheck();
+  }, [handleStatusCheck])
 
   return (
     createPortal(
@@ -21,9 +33,19 @@ export const ScannerQR = () => {
           <i class="fa fa-times" aria-hidden="true"></i>
         </div>
         <div className={styles.actionButtons}>
-          <div className={styles.scannerButton} onClick={onCameraChange}><i class="fa fa-camera" aria-hidden="true"></i></div>
-          {isLightAvaliable && (
-            <div className={styles.scannerButton} onClick={onLightSwitch}><i class="fa fa-bolt" aria-hidden="true"></i></div>
+          <div
+            className={classNames(styles.scannerButton, {[styles.scannerButtonActive]: status.currentCamera === 1} )}
+            onClick={handleCamera}
+          >
+            <i class="fa fa-camera" aria-hidden="true"></i>
+          </div>
+          {status.canEnableLight && (
+            <div
+              className={classNames(styles.scannerButton, {[styles.scannerButtonActive]: status.lightEnabled } )}
+              onClick={handleLight}
+            >
+              <i class="fa fa-bolt" aria-hidden="true"></i>
+            </div>
           )}
         </div>
       </div>,

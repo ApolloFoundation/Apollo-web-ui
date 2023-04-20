@@ -17,7 +17,7 @@
 
 .actionButtons {
   position: absolute;
-  top: 70%;
+  top: 80%;
   left: 50%;
   display: flex;
   align-items: center;
@@ -47,4 +47,8 @@
 
 .actionButtons div {
   margin-right: 10px;
+}
+
+.scannerButtonActive {
+  background: #FFF;
 }

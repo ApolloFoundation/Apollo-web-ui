@@ -88,6 +88,7 @@ export const useCordovaQRScanner = () => {
     if (window.QRScanner) {
       window.QRScanner.scan((err, text) => {
           if(err){
+              if (err.name === 'SCAN_CANCELED') return;
               NotificationManager.error('QR code reading has been failed!', 'Error', 5000);
               onScanError(err);
           } else {
