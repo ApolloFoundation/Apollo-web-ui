@@ -46,8 +46,9 @@ export const useCordovaQRScanner = () => {
   const handleClose = useCallback(() => {
     if (window.QRScanner) {
       enablCommonStyles();
-      window.QRScanner.hide();
-      window.QRScanner.cancelScan();
+      window.QRScanner.destroy(function(status){
+        console.log(status);
+      });
     }
   }, [window.QRScanner]);
 
