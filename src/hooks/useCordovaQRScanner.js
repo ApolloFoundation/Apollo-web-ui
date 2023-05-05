@@ -86,7 +86,7 @@ export const useCordovaQRScanner = () => {
       getStatus().then((res) => {
         res.lightEnabled ? window.QRScanner.disableLight() : window.QRScanner.enableLight();
       })
-    }      
+    }
   }, [window.QRScanner, getStatus]);
 
   const handleScanStart = useCallback((onScanSuccess, onScanError) => {
