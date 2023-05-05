@@ -1,14 +1,18 @@
 import { useCallback } from "react";
 import { NotificationManager } from "react-notifications";
 
-const enablCommonStyles = () => {
+const enableCommonStyles = () => {
+  const { body } = document;
   document.querySelector('body').style.backgroundColor = '#F5F7FC';
   document.querySelector('#root').style.visibility = '';
   document.querySelector('.modal-window').style.visibility = '';
   document.querySelector('.scannerWrapper').style.display = '';
+  if (body.parentNode && body.parentNode.style) {
+    body.parentNode.style.backgroundColor = '#F5F7FC';
+  }
 }
 
-const diableCommonStyles = () => {
+const disableCommonStyles = () => {
   document.querySelector('#root').style.visibility = 'hidden';
   document.querySelector('.modal-window').style.visibility = 'hidden';
   document.querySelector('.scannerWrapper').style.display = 'block';
@@ -45,10 +49,10 @@ export const useCordovaQRScanner = () => {
 
   const handleClose = useCallback(() => {
     if (window.QRScanner) {
-      enablCommonStyles();
-      window.QRScanner.destroy(function(status){
-        console.log(status);
-      });
+      enableCommonStyles();
+      window.QRScanner.hide();
+      window.QRScanner.cancelScan();
+      window.QRScanner.destroy();
     }
   }, [window.QRScanner]);
 
@@ -99,7 +103,7 @@ export const useCordovaQRScanner = () => {
       });
 
       window.QRScanner.show(() => {
-        diableCommonStyles();
+        disableCommonStyles();
       });
     }
   }, [handleClose, window.QRScanner]);
