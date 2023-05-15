@@ -148,7 +148,7 @@ class AccountRS extends React.Component {
             beforeMaskedValueChange={this.handleBeforeMaskedValueChange}
             id={this.props.id}
           />
-          {(window.cordova && window.QRScanner) (
+          {(window.cordova && window.QRScanner) && (
             <span className="input-group-text">
               <ScannerComponents name={this.props.field} onScan={this.handleTextScan} />
             </span>
