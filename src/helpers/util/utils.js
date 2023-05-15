@@ -4,6 +4,7 @@
  ***************************************************************************** */
 
 import BigNumber from "bignumber.js";
+import QRCode from 'qrcode';
 const { BigInteger } = require('jsbn');
 
 export function bigIntDecimalsDivision (number, decimals) {
@@ -322,6 +323,17 @@ function parseStringBySpace(str) {
   return parsedStr;
 }
 
+export const generateQrCode = (data) => {
+  return new Promise((resolve, reject) => {
+    QRCode.toDataURL(data, (err, url) => {
+      if (err) {
+        reject(err);
+      }
+      resolve(url);
+    })
+  })
+}
+
 export default {
   bigIntDecimalsDivision,
   isNumericAccount,
@@ -338,4 +350,5 @@ export default {
   isDesktopApp,
   parseStringBySpace,
   normalizeTicker,
+  generateQrCode
 };

@@ -13,7 +13,7 @@ import CustomTextArea from '../../../components/form-components/text-area';
 const SellToAccountForm = (props) => {
 
     const {alias, setValue, getFormState, idGroup, ticker} = props;
-    const {values: {add_message}} = getFormState();
+    const {values: {add_message, recipient}} = getFormState();
 
     return (
         <>
@@ -30,6 +30,7 @@ const SellToAccountForm = (props) => {
                 field={'recipient'}
                 label={'Recipient'}
                 defaultValue={alias ? alias.accountRS : ''}
+                value={recipient}
                 setValue={setValue}
             />
             <NumericInputComponent

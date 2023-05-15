@@ -140,6 +140,7 @@ class ScheaduleCurrency extends React.Component {
                                                 <AccountRS
                                                     field={'offerIssuer'}
                                                     setValue={setValue}
+                                                    defaultValue={values.offerIssuer || ''}
                                                 />
                                             </div>
                                         </div>

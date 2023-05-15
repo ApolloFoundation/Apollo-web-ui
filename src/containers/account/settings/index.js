@@ -9,7 +9,7 @@ import { Form } from 'react-form';
 import { NotificationManager } from 'react-notifications';
 import { getSavedAccountSettingsAction, saveAccountSettingsAction } from '../../../modules/accountSettings';
 import { setBodyModalParamsAction } from '../../../modules/modals';
-import { login } from '../../../modules/account';
+import account, { login } from '../../../modules/account';
 import {
   disable2FAActon, enable2FAActon, getAccountInfoAction,
 } from '../../../actions/account';
@@ -159,7 +159,7 @@ class Settings extends React.Component {
                       <Form
                         onSubmit={values => this.handleFormSubmit(values)}
                         render={({
-                          submitForm, setValue, values, addValue, removeValue, getFormState,
+                          submitForm, setValue, values, getFormState,
                         }) => (
                           <form className="modal-form" onSubmit={submitForm}>
                               <div className="form-group-app">
@@ -192,6 +192,7 @@ class Settings extends React.Component {
                                   field="account"
                                   label="Account ID"
                                   placeholder="Account ID"
+                                  defaultValue={values.account || ''}
                                 />
                                 <ModalFooter
                                   setValue={setValue}

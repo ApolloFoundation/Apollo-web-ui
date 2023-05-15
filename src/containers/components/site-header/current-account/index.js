@@ -4,10 +4,11 @@ import classNames from 'classnames';
 import { NavLink, withRouter } from 'react-router-dom'
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { NotificationManager } from "react-notifications";
-
 import { logOutAction } from "../../../../actions/login";
 import { setBodyModalParamsAction } from '../../../../modules/modals';
 import { readFromLocalStorage } from '../../../../actions/localStorage';
+import utils from 'helpers/util/utils';
+import styles from './index.module.scss';
 
 class CurrentAccount extends React.Component {
     refContactsList = React.createRef();
@@ -16,6 +17,7 @@ class CurrentAccount extends React.Component {
     state = {
         contacts: null,
         isContacts: false,
+        url: null
     };
 
     componentDidMount() {
@@ -26,6 +28,13 @@ class CurrentAccount extends React.Component {
                 contacts: JSON.parse(contactList),
             });
         }
+        utils
+            .generateQrCode(this.props.accountRS)
+            .then((url => {
+                this.setState({
+                    url
+                })
+            }))
     }
 
     componentWillUnmount() {
@@ -81,42 +90,24 @@ class CurrentAccount extends React.Component {
                         </button>
                         <p>Current account</p>
                     </div>
-                    {
-                        !publicKey &&
-                        <div className="form-sub-title">
-                            Not verified profile<br/>
-                            <CopyToClipboard
-                                text={accountRS}
-                                onCopy={() => {
-                                    NotificationManager.success('The account has been copied to clipboard.')
-                                }}
-                            >
-                                <a
-                                    className="user-account-rs blue-text d-block"
+                    <div>
+                        <div className={styles.userNameBlock}>
+                            <div className="form-sub-title">
+                                {publicKey ? 'Verified profile' : 'Not verified profile'}<br/>
+                                <CopyToClipboard
+                                    text={accountRS}
+                                    onCopy={() => {
+                                        NotificationManager.success('The account has been copied to clipboard.')
+                                    }}
                                 >
-                                    {accountRS}
-                                </a>
-                            </CopyToClipboard>
-                        </div>
-                    }
-                    {
-                        publicKey &&
-                        <div className="form-sub-title">
-                            Verified profile<br/>
-                            <CopyToClipboard
-                                text={accountRS}
-                                onCopy={() => {
-                                    NotificationManager.success('The account has been copied to clipboard.')
-                                }}
-                            >
-                                <a
-                                    className="user-account-rs blue-text"
-                                >
-                                    {accountRS}
-                                </a>
-                            </CopyToClipboard>
-                        </div>
-                    }
+                                    <a className="user-account-rs blue-text d-block">
+                                        {accountRS}
+                                    </a>
+                                </CopyToClipboard>
+                            </div>
+                            {this.state.url && <img className={styles.qrcode} src={this.state.url} />}
+                            </div>
+                    </div> 
                     <div className="form-body">
                         <div className="input-section">
                             <div className="row" style={{position: 'relative'}}>

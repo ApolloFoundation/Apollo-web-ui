@@ -27,7 +27,7 @@ class TransferAlias extends React.Component {
 
     render () {
         const {setValue, getFormState} = this.props;
-        const {values: {add_message}} = getFormState();
+        const {values: {add_message, recipient}} = getFormState();
 
         return (
             <>
@@ -40,6 +40,8 @@ class TransferAlias extends React.Component {
                     field={'recipient'}
                     label={'Recipient'}
                     setValue={setValue}
+                    defaultValue={recipient}
+                    value={recipient}
                 />
 
                 <CheckboxFormInput
