@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import InputForm from '../../components/input-form';
 import AccountRSFormInput from '../../components/form-components/account-rs';
 
-const SetAccountPropertyForm = ({ setValue, modalData }) => (
+const SetAccountPropertyForm = ({ setValue, modalData, values }) => (
   <>
     {(modalData && modalData.recipientRS) ? (
       <div className="form-group mb-15">
@@ -24,6 +24,8 @@ const SetAccountPropertyForm = ({ setValue, modalData }) => (
         field="recipient"
         label="Recipient"
         setValue={setValue}
+        defaultValue={values.recipient ?? ''}
+        value={values.recipient}
       />
     )}
     <div className="form-group mb-15">

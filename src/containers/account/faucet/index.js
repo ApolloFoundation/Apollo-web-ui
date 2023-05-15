@@ -125,6 +125,7 @@ class Faucet extends React.Component {
                                                                             setValue={setValue}
                                                                             placeholder={'Account ID'}
                                                                             defaultValue={values.accountRS || ''}
+                                                                            value={values.accountRS}
                                                                         />
                                                                     </div>
                                                                 </div>

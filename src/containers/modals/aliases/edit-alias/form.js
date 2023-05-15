@@ -39,7 +39,7 @@ class EditAliasForm extends React.Component {
     };
 
     render () {
-        const {setValue} = this.props;
+        const {setValue, values} = this.props;
         
         return (
             <>
@@ -72,6 +72,8 @@ class EditAliasForm extends React.Component {
                         field={'aliasURI'}
                         label={'Account ID'}
                         setValue={setValue}
+                        defaultValue={values.aliasURI || ''}
+                        value={values.aliasURI || ''}
                     />
                 }
                 {

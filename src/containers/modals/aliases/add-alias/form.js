@@ -50,6 +50,8 @@ class AddAliasForm extends React.Component {
                         field={'aliasURI'}
                         label={'Account ID'}
                         setValue={setValue}
+                        defaultValue={values.aliasURI || ''}
+                        value={values.aliasURI}
                     />
                 }
                 {

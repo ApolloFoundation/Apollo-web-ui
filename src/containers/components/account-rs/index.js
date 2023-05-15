@@ -9,7 +9,9 @@ import InputMask from 'react-input-mask';
 import classNames from 'classnames';
 import { NotificationManager } from 'react-notifications';
 import { connect } from 'react-redux';
+import { MARKETPLACE_REG_EXP } from 'constants/constants';
 import { readFromLocalStorage } from '../../../actions/localStorage';
+import { ScannerComponents } from '../form-components/ScannerComponents';
 
 class AccountRS extends React.Component {
   refContactsList = React.createRef();
@@ -37,6 +39,13 @@ class AccountRS extends React.Component {
       return {
         defaultValue: props.defaultValue,
         value: props.defaultValue,
+      };
+    }
+
+    if (props.value !== state.value) {
+      return {
+        defaultValue: props.defaultValue,
+        value: props.value,
       };
     }
 
@@ -116,6 +125,15 @@ class AccountRS extends React.Component {
       return { value, selection: newState.selection };
     };
 
+
+    handleTextScan = (text) => {
+      if (MARKETPLACE_REG_EXP.test(text)) {
+        this.props.setValue(this.props.field, text);
+      } else {
+        NotificationManager.error('Incorrect account value.', 'Error', 5000);
+      }
+    } 
+
     render() {
       return (
         <>
@@ -130,6 +148,11 @@ class AccountRS extends React.Component {
             beforeMaskedValueChange={this.handleBeforeMaskedValueChange}
             id={this.props.id}
           />
+          {(window.cordova && window.QRScanner) (
+            <span className="input-group-text">
+              <ScannerComponents name={this.props.field} onScan={this.handleTextScan} />
+            </span>
+          )}
           {!this.props.noContactList && (
             <div
               className="input-group-append cursor-pointer"

@@ -1,0 +1,21 @@
+.cursor {
+  cursor: pointer;
+}
+
+.wrapper {
+  position: relative;
+}
+
+.block {
+  display: block;
+}
+
+.userNameBlock {
+  display: flex;
+  justify-content: space-between;
+}
+
+.qrcode {
+  width: 40px;
+  height: 40px;
+}
