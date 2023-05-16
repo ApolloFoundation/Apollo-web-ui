@@ -12,6 +12,9 @@
   margin: 0;
   padding: 0;
   cursor: pointer;
+  @media screen and (max-width: 350px) {
+    margin-right: 40px;
+  }
 }
 
 .tooltipContent {
