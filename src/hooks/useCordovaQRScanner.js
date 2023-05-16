@@ -66,7 +66,7 @@ export const useCordovaQRScanner = () => {
         reject();
       }
     })
-  })
+  },[window.QRScanner])
 
   const handleCamera = useCallback(() => {
     if (window.QRScanner) {
