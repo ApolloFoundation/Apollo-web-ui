@@ -23,6 +23,8 @@ const TransferAsset = ({setValue, values, modalData}) => (
             label={'Recipient'}
             field={'recipient'}
             setValue={setValue}
+            defaultValue={values.recipient}
+            value={values.recipient}
         />      
 
         <CustomTextArea

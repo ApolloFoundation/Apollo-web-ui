@@ -3,7 +3,6 @@ import React from 'react';
 
 import CustomFormSelect from '../../../components/form-components/custom-form-select';
 import TextualInputComponent from '../../../components/form-components/textual-input';
-import AccountRSFormInput from '../../../components/form-components/account-rs';
 import NumericInputComponent from '../../../components/form-components/numeric-input';
 import {CheckboxFormInput} from '../../../components/form-components/check-button-input';
 import CustomTextArea from '../../../components/form-components/text-area';

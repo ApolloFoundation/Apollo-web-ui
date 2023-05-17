@@ -19,6 +19,9 @@
 }
 
 .accordionInfo {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
   text-transform: uppercase;
   font-size: 24px;
   color: #FFFFFF;
@@ -35,7 +38,7 @@
     right: 10px;
     width: 9px;
     height: 9px;
-    transform: translateY(-50%) rotate(-45deg);
+    transform: translateY(-100%) rotate(-45deg);
     border-left: 2px solid #FFFFFF;
     border-bottom: 2px solid #FFFFFF;
   }

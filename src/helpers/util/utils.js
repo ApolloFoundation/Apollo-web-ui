@@ -3,10 +3,11 @@
  *                                                                            *
  ***************************************************************************** */
 
- import BigNumber from "bignumber.js";
- const { BigInteger } = require('jsbn');
+import BigNumber from "bignumber.js";
+import QRCode from 'qrcode';
+const { BigInteger } = require('jsbn');
 
- export function bigIntDecimalsDivision (number, decimals) {
+export function bigIntDecimalsDivision (number, decimals) {
   const num = new BigNumber(number);
   const div = new BigNumber(10 ** decimals);
   const res =  num.dividedBy(div);
@@ -322,7 +323,19 @@ function parseStringBySpace(str) {
   return parsedStr;
 }
 
+export const generateQrCode = (data) => {
+  return new Promise((resolve, reject) => {
+    QRCode.toDataURL(data, (err, url) => {
+      if (err) {
+        reject(err);
+      }
+      resolve(url);
+    })
+  })
+}
+
 export default {
+  bigIntDecimalsDivision,
   isNumericAccount,
   isRsAccount,
   calculateOrderTotal,
@@ -337,4 +350,5 @@ export default {
   isDesktopApp,
   parseStringBySpace,
   normalizeTicker,
+  generateQrCode
 };

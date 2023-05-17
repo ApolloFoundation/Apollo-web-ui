@@ -7,6 +7,9 @@
 	url('/fonts/Roboto-Regular.ttf') format('truetype');
 }
 
+html, body {
+  height: 100vh;
+}
 
 html, body, h1, h2, h3, h4, h5, h6, p, a, ul, li {
 	margin: 0;

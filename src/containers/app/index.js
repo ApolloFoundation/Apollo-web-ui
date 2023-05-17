@@ -87,6 +87,7 @@ import './fonts.scss';
 import urlHelper from '../../helpers/util/urlParser';
 import { startBlockPullingAction } from '../../actions/blocks';
 import { loginWithShareMessage } from '../../actions/account';
+import { ScannerQR } from 'containers/components/scanner';
 import './window';
 
 const ReactHint = ReactHintFactory(React);
@@ -309,6 +310,7 @@ class App extends React.Component {
         <div
           className={classNames({ 'overflow-hidden': this.props.modalType })}
         >
+          <ScannerQR />
           <NotificationContainer />
           <ModalWindow />
           <AlertBox />

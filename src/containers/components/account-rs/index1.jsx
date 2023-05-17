@@ -7,15 +7,18 @@ import React, {
   useState, useEffect, useRef, useCallback,
 } from 'react';
 import { useSelector } from 'react-redux';
-import { useField } from 'formik';
+import { useField, useFormikContext } from 'formik';
 import { NotificationManager } from 'react-notifications';
 import classNames from 'classnames';
 import InputMask from 'react-input-mask';
+import { MARKETPLACE_REG_EXP } from 'constants/constants';
 import { readFromLocalStorage } from '../../../actions/localStorage';
+import { ScannerComponents } from '../form-components/ScannerComponents';
 
 export default function AccountRS(props) {
   const refContactsList = useRef(null);
   const refContactsIcon = useRef(null);
+  const formik = useFormikContext();
 
   const {
     onChange, exportAccountList, id, name,
@@ -74,6 +77,14 @@ export default function AccountRS(props) {
     if (onChange) onChange(value);
   };
 
+  const handleTextScan = (text) => {
+    if (MARKETPLACE_REG_EXP.test(text)) {
+        formik.setFieldValue(props.name, text);
+    } else {
+        NotificationManager.error('Incorrect account value.', 'Error', 5000);
+    }
+  }
+
   const handleBeforeMaskedValueChange = (newState, oldState, userInput) => {
     let value = newState.value.toUpperCase();
     if (userInput) {
@@ -107,6 +118,11 @@ export default function AccountRS(props) {
         beforeMaskedValueChange={handleBeforeMaskedValueChange}
         id={id}
       />
+      {(window.cordova && window.QRScanner) && (
+        <span className="input-group-text">
+          <ScannerComponents name={name} onScan={handleTextScan} />
+        </span>
+      )}
       {!noContactList && (
         <div
           className="input-group-append cursor-pointer"

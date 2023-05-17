@@ -7,6 +7,13 @@ export default function CurrencyInfo(props) {
     currency, description, accountRS, maxSupply
   } = props;
 
+  // const handleNumber = (number) => {
+  //   const num = new BigInteger(`${number}`);
+  //   const div = new BigInteger(`${10 ** decimals}`);
+  //   const res =  num.divide(div);
+  //   return res.toString();
+  // }
+
   return (
     <div className="col-md-3 col-sm-4 p-0">
       <div className="card mb-3 custom-height">

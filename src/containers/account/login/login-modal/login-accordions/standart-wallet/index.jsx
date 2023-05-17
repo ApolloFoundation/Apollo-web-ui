@@ -29,12 +29,12 @@ export const StandartWallet = ({ active, onChange, id }) => {
       onSelectItem={onChange}
       currentState={active === id}
       header={
-        <div>
+        <>
           <span className={styles.standartWalletText}>standard wallet</span>
           <Tooltip>
             <TooltipWrapper list={tooltips} />
           </Tooltip>
-        </div>
+        </>
       }
     >
       <SecretPhraseForm /> 
