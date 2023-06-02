@@ -8,13 +8,17 @@ import React, {
 } from 'react';
 import { NotificationManager } from 'react-notifications';
 import classNames from 'classnames';
-import { readFromLocalStorage } from '../../../actions/localStorage';
+import { useFormikContext } from 'formik';
+import { MARKETPLACE_REG_EXP } from 'constants/constants';
 import { AccountInputBase } from '../form-components/AccountInputBase';
+import { ScannerComponents } from '../form-components/ScannerComponent';
+import { readFromLocalStorage } from '../../../actions/localStorage';
 
 // onChange is a require props
 export default function AccountRS(props) {
   const refContactsList = useRef(null);
   const refContactsIcon = useRef(null);
+  const formik = useFormikContext();
 
   const {
     onChange, exportAccountList, id, name, value,
@@ -62,6 +66,14 @@ export default function AccountRS(props) {
     onChange(value);
   }
 
+  const handleTextScan = (text) => {
+    if (MARKETPLACE_REG_EXP.test(text)) {
+        formik.setFieldValue(props.name, text);
+    } else {
+        NotificationManager.error('Incorrect account value.', 'Error', 5000);
+    }
+  }
+
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
     return () => {
@@ -85,9 +97,9 @@ export default function AccountRS(props) {
         <div
           className="input-group-append cursor-pointer"
           ref={refContactsIcon}
-          onClick={handleContacts}
         >
-          <span className="input-group-text"><i className="zmdi zmdi-account-box" /></span>
+          <span className="input-group-text"><ScannerComponents name={name} onScan={handleTextScan} /></span>
+          <span className="input-group-text" onClick={handleContacts}><i className="zmdi zmdi-account-box" /></span>
         </div>
       )}
       {contacts && (

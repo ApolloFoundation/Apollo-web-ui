@@ -21,8 +21,8 @@ There are other components that are parts of Apollo:
 
 ## Requirements
 
-It is required to have Nodejs v12.16.x installed to develop and build Apollo Web UI.
-It could be downloaded from [NodeJS official site](https://nodejs.org/dist/v12.16.1/).
+It is required to have Nodejs v18.х.x installed to develop and build Apollo Web UI.
+It could be downloaded from [NodeJS official site](https://nodejs.org/dist/latest-v18.x/).
 
 For developers (Linux, OS X)[Node Version Manager](https://github.com/nvm-sh/nvm) is highly recommended.
 

@@ -30,7 +30,6 @@ const SellAsset = ({ closeModal, processForm, nameModal }) => {
             priceOrder: bigIntFormat(bigIntMultiply(modalData.priceATM, bigIntDecimalsDivision(decimals, modalData.assetInfo.decimals))),
             quantityOrder: bigIntFormat(bigIntMultiply(modalData.quantityATU, Math.pow(10, modalData.assetInfo.decimals))),
             name: modalData?.assetInfo?.name,
-            asset: modalData?.assetInfo?.asset,
             quantityATU: modalData?.quantityATU,
         };
 

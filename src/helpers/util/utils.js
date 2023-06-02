@@ -3,7 +3,9 @@
  *                                                                            *
  ***************************************************************************** */
 
- const { BigInteger } = require('jsbn');
+import QRCode from 'qrcode';
+const { BigInteger } = require('jsbn');
+
  
 function normalizeTicker(ticker) {
   return (ticker === 'Apollo' ? 'APL' : ticker.toUpperCase());
@@ -319,6 +321,17 @@ function checkEthNodeAvailable (wallets) {
   return !(wallets?.balances?.pax === null && wallets?.balances?.eth === null);
 }
 
+export const generateQrCode = (data) => {
+  return new Promise((resolve, reject) => {
+    QRCode.toDataURL(data, (err, url) => {
+      if (err) {
+        reject(err);
+      }
+      resolve(url);
+    })
+  })
+}
+
 export default {
   isNumericAccount,
   isRsAccount,
@@ -335,4 +348,5 @@ export default {
   parseStringBySpace,
   normalizeTicker,
   checkEthNodeAvailable,
+  generateQrCode,
 };
