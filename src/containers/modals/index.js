@@ -123,7 +123,6 @@ const ModalWindow = (props) => {
 
     return (
         <div
-            onClick={handleClickOutside}
             className={classNames("modal-window", {
                 "active": props.modalType
             })}

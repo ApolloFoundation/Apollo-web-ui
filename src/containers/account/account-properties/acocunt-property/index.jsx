@@ -8,10 +8,10 @@ export default function AccountProperty(props) {
 
   const {
     transaction, setterRS, incoming, value,
-    property, setter, recipientRS,
+    property, setter, recipientRS, recipient
   } = props;
 
-  const setProperty = useCallback(el => dispatch(setBodyModalParamsAction('SET_ACCOUNT_PROPERTY', el)), [dispatch]);
+  const setProperty = useCallback(() => dispatch(setBodyModalParamsAction('SET_ACCOUNT_PROPERTY', props)), [dispatch, props]);
 
   const deleteProperty = useCallback(el => {
     const data = el;
@@ -23,7 +23,7 @@ export default function AccountProperty(props) {
     <tr key={transaction}>
       <td className="blue-link-text">
         <Button
-          onClick={() => dispatch(setBodyModalParamsAction('INFO_ACCOUNT', setter))}
+          onClick={() => dispatch(setBodyModalParamsAction('INFO_ACCOUNT', incoming ? setter : recipient))}
           color="blue-link"
           name={incoming ? setterRS : recipientRS}
         />
@@ -34,7 +34,7 @@ export default function AccountProperty(props) {
         <div className="btn-box inline">
           {(recipientRS === setterRS || !incoming) && (
             <Button
-              onClick={() => setProperty(props)}
+              onClick={setProperty}
               name="Update"
             />
           )}
