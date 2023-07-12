@@ -26,8 +26,8 @@ export const AliasFields = ({ alias }) => {
   const { values, setFieldValue } = useFormikContext();
     
   useEffect(() => {
-      setFieldValue('aliasURI', alias?.aliasName);
-  }, [alias?.aliasName, setFieldValue]);
+      setFieldValue('aliasURI', alias?.aliasURI);
+  }, [alias?.aliasURI, setFieldValue]);
   
   return input[values.type]
 };
