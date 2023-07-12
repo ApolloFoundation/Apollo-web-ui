@@ -86,9 +86,9 @@ const PollForm = ({ idGroup, ticker, votingModelData }) => {
                     <FieldArray name='answers'>
                         {({ remove, push }) => (
                             <>
-                                {values.answers.map((answer, index) =>(
+                                {values.answers.map((_, index) =>(
                                     <TextComponent
-                                        key={`${answer}-${index}`}
+                                        key={`answer-${index}`}
                                         name={`answers[${index}]`}
                                         className="mb-0"
                                         placeholder='Answer'
