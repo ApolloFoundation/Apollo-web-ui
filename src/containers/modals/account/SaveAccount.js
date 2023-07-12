@@ -67,7 +67,7 @@ const AddAccount = (props) => {
                 accountRS: modalData.recipient ?? modalData ,
             }}
             modalTitle="Add Contact"
-            closeModal={props.modalData}
+            closeModal={props.closeModal}
             submitButtonName="Add Account"
             isPending={isPending}
         >
