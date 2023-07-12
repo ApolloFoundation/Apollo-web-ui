@@ -15,7 +15,11 @@ const SetAccountProperty = (props) => {
     const modalData = useSelector(getModalDataSelector, shallowEqual);
 
     const handleFormSubmit = useCallback(async (values) => {
-        const res = await props.processForm({ ...values }, 'setAccountProperty');
+        const res = await props.processForm({ 
+            recipientRS: modalData.recipientRS,
+            recipient: modalData.recipient,
+            ...values,
+        }, 'setAccountProperty');
         if (!res.errorCode) {
             props.closeModal();
             NotificationManager.success('Account property has been saved!', null, 5000);

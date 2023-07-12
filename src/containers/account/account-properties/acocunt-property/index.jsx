@@ -11,7 +11,7 @@ export default function AccountProperty(props) {
     property, setter, recipientRS,
   } = props;
 
-  const setProperty = useCallback(el => dispatch(setBodyModalParamsAction('SET_ACCOUNT_PROPERTY', el)), [dispatch]);
+  const setProperty = useCallback(() => dispatch(setBodyModalParamsAction('SET_ACCOUNT_PROPERTY', props)), [dispatch, props]);
 
   const deleteProperty = useCallback(el => {
     const data = el;
@@ -34,7 +34,7 @@ export default function AccountProperty(props) {
         <div className="btn-box inline">
           {(recipientRS === setterRS || !incoming) && (
             <Button
-              onClick={() => setProperty(props)}
+              onClick={setProperty}
               name="Update"
             />
           )}
