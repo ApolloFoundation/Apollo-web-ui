@@ -16,6 +16,8 @@ import {
 import ModalBody from 'containers/components/modals/modal-body';
 import {PrivateTransactionConfirm} from './PrivateTransactionConfirm/PrivateTransactionConfirm';
 import SendApolloForm from './form';
+import { sendMoneyOfflineTransaction } from 'helpers/transactions';
+import { setModalProcessingFalseAction, setModalProcessingTrueAction } from 'actions/modals';
 
 export default function SendApollo({ closeModal, processForm }) {
   const [ isShowNotification, setIsShowNotification ] = useState(false);
@@ -33,6 +35,8 @@ export default function SendApollo({ closeModal, processForm }) {
       return;
     }
 
+    dispatch(setModalProcessingTrueAction())
+
     if (values.doNotSign) {
       data.publicKey = await crypto.getPublicKeyAPL(account, true);
       delete data.secretPhrase;
@@ -46,18 +50,31 @@ export default function SendApollo({ closeModal, processForm }) {
       data.recipient = values.alias;
     }
 
-    processForm({ decimals, ...data }, 'sendMoney', 'Transaction has been submitted!', res => {
-      if (res.broadcasted === false) {
-        dispatch(setBodyModalParamsAction('RAW_TRANSACTION_DETAILS', {
-          request: data,
-          result: res,
-        }));
-      } else {
-        closeModal();
-      }
-
-      NotificationManager.success('Transaction has been submitted!', null, 5000);
+    const res = await sendMoneyOfflineTransaction({
+      recipient: data.recipient,
+      secretPhrase: data.secretPhrase,
+      amountATM: data.amountATM,
+      feeATM: data.feeATM,
+      deadline: data.deadline,
     });
+
+    dispatch(setModalProcessingFalseAction());
+
+    if (res && res.errorCode) {
+      NotificationManager.error(res.errorDescription, 'Error', 5000);
+      return;
+    }
+
+    if (res.broadcasted === false) {
+      dispatch(setBodyModalParamsAction('RAW_TRANSACTION_DETAILS', {
+        request: data,
+        result: res,
+      }));
+    } else {
+      closeModal();
+    }
+
+    NotificationManager.success('Transaction has been submitted!', null, 5000);
   }, [account, closeModal, decimals, dispatch, processForm]);
 
   const handleShowNotification = (value) => () => {

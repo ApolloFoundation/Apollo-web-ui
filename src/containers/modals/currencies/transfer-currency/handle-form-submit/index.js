@@ -1,7 +1,7 @@
 import { NotificationManager } from 'react-notifications';
 import { setBodyModalParamsAction } from 'modules/modals';
-import submitForm from 'helpers/forms/forms';
 import { setModalProcessingTrueAction, setModalProcessingFalseAction } from 'actions/modals';
+import { sendCurrencyTransferOffline } from 'helpers/transactions';
 
 export const handleFormSubmit = ({decimals, ...values}) => async dispatch => {
   const data = {
@@ -11,7 +11,8 @@ export const handleFormSubmit = ({decimals, ...values}) => async dispatch => {
 
   dispatch(setModalProcessingTrueAction())
 
-  const res = await dispatch(submitForm.submitForm(data, 'transferCurrency'));
+  const res = await sendCurrencyTransferOffline(data);
+
   if (res && res.errorCode) {
     dispatch(setModalProcessingFalseAction())
     NotificationManager.error(res.errorDescription, 'Error', 5000);
