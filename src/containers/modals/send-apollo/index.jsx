@@ -8,9 +8,11 @@ import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
 import { setBodyModalParamsAction } from 'modules/modals';
 import {
+  getAccountRsSelector,
   getAccountSelector,
   getDecimalsSelector,
   getModalDataSelector,
+  getPassPhraseSelector,
   getTickerSelector
 } from 'selectors';
 import ModalBody from 'containers/components/modals/modal-body';
@@ -24,7 +26,8 @@ export default function SendApollo({ closeModal, processForm }) {
   const dispatch = useDispatch();
 
   const modalData = useSelector(getModalDataSelector, shallowEqual);
-  const account = useSelector(getAccountSelector);
+  const accountRS = useSelector(getAccountRsSelector);
+  const passPhrase = useSelector(getPassPhraseSelector);
   const ticker = useSelector(getTickerSelector);
   const decimals = useSelector(getDecimalsSelector);
 
@@ -37,45 +40,41 @@ export default function SendApollo({ closeModal, processForm }) {
 
     dispatch(setModalProcessingTrueAction())
 
-    if (values.doNotSign) {
-      data.publicKey = await crypto.getPublicKeyAPL(account, true);
-      delete data.secretPhrase;
-    }
-
-    if (values.phasingFinishHeight) {
-      data.phased = true;
-    }
-
     if (values.alias) {
       data.recipient = values.alias;
     }
 
-    const res = await sendMoneyOfflineTransaction({
-      recipient: data.recipient,
-      secretPhrase: data.secretPhrase,
-      amountATM: data.amountATM,
-      feeATM: data.feeATM,
-      deadline: data.deadline,
-    });
-
-    dispatch(setModalProcessingFalseAction());
-
-    if (res && res.errorCode) {
-      NotificationManager.error(res.errorDescription, 'Error', 5000);
-      return;
+    try {
+      const res = await sendMoneyOfflineTransaction({
+        recipient: data.recipient,
+        secretPhrase: data.secretPhrase,
+        amountATM: data.amountATM,
+        feeATM: data.feeATM,
+        deadline: data.deadline,
+      }, accountRS, passPhrase);
+  
+      dispatch(setModalProcessingFalseAction());
+  
+      if (res && res.errorCode) {
+        NotificationManager.error(res.errorDescription, 'Error', 5000);
+        return;
+      }
+  
+      if (res.broadcasted === false) {
+        dispatch(setBodyModalParamsAction('RAW_TRANSACTION_DETAILS', {
+          request: data,
+          result: res,
+        }));
+      } else {
+        closeModal();
+      }
+  
+      NotificationManager.success('Transaction has been submitted!', null, 5000);
+    } catch (e) {
+      dispatch(setModalProcessingFalseAction());
+      NotificationManager.error(e.message, 'Error', 5000);
     }
-
-    if (res.broadcasted === false) {
-      dispatch(setBodyModalParamsAction('RAW_TRANSACTION_DETAILS', {
-        request: data,
-        result: res,
-      }));
-    } else {
-      closeModal();
-    }
-
-    NotificationManager.success('Transaction has been submitted!', null, 5000);
-  }, [account, closeModal, decimals, dispatch, processForm]);
+  }, [closeModal, decimals, dispatch, passPhrase, accountRS]);
 
   const handleShowNotification = (value) => () => {
     setIsShowNotification(value);
