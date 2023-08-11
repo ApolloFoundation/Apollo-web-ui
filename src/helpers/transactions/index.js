@@ -56,8 +56,12 @@ export const sendMoneyOfflineTransaction = async (
     return await Transaction.send(dataTransaction);
 }
 
-export const sendCurrencyTransferOffline = async ({secretPhrase, feeATM,...initialData}) => {
-    const publicKey = Crypto.getPublicKey(secretPhrase);
+export const sendCurrencyTransferOffline = async (
+    {secretPhrase, feeATM,...initialData},
+    accountRS,
+    appPassPhraseFromStore
+) => {
+    const publicKey = checkAccountForOfflineSignAndPublicKey(secretPhrase, accountRS, appPassPhraseFromStore);
 
     const unsignedTransactionData = await Transaction.sendNotSign({
         ...initialData,
