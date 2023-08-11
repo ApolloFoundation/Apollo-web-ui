@@ -30,6 +30,10 @@ export const sendMoneyOfflineTransaction = async (
         feeATM,
         deadline = 1440,
         recipient,
+        add_message,
+        encrypt_message,
+        permanent_message,
+        message,
     },
     accountRS,
     appPassPhraseFromStore
@@ -44,6 +48,18 @@ export const sendMoneyOfflineTransaction = async (
         deadline,
         recipient,
     };
+
+    if (add_message && encrypt_message) {
+        data.messageToEncrypt = message;
+    }
+
+    if (add_message) {
+        data.message = message;
+    }
+
+    if (add_message && permanent_message) {
+        data.permanent_message = permanent_message;
+    }
 
     const unsignedTransactionData = await Transaction.sendNotSign(data);
     const sendData = {secretPhrase: secretPhrase };

@@ -32,6 +32,7 @@ export default function SendApollo({ closeModal, processForm }) {
   const decimals = useSelector(getDecimalsSelector);
 
   const handleFormSubmit = useCallback(async values => {
+    console.log("🚀 ~ file: index.jsx:35 ~ handleFormSubmit ~ values:", values)
     const { privateTransaction, ...data } = values;
     if (!values.secretPhrase || values.secretPhrase.length === 0) {
       NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
@@ -44,14 +45,16 @@ export default function SendApollo({ closeModal, processForm }) {
       data.recipient = values.alias;
     }
 
+    // const sendedData = {
+    //   recipient: data.recipient,
+    //   secretPhrase: data.secretPhrase,
+    //   amountATM: data.amountATM,
+    //   feeATM: data.feeATM,
+    //   deadline: data.deadline,
+    // };
+
     try {
-      const res = await sendMoneyOfflineTransaction({
-        recipient: data.recipient,
-        secretPhrase: data.secretPhrase,
-        amountATM: data.amountATM,
-        feeATM: data.feeATM,
-        deadline: data.deadline,
-      }, accountRS, passPhrase);
+      const res = await sendMoneyOfflineTransaction(data, accountRS, passPhrase);
   
       dispatch(setModalProcessingFalseAction());
   
