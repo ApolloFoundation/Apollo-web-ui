@@ -1,5 +1,7 @@
 import { Crypto, Transaction } from 'apl-web-crypto';
 import { ONE_APL } from 'constants/constants';
+import LocalCrypto from '../crypto/crypto';
+import converters from '../converters';
 
 // check user secretPhase and compare account RS from publicKey and from request
 // return publicKey
@@ -49,8 +51,23 @@ export const sendMoneyOfflineTransaction = async (
         recipient,
     };
 
+
     if (add_message && encrypt_message) {
-        data.messageToEncrypt = message;
+        const privateKey = Crypto.getPrivateKey(secretPhrase);
+
+        const encrypted = LocalCrypto.encryptDataAPL(converters.stringToByteArray(message), {
+            privateKey,
+            publicKey,
+        })
+
+        data.encryptedMessageData = converters.byteArrayToHexString(encrypted.data);
+        data.encryptedMessageNonce = converters.byteArrayToHexString(encrypted.nonce);
+
+        if (recipient === accountRS) {
+            data.messageToEncryptToSelfIsText = "true"
+        } else {
+            data.messageToEncryptIsText = "true"
+        }
     }
 
     if (add_message) {
