@@ -1,8 +1,9 @@
 import { NotificationManager } from 'react-notifications';
 import { setBodyModalParamsAction } from 'modules/modals';
 import { setModalProcessingTrueAction, setModalProcessingFalseAction } from 'actions/modals';
-import { sendCurrencyTransferOffline } from 'helpers/transactions';
+import { sendCurrencyTransferOffline, checkIsVaultWallet } from 'helpers/transactions';
 import { getAccountRsSelector, getPassPhraseSelector } from 'selectors';
+import submitForm from 'helpers/forms/forms';
 
 export const handleFormSubmit = ({decimals, ...values}) => async (dispatch, getState) => {
   const state = getState();
@@ -16,20 +17,33 @@ export const handleFormSubmit = ({decimals, ...values}) => async (dispatch, getS
 
   dispatch(setModalProcessingTrueAction());
 
-  try {
-    const res = await sendCurrencyTransferOffline(data, accountRS, passPhrase);
-  
+  const isVaultWallet = checkIsVaultWallet(data.secretPhrase, accountRS);
+  let res = null;
+
+  if (isVaultWallet) {
+    res = await dispatch(submitForm.submitForm(data, 'transferCurrency'));
     if (res && res.errorCode) {
       dispatch(setModalProcessingFalseAction())
       NotificationManager.error(res.errorDescription, 'Error', 5000);
     } else {
       dispatch(setModalProcessingFalseAction())
       dispatch(setBodyModalParamsAction());
-      NotificationManager.success('Transfer currency request has been submitted!', null, 5000);
     }
-  } catch (e) {
-    dispatch(setModalProcessingFalseAction());
-    NotificationManager.error(e.message, 'Error', 5000);
+  } else {
+    try {
+      res = await sendCurrencyTransferOffline(data, accountRS, passPhrase);
+    } catch (e) {
+      dispatch(setModalProcessingFalseAction());
+      NotificationManager.error(e.message, 'Error', 5000);
+    }
   }
 
+  if (res && res.errorCode) {
+    dispatch(setModalProcessingFalseAction())
+    NotificationManager.error(res.errorDescription, 'Error', 5000);
+  } else {
+    dispatch(setModalProcessingFalseAction())
+    dispatch(setBodyModalParamsAction());
+    NotificationManager.success('Transfer currency request has been submitted!', null, 5000);
+  }
 };
