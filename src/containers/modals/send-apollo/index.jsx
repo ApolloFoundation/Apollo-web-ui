@@ -9,7 +9,6 @@ import { NotificationManager } from 'react-notifications';
 import { setBodyModalParamsAction } from 'modules/modals';
 import {
   getAccountRsSelector,
-  getAccountSelector,
   getDecimalsSelector,
   getModalDataSelector,
   getPassPhraseSelector,
@@ -18,7 +17,7 @@ import {
 import ModalBody from 'containers/components/modals/modal-body';
 import {PrivateTransactionConfirm} from './PrivateTransactionConfirm/PrivateTransactionConfirm';
 import SendApolloForm from './form';
-import { sendMoneyOfflineTransaction } from 'helpers/transactions';
+import { sendMoneyOfflineTransaction, checkIsVaultWallet } from 'helpers/transactions';
 import { setModalProcessingFalseAction, setModalProcessingTrueAction } from 'actions/modals';
 
 export default function SendApollo({ closeModal, processForm }) {
@@ -45,13 +44,23 @@ export default function SendApollo({ closeModal, processForm }) {
       data.recipient = values.alias;
     }
 
-    // const sendedData = {
-    //   recipient: data.recipient,
-    //   secretPhrase: data.secretPhrase,
-    //   amountATM: data.amountATM,
-    //   feeATM: data.feeATM,
-    //   deadline: data.deadline,
-    // };
+    const isVaultWallet = checkIsVaultWallet(data.secretPhrase, accountRS);
+
+    if (isVaultWallet) {
+      processForm({ decimals, ...data }, 'sendMoney', 'Transaction has been submitted!', res => {
+        if (res.broadcasted === false) {
+          dispatch(setBodyModalParamsAction('RAW_TRANSACTION_DETAILS', {
+            request: data,
+            result: res,
+          }));
+        } else {
+          closeModal();
+        }
+  
+        NotificationManager.success('Transaction has been submitted!', null, 5000);
+      });
+      return;
+    }
 
     try {
       const res = await sendMoneyOfflineTransaction(data, accountRS, passPhrase);
@@ -75,9 +84,9 @@ export default function SendApollo({ closeModal, processForm }) {
       NotificationManager.success('Transaction has been submitted!', null, 5000);
     } catch (e) {
       dispatch(setModalProcessingFalseAction());
-      NotificationManager.error(e.message, 'Error', 5000);
+      NotificationManager.error('Transaction error', 'Error', 5000);
     }
-  }, [closeModal, decimals, dispatch, passPhrase, accountRS]);
+  }, [closeModal, decimals, dispatch, passPhrase, accountRS, processForm]);
 
   const handleShowNotification = (value) => () => {
     setIsShowNotification(value);

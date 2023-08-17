@@ -3,6 +3,12 @@ import { ONE_APL } from 'constants/constants';
 import LocalCrypto from '../crypto/crypto';
 import converters from '../converters';
 
+export const checkIsVaultWallet = (secretPhrase, accountRS) => {
+    const publicKey = Crypto.getPublicKey(secretPhrase);
+    const userFromPublicKey = Crypto.getAccountIdFromPublicKey(publicKey, true);
+    return accountRS !== userFromPublicKey;
+}
+
 // check user secretPhase and compare account RS from publicKey and from request
 // return publicKey
 const checkAccountForOfflineSignAndPublicKey = (secretPhrase, accountRS, appPassPhraseFromStore) => {
@@ -20,7 +26,7 @@ const checkAccountForOfflineSignAndPublicKey = (secretPhrase, accountRS, appPass
     const userFromPublicKey = Crypto.getAccountIdFromPublicKey(publicKey, true);
 
     if (accountRS !== userFromPublicKey) {
-        throw new Error('Incorrect secret phrase')
+        throw new Error('Incorrect secret phrase');
     }
     return publicKey;
 }
