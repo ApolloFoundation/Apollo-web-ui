@@ -69,11 +69,11 @@ export const sendMoneyOfflineTransaction = async (
         data.encryptedMessageData = converters.byteArrayToHexString(encrypted.data);
         data.encryptedMessageNonce = converters.byteArrayToHexString(encrypted.nonce);
 
-        if (recipient === accountRS) {
-            data.messageToEncryptToSelfIsText = "true"
-        } else {
-            data.messageToEncryptIsText = "true"
-        }
+        // if (recipient === accountRS) {
+        //     data.messageToEncryptToSelfIsText = "true"
+        // } else {
+        data.messageToEncryptIsText = "true"
+        // }
     }
 
     if (add_message) {
