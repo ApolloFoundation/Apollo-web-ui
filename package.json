@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-free": "5.13.0",
-    "apl-web-crypto": "^1.0.2",
+    "apl-web-crypto": "^1.0.29",
     "axios": "0.19.2",
     "bignumber.js": "9.1.0",
     "bootstrap": "4.4.1",

@@ -8,21 +8,25 @@ import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { NotificationManager } from 'react-notifications';
 import { setBodyModalParamsAction } from 'modules/modals';
 import {
-  getAccountSelector,
+  getAccountRsSelector,
   getDecimalsSelector,
   getModalDataSelector,
+  getPassPhraseSelector,
   getTickerSelector
 } from 'selectors';
 import ModalBody from 'containers/components/modals/modal-body';
 import {PrivateTransactionConfirm} from './PrivateTransactionConfirm/PrivateTransactionConfirm';
 import SendApolloForm from './form';
+import { sendMoneyOfflineTransaction, checkIsVaultWallet } from 'helpers/transactions';
+import { setModalProcessingFalseAction, setModalProcessingTrueAction } from 'actions/modals';
 
 export default function SendApollo({ closeModal, processForm }) {
   const [ isShowNotification, setIsShowNotification ] = useState(false);
   const dispatch = useDispatch();
 
   const modalData = useSelector(getModalDataSelector, shallowEqual);
-  const account = useSelector(getAccountSelector);
+  const accountRS = useSelector(getAccountRsSelector);
+  const passPhrase = useSelector(getPassPhraseSelector);
   const ticker = useSelector(getTickerSelector);
   const decimals = useSelector(getDecimalsSelector);
 
@@ -33,20 +37,40 @@ export default function SendApollo({ closeModal, processForm }) {
       return;
     }
 
-    if (values.doNotSign) {
-      data.publicKey = await crypto.getPublicKeyAPL(account, true);
-      delete data.secretPhrase;
-    }
-
-    if (values.phasingFinishHeight) {
-      data.phased = true;
-    }
+    dispatch(setModalProcessingTrueAction())
 
     if (values.alias) {
       data.recipient = values.alias;
     }
 
-    processForm({ decimals, ...data }, 'sendMoney', 'Transaction has been submitted!', res => {
+    const isVaultWallet = checkIsVaultWallet(data.secretPhrase, accountRS);
+
+    if (isVaultWallet) {
+      processForm({ decimals, ...data }, 'sendMoney', 'Transaction has been submitted!', res => {
+        if (res.broadcasted === false) {
+          dispatch(setBodyModalParamsAction('RAW_TRANSACTION_DETAILS', {
+            request: data,
+            result: res,
+          }));
+        } else {
+          closeModal();
+        }
+  
+        NotificationManager.success('Transaction has been submitted!', null, 5000);
+      });
+      return;
+    }
+
+    try {
+      const res = await sendMoneyOfflineTransaction(data, accountRS, passPhrase);
+  
+      dispatch(setModalProcessingFalseAction());
+  
+      if (res && res.errorCode) {
+        NotificationManager.error(res.errorDescription, 'Error', 5000);
+        return;
+      }
+  
       if (res.broadcasted === false) {
         dispatch(setBodyModalParamsAction('RAW_TRANSACTION_DETAILS', {
           request: data,
@@ -55,10 +79,13 @@ export default function SendApollo({ closeModal, processForm }) {
       } else {
         closeModal();
       }
-
+  
       NotificationManager.success('Transaction has been submitted!', null, 5000);
-    });
-  }, [account, closeModal, decimals, dispatch, processForm]);
+    } catch (e) {
+      dispatch(setModalProcessingFalseAction());
+      NotificationManager.error('Transaction error', 'Error', 5000);
+    }
+  }, [closeModal, decimals, dispatch, passPhrase, accountRS, processForm]);
 
   const handleShowNotification = (value) => () => {
     setIsShowNotification(value);
