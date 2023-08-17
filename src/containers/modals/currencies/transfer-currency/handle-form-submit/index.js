@@ -20,22 +20,13 @@ export const handleFormSubmit = ({decimals, ...values}) => async (dispatch, getS
   const isVaultWallet = checkIsVaultWallet(data.secretPhrase, accountRS);
   let res = null;
 
-  if (isVaultWallet) {
-    res = await dispatch(submitForm.submitForm(data, 'transferCurrency'));
-    if (res && res.errorCode) {
-      dispatch(setModalProcessingFalseAction())
-      NotificationManager.error(res.errorDescription, 'Error', 5000);
-    } else {
-      dispatch(setModalProcessingFalseAction())
-      dispatch(setBodyModalParamsAction());
-    }
-  } else {
-    try {
-      res = await sendCurrencyTransferOffline(data, accountRS, passPhrase);
-    } catch (e) {
-      dispatch(setModalProcessingFalseAction());
-      NotificationManager.error(e.message, 'Error', 5000);
-    }
+  try {
+    res = isVaultWallet ? 
+      await dispatch(submitForm.submitForm(data, 'transferCurrency')) : await sendCurrencyTransferOffline(data, accountRS, passPhrase);
+  } catch (e) {
+    dispatch(setModalProcessingFalseAction());
+    NotificationManager.error(e.message, 'Error', 5000);
+    return;
   }
 
   if (res && res.errorCode) {

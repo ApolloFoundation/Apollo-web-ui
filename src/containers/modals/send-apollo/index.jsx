@@ -31,7 +31,6 @@ export default function SendApollo({ closeModal, processForm }) {
   const decimals = useSelector(getDecimalsSelector);
 
   const handleFormSubmit = useCallback(async values => {
-    console.log("🚀 ~ file: index.jsx:35 ~ handleFormSubmit ~ values:", values)
     const { privateTransaction, ...data } = values;
     if (!values.secretPhrase || values.secretPhrase.length === 0) {
       NotificationManager.error('Secret Phrase is required.', 'Error', 5000);
