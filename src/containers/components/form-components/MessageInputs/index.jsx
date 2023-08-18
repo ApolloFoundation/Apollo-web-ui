@@ -1,7 +1,7 @@
 import React from 'react';
 import { useFormikContext } from 'formik';
 import CheckboxWithFormik from 'containers/components/check-button-input/CheckboxWithFormik';
-import CustomTextArea from '../TextArea';
+import CustomTextArea from '../TextArea/TextAreaWithFormik';
 
 export const MessageInputs = ({ idGroup }) => {
   const { values } = useFormikContext();
