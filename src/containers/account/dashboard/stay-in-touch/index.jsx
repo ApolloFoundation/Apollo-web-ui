@@ -31,7 +31,7 @@ const StayInTouch = () => (
           </a>
           <a
             className="social-item"
-            href="https://medium.com/@apollocurrency"
+            href="https://apollofintech.medium.com/"
             target="_blank"
             rel="noopener noreferrer"
             data-custom
