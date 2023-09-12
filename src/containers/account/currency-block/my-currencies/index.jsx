@@ -53,10 +53,7 @@ export default function MyMadedCurrencies() {
       lastIndex: currPage * itemsPerPage,
     };
 
-    getExchanges({
-      firstIndex: newPagination.firstIndex,
-      lastIndex: newPagination.lastIndex,
-    });
+    getExchanges(newPagination);
   }, [getExchanges]);
 
   const listener = useCallback(data => {
