@@ -1,6 +1,6 @@
 {
   "name": "apollo-web-ui",
   "description": "Apollo blockchain web UI",
-  "version": "2.12.13",
+  "version": "2.12.15",
   "dependencies": [ ]
 }

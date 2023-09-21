@@ -43,8 +43,9 @@ export default function TransferHistoryCurrency() {
     getAssets({
       firstIndex: pagination.firstIndex,
       lastIndex: pagination.lastIndex,
+      page: pagination.page,
     });
-  }, [getAssets, pagination.firstIndex, pagination.lastIndex]);
+  }, [getAssets, pagination.firstIndex, pagination.lastIndex, pagination.page,]);
 
   const onPaginate = useCallback(page => {
     const reqParams = {
@@ -61,6 +62,7 @@ export default function TransferHistoryCurrency() {
     getAssets({
       firstIndex: pagination.firstIndex,
       lastIndex: pagination.lastIndex,
+      page: pagination.page,
     });
   }, []);
 
