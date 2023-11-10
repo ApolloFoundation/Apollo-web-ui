@@ -5,7 +5,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "5.13.0",
     "apl-web-crypto": "1.0.2",
-    "axios": "0.19.2",
+    "axios": "1.6.0",
     "bignumber.js": "9.1.0",
     "bootstrap": "4.4.1",
     "chart.js": "2.9.3",
